@@ -1,0 +1,35 @@
+.x-combo-list {
+    border:1px solid #98c0f4;
+    background:#ddecfe;
+    zoom:1;
+}
+.x-combo-list-inner {
+    overflow:auto;
+    background:white;
+    position:relative; /* for calculating scroll offsets */
+}
+.x-combo-list-hd {
+    font:bold 11px tahoma, arial, helvetica, sans-serif;
+    color:#15428b;
+    background-image: url(../images/default/layout/panel-title-light-bg.gif);
+    border-bottom:1px solid #98c0f4;
+    padding:3px;
+}
+.x-resizable-pinned .x-combo-list-inner {
+    border-bottom:1px solid #98c0f4;
+}
+.x-combo-list-item {
+    font:normal 12px tahoma, arial, helvetica, sans-serif;
+    padding:3px;
+}
+.x-combo-selected{
+	background-color: #c3daf9 !important;
+    cursor:pointer;
+    cursor:hand;
+    padding:2px;
+    border:1px solid #99bbe8;
+}
+.x-combo-noedit{
+    cursor:pointer;
+    cursor:hand;
+}

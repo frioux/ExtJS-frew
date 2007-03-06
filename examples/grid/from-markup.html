@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>From Markup Grid Example</title>
+<link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css" />
+<!-- LIBS -->     <script type="text/javascript" src="../../yui-utilities.js"></script>     <script type="text/javascript" src="../../ext-yui-adapter.js"></script>     <!-- ENDLIBS -->
+<script type="text/javascript" src="../../ext-all-debug.js"></script>
+<script type="text/javascript" src="from-markup.js"></script>
+<link rel="stylesheet" type="text/css" href="grid-examples.css" />
+<!-- Common Styles for the examples -->
+<link rel="stylesheet" type="text/css" href="../examples.css" />
+<style type="text/css">
+table#the-table { border:1px solid black }
+table#the-table td { border:1px solid black }
+</style>
+</head>
+<body>
+<script type="text/javascript" src="../examples.js"></script><!-- EXAMPLES -->
+<h1>From Markup Grid Example</h1>
+<p>This example shows how to create a grid with from an existing, unformatted HTML table.</p>
+<p>Note that the js is not minified so it is readable. See <a href="from-markup.js">from-markup.js</a>.</p>
+<button id="create-grid" type="button">Create grid</button>
+<body>
+	<table id="the-table"><caption>Ext Grid from HTML Table</caption>
+		<thead>
+			<tr>
+				<th title="This is junk">Column 1</th><th title="This is garbage">Column 2</th><th title="This is plain stoopid">Column 3</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr><td>Foo</td><td>Bar</td><td>Bletch</td></tr>
+			<tr><td>Some</td><td>More</td><td>Data</td></tr>
+		</tbody>
+	</table>
+</body>
+</html>
