@@ -96,29 +96,72 @@ Ext.DomHelper = function(){
      */
     var insertIntoTable = function(tag, where, el, html){
         if(!tempTableEl){
-            tempTableEl = document.createElement("div");
+            tempTableEl = document.createElement('div');
         }
         var node;
-        if(tag == "table" || tag == "tbody"){
-           tempTableEl.innerHTML = "<table><tbody>"+html+"</tbody></table>";
-           node = tempTableEl.firstChild.firstChild.firstChild;
-        }else{
-           tempTableEl.innerHTML = "<table><tbody><tr>"+html+"</tr></tbody></table>";
-           node = tempTableEl.firstChild.firstChild.firstChild.firstChild;
+        var before = null;
+        if(tag == 'td'){
+            if(where == 'afterbegin' || where == 'beforeend'){ // INTO a TD
+                return;
+            }
+            if(where == 'beforebegin'){
+                before = el;
+                el = el.parentNode;
+            } else{
+                before = el.nextSibling;
+                el = el.parentNode;
+            }
+            tempTableEl.innerHTML = '<table><tbody><tr>' + html + '</tr></tbody></table>';
+            node = tempTableEl.firstChild.firstChild.firstChild.firstChild;
         }
-        if(where == "beforebegin"){
-            el.parentNode.insertBefore(node, el);
-            return node;
-        }else if(where == "afterbegin"){
-            el.insertBefore(node, el.firstChild);
-            return node;
-        }else if(where == "beforeend"){
-            el.appendChild(node);
-            return node;
-        }else if(where == "afterend"){
-            el.parentNode.insertBefore(node, el.nextSibling);
-            return node;
+        else if(tag == 'tr'){
+            if(where == 'beforebegin'){
+                before = el;
+                el = el.parentNode;
+                tempTableEl.innerHTML = '<table><tbody>' + html + '</tbody></table>';
+                node = tempTableEl.firstChild.firstChild.firstChild;
+            } else if(where == 'afterend'){
+                before = el.nextSibling;
+                el = el.parentNode;
+                tempTableEl.innerHTML = '<table><tbody>' + html + '</tbody></table>';
+                node = tempTableEl.firstChild.firstChild.firstChild;
+            } else{ // INTO a TR
+                if(where == 'afterbegin'){
+                    before = el.firstChild;
+                }
+                tempTableEl.innerHTML = '<table><tbody><tr>' + html + '</tr></tbody></table>';
+                node = tempTableEl.firstChild.firstChild.firstChild.firstChild;
+            }
+        } else if(tag == 'tbody'){
+            if(where == 'beforebegin'){
+                before = el;
+                el = el.parentNode;
+                tempTableEl.innerHTML = '<table>' + html + '</table>';
+                node = tempTableEl.firstChild.firstChild;
+            } else if(where == 'afterend'){
+                before = el.nextSibling;
+                el = el.parentNode;
+                tempTableEl.innerHTML = '<table>' + html + '</table>';
+                node = tempTableEl.firstChild.firstChild;
+            } else{
+                if(where == 'afterbegin'){
+                    before = el.firstChild;
+                }
+                tempTableEl.innerHTML = '<table><tbody>' + html + '</tbody></table>';
+                node = tempTableEl.firstChild.firstChild.firstChild;
+            }
+        } else{ // TABLE
+            if(where == 'beforebegin' || where == 'afterend'){ // OUTSIDE the table
+                return;
+            }
+            if(where == 'afterbegin'){
+                before = el.firstChild;
+            }
+            tempTableEl.innerHTML = '<table>' + html + '</tbody>';
+            node = tempTableEl.firstChild.firstChild;
         }
+        el.insertBefore(node, before);
+        return node;
     };
     
     return {
@@ -161,9 +204,11 @@ Ext.DomHelper = function(){
         where = where.toLowerCase();
         if(el.insertAdjacentHTML){
             var tag = el.tagName.toLowerCase();
-            if((tag == "table" || tag == "tbody" || tag == "tr") &&
-               (where != "beforebegin") && (where != "afterend")){
-               return insertIntoTable(tag, where, el, html);
+            if(tag == "table" || tag == "tbody" || tag == "tr" || tag == 'td'){
+                var rs;
+                if(rs = insertIntoTable(tag, where, el, html)){
+                    return rs;
+                }
             }
             switch(where){
                 case "beforebegin":

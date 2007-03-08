@@ -9,7 +9,8 @@ Ext.onReady(function(){
         reader: new Ext.data.XmlReader({
                // records will have an "Item" tag
                record: 'Item',
-               id: 'ASIN'
+               id: 'ASIN',
+               totalRecords: '@total'
            }, [
                // set up the fields mapping into the xml doc
                // The first needs mapping, the others are very basic

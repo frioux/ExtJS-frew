@@ -17,7 +17,7 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
     defaultAutoCreate : {tag: "input", type: "text", size: "20", autocomplete: "off"},
     fieldClass: "x-form-field",
     hasFocus : false,
-    msgTarget: 'qtip',
+    msgTarget: 'qtip', // qtip, title, under, or element id
     msgFx : 'normal',
 
     applyTo : function(target){
@@ -59,17 +59,13 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
         }
 
         this.el.addClass([this.fieldClass, this.cls]);
-        this.parentItem = this.el.findParent('.x-form-item', 5, true);
-        if(this.parentItem){ // cache the height
-            this.parentHeight = this.parentItem.getComputedHeight();
-        }
         this.initValue();
     },
 
     initValue : function(){
         if(this.value !== undefined){
             this.setValue(this.value);
-        }else if(this.el.dom.value){
+        }else if(this.el.dom.value.length > 0){
             this.setValue(this.el.dom.value);
         }
     },
@@ -113,7 +109,7 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
     },
 
     setSize : function(w, h){
-        if(!this.el || !this.el.dom){
+        if(!this.rendered){
             this.width = w;
             this.height = h;
             return;
@@ -142,7 +138,7 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
     },
     
     markInvalid : function(msg){
-        if(!this.el){ // not rendered
+        if(!this.rendered){ // not rendered
             return;
         }
         this.el.addClass(this.invalidClass);
@@ -155,16 +151,13 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
                 this.el.dom.title = msg;
                 break;
             case 'under':
-                if(this.parentItem){
-                    if(!this.errorEl){
-                        var elp = this.el.findParent('.x-form-element', 5, true);
-                        this.errorEl = elp.createChild({cls:'x-form-invalid-msg'});
-                        this.errorEl.setWidth(elp.getWidth()-20);
-                    }
-                    this.errorEl.update(msg);
-                    this.parentItem.addClass('x-form-item-msg');
-                    Ext.form.Field.msgFx[this.msgFx].show(this.errorEl, this);
+                if(!this.errorEl){
+                    var elp = this.el.findParent('.x-form-element', 5, true);
+                    this.errorEl = elp.createChild({cls:'x-form-invalid-msg'});
+                    this.errorEl.setWidth(elp.getWidth()-20);
                 }
+                this.errorEl.update(msg);
+                Ext.form.Field.msgFx[this.msgFx].show(this.errorEl, this);
                 break;
             default:
                 var t = Ext.getDom(this.msgTarget);
@@ -175,7 +168,7 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
     },
 
     clearInvalid : function(){
-        if(!this.el){ // not rendered
+        if(!this.rendered){ // not rendered
             return;
         }
         this.el.removeClass(this.invalidClass);
@@ -212,8 +205,11 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
     },
 
     setValue : function(v){
-        this.el.dom.value = v;
-        this.validate();
+        this.value = v;
+        if(this.rendered){
+            this.el.dom.value = v;
+            this.validate();
+        }
     }
 });
 
@@ -223,24 +219,20 @@ Ext.form.Field.msgFx = {
     normal : {
         show: function(msgEl, f){
             msgEl.setDisplayed('block');
-            f.parentItem.setHeight(f.parentHeight+msgEl.getHeight());
         },
 
         hide : function(msgEl, f){
             msgEl.setDisplayed(false).update('');
-            f.parentItem.setHeight('');
         }
     },
 
     slide : {
         show: function(msgEl, f){
             msgEl.slideIn('t', {stopFx:true});
-            f.parentItem.setHeight(f.parentHeight+msgEl.getHeight());
         },
 
         hide : function(msgEl, f){
             msgEl.slideOut('t', {stopFx:true,useDisplay:true});
-            f.parentItem.setHeight('');
         }
     },
 

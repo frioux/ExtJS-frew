@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<title>Toolbar with Menus</title>
+<title>Forms</title>
 <link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css" />
 
     <!-- LIBS -->     <script type="text/javascript" src="../../yui-utilities.js"></script>     <script type="text/javascript" src="../../ext-yui-adapter.js"></script>     <!-- ENDLIBS -->
@@ -13,67 +13,6 @@
 
 <!-- Common Styles for the examples -->
 <link rel="stylesheet" type="text/css" href="../examples.css" />
-
-    <style type="text/css">
-        .error-msg{
-            display:none;
-            color:#aa0000;
-            padding:3px;
-        }
-
-        .x-form-item {
-            font:normal 12px tahoma, arial, helvetica, sans-serif;
-            display:block;
-            height:28px;
-        }
-
-        .x-form-item-msg {
-            
-        }
-
-        .x-form-item label {
-            display:block;
-            float:left;
-            width:80px;
-            padding:3px;
-            padding-left:0;
-            clear:left;
-        }
-        
-        .x-form-element {
-            display:block;
-            float:left;
-            padding-left:8px;
-        }
-
-        .x-form-invalid-msg {
-            color:#ee0000;
-            padding:2px;
-            padding-left:18px;
-            font:normal 11px tahoma, arial, helvetica, sans-serif;
-            background: transparent url(warning.gif) no-repeat 0 2px;
-            line-height:16px;
-            width:200px;
-        }
-
-        .x-form-label-right label {
-           text-align:right;
-        }
-
-        .x-form fieldset {
-            border:1px solid #B5B8C8;
-            padding:10px 10px 5px 10px;
-            margin-bottom:10px;
-        }
-        .x-form fieldset legend {
-            font:bold 11px tahoma, arial, helvetica, sans-serif;
-            color:#15428b;
-        }
-        .ext-ie .x-form fieldset legend {
-            margin-bottom:10px;
-        }
-    </style>
-
 </head>
 <body>
 <script type="text/javascript" src="../examples.js"></script><!-- EXAMPLES -->
@@ -87,7 +26,6 @@
             <h3 style="margin-bottom:5px;">Ext Live Forms</h3>
             <!-- begin form layout -->
             <div class="x-form-bd" id="container">
-
                 <fieldset>
                     <legend>ComboBox Fields</legend>
 
@@ -97,7 +35,7 @@
                             <input type="text" size="20" name="combo-local" id="combo-local" />
                         </div>
                     </div>
-
+                    
                     <div class="x-form-item">
                         <label for="combo-ajax">Ajax Data:</label>
                         <div class="x-form-element">
@@ -108,7 +46,7 @@
                     <div class="x-form-item">
                         <label for="combo-selection">Only Selection:</label>
                         <div class="x-form-element">
-                            <input type="text" size="20" value="Ohio" name="combo-selection" id="combo-selection" />
+                            <input type="text" size="20" value="OH" name="combo-selection" id="combo-selection" />
                         </div>
                     </div>
 
@@ -116,6 +54,21 @@
                         <label for="combo-tpl">Item Templates:</label>
                         <div class="x-form-element">
                             <input type="text" size="20" name="combo-tpl" id="combo-tpl" />
+                        </div>
+                    </div>
+
+                    <div class="x-form-item">
+                        <label for="combo-tpl">Unobtrusive:</label>
+                        <div class="x-form-element">
+                            <select name="light" id="light">
+                                <option value="Shade">Shade</option>
+                                <option value="Mostly Shady">Mostly Shady</option>
+                                <option value="Sun or Shade">Sun or Shade</option>
+
+                                <option value="Mostly Sunny">Mostly Sunny</option>
+
+                                <option value="Sunny">Sunny</option>
+                            </select>
                         </div>
                     </div>
 
@@ -190,7 +143,5 @@
         <div class="x-box-bl"><div class="x-box-br"><div class="x-box-bc"></div></div></div>
     </div>
 </form>
-
-<br /><br /><br /><br /><br />
 </body>
 </html>

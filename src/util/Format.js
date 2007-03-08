@@ -64,7 +64,7 @@ Ext.util.Format = function(){
             if(!(v instanceof Date)){
                 v = new Date(Date.parse(v));
             }
-            return v.format(format || "m/d/Y");
+            return v.dateFormat(format || "m/d/Y");
         },
 
         dateRenderer : function(format){

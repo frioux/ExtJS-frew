@@ -4,9 +4,7 @@ Ext.menu.MenuMgr = function(){
    // private - called when first menu is created
    function init(){
        menus = {}, active = new Ext.util.MixedCollection();
-       var d = Ext.get(document);
-       d.on("mousedown", onMouseDown);
-       d.addKeyListener(27, function(){
+       Ext.get(document).addKeyListener(27, function(){
            if(active.length > 0){
                hideAll();
            }
@@ -14,19 +12,27 @@ Ext.menu.MenuMgr = function(){
    }
 
    function hideAll(){
-       var c = active.clone();
-       c.each(function(m){
-           m.hide();
-       });
+       if(active.length > 0){
+           var c = active.clone();
+           c.each(function(m){
+               m.hide();
+           });
+       }
    }
 
    function onHide(m){
        active.remove(m);
+       if(active.length < 1){
+           Ext.get(document).un("mousedown", onMouseDown);
+       }
    }
 
    function onShow(m){
        var last = active.last();
        active.add(m);
+       if(active.length == 1){
+           Ext.get(document).on("mousedown", onMouseDown);
+       }
        if(m.parentMenu){
           m.getEl().setZIndex(parseInt(m.parentMenu.getEl().getStyle("z-index"), 10) + 3);
           m.parentMenu.activeChild = m;

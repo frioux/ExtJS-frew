@@ -135,3 +135,9 @@
 .x-item-disabled .x-grid-page-prev .x-btn-text{
 	background-image: url(../images/default/grid/page-prev-disabled.gif);
 }
+.x-paging-info {
+    position:absolute;
+    top:8px;
+    right: 8px;
+    color:#15428b;
+}

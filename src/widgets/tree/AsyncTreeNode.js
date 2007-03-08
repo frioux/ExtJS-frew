@@ -98,6 +98,9 @@ Ext.extend(Ext.tree.AsyncTreeNode, Ext.tree.TreeNode, {
         }
         this.childrenRendered = false;
         this.loaded = false;
+        if(this.isHiddenRoot()){
+            this.expanded = false;
+        }
         this.expand(false, false, callback);
     }
 });

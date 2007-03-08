@@ -31,13 +31,6 @@
 #editor-grid .x-grid-col-2{
     text-align:right;
 }
-
-.paging-info {
-    position:absolute;
-    top:8px;
-    right: 8px;
-    color:#15428b;
-}
 .x-grid-col-topic b {
     font-family:tahoma, verdana;
     color:#333;

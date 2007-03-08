@@ -148,14 +148,16 @@ Ext.extend(Ext.util.MixedCollection, Ext.util.Observable, {
    
 /**
  * Executes the specified function once for every item in the collection, passing each
- * item as the first and only parameter.
+ * item as the first and only parameter. returning false from the function will stop the iteration.
  * @param {Function} fn The function to execute for each item.
  * @param {Object} scope (optional) The scope in which to execute the function.
  */
     each : function(fn, scope){
         var items = [].concat(this.items); // each safe for removal
         for(var i = 0, len = items.length; i < len; i++){
-            fn.call(scope || window, items[i]);
+            if(fn.call(scope || items[i], items[i]) === false){
+                break;
+            }
         }
     },
    

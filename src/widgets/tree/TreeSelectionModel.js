@@ -13,7 +13,16 @@ Ext.tree.DefaultSelectionModel = function(){
         * @param {DefaultSelectionModel} this
         * @param {TreeNode} node the new selection
         */
-       "selectionchange" : true
+       "selectionchange" : true,
+
+       /**
+        * @event beforeselect
+        * Fires before the selected node changes, return false to cancel the change
+        * @param {DefaultSelectionModel} this
+        * @param {TreeNode} node the new selection
+        * @param {TreeNode} node the old selection
+        */
+       "beforeselect" : true
    };
 };
 
@@ -35,12 +44,14 @@ Ext.extend(Ext.tree.DefaultSelectionModel, Ext.util.Observable, {
      */
     select : function(node){
         var last = this.selNode;
-        if(this.selNode && this.selNode != node){
-            this.selNode.ui.onSelectedChange(false);
+        if(last != node && this.fireEvent('beforeselect', this, node, last) !== false){
+            if(last){
+                last.ui.onSelectedChange(false);
+            }
+            this.selNode = node;
+            node.ui.onSelectedChange(true);
+            this.fireEvent("selectionchange", this, node, last);
         }
-        this.selNode = node;
-        node.ui.onSelectedChange(true);
-        this.fireEvent("selectionchange", this, node, last);
         return node;
     },
     
@@ -112,11 +123,11 @@ Ext.extend(Ext.tree.DefaultSelectionModel, Ext.util.Observable, {
                  e.stopEvent();
                  var ps = s.previousSibling;
                  if(ps){
-                     if(!ps.isExpanded()){
+                     if(!ps.isExpanded() || ps.childNodes.length < 1){
                          this.select(ps, e);
                      }else{
                          var lc = ps.lastChild;
-                         while(lc && lc.isExpanded()){
+                         while(lc && lc.isExpanded() && lc.childNodes.length > 0){
                              lc = lc.lastChild; 
                          }
                          this.select(lc, e);

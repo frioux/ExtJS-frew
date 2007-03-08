@@ -421,14 +421,17 @@ Ext.tree.TreeNodeUI.prototype = {
 Ext.tree.RootTreeNodeUI = function(){
     Ext.tree.RootTreeNodeUI.superclass.constructor.apply(this, arguments);
 };
-Ext.extend(Ext.tree.RootTreeNodeUI, Ext.tree.TreeNodeUI);
-Ext.tree.RootTreeNodeUI.prototype.render = function(){
-    if(!this.rendered){
-        var targetNode = this.node.ownerTree.container.dom;
-        this.node.expanded = true;
-        targetNode.innerHTML = '<div class="x-tree-root-node"></div>';
-        this.wrap = this.ctNode = targetNode.firstChild;
+Ext.extend(Ext.tree.RootTreeNodeUI, Ext.tree.TreeNodeUI, {
+    render : function(){
+        if(!this.rendered){
+            var targetNode = this.node.ownerTree.container.dom;
+            this.node.expanded = true;
+            targetNode.innerHTML = '<div class="x-tree-root-node"></div>';
+            this.wrap = this.ctNode = targetNode.firstChild;
+        }
+    },
+    collapse : function(){
+    },
+    expand : function(){
     }
-};
-Ext.tree.RootTreeNodeUI.prototype.collapse = function(){
-};
+});

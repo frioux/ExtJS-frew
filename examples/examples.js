@@ -24,7 +24,8 @@ Ext.example = function(){
             if(!s || !t){ // run locally?
                 return;
             }
-            var lib = Cookies.get('extlib'), theme = Cookies.get('exttheme');
+            var lib = Cookies.get('extlib') || 'yahoo', 
+                theme = Cookies.get('exttheme') || 'aero';
             if(lib){
                 s.dom.value = lib;
             }

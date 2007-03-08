@@ -80,8 +80,8 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
     render : function(container){
         if(!this.rendered && this.fireEvent("beforerender", this) !== false){
             this.container = Ext.get(container);
-            this.onRender(this.container);
             this.rendered = true;
+            this.onRender(this.container);
             if(this.cls){
                 this.el.addClass(this.cls);
                 delete this.cls;

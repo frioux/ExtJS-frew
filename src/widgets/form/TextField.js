@@ -73,15 +73,13 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
         if(v.length > 0){
             start = start === undefined ? 0 : start;
             end = end === undefined ? v.length : end;
-
             var d = this.el.dom;
             if(d.setSelectionRange){
                 d.setSelectionRange(start, end);
             }else if(d.createTextRange){
                 var range = d.createTextRange();
-                range.collapse(true);
-                range.moveEnd("character", end);
                 range.moveStart("character", start);
+                range.moveEnd("character", v.length-end);
                 range.select();
             }
         }

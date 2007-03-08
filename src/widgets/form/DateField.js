@@ -102,7 +102,7 @@ Ext.extend(Ext.form.DateField, Ext.form.TriggerField,  {
 
     formatDate : function(date){
         return (!date || !(date instanceof Date)) ?
-               date : date.format(this.format);
+               date : date.dateFormat(this.format);
     },
 
     menuListeners : {

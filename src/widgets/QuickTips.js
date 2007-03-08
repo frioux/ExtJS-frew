@@ -242,8 +242,12 @@ Ext.QuickTips = function(){
           }
           locks.push(1);
        },
-       
-       tagConfig : { 
+
+       isEnabled : function(){
+            return !disabled;
+       },
+
+       tagConfig : {
            namespace : "ext",
            attribute : "qtip",
            width : "width",

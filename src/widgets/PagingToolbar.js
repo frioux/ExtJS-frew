@@ -8,6 +8,8 @@ Ext.PagingToolbar = function(el, ds, config){
 
 Ext.extend(Ext.PagingToolbar, Ext.Toolbar, {
     pageSize: 20,
+    displayMsg : 'Displaying {0} - {1} of {2}',
+    emptyMsg : 'No data to display',
 
     render : function(el){
         this.first = this.addButton({
@@ -55,9 +57,26 @@ Ext.extend(Ext.PagingToolbar, Ext.Toolbar, {
             disabled: true,
             handler: this.onClick.createDelegate(this, ["refresh"])
         });
+
+        if(this.displayInfo){
+            this.displayEl = this.el.createChild({cls:'x-paging-info'});
+        }
     },
 
-   onLoad : function(ds, r, o){
+    updateInfo : function(){
+        if(this.displayEl){
+            var count = this.ds.getCount();
+            var msg = count == 0 ?
+                this.emptyMsg :
+                String.format(
+                    this.displayMsg,
+                    this.cursor+1, this.cursor+count, this.ds.getTotalCount()    
+                );
+            this.displayEl.update(msg);
+        }
+    },
+
+    onLoad : function(ds, r, o){
        this.cursor = o.params ? o.params.start : 0;
        var d = this.getPageData(), ap = d.activePage, ps = d.pages;
 
@@ -68,6 +87,7 @@ Ext.extend(Ext.PagingToolbar, Ext.Toolbar, {
        this.next.setDisabled(ap == ps);
        this.last.setDisabled(ap == ps);
        this.loading.enable();
+       this.updateInfo();
     },
 
     getPageData : function(){

@@ -7,6 +7,8 @@ Ext.form.TextArea = function(config){
 
 Ext.extend(Ext.form.TextArea, Ext.form.TextField,  {
     minHeight : 60,
+    maxHeight: 1000,
+    preventScrollbars: false,
 
     initEvents : function(){
         Ext.form.TextArea.superclass.initEvents.call(this);
@@ -29,7 +31,9 @@ Ext.extend(Ext.form.TextArea, Ext.form.TextField,  {
             this.textSizeEl = Ext.DomHelper.append(document.body, {
                 tag: "pre", cls: "x-form-grow-sizer"
             });
-            this.el.setStyle("overflow", "hidden");
+            if(this.preventScrollbars){
+                this.el.setStyle("overflow", "hidden");
+            }
         }
     },
 
@@ -40,7 +44,7 @@ Ext.extend(Ext.form.TextArea, Ext.form.TextField,  {
     },
 
     autoSize : function(){
-        if(!this.grow){
+        if(!this.grow || !this.textSizeEl){
             return;
         }
         var el = this.el;
@@ -48,11 +52,15 @@ Ext.extend(Ext.form.TextArea, Ext.form.TextField,  {
         var ts = this.textSizeEl;
         Ext.fly(ts).setWidth(this.el.getWidth());
         if(v.length < 1){
-            ts.innerHTML = "&#160;&#160;";
+            v = "&#160;&#160;";
         }else{
-            ts.innerHTML = v + "&#160;\n&#160;";
+            v += "&#160;\n&#160;";
         }
-        var h = Math.max(ts.offsetHeight, this.minHeight);
+        if(Ext.isIE){
+            v = v.replace(/\n/g, '<br />');
+        }
+        ts.innerHTML = v;
+        var h = Math.min(this.maxHeight, Math.max(ts.offsetHeight, this.minHeight));
         this.el.setHeight(h);
         this.fireEvent("autosize", this, h);
     },

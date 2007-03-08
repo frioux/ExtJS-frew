@@ -169,7 +169,7 @@ Ext.extend(Ext.DatePicker, Ext.Component, {
             tooltip: this.monthYearText
         });
 
-        var today = (new Date()).format(this.format);
+        var today = (new Date()).dateFormat(this.format);
         var todayBtn = new Ext.Button(this.el.child("td.x-date-bottom", true), {
             text: String.format(this.todayText, today),
             tooltip: String.format(this.todayTip, today),
@@ -303,7 +303,7 @@ Ext.extend(Ext.DatePicker, Ext.Component, {
                 }
             }
             if(ddMatch && format){
-                var fvalue = d.format(format);
+                var fvalue = d.dateFormat(format);
                 if(ddMatch.test(fvalue)){
                     cell.title = ddText.replace("%0", fvalue);
                     cell.className = " x-date-disabled";

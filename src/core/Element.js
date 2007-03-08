@@ -1971,6 +1971,12 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
                 e.preventDefault();
             }
         };
+        if(eventName instanceof Array){
+            for(var i = 0, len = eventName.length; i < len; i++){
+                 this.on(eventName[i], fn);
+            }
+            return this;
+        }
         this.on(eventName, fn);
         return this;
     },
@@ -2051,8 +2057,8 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
      * @return {Ext.Element} this
      */
     appendTo: function(el){
-        var node = Ext.get(el).dom;
-        node.appendChild(this.dom);
+        el = Ext.getDom(el);
+        el.appendChild(this.dom);
         return this;
     },
     
@@ -2062,8 +2068,8 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
      * @return {Ext.Element} this
      */
     insertBefore: function(el){
-        var node = Ext.get(el).dom;
-        node.parentNode.insertBefore(this.dom, node);
+        el = Ext.getDom(el);
+        el.parentNode.insertBefore(this.dom, el);
         return this;
     },
     
@@ -2073,15 +2079,54 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
      * @return {Ext.Element} this
      */
     insertAfter: function(el){
-        var node = Ext.get(el).dom;
-        node.parentNode.insertBefore(this.dom, node.nextSibling);
+        el = Ext.getDom(el);
+        el.parentNode.insertBefore(this.dom, el.nextSibling);
         return this;
     },
-    
+
+    /**
+     * Inserts this element as the first child of the passed element
+     * @param {String/HTMLElement/Element} el The element to insert into
+     * @return {Ext.Element} this
+     */
+    insertFirst: function(el){
+        var node = Ext.get(el).dom;
+        node.insertBefore(this.dom, node.firstChild);
+        return this;
+    },
+
+    /**
+     * Inserts the passed element as a sibling of this element
+     * @param {String} where 'before' or 'after'
+     * @param {String/HTMLElement/Element/Object} el The id, element to insert or a DomHelper config of an element to create 
+     * @param {Boolean} returnDom (optional) True to return the raw DOM element instead of Ext.Element
+     * @return {Ext.Element} the inserted Element
+     */
+    insertSibling: function(where, el, returnDom){
+        where = where.toLowerCase();
+        var rt, refNode = where == 'before' ? this.dom : this.dom.nextSibling;
+
+        if(typeof el == 'object' && !el.nodeType){ // dh config
+            if(where == 'after' && !this.dom.nextSibling){
+                rt = Ext.DomHelper.append(this.dom.parentNode, el, !returnDom);
+            }else{
+                rt = Ext.DomHelper.insertBefore(this.dom.parentNode, el, !returnDom);
+            }
+
+        }else{
+            rt = this.dom.parentNode.insertBefore(Ext.getDom(el),
+                        where == 'before' ? this.dom : this.dom.nextSibling);
+            if(!returnDom){
+                rt = Ext.get(rt);
+            }
+        }
+        return rt;
+    },
+
     /**
      * Creates and wraps this element with another element
      * @param {Object} config (optional) DomHelper element config object for the wrapper element or null for an empty div
-     * @param {Boolean} returnDom True to return the raw DOM element instead of Ext.Element
+     * @param {Boolean} returnDom (optional) True to return the raw DOM element instead of Ext.Element
      * @return {/HTMLElementElement} The newly created wrapper element
      */
     wrap: function(config, returnDom){
@@ -2321,7 +2366,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
         return d[ns+":"+name] || d[name];
     } : function(ns, name){
         var d = this.dom;
-        return d.getAttributeNS(ns, name) || d.getAttribute(ns+":"+name) || d.getAttribute(name);
+        return d.getAttributeNS(ns, name) || d.getAttribute(ns+":"+name) || d.getAttribute(name) || d[name];
     }
 };
 

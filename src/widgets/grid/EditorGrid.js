@@ -74,7 +74,8 @@ Ext.grid.EditorGrid = function(container, config){
 Ext.extend(Ext.grid.EditorGrid, Ext.grid.Grid, {
     isEditor : true,
     clicksToEdit: 2,
-    
+    trackMouseOver: false, // causes very odd FF errors
+
     onCellDblClick : function(g, row, col){
         this.startEditing(row, col);
     },

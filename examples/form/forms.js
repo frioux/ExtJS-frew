@@ -1,6 +1,8 @@
 Ext.onReady(function(){
     Ext.QuickTips.init();
 
+
+
     // Change field to default to validation message "under" instead of tooltips
     Ext.form.Field.prototype.msgTarget = 'under';
 
@@ -15,28 +17,47 @@ Ext.onReady(function(){
     var store = new Ext.data.SimpleStore({
         'id': 0,
         fields: ['abbr', 'state'],
-        data : [
-            ['NJ', 'New Jersey'],
-            ['OH', 'Ohio'],
-            ['OK', 'Oklahoma'],
-            ['FL', 'Florida']
-        ]
+        data : exampleData
     });
 
     var combo = new Ext.form.ComboBox({
         store: store,
+        valueField:'abbr',
         displayField:'state',
         typeAhead: true,
         mode: 'local',
-        triggerAction: 'all'
+        triggerAction: 'all',
+        value:'OH'
     });
 
     combo.applyTo('combo-local');
 
 
+    var selectionOnly = new Ext.form.ComboBox({
+        store: new Ext.data.SimpleStore({
+            'id': 0,
+            fields: ['abbr', 'state'],
+            data : exampleData
+        }),
+        valueField:'abbr',
+        displayField:'state',
+        typeAhead: true,
+        mode: 'local',
+        triggerAction: 'all',
+        editable:false  // selection only
+    });
+
+    selectionOnly.applyTo('combo-selection');
 
 
-    
+    var tranny = new Ext.form.ComboBox({
+        typeAhead: true,
+        triggerAction: 'all',
+        transform:'light',
+        width:120,
+        forceSelection:true
+    });
+
     var required = new Ext.form.TextField({
         allowBlank:false
     });
@@ -80,50 +101,40 @@ Ext.onReady(function(){
     return;
 
 
-    // create the Data Store
-    var ds = new Ext.data.Store({
-        proxy: new Ext.data.HttpProxy({
-            url: '/forum2/topics-remote.php'
-        }),
+var ds = new Ext.data.Store({
+    proxy: new Ext.data.HttpProxy({
+        url: '/forum2/topics-remote.php'
+    }),
 
-        baseParams: {forumId: 4, limit:25}, // default param to include with all requests
+    // create reader that reads the Topic records
+    reader: new Ext.data.JsonReader({
+        root: 'topics',
+        totalProperty: 'totalCount',
+        id: 'topic_id'
+    }, [
+        {name: 'title', mapping: 'topic_title'},
+        {name: 'postId', mapping: 'post_id'},
+        {name: 'author', mapping: 'author'},
+        {name: 'excerpt', mapping: 'post_text'}
+    ])
+});
 
-        // create reader that reads the Topic records
-        reader: new Ext.data.JsonReader({
-            root: 'topics',
-            totalProperty: 'totalCount',
-            id: 'topic_id'
-        }, [
-            {name: 'title', mapping: 'topic_title'},
-            {name: 'postId', mapping: 'post_id'},
-            {name: 'author', mapping: 'author'},
-            {name: 'lastPost', mapping: 'post_time', type: 'date', dateFormat: 'timestamp'},
-            {name: 'excerpt', mapping: 'post_text'}
-        ]),
+var combo = new Ext.form.ComboBox({
+    store: ds,
+    displayField:'title',
+    typeAhead: false,
+    loadingText: 'Searching...',
+    listWidth:600,
+    pageSize:10,
+    width:150,
+    tpl: '<div class="search-item"><h3><span>{lastPost:date("M j, Y")}<br />by {author}</span>{title}</h3>{excerpt}</div>',
+    title: 'Search Results',
+    onSelect: function(record, item){ // override default onSelect to do redirect
+        window.location = 'http://www.yui-ext.com/forum/viewtopic.php?t='+record.id+'#'+record.data.postId;
+    }
+});
 
-        // turn on remote sorting
-        remoteSort: true
-    });
-    ds.setDefaultSort('lastPost', 'desc');
-
-    var combo = new Ext.form.ComboBox({
-        store: ds,
-        displayField:'title',
-        typeAhead: false,
-        loadingText: 'Searching...',
-        listWidth:600,
-        pageSize:10,
-        width:150,
-        editable:false,
-        value:'grid',
-        tpl: '<div class="search-item"><h3><span>{lastPost:date("M j, Y")}<br />by {author}</span>{title}</h3>{excerpt}</div>',
-        title: 'Search Results',
-        onSelect: function(record, item){ // override default onSelect to do redirect
-            window.location = 'http://www.yui-ext.com/forum/viewtopic.php?t='+record.id+'#'+record.data.postId;
-        }
-    });
-
-    combo.applyTo('markup-combo');
+combo.applyTo('markup-combo');
 
 
     Ext.get('container').insertHtml('beforeEnd', '<br/><br/>');

@@ -19,6 +19,9 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
             w = w - this.trigger.getWidth();
             Ext.form.TriggerField.superclass.setSize.call(this, w, h);
             this.wrap.setWidth(wrapWidth);
+            if(this.onResize){
+                this.onResize(wrapWidth, h);
+            }
         }else{
             Ext.form.TriggerField.superclass.setSize.call(this, w, h);
             this.wrap.setWidth(this.el.getWidth()+this.trigger.getWidth());

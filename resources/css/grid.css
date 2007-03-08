@@ -184,12 +184,23 @@
     vertical-align:middle;
 }
 .ext-ie .x-grid-editor .x-form-text {
-    height:20px; /* ie strict */
+    margin-top:-1px; /* ie bogus margin bug */
+    margin-bottom:-1px;
+    height:20px; /* ie quirks */
+    line-height:16px;
+}
+.ext-strict .x-grid-editor .x-form-text {
+    height:16px;
+}
+
+.ext-ie .x-grid-editor .x-form-text {
+    height:20px;
     line-height:16px;
 }
 .ext-border-box .x-grid-editor .x-form-text {
-    height:22px; /* ie quirks */
+    height:20px;
 }
+
 .x-grid-editor .x-form-select-one {
     height:20px;
     line-height:16px;

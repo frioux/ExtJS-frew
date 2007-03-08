@@ -19,6 +19,5 @@ Ext.onReady(function(){
 
     // render the tree
     tree.render();
-
     root.expand();
 });

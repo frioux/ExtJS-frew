@@ -357,3 +357,24 @@
 .x-toolbar .x-btn-over .x-btn-menu-arrow-wrap .x-btn-center button {
 	background-position: 0 -47px;
 }
+.x-paging-info {
+    color:#222222;
+}
+
+/* combo box */
+.x-combo-list {
+    border:1px solid #999;
+    background:#dddddd;
+}
+.x-combo-list-hd {
+    color:#222;
+    background-image: url(../images/gray/layout/panel-title-light-bg.gif);
+    border-bottom:1px solid #aca899;
+}
+.x-resizable-pinned .x-combo-list-inner {
+    border-bottom:1px solid #aaa;
+}
+.x-combo-list .x-combo-selected{
+	background:#ddd !important;
+    border:1px solid #aaa;
+}

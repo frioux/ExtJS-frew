@@ -258,7 +258,7 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
                 this.renderChildren();
             }
             this.expanded = true;
-            if((this.getOwnerTree().animate && anim !== false) || anim){
+            if(!this.isHiddenRoot() && (this.getOwnerTree().animate && anim !== false) || anim){
                 this.ui.animExpand(function(){
                     this.fireEvent("expand", this);
                     if(typeof callback == "function"){
@@ -285,14 +285,18 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
             this.expandChildNodes(true);
         }
     },
-    
+
+    isHiddenRoot : function(){
+        return this.isRoot && !this.getOwnerTree().rootVisible;
+    },
+
     /**
      * Collapse this node.
      * @param {Boolean} deep (optional) True to collapse all children as well
      * @param {Boolean} anim (optional) false to cancel the default animation
      */
     collapse : function(deep, anim){
-        if(this.expanded && (!this.isRoot || (this.isRoot && this.getOwnerTree().rootVisible))){
+        if(this.expanded && !this.isHiddenRoot()){
             if(this.fireEvent("beforecollapse", this, deep, anim) === false){
                 return;
             }

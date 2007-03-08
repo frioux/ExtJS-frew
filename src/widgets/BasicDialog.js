@@ -464,12 +464,6 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
         return btn;
     },
 
-    stealFocus : function(e){
-        var t = e.getTarget();
-        if(!this.el.contains(t)){
-            this.focus();
-        }
-    },
     /**
      * Sets the default button to be focused when the dialog is displayed
      * @param {Ext.BasicDialog.Button} btn The button object returned by addButton
@@ -535,7 +529,6 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
             Ext.get(document.body).addClass("x-body-masked");
             this.mask.setSize(Ext.lib.Dom.getViewWidth(true), Ext.lib.Dom.getViewHeight(true));
             this.mask.show();
-            Ext.get(document).on('focus', this.stealFocus,  this);
         }
         this.constrainXY();
     },
@@ -810,9 +803,6 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
     hide : function(callback){
         if (this.fireEvent("beforehide", this) === false)
             return;
-        if(this.modal){
-            Ext.get(document).un('focus', this.stealFocus);
-        }
         if(this.shadow){
             this.shadow.hide();
         }

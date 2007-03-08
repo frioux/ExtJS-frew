@@ -355,6 +355,10 @@
 	border-top:1px solid #eeeeee;
 	background:#9f9f9f url(../images/vista/grid/grid-vista-hd.gif) repeat-x;
 }
+
+.x-paging-info {
+    color:#000;
+}
 /* grid */
 .x-grid-topbar .x-toolbar{
 	border:0;
@@ -459,4 +463,22 @@
 }
 .x-toolbar .x-btn-click .x-btn-center, .x-toolbar .x-btn-pressed .x-btn-center, .x-toolbar .x-btn-menu-active .x-btn-center{
 	background:url(../images/vista/toolbar/tb-btn-sprite.gif) repeat-x 0 -105px;
+}
+
+/* combo box */
+.x-combo-list {
+    border:1px solid #999;
+    background:#dddddd;
+}
+.x-combo-list-hd {
+    background-image: url(../images/vista/layout/panel-title-bg.gif);
+    border-bottom:1px solid #b5bac1;
+    color:white;
+}
+.x-resizable-pinned .x-combo-list-inner {
+    border-bottom:1px solid #aaa;
+}
+.x-combo-list .x-combo-selected{
+	background:#ddd !important;
+    border:1px solid #aaa;
 }

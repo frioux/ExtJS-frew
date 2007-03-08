@@ -132,6 +132,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 	
 	bind : function(ds, cm){
         if(this.ds){
+            this.ds.un("load", this.scrollToTop, this);
             this.ds.un("datachanged", this.onDataChange);
             this.ds.un("add", this.onAdd);
             this.ds.un("remove", this.onRemove);
@@ -139,6 +140,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             this.ds.un("clear", this.onClear);
         }
         if(ds){
+            ds.on("load", this.scrollToTop, this);
             ds.on("datachanged", this.onDataChange, this);
             ds.on("add", this.onAdd, this);
             ds.on("remove", this.onRemove, this);
@@ -205,6 +207,13 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             this.syncRowHeights(index, index);
             this.layout();
             this.fireEvent("rowremoved", this, index, record);
+        }
+    },
+
+    scrollToTop : function(){
+        if(this.scroller){
+            this.scroller.dom.scrollTop = 0;
+            this.syncScroll();
         }
     },
 
@@ -730,7 +739,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
                         p.value = c.renderer(r.data[c.name], p, r, rowIndex, i, ds);
                         if(p.value == undefined || p.value === "") p.value = "&#160;";
                         if(r.dirty && typeof r.modified[c.name] !== 'undefined'){
-                            p.css += ' x-grid-dirty-cell';
+                            p.css += p.css ? ' x-grid-dirty-cell' : 'x-grid-dirty-cell';
                         }
                         var markup = ct.apply(p);
                         if(!c.locked){
@@ -744,7 +753,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
                         alt = "x-grid-row-alt";
                     }
                     if(r.dirty){
-                        alt += " x-grid-row-dirty";
+                        alt += alt ? " x-grid-dirty-row" : " x-grid-dirty-row";
                     }
                     rp.cells = lcb;
                     rp.alt = alt;
@@ -782,7 +791,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
                         alt = "x-grid-row-alt";
                     }
                     if(r.dirty){
-                        alt += alt ? " x-grid-row-dirty" : " x-grid-row-dirty";
+                        alt += alt ? " x-grid-dirty-row" : " x-grid-dirty-row";
                     }
                     rp.cells = lcb.join("");
                     rp.alt = alt;
@@ -1009,6 +1018,14 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.refresh(true);  
     },
 
+    onDenyColumnLock : function(){
+
+    },
+
+    onDenyColumnHide : function(){
+
+    },
+
     handleHdMenuClick : function(item){
         var index = this.hdCtxIndex;
         var cm = this.cm, ds = this.ds;
@@ -1021,6 +1038,10 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
                 break;
             case "lock":
                 var lc = cm.getLockedCount();
+                if(cm.getColumnCount(true) <= lc+1){
+                    this.onDenyColumnLock();
+                    return;
+                }
                 if(lc != index){
                     cm.setLocked(index, true, true);
                     cm.moveColumn(index, lc);
@@ -1042,6 +1063,10 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             default:
                 index = cm.getIndexById(item.id.substr(4));
                 if(index != -1){
+                    if(item.checked && cm.getColumnCount(true) <= 1){
+                        this.onDenyColumnHide();
+                        return false;
+                    }
                     cm.setHidden(index, item.checked);
                 }
         }
@@ -1399,7 +1424,7 @@ Ext.extend(Ext.grid.SplitDragZone, Ext.dd.DDProxy, {
     
     endDrag : function(e){
         this.view.headersDisabled = false;
-        var endX = Ext.lib.Event.getPageX(e);
+        var endX = Math.max(this.minX, Ext.lib.Event.getPageX(e));
         var diff = endX - this.startPos;
         this.view.onColumnSplitterMoved(this.cellIndex, this.cm.getColumnWidth(this.cellIndex)+diff);
     },

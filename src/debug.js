@@ -17,6 +17,9 @@
             center:{alwaysShowTabs:true}
         });
 
+        // prevent dialog events from bubbling
+        dlg.el.swallowEvent('click');
+
         // build the layout
         var mainLayout = dlg.getLayout();
         mainLayout.beginUpdate();

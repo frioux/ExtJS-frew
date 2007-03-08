@@ -95,26 +95,19 @@ Ext.onReady(function(){
     var gridFoot = grid.getView().getFooterPanel(true);
 
     // add a paging toolbar to the grid's footer
-    var paging = new Ext.PagingToolbar(gridFoot, ds, {pageSize: 25});
+    var paging = new Ext.PagingToolbar(gridFoot, ds, {
+        pageSize: 25,
+        displayInfo: true,
+        displayMsg: 'Displaying topics {0} - {1} of {2}',
+        emptyMsg: "No topics to display"
+    });
+    // add the detailed view button
     paging.add('-', {
         pressed: true,
         enableToggle:true,
         text: 'Detailed View',
         cls: 'x-btn-text-icon details',
         toggleHandler: toggleDetails
-    });
-
-    // create a floating label with display info
-    var displayInfo = gridFoot.createChild({cls:'paging-info'});
-    ds.on('load', function(){
-        var count = ds.getCount();
-        var msg = count == 0 ?
-            "No topics to display" :
-            String.format(
-                'Displaying topics {0} - {1} of {2}',
-                paging.cursor+1, paging.cursor+count, ds.getTotalCount()    
-            );
-        displayInfo.update(msg);
     });
 
     // trigger the data store load

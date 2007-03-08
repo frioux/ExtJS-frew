@@ -24,7 +24,12 @@ Ext.onReady(function(){
            header: "Light",
            dataIndex: 'light',
            width: 130,
-           editor: new Ed(new fm.Field('light'))
+           editor: new Ed(new Ext.form.ComboBox({
+               typeAhead: true,
+               triggerAction: 'all',
+               transform:'light',
+               lazyRender:true
+            }))
         },{
            header: "Price",
            dataIndex: 'price',

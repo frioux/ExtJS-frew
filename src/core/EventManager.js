@@ -406,6 +406,10 @@ Ext.EventObject = function(){
         /** Key constant @type Number */
         ENTER : 13,
         /** Key constant @type Number */
+        SHIFT : 16,
+        /** Key constant @type Number */
+        CONTROL : 17,
+        /** Key constant @type Number */
         ESC : 27,
         /** Key constant @type Number */
         SPACE : 32,
@@ -488,6 +492,15 @@ Ext.EventObject = function(){
             return (k >= 33 && k <= 40) || k == this.RETURN || k == this.TAB || k == this.ESC;
         },
 
+        isSpecialKey : function(){
+            var k = this.keyCode;
+            return k == 9 || k == 13  || k == 40 || k == 27 ||
+            (k == 16) || (k == 17) ||
+            (k >= 18 && k <= 20) ||
+            (k >= 33 && k <= 35) ||
+            (k >= 36 && k <= 39) ||
+            (k >= 44 && k <= 45);
+        },
         /**
          * Cancels bubbling of the event.
          */

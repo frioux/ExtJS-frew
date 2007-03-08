@@ -17,7 +17,7 @@
 .ext-ie .x-form-text {
     margin-top:-1px; /* ie bogus margin bug */
     margin-bottom:-1px;
-    height:20px; /* ie quirks */
+    height:22px; /* ie quirks */
     line-height:18px;
 }
 .ext-strict .x-form-text {
@@ -55,8 +55,8 @@
 /* wrapped fields and triggers */
 
 .x-form-field-wrap {
-    display:-moz-inline-block;
-    display:inline-block;
+    position:relative;
+    zoom:1;
 }
 
 .x-form-check-wrap {
@@ -66,16 +66,17 @@
     width:17px;
     height:21px;
     border:0;
-    background:transparent url(../images/default/form/trigger.gif) no-repeat -17px 0;
+    background:transparent url(../images/default/form/trigger.gif) no-repeat 0 0;
     cursor:pointer;
     border-bottom: 1px solid #B5B8C8;
-    vertical-align:top;
+    position:absolute;
+    top:0;
 }
 .ext-safari .x-form-field-wrap .x-form-trigger{
     height:19px; /* safari doesn't allow height adjustments to the fields, so adjust trigger */
 }
 .x-form-field-wrap .x-form-trigger-over{
-    background-position:0 0;
+    background-position:-17px 0;
 }
 .x-form-field-wrap .x-form-trigger-click{
     background-position:-34px 0;
@@ -85,7 +86,9 @@
     background:transparent url(../images/default/form/date-trigger.gif) no-repeat 0 0;
     cursor:pointer;
 }
-
+.ext-safari .x-form-field-wrap .x-form-date-trigger{
+    right:0;
+}
 /* field focus style */
 .x-form-focus{
 	border: 1px solid #7eadd9;
@@ -119,14 +122,68 @@
 /* If you override the default field font above, you would need to change this font as well */
 .x-form-grow-sizer {
 	font:normal 12px tahoma, arial, helvetica, sans-serif;
-    left: 0;
+    left: -10000px;
 	padding: 8px 3px;
     position: absolute;
-	top: 0;
+    visibility:hidden;
+    top: -10000px;
 	white-space: pre-wrap;
     white-space: -moz-pre-wrap;
     white-space: -pre-wrap;
     white-space: -o-pre-wrap;
     word-wrap: break-word;
     zoom:1;
+}
+
+/* This CSS is not final and is subject to change - jvs 03/07/07 */
+
+.x-form-item {
+    font:normal 12px tahoma, arial, helvetica, sans-serif;
+    display:block;
+    margin-bottom:4px;
+}
+
+.x-form-item label {
+    display:block;
+    float:left;
+    width:100px;
+    padding:3px;
+    padding-left:0;
+    clear:left;
+}
+
+.x-form-element {
+    padding-left:105px;
+}
+
+.x-form-invalid-msg {
+    color:#ee0000;
+    padding:2px;
+    padding-left:18px;
+    font:normal 11px tahoma, arial, helvetica, sans-serif;
+    background: transparent url(../images/default/shared/warning.gif) no-repeat 0 2px;
+    line-height:16px;
+    width:200px;
+}
+
+.x-form-label-right label {
+   text-align:right;
+}
+
+.x-form-label-top .x-form-item label {
+   width:auto;
+   float:none;
+}
+
+.x-form fieldset {
+    border:1px solid #B5B8C8;
+    padding:10px 10px 5px 10px;
+    margin-bottom:10px;
+}
+.x-form fieldset legend {
+    font:bold 11px tahoma, arial, helvetica, sans-serif;
+    color:#15428b;
+}
+.ext-ie .x-form fieldset legend {
+    margin-bottom:10px;
 }
