@@ -14,10 +14,10 @@ Ext.KeyNav.prototype = {
     prepareEvent : function(e){
         var k = e.getKey();
         var h = this.keyToHandler[k];
-        if(h && this[h]){
-            e.stopPropagation();
-        }
-        if(k >= 37 && k <= 40){
+        //if(h && this[h]){
+        //    e.stopPropagation();
+        //}
+        if(Ext.isSafari && h && k >= 37 && k <= 40){
             e.stopEvent();
         }
     },
@@ -91,7 +91,7 @@ Ext.KeyNav.prototype = {
 		    if(Ext.isIE){
                 this.el.un("keydown", this.relay);
             }else{
-                //this.el.un("keydown", this.prepareEvent);
+                this.el.un("keydown", this.prepareEvent);
                 this.el.un("keypress", this.relay);
             }
 		    this.disabled = true;

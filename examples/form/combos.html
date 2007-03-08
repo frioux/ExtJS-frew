@@ -28,9 +28,9 @@ The combo box can use any type of Ext.data.Store as it's data source.
     This means your data can be XML, JSON, arrays or any other supported format. It can be loaded using Ajax, script tags or be local.
     This combo uses local data from a JS array.
 </p>
-<p>
+<div>
     <input type="text" id="local-states" size="20"/>
-</p>
+</div>
 <pre class="code"><code>// simple array store
 var store = new Ext.data.SimpleStore({
     fields: ['abbr', 'state'],
@@ -51,7 +51,7 @@ combo.applyTo('local-states');
 <b>Unobtrusive</b><br />
 The combo box can very easily be used to convert existing select elements into auto-completing, filtering combos.
 </p>
-<p>
+<div>
 Transformed select:<br/> <select name="state" id="state">
 <option value="AL">Alabama</option>
 <option value="AK">Alaska</option>
@@ -104,7 +104,7 @@ Transformed select:<br/> <select name="state" id="state">
 <option value="WI">Wisconsin</option>
 <option value="WY">Wyoming</option>
 </select>
-</p>
+</div><br />
 <p>
 Originally looked like:<br/> <select name="state-orig">
 <option value="AL">Alabama</option>

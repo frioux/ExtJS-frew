@@ -57,7 +57,7 @@ Ext.extend(Ext.grid.CellSelectionModel, Ext.grid.AbstractSelectionModel,  {
     },
 
     beforeEdit : function(e){
-        this.select(e.row, e.col, false, true, e.record);
+        this.select(e.row, e.column, false, true, e.record);
     },
 
     onRowUpdated : function(v, index, r){

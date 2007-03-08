@@ -47,6 +47,13 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
         if(!this.mimicing){
             this.mimicing = true;
             Ext.get(document).on("mousedown", this.mimicBlur, this);
+            this.el.on("keydown", this.checkTab, this);
+        }
+    },
+
+    checkTab : function(e){
+        if(e.getKey() == e.TAB){
+            this.triggerBlur();
         }
     },
 
@@ -56,10 +63,15 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
 
     mimicBlur : function(e, t){
         if(!this.wrap.contains(t) && this.validateBlur()){
-            this.mimicing = false;
-            Ext.get(document).un("mousedown", this.mimicBlur);
-            Ext.form.TriggerField.superclass.onBlur.call(this);
+            this.triggerBlur();
         }
+    },
+
+    triggerBlur : function(){
+        this.mimicing = false;
+        Ext.get(document).un("mousedown", this.mimicBlur);
+        this.el.un("keydown", this.checkTab, this);
+        Ext.form.TriggerField.superclass.onBlur.call(this);
     },
 
     validateBlur : function(e, t){

@@ -1004,11 +1004,10 @@ El.prototype = {
     /**
      * Appends an event handler
      *
-     * @param {String/HTMLElement}   element        The html element or id to assign the
-     *                             event to
      * @param {String}   eventName     The type of event to append
      * @param {Function} fn        The method the event invokes
-     * @param {Object}   options   An object with standard EventManager options
+     * @param {Object} scope       (optional) The scope (this object) of the fn
+     * @param {Object}   options   (optional)An object with standard EventManager options
      */
     addListener : function(eventName, fn, scope, options){
         Ext.EventManager.on(this.dom,  eventName, fn, scope || this, options);
@@ -2378,13 +2377,11 @@ var ep = El.prototype;
 
 /**
  * Appends an event handler (Shorthand for addListener)
- *
- * @param {String/HTMLElement}   element        The html element or id to assign the
- *                             event to
  * @param {String}   eventName     The type of event to append
  * @param {Function} fn        The method the event invokes
- * @param {Object}   options   An object with standard EventManager options
-* @method
+ * @param {Object} scope       (optional) The scope (this object) of the fn
+ * @param {Object}   options   (optional)An object with standard EventManager options
+ * @method
  */
 ep.on = ep.addListener;
     // backwards compat

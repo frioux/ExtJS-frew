@@ -91,6 +91,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     mode: 'remote',
     minListWidth : 70,
     forceSelection:false,
+    typeAheadDelay : 250,
 
     onRender : function(ct){
         Ext.form.ComboBox.superclass.onRender.call(this, ct);
@@ -179,27 +180,44 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
 
             "enter" : function(e){
                 this.onViewClick();
+                return true;
             },
 
             "esc" : function(e){
                 this.collapse();
             },
 
+            "tab" : function(e){
+                this.onViewClick(false);
+                return true;
+            },
+
             scope : this,
 
             doRelay : function(foo, bar, hname){
                 if(hname == 'down' || this.scope.isExpanded()){
-                   Ext.KeyNav.prototype.doRelay.apply(this, arguments);
+                   return Ext.KeyNav.prototype.doRelay.apply(this, arguments);
                 }
+                return true;
             }
         });
-        this.queryDelay = this.queryDelay || 10; // prevent 0
+        this.queryDelay = Math.max(this.queryDelay || 10,
+                this.mode == 'local' ? 10 : 250);
         this.dqTask = new Ext.util.DelayedTask(this.initQuery, this);
+        if(this.typeAhead){
+            this.taTask = new Ext.util.DelayedTask(this.onTypeAhead, this);
+        }
         if(this.editable !== false){
             this.el.on("keyup", this.onKeyUp, this);
         }
         if(this.forceSelection){
             this.on('blur', this.doForce, this);
+        }
+    },
+
+    fireKey : function(e){
+        if(e.isNavKeyPress() && !this.list.isVisible()){
+            this.fireEvent("specialkey", this, e);
         }
     },
 
@@ -248,17 +266,26 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
             }else{
                 this.selectNext();
                 if(this.typeAhead && this.lastKey != Ext.EventObject.BACKSPACE && this.lastKey != Ext.EventObject.DELETE){
-                    var r = this.store.getAt(0);
-                    var newValue = r.data[this.displayField];
-                    var selStart = this.getRawValue().length;
-                    this.setValue(newValue);
-                    this.selectText(selStart, newValue.length);
+                    this.taTask.delay(this.typeAheadDelay);
                 }
             }
         }else{
             this.onEmptyResults();
         }
         //this.el.focus();
+    },
+
+    onTypeAhead : function(){
+        if(this.store.getCount() > 0){
+            var r = this.store.getAt(0);
+            var newValue = r.data[this.displayField];
+            var len = newValue.length;
+            var selStart = this.getRawValue().length;
+            if(selStart != len){
+                this.setValue(newValue);
+                this.selectText(selStart, newValue.length);
+            }
+        }
     },
 
     onSelect : function(record, index){
@@ -448,11 +475,11 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
                     this.store.load({
                         params: this.getParams(q)
                     });
+                    this.expand();
                 }
             }else{
                 this.onLoad();   
             }
-            this.expand();
         }
     },
 

@@ -35,7 +35,7 @@ Ext.onReady(function(){
         tpl: resultTpl,
         onSelect: function(record){ // override default onSelect to do redirect
             window.location =
-                String.format('/forum/viewtopic.php?t={0}#{1}', record..data.topicId, record.id);
+                String.format('/forum/viewtopic.php?t={0}#{1}', record.data.topicId, record.id);
         }
     });
     // apply it to the exsting input element

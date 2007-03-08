@@ -325,7 +325,7 @@ Ext.DomQuery = function(){
                             fn[fn.length] = 'n = getNodes(n, mode, "'+tm[2]+'");';
                         }
                         q = q.replace(tm[0], "");
-                    }else if(!q.substr(0, 1) == '@'){
+                    }else if(q.substr(0, 1) != '@'){
                         fn[fn.length] = 'n = getNodes(n, mode, "*");';
                     }
                 }else{
