@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project path="" name="Ext Examples" author="Jack Slocum" version="1.0 Alpha 2" copyright="Ext - JS Library $version&#xD;&#xA;Copyright(c) 2006-2007, $author." output="F:\htdocs\deploy\ext-1.0-alpha2\examples" source="True" source-dir="$output" minify="False" min-dir="$output\build" doc="False" doc-dir="$output\docs" master="true" master-file="$output\yui-ext.js" zip="true" zip-file="$output\yuo-ext.$version.zip">
+<project path="" name="Ext Examples" author="Jack Slocum" version="1.0 Alpha 3 Rev 1" copyright="Ext - JS Library $version&#xD;&#xA;Copyright(c) 2006-2007, $author." output="F:\htdocs\deploy\ext-1.0-alpha2\examples" source="True" source-dir="$output" minify="False" min-dir="$output\build" doc="False" doc-dir="$output\docs" master="true" master-file="$output\yui-ext.js" zip="true" zip-file="$output\yuo-ext.$version.zip">
   <directory name="" />
   <file name="dialog\blog.html" path="dialog" />
   <file name="dialog\comments.txt" path="dialog" />
@@ -109,37 +109,43 @@
   <file name="menu\list-items.gif" path="menu" />
   <file name="menu\menu-show.gif" path="menu" />
   <file name="dialog\test.html" path="dialog" />
+  <file name="grid\PropsGrid.js" path="grid" />
+  <file name="jquery-bundled.js" path="" />
+  <file name="tabs\tabs-adv.html" path="tabs" />
+  <file name="lib.css" path="" />
+  <file name="grid\from-markup.html" path="grid" />
+  <file name="form\warning.gif" path="form" />
   <file name="dialog\hello.js" path="dialog" />
   <file name="dialog\layout.js" path="dialog" />
   <file name="dialog\msg-box.js" path="dialog" />
   <file name="dialog\post.js" path="dialog" />
+  <file name="form\combos.html" path="form" />
+  <file name="form\combos.js" path="form" />
   <file name="form\forms.js" path="form" />
+  <file name="form\forum-search.css" path="form" />
+  <file name="form\forum-search.html" path="form" />
+  <file name="form\forum-search.js" path="form" />
   <file name="grid\array-grid.js" path="grid" />
   <file name="grid\custom-grid.js" path="grid" />
   <file name="grid\edit-grid.js" path="grid" />
+  <file name="grid\from-markup.js" path="grid" />
   <file name="grid\paging.js" path="grid" />
-  <file name="grid\PropsGrid.js" path="grid" />
   <file name="grid\xml-grid.js" path="grid" />
   <file name="layout\feed-viewer.js" path="layout" />
   <file name="menu\menus.js" path="menu" />
   <file name="resizable\basic.js" path="resizable" />
+  <file name="tabs\tabs-adv.js" path="tabs" />
   <file name="tabs\tabs-example.js" path="tabs" />
   <file name="tree\organizer.js" path="tree" />
   <file name="tree\reorder.js" path="tree" />
   <file name="tree\two-trees.js" path="tree" />
   <file name="view\chooser-example.js" path="view" />
   <file name="view\chooser.js" path="view" />
-  <file name="examples.js" path="" />
-  <file name="jquery-bundled.js" path="" />
-  <file name="tabs\tabs-adv.html" path="tabs" />
-  <file name="tabs\tabs-adv.js" path="tabs" />
-  <file name="lib.js" path="" />
-  <file name="lib.css" path="" />
-  <file name="jquery-plugins.js" path="" />
-  <file name="grid\from-markup.html" path="grid" />
-  <file name="grid\from-markup.js" path="grid" />
   <file name="effects.js" path="" />
+  <file name="examples.js" path="" />
+  <file name="jquery-plugins.js" path="" />
+  <file name="lib.js" path="" />
   <file name="prototype.js" path="" />
   <file name="scriptaculous.js" path="" />
-  <file name="form\warning.gif" path="form" />
+  <file name="form\combos.css" path="form" />
 </project>

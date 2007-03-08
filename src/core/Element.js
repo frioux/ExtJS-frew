@@ -2085,25 +2085,29 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
     },
 
     /**
-     * Inserts this element as the first child of the passed element
-     * @param {String/HTMLElement/Element} el The element to insert into
-     * @return {Ext.Element} this
+     * Inserts (or creates) an element (or DomHelper config) as the first child of the this element
+     * @param {String/HTMLElement/Element/Object} el The id or element to insert or a DomHelper config to create and insert
+     * @return {Ext.Element} The new child
      */
-    insertFirst: function(el){
-        var node = Ext.get(el).dom;
-        node.insertBefore(this.dom, node.firstChild);
-        return this;
+    insertFirst: function(el, returnDom){
+        if(typeof el == 'object' && !el.nodeType){ // dh config
+            return this.createChild(el, this.dom.firstChild, returnDom);
+        }else{
+            el = Ext.getDom(el);
+            this.dom.insertBefore(el, this.domain.firstChild);
+            return !returnDom ? Ext.get(el) : el;
+        }
     },
 
     /**
-     * Inserts the passed element as a sibling of this element
-     * @param {String} where 'before' or 'after'
-     * @param {String/HTMLElement/Element/Object} el The id, element to insert or a DomHelper config of an element to create 
+     * Inserts (or creates) the passed element (or DomHelper config) as a sibling of this element
+     * @param {String/HTMLElement/Element/Object} el The id or element to insert or a DomHelper config to create and insert
+     * @param {String} where (optional) 'before' or 'after' defaults to before
      * @param {Boolean} returnDom (optional) True to return the raw DOM element instead of Ext.Element
      * @return {Ext.Element} the inserted Element
      */
-    insertSibling: function(where, el, returnDom){
-        where = where.toLowerCase();
+    insertSibling: function(el, where, returnDom){
+        where = where ? where.toLowerCase() : 'before';
         var rt, refNode = where == 'before' ? this.dom : this.dom.nextSibling;
 
         if(typeof el == 'object' && !el.nodeType){ // dh config

@@ -95,8 +95,8 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     onRender : function(ct){
         Ext.form.ComboBox.superclass.onRender.call(this, ct);
         if(this.hiddenName){
-            this.hiddenField = this.el.insertSibling('before',
-                {tag:'input', type:'hidden', name: this.hiddenName}, true);
+            this.hiddenField = this.el.insertSibling({tag:'input', type:'hidden', name: this.hiddenName},
+                    'before', true);
             this.hiddenField.value = this.value;
         }
         if(Ext.isGecko){
@@ -110,7 +110,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         });
 
         this.list.setWidth(this.listWidth || this.wrap.getWidth());
-
+        this.list.swallowEvent('mousewheel');
         this.assetHeight = 0;
 
         if(this.title){
