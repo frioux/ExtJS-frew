@@ -140,8 +140,11 @@ Ext.extend(Ext.grid.CellSelectionModel, Ext.grid.AbstractSelectionModel,  {
 
     /** @ignore */
     handleKeyDown : function(e){
+        if(!e.isNavKeyPress()){
+            return;
+        }
         var g = this.grid, s = this.selection;
-        if(e.isNavKeyPress() && !s){
+        if(!s){
             e.stopEvent();
             var cell = g.walkCells(0, 0, 1, this.isSelectable,  this);
             if(cell){

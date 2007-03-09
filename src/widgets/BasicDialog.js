@@ -310,6 +310,7 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
         this.refreshSize();
         this.syncBodyHeight();
         this.adjustAssets();
+        this.focus();
         this.fireEvent("resize", this, this.size.width, this.size.height);
     },
     
@@ -732,6 +733,7 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
         }
         this.refreshSize();
         this.adjustAssets();
+        this.focus();
         this.fireEvent("move", this, this.xy[0], this.xy[1]);
     },
     

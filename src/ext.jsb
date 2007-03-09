@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project path="" name="Ext - JS Lib" author="Jack Slocum" version="1.0 Alpha 2" copyright="Ext - JS Library $version&#xD;&#xA;Copyright(c) 2006-2007, $author.&#xD;&#xA;&#xD;&#xA;http://www.extjs.com/license.txt" output="F:\htdocs\deploy\ext-1.0-alpha2\" source="True" source-dir="$output\source" minify="True" min-dir="$output\build" doc="False" doc-dir="$output\docs" min-dair="$output\build">
+<project path="" name="Ext - JS Lib" author="Jack Slocum" version="1.0 Alpha 3 - Rev 1" copyright="Ext - JS Library $version&#xD;&#xA;Copyright(c) 2006-2007, $author.&#xD;&#xA;&#xD;&#xA;http://www.extjs.com/license.txt" output="F:\htdocs\deploy\ext-1.0-alpha3\" source="True" source-dir="$output\source" minify="True" min-dir="$output\build" doc="False" doc-dir="$output\docs" min-dair="$output\build">
   <directory name="" />
   <target name="Core" file="$output\ext-core.js" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="core\DomHelper.js" />
@@ -121,7 +121,6 @@
     <include name="widgets\grid\EditorGrid.js" />
     <include name="widgets\grid\GridEditor.js" />
     <include name="widgets\grid\PropertyGrid.js" />
-    <include name="debug.js" />
   </target>
   <file name="layout\LayoutRegionLite.js" path="layout" />
   <file name="DDScrollManager.js" path="" />
@@ -392,6 +391,16 @@
   <target name="QTips" file="$output\package\qtips\qtips.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="widgets\QuickTips.js" />
   </target>
+  <file name="util\CustomTagReader.js" path="util" />
+  <target name="Date" file="$output\package\date.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
+    <include name="util\Date.js" />
+  </target>
+  <file name="widgets\Combo.js" path="widgets" />
+  <target name="Prototype" file="$output\ext-prototype-adapter.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
+    <include name="core\Ext.js" />
+    <include name="experimental\prototype-bridge.js" />
+  </target>
+  <file name="widgets\form\Validators.js" path="widgets\form" />
   <file name="core\CompositeElement.js" path="core" />
   <file name="core\DomHelper.js" path="core" />
   <file name="core\DomQuery.js" path="core" />
@@ -411,6 +420,7 @@
   <file name="data\MemoryProxy.js" path="data" />
   <file name="data\Record.js" path="data" />
   <file name="data\ScriptTagProxy.js" path="data" />
+  <file name="data\SimpleStore.js" path="data" />
   <file name="data\SortTypes.js" path="data" />
   <file name="data\Store.js" path="data" />
   <file name="data\Tree.js" path="data" />
@@ -425,7 +435,9 @@
   <file name="dd\StatusProxy.js" path="dd" />
   <file name="experimental\Anims.js" path="experimental" />
   <file name="experimental\BasicDialog2.js" path="experimental" />
+  <file name="experimental\ext-lang-en.js" path="experimental" />
   <file name="experimental\jquery-bridge.js" path="experimental" />
+  <file name="experimental\prototype-bridge.js" path="experimental" />
   <file name="experimental\TaskPanel.js" path="experimental" />
   <file name="experimental\yui-bridge.js" path="experimental" />
   <file name="legacy\Actor.js" path="legacy" />
@@ -435,7 +447,6 @@
   <file name="state\State.js" path="state" />
   <file name="util\ClickRepeater.js" path="util" />
   <file name="util\CSS.js" path="util" />
-  <file name="util\CustomTagReader.js" path="util" />
   <file name="util\Date.js" path="util" />
   <file name="util\DelayedTask.js" path="util" />
   <file name="util\Format.js" path="util" />
@@ -444,12 +455,16 @@
   <file name="util\KeyNav.js" path="util" />
   <file name="util\MixedCollection.js" path="util" />
   <file name="util\Observable.js" path="util" />
+  <file name="util\TaskMgr.js" path="util" />
   <file name="widgets\form\Checkbox.js" path="widgets\form" />
+  <file name="widgets\form\Combo.js" path="widgets\form" />
   <file name="widgets\form\DateField.js" path="widgets\form" />
   <file name="widgets\form\Field.js" path="widgets\form" />
   <file name="widgets\form\NumberField.js" path="widgets\form" />
   <file name="widgets\form\TextArea.js" path="widgets\form" />
   <file name="widgets\form\TextField.js" path="widgets\form" />
+  <file name="widgets\form\TriggerField.js" path="widgets\form" />
+  <file name="widgets\form\VTypes.js" path="widgets\form" />
   <file name="widgets\grid\AbstractGridView.js" path="widgets\grid" />
   <file name="widgets\grid\AbstractSelectionModel.js" path="widgets\grid" />
   <file name="widgets\grid\CellSelectionModel.js" path="widgets\grid" />
@@ -458,6 +473,7 @@
   <file name="widgets\grid\Grid.js" path="widgets\grid" />
   <file name="widgets\grid\GridEditor.js" path="widgets\grid" />
   <file name="widgets\grid\GridView.js" path="widgets\grid" />
+  <file name="widgets\grid\PropertyGrid.js" path="widgets\grid" />
   <file name="widgets\grid\RowSelectionModel.js" path="widgets\grid" />
   <file name="widgets\layout\BasicLayoutRegion.js" path="widgets\layout" />
   <file name="widgets\layout\BorderLayout.js" path="widgets\layout" />
@@ -512,20 +528,4 @@
   <file name="yui\event.js" path="yui" />
   <file name="yui\yahoo.js" path="yui" />
   <file name="debug.js" path="" />
-  <target name="Date" file="$output\package\date.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
-    <include name="util\Date.js" />
-  </target>
-  <file name="widgets\grid\PropertyGrid.js" path="widgets\grid" />
-  <file name="experimental\ext-lang-en.js" path="experimental" />
-  <file name="experimental\prototype-bridge.js" path="experimental" />
-  <file name="widgets\Combo.js" path="widgets" />
-  <target name="Prototype" file="$output\ext-prototype-adapter.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
-    <include name="core\Ext.js" />
-    <include name="experimental\prototype-bridge.js" />
-  </target>
-  <file name="widgets\form\Combo.js" path="widgets\form" />
-  <file name="widgets\form\TriggerField.js" path="widgets\form" />
-  <file name="widgets\form\Validators.js" path="widgets\form" />
-  <file name="widgets\form\VTypes.js" path="widgets\form" />
-  <file name="data\SimpleStore.js" path="data" />
 </project>

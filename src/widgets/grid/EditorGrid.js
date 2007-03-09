@@ -82,6 +82,7 @@ Ext.extend(Ext.grid.EditorGrid, Ext.grid.Grid, {
 
     onEditComplete : function(ed, value, startValue){
         this.editing = false;
+        this.activeEditor = null;
         ed.un("specialkey", this.selModel.onEditorKey, this.selModel);
         if(value != startValue){
             var r = this.dataSource.getAt(ed.row);

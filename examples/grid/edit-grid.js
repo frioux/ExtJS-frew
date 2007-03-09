@@ -122,6 +122,7 @@ Ext.onReady(function(){
                 availDate: new Date(),
                 indoor: false
             });
+            grid.stopEditing();
             ds.insert(0, p);
             grid.startEditing(0, 0);
         }

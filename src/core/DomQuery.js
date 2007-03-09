@@ -614,7 +614,17 @@ Ext.DomQuery = function(){
                 }
                 return r;
             },
-            
+
+            "nodeValue" : function(c, v){
+                var r = [];
+                for(var i = 0, ci; ci = c[i]; i++){
+                    if(ci.firstChild && ci.firstChild.nodeValue == v){
+                        r[r.length] = ci;
+                    }
+                }
+                return r;
+            },
+
             "checked" : function(c){
                 var r = [];
                 for(var i = 0, ci; ci = c[i]; i++){

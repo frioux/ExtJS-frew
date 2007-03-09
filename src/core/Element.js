@@ -670,7 +670,8 @@ El.prototype = {
      * @return {Ext.Element} this
      */
     applyStyles : function(style){
-       Ext.DomHelper.applyStyles(this.dom, style);
+        Ext.DomHelper.applyStyles(this.dom, style);
+        return this;
     },
     
     /**
