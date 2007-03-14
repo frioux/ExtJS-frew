@@ -1,27 +1,6 @@
 (function(){
 
-function translatePoints(el, xy){
-    var e = Ext.fly(el);
-    var p = e.getStyle('position');
-    if(p == "static") {
-        e.position("relative");
-        p = "relative";
-    }
-
-    var o = Position.cumulativeOffset(el), x = o[0],  y = o[1];
-
-    var l = parseInt(e.getStyle('left'), 10);
-    var t = parseInt(e.getStyle('top'), 10);
-
-    if(isNaN(l)){
-        l = (p == "relative") ? 0 : e.dom.offsetLeft;
-    }
-    if(isNaN(t)){
-        t = (p == "relative") ? 0 : e.dom.offsetTop;
-    }
-
-    return {left: (xy[0] - x + l), top: (xy[1] - y + t)};
-}
+var libFlyweight;
 
 Ext.lib.Dom = {
     getViewWidth : function(full){
@@ -32,17 +11,17 @@ Ext.lib.Dom = {
         return full ? this.getDocumentHeight() : this.getViewportHeight();
     },
 
-    getDocumentHeight: function() {
+    getDocumentHeight: function() { // missing from prototype?
         var scrollHeight = (document.compatMode != "CSS1Compat") ? document.body.scrollHeight : document.documentElement.scrollHeight;
         return Math.max(scrollHeight, this.getViewportHeight());
     },
 
-    getDocumentWidth: function() {
+    getDocumentWidth: function() { // missing from prototype?
         var scrollWidth = (document.compatMode != "CSS1Compat") ? document.body.scrollWidth : document.documentElement.scrollWidth;
         return Math.max(scrollWidth, this.getViewportWidth());
     },
 
-    getViewportHeight: function() {
+    getViewportHeight: function() { // missing from prototype?
         var height = self.innerHeight;
         var mode = document.compatMode;
 
@@ -55,7 +34,7 @@ Ext.lib.Dom = {
         return height;
     },
 
-    getViewportWidth: function() {
+    getViewportWidth: function() { // missing from prototype?
         var width = self.innerWidth;  // Safari
         var mode = document.compatMode;
 
@@ -67,7 +46,7 @@ Ext.lib.Dom = {
         return width;
     },
 
-    isAncestor : function(p, c){
+    isAncestor : function(p, c){ // missing from prototype?
         p = Ext.getDom(p);
         c = Ext.getDom(c);
         if (!p || !c) {return false;}
@@ -103,18 +82,80 @@ Ext.lib.Dom = {
         return this.getXY(el)[0];
     },
 
-    getXY : function(el){
-        return Position.cumulativeOffset(el);
+    getXY : function(el){ // this initially used Position.cumulativeOffset but it is not accurate enough
+        var p, pe, b, scroll, bd = document.body;
+        el = Ext.getDom(el);
+
+        if(el.getBoundingClientRect){ // IE
+            b = el.getBoundingClientRect();
+            scroll = fly(document).getScroll();
+            return [b.left + scroll.left, b.top + scroll.top];
+        } else{
+            var x = el.offsetLeft, y = el.offsetTop;
+            p = el.offsetParent;
+
+            // ** flag if a parent is positioned for Safari
+            var hasAbsolute = false;
+
+            if(p != el){
+                while(p){
+                    x += p.offsetLeft;
+                    y += p.offsetTop;
+
+                    // ** flag Safari abs position bug - only check if needed
+                    if(Ext.isSafari && !hasAbsolute && fly(p).getStyle("position") == "absolute"){
+                        hasAbsolute = true;
+                    }
+
+                    // ** Fix gecko borders measurements
+                    // Credit jQuery dimensions plugin for the workaround
+                    if(Ext.isGecko){
+                        pe = fly(p);
+                        var bt = parseInt(pe.getStyle("borderTopWidth"), 10) || 0;
+                        var bl = parseInt(pe.getStyle("borderLeftWidth"), 10) || 0;
+
+                        // add borders to offset
+                        x += bl;
+                        y += bt;
+
+                        // Mozilla removes the border if the parent has overflow property other than visible
+                        if(p != el && pe.getStyle('overflow') != 'visible'){
+                            x += bl;
+                            y += bt;
+                        }
+                    }
+                    p = p.offsetParent;
+                }
+            }
+            // ** safari doubles in some cases, use flag from offsetParent's as well
+            if(Ext.isSafari && (hasAbsolute || fly(el).getStyle("position") == "absolute")){
+                x -= bd.offsetLeft;
+                y -= bd.offsetTop;
+            }
+        }
+
+        p = el.parentNode;
+
+        while(p && p != bd){
+            // ** opera TR has bad scroll values, so filter them jvs
+            if(!Ext.isOpera || (Ext.isOpera && p.tagName != 'TR' && fly(p).getStyle("display") != "inline")){
+                x -= p.scrollLeft;
+                y -= p.scrollTop;
+            }
+            p = p.parentNode;
+        }
+        return [x, y];
     },
 
-    setXY : function(el, xy){
-        el = Ext.getDom(el);
-        var pts = translatePoints(el, xy);
+    setXY : function(el, xy){ // this initially used Position.cumulativeOffset but it is not accurate enough
+        el = Ext.fly(el, '_setXY');
+        el.position();
+        var pts = el.translatePoints(xy);
         if(xy[0] !== false){
-            el.style.left = pts.left + "px";
+            el.dom.style.left = pts.left + "px";
         }
         if(xy[1] !== false){
-            el.style.top = pts.top + "px";
+            el.dom.style.top = pts.top + "px";
         }
     },
 
@@ -133,7 +174,7 @@ Ext.lib.Event = {
     },
 
     getPageY : function(e){
-        return Event.pointerX(e.browserEvent || e);
+        return Event.pointerY(e.browserEvent || e);
     },
 
     getXY : function(e){
@@ -153,7 +194,7 @@ Ext.lib.Event = {
         }
     },
 
-    getRelatedTarget: function(ev) {
+    getRelatedTarget: function(ev) { // missing from prototype?
         ev = ev.browserEvent || ev;
         var t = ev.relatedTarget;
         if (!t) {
@@ -179,7 +220,7 @@ Ext.lib.Event = {
         // no equiv?
     },
 
-    preventDefault : function(e){  // no equiv
+    preventDefault : function(e){   // missing from prototype?
         e = e.browserEvent || e;
         if(e.preventDefault) {
             e.preventDefault();
@@ -188,7 +229,7 @@ Ext.lib.Event = {
         }
     },
 
-    stopPropagation : function(e){  // no equiv
+    stopPropagation : function(e){   // missing from prototype?
         e = e.browserEvent || e;
         if(e.stopPropagation) {
             e.stopPropagation();
@@ -317,22 +358,16 @@ Ext.lib.Anim = function(){
             for(var k in args){
                 switch(k){   // scriptaculous doesn't support, so convert these
                     case 'points':
-                        var by, pts;
+                        var by, pts, e = Ext.fly(el, '_animrun');
+                        e.position();
                         if(by = args.points.by){
-                            var xy = Ext.lib.Dom.getXY(el);
-                            pts = translatePoints(el, [xy[0]+by[0], xy[1]+by[1]]);
+                            var xy = e.getXY();
+                            pts = e.translatePoints([xy[0]+by[0], xy[1]+by[1]]);
                         }else{
-                            pts = translatePoints(el, args.points.to);
+                            pts = e.translatePoints(args.points.to);
                         }
                         o.left = pts.left+'px';
                         o.top = pts.top+'px';
-                        var e = Ext.fly(el);
-                        //if(!parseInt(e.getStyle('left'), 10)){ // auto issues?
-                        //    e.setLeft(0);
-                        //}
-                        //if(!parseInt(e.getStyle('top'), 10)){
-                       //     e.setTop(0);
-                        //}
                     break;
                     case 'width':
                         o.width = args.width.to+'px';
@@ -360,6 +395,16 @@ Ext.lib.Anim = function(){
     };
 }();
 
+
+// all lib flyweight calls use their own flyweight to prevent collisions with developer flyweights
+function fly(el){
+    if(!libFlyweight){
+        libFlyweight = new Ext.Element.Flyweight();
+    }
+    libFlyweight.dom = el;
+    return libFlyweight;
+}
+    
 Ext.lib.Region = function(t, r, b, l) {
     this.top = t;
     this[1] = t;

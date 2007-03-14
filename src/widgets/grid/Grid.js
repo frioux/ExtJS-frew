@@ -37,7 +37,8 @@ Ext.grid.Grid = function(container, config){
 	this.container = Ext.get(container);
 	this.container.update("");
 	this.container.setStyle("overflow", "hidden");
-
+    this.container.addClass('x-grid-container');
+    
     this.id = this.container.id;
 	
     Ext.apply(this, config);

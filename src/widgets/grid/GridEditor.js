@@ -6,7 +6,7 @@ Ext.extend(Ext.grid.GridEditor, Ext.Editor, {
     alignment: "tl-tl",
     autoSize: "width",
     hideEl : false,
-    cls: "x-grid-editor",
+    cls: "x-small-editor x-grid-editor",
     shim:false,
     shadow:"frame"
 });

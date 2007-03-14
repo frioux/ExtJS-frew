@@ -661,6 +661,7 @@ Ext.extend(Ext.TabPanelItem, Ext.util.Observable, {
     /** @private */
     closeClick : function(e){
         var o = {};
+        e.stopEvent();
         this.fireEvent("beforeclose", this, o);
         if(o.cancel !== true){
             this.tabPanel.removeTab(this.id);

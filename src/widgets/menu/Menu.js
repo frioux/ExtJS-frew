@@ -79,10 +79,12 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
     },
 
     delayAutoWidth : function(){
-        if(!this.awTask){
-            this.awTask = new Ext.util.DelayedTask(this.autoWidth, this);
+        if(this.rendered){
+            if(!this.awTask){
+                this.awTask = new Ext.util.DelayedTask(this.autoWidth, this);
+            }
+            this.awTask.delay(20);
         }
-        this.awTask.delay(20);
     },
 
     findTargetItem : function(e){

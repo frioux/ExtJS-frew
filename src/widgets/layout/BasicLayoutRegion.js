@@ -109,8 +109,9 @@ Ext.extend(Ext.BasicLayoutRegion, Ext.util.Observable, {
      * @param {Number} newSize The new width or height
      */
     resizeTo : function(newSize){
-        if(this.activePanel){
-            var el = this.activePanel.getEl();
+        var el = this.el ? this.el :
+                 (this.activePanel ? this.activePanel.getEl() : null);
+        if(el){
             switch(this.position){
                 case "east":
                 case "west":

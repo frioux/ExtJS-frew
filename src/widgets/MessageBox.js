@@ -100,7 +100,7 @@ Ext.MessageBox = function(){
             if(!dlg.isVisible() && !opt.width){
                 dlg.resizeTo(this.maxWidth, 100); // resize first so content is never clipped from previous shows
             }
-            msgEl.innerHTML = text;
+            msgEl.innerHTML = text || '&#160;';
             var w = Math.max(Math.min(opt.width || msgEl.offsetWidth, this.maxWidth), 
                         Math.max(opt.minWidth || this.minWidth, bwidth));
             if(opt.prompt){

@@ -13,7 +13,7 @@
          this.el.addClass(this.cls);
      }
      // using a table allows for vertical alignment
-     this.el.update('<div class="x-toolbar"><table cellspacing="0"><tr></tr></table></div>');
+     this.el.update('<div class="x-toolbar x-small-editor"><table cellspacing="0"><tr></tr></table></div>');
      this.tr = this.el.child("tr", true);
      var autoId = 0;
      this.items = new Ext.util.MixedCollection(false, function(o){
@@ -40,7 +40,9 @@ Ext.Toolbar.prototype = {
         var a = arguments, l = a.length;
         for(var i = 0; i < l; i++){
             var el = a[i];
-            if(el.render){ // some kind of Toolbar.Item
+            if(el.applyTo){ // some kind of form field
+                this.addField(el);
+            }else if(el.render){ // some kind of Toolbar.Item
                 this.addItem(el);
             }else if(typeof el == "string"){ // string
                 if(el == "separator" || el == "-"){
@@ -162,7 +164,22 @@ Ext.Toolbar.prototype = {
         this.items.add(ti);
         return ti;
     },
-    
+
+    /**
+     * Add a dynamically rendered Ext.form field (TextField, ComboBox, etc). Note: the field should not have
+     * been rendered yet. For a field that has already been rendered, use addElement.
+     * @param {Field} field
+     * @return {ToolbarItem}
+     */
+    addField : function(field){
+        var td = this.nextBlock();
+        field.render(td);
+        var ti = new Ext.Toolbar.Item(td.firstChild);
+        ti.render(td);
+        this.items.add(ti);
+        return ti;
+    },
+
     // private
     nextBlock : function(){
         var td = document.createElement("td");

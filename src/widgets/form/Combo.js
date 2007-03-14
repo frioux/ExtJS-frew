@@ -92,13 +92,17 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     minListWidth : 70,
     forceSelection:false,
     typeAheadDelay : 250,
+    // when using a name/value combo, if the value passed to setValue is not found in the store,
+    // valueNotFoundText will be displayed
+    valueNotFoundText : undefined,
 
     onRender : function(ct){
         Ext.form.ComboBox.superclass.onRender.call(this, ct);
         if(this.hiddenName){
-            this.hiddenField = this.el.insertSibling({tag:'input', type:'hidden', name: this.hiddenName},
+            this.hiddenField = this.el.insertSibling({tag:'input', type:'hidden', name: this.hiddenName, id: this.hiddenName},
                     'before', true);
-            this.hiddenField.value = this.value;
+            this.hiddenField.value =
+                this.hiddenValue !== undefined ? this.hiddenValue : this.value;
         }
         if(Ext.isGecko){
             this.el.dom.setAttribute('autocomplete', 'off');
@@ -142,6 +146,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
 
         this.store.on('beforeload', this.onBeforeLoad, this);
         this.store.on('load', this.onLoad, this);
+        this.store.on('loadexception', this.collapse, this);
 
         if(this.resizable){
             this.resizer = new Ext.Resizable(this.list,  {
@@ -243,6 +248,9 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     },
 
     onBeforeLoad : function(){
+        if(!this.hasFocus){
+            return;
+        }
         this.innerList.update(this.loadingText ?
                '<div class="loading-indicator">'+this.loadingText+'</div>' : '');
         this.restrictHeight();
@@ -250,6 +258,9 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     },
 
     onLoad : function(){
+        if(!this.hasFocus){
+            return;
+        }
         if(this.store.getCount() > 0){
             this.expand();
             this.restrictHeight();
@@ -282,7 +293,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
             var len = newValue.length;
             var selStart = this.getRawValue().length;
             if(selStart != len){
-                this.setValue(newValue);
+                this.setRawValue(newValue);
                 this.selectText(selStart, newValue.length);
             }
         }
@@ -291,9 +302,6 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     onSelect : function(record, index){
         if(this.fireEvent('beforeselect', this, record, index) !== false){
             this.setValue(record.data[this.valueField || this.displayField]);
-            if(this.hiddenField){
-                this.hiddenField.value = this.value;
-            }
             this.collapse();
             this.fireEvent('select', this, record, index);
         }
@@ -313,9 +321,14 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
             var r = this.findRecord(this.valueField, v);
             if(r){
                 text = r.data[this.displayField];
+            }else if(this.valueNotFoundText){
+                text = this.valueNotFoundText;
             }
         }
         this.lastSelectionText = text;
+        if(this.hiddenField){
+            this.hiddenField.value = v;
+        }
         Ext.form.ComboBox.superclass.setValue.call(this, text);
         this.value = v;
     },
@@ -364,9 +377,9 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         var inner = this.innerList.dom;
         var h = Math.max(inner.clientHeight, inner.offsetHeight, inner.scrollHeight);
         this.innerList.setHeight(h < this.maxHeight ? 'auto' : this.maxHeight);
-        if(Ext.isIE){
-            this.list.setHeight(this.innerList.getHeight()+(this.resizable?this.handleHeight:0)+this.assetHeight);
-        }
+        //if(Ext.isIE){
+            this.list.setHeight(this.innerList.getHeight()+this.list.getFrameWidth('tb')+(this.resizable?this.handleHeight:0)+this.assetHeight);
+        //}
         this.list.sync();
     },
 
@@ -522,8 +535,14 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         if(this.disabled){
             return;
         }
-        this.doQuery(this.triggerAction == 'all' ?
+        if(this.isExpanded()){
+            this.collapse();
+            this.el.focus();
+        }else{
+            this.hasFocus = true;
+            this.doQuery(this.triggerAction == 'all' ?
                      this.doQuery(this.allQuery, true) : this.doQuery(this.getRawValue()));
-        this.el.focus();
+            this.el.focus();
+        }
     }
 });

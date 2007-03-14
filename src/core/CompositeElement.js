@@ -106,7 +106,9 @@ for(var fnName in Ext.Element.prototype){
  */
 Ext.CompositeElementLite = function(els){
     Ext.CompositeElementLite.superclass.constructor.call(this, els);
-    this.el = new Ext.Element(document.body, true);
+    var flyEl = function(){};
+    flyEl.prototype = Ext.Element.prototype;
+    this.el = new Ext.Element.Flyweight();
 };
 Ext.extend(Ext.CompositeElementLite, Ext.CompositeElement, {
     addElements : function(els){

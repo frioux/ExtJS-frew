@@ -368,6 +368,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
     onEditorKey : function(field, e){
         var k = e.getKey(), newCell, g = this.grid, ed = g.activeEditor;
         if(k == e.TAB){
+            ed.completeEdit();
             if(e.shiftKey){
                 newCell = g.walkCells(ed.row, ed.col-1, -1, this.acceptsNav, this);
             }else{
@@ -375,6 +376,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
             }
             e.stopEvent();
         }else if(k == e.ENTER && !e.ctrlKey){
+            ed.completeEdit();
             if(e.shiftKey){
                 newCell = g.walkCells(ed.row-1, ed.col, -1, this.acceptsNav, this);
             }else{

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project path="" name="Ext - JS Lib" author="Jack Slocum" version="1.0 Alpha 3 - Rev 1" copyright="Ext - JS Library $version&#xD;&#xA;Copyright(c) 2006-2007, $author.&#xD;&#xA;&#xD;&#xA;http://www.extjs.com/license.txt" output="F:\htdocs\deploy\ext-1.0-alpha3\" source="True" source-dir="$output\source" minify="True" min-dir="$output\build" doc="False" doc-dir="$output\docs" min-dair="$output\build">
+<project path="" name="Ext - JS Lib" author="Jack Slocum" version="1.0 Alpha 3 - Rev 4" copyright="Ext - JS Library $version&#xD;&#xA;Copyright(c) 2006-2007, $author.&#xD;&#xA;&#xD;&#xA;http://www.extjs.com/license.txt" output="F:\htdocs\deploy\ext-1.0-alpha3\" source="True" source-dir="$output\source" minify="True" min-dir="$output\build" doc="False" doc-dir="$output\docs" min-dair="$output\build">
   <directory name="" />
   <target name="Core" file="$output\ext-core.js" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="core\DomHelper.js" />
@@ -25,6 +25,7 @@
     <include name="core\UpdateManager.js" />
     <include name="util\Date.js" />
     <include name="util\DelayedTask.js" />
+    <include name="util\TaskMgr.js" />
     <include name="util\MixedCollection.js" />
     <include name="util\JSON.js" />
     <include name="util\Format.js" />
@@ -83,6 +84,7 @@
     <include name="widgets\tree\TreeSorter.js" />
     <include name="widgets\tree\TreeDropZone.js" />
     <include name="widgets\tree\TreeDragZone.js" />
+    <include name="widgets\tree\TreeEditor.js" />
     <include name="widgets\menu\Menu.js" />
     <include name="widgets\menu\MenuMgr.js" />
     <include name="widgets\menu\BaseItem.js" />
@@ -121,6 +123,7 @@
     <include name="widgets\grid\EditorGrid.js" />
     <include name="widgets\grid\GridEditor.js" />
     <include name="widgets\grid\PropertyGrid.js" />
+    <include name="debug.js" />
   </target>
   <file name="layout\LayoutRegionLite.js" path="layout" />
   <file name="DDScrollManager.js" path="" />
@@ -280,6 +283,7 @@
     <include name="widgets\tree\TreeSorter.js" />
     <include name="widgets\tree\TreeDropZone.js" />
     <include name="widgets\tree\TreeDragZone.js" />
+    <include name="widgets\tree\TreeEditor.js" />
   </target>
   <target name="Grid" file="$output\package\grid\grid.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="widgets\grid\Grid.js" />
@@ -528,4 +532,5 @@
   <file name="yui\event.js" path="yui" />
   <file name="yui\yahoo.js" path="yui" />
   <file name="debug.js" path="" />
+  <file name="widgets\tree\TreeEditor.js" path="widgets\tree" />
 </project>

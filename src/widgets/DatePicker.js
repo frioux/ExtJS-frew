@@ -26,7 +26,7 @@ Ext.extend(Ext.DatePicker, Ext.Component, {
     setValue : function(value){
         var old = this.value;
         this.value = value.clearTime(true);
-        if(this.rendered){
+        if(this.el){
             this.update(this.value);
         }
     },
@@ -36,7 +36,7 @@ Ext.extend(Ext.DatePicker, Ext.Component, {
     },
 
     focus : function(){
-        if(this.rendered){
+        if(this.el){
             this.update(this.activeDate);
         }
     },
@@ -227,7 +227,7 @@ Ext.extend(Ext.DatePicker, Ext.Component, {
         var vd = this.activeDate;
         this.activeDate = date;
 
-        if(vd && this.rendered){
+        if(vd && this.el){
             var t = date.getTime();
             if(vd.getMonth() == date.getMonth() && vd.getFullYear() == date.getFullYear()){
                 this.cells.removeClass("x-date-selected");
@@ -335,12 +335,12 @@ Ext.extend(Ext.DatePicker, Ext.Component, {
 
         this.mbtn.setText(this.monthNames[date.getMonth()] + " " + date.getFullYear());
 
-        if(!this.rendered){
+        if(!this.internalRender){
             var main = this.el.dom.firstChild;
             var w = main.offsetWidth;
             this.el.setWidth(w + this.el.getBorderWidth("lr"));
             Ext.fly(main).setWidth(w);
-
+            this.internalRender = true;
             // opera does not respect the auto grow header center column
             // then, after it gets a width opera refuses to recalculate
             // without a second pass

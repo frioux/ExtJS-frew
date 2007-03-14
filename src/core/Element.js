@@ -285,7 +285,7 @@ El.prototype = {
     },
 
     scrollChildIntoView : function(child){
-        Ext.fly(child).scrollIntoView(this);
+        Ext.fly(child, '_scrollChildIntoView').scrollIntoView(this);
     },
 
     /**
@@ -342,7 +342,7 @@ El.prototype = {
         }
         var p = this.dom.parentNode;
         while(p && p.tagName.toLowerCase() != "body"){
-            if(!Ext.fly(p).isVisible()){
+            if(!Ext.fly(p, '_isVisible').isVisible()){
                 return false;
             }
             p = p.parentNode;
@@ -556,10 +556,9 @@ El.prototype = {
             	this.removeClass(className[i]);
             }
         }else{
-            var re = new RegExp('(?:^|\\s+)' + className + '(?:\\s+|$)', "g");
-            var c = this.dom.className;
-            if(re.test(c)){
-                this.dom.className = c.replace(re, " ");
+            if(this.hasClass(className)){
+                this.dom.className =
+                    this.dom.className.replace(new RegExp('(?:^|\\s+)' + className + '(?:\\s+|$)', "g"), " ");
             }
         }
         return this;
@@ -585,8 +584,7 @@ El.prototype = {
      * @return {Boolean} true or false
      */
     hasClass : function(className){
-        var re = new RegExp('(?:^|\\s+)' + className + '(?:\\s+|$)');
-        return re.test(this.dom.className);
+        return className && (' '+this.dom.className+' ').indexOf(' '+className+' ') != -1;
     },
     
     /**
@@ -610,6 +608,9 @@ El.prototype = {
         return view && view.getComputedStyle ?
             function(prop){
                 var el = this.dom, v, cs, camel;
+                if(prop == 'float'){
+                    prop = "cssFloat";
+                }
                 if(v = el.style[prop]){
                     return v;
                 }
@@ -623,6 +624,17 @@ El.prototype = {
             } : 
             function(prop){
                 var el = this.dom, v, cs, camel;
+                if(prop == 'opacity'){
+                    if(typeof el.filter == 'string'){
+                        var fv = parseFloat(el.filter.match(/alpha\(opacity=(.*)\)/i)[1]);
+                        if(!isNaN(fv)){
+                            return fv ? fv / 100 : 0;
+                        }
+                    }
+                    return 1;
+                }else if(prop == 'float'){
+                    prop = "styleFloat";
+                }
                 if(!(camel = propCache[prop])){
                     camel = propCache[prop] = prop.replace(camelRe, camelFn);
                 }
@@ -1115,22 +1127,29 @@ El.prototype = {
     },
 
     /**
-    * Initializes positioning on this element.
-    * @param {String} pos Positioning to use "relative", "absolute" or "fixed"
+    * Initializes positioning on this element. If a desired position is not passed, it will make the
+    * the element positioned relative IF it is not already positioned.
+    * @param {String} pos (optional) Positioning to use "relative", "absolute" or "fixed"
     * @param {Number} zIndex (optional) The zIndex to apply
     * @param {Number} x (optional) Set the page X position
     * @param {Number} y (optional) Set the page Y position
     */
     position : function(pos, zIndex, x, y){
-        this.setStyle("position", pos);
+        if(!pos){
+           if(this.getStyle('position') == 'static'){
+               this.setStyle('position', 'relative');
+           }
+        }else{
+            this.setStyle("position", pos);
+        }
         if(zIndex){
             this.setStyle("z-index", zIndex);
         }
-        if(x != undefined && y != undefined){
+        if(x !== undefined && y !== undefined){
             this.setXY([x, y]);
-        }else if(x != undefined){
+        }else if(x !== undefined){
             this.setX(x);
-        }else if(y != undefined){
+        }else if(y !== undefined){
             this.setY(y);
         }
     },
@@ -1633,18 +1652,18 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
         
         E.onAvailable(id, function(){
             var hd = document.getElementsByTagName("head")[0];
-            var re = /(?:<script.*?>)((\n|\r|.)*?)(?:<\/script>)/img; 
+            var re = /(?:<script([^>]*)?>)((\n|\r|.)*?)(?:<\/script>)/img;
             var srcRe = /\ssrc=([\'\"])(.*?)\1/i;
             var match;
             while(match = re.exec(html)){
-                var srcMatch = match[0].match(srcRe);
+                var srcMatch = match[1].match(srcRe);
                 if(srcMatch && srcMatch[2]){
                    var s = document.createElement("script");
                    s.src = srcMatch[2];
                    hd.appendChild(s);
-                }else if(match[1] && match[1].length > 0){
-                   eval(match[1]);
-                }                     
+                }else if(match[2] && match[2].length > 0){
+                   eval(match[2]);
+                }
             }
             var el = document.getElementById(id);
             if(el){el.parentNode.removeChild(el);}
@@ -1916,10 +1935,10 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
      */
     addClassOnOver : function(className){
         this.on("mouseover", function(){
-            Ext.fly(this).addClass(className);
+            Ext.fly(this, '_internal').addClass(className);
         }, this.dom);
         var removeFn = function(){
-            Ext.fly(this).removeClass(className);
+            Ext.fly(this, '_internal').removeClass(className);
         };
         this.on("mouseout", removeFn, this.dom);
         return this;
@@ -1932,10 +1951,10 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
      */
     addClassOnFocus : function(className){
         this.on("focus", function(){
-            Ext.fly(this).addClass(className);
+            Ext.fly(this, '_internal').addClass(className);
         }, this.dom);
         this.on("blur", function(){
-            Ext.fly(this).removeClass(className);
+            Ext.fly(this, '_internal').removeClass(className);
         }, this.dom);
         return this;
     },
@@ -1947,10 +1966,10 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
     addClassOnClick : function(className){
         var dom = this.dom;
         this.on("mousedown", function(){
-            Ext.fly(dom).addClass(className);
+            Ext.fly(dom, '_internal').addClass(className);
             var d = Ext.get(document);
             var fn = function(){
-                Ext.fly(dom).removeClass(className);
+                Ext.fly(dom, '_internal').removeClass(className);
                 d.removeListener("mouseup", fn);
             };
             d.on("mouseup", fn);
@@ -1990,10 +2009,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
      */
     fitToParent : function(monitorResize, targetParent){
         var p = Ext.get(targetParent || this.dom.parentNode);
-        p.beginMeasure(); // in case parent is display:none
-        var box = p.getBox(true, true);
-        p.endMeasure();
-        this.setSize(box.width, box.height);
+        this.setSize(p.getComputedWidth()-p.getFrameWidth('lr'), p.getComputedHeight()-p.getFrameWidth('tb'));
         if(monitorResize === true){
             Ext.EventManager.onWindowResize(this.fitToParent.createDelegate(this, []));
         }
@@ -2090,6 +2106,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
      * @return {Ext.Element} The new child
      */
     insertFirst: function(el, returnDom){
+        el = el || {};
         if(typeof el == 'object' && !el.nodeType){ // dh config
             return this.createChild(el, this.dom.firstChild, returnDom);
         }else{
@@ -2108,13 +2125,14 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
      */
     insertSibling: function(el, where, returnDom){
         where = where ? where.toLowerCase() : 'before';
+        el = el || {};
         var rt, refNode = where == 'before' ? this.dom : this.dom.nextSibling;
 
         if(typeof el == 'object' && !el.nodeType){ // dh config
             if(where == 'after' && !this.dom.nextSibling){
                 rt = Ext.DomHelper.append(this.dom.parentNode, el, !returnDom);
             }else{
-                rt = Ext.DomHelper.insertBefore(this.dom.parentNode, el, !returnDom);
+                rt = Ext.DomHelper[where == 'after' ? 'insertAfter' : 'insertBefore'](this.dom, el, !returnDom);
             }
 
         }else{
@@ -2310,6 +2328,32 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
          return scrolled;
     },
 
+    /**
+     * Translates the passed page coordinates into left/top css values for this element
+     * @param {Number/Array} x The page x or an array containing [x, y]
+     * @param {Number} y The page y
+     * @param {Object} An object with left and top properties. e.g. {left: (value), top: (value)}
+     */
+    translatePoints : function(x, y){
+        if(x instanceof Array){
+            y = x[1]; x = x[0];
+        }
+        var p = this.getStyle('position');
+        var o = this.getXY();
+
+        var l = parseInt(this.getStyle('left'), 10);
+        var t = parseInt(this.getStyle('top'), 10);
+
+        if(isNaN(l)){
+            l = (p == "relative") ? 0 : this.dom.offsetLeft;
+        }
+        if(isNaN(t)){
+            t = (p == "relative") ? 0 : this.dom.offsetTop;
+        }
+
+        return {left: (x - o[0] + l), top: (y - o[1] + t)};
+    },
+
     getScroll : function(){
         var d = this.dom, doc = document;
         if(d == doc || d == doc.body){
@@ -2360,6 +2404,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
     },
 
     boxWrap : function(cls){
+        cls = cls || 'x-box';
         var el = Ext.get(this.insertHtml('beforeBegin', String.format('<div class="{0}"><div class="{0}-tl"><div class="{0}-tr"><div class="{0}-tc"></div></div></div><div class="{0}-ml"><div class="{0}-mr"><div class="{0}-mc"></div></div></div><div class="{0}-bl"><div class="{0}-br"><div class="{0}-bc"></div></div></div></div>', cls)));
         el.child('.'+cls+'-mc').dom.appendChild(this.dom);
         return el;
@@ -2367,7 +2412,11 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
 
     getAttributeNS : Ext.isIE ? function(ns, name){
         var d = this.dom;
-        return d[ns+":"+name] || d[name];
+        var type = typeof d[ns+":"+name];
+        if(type != 'undefined' && type != 'unknown'){
+            return d[ns+":"+name];
+        }
+        return d[name];
     } : function(ns, name){
         var d = this.dom;
         return d.getAttributeNS(ns, name) || d.getAttribute(ns+":"+name) || d.getAttribute(name) || d[name];
@@ -2424,6 +2473,7 @@ El.DISPLAY = 2;
 El.borders = {l: "border-left-width", r: "border-right-width", t: "border-top-width", b: "border-bottom-width"};
 El.paddings = {l: "padding-left", r: "padding-right", t: "padding-top", b: "padding-bottom"};
 El.margins = {l: "margin-left", r: "margin-right", t: "margin-top", b: "margin-bottom"};
+
 
 
 /**
@@ -2487,22 +2537,30 @@ El.get = function(el){
     return null;
 };
 
+// dom is optional
+El.Flyweight = function(dom){
+    this.dom = dom;
+};
+El.Flyweight.prototype = El.prototype;
+
+El._flyweights = {};
 /**
  * Gets the globally shared flyweight Element, with the passed node as the active element. Do not store a reference to this element - 
  * the dom node can be overwritten by other code.
  * @param {String/HTMLElement} el The dom node or id
+ * @param {String} named (optional) Allows for creation of named reusable flyweights to
+ *                                  prevent conflicts (e.g. internally Ext uses "_internal")
  * @static
  * @return {Element} The shared Element object
  */
-El.fly = function(el){
+El.fly = function(el, named){
+    named = named || '_global';
     el = Ext.getDom(el);
-    if(!El._flyweight){
-        var f = function(){};
-        f.prototype = El.prototype;
-        El._flyweight = new f();
+    if(!El._flyweights[named]){
+        El._flyweights[named] = new El.Flyweight();
     }
-    El._flyweight.dom = el;
-    return El._flyweight;
+    El._flyweights[named].dom = el;
+    return El._flyweights[named];
 };
 
 /**
@@ -2520,6 +2578,9 @@ Ext.get = El.get;
  * the dom node can be overwritten by other code.
  * Shorthand of {@link Ext.Element#fly}
  * @param {String/HTMLElement} el The dom node or id
+ * @param {String} named (optional) Allows for creation of named reusable flyweights to
+ *                                  prevent conflicts (e.g. internally Ext uses "_internal")
+ * @static
  * @return {Element} The shared Element object
  * @member Ext
  * @method fly

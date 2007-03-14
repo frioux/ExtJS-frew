@@ -149,7 +149,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
         }
         return totalWidth;
     },
-    
+
     getLockedCount : function(){
         for(var i = 0, len = this.config.length; i < len; i++){
             if(!this.isLocked(i)){

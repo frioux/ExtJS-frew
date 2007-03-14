@@ -89,6 +89,7 @@
 .ext-safari .x-form-field-wrap .x-form-date-trigger{
     right:0;
 }
+
 /* field focus style */
 .x-form-focus{
 	border: 1px solid #7eadd9;
@@ -186,4 +187,49 @@
 }
 .ext-ie .x-form fieldset legend {
     margin-bottom:10px;
+}
+
+.x-form-empty-field {
+    color:gray;
+}
+/* Editor small font for grid, toolbar and tree */
+.x-small-editor .x-form-field {
+    font:normal 11px arial, tahoma, helvetica, sans-serif;
+}
+.x-small-editor .x-form-text {
+    height:20px;
+    line-height:16px;
+    vertical-align:middle;
+}
+.ext-ie .x-small-editor .x-form-text {
+    margin-top:-1px !important; /* ie bogus margin bug */
+    margin-bottom:-1px !important;
+    height:20px !important; /* ie quirks */
+    line-height:16px !important;
+}
+.ext-strict .x-small-editor .x-form-text {
+    height:16px !important;
+}
+.ext-safari .x-small-editor .x-form-field {
+    /* safari text field will not size so needs bigger font */
+    font:normal 12px arial, tahoma, helvetica, sans-serif;
+}
+.ext-ie .x-small-editor .x-form-text {
+    height:20px;
+    line-height:16px;
+}
+.ext-border-box .x-small-editor .x-form-text {
+    height:20px;
+}
+
+.x-small-editor .x-form-select-one {
+    height:20px;
+    line-height:16px;
+    vertical-align:middle;
+}
+.x-small-editor .x-form-num-field {
+    text-align:right;
+}
+.x-small-editor .x-form-field-wrap .x-form-trigger{
+    height:19px;
 }

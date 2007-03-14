@@ -1,6 +1,6 @@
 /*
- * This is code is also distributed under the MIT license exclusively to be used
- * in conjunction with the jQuery JavaScript Library.
+ * This is code is also distributed under MIT license for use
+ * with jQuery and prototype JavaScript libraries.
  */
 /**
  * @class Ext.DomQuery
@@ -15,8 +15,7 @@ Ext.DomQuery = function(){
     var tplRe = /\{(\d+)\}/g;
     var modeRe = /^(\s?[\/>]\s?|\s|$)/;
     var tagTokenRe = /^(#)?([\w-\*]+)/;
-    var clsRes = {};
-
+    
     function child(p, index){
         var i = 0;
         var n = p.firstChild;
@@ -59,13 +58,10 @@ Ext.DomQuery = function(){
         if(!v){
             return c;
         }
-        if(!(re = clsRes[v])){
-            re = clsRes[v] = new RegExp("(?:^|\\s)" + v + "(?:\\s|$)");
-        }
         var r = [];
         for(var i = 0, ci; ci = c[i]; i++){
             cn = ci.className;
-            if(cn && re.test(cn)){
+            if(cn && (' '+cn+' ').indexOf(v) != -1){
                 r[r.length] = ci;
             }
         }
@@ -474,7 +470,7 @@ Ext.DomQuery = function(){
          */
         matchers : [{
                 re: /^\.([\w-]+)/,
-                select: 'n = byClassName(n, null, "{1}");'
+                select: 'n = byClassName(n, null, " {1} ");'
             }, {
                 re: /^\:([\w-]+)(?:\(((?:[^\s>\/]*|.*?))\))?/,
                 select: 'n = byPseudo(n, "{1}", "{2}");'

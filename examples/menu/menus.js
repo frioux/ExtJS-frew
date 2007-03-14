@@ -117,9 +117,24 @@ Ext.onReady(function(){
         icon: 'list-items.gif', // icons can also be specified inline
         cls: 'x-btn-icon',
         tooltip: '<b>Quick Tips</b><br/>Icon only button with tooltip'
-    });
+    }, '-');
 
-    new Ext.MenuButton(document.body, {text:'Menu Button 1', menu: dateMenu});
+    // add a combobox to the toolbar
+    var store = new Ext.data.SimpleStore({
+        fields: ['abbr', 'state'],
+        data : Ext.exampledata.states // from states.js
+    });
+    var combo = new Ext.form.ComboBox({
+        store: store,
+        displayField:'state',
+        typeAhead: true,
+        mode: 'local',
+        triggerAction: 'all',
+        emptyText:'Select a state...',
+        selectOnFocus:true,
+        width:135
+    });
+    tb.addField(combo);
 
     // functions to display feedback
     function onButtonClick(btn){

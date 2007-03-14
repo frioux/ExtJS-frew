@@ -9,6 +9,9 @@
  * @cfg {String} icon The path to an icon for the node. The preferred way to do this
  * is to use the cls attribute and add the icon via a CSS background image.
  * @cfg {String} cls A css class to be added to the node
+ * @cfg {String} href URL of the link used for the node (defaults to #)
+ * @cfg {String} hrefTarget target frame for the link
+ * @cfg {String} qtip An Ext QuickTip for the node
  * @cfg {Function} uiProvider A UI <b>class</b> to use for this node (defaults to Ext.tree.TreeNodeUI)
  * @constructor
  * @param {Object/String} attributes The attributes/config for the node or just a string with the text for the node 
@@ -351,8 +354,8 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
     /**
      * Ensures all parent nodes are expanded
      */
-    ensureVisible : function(){
-        this.getOwnerTree().expandPath(this.getPath());
+    ensureVisible : function(callback){
+        this.getOwnerTree().expandPath(this.getPath(), false, callback);
     },
     
     /**

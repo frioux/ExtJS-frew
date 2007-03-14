@@ -350,7 +350,7 @@ Ext.DomHelper = function(){
      */
     createTemplate : function(o){
         var html = createHtml(o);
-        return new Ext.DomHelper.Template(html);
+        return new Ext.Template(html);
     }
     };
 }();

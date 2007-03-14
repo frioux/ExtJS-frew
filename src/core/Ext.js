@@ -216,7 +216,7 @@ Ext.apply = function(o, c, defaults){
         },
 
         escapeRe : function(s) {
-            return s.replace(/[.*+?^${}()|[\]\/\\]/g, "\\$0");
+            return s.replace(/([.*+?^${}()|[\]\/\\])/g, "\\$1");
         },
 
         callback : function(cb, scope, args, delay){

@@ -43,11 +43,11 @@ Ext.extend(Ext.Editor, Ext.Component, {
         }
         this.boundEl = Ext.get(el);
         var v = value !== undefined ? value : this.boundEl.dom.innerHTML;
-        if(this.fireEvent("beforestartedit", this, this.boundEl, v) === false){
-            return;
-        }
         if(!this.rendered){
             this.render(this.parentEl || document.body);
+        }
+        if(this.fireEvent("beforestartedit", this, this.boundEl, v) === false){
+            return;
         }
         this.startValue = v;
         this.field.setValue(v);
@@ -55,13 +55,13 @@ Ext.extend(Ext.Editor, Ext.Component, {
             var sz = this.boundEl.getSize();
             switch(this.autoSize){
                 case "width":
-                this.field.setSize(sz.width,  "");
+                this.setSize(sz.width,  "");
                 break;
                 case "height":
-                this.field.setSize("",  sz.height);
+                this.setSize("",  sz.height);
                 break;
                 default:
-                this.field.setSize(sz.width,  sz.height);
+                this.setSize(sz.width,  sz.height);
             }
         }
         this.el.alignTo(this.boundEl, this.alignment);
@@ -72,17 +72,27 @@ Ext.extend(Ext.Editor, Ext.Component, {
         this.show();
     },
 
+    setSize : function(w, h){
+        this.field.setSize(w, h);
+        if(this.el){
+            this.el.sync();
+        }
+    },
+
     realign : function(){
         this.el.alignTo(this.boundEl, this.alignment);
     },
 
     completeEdit : function(remainVisible){
+        if(!this.editing){
+            return;
+        }
         var v = this.getValue();
         if(this.revertInvalid !== false && !this.field.isValid()){
             v = this.startValue;
             this.cancelEdit(true);
         }
-        if(v == this.startValue && this.ignoreNoChange){
+        if(String(v) == String(this.startValue) && this.ignoreNoChange){
             this.editing = false;
             this.hide();
         }
@@ -109,9 +119,11 @@ Ext.extend(Ext.Editor, Ext.Component, {
     },
 
     cancelEdit : function(remainVisible){
-        this.setValue(this.startValue);
-        if(remainVisible !== true){
-            this.hide();
+        if(this.editing){
+            this.setValue(this.startValue);
+            if(remainVisible !== true){
+                this.hide();
+            }
         }
     },
 

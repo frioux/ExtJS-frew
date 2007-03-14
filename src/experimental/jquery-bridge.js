@@ -4,29 +4,6 @@ if(typeof jQuery == "undefined"){
 
 (function(){
 
-function translatePoints(el, xy){
-    var e = Ext.fly(el);
-    var p = e.getStyle('position');
-    if(p == "static") {
-        e.position("relative");
-        p = "relative";
-    }
-
-    var o = jQuery(el).offset({scroll:true}), x = o.left,  y = o.top;
-
-    var l = parseInt(e.getStyle('left'), 10);
-    var t = parseInt(e.getStyle('top'), 10);
-
-    if(isNaN(l)){
-        l = (p == "relative") ? 0 : e.dom.offsetLeft;
-    }
-    if(isNaN(t)){
-        t = (p == "relative") ? 0 : e.dom.offsetTop;
-    }
-
-    return {left: (xy[0] - x + l), top: (xy[1] - y + t)};
-}
-
 Ext.lib.Dom = {
     getViewWidth : function(full){
         // jQuery doesn't report full window size on document query, so max both
@@ -67,11 +44,11 @@ Ext.lib.Dom = {
     },
 
     getY : function(el){
-        return jQuery(el).offset({scroll:true}).top;
+        return jQuery(el).offset().top;
     },
 
     getX : function(el){
-        return jQuery(el).offset({scroll:true}).left;
+        return jQuery(el).offset().left;
     },
 
     getXY : function(el){
@@ -79,18 +56,16 @@ Ext.lib.Dom = {
         return [o.left,  o.top];
     },
 
-    setXY : function(el, xy, noretry){
-        el = Ext.getDom(el);
-        var pts = translatePoints(el, xy);
+    setXY : function(el, xy){
+        el = Ext.fly(el, '_setXY');
+        el.position();
+        var pts = el.translatePoints(xy);
         if(xy[0] !== false){
-            el.style.left = pts.left + "px";
+            el.dom.style.left = pts.left + "px";
         }
         if(xy[1] !== false){
-            el.style.top = pts.top + "px";
+            el.dom.style.top = pts.top + "px";
         }
-        //if(!noretry){
-        //    this.setXY(el, xy, true);
-        //}
     },
 
     setX : function(el, x){
@@ -284,17 +259,17 @@ Ext.lib.Anim = function(){
             for(var k in args){
                 switch(k){   // jquery doesn't support, so convert
                     case 'points':
-                        var by, pts;
+                        var by, pts, e = Ext.fly(el, '_animrun');
+                        e.position();
                         if(by = args.points.by){
-                            var xy = Ext.lib.Dom.getXY(el);
-                            pts = translatePoints(el, [xy[0]+by[0], xy[1]+by[1]]);
+                            var xy = e.getXY();
+                            pts = e.translatePoints([xy[0]+by[0], xy[1]+by[1]]);
                         }else{
-                            pts = translatePoints(el, args.points.to);
+                            pts = e.translatePoints(args.points.to);
                         }
                         o.left = pts.left;
                         o.top = pts.top;
-                        var e = Ext.fly(el);
-                        if(!parseInt(e.getStyle('left'), 10)){
+                        if(!parseInt(e.getStyle('left'), 10)){ // auto bug
                             e.setLeft(0);
                         }
                         if(!parseInt(e.getStyle('top'), 10)){

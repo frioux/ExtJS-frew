@@ -643,7 +643,24 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
         }
         return null;
     },
-    
+
+    /**
+     * Finds the first child by a custom function. The child matches if the function passed
+     * returns true.
+     * @param {Function} fn
+     * @param {Object} scope (optional)
+     * @return {Node} The found child or null if none was found
+     */
+    findChildBy : function(fn, scope){
+        var cs = this.childNodes;
+        for(var i = 0, len = cs.length; i < len; i++) {
+        	if(fn.call(scope||cs[i], cs[i]) === true){
+        	    return cs[i];
+        	}
+        }
+        return null;
+    },
+
     /**
      * Sorts this nodes children using the supplied sort function
      * @param {Function} fn

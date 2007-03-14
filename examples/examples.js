@@ -1,3 +1,5 @@
+Ext.BLANK_IMAGE_URL = '/deploy/ext-1.0-alpha3/resources/images/default/s.gif';
+
 Ext.example = function(){
     var msgCt;
 
@@ -31,6 +33,7 @@ Ext.example = function(){
             }
             if(theme){
                 t.dom.value = theme;
+                Ext.get(document.body).addClass('x-'+theme);
             }
             s.on('change', function(){
                 Cookies.set('extlib', s.getValue());

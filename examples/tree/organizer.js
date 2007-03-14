@@ -79,27 +79,11 @@ var TreeTest = function(){
             root.expand();
             
             // add an inline editor for the nodes
-            var ge = new Ext.Editor(new Ext.form.TextField({
+            var ge = new Ext.tree.TreeEditor(tree, {
                 allowBlank:false,
                 blankText:'A name is required',
-                width:100
-            }), {
-                parentEl: tree.getEl(),
-                alignment:'tl-tl'
+                selectOnFocus:true
             });
-            ge.on('complete', function(e, value){
-                ge.node.setText(value);
-            });
-            // listen for a click on a node that is already selected
-            // and start editing. return false to cancel the default click action.
-            tree.on('beforeclick', function(node){
-                if(tree.getSelectionModel().isSelected(node)){
-                    ge.node = node;
-                    ge.startEdit(node.ui.getAnchor(), node.text);
-                    return false;
-                }
-            });
-            
             
             // create the required templates
         	var tpl = new Ext.Template(

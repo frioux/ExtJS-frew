@@ -19,10 +19,9 @@ function formatBytes($val, $digits = 3, $mode = "SI", $bB = "B"){ //$mode == "SI
    elseif($p !== false) $val = round($val, $digits-$p);
    return round($val, $digits) . " " . $symbols[$i] . $bB;
 }
-   
 $dir = $_REQUEST['lib'] == 'yui' ? '../../../' : '../../';
 $node = $_REQUEST['node'];
-if(strpos($node, '..') === 0){
+if(strpos($node, '..') !== false){
 	die('Nice try buddy.');
 }
 $nodes = array();

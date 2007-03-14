@@ -84,8 +84,8 @@ Ext.extend(Ext.grid.EditorGrid, Ext.grid.Grid, {
         this.editing = false;
         this.activeEditor = null;
         ed.un("specialkey", this.selModel.onEditorKey, this.selModel);
-        if(value != startValue){
-            var r = this.dataSource.getAt(ed.row);
+        if(String(value) != String(startValue)){
+            var r = ed.record;
             var field = this.colModel.getDataIndex(ed.col);
             var e = {
                 grid: this,
@@ -130,7 +130,9 @@ Ext.extend(Ext.grid.EditorGrid, Ext.grid.Grid, {
                 this.editing = true; // flag for buffering of orphan key strokes
                 (function(){ // complex but required for focus issues in safari, ie and opera
                     var ed = this.colModel.getCellEditor(col, row);
-                    ed.row = row; ed.col = col;
+                    ed.row = row;
+                    ed.col = col;
+                    ed.record = r;
                     ed.on("complete", this.onEditComplete, this, {single: true});
                     ed.on("specialkey", this.selModel.onEditorKey, this.selModel);
                     this.activeEditor = ed;

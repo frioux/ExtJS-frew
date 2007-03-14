@@ -4,7 +4,9 @@ Ext.form.Field = function(config){
         focus : true,
         blur : true,
         specialkey: true,
-        change:true
+        change:true,
+        invalid : true,
+        valid : true
     });
 };
 
@@ -44,8 +46,12 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
             }
             this.el = ct.createChild(cfg);
         }
-        if(this.el.dom.type){
-            this.el.addClass('x-form-'+this.el.dom.type);
+        var type = this.el.dom.type;
+        if(type){
+            if(type == 'password'){
+                type = 'text';
+            }
+            this.el.addClass('x-form-'+type);
         }
         if(!this.customSize && (this.width || this.height)){
             this.setSize(this.width || "", this.height || "");
@@ -165,6 +171,7 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
                 t.style.display = this.msgDisplay;
                 break;
         }
+        this.fireEvent('invalid', this, msg);
     },
 
     clearInvalid : function(){
@@ -194,6 +201,7 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
                 t.style.display = 'none';
                 break;
         }
+        this.fireEvent('valid', this);
     },
 
     getRawValue : function(){
@@ -202,6 +210,10 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
 
     getValue : function(){
         return this.el.getValue();
+    },
+
+    setRawValue : function(v){
+        return this.el.dom.value = v;
     },
 
     setValue : function(v){

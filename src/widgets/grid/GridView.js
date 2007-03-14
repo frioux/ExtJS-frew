@@ -125,6 +125,14 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 		    );
             tpls.cell.disableFormats = true;
         }
+		if(!tpls.rowMarker){
+		    tpls.rowMarker = new Ext.Template(
+		        '<td class="x-grid-row-marker">',
+		        '<div class="x-grid-col-{id} x-grid-cell-inner"><div class="x-grid-cell-text" unselectable="on" {attr}>{value}</div></div>',
+		        "</td>"
+		    );
+            tpls.cell.disableFormats = true;
+        }
 		tpls.cell.compile();
 		
 		this.templates = tpls;
@@ -177,7 +185,17 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
     },
 
 	onUpdate : function(ds, record){
-        var index = this.ds.indexOf(record);
+        this.refreshRow(record);
+    },
+
+    refreshRow : function(record){
+        var ds = this.ds, index;
+        if(typeof record == 'number'){
+            index = record;
+            record = ds.getAttribute(index);
+        }else{
+            index = ds.indexOf(record);
+        }
         var rows = this.getRowComposite(index);
         var cls = [];
         this.insertRows(ds, index, index, true);
@@ -395,7 +413,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 
     onRowOut : function(e, t){
         var row;
-        if((row = this.findRowIndex(t)) !== false && row != this.findRowIndex(e.getRelatedTarget())){
+        if((row = this.findRowIndex(t)) !== false && row !== this.findRowIndex(e.getRelatedTarget())){
             this.getRowComposite(row).removeClass("x-grid-row-over");
         }
     },
@@ -642,18 +660,18 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         startRow = startRow || 0;
         var rows = this.getBodyTable().rows;
         var lrows = this.getLockedTable().rows;
-        var re = /x-grid-row-alt/g;
+        var cls = ' x-grid-row-alt ';
         for(var i = startRow, len = rows.length; i < len; i++){
             var row = rows[i], lrow = lrows[i];
             var isAlt = ((i+1) % 2 == 0);
-            var hasAlt = re.test(row.className);
+            var hasAlt = (' '+row.className + ' ').indexOf(cls) != -1;
             if(isAlt == hasAlt){
                 continue;
             }
             if(isAlt){
                 row.className += " x-grid-row-alt";
             }else{
-                row.className = row.className.replace(re, "");
+                row.className = row.className.replace("x-grid-row-alt", "");
             }
             if(lrow){
                 lrow.className = row.className;
@@ -704,8 +722,9 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         // build a map for all the columns
         var cs = [];
         for(var i = 0; i < colCount; i++){
+            var name = cm.getDataIndex(i);
             cs[i] = {
-                name : cm.getDataIndex(i) || ds.fields.get(i).name,
+                name : typeof name == 'undefined' ? ds.fields.get(i).name : name,
                 renderer : cm.getRenderer(i),
                 id : cm.getColumnId(i),
                 locked : cm.isLocked(i)
@@ -748,15 +767,18 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
                             lcb+= markup;
                         }
                     }
-                    var alt = "";
+                    var alt = [];
                     if(stripe && ((rowIndex+1) % 2 == 0)){
-                        alt = "x-grid-row-alt";
+                        alt[0] = "x-grid-row-alt";
                     }
                     if(r.dirty){
-                        alt += alt ? " x-grid-dirty-row" : " x-grid-dirty-row";
+                        alt[1] = " x-grid-dirty-row";
                     }
                     rp.cells = lcb;
-                    rp.alt = alt;
+                    if(this.getRowClass){
+                        alt[2] = this.getRowClass(r, rowIndex);
+                    }
+                    rp.alt = alt.join(" ");
                     lbuf+= rt.apply(rp);
                     rp.cells = cb;
                     buf+=  rt.apply(rp);
@@ -786,15 +808,19 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
                             lcb[lcb.length] = markup;
                         }
                     }
-                    var alt = "";
+                    var alt = [];
                     if(stripe && ((rowIndex+1) % 2 == 0)){
-                        alt = "x-grid-row-alt";
+                        alt[0] = "x-grid-row-alt";
                     }
                     if(r.dirty){
-                        alt += alt ? " x-grid-dirty-row" : " x-grid-dirty-row";
+                        alt[1] = " x-grid-dirty-row";
                     }
+                    rp.cells = lcb;
+                    if(this.getRowClass){
+                        alt[2] = this.getRowClass(r, rowIndex);
+                    }
+                    rp.alt = alt.join(" ");
                     rp.cells = lcb.join("");
-                    rp.alt = alt;
                     lbuf[lbuf.length] = rt.apply(rp);
                     rp.cells = cb.join("");
                     buf[buf.length] =  rt.apply(rp);
@@ -1130,7 +1156,6 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         if(this.grid.monitorWindowResize === true){
             Ext.EventManager.onWindowResize(this.onWindowResize, this, true);
         }
-        
         var header = this.renderHeaders();
         var body = this.templates.body.apply({rows:""});
         var html = this.templates.master.apply({
@@ -1262,14 +1287,19 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
                 expandCol = this.grid.autoExpandColumn,
                 gv = this;
         //c.beginMeasure();
-        
-        // required for ie
+
+        var hasLock = this.cm.isLocked(0);
+
         var tbh = this.headerPanel.getHeight();
         var bbh = this.footerPanel.getHeight();
 
         if(auto){
             var ch = this.getBodyTable().offsetHeight + tbh + bbh + this.mainHd.getHeight();
             c.setHeight(ch+c.getBorderWidth("tb"));
+        }
+
+        if(this.grid.autoWidth){
+            c.setWidth(cm.getTotalWidth()+c.getBorderWidth('lr'));
         }
 
         var s = this.scroller;
@@ -1288,7 +1318,8 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         s.setSize(vw, vh);
 
         var bt = this.getBodyTable();
-        var ltWidth = Math.max(this.getLockedTable().offsetWidth, this.lockedHd.dom.firstChild.offsetWidth);
+        var ltWidth = hasLock ?
+                      Math.max(this.getLockedTable().offsetWidth, this.lockedHd.dom.firstChild.offsetWidth) : 0;
 
         var scrollHeight = bt.offsetHeight;
         var scrollWidth = ltWidth + bt.offsetWidth;
@@ -1314,10 +1345,10 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             mb.setHeight(h-hdHeight);
 
             var tw;
-            if(!gv.userResized && expandCol && w > (tw = cm.getTotalWidth(false))){
+            if(!gv.userResized && expandCol && gv.ds.getCount() > 0 && w > (tw = cm.getTotalWidth(false))){
                 // high speed resize without full column calculation
                 var ci = cm.getIndexById(expandCol);
-                var cw = ((w-tw)+cm.getColumnWidth(ci))-/*scrollbar*/(w < s.dom.offsetWidth ? 0 : 16);
+                var cw = ((w-tw)+cm.getColumnWidth(ci)-2)-/*scrollbar*/(w <= s.dom.offsetWidth ? 0 : 18);
                 cm.setColumnWidth(ci, cw, true);
                 gv.css.updateRule(gv.colSelector+expandCol, "width", (cw - gv.borderWidth) + "px");
                 gv.css.updateRule(gv.hdSelector+expandCol, "width", (cw - gv.borderWidth) + "px");

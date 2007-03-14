@@ -8,6 +8,7 @@
     <!-- LIBS -->     <script type="text/javascript" src="../../yui-utilities.js"></script>     <script type="text/javascript" src="../../ext-yui-adapter.js"></script>     <!-- ENDLIBS -->
     <script type="text/javascript" src="../../ext-all.js"></script>
 
+    <script type="text/javascript" src="states.js"></script>
     <script type="text/javascript" src="combos.js"></script>
     <link rel="stylesheet" type="text/css" href="combos.css" />
 
@@ -42,7 +43,8 @@ var combo = new Ext.form.ComboBox({
     typeAhead: true,
     mode: 'local',
     triggerAction: 'all',
-    value:'Ohio'
+    emptyText:'Select a state...',
+    selectOnFocus:true
 });
 combo.applyTo('local-states');
 </code></pre>

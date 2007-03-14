@@ -30,18 +30,8 @@ Ext.tree.TreePanel = function(el, config){
     * Read-only. The id of the container element becomes this TreePanel's id.
     */
    this.id = this.el.id;
-   Ext.apply(this, config || {}, {
-       rootVisible : true,
-       animate: Ext.enableFx,
-       lines : true,
-       enableDD : false,
-       hlDrop : Ext.enableFx/*,
-       hlColor: null,
-       ddGroup : "TreeDD"
-       hlBaseColor : "FFFFFF"*/
-       
-   });
-   Ext.apply(this.events, {
+   Ext.apply(this, config);
+   this.addEvents({
         /**
         * @event beforeload
         * Fires before a node is loaded, return false to cancel
@@ -210,9 +200,44 @@ Ext.tree.TreePanel = function(el, config){
    });
    if(this.singleExpand){
        this.on("beforeexpand", this.restrictExpand, this);
-   }   
+   }
+   if(this.enableEdit){
+       // add an inline editor for the nodes
+            var ge = new Ext.Editor(new Ext.form.TextField({
+                allowBlank:false,
+                blankText:'A name is required',
+                width:100
+            }), {
+                alignment:'tl-tl'
+            });
+            ge.on('complete', function(e, value){
+                ge.node.setText(value);
+            });
+            // listen for a click on a node that is already selected
+            // and start editing. return false to cancel the default click action.
+            tree.on('beforeclick', function(node){
+                if(tree.getSelectionModel().isSelected(node)){
+                    ge.node = node;
+                    ge.startEdit(node.ui.getAnchor(), node.text);
+                    return false;
+                }
+            });
+            
+   }
 };
 Ext.extend(Ext.tree.TreePanel, Ext.data.Tree, {
+    rootVisible : true,
+    animate: Ext.enableFx,
+    lines : true,
+    enableDD : false,
+    hlDrop : Ext.enableFx,
+
+    bindEditor : function(editor){
+        this.el.on('scroll', function(){
+            editor.cancelEdit();
+        });
+        editor.el.addClass()
+    },
     // private
     restrictExpand : function(node){
         var p = node.parentNode;

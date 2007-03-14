@@ -57,6 +57,20 @@
 	background:#f1f1f1;
 }
 
+
+.x-grid-locked .x-grid-body td {
+	background: #ebeadb;
+	border-right: 1px solid #D6D2C2;
+	border-bottom: 1px solid #D6D2C2 !important;
+}
+
+.x-grid-locked .x-grid-header table{
+    border-right:1px solid transparent;
+}
+.x-grid-locked .x-grid-body table{
+    border-right:1px solid #c6c2b2;
+}
+
 .x-grid-bottombar .x-toolbar{
 	border-right:0 none;
 	border-bottom:0 none;

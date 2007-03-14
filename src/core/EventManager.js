@@ -18,6 +18,9 @@ Ext.EventManager = function(){
             if(docReadyProcId){
                 clearInterval(docReadyProcId);
             }
+            if(Ext.isGecko || Ext.isOpera) {
+                document.removeEventListener("DOMContentLoaded", fireDocReady, false);
+            }
             if(docReadyEvent){
                 docReadyEvent.fire();
                 docReadyEvent.clearListeners();

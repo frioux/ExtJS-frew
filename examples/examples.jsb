@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project path="" name="Ext Examples" author="Jack Slocum" version="1.0 Alpha 3 - Rev 1" copyright="Ext - JS Library $version&#xD;&#xA;Copyright(c) 2006-2007, $author." output="F:\htdocs\deploy\ext-1.0-alpha3\examples" source="True" source-dir="$output" minify="False" min-dir="$output\build" doc="False" doc-dir="$output\docs" master="true" master-file="$output\yui-ext.js" zip="true" zip-file="$output\yuo-ext.$version.zip">
+<project path="" name="Ext Examples" author="Jack Slocum" version="1.0 Alpha 3 - Rev 4" copyright="Ext - JS Library $version&#xD;&#xA;Copyright(c) 2006-2007, $author." output="F:\htdocs\deploy\ext-1.0-alpha3\examples" source="True" source-dir="$output" minify="False" min-dir="$output\build" doc="False" doc-dir="$output\docs" master="true" master-file="$output\yui-ext.js" zip="true" zip-file="$output\yuo-ext.$version.zip">
   <directory name="" />
   <file name="dialog\blog.html" path="dialog" />
   <file name="dialog\comments.txt" path="dialog" />
@@ -148,4 +148,5 @@
   <file name="prototype.js" path="" />
   <file name="scriptaculous.js" path="" />
   <file name="form\combos.css" path="form" />
+  <file name="form\states.js" path="form" />
 </project>

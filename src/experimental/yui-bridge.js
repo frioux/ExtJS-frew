@@ -9,6 +9,7 @@ var CN = YAHOO.util.Connect;
 
 var ES = YAHOO.util.Easing;
 var A = YAHOO.util.Anim;
+var libFlyweight;
 
 Ext.lib.Dom = {
     getViewWidth : function(full){
@@ -28,27 +29,99 @@ Ext.lib.Dom = {
     },
 
     getY : function(el){
-        return D.getY(el);
+        return this.getXY(el)[1];
     },
 
     getX : function(el){
-        return D.getX(el);
+        return this.getXY(el)[0];
     },
 
+    // original version based on YahooUI getXY
+    // this version fixes several issues in Safari and FF
+    // and boosts performance by removing the batch overhead, repetitive dom lookups and array index calls
     getXY : function(el){
-        return D.getXY(el);
+        var p, pe, b, scroll, bd = document.body;
+        el = Ext.getDom(el);
+
+        if(el.getBoundingClientRect){ // IE
+            b = el.getBoundingClientRect();
+            scroll = fly(document).getScroll();
+            return [b.left + scroll.left, b.top + scroll.top];
+        } else{
+            var x = el.offsetLeft, y = el.offsetTop;
+            p = el.offsetParent;
+
+            // ** flag if a parent is positioned for Safari
+            var hasAbsolute = false;
+
+            if(p != el){
+                while(p){
+                    x += p.offsetLeft;
+                    y += p.offsetTop;
+
+                    // ** flag Safari abs position bug - only check if needed
+                    if(Ext.isSafari && !hasAbsolute && fly(p).getStyle("position") == "absolute"){
+                        hasAbsolute = true;
+                    }
+
+                    // ** Fix gecko borders measurements
+                    // Credit jQuery dimensions plugin for the workaround
+                    if(Ext.isGecko){
+                        pe = fly(p);
+                        var bt = parseInt(pe.getStyle("borderTopWidth"), 10) || 0;
+                        var bl = parseInt(pe.getStyle("borderLeftWidth"), 10) || 0;
+
+                        // add borders to offset
+                        x += bl;
+                        y += bt;
+
+                        // Mozilla removes the border if the parent has overflow property other than visible
+                        if(p != el && pe.getStyle('overflow') != 'visible'){
+                            x += bl;
+                            y += bt;
+                        }
+                    }
+                    p = p.offsetParent;
+                }
+            }
+            // ** safari doubles in some cases, use flag from offsetParent's as well
+            if(Ext.isSafari && (hasAbsolute || fly(el).getStyle("position") == "absolute")){
+                x -= bd.offsetLeft;
+                y -= bd.offsetTop;
+            }
+        }
+
+        p = el.parentNode;
+
+        while(p && p != bd){
+            // ** opera TR has bad scroll values, so filter them jvs
+            if(!Ext.isOpera || (Ext.isOpera && p.tagName != 'TR' && fly(p).getStyle("display") != "inline")){
+                x -= p.scrollLeft;
+                y -= p.scrollTop;
+            }
+            p = p.parentNode;
+        }
+        return [x, y];
     },
 
     setXY : function(el, xy){
-        D.setXY(el, xy);
+        el = Ext.fly(el, '_setXY');
+        el.position();
+        var pts = el.translatePoints(xy);
+        if(xy[0] !== false){
+            el.dom.style.left = pts.left + "px";
+        }
+        if(xy[1] !== false){
+            el.dom.style.top = pts.top + "px";
+        }
     },
 
     setX : function(el, x){
-        D.setX(el, x);
+        this.setXY(el, [x, false]);
     },
 
     setY : function(el, y){
-        D.setY(el, y);
+        this.setXY(el, [false, y]);
     }
 };
 
@@ -151,6 +224,15 @@ Ext.lib.Anim = {
     }
 };
 
+// all lib flyweight calls use their own flyweight to prevent collisions with developer flyweights
+function fly(el){
+    if(!libFlyweight){
+        libFlyweight = new Ext.Element.Flyweight();
+    }
+    libFlyweight.dom = el;
+    return libFlyweight;
+}
+
 // prevent IE leaks
 if(Ext.isIE){
     YAHOO.util.Event.on(window, "unload", function(){
@@ -184,99 +266,11 @@ if(YAHOO.util.DragDrop && Ext.dd.DragDrop){
     YAHOO.util.DragDrop.constrainTo = Ext.dd.DragDrop.constrainTo;
 }
 
-// various getXY fixes,  Changes are preceded with **
 YAHOO.util.Dom.getXY = function(el) {
-    var isIE = Ext.isIE, isGecko = Ext.isGecko, isSafari = Ext.isSafari, Y = YAHOO.util;
-
     var f = function(el) {
-
-    // has to be part of document to have pageXY
-        if (el.parentNode === null || el.offsetParent === null ||
-                this.getStyle(el, "display") == "none") {
-            return false;
-        }
-
-        var parentNode = null;
-        var pos = [];
-        var box;
-
-        if (el.getBoundingClientRect) { // IE
-            box = el.getBoundingClientRect();
-            var doc = document;
-            if ( !this.inDocument(el) && parent.document != document) {// might be in a frame, need to get its scroll
-                doc = parent.document;
-
-                if ( !this.isAncestor(doc.documentElement, el) ) {
-                    return false;
-                }
-
-            }
-
-            var scrollTop = Math.max(doc.documentElement.scrollTop, doc.body.scrollTop);
-            var scrollLeft = Math.max(doc.documentElement.scrollLeft, doc.body.scrollLeft);
-
-            return [box.left + scrollLeft, box.top + scrollTop];
-        } else { // safari, opera, & gecko
-            pos = [el.offsetLeft, el.offsetTop];
-            parentNode = el.offsetParent;
-            var hasAbsolute = false; // ** flag if a parent is positioned
-
-            if (parentNode != el) {
-                while (parentNode) {
-                    pos[0] += parentNode.offsetLeft;
-                    pos[1] += parentNode.offsetTop;
-                    // ** only check if needed
-                    if(isSafari && !hasAbsolute && this.getStyle(parentNode, "position") == "absolute" ){
-                        hasAbsolute = true;
-                    }
-                    // ** Fix gecko borders measurements
-                    // Credit jQuery dimensions plugin for the workaround
-                    if(isGecko){
-                        // get borders
-                        var bt = parseInt(this.getStyle(parentNode, "borderTopWidth")) || 0;
-                        var bl = parseInt(this.getStyle(parentNode, 'borderLeftWidth')) || 0;
-
-                        // add borders to offset
-                        pos[0] += bl;
-                        pos[1] += bt;
-
-                        // Mozilla removes the border if the parent has overflow property other than visible
-                        if (parentNode != el && this.getStyle(parentNode, 'overflow') != 'visible') {
-                            pos[0] += bl;
-                            pos[1] += bt;
-                        }
-                    }
-                    parentNode = parentNode.offsetParent;
-                }
-            }
-            // ** safari doubles in some cases, use flag from offsetParent's as well
-            if (isSafari && (hasAbsolute || this.getStyle(el, "position") == "absolute")) {
-                pos[0] -= document.body.offsetLeft;
-                pos[1] -= document.body.offsetTop;
-            }
-        }
-
-        if (el.parentNode) { parentNode = el.parentNode; }
-        else { parentNode = null; }
-
-        while (parentNode && parentNode.tagName.toUpperCase() != "BODY" && parentNode.tagName.toUpperCase() != "HTML")
-        { // account for any scrolled ancestors
-            // ** opera TR has bad scroll values, so filter them jvs
-            if (Y.Dom.getStyle(parentNode, "display") != "inline" && parentNode.tagName.toUpperCase() != "TR") { // work around opera inline scrollLeft/Top bug
-                pos[0] -= parentNode.scrollLeft;
-                pos[1] -= parentNode.scrollTop;
-            }
-
-            if (parentNode.parentNode) {
-                parentNode = parentNode.parentNode;
-            } else { parentNode = null; }
-        }
-
-
-        return pos;
+        return Ext.lib.Dom.getXY(el);
     };
-
-    return Y.Dom.batch(el, f, Y.Dom, true);
+    return YAHOO.util.Dom.batch(el, f, YAHOO.util.Dom, true);
 };
 
 
@@ -292,4 +286,5 @@ YAHOO.util.Region.prototype.adjust = function(t, l, b, r){
     this.bottom += b;
     return this;
 };
+
 })();

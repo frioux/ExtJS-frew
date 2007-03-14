@@ -34,11 +34,27 @@
 	border-right: 1px solid #ebebeb;
 	border-bottom: 1px solid #ebebeb;
 }
+/* Locked styles */
+
 .x-grid-locked .x-grid-body td {
-	background: #ebeadb;
-	border-right: 1px solid #D6D2C2;
-	border-bottom: 1px solid #D6D2C2 !important;
+	background: #FBFDFF;
+	border-right: 1px solid #deecfd;
+	border-bottom: 1px solid #deecfd !important;
 }
+.x-grid-locked .x-grid-body td .x-grid-cell-inner {
+	border-top:0 none;
+}
+.x-grid-locked .x-grid-row-alt td{
+	background: #F5FAFE;
+}
+
+.x-grid-locked .x-grid-header table{
+    border-right:1px solid transparent;
+}
+.x-grid-locked .x-grid-body table{
+    border-right:1px solid #c3daf9;
+}
+
 .x-grid-locked .x-grid-body td .x-grid-cell-inner {
 	
 }
@@ -174,44 +190,6 @@
 	background:transparent url(../images/default/grid/col-move-bottom.gif) no-repeat left top;
 }
 
-/* Editor font matches grid */
-.x-grid-editor .x-form-field {
-    font:normal 11px arial, tahoma, helvetica, sans-serif;
-}
-.x-grid-editor .x-form-text {
-    height:20px;
-    line-height:16px;
-    vertical-align:middle;
-}
-.ext-ie .x-grid-editor .x-form-text {
-    margin-top:-1px; /* ie bogus margin bug */
-    margin-bottom:-1px;
-    height:20px; /* ie quirks */
-    line-height:16px;
-}
-.ext-strict .x-grid-editor .x-form-text {
-    height:16px;
-}
-
-.ext-ie .x-grid-editor .x-form-text {
-    height:20px;
-    line-height:16px;
-}
-.ext-border-box .x-grid-editor .x-form-text {
-    height:20px;
-}
-
-.x-grid-editor .x-form-select-one {
-    height:20px;
-    line-height:16px;
-    vertical-align:middle;
-}
-.x-grid-editor .x-form-num-field {
-    text-align:right;
-}
-.x-grid-editor .x-form-field-wrap .x-form-trigger{
-    height:19px;
-}
 /* Selection Styles */
 .x-grid-row-selected td, .x-grid-locked .x-grid-row-selected td{
 	background-color: #316ac5 !important;
@@ -233,6 +211,12 @@
 .x-grid-cell-selected .x-grid-cell-text{
 	color: white;
 }
+
+/* dirty cells */
+.x-grid-dirty-cell {
+    background: transparent url(../images/default/grid/dirty.gif) no-repeat 0 0;
+}
+
 /* Grid Toolbars */
 .x-grid-topbar, .x-grid-bottombar{
 	font:normal 11px arial, tahoma, helvetica, sans-serif;
@@ -266,6 +250,7 @@
 .x-props-grid .x-grid-split-value {
     visibility:hidden;
 }
+
 /* header menu */
 .xg-hmenu-sort-asc .x-menu-item-icon{
 	background-image: url(../images/default/grid/hmenu-asc.gif);
@@ -274,8 +259,8 @@
 	background-image: url(../images/default/grid/hmenu-desc.gif);
 }
 .xg-hmenu-lock .x-menu-item-icon{
-	background-image: url(../images/default/grid/hmenu-lock.png);
+	background-image: url(../images/default/grid/hmenu-lock.gif);
 }
 .xg-hmenu-unlock .x-menu-item-icon{
-	background-image: url(../images/default/grid/hmenu-unlock.png);
+	background-image: url(../images/default/grid/hmenu-unlock.gif);
 }

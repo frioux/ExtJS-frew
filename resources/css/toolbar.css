@@ -12,7 +12,7 @@
 	border: 0 none;
 	background: url(../images/default/grid/mso-hd.gif);
 }
-.x-toolbar td,.x-toolbar span,.x-toolbar input,.x-toolbar div,.x-toolbar select{
+.x-toolbar td,.x-toolbar span,.x-toolbar input,.x-toolbar div,.x-toolbar select,.x-toolbar label{
 	white-space: nowrap;
     font:normal 11px tahoma, arial, helvetica, sans-serif;
 }
@@ -97,9 +97,15 @@
 	background-image: url(../images/default/grid/grid-blue-split.gif);
 }
 
+/* IE refuses to respect the negative margins in the toolbar */
+.ext-ie .x-toolbar .x-form-field-wrap {
+	padding-bottom:1px;
+}
+.ext-ie .x-toolbar .x-form-field-wrap .x-form-trigger {
+	top:1px;
+}
 
 /* Paging Toolbar */
-
 
 .x-grid-page-number{
 	width:24px;

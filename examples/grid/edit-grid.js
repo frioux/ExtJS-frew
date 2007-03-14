@@ -16,7 +16,7 @@ Ext.onReady(function(){
     var cm = new Ext.grid.ColumnModel([{
            header: "Common Name",
            dataIndex: 'common',
-           width: 160,
+           width: 220,
            editor: new Ed(new fm.TextField({
                allowBlank: false
            }))
@@ -96,22 +96,19 @@ Ext.onReady(function(){
         enableColLock:false
     });
 
-    // make the grid resizable, do before render for better performance
-    var rz = new Ext.Resizable('editor-grid', {
-        wrap:true,
-        minWidth: 300,
-        minHeight:100,
-        pinned:true,
-        handles: 's,e,se',
-        transparent:true
-    });
-    rz.on('resize', grid.autoSize, grid);
+    var layout = Ext.BorderLayout.create({
+        center: {
+            margins:{left:3,top:3,right:3,bottom:3},
+            panels: [new Ext.GridPanel(grid)]
+        }
+    }, 'grid-panel');
+
 
     // render it
     grid.render();
 
-    var gridHead = grid.getView().getHeaderPanel();
-    gridHead.show();
+    
+    var gridHead = grid.getView().getHeaderPanel(true);
     var tb = new Ext.Toolbar(gridHead, [{
         text: 'Add Plant',
         handler : function(){

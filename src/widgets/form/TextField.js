@@ -6,15 +6,37 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
     initEvents : function(){
         Ext.form.TextField.superclass.initEvents.call(this);
         this.el.on(this.validationEvent, this.validate, this, {buffer: this.validationDelay});
-        if(this.selectOnFocus){
-            this.el.on("focus", function(){
-                try{
-                    this.dom.select();
-                }catch(e){}
-            });
+        if(this.selectOnFocus || this.emptyText){
+            this.on("focus", this.preFocus, this);
+            if(this.emptyText){
+                this.on('blur', this.postBlur, this);
+                if(!this.value && this.getRawValue().length < 1){
+                    this.setRawValue(this.emptyText);
+                    this.el.addClass(this.emptyClass);
+                }
+            }
         }
         if(this.maskRe || (this.vtype && this.disableKeyFilter !== true && (this.maskRe = Ext.form.VTypes[this.vtype+'Mask']))){
             this.el.on("keypress", this.filterKeys, this);
+        }
+    },
+
+    preFocus : function(){
+        if(this.emptyText){
+            if(this.getRawValue() == this.emptyText){
+                this.setRawValue('');
+            }
+            this.el.removeClass(this.emptyClass);
+        }
+        if(this.selectOnFocus){
+            this.el.dom.select();
+        }
+    },
+
+    postBlur : function(){
+        if(this.emptyText && this.getRawValue().length < 1){
+            this.setRawValue(this.emptyText);
+            this.el.addClass(this.emptyClass);
         }
     },
 
@@ -87,7 +109,7 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
 
     vtype : null,
     maskRe : null,
-    disaleKeyFilter:false,
+    disableKeyFilter:false,
     allowBlank : true,
     minLength : 0,
     maxLength : Number.MAX_VALUE,
@@ -97,5 +119,7 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
     blankText : "This field is required",
     validator : null,
     regex : null,
-    regexText : ""
+    regexText : "",
+    emptyText : null,
+    emptyClass : 'x-form-empty-field'
 });
