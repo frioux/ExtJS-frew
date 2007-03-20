@@ -45,6 +45,7 @@ Ext.form.ComboBox = function(config){
         }
         s.name = Ext.id(); // wipe out the name in case somewhere else they have a reference
         if(!this.lazyRender){
+            this.target = true;
             this.el = Ext.DomHelper.insertBefore(s, this.autoCreate || this.defaultAutoCreate);
             s.parentNode.removeChild(s); // remove it
             this.render(this.el.parentNode);
@@ -102,7 +103,11 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
             this.hiddenField = this.el.insertSibling({tag:'input', type:'hidden', name: this.hiddenName, id: this.hiddenName},
                     'before', true);
             this.hiddenField.value =
-                this.hiddenValue !== undefined ? this.hiddenValue : this.value;
+                this.hiddenValue !== undefined ? this.hiddenValue :
+                this.value !== undefined ? this.value : '';
+
+            // prevent input submission
+            this.el.dom.name = '';
         }
         if(Ext.isGecko){
             this.el.dom.setAttribute('autocomplete', 'off');
@@ -309,10 +314,18 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
 
     getValue : function(){
         if(this.valueField){
-            return this.value;
+            return typeof this.value != 'undefined' ? this.value : '';
         }else{
             return Ext.form.ComboBox.superclass.getValue.call(this);
         }
+    },
+
+    clearValue : function(){
+        if(this.hiddenField){
+            this.hiddenField.value = '';
+        }
+        this.setRawValue('');
+        this.lastSelectionText = '';
     },
 
     setValue : function(v){
@@ -436,7 +449,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     },
 
     onKeyUp : function(e){
-        if(!e.isSpecialKey()){
+        if(this.editable !== false && !e.isSpecialKey()){
             this.lastKey = e.getKey();
             this.dqTask.delay(this.queryDelay);
         }

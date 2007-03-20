@@ -12,6 +12,7 @@
 
 .x-box-tl {
 	background: transparent url(../images/default/box/corners.gif) no-repeat 0 0;
+    zoom:1;
 }
 
 .x-box-tc {
@@ -25,9 +26,10 @@
 }
 
 .x-box-ml {
-	background: transparent url(../images/default/box/l.gif) repeat-y left;
+	background: transparent url(../images/default/box/l.gif) repeat-y 0;
 	padding-left: 4px;
 	overflow: hidden;
+    zoom:1;
 }
 
 .x-box-mc {
@@ -52,6 +54,7 @@
 
 .x-box-bl {
 	background: transparent url(../images/default/box/corners.gif) no-repeat 0 -16px;
+    zoom:1;
 }
 
 .x-box-bc {

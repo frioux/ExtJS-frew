@@ -387,7 +387,7 @@ Ext.lib.Anim = function(){
             anim.effect = new Effect.Morph(Ext.id(el), {
                 duration: duration,
                 afterFinish: anim.proxyCallback,
-                transition: easings[easing] || Effects.Transitions.linear,
+                transition: easings[easing] || Effect.Transitions.linear,
                 style: o
             });
             return anim;

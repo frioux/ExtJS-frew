@@ -253,7 +253,7 @@ um.update({<br/>
                 isUpload = true;
                 cb.upload = this.successDelegate;
             }
-            this.transaction = Ext.lib.Ajax.formRequest(form, url, cb, null, isUpload, this.sslBlankUrl);
+            this.transaction = Ext.lib.Ajax.formRequest(formEl, url, cb, null, isUpload, this.sslBlankUrl);
             this.showLoading.defer(1, this);
         }
     },

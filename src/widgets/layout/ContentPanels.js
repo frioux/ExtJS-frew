@@ -65,7 +65,16 @@ Ext.ContentPanel = function(el, config, content){
          * Fires when this panel is activated. 
          * @param {Ext.ContentPanel} this
          */
-        "deactivate" : true
+        "deactivate" : true,
+
+        /**
+         * @event resize
+         * Fires when this panel is resized if fitToFrame is true.
+         * @param {Ext.ContentPanel} this
+         * @param {Number} width The width after any component adjustments
+         * @param {Number} height The height after any component adjustments
+         */
+        "resize" : true
     };
     if(this.autoScroll){
         this.resizeEl.setStyle("overflow", "auto");
@@ -174,6 +183,10 @@ Ext.extend(Ext.ContentPanel, Ext.util.Observable, {
     },
     
     adjustForComponents : function(width, height){
+        if(this.resizeEl != this.el){
+            width -= this.el.getFrameWidth('lr');
+            height -= this.el.getFrameWidth('tb');
+        }
         if(this.toolbar){
             var te = this.toolbar.getEl();
             height -= te.getHeight();
@@ -193,6 +206,7 @@ Ext.extend(Ext.ContentPanel, Ext.util.Observable, {
             }
             var size = this.adjustForComponents(width, height);
             this.resizeEl.setSize(this.autoWidth ? "auto" : size.width, size.height);
+            this.fireEvent('resize', this, size.width, size.height);
         }
     },
     
@@ -312,9 +326,9 @@ Ext.extend(Ext.GridPanel, Ext.ContentPanel, {
     },
     
     destroy : function(){
-        this.grid.getView().unplugDataModel(this.grid.getDataModel());
-        this.grid.container.removeAllListeners();
-        Ext.GridPanel.superclass.destroy.call(this);
+        this.grid.destroy();
+        delete this.grid;
+        Ext.GridPanel.superclass.destroy.call(this); 
     }
 });
 

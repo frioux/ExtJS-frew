@@ -1,4 +1,4 @@
-Ext.BLANK_IMAGE_URL = '/deploy/ext-1.0-alpha3/resources/images/default/s.gif';
+Ext.BLANK_IMAGE_URL = '../../resources/images/default/s.gif';
 
 Ext.example = function(){
     var msgCt;

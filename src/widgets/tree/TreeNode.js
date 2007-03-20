@@ -355,7 +355,11 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
      * Ensures all parent nodes are expanded
      */
     ensureVisible : function(callback){
-        this.getOwnerTree().expandPath(this.getPath(), false, callback);
+        var tree = this.getOwnerTree();
+        tree.expandPath(this.getPath(), false, function(){
+            tree.getEl().scrollChildIntoView(this.ui.anchor);
+            Ext.callback(callback);
+        }.createDelegate(this));
     },
     
     /**

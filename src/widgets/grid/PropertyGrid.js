@@ -54,7 +54,7 @@ Ext.extend(Ext.grid.PropertyStore, Ext.util.Observable, {
 
     setValue : function(prop, value){
         this.source[prop] = value;
-        this.store.getById(prop).setValue(prop, value);
+        this.store.getById(prop).set('value', value);
     },
 
     getSource : function(){

@@ -245,3 +245,11 @@ body.x-body-masked .x-dlg select {
 	border-bottom:1px solid #65A1EF;
 	border-right:1px solid #65A1EF;
 }
+
+#x-msg-box .x-msg-box-wait {
+	background: transparent url(../images/default/grid/loading.gif) no-repeat left;
+    display:block;
+    width:300px;
+    padding-left:18px;
+    line-height:18px;
+}

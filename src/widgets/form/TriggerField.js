@@ -1,6 +1,8 @@
 Ext.form.TriggerField = function(config){
     Ext.form.TriggerField.superclass.constructor.call(this, config);
     this.mimicing = false;
+    this.on('disable', this.disableWrapper, this);
+    this.on('enable', this.enableWrapper, this);
 };
 
 Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
@@ -76,6 +78,18 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
 
     validateBlur : function(e, t){
         return true;
+    },
+
+    disableWrapper : function(){
+        if(this.wrap){
+            this.wrap.addClass('x-item-disabled');
+        }
+    },
+
+    enableWrapper : function(){
+        if(this.wrap){
+            this.wrap.removeClass('x-item-disabled');
+        }
     },
 
     onTriggerClick : Ext.emptyFn

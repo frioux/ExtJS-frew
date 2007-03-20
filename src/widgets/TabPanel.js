@@ -715,7 +715,7 @@ Ext.TabPanel.prototype.createStripElements = function(stripEl, text, closable){
         if(!this.closeTpl){
             this.closeTpl = new Ext.Template(
                '<a href="#" class="x-tabs-right"><span class="x-tabs-left"><em class="x-tabs-inner">' +
-               '<span unselectable="on" title="{text}" class="x-tabs-text">{text}</span>' +
+               '<span unselectable="on"' + (this.disableTooltips ? '' : ' title="{text}"') +' class="x-tabs-text">{text}</span>' +
                '<div unselectable="on" class="close-icon">&#160;</div></em></span></a>'
             );
         }
@@ -727,7 +727,7 @@ Ext.TabPanel.prototype.createStripElements = function(stripEl, text, closable){
         if(!this.tabTpl){
             this.tabTpl = new Ext.Template(
                '<a href="#" class="x-tabs-right"><span class="x-tabs-left"><em class="x-tabs-inner">' +
-               '<span unselectable="on" title="{text}" class="x-tabs-text">{text}</span></em></span></a>'
+               '<span unselectable="on"' + (this.disableTooltips ? '' : ' title="{text}"') +' class="x-tabs-text">{text}</span></em></span></a>'
             );
         }
         var el = this.tabTpl.overwrite(td, {"text": text});

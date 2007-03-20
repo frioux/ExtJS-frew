@@ -660,7 +660,7 @@ El.prototype = {
             if(!(camel = propCache[prop])){
                 camel = propCache[prop] = prop.replace(camelRe, camelFn);
             }
-            if(name == 'opacity') {
+            if(camel == 'opacity') {
                 this.setOpacity(value);
             }else{
                 this.dom.style[camel] = value;
@@ -1656,7 +1656,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
             var srcRe = /\ssrc=([\'\"])(.*?)\1/i;
             var match;
             while(match = re.exec(html)){
-                var srcMatch = match[1].match(srcRe);
+                var srcMatch = match[1] ? match[1].match(srcRe) : false;
                 if(srcMatch && srcMatch[2]){
                    var s = document.createElement("script");
                    s.src = srcMatch[2];
@@ -2335,7 +2335,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
      * @param {Object} An object with left and top properties. e.g. {left: (value), top: (value)}
      */
     translatePoints : function(x, y){
-        if(x instanceof Array){
+        if(typeof x == 'object' || x instanceof Array){
             y = x[1]; x = x[0];
         }
         var p = this.getStyle('position');
@@ -2556,6 +2556,9 @@ El._flyweights = {};
 El.fly = function(el, named){
     named = named || '_global';
     el = Ext.getDom(el);
+    if(!el){
+        return null;
+    }
     if(!El._flyweights[named]){
         El._flyweights[named] = new El.Flyweight();
     }

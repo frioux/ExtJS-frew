@@ -47,6 +47,8 @@ Ext.Toolbar.prototype = {
             }else if(typeof el == "string"){ // string
                 if(el == "separator" || el == "-"){
                     this.addSeparator();
+                }else if(el == " "){
+                    this.addSpacer();
                 }else{
                     this.addText(el);
                 }
@@ -73,7 +75,15 @@ Ext.Toolbar.prototype = {
     addSeparator : function(){
         return this.addItem(new Ext.Toolbar.Separator());
     },
-    
+
+    /**
+     * Adds a spacer element
+     * @return {Ext.Toolbar.Item} The spacer item
+     */
+    addSpacer : function(){
+        return this.addItem(new Ext.Toolbar.Spacer());
+    },
+
     /**
      * Adds any standard HTML element to the toolbar
      * @param {String/HTMLElement/Element} el The element or id of the element to add
@@ -287,6 +297,18 @@ Ext.Toolbar.Separator = function(){
     Ext.Toolbar.Separator.superclass.constructor.call(this, s);
 };
 Ext.extend(Ext.Toolbar.Separator, Ext.Toolbar.Item);
+
+/**
+ * @class Ext.Toolbar.Spacer
+ * @extends Ext.Toolbar.Item
+ * @constructor
+ */
+Ext.Toolbar.Spacer = function(){
+    var s = document.createElement("div");
+    s.className = "ytb-spacer";
+    Ext.Toolbar.Separator.superclass.constructor.call(this, s);
+};
+Ext.extend(Ext.Toolbar.Spacer, Ext.Toolbar.Item);
 
 /**
  * @class Ext.Toolbar.TextItem

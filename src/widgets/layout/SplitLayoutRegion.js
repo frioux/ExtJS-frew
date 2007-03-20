@@ -6,9 +6,6 @@
 Ext.SplitLayoutRegion = function(mgr, config, pos, cursor){
     this.cursor = cursor;
     Ext.SplitLayoutRegion.superclass.constructor.call(this, mgr, config, pos);
-    if(config.split){
-        this.hide();
-    }
 };
 
 Ext.extend(Ext.SplitLayoutRegion, Ext.LayoutRegion, {
@@ -26,7 +23,7 @@ Ext.extend(Ext.SplitLayoutRegion, Ext.LayoutRegion, {
                 this.split = new Ext.SplitBar(splitEl, this.el, this.orientation);
                 this.split.on("moved", this.onSplitMove, this);
                 this.split.useShim = config.useShim === true;
-                this.split.getMaximumSize = this.getMaxSize.createDelegate(this);
+                this.split.getMaximumSize = this[this.position == 'north' || this.position == 'south' ? 'getVMaxSize' : 'getHMaxSize'].createDelegate(this);
                 if(this.useSplitTips){
                     this.split.el.dom.title = config.collapsible ? this.collapsibleSplitTip : this.splitTip;
                 }
@@ -40,15 +37,24 @@ Ext.extend(Ext.SplitLayoutRegion, Ext.LayoutRegion, {
             if(typeof config.maxSize != "undefined"){
                 this.split.maxSize = config.maxSize;
             }
+            if(config.hideWhenEmpty || config.hidden){
+                this.hideSplitter();
+            }
         }
     },
 
-    getMaxSize : function(){
+    getHMaxSize : function(){
          var cmax = this.config.maxSize || 10000;
          var center = this.mgr.getRegion("center");
          return Math.min(cmax, (this.el.getWidth()+center.getEl().getWidth())-center.getMinWidth());
     },
-    
+
+    getVMaxSize : function(){
+         var cmax = this.config.maxSize || 10000;
+         var center = this.mgr.getRegion("center");
+         return Math.min(cmax, (this.el.getHeight()+center.getEl().getHeight())-center.getMinHeight());
+    },
+
     onSplitMove : function(split, newSize){
         this.fireEvent("resized", this, newSize);
     },
@@ -62,13 +68,17 @@ Ext.extend(Ext.SplitLayoutRegion, Ext.LayoutRegion, {
     },
     
     hide : function(){
+        this.hideSplitter();
+        Ext.SplitLayoutRegion.superclass.hide.call(this);
+    },
+
+    hideSplitter : function(){
         if(this.split){
             this.split.el.setLocation(-2000,-2000);
             this.split.el.hide();
         }
-        Ext.SplitLayoutRegion.superclass.hide.call(this);
     },
-    
+
     show : function(){
         if(this.split){
             this.split.el.show();
@@ -149,7 +159,7 @@ Ext.extend(Ext.SplitLayoutRegion, Ext.LayoutRegion, {
             this.stickBtn.show();
         }
         this.el.show();
-        this.el.alignTo(this.collapsedEl, this.getCollapseAnchor(), this.getAlignAdj());
+        this.el.alignTo(this.collapsedEl, this.getCollapseAnchor());
         this.beforeSlide();
         this.el.setStyle("z-index", 20000);
         this.el.slideIn(this.getSlideAnchor(), {
@@ -281,16 +291,16 @@ Ext.extend(Ext.SplitLayoutRegion, Ext.LayoutRegion, {
         var cm = this.cmargins;
         switch(this.position){
             case "west":
-                return [-cm.right,  -cm.top];
+                return [0, 0];
             break;
             case "east":
-                return [cm.left,  -cm.top];
+                return [0, 0];
             break;
             case "north":
-                return [-cm.left,  -cm.bottom];
+                return [0, 0];
             break;
             case "south":
-                return [-cm.left,  cm.top];
+                return [0, 0];
             break;
         }
     },
@@ -299,16 +309,16 @@ Ext.extend(Ext.SplitLayoutRegion, Ext.LayoutRegion, {
         var c = this.collapsedEl, cm = this.cmargins;
         switch(this.position){
             case "west":
-                return [-(cm.right+c.getWidth()+cm.left),  -cm.top];
+                return [-(cm.right+c.getWidth()+cm.left), 0];
             break;
             case "east":
-                return [cm.right+c.getWidth()+cm.left,  -cm.top];
+                return [cm.right+c.getWidth()+cm.left, 0];
             break;
             case "north":
-                return [-cm.right, -(cm.top+cm.bottom+c.getHeight())];
+                return [0, -(cm.top+cm.bottom+c.getHeight())];
             break;
             case "south":
-                return [-cm.right, cm.top+cm.bottom+c.getHeight()];
+                return [0, cm.top+cm.bottom+c.getHeight()];
             break;
         }
     }

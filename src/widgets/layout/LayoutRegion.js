@@ -22,6 +22,9 @@
  * @cfg {Number} minTabWidth The minimum tab width (defaults to 40)
  * @cfg {Number} preferredTabWidth The preferred tab width (defaults to 150)
  * @cfg {Boolean} showPin True to show a pin button
+* @cfg {Boolean} hidden True to start the region hidden
+* @cfg {Boolean} hideWhenEmpty True to hide the region when it has no panels
+* @cfg {Boolean} disableTabTips True to disable tab tooltips
  */
 Ext.LayoutRegion = function(mgr, config, pos){
     Ext.LayoutRegion.superclass.constructor.call(this, mgr, config, pos, true);
@@ -43,12 +46,14 @@ Ext.LayoutRegion = function(mgr, config, pos){
     this.closeBtn.hide();
     /** This regions body element @type Ext.Element */
     this.bodyEl = dh.append(this.el.dom, {tag: "div", cls: "x-layout-panel-body"}, true);
-    this.visible = false;
+    this.visible = true;
     this.collapsed = false;
-    this.hide();
-    this.on("paneladded", this.validateVisibility, this);
-    this.on("panelremoved", this.validateVisibility, this);
-    
+
+    if(config.hideWhenEmpty){
+        this.hide();
+        this.on("paneladded", this.validateVisibility, this);
+        this.on("panelremoved", this.validateVisibility, this);
+    }
     this.applyConfig(config);
 };
 
@@ -109,6 +114,9 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
         this.config = c;
         if(c.collapsed){
             this.collapse(true);
+        }
+        if(c.hidden){
+            this.hide();
         }
     },
     /**
@@ -282,7 +290,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
      */
     expand : function(e, skipAnim){
         if(e) e.stopPropagation();
-        if(!this.collapsed) return;
+        if(!this.collapsed || this.el.hasActiveFx()) return;
         if(this.isSlid){
             this.afterSlideIn();
             skipAnim = true;
@@ -308,7 +316,10 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
     
     initTabs : function(){
         this.bodyEl.setStyle("overflow", "hidden");
-        var ts = new Ext.TabPanel(this.bodyEl.dom, this.bottomTabs);
+        var ts = new Ext.TabPanel(this.bodyEl.dom, {
+            tabPosition: this.bottomTabs ? 'bottom' : 'top',
+            disableTooltips: this.config.disableTabTips
+        });
         if(this.config.hideTabs){
             ts.stripWrap.setDisplayed(false);
         }
@@ -507,7 +518,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
         }
         if(this.panels.getCount() == 1 && this.tabs && !this.config.alwaysShowTabs){
             var p = this.panels.first();
-            var tempEl = document.createElement("span"); // temp holder to keep IE from deleting the node
+            var tempEl = document.createElement("div"); // temp holder to keep IE from deleting the node
             tempEl.appendChild(p.getEl().dom);
             this.bodyEl.update("");
             this.bodyEl.dom.appendChild(p.getEl().dom);

@@ -237,7 +237,8 @@ Ext.util.Observable.releaseCapture = function(o){
                 if(!this.firing){
                     this.listeners.splice(index, 1);
                 }else{
-                    this.listeners = this.listeners.slice(0).splice(index, 1);
+                    this.listeners = this.listeners.slice(0);
+                    this.listeners.splice(index, 1);
                 }
                 return true;
             }

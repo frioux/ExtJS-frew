@@ -644,15 +644,15 @@ Ext.DomQuery = function(){
             },
             
             "nth" : function(c, a){
-                return c[a-1];
+                return c[a-1] || [];
             },
             
             "first" : function(c){
-                return c[0];
+                return c[0] || [];
             },
             
             "last" : function(c){
-                return c[c.length-1];
+                return c[c.length-1] || [];
             },
             
             "has" : function(c, ss){

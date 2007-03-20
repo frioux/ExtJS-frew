@@ -5,7 +5,9 @@ Ext.form.TextField = function(config){
 Ext.extend(Ext.form.TextField, Ext.form.Field,  {
     initEvents : function(){
         Ext.form.TextField.superclass.initEvents.call(this);
-        this.el.on(this.validationEvent, this.validate, this, {buffer: this.validationDelay});
+        if(this.validationEvent !== false){
+            this.el.on(this.validationEvent, this.validate, this, {buffer: this.validationDelay});
+        }
         if(this.selectOnFocus || this.emptyText){
             this.on("focus", this.preFocus, this);
             if(this.emptyText){
@@ -18,6 +20,15 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
         }
         if(this.maskRe || (this.vtype && this.disableKeyFilter !== true && (this.maskRe = Ext.form.VTypes[this.vtype+'Mask']))){
             this.el.on("keypress", this.filterKeys, this);
+        }
+    },
+
+
+    reset : function(){
+        Ext.form.TextField.superclass.reset.call(this);
+        if(this.emptyText && this.getRawValue().length < 1){
+            this.setRawValue(this.emptyText);
+            this.el.addClass(this.emptyClass);
         }
     },
 
@@ -52,7 +63,7 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
     },
 
     validateValue : function(value){
-        if(value.length < 1){ // if it's blank
+        if(value.length < 1 || value === this.emptyText){ // if it's blank
              if(this.allowBlank){
                  this.clearInvalid();
                  return true;

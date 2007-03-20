@@ -158,6 +158,7 @@ Ext.BasicDialog = function(el, config){
         dd.endDrag = this.endMove.createDelegate(this);
         dd.startDrag = this.startMove.createDelegate(this);
         dd.onDrag = this.onDrag.createDelegate(this);
+        dd.scroll = false;
         this.dd = dd;
     }
     if(this.modal){
@@ -459,6 +460,10 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
         this.footer.setHeight(this.btnContainer.parentNode.parentNode.offsetHeight + this.footer.getPadding("tb"));
         this.syncBodyHeight();
         if(!this.buttons){
+            /**
+             * Array of all the buttons that have been added to this dialog via addButton
+             * @type Array
+             */
             this.buttons = [];
         }
         this.buttons.push(btn);

@@ -8,6 +8,7 @@
 /* ---- text fields ---- */
 .x-form-text, textarea.x-form-field{
     padding: 1px 3px;
+    background:#fff url(../images/default/form/text-bg.gif) repeat-x 0 0;
 }
 .x-form-text {
     height:22px;
@@ -81,7 +82,12 @@
 .x-form-field-wrap .x-form-trigger-click{
     background-position:-34px 0;
 }
-
+.x-item-disabled .x-form-trigger-over{
+    background-position:0 0 !important;
+}
+.x-item-disabled .x-form-trigger-click{
+    background-position:0 0 !important;
+}
 .x-form-field-wrap .x-form-date-trigger{
     background:transparent url(../images/default/form/date-trigger.gif) no-repeat 0 0;
     cursor:pointer;
@@ -98,7 +104,7 @@
 /* invalid fields */
 .x-form-invalid{
 	background:#fff url(../images/default/grid/invalid_line.gif) repeat-x bottom;
-	border: 1px solid #ff7870;
+	border: 1px solid #dd7870;
 }
 .ext-safari .x-form-invalid{
 	background-color:#ffeeee;
@@ -172,10 +178,19 @@
 }
 
 .x-form-label-top .x-form-item label {
-   width:auto;
-   float:none;
+    width:auto;
+    float:none;
+    clear:none;
+    display:inline;
+    margin-bottom:4px;
 }
-
+.x-form-label-top .x-form-element {
+    padding-left:0;
+    padding-top:4px;
+}
+.x-form-label-top .x-form-item {
+    padding-bottom:4px;
+}
 .x-form fieldset {
     border:1px solid #B5B8C8;
     padding:10px 10px 5px 10px;
@@ -188,7 +203,6 @@
 .ext-ie .x-form fieldset legend {
     margin-bottom:10px;
 }
-
 .x-form-empty-field {
     color:gray;
 }

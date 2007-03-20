@@ -93,6 +93,9 @@
 	margin: 0 2px 0;
 	border:0;
 }
+.x-toolbar .ytb-spacer {
+    width:2px;
+}
 .mso .x-toolbar .ytb-sep, .x-grid-mso .x-toolbar .ytb-sep{
 	background-image: url(../images/default/grid/grid-blue-split.gif);
 }

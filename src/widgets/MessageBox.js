@@ -1,5 +1,5 @@
 Ext.MessageBox = function(){
-    var dlg, opt, mask;
+    var dlg, opt, mask, waitTimer;
     var bodyEl, msgEl, textboxEl, textareaEl, progressEl, pp;
     var buttons, activeTextEl, bwidth;
     
@@ -10,8 +10,12 @@ Ext.MessageBox = function(){
     
     var handleHide = function(){
         if(opt && opt.cls){
-            dlg.el.removeClass(cls);
-        }    
+            dlg.el.removeClass(opt.cls);
+        }
+        if(waitTimer){
+            Ext.TaskMgr.stop(waitTimer);
+            waitTimer = null;
+        }
     };
     
     var updateButtons = function(b){
@@ -21,8 +25,10 @@ Ext.MessageBox = function(){
             buttons["cancel"].hide();
             buttons["yes"].hide();
             buttons["no"].hide();
+            dlg.footer.dom.style.display = 'none';
             return width;
         }
+        dlg.footer.dom.style.display = '';
         for(var k in buttons){
             if(typeof buttons[k] != "function"){
                 if(b[k]){
@@ -36,7 +42,16 @@ Ext.MessageBox = function(){
         }
         return width;
     };
-    
+
+    var handleEsc = function(d, k, e){
+        if(opt && opt.closable !== false){
+            dlg.hide();
+        }
+        if(e){
+            e.stopEvent();
+        }
+    };
+
     return {
         getDialog : function(){
            if(!dlg){
@@ -62,7 +77,7 @@ Ext.MessageBox = function(){
                 });
                 dlg.on("hide", handleHide);
                 mask = dlg.mask;
-                dlg.addKeyListener(27, dlg.hide, dlg);
+                dlg.addKeyListener(27, handleEsc);
                 buttons = {};
                 var bt = this.buttonText;
                 buttons["ok"] = dlg.addButton(bt["ok"], handleButton.createCallback("ok"));
@@ -135,6 +150,9 @@ Ext.MessageBox = function(){
         },
         
         show : function(options){
+            if(this.isVisible()){
+                this.hide();
+            }
             var d = this.getDialog();
             opt = options;
             d.setTitle(opt.title || "&#160;");
@@ -180,6 +198,8 @@ Ext.MessageBox = function(){
             d.modal = opt.modal !== false;
             d.mask = opt.modal !== false ? mask : false;
             if(!d.isVisible()){
+                // force it to the end of the z-index stack so it gets a cursor in FF
+                document.body.appendChild(dlg.el.dom);
                 d.animateTarget = null;
                 d.show(options.animEl);
             }
@@ -208,7 +228,27 @@ Ext.MessageBox = function(){
             });
             return this;
         },
-        
+
+        wait : function(msg, title){
+            this.show({
+                title : title,
+                msg : msg,
+                buttons: false,
+                closable:false,
+                progress:true,
+                modal:true,
+                width:300,
+                wait:true
+            });
+            waitTimer = Ext.TaskMgr.start({
+                run: function(i){
+                    Ext.MessageBox.updateProgress(((((i+20)%20)+1)*5)*.01);
+                },
+                interval: 1000
+            });
+            return this;
+        },
+
         confirm : function(title, msg, fn, scope){
             this.show({
                 title : title,

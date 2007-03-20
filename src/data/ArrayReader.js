@@ -13,7 +13,7 @@ Ext.extend(Ext.data.ArrayReader, Ext.data.JsonReader, {
 	        var id = ((sid || sid === 0) && n[sid] !== undefined && n[sid] !== "" ? n[sid] : null);
 	        for(var j = 0, jlen = fields.length; j < jlen; j++){
                 var f = fields.items[j];
-                var k = f.mapping || j;
+                var k = f.mapping !== undefined ? f.mapping : j;
                 var v = n[k] !== undefined ? n[k] : f.defaultValue;
                 v = f.convert(v);
                 values[f.name] = v;

@@ -8,7 +8,14 @@
   
     <!--<script language="javascript" src="../grid/PropsGrid.js"></script>-->
 	<style type="text/css">
-	body {font:normal 9pt verdana; margin:0;padding:0;border:0px none;overflow:hidden;}
+	html, body {
+        font:normal 12px verdana;
+        margin:0;
+        padding:0;
+        border:0 none;
+        overflow:hidden;
+        height:100%;
+    }
 	.x-layout-panel-north {
 	    border:0px none;
 	}
@@ -35,7 +42,6 @@
 	        return {
 	            init : function(){
 	               layout = new Ext.BorderLayout(document.body, {
-	                    hideOnLayout: true,
 	                    north: {
 	                        split:false,
 	                        initialSize: 32,

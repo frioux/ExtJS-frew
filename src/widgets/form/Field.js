@@ -22,6 +22,10 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
     msgTarget: 'qtip', // qtip, title, under, or element id
     msgFx : 'normal',
 
+    getName: function(){
+         return this.rendered && this.el.dom.name ? this.el.dom.name : (this.hiddenName || '');
+    },
+
     applyTo : function(target){
         this.target = target;
         this.el = Ext.get(target);
@@ -86,10 +90,18 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
         }
     },
 
+    reset : function(){
+        this.setValue(this.originalValue);
+        this.clearInvalid();
+    },
+
     initEvents : function(){
         this.el.on(Ext.isIE ? "keydown" : "keypress", this.fireKey,  this);
         this.el.on("focus", this.onFocus,  this);
         this.el.on("blur", this.onBlur,  this);
+
+        // reference to original value for reset
+        this.originalValue = this.getValue();
     },
 
     onFocus : function(){
@@ -130,13 +142,15 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
     },
 
     isValid : function(){
-        return this.validateValue(this.getValue());
+        return this.validateValue(this.getRawValue());
     },
 
     validate : function(){
         if(this.validateValue(this.getRawValue())){
             this.clearInvalid();
+            return true;
         }
+        return false;
     },
 
     validateValue : function(value){
@@ -160,7 +174,7 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
                 if(!this.errorEl){
                     var elp = this.el.findParent('.x-form-element', 5, true);
                     this.errorEl = elp.createChild({cls:'x-form-invalid-msg'});
-                    this.errorEl.setWidth(elp.getWidth()-20);
+                    this.errorEl.setWidth(elp.getWidth(true)-20);
                 }
                 this.errorEl.update(msg);
                 Ext.form.Field.msgFx[this.msgFx].show(this.errorEl, this);
@@ -209,7 +223,11 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
     },
 
     getValue : function(){
-        return this.el.getValue();
+        var v = this.el.getValue();
+        if(v == this.emptyText || v === undefined){
+            v = '';
+        }
+        return v;
     },
 
     setRawValue : function(v){

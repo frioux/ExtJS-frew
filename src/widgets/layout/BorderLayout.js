@@ -249,6 +249,37 @@ Ext.extend(Ext.BorderLayout, Ext.LayoutManager, {
         }
         var sm = new Ext.LayoutStateManager();
         sm.init(this, provider);
+    },
+
+    batchAdd : function(regions){
+        this.beginUpdate();
+        for(var rname in regions){
+            var lr = this.regions[rname];
+            if(lr){
+                this.addTypedPanels(lr, regions[rname]);
+            }
+        }
+        this.endUpdate();
+    },
+
+    /* @private */
+    addTypedPanels : function(lr, ps){
+        if(typeof ps == 'string'){
+            lr.add(new Ext.ContentPanel(ps));
+        }
+        else if(ps instanceof Array){
+            for(var i =0, len = ps.length; i < len; i++){
+                this.addTypedPanels(lr, ps[i]);
+            }
+        }
+        else if(!ps.events){ // raw config?
+            var el = p.el;
+            delete p.el; // prevent conflict
+            lr.add(new Ext.ContentPanel(el || Ext.id(), p));
+        }
+        else {  // panel object assumed!
+            lr.add(ps);
+        }
     }
 });
 
@@ -261,18 +292,7 @@ Ext.BorderLayout.create = function(config, targetEl){
         if(layout.regions[lr] && config[lr].panels){
             var r = layout.regions[lr];
             var ps = config[lr].panels;
-            for(var i =0, len = ps.length; i < len; i++){
-                var p = ps[i];
-                if(typeof p == "string"){
-                    r.add(new Ext.ContentPanel(p)); // raw dom id
-                }else if(!p.events){ // raw config object?
-                    var el = p.el;
-                    delete p.el; // prevent conflict
-                    r.add(new Ext.ContentPanel(el, p));
-                }else{
-                    r.add(p); // panel
-                }
-            }
+            layout.addTypedPanels(r, ps);
         }
     }
     layout.endUpdate();

@@ -7,42 +7,42 @@ Ext.grid.GridView = function(config){
 
 Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
     rowClass : "x-grid-row",
-    
+
     cellClass : "x-grid-col",
 
     tdClass : "x-grid-td",
 
     hdClass : "x-grid-hd",
-    
+
     splitClass : "x-grid-split",
-    
+
     sortClasses : ["sort-asc", "sort-desc"],
-    
+
     enableMoveAnim : false,
 
     hlColor: "C3DAF9",
-    
+
     dh : Ext.DomHelper,
-    
+
     fly : Ext.Element.fly,
-    
+
     css : Ext.util.CSS,
-    
+
     borderWidth: 1,
-    
+
     splitOffset: 3,
-    
+
     scrollIncrement : 22,
-    
+
     cellRE: /(?:.*?)x-grid-(?:hd|cell|csplit)-(?:[\d]+)-([\d]+)(?:.*?)/,
-    
+
     findRE: /\s?(?:x-grid-hd|x-grid-col|x-grid-csplit)\s/,
-    
+
     init: function(grid){
 		Ext.grid.GridView.superclass.init.call(this, grid);
-		
+
 		this.bind(grid.dataSource, grid.colModel);
-		
+
 	    grid.on("headerclick", this.handleHeaderClick, this);
 
         if(grid.trackMouseOver){
@@ -51,9 +51,9 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 	    }
 	    grid.cancelTextSelection = function(){};
 		this.gridId = grid.id;
-		
+
 		var tpls = this.templates || {};
-		
+
 		if(!tpls.master){
 		    tpls.master = new Ext.Template(
 		       '<div class="x-grid" hidefocus="true">',
@@ -74,7 +74,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 		    );
 		    tpls.master.disableformats = true;
 		}
-		
+
 		if(!tpls.header){
 		    tpls.header = new Ext.Template(
 		       '<table border="0" cellspacing="0" cellpadding="0">',
@@ -84,7 +84,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 		    tpls.header.disableformats = true;
 		}
 		tpls.header.compile();
-		
+
 		if(!tpls.hcell){
 		    tpls.hcell = new Ext.Template(
 		        '<td class="x-grid-hd x-grid-td-{id} {cellId}"><div title="{title}" class="x-grid-hd-inner x-grid-hd-{id}">',
@@ -94,13 +94,13 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 		     tpls.hcell.disableFormats = true;
 		}
 		tpls.hcell.compile();
-		
+
 		if(!tpls.hsplit){
 		    tpls.hsplit = new Ext.Template('<div class="x-grid-split {splitId} x-grid-split-{id}" unselectable="on">&#160;</div>');
 		    tpls.hsplit.disableFormats = true;
 		}
 		tpls.hsplit.compile();
-		
+
 		if(!tpls.body){
 		    tpls.body = new Ext.Template(
 		       '<table border="0" cellspacing="0" cellpadding="0">',
@@ -110,13 +110,13 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 		    tpls.body.disableFormats = true;
 		}
 		tpls.body.compile();
-		
+
 		if(!tpls.row){
 		    tpls.row = new Ext.Template('<tr class="x-grid-row {alt}">{cells}</tr>');
 		    tpls.row.disableFormats = true;
 		}
 		tpls.row.compile();
-		
+
 		if(!tpls.cell){
 		    tpls.cell = new Ext.Template(
 		        '<td class="x-grid-col x-grid-td-{id} {cellId} {css}" tabIndex="0">',
@@ -134,10 +134,10 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             tpls.cell.disableFormats = true;
         }
 		tpls.cell.compile();
-		
+
 		this.templates = tpls;
 	},
-	
+
 	bind : function(ds, cm){
         if(this.ds){
             this.ds.un("load", this.scrollToTop, this);
@@ -156,7 +156,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             ds.on("clear", this.onClear, this);
         }
         this.ds = ds;
-        
+
         if(this.cm){
             this.cm.un("widthchange", this.updateColumns, this);
             this.cm.un("headerchange", this.updateHeaders, this);
@@ -174,7 +174,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
         this.cm = cm;
     },
-    
+
     onDataChange : function(){
         this.refresh();
         this.updateHeaderSortState();
@@ -241,80 +241,80 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
         return this.headerPanel;
 	},
-	
+
 	getFooterPanel : function(doShow){
         if(doShow){
             this.footerPanel.show();
         }
         return this.footerPanel;
 	},
-	
+
 	initElements : function(){
 	    var E = Ext.Element;
 	    var el = this.grid.container.dom.firstChild;
 	    var cs = el.childNodes;
-	    
+
 	    this.el = new E(el);
 	    this.headerPanel = new E(el.firstChild);
 	    this.headerPanel.enableDisplayMode("block");
 
         this.scroller = new E(cs[1]);
 	    this.scrollSizer = new E(this.scroller.dom.firstChild);
-	    
+
 	    this.lockedWrap = new E(cs[2]);
 	    this.lockedHd = new E(this.lockedWrap.dom.firstChild);
 	    this.lockedBody = new E(this.lockedWrap.dom.childNodes[1]);
-	    
+
 	    this.mainWrap = new E(cs[3]);
 	    this.mainHd = new E(this.mainWrap.dom.firstChild);
 	    this.mainBody = new E(this.mainWrap.dom.childNodes[1]);
-	    
+
 	    this.footerPanel = new E(cs[4]);
 	    this.footerPanel.enableDisplayMode("block");
 
         this.focusEl = new E(cs[5]);
         this.focusEl.swallowEvent("click", true);
         this.resizeProxy = new E(cs[6]);
-	    
+
 	    this.headerSelector = String.format(
 	       '#{0} td.x-grid-hd, #{1} td.x-grid-hd',
 	       this.lockedHd.id, this.mainHd.id
 	    );
-	    
+
 	    this.splitterSelector = String.format(
 	       '#{0} div.x-grid-split, #{1} div.x-grid-split',
 	       this.lockedHd.id, this.mainHd.id
 	    );
     },
-	
+
 	getHeaderCell : function(index){
 	    return Ext.DomQuery.select(this.headerSelector)[index];
 	},
-	
+
 	getHeaderCellMeasure : function(index){
 	    return this.getHeaderCell(index).firstChild;
 	},
-	
+
 	getHeaderCellText : function(index){
 	    return this.getHeaderCell(index).firstChild.firstChild;
 	},
-	
+
 	getLockedTable : function(){
 	    return this.lockedBody.dom.firstChild;
 	},
-	
+
 	getBodyTable : function(){
 	    return this.mainBody.dom.firstChild;
 	},
-	
+
 	getLockedRow : function(index){
 	    return this.getLockedTable().rows[index];
 	},
-	
+
 	getRow : function(index){
 	    return this.getBodyTable().rows[index];
 	},
-	
+
 	getRowComposite : function(index){
 	    if(!this.rowEl){
 	        this.rowEl = new Ext.CompositeElementLite();
@@ -329,7 +329,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.rowEl.elements = els;
 	    return this.rowEl;
 	},
-	
+
 	getCell : function(rowIndex, colIndex){
 	    var locked = this.cm.getLockedCount();
 	    var source;
@@ -341,11 +341,11 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 	    }
         return source.rows[rowIndex].childNodes[colIndex];
 	},
-	
+
 	getCellText : function(rowIndex, colIndex){
 	    return this.getCell(rowIndex, colIndex).firstChild.firstChild;
 	},
-	
+
 	getCellBox : function(cell){
 	    var b = this.fly(cell).getBox();
         if(Ext.isOpera){ // opera fails to report the Y
@@ -353,7 +353,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
         return b;
     },
-    
+
     getCellIndex : function(cell){
         var id = String(cell.className).match(this.cellRE);
         if(id){
@@ -361,22 +361,25 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
         return 0;
     },
-    
+
     findHeaderIndex : function(n){
         var r = Ext.fly(n).findParent("td." + this.hdClass, 6);
         return r ? this.getCellIndex(r) : false;
     },
-    
+
     findHeaderCell : function(n){
         var r = Ext.fly(n).findParent("td." + this.hdClass, 6);
         return r ? r : false;
     },
-    
+
     findRowIndex : function(n){
+        if(!n){
+            return false;
+        }
         var r = Ext.fly(n).findParent("tr." + this.rowClass, 6);
         return r ? r.rowIndex : false;
     },
-    
+
     findCellIndex : function(node){
         var stop = this.el.dom;
         while(node && node != stop){
@@ -387,11 +390,11 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
         return false;
     },
-    
+
     getColumnId : function(index){
-	    return this.cm.getColumnId(index);  
+	    return this.cm.getColumnId(index);
 	},
-	
+
 	getSplitters : function(){
 	    if(this.splitterSelector){
 	       return Ext.DomQuery.select(this.splitterSelector);
@@ -399,7 +402,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 	        return null;
 	    }
 	},
-	
+
 	getSplitter : function(index){
 	    return this.getSplitters()[index];
 	},
@@ -432,20 +435,20 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
                 cb[cb.length] = ct.apply(p);
                 sb[sb.length] = st.apply(p);
             }else{
-                lb[lb.length] = ct.apply(p); 
+                lb[lb.length] = ct.apply(p);
                 lsb[lsb.length] = st.apply(p);
             }
         }
         return [ht.apply({cells: lb.join(""), splits:lsb.join("")}),
                 ht.apply({cells: cb.join(""), splits:sb.join("")})];
 	},
-	
+
 	updateHeaders : function(){
         var html = this.renderHeaders();
         this.lockedHd.update(html[0]);
         this.mainHd.update(html[1]);
     },
-    
+
     /**
      * Focuses the specified row..
      * @param {Number} row The row index
@@ -486,7 +489,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             return;
         }
         var c = this.scroller.dom;
-        
+
         var ctop = parseInt(el.offsetTop, 10);
         var cleft = parseInt(el.offsetLeft, 10);
         var cbot = ctop + el.offsetHeight;
@@ -513,7 +516,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
         return el;
     },
-    
+
     updateColumns : function(){
         this.grid.stopEditing();
         var cm = this.grid.colModel, colIds = this.getColumnIds();
@@ -527,7 +530,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
         this.updateSplitters();
     },
-    
+
     updateSplitters : function(){
         var cm = this.cm, s = this.getSplitters();
         if(s){ // splitters not created yet
@@ -544,7 +547,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             }
         }
     },
-    
+
     handleHiddenChange : function(colModel, colIndex, hidden){
         if(hidden){
             this.hideColumn(colIndex);
@@ -552,7 +555,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             this.unhideColumn(colIndex);
         }
     },
-    
+
     hideColumn : function(colIndex){
         var cid = this.getColumnId(colIndex);
         this.css.updateRule(this.tdSelector+cid, "display", "none");
@@ -563,19 +566,19 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.updateSplitters();
         this.layout();
     },
-    
+
     unhideColumn : function(colIndex){
         var cid = this.getColumnId(colIndex);
         this.css.updateRule(this.tdSelector+cid, "display", "");
         this.css.updateRule(this.splitSelector+cid, "display", "");
-        
+
         if(Ext.isSafari){
             this.updateHeaders();
         }
         this.updateSplitters();
         this.layout();
     },
-    
+
     insertRows : function(dm, firstRow, lastRow, isUpdate){
         if(firstRow == 0 && lastRow == dm.getCount()-1){
             this.refresh();
@@ -596,7 +599,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             }
         }
     },
-    
+
     bufferRows : function(markup, target, index){
         var before = null, trows = target.rows, tbody = target.tBodies[0];
         if(index < trows.length){
@@ -611,11 +614,11 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             }else{
                 tbody.appendChild(rows[i]);
             }
-        }                
+        }
         b.innerHTML = "";
         b = null;
     },
-    
+
     deleteRows : function(dm, firstRow, lastRow){
         if(dm.getRowCount()<1){
             this.fireEvent("beforerefresh", this);
@@ -634,25 +637,25 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             this.fireEvent("rowsdeleted", this, firstRow, lastRow);
         }
     },
-    
+
     updateRows : function(dataSource, firstRow, lastRow){
         var s = this.getScrollState();
         this.refresh();
         this.restoreScroll(s);
     },
-    
+
     handleSort : function(dataSource, sortColumnIndex, sortDir, noRefresh){
         if(!noRefresh){
            this.refresh();
         }
         this.updateHeaderSortState();
     },
-    
+
     getScrollState : function(){
         var sb = this.scroller.dom;
         return {left: sb.scrollLeft, top: sb.scrollTop};
     },
-    
+
     stripeRows : function(startRow){
         if(!this.grid.stripeRows || this.ds.getCount() < 1){
             return;
@@ -678,14 +681,14 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             }
         }
     },
-    
+
     restoreScroll : function(state){
         var sb = this.scroller.dom;
         sb.scrollLeft = state.left;
         sb.scrollTop = state.top;
         this.syncScroll();
     },
-    
+
     syncScroll : function(){
         var sb = this.scroller.dom;
         var sh = this.mainHd.dom;
@@ -694,14 +697,14 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         sh.scrollLeft = bs.scrollLeft = sb.scrollLeft;
         lv.scrollTop = bs.scrollTop = sb.scrollTop;
     },
-    
+
     handleScroll : function(e){
         this.syncScroll();
         var sb = this.scroller.dom;
         this.grid.fireEvent("bodyscroll", sb.scrollLeft, sb.scrollTop);
         e.stopEvent();
     },
-    
+
     handleWheel : function(e){
         var d = e.getWheelDelta();
         this.scroller.dom.scrollTop -= d*22;
@@ -709,16 +712,16 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.lockedBody.dom.scrollTop = this.mainBody.dom.scrollTop = this.scroller.dom.scrollTop;
         e.stopEvent();
     },
-    
+
     renderRows : function(startRow, endRow){
         // pull in all the crap needed to render rows
         var g = this.grid, cm = g.colModel, ds = g.dataSource, stripe = g.stripeRows;
         var colCount = cm.getColumnCount();
-        
+
         if(ds.getCount() < 1){
             return ["", ""];
         }
-        
+
         // build a map for all the columns
         var cs = [];
         for(var i = 0; i < colCount; i++){
@@ -730,10 +733,10 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
                 locked : cm.isLocked(i)
             };
         }
-                
+
         startRow = startRow || 0;
         endRow = typeof endRow == "undefined"? ds.getCount()-1 : endRow;
-        
+
         // records to render
         var rs = ds.getRange(startRow, endRow);
 
@@ -833,7 +836,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         var bt = this.templates.body;
         return [bt.apply({rows: markup[0]}), bt.apply({rows: markup[1]})];
     },
-    
+
     refresh : function(headersToo){
         this.fireEvent("beforerefresh", this);
         this.grid.stopEditing();
@@ -850,7 +853,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.layout();
         this.fireEvent("refresh", this);
     },
-    
+
     handleColumnMove : function(cm, oldIndex, newIndex){
         this.indexMap = null;
         var s = this.getScrollState();
@@ -858,13 +861,13 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.restoreScroll(s);
         this.afterMove(newIndex);
     },
-    
+
     afterMove : function(colIndex){
         if(this.enableMoveAnim && Ext.enableFx){
             this.fly(this.getHeaderCell(colIndex).firstChild).highlight(this.hlColor);
         }
     },
-    
+
     updateCell : function(dm, rowIndex, dataIndex){
         var colIndex = this.getColumnIndexByDataIndex(dataIndex);
         if(typeof colIndex == "undefined"){ // not present in grid
@@ -873,7 +876,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         var cm = this.grid.colModel;
         var cell = this.getCell(rowIndex, colIndex);
         var cellText = this.getCellText(rowIndex, colIndex);
-        
+
         var p = {
             cellId : "x-grid-cell-" + rowIndex + "-" + colIndex,
             id : cm.getColumnId(colIndex),
@@ -886,7 +889,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         cell.className = this.cellClass + " " + p.cellId + " " + p.css;
         this.syncRowHeights(rowIndex, rowIndex);
     },
-    
+
     calcColumnWidth : function(colIndex, maxRowsToMeasure){
         var maxWidth = 0;
         if(this.grid.autoSizeHeaders){
@@ -934,7 +937,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             this.grid.fireEvent("columnresize", colIndex, newWidth);
         }
     },
-    
+
     /**
      * Autofits all columns to their content and then expands to fit any extra space in the grid
      */
@@ -951,7 +954,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             this.layout();
         }
     },
-    
+
     /**
      * Autofits all columns to the grid's width proportionate with their current size
      * @param {Boolean} reserveScrollSpace Reserve space for a scrollbar
@@ -982,8 +985,8 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
         this.updateColumns();
         this.layout();
-    }, 
-    
+    },
+
     onRowSelect : function(rowIndex){
         var row = this.getRowComposite(rowIndex);
         row.addClass("x-grid-row-selected");
@@ -1022,7 +1025,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             hds.item(sortColumn).addClass(sc[sortDir == "DESC" ? 1 : 0]);
         }
     },
-    
+
     handleHeaderClick : function(g, index){
         if(this.headersDisabled){
             return;
@@ -1034,14 +1037,48 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 	    g.stopEditing();
         dm.sort(cm.getDataIndex(index));
     },
-    
-    
+
+
     destroy : function(){
+        if(this.colMenu){
+            this.colMenu.removeAll();
+            Ext.menu.MenuMgr.unregister(this.colMenu);
+            this.colMenu.getEl().remove();
+            delete this.colMenu;
+        }
+        if(this.hmenu){
+            this.hmenu.removeAll();
+            Ext.menu.MenuMgr.unregister(this.hmenu);
+            this.hmenu.getEl().remove();
+            delete this.hmenu;
+        }
+        if(this.grid.enableColumnMove){
+            var dds = Ext.dd.DDM.ids['gridHeader' + this.grid.container.id];
+            if(dds){
+                for(var dd in dds){
+                    if(!dds[dd].config.isTarget && dds[dd].dragElId){
+                        var elid = dds[dd].dragElId;
+                        dds[dd].unreg();
+                        Ext.get(elid).remove();
+                    } else if(dds[dd].config.isTarget){
+                        dds[dd].proxyTop.remove();
+                        dds[dd].proxyBottom.remove();
+                        dds[dd].unreg();
+                    }
+                    if(Ext.dd.DDM.locationCache[dd]){
+                        delete Ext.dd.DDM.locationCache[dd];
+                    }
+                }
+                delete Ext.dd.DDM.ids['gridHeader' + this.grid.container.id];
+            }
+        }
+
         this.bind(null, null);
+        Ext.EventManager.removeResizeListener(this.onWindowResize, this);
     },
-    
+
     handleLockChange : function(){
-        this.refresh(true);  
+        this.refresh(true);
     },
 
     onDenyColumnLock : function(){
@@ -1134,7 +1171,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             }
         }
     },
-    
+
     handleHdOut : function(e){
         var hd = this.findHeaderCell(e.getTarget());
         if(hd){
@@ -1149,10 +1186,10 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
     },
 
     render : function(){
-        
+
         var cm = this.cm;
         var colCount = cm.getColumnCount();
-        
+
         if(this.grid.monitorWindowResize === true){
             Ext.EventManager.onWindowResize(this.onWindowResize, this, true);
         }
@@ -1164,7 +1201,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             lockedHeader: header[0],
             header: header[1]
         });
-        
+
         this.updateColumns();
 
         this.grid.container.dom.innerHTML = html;
@@ -1174,7 +1211,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.scroller.on("scroll", this.handleScroll, this);
         this.lockedBody.on("mousewheel", this.handleWheel, this);
         this.mainBody.on("mousewheel", this.handleWheel, this);
-        
+
         this.mainHd.on("mouseover", this.handleHdOver, this);
         this.mainHd.on("mouseout", this.handleHdOut, this);
         this.mainHd.on("dblclick", this.handleSplitDblClick, this,
@@ -1231,9 +1268,9 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
                 this.css.updateRule(this.hdSelector + i, "textAlign", cm.config[i].align);
             }
         }
-        
+
         this.updateHeaderSortState();
-        
+
         this.beforeInitialResize();
         this.layout(true);
 
@@ -1250,9 +1287,9 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
     },
 
     beforeInitialResize : function(){
-        
+
     },
-    
+
     onColumnSplitterMoved : function(i, w){
         this.userResized = true;
         var cm = this.grid.colModel;
@@ -1264,7 +1301,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.layout();
         this.grid.fireEvent("columnresize", i, w);
     },
-    
+
     syncRowHeights : function(startIndex, endIndex){
         if(this.grid.enableRowHeightSync === true && this.cm.getLockedCount() > 0){
             startIndex = startIndex || 0;
@@ -1279,12 +1316,13 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             }
         }
     },
-    
-    layout : function(initialRender){
-        var auto = this.grid.autoHeight;
+
+    layout : function(initialRender, is2ndPass){
+        var g = this.grid;
+        var auto = g.autoHeight;
         var scrollOffset = 16;
-        var c = this.grid.container, cm = this.cm,
-                expandCol = this.grid.autoExpandColumn,
+        var c = g.container, cm = this.cm,
+                expandCol = g.autoExpandColumn,
                 gv = this;
         //c.beginMeasure();
 
@@ -1298,7 +1336,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             c.setHeight(ch+c.getBorderWidth("tb"));
         }
 
-        if(this.grid.autoWidth){
+        if(g.autoWidth){
             c.setWidth(cm.getTotalWidth()+c.getBorderWidth('lr'));
         }
 
@@ -1332,28 +1370,31 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 
         setTimeout(function(){
             var t = s.dom.offsetTop;
-            var w = s.dom.clientWidth, 
+            var w = s.dom.clientWidth,
                 h = s.dom.clientHeight;
-            
+
             lw.setTop(t);
             lw.setSize(ltWidth, h);
-            
+
             mw.setLeftTop(ltWidth, t);
             mw.setSize(w-ltWidth, h);
-            
+
             lb.setHeight(h-hdHeight);
             mb.setHeight(h-hdHeight);
 
-            var tw;
-            if(!gv.userResized && expandCol && gv.ds.getCount() > 0 && w > (tw = cm.getTotalWidth(false))){
+            if(is2ndPass !== true && !gv.userResized && expandCol){
                 // high speed resize without full column calculation
                 var ci = cm.getIndexById(expandCol);
-                var cw = ((w-tw)+cm.getColumnWidth(ci)-2)-/*scrollbar*/(w <= s.dom.offsetWidth ? 0 : 18);
-                cm.setColumnWidth(ci, cw, true);
-                gv.css.updateRule(gv.colSelector+expandCol, "width", (cw - gv.borderWidth) + "px");
-                gv.css.updateRule(gv.hdSelector+expandCol, "width", (cw - gv.borderWidth) + "px");
-                gv.updateSplitters();
-                gv.layout();
+                var tw = cm.getTotalWidth(false);
+                var currentWidth = cm.getColumnWidth(ci);
+                var cw = Math.min(Math.max(((w-tw)+currentWidth-2)-/*scrollbar*/(w <= s.dom.offsetWidth ? 0 : 18), g.autoExpandMin), g.autoExpandMax);
+                if(currentWidth != cw){
+                    cm.setColumnWidth(ci, cw, true);
+                    gv.css.updateRule(gv.colSelector+expandCol, "width", (cw - gv.borderWidth) + "px");
+                    gv.css.updateRule(gv.hdSelector+expandCol, "width", (cw - gv.borderWidth) + "px");
+                    gv.updateSplitters();
+                    gv.layout(false, true);
+                }
             }
 
             if(initialRender){
@@ -1363,16 +1404,16 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             //c.endMeasure();
         }, 10);
     },
-    
+
     onWindowResize : function(){
         if(!this.grid.monitorWindowResize || this.grid.autoHeight){
             return;
         }
         this.layout();
     },
-    
+
     appendFooter : function(parentEl){
-        return null;  
+        return null;
     },
 
     sortAscText : "Sort Ascending",
@@ -1401,7 +1442,7 @@ Ext.extend(Ext.grid.HeaderDragZone, Ext.dd.DragZone, {
         }
         return false;
     },
-    
+
     onInitDrag : function(e){
         var clone = this.dragData.ddel.cloneNode(true);
         clone.style.width = Math.min(this.dragData.header.offsetWidth,this.maxDragWidth) + "px";
@@ -1414,7 +1455,7 @@ Ext.grid.SplitDragZone = function(grid, hd, hd2){
     this.grid = grid;
     this.view = grid.getView();
     this.proxy = this.view.resizeProxy;
-    Ext.grid.SplitDragZone.superclass.constructor.call(this, hd, 
+    Ext.grid.SplitDragZone.superclass.constructor.call(this, hd,
         "gridSplitters" + this.grid.container.id, {
         dragElId : Ext.id(this.proxy.dom), resizeFrame:false
     });
@@ -1424,7 +1465,7 @@ Ext.grid.SplitDragZone = function(grid, hd, hd2){
 };
 Ext.extend(Ext.grid.SplitDragZone, Ext.dd.DDProxy, {
     fly: Ext.Element.fly,
-    
+
     b4StartDrag : function(x, y){
         this.view.headersDisabled = true;
         this.proxy.setHeight(this.view.mainWrap.getHeight());
@@ -1438,8 +1479,8 @@ Ext.extend(Ext.grid.SplitDragZone, Ext.dd.DDProxy, {
         this.startPos = x;
         Ext.dd.DDProxy.prototype.b4StartDrag.call(this, x, y);
     },
-    
-    
+
+
     handleMouseDown : function(e){
         ev = Ext.EventObject.setEvent(e);
         var t = this.fly(ev.getTarget());
@@ -1452,14 +1493,14 @@ Ext.extend(Ext.grid.SplitDragZone, Ext.dd.DDProxy, {
             }
         }
     },
-    
+
     endDrag : function(e){
         this.view.headersDisabled = false;
         var endX = Math.max(this.minX, Ext.lib.Event.getPageX(e));
         var diff = endX - this.startPos;
         this.view.onColumnSplitterMoved(this.cellIndex, this.cm.getColumnWidth(this.cellIndex)+diff);
     },
-    
+
     autoOffset : function(){
         this.setDelta(0,0);
     }
@@ -1486,7 +1527,7 @@ Ext.grid.HeaderDropZone = function(grid, hd, hd2){
 Ext.extend(Ext.grid.HeaderDropZone, Ext.dd.DropZone, {
     proxyOffsets : [-4, -9],
     fly: Ext.Element.fly,
-    
+
     getTargetFromEvent : function(e){
         var t = Ext.lib.Event.getTarget(e);
         var cindex = this.view.findCellIndex(t);
@@ -1497,7 +1538,7 @@ Ext.extend(Ext.grid.HeaderDropZone, Ext.dd.DropZone, {
             return this.grid.getHeaderFromChild(t);
         }*/
     },
-    
+
     nextVisible : function(h){
         var v = this.view, cm = this.grid.colModel;
         h = h.nextSibling;
@@ -1509,7 +1550,7 @@ Ext.extend(Ext.grid.HeaderDropZone, Ext.dd.DropZone, {
         }
         return null;
     },
-    
+
     prevVisible : function(h){
         var v = this.view, cm = this.grid.colModel;
         h = h.prevSibling;
@@ -1521,7 +1562,7 @@ Ext.extend(Ext.grid.HeaderDropZone, Ext.dd.DropZone, {
         }
         return null;
     },
-    
+
     positionIndicator : function(h, n, e){
         var x = Ext.lib.Event.getPageX(e);
         var r = Ext.lib.Dom.getRegion(n.firstChild);
@@ -1555,13 +1596,13 @@ Ext.extend(Ext.grid.HeaderDropZone, Ext.dd.DropZone, {
         this.proxyBottom.show();
         return pt;
     },
-    
+
     onNodeEnter : function(n, dd, e, data){
         if(data.header != n){
             this.positionIndicator(data.header, n, e);
         }
     },
-    
+
     onNodeOver : function(n, dd, e, data){
         var result = false;
         if(data.header != n){
@@ -1573,12 +1614,12 @@ Ext.extend(Ext.grid.HeaderDropZone, Ext.dd.DropZone, {
         }
         return result ? this.dropAllowed : this.dropNotAllowed;
     },
-    
+
     onNodeOut : function(n, dd, e, data){
         this.proxyTop.hide();
         this.proxyBottom.hide();
     },
-    
+
     onNodeDrop : function(n, dd, e, data){
         var h = data.header;
         if(h != n){

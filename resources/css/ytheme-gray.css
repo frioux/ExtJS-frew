@@ -37,7 +37,7 @@
 	border-bottom: 1px solid #fcc247;
 }
 .x-grid-hd-over .x-grid-hd-text {
-	background-color: #faf9f4;
+	background: #faf9f4;
     padding-bottom:1px;
     border-bottom: 1px solid #f9a900;
 }
@@ -59,7 +59,7 @@
 
 
 .x-grid-locked .x-grid-body td {
-	background: #ebeadb;
+	background: #f0efe4;
 	border-right: 1px solid #D6D2C2;
 	border-bottom: 1px solid #D6D2C2 !important;
 }
@@ -80,6 +80,25 @@
 .x-props-grid .x-grid-col-name{
 	 background-color: #f1efe2;
 }
+
+
+
+.x-grid-locked td.x-grid-row-marker, .x-grid-locked .x-grid-row-selected td.x-grid-row-marker{
+    background: #ebeadb url(../images/gray/grid/grid-hrow.gif) repeat-x 0 bottom !important;
+    vertical-align:middle !important;
+    color:black;
+    padding:0;
+    border-top:1px solid white;
+    border-bottom:none !important;
+    border-right:1px solid #d6d2c2 !important;
+    text-align:center;
+}
+.x-grid-locked td.x-grid-row-marker div, .x-grid-locked .x-grid-row-selected td.x-grid-row-marker div{
+    padding:0 4px;
+    color:black !important;
+    text-align:center;
+}
+
 /**
 * Basic-Dialog 
 */

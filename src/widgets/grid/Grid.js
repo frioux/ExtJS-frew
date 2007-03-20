@@ -328,6 +328,18 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
     autoExpandColumn : false,
 
     /**
+    * The minimum width the autoExpandColumn can have (if enabled)
+    * @type {Number}
+    */
+    autoExpandMin : 50,
+
+    /**
+    * The maximum width the autoExpandColumn can have (if enabled)
+    * @type {Number}
+    */
+    autoExpandMax : 1000,
+
+    /**
 	 * The view used by the grid. This can be set before a call to render(). 
 	 * Defaults to a Ext.grid.GridView or PagedGridView depending on the data model.
 	 * @type Object

@@ -338,7 +338,7 @@ Ext.extend(Ext.View, Ext.util.Observable, {
      * @param {Boolean} suppressEvent (optional) true to skip firing of the selectionchange event
      */
     clearSelections : function(suppressEvent){
-        if(this.nodes && (this.multiSelect || this.singleSelect)){
+        if(this.nodes && (this.multiSelect || this.singleSelect) && this.selections.length > 0){
             this.cmp.elements = this.selections;
             this.cmp.removeClass(this.selectedClass);
             this.selections = [];

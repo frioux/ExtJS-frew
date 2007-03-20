@@ -69,7 +69,8 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
 
     menuAlign : "tl-bl?",
     menuClassTarget: 'tr',
-    
+    tooltipType : 'qtip',
+
     render : function(renderTo){
         var btn;
         if(this.hideParent){
@@ -81,17 +82,21 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
                     // hideous table template
                     Ext.Button.buttonTemplate = new Ext.Template(
                         '<table border="0" cellpadding="0" cellspacing="0" class="x-btn-wrap"><tbody><tr>',
-                        '<td class="x-btn-left"><i>&#160;</i></td><td class="x-btn-center"><em><button class="x-btn-text" ext:qtip="{1:htmlEncode}">{0}</button></em></td><td class="x-btn-right"><i>&#160;</i></td>',
+                        '<td class="x-btn-left"><i>&#160;</i></td><td class="x-btn-center"><em><button class="x-btn-text">{0}</button></em></td><td class="x-btn-right"><i>&#160;</i></td>',
                         "</tr></tbody></table>");
                 }
                 this.template = Ext.Button.buttonTemplate;
             }
-            btn = this.template.append(renderTo, [this.text || '&#160;', this.tooltip || ""], true);
+            btn = this.template.append(renderTo, [this.text || '&#160;'], true);
+            var btnEl = btn.child("button:first");
             if(this.cls){
                 btn.addClass(this.cls);
             }
             if(this.icon){
-                btn.child("button:first").setStyle('background-image', 'url(' +this.icon +')');
+                btnEl.setStyle('background-image', 'url(' +this.icon +')');
+            }
+            if(this.tooltip){
+                btnEl.dom[this.tooltipType] = this.tooltip;
             }
         }else{
             btn = Ext.DomHelper.append(Ext.get(renderTo).dom, this.dhconfig, true);
@@ -292,6 +297,7 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
             }
             this.fireEvent("click", this, e);
             if(this.handler){
+                this.el.removeClass("x-btn-over");
                 this.handler.call(this.scope || this, this, e);
             }
         }
