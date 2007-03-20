@@ -149,4 +149,8 @@
   <file name="scriptaculous.js" path="" />
   <file name="form\combos.css" path="form" />
   <file name="form\states.js" path="form" />
+  <file name="layout\child.html" path="layout" />
+  <file name="layout\parent.html" path="layout" />
+  <file name="grid\virtual-grid.html" path="grid" />
+  <file name="grid\virtualgrid.js" path="grid" />
 </project>

@@ -476,4 +476,5 @@
   <file name="images\default\grid\dirty.gif" path="images\default\grid" />
   <file name="images\default\grid\hmenu-lock.gif" path="images\default\grid" />
   <file name="images\default\grid\hmenu-unlock.gif" path="images\default\grid" />
+  <file name="images\default\form\text-bg.gif" path="images\default\form" />
 </project>
