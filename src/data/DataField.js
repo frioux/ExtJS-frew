@@ -27,8 +27,11 @@ Ext.data.Field = function(config){
                 this.sortType = st.none;
         }
     }
-    
-    // prebuilt conversion function for this field, instead of 
+
+    // define once
+    var stripRe = /[\$,%]/g;
+
+    // prebuilt conversion function for this field, instead of
     // switching every time we're reading a value
     if(!this.convert){
         var cv, dateFormat = this.dateFormat;
@@ -42,10 +45,16 @@ Ext.data.Field = function(config){
                 cv = function(v){ return String(v); };
                 break;
             case "int":
-                cv = function(v){ return parseInt(String(v).replace(/[\$,%]/g, ""), 10); };
+                cv = function(v){
+                    return v !== undefined && v !== null && v !== '' ?
+                           parseInt(String(v).replace(stripRe, ""), 10) : '';
+                    };
                 break;
             case "float":
-                cv = function(v){ return parseFloat(String(v).replace(/[\$,%]/g, "")); };
+                cv = function(v){
+                    return v !== undefined && v !== null && v !== '' ?
+                           parseFloat(String(v).replace(stripRe, ""), 10) : ''; 
+                    };
                 break;
             case "bool":
             case "boolean":
@@ -54,7 +63,7 @@ Ext.data.Field = function(config){
             case "date":
                 cv = function(v){
                     if(!v){
-                        return null;
+                        return '';
                     }
                     if(v instanceof Date){
                         return v;

@@ -32,8 +32,8 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
 	        var id = (n[sid] !== undefined && n[sid] !== "" ? n[sid] : null);
 	        for(var j = 0, jlen = fields.length; j < jlen; j++){
 	            var f = fields.items[j];
-	            var map = f.mapping !== undefined ? f.mapping : f.name;
-	            var v = n[map] !== undefined ? n[map] : f.defaultValue;
+	            var map = f.mapping !== undefined && f.mapping !== null ? f.mapping : f.name;
+                var v = n[map] !== undefined ? n[map] : f.defaultValue;
 	            v = f.convert(v);
 	            values[f.name] = v;
 	        }

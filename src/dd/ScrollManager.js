@@ -161,7 +161,9 @@ Ext.dd.ScrollManager = function(){
          */
         refreshCache : function(){
             for(var id in els){
-                els[id]._region = els[id].getRegion();
+                if(typeof els[id] == 'object'){ // for people extending the object prototype
+                    els[id]._region = els[id].getRegion();
+                }
             }
         }
     };

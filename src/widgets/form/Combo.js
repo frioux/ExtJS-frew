@@ -393,7 +393,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         //if(Ext.isIE){
             this.list.setHeight(this.innerList.getHeight()+this.list.getFrameWidth('tb')+(this.resizable?this.handleHeight:0)+this.assetHeight);
         //}
-        this.list.sync();
+        this.list.alignTo(this.el, this.listAlign);
     },
 
     onEmptyResults : function(){

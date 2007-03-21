@@ -12,6 +12,14 @@
     zoom: 1;
 }
 
+/* class for hiding elements without using display:none */
+.x-hidden {
+    position:absolute;
+    left:-2000px;
+    top:-2000px;
+    visibility:hidden;
+}
+
 .x-masked {
     overflow: hidden !important;
 }

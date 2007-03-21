@@ -14,6 +14,7 @@ Ext.tree.TreeLoader = function(config){
 };
 
 Ext.extend(Ext.tree.TreeLoader, Ext.util.Observable, {
+    uiProviders : {},
     clearOnLoad : true,
     load : function(node, callback){
         if(this.clearOnLoad){
@@ -81,7 +82,10 @@ Ext.extend(Ext.tree.TreeLoader, Ext.util.Observable, {
         if(this.applyLoader !== false){
             attr.loader = this;
         }
-        return(attr.leaf ? 
+        if(typeof attr.uiProvider == 'string'){
+           attr.uiProvider = this.uiProviders[attr.uiProvider] || eval(attr.uiProvider);
+        }
+        return(attr.leaf ?
                         new Ext.tree.TreeNode(attr) : 
                         new Ext.tree.AsyncTreeNode(attr));  
     },

@@ -192,7 +192,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         var ds = this.ds, index;
         if(typeof record == 'number'){
             index = record;
-            record = ds.getAttribute(index);
+            record = ds.getAt(index);
         }else{
             index = ds.indexOf(record);
         }
@@ -1056,7 +1056,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             var dds = Ext.dd.DDM.ids['gridHeader' + this.grid.container.id];
             if(dds){
                 for(var dd in dds){
-                    if(!dds[dd].config.isTarget && dds[dd].dragElId){
+if(!dds[dd].config.isTarget && dds[dd].dragElId){
                         var elid = dds[dd].dragElId;
                         dds[dd].unreg();
                         Ext.get(elid).remove();
