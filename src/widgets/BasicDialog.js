@@ -701,6 +701,9 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
             this.close.removeAllListeners();
             this.close.remove();
         }
+        if(this.shadow){
+            this.shadow.hide();
+        }
         if(this.mask){
             this.mask.remove();
         }
