@@ -303,7 +303,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
 	
 	/** True to enable drag and drop of rows
 	 * @type Boolean */
-	enableDragDrop : false,
+	enableDragDrop : true,
 	
 	/**
 	 * True to enable drag and drop reorder of columns
@@ -546,7 +546,8 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
      * @return {String}
      */
     getDragDropText : function(){
-        return this.ddText.replace("%0", this.selModel.getCount());
+        var count = this.selModel.getCount();
+        return String.format(this.ddText, count, count == 1 ? '' : 's');
     }
 });
 /**
@@ -554,4 +555,4 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
  * %0 is replaced with the number of selected rows.
  * @type String
  */
-Ext.grid.Grid.prototype.ddText = "%0 selected row(s)";
+Ext.grid.Grid.prototype.ddText = "{0} selected row{1}";

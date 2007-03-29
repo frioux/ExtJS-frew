@@ -95,6 +95,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
         if(String(v) == String(this.startValue) && this.ignoreNoChange){
             this.editing = false;
             this.hide();
+            return;
         }
         if(this.fireEvent("beforecomplete", this, v, this.startValue) !== false){
             this.editing = false;

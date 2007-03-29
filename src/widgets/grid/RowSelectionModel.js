@@ -45,9 +45,13 @@ Ext.grid.RowSelectionModel = function(config){
 
 Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
     singleSelect : false,
+
     /** @ignore */
     initEvents : function(){
-        this.grid.on("mousedown", this.handleMouseDown, this);
+
+        if(!this.grid.enableDragDrop && !this.grid.enableDrag){
+            this.grid.on("mousedown", this.handleMouseDown, this);
+        }
 
         this.rowNav = new Ext.KeyNav(this.grid.container, {
             "up" : function(e){
@@ -120,7 +124,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
         }
         var ds = this.grid.dataSource;
         for(var i = 0, len = records.length; i < len; i++){
-            this.selectRow(ds.indexOf(records[i]));
+            this.selectRow(ds.indexOf(records[i]), true);
         }
     },
     

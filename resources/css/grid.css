@@ -280,3 +280,8 @@
 .xg-hmenu-unlock .x-menu-item-icon{
 	background-image: url(../images/default/grid/hmenu-unlock.gif);
 }
+
+/* dd */
+.x-dd-drag-ghost .x-grid-dd-wrap {
+    padding:1px 3px 3px 1px;
+}

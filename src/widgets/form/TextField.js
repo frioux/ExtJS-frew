@@ -53,7 +53,7 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
 
     filterKeys : function(e){
         var k = e.getKey();
-        if(!Ext.isIE && (e.isNavKeyPress() || k == e.BACKSPACE || k == e.DELETE)){
+        if(!Ext.isIE && (e.isNavKeyPress() || k == e.BACKSPACE || (k == e.DELETE && e.button == -1))){
             return;
         }
         var c = e.getCharCode();

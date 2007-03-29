@@ -211,6 +211,9 @@ Ext.DomQuery = function(){
     }
 
     function nodup(cs){
+        if(!cs){
+            return [];
+        }
         var len = cs.length, c, i, r = cs, cj;
         if(!len || typeof cs.nodeType != "undefined" || len == 1){
             return cs;

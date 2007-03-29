@@ -185,7 +185,7 @@ Ext.extend(Ext.tree.TreeDropZone, Ext.dd.DropZone, {
                 t.appendChild(n);
             }
         }
-        n.select(); // select and highlight the last insert
+        n.ui.focus();
         if(this.tree.hlDrop){
             n.ui.highlight();
         }
@@ -195,7 +195,7 @@ Ext.extend(Ext.tree.TreeDropZone, Ext.dd.DropZone, {
     
     afterNodeMoved : function(dd, data, e, targetNode, dropNode){
         if(this.tree.hlDrop){
-            dropNode.select();
+            dropNode.ui.focus();
             dropNode.ui.highlight();
         }
         this.tree.fireEvent("nodedrop", this.tree, targetNode, data, dd, e);
