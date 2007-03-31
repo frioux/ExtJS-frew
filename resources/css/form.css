@@ -247,3 +247,10 @@
 .x-small-editor .x-form-field-wrap .x-form-trigger{
     height:19px;
 }
+
+
+.x-form-clear {
+    clear:both;
+    height:0;
+    overflow:hidden;
+}

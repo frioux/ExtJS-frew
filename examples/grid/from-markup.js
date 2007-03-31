@@ -26,7 +26,7 @@ Ext.onReady(function() {
  */
 Ext.grid.TableGrid = function(table, config) {
     config = config || {};
-    var cf = config.fields || [], ch = config.colums || [];
+    var cf = config.fields || [], ch = config.columns || [];
     table = Ext.get(table);
 
     var ct = table.insertSibling();

@@ -41,8 +41,8 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
             }
         }else {
             var cfg = typeof this.autoCreate == "object" ?
-                      this.autoCreate : this.defaultAutoCreate;
-            if(this.id & !cfg.id){
+                      this.autoCreate : Ext.apply({}, this.defaultAutoCreate);
+            if(this.id && !cfg.id){
                 cfg.id = this.id;
             }
             if(!cfg.name){

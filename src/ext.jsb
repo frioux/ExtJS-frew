@@ -104,6 +104,7 @@
     <include name="widgets\form\DateField.js" />
     <include name="widgets\form\Combo.js" />
     <include name="widgets\form\Checkbox.js" />
+    <include name="widgets\form\Form.js" />
     <include name="widgets\form\VTypes.js" />
     <include name="widgets\layout\LayoutManager.js" />
     <include name="widgets\layout\BorderLayout.js" />
@@ -113,6 +114,7 @@
     <include name="widgets\layout\BorderLayoutRegions.js" />
     <include name="widgets\layout\LayoutStateManager.js" />
     <include name="widgets\layout\ContentPanels.js" />
+    <include name="widgets\layout\ReaderLayout.js" />
     <include name="widgets\grid\Grid.js" />
     <include name="widgets\grid\AbstractGridView.js" />
     <include name="widgets\grid\GridView.js" />
@@ -308,6 +310,7 @@
     <include name="widgets\form\Checkbox.js" />
     <include name="widgets\form\Combo.js" />
     <include name="widgets\Editor.js" />
+    <include name="widgets\form\Form.js" />
     <include name="widgets\form\VTypes.js" />
   </target>
   <target name="Button" file="$output\package\button\button.js" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
@@ -327,6 +330,7 @@
     <include name="widgets\layout\BorderLayoutRegions.js" />
     <include name="widgets\layout\LayoutStateManager.js" />
     <include name="widgets\layout\ContentPanels.js" />
+    <include name="widgets\layout\ReaderLayout.js" />
   </target>
   <target name="JQUERY" file="$output\ext-jquery-adapter.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="core\Ext.js" />
@@ -533,4 +537,6 @@
   <file name="yui\yahoo.js" path="yui" />
   <file name="debug.js" path="" />
   <file name="widgets\tree\TreeEditor.js" path="widgets\tree" />
+  <file name="widgets\form\Form.js" path="widgets\form" />
+  <file name="widgets\layout\ReaderLayout.js" path="widgets\layout" />
 </project>

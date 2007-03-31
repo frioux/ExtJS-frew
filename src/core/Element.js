@@ -542,13 +542,14 @@ El.prototype = {
         this.addClass(className);
         return this;
     },
+    
     /**
      * Removes a CSS class from the element.
      * @param {String/Array} className The CSS class to remove or an array of classes
      * @return {Ext.Element} this
      */
     removeClass : function(className){
-        if(!className){
+        if(!className || !this.dom.className){
             return this;
         }
         if(className instanceof Array){
@@ -557,13 +558,20 @@ El.prototype = {
             }
         }else{
             if(this.hasClass(className)){
+                var re = this.classReCache[className];
+                if (!re) {
+                   re = new RegExp('(?:^|\\s+)' + className + '(?:\\s+|$)', "g");
+                   this.classReCache[className] = re;
+                }
                 this.dom.className =
-                    this.dom.className.replace(new RegExp('(?:^|\\s+)' + className + '(?:\\s+|$)', "g"), " ");
+                    this.dom.className.replace(re, " ");
             }
         }
         return this;
     },
     
+    classReCache: {},
+
     /**
      * Toggles (adds or removes) the passed class.
      * @param {String} className

@@ -684,6 +684,10 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
      * @param {Boolean} removeEl (optional) true to remove the element from the DOM
      */
     destroy : function(removeEl){
+        if(this.isVisible()){
+            this.animateTarget = null;
+            this.hide();
+        }
         Ext.EventManager.removeResizeListener(this.adjustViewport, this);
         if(this.tabs){
             this.tabs.destroy(removeEl);
@@ -700,9 +704,6 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
         if(this.close){
             this.close.removeAllListeners();
             this.close.remove();
-        }
-        if(this.shadow){
-            this.shadow.hide();
         }
         if(this.mask){
             this.mask.remove();
@@ -811,8 +812,9 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
      * @return {Ext.BasicDialog} this
      */
     hide : function(callback){
-        if (this.fireEvent("beforehide", this) === false)
+        if (this.fireEvent("beforehide", this) === false){
             return;
+        }
         if(this.shadow){
             this.shadow.hide();
         }

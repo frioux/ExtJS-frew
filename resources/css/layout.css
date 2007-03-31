@@ -226,3 +226,19 @@
    opacity:.30;
    filter: alpha(opacity=30);
 }
+
+/* Reader Layout */
+
+.x-reader .x-layout-panel-north {
+    border:0 none;
+}
+.x-reader .x-layout-panel-center{
+    border:0 none;
+}
+.x-reader .x-layout-nested-layout .x-layout-panel-center{
+    border:1px solid #99bbe8;
+    border-top:0 none;
+}
+.x-reader .x-layout-nested-layout .x-layout-panel-south{
+    border:1px solid #99bbe8;
+}

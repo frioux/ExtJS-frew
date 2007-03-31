@@ -27,6 +27,7 @@ var LayoutExample = function(){
                         shadow:true,
                         minWidth:300,
                         minHeight:300,
+                        proxyDrag: true,
                         west: {
 	                        split:true,
 	                        initialSize: 150,
