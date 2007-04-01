@@ -43,7 +43,7 @@ Ext.EventManager = function(){
         }else if(Ext.isSafari){ 
             docReadyProcId = setInterval(function(){
                 var rs = document.readyState;
-                if(rs == "loaded" || rs == "complete") {
+                if(rs == "complete") {
                     fireDocReady();     
                  }
             }, 10);

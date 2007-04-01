@@ -1,40 +1,23 @@
 Ext JS - JavaScript Library
-Copyright (c) 2006-2007, Jack Slocum
+Copyright (c) 2006-2007, Ext JS, LLC
 All rights reserved.
-jack@extjs.com
+licensing@extjs.com
 
-The CSS and Graphics ("Assets") distributed with Ext are only licensed for use ONLY 
-with their associated Ext JavaScript component ("Component"). Use of the Assets in 
-any way that does not also include the Component is prohibited without explicit 
-permission.
-
-Deriving images and CSS from the Ext Assets in an effort to bypass this license is also
-prohibited and will be taken very seriously.
+The CSS and Graphics ("Assets") distributed with Ext are licensed for use ONLY
+with their associated Ext JavaScript component ("Component"). Use of the Assets in
+any way that does not also include the Component is prohibited without explicit
+permission from Ext JS, LLC.  Deriving images and CSS from the Assets in an effort
+to bypass this license is also prohibited.
 
 --
 
-The JavaScript code distributed with Ext is licensed under an LGPL open source 
-license version 2.1 with the one modification below titled "PROHIBITED USES".
+The JavaScript code distributed with Ext (the "Software") is licensed under the
+Lesser GNU (LGPL) open source license version 2.1.
 
 http://www.gnu.org/licenses/lgpl.html
 
-PROHIBITED USES
-You may not, without prior written consent, redistribute
-the Software or Modifications other than including its parts or as a whole
-into your own product, which must have substantially different functionality
-than the Software or Modifications and must not allow any third party to use
-the included parts of the Software or Modifications for the software
-development purposes. You are explicitly not allowed redistributing the
-Software or Modifications as part of the product, which can be described as a
-development toolkit or library and which is intended for use by software
-developers and not end-users. You are not allowed to redistribute any part of
-the Software documentation.
-You may not: a) use any part of the Software or Modifications or your
-knowledge of the Software to create a product with the same or substantially
-the same functionality as the Software; b) transfer, rent, lease, or
-sublicense the Software or Modifications; c) change or remove the copyright
-notice from any of the files included into the original Software or
-Modifications.
+If you are using this library for commercial purposes, we encourage you to purchase
+a commercial license. Please visit http://extjs.com/license for more details.
 
 This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
