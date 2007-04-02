@@ -233,6 +233,7 @@ Ext.MasterTemplate = function(){
     this.originalHtml = this.html;
     var st = {};
     var m, re = this.subTemplateRe;
+    re.lastIndex = 0;
     var subIndex = 0;
     while(m = re.exec(this.html)){
         var name = m[1], content = m[2];

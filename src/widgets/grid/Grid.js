@@ -303,7 +303,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
 	
 	/** True to enable drag and drop of rows
 	 * @type Boolean */
-	enableDragDrop : true,
+	enableDragDrop : false,
 	
 	/**
 	 * True to enable drag and drop reorder of columns
