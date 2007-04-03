@@ -178,7 +178,7 @@ Ext.DomHelper = function(){
         if(styles){
            el = Ext.fly(el);
            if(typeof styles == "string"){
-               var re = /\s?([a-z\-]*)\:([^;]*);?/gi;
+               var re = /\s?([a-z\-]*)\:\s?([^;]*);?/gi;
                var matches;
                while ((matches = re.exec(styles)) != null){
                    el.setStyle(matches[1], matches[2]);

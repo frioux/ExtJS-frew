@@ -108,6 +108,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
 
             // prevent input submission
             this.el.dom.name = '';
+            this.el.dom.removeAttribute('name');
         }
         if(Ext.isGecko){
             this.el.dom.setAttribute('autocomplete', 'off');
