@@ -331,18 +331,19 @@ Ext.onReady = Ext.EventManager.onDocumentReady;
 
 Ext.onReady(function(){
     var bd = Ext.get(document.body);
-        var cls = Ext.isIE ? "ext-ie"
-                : Ext.isGecko ? "ext-gecko"
-                : Ext.isOpera ? "ext-opera"
-                : Ext.isSafari ? "ext-safari" : "";
-        if(Ext.isBorderBox){
-            cls += ' ext-border-box';
-        }
-        if(Ext.isStrict){
-            cls += ' ext-strict';
-        }
-        bd.addClass(cls);
-    });
+    if(!bd){ return; }
+    var cls = Ext.isIE ? "ext-ie"
+            : Ext.isGecko ? "ext-gecko"
+            : Ext.isOpera ? "ext-opera"
+            : Ext.isSafari ? "ext-safari" : "";
+    if(Ext.isBorderBox){
+        cls += ' ext-border-box';
+    }
+    if(Ext.isStrict){
+        cls += ' ext-strict';
+    }
+    bd.addClass(cls);
+});
 /**
  * @class Ext.EventObject
  * EventObject exposes the Yahoo! UI Event functionality directly on the object
