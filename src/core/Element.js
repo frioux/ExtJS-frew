@@ -1956,14 +1956,18 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
     /**
      * Sets up event handlers to add and remove a css class when the mouse is over this element
      * @param {String} className
+     * @param {Boolean} preventFlicker (optional) If set to true, it prevents flickering by filtering
+     * mouseout events for children elements
      * @return {Ext.Element} this
      */
-    addClassOnOver : function(className){
+    addClassOnOver : function(className, preventFlicker){
         this.on("mouseover", function(){
             Ext.fly(this, '_internal').addClass(className);
         }, this.dom);
-        var removeFn = function(){
-            Ext.fly(this, '_internal').removeClass(className);
+        var removeFn = function(e){
+            if(preventFlicker !== true || !e.within(this, true)){
+                Ext.fly(this, '_internal').removeClass(className);
+            }
         };
         this.on("mouseout", removeFn, this.dom);
         return this;
