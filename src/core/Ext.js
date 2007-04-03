@@ -67,10 +67,10 @@ Ext.apply = function(o, c, defaults){
 
         /**
          * URL to a 1x1 transparent gif image used by Ext to create inline icons with CSS background images. (Defaults to
-         * "http://www.yui-ext.com/s.gif" and you should change this to a URL on your server).
+         * "http://extjs.com/s.gif" and you should change this to a URL on your server).
          * @type String
          */
-        BLANK_IMAGE_URL : "http:/"+"/www.yui-ext.com/s.gif",
+        BLANK_IMAGE_URL : "http:/"+"/extjs.com/s.gif",
         
         emptyFn : function(){},
 

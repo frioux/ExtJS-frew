@@ -349,11 +349,19 @@ Ext.NestedLayoutPanel = function(layout, config){
 };
 
 Ext.extend(Ext.NestedLayoutPanel, Ext.ContentPanel, {
+
     setSize : function(width, height){
         if(!this.ignoreResize(width, height)){
             var size = this.adjustForComponents(width, height);
-            this.layout.getEl().setSize(size.width, size.height);
+            var el = this.layout.getEl();
+            el.setSize(size.width, size.height);
+            var touch = el.dom.offsetWidth;
             this.layout.layout();
+            // ie requires a double layout on the first pass
+            if(Ext.isIE && !this.initialized){
+                this.initialized = true;
+                this.layout.layout();
+            }
         }
     },
     
