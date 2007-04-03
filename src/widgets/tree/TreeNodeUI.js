@@ -310,7 +310,7 @@ Ext.tree.TreeNodeUI.prototype = {
             var buf = ['<li class="x-tree-node"><div class="x-tree-node-el ', n.attributes.cls,'">',
                 '<span class="x-tree-node-indent">',this.indentMarkup,"</span>",
                 '<img src="', this.emptyIcon, '" class="x-tree-ec-icon">',
-                '<img src="', a.icon || this.emptyIcon, '" class="x-tree-node-icon',(a.icon ? " x-tree-node-inline-icon" : ""),'" unselectable="on">',
+                '<img src="', a.icon || this.emptyIcon, '" class="x-tree-node-icon',(a.icon ? " x-tree-node-inline-icon" : ""),(a.iconCls ? " "+a.iconCls : ""),'" unselectable="on">',
                 '<a hidefocus="on" href="',a.href ? a.href : "#",'" tabIndex="1" ',
                  a.hrefTarget ? ' target="'+a.hrefTarget+'"' : "", '><span unselectable="on">',n.text,"</span></a></div>",
                 '<ul class="x-tree-node-ct" style="display:none;"></ul>',

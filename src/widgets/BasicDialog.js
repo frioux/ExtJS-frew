@@ -910,10 +910,10 @@ Ext.DialogManager = function(){
     
     return {
         /**
-         * The starting z-index for BasicDialogs - defaults to 10000
+         * The starting z-index for BasicDialogs - defaults to 9000
          * @type Number
          */
-        zseed : 10000,
+        zseed : 9000,
         
         
         register : function(dlg){

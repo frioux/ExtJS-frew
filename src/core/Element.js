@@ -152,7 +152,23 @@ El.prototype = {
         }
         return null;
     },
-    
+
+
+    /**
+     * Looks at parent nodes for a match of the passed simple selector (e.g. div.some-class or span:first-child)
+     * @param {String} ss The simple selector to test
+     * @param {Number/String/HTMLElement/Element} maxDepth (optional) The max depth to
+            search as a number or element (defaults to 10 || document.body)
+     * @param {Boolean} returnEl (optional) True to return a Ext.Element object instead of DOM node
+     * @return {HTMLElement}
+     */
+    findParentNode : function(simpleSelector, maxDepth, returnEl){
+        var p = Ext.fly(this.dom.parentNode, '_internal');
+        return p ? p.findParent(simpleSelector, maxDepth, returnEl) : null;
+    },
+
+
+
     /**
      * Returns true if this element matches the passed simple selector (e.g. div.some-class or span:first-child)
      * @param {String} ss The simple selector to test

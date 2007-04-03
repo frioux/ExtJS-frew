@@ -1,4 +1,7 @@
 Ext.onReady(function(){
+
+    Ext.MessageBox.alert("Sorry", "This example is not compatible with the new site, no longer functions and is for reference only");
+
     var ds = new Ext.data.Store({
         proxy: new Ext.data.HttpProxy({
             url: '/forum2/topics-remote.php'
