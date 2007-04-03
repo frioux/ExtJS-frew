@@ -71,6 +71,7 @@ var Comments = function(){
             dialog.addKeyListener(27, dialog.hide, dialog);
             postBtn = dialog.addButton('Post', this.submitComment, this);
             dialog.addButton('Close', dialog.hide, dialog);
+
             
             // clear any messages and indicators when the dialog is closed
             dialog.on('hide', function(){

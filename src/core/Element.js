@@ -1562,13 +1562,14 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
      * @param {String} position The position to align to.
      * @param {Array} offsets (optional) Offset the positioning by [x, y]
      * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
-     * @param {Boolean/Number} monitorScroll true to monitor body scroll and reposition. If this parameter
+     * @param {Boolean/Number} monitorScroll (optional) true to monitor body scroll and reposition. If this parameter
      * is a number, it is used as the buffer delay (defaults to 50ms).
      * @param 
      */
-    anchorTo : function(el, alignment, offsets, animate, monitorScroll){
+    anchorTo : function(el, alignment, offsets, animate, monitorScroll, callback){
         var action = function(){
-           this.alignTo(el, alignment, offsets, animate);
+            this.alignTo(el, alignment, offsets, animate);
+            Ext.callback(callback, this);
         };
         Ext.EventManager.onWindowResize(action, this);
         var tm = typeof monitorScroll;
@@ -1577,6 +1578,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
                 {buffer: tm == 'number' ? monitorScroll : 50});
         }
         action.call(this); // align immediately
+        return this;
     },
     /**
     * Clears any opacity settings from this element. Required in some cases for IE.

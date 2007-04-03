@@ -786,9 +786,48 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
             this.el.setXY(this.xy);
             this.adjustAssets();
         }
-        return this; 
+        return this;
     },
-    
+
+    /**
+     * Aligns the dialog to the specified element (see {@link Ext.Element#alignTo} for more details)
+     * @param {String/HTMLElement/Ext.Element} element The element to align to.
+     * @param {String} position The position to align to.
+     * @param {Array} offsets (optional) Offset the positioning by [x, y]
+     * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
+     * @return {Ext.BasicDialog} this
+     */
+    alignTo : function(element, position, offsets){
+        this.xy = this.el.getAlignToXY(element, position, offsets);
+        if(this.isVisible()){
+            this.el.setXY(this.xy);
+            this.adjustAssets();
+        }
+        return this;
+    },
+
+    /**
+     * Anchors an element to another element and realigns it when the window is resized.
+     * @param {String/HTMLElement/Ext.Element} element The element to align to.
+     * @param {String} position The position to align to (see {@link Ext.Element#alignTo} for more details)
+     * @param {Array} offsets (optional) Offset the positioning by [x, y]
+     * @param {Boolean/Number} monitorScroll (optional) true to monitor body scroll and reposition. If this parameter
+     * is a number, it is used as the buffer delay (defaults to 50ms).
+     */
+    anchorTo : function(el, alignment, offsets, monitorScroll){
+        var action = function(){
+            this.alignTo(el, alignment, offsets);
+        };
+        Ext.EventManager.onWindowResize(action, this);
+        var tm = typeof monitorScroll;
+        if(tm != 'undefined'){
+            Ext.EventManager.on(window, 'scroll', action, this,
+                {buffer: tm == 'number' ? monitorScroll : 50});
+        }
+        action.call(this);
+        return this;
+    },
+
     /**
      * Returns true if the dialog is visible
      * @return {Boolean}
