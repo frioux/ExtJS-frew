@@ -25,6 +25,8 @@
     border:1px solid #fff;
     zoom:1;
     white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
 }
 .x-combo-list .x-combo-selected{
 	background-color: #c3daf9 !important;
