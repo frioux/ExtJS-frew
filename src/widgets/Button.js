@@ -163,7 +163,7 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
                 var ib = this.el.child('button');
                 if(ib && ib.getWidth() > 20){
                     ib.clip();
-                    ib.setWidth(Ext.Element.measureText(ib, this.text).width+ib.getFrameWidth('lr'));
+                    ib.setWidth(Ext.util.TextMetrics.measure(ib, this.text).width+ib.getFrameWidth('lr'));
                 }
             }
             if(this.minWidth){

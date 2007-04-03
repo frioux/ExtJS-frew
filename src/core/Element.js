@@ -606,7 +606,24 @@ El.prototype = {
         this.addClass(newClassName);
         return this;
     },
-    
+
+    /**
+     * Get an object with properties matching the styles requested.
+     * e.g. el.getStyles('color', 'font-size', 'width') might return
+     * {'color': '#FFFFFF', 'font-size': '13px', 'width': '100px'}.
+     * @param {String} style1
+     * @param {String} style2
+     * @param {String} etc
+     * @return Object
+     */
+    getStyles : function(){
+        var a = arguments, len = a.length, r = {};
+        for(var i = 0; i < len; i++){
+            r[a[i]] = this.getStyle(a[i]);
+        }
+        return r;
+    },
+
     /**
        * Normalizes currentStyle and computedStyle. This is not YUI getStyle, it is an optimised version.
        * @param {String} property The style property whose value is returned.
@@ -2610,32 +2627,5 @@ if(Ext.isIE || Ext.isGecko){
 if(Ext.isGecko && !Ext.isStrict){
     noBoxAdjust['textarea'] = 0;
 }
-var ml;
-El.measureText = function(el, text, fixedWidth){
-    if(!ml){
-        ml = new El(document.createElement('div'));
-        document.body.appendChild(ml.dom);
-        ml.position('absolute');
-        ml.setLeftTop(-1000, -1000);
-        ml.hide();
-    }
-    el = Ext.fly(el);
-    ml.setStyle({
-        'font-size' : el.getStyle('font-size'),
-        'font-style' : el.getStyle('font-style'),
-        'font-weight' : el.getStyle('font-weight'),
-        'font-family' : el.getStyle('font-family')
-    });
-    if(fixedWidth){
-        mi.setWidth(fixedWidth);
-    }
-    ml.update(text);
-    var s = ml.getSize();
-    ml.update('');
-    if(fixedWidth){
-        mi.setWidth('auto');
-    }
-    return s;
-};
 })();
 

@@ -1,8 +1,14 @@
 Ext.form.TextField = function(config){
     Ext.form.TextField.superclass.constructor.call(this, config);
+    this.addEvents({
+        autosize : true
+    });
 };
 
 Ext.extend(Ext.form.TextField, Ext.form.Field,  {
+    growMin : 30,
+    growMax : 800,
+
     initEvents : function(){
         Ext.form.TextField.superclass.initEvents.call(this);
         if(this.validationEvent !== false){
@@ -21,8 +27,18 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
         if(this.maskRe || (this.vtype && this.disableKeyFilter !== true && (this.maskRe = Ext.form.VTypes[this.vtype+'Mask']))){
             this.el.on("keypress", this.filterKeys, this);
         }
+        if(this.grow){
+            this.el.on("keyup", this.onKeyUp,  this, {buffer:50});
+            this.el.on("click", this.autoSize,  this);
+        }
     },
 
+
+    onKeyUp : function(e){
+        if(!e.isNavKeyPress()){
+            this.autoSize();
+        }
+    },
 
     reset : function(){
         Ext.form.TextField.superclass.reset.call(this);
@@ -116,6 +132,20 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
                 range.select();
             }
         }
+    },
+
+    autoSize : function(){
+        if(!this.grow || !this.rendered){
+            return;
+        }
+        if(!this.metrics){
+            this.metrics = Ext.util.TextMetrics.createInstance(this.el);
+        }
+        var el = this.el;
+        var v = el.dom.value + "&#160;";
+        var w = Math.min(this.growMax, Math.max(this.metrics.getWidth(v) + /* add extra padding */ 10, this.growMin));
+        this.el.setWidth(w);
+        this.fireEvent("autosize", this, w);
     },
 
     vtype : null,

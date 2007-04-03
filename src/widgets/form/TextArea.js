@@ -1,22 +1,20 @@
 Ext.form.TextArea = function(config){
     Ext.form.TextArea.superclass.constructor.call(this, config);
-    this.addEvents({
-        autosize : true
-    });
+    // these are provided exchanges for backwards compat
+    // minHeight/maxHeight were replaced by growMin/growMax to be
+    // compatible with TextField growing config values
+    if(this.minHeight !== undefined){
+        this.growMin = this.minHeight;
+    }
+    if(this.maxHeight !== undefined){
+        this.growMax = this.maxHeight;
+    }
 };
 
 Ext.extend(Ext.form.TextArea, Ext.form.TextField,  {
-    minHeight : 60,
-    maxHeight: 1000,
+    growMin : 60,
+    growMax: 1000,
     preventScrollbars: false,
-
-    initEvents : function(){
-        Ext.form.TextArea.superclass.initEvents.call(this);
-        if(this.grow){
-            this.el.on("keyup", this.onKeyUp,  this, {buffer:50});
-            this.el.on("click", this.autoSize,  this);
-        }
-    },
 
     onRender : function(ct){
         if(!this.el){
@@ -60,7 +58,7 @@ Ext.extend(Ext.form.TextArea, Ext.form.TextField,  {
             v = v.replace(/\n/g, '<br />');
         }
         ts.innerHTML = v;
-        var h = Math.min(this.maxHeight, Math.max(ts.offsetHeight, this.minHeight));
+        var h = Math.min(this.growMax, Math.max(ts.offsetHeight, this.growMin));
         this.el.setHeight(h);
         this.fireEvent("autosize", this, h);
     },

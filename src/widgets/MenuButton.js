@@ -68,7 +68,7 @@ Ext.extend(Ext.MenuButton, Ext.Button, {
                 var ib = this.el.child('button:first');
                 if(ib && ib.getWidth() > 20){
                     ib.clip();
-                    ib.setWidth(Ext.Element.measureText(ib, this.text).width+ib.getFrameWidth('lr'));
+                    ib.setWidth(Ext.util.TextMetrics.measure(ib, this.text).width+ib.getFrameWidth('lr'));
                 }
             }
             if(this.minWidth){
