@@ -103,14 +103,17 @@ Ext.QuickTips = function(){
         }
         tipBody.update(o.text);
         if(!ce.width){
-            if(tipBody.dom.style.width){
-               tipBody.dom.style.width  = "";
+            var td = tipBody.dom;
+            if(td.style.width){
+               td.style.width  = "";
             }
-            if(tipBody.dom.offsetWidth > tm.maxWidth){
+            var w = Math.max(td.offsetWidth, td.clientWidth, td.scrollWidth);
+            if(w > tm.maxWidth){
                 tipBody.setWidth(tm.maxWidth);
-            }
-            if(tipBody.dom.offsetWidth < tm.minWidth){
+            }else if(w < tm.minWidth){
                 tipBody.setWidth(tm.minWidth);
+            }else{
+                tipBody.setWidth(w);
             }
         }else{
             tipBody.setWidth(ce.width);
