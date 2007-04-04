@@ -96,7 +96,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 		tpls.hcell.compile();
 
 		if(!tpls.hsplit){
-		    tpls.hsplit = new Ext.Template('<div class="x-grid-split {splitId} x-grid-split-{id}" unselectable="on">&#160;</div>');
+		    tpls.hsplit = new Ext.Template('<div class="x-grid-split {splitId} x-grid-split-{id}" style="{style}" unselectable="on">&#160;</div>');
 		    tpls.hsplit.disableFormats = true;
 		}
 		tpls.hsplit.compile();
@@ -431,6 +431,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             p.id = cm.getColumnId(i);
             p.title = cm.getColumnTooltip(i) || "";
             p.value = cm.getColumnHeader(i) || "";
+            p.style = !cm.isResizable(i) || cm.isFixed(i) ? 'cursor:default' : '';
             if(!cm.isLocked(i)){
                 cb[cb.length] = ct.apply(p);
                 sb[sb.length] = st.apply(p);
@@ -1181,8 +1182,10 @@ if(!dds[dd].config.isTarget && dds[dd].dragElId){
 
     handleSplitDblClick : function(e, t){
         var i = this.getCellIndex(t);
-        this.autoSizeColumn(i, true);
-        this.layout();
+        if(this.cm.isResizable(i) && !this.cm.isFixed(i)){
+            this.autoSizeColumn(i, true);
+            this.layout();
+        }
     },
 
     render : function(){
