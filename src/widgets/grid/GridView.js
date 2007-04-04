@@ -431,7 +431,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             p.id = cm.getColumnId(i);
             p.title = cm.getColumnTooltip(i) || "";
             p.value = cm.getColumnHeader(i) || "";
-            p.style = !cm.isResizable(i) || cm.isFixed(i) ? 'cursor:default' : '';
+            p.style = (this.grid.enableColumnResize === false || !cm.isResizable(i) || cm.isFixed(i)) ? 'cursor:default' : '';
             if(!cm.isLocked(i)){
                 cb[cb.length] = ct.apply(p);
                 sb[sb.length] = st.apply(p);
@@ -1182,7 +1182,7 @@ if(!dds[dd].config.isTarget && dds[dd].dragElId){
 
     handleSplitDblClick : function(e, t){
         var i = this.getCellIndex(t);
-        if(this.cm.isResizable(i) && !this.cm.isFixed(i)){
+        if(this.grid.enableColumnResize !== false && this.cm.isResizable(i) && !this.cm.isFixed(i)){
             this.autoSizeColumn(i, true);
             this.layout();
         }
