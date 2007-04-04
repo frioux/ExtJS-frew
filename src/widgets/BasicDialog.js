@@ -10,18 +10,18 @@
  * @cfg {Number} y The default left page coordinate of the dialog (defaults to center screen)
  * @cfg {String/Element} animateTarget Id or element from which the dialog should animate while opening
  * (defaults to null with no animation)
- * @cfg {Boolean} resizable True if the dialog can be resized manually by the user (defaults to true)
+ * @cfg {Boolean} resizable False to disable manual dialog resizing (defaults to true)
  * @cfg {String} resizeHandles Which resize handles to display - see the {@link Ext.Resizable} handles config
  * property for valid values (defaults to 'all')
  * @cfg {Number} minHeight The minimum allowable height for a resizable dialog (defaults to 80)
  * @cfg {Number} minWidth The minimum allowable width for a resizable dialog (defaults to 200)
  * @cfg {Boolean} modal True to show the dialog modally, preventing user interaction with the rest of the page (defaults to false)
  * @cfg {Boolean} autoScroll True to allow the dialog body contents to overflow and display scrollbars (defaults to false)
- * @cfg {Boolean} closable True to include the built-in top-right corner close button (defaults to true)
- * @cfg {Boolean} collapsible True to include the built-in top-right corner collapse button (defaults to true)
+ * @cfg {Boolean} closable False to remove the built-in top-right corner close button (defaults to true)
+ * @cfg {Boolean} collapsible False to remove the built-in top-right corner collapse button (defaults to true)
  * @cfg {Boolean} constraintoviewport True to keep the dialog constrained within the visible viewport boundaries (defaults to true)
  * @cfg {Boolean} syncHeightBeforeShow True to cause the dimensions to be recalculated before the dialog is shown (defaults to false)
- * @cfg {Boolean} draggable True to allow the user to drag the dialog within the viewport (defaults to true)
+ * @cfg {Boolean} draggable False to disable dragging of the dialog within the viewport (defaults to true)
  * @cfg {Boolean} autoTabs If true, all elements with class 'x-dlg-tab' will get automatically converted to tabs (defaults to false)
  * @cfg {String} tabTag The tag name of tab elements, used when autoTabs = true (defaults to 'div')
  * @cfg {Boolean} proxyDrag True to drag a lightweight proxy element rather than the dialog itself, used when
