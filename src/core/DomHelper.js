@@ -6,18 +6,21 @@
  */
 Ext.DomHelper = function(){
     var tempTableEl = null;
-    var emptyTags = /^(?:base|basefont|br|frame|hr|img|input|isindex|link|meta|nextid|range|spacer|wbr|audioscope|area|param|keygen|col|limittext|spot|tab|over|right|left|choose|atop|of)$/i;
+    var emptyTags = /^(?:br|frame|hr|img|input|link|meta|range|spacer|wbr|area|param|col)$/i;
            
     // build as innerHTML where available
     /** @ignore */
     var createHtml = function(o){
+        if(typeof o == 'string'){
+            return o;
+        }
         var b = "";
         if(!o.tag){
             o.tag = "div";
         }
         b += "<" + o.tag;
         for(var attr in o){
-            if(attr == "tag" || attr == "children" || attr == "html" || typeof o[attr] == "function") continue;
+            if(attr == "tag" || attr == "children" || attr == "cn" || attr == "html" || typeof o[attr] == "function") continue;
             if(attr == "style"){
                 var s = o["style"];
                 if(typeof s == "function"){
@@ -48,9 +51,14 @@ Ext.DomHelper = function(){
             b += "/>";
         }else{
             b += ">";
-            if(o.children){
-                for(var i = 0, len = o.children.length; i < len; i++) {
-                    b += createHtml(o.children[i], b);
+            var cn = o.children || o.cn;
+            if(cn){
+                if(cn instanceof Array){
+                    for(var i = 0, len = cn.length; i < len; i++) {
+                        b += createHtml(cn[i], b);
+                    }
+                }else{
+                    b += createHtml(cn, b);
                 }
             }
             if(o.html){
@@ -67,7 +75,7 @@ Ext.DomHelper = function(){
         var el = document.createElement(o.tag);
         var useSet = el.setAttribute ? true : false; // In IE some elements don't have setAttribute
         for(var attr in o){
-            if(attr == "tag" || attr == "children" || attr == "html" || attr == "style" || typeof o[attr] == "function") continue;
+            if(attr == "tag" || attr == "children" || attr == "cn" || attr == "html" || attr == "style" || typeof o[attr] == "function") continue;
             if(attr=="cls"){
                 el.className = o["cls"];
             }else{
@@ -76,9 +84,14 @@ Ext.DomHelper = function(){
             }
         }
         Ext.DomHelper.applyStyles(el, o.style);
-        if(o.children){
-            for(var i = 0, len = o.children.length; i < len; i++) {
-             	createDom(o.children[i], el);
+        var cn = o.children || o.cn;
+        if(cn){
+            if(cn instanceof Array){
+                for(var i = 0, len = cn.length; i < len; i++) {
+                    createDom(cn[i], b);
+                }
+            }else{
+                createDom(cn, b);
             }
         }
         if(o.html){
@@ -89,7 +102,24 @@ Ext.DomHelper = function(){
         }
         return el;
     };
-    
+
+    var ieTable = function(depth, s, h, e){
+        tempTableEl.innerHTML = [s, h, e].join('');
+        var i = -1, el = tempTableEl;
+        while(++i < depth){
+            el = el.firstChild;
+        }
+        return el;
+    };
+
+    // kill repeat to save bytes
+    var ts = '<table>',
+        te = '</table>',
+        tbs = ts+'<tbody>',
+        tbe = '</tbody>'+te,
+        trs = tbs + '<tr>',
+        tre = '</tr>'+tbe;
+
     /**
      * @ignore
      * Nasty code for IE's broken table implementation 
@@ -111,44 +141,37 @@ Ext.DomHelper = function(){
                 before = el.nextSibling;
                 el = el.parentNode;
             }
-            tempTableEl.innerHTML = '<table><tbody><tr>' + html + '</tr></tbody></table>';
-            node = tempTableEl.firstChild.firstChild.firstChild.firstChild;
+            node = ieTable(4, trs, html, tre);
         }
         else if(tag == 'tr'){
             if(where == 'beforebegin'){
                 before = el;
                 el = el.parentNode;
-                tempTableEl.innerHTML = '<table><tbody>' + html + '</tbody></table>';
-                node = tempTableEl.firstChild.firstChild.firstChild;
+                node = ieTable(3, tbs, html, tbe);
             } else if(where == 'afterend'){
                 before = el.nextSibling;
                 el = el.parentNode;
-                tempTableEl.innerHTML = '<table><tbody>' + html + '</tbody></table>';
-                node = tempTableEl.firstChild.firstChild.firstChild;
+                node = ieTable(3, tbs, html, tbe);
             } else{ // INTO a TR
                 if(where == 'afterbegin'){
                     before = el.firstChild;
                 }
-                tempTableEl.innerHTML = '<table><tbody><tr>' + html + '</tr></tbody></table>';
-                node = tempTableEl.firstChild.firstChild.firstChild.firstChild;
+                node = ieTable(4, trs, html, tre);
             }
         } else if(tag == 'tbody'){
             if(where == 'beforebegin'){
                 before = el;
                 el = el.parentNode;
-                tempTableEl.innerHTML = '<table>' + html + '</table>';
-                node = tempTableEl.firstChild.firstChild;
+                node = ieTable(2, ts, html, te);
             } else if(where == 'afterend'){
                 before = el.nextSibling;
                 el = el.parentNode;
-                tempTableEl.innerHTML = '<table>' + html + '</table>';
-                node = tempTableEl.firstChild.firstChild;
+                node = ieTable(2, ts, html, te);
             } else{
                 if(where == 'afterbegin'){
                     before = el.firstChild;
                 }
-                tempTableEl.innerHTML = '<table><tbody>' + html + '</tbody></table>';
-                node = tempTableEl.firstChild.firstChild.firstChild;
+                node = ieTable(3, tbs, html, tbe);
             }
         } else{ // TABLE
             if(where == 'beforebegin' || where == 'afterend'){ // OUTSIDE the table
@@ -157,8 +180,7 @@ Ext.DomHelper = function(){
             if(where == 'afterbegin'){
                 before = el.firstChild;
             }
-            tempTableEl.innerHTML = '<table>' + html + '</tbody>';
-            node = tempTableEl.firstChild.firstChild;
+            node = ieTable(2, ts, html, te);
         }
         el.insertBefore(node, before);
         return node;
@@ -167,7 +189,16 @@ Ext.DomHelper = function(){
     return {
     /** True to force the use of DOM instead of html fragments @type Boolean */
     useDom : false,
-    
+
+    /**
+     * Returns the markup for the passed Element(s) config
+     * @param {Object} o The Dom object spec (and children)
+     * @return {String}
+     */
+    markup : function(o){
+        return createHtml(o);
+    },
+
     /**
      * Applies a style specification to an element
      * @param {String/HTMLElement} el The element to apply styles to

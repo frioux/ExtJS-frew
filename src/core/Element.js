@@ -1619,13 +1619,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
      * @private Test if size has a unit, otherwise appends the default 
      */
     addUnits : function(size){
-        if(size === "" || size == "auto" || typeof size == "undefined"){
-            return size;
-        }
-        if(typeof size == "number" || !El.unitPattern.test(size)){
-            return size + this.defaultUnit;
-        }
-        return size;
+        return Ext.Element.addUnits(size, this.defaultUnit);
     },
     
     /**
@@ -2504,6 +2498,20 @@ ep.autoBoxAdjust = true;
 ep.autoDisplayMode = true;
 
 El.unitPattern = /\d+(px|em|%|en|ex|pt|in|cm|mm|pc)$/i;
+
+El.addUnits = function(v, defaultUnit){
+    if(v === "" || v == "auto"){
+        return v;
+    }
+    if(v === undefined){
+        return '';
+    }
+    if(typeof v == "number" || !El.unitPattern.test(v)){
+        return v + (defaultUnit || 'px');
+    }
+    return v;
+};
+
 /**
  * Visibility mode constant - Use visibility to hide element
  * @static
