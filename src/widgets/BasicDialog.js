@@ -1,7 +1,22 @@
 /**
  * @class Ext.BasicDialog
  * @extends Ext.util.Observable
- * Lightweight Dialog Class.
+ * Lightweight Dialog Class.  The code below shows the creation of a typical dialog using existing HTML markup:
+ * <pre><code>
+    var dlg = new Ext.BasicDialog("my-dlg", {
+        height: 200,
+        width: 300,
+        minHeight: 100,
+        minWidth: 150,
+        modal: true,
+        proxyDrag: true,
+        shadow: true
+    });
+    dlg.addKeyListener(27, dlg.hide, dlg); // ESC can also close the dialog
+    dlg.addButton('OK', dlg.hide, dlg);    // Could call a save function instead of hiding
+    dlg.addButton('Cancel', dlg.hide, dlg);
+    dlg.show();
+  </code></pre>
  * @cfg {Boolean/DomHelper} autoCreate True to auto create from scratch, or using a DomHelper Object (defaults to false)
  * @cfg {String} title Default text to display in the title bar (defaults to null)
  * @cfg {Number} width Width of the dialog in pixels (can also be set via CSS).  Determined by browser if unspecified.
@@ -33,22 +48,6 @@
  * @cfg {String} buttonAlign Valid values are "left," "center" and "right" (defaults to "right")
  * @cfg {Number} minButtonWidth Minimum width of all dialog buttons (defaults to 75)
  * @cfg {Boolean} shim True to create an iframe shim that prevents selects from showing through (defaults to false)
- * The code below shows the creation of a typical dialog using existing HTML markup:
- * <pre><code>
-    var dlg = new Ext.BasicDialog("my-dlg", {
-        height: 200,
-        width: 300,
-        minHeight: 100,
-        minWidth: 150,
-        modal: true,
-        proxyDrag: true,
-        shadow: true
-    });
-    dlg.addKeyListener(27, dlg.hide, dlg); // ESC can also close the dialog
-    dlg.addButton('OK', dlg.hide, dlg);    // Could call a save function instead of hiding
-    dlg.addButton('Cancel', dlg.hide, dlg);
-    dlg.show();
-  </code></pre>
  * @constructor
  * Create a new BasicDialog.
  * @param {String/HTMLElement/Ext.Element} el The container element or DOM node, or its id
