@@ -2,43 +2,57 @@
  * @class Ext.BasicDialog
  * @extends Ext.util.Observable
  * Lightweight Dialog Class.
- * 
- * The code below lists all configuration options along with the default value.
- * If the default value is what you want you can leave it out:
+ * @cfg {Boolean/DomHelper} autoCreate True to auto create from scratch, or using a DomHelper Object (defaults to false)
+ * @cfg {String} title Default text to display in the title bar (defaults to null)
+ * @cfg {Number} width Width of the dialog in pixels (can also be set via CSS).  Determined by browser if unspecified.
+ * @cfg {Number} height Height of the dialog in pixels (can also be set via CSS).  Determined by browser if unspecified.
+ * @cfg {Number} x The default top page coordinate of the dialog (defaults to center screen)
+ * @cfg {Number} y The default left page coordinate of the dialog (defaults to center screen)
+ * @cfg {String/Element} animateTarget Id or element from which the dialog should animate while opening
+ * (defaults to null with no animation)
+ * @cfg {Boolean} resizable True if the dialog can be resized manually by the user (defaults to true)
+ * @cfg {String} resizeHandles Which resize handles to display - see the {@link Ext.Resizable} handles config
+ * property for valid values (defaults to 'all')
+ * @cfg {Number} minHeight The minimum allowable height for a resizable dialog (defaults to 80)
+ * @cfg {Number} minWidth The minimum allowable width for a resizable dialog (defaults to 200)
+ * @cfg {Boolean} modal True to show the dialog modally, preventing user interaction with the rest of the page (defaults to false)
+ * @cfg {Boolean} autoScroll True to allow the dialog body contents to overflow and display scrollbars (defaults to false)
+ * @cfg {Boolean} closable True to include the built-in top-right corner close button (defaults to true)
+ * @cfg {Boolean} collapsible True to include the built-in top-right corner collapse button (defaults to true)
+ * @cfg {Boolean} constraintoviewport True to keep the dialog constrained within the visible viewport boundaries (defaults to true)
+ * @cfg {Boolean} syncHeightBeforeShow True to cause the dimensions to be recalculated before the dialog is shown (defaults to false)
+ * @cfg {Boolean} draggable True to allow the user to drag the dialog within the viewport (defaults to true)
+ * @cfg {Boolean} autoTabs If true, all elements with class 'x-dlg-tab' will get automatically converted to tabs (defaults to false)
+ * @cfg {String} tabTag The tag name of tab elements, used when autoTabs = true (defaults to 'div')
+ * @cfg {Boolean} proxyDrag True to drag a lightweight proxy element rather than the dialog itself, used when
+ * draggable = true (defaults to false)
+ * @cfg {Boolean} fixedcenter True to ensure that anytime the dialog is shown or resized it gets centered (defaults to false)
+ * @cfg {Boolean} shadow True or "sides" for the default effect, "frame" for 4-way shadow, and "drop" for drop
+ * shadow (defaults to false)
+ * @cfg {Number} shadowOffset The number of pixels to offset the shadow if displayed (defaults to 5)
+ * @cfg {String} buttonAlign Valid values are "left," "center" and "right" (defaults to "right")
+ * @cfg {Number} minButtonWidth Minimum width of all dialog buttons (defaults to 75)
+ * @cfg {Boolean} shim True to create an iframe shim that prevents selects from showing through (defaults to false)
+ * The code below shows the creation of a typical dialog using existing HTML markup:
  * <pre><code>
-  var dlg = new Ext.BasicDialog("element-id", {
-       autoCreate: false, (true to auto create from scratch, or DomHelper Object)
-       title: null, (title to set at config time)
-       width: (css),
-       height: (css),
-       x: 200, //(defaults to center screen if blank)
-       y: 500, //(defaults to center screen if blank)
-       animateTarget: null,// (no animation) This is the id or element to animate from
-       resizable: true,
-       resizeHandles: "all",
-       minHeight: 80,
-       minWidth: 200,
-       modal: false,
-       autoScroll: true,
-       closable: true,
-       constraintoviewport: true,
-       syncHeightBeforeShow: false, // causes dimensions to be recalculated before the dialog is shown
-       draggable: true,
-       autoTabs: false, (if true searches child nodes for elements with class x-dlg-tab and converts them to tabs)
-       tabTag: "div", // the tag name of tab elements
-       proxyDrag: false, (drag a proxy element rather than the dialog itself)
-       fixedcenter: false,
-       shadow: false (Can be true or "sides" for default, "frame" for 4 way and "drop" for drop shadow),
-       buttonAlign: "right",
-       minButtonWidth: 75,
-       shim: false // true to create an iframe shim to 
-                   // keep selects from showing through
-  });
+    var dlg = new Ext.BasicDialog("my-dlg", {
+        height: 200,
+        width: 300,
+        minHeight: 100,
+        minWidth: 150,
+        modal: true,
+        proxyDrag: true,
+        shadow: true
+    });
+    dlg.addKeyListener(27, dlg.hide, dlg); // ESC can also close the dialog
+    dlg.addButton('OK', dlg.hide, dlg);    // Could call a save function instead of hiding
+    dlg.addButton('Cancel', dlg.hide, dlg);
+    dlg.show();
   </code></pre>
  * @constructor
  * Create a new BasicDialog.
- * @param {String/HTMLElement/Ext.Element} el The id of or container element
- * @param {Object} config configuration options
+ * @param {String/HTMLElement/Ext.Element} el The container element or DOM node, or its id
+ * @param {Object} config Configuration options
  */
 Ext.BasicDialog = function(el, config){
     this.el = Ext.get(el);
@@ -259,15 +273,21 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
         this.header.update(text);
         return this; 
     },
-    
+
+    // private
     closeClick : function(){
         this.hide();  
     },
 
+    // private
     collapseClick : function(){
         this[this.collapsed ? "expand" : "collapse"]();
     },
 
+    /**
+     * Collapses the dialog to its minimized state (only the title bar is visible).
+     * Equivalent to the user clicking the collapse dialog button.
+     */
     collapse : function(){
         if(!this.collapsed){
             this.collapsed = true;
@@ -277,6 +297,10 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
         }
     },
 
+    /**
+     * Expands a collapsed dialog back to its normal state.  Equivalent to the user
+     * clicking the expand dialog button.
+     */
     expand : function(){
         if(this.collapsed){
             this.collapsed = false;
@@ -302,11 +326,13 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
         tabs.activate(0);
         return tabs;
     },
-    
+
+    // private
     beforeResize : function(){
         this.resizer.minHeight = Math.max(this.minHeight, this.getHeaderFooterHeight(true)+40);
     },
-    
+
+    // private
     onResize : function(){
         this.refreshSize();
         this.syncBodyHeight();
@@ -314,7 +340,8 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
         this.focus();
         this.fireEvent("resize", this, this.size.width, this.size.height);
     },
-    
+
+    // private
     onKeyDown : function(e){
         if(this.isVisible()){
             this.fireEvent("keydown", this, e);
@@ -365,7 +392,8 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
     },
     
     /**
-     * Adds a key listener for when this dialog is displayed
+     * Adds a key listener for when this dialog is displayed.  This allows you to hook in a function that will be
+     * executed in response to a particular key being pressed while the dialog is active.
      * @param {Number/Array/Object} key Either the numeric key code, array of key codes or an object with the following options: 
      *                                  {key: (number or array), shift: (true/false), ctrl: (true/false), alt: (true/false)}
      * @param {Function} fn The function to call
@@ -404,7 +432,7 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
     },
     
     /**
-     * Returns the TabPanel component (if autoTabs)
+     * Returns the TabPanel component (if autoTabs = true)
      * @return {Ext.TabPanel}
      */
     getTabs : function(){
@@ -417,7 +445,7 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
     },
     
     /**
-     * Adds a button.
+     * Adds a button to the footer section of the dialog.
      * @param {String/Object} config A string becomes the button text, an object can either be a Button config
      * object or a valid Ext.DomHelper element config
      * @param {Function} handler The function called when the button is clicked
@@ -471,15 +499,16 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
     },
 
     /**
-     * Sets the default button to be focused when the dialog is displayed
-     * @param {Ext.BasicDialog.Button} btn The button object returned by addButton
+     * Sets the default button to be focused when the dialog is displayed.
+     * @param {Ext.BasicDialog.Button} btn The button object returned by {@link #addButton}
      * @return {Ext.BasicDialog} this
      */
     setDefaultButton : function(btn){
         this.defaultButton = btn;  
         return this;
     },
-    
+
+    // private
     getHeaderFooterHeight : function(safe){
         var height = 0;
         if(this.header){
@@ -493,7 +522,8 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
         height += this.centerBg.getPadding("tb");
         return height;
     },
-    
+
+    // private
     syncBodyHeight : function(){
         var bd = this.body, cb = this.centerBg, bw = this.bwrap;
         var height = this.size.height - this.getHeaderFooterHeight(false);
@@ -514,7 +544,7 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
     },
     
     /**
-     * Restores the previous state of the dialog if Ext.state is configured
+     * Restores the previous state of the dialog if Ext.state is configured.
      * @return {Ext.BasicDialog} this
      */
     restoreState : function(){
@@ -525,7 +555,8 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
         }
         return this; 
     },
-    
+
+    // private
     beforeShow : function(){
         this.expand();
         if(this.fixedcenter){
@@ -538,7 +569,8 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
         }
         this.constrainXY();
     },
-    
+
+    // private
     animShow : function(){
         var b = Ext.get(this.animateTarget, true).getBox();
         this.proxy.setSize(b.width, b.height);
@@ -571,7 +603,8 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
         }
         return this; 
     },
-    
+
+    // private
     showEl : function(){
         this.proxy.hide();
         this.el.setXY(this.xy);
@@ -581,7 +614,11 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
         this.focus();
         this.fireEvent("show", this);
     },
-    
+
+    /**
+     * Focuses the dialog.  If a defaultButton is set, it will receive focus, otherwise the
+     * dialog itself will receive focus.
+     */
     focus : function(){
         if(this.defaultButton){
             this.defaultButton.focus();
@@ -589,7 +626,8 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
             this.focusEl.focus();
         }  
     },
-    
+
+    // private
     constrainXY : function(){
         if(this.constraintoviewport !== false){
             if(!this.viewSize){
@@ -635,14 +673,16 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
             }
         }
     },
-    
+
+    // private
     onDrag : function(){
         if(!this.proxyDrag){
             this.xy = this.el.getXY();
             this.adjustAssets();
         }   
     },
-    
+
+    // private
     adjustAssets : function(doShow){
         var x = this.xy[0], y = this.xy[1];
         var w = this.size.width, h = this.size.height;
@@ -662,7 +702,7 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
         }
     },
     
-    
+    // private
     adjustViewport : function(w, h){
         if(!w || !h){
             w = Ext.lib.Dom.getViewWidth();
@@ -680,7 +720,8 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
     },
     
     /**
-     * Destroys this dialog
+     * Destroys this dialog and all its supporting elements (including any tabs, shim,
+     * shadow, proxy, mask, etc.)  Also removes all event listeners.
      * @param {Boolean} removeEl (optional) true to remove the element from the DOM
      */
     destroy : function(removeEl){
@@ -723,7 +764,8 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
         }
         Ext.DialogManager.unregister(this);
     },
-    
+
+    // private
     startMove : function(){
         if(this.proxyDrag){
             this.proxy.show();
@@ -732,7 +774,8 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
             this.dd.constrainTo(document.body, {right: this.shadowOffset, bottom: this.shadowOffset});
         }
     },
-    
+
+    // private
     endMove : function(){
         if(!this.proxyDrag){
             Ext.dd.DD.prototype.endDrag.apply(this.dd, arguments);
@@ -765,7 +808,7 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
     },
     
     /**
-     * Centers this dialog 
+     * Centers this dialog in the viewport
      * @return {Ext.BasicDialog} this
      */
     center : function(){
@@ -775,7 +818,7 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
     },
     
     /**
-     * Moves the dialog to the specified point
+     * Moves the dialog's top-left corner to the specified point
      * @param {Number} x
      * @param {Number} y
      * @return {Ext.BasicDialog} this
@@ -835,7 +878,8 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
     isVisible : function(){
         return this.el.isVisible();    
     },
-    
+
+    // private
     animHide : function(callback){
         var b = Ext.get(this.animateTarget).getBox();
         this.proxy.show();
@@ -868,7 +912,8 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
         }
         return this; 
     },
-    
+
+    // private
     hideEl : function(callback){
         this.proxy.hide();
         if(this.modal){
@@ -880,19 +925,23 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
             callback();
         }
     },
-    
+
+    // private
     hideAction : function(){
         this.setLeft("-10000px");
         this.setTop("-10000px");
         this.setStyle("visibility", "hidden");
     },
-    
+
+    // private
     refreshSize : function(){
         this.size = this.el.getSize();
         this.xy = this.el.getXY();
         Ext.state.Manager.set(this.stateId || this.el.id + "-state", this.el.getBox());
     },
-    
+
+    // private
+    // z-index is managed by the DialogManager and may be overwritten at any time
     setZIndex : function(index){
         if(this.modal){
             this.mask.setStyle("z-index", index);
@@ -932,11 +981,13 @@ Ext.DialogManager = function(){
     var list = {};
     var accessList = [];
     var front = null;
-    
+
+    // private
     var sortDialogs = function(d1, d2){
         return (!d1._lastAccess || d1._lastAccess < d2._lastAccess) ? -1 : 1;
     };
-    
+
+    // private
     var orderDialogs = function(){
         accessList.sort(sortDialogs);
         var seed = Ext.DialogManager.zseed;
@@ -954,12 +1005,13 @@ Ext.DialogManager = function(){
          */
         zseed : 9000,
         
-        
+        // private
         register : function(dlg){
             list[dlg.id] = dlg;
             accessList.push(dlg);
         },
-        
+
+        // private
         unregister : function(dlg){
             delete list[dlg.id];
             if(!accessList.indexOf){
@@ -1013,6 +1065,9 @@ Ext.DialogManager = function(){
             return dlg;
         },
 
+        /**
+         * Hides all dialogs
+         */
         hideAll : function(){
             for(var id in list){
                 if(list[id] && typeof list[id] != "function" && list[id].isVisible()){
@@ -1096,6 +1151,7 @@ Ext.extend(Ext.LayoutDialog, Ext.BasicDialog, {
     endUpdate : function(){
         this.layout.endUpdate();
     },
+
     /**
      * Begins an update of the layout <strike>and sets display to block and visibility to hidden</strike>. Use standard beginUpdate/endUpdate on the layout.
      *  @deprecated
@@ -1103,6 +1159,7 @@ Ext.extend(Ext.LayoutDialog, Ext.BasicDialog, {
     beginUpdate : function(){
         this.layout.beginUpdate();
     },
+
     /**
      * Get the BorderLayout for this dialog
      * @return {Ext.BorderLayout} 
@@ -1110,6 +1167,9 @@ Ext.extend(Ext.LayoutDialog, Ext.BasicDialog, {
     getLayout : function(){
         return this.layout;
     },
+
+    // private
+    // Use the syncHeightBeforeShow config option to control this automatically
     syncBodyHeight : function(){
         Ext.LayoutDialog.superclass.syncBodyHeight.call(this);
         if(this.layout)this.layout.layout();
