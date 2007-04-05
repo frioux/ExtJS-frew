@@ -42,7 +42,7 @@
  * @cfg {Boolean} proxyDrag True to drag a lightweight proxy element rather than the dialog itself, used when
  * draggable = true (defaults to false)
  * @cfg {Boolean} fixedcenter True to ensure that anytime the dialog is shown or resized it gets centered (defaults to false)
- * @cfg {Boolean/String} shadow True or "sides" for the default effect, "frame" for 4-way shadow, and "drop" for drop
+ * @cfg {Boolean/String} shadow True or "sides" for the default effect, "frame" for 4-way shadow, and "drop" for bottom-right
  * shadow (defaults to false)
  * @cfg {Number} shadowOffset The number of pixels to offset the shadow if displayed (defaults to 5)
  * @cfg {String} buttonAlign Valid values are "left," "center" and "right" (defaults to "right")
@@ -263,6 +263,7 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
     defaultButton: null,
     buttonAlign: "right",
     tabTag: 'div',
+    
     /**
      * Sets the dialog title.
      * @param {String} text
