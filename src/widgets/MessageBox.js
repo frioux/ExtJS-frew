@@ -152,7 +152,7 @@ Ext.MessageBox = function(){
 
         /**
          * Updates a progress-style message box's text and progress bar.  Only relevant on message boxes
-         * initiated via {@link Ext.MessageBox#progress}.
+         * initiated via {@link Ext.MessageBox#progress} or by calling {@link Ext.MessageBox#show} with progress: true.
          * @param {Number} value Any number between 0 and 1 (e.g., .5)
          * @param {String} text If defined, the message box's body text is replaced with the specified string (defaults to undefined)
          * @return {Ext.MessageBox} messageBox This message box
@@ -192,7 +192,7 @@ Ext.MessageBox = function(){
 	     * <li>multiline - True to prompt the user to enter multi-line text, else false</li>
 	     * <li>progress - True to display a progress bar, else false</li>
 	     * <li>value - The string value to set into the active textbox element</li>
-	     * <li>buttons - A button config object (e.g., Ext.MessageBox.OKCANCEL)</li>
+	     * <li>buttons - A button config object (e.g., Ext.MessageBox.OKCANCEL or {ok:'Foo', cancel:'Bar'}), or false to not show any buttons</li>
 	     * <li>msg - A string that will replace the existing message box body text</li>
 	     * <li>cls - A custom CSS class to apply to the message box element</li>
 	     * <li>proxyDrag - True to display a lightweight proxy element while dragging, else false</li>
@@ -280,8 +280,8 @@ Ext.MessageBox = function(){
 
         /**
          * Displays a standard read-only message box (comparable to the basic JavaScript alert prompt) with an OK
-         * button. If a callback function is passed it will be called after the user clicks the button, and a
-         * reference to the {@link Ext.Button} that was clicked will be passed as the only parameter to the callback
+         * button. If a callback function is passed it will be called after the user clicks the button, and the
+         * id of the button that was clicked will be passed as the only parameter to the callback
          * (could also be the top-right close button).
          * @param {String} title The title bar text
          * @param {String} msg The message box body text
@@ -330,7 +330,7 @@ Ext.MessageBox = function(){
 
         /**
          * Displays a confirmation message box with Yes and No buttons.  If a callback function is passed it will
-         * be called after the user clicks either button, and a reference to the {@link Ext.Button} that was clicked
+         * be called after the user clicks either button, and the id of the button that was clicked
          * will be passed as the only parameter to the callback (could also be the top-right close button).
          * @param {String} title The title bar text
          * @param {String} msg The message box body text
@@ -352,7 +352,7 @@ Ext.MessageBox = function(){
         /**
          * Displays a message box with OK and Cancel buttons prompting the user to enter some text.  The prompt can
          * be a single-line or multi-line textbox.  If a callback function is passed it will be called after the user
-         * clicks either button, and a reference to the {@link Ext.Button} that was clicked (could also be the top-right
+         * clicks either button, and the id of the button that was clicked (could also be the top-right
          * close button) and the text that was entered will be passed as the two parameters to the callback.
          * @param {String} title The title bar text
          * @param {String} msg The message box body text
@@ -378,41 +378,50 @@ Ext.MessageBox = function(){
 
         /**
          * Button config that displays a single OK button
+         * @type Object
          */
         OK : {ok:true},
         /**
          * Button config that displays Yes and No buttons
+         * @type Object
          */
         YESNO : {yes:true, no:true},
         /**
          * Button config that displays OK and Cancel buttons
+         * @type Object
          */
         OKCANCEL : {ok:true, cancel:true},
         /**
          * Button config that displays Yes, No and Cancel buttons
+         * @type Object
          */
         YESNOCANCEL : {yes:true, no:true, cancel:true},
 
         /**
          * The default height in pixels of the message box's multiline textarea if displayed (defaults to 75)
+         * @type Number
          */
         defaultTextHeight : 75,
         /**
          * The maximum width in pixels of the message box (defaults to 600)
+         * @type Number
          */
         maxWidth : 600,
         /**
          * The minimum width in pixels of the message box (defaults to 100)
+         * @type Number
          */
         minWidth : 100,
         /**
          * The minimum width in pixels of the message box progress bar if displayed (defaults to 250)
+         * @type Number
          */
         minProgressWidth : 250,
         /**
          * An object containing the default button text strings that can be overriden for localized language support.
          * Supported properties are: ok, cancel, yes and no.
          * Customize the default text like so: Ext.MessageBox.buttonText.yes = "S’";
+         * @type Object
          */
         buttonText : {
             ok : "OK",
