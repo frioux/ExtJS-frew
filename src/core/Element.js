@@ -2437,7 +2437,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
                         color +=  c + c;
                     }
                 }else if(v.length == 7){
-                    color += v.slice(1, 6);
+                    color += v.substr(1, 6);
                 }
             }
         }

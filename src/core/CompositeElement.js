@@ -48,7 +48,7 @@ Ext.CompositeElement.prototype = {
     */
     add : function(els){
         if(typeof els == "string"){
-            this.addElements(Ext.Element.selectorFunction(string));
+            this.addElements(Ext.Element.selectorFunction(els));
         }else if(els.length !== undefined){
             this.addElements(els);
         }else{

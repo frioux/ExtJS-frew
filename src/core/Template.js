@@ -131,7 +131,7 @@ Ext.Template.prototype = {
     
     // private function used to call members
     call : function(fnName, value){
-        this[fnName](value);
+        return this[fnName](value);
     },
     
     /**

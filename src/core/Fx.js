@@ -443,7 +443,6 @@ el.highlight("ffff9c", {<br/>
 
             var a = {};
             a[attr] = {from: color, to: endColor};
-
             arguments.callee.anim = this.fxanim(a,
                 o,
                 'color',
