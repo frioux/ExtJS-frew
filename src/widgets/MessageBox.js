@@ -185,19 +185,23 @@ Ext.MessageBox = function(){
         /**
          * Displays a new message box, or reinitializes an existing message box, based on the config options
          * passed in.  The following config object properties are supported:
-         * <ul style="padding:5px;padding-left:16px;">
-	     * <li>title - The title text</li>
-	     * <li>closable - True to display the top-right close box, else false</li>
-	     * <li>prompt - True to prompt the user to enter single-line text, else false</li>
-	     * <li>multiline - True to prompt the user to enter multi-line text, else false</li>
-	     * <li>progress - True to display a progress bar, else false</li>
-	     * <li>value - The string value to set into the active textbox element</li>
-	     * <li>buttons - A button config object (e.g., Ext.MessageBox.OKCANCEL or {ok:'Foo', cancel:'Bar'}), or false to not show any buttons</li>
-	     * <li>msg - A string that will replace the existing message box body text</li>
-	     * <li>cls - A custom CSS class to apply to the message box element</li>
-	     * <li>proxyDrag - True to display a lightweight proxy element while dragging, else false</li>
-	     * <li>modal - True to disable user interaction with the page while the message box is visible, else false</li>
-	     * </ul>
+         * <pre>
+Property    Type             Description
+----------  ---------------  ----------------------------------------------------------------------
+title       String           The title text
+closable    Boolean          True to display the top-right close box, else false
+prompt      Boolean          True to prompt the user to enter single-line text, else false
+multiline   Boolean          True to prompt the user to enter multi-line text, else false
+progress    Boolean          True to display a progress bar, else false
+value       String           The string value to set into the active textbox element
+buttons     Object/Boolean   A button config object (e.g., Ext.MessageBox.OKCANCEL or {ok:'Foo',
+                             cancel:'Bar'}), or false to not show any buttons
+msg         String           A string that will replace the existing message box body text
+cls         String           A custom CSS class to apply to the message box element
+proxyDrag   Boolean          True to display a lightweight proxy element while dragging, else false
+modal       Boolean          True to disable user interaction with the page while the message box is
+                             visible, else false
+</pre>
          * @param {Object} config Configuration options
          * @return {Ext.MessageBox} messageBox This message box
          */
