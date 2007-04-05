@@ -1,9 +1,89 @@
+/**
+ * @class Ext.form.ComboBox
+ * @extends Ext.form.TriggerField
+ * A combobox control with support for autocomplete, remote-loading, paging and many other features.
+ * @cfg {Boolean/Object} autoCreate A DomHelper element spec, or true for a default element spec (defaults to:
+ * {tag: "input", type: "text", size: "24", autocomplete: "off"})
+ * @cfg {Boolean} lazyRender True to prevent the ComboBox from rendering until requested (should always be used when
+ * rendering into an Ext.Editor, defaults to false)
+ * @cfg {String/HTMLElement/Element} transform The id, DOM node or element of an existing select to convert to a ComboBox
+ * @cfg {Number} listWidth The width in pixels of the dropdown list (defaults to the width of the ComboBox field)
+ * @cfg {String} displayField The underlying data field name to bind to this CombBox (defaults to undefined if
+ * mode = 'remote' or 'text' if mode = 'local')
+ * @cfg {String} valueField The underlying data value name to bind to this CombBox (defaults to undefined if
+ * mode = 'remote' or 'value' if mode = 'local')
+ * @cfg {String} hiddenName If specified, a hidden form field with this name is dynamically generated to store the
+ * field's data value (defaults to the underlying DOM element's name)
+ * @cfg {String} listClass CSS class to apply to the dropdown list element (defaults to '')
+ * @cfg {String} selectedClass CSS class to apply to the selected item in the dropdown list (defaults to 'x-combo-selected')
+ * @cfg {String} triggerClass CSS class to apply to the dropdown trigger button (defaults to 'x-form-arrow-trigger')
+ * @cfg {Boolean/String} shadow True or "sides" for the default effect, "frame" for 4-way shadow, and "drop" for bottom-right
+ * @cfg {String} listAlign A valid anchor position value. See {@link Ext.Element#alignTo} for details on supported
+ * anchor positions (defaults to 'tl-bl')
+ * @cfg {Number} maxHeight The maximum height in pixels of the dropdown list before scrollbars are shown (defaults to 300)
+ * @cfg {String} triggerAction The action to execute when the trigger field is activated.  Use 'all' to run the
+ * query specified by the allQuery config option (defaults to 'query')
+ * @cfg {String} allQuery The sql query used to return all records for the list with no filtering (defaults to '')
+ * @cfg {String} queryParam Name of the query as it will be passed on the querystring (defaults to 'query')
+ * @cfg {String} mode Set to 'local' if the ComboBox loads local array data (defaults to 'remote' which loads from the server)
+ * @cfg {Number} minChars The minimum number of characters the user must type before autocomplete and typeahead activate
+ * (defaults to 4, does not apply if editable = false)
+ * @cfg {Boolean} typeAhead True to populate and autoselect the remainder of the text being typed after a configurable
+ * delay (typeAheadDelay) if it matches a known value (defaults to false)
+ * @cfg {Number} typeAheadDelay The length of time in milliseconds to wait until the typeahead text is displayed
+ * if typeAhead = true (defaults to 250)
+ * @cfg {Number} queryDelay The length of time in milliseconds to delay between the start of typing and sending the
+ * query to filter the dropdown list (defaults to 500 if mode = 'remote' or 10 if mode = 'local')
+ * @cfg {Number} pageSize If greater than 0, a paging toolbar is displayed in the footer of the dropdown list and the
+ * filter queries will execute with page start and limit parameters.  Only applies when mode = 'remote' (defaults to 0)
+ * @cfg {Boolean} selectOnFocus True to select any existing text in the field immediately on focus.  Only applies
+ * when editable = true (defaults to false)
+ * @cfg {String} loadingText The text to display in the dropdown list while data is loading.  Only applies
+ * when mode = 'remote' (defaults to 'Loading...')
+ * @cfg {Boolean} resizable True to add a resize handle to the bottom of the dropdown list (defaults to false)
+ * @cfg {Number} handleHeight The height in pixels of the dropdown list resize handle if resizable = true (defaults to 8)
+ * @cfg {Boolean} editable False to prevent the user from typing text directly into the field, just like a
+ * traditional select (defaults to true)
+ * @cfg {Number} minListWidth The minimum width of the dropdown list in pixels (defaults to 70, will be ignored if
+ * listWidth has a higher value)
+ * @cfg {Boolean} forceSelection True to restrict the selected value to one of the values in the list, false to
+ * allow the user to set arbitrary text into the field (defaults to false)
+ * @cfg {String} valueNotFoundText When using a name/value combo, if the value passed to setValue is not found in
+ * the store, valueNotFoundText will be displayed as the field text if defined (defaults to undefined)
+ * @constructor
+ * Create a new ComboBox.
+ * @param {Object} config Configuration options
+ */
 Ext.form.ComboBox = function(config){
     Ext.form.ComboBox.superclass.constructor.call(this, config);
     this.addEvents({
+        /**
+         * @event expand
+         * Fires when the dropdown list is expanded
+	     * @param {Ext.form.ComboBox} combo This combo box
+	     */
         'expand' : true,
+        /**
+         * @event collapse
+         * Fires when the dropdown list is collapsed
+	     * @param {Ext.form.ComboBox} combo This combo box
+	     */
         'collapse' : true,
+        /**
+         * @event beforeselect
+         * Fires before a list item is selected. Return false to cancel the selection.
+	     * @param {Ext.form.ComboBox} combo This combo box
+	     * @param {Ext.data.Record} record The data record returned from the underlying store
+	     * @param {Number} index The index of the selected item in the dropdown list
+	     */
         'beforeselect' : true,
+        /**
+         * @event select
+         * Fires when a list item is selected
+	     * @param {Ext.form.ComboBox} combo This combo box
+	     * @param {Ext.data.Record} record The data record returned from the underlying store
+	     * @param {Number} index The index of the selected item in the dropdown list
+	     */
         'select' : true,
         /**
          * @event beforequery
@@ -77,7 +157,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     shadow:'sides',
     listAlign: 'tl-bl',
     maxHeight: 300,
-    triggerAction: 'query', // can also be 'all'
+    triggerAction: 'query',
     minChars : 4,
     typeAhead: false,
     queryDelay: 500,
@@ -93,10 +173,9 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     minListWidth : 70,
     forceSelection:false,
     typeAheadDelay : 250,
-    // when using a name/value combo, if the value passed to setValue is not found in the store,
-    // valueNotFoundText will be displayed
     valueNotFoundText : undefined,
 
+    // private
     onRender : function(ct){
         Ext.form.ComboBox.superclass.onRender.call(this, ct);
         if(this.hiddenName){
@@ -120,7 +199,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
             shadow: this.shadow, cls: [cls, this.listClass].join(' '), constrain:false
         });
 
-        this.list.setWidth(this.listWidth || this.wrap.getWidth());
+        this.list.setWidth(this.listWidth || Math.max(this.wrap.getWidth(), this.minListWidth));
         this.list.swallowEvent('mousewheel');
         this.assetHeight = 0;
 
@@ -171,6 +250,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         }
     },
 
+    // private
     initEvents : function(){
         Ext.form.ComboBox.superclass.initEvents.call(this);
 
@@ -226,22 +306,30 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         }
     },
 
+    // private
     fireKey : function(e){
         if(e.isNavKeyPress() && !this.list.isVisible()){
             this.fireEvent("specialkey", this, e);
         }
     },
 
+    // private
     onResize: function(w, h){
         if(this.list && this.listWidth === undefined){
             this.list.setWidth(Math.max(w, this.minListWidth));
         }
     },
-    
+
+    /**
+     * Allow or prevent the user from directly editing the field text.  If false is passed in,
+     * the user will only be able to select from the items defined in the dropdown list.  This method
+     * is the runtime equivalent of setting the editable config option at config time.
+     */
     setEditable : function(value){
         if(value == this.editable){
             return;
         }
+        this.editable = value;
         if(!value){
             this.el.dom.setAttribute('readOnly', true);
             this.el.on('mousedown', this.onTriggerClick,  this);
@@ -253,6 +341,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         }
     },
 
+    // private
     onBeforeLoad : function(){
         if(!this.hasFocus){
             return;
@@ -263,6 +352,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         this.selectedIndex = -1;
     },
 
+    // private
     onLoad : function(){
         if(!this.hasFocus){
             return;
@@ -292,6 +382,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         //this.el.focus();
     },
 
+    // private
     onTypeAhead : function(){
         if(this.store.getCount() > 0){
             var r = this.store.getAt(0);
@@ -305,6 +396,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         }
     },
 
+    // private
     onSelect : function(record, index){
         if(this.fireEvent('beforeselect', this, record, index) !== false){
             this.setValue(record.data[this.valueField || this.displayField]);
@@ -313,6 +405,10 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         }
     },
 
+    /**
+     * Returns the currently-selected field value or empty string if no value is set.
+     * @return {String} value The selected value
+     */
     getValue : function(){
         if(this.valueField){
             return typeof this.value != 'undefined' ? this.value : '';
@@ -321,6 +417,9 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         }
     },
 
+    /**
+     * Clears any text/value currently set in the field
+     */
     clearValue : function(){
         if(this.hiddenField){
             this.hiddenField.value = '';
@@ -329,6 +428,13 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         this.lastSelectionText = '';
     },
 
+    /**
+     * Sets the specified value into the field.  If the value finds a match, the corresponding record text
+     * will be displayed in the field.  If the value does not match the data value of an existing item,
+     * and the valueNotFoundText config option is defined, it will be displayed as the default field text.
+     * Otherwise the field will be blank (although the value will still be set).
+     * @param {String} value The value to match
+     */
     setValue : function(v){
         var text = v;
         if(this.valueField){
@@ -347,6 +453,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         this.value = v;
     },
 
+    // private
     findRecord : function(prop, value){
         var record;
         if(this.store.getCount() > 0){
@@ -360,10 +467,12 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         return record;
     },
 
+    // private
     onViewMove : function(e, t){
         this.inKeyMode = false;
     },
 
+    // private
     onViewOver : function(e, t){
         if(this.inKeyMode){ // prevent key nav and mouse over conflicts
             return;
@@ -375,6 +484,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         }
     },
 
+    // private
     onViewClick : function(doFocus){
         var index = this.view.getSelectedIndexes()[0];
         var r = this.store.getAt(index);
@@ -386,6 +496,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         }
     },
 
+    // private
     restrictHeight : function(){
         this.innerList.dom.style.height = '';
         var inner = this.innerList.dom;
@@ -397,14 +508,25 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         this.list.alignTo(this.el, this.listAlign);
     },
 
+    // private
     onEmptyResults : function(){
         this.collapse();
     },
 
+    /**
+     * Returns true if the dropdown list is expanded, else false.
+     */
     isExpanded : function(){
         return this.list.isVisible();
     },
 
+    /**
+     * Select an item in the dropdown list by it's data value
+     * @param {String} value The data value of the item to select
+     * @param {Boolean} scrollIntoView False to prevent the dropdown list from autoscrolling to display the
+     * selected item if it is not currently in view (defaults to true)
+     * @return {Boolean} valueFound True if the value matched an item in the list, else false
+     */
     selectByValue : function(v, scrollIntoView){
         if(this.value !== undefined && this.value !== null){
             var r = this.findRecord(this.valueField || this.displayField, v);
@@ -416,6 +538,12 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         return false;
     },
 
+    /**
+     * Select an item in the dropdown list by it's numeric index in the list
+     * @param {Number} index The zero-based index of the list item to select
+     * @param {Boolean} scrollIntoView False to prevent the dropdown list from autoscrolling to display the
+     * selected item if it is not currently in view (defaults to true)
+     */
     select : function(index, scrollIntoView){
         this.selectedIndex = index;
         this.view.select(index);
@@ -427,6 +555,9 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         }
     },
 
+    /**
+     * Select the next item in the dropdown list (selects the first item by default if no items are currently selected)
+     */
     selectNext : function(){
         var ct = this.store.getCount();
         if(ct > 0){
@@ -438,6 +569,9 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         }
     },
 
+    /**
+     * Select the previous item in the dropdown list (selects the first item by default if no items are currently selected)
+     */
     selectPrev : function(){
         var ct = this.store.getCount();
         if(ct > 0){
@@ -449,6 +583,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         }
     },
 
+    // private
     onKeyUp : function(e){
         if(this.editable !== false && !e.isSpecialKey()){
             this.lastKey = e.getKey();
@@ -456,14 +591,17 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         }
     },
 
+    // private
     validateBlur : function(){
         return !this.list || !this.list.isVisible();   
     },
 
+    // private
     initQuery : function(){
         this.doQuery(this.getRawValue());
     },
 
+    // private
     doForce : function(){
         if(this.el.dom.value.length > 0){
             this.el.dom.value =
@@ -471,6 +609,14 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         }
     },
 
+    /**
+     * Execute a query to filter the dropdown list.  Fires the beforequery event prior to performing the
+     * query allowing the query action to be canceled if needed.
+     * @param {String} query The sql query to execute
+     * @param {Boolean} forceAll True to force the query to execute even if there are currently fewer characters
+     * in the field than the minimum specified by the minChars config option.  It also clears any filter previously
+     * saved in the current store (defaults to false)
+     */
     doQuery : function(q, forceAll){
         if(q === undefined || q === null){
             q = '';
@@ -510,6 +656,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         }
     },
 
+    // private
     getParams : function(q){
         var p = {};
         //p[this.queryParam] = q;
@@ -520,6 +667,9 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         return p;
     },
 
+    /**
+     * Hides the dropdown list if it is currently expanded. Fires the 'collapse' event on completion.
+     */
     collapse : function(){
         if(!this.isExpanded()){
             return;
@@ -529,12 +679,16 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         this.fireEvent('collapse', this);
     },
 
+    // private
     collapseIf : function(e){
         if(!e.within(this.wrap) && !e.within(this.list)){
             this.collapse();
         }
     },
 
+    /**
+     * Expands the dropdown list if it is currently hidden. Fires the 'expand' event on completion.
+     */
     expand : function(){
         if(this.isExpanded()){
             return;
@@ -545,6 +699,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         this.fireEvent('expand', this);
     },
 
+    // private
     onTriggerClick : function(){
         if(this.disabled){
             return;
