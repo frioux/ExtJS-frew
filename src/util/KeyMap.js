@@ -42,7 +42,7 @@
  * @constructor
  * @param {String/HTMLElement/Ext.Element} el The element to bind to
  * @param {Object} config The config
- * @param {String} eventName (optional) The event to bind to (Defaults to "keydown").
+ * @param {String} eventName (optional) The event to bind to (defaults to "keydown")
  */
 Ext.KeyMap = function(el, config, eventName){
     this.el  = Ext.get(el);
@@ -80,7 +80,7 @@ fn          Function         The function to call when KeyMap finds the expected
 scope       Object           The scope of the callback function
 </pre>
      *
-     * Example usage:
+     * Usage:
      * <pre><code>
 // Create a KeyMap
 var map = new Ext.KeyMap(document, {
