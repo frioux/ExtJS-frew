@@ -81,6 +81,7 @@ Ext.extend(Ext.util.ClickRepeater, Ext.util.Observable, {
     timer : 0,
     docEl : Ext.get(document),
 
+    // private
     handleMouseDown : function(){
         clearTimeout(this.timer);
         this.el.blur();
@@ -98,11 +99,13 @@ Ext.extend(Ext.util.ClickRepeater, Ext.util.Observable, {
         this.timer = this.click.defer(this.delay || this.interval, this);
     },
 
+    // private
     click : function(){
         this.fireEvent("click", this);
         this.timer = this.click.defer(this.getInterval(), this);
     },
 
+    // private
     getInterval: function(){
         if(!this.accelerate){
             return this.interval;
@@ -127,6 +130,7 @@ Ext.extend(Ext.util.ClickRepeater, Ext.util.Observable, {
         }
     },
 
+    // private
     handleMouseOut : function(){
         clearTimeout(this.timer);
         if(this.pressClass){
@@ -135,6 +139,7 @@ Ext.extend(Ext.util.ClickRepeater, Ext.util.Observable, {
         this.el.on("mouseover", this.handleMouseReturn, this);
     },
 
+    // private
     handleMouseReturn : function(){
         this.el.removeListener("mouseover", this.handleMouseReturn);
         if(this.pressClass){
@@ -143,6 +148,7 @@ Ext.extend(Ext.util.ClickRepeater, Ext.util.Observable, {
         this.click();
     },
 
+    // private
     handleMouseUp : function(){
         clearTimeout(this.timer);
         this.el.removeListener("mouseover", this.handleMouseReturn);
