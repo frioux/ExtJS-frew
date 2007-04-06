@@ -1,12 +1,16 @@
 /**
  * @class Ext.KeyMap
- * Handles mapping keys to actions for an element. One key map can be used for multiple actions. 
+ * Handles mapping keys to actions for an element. One key map can be used for multiple actions.
+ * The constructor accepts the same config object as defined by {@link #addBinding}.
+ * If you bind a callback function to a KeyMap, anytime the KeyMap handles an expected key
+ * combination it will call the function with this signature (if the match is a multi-key
+ * combination the callback will still be called only once): (String key, Ext.EventObject e)
  * A KeyMap can also handle a string representation of keys.<br />
  * Usage:
  <pre><code>
  // map one key by key code
  var map = new Ext.KeyMap("my-element", {
-     key: 13,
+     key: 13, // or Ext.EventObject.ENTER
      fn: myHandler,
      scope: myObject
  });
@@ -33,12 +37,12 @@
         fn: function(){ alert('Control + shift + tab was pressed.'); }
     }
 ]);
- </code></pre>
-* <b>Note: A KepMap starts enabled</b>
-* @constructor
-* @param {String/HTMLElement/Ext.Element} el The element to bind to
-* @param {Object} config The config
-* @param {String} eventName (optional) The event to bind to (Defaults to "keydown").
+</code></pre>
+ * <b>Note: A KepMap starts enabled</b>
+ * @constructor
+ * @param {String/HTMLElement/Ext.Element} el The element to bind to
+ * @param {Object} config The config
+ * @param {String} eventName (optional) The event to bind to (Defaults to "keydown").
  */
 Ext.KeyMap = function(el, config, eventName){
     this.el  = Ext.get(el);
@@ -56,9 +60,43 @@ Ext.KeyMap = function(el, config, eventName){
 };
 
 Ext.KeyMap.prototype = {
-    stopEvent : false,
     /**
-     * Add a new binding to this KeyMap
+     * True to stop the event from bubbling and prevent the default browser action if the
+     * key was handled by the KeyMap (defaults to false)
+     * @type Boolean
+     */
+    stopEvent : false,
+
+    /**
+     * Add a new binding to this KeyMap. The following config object properties are supported:
+     * <pre>
+Property    Type             Description
+----------  ---------------  ----------------------------------------------------------------------
+key         String/Array     A single keycode or an array of keycodes to handle
+shift       Boolean          True to handle key only when shift is pressed (defaults to false)
+ctrl        Boolean          True to handle key only when ctrl is pressed (defaults to false)
+alt         Boolean          True to handle key only when alt is pressed (defaults to false)
+fn          Function         The function to call when KeyMap finds the expected key combination
+scope       Object           The scope of the callback function
+</pre>
+     *
+     * Example usage:
+     * <pre><code>
+// Create a KeyMap
+var map = new Ext.KeyMap(document, {
+    key: Ext.EventObject.ENTER,
+    fn: handleKey,
+    scope: this
+});
+
+//Add a new binding to the existing KeyMap later
+map.addBinding({
+    key: 'abc',
+    shift: true,
+    fn: handleKey,
+    scope: this
+});
+</code></pre>
      * @param {Object} config A single KeyMap config
      */
 	addBinding : function(config){
@@ -102,8 +140,9 @@ Ext.KeyMap.prototype = {
         };
         this.bindings.push(handler);  
 	},
-	
-	handleKeyDown : function(e){
+
+    // private
+    handleKeyDown : function(e){
 	    if(this.enabled){ //just in case
     	    var b = this.bindings;
     	    for(var i = 0, len = b.length; i < len; i++){
