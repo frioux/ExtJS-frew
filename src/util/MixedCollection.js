@@ -1,9 +1,13 @@
 /**
  * @class Ext.util.MixedCollection
- * A Collection class that maintains both numeric indexes and keys and exposes events.<br>
+ * A Collection class that maintains both numeric indexes and keys and exposes events.
  * @constructor
- * @param {Boolean} allowFunctions True if the addAll function should add function references
- * to the collection.
+ * @param {Boolean} allowFunctions True if the addAll function should add function references to the
+ * collection (defaults to false)
+ * @param {Function} keyFn A function that can accept an item of the type(s) stored in this MixedCollection
+ * and return the key value for that item.  This is used when available to look up the key on items that
+ * were passed without an explicit key parameter to a MixedCollection method.  Passing this parameter is
+ * equivalent to providing an implementation for the {@link #getKey} method.
  */
 Ext.util.MixedCollection = function(allowFunctions, keyFn){
     this.items = [];
@@ -298,7 +302,7 @@ Ext.extend(Ext.util.MixedCollection, Ext.util.Observable, {
         return typeof this.map[key] != "undefined" ? this.map[key] : this.items[key];
     },
     
-    /**
+/**
  * Returns the item at the specified index.
  * @param {Number} index The index of the item.
  * @return {Object}
@@ -307,7 +311,7 @@ Ext.extend(Ext.util.MixedCollection, Ext.util.Observable, {
         return this.items[index];
     },
     
-    /**
+/**
  * Returns the item associated with the passed key.
  * @param {String/Number} key The key of the item.
  * @return {Object} The item associated with the passed key.
