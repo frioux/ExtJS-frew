@@ -210,19 +210,33 @@ Ext.MessageBox = function(){
 Property    Type             Description
 ----------  ---------------  ----------------------------------------------------------------------
 title       String           The title text
-closable    Boolean          True to display the top-right close box, else false
-prompt      Boolean          True to prompt the user to enter single-line text, else false
-multiline   Boolean          True to prompt the user to enter multi-line text, else false
-progress    Boolean          True to display a progress bar, else false
-value       String           The string value to set into the active textbox element
+closable    Boolean          False to hide the top-right close box (defaults to true)
+prompt      Boolean          True to prompt the user to enter single-line text (defaults to false)
+multiline   Boolean          True to prompt the user to enter multi-line text (defaults to false)
+progress    Boolean          True to display a progress bar (defaults to false)
+value       String           The string value to set into the active textbox element if displayed
 buttons     Object/Boolean   A button config object (e.g., Ext.MessageBox.OKCANCEL or {ok:'Foo',
-                             cancel:'Bar'}), or false to not show any buttons
-msg         String           A string that will replace the existing message box body text
+                             cancel:'Bar'}), or false to not show any buttons (defaults to false)
+msg         String           A string that will replace the existing message box body text (defaults
+                             to the XHTML-compliant non-breaking space character &#160;)
 cls         String           A custom CSS class to apply to the message box element
-proxyDrag   Boolean          True to display a lightweight proxy element while dragging, else false
-modal       Boolean          True to disable user interaction with the page while the message box is
-                             visible, else false
+proxyDrag   Boolean          True to display a lightweight proxy while dragging (defaults to false)
+modal       Boolean          False to allow user interaction with the page while the message box is
+                             displayed (defaults to true)
 </pre>
+         *
+         * Example usage:
+         * <pre><code>
+Ext.Msg.show({
+   title: 'Address',
+   msg: 'Please enter your address:',
+   width: 300,
+   buttons: Ext.MessageBox.OKCANCEL,
+   multiline: true,
+   fn: saveAddress,
+   animEl: 'addAddressBtn'
+});
+</code></pre>
          * @param {Object} config Configuration options
          * @return {Ext.MessageBox} messageBox This message box
          */
