@@ -457,5 +457,7 @@ modal       Boolean          True to disable user interaction with the page whil
     };
 }();
 
-// Alias for convenience
+/**
+ * Shorthand for {@link Ext.MessageBox}
+ */
 Ext.Msg = Ext.MessageBox;
