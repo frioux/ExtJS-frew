@@ -1,6 +1,6 @@
 /**
  * @class Ext.util.CSS
- * Class for manipulating CSS Rules
+ * Utility class for manipulating CSS rules
  * @singleton
  */
 Ext.util.CSS = function(){
@@ -20,7 +20,8 @@ Ext.util.CSS = function(){
    
    return {
    /**
-    * Very simple dynamic creation of stylesheets from a text blob of rules.
+    * Very simple dynamic creation of stylesheets from a text blob of rules.  The text will wrapped in a style
+    * tag and appended to the HEAD of the document.
     * @param {String} cssText The text containing the css rules
     * @return {StyleSheet} 
     */
@@ -44,14 +45,23 @@ Ext.util.CSS = function(){
        this.cacheStyleSheet(ss);
        return ss;
    },
-   
+
+   /**
+    * Removes a style or link tag by id
+    * @param {String} id The id of the tag
+    */
    removeStyleSheet : function(id){
        var existing = doc.getElementById(id);
        if(existing){
            existing.parentNode.removeChild(existing);
        }
    },
-   
+
+   /**
+    * Dynamically swaps an existing stylesheet reference for a new one
+    * @param {String} id The id of an existing link tag to remove
+    * @param {String} url The href of the new stylesheet to include
+    */
    swapStyleSheet : function(id, url){
        this.removeStyleSheet(id);
        var ss = doc.createElement("link");
@@ -69,7 +79,8 @@ Ext.util.CSS = function(){
    refreshCache : function(){
        return this.getRules(true);
    },
-   
+
+   // private
    cacheStyleSheet : function(ss){
        if(!rules){
            rules = {};
@@ -103,7 +114,7 @@ Ext.util.CSS = function(){
    	/**
     * Gets an an individual CSS rule by selector(s)
     * @param {String/Array} selector The CSS selector or an array of selectors to try. The first selector that is found is returned.
-    * @param {Boolean} refreshCache true to refresh the internal cache
+    * @param {Boolean} refreshCache true to refresh the internal cache if you have recently updated any rules or added styles dynamically
     * @return {CSSRule} The CSS rule or null if one is not found
     */
    getRule : function(selector, refreshCache){
@@ -125,7 +136,7 @@ Ext.util.CSS = function(){
     * @param {String/Array} selector If it's an array it tries each selector until it finds one. Stops immediately once one is found.
     * @param {String} property The css property
     * @param {String} value The new value for the property
-    * @return {Boolean} true if a rule was found and updated 
+    * @return {Boolean} true If a rule was found and updated
     */
    updateRule : function(selector, property, value){
    		if(!(selector instanceof Array)){
@@ -146,9 +157,9 @@ Ext.util.CSS = function(){
    	
    	/**
     * Applies a rule to an element without adding the class
-    * @param {HTMLElement} el The element
+    * @param {HTMLElement} el The DOM element
     * @param {String/Array} selector If it's an array it tries each selector until it finds one. Stops immediately once one is found.
-    * @return {Boolean} true if a rule was found and applied 
+    * @return {Boolean} true If a rule was found and applied
     */
    apply : function(el, selector){
    		if(!(selector instanceof Array)){
@@ -173,16 +184,18 @@ Ext.util.CSS = function(){
    		}
    		return false;
    	},
-   	
-   	applyFirst : function(el, id, selector){
+
+    // private
+    applyFirst : function(el, id, selector){
    		var selectors = [
    			"#" + id + " " + selector,
    			selector
    		];
    		return this.apply(el, selectors);
    	},
-   	
-   	revert : function(el, selector){
+
+   	// private
+    revert : function(el, selector){
    		if(!(selector instanceof Array)){
    			var rule = this.getRule(selector);
    			if(rule){
@@ -202,8 +215,9 @@ Ext.util.CSS = function(){
    		}
    		return false;
    	},
-   	
-   	revertFirst : function(el, id, selector){
+
+    // private
+    revertFirst : function(el, id, selector){
    		var selectors = [
    			"#" + id + " " + selector,
    			selector
