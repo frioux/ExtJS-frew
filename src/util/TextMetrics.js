@@ -42,7 +42,7 @@ Ext.util.TextMetrics.Instance = function(bindTo, fixedWidth){
         },
 
         setFixedWidth : function(width){
-            mi.setWidth(width);
+            ml.setWidth(width);
         },
 
         getWidth : function(text){
