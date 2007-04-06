@@ -87,10 +87,14 @@ document.write(dt.format(Date.patterns.ShortDate));
  *
  */
 
+// private
 Date.parseFunctions = {count:0};
+// private
 Date.parseRegexes = [];
+// private
 Date.formatFunctions = {count:0};
 
+// private
 Date.prototype.dateFormat = function(format) {
     if (Date.formatFunctions[format] == null) {
         Date.createNewFormat(format);
@@ -108,6 +112,7 @@ Date.prototype.dateFormat = function(format) {
  */
 Date.prototype.format = Date.prototype.dateFormat;
 
+// private
 Date.createNewFormat = function(format) {
     var funcName = "format" + Date.formatFunctions.count++;
     Date.formatFunctions[format] = funcName;
@@ -130,6 +135,7 @@ Date.createNewFormat = function(format) {
     eval(code.substring(0, code.length - 3) + ";}");
 };
 
+// private
 Date.getFormatCode = function(character) {
     switch (character) {
     case "d":
@@ -209,6 +215,7 @@ Date.parseDate = function(input, format) {
     return Date[func](input);
 };
 
+// private
 Date.createParser = function(format) {
     var funcName = "parse" + Date.parseFunctions.count++;
     var regexNum = Date.parseRegexes.length;
@@ -264,6 +271,7 @@ Date.createParser = function(format) {
     eval(code);
 };
 
+// private
 Date.formatCodeToRegex = function(character, currentGroup) {
     switch (character) {
     case "D":
@@ -505,6 +513,7 @@ Date.prototype.getSuffix = function() {
     }
 };
 
+// private
 Date.daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
 
 /**
@@ -544,8 +553,9 @@ Date.dayNames =
     "Friday",
     "Saturday"];
 
+// private
 Date.y2kYear = 50;
-
+// private
 Date.monthNumbers = {
     Jan:0,
     Feb:1,
@@ -602,6 +612,7 @@ Date.prototype.clearTime = function(clone){
     return this;
 };
 
+// private
 // safari setMonth is broken
 if(Ext.isSafari){
     Date.brokenSetMonth = Date.prototype.setMonth;
