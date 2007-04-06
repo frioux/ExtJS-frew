@@ -78,6 +78,11 @@ Ext.menu.MenuMgr = function(){
    }
 
    return {
+
+       hideAll : function(){
+            hideAll();  
+       },
+
        register : function(menu){
            if(!menus){
                init();

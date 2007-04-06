@@ -34,7 +34,8 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
             cls: "x-menu",
             shadow:this.shadow,
             constrain: false,
-            parentEl: this.parentEl || document.body
+            parentEl: this.parentEl || document.body,
+            zindex:15000
         });
 
         this.keyNav = new Ext.menu.MenuNav(this);
