@@ -1,3 +1,26 @@
+/**
+ * @class Ext.KeyNav
+ * Provides a convenient wrapper for normalized keyboard navigation.  KeyNav allows you to bind
+ * navigation keys to function calls that will get called when the keys are pressed.
+ * <br />Usage:
+ <pre><code>
+var nav = new Ext.KeyNav("my-element", {
+    "left" : function(e){
+        this.moveLeft(e.ctrlKey);
+    },
+    "right" : function(e){
+        this.moveRight(e.ctrlKey);
+    },
+    "enter" : function(e){
+        this.save();
+    },
+    scope : this
+});
+</code></pre>
+ * @constructor
+ * @param {String/HTMLElement/Ext.Element} el The element to bind to
+ * @param {Object} config The config
+ */
 Ext.KeyNav = function(el, config){
     this.el = Ext.get(el);
     Ext.apply(this, config);
@@ -63,7 +86,7 @@ Ext.KeyNav.prototype = {
         35 : "end",
         13 : "enter",
         27 : "esc",
-        9 : "tab"
+        9  : "tab"
     },
 
 	/**
