@@ -91,7 +91,7 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
                 this.form.el.dom,
                 this.getUrl(true),
                 this.createCallback(),
-                null, form.fileUpload, Ext.SSL_SECURE_URL);
+                null, this.form.fileUpload, Ext.SSL_SECURE_URL);
 
         }else if (o.clientValidation !== false){ // client validation failed
             this.failureType = Ext.form.Action.CLIENT_INVALID;
