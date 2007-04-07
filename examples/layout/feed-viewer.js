@@ -1,15 +1,3 @@
-/*
- * Ext - JS Library 1.0 Alpha 1
- * Copyright(c) 2006-2007, Jack Slocum.
- */
-
-String.prototype.ellipse = function(maxLength){
-    if(this.length > maxLength){
-        return this.substr(0, maxLength-3) + '...';
-    }
-    return this;
-};
-
 var Viewer = function(){
     // a bunch of private variables accessible by member function
     var layout, statusPanel, south, preview, previewBody, feedPanel;
@@ -302,7 +290,7 @@ var Viewer = function(){
             Ext.get('add-title').radioClass('active-msg');
             var el = Ext.get('myfeeds-tb');
 
-            addFeed.alignTo('myfeeds-tb', 'tl', [3,3])
+            addFeed.alignTo('myfeeds-tb', 'tl', [3,3]);
             addFeed.show();
         },        
         
@@ -334,8 +322,16 @@ var Viewer = function(){
             var failure = function(o){
                 Ext.get('invalid-feed').radioClass('active-msg');
             };
-            YAHOO.util.Connect.asyncRequest('POST', 'feed-proxy.php', {success:success, failure:failure}, 'feed='+encodeURIComponent(url));
+            Ext.lib.Ajax.request('POST', 'feed-proxy.php', {success:success, failure:failure}, 'feed='+encodeURIComponent(url));
         }
     };
 }();
-YAHOO.util.Event.on(window, 'load', Viewer.init, Viewer, true);
+Ext.onReady(Viewer.init, Viewer);
+
+String.prototype.ellipse = function(maxLength){
+    if(this.length > maxLength){
+        return this.substr(0, maxLength-3) + '...';
+    }
+    return this;
+};
+

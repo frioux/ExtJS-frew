@@ -2227,11 +2227,12 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
     /**
      * Sets the passed attributes as attributes of this element (a style attribute can be a string, object or function)
      * @param {Object} o The object with the attributes
+     * @param {Boolean} useSet (optional) false to override the default setAttribute to use expandos.
      * @return {Ext.Element} this
      */
-    set : function(o){
+    set : function(o, useSet){
         var el = this.dom;
-        var useSet = el.setAttribute ? true : false;
+        useSet = typeof useSet == 'undefined' ? (el.setAttribute ? true : false) : useSet;
         for(var attr in o){
             if(attr == "style" || typeof o[attr] == "function") continue;
             if(attr=="cls"){

@@ -54,6 +54,9 @@ Ext.data.SortTypes = {
      * @return {Number} The comparison value
      */
     asDate : function(s) {
+        if(!s){
+            return 0;
+        }
         if(s instanceof Date){
             return s.getTime();
         }

@@ -220,7 +220,7 @@ Ext.QuickTips = function(){
                            tagEls[target[j]] = c;
                        }
                    }else{
-                       tagEls[target] = c;
+                       tagEls[typeof target == 'string' ? target : target.id] = c;
                    }               	   
                }
            }
