@@ -49,7 +49,7 @@ Ext.apply = function(o, c, defaults){
 	if(isIE && !isIE7){
         try{
             document.execCommand("BackgroundImageCache", false, true);
-        }catch(e){}
+        }catch(e){alert(e)}
     }
 
     Ext.apply(Ext, {

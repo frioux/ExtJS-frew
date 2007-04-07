@@ -60,7 +60,7 @@ Ext.extend(Ext.BasicForm, Ext.util.Observable, {
     beforeAction : function(action){
         var o = action.options;
         if(o.waitMsg){
-            Ext.MessageBox.wait(o.waitMsg, o.waitTitle || this.form.waitTitle || 'Please Wait...');
+            Ext.MessageBox.wait(o.waitMsg, o.waitTitle || this.waitTitle || 'Please Wait...');
         }
     },
 
@@ -87,7 +87,7 @@ Ext.extend(Ext.BasicForm, Ext.util.Observable, {
         var field = this.items.get(id);
         if(!field){
             this.items.each(function(f){
-                if(f.isFormField && f.getName() == id){
+                if(f.isFormField && (f.dataIndex == id || f.getName() == id)){
                     field = f;
                     return false;
                 }
@@ -119,7 +119,7 @@ Ext.extend(Ext.BasicForm, Ext.util.Observable, {
             var field, id;
             for(id in values){
                 if(typeof values[id] != 'function' && (field = this.findField(id))){
-                    field.setValue(values[v]);
+                    field.setValue(values[id]);
                 }
             }
         }

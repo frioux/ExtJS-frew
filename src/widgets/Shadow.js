@@ -29,7 +29,9 @@ Ext.Shadow.prototype = {
         target = Ext.get(target);
         if(!this.el){
             this.el = Ext.Shadow.Pool.pull();
-            this.el.insertBefore(target);
+            if(this.el.dom.nextSibling != target.dom){
+                this.el.insertBefore(target);
+            }
         }
         this.el.setStyle("z-index", this.zIndex || parseInt(target.getStyle("z-index"), 10)-1);
         this.realign(

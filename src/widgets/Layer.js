@@ -64,7 +64,7 @@ Ext.extend(Ext.Layer, Ext.Element, {
     // code size was sacrificed for effeciency (e.g. no getBox/setBox, no XY calls)
     sync : function(doShow){
         var sw = this.shadow, sh = this.shim;
-        if(this.isVisible() && (sw || sh)){
+        if(!this.updating && this.isVisible() && (sw || sh)){
             var w = this.getWidth(),
                 h = this.getHeight();
 
@@ -98,7 +98,16 @@ Ext.extend(Ext.Layer, Ext.Element, {
             
         }
     },
-    
+
+    beginUpdate : function(){
+        this.updating = true;
+    },
+
+    endUpdate : function(){
+        this.updating = false;
+        this.sync(true);
+    },
+
     hideUnders : function(negOffset){
         if(this.shadow){
             this.shadow.hide();
@@ -208,7 +217,7 @@ Ext.extend(Ext.Layer, Ext.Element, {
     },
 
     beforeAction : function(){
-        if(this.shadow){
+        if(!this.updating && this.shadow){
             this.shadow.hide();
         }
     },

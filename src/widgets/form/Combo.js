@@ -360,9 +360,6 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         if(this.store.getCount() > 0){
             this.expand();
             this.restrictHeight();
-            if(this.listAlign.indexOf('?') != -1){ // constraining alignment
-                this.list.alignTo(this.el, this.listAlign);
-            }
             if(this.lastQuery == this.allQuery){
                 if(this.editable){
                     this.el.dom.select();
@@ -502,10 +499,10 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         var inner = this.innerList.dom;
         var h = Math.max(inner.clientHeight, inner.offsetHeight, inner.scrollHeight);
         this.innerList.setHeight(h < this.maxHeight ? 'auto' : this.maxHeight);
-        //if(Ext.isIE){
-            this.list.setHeight(this.innerList.getHeight()+this.list.getFrameWidth('tb')+(this.resizable?this.handleHeight:0)+this.assetHeight);
-        //}
+        this.list.beginUpdate();
+        this.list.setHeight(this.innerList.getHeight()+this.list.getFrameWidth('tb')+(this.resizable?this.handleHeight:0)+this.assetHeight);
         this.list.alignTo(this.el, this.listAlign);
+        this.list.endUpdate();
     },
 
     // private
