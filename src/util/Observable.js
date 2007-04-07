@@ -32,7 +32,9 @@ Ext.util.Observable.prototype = {
         }
     },
 
-    filterOptRe : /^(?:scope|delay|buffer|single)$/,    
+    // private
+    filterOptRe : /^(?:scope|delay|buffer|single)$/,
+
     /**
      * Appends an event handler to this component
      * @param {String}   eventName     The type of event to listen for
@@ -107,6 +109,11 @@ Ext.util.Observable.prototype = {
         }
     },
 
+    /**
+     * Copies any events from the passed object onto this object if they do not already exist.  The passed object
+     * must also inherit from Observable for this method to have any effect.
+     * @param {Object} object The object from which to copy events
+     */
     addEvents : function(o){
         if(!this.events){
             this.events = {};
@@ -114,6 +121,11 @@ Ext.util.Observable.prototype = {
         Ext.applyIf(this.events, o);
     },
 
+    /**
+     * Checks to see if this object is currently listening for a specified event
+     * @param {String} eventName The name of the event to check for
+     * @return {Boolean} True if the event is being listened for, else false
+     */
     hasListener : function(eventName){
         var e = this.events[eventName];
         return typeof e == "object" && e.listeners.length > 0;
