@@ -6,7 +6,7 @@
  * @cfg {Function} handler A function called when the button is clicked (can be used instead of click event)
  * @cfg {Object} scope The scope of the handler
  * @cfg {Number} minWidth The minimum width for this button (used to give a set of buttons a common width)
- * @cfg {String} tooltip The title attribute of the button
+ * @cfg {String/Object} tooltip The tooltip for the button - can be a string or QuickTips config object
  * @cfg {Boolean} hidden True to start hidden
  * @cfg {Boolean} disabled True to start disabled
  * @cfg {Boolean} pressed True to start pressed (only for toggle buttons)
@@ -111,7 +111,13 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
                 btnEl.setStyle('background-image', 'url(' +this.icon +')');
             }
             if(this.tooltip){
-                btnEl.dom[this.tooltipType] = this.tooltip;
+                if(typeof this.tooltip == 'object'){
+                    Ext.QuickTips.tips(Ext.apply({
+                          target: btnEl.id
+                    }, this.tooltip));
+                } else {
+                    btnEl.dom[this.tooltipType] = this.tooltip;
+                }
             }
         }else{
             btn = Ext.DomHelper.append(Ext.get(renderTo).dom, this.dhconfig, true);

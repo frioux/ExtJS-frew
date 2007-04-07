@@ -48,7 +48,13 @@ Ext.extend(Ext.MenuButton, Ext.Button, {
         btn.on("mouseup", this.onMouseUp, this);
         if(this.tooltip){
             var btnEl = btn.child("button:first");
-            btnEl.dom[this.tooltipType] = this.tooltip;
+            if(typeof this.tooltip == 'object'){
+                Ext.QuickTips.tips(Ext.apply({
+                      target: btnEl.id
+                }, this.tooltip));
+            } else {
+                btnEl.dom[this.tooltipType] = this.tooltip;
+            }
         }
         if(this.arrowTooltip){
             var btnEl = btn.child("button:nth(2)");
