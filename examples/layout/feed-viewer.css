@@ -1,3 +1,8 @@
+/*
+ * Ext - JS Library 1.0 Alpha 2
+ * Copyright(c) 2006-2007, Jack Slocum.
+ */
+
 html, body {
 	font: normal 9pt tahoma;
 	margin: 0px;
@@ -59,25 +64,11 @@ html, body {
 	width:auto;
 	display:block;
 }
-.view-tab{
-	background-image: url('images/new_tab.gif');
-}
-.view-window{
-	background-image: url('images/new_window.gif');
-}
 .add-feed {
 	background-image: url('images/add-feed.gif');
 }
 #myfeeds-body{
 	overflow:auto;
-}
-#preview-tb .view-tab,#preview-tb .view-window{
-	background-position: 0px 0px;
-	background-repeat: no-repeat;
-	padding-left:18px;
-	padding-top:1px;
-	width:auto;
-	display:block;
 }
 .view-tab{
 	background-image: url('images/new_tab.gif');
@@ -160,7 +151,7 @@ html, body {
 
 #status {
 	font-size:8pt;
-	background-image: url('/blog/images/grid/loading.gif');
+	background-image: url('../../resources/images/default/grid/loading.gif');
 	background-repeat: no-repeat;
 	background-position: left;
 	padding-left:20px;
@@ -168,7 +159,7 @@ html, body {
 	height:18px;
 }
 #status.done {
-	background-image: url('/blog/images/grid/done.gif');
+	background-image: url('../../resources/images/default/grid/loading.gif');
 }
 .x-layout-collapsed-west{
     background-image:url(images/myfeeds.gif);

@@ -1,3 +1,8 @@
+/*
+ * Ext - JS Library 1.0 Alpha 1
+ * Copyright(c) 2006-2007, Jack Slocum.
+ */
+
 String.prototype.ellipse = function(maxLength){
     if(this.length > maxLength){
         return this.substr(0, maxLength-3) + '...';
@@ -123,7 +128,15 @@ var Viewer = function(){
             
             // create the add feed toolbar
             var feedtb = new Ext.Toolbar('myfeeds-tb');
-            feedtb.addButton({id:'add-feed-btn', text: 'Add Feed', className: 'add-feed', click: this.showAddFeed.createDelegate(this)});
+            // They can also be referenced by id in or components
+            feedtb.add( {
+              id:'add-feed-btn',
+              icon: 'images/add-feed.gif', // icons can also be specified inline
+              cls: 'x-btn-text-icon',
+              text: 'Add feed',
+              handler: this.showAddFeed.createDelegate(this),
+              tooltip: '<b>Add Feed</b><br/>Button with tooltip'
+          });            
             
             layout.add('west', new Ext.ContentPanel('feeds', {title: 'My Feeds', fitToFrame:true, toolbar: feedtb, resizeEl:'myfeeds-body'}));
             layout.add('east', new Ext.ContentPanel('suggested', {title: 'Suggested Feeds', fitToFrame:true}));
@@ -158,9 +171,10 @@ var Viewer = function(){
             // create the preview panel and toolbar
             previewBody = Ext.get('preview-body');
             var tb = new Ext.Toolbar('preview-tb');
-            tb.addButton({text: 'View in New Tab', className: 'view-tab', click: this.showInTab.createDelegate(this)});
+            
+            tb.addButton({text: 'View in New Tab',icon: 'images/new_tab.gif',cls: 'x-btn-text-icon', handler: this.showInTab.createDelegate(this)});
             tb.addSeparator();
-            tb.addButton({text: 'View in New Window', className: 'view-window', click: this.showInWindow.createDelegate(this)});
+            tb.addButton({text: 'View in New Window',icon: 'images/new_window.gif',cls: 'x-btn-text-icon', handler: this.showInWindow.createDelegate(this)});
             
             preview = new Ext.ContentPanel('preview', {title: "Preview", fitToFrame:true, toolbar: tb, resizeEl:'preview-body'});
             innerLayout.add('south', preview);
@@ -196,6 +210,7 @@ var Viewer = function(){
                 }),
                 reader : reader
             });
+            
             ds.on('load', this.onLoad, this);
             
             var tpl = new Ext.Template(
@@ -206,13 +221,14 @@ var Viewer = function(){
             );
             
             var view = new Ext.View(el, tpl, {store: ds, singleSelect:true, selectedClass:'selected-article'});
-            /*view.prepareData = function(data){
+            view.prepareData = function(data){
                 return {
-                    title: data[0],
-                    date: data[1],
-                    desc: data[3].replace(/<\/?[^>]+>/gi, '').ellipse(350)
+                    title: data.title,
+                    date: reformatDate(data.pubDate),
+                    desc: data.description.replace(/<\/?[^>]+>/gi, '').ellipse(350)
+                
                 };
-            };*/
+            };
             view.on('click', this.showPost, this);
             view.on('dblclick', this.showFullPost, this);
         },
@@ -228,35 +244,37 @@ var Viewer = function(){
         loadFeed : function(feed){
         	statusPanel.setContent('Loading feed ' + feed + '...');
         	statusPanel.getEl().removeClass('done');
-            ds.load({'feed': feed});
+            //ds.load({'feed': feed});
+            //cgsktca
+            ds.load({params:{'feed': feed}});
         },
         
-        showPost : function(view, dataIndex){
-            var post = ds.getAt(dataIndex);
-            
-            var node = dm.getNode(dataIndex);
-    		var link = dm.getNamedValue(node, 'link');
-    		var title = dm.getValueAt(dataIndex, 0);
-    		var desc = dm.getNamedValue(node, 'description', 'No Description Available.');
-    		currentItem = {
-    		    index: dataIndex, link: link
-    		};
-    		preview.setTitle(title.ellipse(80));
-    		previewBody.update(desc);
+        showPost : function(view, dataIndex){            
+            var node = ds.getAt(dataIndex);
+            var title = node.data.title;
+            var link = node.data.link;
+            var desc = node.data.description;
+              		
+    		    currentItem = {
+    		        index: dataIndex, link: link
+    		    };
+    		    preview.setTitle(title.ellipse(80));
+    		    previewBody.update(desc);
         },
         
         showFullPost : function(view, rowIndex){
-            var node = dm.getNode(rowIndex);
-    		var link = dm.getNamedValue(node, 'link');
-    		var title = dm.getValueAt(rowIndex, 0);
-    		if(!title){
-    		    title = 'View Post';
-    		}
-    		var iframe = Ext.DomHelper.append(document.body, 
-    		            {tag: 'iframe', frameBorder: 0, src: link});
-    		var panel = new Ext.ContentPanel(iframe, 
-    		            {title: title, fitToFrame:true, closable:true});
-    		layout.add('center', panel);     	
+          var node = ds.getAt(rowIndex);
+    		  var link = node.data.link;
+    		  var title = node.data.title;
+    		  
+    		  if(!title){
+    		      title = 'View Post';
+    		  }
+    		  var iframe = Ext.DomHelper.append(document.body, 
+    		              {tag: 'iframe', frameBorder: 0, src: link});
+    		  var panel = new Ext.ContentPanel(iframe, 
+    		              {title: title, fitToFrame:true, closable:true});
+    		  layout.add('center', panel);     	
         },
         
         showInTab : function(){
@@ -272,19 +290,21 @@ var Viewer = function(){
         },
         
         changeActiveFeed : function(feedId){
-            suggested.select('a').removeClass('selected');
-            feeds.select('a').removeClass('selected');
-            Ext.fly('feed-'+feedId).addClass('selected');
+            YAHOO.util.Dom.removeClass(suggested.dom.getElementsByTagName('a'), 'selected');
+            YAHOO.util.Dom.removeClass(feeds.dom.getElementsByTagName('a'), 'selected');
+            YAHOO.util.Dom.addClass('feed-'+feedId, 'selected');
             var feed = sfeeds[feedId] || myfeeds[feedId];
             feedPanel.setTitle('View Feed (' + feed.name.ellipse(16) + ')');
         },
         
-        showAddFeed : function(){
+        showAddFeed : function(btn){
             Ext.get('feed-url').dom.value = '';
             Ext.get('add-title').radioClass('active-msg');
-            addFeed.alignTo('add-feed-btn', 'tl', [3,3])
+            var el = Ext.get('myfeeds-tb');
+
+            addFeed.alignTo('myfeeds-tb', 'tl', [3,3])
             addFeed.show();
-        },
+        },        
         
         validateFeed : function(){
             var url = Ext.get('feed-url').dom.value;
@@ -300,18 +320,22 @@ var Viewer = function(){
                     var id = ++seed;
                     myfeeds[id] = {id:id, name:name, desc:desc, url:url};
                     tpl.append('myfeeds-body', myfeeds[id]);
+                    
+                    addFeed.hide();  
+                   
+                      
+                    ds.loadData(xml); 
                     this.changeActiveFeed(id);
-                    addFeed.hide();
-                    dm.loadData(xml);
+                                       
                 }catch(e){
-                    Ext.get('invalid-feed').radioClass('active-msg');
+                    Ext.get('invalid-feed').radioClass('active-msg');                   
                 }                     
             }.createDelegate(this);
             var failure = function(o){
                 Ext.get('invalid-feed').radioClass('active-msg');
             };
-            Ext.lib.Ajax.request('POST', 'feed-proxy.php', {success:success, failure:failure}, 'feed='+encodeURIComponent(url));
+            YAHOO.util.Connect.asyncRequest('POST', 'feed-proxy.php', {success:success, failure:failure}, 'feed='+encodeURIComponent(url));
         }
     };
 }();
-Ext.onReady(Viewer.init, Viewer);
+YAHOO.util.Event.on(window, 'load', Viewer.init, Viewer, true);
