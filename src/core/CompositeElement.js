@@ -153,6 +153,14 @@ Ext.extend(Ext.CompositeElementLite, Ext.CompositeElement, {
         return this;
     },
 
+    /**
+    * Calls the passed function passing (el, this, index) for each element in this composite. <b>The element
+    * passed is the flyweight (shared) Ext.Element instance, so if you require a
+    * a reference to the dom node, use el.dom.</b>
+    * @param {Function} fn The function to call
+    * @param {Object} scope (optional) The <i>this</i> object (defaults to the element)
+    * @return {CompositeElement} this
+    */
     each : function(fn, scope){
         var els = this.elements;
         var el = this.el;

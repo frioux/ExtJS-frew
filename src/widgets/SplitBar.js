@@ -11,7 +11,7 @@ split.setAdapter(new Ext.SplitBar.AbsoluteLayoutAdapter("container"));
 split.minSize = 100;
 split.maxSize = 600;
 split.animate = true;
-split.onMoved.subscribe(splitterMoved);
+split.on('moved', splitterMoved);
 </code></pre>
  * @constructor
  * Create a new SplitBar

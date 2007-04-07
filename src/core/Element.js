@@ -266,10 +266,11 @@ El.prototype = {
     /**
      * Scrolls this element into view within the passed container.
      * @param {String/HTMLElement/Element} container (optional) The container element to scroll (defaults to document.body)
+     * @param {Boolean} hscroll (optional) false to disable horizontal scroll
      * @return {Ext.Element} this
      */
     scrollIntoView : function(container, hscroll){
-        var c = Ext.getDom(container);
+        var c = Ext.getDom(container) || document.body;
         var el = this.dom;
 
         var o = this.calcOffsetsTo(c),
@@ -2437,7 +2438,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
                         color +=  c + c;
                     }
                 }else if(v.length == 7){
-                    color += v.substr(1, 6);
+                    color += v.substr(1);
                 }
             }
         }
@@ -2653,9 +2654,6 @@ var noBoxAdjust = Ext.isStrict ? {
 };
 if(Ext.isIE || Ext.isGecko){
     noBoxAdjust['button'] = 1;
-}
-if(Ext.isGecko && !Ext.isStrict){
-    noBoxAdjust['textarea'] = 0;
 }
 })();
 

@@ -33,6 +33,7 @@
     <include name="util\ClickRepeater.js" />
     <include name="util\KeyNav.js" />
     <include name="util\KeyMap.js" />
+    <include name="util\TextMetrics.js" />
     <include name="state\State.js" />
     <include name="dd\DDCore.js" />
     <include name="dd\ScrollManager.js" />
@@ -96,6 +97,7 @@
     <include name="widgets\menu\DateItem.js" />
     <include name="widgets\menu\ColorItem.js" />
     <include name="widgets\menu\DateMenu.js" />
+    <include name="widgets\menu\ColorMenu.js" />
     <include name="widgets\form\Field.js" />
     <include name="widgets\form\TextField.js" />
     <include name="widgets\form\TriggerField.js" />
@@ -104,7 +106,10 @@
     <include name="widgets\form\DateField.js" />
     <include name="widgets\form\Combo.js" />
     <include name="widgets\form\Checkbox.js" />
+    <include name="widgets\form\BasicForm.js" />
     <include name="widgets\form\Form.js" />
+    <include name="widgets\form\Action.js" />
+    <include name="widgets\form\Layout.js" />
     <include name="widgets\form\VTypes.js" />
     <include name="widgets\layout\LayoutManager.js" />
     <include name="widgets\layout\BorderLayout.js" />
@@ -272,6 +277,7 @@
     <include name="widgets\menu\DateItem.js" />
     <include name="widgets\menu\ColorItem.js" />
     <include name="widgets\menu\DateMenu.js" />
+    <include name="widgets\menu\ColorMenu.js" />
   </target>
   <target name="Tree" file="$output\package\tree\tree.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="data\Tree.js" />
@@ -310,7 +316,10 @@
     <include name="widgets\form\Checkbox.js" />
     <include name="widgets\form\Combo.js" />
     <include name="widgets\Editor.js" />
+    <include name="widgets\form\BasicForm.js" />
     <include name="widgets\form\Form.js" />
+    <include name="widgets\form\Action.js" />
+    <include name="widgets\form\Layout.js" />
     <include name="widgets\form\VTypes.js" />
   </target>
   <target name="Button" file="$output\package\button\button.js" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
@@ -345,6 +354,7 @@
     <include name="util\ClickRepeater.js" />
     <include name="util\KeyNav.js" />
     <include name="util\KeyMap.js" />
+    <include name="util\TextMetrics.js" />
   </target>
   <target name="Drag Drop" file="$output\package\dragdrop\dragdrop.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="dd\DDCore.js" />
@@ -464,10 +474,12 @@
   <file name="util\MixedCollection.js" path="util" />
   <file name="util\Observable.js" path="util" />
   <file name="util\TaskMgr.js" path="util" />
+  <file name="util\TextMetrics.js" path="util" />
   <file name="widgets\form\Checkbox.js" path="widgets\form" />
   <file name="widgets\form\Combo.js" path="widgets\form" />
   <file name="widgets\form\DateField.js" path="widgets\form" />
   <file name="widgets\form\Field.js" path="widgets\form" />
+  <file name="widgets\form\Form.js" path="widgets\form" />
   <file name="widgets\form\NumberField.js" path="widgets\form" />
   <file name="widgets\form\TextArea.js" path="widgets\form" />
   <file name="widgets\form\TextField.js" path="widgets\form" />
@@ -490,6 +502,7 @@
   <file name="widgets\layout\LayoutManager.js" path="widgets\layout" />
   <file name="widgets\layout\LayoutRegion.js" path="widgets\layout" />
   <file name="widgets\layout\LayoutStateManager.js" path="widgets\layout" />
+  <file name="widgets\layout\ReaderLayout.js" path="widgets\layout" />
   <file name="widgets\layout\SplitLayoutRegion.js" path="widgets\layout" />
   <file name="widgets\menu\Adapter.js" path="widgets\menu" />
   <file name="widgets\menu\BaseItem.js" path="widgets\menu" />
@@ -505,6 +518,7 @@
   <file name="widgets\tree\AsyncTreeNode.js" path="widgets\tree" />
   <file name="widgets\tree\TreeDragZone.js" path="widgets\tree" />
   <file name="widgets\tree\TreeDropZone.js" path="widgets\tree" />
+  <file name="widgets\tree\TreeEditor.js" path="widgets\tree" />
   <file name="widgets\tree\TreeFilter.js" path="widgets\tree" />
   <file name="widgets\tree\TreeLoader.js" path="widgets\tree" />
   <file name="widgets\tree\TreeNode.js" path="widgets\tree" />
@@ -536,7 +550,8 @@
   <file name="yui\event.js" path="yui" />
   <file name="yui\yahoo.js" path="yui" />
   <file name="debug.js" path="" />
-  <file name="widgets\tree\TreeEditor.js" path="widgets\tree" />
-  <file name="widgets\form\Form.js" path="widgets\form" />
-  <file name="widgets\layout\ReaderLayout.js" path="widgets\layout" />
+  <file name="widgets\form\Action.js" path="widgets\form" />
+  <file name="widgets\form\BasicForm.js" path="widgets\form" />
+  <file name="widgets\form\Layout.js" path="widgets\form" />
+  <file name="widgets\menu\ColorMenu.js" path="widgets\menu" />
 </project>

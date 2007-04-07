@@ -18,7 +18,7 @@ var TreeTest = function(){
             
             // set the root node
             var root = new Tree.AsyncTreeNode({
-                text: 'yui-ext', 
+                text: 'Ext JS', 
                 draggable:false, // disable root node dragging
                 id:'source'
             });

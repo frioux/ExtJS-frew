@@ -81,8 +81,7 @@ Ext.EventManager = function(){
     var listen = function(element, ename, opt, fn, scope){
         var o = (!opt || typeof opt == "boolean") ? {} : opt;
         fn = fn || o.fn; scope = scope || o.scope;
-        var el = typeof element == "string" ?
-                    document.getElementById(element) : element;
+        var el = Ext.getDom(element);
         if(!el){
             throw "Error listening for " + ename + '. Element ' + element + ' doesn\'t exist.';
         }
@@ -122,13 +121,15 @@ Ext.EventManager = function(){
         if(o.buffer){
             h = createBuffered(h, o);
         }
-
         fn._handlers = fn._handlers || [];
         fn._handlers.push([Ext.id(el), ename, h]);
 
         E.on(el, ename, h);
         if(ename == "mousewheel" && el.addEventListener){ // workaround for jQuery
             el.addEventListener("DOMMouseScroll", h, false);
+        }
+        if(ename == "mousedown" && el == document){ // fix stopped mousedowns on the document
+            Ext.EventManager.stoppedMouseDownEvent.addListener(h);
         }
         return h;
     };
@@ -146,8 +147,12 @@ Ext.EventManager = function(){
             }
         }
         E.un(el, ename, fn);
-        if(ename == "mousewheel"){
-            E.un(el, "DOMMouseScroll", fn);
+        el = Ext.getDom(el);
+        if(ename == "mousewheel" && el.addEventListener){
+            el.removeEventListener("DOMMouseScroll", fn, false);
+        }
+        if(ename == "mousedown" && el == document){ // fix stopped mousedowns on the document
+            Ext.EventManager.stoppedMouseDownEvent.removeListener(fn);
         }
     };
 
@@ -316,6 +321,7 @@ Ext.EventManager = function(){
     pub.on = pub.addListener;
     pub.un = pub.removeListener;
 
+    pub.stoppedMouseDownEvent = new Ext.util.Event();
     return pub;
 }();
 /**
@@ -476,6 +482,9 @@ Ext.EventObject = function(){
          */
         stopEvent : function(){
             if(this.browserEvent){
+                if(this.browserEvent.type == 'mousedown'){
+                    Ext.EventManager.stoppedMouseDownEvent.fire(this);
+                }
                 E.stopEvent(this.browserEvent);
             }
         },
@@ -510,6 +519,9 @@ Ext.EventObject = function(){
          */
         stopPropagation : function(){
             if(this.browserEvent){
+                if(this.browserEvent.type == 'mousedown'){
+                    Ext.EventManager.stoppedMouseDownEvent.fire(this);
+                }
                 E.stopPropagation(this.browserEvent);
             }
         },

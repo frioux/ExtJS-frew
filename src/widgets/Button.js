@@ -67,8 +67,23 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
 
     enableToggle: false,
 
+    /**
+     * @cfg {Mixed} menu
+     * Standard menu attribute consisting of a reference to a menu object, a menu id or a menu config blob
+     */
+    menu : undefined,
+    /**
+     * @cfg {String} menuAlign
+     * The position to align the menu to (see {@link Ext.Element#alignTo} for more details) (defaults to tl-bl?).
+     */
     menuAlign : "tl-bl?",
+
     menuClassTarget: 'tr',
+
+    /**
+     * @cfg {String} tooltipType
+     * The type of tooltip to use. Either "qtip" for QuickTips or "title" for title attribute.
+     */
     tooltipType : 'qtip',
 
     render : function(renderTo){
@@ -110,12 +125,12 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
             this.menu.on("show", this.onMenuShow, this);
             this.menu.on("hide", this.onMenuHide, this);
         }
+        btn.addClass("x-btn");
         if(Ext.isIE && !Ext.isIE7){
             this.autoWidth.defer(1, this);
         }else{
             this.autoWidth();
         }
-        btn.addClass("x-btn");
         btn.on("click", this.onClick, this);
         btn.on("mouseover", this.onMouseOver, this);
         btn.on("mouseout", this.onMouseOut, this);
@@ -195,7 +210,9 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
      */
     setText : function(text){
         this.text = text;
-        this.el.child("td.x-btn-center button.x-btn-text").update(text);
+        if(this.el){
+            this.el.child("td.x-btn-center button.x-btn-text").update(text);
+        }
         this.autoWidth();
     },
     
@@ -212,7 +229,9 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
      */
     show: function(){
         this.hidden = false;
-        this[this.hideParent? 'parentEl' : 'el'].setStyle("display", "");
+        if(this.el){
+            this[this.hideParent? 'parentEl' : 'el'].setStyle("display", "");
+        }
     },
     
     /**
@@ -220,7 +239,9 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
      */
     hide: function(){
         this.hidden = true;
-        this[this.hideParent? 'parentEl' : 'el'].setStyle("display", "none");
+        if(this.el){
+            this[this.hideParent? 'parentEl' : 'el'].setStyle("display", "none");
+        }
     },
     
     /**
@@ -261,14 +282,16 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
      * Focus the button
      */
     focus : function(){
-        this.el.child('button:first').focus(); 
+        this.el.child('button:first').focus();
     },
     
     /**
      * Disable this button
      */
     disable : function(){
-        this.el.addClass("x-btn-disabled");
+        if(this.el){
+            this.el.addClass("x-btn-disabled");
+        }
         this.disabled = true;
     },
     
@@ -276,7 +299,9 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
      * Enable this button
      */
     enable : function(){
-        this.el.removeClass("x-btn-disabled");
+        if(this.el){
+            this.el.removeClass("x-btn-disabled");
+        }
         this.disabled = false;
     },
 

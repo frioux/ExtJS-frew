@@ -7,6 +7,7 @@ Ext.tree.TreeEditor = function(tree, config){
     this.tree = tree;
 
     tree.on('beforeclick', this.beforeNodeClick, this);
+    tree.el.on('mousedown', this.hide, this);
     this.on('complete', this.updateNode, this);
     this.on('beforestartedit', this.fitToTree, this);
     this.on('startedit', this.bindScroll, this, {delay:10});

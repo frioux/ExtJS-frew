@@ -155,7 +155,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     selectedClass: 'x-combo-selected',
     triggerClass : 'x-form-arrow-trigger',
     shadow:'sides',
-    listAlign: 'tl-bl',
+    listAlign: 'tl-bl?',
     maxHeight: 300,
     triggerAction: 'query',
     minChars : 4,
@@ -271,7 +271,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
 
             "enter" : function(e){
                 this.onViewClick();
-                return true;
+                //return true;
             },
 
             "esc" : function(e){
@@ -531,7 +531,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         if(this.value !== undefined && this.value !== null){
             var r = this.findRecord(this.valueField || this.displayField, v);
             if(r){
-                this.select(this.store.indexOf(r), true);
+                this.select(this.store.indexOf(r), scrollIntoView);
                 return true;
             }
         }

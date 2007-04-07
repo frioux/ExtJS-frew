@@ -8,6 +8,13 @@ Ext.onReady(function(){
         }
     });
 
+    // Menus can be prebuilt and passed by reference
+    var colorMenu = new Ext.menu.ColorMenu({
+        handler : function(cm, color){
+            Ext.example.msg('Color Selected', 'You chose {0}.', color);
+        }
+    });
+
     var menu = new Ext.menu.Menu({
         id: 'mainMenu',
         items: [
@@ -58,6 +65,9 @@ Ext.onReady(function(){
                 text: 'Choose a Date',
                 cls: 'calendar',
                 menu: dateMenu // <-- submenu by reference
+            },{
+                text: 'Choose a Color',
+                menu: colorMenu // <-- submenu by reference
             }
         ]
     });

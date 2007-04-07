@@ -229,3 +229,11 @@
     opacity: 0;
     filter: alpha(opacity=0);
 }
+
+.x-clear {
+    clear:both;
+    height:0;
+    overflow:hidden;
+    line-height:0;
+    font-size:0;
+}

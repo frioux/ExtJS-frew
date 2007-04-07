@@ -1,148 +1,135 @@
-Ext.Form = function(el, config){
-    Ext.apply(this, config);
-    this.el = Ext.get(el);
-    this.id = this.el.id || Ext.id();
-    this.el.on('submit', this.onSubmit, this);
-    this.items = new Ext.util.MixedCollection();
-    this.addEvents({
-        invalid : true,
-        beforesubmit: true,
-        success : true,
-        failure: true
-    });
+Ext.Form = function(config){
+    Ext.Form.superclass.constructor.call(this, null, config);
+    this.url = this.url || this.action;
+    if(!this.root){
+        this.root = new Ext.form.Layout(config);
+    }
+    this.active = this.root;
+    this.buttons = [];
 };
 
-Ext.Form.CLIENT_INVALID = 'client';
-Ext.Form.SERVER_INVALID = 'server';
+Ext.extend(Ext.Form, Ext.BasicForm, {
+    buttonPosition:'bottom',
+    buttonAlign:'center',
+    minButtonWidth:75,
+    labelAlign:'left',
 
-Ext.extend(Ext.Form, Ext.util.Observable, {
-    timeout: 30,
-    fileUpload: false,
-
-    onSubmit : function(e){
-        e.stopEvent();
+    column : function(c){
+        var col = new Ext.form.Column(c);
+        this.start(col);
+        if(arguments.length > 1){ // duplicate code required because of Opera
+            this.add.apply(this, Array.prototype.slice.call(arguments, 1));
+            this.end();
+        }
+        return col;
     },
 
-    isValid : function(){
-        var valid = true;
-        this.items.each(function(f){
-           if(!f.validate()){
-               valid = false;
-           }
-        });
-        return valid;
+    fieldset : function(c){
+        var fs = new Ext.form.FieldSet(c);
+        this.start(fs);
+        if(arguments.length > 1){ // duplicate code required because of Opera
+            this.add.apply(this, Array.prototype.slice.call(arguments, 1));
+            this.end();
+        }
+        return fs;
     },
 
-    //form, uri, cb, data, isUpload, sslUri){
-    submit : function(options){
-        options = options || {};
-        if(options.clientValidation === false || this.isValid()){
-            if(options.waitMsg){
-                Ext.MessageBox.wait(options.waitMsg, options.waitTitle || this.waitTitle || 'Please Wait...');
-            }
-            var formEl = this.el.dom;
-            var url = options.url || this.url || formEl.action;
-            var cb = {
-                success: this.processSuccess,
-                failure: this.processFailure,
-                scope: this,
-                timeout: (this.timeout*1000),
-                argument: options,
-                upload: this.fileUpload ? this.processSuccess : undefined
-            };
-            Ext.lib.Ajax.formRequest(formEl, url, cb, null, this.fileUpload, Ext.SSL_SECURE_URL);
-        }else if (options.clientValidation !== false){
-            Ext.callback(options.invalid, options.scope, [this, Ext.Form.CLIENT_INVALID, options]);
-            this.fireEvent('invalid', this, Ext.Form.CLIENT_INVALID, options);
+    container : function(c){
+        var l = new Ext.form.Layout(c);
+        this.start(l);
+        if(arguments.length > 1){ // duplicate code required because of Opera
+            this.add.apply(this, Array.prototype.slice.call(arguments, 1));
+            this.end();
         }
+        return l;
     },
 
-    findField : function(id){
-        var field = this.items.get(id);
-        if(!field){
-            this.items.each(function(f){
-                if(f.getName() == id){
-                    field = f;
-                    return false;
-                }
-            });
-        }
-        return field || null;
+    start : function(c){
+        // cascade label info
+        Ext.applyIf(c, {'labelAlign': this.active.labelAlign, 'labelWidth': this.active.labelWidth});
+        this.active.stack.push(c);
+        c.ownerCt = this.active;
+        this.active = c;
+        return this;
     },
 
-    processJson : function(response){
-        var o = Ext.decode(response.responseText);
-        if(o === true || o.success){
-            return o;
+    end : function(){
+        if(this.active == this.root){
+            return this;
         }
-        if(o.errors){
-            for(var i = 0, e = o.errors, len = e.length; i < len; i++){
-                var fieldError = e[i];
-                var f = this.findField(fieldError.id);
-                if(f){
-                    f.markInvalid(fieldError.msg);
-                }
-            }
-        }
-        var opt = response.argument;
-        Ext.callback(opt.invalid, opt.scope, [this, Ext.Form.SERVER_INVALID, opt, o, response]);
-        this.fireEvent('invalid', this, Ext.Form.SERVER_INVALID, opt, o, response);
-    },
-
-    processSuccess : function(response){
-        var o = response.argument;
-        if(o.reset){
-            this.reset();
-        }
-        if(o.waitMsg){
-            Ext.MessageBox.updateProgress(1);
-            Ext.MessageBox.hide();
-        }
-        var returnObj = this.processJson(response);
-        Ext.callback(o.success, o.scope, [this, returnObj, response, o]);
-        this.fireEvent('success', this, returnObj, response, o);
-    },
-
-    // http request failed
-    processFailure : function(response){
-        var o = response.argument;
-        if(o.waitMsg){
-            Ext.MessageBox.updateProgress(1);
-            Ext.MessageBox.hide();
-        }
-        Ext.callback(o.failure, o.scope, [this, response, o]);
-        this.fireEvent('failure', this, response, o);
-    },
-
-    reset : function(){
-        this.items.each(function(f){
-            f.reset();
-        });
+        this.active = this.active.ownerCt;
+        return this;
     },
 
     add : function(){
-        this.items.addAll.apply(this.items, arguments);
+        this.active.stack.push.apply(this.active.stack, arguments);
+        var r = [];
+        for(var i = 0, a = arguments, len = a.length; i < len; i++) {
+            if(a[i].isFormField){
+                r.push(a[i]);
+            }
+        }
+        if(r.length > 0){
+            Ext.Form.superclass.add.apply(this, r);
+        }
+        return this;
     },
 
-    remove : function(field){
-        this.items.remove(field);
-    },
+    render : function(ct){
+        ct = Ext.get(ct);
+        var o = this.autoCreate || {
+            tag: 'form',
+            method : this.method || 'POST',
+            id : this.id || Ext.id()
+        };
+        this.initEl(ct.createChild(o));
 
-    render : function(){
+        this.root.render(this.el);
+
         this.items.each(function(f){
-           if(!f.rendered){
-               if(document.getElementById(f.id)){ // if the element exists
-                   f.applyTo(f.id);
-               }else {  // dynamic rendering = TODO
-
-               }
-           }
+            f.render('x-form-el-'+f.id);
         });
+
+        if(this.buttons.length > 0){
+            // tables are required to maintain order and for correct IE layout
+            var tb = this.el.createChild({cls:'x-form-btns-ct', cn: {
+                cls:"x-form-btns x-form-btns-"+this.buttonAlign,
+                html:'<table cellspacing="0"><tbody><tr></tr></tbody></table><div class="x-clear"></div>'
+            }}, null, true);
+            var tr = tb.getElementsByTagName('tr')[0];
+            for(var i = 0, len = this.buttons.length; i < len; i++) {
+                var b = this.buttons[i];
+                var td = document.createElement('td');
+                td.className = 'x-form-btn-td';
+                b.render(tr.appendChild(td));
+            }
+        }
     },
 
-    applyToFields : function(o){
-        this.items.each(function(f){
-           Ext.apply(f, o);
-        });
+    /**
+     * Adds a button to the footer of the form - this <b>must</b> be called before the form is rendered.
+     * @param {String/Object} config A string becomes the button text, an object can either be a Button config
+     * object or a valid Ext.DomHelper element config
+     * @param {Function} handler The function called when the button is clicked
+     * @param {Object} scope (optional) The scope of the handler function
+     * @return {Ext.Button}
+     */
+    addButton : function(config, handler, scope){
+        var bc = {
+            handler: handler,
+            scope: scope,
+            minWidth: this.minButtonWidth,
+            hideParent:true
+        };
+        if(typeof config == "string"){
+            bc.text = config;
+        }else{
+            Ext.apply(bc, config);
+        }
+        var btn = new Ext.Button(null, bc);
+        this.buttons.push(btn);
+        return btn;
     }
 });
+
+

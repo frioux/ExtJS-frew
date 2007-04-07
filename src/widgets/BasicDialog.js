@@ -461,7 +461,7 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
             var tb = this.footer.createChild({
                 tag:"div",
                 cls:"x-dlg-btns x-dlg-btns-"+this.buttonAlign,
-                html:'<table cellspacing="0"><tbody><tr></tr></tbody></table>'
+                html:'<table cellspacing="0"><tbody><tr></tr></tbody></table><div class="x-clear"></div>'
             }, null, true);
             this.btnContainer = tb.firstChild.firstChild.firstChild;
         }
@@ -484,8 +484,6 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
             this.btnContainer.appendChild(document.createElement("td")),
             bconfig
         );
-
-        this.footer.setHeight(this.btnContainer.parentNode.parentNode.offsetHeight + this.footer.getPadding("tb"));
         this.syncBodyHeight();
         if(!this.buttons){
             /**
@@ -833,11 +831,10 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
     },
 
     /**
-     * Aligns the dialog to the specified element (see {@link Ext.Element#alignTo} for more details)
+     * Aligns the dialog to the specified element
      * @param {String/HTMLElement/Ext.Element} element The element to align to.
-     * @param {String} position The position to align to.
+     * @param {String} position The position to align to (see {@link Ext.Element#alignTo} for more details).
      * @param {Array} offsets (optional) Offset the positioning by [x, y]
-     * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
      * @return {Ext.BasicDialog} this
      */
     alignTo : function(element, position, offsets){
@@ -1125,7 +1122,7 @@ Ext.DialogManager = function(){
     layout.add("center", new Ext.ContentPanel("standard-panel",
                         {title: "Download the Source", fitToFrame:true}));
     layout.add("center", new Ext.NestedLayoutPanel(innerLayout,
-               {title: "Build your own yui-ext.js"}));
+               {title: "Build your own ext.js"}));
     layout.getRegion("center").showPanel(sp);
     layout.endUpdate();</code></pre>
     * @constructor

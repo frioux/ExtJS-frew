@@ -12,19 +12,29 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
     focusClass : "x-form-check-focus",
     fieldClass: "x-form-field",
     checked: false,
+    defaultAutoCreate : { tag: "input", type: 'checkbox', autocomplete: "off"},
+    boxLabel : undefined,
+
     setSize : function(w, h){
+        if(!this.wrap){
+            this.width = w;
+            this.height = h;
+            return;
+        }
         this.wrap.setSize(w, h);
-        this.el.alignTo(this.wrap, 'c-c');
+        if(!this.boxLabel){
+            this.el.alignTo(this.wrap, 'c-c');
+        }
     },
     onRender : function(ct){
-        if(!this.el){
-            this.defaultAutoCreate = {
-                tag: "input", type: 'checkbox',
-                autocomplete: "off"
-            };
-        }
         Ext.form.Checkbox.superclass.onRender.call(this, ct);
         this.wrap = this.el.wrap({cls: "x-form-check-wrap"});
+        if(this.boxLabel){
+            this.wrap.createChild({tag: 'label', htmlFor: this.el.id, cls: 'x-form-cb-label', html: this.boxLabel});
+        }
+        if(this.checked){
+            this.setValue(true);
+        }
     },
 
     initValue : Ext.emptyFn,
@@ -38,7 +48,7 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
 
     setValue : function(v){
         this.checked = (v === true || v === 'true' || v == '1');
-        if(this.rendered){
+        if(this.el && this.el.dom){
             this.el.dom.checked = this.checked;
         }
     }

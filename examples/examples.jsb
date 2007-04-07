@@ -115,16 +115,24 @@
   <file name="lib.css" path="" />
   <file name="grid\from-markup.html" path="grid" />
   <file name="form\warning.gif" path="form" />
+  <file name="form\combos.html" path="form" />
+  <file name="form\forum-search.css" path="form" />
+  <file name="form\forum-search.html" path="form" />
+  <file name="form\combos.css" path="form" />
+  <file name="layout\child.html" path="layout" />
+  <file name="layout\parent.html" path="layout" />
+  <file name="grid\virtual-grid.html" path="grid" />
+  <file name="grid\virtualgrid.js" path="grid" />
   <file name="dialog\hello.js" path="dialog" />
   <file name="dialog\layout.js" path="dialog" />
   <file name="dialog\msg-box.js" path="dialog" />
   <file name="dialog\post.js" path="dialog" />
-  <file name="form\combos.html" path="form" />
   <file name="form\combos.js" path="form" />
+  <file name="form\dynamic.html" path="form" />
+  <file name="form\dynamic.js" path="form" />
   <file name="form\forms.js" path="form" />
-  <file name="form\forum-search.css" path="form" />
-  <file name="form\forum-search.html" path="form" />
   <file name="form\forum-search.js" path="form" />
+  <file name="form\states.js" path="form" />
   <file name="grid\array-grid.js" path="grid" />
   <file name="grid\custom-grid.js" path="grid" />
   <file name="grid\edit-grid.js" path="grid" />
@@ -147,10 +155,4 @@
   <file name="lib.js" path="" />
   <file name="prototype.js" path="" />
   <file name="scriptaculous.js" path="" />
-  <file name="form\combos.css" path="form" />
-  <file name="form\states.js" path="form" />
-  <file name="layout\child.html" path="layout" />
-  <file name="layout\parent.html" path="layout" />
-  <file name="grid\virtual-grid.html" path="grid" />
-  <file name="grid\virtualgrid.js" path="grid" />
 </project>

@@ -26,13 +26,13 @@ Ext.extend(Ext.MenuButton, Ext.Button, {
         var tpl = new Ext.Template(
             '<table cellspacing="0" class="x-btn-menu-wrap x-btn"><tr><td>',
             '<table cellspacing="0" class="x-btn-wrap x-btn-menu-text-wrap"><tbody>',
-            '<tr><td class="x-btn-left"><i>&#160;</i></td><td class="x-btn-center"><button class="x-btn-text" ext:qtip="{1:htmlEncode}">{0}</button></td></tr>',
+            '<tr><td class="x-btn-left"><i>&#160;</i></td><td class="x-btn-center"><button class="x-btn-text">{0}</button></td></tr>',
             "</tbody></table></td><td>",
             '<table cellspacing="0" class="x-btn-wrap x-btn-menu-arrow-wrap"><tbody>',
-            '<tr><td class="x-btn-center"><button class="x-btn-menu-arrow-el" ext:qtip="{2:htmlEncode}">&#160;</button></td><td class="x-btn-right"><i>&#160;</i></td></tr>',
+            '<tr><td class="x-btn-center"><button class="x-btn-menu-arrow-el">&#160;</button></td><td class="x-btn-right"><i>&#160;</i></td></tr>',
             "</tbody></table></td></tr></table>"
         );
-        var btn = tpl.append(renderTo, [this.text, this.tooltip || "", this.arrowTooltip || ""], true);
+        var btn = tpl.append(renderTo, [this.text], true);
         if(this.cls){
             btn.addClass(this.cls);
         }
@@ -46,6 +46,14 @@ Ext.extend(Ext.MenuButton, Ext.Button, {
         btn.on("mouseout", this.onMouseOut, this);
         btn.on("mousedown", this.onMouseDown, this);
         btn.on("mouseup", this.onMouseUp, this);
+        if(this.tooltip){
+            var btnEl = btn.child("button:first");
+            btnEl.dom[this.tooltipType] = this.tooltip;
+        }
+        if(this.arrowTooltip){
+            var btnEl = btn.child("button:nth(2)");
+            btnEl.dom[this.tooltipType] = this.arrowTooltip;
+        }
         if(this.hidden){
             this.hide();
         }
@@ -109,7 +117,9 @@ Ext.extend(Ext.MenuButton, Ext.Button, {
      * Focus the button
      */
     focus : function(){
-        this.el.child("a:first").focus();
+        if(this.el){
+            this.el.child("a:first").focus();
+        }
     },
     
     onClick : function(e){

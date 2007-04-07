@@ -11,7 +11,7 @@ Ext.onReady(function(){
 
     // set the root node
     var root = new Tree.AsyncTreeNode({
-        text: 'yui-ext',
+        text: 'Ext JS',
         draggable:false,
         id:'source'
     });

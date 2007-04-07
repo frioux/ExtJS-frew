@@ -236,6 +236,13 @@ Ext.apply = function(o, c, defaults){
             return el.dom ? el.dom : (typeof el == 'string' ? document.getElementById(el) : el);
         },
 
+        num : function(v, defaultValue){
+            if(typeof v != 'number'){
+                return defaultValue;
+            }
+            return v;
+        },
+
         /* @type Boolean */
         isOpera : isOpera,
         /* @type Boolean */

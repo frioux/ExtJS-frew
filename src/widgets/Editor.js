@@ -15,6 +15,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
     alignment: "c-c?",
     shadow : "frame",
     updateEl : false,
+
     onRender : function(ct){
         this.el = new Ext.Layer({
             shadow: this.shadow,
@@ -140,6 +141,9 @@ Ext.extend(Ext.Editor, Ext.Component, {
             return;
         }
         this.field.blur();
+        if(this.field.collapse){
+            this.field.collapse();
+        }
         this.el.hide();
         if(this.hideEl !== false){
             this.boundEl.show();

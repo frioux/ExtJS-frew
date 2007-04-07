@@ -21,6 +21,7 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
     hasFocus : false,
     msgTarget: 'qtip', // qtip, title, under, or element id
     msgFx : 'normal',
+    isFormField : true,
 
     getName: function(){
          return this.rendered && this.el.dom.name ? this.el.dom.name : (this.hiddenName || '');
@@ -40,11 +41,7 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
                 ct.dom.appendChild(this.el.dom);
             }
         }else {
-            var cfg = typeof this.autoCreate == "object" ?
-                      this.autoCreate : Ext.apply({}, this.defaultAutoCreate);
-            if(this.id && !cfg.id){
-                cfg.id = this.id;
-            }
+            var cfg = this.getAutoCreate();
             if(!cfg.name){
                 cfg.name = this.name || this.id;
             }
@@ -127,12 +124,13 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
     },
 
     setSize : function(w, h){
-        if(!this.rendered){
+        if(!this.rendered || !this.el){
             this.width = w;
             this.height = h;
             return;
         }
         if(w){
+            w = this.adjustWidth(this.el.dom.tagName, w);
             this.el.setWidth(w);
         }
         if(h){
@@ -202,11 +200,7 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
                 break;
             case 'under':
                 if(this.errorEl){
-                    var p = this.el.findParent('.x-form-item', 5, true);
-                    if(p){
-                        p.removeClass('x-form-item-msg');
-                        Ext.form.Field.msgFx[this.msgFx].hide(this.errorEl, this);
-                    }
+                    Ext.form.Field.msgFx[this.msgFx].hide(this.errorEl, this);
                 }
                 break;
             default:
@@ -240,6 +234,30 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
             this.el.dom.value = v;
             this.validate();
         }
+    },
+
+    adjustWidth : function(tag, w){
+        tag = tag.toLowerCase();
+        if(typeof w == 'number' && Ext.isStrict && !Ext.isSafari){
+            if(Ext.isIE && (tag == 'input' || tag == 'textarea')){
+                if(tag == 'input'){
+                    return w + 2;
+                }
+                if(tag = 'textarea'){
+                    return w-2;
+                }
+            }else if(Ext.isGecko && tag == 'textarea'){
+                return w-6;
+            }else if(Ext.isOpera){
+                if(tag == 'input'){
+                    return w + 2;
+                }
+                if(tag = 'textarea'){
+                    return w-2;
+                }
+            }
+        }
+        return w;
     }
 });
 

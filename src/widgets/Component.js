@@ -103,6 +103,16 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
         ct.dom.appendChild(this.el.dom);
     },
 
+    //@private
+    getAutoCreate : function(){
+        var cfg = typeof this.autoCreate == "object" ?
+                      this.autoCreate : Ext.apply({}, this.defaultAutoCreate);
+        if(this.id && !cfg.id){
+            cfg.id = this.id;
+        }
+        return cfg;
+    },
+
     afterRender : Ext.emptyFn,
 
     destroy : function(){

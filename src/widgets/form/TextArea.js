@@ -32,6 +32,7 @@ Ext.extend(Ext.form.TextArea, Ext.form.TextField,  {
             if(this.preventScrollbars){
                 this.el.setStyle("overflow", "hidden");
             }
+            this.el.setHeight(this.growMin);
         }
     },
 

@@ -110,7 +110,7 @@ Ext.extend(Ext.form.DateField, Ext.form.TriggerField,  {
             this.setValue(d);
         },
         show : function(){ // retain focus styling
-            this.el.addClass(this.focusClass);
+            this.onFocus();
         },
         hide : function(){
             this.focus();

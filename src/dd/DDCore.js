@@ -790,7 +790,7 @@ Ext.dd.DragDrop.prototype = {
      * @param {Ext.dd.DragDrop} oDD the clicked dd object (this dd obj)
      * @private
      */
-    handleMouseDown: function(e, oDD) {
+    handleMouseDown: function(e, oDD){
         if (this.primaryButtonOnly && e.button != 0) {
             return;
         }
@@ -812,6 +812,7 @@ Ext.dd.DragDrop.prototype = {
 
                 this.b4MouseDown(e);
                 this.onMouseDown(e);
+
                 this.DDM.handleMouseDown(e, this);
 
                 this.DDM.stopEvent(e);
@@ -1693,13 +1694,13 @@ Ext.dd.DragDropMgr = function() {
          * @param {Event} e the event as returned by this.getEvent()
          * @static
          */
-        stopEvent: function(e) {
-            if (this.stopPropagation) {
-                Ext.lib.Event.stopPropagation(e);
+        stopEvent: function(e){
+            if(this.stopPropagation) {
+                e.stopPropagation();
             }
 
             if (this.preventDefault) {
-                Ext.lib.Event.preventDefault(e);
+                e.preventDefault();
             }
         },
 

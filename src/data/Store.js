@@ -116,8 +116,8 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     },
 
     loadRecords : function(o, options, success){
-        if(!o || !success){
-            if(success){
+        if(!o || success === false){
+            if(success !== false){
                 this.fireEvent("load", this, [], options);
             }
             if(options.callback){
@@ -129,7 +129,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
         for(var i = 0, len = r.length; i < len; i++){
             r[i].join(this);
         }
-        if(options.add !== true){
+        if(!options || options.add !== true){
             this.data.clear();
             this.data.addAll(r);
             this.totalLength = t;
