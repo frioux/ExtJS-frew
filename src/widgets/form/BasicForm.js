@@ -41,7 +41,7 @@ Ext.extend(Ext.BasicForm, Ext.util.Observable, {
 
     doAction : function(action, options){
         if(typeof action == 'string'){
-            action = new Ext.form.ACTION_TYPES[action](this, options);
+            action = new Ext.form.Action.ACTION_TYPES[action](this, options);
         }
         if(this.fireEvent('beforeaction', this, action) !== false){
             this.beforeAction(action);
