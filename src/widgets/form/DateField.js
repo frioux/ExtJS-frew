@@ -1,7 +1,12 @@
 /**
  * @class Ext.form.DateField
  * @extends Ext.form.TextField
-Provides a date editor field, and optionally a DatePicker. The DateEditor provides a method to override (showCalendar) if you don't want to use the built in DatePicker control. The reason I chose to use my own DatePicker control rather than the nice YUI Calendar component is my control was very easy to override events to make it work well with the grid. its also only 5k compressed, while the YUI Calendar is 40k compressed. The DatePicker supports left/right keys to move months, up/down keys to move years and the mouse wheel to quickly go through the months. The DateEditor supports the following configuration options:
+ * Provides a date editor field, and optionally a DatePicker. The DateEditor provides a method to override (showCalendar)
+ * if you don't want to use the built in DatePicker control. The reason I chose to use my own DatePicker control rather
+ * than the nice YUI Calendar component is my control was very easy to override events to make it work well with the
+ * grid. Its also only 5k compressed, while the YUI Calendar is 40k compressed. The DatePicker supports left/right keys
+ * to move months, up/down keys to move years and the mouse wheel to quickly go through the months. The DateEditor
+ * supports the following configuration options:
 <ul class="list">
 <li><i>format</i> - The date format for the editor. The format is identical to <a href="http://www.php.net/date">PHP date()</a> and text is allowed. Credit for that goes to <a style="font-weight:normal;" href="http://www.xaprb.com/blog/2006/05/14/javascript-date-formatting-benchmarks/">this fantastic date library</a>. This format is for the editor only and doesn't affect the rendering of the cell when not in edit mode. Your rendering function can use any date format it wants.</li>
 <li><i>minValue</i> - The minimum allowed date. Can be either a Javascript date object or a string date in the specified format.</li>
@@ -11,14 +16,13 @@ Provides a date editor field, and optionally a DatePicker. The DateEditor provid
 <li><i>invalidText</i> - The text to display when the date in the field is invalid (for example: 02/31/06)</li>
 <li><i>disabledDays</i> - An array of days to disable, 0 based. For example, [0, 6] disables Sunday and Saturday.</li>
 <li><i>disabledDaysText</i> - The tooltip to display when the date in the cell (or DatePicker) falls on a disabled day.</li>
-<li><i>disabledDates</i> - An array of "dates" to disable, as strings. These strings will be used to build a dynamic regular expression so they are very powerful. For example, ["03/08/2003", "09/16/2003"] would disable those dates, but ["03/08", "09/16"] would disable them for every year. If you are using short years, you will want to use ^ to tell the regular expression to only match the beginning like ["^03/08"]. To disable March of 2006: ["03/../2006"] or every March ["^03"]. In order to support regular expressions, if you are using a date format that has "." in it, you will have to  escape the dot when restricting dates. For example: ["03\\.08\\.03"].</li>
+<li><i>disabledDates</i> - An array of "dates" to disable, as strings (with regex support). See {@link #disabledDates} for complete details.</li>
 <li><i>disabledDatesText</i> - The tooltip to display when the date in the cell (or DatePicker) falls on a disabled date.</li>
 <li><i>allowBlank</i> - True if the cell is allowed to be empty.</li>
 <li><i>blankText</i> - The tooltip (error message) to display when the cell is empty and is not allowed to be.</li>
 <li><i>validator</i> - Any custom validation function you want called. The function must return true if the data is valid or an error message otherwise.</li>
 <li><i>validationDelay</i> - The delay in milliseconds for validation. Each time the user types something the field is validated after a specified delay, setting this value allows you to customize that delay (for example, if your custom validation routine is slow).</li>
 </ul>
-For more information on using this editor, see <a href="http://www.jackslocum.com/yui/2006/09/10/adding-built-in-editing-support-to-the-yahoo-ui-extensions-grid/">this blog post</a>.
 * @constructor
 * Create a new DateField
 * @param {Object} config
@@ -43,6 +47,7 @@ Ext.extend(Ext.form.DateField, Ext.form.TriggerField,  {
     triggerClass : 'x-form-date-trigger',
     defaultAutoCreate : {tag: "input", type: "text", size: "10", autocomplete: "off"},
 
+    // private
     validateValue : function(value){
         value = this.formatDate(value);
         if(!Ext.form.DateField.superclass.validateValue.call(this, value)){
@@ -83,28 +88,58 @@ Ext.extend(Ext.form.DateField, Ext.form.TriggerField,  {
         return true;
     },
 
+    // private
+    // Provides logic to override the default TriggerField.validateBlur which just returns true
     validateBlur : function(){
         return !this.menu || !this.menu.isVisible();
     },
 
+    /**
+     * Returns the current date value of the date field
+     * @return {Date} value The date value
+     */
     getValue : function(){
         return this.parseDate(Ext.form.DateField.superclass.getValue.call(this)) || "";
     },
 
+    /**
+     * Sets the value of the date field.  You can pass a date object or any string that can be parsed into a valid
+     * date, using DateField.format as the date format, according to the same rules as {@link Date#parseDate}
+     * (the default format used is "m/d/y").
+     * <br />Usage:
+     * <pre><code>
+//All of these calls set the same date value (May 4, 2006)
+
+//Pass a date object:
+var dt = new Date('5/4/06');
+dateField.setValue(dt);
+
+//Pass a date string (default format):
+dateField.setValue('5/4/06');
+
+//Pass a date string (custom format):
+dateField.format = 'Y-m-d';
+dateField.setValue('2006-5-4');
+</code></pre>
+     * @param {String/Date} date The date or valid date string
+     */
     setValue : function(date){
         Ext.form.DateField.superclass.setValue.call(this, this.formatDate(this.parseDate(date)));
     },
 
+    // private
     parseDate : function(value){
         return (!value || value instanceof Date) ?
                value : Date.parseDate(value, this.format);
     },
 
+    // private
     formatDate : function(date){
         return (!date || !(date instanceof Date)) ?
                date : date.dateFormat(this.format);
     },
 
+    // private
     menuListeners : {
         select: function(m, d){
             this.setValue(d);
@@ -121,6 +156,8 @@ Ext.extend(Ext.form.DateField, Ext.form.TriggerField,  {
         }
     },
 
+    // private
+    // Implements the default empty TriggerField.onTriggerClick function
     onTriggerClick : function(){
         if(this.disabled){
             return;
@@ -146,14 +183,69 @@ Ext.extend(Ext.form.DateField, Ext.form.TriggerField,  {
         this.menu.show(this.el, "tl-bl?");
     },
 
+    /**
+     * The default date format string which can be overriden for localization support.  The format must be
+     * valid according to {@link Date#parseDate}.  Can also be set via the DateField config object.
+     * @type String
+     */
     format : "m/d/y",
+    /**
+     * An array of days to disable, 0 based. For example, [0, 6] disables Sunday and Saturday.
+     * Can also be set via the DateField config object.
+     * @type Array
+     */
     disabledDays : null,
+    /**
+     * The tooltip to display when the date in the cell (or DatePicker) falls on a disabled day.
+     * Can also be set via the DateField config object.
+     * @type String
+     */
     disabledDaysText : "Disabled",
+    /**
+     * An array of "dates" to disable, as strings. These strings will be used to build a dynamic regular
+     * expression so they are very powerful. For example, ["03/08/2003", "09/16/2003"] would disable those
+     * dates, but ["03/08", "09/16"] would disable them for every year. If you are using short years, you
+     * will want to use ^ to tell the regular expression to only match the beginning like ["^03/08"]. To disable
+     * March of 2006: ["03/../2006"] or every March ["^03"]. In order to support regular expressions, if you are
+     * using a date format that has "." in it, you will have to  escape the dot when restricting dates. For
+     * example: ["03\\.08\\.03"]. Can also be set via the DateField config object.
+     * @type Array
+     */
     disabledDates : null,
+    /**
+     * The tooltip text to display when the date falls on a disabled date.
+     * Can also be set via the DateField config object.
+     * @type String
+     */
     disabledDatesText : "Disabled",
+    /**
+     * The minimum allowed date. Can be either a Javascript date object or a string date in a valid format.
+     * Can also be set via the DateField config object.
+     * @type Date/String
+     */
     minValue : null,
+    /**
+     * The maximum allowed date. Can be either a Javascript date object or a string date in a valid format.
+     * Can also be set via the DateField config object.
+     * @type Date/String
+     */
     maxValue : null,
+    /**
+     * The tooltip text to display when the date in the cell is before minValue.
+     * Can also be set via the DateField config object.
+     * @type String
+     */
     minText : "The date in this field must be after {0}",
+    /**
+     * The tooltip text to display when the date in the cell is before maxValue.
+     * Can also be set via the DateField config object.
+     * @type String
+     */
     maxText : "The date in this field must be before {0}",
+    /**
+     * The text to display when the date in the field is invalid (for example: 02/31/06).
+     * Can also be set via the DateField config object.
+     * @type String
+     */
     invalidText : "{0} is not a valid date - it must be in the format {1}"
 });
