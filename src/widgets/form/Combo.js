@@ -697,6 +697,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     },
 
     // private
+    // Implements the default empty TriggerField.onTriggerClick function
     onTriggerClick : function(){
         if(this.disabled){
             return;
