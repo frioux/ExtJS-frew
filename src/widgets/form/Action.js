@@ -106,7 +106,7 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
             return;
         }
         if(result.errors){
-            this.form.markInvalid(data.errors);
+            this.form.markInvalid(result.errors);
             this.failureType = Ext.form.Action.SERVER_INVALID;
             this.form.afterAction(this, false);
         }

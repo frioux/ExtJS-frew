@@ -45,7 +45,7 @@ Ext.extend(Ext.BasicForm, Ext.util.Observable, {
         }
         if(this.fireEvent('beforeaction', this, action) !== false){
             this.beforeAction(action);
-            action.run();
+            action.run.defer(100, action);
         }
     },
 

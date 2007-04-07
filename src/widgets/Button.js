@@ -135,7 +135,7 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
         btn.on("mouseover", this.onMouseOver, this);
         btn.on("mouseout", this.onMouseOut, this);
         btn.on("mousedown", this.onMouseDown, this);
-        btn.on("mouseup", this.onMouseUp, this);
+        //btn.on("mouseup", this.onMouseUp, this);
         if(this.hidden){
             this.hide();
         }
@@ -342,10 +342,12 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
     onMouseDown : function(){
         if(!this.disabled){
             this.el.addClass("x-btn-click");
+            Ext.get(document).on('mouseup', this.onMouseUp, this);
         }
     },
     onMouseUp : function(){
         this.el.removeClass("x-btn-click");
+        Ext.get(document).un('mouseup', this.onMouseUp, this);
     },
     onMenuShow : function(e){
         this.el.addClass("x-btn-menu-active");
