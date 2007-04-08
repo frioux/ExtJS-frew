@@ -25,7 +25,7 @@ Ext.form.Field = function(config){
          * Fires when any key related to navigation (arrows, tab, enter, esc, etc.) is pressed.  You can check
          * {@link Ext.EventObject#getKey} to determine which key was pressed.
 	     * @param {Ext.form.Field} this
-	     * @param {Ext.EventObject} The event object
+	     * @param {Ext.EventObject} e The event object
 	     */
         specialkey : true,
         /**
