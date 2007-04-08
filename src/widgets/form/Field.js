@@ -82,8 +82,6 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
      * @cfg {String} fieldClass The default CSS class for the field (defaults to "x-form-field")
      */
     fieldClass: "x-form-field",
-    // private
-    hasFocus : false,
     /**
      * @cfg {String} msgTarget The location where error text should display.  Should be one of the following values (defaults to 'qtip'):
      *<pre>
@@ -106,6 +104,9 @@ side          Add an error icon to the right of the field with a popup on hover
      * false if it should be treated as a generic component (defaults to true)
      */
     isFormField : true,
+
+    // private
+    hasFocus : false,
 
     /**
      * Returns the name attribute of the field if available
