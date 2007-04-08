@@ -1,13 +1,98 @@
+/**
+ * @class Ext.form.TextField
+ * @extends Ext.form.Field
+ * @constructor
+ * Basic text field.  Can be used as a direct replacement for traditional text inputs, or as the base
+ * class for more sophisticated input controls (like {@link Ext.form.TextArea} and {@link Ext.form.ComboBox}).
+ * @param {Object} config Configuration options
+ */
 Ext.form.TextField = function(config){
     Ext.form.TextField.superclass.constructor.call(this, config);
     this.addEvents({
+        /**
+         * @event autosize
+         * Fires after the field has changed in size if autosize is enabled
+	     * @param {Ext.form.Field} this This text field
+	     * @param {Number} width The new field width
+	     */
         autosize : true
     });
 };
 
 Ext.extend(Ext.form.TextField, Ext.form.Field,  {
+    /**
+     * @cfg {Number} growMin The minimum width to allow when autosize is enabled (defaults to 30)
+     */
     growMin : 30,
+    /**
+     * @cfg {Number} growMax The maximum width to allow when autosize is enabled (defaults to 800)
+     */
     growMax : 800,
+    /**
+     * @cfg {String} vtype A validation type name as defined in {@link Ext.form.VTypes} (defaults to null)
+     */
+    vtype : null,
+    /**
+     * @cfg {String} maskRe An input mask regular expression that will be used to filter keystrokes that don't match (defaults to null)
+     */
+    maskRe : null,
+    /**
+     * @cfg {Boolean} disableKeyFilter True to disable input keystroke filtering (defaults to false)
+     */
+    disableKeyFilter : false,
+    /**
+     * @cfg {Boolean} allowBlank False to validate that the value length > 0 (defaults to true)
+     */
+    allowBlank : true,
+    /**
+     * @cfg {Number} minLength Minimum input field length required (defaults to 0)
+     */
+    minLength : 0,
+    /**
+     * @cfg {Number} maxLength Maximum input field length allowed (defaults to Number.MAX_VALUE)
+     */
+    maxLength : Number.MAX_VALUE,
+    /**
+     * @cfg {String} minLengthText Error text to display if the minimum length validation fails (defaults to "The minimum length for this field is {minLength}")
+     */
+    minLengthText : "The minimum length for this field is {0}",
+    /**
+     * @cfg {String} maxLengthText Error text to display if the maximum length validation fails (defaults to "The maximum length for this field is {maxLength}")
+     */
+    maxLengthText : "The maximum length for this field is {0}",
+    /**
+     * @cfg {Boolean} selectOnFocus True to automatically select any existing field text when the field receives input focus (defaults to false)
+     */
+    selectOnFocus : false,
+    /**
+     * @cfg {String} blankText Error text to display if the allow blank validation fails (defaults to "This field is required")
+     */
+    blankText : "This field is required",
+    /**
+     * @cfg {Function} validator A custom validation function to be called during field validation (defaults to null).
+     * If available, this function will be called only after the basic validators all return true, and will be passed the
+     * current field value and expected to return boolean true if the value is valid or a string error message if invalid.
+     */
+    validator : null,
+    /**
+     * @cfg {RegExp} regex A JavaScript RegExp object to be tested against the field value during validation (defaults to null).
+     * If available, this regex will be evaluated only after the basic validators all return true, and will be passed the
+     * current field value.  If the test fails, the field will be marked invalid using {@link #regexText}.
+     */
+    regex : null,
+    /**
+     * @cfg {String} regexText The error text to display if {@link #regex} is used and the test fails during validation (defaults to "")
+     */
+    regexText : "",
+    /**
+     * @cfg {String} emptyText The default text to display in an empty field (defaults to null).
+     */
+    emptyText : null,
+    /**
+     * @cfg {String} emptyClass The CSS class to apply to an empty field to style the {@link #emptyText} (defaults to
+     * 'x-form-empty-field').  This class is automatically added and removed as needed depending on the current field value.
+     */
+    emptyClass : 'x-form-empty-field',
 
     initEvents : function(){
         Ext.form.TextField.superclass.initEvents.call(this);
@@ -146,21 +231,5 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
         var w = Math.min(this.growMax, Math.max(this.metrics.getWidth(v) + /* add extra padding */ 10, this.growMin));
         this.el.setWidth(w);
         this.fireEvent("autosize", this, w);
-    },
-
-    vtype : null,
-    maskRe : null,
-    disableKeyFilter:false,
-    allowBlank : true,
-    minLength : 0,
-    maxLength : Number.MAX_VALUE,
-    minLengthText : "The minimum length for this field is {0}",
-    maxLengthText : "The maximum length for this field is {0}",
-    selectOnFocus : false,
-    blankText : "This field is required",
-    validator : null,
-    regex : null,
-    regexText : "",
-    emptyText : null,
-    emptyClass : 'x-form-empty-field'
+    }
 });
