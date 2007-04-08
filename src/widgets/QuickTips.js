@@ -3,7 +3,7 @@
  * @singleton
  */
 Ext.QuickTips = function(){
-    var el, tipBody, tipTitle, tm, cfg, close, tagEls = {}, esc, removeCls = null;
+    var el, tipBody, tipTitle, tm, cfg, close, tagEls = {}, esc, removeCls = null, bdLeft, bdRight;
     var ce, bd, xy, dd;
     var visible = false, disabled = true, inited = false;
     var showProc = 1, hideProc = 1, dismissProc = 1, locks = [];
@@ -80,7 +80,11 @@ Ext.QuickTips = function(){
     var onUp = function(e){
         tm.enable();
     };
-    
+
+    var getPad = function(){
+        return bdLeft.getPadding('l')+bdRight.getPadding('r');
+    };
+
     var show = function(o){
         if(disabled){
             return;
@@ -99,25 +103,26 @@ Ext.QuickTips = function(){
             tipTitleText.update(ce.title);
             tipTitle.show();
         }else{
+            tipTitleText.update('');
             tipTitle.hide();
         }
+        tipBody.dom.style.width = 'auto';
         tipBody.update(o.text);
-        if(!ce.width){
+        var p = getPad(), w = ce.width;
+        if(!w){
             var td = tipBody.dom;
-            if(td.style.width){
-               td.style.width  = "";
-            }
-            var w = Math.max(td.offsetWidth, td.clientWidth, td.scrollWidth);
-            if(w > tm.maxWidth){
-                tipBody.setWidth(tm.maxWidth);
-            }else if(w < tm.minWidth){
-                tipBody.setWidth(tm.minWidth);
+            el.dom.style.width  = "auto";
+            var aw = Math.max(td.offsetWidth, td.clientWidth, td.scrollWidth);
+            if(aw > tm.maxWidth){
+                w = tm.maxWidth;
+            }else if(aw < tm.minWidth){
+                w = tm.minWidth;
             }else{
-                tipBody.setWidth(w);
+                w = aw;
             }
-        }else{
-            tipBody.setWidth(ce.width);
         }
+        tipBody.setWidth(w);
+        el.setWidth(w + p);
         if(!ce.autoHide){
             close.setDisplayed(true);
             if(dd){
@@ -130,6 +135,7 @@ Ext.QuickTips = function(){
             }
         }
         if(xy){
+            el.avoidY = xy[1]-18;
             el.setXY(xy);
         }
         if(tm.animate){
@@ -180,11 +186,14 @@ Ext.QuickTips = function(){
           if(!inited){
               el = new Ext.Layer({cls:"x-tip", shadow:"sides", shim: true, constrain:true});
               el.fxDefaults = {stopFx: true};
-              el.update('<div class="x-tip-hd-left"><div class="x-tip-hd-right"><div class="x-tip-hd"></div></div></div>');
-              tipTitle = Ext.get(el.dom.firstChild);
-              tipTitleText = Ext.get(el.dom.firstChild.firstChild.firstChild);
+              // maximum custom styling
+              el.update('<div class="x-tip-top-left"><div class="x-tip-top-right"><div class="x-tip-top"></div></div></div><div class="x-tip-hd-left"><div class="x-tip-hd-right"><div class="x-tip-hd"></div></div></div><div class="x-tip-bd-left"><div class="x-tip-bd-right"><div class="x-tip-bd"></div></div></div><div class="x-clear"></div><div class="x-tip-ft-left"><div class="x-tip-ft-right"><div class="x-tip-ft"></div></div></div>');
+              tipTitle = el.child('.x-tip-hd-left');
+              tipTitleText = el.child('.x-tip-hd');
               tipTitle.enableDisplayMode("block");
-              tipBody = el.createChild({tag:"div", cls:"x-tip-bd"});
+              tipBody = el.child('.x-tip-bd');
+              bdLeft = el.child('.x-tip-bd-left');
+              bdRight = el.child('.x-tip-bd-right');
               close = el.createChild({tag:"div", cls:"x-tip-close"});
               close.on("click", hide);
               d = Ext.get(document);
@@ -209,7 +218,7 @@ Ext.QuickTips = function(){
           this.enable(); 
        },
        
-       tips : function(config){
+       register : function(config){
            var cs = config instanceof Array ? config : arguments;
            for(var i = 0, len = cs.length; i < len; i++) {
                var c = cs[i];
@@ -274,6 +283,9 @@ Ext.QuickTips = function(){
         * True to turn on fade animation. Defaults to false (ClearType/scrollbar flicker issues in IE7).
         * @type Boolean
         */
-       animate : false 
+       animate : false
    };
 }();
+
+// backwards compat
+Ext.QuickTips.tips = Ext.QuickTips.register;

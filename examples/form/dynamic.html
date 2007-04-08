@@ -1,5 +1,4 @@
 <!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">-->
-        <!-- Works in strict mode too -->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
@@ -9,6 +8,7 @@
     <!-- GC --> <!-- LIBS -->     <script type="text/javascript" src="../../yui-utilities.js"></script>     <script type="text/javascript" src="../../ext-yui-adapter.js"></script>     <!-- ENDLIBS -->
     <script type="text/javascript" src="../../ext-all.js"></script>
 
+<script type="text/javascript" src="states.js"></script>
 <script type="text/javascript" src="dynamic.js"></script>
 <link rel="stylesheet" type="text/css" href="forms.css" />
 
@@ -17,7 +17,12 @@
 </head>
 <body>
 <script type="text/javascript" src="../examples.js"></script><!-- EXAMPLES -->
-<h1>Dynamic Forms</h1>
+<h1>Dynamic Forms built with JavaScript</h1>
+<p>
+    These forms do not do anything or have any validation. They solely demonstrate
+    how you can use Ext.Form to build and layout forms on the fly.
+</p>
+
 <p>The js is not minified so it is readable. See <a href="forms.js">forms.js</a>.</p>
 
 <div style="width:300px;">
@@ -34,7 +39,7 @@
 <div style="width:500px;">
     <div class="x-box-tl"><div class="x-box-tr"><div class="x-box-tc"></div></div></div>
     <div class="x-box-ml"><div class="x-box-mr"><div class="x-box-mc">
-        <h3 style="margin-bottom:5px;">Multi-column and Label Top</h3>
+        <h3 style="margin-bottom:5px;">Multi-column and labels top</h3>
         <div id="form-ct2">
 
         </div>
@@ -45,7 +50,7 @@
 <div style="width:340px;">
     <div class="x-box-tl"><div class="x-box-tr"><div class="x-box-tc"></div></div></div>
     <div class="x-box-ml"><div class="x-box-mr"><div class="x-box-mc">
-        <h3>Fieldsets and Label Right</h3>
+        <h3>Fieldsets, labels right and complex fields</h3>
         <div id="form-ct3">
 
         </div>
@@ -63,5 +68,6 @@
     </div></div></div>
     <div class="x-box-bl"><div class="x-box-br"><div class="x-box-bc"></div></div></div>
 </div>
+<div class="x-form-clear"></div>
 </body>
 </html>

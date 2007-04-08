@@ -164,6 +164,7 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
         switch(this.msgTarget){
             case 'qtip':
                 this.el.dom.qtip = msg;
+                this.el.dom.qclass = 'x-form-invalid-tip';
                 break;
             case 'title':
                 this.el.dom.title = msg;
@@ -177,6 +178,16 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
                 this.errorEl.update(msg);
                 Ext.form.Field.msgFx[this.msgFx].show(this.errorEl, this);
                 break;
+            case 'side':
+                if(!this.errorIcon){
+                    var elp = this.el.findParent('.x-form-element', 5, true);
+                    this.errorIcon = elp.createChild({cls:'x-form-invalid-icon'});
+                }
+                this.alignErrorIcon();
+                this.errorIcon.dom.qtip = msg;
+                this.errorIcon.dom.qclass = 'x-form-invalid-tip';
+                this.errorIcon.show();
+                break;
             default:
                 var t = Ext.getDom(this.msgTarget);
                 t.innerHTML = msg;
@@ -184,6 +195,10 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
                 break;
         }
         this.fireEvent('invalid', this, msg);
+    },
+
+    alignErrorIcon : function(){
+        this.errorIcon.alignTo(this.el, 'tl-tr', [2, 0]);
     },
 
     clearInvalid : function(){
@@ -201,6 +216,12 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
             case 'under':
                 if(this.errorEl){
                     Ext.form.Field.msgFx[this.msgFx].hide(this.errorEl, this);
+                }
+                break;
+            case 'side':
+                if(this.errorIcon){
+                    this.errorIcon.dom.qtip = '';
+                    this.errorIcon.hide();
                 }
                 break;
             default:

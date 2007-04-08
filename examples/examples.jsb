@@ -155,4 +155,12 @@
   <file name="lib.js" path="" />
   <file name="prototype.js" path="" />
   <file name="scriptaculous.js" path="" />
+  <file name="form\save-form.php" path="form" />
+  <file name="form\load-form.php" path="form" />
+  <file name="layout\images\tab-close-on.gif" path="layout\images" />
+  <file name="layout\images\tab-close.gif" path="layout\images" />
+  <file name="layout\images\wait.gif" path="layout\images" />
+  <file name="layout\images\warning.gif" path="layout\images" />
+  <file name="layout\feed-proxy.ashx" path="layout" />
+  <file name="layout\feed-proxy.ashx.vb" path="layout" />
 </project>

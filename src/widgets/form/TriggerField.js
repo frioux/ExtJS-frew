@@ -53,6 +53,10 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
         }
     },
 
+    alignErrorIcon : function(){
+        this.errorIcon.alignTo(this.wrap, 'tl-tr', [2, 0]);
+    },
+
     // private
     onRender : function(ct){
         Ext.form.TriggerField.superclass.onRender.call(this, ct);

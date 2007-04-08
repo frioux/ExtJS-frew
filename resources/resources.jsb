@@ -477,4 +477,8 @@
   <file name="images\default\grid\hmenu-lock.gif" path="images\default\grid" />
   <file name="images\default\grid\hmenu-unlock.gif" path="images\default\grid" />
   <file name="images\default\form\text-bg.gif" path="images\default\form" />
+  <file name="images\default\form\exclamation.png" path="images\default\form" />
+  <file name="images\default\form\exclamation.gif" path="images\default\form" />
+  <file name="images\default\form\error-tip-bg.gif" path="images\default\form" />
+  <file name="images\default\form\error-tip-corners.gif" path="images\default\form" />
 </project>

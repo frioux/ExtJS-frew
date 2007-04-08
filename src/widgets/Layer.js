@@ -150,6 +150,12 @@ Ext.extend(Ext.Layer, Ext.Element, {
                 moved = true;
             }
             if(moved){
+                if(this.avoidY){
+                    var ay = this.avoidY;
+                    if(y <= ay && (y+h) >= ay){
+                        y = ay-h-5;   
+                    }
+                }
                 xy = [x, y];
                 this.lastXY = xy;
                 supr.setXY.call(this, xy);

@@ -169,6 +169,7 @@
 
 .x-form-element {
     padding-left:105px;
+    position:relative;
 }
 
 .x-form-invalid-msg {
@@ -314,4 +315,15 @@
 }
 .x-form .x-form-btns-ct table td.x-form-btn-td{
 	padding:3px;
+}
+
+.x-form-invalid-icon {
+    width:16px;
+    height:16px;
+    visibility:hidden;
+    position:absolute;
+    left:0;
+    top:0;
+    display:block;
+    background:transparent url(../images/default/form/exclamation.gif) no-repeat;
 }

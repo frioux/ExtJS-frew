@@ -37,3 +37,51 @@
 	display: block;
 	padding-right: 3px;
 }
+
+.x-form-invalid-tip {
+    border:0 none;
+}
+.x-form-invalid-tip .x-tip-top {
+	background: transparent url(../images/default/form/error-tip-corners.gif) no-repeat 0 -12px;
+	height:6px;
+    overflow:hidden;
+}
+.x-form-invalid-tip .x-tip-top-left {
+	background: transparent url(../images/default/form/error-tip-corners.gif) no-repeat 0 0;
+	padding-left:6px;
+    zoom:1;
+}
+.x-form-invalid-tip .x-tip-top-right {
+	background: transparent url(../images/default/form/error-tip-corners.gif) no-repeat right 0;
+	padding-right:6px;
+    zoom:1;
+}
+.x-form-invalid-tip .x-tip-ft {
+	background: transparent url(../images/default/form/error-tip-corners.gif) no-repeat 0 -18px;
+	height:6px;
+    overflow:hidden;
+}
+.x-form-invalid-tip .x-tip-ft-left {
+	background: transparent url(../images/default/form/error-tip-corners.gif) no-repeat 0 -6px;
+	padding-left:6px;
+    zoom:1;
+}
+.x-form-invalid-tip .x-tip-ft-right {
+	background: transparent url(../images/default/form/error-tip-corners.gif) no-repeat right -6px;
+	padding-right:6px;
+    zoom:1;
+}
+.x-form-invalid-tip .x-tip-bd {
+    padding-left:24px;
+    border:0 none;
+    background:transparent url(../images/default/form/exclamation.gif) no-repeat 2px 2px;
+}
+.x-form-invalid-tip .x-tip-bd-left {
+	background: #fff url(../images/default/form/error-tip-corners.gif) no-repeat 0 -24px;
+	padding-left:6px;
+    float:left;
+}
+.x-form-invalid-tip .x-tip-bd-right {
+	background: transparent url(../images/default/form/error-tip-corners.gif) no-repeat right -24px;
+	padding-right:6px;
+}

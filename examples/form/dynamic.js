@@ -1,36 +1,42 @@
 Ext.onReady(function(){
 
+    Ext.QuickTips.init();
+
+    // turn on validation errors beside the field globally
+    Ext.form.Field.prototype.msgTarget = 'side';
+
     /*
      * ================  Simple form  =======================
      */
     var simple = new Ext.Form({
         labelWidth: 75, // label settings here cascade unless overridden
-        buttonAlign:'right'
+        url:'save-form.php'
     });
     simple.add(
         new Ext.form.TextField({
             fieldLabel: 'First Name',
             name: 'first',
-            width:185
+            width:175,
+            allowBlank:false
         }),
 
         new Ext.form.TextField({
             fieldLabel: 'Last Name',
             name: 'last',
-            width:185
+            width:175
         }),
 
         new Ext.form.TextField({
             fieldLabel: 'Company',
             name: 'company',
-            width:185
+            width:175
         }),
 
         new Ext.form.TextField({
             fieldLabel: 'Email',
             name: 'email',
             vtype:'email',
-            width:185
+            width:175
         })
     );
 
@@ -117,6 +123,29 @@ Ext.onReady(function(){
             name: 'email',
             vtype:'email',
             width:190
+        }),
+
+        new Ext.form.ComboBox({
+            fieldLabel: 'State',
+            hiddenName:'state',
+            store: new Ext.data.SimpleStore({
+                fields: ['abbr', 'state'],
+                data : Ext.exampledata.states // from states.js
+            }),
+            displayField:'state',
+            typeAhead: true,
+            mode: 'local',
+            triggerAction: 'all',
+            emptyText:'Select a state...',
+            selectOnFocus:true,
+            width:190
+        }),
+
+        new Ext.form.DateField({
+            fieldLabel: 'Date of Birth',
+            name: 'dob',
+            width:190,
+            allowBlank:false
         })
     );
 
@@ -130,8 +159,7 @@ Ext.onReady(function(){
      */
     var form = new Ext.Form({
         labelAlign: 'right',
-        labelWidth: 75,
-        buttonAlign: 'right'
+        labelWidth: 75
     });
 
     form.column({width:342, labelWidth:75}); // open column, without auto close
@@ -140,8 +168,7 @@ Ext.onReady(function(){
         new Ext.form.TextField({
             fieldLabel: 'Full Name',
             name: 'fullName',
-            allowBlank:false,
-            msgTarget:'under'
+            allowBlank:false
         }),
 
         new Ext.form.TextField({
@@ -185,33 +212,38 @@ Ext.onReady(function(){
     );
     form.end(); // closes the last container element (column, layout, fieldset, etc) and moves up 1 level in the stack
 
+    
+    form.column(
+        {width:202, style:'margin-left:10px', clear:true}
+    );
 
-    form.column({width:202, style:'margin-left:10px', clear:true});
     form.fieldset(
         {id:'photo', legend:'Photo'}
     );
     form.end();
+
     form.fieldset(
         {legend:'Options', hideLabels:true},
         new Ext.form.Checkbox({
             boxLabel:'Ext 1.0 User',
-            name:'likes',
+            name:'extuser',
             checked:true
         }),
         new Ext.form.Checkbox({
             boxLabel:'Ext Commercial User',
-            name:'likes'
+            name:'extcomm'
         }),
         new Ext.form.Checkbox({
             boxLabel:'Ext Premium Member',
-            name:'likes'
+            name:'extprem'
         }),
         new Ext.form.Checkbox({
             boxLabel:'Ext Team Member',
-            name:'likes'
+            name:'extteam'
         })
     );
-    form.end();
+
+    form.end(); // close the column
 
     
     form.applyIfToFields({
