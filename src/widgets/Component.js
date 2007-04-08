@@ -44,6 +44,7 @@ Ext.ComponentMgr = function(){
 
 /**
  * @class Ext.Component
+ * @extends Ext.util.Observable
  * Base class for all Ext form controls that provides a common set of events and functionality shared by all components.
  * @cfg {Ext.Element/String/Object} config The configuration options.  If an element is passed, it is set as the internal
  * element and its id used as the component id.  If a string is passed, it is assumed to be the id of an existing element
