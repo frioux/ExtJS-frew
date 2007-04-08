@@ -109,11 +109,8 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
         Ext.form.TriggerField.superclass.onBlur.call(this);
     },
 
-    /**
-     * This should be overriden by any subclass that needs to check whether or not the field can be blurred.
-     * @param event The event to check
-     * @param target The event target
-     */
+    // private
+    // This should be overriden by any subclass that needs to check whether or not the field can be blurred.
     validateBlur : function(e, t){
         return true;
     },
