@@ -133,7 +133,8 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
     },
 
     /**
-     * The function that should handle the triggerclick event.  This method does nothing by default until a handler is assigned.
+     * The function that should handle the trigger's click event.  This method does nothing by default until overridden
+     * by a handler implementation.
      */
     onTriggerClick : Ext.emptyFn
 });
