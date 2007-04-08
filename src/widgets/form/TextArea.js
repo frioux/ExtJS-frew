@@ -1,3 +1,11 @@
+/**
+ * @class Ext.form.TextArea
+ * @extends Ext.form.TextField
+ * @constructor
+ * Multiline text field.  Can be used as a direct replacement for traditional textarea fields, plus adds
+ * support for auto-sizing.
+ * @param {Object} config Configuration options
+ */
 Ext.form.TextArea = function(config){
     Ext.form.TextArea.superclass.constructor.call(this, config);
     // these are provided exchanges for backwards compat
@@ -12,10 +20,21 @@ Ext.form.TextArea = function(config){
 };
 
 Ext.extend(Ext.form.TextArea, Ext.form.TextField,  {
+    /**
+     * @cfg {Number} growMin The minimum height to allow when grow = true (defaults to 60)
+     */
     growMin : 60,
+    /**
+     * @cfg {Number} growMax The maximum height to allow when grow = true (defaults to 1000)
+     */
     growMax: 1000,
+    /**
+     * @cfg {Boolean} preventScrollbars True to prevent scrollbars from appearing regardless of how much text is
+     * in the field (equivalent to setting overflow: hidden, defaults to false)
+     */
     preventScrollbars: false,
 
+    // private
     onRender : function(ct){
         if(!this.el){
             this.defaultAutoCreate = {
@@ -36,12 +55,17 @@ Ext.extend(Ext.form.TextArea, Ext.form.TextField,  {
         }
     },
 
+    // private
     onKeyUp : function(e){
         if(!e.isNavKeyPress() || e.getKey() == e.ENTER){
             this.autoSize();
         }
     },
 
+    /**
+     * Automatically grows the field to accomodate the height of the text up to the maximum field height allowed.
+     * This only takes effect if grow = true and fires the autosize event.
+     */
     autoSize : function(){
         if(!this.grow || !this.textSizeEl){
             return;
@@ -64,6 +88,7 @@ Ext.extend(Ext.form.TextArea, Ext.form.TextField,  {
         this.fireEvent("autosize", this, h);
     },
 
+    // private
     setValue : function(v){
         Ext.form.TextArea.superclass.setValue.call(this, v);
         this.autoSize();

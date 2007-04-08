@@ -245,7 +245,7 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
     },
 
     /**
-     * Automatically grows the field to accomodate the size of the text up to the maximum field size allowed.
+     * Automatically grows the field to accomodate the width of the text up to the maximum field width allowed.
      * This only takes effect if grow = true and fires the autosize event.
      */
     autoSize : function(){

@@ -1,10 +1,58 @@
+/**
+ * @class Ext.form.NumberField
+ * @extends Ext.form.TextField
+ * @constructor
+ * Numeric text field that provides automatic keystroke filtering and numeric validation.
+ * @param {Object} config Configuration options
+ */
 Ext.form.NumberField = function(config){
     Ext.form.NumberField.superclass.constructor.call(this, config);
 };
 
 Ext.extend(Ext.form.NumberField, Ext.form.TextField,  {
+    /**
+     * @cfg {String} fieldClass The default CSS class for the field (defaults to "x-form-field x-form-num-field")
+     */
     fieldClass: "x-form-field x-form-num-field",
-    
+    /**
+     * @cfg {Boolean} allowDecimals False to disallow decimal values (defaults to true)
+     */
+    allowDecimals : true,
+    /**
+     * @cfg {String} decimalSeparator Character(s) to allow as the decimal separator (defaults to '.')
+     */
+    decimalSeparator : ".",
+    /**
+     * @cfg {Number} decimalPrecision The maximum precision to display after the decimal separator (defaults to 2)
+     */
+    decimalPrecision : 2,
+    /**
+     * @cfg {Boolean} allowNegative False to require only positive numbers (defaults to true)
+     */
+    allowNegative : true,
+    /**
+     * @cfg {Number} minValue The minimum allowed value (defaults to Number.NEGATIVE_INFINITY)
+     */
+    minValue : Number.NEGATIVE_INFINITY,
+    /**
+     * @cfg {Number} maxValue The maximum allowed value (defaults to Number.MAX_VALUE)
+     */
+    maxValue : Number.MAX_VALUE,
+    /**
+     * @cfg {String} minText Error text to display if the minimum value validation fails (defaults to "The minimum value for this field is {minValue}")
+     */
+    minText : "The minimum value for this field is {0}",
+    /**
+     * @cfg {String} maxText Error text to display if the maximum value validation fails (defaults to "The maximum value for this field is {maxValue}")
+     */
+    maxText : "The maximum value for this field is {0}",
+    /**
+     * @cfg {String} nanText Error text to display if the value is not a valid number.  For example, this can happen
+     * if a valid character like '.' or '-' is left in the field with no number (defaults to "{value} is not a valid number")
+     */
+    nanText : "{0} is not a valid number",
+
+    // private
     initEvents : function(){
         Ext.form.NumberField.superclass.initEvents.call(this);
         var allowed = "0123456789";
@@ -27,6 +75,7 @@ Ext.extend(Ext.form.NumberField, Ext.form.TextField,  {
         this.el.on("keypress", keyPress, this);
     },
 
+    // private
     validateValue : function(value){
         if(!Ext.form.NumberField.superclass.validateValue.call(this, value)){
             return false;
@@ -50,11 +99,12 @@ Ext.extend(Ext.form.NumberField, Ext.form.TextField,  {
         return true;
     },
 
-
+    // private
     parseValue : function(value){
         return parseFloat(String(value).replace(this.decimalSeparator, "."));
     },
 
+    // private
     fixPrecision : function(value){
        if(!this.allowDecimals || this.decimalPrecision == -1 || isNaN(value) || value == 0 || !value){
            return value;
@@ -71,16 +121,8 @@ Ext.extend(Ext.form.NumberField, Ext.form.TextField,  {
        return fixed / (scale/10);
     },
 
-    allowDecimals : true,
-    decimalSeparator : ".",
-    decimalPrecision : 2,
+    // private
     decimalPrecisionFcn : function(v){
         return Math.floor(v);
-    },
-    allowNegative : true,
-    minValue : Number.NEGATIVE_INFINITY,
-    maxValue : Number.MAX_VALUE,
-    minText : "The minimum value for this field is {0}",
-    maxText : "The maximum value for this field is {0}",
-    nanText : "{0} is not a valid number"
+    }
 });
