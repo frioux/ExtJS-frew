@@ -319,11 +319,11 @@
 
 .x-form-invalid-icon {
     width:16px;
-    height:16px;
+    height:18px;
     visibility:hidden;
     position:absolute;
     left:0;
     top:0;
     display:block;
-    background:transparent url(../images/default/form/exclamation.gif) no-repeat;
+    background:transparent url(../images/default/form/exclamation.gif) no-repeat 0 2px;
 }
