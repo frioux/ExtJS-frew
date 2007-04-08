@@ -265,8 +265,8 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
     tabTag: 'div',
     
     /**
-     * Sets the dialog title.
-     * @param {String} text
+     * Sets the dialog title text
+     * @param {String} text The title text to display
      * @return {Ext.BasicDialog} this
      */
     setTitle : function(text){
@@ -311,7 +311,7 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
 
     /**
      * Reinitializes the tabs component, clearing out old tabs and finding new ones.
-     * @return {Ext.TabPanel} tabs The tabs component
+     * @return {Ext.TabPanel} The tabs component
      */
     initTabs : function(){
         var tabs = this.getTabs();
@@ -433,7 +433,7 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
     
     /**
      * Returns the TabPanel component (if autoTabs = true)
-     * @return {Ext.TabPanel}
+     * @return {Ext.TabPanel} The tabs component
      */
     getTabs : function(){
         if(!this.tabs){
@@ -450,7 +450,7 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
      * object or a valid Ext.DomHelper element config
      * @param {Function} handler The function called when the button is clicked
      * @param {Object} scope (optional) The scope of the handler function
-     * @return {Ext.Button}
+     * @return {Ext.Button} this
      */
     addButton : function(config, handler, scope){
         var dh = Ext.DomHelper;
@@ -853,6 +853,7 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
      * @param {Array} offsets (optional) Offset the positioning by [x, y]
      * @param {Boolean/Number} monitorScroll (optional) true to monitor body scroll and reposition. If this parameter
      * is a number, it is used as the buffer delay (defaults to 50ms).
+     * @return {Ext.BasicDialog} this
      */
     anchorTo : function(el, alignment, offsets, monitorScroll){
         var action = function(){
@@ -962,7 +963,7 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
     
     /**
      * Returns the element for this dialog
-     * @return {Ext.Element}
+     * @return {Ext.Element} The underlying dialog Element
      */
     getEl : function(){
         return this.el;
@@ -997,8 +998,8 @@ Ext.DialogManager = function(){
     
     return {
         /**
-         * The starting z-index for BasicDialogs - defaults to 9000
-         * @type Number
+         * The starting z-index for BasicDialogs (defaults to 9000)
+         * @type Number The z-index value
          */
         zseed : 9000,
         
@@ -1029,7 +1030,7 @@ Ext.DialogManager = function(){
         /**
          * Gets a registered dialog by id
          * @param {String/Object} id The id of the dialog or a dialog
-         * @return {Ext.BasicDialog}
+         * @return {Ext.BasicDialog} this
          */
         get : function(id){
             return typeof id == "object" ? id : list[id];
@@ -1038,7 +1039,7 @@ Ext.DialogManager = function(){
         /**
          * Brings the specified dialog to the front
          * @param {String/Object} dlg The id of the dialog or a dialog
-         * @return {Ext.BasicDialog}
+         * @return {Ext.BasicDialog} this
          */
         bringToFront : function(dlg){
             dlg = this.get(dlg);
@@ -1053,7 +1054,7 @@ Ext.DialogManager = function(){
         /**
          * Sends the specified dialog to the back
          * @param {String/Object} dlg The id of the dialog or a dialog
-         * @return {Ext.BasicDialog}
+         * @return {Ext.BasicDialog} this
          */
         sendToBack : function(dlg){
             dlg = this.get(dlg);
