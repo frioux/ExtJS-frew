@@ -21,6 +21,10 @@ Ext.form.TextField = function(config){
 
 Ext.extend(Ext.form.TextField, Ext.form.Field,  {
     /**
+     * @cfg {Boolean} grow True if this field should automatically grow and shrink to it's content
+     */
+    grow : false,
+    /**
      * @cfg {Number} growMin The minimum width to allow when autosize is enabled (defaults to 30)
      */
     growMin : 30,
@@ -202,6 +206,11 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
         return true;
     },
 
+    /**
+     * Selects text in this field
+     * @param {Number} start (optional) The index where the selection should start (defaults to 0)
+     * @param {Number} end (optional) The index where the selection should end (defaults to the text length)
+     */
     selectText : function(start, end){
         var v = this.getRawValue();
         if(v.length > 0){
