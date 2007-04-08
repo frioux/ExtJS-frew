@@ -11,7 +11,9 @@ Ext.form.TextField = function(config){
     this.addEvents({
         /**
          * @event autosize
-         * Fires after the field has changed in size if autosize is enabled
+         * Fires when the autosize function is triggered.  The field may or may not have actually changed size
+         * according to the default logic, but this event provides a hook for the developer to apply additional
+         * logic at runtime to resize the field if needed.
 	     * @param {Ext.form.Field} this This text field
 	     * @param {Number} width The new field width
 	     */
@@ -25,11 +27,11 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
      */
     grow : false,
     /**
-     * @cfg {Number} growMin The minimum width to allow when autosize is enabled (defaults to 30)
+     * @cfg {Number} growMin The minimum width to allow when grow = true (defaults to 30)
      */
     growMin : 30,
     /**
-     * @cfg {Number} growMax The maximum width to allow when autosize is enabled (defaults to 800)
+     * @cfg {Number} growMax The maximum width to allow when grow = true (defaults to 800)
      */
     growMax : 800,
     /**
@@ -98,6 +100,7 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
      */
     emptyClass : 'x-form-empty-field',
 
+    // private
     initEvents : function(){
         Ext.form.TextField.superclass.initEvents.call(this);
         if(this.validationEvent !== false){
@@ -122,13 +125,17 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
         }
     },
 
-
+    // private
     onKeyUp : function(e){
         if(!e.isNavKeyPress()){
             this.autoSize();
         }
     },
 
+    /**
+     * Resets the current field value to the originally-loaded value and clears any validation messages.
+     * Also adds emptyText and emptyClass if the original value was blank.
+     */
     reset : function(){
         Ext.form.TextField.superclass.reset.call(this);
         if(this.emptyText && this.getRawValue().length < 1){
@@ -137,6 +144,7 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
         }
     },
 
+    // private
     preFocus : function(){
         if(this.emptyText){
             if(this.getRawValue() == this.emptyText){
@@ -149,6 +157,7 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
         }
     },
 
+    // private
     postBlur : function(){
         if(this.emptyText && this.getRawValue().length < 1){
             this.setRawValue(this.emptyText);
@@ -156,6 +165,7 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
         }
     },
 
+    // private
     filterKeys : function(e){
         var k = e.getKey();
         if(!Ext.isIE && (e.isNavKeyPress() || k == e.BACKSPACE || (k == e.DELETE && e.button == -1))){
@@ -167,6 +177,12 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
         }
     },
 
+    /**
+     * Validates a value according to the field's validation rules and marks the field as invalid
+     * if the validation fails
+     * @param {Mixed} value The value to validate
+     * @return {Boolean} True if the value is valid, else false
+     */
     validateValue : function(value){
         if(value.length < 1 || value === this.emptyText){ // if it's blank
              if(this.allowBlank){
@@ -228,6 +244,10 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
         }
     },
 
+    /**
+     * Automatically grows the field to accomodate the size of the text up to the maximum field size allowed.
+     * This only takes effect if grow = true and fires the autosize event.
+     */
     autoSize : function(){
         if(!this.grow || !this.rendered){
             return;

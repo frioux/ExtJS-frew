@@ -269,6 +269,7 @@ side          Add an error icon to the right of the field with a popup on hover
     },
 
     // private
+    // Subclasses should provide the validation implementation by overriding this
     validateValue : function(value){
         return true;
     },
@@ -316,10 +317,12 @@ side          Add an error icon to the right of the field with a popup on hover
         this.fireEvent('invalid', this, msg);
     },
 
+    // private
     alignErrorIcon : function(){
         this.errorIcon.alignTo(this.el, 'tl-tr', [2, 0]);
     },
 
+    // private
     clearInvalid : function(){
         if(!this.rendered){ // not rendered
             return;
