@@ -1,6 +1,6 @@
 /**
  * @class Ext.state.Provider
- * Abstract base class for provider implementations. This class provides methods
+ * Abstract base class for state provider implementations. This class provides methods
  * for encoding and decoding <b>typed</b> variables including dates and defines the 
  * Provider interface.
  */
@@ -9,7 +9,7 @@ Ext.state.Provider = function(){
     /**
      * @event statechange
      * Fires when a state change occurs.
-     * @param {Provider} this
+     * @param {Provider} this This state provider
      * @param {String} key The state key which was changed
      * @param {String} value The encoded value for the state
      */
@@ -20,10 +20,10 @@ Ext.state.Provider = function(){
 };
 Ext.extend(Ext.state.Provider, Ext.util.Observable, {
     /**
-     * Get the current value for a key.
-     * @param {String} name
-     * @param {Mixed} defaultValue
-     * @return {Mixed}
+     * Returns the current value for a key
+     * @param {String} name The key name
+     * @param {Mixed} defaultValue A default value to return if the key's value is not found
+     * @return {Mixed} The state data
      */
     get : function(name, defaultValue){
         return typeof this.state[name] == "undefined" ?
@@ -31,7 +31,8 @@ Ext.extend(Ext.state.Provider, Ext.util.Observable, {
     },
     
     /**
-     * Clear a value from the state.
+     * Clears a value from the state
+     * @param {String} name The key name
      */
     clear : function(name){
         delete this.state[name];
@@ -39,9 +40,9 @@ Ext.extend(Ext.state.Provider, Ext.util.Observable, {
     },
     
     /**
-     * Set the value for a key.
-     * @param {String} name
-     * @param {Mixed} value
+     * Sets the value for a key
+     * @param {String} name The key name
+     * @param {Mixed} value The value to set
      */
     set : function(name, value){
         this.state[name] = value;
@@ -50,8 +51,8 @@ Ext.extend(Ext.state.Provider, Ext.util.Observable, {
     
     /**
      * Decodes a string previously encoded with {@link #encodeValue}.
-     * @param {String} value
-     * @return {Mixed} The value
+     * @param {String} value The value to decode
+     * @return {Mixed} The decoded value
      */
     decodeValue : function(cookie){
         var re = /^(a|n|d|b|s|o)\:(.*)$/;
@@ -87,9 +88,9 @@ Ext.extend(Ext.state.Provider, Ext.util.Observable, {
     },
     
     /**
-     * Encode a value including type information.
-     * @param {Mixed} value
-     * @return {String}
+     * Encodes a value including type information.  Decode with {@link #decodeValue}.
+     * @param {Mixed} value The value to encode
+     * @return {String} The encoded value
      */
     encodeValue : function(v){
         var enc;
@@ -145,42 +146,43 @@ Ext.state.Manager = function(){
     
     return {
         /**
-         * Configures the default provider for your application.
-         * @param {Provider} stateProvider
+         * Configures the default state provider for your application
+         * @param {Provider} stateProvider The state provider to set
          */
         setProvider : function(stateProvider){
             provider = stateProvider;
         },
         
         /**
-         * Get the current value for a key.
-         * @param {String} name
-         * @param {Mixed} defaultValue
-         * @return {Mixed}
+         * Returns the current value for a key
+         * @param {String} name The key name
+         * @param {Mixed} defaultValue The default value to return if the key lookup does not match
+         * @return {Mixed} The state data
          */
         get : function(key, defaultValue){
             return provider.get(key, defaultValue);
         },
         
         /**
-         * Set the value for a key.
-         * @param {String} name
-         * @param {Mixed} value
+         * Sets the value for a key
+         * @param {String} name The key name
+         * @param {Mixed} value The state data
          */
          set : function(key, value){
             provider.set(key, value);
         },
         
         /**
-         * Clear a value from the state.
+         * Clears a value from the state
+         * @param {String} name The key name
          */
         clear : function(key){
             provider.clear(key);
         },
         
         /**
-         * Gets the currently configured provider.
-         * @return {Provider}
+         * Gets the currently configured state provider
+         * @return {Provider} The state provider
          */
         getProvider : function(){
             return provider;
@@ -191,17 +193,23 @@ Ext.state.Manager = function(){
 /**
  * @class Ext.state.CookieProvider
  * @extends Ext.state.Provider
- * The default Provider implementation. The example below includes all valid configuration options and their
- * default values.
+ * The default Provider implementation which saves state via cookies.
+ * <br />Usage:
  <pre><code>
    var cp = new Ext.state.CookieProvider({
-       path: "/",
-       expires: new Date(new Date().getTime()+(1000*60*60*24*7)); //7 days
-       domain: null,
-       secure: false       
+       path: "/cgi-bin/",
+       expires: new Date(new Date().getTime()+(1000*60*60*24*30)); //30 days
+       domain: "extjs.com"
    })
    Ext.state.Manager.setProvider(cp);
  </code></pre>
+ * @cfg {String} path The path for which the cookie is active (defaults to root '/' which makes it active for all pages in the site)
+ * @cfg {Date} expires The cookie expiration date (defaults to 7 days from now)
+ * @cfg {String} domain The domain to save the cookie for.  Note that you cannot specify a different domain than
+ * your page is not on, but you can specify a sub-domain, or simply the domain itself like 'extjs.com' to include
+ * all sub-domains if you need to access cookies across different sub-domains (defaults to null which uses the same
+ * domain the page is running on including the 'www' like 'www.extjs.com')
+ * @cfg {Boolean} secure True if the site is using SSL (defaults to false)
  * @constructor
  * Create a new CookieProvider
  * @param {Object} config The configuration object
@@ -217,6 +225,7 @@ Ext.state.CookieProvider = function(config){
 };
 
 Ext.extend(Ext.state.CookieProvider, Ext.state.Provider, {
+    // private
     set : function(name, value){
         if(typeof value == "undefined" || value === null){
             this.clear(name);
@@ -225,12 +234,14 @@ Ext.extend(Ext.state.CookieProvider, Ext.state.Provider, {
         this.setCookie(name, value);
         Ext.state.CookieProvider.superclass.set.call(this, name, value);
     },
-        
+
+    // private
     clear : function(name){
         this.clearCookie(name);
         Ext.state.CookieProvider.superclass.clear.call(this, name);
     },
-        
+
+    // private
     readCookies : function(){
         var cookies = {};
         var c = document.cookie + ";";
@@ -245,7 +256,8 @@ Ext.extend(Ext.state.CookieProvider, Ext.state.Provider, {
         }
         return cookies;
     },
-    
+
+    // private
     setCookie : function(name, value){
         document.cookie = "ys-"+ name + "=" + this.encodeValue(value) +
            ((this.expires == null) ? "" : ("; expires=" + this.expires.toGMTString())) +
@@ -253,7 +265,8 @@ Ext.extend(Ext.state.CookieProvider, Ext.state.Provider, {
            ((this.domain == null) ? "" : ("; domain=" + this.domain)) +
            ((this.secure == true) ? "; secure" : "");
     },
-    
+
+    // private
     clearCookie : function(name){
         document.cookie = "ys-" + name + "=null; expires=Thu, 01-Jan-70 00:00:01 GMT" +
            ((this.path == null) ? "" : ("; path=" + this.path)) +
