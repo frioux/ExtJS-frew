@@ -1,32 +1,125 @@
+/**
+ * @class Ext.form.Field
+ * @extends Ext.Component
+ * @constructor
+ * Base class for form fields that provides default event handling, sizing, value handling and other functionality.
+ * @param {Object} config Configuration options
+ */
 Ext.form.Field = function(config){
     Ext.form.Field.superclass.constructor.call(this, config);
     this.addEvents({
+        /**
+         * @event focus
+         * Fires when this field receives input focus
+	     * @param {Ext.form.Field} this
+	     */
         focus : true,
+        /**
+         * @event blur
+         * Fires when
+	     * @param {Ext.form.Field} this
+	     */
         blur : true,
-        specialkey: true,
-        change:true,
+        /**
+         * @event specialkey
+         * Fires when any key related to navigation (arrows, tab, enter, esc, etc.) is pressed.  You can check
+         * {@link Ext.EventObject#getKey} to determine which key was pressed.
+	     * @param {Ext.form.Field} this
+	     * @param {Ext.EventObject} The event object
+	     */
+        specialkey : true,
+        /**
+         * @event change
+         * Fires just before the field blurs if the field value has changed
+	     * @param {Ext.form.Field} this
+	     * @param {Mixed} value The changed value
+	     * @param {Mixed} value The original value
+	     */
+        change : true,
+        /**
+         * @event invalid
+         * Fires after the field has been marked as invalid
+	     * @param {Ext.form.Field} this
+	     * @param {String} msg The validation message
+	     */
         invalid : true,
+        /**
+         * @event valid
+         * Fires after the field has been validated with no errors
+	     * @param {Ext.form.Field} this
+	     */
         valid : true
     });
 };
 
 Ext.extend(Ext.form.Field, Ext.Component,  {
+    /**
+     * @cfg {String} invalidClass The CSS class to use when marking a field invalid (defaults to "x-form-invalid")
+     */
     invalidClass : "x-form-invalid",
+    /**
+     * @cfg {String} invalidText The error text to use when marking a field invalid (defaults to "The value in this field is invalid")
+     */
     invalidText : "The value in this field is invalid",
+    /**
+     * @cfg {String} focusClass The CSS class to use when the field receives focus (defaults to "x-form-focus")
+     */
     focusClass : "x-form-focus",
+    /**
+     * @cfg {String} validationEvent The event that should initiate field validation (defaults to "keyup")
+     */
     validationEvent : "keyup",
+    /**
+     * @cfg {Number} validationDelay The length of time in milliseconds after user input begins until validation is initiated (defaults to 250)
+     */
     validationDelay : 250,
+    /**
+     * @cfg {String/Object} defaultAutoCreate A DomHelper element spec, or true for a default element spec (defaults to
+     * {tag: "input", type: "text", size: "20", autocomplete: "off"})
+     */
     defaultAutoCreate : {tag: "input", type: "text", size: "20", autocomplete: "off"},
+    /**
+     * @cfg {String} fieldClass The default CSS class for the field (defaults to "x-form-field")
+     */
     fieldClass: "x-form-field",
+    // private
     hasFocus : false,
-    msgTarget: 'qtip', // qtip, title, under, or element id
+    /**
+     * @cfg {String} msgTarget The location where error text should display.  Should be one of the following values (defaults to 'qtip'):
+     *<pre>
+Value         Description
+-----------   ----------------------------------------------------------------------
+qtip          Display a quick tip when the user hovers over the field
+title         Display a default browser title attribute popup
+under         Add a block div beneath the field containing the error text
+side          Add an error icon to the right of the field with a popup on hover
+[element id]  Add the error text directly to the innerHTML of the specified element
+</pre>
+     */
+    msgTarget: 'qtip',
+    /**
+     * @cfg {String} msgFx The effect used when displaying a validation message (defaults to 'normal').  <b>Experimental</b>
+     */
     msgFx : 'normal',
+    /**
+     * @cfg {Boolean} isFormField True if this field should be treated as a form field and rendered as part of a {@link Ext.BasicForm},
+     * false if it should be treated as a generic component (defaults to true)
+     */
     isFormField : true,
 
+    /**
+     * Returns the name attribute of the field if available
+     * @return {String} name The field name
+     */
     getName: function(){
          return this.rendered && this.el.dom.name ? this.el.dom.name : (this.hiddenName || '');
     },
 
+    /**
+     * Transform an existing element or DOM node into a Field object
+     * @param {String/HTMLElement/Element} el The id of the node, a DOM Node or an existing Element
+     * @return {Ext.form.Field} this
+     */
     applyTo : function(target){
         this.target = target;
         this.el = Ext.get(target);
@@ -34,6 +127,7 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
         return this;
     },
 
+    // private
     onRender : function(ct){
         if(this.el){
             this.el = Ext.get(this.el);
@@ -69,6 +163,7 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
         this.initValue();
     },
 
+    // private
     initValue : function(){
         if(this.value !== undefined){
             this.setValue(this.value);
@@ -77,21 +172,27 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
         }
     },
 
+    // private
     afterRender : function(){
         this.initEvents();
     },
 
+    // private
     fireKey : function(e){
         if(e.isNavKeyPress()){
             this.fireEvent("specialkey", this, e);
         }
     },
 
+    /**
+     * Resets the current field value to the originally-loaded value and clears any validation messages
+     */
     reset : function(){
         this.setValue(this.originalValue);
         this.clearInvalid();
     },
 
+    // private
     initEvents : function(){
         this.el.on(Ext.isIE ? "keydown" : "keypress", this.fireKey,  this);
         this.el.on("focus", this.onFocus,  this);
@@ -101,6 +202,7 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
         this.originalValue = this.getValue();
     },
 
+    // private
     onFocus : function(){
         if(!Ext.isOpera){ // don't touch in Opera
             this.el.addClass(this.focusClass);
@@ -110,6 +212,7 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
         this.fireEvent("focus", this);
     },
 
+    // private
     onBlur : function(){
         this.el.removeClass(this.focusClass);
         this.hasFocus = false;
@@ -123,6 +226,11 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
         this.fireEvent("blur", this);
     },
 
+    /**
+     * Sets the height and width of the field
+     * @param {Number} width The new field width in pixels
+     * @param {Number} height The new field height in pixels
+     */
     setSize : function(w, h){
         if(!this.rendered || !this.el){
             this.width = w;
@@ -139,10 +247,18 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
         var h = this.el.dom.offsetHeight; // force browser recalc
     },
 
+    /**
+     * Returns whether or not the field value is currently valid
+     * @return {Boolean} True if the value is valid, else false
+     */
     isValid : function(){
         return this.validateValue(this.getRawValue());
     },
 
+    /**
+     * Validates the field value
+     * @return {Boolean} True if the value is valid, else false
+     */
     validate : function(){
         if(this.validateValue(this.getRawValue())){
             this.clearInvalid();
@@ -151,10 +267,12 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
         return false;
     },
 
+    // private
     validateValue : function(value){
         return true;
     },
-    
+
+    // private
     markInvalid : function(msg){
         if(!this.rendered){ // not rendered
             return;
@@ -233,10 +351,18 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
         this.fireEvent('valid', this);
     },
 
+    /**
+     * Returns the raw data value which may or may not be a valid, defined value.  To return a normalized value see {@link #getValue}.
+     * @return {Mixed} value The field value
+     */
     getRawValue : function(){
         return this.el.getValue();
     },
 
+    /**
+     * Returns the normalized data value (undefined or emptyText will be returned as '').  To return the raw value see {@link #getValue}.
+     * @return {Mixed} value The field value
+     */
     getValue : function(){
         var v = this.el.getValue();
         if(v == this.emptyText || v === undefined){
@@ -245,10 +371,18 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
         return v;
     },
 
+    /**
+     * Sets the underlying DOM field's value directly, bypassing validation.  To set the value with validation see {@link #setValue}.
+     * @param {Mixed} value The value to set
+     */
     setRawValue : function(v){
         return this.el.dom.value = v;
     },
 
+    /**
+     * Sets a data value into the field and validates it.  To set the value directly without validation see {@link #setRawValue}.
+     * @param {Mixed} value The value to set
+     */
     setValue : function(v){
         this.value = v;
         if(this.rendered){
@@ -257,6 +391,7 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
         }
     },
 
+    // private
     adjustWidth : function(tag, w){
         tag = tag.toLowerCase();
         if(typeof w == 'number' && Ext.isStrict && !Ext.isSafari){
