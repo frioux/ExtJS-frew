@@ -46,7 +46,8 @@ Ext.ComponentMgr = function(){
  * @class Ext.Component
  * @extends Ext.util.Observable
  * Base class for all Ext form controls that provides a common set of events and functionality shared by all components.
- * @cfg {Ext.Element/String/Object} config The configuration options.  If an element is passed, it is set as the internal
+ * @constructor
+ * @param {Ext.Element/String/Object} config The configuration options.  If an element is passed, it is set as the internal
  * element and its id used as the component id.  If a string is passed, it is assumed to be the id of an existing element
  * and is used as the component id.  Otherwise, it is assumed to be a standard config object and is applied to the component.
  */
@@ -156,7 +157,10 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
         return this[this.actionMode];
     },
 
-    // private
+    /**
+     * If this is a lazy rendering component, render it to it's container element
+     * @param {String/HTMLElement/Element} container The element this component should be rendered into
+     */
     render : function(container){
         if(!this.rendered && this.fireEvent("beforerender", this) !== false){
             this.container = Ext.get(container);
@@ -223,6 +227,7 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
 
     /**
      * Try to focus this component
+     * @param {Boolean} selectText True to also select the text in this component (if applicable)
      */
     focus : function(selectText){
         if(this.rendered){
@@ -264,7 +269,10 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
         this.fireEvent("enable", this);
     },
 
-    // private
+    /**
+     * Convenience function for setting disabled/enabled by boolean
+     * @param {Boolean} disabled
+     */
     setDisabled : function(disabled){
         this[disabled ? "disable" : "enable"]();
     },
@@ -308,7 +316,7 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
     },
 
     /**
-     * Hide or show this component
+     * Convenience function to hide or show this component by boolean
      * @param {Boolean} visible True to show, false to hide
      */
     setVisible: function(visible){
