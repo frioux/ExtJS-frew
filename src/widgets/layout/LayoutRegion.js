@@ -397,7 +397,11 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
     showPanel : function(panel){
         if(panel = this.getPanel(panel)){
             if(this.tabs){
-                this.tabs.activate(panel.getEl().id);
+                var tab = this.tabs.getTab(panel.getEl().id);
+                if(tab.isHidden()){
+                    this.tabs.unhideTab(tab.id);
+                }
+                tab.activate();
             }else{
                 this.setActivePanel(panel);
             }
