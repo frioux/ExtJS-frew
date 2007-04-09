@@ -1,9 +1,10 @@
 /**
  * @class Ext.form.TextField
  * @extends Ext.form.Field
- * @constructor
  * Basic text field.  Can be used as a direct replacement for traditional text inputs, or as the base
  * class for more sophisticated input controls (like {@link Ext.form.TextArea} and {@link Ext.form.ComboBox}).
+ * @constructor
+ * Creates a new TextField
  * @param {Object} config Configuration options
  */
 Ext.form.TextField = function(config){

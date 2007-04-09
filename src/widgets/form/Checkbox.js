@@ -1,8 +1,9 @@
 /**
  * @class Ext.form.Checkbox
  * @extends Ext.form.Field
- * @constructor
  * Single checkbox field.  Can be used as a direct replacement for traditional checkbox fields.
+ * @constructor
+ * Creates a new CheckBox
  * @param {Object} config Configuration options
  */
 Ext.form.Checkbox = function(config){

@@ -1,7 +1,10 @@
 /**
  * @class Ext.menu.ColorItem
  * @extends Ext.menu.Adapter
+ * A menu item that wraps the {@link Ext.ColorPalette} component.
  * @constructor
+ * Creates a new ColorItem
+ * @param {Object} config Configuration options
  */
 Ext.menu.ColorItem = function(config){
     Ext.menu.ColorItem.superclass.constructor.call(this, new Ext.ColorPalette(config), config);

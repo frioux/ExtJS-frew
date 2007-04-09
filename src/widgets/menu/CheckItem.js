@@ -1,12 +1,29 @@
 /**
  * @class Ext.menu.CheckItem
  * @extends Ext.menu.Item
+ * Adds a menu item that contains a checkbox by default, but can also be part of a radio group.
+ * @cfg {String} group All check items with the same group name will automatically be grouped into a single-select
+ * radio button group (defaults to '')
  * @constructor
+ * Creates a new CheckItem
+ * @param {Object} config Configuration options
  */
 Ext.menu.CheckItem = function(config){
     Ext.menu.CheckItem.superclass.constructor.call(this, config);
     this.addEvents({
+        /**
+         * @event beforecheckchange
+         * Fires before the checked value is set, providing an opportunity to cancel if needed
+         * @param {Ext.menu.CheckItem} this
+         * @param {Boolean} checked The new checked value that will be set
+         */
         "beforecheckchange" : true,
+        /**
+         * @event checkchange
+         * Fires after the checked value has been set
+         * @param {Ext.menu.CheckItem} this
+         * @param {Boolean} checked The checked value that was set
+         */
         "checkchange" : true
     });
     if(this.checkHandler){
@@ -14,11 +31,26 @@ Ext.menu.CheckItem = function(config){
     }
 };
 Ext.extend(Ext.menu.CheckItem, Ext.menu.Item, {
+    /**
+     * @cfg {String} itemCls The default CSS class to use for check items (defaults to "x-menu-item x-menu-check-item")
+     */
     itemCls : "x-menu-item x-menu-check-item",
+    /**
+     * @cfg {String} groupClass The default CSS class to use for radio group check items (defaults to "x-menu-group-item")
+     */
     groupClass : "x-menu-group-item",
+
+    /**
+     * @cfg {Boolean} checked True to initialize this checkbox as checked (defaults to false).  Note that
+     * if this checkbox is part of a radio group (group = true) only the last item in the group that is
+     * initialized with checked = true will be rendered as checked.
+     */
     checked: false,
+
+    // private
     ctype: "Ext.menu.CheckItem",
-    
+
+    // private
     onRender : function(c){
         Ext.menu.CheckItem.superclass.onRender.apply(this, arguments);
         if(this.group){
@@ -31,6 +63,7 @@ Ext.extend(Ext.menu.CheckItem, Ext.menu.Item, {
         }
     },
 
+    // private
     destroy : function(){
         if(this.rendered){
             Ext.menu.MenuMgr.unregisterCheckable(this);
@@ -40,6 +73,8 @@ Ext.extend(Ext.menu.CheckItem, Ext.menu.Item, {
 
     /**
      * Set the checked state of this item
+     * @param {Boolean} checked The new checked value
+     * @param {Boolean} suppressEvent (optional) True to prevent the checkchange event from firing (defaults to false)
      */
     setChecked : function(state, suppressEvent){
         if(this.checked != state && this.fireEvent("beforecheckchange", this, state) !== false){
@@ -53,6 +88,7 @@ Ext.extend(Ext.menu.CheckItem, Ext.menu.Item, {
         }
     },
 
+    // private
     handleClick : function(e){
        if(!this.disabled && !(this.checked && this.group)){// disable unselect on radio item
            this.setChecked(!this.checked);

@@ -1,7 +1,13 @@
 /**
  * @class Ext.menu.Item
  * @extends Ext.menu.BaseItem
+ * A base class for all menu items that require menu-related functionality (like sub-menus) and are not static
+ * display items.  Item extends the base functionality of {@link Ext.menu.BaseItem} by adding menu-specific
+ * activation and click handling.
+ * @cfg {String} icon The path to an icon to display in this menu item (defaults to Ext.BLANK_IMAGE_URL)
  * @constructor
+ * Creates a new Item
+ * @param {Object} config Configuration options
  */
 Ext.menu.Item = function(config){
     Ext.menu.Item.superclass.constructor.call(this, config);
@@ -10,10 +16,19 @@ Ext.menu.Item = function(config){
     }
 };
 Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
+    /**
+     * @cfg {String} itemCls The default CSS class to use for menu items (defaults to "x-menu-item")
+     */
     itemCls : "x-menu-item",
+    /**
+     * @cfg {Boolean} canActivate True if this item can be visually activated (defaults to true)
+     */
     canActivate : true,
+
+    // private
     ctype: "Ext.menu.Item",
 
+    // private
     onRender : function(container){
         var el = document.createElement("a");
         el.hideFocus = true;
@@ -30,6 +45,10 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
         Ext.menu.Item.superclass.onRender.call(this, container);
     },
 
+    /**
+     * Sets the text to display in this menu item
+     * @param {String} text The text to display
+     */
     setText : function(text){
         this.text = text;
         if(this.rendered){
@@ -40,6 +59,7 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
         }
     },
 
+    // private
     handleClick : function(e){
         if(!this.href){ // if no link defined, stop the event automatically
             e.stopEvent();
@@ -47,6 +67,7 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
         Ext.menu.Item.superclass.handleClick.apply(this, arguments);
     },
 
+    // private
     activate : function(autoExpand){
         if(Ext.menu.Item.superclass.activate.apply(this, arguments)){
             this.focus();
@@ -57,6 +78,7 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
         return true;
     },
 
+    // private
     shouldDeactivate : function(e){
         if(Ext.menu.Item.superclass.shouldDeactivate.call(this, e)){
             if(this.menu && this.menu.isVisible()){
@@ -67,11 +89,13 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
         return false;
     },
 
+    // private
     deactivate : function(){
         Ext.menu.Item.superclass.deactivate.apply(this, arguments);
         this.hideMenu();
     },
 
+    // private
     expandMenu : function(autoActivate){
         if(!this.disabled && this.menu){
             if(!this.menu.isVisible()){
@@ -83,6 +107,7 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
         }
     },
 
+    // private
     hideMenu : function(){
         if(this.menu && this.menu.isVisible()){
             this.menu.hide();

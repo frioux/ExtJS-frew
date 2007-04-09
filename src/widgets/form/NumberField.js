@@ -1,8 +1,9 @@
 /**
  * @class Ext.form.NumberField
  * @extends Ext.form.TextField
- * @constructor
  * Numeric text field that provides automatic keystroke filtering and numeric validation.
+ * @constructor
+ * Creates a new NumberField
  * @param {Object} config Configuration options
  */
 Ext.form.NumberField = function(config){

@@ -1,9 +1,10 @@
 /**
  * @class Ext.form.TextArea
  * @extends Ext.form.TextField
- * @constructor
  * Multiline text field.  Can be used as a direct replacement for traditional textarea fields, plus adds
  * support for auto-sizing.
+ * @constructor
+ * Creates a new TextArea
  * @param {Object} config Configuration options
  */
 Ext.form.TextArea = function(config){
