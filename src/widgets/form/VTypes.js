@@ -1,3 +1,8 @@
+/**
+ * @class Ext.form.VTypes
+ * Overrideable validation definitions. The validations provided are basic and intended to be easily customizable and extended.
+ * @singleton
+ */
 Ext.form.VTypes = function(){
     // closure these in so they are only created once.
     var alpha = /^[a-zA-Z_]+$/;
@@ -7,28 +12,75 @@ Ext.form.VTypes = function(){
 
     // All these messages and functions are configurable
     return {
+        /**
+         * The function used to validate email addresses
+         * @param {String} value The email address
+         * @type Function
+         */
         'email' : function(v){
             return email.test(v);
         },
+        /**
+         * The error text to display when the email validation function returns false
+         * @type Function
+         */
         'emailText' : 'This field should be an e-mail address in the format "user@domain.com"',
+        /**
+         * The keystroke filter mask to be applied on email input
+         * @type RegExp
+         */
         'emailMask' : /[a-z0-9_\.\-@]/i,
 
+        /**
+         * The function used to validate urls
+         * @param {String} value The url
+         * @type Function
+         */
         'url' : function(v){
             return url.test(v);
         },
+        /**
+         * The error text to display when the url validation function returns false
+         * @type Function
+         */
         'urlText' : 'This field should be a URL in the format "http:/'+'/www.domain.com"',
         
-
+        /**
+         * The function used to validate alpha values
+         * @param {String} value The value
+         * @type Function
+         */
         'alpha' : function(v){
             return alpha.test(v);
         },
+        /**
+         * The error text to display when the alpha validation function returns false
+         * @type Function
+         */
         'alphaText' : 'This field should only contain letters and _',
+        /**
+         * The keystroke filter mask to be applied on alpha input
+         * @type RegExp
+         */
         'alphaMask' : /[a-z_]/i,
 
+        /**
+         * The function used to validate alphanumeric values
+         * @param {String} value The value
+         * @type Function
+         */
         'alphanum' : function(v){
             return alphanum.test(v);
         },
+        /**
+         * The error text to display when the alphanumeric validation function returns false
+         * @type Function
+         */
         'alphanumText' : 'This field should only contain letters, numbers and _',
+        /**
+         * The keystroke filter mask to be applied on alphanumeric input
+         * @type RegExp
+         */
         'alphanumMask' : /[a-z0-9_]/i
     };
 }();
