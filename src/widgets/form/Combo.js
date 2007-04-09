@@ -2,54 +2,9 @@
  * @class Ext.form.ComboBox
  * @extends Ext.form.TriggerField
  * A combobox control with support for autocomplete, remote-loading, paging and many other features.
- * @cfg {Boolean/Object} autoCreate A DomHelper element spec, or true for a default element spec (defaults to:
- * {tag: "input", type: "text", size: "24", autocomplete: "off"})
  * @cfg {Boolean} lazyRender True to prevent the ComboBox from rendering until requested (should always be used when
  * rendering into an Ext.Editor, defaults to false)
  * @cfg {String/HTMLElement/Element} transform The id, DOM node or element of an existing select to convert to a ComboBox
- * @cfg {Number} listWidth The width in pixels of the dropdown list (defaults to the width of the ComboBox field)
- * @cfg {String} displayField The underlying data field name to bind to this CombBox (defaults to undefined if
- * mode = 'remote' or 'text' if mode = 'local')
- * @cfg {String} valueField The underlying data value name to bind to this CombBox (defaults to undefined if
- * mode = 'remote' or 'value' if mode = 'local')
- * @cfg {String} hiddenName If specified, a hidden form field with this name is dynamically generated to store the
- * field's data value (defaults to the underlying DOM element's name)
- * @cfg {String} listClass CSS class to apply to the dropdown list element (defaults to '')
- * @cfg {String} selectedClass CSS class to apply to the selected item in the dropdown list (defaults to 'x-combo-selected')
- * @cfg {String} triggerClass CSS class to apply to the dropdown trigger button (defaults to 'x-form-arrow-trigger')
- * @cfg {Boolean/String} shadow True or "sides" for the default effect, "frame" for 4-way shadow, and "drop" for bottom-right
- * @cfg {String} listAlign A valid anchor position value. See {@link Ext.Element#alignTo} for details on supported
- * anchor positions (defaults to 'tl-bl')
- * @cfg {Number} maxHeight The maximum height in pixels of the dropdown list before scrollbars are shown (defaults to 300)
- * @cfg {String} triggerAction The action to execute when the trigger field is activated.  Use 'all' to run the
- * query specified by the allQuery config option (defaults to 'query')
- * @cfg {String} allQuery The sql query used to return all records for the list with no filtering (defaults to '')
- * @cfg {String} queryParam Name of the query as it will be passed on the querystring (defaults to 'query')
- * @cfg {String} mode Set to 'local' if the ComboBox loads local array data (defaults to 'remote' which loads from the server)
- * @cfg {Number} minChars The minimum number of characters the user must type before autocomplete and typeahead activate
- * (defaults to 4, does not apply if editable = false)
- * @cfg {Boolean} typeAhead True to populate and autoselect the remainder of the text being typed after a configurable
- * delay (typeAheadDelay) if it matches a known value (defaults to false)
- * @cfg {Number} typeAheadDelay The length of time in milliseconds to wait until the typeahead text is displayed
- * if typeAhead = true (defaults to 250)
- * @cfg {Number} queryDelay The length of time in milliseconds to delay between the start of typing and sending the
- * query to filter the dropdown list (defaults to 500 if mode = 'remote' or 10 if mode = 'local')
- * @cfg {Number} pageSize If greater than 0, a paging toolbar is displayed in the footer of the dropdown list and the
- * filter queries will execute with page start and limit parameters.  Only applies when mode = 'remote' (defaults to 0)
- * @cfg {Boolean} selectOnFocus True to select any existing text in the field immediately on focus.  Only applies
- * when editable = true (defaults to false)
- * @cfg {String} loadingText The text to display in the dropdown list while data is loading.  Only applies
- * when mode = 'remote' (defaults to 'Loading...')
- * @cfg {Boolean} resizable True to add a resize handle to the bottom of the dropdown list (defaults to false)
- * @cfg {Number} handleHeight The height in pixels of the dropdown list resize handle if resizable = true (defaults to 8)
- * @cfg {Boolean} editable False to prevent the user from typing text directly into the field, just like a
- * traditional select (defaults to true)
- * @cfg {Number} minListWidth The minimum width of the dropdown list in pixels (defaults to 70, will be ignored if
- * listWidth has a higher value)
- * @cfg {Boolean} forceSelection True to restrict the selected value to one of the values in the list, false to
- * allow the user to set arbitrary text into the field (defaults to false)
- * @cfg {String} valueNotFoundText When using a name/value combo, if the value passed to setValue is not found in
- * the store, valueNotFoundText will be displayed as the field text if defined (defaults to undefined)
  * @constructor
  * Create a new ComboBox.
  * @param {Object} config Configuration options
@@ -146,33 +101,136 @@ Ext.form.ComboBox = function(config){
 };
 
 Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
+    /**
+     * @cfg {Boolean/Object} defaultAutoCreate A DomHelper element spec, or true for a default element spec (defaults to:
+     * {tag: "input", type: "text", size: "24", autocomplete: "off"})
+     */
     defaultAutoCreate : {tag: "input", type: "text", size: "24", autocomplete: "off"},
+    /**
+     * @cfg {Number} listWidth The width in pixels of the dropdown list (defaults to the width of the ComboBox field)
+     */
     listWidth: undefined,
+    /**
+     * @cfg {String} displayField The underlying data field name to bind to this CombBox (defaults to undefined if
+     * mode = 'remote' or 'text' if mode = 'local')
+     */
     displayField: undefined,
+    /**
+     * @cfg {String} valueField The underlying data value name to bind to this CombBox (defaults to undefined if
+     * mode = 'remote' or 'value' if mode = 'local')
+     */
     valueField: undefined,
+    /**
+     * @cfg {String} hiddenName If specified, a hidden form field with this name is dynamically generated to store the
+     * field's data value (defaults to the underlying DOM element's name)
+     */
     hiddenName: undefined,
+    /**
+     * @cfg {String} listClass CSS class to apply to the dropdown list element (defaults to '')
+     */
     listClass: '',
+    /**
+     * @cfg {String} selectedClass CSS class to apply to the selected item in the dropdown list (defaults to 'x-combo-selected')
+     */
     selectedClass: 'x-combo-selected',
+    /**
+     * @cfg {String} triggerClass An additional CSS class used to style the trigger button.  The trigger will always get the
+     * class 'x-form-trigger' and triggerClass will be <b>appended</b> if specified (defaults to 'x-form-arrow-trigger'
+     * which displays a downward arrow icon).
+     */
     triggerClass : 'x-form-arrow-trigger',
+    /**
+     * @cfg {Boolean/String} shadow True or "sides" for the default effect, "frame" for 4-way shadow, and "drop" for bottom-right
+     */
     shadow:'sides',
+    /**
+     * @cfg {String} listAlign A valid anchor position value. See {@link Ext.Element#alignTo} for details on supported
+     * anchor positions (defaults to 'tl-bl')
+     */
     listAlign: 'tl-bl?',
+    /**
+     * @cfg {Number} maxHeight The maximum height in pixels of the dropdown list before scrollbars are shown (defaults to 300)
+     */
     maxHeight: 300,
+    /**
+     * @cfg {String} triggerAction The action to execute when the trigger field is activated.  Use 'all' to run the
+     * query specified by the allQuery config option (defaults to 'query')
+     */
     triggerAction: 'query',
+    /**
+     * @cfg {Number} minChars The minimum number of characters the user must type before autocomplete and typeahead activate
+     * (defaults to 4, does not apply if editable = false)
+     */
     minChars : 4,
+    /**
+     * @cfg {Boolean} typeAhead True to populate and autoselect the remainder of the text being typed after a configurable
+     * delay (typeAheadDelay) if it matches a known value (defaults to false)
+     */
     typeAhead: false,
+    /**
+     * @cfg {Number} queryDelay The length of time in milliseconds to delay between the start of typing and sending the
+     * query to filter the dropdown list (defaults to 500 if mode = 'remote' or 10 if mode = 'local')
+     */
     queryDelay: 500,
+    /**
+     * @cfg {Number} pageSize If greater than 0, a paging toolbar is displayed in the footer of the dropdown list and the
+     * filter queries will execute with page start and limit parameters.  Only applies when mode = 'remote' (defaults to 0)
+     */
     pageSize: 0,
+    /**
+     * @cfg {Boolean} selectOnFocus True to select any existing text in the field immediately on focus.  Only applies
+     * when editable = true (defaults to false)
+     */
     selectOnFocus:false,
+    /**
+     * @cfg {String} queryParam Name of the query as it will be passed on the querystring (defaults to 'query')
+     */
     queryParam: 'query',
+    /**
+     * @cfg {String} loadingText The text to display in the dropdown list while data is loading.  Only applies
+     * when mode = 'remote' (defaults to 'Loading...')
+     */
     loadingText: 'Loading...',
+    /**
+     * @cfg {Boolean} resizable True to add a resize handle to the bottom of the dropdown list (defaults to false)
+     */
     resizable: false,
+    /**
+     * @cfg {Number} handleHeight The height in pixels of the dropdown list resize handle if resizable = true (defaults to 8)
+     */
     handleHeight : 8,
+    /**
+     * @cfg {Boolean} editable False to prevent the user from typing text directly into the field, just like a
+     * traditional select (defaults to true)
+     */
     editable: true,
+    /**
+     * @cfg {String} allQuery The sql query used to return all records for the list with no filtering (defaults to '')
+     */
     allQuery: '',
+    /**
+     * @cfg {String} mode Set to 'local' if the ComboBox loads local array data (defaults to 'remote' which loads from the server)
+     */
     mode: 'remote',
+    /**
+     * @cfg {Number} minListWidth The minimum width of the dropdown list in pixels (defaults to 70, will be ignored if
+     * listWidth has a higher value)
+     */
     minListWidth : 70,
+    /**
+     * @cfg {Boolean} forceSelection True to restrict the selected value to one of the values in the list, false to
+     * allow the user to set arbitrary text into the field (defaults to false)
+     */
     forceSelection:false,
+    /**
+     * @cfg {Number} typeAheadDelay The length of time in milliseconds to wait until the typeahead text is displayed
+     * if typeAhead = true (defaults to 250)
+     */
     typeAheadDelay : 250,
+    /**
+     * @cfg {String} valueNotFoundText When using a name/value combo, if the value passed to setValue is not found in
+     * the store, valueNotFoundText will be displayed as the field text if defined (defaults to undefined)
+     */
     valueNotFoundText : undefined,
 
     // private
