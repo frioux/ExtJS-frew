@@ -230,12 +230,16 @@ Ext.QuickTips = function(){
                            tagEls[target[j]] = c;
                        }
                    }else{
-                       tagEls[typeof target == 'string' ? target : target.id] = c;
-                   }               	   
+                       tagEls[typeof target == 'string' ? target : Ext.id(target.id)] = c;
+                   }
                }
            }
        },
-       
+
+       unregister : function(el){
+           delete tagEls[Ext.id(el)];
+       },
+
        enable : function(){
            if(inited){
                locks.pop();
