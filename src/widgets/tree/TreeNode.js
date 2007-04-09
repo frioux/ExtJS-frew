@@ -242,7 +242,7 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
      * @return {Boolean}
      */
     isSelected : function(){
-        return this.getOwnerTree().getSelectionModel().isSelected(node);  
+        return this.getOwnerTree().getSelectionModel().isSelected(this);  
     },
     
     /**

@@ -28,6 +28,9 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
     },
     onRender : function(ct){
         Ext.form.Checkbox.superclass.onRender.call(this, ct);
+        if(this.inputValue !== undefined){
+            this.el.dom.value = this.inputValue;
+        }
         this.wrap = this.el.wrap({cls: "x-form-check-wrap"});
         if(this.boxLabel){
             this.wrap.createChild({tag: 'label', htmlFor: this.el.id, cls: 'x-form-cb-label', html: this.boxLabel});

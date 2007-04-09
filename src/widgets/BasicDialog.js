@@ -198,7 +198,6 @@ Ext.BasicDialog = function(el, config){
     if(this.autoTabs){
         this.initTabs();
     }
-    this.syncBodyHeight();
     this.events = {
         /**
          * @event keydown
@@ -263,7 +262,8 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
     defaultButton: null,
     buttonAlign: "right",
     tabTag: 'div',
-    
+    firstShow: true,
+
     /**
      * Sets the dialog title text
      * @param {String} text The title text to display
@@ -589,6 +589,9 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
         }
         if(this.syncHeightBeforeShow){
             this.syncBodyHeight();
+        }else if(this.firstShow){
+            this.firstShow = false;
+            this.syncBodyHeight(); // sync the height on the first show instead of in the constructor
         }
         this.animateTarget = animateTarget || this.animateTarget;
         if(!this.el.isVisible()){

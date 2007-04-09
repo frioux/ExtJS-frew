@@ -63,7 +63,7 @@ Ext.extend(Ext.form.Layout, Ext.Component, {
     },
 
     renderField : function(f){
-       this.fieldTpl.append(this.el, [f.id, f.fieldLabel, this.labelStyle||'', this.elementStyle||'', this.labelSeparator]);
+       this.fieldTpl.append(this.el, [f.id, f.fieldLabel, f.labelStyle||this.labelStyle||'', this.elementStyle||'', f.labelSeparator||this.labelSeparator]);
     },
 
     renderComponent : function(c){

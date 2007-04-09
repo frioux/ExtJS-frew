@@ -3,7 +3,7 @@
  * @singleton
  */
 Ext.QuickTips = function(){
-    var el, tipBody, tipTitle, tm, cfg, close, tagEls = {}, esc, removeCls = null, bdLeft, bdRight;
+    var el, tipBody, tipBodyText, tipTitle, tm, cfg, close, tagEls = {}, esc, removeCls = null, bdLeft, bdRight;
     var ce, bd, xy, dd;
     var visible = false, disabled = true, inited = false;
     var showProc = 1, hideProc = 1, dismissProc = 1, locks = [];
@@ -70,7 +70,7 @@ Ext.QuickTips = function(){
         clearTimeout(showProc);
         clearTimeout(hideProc);
         if(!e.within(el)){
-            if(tm.hideOnClick && ce && ce.autoHide !== false){
+            if(tm.hideOnClick){
                 hide();
                 tm.disable();
             }
@@ -100,18 +100,18 @@ Ext.QuickTips = function(){
             removeCls = ce.cls;
         }
         if(ce.title){
-            tipTitleText.update(ce.title);
+            tipTitle.update(ce.title);
             tipTitle.show();
         }else{
-            tipTitleText.update('');
+            tipTitle.update('');
             tipTitle.hide();
         }
-        tipBody.dom.style.width = 'auto';
-        tipBody.update(o.text);
+        el.dom.style.width  = tm.maxWidth+'px';
+        //tipBody.dom.style.width = '';
+        tipBodyText.update(o.text);
         var p = getPad(), w = ce.width;
         if(!w){
-            var td = tipBody.dom;
-            el.dom.style.width  = "auto";
+            var td = tipBodyText.dom;
             var aw = Math.max(td.offsetWidth, td.clientWidth, td.scrollWidth);
             if(aw > tm.maxWidth){
                 w = tm.maxWidth;
@@ -121,7 +121,7 @@ Ext.QuickTips = function(){
                 w = aw;
             }
         }
-        tipBody.setWidth(w);
+        //tipBody.setWidth(w);
         el.setWidth(w + p);
         if(!ce.autoHide){
             close.setDisplayed(true);
@@ -187,14 +187,15 @@ Ext.QuickTips = function(){
               el = new Ext.Layer({cls:"x-tip", shadow:"sides", shim: true, constrain:true});
               el.fxDefaults = {stopFx: true};
               // maximum custom styling
-              el.update('<div class="x-tip-top-left"><div class="x-tip-top-right"><div class="x-tip-top"></div></div></div><div class="x-tip-hd-left"><div class="x-tip-hd-right"><div class="x-tip-hd"></div></div></div><div class="x-tip-bd-left"><div class="x-tip-bd-right"><div class="x-tip-bd"></div></div></div><div class="x-clear"></div><div class="x-tip-ft-left"><div class="x-tip-ft-right"><div class="x-tip-ft"></div></div></div>');
-              tipTitle = el.child('.x-tip-hd-left');
-              tipTitleText = el.child('.x-tip-hd');
+              el.update('<div class="x-tip-top-left"><div class="x-tip-top-right"><div class="x-tip-top"></div></div></div><div class="x-tip-bd-left"><div class="x-tip-bd-right"><div class="x-tip-bd"><div class="x-tip-close"></div><h3></h3><p></p><div class="x-clear"></div></div></div></div><div class="x-tip-ft-left"><div class="x-tip-ft-right"><div class="x-tip-ft"></div></div></div>');
+              tipTitle = el.child('h3');
               tipTitle.enableDisplayMode("block");
               tipBody = el.child('.x-tip-bd');
+              tipBodyText = el.child('p');
               bdLeft = el.child('.x-tip-bd-left');
               bdRight = el.child('.x-tip-bd-right');
-              close = el.createChild({tag:"div", cls:"x-tip-close"});
+              close = el.child('.x-tip-close');
+              close.enableDisplayMode("block");
               close.on("click", hide);
               d = Ext.get(document);
               d.on("mousedown", onDown);
@@ -210,7 +211,7 @@ Ext.QuickTips = function(){
                           el.sync();  
                       }
                   });
-                  dd.setHandleElId(tipTitleText.id);
+                  dd.setHandleElId(tipTitle.id);
                   dd.lock();
               }
               inited = true;
