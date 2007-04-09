@@ -204,21 +204,29 @@
 
 /* QuickTips */
 
-.x-tip .x-tip-hd-right{
-	background: url(../images/vista/basic-dialog/hd-sprite.gif) no-repeat right 0;
+.x-tip .x-tip-top {
+	background-image: url(../images/vista/qtip/tip-sprite.gif);
 }
-.x-tip .x-tip-hd-left{
-	background: url(../images/vista/basic-dialog/hd-sprite.gif) no-repeat 0 -41px;
+.x-tip .x-tip-top-left {
+	background-image: url(../images/vista/qtip/tip-sprite.gif);
 }
-.x-tip .x-tip-hd{
-	background: url(../images/vista/basic-dialog/hd-sprite.gif) repeat-x 0 -82px;
+.x-tip .x-tip-top-right {
+	background-image: url(../images/vista/qtip/tip-sprite.gif);
 }
-.x-tip .x-tip-close{
-	background-image: url(../images/vista/basic-dialog/close.gif);
+.x-tip .x-tip-ft {
+	background-image: url(../images/vista/qtip/tip-sprite.gif);
 }
-.x-tip .x-tip-bd{
-	background: #e7e7e7 url(../images/vista/qtip/bg.gif);
-	border: 1px solid #ababab;
+.x-tip .x-tip-ft-left {
+	background-image: url(../images/vista/qtip/tip-sprite.gif);
+}
+.x-tip .x-tip-ft-right {
+	background-image: url(../images/vista/qtip/tip-sprite.gif);
+}
+.x-tip .x-tip-bd-left {
+	background-image: url(../images/vista/qtip/tip-sprite.gif);
+}
+.x-tip .x-tip-bd-right {
+	background-image: url(../images/vista/qtip/tip-sprite.gif);
 }
 
 /* BorderLayout */
