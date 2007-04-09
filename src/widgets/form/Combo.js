@@ -102,9 +102,11 @@ Ext.form.ComboBox = function(config){
 
 Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     /**
-     * @cfg {Boolean/Object} defaultAutoCreate A DomHelper element spec, or true for a default element spec (defaults to:
+     * @cfg {Boolean/Object} autoCreate A DomHelper element spec, or true for a default element spec (defaults to:
      * {tag: "input", type: "text", size: "24", autocomplete: "off"})
      */
+
+    // private
     defaultAutoCreate : {tag: "input", type: "text", size: "24", autocomplete: "off"},
     /**
      * @cfg {Number} listWidth The width in pixels of the dropdown list (defaults to the width of the ComboBox field)
@@ -205,11 +207,11 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
      */
     editable: true,
     /**
-     * @cfg {String} allQuery The sql query used to return all records for the list with no filtering (defaults to '')
+     * @cfg {String} allQuery The text query to send to the server to return all records for the list with no filtering (defaults to '')
      */
     allQuery: '',
     /**
-     * @cfg {String} mode Set to 'local' if the ComboBox loads local array data (defaults to 'remote' which loads from the server)
+     * @cfg {String} mode Set to 'local' if the ComboBox loads local data (defaults to 'remote' which loads from the server)
      */
     mode: 'remote',
     /**

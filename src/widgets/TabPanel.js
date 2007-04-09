@@ -512,11 +512,16 @@ Ext.extend(Ext.TabPanelItem, Ext.util.Observable, {
     },
     
     /**
-     * Set the tooltip (title attribute) for the tab
+     * Set the tooltip for the tab
      * @param {String} tooltip
      */
     setTooltip : function(text){
-        this.textEl.dom.title = text;
+        if(Ext.QuickTips && Ext.QuickTips.isEnabled()){
+            this.textEl.dom.qtip = text;
+            this.textEl.dom.removeAttribute('title');
+        }else{
+            this.textEl.dom.title = text;
+        }
     },
     
     onTabClick : function(e){
@@ -570,7 +575,7 @@ Ext.extend(Ext.TabPanelItem, Ext.util.Observable, {
     setText : function(text){
         this.text = text;
         this.textEl.update(text);
-        this.textEl.dom.title = text;
+        this.setTooltip(text);
         if(!this.tabPanel.resizeTabs){
             this.autoSize();
         }

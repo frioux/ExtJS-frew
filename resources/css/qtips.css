@@ -47,7 +47,6 @@
 }
 .x-tip .x-tip-bd {
     border:0 none;
-    background:#fff;
     font: normal 11px tahoma,arial,helvetica,sans-serif;
 }
 .x-tip .x-tip-bd-left {
@@ -64,14 +63,14 @@
 .x-tip h3 {
     font: bold 12px tahoma,arial,helvetica,sans-serif;
     margin:0;
-    padding:2px 5px;
+    padding:2px 2px;
     color:#222;
 }
 .x-tip .x-tip-bd-inner {
     margin:0 !important;
     line-height:14px;
     color:#222;
-    padding:2px 5px;
+    padding:2px 2px;
     float:left;
 }
 

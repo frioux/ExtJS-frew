@@ -38,9 +38,13 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
      */
     defaultAutoCreate : { tag: "input", type: 'checkbox', autocomplete: "off"},
     /**
-     * @cfg {String/Object} boxLabel A DomHelper element spec for how the checkbox label should be rendered
+     * @cfg {String} boxLabel The text that appears beside the checkbox
      */
     boxLabel : undefined,
+
+    /**
+     * @cfg {String} inputValue The value that should go into the generated input element's value attribute
+     */
 
     /**
      * Sets the width and height of the checkbox wrapper element

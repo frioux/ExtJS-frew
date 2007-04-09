@@ -58,7 +58,8 @@ Ext.ReaderLayout = function(config){
             minHeight:200
         }, c.listView)
     });
-    this.add('center', new Ext.NestedLayoutPanel(inner, {title: config.mainTitle || ''}));
+    this.add('center', new Ext.NestedLayoutPanel(inner,
+            Ext.apply({title: config.mainTitle || '',tabTip:''},config.innerPanelCfg)));
 
     this.endUpdate();
 

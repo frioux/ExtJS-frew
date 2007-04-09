@@ -89,6 +89,7 @@ Ext.ContentPanel = function(el, config, content){
 };
 
 Ext.extend(Ext.ContentPanel, Ext.util.Observable, {
+    tabTip:'',
     setRegion : function(region){
         this.region = region;
         if(region){

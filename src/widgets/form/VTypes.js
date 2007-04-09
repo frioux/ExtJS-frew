@@ -15,14 +15,13 @@ Ext.form.VTypes = function(){
         /**
          * The function used to validate email addresses
          * @param {String} value The email address
-         * @type Function
          */
         'email' : function(v){
             return email.test(v);
         },
         /**
          * The error text to display when the email validation function returns false
-         * @type Function
+         * @type String
          */
         'emailText' : 'This field should be an e-mail address in the format "user@domain.com"',
         /**
@@ -34,28 +33,26 @@ Ext.form.VTypes = function(){
         /**
          * The function used to validate urls
          * @param {String} value The url
-         * @type Function
          */
         'url' : function(v){
             return url.test(v);
         },
         /**
          * The error text to display when the url validation function returns false
-         * @type Function
+         * @type String
          */
         'urlText' : 'This field should be a URL in the format "http:/'+'/www.domain.com"',
         
         /**
          * The function used to validate alpha values
          * @param {String} value The value
-         * @type Function
          */
         'alpha' : function(v){
             return alpha.test(v);
         },
         /**
          * The error text to display when the alpha validation function returns false
-         * @type Function
+         * @type String
          */
         'alphaText' : 'This field should only contain letters and _',
         /**
@@ -67,14 +64,13 @@ Ext.form.VTypes = function(){
         /**
          * The function used to validate alphanumeric values
          * @param {String} value The value
-         * @type Function
          */
         'alphanum' : function(v){
             return alphanum.test(v);
         },
         /**
          * The error text to display when the alphanumeric validation function returns false
-         * @type Function
+         * @type String
          */
         'alphanumText' : 'This field should only contain letters, numbers and _',
         /**

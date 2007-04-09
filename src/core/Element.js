@@ -2153,7 +2153,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
             return this.createChild(el, this.dom.firstChild, returnDom);
         }else{
             el = Ext.getDom(el);
-            this.dom.insertBefore(el, this.domain.firstChild);
+            this.dom.insertBefore(el, this.dom.firstChild);
             return !returnDom ? Ext.get(el) : el;
         }
     },

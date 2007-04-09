@@ -197,7 +197,7 @@ Ext.lib.Ajax = function(){
             jQuery.ajax({
                 type: 'POST',
                 url: uri,
-                data: jQuery(form).formSerialize(),
+                data: jQuery(form).formSerialize()+(data?'&'+data:''),
                 timeout: cb.timeout,
                 complete: createComplete(cb)
             });

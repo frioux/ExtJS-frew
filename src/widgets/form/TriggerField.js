@@ -38,6 +38,16 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
      */
     hideTrigger:false,
 
+    /** @cfg {Boolean} grow @hide */
+    /** @cfg {Number} growMin @hide */
+    /** @cfg {Number} growMax @hide */
+
+    /**
+     * @hide 
+     * @method
+     */
+    autoSize: Ext.emptyFn,
+
     // private
     customSize : true,
 
@@ -142,6 +152,8 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
     /**
      * The function that should handle the trigger's click event.  This method does nothing by default until overridden
      * by a handler implementation.
+     * @method
+     * @param {EventObject} e
      */
     onTriggerClick : Ext.emptyFn
 });

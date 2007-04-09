@@ -57,11 +57,16 @@ Ext.form.Action.prototype = {
     },
 
     getParams : function(){
+        var bp = this.form.baseParams;
         var p = this.options.params;
-        if(typeof p == "object"){
-            p = Ext.urlEncode(Ext.applyIf(o.params, this.form.baseParams));
-        }else if(typeof p == 'string' && this.form.baseParams){
-            p += '&' + Ext.urlEncode(this.form.baseParams);
+        if(p){
+            if(typeof p == "object"){
+                p = Ext.urlEncode(Ext.applyIf(p, bp));
+            }else if(typeof p == 'string' && bp){
+                p += '&' + Ext.urlEncode(bp);
+            }
+        }else if(bp){
+            p = Ext.urlEncode(bp);
         }
         return p;
     },
@@ -86,12 +91,13 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
 
     run : function(){
         var o = this.options;
+        var isPost = this.getMethod() == 'POST';
         if(o.clientValidation === false || this.form.isValid()){
             Ext.lib.Ajax.formRequest(
                 this.form.el.dom,
-                this.getUrl(true),
+                this.getUrl(!isPost),
                 this.createCallback(),
-                null, this.form.fileUpload, Ext.SSL_SECURE_URL);
+                isPost ? this.getParams() : null, this.form.fileUpload, Ext.SSL_SECURE_URL);
 
         }else if (o.clientValidation !== false){ // client validation failed
             this.failureType = Ext.form.Action.CLIENT_INVALID;

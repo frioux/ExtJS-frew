@@ -59,7 +59,7 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
      */
     invalidClass : "x-form-invalid",
     /**
-     * @cfg {String} invalidText The error text to use when marking a field invalid (defaults to "The value in this field is invalid")
+     * @cfg {String} invalidText The error text to use when marking a field invalid and no message is provided (defaults to "The value in this field is invalid")
      */
     invalidText : "The value in this field is invalid",
     /**
@@ -67,7 +67,8 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
      */
     focusClass : "x-form-focus",
     /**
-     * @cfg {String} validationEvent The event that should initiate field validation (defaults to "keyup")
+     * @cfg {String/Boolean} validationEvent The event that should initiate field validation. Set to false to disable
+      automatic validation. (defaults to "keyup")
      */
     validationEvent : "keyup",
     /**
@@ -75,7 +76,7 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
      */
     validationDelay : 250,
     /**
-     * @cfg {String/Object} defaultAutoCreate A DomHelper element spec, or true for a default element spec (defaults to
+     * @cfg {String/Object} autoCreate A DomHelper element spec, or true for a default element spec (defaults to
      * {tag: "input", type: "text", size: "20", autocomplete: "off"})
      */
     defaultAutoCreate : {tag: "input", type: "text", size: "20", autocomplete: "off"},
@@ -97,13 +98,11 @@ side          Add an error icon to the right of the field with a popup on hover
      */
     msgTarget: 'qtip',
     /**
-     * @cfg {String} msgFx The effect used when displaying a validation message (defaults to 'normal').  <b>Experimental</b>
+     * @cfg {String} msgFx <b>Experimental</b> The effect used when displaying a validation message under the field (defaults to 'normal').
      */
     msgFx : 'normal',
-    /**
-     * @cfg {Boolean} isFormField True if this field should be treated as a form field and rendered as part of a {@link Ext.BasicForm},
-     * false if it should be treated as a generic component (defaults to true)
-     */
+
+    // private
     isFormField : true,
 
     // private
@@ -118,7 +117,7 @@ side          Add an error icon to the right of the field with a popup on hover
     },
 
     /**
-     * Transform an existing element or DOM node into a Field object
+     * Apply the behaviors of this component to an existing element. <b>This is used instead of render().</b>
      * @param {String/HTMLElement/Element} el The id of the node, a DOM Node or an existing Element
      * @return {Ext.form.Field} this
      */
@@ -275,7 +274,10 @@ side          Add an error icon to the right of the field with a popup on hover
         return true;
     },
 
-    // private
+    /**
+     * Mark this field as invalid
+     * @param {String} msg The validation message
+     */
     markInvalid : function(msg){
         if(!this.rendered){ // not rendered
             return;
@@ -323,7 +325,9 @@ side          Add an error icon to the right of the field with a popup on hover
         this.errorIcon.alignTo(this.el, 'tl-tr', [2, 0]);
     },
 
-    // private
+    /**
+     * Clear any invalid styles/messages for this field
+     */
     clearInvalid : function(){
         if(!this.rendered){ // not rendered
             return;

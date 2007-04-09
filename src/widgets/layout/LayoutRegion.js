@@ -337,7 +337,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
     initPanelAsTab : function(panel){
         var ti = this.tabs.addTab(panel.getEl().id, panel.getTitle(), null, 
                     this.config.closeOnTab && panel.isClosable());
-        if(panel.tabTip){
+        if(panel.tabTip !== undefined){
             ti.setTooltip(panel.tabTip);
         }
         ti.on("activate", function(){
@@ -359,7 +359,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
         if(this.tabs){
             var ti = this.tabs.getTab(panel.getEl().id);
             ti.setText(title);
-            if(panel.tabTip){
+            if(panel.tabTip !== undefined){
                 ti.setTooltip(panel.tabTip);
             }
         }
