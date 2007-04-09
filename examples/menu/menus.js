@@ -81,6 +81,7 @@ Ext.onReady(function(){
         new Ext.Toolbar.MenuButton({
             text: 'Split Button',
             handler: onButtonClick,
+            tooltip: {text:'This is a QuickTip with autoHide set to false and a title', title:'Tip Title', autoHide:false},
             cls: 'x-btn-text-icon blist',
             // Menus can be built/referenced by using nested menu config objects
             menu : {items: [

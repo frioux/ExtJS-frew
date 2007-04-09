@@ -187,14 +187,14 @@ Ext.QuickTips = function(){
               el = new Ext.Layer({cls:"x-tip", shadow:"sides", shim: true, constrain:true});
               el.fxDefaults = {stopFx: true};
               // maximum custom styling
-              el.update('<div class="x-tip-top-left"><div class="x-tip-top-right"><div class="x-tip-top"></div></div></div><div class="x-tip-bd-left"><div class="x-tip-bd-right"><div class="x-tip-bd"><div class="x-tip-close"></div><h3></h3><p></p><div class="x-clear"></div></div></div></div><div class="x-tip-ft-left"><div class="x-tip-ft-right"><div class="x-tip-ft"></div></div></div>');
+              el.update('<div class="x-tip-top-left"><div class="x-tip-top-right"><div class="x-tip-top"></div></div></div><div class="x-tip-bd-left"><div class="x-tip-bd-right"><div class="x-tip-bd"><div class="x-tip-close"></div><h3></h3><div class="x-tip-bd-inner"></div><div class="x-clear"></div></div></div></div><div class="x-tip-ft-left"><div class="x-tip-ft-right"><div class="x-tip-ft"></div></div></div>');
               tipTitle = el.child('h3');
               tipTitle.enableDisplayMode("block");
-              tipBody = el.child('.x-tip-bd');
-              tipBodyText = el.child('p');
-              bdLeft = el.child('.x-tip-bd-left');
-              bdRight = el.child('.x-tip-bd-right');
-              close = el.child('.x-tip-close');
+              tipBody = el.child('div.x-tip-bd');
+              tipBodyText = el.child('div.x-tip-bd-inner');
+              bdLeft = el.child('div.x-tip-bd-left');
+              bdRight = el.child('div.x-tip-bd-right');
+              close = el.child('div.x-tip-close');
               close.enableDisplayMode("block");
               close.on("click", hide);
               d = Ext.get(document);
