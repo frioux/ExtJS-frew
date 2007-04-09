@@ -1,20 +1,51 @@
-/*
- * This field needs some work. It is only here for backword compatiblity with checkbox grid editor
+/**
+ * @class Ext.form.Checkbox
+ * @extends Ext.form.Field
+ * @constructor
+ * Single checkbox field.  Can be used as a direct replacement for traditional checkbox fields.
+ * @param {Object} config Configuration options
  */
 Ext.form.Checkbox = function(config){
     Ext.form.Checkbox.superclass.constructor.call(this, config);
     this.addEvents({
+        /**
+         * @event check
+         * Fires when the checkbox is checked or unchecked
+	     * @param {Ext.form.Checkbox} this This checkbox
+	     * @param {Boolean} checked The new checked value
+	     */
         check : true
     });
 };
 
 Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
+    /**
+     * @cfg {String} focusClass The CSS class to use when the checkbox receives focus (defaults to 'x-form-check-focus')
+     */
     focusClass : "x-form-check-focus",
+    /**
+     * @cfg {String} fieldClass The default CSS class for the checkbox (defaults to "x-form-field")
+     */
     fieldClass: "x-form-field",
+    /**
+     * @cfg {Boolean} checked True if the the checkbox should render already checked (defaults to false)
+     */
     checked: false,
+    /**
+     * @cfg {String/Object} defaultAutoCreate A DomHelper element spec, or true for a default element spec (defaults to
+     * { tag: "input", type: 'checkbox', autocomplete: "off"})
+     */
     defaultAutoCreate : { tag: "input", type: 'checkbox', autocomplete: "off"},
+    /**
+     * @cfg {String/Object} boxLabel A DomHelper element spec for how the checkbox label should be rendered
+     */
     boxLabel : undefined,
 
+    /**
+     * Sets the width and height of the checkbox wrapper element
+     * @param {Number} width New width in pixels
+     * @param {Number} height New height in pixels
+     */
     setSize : function(w, h){
         if(!this.wrap){
             this.width = w;
@@ -26,6 +57,8 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
             this.el.alignTo(this.wrap, 'c-c');
         }
     },
+
+    // private
     onRender : function(ct){
         Ext.form.Checkbox.superclass.onRender.call(this, ct);
         if(this.inputValue !== undefined){
@@ -40,8 +73,13 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
         }
     },
 
+    // private
     initValue : Ext.emptyFn,
-    
+
+    /**
+     * Returns the checked state of the checkbox.
+     * @return {Boolean} True if checked, else false
+     */
     getValue : function(){
         if(this.rendered){
             return this.el.dom.checked;
@@ -49,10 +87,15 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
         return false;
     },
 
+    /**
+     * Sets the checked state of the checkbox
+     * @param {Boolean/String} checked True, 'true,' or '1' to check the checkbox, any other value will uncheck it
+     */
     setValue : function(v){
         this.checked = (v === true || v === 'true' || v == '1');
         if(this.el && this.el.dom){
             this.el.dom.checked = this.checked;
         }
+        //this.fireEvent("check", this, this.checked);
     }
 });
