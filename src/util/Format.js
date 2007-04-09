@@ -84,6 +84,7 @@ Ext.util.Format = function(){
             return !value ? value : value.charAt(0).toUpperCase() + value.substr(1).toLowerCase();
         },
 
+        // private
         call : function(value, fn){
             if(arguments.length > 2){
                 var args = Array.prototype.slice.call(arguments, 2);
@@ -132,6 +133,7 @@ Ext.util.Format = function(){
             };
         },
 
+        // private
         stripTagsRE : /<\/?[^>]+>/gi,
         
         /**
