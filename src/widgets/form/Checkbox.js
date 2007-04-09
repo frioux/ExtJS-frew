@@ -101,6 +101,6 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
         if(this.el && this.el.dom){
             this.el.dom.checked = this.checked;
         }
-        //this.fireEvent("check", this, this.checked);
+        this.fireEvent("check", this, this.checked);
     }
 });
