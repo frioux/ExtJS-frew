@@ -195,10 +195,10 @@ Ext.apply = function(o, c, defaults){
         /**
          * Takes an encoded URL and and converts it to an object. e.g. Ext.urlDecode("foo=1&bar=2"); would return {foo: 1, bar: 2} or Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", true); would return {foo: 1, bar: [2, 3, 4]}.
          * @param {String} string
-         * @param {Boolean} asArray (optional) Items of the same name will result in an array instead of overwriting the previous instance (Defaults to false).
+         * @param {Boolean} overwrite (optional) Items of the same name will overwrite previous values instead of creating an an array (Defaults to false).
          * @return {Object} A literal with members
          */
-        urlDecode : function(string, asArray){
+        urlDecode : function(string, overwrite){
             if(!string || !string.length){
                 return {};
             }
@@ -209,7 +209,7 @@ Ext.apply = function(o, c, defaults){
                 pair = pairs[i].split('=');
                 name = pair[0];
                 value = pair[1];
-                if(asArray){
+                if(overwrite !== true){
                     if(typeof obj[name] == "undefined"){
                         obj[name] = value;
                     }else if(typeof obj[name] == "string"){
