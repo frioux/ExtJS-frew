@@ -161,6 +161,11 @@ Ext.tree.TreeNodeUI.prototype = {
             if(this.disabled){
                 return;
             }
+
+            if(this.node.attributes.singleClickExpand && !this.animating && this.node.hasChildNodes()){
+                this.node.toggle();
+            }
+
             this.fireEvent("click", this.node, e);
         }else{
             e.stopEvent();

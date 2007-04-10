@@ -191,6 +191,12 @@ Ext.lib.Ajax = {
 
     abort : function(trans){
         return CN.abort(trans);
+    },
+    
+    serializeForm : function(form){
+        var d = CN.setForm(form.dom || form);
+        CN.resetFormState();
+        return d;
     }
 };
 

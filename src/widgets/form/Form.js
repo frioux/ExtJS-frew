@@ -1,19 +1,58 @@
-Ext.Form = function(config){
-    Ext.Form.superclass.constructor.call(this, null, config);
+/**
+ * @class Ext.form.Form
+ * @extends Ext.form.BasicForm
+ * Adds the ability to dynamically render forms with JS to {@link Ext.form.BasicForm}.
+ * @constructor
+ * @param {Object} config Configuration options
+ */
+Ext.form.Form = function(config){
+    Ext.form.Form.superclass.constructor.call(this, null, config);
     this.url = this.url || this.action;
     if(!this.root){
         this.root = new Ext.form.Layout(config);
     }
     this.active = this.root;
+    /**
+     * Array of all the buttons that have been added to this form via addButton
+     * @type Array
+     */
     this.buttons = [];
 };
 
-Ext.extend(Ext.Form, Ext.BasicForm, {
+Ext.extend(Ext.form.Form, Ext.form.BasicForm, {
+    /**
+     * @cfg {Number} labelWidth The width of labels. This property cascades to child containers.
+     */
+    /*
+     * unused
+     */
     buttonPosition:'bottom',
+    /**
+     * @cfg {String} buttonAlign Valid values are "left," "center" and "right" (defaults to "center")
+     */
     buttonAlign:'center',
+
+    /**
+     * @cfg {Number} minButtonWidth Minimum width of all buttons (defaults to 75)
+     */
     minButtonWidth:75,
+
+    /**
+     * @cfg {String} labelAlign Valid values are "left," "top" and "right" (defaults to "left").
+     * This property cascades to child containers if not set.
+     */
     labelAlign:'left',
 
+    /**
+     * Opens the a new {@link Ext.form.Column} container in the layout stack. If fields are passed after the config, the
+     * fields are added and the column is closed. If no fields are passed the column remains open
+     * until end() is called.
+     * @param {Object} config The config to pass to the column
+     * @param {Field} field1 (optional)
+     * @param {Field} field2 (optional)
+     * @param {Field} etc (optional)
+     * @return Column The column container object
+     */
     column : function(c){
         var col = new Ext.form.Column(c);
         this.start(col);
@@ -24,6 +63,16 @@ Ext.extend(Ext.Form, Ext.BasicForm, {
         return col;
     },
 
+    /**
+     * Opens the a new {@link Ext.form.FieldSet} container in the layout stack. If fields are passed after the config, the
+     * fields are added and the fieldset is closed. If no fields are passed the fieldset remains open
+     * until end() is called.
+     * @param {Object} config The config to pass to the fieldset
+     * @param {Field} field1 (optional)
+     * @param {Field} field2 (optional)
+     * @param {Field} etc (optional)
+     * @return FieldSet The fieldset container object
+     */
     fieldset : function(c){
         var fs = new Ext.form.FieldSet(c);
         this.start(fs);
@@ -34,6 +83,16 @@ Ext.extend(Ext.Form, Ext.BasicForm, {
         return fs;
     },
 
+    /**
+     * Opens the a new {@link Ext.form.Layout} container in the layout stack. If fields are passed after the config, the
+     * fields are added and the container is closed. If no fields are passed the container remains open
+     * until end() is called.
+     * @param {Object} config The config to pass to the Layout
+     * @param {Field} field1 (optional)
+     * @param {Field} field2 (optional)
+     * @param {Field} etc (optional)
+     * @return Layout The container object
+     */
     container : function(c){
         var l = new Ext.form.Layout(c);
         this.start(l);
@@ -44,6 +103,11 @@ Ext.extend(Ext.Form, Ext.BasicForm, {
         return l;
     },
 
+    /**
+     * Opens the passed container in the layout stack. The container can be any {@link Ext.form.Layout} or subclass.
+     * @param {Object} container A Ext.form.Layout or subclass of Layout
+     * @return {Form} this
+     */
     start : function(c){
         // cascade label info
         Ext.applyIf(c, {'labelAlign': this.active.labelAlign, 'labelWidth': this.active.labelWidth});
@@ -53,6 +117,10 @@ Ext.extend(Ext.Form, Ext.BasicForm, {
         return this;
     },
 
+    /**
+     * Closes the current open container
+     * @return {Form} this
+     */
     end : function(){
         if(this.active == this.root){
             return this;
@@ -61,6 +129,13 @@ Ext.extend(Ext.Form, Ext.BasicForm, {
         return this;
     },
 
+    /**
+     * Add Ext.form components to the current open container (e.g. column, fieldset, etc)
+     * @param {Field} field1
+     * @param {Field} field2 (optional)
+     * @param {Field} etc (optional)
+     * @return {Form} this
+     */
     add : function(){
         this.active.stack.push.apply(this.active.stack, arguments);
         var r = [];
@@ -70,11 +145,16 @@ Ext.extend(Ext.Form, Ext.BasicForm, {
             }
         }
         if(r.length > 0){
-            Ext.Form.superclass.add.apply(this, r);
+            Ext.form.Form.superclass.add.apply(this, r);
         }
         return this;
     },
 
+    /**
+     * Render this form into the passed container. This should only be called once!
+     * @param {String/HTMLElement/Element} container The element this component should be rendered into
+     * @return {Form} this
+     */
     render : function(ct){
         ct = Ext.get(ct);
         var o = this.autoCreate || {
@@ -104,6 +184,7 @@ Ext.extend(Ext.Form, Ext.BasicForm, {
                 b.render(tr.appendChild(td));
             }
         }
+        return this;
     },
 
     /**
@@ -132,4 +213,7 @@ Ext.extend(Ext.Form, Ext.BasicForm, {
     }
 });
 
+
+// back compat
+Ext.Form = Ext.form.Form;
 

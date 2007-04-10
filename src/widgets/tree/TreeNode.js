@@ -13,6 +13,7 @@
  * @cfg {String} href URL of the link used for the node (defaults to #)
  * @cfg {String} hrefTarget target frame for the link
  * @cfg {String} qtip An Ext QuickTip for the node
+ * @cfg {Boolean} singleClickExpand True for single click expand on this node
  * @cfg {Function} uiProvider A UI <b>class</b> to use for this node (defaults to Ext.tree.TreeNodeUI)
  * @constructor
  * @param {Object/String} attributes The attributes/config for the node or just a string with the text for the node 

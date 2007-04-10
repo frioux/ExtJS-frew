@@ -1,12 +1,12 @@
 /**
- * @class Ext.BasicForm
+ * @class Ext.form.BasicForm
  * @extends Ext.util.Observable
  * Supplies the functionality to do "actions" on forms and initialize Ext.form.Field types on existing markup.
  * @constructor
  * @param {String/HTMLElement/Ext.Element} el The form element or its id
  * @param {Object} config Configuration options
  */
-Ext.BasicForm = function(el, config){
+Ext.form.BasicForm = function(el, config){
     Ext.apply(this, config);
     /*
      * The Ext.form.Field items in this form
@@ -43,7 +43,7 @@ Ext.BasicForm = function(el, config){
     }
 };
 
-Ext.extend(Ext.BasicForm, Ext.util.Observable, {
+Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     /**
      * @cfg {String} method
      * The request method to use (GET or POST) for form actions if one isn't supplied in the action options
@@ -147,7 +147,7 @@ Ext.extend(Ext.BasicForm, Ext.util.Observable, {
                 this.reset();
             }
             Ext.callback(o.success, o.scope, [this, action]);
-            this.fireEvent('actioncompleted', this, action);
+            this.fireEvent('actioncomplete', this, action);
         }else{
             Ext.callback(o.failure, o.scope, [this, action]);
             this.fireEvent('actionfailed', this, action);
@@ -220,6 +220,16 @@ Ext.extend(Ext.BasicForm, Ext.util.Observable, {
     },
 
     /**
+     * Returns the fields in this form as an object with key value pair. If multiple fields exist with the same name
+     * they are returned as an array.
+     * @return {Object}
+     */
+    getValues : function(){
+        var fs = Ext.lib.Ajax.serializeForm(this.el.dom);
+        return Ext.urlDecode(fs);
+    },
+
+    /**
      * Clears all invalid messages in this form
      */
     clearInvalid : function(){
@@ -288,3 +298,6 @@ Ext.extend(Ext.BasicForm, Ext.util.Observable, {
         });
     }
 });
+
+// back compat
+Ext.BasicForm = Ext.form.BasicForm;

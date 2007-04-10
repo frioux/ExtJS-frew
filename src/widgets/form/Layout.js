@@ -1,3 +1,10 @@
+/**
+ * @class Ext.form.Layout
+ * @extends Ext.Component
+ * Creates a container for layout and rendering of fields in an {@link Ext.form.Form}.
+ * @constructor
+ * @param {Object} config Configuration options
+ */
 Ext.form.Layout = function(config){
     Ext.form.Layout.superclass.constructor.call(this, config);
     this.stack = [];
@@ -71,7 +78,13 @@ Ext.extend(Ext.form.Layout, Ext.Component, {
     }
 });
 
-
+/**
+ * @class Ext.form.Column
+ * @extends Ext.form.Layout
+ * Creates a column container for layout and rendering of fields in an {@link Ext.form.Form}.
+ * @constructor
+ * @param {Object} config Configuration options
+ */
 Ext.form.Column = function(config){
     Ext.form.Column.superclass.constructor.call(this, config);
 };
@@ -87,6 +100,13 @@ Ext.extend(Ext.form.Column, Ext.form.Layout, {
     }
 });
 
+/**
+ * @class Ext.form.FieldSet
+ * @extends Ext.form.Layout
+ * Creates a fieldset container for layout and rendering of fields in an {@link Ext.form.Form}.
+ * @constructor
+ * @param {Object} config Configuration options
+ */
 Ext.form.FieldSet = function(config){
     Ext.form.FieldSet.superclass.constructor.call(this, config);
 };
@@ -105,30 +125,5 @@ Ext.extend(Ext.form.FieldSet, Ext.form.Layout, {
         if(this.rendered){
             this.el.child('legend').update(text);
         }
-    }
-});
-
-
-Ext.form.ButtonPanel = function(config){
-    Ext.form.ButtonPanel.superclass.constructor.call(this, config);
-};
-
-Ext.extend(Ext.form.ButtonPanel, Ext.form.Layout, {
-    defaultAutoCreate : {tag: 'div', cls: 'x-form-ct x-form-button-panel'},
-
-    onRender : function(ct){
-        var cfg = this.getAutoCreate();
-        this.el = ct.createChild(cfg);
-        var tb = this.footer.createChild({
-            tag:"div",
-            cls:"x-dlg-btns x-dlg-btns-"+this.buttonAlign,
-            html:'<table cellspacing="0"><tbody><tr></tr></tbody></table><div class="x-clear"></div>'
-        }, null, true);
-        this.btnContainer = tb.firstChild.firstChild.firstChild;
-        Ext.form.ButtonPanel.superclass.onRender.call(this, ct);
-    },
-
-    renderComponent : function(c){
-        c.render(this.el);
     }
 });

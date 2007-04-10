@@ -5,6 +5,7 @@
  * @cfg {Boolean} folderSort True to sort leaf nodes under non leaf nodes
  * @cfg {String} property The named attribute on the node to sort by (defaults to text)
  * @cfg {String} dir The direction to sort (asc or desc) (defaults to asc)
+ * @cfg {String} leafAttr The attribute used to determine leaf nodes in folder sort (defaults to "leaf")
  * @cfg {Boolean} caseSensitive true for case sensitive sort (defaults to false)
  * @cfg {Function} sortType A custom "casting" function used to convert node values before sorting
  * @constructor
@@ -22,13 +23,14 @@ Ext.tree.TreeSorter = function(tree, config){
     var sortType = this.sortType;
     var fs = this.folderSort;
     var cs = this.caseSensitive === true;
-    
+    var leafAttr = this.leafAttr || 'leaf';
+
     this.sortFn = function(n1, n2){
         if(fs){
-            if(n1.leaf && !n2.leaf){
+            if(n1.attributes[leafAttr] && !n2.attributes[leafAttr]){
                 return 1;
             }
-            if(!n1.leaf && n2.leaf){
+            if(!n1.attributes[leafAttr] && n2.attributes[leafAttr]){
                 return -1;
             }
         }

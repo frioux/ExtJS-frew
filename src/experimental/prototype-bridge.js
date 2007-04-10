@@ -304,6 +304,10 @@ Ext.lib.Ajax = function(){
 
         abort : function(trans){
             return false;
+        },
+        
+        serializeForm : function(form){
+            return Form.serialize(form.dom||form, true);
         }
     };
 }();
