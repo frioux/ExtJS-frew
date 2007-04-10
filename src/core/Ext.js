@@ -49,7 +49,7 @@ Ext.apply = function(o, c, defaults){
 	if(isIE && !isIE7){
         try{
             document.execCommand("BackgroundImageCache", false, true);
-        }catch(e){alert(e)}
+        }catch(e){}
     }
 
     Ext.apply(Ext, {
@@ -71,7 +71,7 @@ Ext.apply = function(o, c, defaults){
          * @type String
          */
         BLANK_IMAGE_URL : "http:/"+"/extjs.com/s.gif",
-        
+
         emptyFn : function(){},
 
         /**
@@ -164,7 +164,7 @@ Ext.apply = function(o, c, defaults){
         },
 
         /**
-         * Takes an object and converts it to an encoded URL. e.g. Ext.urlEncode({foo: 1, bar: 2}); would return "foo=1&bar=2".  Optionally, property values can be arrays, instead of keys and the resulting string that's returned will contain a name/value pair for each array value.
+         * Takes an object and converts it to an encoded URL. e.g. Ext.urlEncode({foo: 1, bar: 2}); would return "foo=1&bar=2".
          * @param {Object} o
          * @return {String}
          */
@@ -172,57 +172,15 @@ Ext.apply = function(o, c, defaults){
             if(!o){
                 return "";
             }
-            var obj = {}, buf = [], key, type, i = 0;
-            for(key in o){
-                type = typeof o[key];
-                if(type != "function"){
-                    if(typeof o[key].length == "undefined" || type == "string"){
-                        obj[key] = [o[key]];
-                    }else{
-                        obj[key] = o[key];
-                    }
-                }
-            }
-            for(key in obj){
-                for(i = 0; i < obj[key].length; i++){
-                    buf.push(encodeURIComponent(key), "=", encodeURIComponent(obj[key][i]), "&");
+            var buf = [];
+            for(var key in o){
+                var type = typeof o[key];
+                if(type != "function" && type != "object"){
+                    buf.push(encodeURIComponent(key), "=", encodeURIComponent(o[key]), "&");
                 }
             }
             buf.pop();
             return buf.join("");
-        },
-
-        /**
-         * Takes an encoded URL and and converts it to an object. e.g. Ext.urlDecode("foo=1&bar=2"); would return {foo: 1, bar: 2}.
-         * @param {String} string
-         * @param {Boolean} asArray (optional) Items of the same name will result in an array instead of overwriting the previous instance (Defaults to false).
-         * @return {Object} A literal with members
-         */
-        urlDecode : function(string, asArray){
-            if(!string || !string.length){
-                return {};
-            }
-            var obj = {};
-            var pairs = string.split('&');
-            var pair, name, value;
-            for(var i = 0; i < pairs.length; i++){
-                pair = pairs[i].split('=');
-                name = pair[0];
-                value = pair[1];
-                if(asArray){
-                    if(typeof obj[name] == "undefined"){
-                        obj[name] = value;
-                    }else if(typeof obj[name] == "string"){
-                        obj[name] = [obj[name]];
-                        obj[name].push(value);
-                    }else{
-                        obj[name].push(value);
-                    }
-                }else{
-                    obj[name] = value;
-                }
-            }
-            return obj;
         },
 
         /**
