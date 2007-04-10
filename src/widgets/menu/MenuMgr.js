@@ -1,6 +1,6 @@
 /**
  * @class Ext.menu.MenuMgr
- * Provides a common registry of all menu items on a page so that they can be easily accessed by component id.
+ * Provides a common registry of all menu items on a page so that they can be easily accessed by id.
  * @singleton
  */
 Ext.menu.MenuMgr = function(){
