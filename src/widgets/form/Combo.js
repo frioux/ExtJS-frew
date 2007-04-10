@@ -708,6 +708,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
                     this.expand();
                 }
             }else{
+                this.selectedIndex = -1;
                 this.onLoad();   
             }
         }

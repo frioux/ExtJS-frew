@@ -64,11 +64,7 @@ Ext.extend(Ext.BasicForm, Ext.util.Observable, {
      * @cfg {Number} timeout
      */
     timeout: 30,
-    /**
-     * @cfg {Object} baseParams
-     * Parameters to pass with all requests
-     */
-    baseParams: undefined,
+
     // private
     activeAction : null,
 
