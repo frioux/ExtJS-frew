@@ -242,6 +242,7 @@ Ext.apply = function(o, c, defaults){
             }
         },
 
+        // deprecated
         combine : function(){
             var as = arguments, l = as.length, r = [];
             for(var i = 0; i < l; i++){
@@ -257,10 +258,16 @@ Ext.apply = function(o, c, defaults){
             return r;
         },
 
+        /**
+         * Escapes the passed string for use in a regular expression
+         * @param {String} str
+         * @return {String}
+         */
         escapeRe : function(s) {
             return s.replace(/([.*+?^${}()|[\]\/\\])/g, "\\$1");
         },
 
+        // internal
         callback : function(cb, scope, args, delay){
             if(typeof cb == "function"){
                 if(delay){
@@ -271,6 +278,11 @@ Ext.apply = function(o, c, defaults){
             }
         },
 
+        /**
+         * Return the dom node for the passed string (id), dom node, or Ext.Element
+         * @param {String/HTMLElement/Element) el
+         * @return HTMLElement
+         */
         getDom : function(el){
             if(!el){
                 return null;
@@ -426,6 +438,12 @@ Ext.apply(Function.prototype, {
 });
 
 Ext.applyIf(String, {
+
+    /*
+     * Escapes the passed string for ' and \
+     * @param {String} str
+     * @return {String}
+     */
     escape : function(string) {
         return string.replace(/('|\\)/g, "\\$1");
     },
