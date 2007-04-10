@@ -2,8 +2,6 @@
  * @class Ext.menu.CheckItem
  * @extends Ext.menu.Item
  * Adds a menu item that contains a checkbox by default, but can also be part of a radio group.
- * @cfg {String} group All check items with the same group name will automatically be grouped into a single-select
- * radio button group (defaults to '')
  * @constructor
  * Creates a new CheckItem
  * @param {Object} config Configuration options
@@ -31,6 +29,11 @@ Ext.menu.CheckItem = function(config){
     }
 };
 Ext.extend(Ext.menu.CheckItem, Ext.menu.Item, {
+    /**
+     * @cfg {String} group
+     * All check items with the same group name will automatically be grouped into a single-select
+     * radio button group (defaults to '')
+     */
     /**
      * @cfg {String} itemCls The default CSS class to use for check items (defaults to "x-menu-item x-menu-check-item")
      */

@@ -3,7 +3,6 @@
  * @extends Ext.Component
  * The base class for all items that render into menus.  BaseItem provides default rendering, activated state
  * management and base configuration options shared by all menu components.
- * @cfg {Function} handler A function that will handle the click event of this menu item (defaults to undefined)
  * @constructor
  * Creates a new BaseItem
  * @param {Object} config Configuration options
@@ -39,6 +38,10 @@ Ext.menu.BaseItem = function(config){
 };
 
 Ext.extend(Ext.menu.BaseItem, Ext.Component, {
+    /**
+     * @cfg {Function} handler
+     * A function that will handle the click event of this menu item (defaults to undefined)
+     */
     /**
      * @cfg {Boolean} canActivate True if this item can be visually activated (defaults to false)
      */

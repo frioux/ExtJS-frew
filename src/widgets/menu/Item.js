@@ -4,7 +4,6 @@
  * A base class for all menu items that require menu-related functionality (like sub-menus) and are not static
  * display items.  Item extends the base functionality of {@link Ext.menu.BaseItem} by adding menu-specific
  * activation and click handling.
- * @cfg {String} icon The path to an icon to display in this menu item (defaults to Ext.BLANK_IMAGE_URL)
  * @constructor
  * Creates a new Item
  * @param {Object} config Configuration options
@@ -16,6 +15,10 @@ Ext.menu.Item = function(config){
     }
 };
 Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
+    /**
+     * @cfg {String} icon
+     * The path to an icon to display in this menu item (defaults to Ext.BLANK_IMAGE_URL)
+     */
     /**
      * @cfg {String} itemCls The default CSS class to use for menu items (defaults to "x-menu-item")
      */
