@@ -1,3 +1,8 @@
+/**
+ * @class Ext.menu.MenuMgr
+ * Provides a common registry of all menu items on a page so that they can be easily accessed by component id.
+ * @singleton
+ */
 Ext.menu.MenuMgr = function(){
    var menus, active, groups = {};
 
@@ -11,6 +16,7 @@ Ext.menu.MenuMgr = function(){
        });
    }
 
+   // private
    function hideAll(){
        if(active.length > 0){
            var c = active.clone();
@@ -20,6 +26,7 @@ Ext.menu.MenuMgr = function(){
        }
    }
 
+   // private
    function onHide(m){
        active.remove(m);
        if(active.length < 1){
@@ -27,6 +34,7 @@ Ext.menu.MenuMgr = function(){
        }
    }
 
+   // private
    function onShow(m){
        var last = active.last();
        active.add(m);
@@ -41,6 +49,7 @@ Ext.menu.MenuMgr = function(){
        }
    }
 
+   // private
    function onBeforeHide(m){
        if(m.activeChild){
            m.activeChild.hide();
@@ -51,6 +60,7 @@ Ext.menu.MenuMgr = function(){
        }
    }
 
+   // private
    function onBeforeShow(m){
        var pm = m.parentMenu;
        if(!pm && !m.allowOtherMenus){
@@ -60,12 +70,14 @@ Ext.menu.MenuMgr = function(){
        }
    }
 
+   // private
    function onMouseDown(e){
        if(active.length > 0 && !e.getTarget(".x-menu")){
            hideAll();
        }
    }
 
+   // private
    function onBeforeCheck(mi, state){
        if(state){
            var g = groups[mi.group];
@@ -79,10 +91,14 @@ Ext.menu.MenuMgr = function(){
 
    return {
 
+       /**
+        * Hides all menus that are currently visible
+        */
        hideAll : function(){
             hideAll();  
        },
 
+       // private
        register : function(menu){
            if(!menus){
                init();
@@ -102,6 +118,11 @@ Ext.menu.MenuMgr = function(){
            }
        },
 
+        /**
+         * Returns a {@link Ext.menu.Menu} object
+         * @param {String/Object} menu The string menu id, an existing menu object reference, or a Menu config that will
+         * be used to generate and return a new Menu instance.
+         */
        get : function(menu){
            if(typeof menu == "string"){ // menu id
                return menus[menu];
@@ -112,6 +133,7 @@ Ext.menu.MenuMgr = function(){
            }
        },
 
+       // private
        unregister : function(menu){
            delete menus[menu.id];
            menu.un("beforehide", onBeforeHide);
@@ -125,6 +147,7 @@ Ext.menu.MenuMgr = function(){
            }
        },
 
+       // private
        registerCheckable : function(menuItem){
            var g = menuItem.group;
            if(g){
@@ -136,6 +159,7 @@ Ext.menu.MenuMgr = function(){
            }
        },
 
+       // private
        unregisterCheckable : function(menuItem){
            var g = menuItem.group;
            if(g){

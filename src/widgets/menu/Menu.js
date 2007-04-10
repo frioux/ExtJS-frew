@@ -1,14 +1,70 @@
+/**
+ * @class Ext.menu.Menu
+ * @extends Ext.util.Observable
+ * A menu object.  This is the container to which you add all other menu items.  Menu can also serve a as a base class
+ * when you want a specialzed menu based off of another component (like {@link Ext.menu.DateMenu} for example).
+ * @constructor
+ * Creates a new Menu
+ * @param {Object} config Configuration options
+ */
 Ext.menu.Menu = function(config){
     Ext.apply(this, config);
     this.id = this.id || Ext.id();
     this.events = {
+        /**
+         * @event beforeshow
+         * Fires before this menu is displayed
+         * @param {Ext.menu.Menu} this
+         */
         beforeshow : true,
+        /**
+         * @event beforehide
+         * Fires before this menu is hidden
+         * @param {Ext.menu.Menu} this
+         */
         beforehide : true,
+        /**
+         * @event show
+         * Fires after this menu is displayed
+         * @param {Ext.menu.Menu} this
+         */
         show : true,
+        /**
+         * @event hide
+         * Fires after this menu is hidden
+         * @param {Ext.menu.Menu} this
+         */
         hide : true,
+        /**
+         * @event click
+         * Fires when this menu is clicked (or when the enter key is pressed while it is active)
+         * @param {Ext.menu.Menu} this
+         * @param {String} menuItemId The id of the menu item that was clicked
+         * @param {Ext.EventObject} e
+         */
         click : true,
+        /**
+         * @event mouseover
+         * Fires when the mouse is hovering over this menu
+         * @param {Ext.menu.Menu} this
+         * @param {Ext.EventObject} e
+         * @param {String} menuItemId The id of the menu item that the mouse is over
+         */
         mouseover : true,
+        /**
+         * @event mouseout
+         * Fires when the mouse exits this menu
+         * @param {Ext.menu.Menu} this
+         * @param {Ext.EventObject} e
+         * @param {String} menuItemId The id of the menu item that the mouse has exited
+         */
         mouseout : true,
+        /**
+         * @event itemclick
+         * Fires when a menu item contained in this menu is clicked
+         * @param {Ext.menu.BaseItem} baseItem The BaseItem that was clicked
+         * @param {Ext.EventObject} e
+         */
         itemclick: true
     };
     Ext.menu.MenuMgr.register(this);
@@ -20,12 +76,31 @@ Ext.menu.Menu = function(config){
 };
 
 Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
+    /**
+     * @cfg {Number} minWidth The minimum width of the menu in pixels (defaults to 120)
+     */
     minWidth : 120,
+    /**
+     * @cfg {Boolean/String} shadow True or "sides" for the default effect, "frame" for 4-way shadow, and "drop"
+     * for bottom-right shadow (defaults to "sides")
+     */
     shadow : "sides",
+    /**
+     * @cfg {String} subMenuAlign The {@link Ext.Element#alignTo) anchor position value to use for submenus of
+     * this menu (defaults to "tl-tr?")
+     */
     subMenuAlign : "tl-tr?",
+    /**
+     * @cfg {String} defaultAlign The default {@link Ext.Element#alignTo) anchor position value for this menu
+     * relative to it's element of origin (defaults to "tl-bl?")
+     */
     defaultAlign : "tl-bl?",
+    /**
+     * @cfg {Boolean} allowOtherMenus True to allow multiple menus to be displayed at the same time (defaults to false)
+     */
     allowOtherMenus : false,
 
+    // private
     render : function(){
         if(this.el){
             return;
@@ -64,6 +139,7 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
         this.autoWidth();
     },
 
+    // private
     autoWidth : function(){
         var el = this.el, ul = this.ul;
         if(!el){
@@ -79,6 +155,7 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
         }
     },
 
+    // private
     delayAutoWidth : function(){
         if(this.rendered){
             if(!this.awTask){
@@ -88,6 +165,7 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
         }
     },
 
+    // private
     findTargetItem : function(e){
         var t = e.getTarget(".x-menu-list-item", this.ul,  true);
         if(t && t.menuItemId){
@@ -95,6 +173,7 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
         }
     },
 
+    // private
     onClick : function(e){
         var t;
         if(t = this.findTargetItem(e)){
@@ -103,6 +182,7 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
         }
     },
 
+    // private
     setActiveItem : function(item, autoExpand){
         if(item != this.activeItem){
             if(this.activeItem){
@@ -115,6 +195,7 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
         }
     },
 
+    // private
     tryActivate : function(start, step){
         var items = this.items;
         for(var i = start, len = items.length; i >= 0 && i < len; i+= step){
@@ -127,6 +208,7 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
         return false;
     },
 
+    // private
     onMouseOver : function(e){
         var t;
         if(t = this.findTargetItem(e)){
@@ -137,6 +219,7 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
         this.fireEvent("mouseover", this, e, t);
     },
 
+    // private
     onMouseOut : function(e){
         var t;
         if(t = this.findTargetItem(e)){
@@ -148,10 +231,21 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
         this.fireEvent("mouseout", this, e, t);
     },
 
+    /**
+     * Read-only.  Returns true if the menu is currently displayed, else false.
+     * @type Boolean
+     */
     isVisible : function(){
         return this.el && this.el.isVisible();
     },
 
+    /**
+     * Displays this menu relative to another element
+     * @param {String/HTMLElement/Ext.Element} element The element to align to
+     * @param {String} position (optional) The {@link Ext.Element#alignTo) anchor position to use in aligning to
+     * the element (defaults to this.defaultAlign)
+     * @param {Ext.menu.Menu} parentMenu (optional) This menu's parent menu, if applicable (defaults to undefined)
+     */
     show : function(el, pos, parentMenu){
         this.parentMenu = parentMenu;
         if(!this.el){
@@ -161,7 +255,12 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
         this.showAt(this.el.getAlignToXY(el, pos || this.defaultAlign), parentMenu, false);
     },
 
-    showAt : function(xy, parentMenu, _fireBefore){
+    /**
+     * Displays this menu at a specific xy position
+     * @param {Array} xyPosition Contains X & Y [x, y] values for the position at which to show the menu (coordinates are page-based)
+     * @param {Ext.menu.Menu} parentMenu (optional) This menu's parent menu, if applicable (defaults to undefined)
+     */
+    showAt : function(xy, parentMenu, /* private: */_fireBefore){
         this.parentMenu = parentMenu;
         if(!this.el){
             this.render();
@@ -175,6 +274,10 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
         this.fireEvent("show", this);
     },
 
+    /**
+     * Hides this menu and optionally all parent menus
+     * @param {Boolean} deep (optional) True to hide all parent menus recursively, if any (defaults to false)
+     */
     hide : function(deep){
         if(this.el && this.isVisible()){
             this.fireEvent("beforehide", this);
@@ -190,6 +293,36 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
         }
     },
 
+    /**
+     * Addds one or more items of any type supported by the Menu class, or that can be converted into menu items.
+     * Any of the following are valid:
+     * <ul>
+     * <li>Any menu item object based on {@link Ext.menu.Item}</li>
+     * <li>An HTMLElement object which will be converted to a menu item</li>
+     * <li>A menu item config object that will be created as a new menu item</li>
+     * <li>A string, which can either be '-' or 'separator' to add a menu separator, otherwise
+     * it will be converted into a {@link Ext.menu.TextItem} and added</li>
+     * </ul>
+     * Usage:
+     * <pre><code>
+// Create the menu
+var menu = new Ext.menu.Menu();
+
+// Create a menu item to add by reference
+var menuItem = new Ext.menu.Item({ text: 'New Item!' });
+
+// Add a bunch of items at once using different methods.
+// Only the last item added will be returned.
+var item = menu.add(
+    menuItem,                // add existing item by ref
+    'Dynamic Item',          // new TextItem
+    '-',                     // new separator
+    { text: 'Config Item' }  // new item by config
+);
+</code></pre>
+     * @param {Mixed} args One or more menu items, menu item configs or other objects that can be converted to menu items
+     * @return {Ext.menu.Item} The menu item that was added, or the last one if multiple items were added
+     */
     add : function(){
         var a = arguments, l = a.length, item;
         for(var i = 0; i < l; i++){
@@ -211,6 +344,10 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
         return item;
     },
 
+    /**
+     * Returns this menu's underlying {@link Ext.Element} object
+     * @return {Ext.Element} The element
+     */
     getEl : function(){
         if(!this.el){
             this.render();
@@ -218,14 +355,28 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
         return this.el;
     },
 
+    /**
+     * Adds a separator bar to the menu
+     * @return {Ext.menu.Item} The menu item that was added
+     */
     addSeparator : function(){
         return this.addItem(new Ext.menu.Separator());
     },
 
+    /**
+     * Adds an {@link Ext.Element} object to the menu
+     * @param {String/HTMLElement/Ext.Element} el The element or DOM node to add, or its id
+     * @return {Ext.menu.Item} The menu item that was added
+     */
     addElement : function(el){
         return this.addItem(new Ext.menu.BaseItem(el));
     },
 
+    /**
+     * Adds an existing object based on {@link Ext.menu.Item} to the menu
+     * @param {Ext.menu.Item} item The menu item to add
+     * @return {Ext.menu.Item} The menu item that was added
+     */
     addItem : function(item){
         this.items.add(item);
         if(this.ul){
@@ -238,6 +389,11 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
         return item;
     },
 
+    /**
+     * Creates a new {@link Ext.menu.Item} based an the supplied config object and adds it to the menu
+     * @param {Object} config A MenuItem config object
+     * @return {Ext.menu.Item} The menu item that was added
+     */
     addMenuItem : function(config){
         if(!(config instanceof Ext.menu.Item)){
              config = new Ext.menu.Item(config);
@@ -245,10 +401,21 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
         return this.addItem(config);
     },
 
+    /**
+     * Creates a new {@link Ext.menu.TextItem} with the supplied text and adds it to the menu
+     * @param {String} text The text to display in the menu item
+     * @return {Ext.menu.Item} The menu item that was added
+     */
     addText : function(text){
         return this.addItem(new Ext.menu.TextItem(text));
     },
 
+    /**
+     * Inserts an existing object based on {@link Ext.menu.Item} to the menu at a specified index
+     * @param {Number} index The index in the menu's list of current items where the new item should be inserted
+     * @param {Ext.menu.Item} item The menu item to add
+     * @return {Ext.menu.Item} The menu item that was added
+     */
     insert : function(index, item){
         this.items.insert(index, item);
         if(this.ul){
@@ -261,11 +428,18 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
         return item;
     },
 
+    /**
+     * Removes an {@link Ext.menu.Item} from the menu and destroys the object
+     * @param {Ext.menu.Item} item The menu item to remove
+     */
     remove : function(item){
         this.items.removeKey(item.id);
         item.destroy();
     },
 
+    /**
+     * Removes and destroys all items in the menu
+     */
     removeAll : function(){
         var f;
         while(f = this.items.first()){
@@ -274,6 +448,7 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
     }
 });
 
+// MenuNav is a private utility class used internally by the Menu
 Ext.menu.MenuNav = function(menu){
     Ext.menu.MenuNav.superclass.constructor.call(this, menu.el);
     this.scope = this.menu = menu;
