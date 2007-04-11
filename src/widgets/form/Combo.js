@@ -2,9 +2,6 @@
  * @class Ext.form.ComboBox
  * @extends Ext.form.TriggerField
  * A combobox control with support for autocomplete, remote-loading, paging and many other features.
- * @cfg {Boolean} lazyRender True to prevent the ComboBox from rendering until requested (should always be used when
- * rendering into an Ext.Editor, defaults to false)
- * @cfg {String/HTMLElement/Element} transform The id, DOM node or element of an existing select to convert to a ComboBox
  * @constructor
  * Create a new ComboBox.
  * @param {Object} config Configuration options
@@ -101,6 +98,13 @@ Ext.form.ComboBox = function(config){
 };
 
 Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
+    /**
+     * @cfg {String/HTMLElement/Element} transform The id, DOM node or element of an existing select to convert to a ComboBox
+     */
+    /**
+     * @cfg {Boolean} lazyRender True to prevent the ComboBox from rendering until requested (should always be used when
+     * rendering into an Ext.Editor, defaults to false)
+     */
     /**
      * @cfg {Boolean/Object} autoCreate A DomHelper element spec, or true for a default element spec (defaults to:
      * {tag: "input", type: "text", size: "24", autocomplete: "off"})
