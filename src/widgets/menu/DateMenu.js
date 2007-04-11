@@ -11,7 +11,16 @@ Ext.menu.DateMenu = function(config){
     this.plain = true;
     var di = new Ext.menu.DateItem(config);
     this.add(di);
+    /**
+     * The {@link Ext.DatePicker} instance for this DateMenu
+     * @type DatePicker
+     */
     this.picker = di.picker;
+    /**
+     * @event select
+     * @param {DatePicker} picker
+     * @param {Date} date
+     */
     this.relayEvents(di, ["select"]);
 };
 Ext.extend(Ext.menu.DateMenu, Ext.menu.Menu);

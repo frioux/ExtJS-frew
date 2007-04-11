@@ -11,7 +11,16 @@ Ext.menu.ColorMenu = function(config){
     this.plain = true;
     var ci = new Ext.menu.ColorItem(config);
     this.add(ci);
+    /**
+     * The {@link Ext.ColorPalette} instance for this ColorMenu
+     * @type ColorPalette
+     */
     this.palette = ci.palette;
+    /**
+     * @event select
+     * @param {ColorPalette} palette
+     * @param {String} color
+     */
     this.relayEvents(ci, ["select"]);
 };
 Ext.extend(Ext.menu.ColorMenu, Ext.menu.Menu);
