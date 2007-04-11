@@ -15,7 +15,12 @@
  Ext.extend(Employee, Ext.util.Observable);
 </code></pre>
  */
-Ext.util.Observable = function(){};
+Ext.util.Observable = function(){
+    if(this.listeners){
+        this.on(this.listeners);
+        delete this.listeners;
+    }
+};
 Ext.util.Observable.prototype = {
     /**
      * Fires the specified event with the passed parameters (minus the event name).

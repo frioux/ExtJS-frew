@@ -140,6 +140,9 @@ side          Add an error icon to the right of the field with a popup on hover
             if(!cfg.name){
                 cfg.name = this.name || this.id;
             }
+            if(this.tabIndex !== undefined){
+                cfg.tabIndex = this.tabIndex;
+            }
             this.el = ct.createChild(cfg);
         }
         var type = this.el.dom.type;

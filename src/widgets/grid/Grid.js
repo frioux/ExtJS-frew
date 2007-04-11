@@ -408,7 +408,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
      */
     destroy : function(removeEl, keepListeners){
         if(this.loadMask){
-            this.loadMask.destory();
+            this.loadMask.destroy();
         }
         var c = this.container;
         c.removeAllListeners();

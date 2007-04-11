@@ -63,6 +63,12 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
         }
     },
 
+    initEvents : function(){
+        Ext.form.Checkbox.superclass.initEvents.call(this);
+        this.el.on("click", this.onClick,  this);
+    },
+
+    
     // private
     onRender : function(ct){
         Ext.form.Checkbox.superclass.onRender.call(this, ct);
@@ -90,6 +96,12 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
             return this.el.dom.checked;
         }
         return false;
+    },
+
+    onClick : function(){
+        if(this.el.dom.checked != this.checked){
+            this.setValue(this.el.dom.checked);
+        }
     },
 
     /**

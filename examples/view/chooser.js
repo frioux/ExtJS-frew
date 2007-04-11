@@ -88,7 +88,6 @@ var ImageChooser = function(config){
 	});
     this.view.on('selectionchange', this.showDetails, this, {buffer:100});
     this.view.on('dblclick', this.doCallback, this);
-    this.view.on({'load': function(){alert('wtf')}, click: function(){alert('wtf 2')}});
     this.view.on('loadexception', this.onLoadException, this);
     this.view.on('beforeselect', function(view){
         return view.getCount() > 0;
