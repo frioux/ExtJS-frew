@@ -349,7 +349,11 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
 	/** A regular expression defining tagNames 
      * allowed to have text selection (Defaults to <code>/INPUT|TEXTAREA|SELECT/i</code>) */
     allowTextSelectionPattern : /INPUT|TEXTAREA|SELECT/i,
-    
+
+    /** A Ext.LoadMask config or true to mask the grid while loading (defaults to false)
+	 * @type Boolean/Object */
+	loadMask : false,
+
     /**
      * Called once after all setup has been completed and the grid is ready to be rendered.
      * @return {Ext.grid.Grid} this
@@ -373,11 +377,21 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
         this.getSelectionModel().init(this);
         
         view.render();
-        
+
+        if(this.loadMask){
+            this.loadMask = new Ext.LoadMask(this.container,
+                    Ext.apply({store:this.dataSource}, this.loadMask));
+        }
+
         return this;
     },
     
     reconfigure : function(dataSource, colModel){
+        if(this.loadMask){
+            this.loadMask.destroy();
+            this.loadMask = new Ext.LoadMask(this.container,
+                    Ext.apply({store:dataSource}, this.loadMask));
+        }
         this.view.bind(dataSource, colModel);
         this.dataSource = dataSource;
         this.colModel = colModel;
@@ -393,6 +407,9 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
      * @param {Boolean} removeEl True to remove the element
      */
     destroy : function(removeEl, keepListeners){
+        if(this.loadMask){
+            this.loadMask.destory();
+        }
         var c = this.container;
         c.removeAllListeners();
         this.view.destroy();

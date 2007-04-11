@@ -140,7 +140,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 
 	bind : function(ds, cm){
         if(this.ds){
-            this.ds.un("load", this.scrollToTop, this);
+            this.ds.un("load", this.onLoad, this);
             this.ds.un("datachanged", this.onDataChange);
             this.ds.un("add", this.onAdd);
             this.ds.un("remove", this.onRemove);
@@ -148,7 +148,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             this.ds.un("clear", this.onClear);
         }
         if(ds){
-            ds.on("load", this.scrollToTop, this);
+            ds.on("load", this.onLoad, this);
             ds.on("datachanged", this.onDataChange, this);
             ds.on("add", this.onAdd, this);
             ds.on("remove", this.onRemove, this);
@@ -226,6 +226,10 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             this.layout();
             this.fireEvent("rowremoved", this, index, record);
         }
+    },
+
+    onLoad : function(){
+        this.scrollToTop();
     },
 
     scrollToTop : function(){

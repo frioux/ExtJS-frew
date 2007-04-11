@@ -23,7 +23,7 @@ Ext.apply = function(o, c, defaults){
         // no "this" reference for friendly out of scope calls
         Ext.apply(o, defaults);
     }
-    if(o && c){
+    if(o && c && typeof c == 'object'){
         for(var p in c){
             o[p] = c[p];
         }

@@ -1899,9 +1899,11 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
     /**
      * Puts a mask over this element to disable user interaction. Requires core.css.
      * This method can only be applied to elements which accept child nodes.
+     * @param {String} msg (optional) A message to display in the mask
+     * @param {String} msgCls (optional) A css class to apply to the msg element
      * @return {Element} The message element
      */
-    mask : function(){
+    mask : function(msg, msgCls){
         if(this.getStyle("position") == "static"){
             this.setStyle("position", "relative");
         }
@@ -1910,6 +1912,16 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
         }
         this.addClass("x-masked");
         this._mask.setDisplayed(true);
+        if(typeof msg == 'string'){
+            if(!this._maskMsg){
+                this._maskMsg = Ext.DomHelper.append(this.dom, {tag:"div", cls:"ext-el-mask-msg", cn:{tag:'div'}}, true);
+            }
+            var mm = this._maskMsg;
+            mm.dom.className = msgCls ? "ext-el-mask-msg " + msgCls : "ext-el-mask-msg";
+            mm.dom.firstChild.innerHTML = msg;
+            mm.setDisplayed(true);
+            mm.center(this);
+        }
         return this._mask;
     },
     
@@ -1922,8 +1934,15 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
             if(removeEl === true){
                 this._mask.remove();
                 delete this._mask;
+                if(this._maskMsg){
+                    this._maskMsg.remove();
+                    delete this._maskMsg;
+                }
             }else{
                 this._mask.setDisplayed(false);
+                if(this._maskMsg){
+                    this._maskMsg.setDisplayed(false);
+                }
             }
         }
         this.removeClass("x-masked");

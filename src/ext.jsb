@@ -130,6 +130,7 @@
     <include name="widgets\grid\EditorGrid.js" />
     <include name="widgets\grid\GridEditor.js" />
     <include name="widgets\grid\PropertyGrid.js" />
+    <include name="widgets\LoadMask.js" />
     <include name="debug.js" />
   </target>
   <file name="layout\LayoutRegionLite.js" path="layout" />
@@ -554,4 +555,5 @@
   <file name="widgets\form\BasicForm.js" path="widgets\form" />
   <file name="widgets\form\Layout.js" path="widgets\form" />
   <file name="widgets\menu\ColorMenu.js" path="widgets\menu" />
+  <file name="widgets\LoadMask.js" path="widgets" />
 </project>
