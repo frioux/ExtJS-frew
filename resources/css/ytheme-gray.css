@@ -1,3 +1,12 @@
+
+.ext-el-mask-msg {
+    border:1px solid #aaa;
+    background: #ddd url(../images/default/box/tb.gif) repeat-x 0 -16px;
+}
+.ext-el-mask-msg div {
+    border:1px solid #ccc;
+}
+
 /*
  Menu
  */

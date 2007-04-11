@@ -18,6 +18,7 @@
  * @cfg {Boolean} animate true to enable animated expand/collapse
  * @cfg {Boolean} singleExpand true if only 1 node per branch may be expanded
  * @cfg {Boolean} selModel A tree selection model to use with this TreePanel (defaults to a {@link Ext.tree.DefaultSelectionModel})
+ * @cfg {Boolean} loader A TreeLoader for use with this TreePanel
  * @constructor
  * @param {String/HTMLElement/Element} el The container element
  * @param {Object} config

@@ -77,7 +77,8 @@ Ext.onReady(function(){
         ds: ds,
         cm: cm,
         selModel: new Ext.grid.RowSelectionModel({singleSelect:true}),
-        enableColLock:false
+        enableColLock:false,
+        loadMask: true
     });
 
     // make the grid resizable, do before render for better performance

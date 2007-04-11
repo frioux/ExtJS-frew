@@ -481,4 +481,8 @@
   <file name="images\default\form\exclamation.gif" path="images\default\form" />
   <file name="images\default\form\error-tip-bg.gif" path="images\default\form" />
   <file name="images\default\form\error-tip-corners.gif" path="images\default\form" />
+  <file name="images\default\qtip\tip-sprite.gif" path="images\default\qtip" />
+  <file name="images\default\qtip\close.gif" path="images\default\qtip" />
+  <file name="images\gray\qtip\tip-sprite.gif" path="images\gray\qtip" />
+  <file name="images\vista\qtip\tip-sprite.gif" path="images\vista\qtip" />
 </project>

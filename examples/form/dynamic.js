@@ -8,7 +8,7 @@ Ext.onReady(function(){
     /*
      * ================  Simple form  =======================
      */
-    var simple = new Ext.Form({
+    var simple = new Ext.form.Form({
         labelWidth: 75, // label settings here cascade unless overridden
         url:'save-form.php'
     });
@@ -49,7 +49,7 @@ Ext.onReady(function(){
     /*
      * ================  Form 2  =======================
      */
-    var top = new Ext.Form({
+    var top = new Ext.form.Form({
         labelAlign: 'top'
     });
 
@@ -93,7 +93,7 @@ Ext.onReady(function(){
     /*
      * ================  Form 3  =======================
      */
-    var fs = new Ext.Form({
+    var fs = new Ext.form.Form({
         labelAlign: 'right',
         labelWidth: 75
     });
@@ -157,7 +157,7 @@ Ext.onReady(function(){
     /*
      * ================  Form 4  =======================
      */
-    var form = new Ext.Form({
+    var form = new Ext.form.Form({
         labelAlign: 'right',
         labelWidth: 75
     });
@@ -168,31 +168,36 @@ Ext.onReady(function(){
         new Ext.form.TextField({
             fieldLabel: 'Full Name',
             name: 'fullName',
-            allowBlank:false
+            allowBlank:false,
+            value: 'Jack Slocum'
         }),
 
         new Ext.form.TextField({
             fieldLabel: 'Job Title',
-            name: 'title'
+            name: 'title',
+            value: 'Jr. Developer'
         }),
 
         new Ext.form.TextField({
             fieldLabel: 'Company',
-            name: 'company'
+            name: 'company',
+            value: 'Ext JS'
         }),
 
         new Ext.form.TextArea({
             fieldLabel: 'Address',
             name: 'address',
             grow: true,
-            preventScrollbars:true
+            preventScrollbars:true,
+            value: '4 Redbulls Drive'
         })
     );
     form.fieldset(
         {legend:'Phone Numbers'},
         new Ext.form.TextField({
             fieldLabel: 'Home',
-            name: 'home'
+            name: 'home',
+            value: '(888) 555-1212'
         }),
 
         new Ext.form.TextField({
@@ -226,8 +231,7 @@ Ext.onReady(function(){
         {legend:'Options', hideLabels:true},
         new Ext.form.Checkbox({
             boxLabel:'Ext 1.0 User',
-            name:'extuser',
-            checked:true
+            name:'extuser'
         }),
         new Ext.form.Checkbox({
             boxLabel:'Ext Commercial User',
@@ -239,7 +243,8 @@ Ext.onReady(function(){
         }),
         new Ext.form.Checkbox({
             boxLabel:'Ext Team Member',
-            name:'extteam'
+            name:'extteam',
+            checked:true
         })
     );
 

@@ -45,7 +45,6 @@ var Viewer = function(){
             
             // some default feeds
             sfeeds = {
-                'jvs':{id:'jvs', name: 'JackSlocum.com', desc: 'Using the Yahoo! UI Library- Beyond the Examples.', url:'http://www.jackslocum.com/yui/feed/'},
                 'ajaxian':{id:'ajaxian', name: 'Ajaxian', desc: 'Cleaning up the web with Ajax.', url:'http://feeds.feedburner.com/ajaxian'},
                 'yui':{id:'yui', name: 'YUI Blog', desc: 'News and Articles about Designing and Developing with Yahoo! Libraries.', url:'http://feeds.yuiblog.com/YahooUserInterfaceBlog'},
                 'sports':{id:'sports', name: 'Yahoo! Sports', desc: 'Latest news and information for the world of sports.', url:'http://sports.yahoo.com/top/rss.xml'}
@@ -175,11 +174,8 @@ var Viewer = function(){
             layout.restoreState();
             layout.endUpdate();
             
-            // load the default feed - setTimeout for FireFox Mac?
-            setTimeout(function(){
-                this.loadFeed('http://www.jackslocum.com/yui/feed/');
-                this.changeActiveFeed('jvs');
-            }.createDelegate(this), 50);
+            this.loadFeed('http://feeds.feedburner.com/ajaxian');
+            this.changeActiveFeed('ajaxian');
         },
         
         createView : function(el){

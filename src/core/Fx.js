@@ -4,20 +4,20 @@ Ext.enableFx = true;
 
 /**
  * @class Ext.Fx
- * A class to provde basic animation and visual effects support.  <b>Note:</b> This class is automatically applied
+ * <p>A class to provde basic animation and visual effects support.  <b>Note:</b> This class is automatically applied
  * to the {@link Ext.Element} interface when included, so all effects calls should be performed via Element.
  * Conversely, since the effects are not actually defined in Element, Ext.Fx <b>must</b> be included in order for the 
- * Element effects to work.
+ * Element effects to work.</p><br/>
  *
- * It is important to note that although the Fx methods and many non-Fx Element methods support "method chaining" in that
+ * <p>It is important to note that although the Fx methods and many non-Fx Element methods support "method chaining" in that
  * they return the Element object itself as the method return value, it is not always possible to mix the two in a single
  * method chain.  The Fx methods use an internal effects queue so that each effect can be properly timed and sequenced.
  * Non-Fx methods, on the other hand, have no such internal queueing and will always execute immediately.  For this reason,
  * while it may be possible to mix certain Fx and non-Fx method calls in a single chain, it may not always provide the
- * expected results and should be done with care.
+ * expected results and should be done with care.</p><br/>
  *
- * Motion effects support 8-way anchoring, meaning that you can choose one of 8 different anchor points on the Element
- * that will server as either the start or end point of the animation.  Following are all of the supported anchor positions:
+ * <p>Motion effects support 8-way anchoring, meaning that you can choose one of 8 different anchor points on the Element
+ * that will server as either the start or end point of the animation.  Following are all of the supported anchor positions:</p>
 <pre>
 Value  Description
 -----  -----------------------------
