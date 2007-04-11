@@ -42,10 +42,10 @@ Ext.form.ComboBox = function(config){
          * Fires before all queries are processed. Return false to cancel the query or set cancel to true.
          * The event object passed has these properties:
          * <ul style="padding:5px;padding-left:16px;">
-	     * <li>combo - This combo box</li>
-	     * <li>query - The query</li>
-	     * <li>forceAll - true to force "all" query</li>
-	     * <li>cancel - set to true to cancel the query.</li>
+	     * <li>{Ext.form.ComboBox} combo - This combo box</li>
+	     * <li>{String} query - The query</li>
+	     * <li>{Boolean} forceAll - true to force "all" query</li>
+	     * <li>{Boolean} cancel - set to true to cancel the query.</li>
 	     * </ul>
 	     * @param {Object} e The query event object
 	     */

@@ -459,7 +459,7 @@ Ext.Msg.show({
         /**
          * An object containing the default button text strings that can be overriden for localized language support.
          * Supported properties are: ok, cancel, yes and no.
-         * Customize the default text like so: Ext.MessageBox.buttonText.yes = "S’";
+         * Customize the default text like so: Ext.MessageBox.buttonText.yes = "Si";
          * @type Object
          */
         buttonText : {

@@ -207,7 +207,7 @@ Ext.state.Manager = function(){
  * @cfg {String} path The path for which the cookie is active (defaults to root '/' which makes it active for all pages in the site)
  * @cfg {Date} expires The cookie expiration date (defaults to 7 days from now)
  * @cfg {String} domain The domain to save the cookie for.  Note that you cannot specify a different domain than
- * your page is not on, but you can specify a sub-domain, or simply the domain itself like 'extjs.com' to include
+ * your page is on, but you can specify a sub-domain, or simply the domain itself like 'extjs.com' to include
  * all sub-domains if you need to access cookies across different sub-domains (defaults to null which uses the same
  * domain the page is running on including the 'www' like 'www.extjs.com')
  * @cfg {Boolean} secure True if the site is using SSL (defaults to false)
