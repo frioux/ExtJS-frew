@@ -273,6 +273,8 @@ Ext.grid.Grid = function(container, config){
 	     */
 	    "dragout" : true
 	};
+
+    Ext.grid.Grid.superclass.constructor.call(this);
 };
 Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
     /** The minimum width a column can be resized to. (Defaults to 25)

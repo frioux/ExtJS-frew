@@ -1,6 +1,6 @@
 /**
  @class Ext.grid.RowSelectionModel
- * @extends Ext.util.Observable
+ * @extends Ext.grid.AbstractSelectionModel
  * The default SelectionModel used by {@link Ext.grid.Grid}. 
  It supports multiple selections and keyboard selection/navigation. <br><br>
  @constructor

@@ -71,6 +71,8 @@ Ext.util.ClickRepeater = function(el, config)
     if(this.handler){
         this.on("click", this.handler,  this.scope || this);
     }
+
+    Ext.util.ClickRepeater.superclass.constructor.call(this);
 };
 
 Ext.extend(Ext.util.ClickRepeater, Ext.util.Observable, {

@@ -94,6 +94,7 @@ Ext.grid.ColumnModel = function(config){
          */
         "columnlockchange" : true
     };
+    Ext.grid.ColumnModel.superclass.constructor.call(this);
 };
 Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     /**

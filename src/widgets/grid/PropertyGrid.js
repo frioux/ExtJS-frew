@@ -11,6 +11,7 @@ Ext.grid.PropertyStore = function(grid, source){
     if(source){
         this.setSource(source);
     }
+    Ext.grid.PropertyStore.superclass.constructor.call(this);
 };
 Ext.extend(Ext.grid.PropertyStore, Ext.util.Observable, {
     setSource : function(o){

@@ -104,6 +104,8 @@ Ext.TabPanel = function(container, config){
     Ext.EventManager.onWindowResize(this.onResize, this);
     this.cpad = this.el.getPadding("lr");
     this.hiddenCount = 0;
+
+    Ext.TabPanel.superclass.constructor.call(this);
 };
 
 Ext.extend(Ext.TabPanel, Ext.util.Observable, {
@@ -461,6 +463,8 @@ Ext.TabPanelItem = function(tabPanel, id, text, closable){
          "deactivate" : true
     };
     this.hidden = false;
+
+    Ext.TabPanelItem.superclass.constructor.call(this);
 };
 
 Ext.extend(Ext.TabPanelItem, Ext.util.Observable, {

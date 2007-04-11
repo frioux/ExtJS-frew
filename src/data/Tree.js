@@ -89,6 +89,8 @@ Ext.data.Tree = function(root){
         */
        "beforeinsert" : true
    };
+
+    Ext.data.Tree.superclass.constructor.call(this);
 };
 
 Ext.extend(Ext.data.Tree, Ext.util.Observable, {
@@ -266,6 +268,8 @@ Ext.data.Node = function(attributes){
         */
        "beforeinsert" : true
    };
+    this.listeners = this.attributes.listeners;
+    Ext.data.Node.superclass.constructor.call(this);
 };
 
 Ext.extend(Ext.data.Node, Ext.util.Observable, {

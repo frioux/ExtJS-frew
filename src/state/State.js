@@ -17,6 +17,7 @@ Ext.state.Provider = function(){
         "statechange": true
     };
     this.state = {};
+    Ext.state.Provider.superclass.constructor.call(this);
 };
 Ext.extend(Ext.state.Provider, Ext.util.Observable, {
     /**

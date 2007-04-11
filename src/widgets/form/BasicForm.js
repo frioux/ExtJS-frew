@@ -41,6 +41,7 @@ Ext.form.BasicForm = function(el, config){
     if(el){
         this.initEl(el);
     }
+    Ext.form.BasicForm.superclass.constructor.call(this);
 };
 
 Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {

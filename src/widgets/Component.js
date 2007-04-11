@@ -123,6 +123,7 @@ Ext.Component = function(config){
         this.id = "ext-comp-" + (++Ext.Component.AUTO_ID);
     }
     Ext.ComponentMgr.register(this);
+    Ext.Component.superclass.constructor.call(this);
 };
 
 // private

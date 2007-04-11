@@ -49,6 +49,7 @@ Ext.util.MixedCollection = function(allowFunctions, keyFn){
     if(keyFn){
         this.getKey = keyFn;
     }
+    Ext.util.MixedCollection.superclass.constructor.call(this);
 };
 
 Ext.extend(Ext.util.MixedCollection, Ext.util.Observable, {

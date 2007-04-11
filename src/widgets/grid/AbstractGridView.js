@@ -10,6 +10,7 @@ Ext.grid.AbstractGridView = function(){
 	    "rowupdated" : true,
 	    "refresh" : true
 	};
+    Ext.grid.AbstractGridView.superclass.constructor.call(this);
 };
 
 Ext.extend(Ext.grid.AbstractGridView, Ext.util.Observable, {

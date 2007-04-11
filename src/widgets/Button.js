@@ -46,6 +46,7 @@ Ext.Button = function(renderTo, config){
     if(renderTo){
         this.render(renderTo);
     }
+    Ext.Button.superclass.constructor.call(this);
 };
 
 Ext.extend(Ext.Button, Ext.util.Observable, {

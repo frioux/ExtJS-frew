@@ -5,6 +5,7 @@ Ext.data.Connection = function(config){
         "requestcomplete" : true,
         "requestexception" : true
     };
+    Ext.data.Connection.superclass.constructor.call(this);
 };
 
 Ext.extend(Ext.data.Connection, Ext.util.Observable, {

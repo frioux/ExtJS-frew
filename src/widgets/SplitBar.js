@@ -121,6 +121,8 @@ Ext.SplitBar = function(dragElement, resizingElement, orientation, placement, ex
          */
         "beforeresize" : true
     };
+
+    Ext.SplitBar.superclass.constructor.call(this);
 };
 
 Ext.extend(Ext.SplitBar, Ext.util.Observable, {

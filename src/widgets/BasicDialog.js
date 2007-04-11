@@ -252,6 +252,7 @@ Ext.BasicDialog = function(el, config){
     Ext.EventManager.onWindowResize(this.adjustViewport, this, true);
     this.el.hide();
     Ext.DialogManager.register(this);
+    Ext.BasicDialog.superclass.constructor.call(this);
 };
 
 Ext.extend(Ext.BasicDialog, Ext.util.Observable, {

@@ -105,6 +105,8 @@ Ext.data.Store = function(config){
         this.relayEvents(this.proxy,  ["loadexception"]);
     }
     this.sortToggle = {};
+    
+    Ext.data.Store.superclass.constructor.call(this);
 };
 Ext.extend(Ext.data.Store, Ext.util.Observable, {
     /**

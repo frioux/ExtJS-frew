@@ -133,12 +133,14 @@ Ext.UpdateManager = function(el, forceNew){
     /**
      * @private
      */
-     this.failureDelegate = this.processFailure.createDelegate(this);
+    this.failureDelegate = this.processFailure.createDelegate(this);
      
      /**
       * The renderer for this UpdateManager. Defaults to {@link Ext.UpdateManager.BasicRenderer}. 
       */
-      this.renderer = new Ext.UpdateManager.BasicRenderer();
+    this.renderer = new Ext.UpdateManager.BasicRenderer();
+
+    Ext.UpdateManager.superclass.constructor.call(this);
 };
 
 Ext.extend(Ext.UpdateManager, Ext.util.Observable, {

@@ -116,6 +116,7 @@ Ext.View = function(container, tpl, config){
     if(this.store){
         this.setStore(this.store, true);
     }
+    Ext.View.superclass.constructor.call(this);
 };
 
 Ext.extend(Ext.View, Ext.util.Observable, {

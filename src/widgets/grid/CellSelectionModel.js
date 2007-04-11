@@ -1,6 +1,6 @@
 /**
  @class Ext.grid.CellSelectionModel
- * @extends Ext.util.Observable
+ * @extends Ext.grid.AbstractSelectionModel
  @constructor
  * @param {Object} config
  */
