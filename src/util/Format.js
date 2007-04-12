@@ -4,7 +4,7 @@
  * @singleton
  */
 Ext.util.Format = function(){
-    var trimRe = /^\s*(.*?)\s*$/;
+    var trimRe = /^[\s\n\r]*(.*?)[\s\n\r]*$/;
     return {
         /**
          * Truncate a string and add an ellipsis ('...') to the end if it exceeds the specified length
