@@ -250,7 +250,6 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
                 this.value !== undefined ? this.value : '';
 
             // prevent input submission
-            this.el.dom.name = '';
             this.el.dom.removeAttribute('name');
         }
         if(Ext.isGecko){
