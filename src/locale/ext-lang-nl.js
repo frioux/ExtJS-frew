@@ -8,7 +8,8 @@
  * List compiled by mystix on the extjs.com forums.
  * Thank you Mystix!
  *
- * Translation to Dutch by Bas van Oostveen
+ * Dutch Translations
+ * by Bas van Oostveen (04 April 2007)
  */
 
 /* Ext Core translations */
