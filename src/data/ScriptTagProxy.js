@@ -1,21 +1,13 @@
 /**
- * An implementation of Ext.data.DataProxy that reads 
+ * An implementation of Ext.data.DataProxy that reads a data object from a URL which may be in a domain
+ * other than the originating domain of the running page.
  * <p>
- * <em>Note that this class cannot be used to retrieve data from a domain other than the domain
- * from which the running page was served.
- * <p>
- * For cross-domain access to remote data, use an Ext.data.ScriptTagProxy.
- * </em>
+ * <em>Note that this class must be used to retrieve data from a domain other than the domain
+ * from which the running page was served.</em>
+ * 
  * @cfg {String} url The url from which to request the data object.
- * @cfg {String} callbackParam (Optional) The name of the parameter to pass to the server which tells
- * the server the name of the callback function set up by the load call to process the returned data object.
- * Defaults to "callback".<p>The server-side processing must read this parameter value, and generate
- * javascript output which calls this named function passing the data object as its only parameter.
- * @cfg nocache {Boolean} (Optional) Defaults to true. Disable cacheing by adding a uniqque parameter name
- * to the request.
  * @constructor
- * @param {Object} conn An Ext.data.Connection object referencing the URL from which the data object
- * is to be read, or a configuration object for an {@link Ext.data.Connection}.
+ * @param {Object} conn A configuration object.
  */
 Ext.data.ScriptTagProxy = function(config){
     Ext.data.ScriptTagProxy.superclass.constructor.call(this);
@@ -30,17 +22,28 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
      * @cfg {Number} timeout (Optional) The number of milliseconds to wait for a response. Defaults to 30 seconds.
      */
     timeout : 30000,
+    /**
+     * @cfg {String} callbackParam (Optional) The name of the parameter to pass to the server which tells
+     * the server the name of the callback function set up by the load call to process the returned data object.
+     * Defaults to "callback".<p>The server-side processing must read this parameter value, and generate
+     * javascript output which calls this named function passing the data object as its only parameter.
+     */
     callbackParam : "callback",
+    /**
+     *  @cfg nocache {Boolean} (Optional) Defaults to true. Disable cacheing by adding a unique parameter
+     * name to the request.
+     */
     nocache : true,
     
     /**
      * Load data from the configured URL, read the data object into
      * a block of Ext.data.Records using the passed Ext.data.DataReader implementation, and
      * process that block using the passed callback.
-     * @param {Object} params This parameter is not used by the MemoryProxy class.
+     * @param {Object} params An object containing properties which are to be used as HTTP parameters
+     * for the request to the remote server.
      * @param {Ext.data.DataReader} reader The Reader object which converts the data
      * object into a block of Ext.data.Records.
-     * @param {Function} callback The function into which to pass the block of Ext.data.records.
+     * @param {Function} callback The function into which to pass the block of Ext.data.Records.
      * The function must be passed <ul>
      * <li>The Record block object</li>
      * <li>The "arg" argument from the load function</li>
