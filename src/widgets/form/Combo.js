@@ -589,7 +589,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
      * @return {Boolean} valueFound True if the value matched an item in the list, else false
      */
     selectByValue : function(v, scrollIntoView){
-        if(this.value !== undefined && this.value !== null){
+        if(v !== undefined && v !== null){
             var r = this.findRecord(this.valueField || this.displayField, v);
             if(r){
                 this.select(this.store.indexOf(r), scrollIntoView);
