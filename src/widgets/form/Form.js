@@ -110,7 +110,7 @@ Ext.extend(Ext.form.Form, Ext.form.BasicForm, {
      */
     start : function(c){
         // cascade label info
-        Ext.applyIf(c, {'labelAlign': this.active.labelAlign, 'labelWidth': this.active.labelWidth});
+        Ext.applyIf(c, {'labelAlign': this.active.labelAlign, 'labelWidth': this.active.labelWidth, 'itemCls': this.active.itemCls});
         this.active.stack.push(c);
         c.ownerCt = this.active;
         this.active = c;

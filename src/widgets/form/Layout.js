@@ -46,7 +46,7 @@ Ext.extend(Ext.form.Layout, Ext.Component, {
         if(slen > 0){
             if(!this.fieldTpl){
                 var t = new Ext.Template(
-                    '<div class="x-form-item">',
+                    '<div class="x-form-item {5}">',
                         '<label for="{0}" style="{2}">{1}{4}</label>',
                         '<div class="x-form-element" id="x-form-el-{0}" style="{3}">',
                         '</div>',
@@ -70,7 +70,7 @@ Ext.extend(Ext.form.Layout, Ext.Component, {
     },
 
     renderField : function(f){
-       this.fieldTpl.append(this.el, [f.id, f.fieldLabel, f.labelStyle||this.labelStyle||'', this.elementStyle||'', f.labelSeparator||this.labelSeparator]);
+       this.fieldTpl.append(this.el, [f.id, f.fieldLabel, f.labelStyle||this.labelStyle||'', this.elementStyle||'', f.labelSeparator||this.labelSeparator, f.itemCls||this.itemCls||'']);
     },
 
     renderComponent : function(c){
