@@ -7,7 +7,6 @@
  * For cross-domain access to remote data, use an Ext.data.ScriptTagProxy.
  * </em>
  * @cfg {String} url The url from which to request the data object.
- * @cfg {Number} timeout (Optional) The number of milliseconds to wait for a response. Defaults to 30 seconds.
  * @cfg {String} callbackParam (Optional) The name of the parameter to pass to the server which tells
  * the server the name of the callback function set up by the load call to process the returned data object.
  * Defaults to "callback".<p>The server-side processing must read this parameter value, and generate
@@ -27,6 +26,9 @@ Ext.data.ScriptTagProxy = function(config){
 Ext.data.ScriptTagProxy.TRANS_ID = 1000;
 
 Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
+    /**
+     * @cfg {Number} timeout (Optional) The number of milliseconds to wait for a response. Defaults to 30 seconds.
+     */
     timeout : 30000,
     callbackParam : "callback",
     nocache : true,
