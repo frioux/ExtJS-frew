@@ -23,6 +23,9 @@ Ext.extend(Ext.form.Form, Ext.form.BasicForm, {
     /**
      * @cfg {Number} labelWidth The width of labels. This property cascades to child containers.
      */
+    /**
+     * @cfg {String} itemCls A css class to apply to the x-form-item of fields. This property cascades to child containers.
+     */
     /*
      * unused
      */

@@ -1170,10 +1170,17 @@ Ext.extend(Ext.LayoutDialog, Ext.BasicDialog, {
         return this.layout;
     },
 
+    showEl : function(){
+        Ext.LayoutDialog.superclass.showEl.apply(this, arguments);
+        if(Ext.isIE7){
+            this.layout.layout();
+        }
+    },
+
     // private
     // Use the syncHeightBeforeShow config option to control this automatically
     syncBodyHeight : function(){
         Ext.LayoutDialog.superclass.syncBodyHeight.call(this);
-        if(this.layout)this.layout.layout();
+        if(this.layout){this.layout.layout();}
     }
 });
