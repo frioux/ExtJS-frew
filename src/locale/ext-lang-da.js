@@ -75,7 +75,8 @@ if(Ext.DatePicker){
       prevText          : 'Forrige måned (Ctrl + venstre piltast)',
       monthYearText     : 'Vælg en måned (Ctrl + op/ned pil for at ændre årstal)',
       todayTip          : "{0} (mellemrum)",
-      format            : "d/m/y"
+      format            : "d/m/y",
+      startDay		: 1
    });
 }
 
