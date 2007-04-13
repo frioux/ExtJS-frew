@@ -104,7 +104,11 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
     // private
     initEvents : function(){
         Ext.form.TextField.superclass.initEvents.call(this);
-        if(this.validationEvent !== false){
+        if(this.validationEvent == 'keyup'){
+            this.validationTask = new Ext.util.DelayedTask(this.validate, this);
+            this.el.on('keyup', this.filterValidation, this);
+        }
+        else if(this.validationEvent !== false){
             this.el.on(this.validationEvent, this.validate, this, {buffer: this.validationDelay});
         }
         if(this.selectOnFocus || this.emptyText){
@@ -123,6 +127,12 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
         if(this.grow){
             this.el.on("keyup", this.onKeyUp,  this, {buffer:50});
             this.el.on("click", this.autoSize,  this);
+        }
+    },
+
+    filterValidation : function(e){
+        if(!e.isNavKeyPress()){
+            this.validationTask.delay(this.validationDelay);
         }
     },
 

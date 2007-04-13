@@ -160,7 +160,7 @@ Ext.extend(Ext.util.MixedCollection, Ext.util.Observable, {
     each : function(fn, scope){
         var items = [].concat(this.items); // each safe for removal
         for(var i = 0, len = items.length; i < len; i++){
-            if(fn.call(scope || items[i], items[i]) === false){
+            if(fn.call(scope || items[i], items[i], i, len) === false){
                 break;
             }
         }
@@ -174,7 +174,7 @@ Ext.extend(Ext.util.MixedCollection, Ext.util.Observable, {
  */
     eachKey : function(fn, scope){
         for(var i = 0, len = this.keys.length; i < len; i++){
-            fn.call(scope || window, this.keys[i], this.items[i]);
+            fn.call(scope || window, this.keys[i], this.items[i], i, len);
         }
     },
    
