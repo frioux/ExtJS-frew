@@ -32,20 +32,16 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
      * @cfg {Boolean} checked True if the the checkbox should render already checked (defaults to false)
      */
     checked: false,
-    /**
-     * @cfg {String/Object} defaultAutoCreate A DomHelper element spec, or true for a default element spec (defaults to
-     * { tag: "input", type: 'checkbox', autocomplete: "off"})
-     */
+
+    // private
     defaultAutoCreate : { tag: "input", type: 'checkbox', autocomplete: "off"},
     /**
      * @cfg {String} boxLabel The text that appears beside the checkbox
      */
     boxLabel : undefined,
-
     /**
      * @cfg {String} inputValue The value that should go into the generated input element's value attribute
      */
-
     /**
      * Sets the width and height of the checkbox wrapper element
      * @param {Number} width New width in pixels

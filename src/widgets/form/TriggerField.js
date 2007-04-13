@@ -94,6 +94,17 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
         this.setSize(this.width||'', this.height||'');
     },
 
+    onDestroy : function(){
+        if(this.trigger){
+            this.trigger.removeAllListeners();
+            this.trigger.remove();
+        }
+        if(this.wrap){
+            this.wrap.remove();
+        }
+        Ext.form.TriggerField.superclass.onDestroy.call(this);
+    },
+
     // private
     onFocus : function(){
         Ext.form.TriggerField.superclass.onFocus.call(this);

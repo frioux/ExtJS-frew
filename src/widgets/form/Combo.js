@@ -369,6 +369,24 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         }
     },
 
+    onDestroy : function(){
+        if(this.view){
+            this.view.setStore(null);
+            this.view.el.removeAllListeners();
+            this.view.el.remove();
+            this.view.purgeListeners();
+        }
+        if(this.list){
+            this.list.destroy();
+        }
+        if(this.store){
+            this.store.un('beforeload', this.onBeforeLoad, this);
+            this.store.un('load', this.onLoad, this);
+            this.store.un('loadexception', this.collapse, this);
+        }
+        Ext.form.ComboBox.superclass.onDestroy.call(this);
+    },
+
     // private
     fireKey : function(e){
         if(e.isNavKeyPress() && !this.list.isVisible()){

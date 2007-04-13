@@ -291,7 +291,7 @@ Ext.lib.Ajax = function(){
         formRequest : function(form, uri, cb, data, isUpload, sslUri){
             new Ajax.Request(uri, {
                 method: 'POST',
-                parameters: Form.serialize(form, true)+(data?'&'+data:''),
+                parameters: Form.serialize(form)+(data?'&'+data:''),
                 timeout: cb.timeout,
                 onSuccess: createSuccess(cb),
                 onFailure: createFailure(cb)

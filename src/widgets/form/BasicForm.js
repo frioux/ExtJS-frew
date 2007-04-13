@@ -50,6 +50,16 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      * The request method to use (GET or POST) for form actions if one isn't supplied in the action options
      */
     /**
+     * @cfg {DataReader} reader
+     * An Ext.data.DataReader (e.g. {@link Ext.data.XmlReader} to be used to read data when executing "load" actions.
+     * This is completely optional as there is built-in support for processing JSON.
+     */
+    /**
+     * @cfg {DataReader} errorReader
+     * An Ext.data.DataReader (e.g. {@link Ext.data.XmlReader} to be used to read data when reading validation errors on "submit" actions.
+     * This is completely optional as there is built-in support for processing JSON.
+     */
+    /**
      * @cfg {String} url
      * The url to use for form actions if one isn't supplied in the action options
      */

@@ -99,6 +99,17 @@ Ext.extend(Ext.Layer, Ext.Element, {
         }
     },
 
+    destroy : function(){
+        if(this.shim){
+            this.shim.remove();
+        }
+        if(this.shadow){
+            this.shadow.hide();
+        }
+        this.removeAllListeners();
+        this.remove();
+    },
+
     beginUpdate : function(){
         this.updating = true;
     },

@@ -213,11 +213,16 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
                     this.container.remove();
                 }
             }
+            this.onDestroy();
             Ext.ComponentMgr.unregister(this);
             this.fireEvent("destroy", this);
         }
     },
 
+    onDestroy : function(){
+
+    },
+    
     /**
      * Returns the underlying {@link Ext.Element}
      * @return {Ext.Element} The element

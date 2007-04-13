@@ -127,6 +127,9 @@ Ext.EventManager = function(){
         E.on(el, ename, h);
         if(ename == "mousewheel" && el.addEventListener){ // workaround for jQuery
             el.addEventListener("DOMMouseScroll", h, false);
+            E.on(window, 'unload', function(){
+                el.removeEventListener("DOMMouseScroll", h, false);
+            });
         }
         if(ename == "mousedown" && el == document){ // fix stopped mousedowns on the document
             Ext.EventManager.stoppedMouseDownEvent.addListener(h);
