@@ -7,7 +7,7 @@
  * @param {Object} config Configuration options
  */
 Ext.form.Radio = function(){
-    Ext.form.Radio.superclass.apply(this, arguments);
+    Ext.form.Radio.superclass.constructor.apply(this, arguments);
 };
 Ext.extend(Ext.form.Radio, Ext.form.Checkbox, {
     inputType: 'radio'
