@@ -161,4 +161,8 @@
   <file name="layout\images\warning.gif" path="layout\images" />
   <file name="layout\feed-proxy.ashx" path="layout" />
   <file name="layout\feed-proxy.ashx.vb" path="layout" />
+  <file name="form\xml-form.js" path="form" />
+  <file name="form\xml-form.xml" path="form" />
+  <file name="form\xml-form.html" path="form" />
+  <file name="form\xml-errors.xml" path="form" />
 </project>
