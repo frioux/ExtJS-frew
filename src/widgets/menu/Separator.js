@@ -1,11 +1,13 @@
 /**
  * @class Ext.menu.Separator
  * @extends Ext.menu.BaseItem
- * Adds a separator bar to a menu, used to divide logical groups of menu items.
+ * Adds a separator bar to a menu, used to divide logical groups of menu items. Generally you will
+ * add one of these by using "-" in you call to add() or in your items config rather than creating one directly.
  * @constructor
+ * @param {Object} config Configuration options
  */
-Ext.menu.Separator = function(){
-    Ext.menu.Separator.superclass.constructor.call(this);
+Ext.menu.Separator = function(config){
+    Ext.menu.Separator.superclass.constructor.call(this, config);
 };
 
 Ext.extend(Ext.menu.Separator, Ext.menu.BaseItem, {
