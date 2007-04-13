@@ -71,6 +71,8 @@ if(Ext.DatePicker){
       maxText           : "Cette date est plus grande que la date maximum",
       disabledDaysText  : "",
       disabledDatesText : "",
+      monthNames	: Date.monthNames,
+      dayNames		: Date.dayNames,
       nextText          : 'Prochain mois (CTRL+Fléche droite)',
       prevText          : 'Mois précédent (CTRL+Fléche gauche)',
       monthYearText     : 'Choissisez un mois (CTRL+Fléche haut ou bas pour changer d\'année.)',

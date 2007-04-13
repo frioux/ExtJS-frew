@@ -76,6 +76,8 @@ if(Ext.DatePicker){
       maxText           : "Ngày này lớn hơn ngày lớn nhất",
       disabledDaysText  : "",
       disabledDatesText : "",
+      monthNames	: Date.monthNames,
+      dayNames		: Date.dayNames,
       nextText          : 'Tháng sau (Control+Right)',
       prevText          : 'Tháng trước (Control+Left)',
       monthYearText     : 'Chọn một tháng (Control+Up/Down để thay đổi năm)',

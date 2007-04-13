@@ -76,7 +76,7 @@ if(Ext.DatePicker){
       monthYearText     : 'Vælg en måned (Ctrl + op/ned pil for at ændre årstal)',
       todayTip          : "{0} (mellemrum)",
       format            : "d/m/y",
-      startDay		: 1
+      startDay          : 1
    });
 }
 

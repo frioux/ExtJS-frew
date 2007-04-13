@@ -75,6 +75,8 @@ if(Ext.DatePicker){
       maxText           : "Bu tarih maximum tarihten sonra",
       disabledDaysText  : "",
       disabledDatesText : "",
+      monthNames	: Date.monthNames,
+      dayNames		: Date.dayNames,
       nextText          : 'Sonraki Ay (Ctrl+Sağ)',
       prevText          : 'Önceki Ay (Ctrl+Sol)',
       monthYearText     : 'Bir ay seçin (Yılları değiştirmek için Ctrl+Yukarı/Aşağı)',

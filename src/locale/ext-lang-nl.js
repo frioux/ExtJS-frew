@@ -77,11 +77,13 @@ if(Ext.DatePicker){
        maxText           : "Deze datum is later dan de maximum datum",
        disabledDaysText  : "",
        disabledDatesText : "",
+       monthNames	 : Date.monthNames,
+       dayNames		 : Date.dayNames,
        nextText          : 'Volgende Maand (Control+Rechts)',
        prevText          : 'Vorige Maand (Control+Links)',
        monthYearText     : 'Kies een maand (Control+Omhoog/Beneden volgend/vorige jaar)',
        todayTip          : "{0} (Spatie)",
-       format            : "y/m/d",
+       format            : "d/m/y",
        startDay          : 1
     });
 }
@@ -125,7 +127,7 @@ if(Ext.form.DateField){
        minText           : "De datum in dit veld moet na {0} liggen",
        maxText           : "De datum in dit veld moet voor {0} liggen",
        invalidText       : "{0} is geen geldige datum - formaat voor datum is {1}",
-       format            : "y/m/d"
+       format            : "d/m/y"
     });
 }
 
@@ -138,8 +140,8 @@ if(Ext.form.ComboBox){
 
 if(Ext.form.VTypes){
     Ext.apply(Ext.form.VTypes, {
-       emailText    : 'Dit veld moet een e-mail adres in het formaat "user@domain.com"',
-       urlText      : 'Dit veld moet een URL zijn in het formaat "http:/'+'/www.domain.com"',
+       emailText    : 'Dit veld moet een e-mail adres in het formaat "gebruiker@domein.nl"',
+       urlText      : 'Dit veld moet een URL zijn in het formaat "http:/'+'/www.domein.nl"',
        alphaText    : 'Dit veld mag alleen letters en _ bevatten',
        alphanumText : 'Dit veld mag alleen letters, cijfers en _ bevatten'
     });

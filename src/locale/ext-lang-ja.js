@@ -57,6 +57,8 @@ if(Ext.DatePicker){
      maxText           : "選択した日付は最大値以上です。",
      disabledDaysText  : "",
      disabledDatesText : "",
+     monthNames	       : Date.monthNames,
+     dayNames	       : Date.dayNames,
      nextText          : '次月へ (コントロール+右)',
      prevText          : '前月へ (コントロール+左)',
      monthYearText     : '月選択 (コントロール+上/下で年移動)',
