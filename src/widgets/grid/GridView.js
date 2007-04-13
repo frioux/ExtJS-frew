@@ -1345,7 +1345,11 @@ if(!dds[dd].config.isTarget && dds[dd].dragElId){
 
         if(auto){
             var ch = this.getBodyTable().offsetHeight + tbh + bbh + this.mainHd.getHeight();
-            c.setHeight(ch+c.getBorderWidth("tb"));
+            var newHeight = ch + c.getBorderWidth("tb");
+            if(g.maxHeight){
+                newHeight = Math.min(g.maxHeight, newHeight);
+            }
+            c.setHeight(newHeight);
         }
 
         if(g.autoWidth){

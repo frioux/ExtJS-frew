@@ -37,7 +37,7 @@ Ext.apply = function(o, c, defaults){
 
     var isStrict = document.compatMode == "CSS1Compat",
         isOpera = ua.indexOf("opera") > -1,
-        isSafari = ua.indexOf("webkit") > -1,
+        isSafari = (/webkit|khtml/).test(ua),
         isIE = ua.indexOf("msie") > -1,
         isIE7 = ua.indexOf("msie 7") > -1,
         isGecko = !isSafari && ua.indexOf("gecko") > -1,

@@ -83,6 +83,10 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
      * a cache of Ext.data.Records.
      */
     readRecords : function(o){
+        /**
+         * After any data loads, the raw JSON data is available for further custom processing.
+         * @type Object
+         */
         this.jsonData = o;
         var s = this.meta, Record = this.recordType,
             f = Record.prototype.fields, fi = f.items, fl = f.length;

@@ -223,7 +223,8 @@ Ext.util.Observable.releaseCapture = function(o){
                 if(!this.firing){ // if we are currently firing this event, don't disturb the listener loop
                     this.listeners.push(l);
                 }else{
-                    this.listeners = this.listeners.slice(0).push(l);
+                    this.listeners = this.listeners.slice(0);
+                    this.listeners.push(l);
                 }
             }
         },

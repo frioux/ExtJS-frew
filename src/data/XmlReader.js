@@ -68,6 +68,10 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
      * a cache of Ext.data.Records.
      */
     readRecords : function(doc){
+        /**
+         * After any data loads/reads, the raw XML Document is available for further custom processing.
+         * @type XMLDocument
+         */
         this.xmlData = doc;
         var root = doc.documentElement || doc;
     	var q = Ext.DomQuery;

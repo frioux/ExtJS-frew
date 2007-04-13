@@ -17,6 +17,7 @@
     dlg.addButton('Cancel', dlg.hide, dlg);
     dlg.show();
   </code></pre>
+  <b>A Dialog should always be a direct child of the body element.</b>
  * @cfg {Boolean/DomHelper} autoCreate True to auto create from scratch, or using a DomHelper Object (defaults to false)
  * @cfg {String} title Default text to display in the title bar (defaults to null)
  * @cfg {Number} width Width of the dialog in pixels (can also be set via CSS).  Determined by browser if unspecified.

@@ -357,6 +357,10 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
 	loadMask : false,
 
     /**
+    * Sets the maximum height of the grid - ignored if autoHeight is not on.
+    * @type Number
+    */
+    /**
      * Called once after all setup has been completed and the grid is ready to be rendered.
      * @return {Ext.grid.Grid} this
      */

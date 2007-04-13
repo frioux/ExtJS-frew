@@ -6,18 +6,10 @@
 Ext.util.CSS = function(){
 	var rules = null;
    	var doc = document;
-   	
-   	var toCamel = function(property) {
-      var convert = function(prop) {
-         var test = /(-[a-z])/i.exec(prop);
-         return prop.replace(RegExp.$1, RegExp.$1.substr(1).toUpperCase());
-      };
-      while(property.indexOf("-") > -1) {
-         property = convert(property);
-      }
-      return property;
-   };
-   
+
+    var camelRe = /(-[a-z])/gi;
+    var camelFn = function(m, a){ return a.charAt(1).toUpperCase(); };
+
    return {
    /**
     * Very simple dynamic creation of stylesheets from a text blob of rules.  The text will wrapped in a style
@@ -142,7 +134,7 @@ Ext.util.CSS = function(){
    		if(!(selector instanceof Array)){
    			var rule = this.getRule(selector);
    			if(rule){
-   				rule.style[toCamel(property)] = value;
+   				rule.style[property.replace(camelRe, camelFn)] = value;
    				return true;
    			}
    		}else{
