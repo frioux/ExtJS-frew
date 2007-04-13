@@ -139,7 +139,36 @@ Ext.extend(Ext.ContentPanel, Ext.util.Observable, {
     getUpdateManager : function(){
         return this.el.getUpdateManager();
     },
-    
+     /**
+     * Loads this content panel immediately with content from XHR. Note: to delay loading until the panel is activated, use setUrl.
+     * @param {Object/String/Function} url The url for this request or a function to call to get the url or a config object containing any of the following options:
+<pre><code>
+panel.load({<br/>
+    url: "your-url.php",<br/>
+    params: {param1: "foo", param2: "bar"}, // or a URL encoded string<br/>
+    callback: yourFunction,<br/>
+    scope: yourObject, //(optional scope)  <br/>
+    discardUrl: false, <br/>
+    nocache: false,<br/>
+    text: "Loading...",<br/>
+    timeout: 30,<br/>
+    scripts: false<br/>
+});
+</code></pre>
+     * The only required property is url. The optional properties nocache, text and scripts 
+     * are shorthand for disableCaching, indicatorText and loadScripts and are used to set their associated property on this panel UpdateManager instance.
+     * @param {String/Object} params (optional) The parameters to pass as either a url encoded string "param1=1&amp;param2=2" or an object {param1: 1, param2: 2}
+     * @param {Function} callback (optional) Callback when transaction is complete - called with signature (oElement, bSuccess, oResponse)
+     * @param {Boolean} discardUrl (optional) By default when you execute an update the defaultUrl is changed to the last used url. If true, it will not store the url.
+     * @return {Ext.ContentPanel} this
+     */
+    load : function(){
+        var um = this.el.getUpdateManager();
+        um.update.apply(um, arguments);
+        return this;
+    },
+
+
     /**
      * Set a URL to be used to load the content for this panel. When this panel is activated, the content will be loaded from that URL.
      * @param {String/Function} url The url to load the content from or a function to call to get the url
