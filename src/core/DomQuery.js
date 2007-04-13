@@ -11,7 +11,7 @@
 Ext.DomQuery = function(){
     var cache = {}, simpleCache = {}, valueCache = {};
     var nonSpace = /\S/;
-    var trimRe = /^(\s+)|(\s+)$/mg;
+    var trimRe = /^\s+|\s+$/g;
     var tplRe = /\{(\d+)\}/g;
     var modeRe = /^(\s?[\/>]\s?|\s|$)/;
     var tagTokenRe = /^(#)?([\w-\*]+)/;
