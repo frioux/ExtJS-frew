@@ -102,6 +102,11 @@ side          Add an error icon to the right of the field with a popup on hover
      */
     msgFx : 'normal',
 
+    /**
+     * @cfg {String} inputType The type attribute for input fields - e.g. radio, text, password. (defaults to "text")
+     */
+    inputType : undefined,
+
     // private
     isFormField : true,
 
@@ -139,6 +144,9 @@ side          Add an error icon to the right of the field with a popup on hover
             var cfg = this.getAutoCreate();
             if(!cfg.name){
                 cfg.name = this.name || this.id;
+            }
+            if(this.inputType){
+                cfg.type = this.inputType;
             }
             if(this.tabIndex !== undefined){
                 cfg.tabIndex = this.tabIndex;
