@@ -142,7 +142,7 @@ Ext.data.Record.prototype = {
     // private
     endEdit : function(){
         this.editing = false;
-        if(this.dirty){
+        if(this.dirty && this.store){
             this.store.afterEdit(this);
         }
     },
@@ -165,7 +165,9 @@ Ext.data.Record.prototype = {
         this.dirty = false;
         delete this.modified;
         this.editing = false;
-        this.store.afterReject(this);
+        if(this.store){
+            this.store.afterReject(this);
+        }
     },
 
     /**
@@ -179,7 +181,9 @@ Ext.data.Record.prototype = {
         this.dirty = false;
         delete this.modified;
         this.editing = false;
-        this.store.afterCommit(this);
+        if(this.store){
+            this.store.afterCommit(this);
+        }
     },
 
     // private

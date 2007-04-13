@@ -11,7 +11,7 @@
 	height: 15px;
 	float:right;
 	width: 15px;
-    margin:2px;
+    margin:0 0 2px 2px;
     cursor:pointer;
     display:none;
 }
@@ -70,7 +70,7 @@
     margin:0 !important;
     line-height:14px;
     color:#222;
-    padding:2px 2px;
+    padding:0;
     float:left;
 }
 
@@ -105,4 +105,7 @@
 .x-form-invalid-tip .x-tip-bd .x-tip-bd-inner {
     padding-left:24px;
     background:transparent url(../images/default/form/exclamation.gif) no-repeat 2px 2px;
+}
+.x-form-invalid-tip .x-tip-bd-inner {
+    padding:2px;
 }

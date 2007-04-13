@@ -3,7 +3,7 @@ Ext.namespace('Ext.exampledata');
 
 Ext.exampledata.states = [
         ['AL', 'Alabama'],
-        ['AL', 'Alaska'],
+        ['AK', 'Alaska'],
         ['AZ', 'Arizona'],
         ['AR', 'Arkansas'],
         ['CA', 'California'],

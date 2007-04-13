@@ -32,6 +32,7 @@ var myReader = new Ext.data.XmlReader({
  * in the dataset. This is only needed if the whole dataset is not passed in one go, but is being
  * paged from the remote server.
  * @cfg {String} record The DomQuery path to the repeated element which contains record information.
+ * @cfg {String} success The DomQuery path to the success attribute used by forms.
  * @cfg {String} id The DomQuery path relative from the record element to the element that contains
  * a record identifier value.
  * @constructor
@@ -72,9 +73,14 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
     	var q = Ext.DomQuery;
     	var recordType = this.recordType, fields = recordType.prototype.fields;
     	var sid = this.meta.id;
-    	var totalRecords = 0;
+    	var totalRecords = 0, success = true;
     	if(this.meta.totalRecords){
     	    totalRecords = q.selectNumber(this.meta.totalRecords, root, 0);
+    	}
+        
+        if(this.meta.success){
+            var sv = q.selectValue(this.meta.success, root, true);
+            success = sv !== false && sv !== 'false';
     	}
     	var records = [];
     	var ns = q.select(this.meta.record, root);
@@ -94,6 +100,7 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
 	    }
 
 	    return {
+	        success : success,
 	        records : records,
 	        totalRecords : totalRecords || records.length
 	    };

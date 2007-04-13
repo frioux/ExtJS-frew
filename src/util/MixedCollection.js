@@ -300,7 +300,8 @@ Ext.extend(Ext.util.MixedCollection, Ext.util.Observable, {
  * @return {Object} The item associated with the passed key.
  */
     item : function(key){
-        return typeof this.map[key] != "undefined" ? this.map[key] : this.items[key];
+        var item = typeof this.map[key] != "undefined" ? this.map[key] : this.items[key];
+        return typeof item != 'function' || this.allowFunctions ? item : null; // for prototype!
     },
     
 /**

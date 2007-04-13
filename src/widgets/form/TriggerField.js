@@ -151,6 +151,19 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
         }
     },
 
+    // private
+    onShow : function(){
+        if(this.wrap){
+            this.wrap.dom.style.display = '';
+            this.wrap.dom.style.visibility = 'visible';
+        }
+    },
+
+    // private
+    onHide : function(){
+        this.wrap.dom.style.display = 'none';
+    },
+
     /**
      * The function that should handle the trigger's click event.  This method does nothing by default until overridden
      * by a handler implementation.

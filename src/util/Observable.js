@@ -65,11 +65,7 @@ Ext.util.Observable.prototype = {
         }
         o = (!o || typeof o == "boolean") ? {} : o;
         eventName = eventName.toLowerCase();
-        var ce = this.events[eventName];
-        if(!ce){
-            // added for a better message when subscribing to wrong event
-            throw 'Event does not exist: "' + eventName + '".';
-        }
+        var ce = this.events[eventName] || true;
         if(typeof ce == "boolean"){
             ce = new Ext.util.Event(this, eventName);
             this.events[eventName] = ce;

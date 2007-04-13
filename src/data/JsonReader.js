@@ -23,6 +23,7 @@
  * @cfg {String} totalProperty Name of the property from which to retrieve the total number of records
  * in the dataset. This is only needed if the whole dataset is not passed in one go, but is being
  * paged from the remote server.
+ * @cfg {String} successProperty Name of the property from which to retrieve the success attribute used by forms.
  * @cfg {String} root name of the property which contains the Array of row objects.
  * @cfg {String} id Name of the property within a row object that contains a record identifier value.
  * @constructor
@@ -88,8 +89,11 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
 
 //      Generate extraction functions for the totalProperty, the root, the id, and for each field
         if (!this.ef) {
-            if (s.totalProperty) {
+            if(s.totalProperty) {
 	            this.getTotal = this.getJsonAccessor(s.totalProperty);
+	        }
+	        if(s.successProperty) {
+	            this.getSuccess = this.getJsonAccessor(s.successProperty);
 	        }
 	        this.getRoot = s.root ? this.getJsonAccessor(s.root) : function(p){return p;};
 	        if (s.id) {
@@ -109,11 +113,17 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             }
         }
 
-    	var root = this.getRoot(o), c = root.length, totalRecords = c;
+    	var root = this.getRoot(o), c = root.length, totalRecords = c, success = true;
     	if(s.totalProperty){
             var v = parseInt(this.getTotal(o), 10);
             if(!isNaN(v)){
                 totalRecords = v;
+            }
+        }
+        if(s.successProperty){
+            var v = this.getSuccess(o);
+            if(v === false || v === 'false'){
+                success = false;
             }
         }
         var records = [];
@@ -131,6 +141,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
 	        records[i] = record;
 	    }
 	    return {
+	        success : success,
 	        records : records,
 	        totalRecords : totalRecords
 	    };

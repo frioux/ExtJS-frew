@@ -15,11 +15,18 @@ Ext.form.Action.prototype = {
     response : undefined,
     result : undefined,
 
+    // interface method
     run : function(options){
 
     },
 
+    // interface method
     success : function(response){
+
+    },
+
+    // interface method
+    handleResponse : function(response){
 
     },
 
@@ -32,13 +39,11 @@ Ext.form.Action.prototype = {
     processResponse : function(response){
         this.response = response;
         if(!response.responseText){
-            this.result = true;
-        }else{
-            this.result = Ext.decode(response.responseText);
+            return true;
         }
+        this.result = this.handleResponse(response);
         return this.result;
     },
-
 
     // utility functions used internally
     getUrl : function(appendParams){
@@ -116,12 +121,34 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
             this.failureType = Ext.form.Action.SERVER_INVALID;
             this.form.afterAction(this, false);
         }
+    },
+
+    handleResponse : function(response){
+        if(this.form.errorReader){
+            var rs = this.form.errorReader.read(response);
+            var errors = [];
+            if(rs.records){
+                for(var i = 0, len = rs.records.length; i < len; i++) {
+                    var r = rs.records[i];
+                    errors[i] = r.data;
+                }
+            }
+            if(errors.length < 1){
+                errors = null;
+            }
+            return {
+                success : rs.success,
+                errors : errors
+            };
+        }
+        return Ext.decode(response.responseText);
     }
 });
 
 
 Ext.form.Action.Load = function(form, options){
     Ext.form.Action.Load.superclass.constructor.call(this, form, options);
+    this.reader = this.form.reader;
 };
 
 Ext.extend(Ext.form.Action.Load, Ext.form.Action, {
@@ -145,6 +172,18 @@ Ext.extend(Ext.form.Action.Load, Ext.form.Action, {
         this.form.clearInvalid();
         this.form.setValues(result.data);
         this.form.afterAction(this, true);
+    },
+
+    handleResponse : function(response){
+        if(this.form.reader){
+            var rs = this.form.reader.read(response);
+            var data = rs.records && rs.records[0] ? rs.records[0].data : null;
+            return {
+                success : rs.success,
+                data : data
+            };
+        }
+        return Ext.decode(response.responseText);
     }
 });
 

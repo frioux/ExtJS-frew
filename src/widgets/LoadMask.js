@@ -5,12 +5,14 @@ Ext.LoadMask = function(el, config){
         this.store.on('beforeload', this.onBeforeLoad, this);
         this.store.on('load', this.onLoad, this);
         this.store.on('loadexception', this.onLoad, this);
+        this.removeMask = false;
     }else{
         var um = this.el.getUpdateManager();
         um.showLoadIndicator = false; // disable the default indicator
         um.on('beforeupdate', this.onBeforeLoad, this);
         um.on('update', this.onLoad, this);
         um.on('failure', this.onLoad, this);
+        this.removeMask = true;
     }
 };
 
@@ -28,7 +30,7 @@ Ext.LoadMask.prototype = {
     },
 
     onLoad : function(){
-        this.el.unmask();
+        this.el.unmask(this.removeMask);
     },
 
     onBeforeLoad : function(){

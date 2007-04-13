@@ -127,6 +127,22 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
         this.doAction('load', options);
     },
 
+    /**
+     * Persists the values in this form into the passed Ext.data.Record object in a beginEdit/endEdit block.
+     * @param {Record} record The record to edit
+     */
+    updateRecord : function(record){
+        record.beginEdit();
+        var fs = record.fields;
+        fs.each(function(f){
+            var field = this.fieldField(f.name);
+            if(field){
+                record.set(f.name, field.getValue());
+            }
+        }, this);
+        record.endEdit();
+    },
+
     // private
     beforeAction : function(action){
         var o = action.options;

@@ -236,6 +236,10 @@
 	background-image: url(../images/vista/qtip/tip-sprite.gif);
 }
 
+.x-tip .x-tip-bd-inner {
+    padding:2px;
+}
+
 /* BorderLayout */
 .x-layout-container{
     background:#4f4f4f;

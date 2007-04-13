@@ -11,7 +11,7 @@
 Ext.DomQuery = function(){
     var cache = {}, simpleCache = {}, valueCache = {};
     var nonSpace = /\S/;
-    var trimRe = /^\s*(.*?)\s*$/;
+    var trimRe = /^(\s+)|(\s+)$/mg;
     var tplRe = /\{(\d+)\}/g;
     var modeRe = /^(\s?[\/>]\s?|\s|$)/;
     var tagTokenRe = /^(#)?([\w-\*]+)/;
@@ -90,7 +90,7 @@ Ext.DomQuery = function(){
         if(!ns){
             return result;
         }
-        mode = mode ? mode.replace(trimRe, "$1") : "";
+        mode = mode ? mode.replace(trimRe, "") : "";
         tagName = tagName || "*";
         if(typeof ns.getElementsByTagName != "undefined"){
             ns = [ns];   
@@ -382,7 +382,7 @@ Ext.DomQuery = function(){
             var paths = path.split(",");
             var results = [];
             for(var i = 0, len = paths.length; i < len; i++){
-                var p = paths[i].replace(trimRe, "$1");
+                var p = paths[i].replace(trimRe, "");
                 if(!cache[p]){
                     cache[p] = Ext.DomQuery.compile(p);
                     if(!cache[p]){
@@ -414,7 +414,7 @@ Ext.DomQuery = function(){
          * @param {String} defaultValue
          */
         selectValue : function(path, root, defaultValue){
-            path = path.replace(trimRe, "$1");
+            path = path.replace(trimRe, "");
             if(!valueCache[path]){
                 valueCache[path] = Ext.DomQuery.compile(path, "select");
             }
@@ -460,7 +460,7 @@ Ext.DomQuery = function(){
          * @return {Array}
          */
         filter : function(els, ss, nonMatches){
-            ss = ss.replace(trimRe, "$1");
+            ss = ss.replace(trimRe, "");
             if(!simpleCache[ss]){
                 simpleCache[ss] = Ext.DomQuery.compile(ss, "simple");
             }
