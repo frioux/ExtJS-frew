@@ -1,10 +1,4 @@
 /*
- * Ext JS Library 1.0 Beta 1
- * Copyright(c) 2006-2007, Ext JS, LLC.
- * licensing@extjs.com
- * 
- * http://www.extjs.com/license
- *
  * Español/Latinoamerica Translation by genius551v
  * 04-08-2007, 05:58 AM
  */
