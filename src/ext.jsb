@@ -106,6 +106,7 @@
     <include name="widgets\form\DateField.js" />
     <include name="widgets\form\Combo.js" />
     <include name="widgets\form\Checkbox.js" />
+    <include name="widgets\form\Radio.js" />
     <include name="widgets\form\BasicForm.js" />
     <include name="widgets\form\Form.js" />
     <include name="widgets\form\Action.js" />
@@ -314,6 +315,7 @@
     <include name="widgets\form\NumberField.js" />
     <include name="widgets\form\DateField.js" />
     <include name="widgets\form\Checkbox.js" />
+    <include name="widgets\form\Radio.js" />
     <include name="widgets\form\Combo.js" />
     <include name="widgets\Editor.js" />
     <include name="widgets\form\BasicForm.js" />
@@ -560,4 +562,5 @@
   <file name="adapter\yui-bridge.js" path="adapter" />
   <file name="locale\ext-lang-en.js" path="locale" />
   <file name="locale\ext-lang-nl.js" path="locale" />
+  <file name="widgets\form\Radio.js" path="widgets\form" />
 </project>
