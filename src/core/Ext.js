@@ -172,20 +172,18 @@ Ext.apply = function(o, c, defaults){
             if(!o){
                 return "";
             }
-            var obj = {}, buf = [], key, type, i = 0;
-            for(key in o){
-                type = typeof o[key];
-                if(type != "function"){
-                    if(typeof o[key].length == "undefined" || type == "string"){
-                        obj[key] = [o[key]];
-                    }else{
-                        obj[key] = o[key];
+            var buf = [];
+            for(var key in o){
+                var ov = o[key];
+                var type = typeof ov;
+                if(type == 'undefined'){
+                    buf.push(encodeURIComponent(key), "=&");
+                }else if(type != "function" && type != "object"){
+                    buf.push(encodeURIComponent(key), "=", encodeURIComponent(ov), "&");
+                }else if(ov instanceof Array){
+                    for(var i = 0, len = ov.length; i < len; i++) {
+                        buf.push(encodeURIComponent(key), "=", encodeURIComponent(ov[i] === undefined ? '' : ov[i]), "&");
                     }
-                }
-            }
-            for(key in obj){
-                for(i = 0; i < obj[key].length; i++){
-                    buf.push(encodeURIComponent(key), "=", encodeURIComponent(obj[key][i]), "&");
                 }
             }
             buf.pop();
@@ -205,7 +203,7 @@ Ext.apply = function(o, c, defaults){
             var obj = {};
             var pairs = string.split('&');
             var pair, name, value;
-            for(var i = 0; i < pairs.length; i++){
+            for(var i = 0, len = pairs.length; i < len; i++){
                 pair = pairs[i].split('=');
                 name = pair[0];
                 value = pair[1];
