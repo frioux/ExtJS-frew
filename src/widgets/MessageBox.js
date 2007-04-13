@@ -205,7 +205,8 @@ Ext.MessageBox = function(){
 
         /**
          * Displays a new message box, or reinitializes an existing message box, based on the config options
-         * passed in.  The following config object properties are supported:
+         * passed in. All functions (e.g. prompt, alert, etc) on MessageBox call this function internally.
+         * The following config object properties are supported:
          * <pre>
 Property    Type             Description
 ----------  ---------------  ----------------------------------------------------------------------

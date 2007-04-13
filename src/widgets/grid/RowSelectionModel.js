@@ -259,10 +259,13 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
             this.last = last; // reset the last
             view.focusRow(rowIndex);
         }else{
-            if(e.ctrlKey && this.isSelected(rowIndex)){
+            var isSelected = this.isSelected(rowIndex);
+            if(e.button != 0 && isSelected){
+                view.focusRow(rowIndex);
+            }else if(e.ctrlKey && isSelected){
                 this.deselectRow(rowIndex);
             }else{
-                this.selectRow(rowIndex, e.hasModifier());
+                this.selectRow(rowIndex, e.button == 0 && (e.ctrlKey || e.shiftKey));
                 view.focusRow(rowIndex);
             }
         }

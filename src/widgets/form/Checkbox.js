@@ -62,6 +62,7 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
     initEvents : function(){
         Ext.form.Checkbox.superclass.initEvents.call(this);
         this.el.on("click", this.onClick,  this);
+        this.el.on("change", this.onClick,  this);
     },
 
     
