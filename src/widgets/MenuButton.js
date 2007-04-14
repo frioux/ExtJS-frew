@@ -1,7 +1,9 @@
 /**
  * @class Ext.MenuButton
  * @extends Ext.Button
- * Simple Button class
+ * A split button that provides a built-in dropdown arrow that can fire an event separately from the default
+ * click event of the button.  Typically this would be used to display a dropdown menu that provides additional
+ * options to the primary button action, but any custom handler can provide the arrowclick implementation.
  * @cfg {Function} arrowHandler A function called when the arrow button is clicked (can be used instead of click event)
  * @cfg {String} arrowTooltip The title attribute of the arrow
  * @constructor
@@ -13,8 +15,8 @@ Ext.MenuButton = function(renderTo, config){
     Ext.MenuButton.superclass.constructor.call(this, renderTo, config);
     /**
      * @event arrowclick
-     * Fires when this arrow is clicked
-     * @param {Button} this
+     * Fires when this button's arrow is clicked
+     * @param {MenuButton} this
      * @param {EventObject} e The click event
      */
     this.events["arrowclick"] = true;
@@ -71,7 +73,8 @@ Ext.extend(Ext.MenuButton, Ext.Button, {
             this.menu.on("hide", this.onMenuHide, this);
         }
     },
-    
+
+    // private
     autoWidth : function(){
         if(this.el){
             var tbl = this.el.child("table:first");
@@ -127,7 +130,8 @@ Ext.extend(Ext.MenuButton, Ext.Button, {
             this.el.child("a:first").focus();
         }
     },
-    
+
+    // private
     onClick : function(e){
         e.preventDefault();
         if(!this.disabled){
@@ -147,11 +151,13 @@ Ext.extend(Ext.MenuButton, Ext.Button, {
             }
         }
     },
+    // private
     onMouseDown : function(e){
         if(!this.disabled){
             Ext.fly(e.getTarget("table")).addClass("x-btn-click");
         }
     },
+    // private
     onMouseUp : function(e){
         Ext.fly(e.getTarget("table")).removeClass("x-btn-click");
     }   
