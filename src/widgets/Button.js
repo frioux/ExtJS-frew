@@ -3,17 +3,19 @@
  * @extends Ext.util.Observable
  * Simple Button class
  * @cfg {String} text The button text
+ * @cfg {String} icon The path to an image to display in the button (the image will be set as the background-image
+ * CSS property of the button by default, so if you want a mixed icon/text button, set cls:"x-btn-text-icon")
  * @cfg {Function} handler A function called when the button is clicked (can be used instead of click event)
  * @cfg {Object} scope The scope of the handler
  * @cfg {Number} minWidth The minimum width for this button (used to give a set of buttons a common width)
  * @cfg {String/Object} tooltip The tooltip for the button - can be a string or QuickTips config object
- * @cfg {Boolean} hidden True to start hidden
- * @cfg {Boolean} disabled True to start disabled
- * @cfg {Boolean} pressed True to start pressed (only for toggle buttons)
- * @cfg {Boolean} enableToggle True to enable pressed/not pressed toggling
- * @cfg {String} toggleGroup The group this toggle button is a member of (only 1 per group can be pressed)
+ * @cfg {Boolean} hidden True to start hidden (defaults to false)
+ * @cfg {Boolean} disabled True to start disabled (defaults to false)
+ * @cfg {Boolean} pressed True to start pressed (only if enableToggle = true)
+ * @cfg {String} toggleGroup The group this toggle button is a member of (only 1 per group can be pressed, only
+ * applies if enableToggle = true)
  * @cfg {Boolean/Object} repeat True to repeat fire the click event while the mouse is down. This can also be
-  an Ext.util.ClickRepeater config object.
+  an {@link Ext.util.ClickRepeater} config object (defaults to false).
  * @constructor
  * Create a new button
  * @param {String/HTMLElement/Element} renderTo The element to append the button to
@@ -31,13 +33,24 @@ Ext.Button = function(renderTo, config){
 	    "click" : true,
         /**
 	     * @event toggle
-	     * Fires when this the "pressed" state of this button changes (only if toggle enabled)
+	     * Fires when the "pressed" state of this button changes (only if enableToggle = true)
 	     * @param {Button} this
 	     * @param {Boolean} pressed
 	     */
 	    "toggle" : true,
-
+        /**
+	     * @event mouseover
+	     * Fires when the mouse hovers over the button
+	     * @param {Button} this
+	     * @param {Event} e The event object
+	     */
         'mouseover' : true,
+        /**
+	     * @event mouseout
+	     * Fires when the mouse exits the button
+	     * @param {Button} this
+	     * @param {Event} e The event object
+	     */
         'mouseout': true
     };
     if(this.menu){
@@ -61,13 +74,16 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
      */
     disabled : false,
     /**
-     * Read-only. True if this button is pressed (toggle mode only)
+     * Read-only. True if this button is pressed (only if enableToggle = true)
      * @type Boolean
      */
     pressed : false,
 
+    /**
+     * @cfg {Boolean} enableToggle
+     * True to enable pressed/not pressed toggling (defaults to false)
+     */
     enableToggle: false,
-
     /**
      * @cfg {Mixed} menu
      * Standard menu attribute consisting of a reference to a menu object, a menu id or a menu config blob
@@ -75,10 +91,11 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
     menu : undefined,
     /**
      * @cfg {String} menuAlign
-     * The position to align the menu to (see {@link Ext.Element#alignTo} for more details) (defaults to tl-bl?).
+     * The position to align the menu to (see {@link Ext.Element#alignTo} for more details, defaults to 'tl-bl?').
      */
     menuAlign : "tl-bl?",
 
+    // private
     menuClassTarget: 'tr',
 
     /**
@@ -87,6 +104,7 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
      */
     tooltipType : 'qtip',
 
+    // private
     render : function(renderTo){
         var btn;
         if(this.hideParent){
@@ -161,15 +179,15 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
         }
     },
     /**
-     * Returns the buttons element
-     * @return {Ext.Element}
+     * Returns the button's underlying element
+     * @return {Ext.Element} The element
      */
     getEl : function(){
         return this.el;  
     },
     
     /**
-     * Destroys this Button. 
+     * Destroys this Button and removes any listeners.
      */
     destroy : function(){
         Ext.ButtonToggleMgr.unregister(this);
@@ -177,7 +195,8 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
         this.purgeListeners();
         this.el.remove();
     },
-    
+
+    // private
     autoWidth : function(){
         if(this.el){
             this.el.setWidth("auto");
@@ -201,10 +220,11 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
             }
         }
     },
+
     /**
-     * Sets this buttons click handler
+     * Assigns this button's click handler
      * @param {Function} handler The function to call when the button is clicked
-     * @param {Object} scope (optional) Scope for the function passed above
+     * @param {Object} scope (optional) Scope for the function passed in
      */
     setHandler : function(handler, scope){
         this.handler = handler;
@@ -212,8 +232,8 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
     },
     
     /**
-     * Set this buttons text
-     * @param {String} text
+     * Sets this button's text
+     * @param {String} text The button text
      */
     setText : function(text){
         this.text = text;
@@ -224,8 +244,8 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
     },
     
     /**
-     * Get the text for this button
-     * @return {String}
+     * Gets the text for this button
+     * @return {String} The button text
      */
     getText : function(){
         return this.text;  
@@ -253,7 +273,7 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
     
     /**
      * Convenience function for boolean show/hide
-     * @param {Boolean} visible true to show/false to hide
+     * @param {Boolean} visible True to show, false to hide
      */
     setVisible: function(visible){
         if(visible) {
@@ -312,10 +332,15 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
         this.disabled = false;
     },
 
+    /**
+     * Convenience function for boolean enable/disable
+     * @param {Boolean} enabled True to enable, false to disable
+     */
     setDisabled : function(v){
         this[v !== true ? "enable" : "disable"]();
     },
 
+    // private
     onClick : function(e){
         if(e){
             e.preventDefault();
@@ -334,36 +359,43 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
             }
         }
     },
+    // private
     onMouseOver : function(e){
         if(!this.disabled){
             this.el.addClass("x-btn-over");
             this.fireEvent('mouseover', this, e);
         }
     },
+    // private
     onMouseOut : function(e){
         if(!e.within(this.el,  true)){
             this.el.removeClass("x-btn-over");
             this.fireEvent('mouseout', this, e);
         }
     },
+    // private
     onMouseDown : function(){
         if(!this.disabled){
             this.el.addClass("x-btn-click");
             Ext.get(document).on('mouseup', this.onMouseUp, this);
         }
     },
+    // private
     onMouseUp : function(){
         this.el.removeClass("x-btn-click");
         Ext.get(document).un('mouseup', this.onMouseUp, this);
     },
+    // private
     onMenuShow : function(e){
         this.el.addClass("x-btn-menu-active");
     },
+    // private
     onMenuHide : function(e){
         this.el.removeClass("x-btn-menu-active");
     }   
 });
 
+// Private utility class used by Button
 Ext.ButtonToggleMgr = function(){
    var groups = {};
    
