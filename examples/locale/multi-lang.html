@@ -1,0 +1,59 @@
+<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">-->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Forms</title>
+<link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css" />
+
+    <!-- GC --> <!-- LIBS -->     <script type="text/javascript" src="../../adapter/yui/yui-utilities.js"></script>     <script type="text/javascript" src="../../adapter/yui/ext-yui-adapter.js"></script>     <!-- ENDLIBS -->
+    <script type="text/javascript" src="../../ext-all.js"></script>
+
+<script type="text/javascript" src="languages.js"></script>
+<script type="text/javascript" src="dutch-provinces.js"></script>
+<script type="text/javascript" src="multi-lang.js"></script>
+
+<!-- Common Styles for the examples -->
+<link rel="stylesheet" type="text/css" href="../examples.css" />
+</head>
+<body>
+<style>
+.add .x-btn-text { 
+    background-image: url(../../resources/images/default/dd/drop-add.gif);
+}
+.delete .x-btn-text { 
+    background-image: url(../../resources/images/default/dd/drop-no.gif);
+}
+
+</style>
+<script type="text/javascript" src="../examples.js"></script><!-- EXAMPLES -->
+<script type="text/javascript">
+var idx = window.location.href.indexOf("lang=");
+if(idx>=0){
+    
+    var code = window.location.href.charAt(idx+7)=="_" ?
+		window.location.href.substring(idx+5, idx+10) :
+		window.location.href.substring(idx+5, idx+7);
+    var s = document.createElement("script");
+    s.type = 'text/javascript';
+    s.src = "../../src/locale/ext-lang-"+code+".js";
+    document.getElementsByTagName("head")[0].appendChild(s);
+}
+</script>
+
+<h1>Localization with Extjs</h1>
+<p>The js is not minified so it is readable. See <a href="multi-lang.js">multi-lang.js</a>.</p>
+
+<p>
+This demonstrates multiple language with a very simple editable grid.
+All non-localized text in columns and message boxes have been intentionally left out.
+</p>
+
+<div>
+  <input type="text" id="languages" size="20" />
+</div>
+<br/>
+<div id="grid-panel" style="width:600px;height:300px;">
+    <div id="editor-grid"></div>
+</div>
+</body>
+</html>

@@ -42,7 +42,7 @@ Ext.onReady(function(){
             hiddenName: 'state',
             store: new Ext.data.SimpleStore({
                 fields: ['province'],
-                data : Ext.exampledata.dutch_provinces // from dutch_provinces.js
+                data : Ext.exampledata.dutch_provinces // from dutch-provinces.js
             }),
             displayField: 'province',
             typeAhead: true,
