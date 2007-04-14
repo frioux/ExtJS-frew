@@ -55,6 +55,22 @@ Ext.Editor = function(field, config){
 
 Ext.extend(Ext.Editor, Ext.Component, {
     /**
+     * @cfg {Boolean/String} autosize
+     * True for the editor to automatically adopt the size of the underlying field, "width" to adopt the width only,
+     * or "height" to adopt the height only (defaults to false)
+     */
+    /**
+     * @cfg {Boolean} revertInvalid
+     * True to automatically revert the field value and cancel the edit when the user completes an edit and the field
+     * validation fails (defaults to true)
+     */
+    /**
+     * @cfg {Boolean} ignoreNoChange
+     * True to skip the the edit completion process (no save, no events fired) if the user completes an edit and
+     * the value has not changed (defaults to false).  Applies only to string values - edits for other data types
+     * will never be ignored.
+     */
+    /**
      * @cfg {Mixed} value
      * The data value of the underlying field (defaults to "")
      */
