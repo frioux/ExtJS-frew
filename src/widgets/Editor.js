@@ -1,21 +1,79 @@
+/**
+ * @class Ext.Editor
+ * @extends Ext.Component
+ * A base editor field that handles displaying/hiding on demand and has some built-in sizing and event handling logic.
+ * @constructor
+ * Create a new Editor
+ * @param {Object} config The config object
+ */
 Ext.Editor = function(field, config){
     Ext.Editor.superclass.constructor.call(this, config);
     this.field = field;
     this.addEvents({
+        /**
+	     * @event beforestartedit
+	     * Fires when editing is initiated, but before the value changes.  Editing can be canceled by returning
+	     * false from the handler of this event.
+	     * @param {Editor} this
+	     * @param {Ext.Element} boundEl The underlying element bound to this editor
+	     * @param {Mixed} value The field value being set
+	     */
         "beforestartedit" : true,
+        /**
+	     * @event startedit
+	     * Fires when this editor is displayed
+	     * @param {Ext.Element} boundEl The underlying element bound to this editor
+	     * @param {Mixed} value The starting field value
+	     */
         "startedit" : true,
+        /**
+	     * @event beforecomplete
+	     * Fires after a change has been made to the field, but before the change is reflected in the underlying
+	     * field.  Saving the change to the field can be canceled by returning false from the handler of this event.
+	     * Note that if the value has not changed and ignoreNoChange = true, the editing will still end but this
+	     * event will not fire since no edit actually occurred.
+	     * @param {Editor} this
+	     * @param {Mixed} value The current field value
+	     * @param {Mixed} startValue The original field value
+	     */
         "beforecomplete" : true,
+        /**
+	     * @event complete
+	     * Fires after editing is complete and any changed value has been written to the underlying field.
+	     * @param {Editor} this
+	     * @param {Mixed} value The current field value
+	     * @param {Mixed} startValue The original field value
+	     */
         "complete" : true,
+        /**
+	     * @event specialkey
+	     * Fires when special key is pressed
+	     */
         "specialkey" : true
     });
 };
 
 Ext.extend(Ext.Editor, Ext.Component, {
+    /**
+     * @cfg {Mixed} value
+     * The data value of the underlying field (defaults to "")
+     */
     value : "",
+    /**
+     * @cfg {String} alignment
+     * The position to align to (see {@link Ext.Element#alignTo} for more details, defaults to "c-c?").
+     */
     alignment: "c-c?",
+    /**
+     * @cfg {Boolean/String} shadow "sides" for sides/bottom only, "frame" for 4-way shadow, and "drop"
+     * for bottom-right shadow (defaults to "frame")
+     */
     shadow : "frame",
+
+    // private
     updateEl : false,
 
+    // private
     onRender : function(ct){
         this.el = new Ext.Layer({
             shadow: this.shadow,
@@ -38,6 +96,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
         }
     },
 
+    // private
     startEdit : function(el, value){
         if(this.editing){
             this.completeEdit();
@@ -73,6 +132,11 @@ Ext.extend(Ext.Editor, Ext.Component, {
         this.show();
     },
 
+    /**
+     * Sets the height and width of this editor
+     * @param {Number} width The new width
+     * @param {Number} height The new height
+     */
     setSize : function(w, h){
         this.field.setSize(w, h);
         if(this.el){
@@ -80,10 +144,17 @@ Ext.extend(Ext.Editor, Ext.Component, {
         }
     },
 
+    /**
+     * Realigns the editor to the bound field based on the current alignment config value.
+     */
     realign : function(){
         this.el.alignTo(this.boundEl, this.alignment);
     },
 
+    /**
+     * Ends the editing process, persist the changed value to the underlying field and hides the editor.
+     * @param {Boolean} remainVisible Override the default behavior and keep the editor visible after edit (defaults to false)
+     */
     completeEdit : function(remainVisible){
         if(!this.editing){
             return;
@@ -110,6 +181,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
         }
     },
 
+    // private
     onShow : function(){
         this.el.show();
         if(this.hideEl !== false){
@@ -120,6 +192,12 @@ Ext.extend(Ext.Editor, Ext.Component, {
         this.fireEvent("startedit", this.boundEl, this.startValue);
     },
 
+    /**
+     * Cancels the editing process and hides the editor without persisting any changes.  The field value will be
+     * reverted to the original starting value.
+     * @param {Boolean} remainVisible Override the default behavior and keep the editor visible after
+     * cancel (defaults to false)
+     */
     cancelEdit : function(remainVisible){
         if(this.editing){
             this.setValue(this.startValue);
@@ -129,12 +207,14 @@ Ext.extend(Ext.Editor, Ext.Component, {
         }
     },
 
+    // private
     onBlur : function(){
         if(this.allowBlur !== true && this.editing){
             this.completeEdit();
         }
     },
 
+    // private
     onHide : function(){
         if(this.editing){
             this.completeEdit();
@@ -153,10 +233,18 @@ Ext.extend(Ext.Editor, Ext.Component, {
         }
     },
 
+    /**
+     * Sets the data value of the editor
+     * @param {Mixed} value Any valid value supported by the underlying field
+     */
     setValue : function(v){
         this.field.setValue(v);
     },
 
+    /**
+     * Gets the data value of the editor
+     * @return {Mixed} value The data value
+     */
     getValue : function(){
         return this.field.getValue();
     }
