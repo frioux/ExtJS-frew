@@ -1,8 +1,24 @@
+/**
+ * @class Ext.DatePicker
+ * @extends Ext.Component
+ * Simple date picker class.
+ * @constructor
+ * Create a new DatePicker
+ * @param {Object} config The config object
+ */
 Ext.DatePicker = function(config){
     Ext.DatePicker.superclass.constructor.call(this, config);
     this.value = new Date().clearTime();
 
-    this.addEvents({select: true});
+    this.addEvents({
+        /**
+	     * @event select
+	     * Fires when a date is selected
+	     * @param {DatePicker} this
+	     * @param {Date} date The selected date
+	     */
+        select: true
+    });
 
     if(this.handler){
         this.on("select", this.handler,  this.scope || this);
@@ -20,9 +36,102 @@ Ext.DatePicker = function(config){
 };
 
 Ext.extend(Ext.DatePicker, Ext.Component, {
-
+    /**
+     * @cfg {String} todayText
+     * The text to display on the button that selects the current date (defaults to "Today")
+     */
+    todayText : "Today",
+    /**
+     * @cfg {String} todayTip
+     * The tooltip to display for the button that selects the current date (defaults to "{current date} (Spacebar)")
+     */
+    todayTip : "{0} (Spacebar)",
+    /**
+     * @cfg {Date} minDate
+     * Minimum allowable date (JavaScript date object, defaults to null)
+     */
+    minDate : null,
+    /**
+     * @cfg {Date} maxDate
+     * Maximum allowable date (JavaScript date object, defaults to null)
+     */
+    maxDate : null,
+    /**
+     * @cfg {String} minText
+     * The error text to display if the minDate validation fails (defaults to "This date is before the minimum date")
+     */
+    minText : "This date is before the minimum date",
+    /**
+     * @cfg {String} maxText
+     * The error text to display if the maxDate validation fails (defaults to "This date is after the maximum date")
+     */
+    maxText : "This date is after the maximum date",
+    /**
+     * @cfg {String} format
+     * The default date format string which can be overriden for localization support.  The format must be
+     * valid according to {@link Date#parseDate} (defaults to 'm/d/y').
+     */
+    format : "m/d/y",
+    /**
+     * @cfg {Array} disabledDays
+     * An array of days to disable, 0-based. For example, [0, 6] disables Sunday and Saturday (defaults to null).
+     */
+    disabledDays : null,
+    /**
+     * @cfg {String} disabledDaysText
+     * The tooltip to display when the date falls on a disabled day (defaults to "")
+     */
+    disabledDaysText : "",
+    /**
+     * @cfg {RegExp} disabledDatesRE
+     * JavaScript regular expression used to disable a pattern of dates (defaults to null)
+     */
+    disabledDatesRE : null,
+    /**
+     * @cfg {String} disabledDatesText
+     * The tooltip text to display when the date falls on a disabled date (defaults to "")
+     */
+    disabledDatesText : "",
+    /**
+     * @cfg {Boolean} constrainToViewport
+     * True to constrain the date picker to the viewport (defaults to true)
+     */
+    constrainToViewport : true,
+    /**
+     * @cfg {Array} monthNames
+     * An array of textual month names which can be overriden for localization support (defaults to Date.monthNames)
+     */
+    monthNames : Date.monthNames,
+    /**
+     * @cfg {Array} dayNames
+     * An array of textual day names which can be overriden for localization support (defaults to Date.dayNames)
+     */
+    dayNames : Date.dayNames,
+    /**
+     * @cfg {String} nextText
+     * The next month navigation button tooltip (defaults to 'Next Month (Control+Right)')
+     */
+    nextText: 'Next Month (Control+Right)',
+    /**
+     * @cfg {String} prevText
+     * The previous month navigation button tooltip (defaults to 'Previous Month (Control+Left)')
+     */
+    prevText: 'Previous Month (Control+Left)',
+    /**
+     * @cfg {String} monthYearText
+     * The header month selector tooltip (defaults to 'Choose a month (Control+Up/Down to move years)')
+     */
+    monthYearText: 'Choose a month (Control+Up/Down to move years)',
+    /**
+     * @cfg {Number} startDay
+     * Day index at which the week should begin, 0-based (defaults to 0, which is Sunday)
+     */
     startDay : 0,
 
+    /**
+     * Sets the value of the date field
+     * @param {Date} value The date to set
+     */
     setValue : function(value){
         var old = this.value;
         this.value = value.clearTime(true);
@@ -31,16 +140,22 @@ Ext.extend(Ext.DatePicker, Ext.Component, {
         }
     },
 
+    /**
+     * Gets the current selected value of the date field
+     * @return {Date} The selected date
+     */
     getValue : function(){
         return this.value;
     },
 
+    // private
     focus : function(){
         if(this.el){
             this.update(this.activeDate);
         }
     },
 
+    // private
     onRender : function(container){
         var m = [
              '<table cellspacing="0">',
@@ -182,23 +297,28 @@ Ext.extend(Ext.DatePicker, Ext.Component, {
         }
         this.update(this.value);
     },
-    
+
+    // private
     showPrevMonth : function(e){
         this.update(this.activeDate.add("mo", -1));
     },
-    
+
+    // private
     showNextMonth : function(e){
         this.update(this.activeDate.add("mo", 1));
     },
-    
+
+    // private
     showPrevYear : function(){
         this.update(this.activeDate.add("y", -1));
     },
-    
+
+    // private
     showNextYear : function(){
         this.update(this.activeDate.add("y", 1));
     },
-    
+
+    // private
     handleMouseWheel : function(e){
         var delta = e.getWheelDelta();
         if(delta > 0){
@@ -209,7 +329,8 @@ Ext.extend(Ext.DatePicker, Ext.Component, {
             e.stopEvent();
         }
     },
-    
+
+    // private
     handleDateClick : function(e, t){
         e.stopEvent();
         if(t.dateValue && !Ext.fly(t.parentNode).hasClass("x-date-disabled")){
@@ -217,12 +338,14 @@ Ext.extend(Ext.DatePicker, Ext.Component, {
             this.fireEvent("select", this, this.value);
         }
     },
-    
+
+    // private
     selectToday : function(){
         this.setValue(new Date().clearTime());
         this.fireEvent("select", this, this.value);
     },
-    
+
+    // private
     update : function(date){
         var vd = this.activeDate;
         this.activeDate = date;
@@ -350,23 +473,5 @@ Ext.extend(Ext.DatePicker, Ext.Component, {
                 this.update.defer(10, this, [date]);
             }
         }
-    },
-
-    todayText : "Today",
-    todayTip : "{0} (Spacebar)",
-    minDate : null,
-    maxDate : null,
-    minText : "This date is before the minimum date",
-    maxText : "This date is after the maximum date",
-    format : "m/d/y",
-    disabledDays : null,
-    disabledDaysText : "",
-    disabledDatesRE : null,
-    disabledDatesText : "",
-    constrainToViewport : true,
-    monthNames : Date.monthNames,
-    dayNames : Date.dayNames,
-    nextText: 'Next Month (Control+Right)',
-    prevText: 'Previous Month (Control+Left)',
-    monthYearText: 'Choose a month (Control+Up/Down to move years)'
+    }
 });
