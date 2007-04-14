@@ -1,10 +1,11 @@
 /**
  * @class Ext.Toolbar
- * Basic Toolbar used by the Grid to create the paging toolbar. This class is reusable but functionality
- * is limited. Look for more functionality in a future version. 
+ * Basic Toolbar class.
  * @constructor
- * @param {String/HTMLElement/Element} container
+ * Creates a new Toolbar
+ * @param {String/HTMLElement/Element} container The id or element that will contain the toolbar
  * @param {Array} buttons (optional) array of button configs or elements to add
+ * @param {Object} config The config object
  */ 
  Ext.Toolbar = function(container, buttons, config){
      Ext.apply(this, config);
@@ -28,8 +29,7 @@
 Ext.Toolbar.prototype = {
     /**
      * Adds element(s) to the toolbar - this function takes a variable number of 
-     * arguments of mixed type and adds them to the toolbar...
-     * 
+     * arguments of mixed type and adds them to the toolbar.
      * @param {Mixed} arg1 If arg is a Toolbar.Button, it is added. If arg is a string, it is wrapped 
      * in a ytb-text element and added unless the text is "separator" in which case a separator
      * is added. Otherwise, it is assumed the element is an HTMLElement and it is added directly.
@@ -200,7 +200,9 @@ Ext.Toolbar.prototype = {
 
 /**
  * @class Ext.Toolbar.Item
+ * The base class that other classes should extend in order to get some basic common toolbar item functionality.
  * @constructor
+ * Creates a new Item
  * @param {HTMLElement} el 
  */
 Ext.Toolbar.Item = function(el){
@@ -218,7 +220,8 @@ Ext.Toolbar.Item.prototype = {
     getEl : function(){
        return this.el;  
     },
-    
+
+    // private
     render : function(td){
         this.td = td;
         td.appendChild(this.el);
@@ -289,7 +292,9 @@ Ext.Toolbar.Item.prototype = {
 /**
  * @class Ext.Toolbar.Separator
  * @extends Ext.Toolbar.Item
+ * A simple toolbar separator class
  * @constructor
+ * Creates a new Separator
  */
 Ext.Toolbar.Separator = function(){
     var s = document.createElement("span");
@@ -301,7 +306,9 @@ Ext.extend(Ext.Toolbar.Separator, Ext.Toolbar.Item);
 /**
  * @class Ext.Toolbar.Spacer
  * @extends Ext.Toolbar.Item
+ * A simple element that adds extra horizontal space to a toolbar.
  * @constructor
+ * Creates a new Spacer
  */
 Ext.Toolbar.Spacer = function(){
     var s = document.createElement("div");
@@ -313,7 +320,9 @@ Ext.extend(Ext.Toolbar.Spacer, Ext.Toolbar.Item);
 /**
  * @class Ext.Toolbar.TextItem
  * @extends Ext.Toolbar.Item
+ * A simple class that renders text directly into a toolbar.
  * @constructor
+ * Creates a new TextItem
  * @param {String} text
  */
 Ext.Toolbar.TextItem = function(text){
@@ -327,8 +336,10 @@ Ext.extend(Ext.Toolbar.TextItem, Ext.Toolbar.Item);
 /**
  * @class Ext.Toolbar.Button
  * @extends Ext.Button
+ * A button that renders into a toolbar.
  * @constructor
- * @param {Object} config
+ * Creates a new Button
+ * @param {Object} config A standard {@link Ext.Button} config object
  */
 Ext.Toolbar.Button = function(config){
     Ext.Toolbar.Button.superclass.constructor.call(this, null, config);
@@ -363,6 +374,9 @@ Ext.extend(Ext.Toolbar.Button, Ext.Button, {
         this.td.style.display = "none";
     },
 
+    /**
+     * Disable this item
+     */
     disable : function(){
         Ext.fly(this.td).addClass("x-item-disabled");
         this.disabled = true;
@@ -382,8 +396,10 @@ Ext.ToolbarButton = Ext.Toolbar.Button;
 /**
  * @class Ext.Toolbar.MenuButton
  * @extends Ext.MenuButton
+ * A menu button that renders into a toolbar.
  * @constructor
- * @param {Object} config
+ * Creates a new MenuButton
+ * @param {Object} config A standard {@link Ext.MenuButton} config object
  */
 Ext.Toolbar.MenuButton = function(config){
     Ext.Toolbar.MenuButton.superclass.constructor.call(this, null, config);
