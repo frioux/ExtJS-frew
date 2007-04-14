@@ -199,6 +199,10 @@ Ext.extend(Ext.tree.MultiSelectionModel, Ext.util.Observable, {
         if(keepExisting !== true){
             this.clearSelections(true);
         }
+        if(this.isSelected(node)){
+            this.lastSelNode = node;
+            return node;
+        }
         this.selNodes.push(node);
         this.selMap[node.id] = node;
         this.lastSelNode = node;

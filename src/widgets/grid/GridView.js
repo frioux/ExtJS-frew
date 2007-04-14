@@ -1061,7 +1061,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             var dds = Ext.dd.DDM.ids['gridHeader' + this.grid.container.id];
             if(dds){
                 for(var dd in dds){
-if(!dds[dd].config.isTarget && dds[dd].dragElId){
+                    if(!dds[dd].config.isTarget && dds[dd].dragElId){
                         var elid = dds[dd].dragElId;
                         dds[dd].unreg();
                         Ext.get(elid).remove();
@@ -1694,29 +1694,28 @@ Ext.extend(Ext.grid.GridDragZone, Ext.dd.DragZone, {
         var data = this.dragData;
         this.ddel.innerHTML = this.grid.getDragDropText();
         this.proxy.update(this.ddel);
-        //this.tree.fireEvent("startdrag", this.tree, data.node, e);
+        // fire start drag?
     },
 
-    afterRepair : function(){this.dragging = false;  },
+    afterRepair : function(){
+        this.dragging = false;
+    },
 
     getRepairXY : function(e, data){
         return false;
     },
 
     onEndDrag : function(data, e){
-        //this.tree.fireEvent("enddrag", this.tree, data.node, e);
+        // fire end drag?
     },
 
     onValidDrop : function(dd, e, id){
-        //this.tree.fireEvent("dragdrop", this.tree, this.dragData.node, dd, e);
+        // fire drag drop?
         this.hideProxy();
     },
 
     beforeInvalidDrop : function(e, id){
-        // this scrolls the original position back into view
-        //var sm = this.tree.getSelectionModel();
-        //sm.clearSelections();
-        //sm.select(this.dragData.node);
+        
     }
 });
 }
