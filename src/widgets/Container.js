@@ -1,3 +1,6 @@
+
+//Note: not currently implemented.
+
 Ext.Container = function(config){
     Ext.Container.superclass.constructor.call(this, config);
     this.items = new Ext.util.MixedCollection(false, this.getComponentId);
