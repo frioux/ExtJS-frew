@@ -1,3 +1,13 @@
+/**
+ * @class Ext.PagingToolbar
+ * @extends Ext.Toolbar
+ * A specialized toolbar that is bound to a {@link Ext.data.Store} and provides automatic paging controls.
+ * @constructor
+ * Create a new PagingToolbar
+ * @param {String/HTMLElement/Element} container The id or element that will contain the toolbar
+ * @param {Ext.data.Store} store The underlying data store providing the paged data
+ * @param {Object} config The config object
+ */
 Ext.PagingToolbar = function(el, ds, config){
     Ext.PagingToolbar.superclass.constructor.call(this, el, null, config);
     this.ds = ds;
@@ -7,10 +17,58 @@ Ext.PagingToolbar = function(el, ds, config){
 };
 
 Ext.extend(Ext.PagingToolbar, Ext.Toolbar, {
+    /**
+     * @cfg {Number} pageSize
+     * The number of records to display per page (defaults to 20)
+     */
     pageSize: 20,
+    /**
+     * @cfg {String} displayMsg
+     * The paging status message to display (defaults to "Displaying {start} - {end} of {total}")
+     */
     displayMsg : 'Displaying {0} - {1} of {2}',
+    /**
+     * @cfg {String} emptyMsg
+     * The message to display when no records are found (defaults to "No data to display")
+     */
     emptyMsg : 'No data to display',
+    /**
+     * Customizable piece of the default paging text (defaults to "Page")
+     * @type String
+     */
+    beforePageText : "Page",
+    /**
+     * Customizable piece of the default paging text (defaults to "of %0")
+     * @type String
+     */
+    afterPageText : "of {0}",
+    /**
+     * Customizable piece of the default paging text (defaults to "First Page")
+     * @type String
+     */
+    firstText : "First Page",
+    /**
+     * Customizable piece of the default paging text (defaults to "Previous Page")
+     * @type String
+     */
+    prevText : "Previous Page",
+    /**
+     * Customizable piece of the default paging text (defaults to "Next Page")
+     * @type String
+     */
+    nextText : "Next Page",
+    /**
+     * Customizable piece of the default paging text (defaults to "Last Page")
+     * @type String
+     */
+    lastText : "Last Page",
+    /**
+     * Customizable piece of the default paging text (defaults to "Refresh")
+     * @type String
+     */
+    refreshText : "Refresh",
 
+    // private
     render : function(el){
         this.first = this.addButton({
             tooltip: this.firstText,
@@ -63,6 +121,7 @@ Ext.extend(Ext.PagingToolbar, Ext.Toolbar, {
         }
     },
 
+    // private
     updateInfo : function(){
         if(this.displayEl){
             var count = this.ds.getCount();
@@ -76,6 +135,7 @@ Ext.extend(Ext.PagingToolbar, Ext.Toolbar, {
         }
     },
 
+    // private
     onLoad : function(ds, r, o){
        this.cursor = o.params ? o.params.start : 0;
        var d = this.getPageData(), ap = d.activePage, ps = d.pages;
@@ -90,6 +150,7 @@ Ext.extend(Ext.PagingToolbar, Ext.Toolbar, {
        this.updateInfo();
     },
 
+    // private
     getPageData : function(){
         var total = this.ds.getTotalCount();
         return {
@@ -99,10 +160,12 @@ Ext.extend(Ext.PagingToolbar, Ext.Toolbar, {
         };
     },
 
+    // private
     onLoadError : function(){
         this.loading.enable();
     },
 
+    // private
     onPagingKeydown : function(e){
         var k = e.getKey();
         var d = this.getPageData();
@@ -143,12 +206,14 @@ Ext.extend(Ext.PagingToolbar, Ext.Toolbar, {
         }
     },
 
+    // private
     beforeLoad : function(){
         if(this.loading){
             this.loading.disable();
         }
     },
 
+    // private
     onClick : function(which){
         var ds = this.ds;
         switch(which){
@@ -173,51 +238,23 @@ Ext.extend(Ext.PagingToolbar, Ext.Toolbar, {
         }
     },
 
+    /**
+     * Unbinds the paging toolbar from the specified {@link Ext.data.Store}
+     * @param {Ext.data.Store} store The data store to unbind
+     */
     unbind : function(ds){
         ds.un("beforeload", this.beforeLoad, this);
         ds.un("load", this.onLoad, this);
         ds.un("loadexception", this.onLoadError, this);
     },
 
+    /**
+     * Binds the paging toolbar to the specified {@link Ext.data.Store}
+     * @param {Ext.data.Store} store The data store to bind
+     */
     bind : function(ds){
         ds.on("beforeload", this.beforeLoad, this);
         ds.on("load", this.onLoad, this);
         ds.on("loadexception", this.onLoadError, this);
-    },
-
-    /**
-     * Customizable piece of the default paging text (defaults to "Page")
-     * @type String
-     */
-    beforePageText : "Page",
-    /**
-     * Customizable piece of the default paging text (defaults to "of %0")
-     * @type String
-     */
-    afterPageText : "of {0}",
-    /**
-     * Customizable piece of the default paging text (defaults to "First Page")
-     * @type String
-     */
-    firstText : "First Page",
-    /**
-     * Customizable piece of the default paging text (defaults to "Previous Page")
-     * @type String
-     */
-    prevText : "Previous Page",
-    /**
-     * Customizable piece of the default paging text (defaults to "Next Page")
-     * @type String
-     */
-    nextText : "Next Page",
-    /**
-     * Customizable piece of the default paging text (defaults to "Last Page")
-     * @type String
-     */
-    lastText : "Last Page",
-    /**
-     * Customizable piece of the default paging text (defaults to "Refresh")
-     * @type String
-     */
-    refreshText : "Refresh"
+    }
 });
