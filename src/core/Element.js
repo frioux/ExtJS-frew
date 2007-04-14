@@ -1511,7 +1511,7 @@ El.prototype = {
      *   <li><b>One anchor (deprecated)</b>: The passed anchor position is used as the target element's anchor point.
      *       The element being aligned will position its top-left corner (tl) to that point.  <i>This method has been
      *       deprecated in favor of the newer two anchor syntax below</i>.</li>
-     *   <li>Two anchors: If two values from the table below are passed separated by a dash, the first value is used as the
+     *   <li><b>Two anchors</b>: If two values from the table below are passed separated by a dash, the first value is used as the
      *       element"s anchor point, and the second value is used as the target"s anchor point.</li>
      * </ul>
      * In addition to the anchor points, the position parameter also supports the "?" character.  If "?" is passed at the end of
@@ -1534,14 +1534,16 @@ br     The bottom right corner
 </pre>
 Example Usage:
 <pre><code>
-var el = Ext.get("my-div");
-// align my-div to other-el using the default positioning ("tl-bl", non-constrained)
+// align el to other-el using the default positioning ("tl-bl", non-constrained)
 el.alignTo("other-el");
-// align the top left corner of my-div with the top right corner of other-el (constrained to viewport)
+
+// align the top left corner of el with the top right corner of other-el (constrained to viewport)
 el.alignTo("other-el", "tr?");
-// align the bottom right corner of my-div with the center left edge of other-el
+
+// align the bottom right corner of el with the center left edge of other-el
 el.alignTo("other-el", "br-l?");
-// align the center of my-div with the bottom left corner of other-el and
+
+// align the center of el with the bottom left corner of other-el and
 // adjust the x position by -6 pixels (and the y position by 0)
 el.alignTo("other-el", "c-bl", [-6, 0]);
 </code></pre>
