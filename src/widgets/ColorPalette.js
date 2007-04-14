@@ -21,7 +21,7 @@ Ext.ColorPalette = function(config){
         /**
 	     * @event select
 	     * Fires when a color is selected
-	     * @param {Button} this
+	     * @param {ColorPalette} this
 	     * @param {String} color The 6-digit color hex code (without the # symbol)
 	     */
         select: true
