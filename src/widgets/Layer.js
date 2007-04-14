@@ -10,7 +10,7 @@
  * @cfg {Boolean} constrain False to disable constrain to viewport (defaults to true)
  * @cfg {String} cls CSS class to add to the element
  * @cfg {Number} zindex Starting z-index (defaults to 11000!)
- * @cfg {Number} shadowOffset Offset for the shadow (defaults to 3)
+ * @cfg {Number} shadowOffset Number of pixels to offset the shadow (defaults to 3)
  * @constructor
  * @param {Object} config
  * @param {String/HTMLElement} existingEl (optional) Uses an existing dom element. If the element is not found it creates it.
@@ -60,6 +60,7 @@ Ext.Layer = function(config, existingEl){
 var supr = Ext.Element.prototype;
 
 Ext.extend(Ext.Layer, Ext.Element, {
+    // private
     // this code can execute repeatedly in milliseconds (i.e. during a drag) so
     // code size was sacrificed for effeciency (e.g. no getBox/setBox, no XY calls)
     sync : function(doShow){
@@ -99,6 +100,7 @@ Ext.extend(Ext.Layer, Ext.Element, {
         }
     },
 
+    // private
     destroy : function(){
         if(this.shim){
             this.shim.remove();
@@ -110,15 +112,18 @@ Ext.extend(Ext.Layer, Ext.Element, {
         this.remove();
     },
 
+    // private
     beginUpdate : function(){
         this.updating = true;
     },
 
+    // private
     endUpdate : function(){
         this.updating = false;
         this.sync(true);
     },
 
+    // private
     hideUnders : function(negOffset){
         if(this.shadow){
             this.shadow.hide();
@@ -130,7 +135,8 @@ Ext.extend(Ext.Layer, Ext.Element, {
            }
         }
     },
-    
+
+    // private
     constrainXY : function(){
         if(this.constrain){
             var vw = Ext.lib.Dom.getViewWidth(),
@@ -175,6 +181,7 @@ Ext.extend(Ext.Layer, Ext.Element, {
         }
     },
 
+    // private
     showAction : function(){
         if(this.useDisplay === true){
             this.setDisplayed("");
@@ -183,6 +190,7 @@ Ext.extend(Ext.Layer, Ext.Element, {
         }
     },
 
+    // private
     hideAction : function(){
         if(this.useDisplay === true){
             this.setDisplayed(false);
@@ -191,6 +199,7 @@ Ext.extend(Ext.Layer, Ext.Element, {
         }
     },
 
+    // overridden Element method
     setVisible : function(v, a, d, c, e){
         this.showAction();
         if(a && v){
@@ -223,22 +232,26 @@ Ext.extend(Ext.Layer, Ext.Element, {
         }
     },
 
+    // private
     beforeFx : function(){
         this.beforeAction();
         return Ext.Layer.superclass.beforeFx.apply(this, arguments);
     },
 
+    // private
     afterFx : function(){
         Ext.Layer.superclass.afterFx.apply(this, arguments);
         this.sync(this.isVisible());
     },
 
+    // private
     beforeAction : function(){
         if(!this.updating && this.shadow){
             this.shadow.hide();
         }
     },
-    
+
+    // overridden Element method
     setXY : function(xy, a, d, c, e){
         this.fixDisplay();
         this.beforeAction();
@@ -249,7 +262,8 @@ Ext.extend(Ext.Layer, Ext.Element, {
             cb();
         }
     },
-    
+
+    // private
     createCB : function(c){
         var el = this;
         return function(){
@@ -260,15 +274,18 @@ Ext.extend(Ext.Layer, Ext.Element, {
             }
         };
     },
-    
+
+    // overridden Element method
     setX : function(x, a, d, c, e){
         this.setXY([x, this.getY()], a, d, c, e);
     },
-    
+
+    // overridden Element method
     setY : function(y, a, d, c, e){
         this.setXY([this.getX(), y], a, d, c, e);
     },
-    
+
+    // overridden Element method
     setSize : function(w, h, a, d, c, e){
         this.beforeAction();
         var cb = this.createCB(c);
@@ -277,7 +294,8 @@ Ext.extend(Ext.Layer, Ext.Element, {
             cb();
         }
     },
-    
+
+    // overridden Element method
     setWidth : function(w, a, d, c, e){
         this.beforeAction();
         var cb = this.createCB(c);
@@ -286,7 +304,8 @@ Ext.extend(Ext.Layer, Ext.Element, {
             cb();
         }
     },
-    
+
+    // overridden Element method
     setHeight : function(h, a, d, c, e){
         this.beforeAction();
         var cb = this.createCB(c);
@@ -295,7 +314,8 @@ Ext.extend(Ext.Layer, Ext.Element, {
             cb();
         }
     },
-    
+
+    // overridden Element method
     setBounds : function(x, y, w, h, a, d, c, e){
         this.beforeAction();
         var cb = this.createCB(c);
@@ -310,9 +330,11 @@ Ext.extend(Ext.Layer, Ext.Element, {
     },
     
     /**
-     * Set the z-index of this layer and adjusts shadow and shims z-index. The result zindex is zindex + 2.
-     * @param {Number} zindex
-     * @return {this}
+     * Set the z-index of this layer and adjusts any shadow and shim z-indexes. The layer z-index is automatically
+     * incremented by two more than the value passed in so that it always shows above any shadow or shim (the shadow
+     * element, if any, will be assigned z-index + 1, and the shim element, if any, will be assigned the unmodified z-index).
+     * @param {Number} zindex The new z-index to set
+     * @return {this} The Layer
      */
     setZIndex : function(zindex){
         this.setStyle("z-index", zindex + 2);
