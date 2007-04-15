@@ -71,15 +71,6 @@ Ext.TabPanel = function(container, config){
     
     this.bodyEl.setStyle("position", "relative");
     
-    // add indexOf to array if it isn't present
-    if(!this.items.indexOf){
-        this.items.indexOf = function(o){
-            for(var i = 0, len = this.length; i < len; i++){
-                if(this[i] == o) return i;
-            }
-            return -1;
-        };
-    }
     this.active = null;
     this.activateDelegate = this.activate.createDelegate(this);
     

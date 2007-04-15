@@ -27,17 +27,17 @@ Ext.ContentPanel = function(el, config, content){
         config = el;
         el = Ext.id();
     }
-    this.el = Ext.get(el, true);
+    this.el = Ext.get(el);
     if(!this.el && config && config.autoCreate){
         if(typeof config.autoCreate == "object"){
             if(!config.autoCreate.id){
-                config.autoCreate.id = el;
+                config.autoCreate.id = config.id||el;
             }
             this.el = Ext.DomHelper.append(document.body,
                         config.autoCreate, true);
         }else{
             this.el = Ext.DomHelper.append(document.body,
-                        {tag: "div", cls: "x-layout-inactive-content", id: el}, true);
+                        {tag: "div", cls: "x-layout-inactive-content", id: config.id||el}, true);
         }
     }
     this.closable = false;

@@ -251,6 +251,7 @@ Ext.extend(Ext.BorderLayout, Ext.LayoutManager, {
         sm.init(this, provider);
     },
 
+
     batchAdd : function(regions){
         this.beginUpdate();
         for(var rname in regions){
@@ -273,9 +274,9 @@ Ext.extend(Ext.BorderLayout, Ext.LayoutManager, {
             }
         }
         else if(!ps.events){ // raw config?
-            var el = p.el;
-            delete p.el; // prevent conflict
-            lr.add(new Ext.ContentPanel(el || Ext.id(), p));
+            var el = ps.el;
+            delete ps.el; // prevent conflict
+            lr.add(new Ext.ContentPanel(el || Ext.id(), ps));
         }
         else {  // panel object assumed!
             lr.add(ps);

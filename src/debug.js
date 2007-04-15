@@ -9,12 +9,13 @@
         // create the dialog
         var dlg = new Ext.LayoutDialog('x-debug-browser', {
             autoCreate:true,
-            width:900,
-            height:500,
+            width:800,
+            height:450,
             title: 'Ext Debug Console &amp; Inspector',
             proxyDrag:true,
             shadow:true,
-            center:{alwaysShowTabs:true}
+            center:{alwaysShowTabs:true},
+            constraintoviewport:false
         });
 
         // prevent dialog events from bubbling

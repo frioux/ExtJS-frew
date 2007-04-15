@@ -143,7 +143,7 @@ Ext.extend(Ext.util.ClickRepeater, Ext.util.Observable, {
 
     // private
     handleMouseReturn : function(){
-        this.el.removeListener("mouseover", this.handleMouseReturn);
+        this.el.un("mouseover", this.handleMouseReturn);
         if(this.pressClass){
             this.el.addClass(this.pressClass);
         }
@@ -153,9 +153,9 @@ Ext.extend(Ext.util.ClickRepeater, Ext.util.Observable, {
     // private
     handleMouseUp : function(){
         clearTimeout(this.timer);
-        this.el.removeListener("mouseover", this.handleMouseReturn);
-        this.el.removeListener("mouseout", this.handleMouseOut);
-        this.docEl.removeListener("mouseup", this.handleMouseUp);
+        this.el.un("mouseover", this.handleMouseReturn);
+        this.el.un("mouseout", this.handleMouseOut);
+        this.docEl.un("mouseup", this.handleMouseUp);
         this.el.removeClass(this.pressClass);
         this.fireEvent("mouseup", this);
     }

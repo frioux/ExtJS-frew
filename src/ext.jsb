@@ -62,6 +62,7 @@
     <include name="widgets\Layer.js" />
     <include name="widgets\Shadow.js" />
     <include name="widgets\View.js" />
+    <include name="widgets\JsonView.js" />
     <include name="widgets\ColorPalette.js" />
     <include name="widgets\DatePicker.js" />
     <include name="widgets\TabPanel.js" />
@@ -124,6 +125,9 @@
     <include name="widgets\grid\Grid.js" />
     <include name="widgets\grid\AbstractGridView.js" />
     <include name="widgets\grid\GridView.js" />
+    <include name="widgets\grid\ColumnDD.js" />
+    <include name="widgets\grid\ColumnSplitDD.js" />
+    <include name="widgets\grid\GridDD.js" />
     <include name="widgets\grid\ColumnModel.js" />
     <include name="widgets\grid\AbstractSelectionModel.js" />
     <include name="widgets\grid\RowSelectionModel.js" />
@@ -302,6 +306,9 @@
     <include name="widgets\grid\AbstractSelectionModel.js" />
     <include name="widgets\grid\RowSelectionModel.js" />
     <include name="widgets\grid\CellSelectionModel.js" />
+    <include name="widgets\grid\ColumnDD.js" />
+    <include name="widgets\grid\ColumnSplitDD.js" />
+    <include name="widgets\grid\GridDD.js" />
   </target>
   <target name="Dialog" file="$output\package\dialog\dialogs.js" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="widgets\BasicDialog.js" />
@@ -453,12 +460,9 @@
   <file name="dd\Registry.js" path="dd" />
   <file name="dd\ScrollManager.js" path="dd" />
   <file name="dd\StatusProxy.js" path="dd" />
-  <file name="experimental\Anims.js" path="experimental" />
-  <file name="experimental\BasicDialog2.js" path="experimental" />
   <file name="experimental\ext-lang-en.js" path="experimental" />
   <file name="experimental\jquery-bridge.js" path="experimental" />
   <file name="experimental\prototype-bridge.js" path="experimental" />
-  <file name="experimental\TaskPanel.js" path="experimental" />
   <file name="experimental\yui-bridge.js" path="experimental" />
   <file name="legacy\Actor.js" path="legacy" />
   <file name="legacy\Animator.js" path="legacy" />
@@ -563,4 +567,24 @@
   <file name="locale\ext-lang-en.js" path="locale" />
   <file name="locale\ext-lang-nl.js" path="locale" />
   <file name="widgets\form\Radio.js" path="widgets\form" />
+  <file name="locale\ext-lang-da.js" path="locale" />
+  <file name="locale\ext-lang-fr_CA.js" path="locale" />
+  <file name="locale\ext-lang-it.js" path="locale" />
+  <file name="locale\ext-lang-ja.js" path="locale" />
+  <file name="locale\ext-lang-sp.js" path="locale" />
+  <file name="locale\ext-lang-tr.js" path="locale" />
+  <file name="locale\ext-lang-vn.js" path="locale" />
+  <file name="experimental\Anims.js" path="experimental" />
+  <file name="experimental\BasicDialog2.js" path="experimental" />
+  <file name="experimental\BasicGridView.js" path="experimental" />
+  <file name="experimental\TaskPanel.js" path="experimental" />
+  <file name="locale\ext-lang-hr.js" path="locale" />
+  <file name="locale\ext-lang-hu.js" path="locale" />
+  <file name="locale\ext-lang-pt_br.js" path="locale" />
+  <file name="locale\ext-lang-ru.js" path="locale" />
+  <file name="locale\ext-lang-sk.js" path="locale" />
+  <file name="widgets\JsonView.js" path="widgets" />
+  <file name="widgets\grid\ColumnDD.js" path="widgets\grid" />
+  <file name="widgets\grid\ColumnSplitDD.js" path="widgets\grid" />
+  <file name="widgets\grid\GridDD.js" path="widgets\grid" />
 </project>

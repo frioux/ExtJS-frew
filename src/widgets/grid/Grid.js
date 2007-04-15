@@ -312,7 +312,13 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
 	 * @type Boolean
 	 */
 	enableColumnMove : true,
-	
+
+	/**
+	 * True to enable hiding of columns with the header context menu
+	 * @type Boolean
+	 */
+	enableColumnHide : true,
+
 	/** True to manually sync row heights across locked and not locked rows @type Boolean **/
 	enableRowHeightSync : false,
 	
@@ -356,6 +362,8 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
 	 * @type Boolean/Object */
 	loadMask : false,
 
+    rendered : false,
+
     /**
     * Sets the maximum height of the grid - ignored if autoHeight is not on.
     * @type Number
@@ -388,7 +396,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
             this.loadMask = new Ext.LoadMask(this.container,
                     Ext.apply({store:this.dataSource}, this.loadMask));
         }
-
+        this.rendered = true;
         return this;
     },
     
@@ -516,7 +524,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
      * but if manual update is required this method will initiate it.
      */
     autoSize : function(){
-        if(this.view){
+        if(this.rendered){
             this.view.layout();
             if(this.view.adjustForScroll){
                 this.view.adjustForScroll();

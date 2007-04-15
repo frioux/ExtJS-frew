@@ -95,7 +95,10 @@ Ext.extend(Ext.tree.TreeLoader, Ext.util.Observable, {
         try {
             var o = eval("("+json+")");
 	        for(var i = 0, len = o.length; i < len; i++){
-	            node.appendChild(this.createNode(o[i])); 
+                var n = this.createNode(o[i]);
+                if(n){
+                    node.appendChild(n); 
+                }
 	        }
 	        if(typeof callback == "function"){
                 callback(this, node);

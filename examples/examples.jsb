@@ -165,4 +165,35 @@
   <file name="form\xml-form.xml" path="form" />
   <file name="form\xml-form.html" path="form" />
   <file name="form\xml-errors.xml" path="form" />
+  <file name="tree\dependency.html" path="tree" />
+  <file name="tree\dependency.js" path="tree" />
+  <file name="tree\dependency.css" path="tree" />
+  <file name="tree\dependency.php" path="tree" />
+  <file name="shared\icons\fam\add.gif" path="shared\icons\fam" />
+  <file name="shared\icons\fam\cross.gif" path="shared\icons\fam" />
+  <file name="shared\icons\fam\delete.gif" path="shared\icons\fam" />
+  <file name="shared\icons\fam\plugin.gif" path="shared\icons\fam" />
+  <file name="shared\icons\fam\plugin_add.gif" path="shared\icons\fam" />
+  <file name="shared\icons\fam\SILK.txt" path="shared\icons\fam" />
+  <file name="shared\icons\save.gif" path="shared\icons" />
+  <file name="shared\.DS_Store" path="shared" />
+  <file name="debug\debug-console.html" path="debug" />
+  <file name="debug\inspector.gif" path="debug" />
+  <file name="tree\save-dep.php" path="tree" />
+  <file name="tree\images\cmp-bg.gif" path="tree\images" />
+  <file name="form\advanced.html" path="form" />
+  <file name="form\advanced.js" path="form" />
+  <file name="form\advanced.php" path="form" />
+  <file name="form\customers-remote.php" path="form" />
+  <file name="form\load-form.php" path="form" />
+  <file name="form\save-form.php" path="form" />
+  <file name="locale\dutch-form.html" path="locale" />
+  <file name="locale\dutch-form.js" path="locale" />
+  <file name="locale\dutch-provinces.js" path="locale" />
+  <file name="locale\languages.js" path="locale" />
+  <file name="locale\multi-lang.html" path="locale" />
+  <file name="locale\multi-lang.js" path="locale" />
+  <file name="shared\icons\.DS_Store" path="shared\icons" />
+  <file name="shared\icons\arrow-down.gif" path="shared\icons" />
+  <file name="shared\icons\arrow-up.gif" path="shared\icons" />
 </project>

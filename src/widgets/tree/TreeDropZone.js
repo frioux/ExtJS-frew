@@ -159,6 +159,8 @@ Ext.extend(Ext.tree.TreeDropZone, Ext.dd.DropZone, {
             targetNode.ui.endDrop();
             return false;
         }
+        // allow target changing
+        targetNode = dropEvent.target;
         if(point == "append" && !targetNode.isExpanded()){
             targetNode.expand(false, null, function(){
                 this.completeDrop(dropEvent);

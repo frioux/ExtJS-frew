@@ -21,7 +21,7 @@ Ext.extend(Ext.grid.AbstractGridView, Ext.util.Observable, {
     splitClass : "x-grid-hd-split",
     
 	init: function(grid){
-		this.grid = grid;
+        this.grid = grid;
 		var cid = this.grid.container.id;
         this.colSelector = "#" + cid + " ." + this.cellClass + "-";
         this.tdSelector = "#" + cid + " ." + this.tdClass + "-";
@@ -51,20 +51,6 @@ Ext.extend(Ext.grid.AbstractGridView, Ext.util.Observable, {
             ids[i] = cm.getColumnId(i);
         }
         return ids;
-    },
-    
-    buildIndexMap : function(){
-        var colToData = {};
-        var dataToCol = {};
-        var cm = this.grid.colModel;
-        var dm = this.grid.dataSource;
-        for(var i = 0, len = cm.getColumnCount(); i < len; i++){
-            var di = cm.getDataIndex(i);
-            var trueDataIndex = dm.getIndex(di);
-            colToData[i] = trueDataIndex;
-            dataToCol[trueDataIndex] = i;
-        }
-        return {"colToData": colToData, "dataToCol": dataToCol};
     },
     
     getDataIndexes : function(){

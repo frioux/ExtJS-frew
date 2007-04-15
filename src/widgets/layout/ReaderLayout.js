@@ -1,7 +1,7 @@
 
-Ext.ReaderLayout = function(config){
+Ext.ReaderLayout = function(config, renderTo){
     var c = config || {size:{}};
-    Ext.ReaderLayout.superclass.constructor.call(this, document.body, {
+    Ext.ReaderLayout.superclass.constructor.call(this, renderTo || document.body, {
         north: c.north !== false ? Ext.apply({
             split:false,
             initialSize: 32,
@@ -43,7 +43,7 @@ Ext.ReaderLayout = function(config){
     this.beginUpdate();
 
     var inner = new Ext.BorderLayout(Ext.get(document.body).createChild(), {
-        south: Ext.apply({
+        south: c.east !== false ? Ext.apply({
             split:true,
             initialSize: 200,
             minSize: 100,
@@ -51,7 +51,7 @@ Ext.ReaderLayout = function(config){
             collapsible:true,
             titlebar: true,
             cmargins:{top:5,left:0, right:0, bottom:0}
-        }, c.preview),
+        }, c.preview) : false,
         center: Ext.apply({
             autoScroll:false,
             titlebar:false,

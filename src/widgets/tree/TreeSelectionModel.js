@@ -94,7 +94,59 @@ Ext.extend(Ext.tree.DefaultSelectionModel, Ext.util.Observable, {
     isSelected : function(node){
         return this.selNode == node;  
     },
-    
+
+    /**
+     * Selects the node above the selected node in the tree, intelligently walking the nodes
+     * @return TreeNode The new selection
+     */
+    selectPrevious : function(){
+        var s = this.selNode || this.lastSelNode;
+        if(!s){
+            return null;
+        }
+        var ps = s.previousSibling;
+        if(ps){
+            if(!ps.isExpanded() || ps.childNodes.length < 1){
+                return this.select(ps);
+            } else{
+                var lc = ps.lastChild;
+                while(lc && lc.isExpanded() && lc.childNodes.length > 0){
+                    lc = lc.lastChild;
+                }
+                return this.select(lc);
+            }
+        } else if(s.parentNode && (this.tree.rootVisible || !s.parentNode.isRoot)){
+            return this.select(s.parentNode);
+        }
+        return null;
+    },
+
+    /**
+     * Selects the node above the selected node in the tree, intelligently walking the nodes
+     * @return TreeNode The new selection
+     */
+    selectNext : function(){
+        var s = this.selNode || this.lastSelNode;
+        if(!s){
+            return null;
+        }
+        if(s.firstChild && s.isExpanded()){
+             return this.select(s.firstChild);
+         }else if(s.nextSibling){
+             return this.select(s.nextSibling);
+         }else if(s.parentNode){
+            var newS = null;
+            s.parentNode.bubble(function(){
+                if(this.nextSibling){
+                    newS = this.getOwnerTree().selModel.select(this.nextSibling);
+                    return false;
+                }
+            });
+            return newS;
+         }
+        return null;
+    },
+
     onKeyDown : function(e){
         var s = this.selNode || this.lastSelNode;
         // undesirable, but required
@@ -106,35 +158,11 @@ Ext.extend(Ext.tree.DefaultSelectionModel, Ext.util.Observable, {
         switch(k){
              case e.DOWN:
                  e.stopEvent();
-                 if(s.firstChild && s.isExpanded()){
-                     this.select(s.firstChild, e);
-                 }else if(s.nextSibling){
-                     this.select(s.nextSibling, e);
-                 }else if(s.parentNode){
-                     s.parentNode.bubble(function(){
-                         if(this.nextSibling){
-                             sm.select(this.nextSibling, e);
-                             return false;
-                         }
-                     });
-                 }
+                 this.selectNext();
              break;
              case e.UP:
                  e.stopEvent();
-                 var ps = s.previousSibling;
-                 if(ps){
-                     if(!ps.isExpanded() || ps.childNodes.length < 1){
-                         this.select(ps, e);
-                     }else{
-                         var lc = ps.lastChild;
-                         while(lc && lc.isExpanded() && lc.childNodes.length > 0){
-                             lc = lc.lastChild; 
-                         }
-                         this.select(lc, e);
-                     }
-                 }else if(s.parentNode && (this.tree.rootVisible || !s.parentNode.isRoot)){
-                     this.select(s.parentNode, e);
-                 }
+                 this.selectPrevious();
              break;
              case e.RIGHT:
                  e.preventDefault();

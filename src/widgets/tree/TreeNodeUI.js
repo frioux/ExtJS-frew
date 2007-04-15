@@ -349,8 +349,9 @@ Ext.tree.TreeNodeUI.prototype = {
                } 
             }
             this.initEvents();
-            //this.renderIndent(); cached above now instead call updateExpandIcon
-            this.updateExpandIcon();
+            if(!this.node.expanded){
+                this.updateExpandIcon();
+            }
         }else{
             if(bulkRender === true) {
                 targetNode.appendChild(this.wrap);
@@ -372,19 +373,39 @@ Ext.tree.TreeNodeUI.prototype = {
     
     updateExpandIcon : function(){
         if(this.rendered){
-            var n = this.node;
+            var n = this.node, c1, c2;
+            //console.log(n.id)
             var cls = n.isLast() ? "x-tree-elbow-end" : "x-tree-elbow";
             var hasChild = n.hasChildNodes();
             if(hasChild){
-                cls += n.expanded ? "-minus" : "-plus";
-                var c1 = n.expanded ? "x-tree-node-collapsed" : "x-tree-node-expanded";
-                var c2 = n.expanded ? "x-tree-node-expanded" : "x-tree-node-collapsed";
-                this.removeClass("x-tree-node-leaf");
-                Ext.fly(this.elNode).replaceClass(c1, c2);
+                if(n.expanded){
+                    cls += "-minus";
+                    c1 = "x-tree-node-collapsed";
+                    c2 = "x-tree-node-expanded";
+                }else{
+                    cls += "-plus";
+                    c1 = "x-tree-node-expanded";
+                    c2 = "x-tree-node-collapsed";
+                }
+                if(this.wasLeaf){
+                    this.removeClass("x-tree-node-leaf");
+                    this.wasLeaf = false;
+                }
+                if(this.c1 != c1 || this.c2 != c2){
+                    Ext.fly(this.elNode).replaceClass(c1, c2);
+                    this.c1 = c1; this.c2 = c2;
+                }
             }else{
-                Ext.fly(this.elNode).replaceClass("x-tree-node-expanded", "x-tree-node-leaf");
+                if(!this.wasLeaf){
+                    Ext.fly(this.elNode).replaceClass("x-tree-node-expanded", "x-tree-node-leaf");
+                    this.wasLeaf = true;
+                }
             }
-            this.ecNode.className = "x-tree-ec-icon "+cls;
+            var ecc = "x-tree-ec-icon "+cls;
+            if(this.ecc != ecc){
+                this.ecNode.className = ecc;
+                this.ecc = ecc;
+            }
         }
     },
     

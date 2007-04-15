@@ -36,7 +36,7 @@ var Example = {
 
         var ds = new Ext.data.Store({
 		        proxy: new Ext.data.MemoryProxy(myData),
-		        reader: new Ext.data.ArrayReader({id: 0}, [
+		        reader: new Ext.data.ArrayReader({}, [
                        {name: 'company'},
                        {name: 'price', type: 'float'},
                        {name: 'change', type: 'float'},
@@ -98,4 +98,4 @@ var Example = {
         grid.getSelectionModel().selectFirstRow();
     }
 };
-Ext.onReady(Example.init, Example, true);
+Ext.onReady(Example.init, Example);
