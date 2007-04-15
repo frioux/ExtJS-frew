@@ -71,6 +71,8 @@ if(Ext.DatePicker){
       maxText           : "日期在最大日期之后",
       disabledDaysText  : "",
       disabledDatesText : "",
+      monthNames	: Date.monthNames,
+      dayNames		: Date.dayNames,      
       nextText          : '下月 (Control+Right)',
       prevText          : '上月 (Control+Left)',
       monthYearText     : '选择一个月 (Control+Up/Down 来改变年)',

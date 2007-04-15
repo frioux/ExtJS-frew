@@ -71,6 +71,8 @@ if(Ext.DatePicker){
       maxText           : "Denne dato er senere end den senest tilladte",
       disabledDaysText  : "",
       disabledDatesText : "",
+      monthNames        : Date.monthNames,
+      dayNames          : Date.dayNames,      
       nextText          : 'Næste måned (Ctrl + højre piltast)',
       prevText          : 'Forrige måned (Ctrl + venstre piltast)',
       monthYearText     : 'Vælg en måned (Ctrl + op/ned pil for at ændre årstal)',
