@@ -1,3 +1,25 @@
+/* Fix for Opera, which does not seem to include the map function on Array's */
+if (!Array.prototype.map)
+{
+  Array.prototype.map = function(fun /*, thisp*/)
+  {
+    var len = this.length;
+    if (typeof fun != "function")
+      throw new TypeError();
+
+    var res = new Array(len);
+    var thisp = arguments[1];
+    for (var i = 0; i < len; i++)
+    {
+      if (i in this)
+        res[i] = fun.call(thisp, this[i], i, this);
+    }
+
+    return res;
+  };
+}
+
+/* Paging Memory Proxy, allows to use paging grid with in memory dataset */
 Ext.data.PagingMemoryProxy = function(data) {
 	Ext.data.PagingMemoryProxy.superclass.constructor.call(this);
 	this.data = data;
@@ -21,6 +43,7 @@ Ext.extend(Ext.data.PagingMemoryProxy, Ext.data.MemoryProxy, {
 	}
 });
 
+/* multi-lang.js extscript */
 Ext.onReady(function(){
 	Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
@@ -72,7 +95,7 @@ Ext.onReady(function(){
     // dataIndex maps the column to the specific data field in
     // the data store (created below)
     var cm = new Ext.grid.ColumnModel([{
-           header: "&nbsp;",
+           header: "Months of the year",
            dataIndex: 'month',
            editor: new Ed(new fm.TextField({
                allowBlank: false
@@ -83,7 +106,7 @@ Ext.onReady(function(){
     // by default columns are sortable
     cm.defaultSortable = true;
 
-	var monthArray = Date.monthNames.map(function(e, i, a){ return [e]; });
+	var monthArray = Date.monthNames.map(function (e) { return [e]; });
 
     // create the Data Store
     var ds = new Ext.data.Store({
@@ -116,7 +139,7 @@ Ext.onReady(function(){
     // add a paging toolbar to the grid's footer
     var paging = new Ext.PagingToolbar(gridFoot, ds, {
         pageSize: 6,
-        displayInfo: false,
+        displayInfo: false
     });
 
     // trigger the data store load
