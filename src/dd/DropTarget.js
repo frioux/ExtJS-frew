@@ -23,17 +23,17 @@ Ext.dd.DropTarget = function(el, config){
 
 Ext.extend(Ext.dd.DropTarget, Ext.dd.DDTarget, {
     /**
-     * @cfg {String} overClass The CSS class applied to the drop target element while the drag source is over it
-     * (defaults to "").
+     * @cfg {String} overClass
+     * The CSS class applied to the drop target element while the drag source is over it (defaults to "").
      */
     /**
-     * @cfg {String} dropAllowed The CSS class returned to the drag source when drop is allowed
-     * (defaults to "x-dd-drop-ok").
+     * @cfg {String} dropAllowed
+     * The CSS class returned to the drag source when drop is allowed (defaults to "x-dd-drop-ok").
      */
     dropAllowed : "x-dd-drop-ok",
     /**
-     * @cfg {String} dropNotAllowed The CSS class returned to the drag source when drop is not allowed
-     * (defaults to "x-dd-drop-nodrop").
+     * @cfg {String} dropNotAllowed
+     * The CSS class returned to the drag source when drop is not allowed (defaults to "x-dd-drop-nodrop").
      */
     dropNotAllowed : "x-dd-drop-nodrop",
 
