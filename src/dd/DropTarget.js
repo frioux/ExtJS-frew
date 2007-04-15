@@ -44,10 +44,10 @@ Ext.extend(Ext.dd.DropTarget, Ext.dd.DDTarget, {
     isNotifyTarget : true,
 
     /**
-     * The function a {@link Ext.dd.DragSource} calls once to notify this drop target that it is now over the
+     * The function a {@link Ext.dd.DragSource} calls once to notify this drop target that the source is now over the
      * target.  This default implementation adds the CSS class specified by overClass (if any) to the drop element
      * and returns the dropAllowed config value.  This method should be overridden if drop validation is required.
-     * @param {Ext.dd.DDProxy} ddProxy The proxy that was dragged over this drop target
+     * @param {Ext.dd.DragSource} source The drag source that was dragged over this drop target
      * @param {Event} e The event
      * @paramn {Object} data An object containing arbitrary data supplied by the drag source
      * @return {String} status The CSS class that communicates the drop status back to the source so that the
@@ -64,7 +64,7 @@ Ext.extend(Ext.dd.DropTarget, Ext.dd.DDTarget, {
      * The function a {@link Ext.dd.DragSource} calls continuously while it is being dragged over the target.
      * This method will be called on every mouse movement while the drag source is over the drop target.
      * This default implementation simply returns the dropAllowed config value.
-     * @param {Ext.dd.DDProxy} ddProxy The proxy that was dragged over this drop target
+     * @param {Ext.dd.DragSource} source The drag source that was dragged over this drop target
      * @param {Event} e The event
      * @paramn {Object} data An object containing arbitrary data supplied by the drag source
      * @return {String} status The CSS class that communicates the drop status back to the source so that the
@@ -75,10 +75,10 @@ Ext.extend(Ext.dd.DropTarget, Ext.dd.DDTarget, {
     },
 
     /**
-     * The function a {@link Ext.dd.DragSource} calls once to notify this drop target that it has been dragged out
-     * pf the target without dropping.  This default implementation simply removes the CSS class specified by
+     * The function a {@link Ext.dd.DragSource} calls once to notify this drop target that the source has been dragged
+     * out of the target without dropping.  This default implementation simply removes the CSS class specified by
      * overClass (if any) from the drop element.
-     * @param {Ext.dd.DDProxy} ddProxy The proxy that was dragged over this drop target
+     * @param {Ext.dd.DragSource} source The drag source that was dragged over this drop target
      * @param {Event} e The event
      * @paramn {Object} data An object containing arbitrary data supplied by the drag source
      */
@@ -93,7 +93,7 @@ Ext.extend(Ext.dd.DropTarget, Ext.dd.DDTarget, {
      * been dropped on it.  This method has no default implementation and returns false, so you must provide an
      * implementation that does something to process the drop event and returns true so that the drag source's
      * repair action does not run.
-     * @param {Ext.dd.DDProxy} ddProxy The proxy that was dragged over this drop target
+     * @param {Ext.dd.DragSource} source The drag source that was dragged over this drop target
      * @param {Event} e The event
      * @paramn {Object} data An object containing arbitrary data supplied by the drag source
      * @return {Boolean} True if the drop was valid, else false
