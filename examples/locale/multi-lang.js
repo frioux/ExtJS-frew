@@ -1,4 +1,31 @@
+Ext.data.PagingMemoryProxy = function(data) {
+	Ext.data.PagingMemoryProxy.superclass.constructor.call(this);
+	this.data = data;
+};
+
+Ext.extend(Ext.data.PagingMemoryProxy, Ext.data.MemoryProxy, {
+	load : function(params, reader, callback, scope, arg) {
+		params = params || {};
+		var result;
+		try {
+			result = reader.readRecords(this.data);
+		}catch(e){
+			this.fireEvent("loadexception", this, arg, null, e);
+			callback.call(scope, null, arg, false);
+			return;
+		}
+		if ( (params.start!==undefined) && (params.limit!==undefined) ) {
+			result.records = result.records.slice(params.start, params.start+params.limit);
+		}
+		callback.call(scope, result, arg, true);
+	}
+});
+
 Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.form.Field.prototype.msgTarget = 'side';
+	
+	/* Language chooser combobox  */
     var store = new Ext.data.SimpleStore({
         fields: ['code', 'language'],
         data : Ext.exampledata.languages // from languages.js
@@ -11,18 +38,34 @@ Ext.onReady(function(){
         triggerAction: 'all',
         emptyText:'Select a language...',
         selectOnFocus:true,
-	onSelect: function(record) {
-	    //Ext.Msg.alert("Language selected", "Language: "+record.get("language")+" (code: "+record.get("code")+")");
-	    window.location = "?lang="+record.get("code");
-	}
+		onSelect: function(record) {
+	    	//Ext.Msg.alert("Language selected", "Language: "+record.get("language")+" (code: "+record.get("code")+")");
+	    	window.location = "?lang="+record.get("code");
+		}
     });
     combo.applyTo('languages');
+
+	/* Email field */
+	var efield = new Ext.form.Form({ labelWidth: 75 });
+	efield.add(new Ext.form.TextField({
+		fieldLabel: 'Email',
+		name: 'email',
+		vtype: 'email',
+		width: 175
+	}));
+	efield.render('form-ct');
+
+	/* Datepicker */
+	var efield = new Ext.form.Form({ labelWidth: 75 });
+	efield.add(new Ext.form.DateField({
+		fieldLabel: 'Date',
+		name: 'date',
+		width: 175
+	}));
+	efield.render('form-ct2');
 });
 
 Ext.onReady(function(){
-    function formatDate(value){
-        return value ? value.dateFormat('M d, Y') : '';
-    };
     // shorthand alias
     var fm = Ext.form, Ed = Ext.grid.GridEditor;
     // the column model has information about grid columns
@@ -30,37 +73,24 @@ Ext.onReady(function(){
     // the data store (created below)
     var cm = new Ext.grid.ColumnModel([{
            header: "&nbsp;",
-           dataIndex: 'common',
-           width: 220,
+           dataIndex: 'month',
            editor: new Ed(new fm.TextField({
                allowBlank: false
-           }))
-        },{
-           header: "&nbsp;",
-           dataIndex: 'availDate',
-           width: 95,
-           renderer: formatDate,
-           editor: new Ed(new fm.DateField({
-                format: 'm/d/y',
-                minValue: '01/01/06',
-                disabledDays: [0, 6],
-                disabledDaysText: 'Plants are not available on the weekends'
-            }))
+           })),
+           width: 240
         }]);
 
     // by default columns are sortable
     cm.defaultSortable = true;
 
-    // this could be inline, but we want to define the Plant record
-    // type so we can add records dynamically
-    var Plant = Ext.data.Record.create([
-           {name: 'common', type: 'string'},
-           {name: 'date', type: 'date', dateFormat: 'm/d/Y'},
-      ]);
+	var monthArray = Date.monthNames.map(function(e, i, a){ return [e]; });
 
     // create the Data Store
-    var ds = new Ext.data.SimpleStore({
-        fields: ['common', 'date']
+    var ds = new Ext.data.Store({
+		proxy: new Ext.data.PagingMemoryProxy(monthArray),
+		reader: new Ext.data.ArrayReader({}, [
+			{name: 'month'}
+		])
     });
 
     // create the editor grid
@@ -81,46 +111,14 @@ Ext.onReady(function(){
     // render it
     grid.render();
 
-    var gridHead = grid.getView().getHeaderPanel(true);
-    var tb = new Ext.Toolbar(gridHead, [{
-        text: '',
-	cls: 'x-btn-text-icon add',
-        handler : function(){
-	    Ext.Msg.prompt('', '', function(btn, text) {
-		if (btn=="ok") {
-        	    var p = new Plant({
-        	        common: text,
-    	    	        availDate: new Date(),
-        	    });
-    	    	    grid.stopEditing();
-    		    ds.insert(0, p);
-    	    	    grid.startEditing(0, 0);
-		}
-	    });
-        }
-    },{
-        text: '',
-	cls: 'x-btn-text-icon delete',
-        handler : function(){
-	    var sm = grid.getSelectionModel();
-	    if (sm.getCount()>0) {
-		var record = sm.getSelected();
-		Ext.Msg.show({
-		    title: record.get("common"),
-		    msg: record.get("common"),
-		    buttons: Ext.Msg.OKCANCEL,
-		    fn:  function(btn, text) {
-			if (btn=="ok") {
-    	    		    grid.stopEditing();
-    		    	    ds.remove(record);
-    	    		    //grid.startEditing(0, 0);
-			}
-		    }
-		});
-	    }
-        }
-    }]);
+    var gridFoot = grid.getView().getFooterPanel(true);
+
+    // add a paging toolbar to the grid's footer
+    var paging = new Ext.PagingToolbar(gridFoot, ds, {
+        pageSize: 6,
+        displayInfo: false,
+    });
 
     // trigger the data store load
-    //ds.load();
+    ds.load({params:{start:0, limit:6}});
 });

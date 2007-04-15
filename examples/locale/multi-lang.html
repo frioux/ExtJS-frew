@@ -4,24 +4,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf8">
 <title>Multiple Languages</title>
 <link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css" />
+<link rel="stylesheet" type="text/css" href="../../resources/css/ytheme-gray.css" />
 
     <!-- GC --> <!-- LIBS -->     <script type="text/javascript" src="../../adapter/yui/yui-utilities.js"></script>     <script type="text/javascript" src="../../adapter/yui/ext-yui-adapter.js"></script>     <!-- ENDLIBS -->
     <script type="text/javascript" src="../../ext-all.js"></script>
 
 <script type="text/javascript" src="languages.js"></script>
-<script type="text/javascript" src="dutch-provinces.js"></script>
-<script type="text/javascript" src="multi-lang.js"></script>
 
 <!-- Common Styles for the examples -->
 <link rel="stylesheet" type="text/css" href="../examples.css" />
 </head>
-<body>
+<body class="x-gray">
 <style>
 .add .x-btn-text { 
-    background-image: url(../../resources/images/default/dd/drop-add.gif);
+    background-image: url(../shared/icons/fam/add.gif);
 }
 .delete .x-btn-text { 
-    background-image: url(../../resources/images/default/dd/drop-no.gif);
+    background-image: url(../shared/icons/fam/delete.gif);
 }
 
 </style>
@@ -29,7 +28,6 @@
 <script type="text/javascript">
 var idx = window.location.href.indexOf("lang=");
 if(idx>=0){
-    
     var code = window.location.href.charAt(idx+7)=="_" ?
 		window.location.href.substring(idx+5, idx+10) :
 		window.location.href.substring(idx+5, idx+7);
@@ -39,21 +37,53 @@ if(idx>=0){
     document.getElementsByTagName("head")[0].appendChild(s);
 }
 </script>
+<script type="text/javascript" src="multi-lang.js"></script>
 
 <h1>Localization with Extjs</h1>
 <p>The js is not minified so it is readable. See <a href="multi-lang.js">multi-lang.js</a>.</p>
 
 <p>
-This demonstrates multiple language with a very simple editable grid.
-All non-localized text in columns and message boxes have been intentionally left out.
+This demonstrates multiple language with some of the Ext components.<br/>
+Select a language from the combobox below (default is english) and try out the components.
 </p>
 
 <div>
   <input type="text" id="languages" size="20" />
 </div>
 <br/>
-<div id="grid-panel" style="width:600px;height:300px;">
-    <div id="editor-grid"></div>
+<h2>Email Field</h2>
+<p></p>
+<div style="width:300px;">
+    <div class="x-box-tl"><div class="x-box-tr"><div class="x-box-tc"></div></div></div>
+    <div class="x-box-ml"><div class="x-box-mr"><div class="x-box-mc">
+        <h3 style="margin-bottom:5px;">Localized Email Field</h3>
+        <div id="form-ct"></div>
+    </div></div></div>
+    <div class="x-box-bl"><div class="x-box-br"><div class="x-box-bc"></div></div></div>
+</div>
+<br/>
+<h2>Datepicker</h2>
+<br/>
+<div style="width:300px;">
+    <div class="x-box-tl"><div class="x-box-tr"><div class="x-box-tc"></div></div></div>
+    <div class="x-box-ml"><div class="x-box-mr"><div class="x-box-mc">
+        <h3 style="margin-bottom:5px;">Localized Datepicker</h3>
+        <div id="form-ct2"></div>
+    </div></div></div>
+    <div class="x-box-bl"><div class="x-box-br"><div class="x-box-bc"></div></div></div>
+</div>
+<br/>
+<h2>Grid</h2>
+<br/>
+<div style="width:300px;">
+    <div class="x-box-tl"><div class="x-box-tr"><div class="x-box-tc"></div></div></div>
+    <div class="x-box-ml"><div class="x-box-mr"><div class="x-box-mc">
+        <h3 style="margin-bottom:5px;">Localized Grid</h3>
+		<div id="grid-panel" style="width:270px;height:178px;">
+		    <div id="editor-grid"></div>
+		</div>
+    </div></div></div>
+    <div class="x-box-bl"><div class="x-box-br"><div class="x-box-bc"></div></div></div>
 </div>
 </body>
 </html>
