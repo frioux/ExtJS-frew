@@ -1,6 +1,7 @@
 /**
  * @class Ext.dd.Registry
- * Provides easy access to all drag drop components that are registered on a page.
+ * Provides easy access to all drag drop components that are registered on a page.  Items can be retrieved either
+ * directly by DOM node id, or by passing in the drag drop event that occurred and looking up the event target.
  * @singleton
  */
 Ext.dd.Registry = function(){
@@ -24,13 +25,17 @@ Ext.dd.Registry = function(){
     /**
      * Resgister a drag drop element
      * @param {String/HTMLElement) element The id or DOM node to register
-     * @param {Object} data An object with one or more of the following values:
+     * @param {Object} data (optional) An custom data object that will be passed between the elements that are involved
+     * in drag drop operations.  You can populate this object with any arbitrary properties that your own code
+     * knows how to interpret, plus there are some specific properties known to the Registry that should be
+     * populated in the data object (if applicable):
      * <pre>
 Value      Description
----------  --------------------------------------
-node       
-handles
-isHandle
+---------  ------------------------------------------
+handles    Array of DOM nodes that trigger dragging
+           for the element being registered
+isHandle   True if the element passed in triggers
+           dragging itself, else false
 </pre>
      */
         register : function(el, data){
@@ -70,8 +75,9 @@ isHandle
         },
 
     /**
-     * Returns the drag handle registered for the specified id
-     * @return {HTMLElement} handle The drag handle
+     * Returns the handle registered for a DOM Node by id
+     * @param {String/HTMLElement} id The DOM node or id to look up
+     * @return {Object} handle The custom handle data
      */
         getHandle : function(id){
             if(typeof id != "string"){ // must be element?
@@ -81,8 +87,9 @@ isHandle
         },
 
     /**
-     * Returns the drag handle that is the target of the specified event
-     * @return {HTMLElement} handle The drag handle
+     * Returns the handle that is registered for the DOM node that is the target of the event
+     * @param {Event} e The event
+     * @return {Object} handle The custom handle data
      */
         getHandleFromEvent : function(e){
             var t = Ext.lib.Event.getTarget(e);
@@ -90,8 +97,9 @@ isHandle
         },
 
     /**
-     * Returns the drop target registered for the specified id
-     * @return {HTMLElement} target The drop target
+     * Returns a custom data object that is registered for a DOM node by id
+     * @param {String/HTMLElement} id The DOM node or id to look up
+     * @return {Object} data The custom data
      */
         getTarget : function(id){
             if(typeof id != "string"){ // must be element?
@@ -101,8 +109,9 @@ isHandle
         },
 
     /**
-     * Returns the drop target that is the target of the specified event
-     * @return {HTMLElement} target The drop target
+     * Returns a custom data object that is registered for the DOM node that is the target of the event
+     * @param {Event} e The event
+     * @return {Object} data The custom data
      */
         getTargetFromEvent : function(e){
             var t = Ext.lib.Event.getTarget(e);
