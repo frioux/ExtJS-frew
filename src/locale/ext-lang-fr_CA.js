@@ -11,7 +11,7 @@ if(Ext.View){
 }
 
 if(Ext.grid.Grid){
-   Ext.grid.Grid.prototype.ddText = "%0 ligne(s) sélectionné(s)";
+   Ext.grid.Grid.prototype.ddText = "{0} ligne(s) sélectionné(s)";
 }
 
 if(Ext.TabPanelItem){

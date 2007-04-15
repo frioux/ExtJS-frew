@@ -11,7 +11,7 @@ if(Ext.View){
 }
 
 if(Ext.grid.Grid){
-   Ext.grid.Grid.prototype.ddText = "%0 Zeile(n) ausgewält";
+   Ext.grid.Grid.prototype.ddText = "{0} Zeile(n) ausgewält";
 }
 
 if(Ext.TabPanelItem){

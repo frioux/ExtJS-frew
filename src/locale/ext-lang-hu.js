@@ -16,7 +16,7 @@ if(Ext.View){
 }
 
 if(Ext.grid.Grid){
-   Ext.grid.Grid.prototype.ddText = "%0 kiválasztott sor";
+   Ext.grid.Grid.prototype.ddText = "{0} kiválasztott sor";
 }
 
 if(Ext.TabPanelItem){

@@ -15,7 +15,7 @@ if(Ext.View){
 }
 
 if(Ext.grid.Grid){
-   Ext.grid.Grid.prototype.ddText = "%0 seçili satır";
+   Ext.grid.Grid.prototype.ddText = "{0} seçili satır";
 }
 
 if(Ext.TabPanelItem){

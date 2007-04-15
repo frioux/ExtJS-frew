@@ -11,7 +11,7 @@ if(Ext.View){
 }
 
 if(Ext.grid.Grid){
-  Ext.grid.Grid.prototype.ddText = "%0 行選択";
+  Ext.grid.Grid.prototype.ddText = "{0} 行選択";
 }
 
 if(Ext.TabPanelItem){

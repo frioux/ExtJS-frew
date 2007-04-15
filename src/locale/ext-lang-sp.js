@@ -10,7 +10,7 @@ if(Ext.View){
 }
 
 if(Ext.grid.Grid){
-   Ext.grid.Grid.prototype.ddText = "%0 fila(s) seleccionadas";
+   Ext.grid.Grid.prototype.ddText = "{0} fila(s) seleccionadas";
 }
 
 if(Ext.TabPanelItem){

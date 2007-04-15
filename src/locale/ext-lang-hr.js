@@ -11,7 +11,7 @@ if(Ext.View){
 }
 
 if(Ext.grid.Grid){
-   Ext.grid.Grid.prototype.ddText = "%0 odabranih redova";
+   Ext.grid.Grid.prototype.ddText = "{0} odabranih redova";
 }
 
 if(Ext.TabPanelItem){

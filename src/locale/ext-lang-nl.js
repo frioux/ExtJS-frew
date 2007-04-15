@@ -7,7 +7,7 @@
  */
 
 /* Ext Core translations */
-Ext.UpdateManager.defaults.indicatorText = '<div class="loading-indicator">Laden...</div>';
+Ext.UpdateManager.defaults.indicatorText = '<div class="loading-indicator">Bezig met laden...</div>';
 
 /* Ext single string translations */
 if(Ext.View){
@@ -15,7 +15,7 @@ if(Ext.View){
 }
 
 if(Ext.grid.Grid){
-    Ext.grid.Grid.prototype.ddText = "%0 geselecteerde rij(en)";
+    Ext.grid.Grid.prototype.ddText = "{0} geselecteerde rij(en)";
 }
 
 if(Ext.TabPanelItem){
@@ -24,6 +24,10 @@ if(Ext.TabPanelItem){
 
 if(Ext.form.Field){
     Ext.form.Field.prototype.invalidText = "De waarde in dit veld is onjuist";
+}
+
+if(Ext.LoadMask){
+    Ext.LoadMask.prototype.msg = "Bezig met laden...";
 }
 
 /* Javascript month and days translations */
@@ -133,7 +137,7 @@ if(Ext.form.DateField){
 
 if(Ext.form.ComboBox){
     Ext.apply(Ext.form.ComboBox.prototype, {
-       loadingText       : "Laden...",
+       loadingText       : "Bezig met laden...",
        valueNotFoundText : undefined
     });
 }

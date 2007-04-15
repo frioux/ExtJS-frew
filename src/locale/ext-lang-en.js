@@ -12,7 +12,7 @@ if(Ext.View){
 }
 
 if(Ext.grid.Grid){
-   Ext.grid.Grid.prototype.ddText = "%0 selected row(s)";
+   Ext.grid.Grid.prototype.ddText = "{0} selected row(s)";
 }
 
 if(Ext.TabPanelItem){
@@ -21,6 +21,10 @@ if(Ext.TabPanelItem){
 
 if(Ext.form.Field){
    Ext.form.Field.prototype.invalidText = "The value in this field is invalid";
+}
+
+if(Ext.LoadMask){
+    Ext.LoadMask.prototype.msg = "Loading...";
 }
 
 Date.monthNames = [
