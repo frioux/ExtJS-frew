@@ -240,7 +240,6 @@ Ext.onReady(function(){
             allowDrag:false,
             allowDrop:true,
             iconCls:'folder',
-            singleClickExpand:true,
             type:'fileCt',
             cmpId:id,
             allowDelete:false,
@@ -253,7 +252,6 @@ Ext.onReady(function(){
             allowDrag:false,
             allowDrop:true,
             iconCls:'folder',
-            singleClickExpand:true,
             type:'fileCt',
             cmpId:id,
             allowDelete:false,
@@ -399,6 +397,7 @@ Ext.onReady(function(){
             },'-',{
                 id:'remove',
                 handler:removeNode,
+                cls:'remove-mi',
                 text: 'Remove Item'
         }]
     });

@@ -25,7 +25,7 @@
     background-image:url(../shared/icons/fam/add.gif);
 }
 
-.remove .x-btn-text {
+.remove .x-btn-text, .remove-mi .x-menu-item-icon {
     background-image:url(../shared/icons/fam/delete.gif);
 }
 
