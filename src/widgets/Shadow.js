@@ -1,3 +1,12 @@
+/**
+ * @class Ext.Shadow
+ * Simple class that can provide a shadow effect for any element.  Note that the element MUST be absolutely positioned,
+ * and the shadow does not provide any shimming.  This should be used only in simple cases -- for more advanced
+ * functionality that can also provide the same shadow effect, see the {@link Ext.Layer} class.
+ * @constructor
+ * Create a new Shadow
+ * @param {Object} config The config object
+ */
 Ext.Shadow = function(config){
     Ext.apply(this, config);
     if(typeof this.mode != "string"){
@@ -23,8 +32,30 @@ Ext.Shadow = function(config){
 };
 
 Ext.Shadow.prototype = {
-    defaultMode: "drop",
+    /**
+     * @cfg {String} mode
+     * The shadow display mode.  Supports the following options:
+     * <pre>
+Option   Description
+-------  ----------------------------------------------
+sides    Shadow displays on both sides and bottom only
+frame    Shadow displays equally on all four sides
+drop     Traditional bottom-right drop shadow
+</pre>
+     */
+    /**
+     * @cfg {String} offset
+     * The number of pixels to offset the shadow from the element (defaults to 4)
+     */
     offset: 4,
+
+    // private
+    defaultMode: "drop",
+
+    /**
+     * Displays the shadow under the target element
+     * @param {String/HTMLElement/Element} targetEl The id or element under which the shadow should display
+     */
     show : function(target){
         target = Ext.get(target);
         if(!this.el){
@@ -35,20 +66,28 @@ Ext.Shadow.prototype = {
         }
         this.el.setStyle("z-index", this.zIndex || parseInt(target.getStyle("z-index"), 10)-1);
         this.realign(
-                target.getLeft(true),
-                target.getTop(true),
-                target.getWidth(),
-                target.getHeight()
+            target.getLeft(true),
+            target.getTop(true),
+            target.getWidth(),
+            target.getHeight()
         );
         this.el.dom.style.display = "block";
     },
 
+    /**
+     * Returns true if the shadow is visible, else false
+     */
     isVisible : function(){
         return this.el ? true : false;  
     },
+
     /**
      * Direct alignment when values are already available. Show must be called at least once before
      * calling this method to ensure it is initialized.
+     * @param {Number} left The target element left position
+     * @param {Number} top The target element top position
+     * @param {Number} width The target element width
+     * @param {Number} height The target element height
      */
     realign : function(l, t, w, h){
         var a = this.adjusts, d = this.el.dom, s = d.style;
@@ -67,6 +106,9 @@ Ext.Shadow.prototype = {
         }
     },
 
+    /**
+     * Hides this shadow
+     */
     hide : function(){
         if(this.el){
             this.el.dom.style.display = "none";
@@ -75,6 +117,10 @@ Ext.Shadow.prototype = {
         }
     },
 
+    /**
+     * Adjust the z-index of this shadow
+     * @param {Number} zindex The new z-index
+     */
     setZIndex : function(z){
         this.zIndex = z;
         if(this.el){
@@ -83,6 +129,7 @@ Ext.Shadow.prototype = {
     }
 };
 
+// Private utility class that manages the internal Shadow cache
 Ext.Shadow.Pool = function(){
     var p = [];
     var markup = '<div class="x-shadow"><div class="xst"><div class="xstl"></div><div class="xstc"></div><div class="xstr"></div></div><div class="xsc"><div class="xsml"></div><div class="xsmc"></div><div class="xsmr"></div></div><div class="xsb"><div class="xsbl"></div><div class="xsbc"></div><div class="xsbr"></div></div></div>';
