@@ -1,11 +1,8 @@
 /**
  * @class Ext.dd.DragZone
- * @extends Ext.dd.Source
+ * @extends Ext.dd.DragSource
  * This class provides a container DD instance that proxies for multiple child node sources.<br />
- * By default, this class requires that draggable child nodes are registered with
- * {@link Ext.dd.Registry}.
- * @cfg {Boolean} containerScroll True to register this container with the Scrollmanager 
- * for auto scrolling during drag operations.
+ * By default, this class requires that draggable child nodes are registered with {@link Ext.dd.Registry}.
  * @constructor
  * @param {String/HTMLElement/Element} el The container element
  * @param {Object} config
@@ -18,6 +15,15 @@ Ext.dd.DragZone = function(el, config){
 };
 
 Ext.extend(Ext.dd.DragZone, Ext.dd.DragSource, {
+    /**
+     * @cfg {Boolean} containerScroll True to register this container with the Scrollmanager
+     * for auto scrolling during drag operations.
+     */
+    /**
+     * @cfg {String} hlColor The color to use when visually highlighting the drag source in the afterRepair
+     * method after a failed drop (defaults to "c3daf9" - light blue)
+     */
+
     /**
      * Called when a mousedown occurs in this container. Looks in {@link Ext.dd.Registry}
      * for a valid target to drag based on the mouse down. Override this method
