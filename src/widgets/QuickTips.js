@@ -1,5 +1,6 @@
 /**
  * @class Ext.QuickTips
+ * Provides attractive and customizable tooltips for any element.
  * @singleton
  */
 Ext.QuickTips = function(){
@@ -180,6 +181,65 @@ Ext.QuickTips = function(){
     };
     
     return {
+        /**
+        * @cfg {Number} minWidth
+        * The minimum width of the quick tip (defaults to 40)
+        */
+       minWidth : 40,
+        /**
+        * @cfg {Number} maxWidth
+        * The maximum width of the quick tip (defaults to 300)
+        */
+       maxWidth : 300,
+        /**
+        * @cfg {Boolean} interceptTitles
+        * True to automatically use the element's DOM title value if available (defaults to false)
+        */
+       interceptTitles : false,
+        /**
+        * @cfg {Boolean} trackMouse
+        * True to have the quick tip follow the mouse as it moves over the target element (defaults to false)
+        */
+       trackMouse : false,
+        /**
+        * @cfg {Boolean} hideOnClick
+        * True to hide the quick tip if the user clicks anywhere in the document (defaults to true)
+        */
+       hideOnClick : true,
+        /**
+        * @cfg {Number} showDelay
+        * Delay in milliseconds before the quick tip displays after the mouse enters the target element (defaults to 500)
+        */
+       showDelay : 500,
+        /**
+        * @cfg {Number} hideDelay
+        * Delay in milliseconds before the quick tip hides when autoHide = true (defaults to 200)
+        */
+       hideDelay : 200,
+        /**
+        * @cfg {Boolean} autoHide
+        * True to automatically hide the quick tip after the mouse exits the target element (defaults to true).
+        * Used in conjunction with hideDelay.
+        */
+       autoHide : true,
+        /**
+        * @cfg {Boolean}
+        * True to automatically hide the quick tip after a set period of time, regardless of the user's actions
+        * (defaults to true).  Used in conjunction with autoDismissDelay.
+        */
+       autoDismiss : true,
+        /**
+        * @cfg {Number}
+        * Delay in milliseconds before the quick tip hides when autoDismiss = true (defaults to 5000)
+        */
+       autoDismissDelay : 5000,
+       /**
+        * @cfg {Boolean} animate
+        * True to turn on fade animation. Defaults to false (ClearType/scrollbar flicker issues in IE7).
+        */
+       animate : false,
+               
+        // private
        init : function(){
           tm = Ext.QuickTips;
           cfg = tm.tagConfig;
@@ -218,7 +278,11 @@ Ext.QuickTips = function(){
           }
           this.enable(); 
        },
-       
+
+    /**
+     * Configures a new quick tip instance and assigns it to a target element
+     * @param {Object} config The config object
+     */
        register : function(config){
            var cs = config instanceof Array ? config : arguments;
            for(var i = 0, len = cs.length; i < len; i++) {
@@ -236,10 +300,16 @@ Ext.QuickTips = function(){
            }
        },
 
+    /**
+     * Removes this quick tip from its element and destroys it
+     */
        unregister : function(el){
            delete tagEls[Ext.id(el)];
        },
 
+    /**
+     * Enable this quick tip
+     */
        enable : function(){
            if(inited){
                locks.pop();
@@ -248,7 +318,10 @@ Ext.QuickTips = function(){
                }
            }
        },
-       
+
+    /**
+     * Disable this quick tip
+     */
        disable : function(){
           disabled = true;
           clearTimeout(showProc);
@@ -260,10 +333,14 @@ Ext.QuickTips = function(){
           locks.push(1);
        },
 
+    /**
+     * Returns true if the quick tip is enabled, else false
+     */
        isEnabled : function(){
             return !disabled;
        },
 
+        // private
        tagConfig : {
            namespace : "ext",
            attribute : "qtip",
@@ -272,23 +349,7 @@ Ext.QuickTips = function(){
            title : "qtitle",
            hide : "hide",
            cls : "qclass"
-       },
-       
-       minWidth : 40,
-       maxWidth : 300,
-       interceptTitles : false,
-       trackMouse : false,
-       hideOnClick : true,
-       showDelay : 500,
-       hideDelay : 200,
-       autoHide : true,
-       autoDismiss : true,
-       autoDismissDelay : 5000,
-       /**
-        * True to turn on fade animation. Defaults to false (ClearType/scrollbar flicker issues in IE7).
-        * @type Boolean
-        */
-       animate : false
+       }
    };
 }();
 
