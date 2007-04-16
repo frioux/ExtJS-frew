@@ -349,7 +349,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
      * Returns the sort state of the Store as an object with two properties:
      * <pre><code>
  field {String} The name of the field by which the Records are sorted
- dir {String} The sotr order, "ASC" or "DESC"
+ direction {String} The sort order, "ASC" or "DESC"
      * </code></pre>
      */
     getSortState : function(){
