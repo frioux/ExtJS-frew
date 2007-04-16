@@ -167,6 +167,18 @@ El.prototype = {
         return p ? p.findParent(simpleSelector, maxDepth, returnEl) : null;
     },
 
+    /**
+     * Walks up the dom looking for a parent node that matches the passed simple selector (e.g. div.some-class or span:first-child).
+     * This is a shortcut for findParentNode() that always returns an Ext.Element.
+     * @param {String} ss The simple selector to test
+     * @param {Number/String/HTMLElement/Element} maxDepth (optional) The max depth to
+            search as a number or element (defaults to 10 || document.body)
+     * @return {Ext.Element}
+     */
+    up : function(simpleSelector, maxDepth){
+        return this.findParentNode(simpleSelector, maxDepth, true);
+    },
+
 
 
     /**
