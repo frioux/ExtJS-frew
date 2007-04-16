@@ -1,4 +1,31 @@
+/**
+ * @class Ext.ReaderLayout
+ * @extends Ext.BorderLayout
+ * This is a pre-built layout that represents a classic, 5-pane application.  It consists of a header, a primary
+ * center panel (for a list view), a south panel (for list item preview), and panels on either side that can be
+ * used for navigation, application commands, informational displays, etc.  The setup and configuration works exactly
+ * the same as it does for a {@link Ext.BorderLayout} - this simply expedites the setup of the overall layout
+ * and regions for this common application style.
+ * Example:
+ <pre><code>
+var reader = new Ext.ReaderLayout();
+var CP = Ext.ContentPanel;  // shortcut for adding
 
+reader.beginUpdate();
+reader.add("north", new CP("north", "North"));
+reader.add("west", new CP("west", {title: "West"}));
+reader.add("east", new CP("east", {title: "East"}));
+
+reader.regions.listView.add(new CP("listView", "List"));
+reader.regions.preview.add(new CP("preview", "Preview"));
+reader.endUpdate();
+</code></pre>
+* @constructor
+* Create a new ReaderLayout
+* @param {Object} config Configuration options
+* @param {String/HTMLElement/Element} container (optional) The container this layout is bound to (defaults to
+* document.body if omitted)
+*/
 Ext.ReaderLayout = function(config, renderTo){
     var c = config || {size:{}};
     Ext.ReaderLayout.superclass.constructor.call(this, renderTo || document.body, {
