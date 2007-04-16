@@ -49,7 +49,7 @@ Ext.extend(Ext.dd.DropTarget, Ext.dd.DDTarget, {
      * and returns the dropAllowed config value.  This method should be overridden if drop validation is required.
      * @param {Ext.dd.DragSource} source The drag source that was dragged over this drop target
      * @param {Event} e The event
-     * @paramn {Object} data An object containing arbitrary data supplied by the drag source
+     * @param {Object} data An object containing arbitrary data supplied by the drag source
      * @return {String} status The CSS class that communicates the drop status back to the source so that the
      * underlying {@link Ext.dd.StatusProxy} can be updated
      */
@@ -66,7 +66,7 @@ Ext.extend(Ext.dd.DropTarget, Ext.dd.DDTarget, {
      * This default implementation simply returns the dropAllowed config value.
      * @param {Ext.dd.DragSource} source The drag source that was dragged over this drop target
      * @param {Event} e The event
-     * @paramn {Object} data An object containing arbitrary data supplied by the drag source
+     * @param {Object} data An object containing arbitrary data supplied by the drag source
      * @return {String} status The CSS class that communicates the drop status back to the source so that the
      * underlying {@link Ext.dd.StatusProxy} can be updated
      */
@@ -80,7 +80,7 @@ Ext.extend(Ext.dd.DropTarget, Ext.dd.DDTarget, {
      * overClass (if any) from the drop element.
      * @param {Ext.dd.DragSource} source The drag source that was dragged over this drop target
      * @param {Event} e The event
-     * @paramn {Object} data An object containing arbitrary data supplied by the drag source
+     * @param {Object} data An object containing arbitrary data supplied by the drag source
      */
     notifyOut : function(dd, e, data){
         if(this.overClass){
@@ -95,7 +95,7 @@ Ext.extend(Ext.dd.DropTarget, Ext.dd.DDTarget, {
      * repair action does not run.
      * @param {Ext.dd.DragSource} source The drag source that was dragged over this drop target
      * @param {Event} e The event
-     * @paramn {Object} data An object containing arbitrary data supplied by the drag source
+     * @param {Object} data An object containing arbitrary data supplied by the drag source
      * @return {Boolean} True if the drop was valid, else false
      */
     notifyDrop : function(dd, e, data){
