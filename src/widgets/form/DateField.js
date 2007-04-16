@@ -24,20 +24,24 @@ Ext.form.DateField = function(config){
 
 Ext.extend(Ext.form.DateField, Ext.form.TriggerField,  {
     /**
-     * @cfg {String} format The default date format string which can be overriden for localization support.  The format must be
+     * @cfg {String} format
+     * The default date format string which can be overriden for localization support.  The format must be
      * valid according to {@link Date#parseDate} (defaults to 'm/d/y').
      */
     format : "m/d/y",
     /**
-     * @cfg {Array} disabledDays An array of days to disable, 0 based. For example, [0, 6] disables Sunday and Saturday (defaults to null).
+     * @cfg {Array} disabledDays
+     * An array of days to disable, 0 based. For example, [0, 6] disables Sunday and Saturday (defaults to null).
      */
     disabledDays : null,
     /**
-     * @cfg {String} disabledDaysText The tooltip to display when the date falls on a disabled day (defaults to 'Disabled')
+     * @cfg {String} disabledDaysText
+     * The tooltip to display when the date falls on a disabled day (defaults to 'Disabled')
      */
     disabledDaysText : "Disabled",
     /**
-     * @cfg {Array} disabledDates An array of "dates" to disable, as strings. These strings will be used to build a dynamic regular
+     * @cfg {Array} disabledDates
+     * An array of "dates" to disable, as strings. These strings will be used to build a dynamic regular
      * expression so they are very powerful. Some examples:
      * <ul>
      * <li>["03/08/2003", "09/16/2003"] would disable those exact dates</li>
@@ -51,44 +55,54 @@ Ext.extend(Ext.form.DateField, Ext.form.TriggerField,  {
      */
     disabledDates : null,
     /**
-     * @cfg {String} disabledDatesText The tooltip text to display when the date falls on a disabled date (defaults to 'Disabled')
+     * @cfg {String} disabledDatesText
+     * The tooltip text to display when the date falls on a disabled date (defaults to 'Disabled')
      */
     disabledDatesText : "Disabled",
     /**
-     * @cfg {Date/String} minValue The minimum allowed date. Can be either a Javascript date object or a string date in a
+     * @cfg {Date/String} minValue
+     * The minimum allowed date. Can be either a Javascript date object or a string date in a
      * valid format (defaults to null).
      */
     minValue : null,
     /**
-     * @cfg {Date/String} maxValue The maximum allowed date. Can be either a Javascript date object or a string date in a
+     * @cfg {Date/String} maxValue
+     * The maximum allowed date. Can be either a Javascript date object or a string date in a
      * valid format (defaults to null).
      */
     maxValue : null,
     /**
-     * @cfg {String} minText The error text to display when the date in the cell is before minValue (defaults to
+     * @cfg {String} minText
+     * The error text to display when the date in the cell is before minValue (defaults to
      * 'The date in this field must be after {minValue}').
      */
     minText : "The date in this field must be after {0}",
     /**
-     * @cfg {String} maxText The error text to display when the date in the cell is before maxValue (defaults to
+     * @cfg {String} maxText
+     * The error text to display when the date in the cell is before maxValue (defaults to
      * 'The date in this field must be before {maxValue}').
      */
     maxText : "The date in this field must be before {0}",
     /**
-     * @cfg {String} invalidText The error to display when the date in the field is invalid (defaults to
+     * @cfg {String} invalidText
+     * The error to display when the date in the field is invalid (defaults to
      * '{value} is not a valid date - it must be in the format {format}').
      */
     invalidText : "{0} is not a valid date - it must be in the format {1}",
     /**
-     * @cfg {String} triggerClass An additional CSS class used to style the trigger button.  The trigger will always get the
+     * @cfg {String} triggerClass
+     * An additional CSS class used to style the trigger button.  The trigger will always get the
      * class 'x-form-trigger' and triggerClass will be <b>appended</b> if specified (defaults to 'x-form-date-trigger'
      * which displays a calendar icon).
      */
     triggerClass : 'x-form-date-trigger',
     /**
-     * @cfg {String/Object} defaultAutoCreate A DomHelper element spec, or true for a default element spec (defaults to
+     * @cfg {String/Object} autoCreate
+     * A DomHelper element spec, or true for a default element spec (defaults to
      * {tag: "input", type: "text", size: "10", autocomplete: "off"})
      */
+
+    // private
     defaultAutoCreate : {tag: "input", type: "text", size: "10", autocomplete: "off"},
 
     // private
