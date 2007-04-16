@@ -1375,6 +1375,14 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
                 gv = this;
         //c.beginMeasure();
 
+        if(!c.dom.offsetWidth){ // display:none?
+            if(initialRender){
+                lw.show();
+                mw.show();
+            }
+            return;
+        }
+
         var hasLock = this.cm.isLocked(0);
 
         var tbh = this.headerPanel.getHeight();

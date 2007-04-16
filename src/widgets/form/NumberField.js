@@ -84,6 +84,7 @@ Ext.extend(Ext.form.NumberField, Ext.form.TextField,  {
         if(value.length < 1){ // if it"s blank and textfield didn"t flag it then it's valid
              return true;
         }
+        value = String(value).replace(this.decimalSeparator, ".");
         if(isNaN(value)){
             this.markInvalid(String.format(this.nanText, value));
             return false;

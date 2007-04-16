@@ -98,7 +98,7 @@ Ext.extend(Ext.grid.EditorGrid, Ext.grid.Grid, {
                 cancel:false
             };
             if(this.fireEvent("validateedit", e) !== false && !e.cancel){
-                r.set(field, value);
+                r.set(field, e.value);
                 delete e.cancel;
                 this.fireEvent("afteredit", e);
             }

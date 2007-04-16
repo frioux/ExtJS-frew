@@ -415,6 +415,7 @@ Ext.TabPanelItem = function(tabPanel, id, text, closable){
     this.inner = Ext.get(els.inner, true);
     this.textEl = Ext.get(this.el.dom.firstChild.firstChild.firstChild, true);
     this.pnode = Ext.get(els.el.parentNode, true);
+    this.el.on("mousedown", this.onTabMouseDown, this);
     this.el.on("click", this.onTabClick, this);
     /** @private */
     if(closable){
@@ -523,7 +524,12 @@ Ext.extend(Ext.TabPanelItem, Ext.util.Observable, {
         e.preventDefault();
         this.tabPanel.activate(this.id);
     },
-    
+
+    onTabMouseDown : function(e){
+        e.preventDefault();
+        this.tabPanel.activate(this.id);
+    },
+
     getWidth : function(){
         return this.inner.getWidth();  
     },
