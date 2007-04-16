@@ -1,4 +1,5 @@
-
+// private
+// This is a support class used internally by the Grid components
 Ext.grid.SplitDragZone = function(grid, hd, hd2){
     this.grid = grid;
     this.view = grid.getView();
