@@ -1,3 +1,11 @@
+/**
+ * @class Ext.grid.GridView
+ * @extends AbstractGridView
+ * The default GridView implementation
+ * @constructor
+ * @param {Object} config
+ */
+
 Ext.grid.GridView = function(config){
     Ext.grid.GridView.superclass.constructor.call(this);
     this.el = null;
@@ -6,6 +14,13 @@ Ext.grid.GridView = function(config){
 };
 
 Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
+
+    /**
+     * Override this function to apply custom css classes to rows during rendering
+     * @param {Record} record The record
+     * @param {Number} index
+     * @method getRowClass
+     */
     rowClass : "x-grid-row",
 
     cellClass : "x-grid-col",
@@ -224,6 +239,9 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.scrollToTop();
     },
 
+    /**
+     * Scrolls the grid to the top
+     */
     scrollToTop : function(){
         if(this.scroller){
             this.scroller.dom.scrollTop = 0;
@@ -231,6 +249,13 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
     },
 
+    /**
+     * Gets a panel in the header of the grid that can be used for toolbars etc.
+     * After modifying the contents of this panel a call to grid.autoSize() may be
+     * required to register any changes in size.
+     * @param {Boolean} doShow By default the header is hidden. Pass true to show the panel
+     * @return Ext.Element
+     */
     getHeaderPanel : function(doShow){
         if(doShow){
             this.headerPanel.show();
@@ -238,7 +263,14 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         return this.headerPanel;
 	},
 
-	getFooterPanel : function(doShow){
+	/**
+     * Gets a panel in the footer of the grid that can be used for toolbars etc.
+     * After modifying the contents of this panel a call to grid.autoSize() may be
+     * required to register any changes in size.
+     * @param {Boolean} doShow By default the footer is hidden. Pass true to show the panel
+     * @return Ext.Element
+     */
+    getFooterPanel : function(doShow){
         if(doShow){
             this.footerPanel.show();
         }
@@ -447,7 +479,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
     },
 
     /**
-     * Focuses the specified row..
+     * Focuses the specified row.
      * @param {Number} row The row index
      */
     focusRow : function(row){
@@ -460,6 +492,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
      * Focuses the specified cell.
      * @param {Number} row The row index
      * @param {Number} col The column index
+     * @param {Boolean} hscroll false to disable horizontal scrolling
      */
     focusCell : function(row, col, hscroll){
         var el = this.ensureVisible(row, col, hscroll);
@@ -467,7 +500,12 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.focusEl.focus.defer(1, this.focusEl);
     },
 
-    /** @ignore */
+    /**
+     * Scrolls the specified cell into view
+     * @param {Number} row The row index
+     * @param {Number} col The column index
+     * @param {Boolean} hscroll false to disable horizontal scrolling
+     */
     ensureVisible : function(row, col, hscroll){
         if(typeof row != "number"){
             row = row.rowIndex;
@@ -834,6 +872,10 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         return [bt.apply({rows: markup[0]}), bt.apply({rows: markup[1]})];
     },
 
+    /**
+     * Refreshes the grid
+     * @param {Boolean} headersToo
+     */
     refresh : function(headersToo){
         this.fireEvent("beforerefresh", this);
         this.grid.stopEditing();

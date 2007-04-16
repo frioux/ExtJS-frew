@@ -43,7 +43,7 @@ Ext.ReaderLayout = function(config, renderTo){
     this.beginUpdate();
 
     var inner = new Ext.BorderLayout(Ext.get(document.body).createChild(), {
-        south: c.east !== false ? Ext.apply({
+        south: c.preview !== false ? Ext.apply({
             split:true,
             initialSize: 200,
             minSize: 100,
@@ -59,7 +59,7 @@ Ext.ReaderLayout = function(config, renderTo){
         }, c.listView)
     });
     this.add('center', new Ext.NestedLayoutPanel(inner,
-            Ext.apply({title: config.mainTitle || '',tabTip:''},config.innerPanelCfg)));
+            Ext.apply({title: c.mainTitle || '',tabTip:''},c.innerPanelCfg)));
 
     this.endUpdate();
 
