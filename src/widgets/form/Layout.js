@@ -11,10 +11,43 @@ Ext.form.Layout = function(config){
 };
 
 Ext.extend(Ext.form.Layout, Ext.Component, {
-    defaultAutoCreate : {tag: 'div', cls: 'x-form-ct'},
-    clear:true,
+    /**
+     * @cfg {String/Object} autoCreate
+     * A DomHelper element spec used to autocreate the layout (defaults to {tag: 'div', cls: 'x-form-ct'})
+     */
+    /**
+     * @cfg {String/Object/Function} style
+     * A style specification string eg "width:100px", or object in the form {width:"100px"}, or
+     * a function which returns such a specification.
+     */
+    /**
+     * @cfg {String} labelAlign
+     * Valid values are "left," "top" and "right" (defaults to "left")
+     */
+    /**
+     * @cfg {Number} labelWidth
+     * Fixed width in pixels of all field labels (defaults to undefined)
+     */
+    /**
+     * @cfg {Boolean} clear
+     * True to add a clearing element at the end of this layout, equivalent to CSS clear: both (defaults to true)
+     */
+    clear : true,
+    /**
+     * @cfg {String} labelSeparator
+     * The separator to use after field labels (defaults to ':')
+     */
     labelSeparator : ':',
-    hideLabels:false,
+    /**
+     * @cfg {Boolean} hideLabels
+     * True to suppress the display of field labels in this layout (defaults to false)
+     */
+    hideLabels : false,
+
+    // private
+    defaultAutoCreate : {tag: 'div', cls: 'x-form-ct'},
+
+    // private
     onRender : function(ct){
         if(this.el){ // from markup
             this.el = Ext.get(this.el);
@@ -69,10 +102,12 @@ Ext.extend(Ext.form.Layout, Ext.Component, {
         }
     },
 
+    // private
     renderField : function(f){
        this.fieldTpl.append(this.el, [f.id, f.fieldLabel, f.labelStyle||this.labelStyle||'', this.elementStyle||'', f.labelSeparator||this.labelSeparator, f.itemCls||this.itemCls||'']);
     },
 
+    // private
     renderComponent : function(c){
         c.render(this.el);
     }
@@ -90,8 +125,19 @@ Ext.form.Column = function(config){
 };
 
 Ext.extend(Ext.form.Column, Ext.form.Layout, {
+    /**
+     * @cfg {Number} width
+     * The fixed width of the column in pixels (defaults to auto)
+     */
+    /**
+     * @cfg {String/Object} autoCreate
+     * A DomHelper element spec used to autocreate the column (defaults to {tag: 'div', cls: 'x-form-ct x-form-column'})
+     */
+
+    // private
     defaultAutoCreate : {tag: 'div', cls: 'x-form-ct x-form-column'},
 
+    // private
     onRender : function(ct){
         Ext.form.Column.superclass.onRender.call(this, ct);
         if(this.width){
@@ -112,8 +158,19 @@ Ext.form.FieldSet = function(config){
 };
 
 Ext.extend(Ext.form.FieldSet, Ext.form.Layout, {
+    /**
+     * @cfg {String} legend
+     * The text to display as the legend for the FieldSet (defaults to '')
+     */
+    /**
+     * @cfg {String/Object} autoCreate
+     * A DomHelper element spec used to autocreate the fieldset (defaults to {tag: 'fieldset', cn: {tag:'legend'}})
+     */
+
+    // private
     defaultAutoCreate : {tag: 'fieldset', cn: {tag:'legend'}},
 
+    // private
     onRender : function(ct){
         Ext.form.FieldSet.superclass.onRender.call(this, ct);
         if(this.legend){
@@ -121,6 +178,7 @@ Ext.extend(Ext.form.FieldSet, Ext.form.Layout, {
         }
     },
 
+    // private
     setLegend : function(text){
         if(this.rendered){
             this.el.child('legend').update(text);
