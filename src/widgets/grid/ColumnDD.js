@@ -1,3 +1,5 @@
+// private
+// This is a support class used internally by the Grid components
 Ext.grid.HeaderDragZone = function(grid, hd, hd2){
     this.grid = grid;
     this.view = grid.getView();
@@ -26,6 +28,8 @@ Ext.extend(Ext.grid.HeaderDragZone, Ext.dd.DragZone, {
     }
 });
 
+// private
+// This is a support class used internally by the Grid components
 Ext.grid.HeaderDropZone = function(grid, hd, hd2){
     this.grid = grid;
     this.view = grid.getView();
