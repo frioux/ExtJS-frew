@@ -30,11 +30,11 @@ Ext.dd.Registry = function(){
      * knows how to interpret, plus there are some specific properties known to the Registry that should be
      * populated in the data object (if applicable):
      * <pre>
-Value      Description
----------  ------------------------------------------
-handles    Array of DOM nodes that trigger dragging
-           for the element being registered
-isHandle   True if the element passed in triggers
+Value      Description<br />
+---------  ------------------------------------------<br />
+handles    Array of DOM nodes that trigger dragging<br />
+           for the element being registered<br />
+isHandle   True if the element passed in triggers<br />
            dragging itself, else false
 </pre>
      */
