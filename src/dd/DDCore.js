@@ -15,7 +15,7 @@ var Dom=Ext.lib.Dom;
  * @class Ext.dd.DragDrop
  * Defines the interface and base operation of items that that can be
  * dragged or can be drop targets.  It was designed to be extended, overriding
- * the event handlers for startDrag, onDrag, onDragOver, onDragOut.
+ * the event handlers for startDrag, onDrag, onDragOver and onDragOut.
  * Up to three html elements can be associated with a DragDrop instance:
  * <ul>
  * <li>linked element: the element that is passed into the constructor.
@@ -26,10 +26,10 @@ var Dom=Ext.lib.Dom;
  * element, but there are times that you will want only a portion of the
  * linked element to initiate the drag operation, and the setHandleElId()
  * method provides a way to define this.</li>
- * <li>drag element: this represents an the element that would be moved along
+ * <li>drag element: this represents the element that would be moved along
  * with the cursor during a drag operation.  By default, this is the linked
  * element itself as in {@link Ext.dd.DD}.  setDragElId() lets you define
- * a separate element that would be moved, as in {@link Ext.dd.DDProxy}
+ * a separate element that would be moved, as in {@link Ext.dd.DDProxy}.
  * </li>
  * </ul>
  * This class should not be instantiated until the onload event to ensure that
