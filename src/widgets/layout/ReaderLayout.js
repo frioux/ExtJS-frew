@@ -2,10 +2,10 @@
  * @class Ext.ReaderLayout
  * @extends Ext.BorderLayout
  * This is a pre-built layout that represents a classic, 5-pane application.  It consists of a header, a primary
- * center panel (for a list view), a south panel (for list item preview), and panels on either side that can be
- * used for navigation, application commands, informational displays, etc.  The setup and configuration works exactly
- * the same as it does for a {@link Ext.BorderLayout} - this simply expedites the setup of the overall layout
- * and regions for this common application style.
+ * center region containing two nested regions (a top one for a list view and one for item preview below),
+ * and regions on either side that can be used for navigation, application commands, informational displays, etc.
+ * The setup and configuration work exactly the same as it does for a {@link Ext.BorderLayout} - this class simply
+ * expedites the setup of the overall layout and regions for this common application style.
  * Example:
  <pre><code>
 var reader = new Ext.ReaderLayout();
