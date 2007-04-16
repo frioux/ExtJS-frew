@@ -44,9 +44,13 @@ Ext.grid.RowSelectionModel = function(config){
 };
 
 Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
+    /**
+     * @cfg {Boolean} singleSelect
+     * True to allow selection of only one row at a time (defaults to false)
+     */
     singleSelect : false,
 
-    /** @ignore */
+    // private
     initEvents : function(){
 
         if(!this.grid.enableDragDrop && !this.grid.enableDrag){
@@ -90,7 +94,8 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
         view.on("rowupdated", this.onRowUpdated, this);
         view.on("rowremoved", this.onRemove, this);
     },
-    
+
+    // private
     onRefresh : function(){
         var ds = this.grid.dataSource, i, v = this.grid.view;
         var s = this.selections;
@@ -102,11 +107,13 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
             }
         });
     },
-    
+
+    // private
     onRemove : function(v, index, r){
         this.selections.remove(r);
     },
 
+    // private
     onRowUpdated : function(v, index, r){
         if(this.isSelected(r)){
             v.onRowSelect(index);
@@ -228,7 +235,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
         return this.selections.length > 0;
     },
 
-/**
+    /**
      * Returns True if the specified row is selected.
      * @param {Number/Record} record The record or index of the record to check
      * @return {Boolean}
@@ -247,7 +254,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
         return (this.selections.key(id) ? true : false);
     },
 
-    /** @ignore */
+    // private
     handleMouseDown : function(e, t){
         var view = this.grid.getView(), rowIndex;
         if(this.isLocked() || (rowIndex = view.findRowIndex(t)) === false){
@@ -361,17 +368,20 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
         this.fireEvent("rowdeselect", this, index);
         this.fireEvent("selectionchange", this);
     },
-    
+
+    // private
     restoreLast : function(){
         if(this._last){
             this.last = this._last;
         }    
     },
 
+    // private
     acceptsNav : function(row, col, cm){
         return !cm.isHidden(col) && cm.isCellEditable(col, row);
     },
 
+    // private
     onEditorKey : function(field, e){
         var k = e.getKey(), newCell, g = this.grid, ed = g.activeEditor;
         if(k == e.TAB){
