@@ -1278,14 +1278,12 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             this.hmenu = new Ext.menu.Menu({id: this.grid.id + "-hctx"});
             this.hmenu.add(
                 {id:"asc", text: this.sortAscText, cls: "xg-hmenu-sort-asc"},
-                {id:"desc", text: this.sortDescText, cls: "xg-hmenu-sort-desc"},
-                "separator"
+                {id:"desc", text: this.sortDescText, cls: "xg-hmenu-sort-desc"}
             );
             if(this.grid.enableColLock !== false){
-                this.hmenu.add(
+                this.hmenu.add('-',
                     {id:"lock", text: this.lockText, cls: "xg-hmenu-lock"},
-                    {id:"unlock", text: this.unlockText, cls: "xg-hmenu-unlock"},
-                    "separator"
+                    {id:"unlock", text: this.unlockText, cls: "xg-hmenu-unlock"}
                 );
             }
             if(this.grid.enableColumnHide !== false){
@@ -1294,7 +1292,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
                 this.colMenu.on("beforeshow", this.beforeColMenuShow, this);
                 this.colMenu.on("itemclick", this.handleHdMenuClick, this);
 
-                this.hmenu.add(
+                this.hmenu.add('-',
                     {id:"columns", text: this.columnsText, menu: this.colMenu}
                 );
             }
