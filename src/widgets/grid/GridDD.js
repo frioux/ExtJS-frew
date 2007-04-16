@@ -1,3 +1,5 @@
+// private
+// This is a support class used internally by the Grid components
 Ext.grid.GridDragZone = function(grid, config){
     this.view = grid.getView();
     Ext.grid.GridDragZone.superclass.constructor.call(this, this.view.lockedBody.dom, config);
