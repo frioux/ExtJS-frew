@@ -255,8 +255,9 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     getValues : function(asString){
         var fs = Ext.lib.Ajax.serializeForm(this.el.dom);
         if(asString === true){
-            return Ext.urlDecode(fs);
+            return fs;
         }
+        return Ext.urlDecode(fs);
     },
 
     /**
