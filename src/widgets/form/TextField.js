@@ -24,7 +24,7 @@ Ext.form.TextField = function(config){
 
 Ext.extend(Ext.form.TextField, Ext.form.Field,  {
     /**
-     * @cfg {Boolean} grow True if this field should automatically grow and shrink to it's content
+     * @cfg {Boolean} grow True if this field should automatically grow and shrink to its content
      */
     grow : false,
     /**

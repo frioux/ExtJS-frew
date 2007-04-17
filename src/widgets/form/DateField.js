@@ -111,7 +111,7 @@ Ext.extend(Ext.form.DateField, Ext.form.TriggerField,  {
         if(!Ext.form.DateField.superclass.validateValue.call(this, value)){
             return false;
         }
-        if(value.length < 1){ // if it"s blank and textfield didn"t flag it then it's valid
+        if(value.length < 1){ // if it's blank and textfield didn't flag it then it's valid
              return true;
         }
         var svalue = value;

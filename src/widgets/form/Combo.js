@@ -599,7 +599,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     },
 
     /**
-     * Select an item in the dropdown list by it's data value
+     * Select an item in the dropdown list by its data value
      * @param {String} value The data value of the item to select
      * @param {Boolean} scrollIntoView False to prevent the dropdown list from autoscrolling to display the
      * selected item if it is not currently in view (defaults to true)
@@ -617,7 +617,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     },
 
     /**
-     * Select an item in the dropdown list by it's numeric index in the list
+     * Select an item in the dropdown list by its numeric index in the list
      * @param {Number} index The zero-based index of the list item to select
      * @param {Boolean} scrollIntoView False to prevent the dropdown list from autoscrolling to display the
      * selected item if it is not currently in view (defaults to true)

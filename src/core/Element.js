@@ -742,7 +742,7 @@ El.prototype = {
     
     /**
        * Gets the current X position of the element based on page coordinates.  Element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
-       @ return {Number} The X position of the element
+       @return {Number} The X position of the element
        */
     getX : function(){
         return D.getX(this.dom);
@@ -750,7 +750,7 @@ El.prototype = {
     
     /**
        * Gets the current Y position of the element based on page coordinates.  Element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
-       @ return {Number} The Y position of the element
+       @return {Number} The Y position of the element
        */
     getY : function(){
         return D.getY(this.dom);
@@ -758,7 +758,7 @@ El.prototype = {
     
     /**
        * Gets the current position of the element based on page coordinates.  Element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
-       @ return {Array} The XY position of the element
+       @return {Array} The XY position of the element
        */
     getXY : function(){
         return D.getXY(this.dom);
@@ -2053,7 +2053,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
     },
 
     /**
-     * Stops the specified event from bubbling and optionally prevent's the default action
+     * Stops the specified event from bubbling and optionally prevents the default action
      * @param {String} eventName
      * @param {Boolean} preventDefault (optional) true to prevent the default action too
      * @return {Ext.Element} this
@@ -2574,7 +2574,7 @@ El.cache = {};
 var docEl;
 
 /**
- * Static method to retreive Element objects. Uses simple caching to consistently return the same object. 
+ * Static method to retrieve Element objects. Uses simple caching to consistently return the same object.
  * Automatically fixes if an object was recreated with the same id via AJAX or DOM.
  * @param {String/HTMLElement/Element} el The id of the node, a DOM Node or an existing Element.
  * @return {Element} The Element object
@@ -2657,7 +2657,7 @@ El.fly = function(el, named){
 };
 
 /**
- * Static method to retreive Element objects. Uses simple caching to consistently return the same object. 
+ * Static method to retrieve Element objects. Uses simple caching to consistently return the same object. 
  * Automatically fixes if an object was recreated with the same id via AJAX or DOM.
  * Shorthand of {@link Ext.Element#get}
  * @param {String/HTMLElement/Element} el The id of the node, a DOM Node or an existing Element.

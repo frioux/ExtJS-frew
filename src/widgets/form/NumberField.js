@@ -81,7 +81,7 @@ Ext.extend(Ext.form.NumberField, Ext.form.TextField,  {
         if(!Ext.form.NumberField.superclass.validateValue.call(this, value)){
             return false;
         }
-        if(value.length < 1){ // if it"s blank and textfield didn"t flag it then it's valid
+        if(value.length < 1){ // if it's blank and textfield didn't flag it then it's valid
              return true;
         }
         value = String(value).replace(this.decimalSeparator, ".");

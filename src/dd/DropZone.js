@@ -84,7 +84,7 @@ Ext.extend(Ext.dd.DropZone, Ext.dd.DropTarget, {
 
     /**
      * Called internally while the DropZone determines that a {@link Ext.dd.DragSource} is being dragged over it,
-     * but not over any of it's registered drop nodes.  The default implementation returns this.dropNotAllowed, so
+     * but not over any of its registered drop nodes.  The default implementation returns this.dropNotAllowed, so
      * it should be overridden to provide the proper feedback if necessary.
      * @param {Ext.dd.DragSource} source The drag source that was dragged over this drop zone
      * @param {Event} e The event
@@ -98,7 +98,7 @@ Ext.extend(Ext.dd.DropZone, Ext.dd.DropTarget, {
 
     /**
      * Called internally when the DropZone determines that a {@link Ext.dd.DragSource} has been dropped on it,
-     * but not on any of it's registered drop nodes.  The default implementation returns false, so it should be
+     * but not on any of its registered drop nodes.  The default implementation returns false, so it should be
      * overridden to provide the appropriate processing of the drop event if you need the drop zone itself to
      * be able to accept drops.  It should return true when valid so that the drag source's repair action does not run.
      * @param {Ext.dd.DragSource} source The drag source that was dragged over this drop zone

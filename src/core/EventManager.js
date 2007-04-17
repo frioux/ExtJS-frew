@@ -359,7 +359,7 @@ Ext.onReady(function(){
  * passed to your event handler. It exists mostly for convenience. It also fixes the annoying null checks automatically to cleanup your code 
  * Example:
  * <pre><code>
- fu<>nction handleClick(e){ // e is not a standard event object, it is a Ext.EventObject
+ function handleClick(e){ // e is not a standard event object, it is a Ext.EventObject
     e.preventDefault();
     var target = e.getTarget();
     ...

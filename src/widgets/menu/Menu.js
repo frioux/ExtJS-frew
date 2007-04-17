@@ -92,7 +92,7 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
     subMenuAlign : "tl-tr?",
     /**
      * @cfg {String} defaultAlign The default {@link Ext.Element#alignTo) anchor position value for this menu
-     * relative to it's element of origin (defaults to "tl-bl?")
+     * relative to its element of origin (defaults to "tl-bl?")
      */
     defaultAlign : "tl-bl?",
     /**

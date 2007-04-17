@@ -159,7 +159,7 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
     },
 
     /**
-     * If this is a lazy rendering component, render it to it's container element
+     * If this is a lazy rendering component, render it to its container element
      * @param {String/HTMLElement/Element} container The element this component should be rendered into
      */
     render : function(container){

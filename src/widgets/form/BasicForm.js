@@ -286,7 +286,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
 
 
     /**
-     * Removes a field from the items collection (does NOT remove it's markup)
+     * Removes a field from the items collection (does NOT remove its markup)
      * @param {Field} field
      */
     remove : function(field){

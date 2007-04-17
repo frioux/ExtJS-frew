@@ -4,7 +4,7 @@ Ext.enableFx = true;
 
 /**
  * @class Ext.Fx
- * <p>A class to provde basic animation and visual effects support.  <b>Note:</b> This class is automatically applied
+ * <p>A class to provide basic animation and visual effects support.  <b>Note:</b> This class is automatically applied
  * to the {@link Ext.Element} interface when included, so all effects calls should be performed via Element.
  * Conversely, since the effects are not actually defined in Element, Ext.Fx <b>must</b> be included in order for the 
  * Element effects to work.</p><br/>
@@ -17,7 +17,7 @@ Ext.enableFx = true;
  * expected results and should be done with care.</p><br/>
  *
  * <p>Motion effects support 8-way anchoring, meaning that you can choose one of 8 different anchor points on the Element
- * that will server as either the start or end point of the animation.  Following are all of the supported anchor positions:</p>
+ * that will serve as either the start or end point of the animation.  Following are all of the supported anchor positions:</p>
 <pre>
 Value  Description
 -----  -----------------------------
@@ -338,7 +338,7 @@ el.puff({<br/>
     },
 
 	/**
-	 * Blinks the element as if it was clicked and then collapses on it's center (similar to switching off a television).
+	 * Blinks the element as if it was clicked and then collapses on its center (similar to switching off a television).
 	 * When the effect is completed, the element will be hidden (visibility = 'hidden') but block elements will still 
 	 * take up space in the document. The element must be removed from the using the 'remove' config option if desired.
 	 * Usage:
