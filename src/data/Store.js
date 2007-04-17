@@ -207,7 +207,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
 
     /**
      * Get the Record at the specified index.
-     * @param {String} id The index of the Record to find.
+     * @param {String} index The index of the Record to find.
      * @return {Ext.data.Record} The Record at the passed index. Returns undefined if not found.
      */
     getAt : function(index){

@@ -11,7 +11,7 @@
  @cfg {String/HTMLElement/Element} el The element to act as a button.
  @cfg {Number} delay The initial delay before the repeating event begins firing.
  Similar to an autorepeat key delay.
- @cfg {Number} interval The interval between firings of the "fire" event. Default 10 ms.
+ @cfg {Number} interval The interval between firings of the "click" event. Default 10 ms.
  @cfg {String} pressClass A CSS class name to be applied to the element while pressed.
  @cfg {Boolean} accelerate True if autorepeating should start slowly and accelerate.
            "interval" and "delay" are ignored. "immediate" is honored.
