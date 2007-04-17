@@ -249,11 +249,14 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     /**
      * Returns the fields in this form as an object with key value pair. If multiple fields exist with the same name
      * they are returned as an array.
+     * @param {Boolean} asString
      * @return {Object}
      */
-    getValues : function(){
+    getValues : function(asString){
         var fs = Ext.lib.Ajax.serializeForm(this.el.dom);
-        return Ext.urlDecode(fs);
+        if(asString === true){
+            return Ext.urlDecode(fs);
+        }
     },
 
     /**
