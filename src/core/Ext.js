@@ -205,8 +205,8 @@ Ext.apply = function(o, c, defaults){
             var pair, name, value;
             for(var i = 0, len = pairs.length; i < len; i++){
                 pair = pairs[i].split('=');
-                name = pair[0];
-                value = pair[1];
+                name = decodeURIComponent(pair[0]);
+                value = decodeURIComponent(pair[1]);
                 if(overwrite !== true){
                     if(typeof obj[name] == "undefined"){
                         obj[name] = value;
