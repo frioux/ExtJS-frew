@@ -53,6 +53,43 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 
     findRE: /\s?(?:x-grid-hd|x-grid-col|x-grid-csplit)\s/,
 
+    bind : function(ds, cm){
+        if(this.ds){
+            this.ds.un("load", this.onLoad, this);
+            this.ds.un("datachanged", this.onDataChange);
+            this.ds.un("add", this.onAdd);
+            this.ds.un("remove", this.onRemove);
+            this.ds.un("update", this.onUpdate);
+            this.ds.un("clear", this.onClear);
+        }
+        if(ds){
+            ds.on("load", this.onLoad, this);
+            ds.on("datachanged", this.onDataChange, this);
+            ds.on("add", this.onAdd, this);
+            ds.on("remove", this.onRemove, this);
+            ds.on("update", this.onUpdate, this);
+            ds.on("clear", this.onClear, this);
+        }
+        this.ds = ds;
+
+        if(this.cm){
+            this.cm.un("widthchange", this.onColWidthChange, this);
+            this.cm.un("headerchange", this.onHeaderChange, this);
+            this.cm.un("hiddenchange", this.onHiddenChange, this);
+            this.cm.un("columnmoved", this.onColumnMove, this);
+            this.cm.un("columnlockchange", this.onColumnLock, this);
+        }
+        if(cm){
+            this.generateRules(cm);
+            cm.on("widthchange", this.onColWidthChange, this);
+            cm.on("headerchange", this.onHeaderChange, this);
+            cm.on("hiddenchange", this.onHiddenChange, this);
+            cm.on("columnmoved", this.onColumnMove, this);
+            cm.on("columnlockchange", this.onColumnLock, this);
+        }
+        this.cm = cm;
+    },
+
     init: function(grid){
 		Ext.grid.GridView.superclass.init.call(this, grid);
 
@@ -145,41 +182,21 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 		this.templates = tpls;
 	},
 
-	bind : function(ds, cm){
-        if(this.ds){
-            this.ds.un("load", this.onLoad, this);
-            this.ds.un("datachanged", this.onDataChange);
-            this.ds.un("add", this.onAdd);
-            this.ds.un("remove", this.onRemove);
-            this.ds.un("update", this.onUpdate);
-            this.ds.un("clear", this.onClear);
-        }
-        if(ds){
-            ds.on("load", this.onLoad, this);
-            ds.on("datachanged", this.onDataChange, this);
-            ds.on("add", this.onAdd, this);
-            ds.on("remove", this.onRemove, this);
-            ds.on("update", this.onUpdate, this);
-            ds.on("clear", this.onClear, this);
-        }
-        this.ds = ds;
-
-        if(this.cm){
-            this.cm.un("widthchange", this.updateColumns, this);
-            this.cm.un("headerchange", this.updateHeaders, this);
-            this.cm.un("hiddenchange", this.handleHiddenChange, this);
-            this.cm.un("columnmoved", this.handleColumnMove, this);
-            this.cm.un("columnlockchange", this.handleLockChange, this);
-        }
-        if(cm){
-            this.generateRules(cm);
-            cm.on("widthchange", this.updateColumns, this);
-            cm.on("headerchange", this.updateHeaders, this);
-            cm.on("hiddenchange", this.handleHiddenChange, this);
-            cm.on("columnmoved", this.handleColumnMove, this);
-            cm.on("columnlockchange", this.handleLockChange, this);
-        }
-        this.cm = cm;
+	// remap these for backwards compat
+    onColWidthChange : function(){
+        this.updateColumns.apply(this, arguments);
+    },
+    onHeaderChange : function(){
+        this.updateHeaders.apply(this, arguments);
+    }, 
+    onHiddenChange : function(){
+        this.handleHiddenChange.apply(this, arguments);
+    },
+    onColumnMove : function(){
+        this.handleColumnMove.apply(this, arguments);
+    },
+    onColumnLock : function(){
+        this.handleLockChange.apply(this, arguments);
     },
 
     onDataChange : function(){
@@ -497,7 +514,11 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
     focusCell : function(row, col, hscroll){
         var el = this.ensureVisible(row, col, hscroll);
         this.focusEl.alignTo(el, "tl-tl");
-        this.focusEl.focus.defer(1, this.focusEl);
+        if(Ext.isGecko){
+            this.focusEl.focus();
+        }else{
+            this.focusEl.focus.defer(1, this.focusEl);
+        }
     },
 
     /**

@@ -1,4 +1,5 @@
 /**
+* @class Ext.data.Record
  * Instances of this class encapsulate both record <em>definition</em> information, and record
  * <em>value</em> information for use in {@link Ext.data.Store} objects, or any code which needs
  * to access Records cached in an {@link Ext.data.Store} object.
@@ -91,6 +92,10 @@ Ext.data.Record.REJECT = 'reject';
 Ext.data.Record.COMMIT = 'commit';
 
 Ext.data.Record.prototype = {
+    /**
+     * Readonly flag - true if this record has been modified.
+     * @type Boolean
+     */
     dirty : false,
     editing : false,
     error: null,

@@ -769,7 +769,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
      * Expands the dropdown list if it is currently hidden. Fires the 'expand' event on completion.
      */
     expand : function(){
-        if(this.isExpanded()){
+        if(this.isExpanded() || !this.hasFocus){
             return;
         }
         this.list.alignTo(this.el, this.listAlign);

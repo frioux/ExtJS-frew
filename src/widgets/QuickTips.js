@@ -123,7 +123,7 @@ Ext.QuickTips = function(){
             }
         }
         //tipBody.setWidth(w);
-        el.setWidth(w + p);
+        el.setWidth(parseInt(w, 10) + p);
         if(!ce.autoHide){
             close.setDisplayed(true);
             if(dd){

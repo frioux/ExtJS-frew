@@ -32,6 +32,7 @@ Ext.form.Action.prototype = {
 
     // default connection failure
     failure : function(response){
+        this.response = response;
         this.failureType = Ext.form.Action.CONNECT_FAILURE;
         this.form.afterAction(this, false);
     },

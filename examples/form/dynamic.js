@@ -10,13 +10,7 @@ Ext.onReady(function(){
      */
     var simple = new Ext.form.Form({
         labelWidth: 75, // label settings here cascade unless overridden
-        url:'save-form.php',
-        reader : new Ext.data.XmlReader({
-            record : 'simple',
-            success: '@success'
-        }, [
-            'first', 'last', 'company', 'email'
-        ])
+        url:'save-form.php'
     });
     simple.add(
         new Ext.form.TextField({
@@ -46,9 +40,7 @@ Ext.onReady(function(){
         })
     );
 
-    simple.addButton('Save', function(){
-        simple.load({url:'load-form.php'});
-    });
+    simple.addButton('Save');
     simple.addButton('Cancel');
 
     simple.render('form-ct');

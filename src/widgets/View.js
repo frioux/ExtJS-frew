@@ -162,9 +162,8 @@ Ext.extend(Ext.View, Ext.util.Observable, {
      * the template for each node.
      * @param {Array/Object} data The raw data (array of colData for a data model bound view or
      * a JSON object for an UpdateManager bound view).
-     * @param {Number} index The index of the data within the data model
      */
-    prepareData : function(data, index){
+    prepareData : function(data){
         return data;
     },
 

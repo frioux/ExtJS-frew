@@ -104,7 +104,7 @@
 }
 
 /* invalid fields */
-.x-form-invalid{
+.x-form-invalid, textarea.x-form-invalid{
 	background:#fff url(../images/default/grid/invalid_line.gif) repeat-x bottom;
 	border: 1px solid #dd7870;
 }

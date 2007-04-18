@@ -29,10 +29,6 @@ Ext.extend(Ext.grid.AbstractGridView, Ext.util.Observable, {
         this.splitSelector = "#" + cid + " ." + this.splitClass + "-";
 	},
 	
-	/**
-	 * @private
-	 * Utility method that gets an array of the cell renderers
-	 */
 	getColumnRenderers : function(){
     	var renderers = [];
     	var cm = this.grid.colModel;

@@ -31,7 +31,7 @@ var TreeTest = function(){
                     }));
                     tree.getSelectionModel().select(node);
                     setTimeout(function(){
-                        ge.node = node;
+                        ge.editNode = node;
                         ge.startEdit(node.ui.textNode);
                     }, 10);
                 }

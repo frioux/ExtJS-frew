@@ -1,6 +1,3 @@
-
-// 1.1?
-
 Ext.grid.BasicGridView = function(config){
     Ext.grid.BasicGridView.superclass.constructor.call(this);
     this.el = null;
@@ -149,52 +146,15 @@ Ext.extend(Ext.grid.BasicGridView, Ext.grid.AbstractGridView, {
         this.resizeProxy = new E(cs[4]);
 
 	    this.headerSelector = String.format(
-	       '#{1} td.x-grid-hd', this.mainHd.id
+	       '#{0} td.x-grid-hd', this.mainHd.id
 	    );
 
 	    this.splitterSelector = String.format(
-	       '#{1} div.x-grid-split', this.mainHd.id
+	       '#{0} div.x-grid-split', this.mainHd.id
 	    );
     },
 
-	bind : function(ds, cm){
-        if(this.ds){
-            this.ds.un("load", this.onLoad, this);
-            this.ds.un("datachanged", this.onDataChange);
-            this.ds.un("add", this.onAdd);
-            this.ds.un("remove", this.onRemove);
-            this.ds.un("update", this.onUpdate);
-            this.ds.un("clear", this.onClear);
-        }
-        if(ds){
-            ds.on("load", this.onLoad, this);
-            ds.on("datachanged", this.onDataChange, this);
-            ds.on("add", this.onAdd, this);
-            ds.on("remove", this.onRemove, this);
-            ds.on("update", this.onUpdate, this);
-            ds.on("clear", this.onClear, this);
-        }
-        this.ds = ds;
-
-        if(this.cm){
-            this.cm.un("widthchange", this.updateColumns, this);
-            this.cm.un("headerchange", this.updateHeaders, this);
-            this.cm.un("hiddenchange", this.handleHiddenChange, this);
-            this.cm.un("columnmoved", this.handleColumnMove, this);
-            this.cm.un("columnlockchange", this.handleLockChange, this);
-        }
-        if(cm){
-            this.generateRules(cm);
-            cm.on("widthchange", this.updateColumns, this);
-            cm.on("headerchange", this.updateHeaders, this);
-            cm.on("hiddenchange", this.handleHiddenChange, this);
-            cm.on("columnmoved", this.handleColumnMove, this);
-            cm.on("columnlockchange", this.handleLockChange, this);
-        }
-        this.cm = cm;
-    },
-
-    onDataChange : function(){
+	onDataChange : function(){
         this.refresh();
         this.updateHeaderSortState();
     },
@@ -205,23 +165,6 @@ Ext.extend(Ext.grid.BasicGridView, Ext.grid.AbstractGridView, {
 
 	onUpdate : function(ds, record){
         this.refreshRow(record);
-    },
-
-    refreshRow : function(record){
-        var ds = this.ds, index;
-        if(typeof record == 'number'){
-            index = record;
-            record = ds.getAt(index);
-        }else{
-            index = ds.indexOf(record);
-        }
-        var rows = this.getRowComposite(index);
-        var cls = [];
-        this.insertRows(ds, index, index, true);
-        this.onRemove(ds, record, index+1, true);
-        this.syncRowHeights(index, index);
-        this.layout();
-        this.fireEvent("rowupdated", this, index, record);
     },
 
     onAdd : function(ds, records, index){
@@ -771,6 +714,21 @@ Ext.extend(Ext.grid.BasicGridView, Ext.grid.AbstractGridView, {
         var markup = this.renderRows();
         var bt = this.templates.body;
         return [bt.apply({rows: markup[0]}), bt.apply({rows: markup[1]})];
+    },
+
+    refreshRow : function(record){
+        var ds = this.ds, index;
+        if(typeof record == 'number'){
+            index = record;
+            record = ds.getAt(index);
+        }else{
+            index = ds.indexOf(record);
+        }
+        var cls = [];
+        this.insertRows(ds, index, index, true);
+        this.onRemove(ds, record, index+1, true);
+        this.layout();
+        this.fireEvent("rowupdated", this, index, record);
     },
 
     refresh : function(headersToo){
