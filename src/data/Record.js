@@ -35,7 +35,12 @@ Ext.data.Record = function(data, id){
  * to the data item relative to the record element. If the mapping expression is the same as the field name,
  * this may be omitted.</li>
  * <li>type {String} (Optional) The data type for conversion to displayable value. Possible values are
- * "auto" (which is the default, and implies no conversion), "string", "int", "float", "boolean", "date".</li>
+ * <ul><li>auto (Default, implies no conversion)</li>
+ * <li>string</li>
+ * <li>int</li>
+ * <li>float</li>
+ * <li>boolean</li>
+ * <li>date</li></ul></li>
  * <li>sortType {Mixed} (Optional) A member of {@link Ext.data.SortTypes}.</li>
  * <li>sortDir {String} (Optional) Initial direction to sort. "ASC" or "DESC"</li>
  * <li>convert {Function} (Optional) A function which accepts a data value and returns it formatted for display.</li>
