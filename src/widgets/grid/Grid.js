@@ -3,34 +3,30 @@
  * @extends Ext.util.Observable
  * This class represents the primary interface of a component based grid control.
  * <br><br>Usage:<pre><code>
- var grid = new Ext.grid.Grid("my-container-id", dataSource, columnModel);
- // set any options
- grid.render();
- // or using a config
  var grid = new Ext.grid.Grid("my-container-id", {
-     dataModel: myDataModel,
-     colModel: myColModel,
+     ds: myDataStore,
+     cm: myColModel,
      selModel: mySelectionModel,
      autoSizeColumns: true,
      monitorWindowResize: false,
      trackMouseOver: true
- }).render();
+ });
+ // set any options
+ grid.render();
  * </code></pre>
  * <b>Common Problems:</b><br/>
- * - Grid does not resize properly when going smaller: Setting overflow hidden on the container 
+ * - Grid does not resize properly when going smaller: Setting overflow hidden on the container
  * element will correct this<br/>
- * - If you get el.style[camel]= NaNpx or -2px or something related, be certain you have given your container element 
+ * - If you get el.style[camel]= NaNpx or -2px or something related, be certain you have given your container element
  * dimensions. The grid adapts to your container's size, if your container has no size defined then the results
  * are unpredictable.<br/>
- * - Do not render the grid into an element with display:none. Try using visibility:hidden. Otherwise there is no way for the 
+ * - Do not render the grid into an element with display:none. Try using visibility:hidden. Otherwise there is no way for the
  * grid to calculate dimensions/offsets.<br/>
   * @constructor
- * @param {String/HTMLElement/Ext.Element} container The element into which this grid will be rendered - 
- * The container MUST have some type of size defined for the grid to fill. The container will be 
+ * @param {String/HTMLElement/Ext.Element} container The element into which this grid will be rendered -
+ * The container MUST have some type of size defined for the grid to fill. The container will be
  * automatically set to position relative if it isn't already.
- * @param {Object} config A config object that sets properties on this grid OR the data model to bind to
- * @param {Object} colModel (optional) The column model with info about this grid's columns
- * @param {Object} selectionModel (optional) The selection model for this grid (defaults to DefaultSelectionModel)
+ * @param {Object} config A config object that sets properties on this grid.
  */
 Ext.grid.Grid = function(container, config){
 	// initialize the container
@@ -38,9 +34,9 @@ Ext.grid.Grid = function(container, config){
 	this.container.update("");
 	this.container.setStyle("overflow", "hidden");
     this.container.addClass('x-grid-container');
-    
+
     this.id = this.container.id;
-	
+
     Ext.apply(this, config);
     // check and correct shorthanded configs
     if(this.ds){
@@ -120,9 +116,9 @@ Ext.grid.Grid = function(container, config){
 	     * @param {Ext.EventObject} e
 	     */
 	    "keydown" : true,
-	    
+
 	    // custom events
-	    
+
 	    /**
 	     * @event cellclick
 	     * Fires when a cell is clicked
@@ -222,7 +218,7 @@ Ext.grid.Grid = function(container, config){
 	    "columnmove" : true,
 	    /**
 	     * @event startdrag
-	     * Fires when row(s) start being dragged 
+	     * Fires when row(s) start being dragged
 	     * @param {Grid} this
 	     * @param {Ext.GridDD} dd The drag drop object
 	     * @param {event} e The raw browser event
@@ -238,7 +234,7 @@ Ext.grid.Grid = function(container, config){
 	    "enddrag" : true,
 	    /**
 	     * @event dragdrop
-	     * Fires when dragged row(s) are dropped on a valid DD target 
+	     * Fires when dragged row(s) are dropped on a valid DD target
 	     * @param {Grid} this
 	     * @param {Ext.GridDD} dd The drag drop object
 	     * @param {String} targetId The target drag drop object
@@ -256,7 +252,7 @@ Ext.grid.Grid = function(container, config){
 	    "dragover" : true,
 	    /**
 	     * @event dragenter
-	     *  Fires when the dragged row(s) first cross another DD target while being dragged 
+	     *  Fires when the dragged row(s) first cross another DD target while being dragged
 	     * @param {Grid} this
 	     * @param {Ext.GridDD} dd The drag drop object
 	     * @param {String} targetId The target drag drop object
@@ -265,7 +261,7 @@ Ext.grid.Grid = function(container, config){
 	    "dragenter" : true,
 	    /**
 	     * @event dragout
-	     * Fires when the dragged row(s) leave another DD target while being dragged 
+	     * Fires when the dragged row(s) leave another DD target while being dragged
 	     * @param {Grid} this
 	     * @param {Ext.GridDD} dd The drag drop object
 	     * @param {String} targetId The target drag drop object
@@ -280,33 +276,33 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
     /** The minimum width a column can be resized to. (Defaults to 25)
 	 * @type Number */
 	minColumnWidth : 25,
-	
+
 	/** True to automatically resize the columns to fit their content <b>on initial render</b>
 	 * @type Boolean */
 	autoSizeColumns : false,
-	
+
 	/** True to measure headers with column data when auto sizing columns
 	 * @type Boolean */
 	autoSizeHeaders : true,
-	
+
 	/**
 	 * True to autoSize the grid when the window resizes - defaults to true
 	 */
 	monitorWindowResize : true,
-	
+
 	/** If autoSizeColumns is on, maxRowsToMeasure can be used to limit the number of
 	 * rows measured to get a columns size - defaults to 0 (all rows).
 	 * @type Number */
 	maxRowsToMeasure : 0,
-	
+
 	/** True to highlight rows when the mouse is over (default is false)
 	 * @type Boolean */
 	trackMouseOver : true,
-	
+
 	/** True to enable drag and drop of rows
 	 * @type Boolean */
 	enableDragDrop : false,
-	
+
 	/**
 	 * True to enable drag and drop reorder of columns
 	 * @type Boolean
@@ -321,7 +317,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
 
 	/** True to manually sync row heights across locked and not locked rows @type Boolean **/
 	enableRowHeightSync : false,
-	
+
 	/** True to stripe the rows (default is true)
 	 * @type Boolean */
 	stripeRows : true,
@@ -348,13 +344,13 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
     autoExpandMax : 1000,
 
     /**
-	 * The view used by the grid. This can be set before a call to render(). 
+	 * The view used by the grid. This can be set before a call to render().
 	 * Defaults to a Ext.grid.GridView or PagedGridView depending on the data model.
 	 * @type Object
 	 */
 	view : null,
-	
-	/** A regular expression defining tagNames 
+
+	/** A regular expression defining tagNames
      * allowed to have text selection (Defaults to <code>/INPUT|TEXTAREA|SELECT/i</code>) */
     allowTextSelectionPattern : /INPUT|TEXTAREA|SELECT/i,
 
@@ -376,20 +372,20 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
         var c = this.container;
         // try to detect autoHeight/width mode
         if((!c.dom.offsetHeight || c.dom.offsetHeight < 20) || c.getStyle("height") == "auto"){
-    	    this.autoHeight = true;   
-    	}	       
+    	    this.autoHeight = true;
+    	}
     	var view = this.getView();
         view.init(this);
-        
+
         c.on("click", this.onClick, this);
         c.on("dblclick", this.onDblClick, this);
         c.on("contextmenu", this.onContextMenu, this);
         c.on("keydown", this.onKeyDown, this);
 
         this.relayEvents(c, ["mousedown","mouseup","mouseover","mouseout","keypress"]);
-        
+
         this.getSelectionModel().init(this);
-        
+
         view.render();
 
         if(this.loadMask){
@@ -399,7 +395,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
         this.rendered = true;
         return this;
     },
-    
+
     reconfigure : function(dataSource, colModel){
         if(this.loadMask){
             this.loadMask.destroy();
@@ -417,7 +413,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
     },
 
     /**
-     * Destroy this grid. 
+     * Destroy this grid.
      * @param {Boolean} removeEl True to remove the element
      */
     destroy : function(removeEl, keepListeners){
@@ -436,7 +432,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
             c.remove();
         }
     },
-    
+
     // private
     processEvent : function(name, e){
         this.fireEvent(name, e);
@@ -456,7 +452,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
             }
         }
     },
-    
+
     // private
     onClick : function(e){
         this.processEvent("click", e);
@@ -516,7 +512,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
     },
 
     getSelections : function(){
-        return this.selModel.getSelections();  
+        return this.selModel.getSelections();
     },
 
     /**
@@ -531,10 +527,10 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
             }
         }
     },
-    
+
     // private for compatibility, overridden by editor grid
     stopEditing : function(){},
-    
+
     /**
      * Returns the grid's SelectionModel.
      * @return {SelectionModel}
@@ -545,7 +541,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
         }
         return this.selModel;
     },
-    
+
     /**
      * Returns the grid's DataSource.
      * @return {DataSource}
@@ -553,7 +549,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
     getDataSource : function(){
         return this.dataSource;
     },
-    
+
     /**
      * Returns the grid's ColumnModel.
      * @return {ColumnModel}
@@ -561,7 +557,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
     getColumnModel : function(){
         return this.colModel;
     },
-    
+
     /**
      * Returns the grid's GridView object.
      * @return {GridView}
@@ -573,7 +569,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
         return this.view;
     },
     /**
-     * Called to get grid's drag proxy text, by default returns this.ddText. 
+     * Called to get grid's drag proxy text, by default returns this.ddText.
      * @return {String}
      */
     getDragDropText : function(){
@@ -582,7 +578,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
     }
 });
 /**
- * Configures the text is the drag proxy (defaults to "%0 selected row(s)"). 
+ * Configures the text is the drag proxy (defaults to "%0 selected row(s)").
  * %0 is replaced with the number of selected rows.
  * @type String
  */
