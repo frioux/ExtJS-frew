@@ -1,4 +1,5 @@
 /**
+ * @class Ext.data.HttpProxy
  * An implementation of Ext.data.DataProxy that reads a data object from an Ext.data.Connection object
  * configured to reference a certain URL.
  * <p>
