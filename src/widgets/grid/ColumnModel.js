@@ -6,10 +6,10 @@
  * <br>Usage:<br>
  <pre><code>
  var colModel = new Ext.grid.ColumnModel([
-	{header: "Ticker", width: 60, sortable: true, locked: true}, 
-	{header: "Company Name", width: 150, sortable: true}, 
-	{header: "Market Cap.", width: 100, sortable: true}, 
-	{header: "$ Sales", width: 100, sortable: true, renderer: money}, 
+	{header: "Ticker", width: 60, sortable: true, locked: true},
+	{header: "Company Name", width: 150, sortable: true},
+	{header: "Market Cap.", width: 100, sortable: true},
+	{header: "$ Sales", width: 100, sortable: true, renderer: money},
 	{header: "Employees", width: 100, sortable: true, resizable: false}
  ]);
  </code></pre>
@@ -25,7 +25,7 @@ Ext.grid.ColumnModel = function(config){
     this.lookup = {};
 
     // if id, create one
-    // if the column does not have a dataIndex mapping, 
+    // if the column does not have a dataIndex mapping,
     // map it to the order it is in the config
     for(var i = 0, len = config.length; i < len; i++){
         if(typeof config[i].dataIndex == "undefined"){
@@ -39,19 +39,19 @@ Ext.grid.ColumnModel = function(config){
         }
         this.lookup[config[i].id] = config[i];
     }
-    
+
     /**
      * The width of columns which have no width specified (defaults to 100)
      * @type Number
      */
     this.defaultWidth = 100;
-    
+
     /**
      * Default sortable of columns which have no sortable specified (defaults to false)
      * @type Boolean
      */
     this.defaultSortable = false;
-    
+
     this.events = {
         /**
 	     * @event widthchange
@@ -63,7 +63,7 @@ Ext.grid.ColumnModel = function(config){
 	    "widthchange": true,
         /**
 	     * @event headerchange
-	     * Fires when the text of a header changes 
+	     * Fires when the text of a header changes
 	     * @param {ColumnModel} this
 	     * @param {Number} columnIndex The column index
 	     * @param {Number} newText The new header text
@@ -125,12 +125,12 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
         this.config.splice(newIndex, 0, c);
         this.dataMap = null;
         this.fireEvent("columnmoved", this, oldIndex, newIndex);
-    },    
-    
+    },
+
     isLocked : function(colIndex){
         return this.config[colIndex].locked === true;
     },
-    
+
     setLocked : function(colIndex, value, suppressEvent){
         if(this.isLocked(colIndex) == value){
             return;
@@ -140,7 +140,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
             this.fireEvent("columnlockchange", this, colIndex, value);
         }
     },
-    
+
     getTotalLockedWidth : function(){
         var totalWidth = 0;
         for(var i = 0; i < this.config.length; i++){
@@ -158,7 +158,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
             }
         }
     },
-    
+
     /**
      * Returns the number of columns.
      * @return {Number}
@@ -175,7 +175,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
         }
         return this.config.length;
     },
-        
+
     /**
      * Returns true if the specified column is sortable.
      * @param {Number} col The column index
@@ -187,7 +187,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
         }
         return this.config[col].sortable;
     },
-        
+
     /**
      * Returns the rendering (formatting) function defined for the column.
      * @param {Number} col The column index
@@ -199,7 +199,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
         }
         return this.config[col].renderer;
     },
-        
+
     /**
      * Sets the rendering (formatting) function for a column.
      * @param {Number} col The column index
@@ -208,7 +208,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     setRenderer : function(col, fn){
         this.config[col].renderer = fn;
     },
-        
+
     /**
      * Returns the width for the specified column.
      * @param {Number} col The column index
@@ -217,7 +217,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     getColumnWidth : function(col){
         return this.config[col].width || this.defaultWidth;
     },
-        
+
     /**
      * Sets the width for a column.
      * @param {Number} col The column index
@@ -230,7 +230,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
              this.fireEvent("widthchange", this, col, width);
         }
     },
-        
+
     /**
      * Returns the total width of all columns.
      * @param {Boolean} includeHidden True to include hidden column widths
@@ -247,7 +247,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
         }
         return this.totalWidth;
     },
-        
+
     /**
      * Returns the header for the specified column.
      * @param {Number} col The column index
@@ -256,7 +256,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     getColumnHeader : function(col){
         return this.config[col].header;
     },
-         
+
     /**
      * Sets the header for a column.
      * @param {Number} col The column index
@@ -266,7 +266,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
         this.config[col].header = header;
         this.fireEvent("headerchange", this, col, header);
     },
-    
+
     /**
      * Returns the tooltip for the specified column.
      * @param {Number} col The column index
@@ -283,7 +283,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     setColumnTooltip : function(col, tooltip){
             this.config[col].tooltip = tooltip;
     },
-        
+
     /**
      * Returns the dataIndex for the specified column.
      * @param {Number} col The column index
@@ -292,7 +292,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     getDataIndex : function(col){
         return this.config[col].dataIndex;
     },
-         
+
     /**
      * Sets the dataIndex for a column.
      * @param {Number} col The column index
@@ -301,7 +301,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     setDataIndex : function(col, dataIndex){
         this.config[col].dataIndex = dataIndex;
     },
-    
+
     findColumnIndex : function(dataIndex){
         var c = this.config;
         for(var i = 0, len = c.length; i < len; i++){
@@ -311,7 +311,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
         }
         return -1;
     },
-    
+
     /**
      * Returns true if the cell is editable.
      * @param {Number} colIndex The column index
@@ -321,7 +321,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     isCellEditable : function(colIndex, rowIndex){
         return (this.config[colIndex].editable || (typeof this.config[colIndex].editable == "undefined" && this.config[colIndex].editor)) ? true : false;
     },
-    
+
     /**
      * Returns the editor defined for the cell/column.
      * @param {Number} colIndex The column index
@@ -331,7 +331,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     getCellEditor : function(colIndex, rowIndex){
         return this.config[colIndex].editor;
     },
-       
+
     /**
      * Sets if a column is editable.
      * @param {Number} col The column index
@@ -340,8 +340,8 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     setEditable : function(col, editable){
         this.config[col].editable = editable;
     },
-    
-    
+
+
     /**
      * Returns true if the column is hidden.
      * @param {Number} colIndex The column index
@@ -358,7 +358,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     isFixed : function(colIndex){
         return this.config[colIndex].fixed;
     },
-    
+
     /**
      * Returns true if the column cannot be resized
      * @return {Boolean}
@@ -369,13 +369,14 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     /**
      * Sets if a column is hidden.
      * @param {Number} colIndex The column index
+     * @param {Boolean} hidden True if the column is hidden
      */
     setHidden : function(colIndex, hidden){
         this.config[colIndex].hidden = hidden;
         this.totalWidth = null;
         this.fireEvent("hiddenchange", this, colIndex, hidden);
     },
-    
+
     /**
      * Sets the editor for a column.
      * @param {Number} col The column index
