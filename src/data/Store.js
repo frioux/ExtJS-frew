@@ -461,12 +461,15 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
 
     /**
      * Revert to a view of the Record cache with no filtering applied.
+     * @param {Boolean} suppressEvent If true the filter is cleared silently without notifying listeners
      */
-    clearFilter : function(){
+    clearFilter : function(suppressEvent){
         if(this.snapshot && this.snapshot != this.data){
             this.data = this.snapshot;
             delete this.snapshot;
-            this.fireEvent("datachanged", this);
+            if(suppressEvent !== true){
+                this.fireEvent("datachanged", this);
+            }
         }
     },
 
