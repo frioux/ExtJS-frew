@@ -145,7 +145,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
         record.beginEdit();
         var fs = record.fields;
         fs.each(function(f){
-            var field = this.fieldField(f.name);
+            var field = this.findField(f.name);
             if(field){
                 record.set(f.name, field.getValue());
             }
