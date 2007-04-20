@@ -35,11 +35,14 @@ Ext.EventManager = function(){
         }else if(Ext.isIE){
             // inspired by  http://www.thefutureoftheweb.com/blog/2006/6/adddomloadevent
             document.write("<s"+'cript id="ie-deferred-loader" defer="defer" src="/'+'/:"></s'+"cript>");
-            E.on("ie-deferred-loader", "readystatechange", function(){
+            var defer = document.getElementById("ie-deferred-loader");
+            defer.onreadystatechange = function(){
                 if(this.readyState == "complete"){
                     fireDocReady();
+                    defer.onreadystatechange = null;
+                    defer.parentNode.removeChild(defer);
                 }
-            });
+            };
         }else if(Ext.isSafari){ 
             docReadyProcId = setInterval(function(){
                 var rs = document.readyState;
@@ -83,7 +86,7 @@ Ext.EventManager = function(){
         fn = fn || o.fn; scope = scope || o.scope;
         var el = Ext.getDom(element);
         if(!el){
-            throw "Error listening for " + ename + '. Element ' + element + ' doesn\'t exist.';
+            throw "Error listening for \"" + ename + '\". Element "' + element + '" doesn\'t exist.';
         }
         var h = function(e){
             e = Ext.EventObject.setEvent(e);

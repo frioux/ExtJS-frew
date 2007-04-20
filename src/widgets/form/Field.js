@@ -261,10 +261,15 @@ side          Add an error icon to the right of the field with a popup on hover
 
     /**
      * Returns whether or not the field value is currently valid
+     * @param {Boolean} preventMark True to disable marking the field invalid
      * @return {Boolean} True if the value is valid, else false
      */
-    isValid : function(){
-        return this.validateValue(this.getRawValue());
+    isValid : function(preventMark){
+        var restore = this.preventMark;
+        this.preventMark = preventMark === true;
+        var v = this.validateValue(this.getRawValue());
+        this.preventMark = restore;
+        return v;
     },
 
     /**
@@ -290,7 +295,7 @@ side          Add an error icon to the right of the field with a popup on hover
      * @param {String} msg The validation message
      */
     markInvalid : function(msg){
-        if(!this.rendered){ // not rendered
+        if(!this.rendered || this.preventMark){ // not rendered
             return;
         }
         this.el.addClass(this.invalidClass);
@@ -340,7 +345,7 @@ side          Add an error icon to the right of the field with a popup on hover
      * Clear any invalid styles/messages for this field
      */
     clearInvalid : function(){
-        if(!this.rendered){ // not rendered
+        if(!this.rendered || this.preventMark){ // not rendered
             return;
         }
         this.el.removeClass(this.invalidClass);

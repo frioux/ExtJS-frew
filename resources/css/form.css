@@ -317,6 +317,25 @@
 	padding:3px;
 }
 
+.x-form .x-form-btns-ct .x-btn-focus .x-btn-left{
+	background-position:0 -147px;
+}
+.x-form .x-form-btns-ct .x-btn-focus .x-btn-right{
+	background-position:0 -168px;
+}
+.x-form .x-form-btns-ct .x-btn-focus .x-btn-center{
+	background-position:0 -189px;
+}
+
+.x-form .x-form-btns-ct .x-btn-click .x-btn-center{
+	background-position:0 -126px;
+}
+.x-form .x-form-btns-ct .x-btn-click  .x-btn-right{
+	background-position:0 -84px;
+}
+.x-form .x-form-btns-ct .x-btn-click .x-btn-left{
+	background-position:0 -63px;
+}
 .x-form-invalid-icon {
     width:16px;
     height:18px;

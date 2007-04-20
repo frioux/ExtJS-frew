@@ -89,15 +89,6 @@
 	cursor:pointer;
 	white-space:nowrap;
 }
-.x-btn-focus .x-btn-left{
-	background-position:0 -126px;
-}
-.x-btn-focus .x-btn-right{
-	background-position:0 -147px;
-}
-.x-btn-focus .x-btn-center{
-	background-position:0 -168px;
-}
 .x-btn-over .x-btn-left{
 	background-position:0 -63px;
 }

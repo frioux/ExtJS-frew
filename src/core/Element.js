@@ -2689,5 +2689,11 @@ var noBoxAdjust = Ext.isStrict ? {
 if(Ext.isIE || Ext.isGecko){
     noBoxAdjust['button'] = 1;
 }
+
+
+Ext.EventManager.on(window, 'unload', function(){
+    delete El.cache;
+    delete El._flyweights;
+});
 })();
 

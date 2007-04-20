@@ -8,6 +8,7 @@ Ext.onReady(function(){
     var fs = new Ext.form.Form({
         labelAlign: 'right',
         labelWidth: 75,
+        waitMsgTarget: 'box-bd',
 
         // configure how to read the XML Data
         reader : new Ext.data.XmlReader({
@@ -76,33 +77,27 @@ Ext.onReady(function(){
         })
     );
 
+    // simple button add
     fs.addButton('Load', function(){
-        fs.load({url:'xml-form.xml'});
+        fs.load({url:'xml-form.xml', waitMsg:'Loading'});
     });
 
-    var submit = fs.addButton('Submit', function(){
-        fs.submit({url:'xml-errors.xml'});
+    // explicit add
+    var submit = fs.addButton({
+        text: 'Submit',
+        disabled:true,
+        handler: function(){
+            fs.submit({url:'xml-errors.xml', waitMsg:'Saving Data...'});
+        }
     });
-    submit.disable();
 
     fs.render('form-ct');
 
-    var box = Ext.get('box-bd'); // the fancy gray box for masking
     fs.on({
-        beforeaction: function(form, action){
-            var msg = action.type == 'load' ? 'Loading' : 'Saving Data...';
-            box.mask(msg, 'x-mask-loading');
-        },
-
         actioncomplete: function(form, action){
-            box.unmask();
             if(action.type == 'load'){
                 submit.enable();
             }
-        },
-
-        actionfailed: function(){
-            box.unmask();
         }
     });
 
