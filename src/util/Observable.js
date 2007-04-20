@@ -42,9 +42,24 @@ Ext.util.Observable.prototype = {
 
     /**
      * Appends an event handler to this component
-     * @param {String}   eventName     The type of event to listen for
-     * @param {Function} handler        The method the event invokes
-     * @param {Object}   options  (optional)
+     * @param {String}   eventName The type of event to listen for
+     * @param {Function} handler The method the event invokes
+     * @param {Object}   scope (optional) The scope in which to execute the handler
+     * function. The handler function's "this" context.
+     * @param {Object}   options (optional) An object containing handler configuration
+     * properties. This may contain any of the following properties:<ul>
+     * <li>scope {Object} The scope in which to execute the handler function. The handler function's "this" context.</li>
+     * <li>delegate {String} A simple selector to filter the target or look for a descendant of the target</li>
+     * <li>stopEvent {Boolean} True to stop the event. That is stop propagation, and prevent the default action.</li>
+     * <li>preventDefault {Boolean} True to prevent the default action</li>
+     * <li>stopPropagation {Boolean} True to prevent event propagation</li>
+     * <li>normalized {Boolean} False to pass a browser event to the handler function instead of an Ext.EventObject</li>
+     * <li>delay {Number} The number of milliseconds to delay the invocation of the handler after te event fires.</li>
+     * <li>single {Boolean} True to add a handler to handle just the next firing of the event, and then remove itself.</li>
+     * <li>buffer {Number} Causes the handler to be scheduled to run in an {@link Ext.util.DelayedTask} delayed
+     * by the specified number of milliseconds. If the event fires again within that time, the original
+     * handler is <em>not</em> invoked, but the new handler is scheduled in its place.</li>
+     * </ul>
      */
     addListener : function(eventName, fn, scope, o){
         if(typeof eventName == "object"){
