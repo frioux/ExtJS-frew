@@ -402,7 +402,7 @@ body.x-masked #x-msg-box .x-dlg-bd, body.x-body-masked #x-msg-box .x-dlg-bd{
 	background-color: #f5f5f5;
 }
 .x-grid-row-over td, .x-grid-locked .x-grid-row-over td{
-	background:#d9e8fb;
+	background-color:#d9e8fb;
 }
 .x-grid-col {
 	border-right: 1px solid #eee;
