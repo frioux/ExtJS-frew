@@ -44,8 +44,7 @@ Ext.LayoutRegion = function(mgr, config, pos){
     this.closeBtn.enableDisplayMode();
     this.closeBtn.on("click", this.closeClicked, this);
     this.closeBtn.hide();
-    /** This regions body element @type Ext.Element */
-    this.bodyEl = dh.append(this.el.dom, {tag: "div", cls: "x-layout-panel-body"}, true);
+    this.createBody(config);
     this.visible = true;
     this.collapsed = false;
 
@@ -58,6 +57,12 @@ Ext.LayoutRegion = function(mgr, config, pos){
 };
 
 Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
+    
+    createBody : function(){
+        /** This regions body element @type Ext.Element */
+        this.bodyEl = this.el.createChild({tag: "div", cls: "x-layout-panel-body"});
+    },
+
     applyConfig : function(c){
         if(c.collapsible && this.position != "center" && !this.collapsedEl){
             var dh = Ext.DomHelper;
@@ -179,11 +184,17 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
         if(w !== null){
             this.el.setWidth(w);
             w -= this.el.getBorderWidth("rl");
+            if(this.config.adjustments){
+                w += this.config.adjustments[0];
+            }
         }
         if(h !== null){
             this.el.setHeight(h);
             h = this.titleEl.isDisplayed() ? h - (this.titleEl.getHeight()||0) : h;
             h -= this.el.getBorderWidth("tb");
+            if(this.config.adjustments){
+                h += this.config.adjustments[1];
+            }
             this.bodyEl.setHeight(h);
             if(this.tabs){
                 h = this.tabs.syncHeight(h);

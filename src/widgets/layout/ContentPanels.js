@@ -235,7 +235,7 @@ panel.load({<br/>
                 this.el.setSize(width, height);
             }
             var size = this.adjustForComponents(width, height);
-            this.resizeEl.setSize(this.autoWidth ? "auto" : size.width, size.height);
+            this.resizeEl.setSize(this.autoWidth ? "auto" : size.width, this.autoHeight ? "auto" : size.height);
             this.fireEvent('resize', this, size.width, size.height);
         }
     },

@@ -140,7 +140,7 @@ Ext.extend(Ext.BasicLayoutRegion, Ext.util.Observable, {
         var el = this.activePanel.getEl();
         el.dom.style.left = box.x + "px";
         el.dom.style.top = box.y + "px";
-        el.setSize(box.width, box.height);
+        this.activePanel.setSize(box.width, box.height);
     },
     
     /**

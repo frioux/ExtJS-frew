@@ -104,7 +104,13 @@ Ext.extend(Ext.form.Layout, Ext.Component, {
 
     // private
     renderField : function(f){
-       this.fieldTpl.append(this.el, [f.id, f.fieldLabel, f.labelStyle||this.labelStyle||'', this.elementStyle||'', f.labelSeparator||this.labelSeparator, f.itemCls||this.itemCls||'']);
+       this.fieldTpl.append(this.el, [
+               f.id, f.fieldLabel,
+               f.labelStyle||this.labelStyle||'',
+               this.elementStyle||'',
+               typeof f.labelSeparator == 'undefined' ? this.labelSeparator : f.labelSeparator,
+               f.itemCls||this.itemCls||''
+       ]);
     },
 
     // private

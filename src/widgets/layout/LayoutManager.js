@@ -3,11 +3,11 @@
  * @extends Ext.util.Observable
  * Base class for layout managers.
  */
-Ext.LayoutManager = function(container){
+Ext.LayoutManager = function(container, config){
     Ext.LayoutManager.superclass.constructor.call(this);
     this.el = Ext.get(container);
     // ie scrollbar fix
-    if(this.el.dom == document.body && Ext.isIE){
+    if(this.el.dom == document.body && Ext.isIE && !config.allowScroll){
         document.body.scroll = "no";
     }else if(this.el.dom != document.body && this.el.getStyle('position') == 'static'){
         this.el.position('relative');

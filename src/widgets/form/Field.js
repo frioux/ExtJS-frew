@@ -265,6 +265,9 @@ side          Add an error icon to the right of the field with a popup on hover
      * @return {Boolean} True if the value is valid, else false
      */
     isValid : function(preventMark){
+        if(this.disabled){
+            return true;
+        }
         var restore = this.preventMark;
         this.preventMark = preventMark === true;
         var v = this.validateValue(this.getRawValue());
@@ -277,7 +280,7 @@ side          Add an error icon to the right of the field with a popup on hover
      * @return {Boolean} True if the value is valid, else false
      */
     validate : function(){
-        if(this.validateValue(this.getRawValue())){
+        if(this.disabled || this.validateValue(this.getRawValue())){
             this.clearInvalid();
             return true;
         }
