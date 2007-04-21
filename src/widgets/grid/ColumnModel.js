@@ -13,8 +13,12 @@
 	{header: "Employees", width: 100, sortable: true, resizable: false}
  ]);
  </code></pre>
+ * <p>
+ * The config options listed for this class, are options which may appear in each
+ * individual column definition.
  * @constructor
- * @param {Object} config The config object
+ * @param {Object} config An Array of column config objects. See this class's
+ * config objects for details.
 */
 Ext.grid.ColumnModel = function(config){
 	Ext.grid.ColumnModel.superclass.constructor.call(this);
@@ -97,6 +101,35 @@ Ext.grid.ColumnModel = function(config){
     Ext.grid.ColumnModel.superclass.constructor.call(this);
 };
 Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
+    /**
+     * @cfg header {String} The header text to display in the Grid view.
+     */
+    /**
+     * @cfg dataIndex {String} The name of the field in the grid's {@link Ext.data.Store}'s
+     * {@link Ext.data.Record} definition from which to draw the column's value. If not
+     * specified, the column's index is used as an index into the Record's data Array.
+     */
+    /**
+     * @cfg width {Number} (Optional) The initial width in pixels of the column. Using this
+     * instead of {@link Ext.grid.Grid#autoSizeColumns} is more efficient.
+     */
+    /**
+     * @cfg sortable {Boolean} True if sorting is to be allowed on this column. Defaults to true.
+     * Whether local/remote sorting is used is specified in {@link Ext.data.Store#remoteSort}.
+     */
+    /**
+     * @cfg locked {Boolean} True to lock the column in place while scrolling the Grid.
+     * Defaults to false.
+     */
+    /**
+     * @cfg resizable {Boolean} False to disable column resizing. Defaults to true.
+     */
+    /**
+     * @cfg renderer {Function} (Optional) A function used to generate HTML markup for a cell
+     * given the cell's data value. See {@link #setRenderer}. If not specified, the
+     * default renderer uses the raw data value.
+     */
+
     /**
      * Returns the id of the column at the specified index
      * @param {Number} index
@@ -190,8 +223,8 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
 
     /**
      * Returns the rendering (formatting) function defined for the column.
-     * @param {Number} col The column index
-     * @return {Function}
+     * @param {Number} col The column index.
+     * @return {Function} The function used to render the cell. See {@link #setRenderer}.
      */
     getRenderer : function(col){
         if(!this.config[col].renderer){
@@ -203,7 +236,17 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     /**
      * Sets the rendering (formatting) function for a column.
      * @param {Number} col The column index
-     * @param {Function} fn
+     * @param {Function} fn The function to use to process the cell's raw data
+     * to return HTML markup for the grid view. The render function is called with
+     * the following parameters:<ul>
+     * <li>Data value.</li>
+     * <li>Cell metadata. An object in which you may set the following attributes:<ul>
+     * <li>css A CSS style string to apply to the table cell.</li>
+     * <li>attr An HTML attribute definition string to apply to the data container element <i>within</i> the table cell.</li></ul>
+     * <li>The {@link Ext.data.Record} from which the data was extracted.</li>
+     * <li>Row index</li>
+     * <li>Column index</li>
+     * <li>The {@link Ext.data.Store} object from which the Record was extracted</li></ul>
      */
     setRenderer : function(col, fn){
         this.config[col].renderer = fn;

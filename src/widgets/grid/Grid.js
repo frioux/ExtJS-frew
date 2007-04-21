@@ -273,91 +273,102 @@ Ext.grid.Grid = function(container, config){
     Ext.grid.Grid.superclass.constructor.call(this);
 };
 Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
-    /** The minimum width a column can be resized to. (Defaults to 25)
-	 * @type Number */
+    /**
+     * @cfg {Number} The minimum width a column can be resized to. Defaults to 25.
+	 */
 	minColumnWidth : 25,
 
-	/** True to automatically resize the columns to fit their content <b>on initial render</b>
-	 * @type Boolean */
+    /**
+	 * @cfg {Boolean} True to automatically resize the columns to fit their content
+	 * <b>on initial render.</b> It is more efficient to explicitly size the columns
+	 * through the ColumnModel's {@link Ext.grid.ColumnModel#width} config option.
+	 */
 	autoSizeColumns : false,
 
-	/** True to measure headers with column data when auto sizing columns
-	 * @type Boolean */
+	/**
+	 * @cfg {Boolean} True to measure headers with column data when auto sizing columns.
+	 */
 	autoSizeHeaders : true,
 
 	/**
-	 * True to autoSize the grid when the window resizes - defaults to true
+	 * @cfg {Boolean} True to autoSize the grid when the window resizes. Defaults to true.
 	 */
 	monitorWindowResize : true,
 
-	/** If autoSizeColumns is on, maxRowsToMeasure can be used to limit the number of
+	/**
+	 * @cfg {Boolean} If autoSizeColumns is on, maxRowsToMeasure can be used to limit the number of
 	 * rows measured to get a columns size - defaults to 0 (all rows).
-	 * @type Number */
+	 */
 	maxRowsToMeasure : 0,
 
-	/** True to highlight rows when the mouse is over (default is false)
-	 * @type Boolean */
+	/**
+	 * @cfg {Boolean} True to highlight rows when the mouse is over. Default is false.
+	 */
 	trackMouseOver : true,
 
-	/** True to enable drag and drop of rows
-	 * @type Boolean */
+	/**
+	 * @cfg {Boolean} True to enable drag and drop of rows.
+	 */
 	enableDragDrop : false,
 
 	/**
-	 * True to enable drag and drop reorder of columns
-	 * @type Boolean
+	 * @cfg {Boolean} True to enable drag and drop reorder of columns.
 	 */
 	enableColumnMove : true,
 
 	/**
-	 * True to enable hiding of columns with the header context menu
-	 * @type Boolean
+	 * @cfg {Boolean} True to enable hiding of columns with the header context menu.
 	 */
 	enableColumnHide : true,
 
-	/** True to manually sync row heights across locked and not locked rows @type Boolean **/
+	/**
+	 * @cfg {Boolean} True to manually sync row heights across locked and not locked rows.
+	 */
 	enableRowHeightSync : false,
 
-	/** True to stripe the rows (default is true)
-	 * @type Boolean */
+	/**
+	 * @cfg {Boolean} True to stripe the rows. Default is true.
+	 */
 	stripeRows : true,
-	/** True to fit the height of the grid container to the height of the data (defaults to false)
-	 * @type Boolean */
+
+	/**
+	 * @cfg {Boolean} True to fit the height of the grid container to the height of the data. Defaults to false.
+	 */
 	autoHeight : false,
 
     /**
-    * The id of a column in this grid that should expand to fill unused space
-    * @type {String}
-    */
+     * @cfg {String} The id of a column in this grid that should expand to fill unused space.
+     */
     autoExpandColumn : false,
 
     /**
-    * The minimum width the autoExpandColumn can have (if enabled)
-    * @type {Number}
+    * @cfg {Number} The minimum width the autoExpandColumn can have (if enabled).
+    * defaults to 50.
     */
     autoExpandMin : 50,
 
     /**
-    * The maximum width the autoExpandColumn can have (if enabled)
-    * @type {Number}
+    * @cfg {Number} The maximum width the autoExpandColumn can have (if enabled). Defaults to 1000.
     */
     autoExpandMax : 1000,
 
     /**
-	 * The view used by the grid. This can be set before a call to render().
-	 * Defaults to a Ext.grid.GridView or PagedGridView depending on the data model.
-	 * @type Object
+	 * @cfg {Object} The {@link Ext.grid.GridView} used by the grid. This can be set before a call to render().
 	 */
 	view : null,
 
-	/** A regular expression defining tagNames
-     * allowed to have text selection (Defaults to <code>/INPUT|TEXTAREA|SELECT/i</code>) */
+	/**
+	 * @cfg {Object} A javascript RegExp defining tagNames
+     * allowed to have text selection (Defaults to <code>/INPUT|TEXTAREA|SELECT/i</code>).
+     */
     allowTextSelectionPattern : /INPUT|TEXTAREA|SELECT/i,
 
-    /** A Ext.LoadMask config or true to mask the grid while loading (defaults to false)
-	 * @type Boolean/Object */
+    /**
+     * @cfg {Object} An {@link Ext.LoadMask} config or true to mask the grid while loading (defaults to false).
+	 */
 	loadMask : false,
 
+    // private
     rendered : false,
 
     /**
