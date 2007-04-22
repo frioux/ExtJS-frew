@@ -389,7 +389,7 @@ side          Add an error icon to the right of the field with a popup on hover
     },
 
     /**
-     * Returns the normalized data value (undefined or emptyText will be returned as '').  To return the raw value see {@link #getValue}.
+     * Returns the normalized data value (undefined or emptyText will be returned as '').  To return the raw value see {@link #getRawValue}.
      * @return {Mixed} value The field value
      */
     getValue : function(){
