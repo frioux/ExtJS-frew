@@ -92,6 +92,7 @@ cp.colors = ["000000", "993300", "333300"];
 
     // private
     afterRender : function(){
+        Ext.ColorPalette.superclass.afterRender.call(this);
         if(this.value){
             var s = this.value;
             this.value = null;

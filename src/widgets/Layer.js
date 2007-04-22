@@ -54,7 +54,9 @@ Ext.Layer = function(config, existingEl){
         this.shim.position("absolute", zindex-2);
     }
     this.useDisplay = config.useDisplay;
-    this.hide();
+    if(this.hidden !== false){
+        this.hide();
+    }
 };
 
 var supr = Ext.Element.prototype;
@@ -252,9 +254,26 @@ Ext.extend(Ext.Layer, Ext.Element, {
     },
 
     // overridden Element method
+    setleft : function(){
+        supr.setLeft.apply(this, arguments);
+        this.sync();
+    },
+
+    setTop : function(){
+        supr.setTop.apply(this, arguments);
+        this.sync();
+    },
+
+    setLeftTop : function(){
+        supr.setLeftTop.apply(this, arguments);
+        this.sync();
+    },
+
     setXY : function(xy, a, d, c, e){
         this.fixDisplay();
-        this.beforeAction();
+        if(a){
+            this.beforeAction();
+        }
         this.lastXY = xy;
         var cb = this.createCB(c);
         supr.setXY.call(this, xy, a, d, cb, e);
@@ -287,7 +306,9 @@ Ext.extend(Ext.Layer, Ext.Element, {
 
     // overridden Element method
     setSize : function(w, h, a, d, c, e){
-        this.beforeAction();
+        if(a){
+            this.beforeAction();
+        }
         var cb = this.createCB(c);
         supr.setSize.call(this, w, h, a, d, cb, e);
         if(!a){
@@ -297,7 +318,9 @@ Ext.extend(Ext.Layer, Ext.Element, {
 
     // overridden Element method
     setWidth : function(w, a, d, c, e){
-        this.beforeAction();
+        if(a){
+            this.beforeAction();
+        }
         var cb = this.createCB(c);
         supr.setWidth.call(this, w, a, d, cb, e);
         if(!a){
@@ -307,7 +330,9 @@ Ext.extend(Ext.Layer, Ext.Element, {
 
     // overridden Element method
     setHeight : function(h, a, d, c, e){
-        this.beforeAction();
+        if(a){
+            this.beforeAction();
+        }
         var cb = this.createCB(c);
         supr.setHeight.call(this, h, a, d, cb, e);
         if(!a){
@@ -317,7 +342,9 @@ Ext.extend(Ext.Layer, Ext.Element, {
 
     // overridden Element method
     setBounds : function(x, y, w, h, a, d, c, e){
-        this.beforeAction();
+        if(a){
+            this.beforeAction();
+        }
         var cb = this.createCB(c);
         if(!a){
             supr.setXY.call(this, [x, y]);

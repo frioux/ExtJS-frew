@@ -395,7 +395,7 @@ El.prototype = {
      * @return {Array} An array of the matched nodes
      */
     query : function(selector, unique){
-        return Ext.DomQuery.select(selector, this.dom);  
+        return Ext.DomQuery.select("#" + Ext.id(this.dom) + " " + selector);
     },
     
     /**
@@ -405,7 +405,7 @@ El.prototype = {
      * @return {Element} The element
      */
     child : function(selector, returnDom){
-        var n = Ext.DomQuery.selectNode(selector, this.dom);
+        var n = Ext.DomQuery.selectNode("#" + Ext.id(this.dom) + " " + selector);
         return returnDom ? n : Ext.get(n);
     },
     
@@ -2139,7 +2139,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
         if(insertBefore){
             return Ext.DomHelper.insertBefore(insertBefore, config, returnDom !== true);
         }
-        return Ext.DomHelper.append(this.dom, config,  returnDom !== true);
+        return Ext.DomHelper[!this.dom.firstChild ? 'overwrite' : 'append'](this.dom, config,  returnDom !== true);
     },
     
     /**
@@ -2625,6 +2625,14 @@ El.get = function(el){
         return docEl;
     }
     return null;
+};
+
+El.uncache = function(el){
+    for(var i = 0, a = arguments, len = a.length; i < len; i++) {
+        if(a[i]){
+            delete El.cache[a[i].id || a[i]];
+        }
+    }
 };
 
 // dom is optional

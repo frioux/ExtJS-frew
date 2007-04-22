@@ -186,6 +186,7 @@ side          Add an error icon to the right of the field with a popup on hover
 
     // private
     afterRender : function(){
+        Ext.form.Field.superclass.afterRender.call(this);
         this.initEvents();
     },
 

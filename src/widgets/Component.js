@@ -172,21 +172,23 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
                 delete this.cls;
             }
             this.fireEvent("render", this);
+            this.afterRender(this.container);
             if(this.hidden){
                 this.hide();
             }
             if(this.disabled){
                 this.disable();
             }
-            this.afterRender(this.container);
         }
     },
 
     // private
     // default function is not really useful
     onRender : function(ct){
-        this.el = Ext.get(this.el);
-        ct.dom.appendChild(this.el.dom);
+        if(this.el){
+            this.el = Ext.get(this.el);
+            ct.dom.appendChild(this.el.dom);
+        }
     },
 
     // private
@@ -206,6 +208,7 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
     destroy : function(){
         if(this.fireEvent("beforedestroy", this) !== false){
             this.purgeListeners();
+            this.beforeDestroy();
             if(this.rendered){
                 this.el.removeAllListeners();
                 this.el.remove();
@@ -219,10 +222,14 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
         }
     },
 
+    beforeDestroy : function(){
+
+    },
+
     onDestroy : function(){
 
     },
-    
+
     /**
      * Returns the underlying {@link Ext.Element}
      * @return {Ext.Element} The element
@@ -256,11 +263,15 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
      */
     disable : function(){
         if(this.rendered){
-            this.getActionEl().addClass(this.disabledClass);
-            this.el.dom.disabled = true;
+            this.onDisable();
         }
         this.disabled = true;
         this.fireEvent("disable", this);
+    },
+
+    onDisable : function(){
+        this.getActionEl().addClass(this.disabledClass);
+        this.el.dom.disabled = true;
     },
 
     /**
@@ -268,11 +279,15 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
      */
     enable : function(){
         if(this.rendered){
-            this.getActionEl().removeClass(this.disabledClass);
-            this.el.dom.disabled = false;
+            this.onEnable();
         }
         this.disabled = false;
         this.fireEvent("enable", this);
+    },
+
+    onEnable : function(){
+        this.getActionEl().removeClass(this.disabledClass);
+        this.el.dom.disabled = false;
     },
 
     /**

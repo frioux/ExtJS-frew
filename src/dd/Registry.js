@@ -15,7 +15,7 @@ Ext.dd.Registry = function(){
         }
         var id = el.id;
         if(!id && autogen !== false){
-            id = "yddgen-" + (++autoIdSeed);
+            id = "extdd-" + (++autoIdSeed);
             el.id = id;
         }
         return id;
