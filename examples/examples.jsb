@@ -196,4 +196,9 @@
   <file name="shared\icons\.DS_Store" path="shared\icons" />
   <file name="shared\icons\arrow-down.gif" path="shared\icons" />
   <file name="shared\icons\arrow-up.gif" path="shared\icons" />
+  <file name="tree\dep-tree.json" path="tree" />
+  <file name="table.html" path="" />
+  <file name="grid\grid-perf.html" path="grid" />
+  <file name="panels\panels.html" path="panels" />
+  <file name="panels\panels.js" path="panels" />
 </project>

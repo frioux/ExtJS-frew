@@ -20,6 +20,8 @@
     <include name="css\box.css" />
     <include name="css\debug.css" />
     <include name="css\combo.css" />
+    <include name="css\grid3.css" />
+    <include name="css\panel.css" />
   </target>
   <file name="images\basic-dialog\gray\close.gif" path="images\basic-dialog\gray" />
   <file name="images\basic-dialog\gray\dlg-bg.gif" path="images\basic-dialog\gray" />
@@ -485,4 +487,9 @@
   <file name="images\default\qtip\close.gif" path="images\default\qtip" />
   <file name="images\gray\qtip\tip-sprite.gif" path="images\gray\qtip" />
   <file name="images\vista\qtip\tip-sprite.gif" path="images\vista\qtip" />
+  <file name="css\grid3.css" path="css" />
+  <file name="images\default\grid\hd-pop.gif" path="images\default\grid" />
+  <file name="css\panel.css" path="css" />
+  <file name="images\default\panel\panel-sprite.gif" path="images\default\panel" />
+  <file name="images\default\panel\panel-blue-sprite.gif" path="images\default\panel" />
 </project>

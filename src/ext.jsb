@@ -61,6 +61,8 @@
     <include name="widgets\Component.js" />
     <include name="widgets\Layer.js" />
     <include name="widgets\Shadow.js" />
+    <include name="widgets\BoxComponent.js" />
+    <include name="widgets\Panel.js" />
     <include name="widgets\View.js" />
     <include name="widgets\JsonView.js" />
     <include name="widgets\ColorPalette.js" />
@@ -128,6 +130,10 @@
     <include name="widgets\grid\ColumnDD.js" />
     <include name="widgets\grid\ColumnSplitDD.js" />
     <include name="widgets\grid\GridDD.js" />
+    <include name="experimental\GridView3.js" />
+    <include name="experimental\GridViewUI.js" />
+    <include name="experimental\UIEventHandler.js" />
+    <include name="experimental\ModelEventHandler.js" />
     <include name="widgets\grid\ColumnModel.js" />
     <include name="widgets\grid\AbstractSelectionModel.js" />
     <include name="widgets\grid\RowSelectionModel.js" />
@@ -574,10 +580,6 @@
   <file name="locale\ext-lang-sp.js" path="locale" />
   <file name="locale\ext-lang-tr.js" path="locale" />
   <file name="locale\ext-lang-vn.js" path="locale" />
-  <file name="experimental\Anims.js" path="experimental" />
-  <file name="experimental\BasicDialog2.js" path="experimental" />
-  <file name="experimental\BasicGridView.js" path="experimental" />
-  <file name="experimental\TaskPanel.js" path="experimental" />
   <file name="locale\ext-lang-hr.js" path="locale" />
   <file name="locale\ext-lang-hu.js" path="locale" />
   <file name="locale\ext-lang-pt_br.js" path="locale" />
@@ -587,4 +589,11 @@
   <file name="widgets\grid\ColumnDD.js" path="widgets\grid" />
   <file name="widgets\grid\ColumnSplitDD.js" path="widgets\grid" />
   <file name="widgets\grid\GridDD.js" path="widgets\grid" />
+  <file name="experimental\GridView3.js" path="experimental" />
+  <file name="experimental\GridViewUI.js" path="experimental" />
+  <file name="experimental\ModelEventHandler.js" path="experimental" />
+  <file name="experimental\UIEventHandler.js" path="experimental" />
+  <file name="widgets\Panel.js" path="widgets" />
+  <file name="widgets\Frame.js" path="widgets" />
+  <file name="widgets\BoxComponent.js" path="widgets" />
 </project>
