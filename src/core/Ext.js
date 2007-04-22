@@ -295,6 +295,25 @@ Ext.apply = function(o, c, defaults){
             return v;
         },
 
+        destroy : function(){
+            for(var i = 0, a = arguments, len = a.length; i < len; i++) {
+                var as = a[i];
+                if(as){
+                    if(as.dom){
+                        as.removeAllListeners();
+                        as.remove();
+                        continue;
+                    }
+                    if(typeof as.purgeListeners == 'function'){
+                        as.purgeListeners();
+                    }
+                    if(typeof as.destroy == 'function'){
+                        as.destroy();
+                    }
+                }
+            }
+        },
+
         /* @type Boolean */
         isOpera : isOpera,
         /* @type Boolean */

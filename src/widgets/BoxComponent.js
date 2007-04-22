@@ -36,6 +36,7 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
     },
 
     getResizeEl : function(){
+        // TODO initialize resizeEl to an Element
         return this.resizeEl || this.el;
     },
 

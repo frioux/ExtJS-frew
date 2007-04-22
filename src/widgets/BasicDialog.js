@@ -740,22 +740,13 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
         if(this.tabs){
             this.tabs.destroy(removeEl);
         }
-        if(this.shim){
-            this.shim.remove();
-        }
-        if(this.proxy){
-            this.proxy.remove();
-        }
-        if(this.resizer){
-            this.resizer.destroy();
-        }
-        if(this.close){
-            this.close.removeAllListeners();
-            this.close.remove();
-        }
-        if(this.mask){
-            this.mask.remove();
-        }
+        Ext.destroy(
+             this.shim,
+             this.proxy,
+             this.resizer,
+             this.close,
+             this.mask
+        );
         if(this.dd){
             this.dd.unreg();
         }

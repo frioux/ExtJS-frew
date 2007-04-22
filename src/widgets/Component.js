@@ -187,7 +187,9 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
     onRender : function(ct){
         if(this.el){
             this.el = Ext.get(this.el);
-            ct.dom.appendChild(this.el.dom);
+            if(this.el.dom.parentNode != ct.dom){
+                ct.dom.appendChild(this.el.dom);
+            }
         }
     },
 

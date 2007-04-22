@@ -24,19 +24,28 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
                 var els = this.elements;
                 if(this.frame){
                     ac.cn = [{cls:cls+'-tl',cn:{cls:cls+'-tr',cn:{cls:cls+'-tc '+cls+'-header'}}},
-                             {cls:cls+'-ml',cn:{cls:cls+'-mr',cn:{cls:cls+'-mc', cn:[{cls:cls+'-body'}]}}},
-                             {cls:cls+'-bl',cn:{cls:cls+'-br',cn:{cls:cls+'-bc '+cls+'-footer'}}}];
-                    var bd = ac.cn[1].cn.cn.cn;
-                    if(els.indexOf('topbar')){
+                                {cls:cls+'-bwrap', cn:[
+                                    {cls:cls+'-ml',cn:{cls:cls+'-mr',cn:{cls:cls+'-mc', cn:[{cls:cls+'-body'}]}}},
+                                    {cls:cls+'-bl',cn:{cls:cls+'-br',cn:{cls:cls+'-bc '+cls+'-footer'}}}
+                                ]}
+                            ];
+                    var bd = ac.cn[1].cn[0].cn.cn.cn;
+                    if(els.indexOf('topbar') != -1){
                         bd.splice(0, 0, {cls:cls+'-topbar'});
                     }
-                    if(els.indexOf('bottombar')){
+                    if(els.indexOf('bottombar') != -1){
                         bd.push({cls:cls+'-bottombar'});
                     }
                 }else {
+                    if(els.indexOf('header') != -1){
+                        ac.cn.push({cls:cls+'-header'});
+                    }
+                    var cns = [];
+                    ac.cn.push({cls:cls+'-bwrap', cn:cns});
                     for(var i = 0, len = els.length; i < len; i++) {
-                        var p = els[i];
-                        ac.cn.push({cls:cls+'-'+p});
+                        if(els[i] != 'header'){
+                            cns.push({cls:cls+'-'+els[i]});
+                        }
                     }
                 }
             }
@@ -53,10 +62,12 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
 
         var cs = (this.frame ? '.' : '> .') + cls;
         this.header = this.el.child(cs + '-header');
-        this.topBar = this.el.child(cs + '-topbar');
-        this.body = this.el.child(cs + '-body');
-        this.bottomBar = this.el.child(cs + '-bottombar');
-        this.footer = this.el.child(cs + '-footer');
+        this.bwrap = this.el.child(cs + '-bwrap');
+
+        this.topBar = this.bwrap.child(cs + '-topbar');
+        this.body = this.bwrap.child(cs + '-body');
+        this.bottomBar = this.bwrap.child(cs + '-bottombar');
+        this.footer = this.bwrap.child(cs + '-footer');
     },
 
     afterRender : function(){
@@ -99,7 +110,7 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
                 w -= this.el.getFrameWidth('lr');
 
                 if(this.frame){
-                    var l = this.el.dom.childNodes[1];
+                    var l = this.el.dom.childNodes[1].firstChild;
                     w -= (Ext.fly(l).getFrameWidth('l') + Ext.fly(l.firstChild).getFrameWidth('r'));
                 }
 
@@ -114,7 +125,7 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
 
                 if(this.frame){
                     var hd = this.el.dom.firstChild.firstChild;
-                    var ft = this.el.dom.lastChild.firstChild;
+                    var ft = this.el.dom.childNodes[1].lastChild.firstChild;
                     h -= (hd.offsetHeight + ft.offsetheight);
                 }
                 this.body.setHeight(h);
