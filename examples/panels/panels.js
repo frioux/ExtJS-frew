@@ -9,6 +9,7 @@ Ext.onReady(function(){
 
 
 
+
     var p2 = new Ext.Panel({
         cls:'x-panel-blue float-panel',
         title:'Framed Floating Panel w/ Ajax, Scrolling, Toolbar',
@@ -32,6 +33,10 @@ Ext.onReady(function(){
 
     // let it know about the new toolbar
     p2.syncSize();
+
+
+    // the code below will eventually be wrapped up in Dialog
+
 
     // Attach a resizable
     var rz = new Ext.Resizable(p2.el, {
