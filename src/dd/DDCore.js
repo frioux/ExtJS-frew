@@ -2876,18 +2876,30 @@ Ext.extend(Ext.dd.DDProxy, Ext.dd.DD, {
     // By default we try to move the element to the last location of the frame.
     // This is so that the default behavior mirrors that of Ext.dd.DD.
     endDrag: function(e) {
+
         var lel = this.getEl();
         var del = this.getDragEl();
 
         // Show the drag frame briefly so we can get its position
         del.style.visibility = "";
 
+        this.beforeMove();
         // Hide the linked element before the move to get around a Safari
         // rendering bug.
         lel.style.visibility = "hidden";
         Ext.dd.DDM.moveToEl(lel, del);
         del.style.visibility = "hidden";
         lel.style.visibility = "";
+
+        this.afterDrag();
+    },
+
+    beforeMove : function(){
+
+    },
+
+    afterDrag : function(){
+
     },
 
     toString: function() {

@@ -90,6 +90,9 @@ drop     Traditional bottom-right drop shadow
      * @param {Number} height The target element height
      */
     realign : function(l, t, w, h){
+        if(!this.el){
+            return;
+        }
         var a = this.adjusts, d = this.el.dom, s = d.style;
         s.left = (l+a.l)+"px";
         s.top = (t+a.t)+"px";

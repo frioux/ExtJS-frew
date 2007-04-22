@@ -17,12 +17,14 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
         }
         var adj = this.adjustSize(w, h);
         var aw = adj.width, ah = adj.height;
-        if(aw !== undefined || ah !== undefined){
-            if(aw !== undefined){
-                this.getResizeEl().setWidth(aw);
-            }
-            if(ah !== undefined){
-                this.getResizeEl().setHeight(ah);
+        if(aw !== undefined || ah !== undefined){ // this code is nasty but performs better with floaters
+            var rz = this.getResizeEl();
+            if(aw !== undefined && ah !== undefined){
+                rz.setSize(aw, ah);
+            }else if(ah !== undefined){
+                rz.setHeight(ah);
+            }else if(aw !== undefined){
+                rz.setWidth(aw);
             }
             this.onResize(aw, ah, w, h);
             this.fireEvent('resize', this, aw, ah, w, h);
@@ -36,7 +38,6 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
     },
 
     getResizeEl : function(){
-        // TODO initialize resizeEl to an Element
         return this.resizeEl || this.el;
     },
 
@@ -50,10 +51,11 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
         var ax = adj.x, ay = adj.y;
 
         if(ax !== undefined || ay !== undefined){
-            if(ax !== undefined){
+            if(ax !== undefined && ay !== undefined){
+                this.el.setLeftTop(ax, ay);
+            }else if(ax !== undefined){
                 this.el.setLeft(ax);
-            }
-            if(ay !== undefined){
+            }else if(ay !== undefined){
                 this.el.setTop(ay);
             }
             this.fireEvent('move', this, ax, ay, x, y);
@@ -77,6 +79,9 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
 
     onRender : function(ct){
         Ext.BoxComponent.superclass.onRender.call(this, ct);
+        if(this.resizeEl){
+            this.resizeEl = Ext.get(this.resizeEl);
+        }
     },
 
     afterRender : function(){
@@ -89,16 +94,20 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
         }
     },
 
+    syncSize : function(){
+        this.setSize(this.el.getWidth(), this.el.getHeight());
+    },
+
     onResize : function(adjWidth, adjHeight, rawWidth, rawHeight){
 
     },
 
     adjustSize : function(w, h){
         if(this.autoWidth){
-            w = undefined;
+            w = 'auto';
         }
         if(this.autoHeight){
-            h = undefined;
+            h = 'auto';
         }
         return {width : w, height: h};
     },

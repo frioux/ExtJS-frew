@@ -20,7 +20,7 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
         if(!this.el){
             var ac = this.autoCreate;
             if(!ac){
-                ac = {cls: cls + (this.cls ? ' '+this.cls : ''), cn: []};
+                ac = {id:this.id,cls: cls + (this.cls ? ' '+this.cls : ''), cn: []};
                 var els = this.elements;
                 if(this.frame){
                     ac.cn = [{cls:cls+'-tl',cn:{cls:cls+'-tr',cn:{cls:cls+'-tc '+cls+'-header'}}},
@@ -55,7 +55,7 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
         if(this.floating){
             this.el = new Ext.Layer(
                 typeof this.floating == 'object' ? this.floating : {
-                    shadow:'sides', hidden:false
+                    shadow:'sides', constrain:false
                 }, this.el
             );
         }
@@ -71,7 +71,9 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
     },
 
     afterRender : function(){
-        Ext.Panel.superclass.afterRender.call(this);
+        if(this.floating && !this.hidden){
+            this.el.show();
+        }
         if(this.title){
             this.setTitle(this.title);
         }
@@ -85,9 +87,12 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
         if(this.contentEl){
             this.body.dom.appendChild(Ext.getDom(this.contentEl));
         }
-        if(this.floating){
-            this.el.sync();
-        }
+        Ext.Panel.superclass.afterRender.call(this); // do sizing calcs last
+        this.initEvents();
+    },
+
+    initEvents : function(){
+
     },
 
     onDisable : function(){
@@ -106,7 +111,7 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
 
     onResize : function(w, h){
         if(w !== undefined || h !== undefined){
-            if(w !== undefined){
+            if(typeof w == 'number'){
                 w -= this.el.getFrameWidth('lr');
 
                 if(this.frame){
@@ -115,22 +120,36 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
                 }
 
                 this.body.setWidth(w);
+            }else if(w == 'auto'){
+                this.body.setWidth(w);
             }
-            if(h !== undefined){
+
+            if(typeof h == 'number'){
                 h -= this.el.getFrameWidth('tb');
-                h -= (this.header ? this.header.getHeight() : 0) +
-                     (this.topBar ? this.topBar.getHeight() : 0) +
-                     (this.bottomBar ? this.bottomBar.getHeight() : 0) +
-                     (this.footer ? this.footer.getHeight() : 0);
+                h -= (this.topBar ? this.topBar.getHeight() : 0) +
+                     (this.bottomBar ? this.bottomBar.getHeight() : 0);
 
                 if(this.frame){
-                    var hd = this.el.dom.firstChild.firstChild;
-                    var ft = this.el.dom.childNodes[1].lastChild.firstChild;
-                    h -= (hd.offsetHeight + ft.offsetheight);
+                    var hd = this.el.dom.firstChild;
+                    var ft = this.el.dom.childNodes[1].lastChild;
+                    h -= (hd.offsetHeight + ft.offsetHeight);
+                    var mc = this.el.dom.childNodes[1].firstChild.firstChild.firstChild;
+                    h -= Ext.fly(mc).getFrameWidth('tb');
+                }else{
+                    h -= (this.header ? this.header.getHeight() : 0) +
+                        (this.footer ? this.footer.getHeight() : 0);
                 }
+                this.body.setHeight(h);
+            }else if(h == 'auto'){
                 this.body.setHeight(h);
             }
             this.fireEvent('bodyresize', this, w, h);
+        }
+    },
+
+    syncShadow : function(){
+        if(this.floating){
+            this.el.sync();
         }
     },
 
