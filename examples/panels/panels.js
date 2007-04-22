@@ -14,7 +14,7 @@ Ext.onReady(function(){
         cls:'x-panel-blue float-panel',
         title:'Framed Floating Panel w/ Ajax, Scrolling, Toolbar',
         autoScroll:true,
-        width:400,
+        width:550,
         height:300,
         frame:true,
         floating:true,
@@ -35,7 +35,16 @@ Ext.onReady(function(){
     p2.syncSize();
 
 
-    // the code below will eventually be wrapped up in Dialog
+    // the code below will eventually be wrapped up in subclasses (e.g. Dialog)
+
+
+    p.header.on('dblclick', function(){
+        p.toggleCollapse();
+    });
+
+    p2.header.on('dblclick', function(){
+        p2.toggleCollapse();
+    });
 
 
     // Attach a resizable
@@ -44,6 +53,7 @@ Ext.onReady(function(){
         pinned:true,
         minWidth:350,
         minHeight:200,
+        handles:'all',
         listeners: {
             resize : p2.syncSize,
             scope: p2
@@ -62,13 +72,5 @@ Ext.onReady(function(){
          scroll:false
     });
     dd.setHandleElId(p2.header.id);
-
-    // plain markup for customizing
-    /*var p3 = new Ext.Panel({
-        width:400,
-        title:"Unstyled Panel",
-        contentEl: 'other-content'
-    });
-    p3.render(document.body);*/
 
 });

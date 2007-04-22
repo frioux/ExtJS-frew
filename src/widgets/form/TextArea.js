@@ -85,8 +85,11 @@ Ext.extend(Ext.form.TextArea, Ext.form.TextField,  {
         }
         ts.innerHTML = v;
         var h = Math.min(this.growMax, Math.max(ts.offsetHeight, this.growMin));
-        this.el.setHeight(h);
-        this.fireEvent("autosize", this, h);
+        if(h != this.lastHeight){
+            this.lastHeight = h;
+            this.el.setHeight(h);
+            this.fireEvent("autosize", this, h);
+        }
     },
 
     // private

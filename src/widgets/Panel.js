@@ -3,14 +3,22 @@ Ext.Panel = function(config){
 
     this.addEvents({
         bodyresize : true,
-        titlechange: true
+        titlechange: true,
+        collapse : true,
+        expand:true
     });
 };
 
 Ext.extend(Ext.Panel, Ext.BoxComponent, {
     baseCls : 'x-panel',
+    collapsedCls : 'x-panel-collapsed',
     elements : ['header','topbar','body','bottombar','footer'],
     maskDisabled: true,
+    collapsed : false,
+    animate:Ext.enableFx,
+
+    // private, notify box this class will handle heights
+    deferHeight:true,
 
     onRender : function(ct){
         Ext.Panel.superclass.onRender.call(this, ct);
@@ -62,7 +70,9 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
 
         var cs = (this.frame ? '.' : '> .') + cls;
         this.header = this.el.child(cs + '-header');
+        this.header.unselectable();
         this.bwrap = this.el.child(cs + '-bwrap');
+        this.bwrap.enableDisplayMode('block');
 
         this.topBar = this.bwrap.child(cs + '-topbar');
         this.body = this.bwrap.child(cs + '-body');
@@ -87,12 +97,95 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
         if(this.contentEl){
             this.body.dom.appendChild(Ext.getDom(this.contentEl));
         }
+        if(this.collapsed){
+            this.collapsed = false;
+            this.collapse();
+        }
         Ext.Panel.superclass.afterRender.call(this); // do sizing calcs last
         this.initEvents();
     },
 
     initEvents : function(){
 
+    },
+
+    beforeEffect : function(){
+        if(this.floating){
+            this.el.beforeAction();
+        }
+    },
+
+    afterEffect : function(){
+        this.syncShadow();
+    },
+
+    // private - wraps up an animation param with internal callbacks
+    createEffect : function(a, cb, scope){
+        var o = {
+            scope:scope,
+            block:true
+        };
+        if(a === true){
+            o.callback = cb;
+            return o;
+        }else if(!a.callback){
+            o.callback = cb;
+        }else if(o.ca){ // wrap it up
+            o.callback = function(){
+                cb.call(scope);
+                Ext.callback(a.callback, a.scope);
+            };
+        }
+        return Ext.applyIf(o, a);
+    },
+
+    collapse : function(animate){
+        if(this.collapsed || this.el.hasFxBlock()){
+            return;
+        }
+        var a = animate || this.animate;
+        if(a){
+            this.beforeEffect();
+            this.bwrap.slideOut('t', this.createEffect(a, this.afterCollapse, this));
+        }else{
+            this.bwrap.hide();
+            this.afterCollapse();
+        }
+        return this;
+    },
+
+    afterCollapse : function(){
+        this.collapsed = true;
+        this.el.addClass(this.collapsedCls);
+        this.afterEffect();
+        this.fireEvent('collapse', this);
+    },
+
+    expand : function(animate){
+        if(!this.collapsed || this.el.hasFxBlock()){
+            return;
+        }
+        var a = animate || this.animate;
+        if(a){
+            this.beforeEffect();
+            this.bwrap.slideIn('t', this.createEffect(a, this.afterExpand, this));
+        }else{
+            this.bwrap.show();
+            this.afterExpand();
+        }
+        return this;
+    },
+
+    afterExpand : function(){
+        this.collapsed = false;
+        this.el.removeClass(this.collapsedCls);
+        this.afterEffect();
+        this.fireEvent('expand', this);
+    },
+
+    toggleCollapse : function(animate){
+        this[this.collapsed ? 'expand' : 'collapse'](animate);
+        return this;
     },
 
     onDisable : function(){
@@ -149,7 +242,7 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
 
     syncShadow : function(){
         if(this.floating){
-            this.el.sync();
+            this.el.sync(true);
         }
     },
 
@@ -170,7 +263,7 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
 
      /**
      * Loads this content panel immediately with content from XHR.
-     * @param {Object/String/Function} url The url for this request or a function to call to get the url or a config object containing any of the following options:
+     * @param {Object/String/Function} config A config object containing any of the following options:
 <pre><code>
 panel.load({<br/>
     url: "your-url.php",<br/>
@@ -185,7 +278,8 @@ panel.load({<br/>
 });
 </code></pre>
      * The only required property is url. The optional properties nocache, text and scripts
-     * are shorthand for disableCaching, indicatorText and loadScripts and are used to set their associated property on this panel UpdateManager instance.
+     * are shorthand for disableCaching, indicatorText and loadScripts and are used to set their
+     * associated property on this panel UpdateManager instance.
      * @return {Ext.Panel} this
      */
     load : function(){

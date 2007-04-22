@@ -60,3 +60,7 @@
     .x-panel-blue .x-panel-mr {
 	background-image:url(../images/default/panel/panel-blue-sprite.gif);
 }
+
+.x-panel-collapsed .x-resizable-handle{
+    display:none;
+}

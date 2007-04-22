@@ -9,6 +9,9 @@ Ext.BoxComponent = function(config){
 Ext.extend(Ext.BoxComponent, Ext.Component, {
     boxReady : false,
 
+    // private, used to defer height settings to subclasses
+    deferHeight: false,
+
     setSize : function(w, h){
         if(!this.boxReady){
             this.width = w;
@@ -19,9 +22,9 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
         var aw = adj.width, ah = adj.height;
         if(aw !== undefined || ah !== undefined){ // this code is nasty but performs better with floaters
             var rz = this.getResizeEl();
-            if(aw !== undefined && ah !== undefined){
+            if(!this.deferHeight && aw !== undefined && ah !== undefined){
                 rz.setSize(aw, ah);
-            }else if(ah !== undefined){
+            }else if(!this.deferHeight && ah !== undefined){
                 rz.setHeight(ah);
             }else if(aw !== undefined){
                 rz.setWidth(aw);

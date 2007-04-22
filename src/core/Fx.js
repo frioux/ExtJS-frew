@@ -35,6 +35,7 @@ br     The bottom right corner
  * @cfg {Function} callback A function called when the effect is finished
  * @cfg {Object} scope The scope of the effect function
  * @cfg {String} easing A valid Easing value for the effect
+ * @cfg {String} afterCls A css class to apply after the effect
  * @cfg {Number} duration The length of time (in seconds) that the effect should last
  * @cfg {Boolean} remove Whether the Element should be removed from the DOM and destroyed after the effect finishes
  * @cfg {Boolean} useDisplay Whether to use the display style attribute instead of visibility when hiding Elements (only applies to 
@@ -946,6 +947,9 @@ el.ghost('b', {<br/>
     afterFx : function(o){
         if(o.afterStyle){
             this.applyStyles(o.afterStyle);
+        }
+        if(o.afterCls){
+            this.addClass(o.afterCls);
         }
         if(o.remove === true){
             this.remove();
