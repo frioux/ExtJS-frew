@@ -408,7 +408,18 @@ El.prototype = {
         var n = Ext.DomQuery.selectNode("#" + Ext.id(this.dom) + " " + selector);
         return returnDom ? n : Ext.get(n);
     },
-    
+
+    /**
+     * Selects a single *direct* child based on the passed CSS selector (the selector should not contain an id)
+     * @param {String} selector The CSS selector
+     * @param {Boolean} returnDom true to return the DOM node instead of Ext.Element
+     * @return {Element} The element
+     */
+    down : function(selector, returnDom){
+        var n = Ext.DomQuery.selectNode("#" + Ext.id(this.dom) + " > " + selector);
+        return returnDom ? n : Ext.get(n);
+    },
+
     /**
      * Initializes a Ext.dd.DD object for this element.
      * @param {String} group The group the DD object is member of
@@ -1976,16 +1987,14 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
      * @return {Ext.Element} The new shim element
      */
     createShim : function(){
-        var config = {
-            tag : "iframe",
-            frameBorder:"no",
-            cls: "yiframe-shim",
-            style: "position:absolute;visibility:hidden;left:0;top:0;overflow:hidden;",
-            src: Ext.SSL_SECURE_URL
-        };
-        var shim = Ext.DomHelper.insertBefore(this.dom, config, true);
-        shim.setOpacity(.01);
-        shim.setBox(this.getBox());
+        var el = document.createElement('iframe');
+        el.frameBorder = 'no';
+        el.className = 'ext-shim';
+        if(Ext.isIE){
+            el.src = Ext.SSL_SECURE_URL;
+        }
+        var shim = Ext.get(this.dom.parentNode.insertBefore(el, this.dom));
+        shim.autoBoxAdjust = false;
         return shim;
     },
     
@@ -2481,7 +2490,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
 
     boxWrap : function(cls){
         cls = cls || 'x-box';
-        var el = Ext.get(this.insertHtml('beforeBegin', String.format('<div class="{0}"><div class="{0}-tl"><div class="{0}-tr"><div class="{0}-tc"></div></div></div><div class="{0}-ml"><div class="{0}-mr"><div class="{0}-mc"></div></div></div><div class="{0}-bl"><div class="{0}-br"><div class="{0}-bc"></div></div></div></div>', cls)));
+        var el = Ext.get(this.insertHtml('beforeBegin', String.format('<div class="{0}">'+El.boxMarkup+'</div>', cls)));
         el.child('.'+cls+'-mc').dom.appendChild(this.dom);
         return el;
     },
@@ -2547,6 +2556,8 @@ El.addUnits = function(v, defaultUnit){
     return v;
 };
 
+// special markup used throughout Ext when box wrapping elements
+El.boxMarkup = '<div class="{0}-tl"><div class="{0}-tr"><div class="{0}-tc"></div></div></div><div class="{0}-ml"><div class="{0}-mr"><div class="{0}-mc"></div></div></div><div class="{0}-bl"><div class="{0}-br"><div class="{0}-bc"></div></div></div>';
 /**
  * Visibility mode constant - Use visibility to hide element
  * @static

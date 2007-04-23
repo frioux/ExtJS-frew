@@ -7,9 +7,6 @@ Ext.onReady(function(){
     });
     p.render(document.body);
 
-
-
-
     var p2 = new Ext.Panel({
         cls:'x-panel-blue float-panel',
         title:'Framed Floating Panel w/ Ajax, Scrolling, Toolbar',
@@ -22,9 +19,8 @@ Ext.onReady(function(){
     });
 
     p2.render(document.body);
-
     // stick toolbar in the top bar
-    var tb = new Ext.Toolbar(p2.topBar, [{
+    var tb = new Ext.Toolbar(p2.tbar, [{
         text:'Load Content',
         handler : function(){
             p2.load({url:'../tabs/ajax1.htm'});
@@ -54,9 +50,11 @@ Ext.onReady(function(){
         minWidth:350,
         minHeight:200,
         handles:'all',
-        listeners: {
-            resize : p2.syncSize,
-            scope: p2
+        resizeElement : function(){
+            var box = this.proxy.getBox();
+            p2.updateBox(box);
+            this.proxy.hide();
+            return box;
         }
     });
 

@@ -29,6 +29,16 @@
     cursor:wait;
 }
 
+.ext-shim {
+    position:absolute;
+    visibility:hidden;
+    left:0;
+    top:0;
+    overflow:hidden;
+    opacity: .01;
+    -moz-opacity: .01;
+    filter: alpha(opacity=1);
+}
 
 .x-mask-loading div {
     padding:5px 10px 5px 25px;
@@ -137,6 +147,8 @@
     display: none;
     position: absolute;
     overflow: hidden;
+    left:0;
+    top:0;
 }
 
 .x-shadow * {

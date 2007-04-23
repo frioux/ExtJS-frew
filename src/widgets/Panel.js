@@ -12,7 +12,7 @@ Ext.Panel = function(config){
 Ext.extend(Ext.Panel, Ext.BoxComponent, {
     baseCls : 'x-panel',
     collapsedCls : 'x-panel-collapsed',
-    elements : ['header','topbar','body','bottombar','footer'],
+    elements : ['header', 'tbar', 'body', 'bbar', 'footer'],
     maskDisabled: true,
     collapsed : false,
     animate:Ext.enableFx,
@@ -20,44 +20,78 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
     // private, notify box this class will handle heights
     deferHeight:true,
 
+    createElement : function(name, pnode){
+        if(name !== 'bwrap' && this.els.indexOf(name) == -1){
+            return;
+        }
+        if(this[name]){
+            pnode.appendChild(this[name].dom);
+        }else{
+            var el = document.createElement('div');
+            el.className = this[name+'Cls'];
+            this[name] = Ext.get(pnode.appendChild(el));
+        }
+    },
+
     onRender : function(ct){
         Ext.Panel.superclass.onRender.call(this, ct);
 
-        var cls = this.baseCls;
+        this.createClasses();
 
-        if(!this.el){
-            var ac = this.autoCreate;
-            if(!ac){
-                ac = {id:this.id,cls: cls + (this.cls ? ' '+this.cls : ''), cn: []};
-                var els = this.elements;
-                if(this.frame){
-                    ac.cn = [{cls:cls+'-tl',cn:{cls:cls+'-tr',cn:{cls:cls+'-tc '+cls+'-header'}}},
-                                {cls:cls+'-bwrap', cn:[
-                                    {cls:cls+'-ml',cn:{cls:cls+'-mr',cn:{cls:cls+'-mc', cn:[{cls:cls+'-body'}]}}},
-                                    {cls:cls+'-bl',cn:{cls:cls+'-br',cn:{cls:cls+'-bc '+cls+'-footer'}}}
-                                ]}
-                            ];
-                    var bd = ac.cn[1].cn[0].cn.cn.cn;
-                    if(els.indexOf('topbar') != -1){
-                        bd.splice(0, 0, {cls:cls+'-topbar'});
-                    }
-                    if(els.indexOf('bottombar') != -1){
-                        bd.push({cls:cls+'-bottombar'});
-                    }
-                }else {
-                    if(els.indexOf('header') != -1){
-                        ac.cn.push({cls:cls+'-header'});
-                    }
-                    var cns = [];
-                    ac.cn.push({cls:cls+'-bwrap', cn:cns});
-                    for(var i = 0, len = els.length; i < len; i++) {
-                        if(els[i] != 'header'){
-                            cns.push({cls:cls+'-'+els[i]});
-                        }
-                    }
-                }
-            }
-            this.el = ct.createChild(ac);
+        if(this.el){ // existing markup
+            this.header = this.el.down('.'+this.headerCls);
+            this.bwrap = this.el.down('.'+this.bwrapCls);
+            var cp = this.bwrap ? this.bwrap : this.el;
+            this.tbar = cp.down('.'+this.tbarCls);
+            this.body = cp.down('.'+this.bodyCls);
+            this.bbar = cp.down('.'+this.bbarCls);
+            this.footer = cp.down('.'+this.footerCls);
+        }else{
+            this.el = ct.createChild({
+                id: this.id,
+                cls: this.baseCls
+            });
+        }
+        var el = this.el, d = el.dom;
+        if(this.cls){
+            this.el.addClass(this.cls);
+        }
+        // This block allows for maximum flexibility and performance when using existing markup
+
+        // framing requires special markup
+        if(this.frame){
+            el.insertHtml('afterBegin', String.format(Ext.Element.boxMarkup, this.baseCls));
+
+            this.createElement('header', d.firstChild.firstChild.firstChild);
+            this.createElement('bwrap', d);
+
+            // append the mid and bottom frame to the bwrap
+            var bw = this.bwrap.dom;
+            var ml = d.childNodes[1], bl = d.childNodes[2];
+            bw.appendChild(ml);
+            bw.appendChild(bl);
+
+            var mc = bw.firstChild.firstChild.firstChild;
+            this.createElement('tbar', mc);
+            this.createElement('body', mc);
+            this.createElement('bbar', mc);
+            this.createElement('footer', bw.childNodes[1].firstChild.firstChild);
+        }else{
+            this.createElement('header', d);
+            this.createElement('bwrap', d);
+
+            // append the mid and bottom frame to the bwrap
+            var bw = this.bwrap.dom;
+            this.createElement('tbar', bw);
+            this.createElement('body', bw);
+            this.createElement('bbar', bw);
+            this.createElement('footer', bw);
+        }
+
+        this.bwrap.enableDisplayMode('block');
+
+        if(this.header){
+            this.header.unselectable();
         }
 
         if(this.floating){
@@ -67,17 +101,6 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
                 }, this.el
             );
         }
-
-        var cs = (this.frame ? '.' : '> .') + cls;
-        this.header = this.el.child(cs + '-header');
-        this.header.unselectable();
-        this.bwrap = this.el.child(cs + '-bwrap');
-        this.bwrap.enableDisplayMode('block');
-
-        this.topBar = this.bwrap.child(cs + '-topbar');
-        this.body = this.bwrap.child(cs + '-body');
-        this.bottomBar = this.bwrap.child(cs + '-bottombar');
-        this.footer = this.bwrap.child(cs + '-footer');
     },
 
     afterRender : function(){
@@ -99,7 +122,7 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
         }
         if(this.collapsed){
             this.collapsed = false;
-            this.collapse();
+            this.collapse(false);
         }
         Ext.Panel.superclass.afterRender.call(this); // do sizing calcs last
         this.initEvents();
@@ -113,10 +136,16 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
         if(this.floating){
             this.el.beforeAction();
         }
+        if(Ext.isGecko){
+            this.body.clip();
+        }
     },
 
     afterEffect : function(){
         this.syncShadow();
+        if(Ext.isGecko){
+            this.body.unclip();
+        }
     },
 
     // private - wraps up an animation param with internal callbacks
@@ -130,7 +159,7 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
             return o;
         }else if(!a.callback){
             o.callback = cb;
-        }else if(o.ca){ // wrap it up
+        }else { // wrap it up
             o.callback = function(){
                 cb.call(scope);
                 Ext.callback(a.callback, a.scope);
@@ -143,7 +172,7 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
         if(this.collapsed || this.el.hasFxBlock()){
             return;
         }
-        var a = animate || this.animate;
+        var a = animate || (animate !== false && this.animate);
         if(a){
             this.beforeEffect();
             this.bwrap.slideOut('t', this.createEffect(a, this.afterCollapse, this));
@@ -165,7 +194,7 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
         if(!this.collapsed || this.el.hasFxBlock()){
             return;
         }
-        var a = animate || this.animate;
+        var a = animate || (animate !== false && this.animate);
         if(a){
             this.beforeEffect();
             this.bwrap.slideIn('t', this.createEffect(a, this.afterExpand, this));
@@ -219,8 +248,8 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
 
             if(typeof h == 'number'){
                 h -= this.el.getFrameWidth('tb');
-                h -= (this.topBar ? this.topBar.getHeight() : 0) +
-                     (this.bottomBar ? this.bottomBar.getHeight() : 0);
+                h -= (this.tbar ? this.tbar.getHeight() : 0) +
+                     (this.bbar ? this.bbar.getHeight() : 0);
 
                 if(this.frame){
                     var hd = this.el.dom.firstChild;
@@ -236,6 +265,7 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
             }else if(h == 'auto'){
                 this.body.setHeight(h);
             }
+            this.syncShadow();
             this.fireEvent('bodyresize', this, w, h);
         }
     },
@@ -296,5 +326,16 @@ panel.load({<br/>
             this.footer,
             this.body
         );
+    },
+
+    createClasses : function(){
+        this.els = this.elements.join(',');
+
+        this.headerCls = this.baseCls + '-header';
+        this.bwrapCls = this.baseCls + '-bwrap';
+        this.tbarCls = this.baseCls + '-tbar';
+        this.bodyCls = this.baseCls + '-body';
+        this.bbarCls = this.baseCls + '-bbar';
+        this.footerCls = this.baseCls + '-footer';
     }
 });

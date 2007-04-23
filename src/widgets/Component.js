@@ -147,6 +147,8 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
      */
     rendered : false,
 
+    allowDomMove: true,
+
     // private
     ctype : "Ext.Component",
 
@@ -160,10 +162,15 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
 
     /**
      * If this is a lazy rendering component, render it to its container element
-     * @param {String/HTMLElement/Element} container The element this component should be rendered into
+     * @param {String/HTMLElement/Element} container (optional) The element this component should be rendered into. If it is being applied to existing markup, this should be left off.
      */
     render : function(container){
         if(!this.rendered && this.fireEvent("beforerender", this) !== false){
+            if(!container && this.el){
+                this.el = Ext.get(this.el);
+                container = this.el.dom.parentNode;
+                this.allowDomMove = false;
+            }
             this.container = Ext.get(container);
             this.rendered = true;
             this.onRender(this.container);
@@ -187,7 +194,7 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
     onRender : function(ct){
         if(this.el){
             this.el = Ext.get(this.el);
-            if(this.el.dom.parentNode != ct.dom){
+            if(this.allowDomMove !== false){
                 ct.dom.appendChild(this.el.dom);
             }
         }

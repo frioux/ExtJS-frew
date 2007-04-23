@@ -141,6 +141,7 @@ Ext.Shadow.Pool = function(){
             var sh = p.shift();
             if(!sh){
                 sh = Ext.get(Ext.DomHelper.insertHtml("beforeBegin", document.body.firstChild, markup));
+                sh.autoBoxAdjust = false;
                 if(Ext.isIE && !Ext.isIE7){ //ie6 broken png
                     sh.setOpacity(.3);
                 }

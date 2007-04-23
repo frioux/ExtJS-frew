@@ -1,3 +1,7 @@
+.x-panel-header {
+    white-space:nowrap;
+    overflow:hidden;
+}
 .x-panel-tl .x-panel-header {
     color:#212d3d;
 	font:bold 11px tahoma,arial,verdana,sans-serif;
@@ -61,6 +65,9 @@
 	background-image:url(../images/default/panel/panel-blue-sprite.gif);
 }
 
+.x-panel-blue .x-panel-mc{
+    padding-top:6px;
+}
 .x-panel-collapsed .x-resizable-handle{
     display:none;
 }
