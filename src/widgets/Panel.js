@@ -321,8 +321,8 @@ panel.load({<br/>
     beforeDestroy : function(){
         Ext.Element.uncache(
             this.header,
-            this.topBar,
-            this.bottomBar,
+            this.tbar,
+            this.bbar,
             this.footer,
             this.body
         );
