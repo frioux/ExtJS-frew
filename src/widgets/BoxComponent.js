@@ -75,8 +75,8 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
         if(x === undefined || y === undefined){ // cannot translate undefined points
             return;
         }
-        var xy = this.el.translatePoints(x, y);
-        this.setPosition(xy[0], xy[1]);
+        var p = this.el.translatePoints(x, y);
+        this.setPosition(p.left, p.top);
         return this;
     },
 
