@@ -18,7 +18,7 @@ Ext.grid.EditorGrid = function(container, config){
 
     this.activeEditor = null;
 
-	Ext.apply(this.events, {
+	this.addEvents({
 	    /**
 	     * @event beforeedit
 	     * Fires before cell editing is triggered. The edit event object has the following properties <br />
