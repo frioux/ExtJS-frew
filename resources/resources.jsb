@@ -492,4 +492,14 @@
   <file name="css\panel.css" path="css" />
   <file name="images\default\panel\panel-sprite.gif" path="images\default\panel" />
   <file name="images\default\panel\panel-blue-sprite.gif" path="images\default\panel" />
+  <file name="images\default\panel\toggle-sprite.gif" path="images\default\panel" />
+  <file name="images\default\panel\close-sprite.gif" path="images\default\panel" />
+  <file name="images\default\panel\tool-sprite-tpl.gif" path="images\default\panel" />
+  <file name="images\default\panel\tool-sprites.gif" path="images\default\panel" />
+  <file name="images\default\panel\corners-sprite.gif" path="images\default\panel" />
+  <file name="images\default\panel\left-right.gif" path="images\default\panel" />
+  <file name="images\default\panel\top-bottom.gif" path="images\default\panel" />
+  <file name="images\default\panel\white-left-right.gif" path="images\default\panel" />
+  <file name="images\default\panel\white-top-bottom.gif" path="images\default\panel" />
+  <file name="images\default\panel\white-corners-sprite.gif" path="images\default\panel" />
 </project>

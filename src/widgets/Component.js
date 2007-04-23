@@ -191,6 +191,7 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
                 this.disable();
             }
         }
+        return this;
     },
 
     // private
@@ -270,6 +271,7 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
                 this.el.dom.select();
             }
         }
+        return this;
     },
 
     // private
@@ -277,6 +279,7 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
         if(this.rendered){
             this.el.blur();
         }
+        return this;
     },
 
     /**
@@ -288,6 +291,7 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
         }
         this.disabled = true;
         this.fireEvent("disable", this);
+        return this;
     },
 
     onDisable : function(){
@@ -304,6 +308,7 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
         }
         this.disabled = false;
         this.fireEvent("enable", this);
+        return this;
     },
 
     onEnable : function(){
@@ -330,6 +335,7 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
             }
             this.fireEvent("show", this);
         }
+        return this;
     },
 
     // private
@@ -350,6 +356,7 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
             }
             this.fireEvent("hide", this);
         }
+        return this;
     },
 
     // private
@@ -367,5 +374,6 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
         }else{
             this.hide();
         }
+        return this;
     }
 });
