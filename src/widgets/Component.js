@@ -178,6 +178,10 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
                 this.el.addClass(this.cls);
                 delete this.cls;
             }
+            if(this.style){
+                this.el.applyStyles(this.style);
+                delete this.style;
+            }
             this.fireEvent("render", this);
             this.afterRender(this.container);
             if(this.hidden){
@@ -245,6 +249,14 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
      */
     getEl : function(){
         return this.el;
+    },
+
+    /**
+     * Returns the id of this component
+     * @return {String}
+     */
+    getId : function(){
+        return this.id;
     },
 
     /**

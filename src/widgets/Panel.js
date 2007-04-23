@@ -17,6 +17,8 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
     collapsed : false,
     animate:Ext.enableFx,
 
+    toolTarget : 'header',
+
     // private, notify box this class will handle heights
     deferHeight:true,
 
@@ -75,7 +77,7 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
             this.createElement('tbar', mc);
             this.createElement('body', mc);
             this.createElement('bbar', mc);
-            this.createElement('footer', bw.childNodes[1].firstChild.firstChild);
+            this.createElement('footer', mc);
         }else{
             this.createElement('header', d);
             this.createElement('bwrap', d);
@@ -94,12 +96,54 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
             this.header.unselectable();
         }
 
+        // for tools, we need to wrap any existing header markup
+        this.header.dom.innerHTML =
+                '<span class="x-panel-header-text">'+this.header.dom.innerHTML+'</span>';
+
         if(this.floating){
             this.el = new Ext.Layer(
                 typeof this.floating == 'object' ? this.floating : {
                     shadow:'sides', constrain:false
                 }, this.el
             );
+        }
+        if(this.collapsible){
+            this.tools = this.tools || [];
+            this.tools.unshift({
+                id: 'toggle',
+                on : {
+                    'click' : this.toggleCollapse,
+                    'scope': this
+                }
+            });
+        }
+        if(this.tools){
+            var ts = this.tools;
+            this.tools = {};
+            this.addTool.apply(this, ts);
+        }else{
+            this.tools = {};
+        }
+    },
+
+    addTool : function(){
+        if(!this.toolTemplate){
+            // initialize the global tool template on first use
+            var tt = new Ext.Template(
+                 '<div class="x-tool x-tool-{id}">&#160</div>'
+            );
+            tt.disableFormats = true;
+            tt.compile();
+            Ext.Panel.prototype.toolTemplate = tt;
+        }
+        for(var i = 0, a = arguments, len = a.length; i < len; i++) {
+            var tc = a[i];
+            var t = this.toolTemplate.insertFirst(this[this.toolTarget], tc, true);
+            this.tools[tc.id] = t;
+            if(tc.on){
+                t.on(tc.on);
+            }
+            t.addClassOnOver('x-tool-'+tc.id+'-over');
         }
     },
 
@@ -278,7 +322,7 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
 
     setTitle : function(title){
         this.title = title;
-        this.header.update(title);
+        this.header.child('span').update(title);
         this.fireEvent('titlechange', this, title);
         return this;
     },

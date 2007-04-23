@@ -163,10 +163,6 @@ side          Add an error icon to the right of the field with a popup on hover
         if(!this.customSize && (this.width || this.height)){
             this.setSize(this.width || "", this.height || "");
         }
-        if(this.style){
-            this.el.applyStyles(this.style);
-            delete this.style;
-        }
         if(this.readOnly){
             this.el.dom.readOnly = true;
         }

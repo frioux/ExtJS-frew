@@ -266,25 +266,25 @@ Ext.DomHelper = function(){
                 el.parentNode.insertBefore(frag, el);
                 return el.previousSibling;
              case "afterbegin":
-                if(el.firstChild){ // faster
+                if(el.firstChild){
                     range.setStartBefore(el.firstChild);
+                    frag = range.createContextualFragment(html);
+                    el.insertBefore(frag, el.firstChild);
+                    return el.firstChild;
                 }else{
-                    range.selectNodeContents(el);
-                    range.collapse(true);
+                    el.innerHTML = html;
+                    return el.firstChild;
                 }
-                frag = range.createContextualFragment(html);
-                el.insertBefore(frag, el.firstChild);
-                return el.firstChild;
             case "beforeend":
                 if(el.lastChild){
-                    range.setStartAfter(el.lastChild); // faster
+                    range.setStartAfter(el.lastChild);
+                    frag = range.createContextualFragment(html);
+                    el.appendChild(frag);
+                    return el.lastChild;
                 }else{
-                    range.selectNodeContents(el);
-                    range.collapse(false);
+                    el.innerHTML = html;
+                    return el.lastChild;
                 }
-                frag = range.createContextualFragment(html);
-                el.appendChild(frag);
-                return el.lastChild;
             case "afterend":
                 range.setStartAfter(el);
                 frag = range.createContextualFragment(html);

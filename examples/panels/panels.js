@@ -2,6 +2,7 @@ Ext.onReady(function(){
     var p = new Ext.Panel({
         frame:true,
         width:400,
+        collapsible:true,
         title:"Static Framed Panel",
         contentEl: 'some-content' // add some existing markup
     });
@@ -15,7 +16,9 @@ Ext.onReady(function(){
         height:300,
         frame:true,
         floating:true,
-        x:400, y:200
+        x:400, y:200,
+        collapsible:true,
+        tools:[{id:'minimize'},{id:'maximize'},{id:'gear'},{id:'restore'},{id:'close'}]
     });
 
     p2.render(document.body);
@@ -32,15 +35,6 @@ Ext.onReady(function(){
 
 
     // the code below will eventually be wrapped up in subclasses (e.g. Dialog)
-
-
-    p.header.on('dblclick', function(){
-        p.toggleCollapse();
-    });
-
-    p2.header.on('dblclick', function(){
-        p2.toggleCollapse();
-    });
 
 
     // Attach a resizable
