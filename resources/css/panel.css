@@ -3,7 +3,7 @@
     zoom:1;
 }
 .x-panel-tl .x-panel-header {
-    color:#212d3d;
+    color:#15428b;
 	font:bold 11px tahoma,arial,verdana,sans-serif;
     padding:5px 0 4px 0;
 }
@@ -22,9 +22,12 @@
 	padding-right:6px;
 }
 .x-panel-bc {
-	background: transparent url(../images/default/panel/white-top-bottom.gif) repeat-x 0 -294px;
-	height:6px;
-    overflow:hidden;
+	background: transparent url(../images/default/panel/white-top-bottom.gif) repeat-x 0 bottom;
+    zoom:1;
+}
+.x-panel-bc .x-panel-footer {
+    padding-bottom:6px;
+    zoom:1;
 }
 .x-panel-bl {
 	background: transparent url(../images/default/panel/white-corners-sprite.gif) no-repeat 0 bottom;
@@ -53,7 +56,6 @@
 	padding-right:6px;
     zoom:1;
 }
-
 .x-panel-blue .x-panel-tl, .x-panel-blue .x-panel-tr, .x-panel-blue .x-panel-bl, .x-panel-blue .x-panel-br {
     background-image:url(../images/default/panel/corners-sprite.gif);
 }
@@ -131,7 +133,7 @@
 }
 
 .x-panel-ghost {
-    background:#C7DFFC;
+    background:#cbddf3;
     z-index:12000;
     overflow:hidden;
     position:absolute;
@@ -144,7 +146,7 @@
 .x-panel-ghost ul {
     margin:0;
     padding:0;
-    border:1px solid #99bbe8;
+    border:1px solid #84a0c4;
     border-top:0 none;
     display:block;
 }
@@ -177,7 +179,7 @@
     zoom:1;
 }
 .x-window-tl .x-window-header {
-    color:#212d3d;
+    color:#15428b;
 	font:bold 11px tahoma,arial,verdana,sans-serif;
     padding:5px 0 4px 0;
 }
@@ -185,31 +187,35 @@
     cursor:pointer;
 }
 .x-window-tc {
-	background: transparent url(../images/default/panel/top-bottom.gif) repeat-x 0 0;
+	background: transparent url(../images/default/window/top-bottom.gif) repeat-x 0 0;
 	overflow:hidden;
 }
 .x-window-tl {
-	background: transparent url(../images/default/panel/corners-sprite.gif) no-repeat 0 0;
+	background: transparent url(../images/default/window/corners-sprite.gif) no-repeat 0 0;
 	padding-left:6px;
     zoom:1;
-    border-bottom:1px solid #99bbe8;
 }
 .x-window-tr {
-	background: transparent url(../images/default/panel/corners-sprite.gif) no-repeat right 0;
+	background: transparent url(../images/default/window/corners-sprite.gif) no-repeat right 0;
 	padding-right:6px;
 }
 .x-window-bc {
-	background: transparent url(../images/default/panel/top-bottom.gif) repeat-x 0 -294px;
-	height:6px;
-    overflow:hidden;
+	background: transparent url(../images/default/window/top-bottom.gif) repeat-x 0 bottom;
+    zoom:1;
+}
+.x-window-bc .x-window-footer {
+    padding-bottom:6px;
+    zoom:1;
+    font-size:0;
+    line-height:0;
 }
 .x-window-bl {
-	background: transparent url(../images/default/panel/corners-sprite.gif) no-repeat 0 bottom;
+	background: transparent url(../images/default/window/corners-sprite.gif) no-repeat 0 bottom;
 	padding-left:6px;
     zoom:1;
 }
 .x-window-br {
-	background: transparent url(../images/default/panel/corners-sprite.gif) no-repeat right bottom;
+	background: transparent url(../images/default/window/corners-sprite.gif) no-repeat right bottom;
 	padding-right:6px;
     zoom:1;
 }
@@ -218,20 +224,38 @@
     padding:0;
     margin:0;
     font: normal 11px tahoma,arial,helvetica,sans-serif;
-    padding-top:6px;
     background:#dfe8f6;
 }
 .x-window-ml {
-	background: #fff url(../images/default/panel/left-right.gif) repeat-y 0 0;
+	background: #fff url(../images/default/window/left-right.gif) repeat-y 0 0;
 	padding-left:6px;
     zoom:1;
 }
 .x-window-mr {
-	background: transparent url(../images/default/panel/left-right.gif) repeat-y right 0;
+	background: transparent url(../images/default/window/left-right.gif) repeat-y right 0;
 	padding-right:6px;
     zoom:1;
 }
-
+.x-window-mc {
+    border:1px solid #99bbe8;
+}
+.x-window-tbar .x-toolbar, .x-window-bbar .x-toolbar {
+    border-left:0 none;
+    border-right: 0 none;
+}
+.x-window-bbar .x-toolbar {
+    border-top:1px solid #99bbe8;
+    border-bottom:0 none;
+}
 .x-window-draggable, .x-window-draggable .x-window-header-text {
     cursor:move;
+}
+.x-window-body {
+    background:white;
+}
+.x-panel-ghost .x-window-tl {
+    border-bottom:1px solid #99bbe8;
+}
+.x-panel-collapsed .x-window-tl {
+    border-bottom:1px solid #84a0c4;
 }
