@@ -25,10 +25,7 @@ Ext.extend(Ext.Window, Ext.Panel, {
     maximizable : true,
 
     minHeight: 80,
-    minWidth: 200,
-    minButtonWidth: 75,
-    defaultButton: null,
-    buttonAlign: "right",
+    minWidth: 200
 
     initHidden : true,
 

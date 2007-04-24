@@ -502,4 +502,7 @@
   <file name="images\default\panel\white-left-right.gif" path="images\default\panel" />
   <file name="images\default\panel\white-top-bottom.gif" path="images\default\panel" />
   <file name="images\default\panel\white-corners-sprite.gif" path="images\default\panel" />
+  <file name="images\default\window\corners-sprite.gif" path="images\default\window" />
+  <file name="images\default\window\left-right.gif" path="images\default\window" />
+  <file name="images\default\window\top-bottom.gif" path="images\default\window" />
 </project>
