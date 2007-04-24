@@ -375,5 +375,12 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
             this.hide();
         }
         return this;
+    },
+
+    /**
+     * Returns true if this component is visible
+     */
+    isVisible : function(){
+        return this.getActionEl().isVisible();
     }
 });

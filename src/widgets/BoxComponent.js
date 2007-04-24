@@ -43,15 +43,20 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
         if(local === true){
             return [this.el.getLeft(true), this.el.getTop(true)];
         }
-        return this.el.getXY();
+        return this.xy || this.el.getXY();
     },
 
     getBox : function(local){
-        return this.el.getBox(false, local);
-    },
-
-    getRegion : function(){
-        return this.el.getRegion();
+        var s = this.el.getSize();
+        if(local){
+            s.x = this.el.getLeft(true);
+            s.y = this.el.getTop(true);
+        }else{
+            var xy = this.xy || this.el.getXY();
+            s.x = xy[0];
+            s.y = xy[1];
+        }
+        return s;
     },
 
     updateBox : function(box){
@@ -64,9 +69,9 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
     },
 
     setPosition : function(x, y){
+        this.x = x;
+        this.y = y;
         if(!this.boxReady){
-            this.x = x;
-            this.y = y;
             return;
         }
         var adj = this.adjustPosition(x, y);
@@ -87,9 +92,9 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
     },
 
     setPagePosition : function(x, y){
+        this.pageX = x;
+        this.pageY = y;
         if(!this.boxReady){
-            this.pageX = x;
-            this.pageY = y;
             return;
         }
         if(x === undefined || y === undefined){ // cannot translate undefined points
@@ -111,7 +116,9 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
         Ext.BoxComponent.superclass.afterRender.call(this);
         this.boxReady = true;
         this.setSize(this.width, this.height);
-        this.setPosition(this.x, this.y);
+        if(this.x || this.y){
+            this.setPosition(this.x, this.y);
+        }
         if(this.pageX || this.pageY){
             this.setPagePosition(this.pageX, this.pageY);
         }

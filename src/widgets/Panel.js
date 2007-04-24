@@ -77,7 +77,7 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
             this.createElement('tbar', mc);
             this.createElement('body', mc);
             this.createElement('bbar', mc);
-            this.createElement('footer', mc);
+            this.createElement('footer', bw.lastChild.firstChild.firstChild);
         }else{
             this.createElement('header', d);
             this.createElement('bwrap', d);
@@ -104,7 +104,7 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
         if(this.floating){
             this.el = new Ext.Layer(
                 typeof this.floating == 'object' ? this.floating : {
-                    shadow:'sides', constrain:false
+                    shadow:this.shadow||'sides', constrain:this.constrain || false
                 }, this.el
             );
         }
@@ -153,7 +153,7 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
     },
 
     afterRender : function(){
-        if(this.floating && !this.hidden){
+        if(this.floating && !this.hidden && !this.initHidden){
             this.el.show();
         }
         if(this.title){
@@ -244,6 +244,7 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
             return;
         }
         var a = animate || (animate !== false && this.animate);
+        this.el.removeClass(this.collapsedCls);
         if(a){
             this.beforeEffect();
             this.bwrap.slideIn('t', this.createEffect(a, this.afterExpand, this));
@@ -256,7 +257,6 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
 
     afterExpand : function(){
         this.collapsed = false;
-        this.el.removeClass(this.collapsedCls);
         this.afterEffect();
         this.fireEvent('expand', this);
     },
@@ -299,7 +299,7 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
     },
 
     onPosition : function(){
-        this.syncShadow();    
+        this.syncShadow();
     },
 
     getFrameWidth : function(){
@@ -308,6 +308,8 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
         if(this.frame){
             var l = this.el.dom.childNodes[1].firstChild;
             w += (Ext.fly(l).getFrameWidth('l') + Ext.fly(l.firstChild).getFrameWidth('r'));
+            var mc = this.el.dom.childNodes[1].firstChild.firstChild.firstChild;
+            w += Ext.fly(mc).getFrameWidth('lr');
         }
         return w;
     },
@@ -408,7 +410,7 @@ panel.load({<br/>
         this.footerCls = this.baseCls + '-footer';
     },
 
-    createGhost : function(cls, preventAppend){
+    createGhost : function(cls, useShim, preventAppend){
         var el = document.createElement('div');
         el.className = 'x-panel-ghost ' + (cls ? cls : '');
         if(this.header){
@@ -418,6 +420,12 @@ panel.load({<br/>
         if(!preventAppend){
             this.container.dom.appendChild(el);
         }
-        return new Ext.Element(el);
+        if(useShim !== false){
+            var layer = new Ext.Layer({shadow:false, useDisplay:true, constrain:false}, el);
+            layer.show();
+            return layer;
+        }else{
+            return new Ext.Element(el);
+        }
     }
 });

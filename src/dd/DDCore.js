@@ -1767,7 +1767,10 @@ Ext.dd.DragDropMgr = function() {
             if (this.dragThreshMet) {
                 this.dragCurrent.b4Drag(e);
                 this.dragCurrent.onDrag(e);
-                this.fireEvents(e, false);
+                if(!this.dragCurrent.moveOnly){
+                    console.log('wtf')
+                    this.fireEvents(e, false);
+                }
             }
 
             this.stopEvent(e);
@@ -2505,13 +2508,12 @@ Ext.extend(Ext.dd.DD, Ext.dd.DragDrop, {
      */
     alignElWithMouse: function(el, iPageX, iPageY) {
         var oCoord = this.getTargetCoord(iPageX, iPageY);
-        var fly = Ext.fly(el);
+        var fly = el.dom ? el : Ext.fly(el);
         if (!this.deltaSetXY) {
             var aCoord = [oCoord.x, oCoord.y];
             fly.setXY(aCoord);
             var newLeft = fly.getLeft(true);
             var newTop  = fly.getTop(true);
-
             this.deltaSetXY = [ newLeft - oCoord.x, newTop - oCoord.y ];
         } else {
             fly.setLeftTop(oCoord.x + this.deltaSetXY[0], oCoord.y + this.deltaSetXY[1]);
@@ -2519,6 +2521,7 @@ Ext.extend(Ext.dd.DD, Ext.dd.DragDrop, {
 
         this.cachePosition(oCoord.x, oCoord.y);
         this.autoScroll(oCoord.x, oCoord.y, el.offsetHeight, el.offsetWidth);
+        return oCoord;
     },
 
     /**

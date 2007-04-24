@@ -21,7 +21,8 @@ Ext.Shadow = function(config){
         case "sides":
             a.w = (o*2);
             a.l = -o;
-            a.t = o;
+            a.h = o;
+            a.t = 0;
         break;
         case "frame":
             a.w = a.h = (o*2);
