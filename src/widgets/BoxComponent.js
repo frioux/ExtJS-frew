@@ -35,6 +35,25 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
         return this;
     },
 
+    getSize : function(){
+        return this.el.getSize();
+    },
+
+    getPosition : function(local){
+        if(local === true){
+            return [this.el.getLeft(true), this.el.getTop(true)];
+        }
+        return this.el.getXY();
+    },
+
+    getBox : function(local){
+        return this.el.getBox(false, local);
+    },
+
+    getRegion : function(){
+        return this.el.getRegion();
+    },
+
     updateBox : function(box){
         this.setSize(box.width, box.height);
         this.setPagePosition(box.x, box.y);
@@ -61,7 +80,8 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
             }else if(ay !== undefined){
                 this.el.setTop(ay);
             }
-            this.fireEvent('move', this, ax, ay, x, y);
+            this.onPosition(ax, ay);
+            this.fireEvent('move', this, ax, ay);
         }
         return this;
     },
@@ -102,6 +122,10 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
     },
 
     onResize : function(adjWidth, adjHeight, rawWidth, rawHeight){
+
+    },
+
+    onPosition : function(x, y){
 
     },
 

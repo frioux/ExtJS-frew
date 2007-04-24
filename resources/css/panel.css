@@ -7,48 +7,48 @@
 	font:bold 11px tahoma,arial,verdana,sans-serif;
     padding:5px 0 4px 0;
 }
-.x-panel .x-panel-tc {
+.x-panel-tc {
 	background: transparent url(../images/default/panel/white-top-bottom.gif) repeat-x 0 0;
 	overflow:hidden;
 }
-.x-panel .x-panel-tl {
+.x-panel-tl {
 	background: transparent url(../images/default/panel/white-corners-sprite.gif) no-repeat 0 0;
 	padding-left:6px;
     zoom:1;
     border-bottom:1px solid #99bbe8;
 }
-.x-panel .x-panel-tr {
+.x-panel-tr {
 	background: transparent url(../images/default/panel/white-corners-sprite.gif) no-repeat right 0;
 	padding-right:6px;
 }
-.x-panel .x-panel-bc {
+.x-panel-bc {
 	background: transparent url(../images/default/panel/white-top-bottom.gif) repeat-x 0 -294px;
 	height:6px;
     overflow:hidden;
 }
-.x-panel .x-panel-bl {
+.x-panel-bl {
 	background: transparent url(../images/default/panel/white-corners-sprite.gif) no-repeat 0 bottom;
 	padding-left:6px;
     zoom:1;
 }
-.x-panel .x-panel-br {
+.x-panel-br {
 	background: transparent url(../images/default/panel/white-corners-sprite.gif) no-repeat right bottom;
 	padding-right:6px;
     zoom:1;
 }
-.x-panel .x-panel-mc {
+.x-panel-mc {
     border:0 none;
     padding:0;
     margin:0;
     font: normal 11px tahoma,arial,helvetica,sans-serif;
     background:white;
 }
-.x-panel .x-panel-ml {
+.x-panel-ml {
 	background: #fff url(../images/default/panel/white-left-right.gif) repeat-y 0 0;
 	padding-left:6px;
     zoom:1;
 }
-.x-panel .x-panel-mr {
+.x-panel-mr {
 	background: transparent url(../images/default/panel/white-left-right.gif) repeat-y right 0;
 	padding-right:6px;
     zoom:1;
@@ -67,6 +67,7 @@
     padding-top:6px;
     background:#dfe8f6;
 }
+
 .x-panel-collapsed .x-resizable-handle{
     display:none;
 }
@@ -127,4 +128,110 @@
 }
 .x-tool-gear-over {
     background-position:-15px -90px;
+}
+
+.x-panel-ghost {
+    background:#C7DFFC;
+    z-index:12000;
+    overflow:hidden;
+    position:absolute;
+    left:0;top:0;
+    opacity:.5;
+    -moz-opacity:.5;
+    filter:alpha(opacity=50);
+}
+
+.x-panel-ghost ul {
+    margin:0;
+    padding:0;
+    border:1px solid #99bbe8;
+    border-top:0 none;
+    display:block;
+}
+
+.x-panel-ghost * {
+    cursor:move !important;
+}
+
+.x-window .x-resizable-handle {
+    opacity:0;
+    -moz-opacity:0;
+    filter:alpha(opacity=0);
+}
+
+.x-window-proxy {
+    background:#C7DFFC;
+    border:1px solid #99bbe8;
+    z-index:12000;
+    overflow:hidden;
+    position:absolute;
+    left:0;top:0;
+    display:none;
+    opacity:.5;
+    -moz-opacity:.5;
+    filter:alpha(opacity=50);
+}
+
+.x-window-header {
+    overflow:hidden;
+    zoom:1;
+}
+.x-window-tl .x-window-header {
+    color:#212d3d;
+	font:bold 11px tahoma,arial,verdana,sans-serif;
+    padding:5px 0 4px 0;
+}
+.x-window-header-text {
+    cursor:pointer;
+}
+.x-window-tc {
+	background: transparent url(../images/default/panel/top-bottom.gif) repeat-x 0 0;
+	overflow:hidden;
+}
+.x-window-tl {
+	background: transparent url(../images/default/panel/corners-sprite.gif) no-repeat 0 0;
+	padding-left:6px;
+    zoom:1;
+    border-bottom:1px solid #99bbe8;
+}
+.x-window-tr {
+	background: transparent url(../images/default/panel/corners-sprite.gif) no-repeat right 0;
+	padding-right:6px;
+}
+.x-window-bc {
+	background: transparent url(../images/default/panel/top-bottom.gif) repeat-x 0 -294px;
+	height:6px;
+    overflow:hidden;
+}
+.x-window-bl {
+	background: transparent url(../images/default/panel/corners-sprite.gif) no-repeat 0 bottom;
+	padding-left:6px;
+    zoom:1;
+}
+.x-window-br {
+	background: transparent url(../images/default/panel/corners-sprite.gif) no-repeat right bottom;
+	padding-right:6px;
+    zoom:1;
+}
+.x-window-mc {
+    border:0 none;
+    padding:0;
+    margin:0;
+    font: normal 11px tahoma,arial,helvetica,sans-serif;
+    padding-top:6px;
+    background:#dfe8f6;
+}
+.x-window-ml {
+	background: #fff url(../images/default/panel/left-right.gif) repeat-y 0 0;
+	padding-left:6px;
+    zoom:1;
+}
+.x-window-mr {
+	background: transparent url(../images/default/panel/left-right.gif) repeat-y right 0;
+	padding-right:6px;
+    zoom:1;
+}
+
+.x-window-draggable, .x-window-draggable .x-window-header-text {
+    cursor:move;
 }

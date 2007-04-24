@@ -97,9 +97,10 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
         }
 
         // for tools, we need to wrap any existing header markup
-        this.header.dom.innerHTML =
-                '<span class="x-panel-header-text">'+this.header.dom.innerHTML+'</span>';
-
+        if(this.toolTarget == 'header'){
+            this.header.dom.innerHTML =
+                '<span class="'+this.headerTextCls+'">'+this.header.dom.innerHTML+'</span>';
+        }
         if(this.floating){
             this.el = new Ext.Layer(
                 typeof this.floating == 'object' ? this.floating : {
@@ -140,8 +141,12 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
             var tc = a[i];
             var t = this.toolTemplate.insertFirst(this[this.toolTarget], tc, true);
             this.tools[tc.id] = t;
+            t.enableDisplayMode('block');
             if(tc.on){
                 t.on(tc.on);
+            }
+            if(tc.hidden){
+                t.hide();
             }
             t.addClassOnOver('x-tool-'+tc.id+'-over');
         }
@@ -278,40 +283,59 @@ Ext.extend(Ext.Panel, Ext.BoxComponent, {
     onResize : function(w, h){
         if(w !== undefined || h !== undefined){
             if(typeof w == 'number'){
-                w -= this.el.getFrameWidth('lr');
-
-                if(this.frame){
-                    var l = this.el.dom.childNodes[1].firstChild;
-                    w -= (Ext.fly(l).getFrameWidth('l') + Ext.fly(l.firstChild).getFrameWidth('r'));
-                }
-
-                this.body.setWidth(w);
+                this.body.setWidth(w - this.getFrameWidth());
             }else if(w == 'auto'){
                 this.body.setWidth(w);
             }
 
             if(typeof h == 'number'){
-                h -= this.el.getFrameWidth('tb');
-                h -= (this.tbar ? this.tbar.getHeight() : 0) +
-                     (this.bbar ? this.bbar.getHeight() : 0);
-
-                if(this.frame){
-                    var hd = this.el.dom.firstChild;
-                    var ft = this.el.dom.childNodes[1].lastChild;
-                    h -= (hd.offsetHeight + ft.offsetHeight);
-                    var mc = this.el.dom.childNodes[1].firstChild.firstChild.firstChild;
-                    h -= Ext.fly(mc).getFrameWidth('tb');
-                }else{
-                    h -= (this.header ? this.header.getHeight() : 0) +
-                        (this.footer ? this.footer.getHeight() : 0);
-                }
-                this.body.setHeight(h);
+                this.body.setHeight(h - this.getFrameHeight());
             }else if(h == 'auto'){
                 this.body.setHeight(h);
             }
             this.syncShadow();
             this.fireEvent('bodyresize', this, w, h);
         }
+    },
+
+    onPosition : function(){
+        this.syncShadow();    
+    },
+
+    getFrameWidth : function(){
+        var w = this.el.getFrameWidth('lr');
+
+        if(this.frame){
+            var l = this.el.dom.childNodes[1].firstChild;
+            w += (Ext.fly(l).getFrameWidth('l') + Ext.fly(l.firstChild).getFrameWidth('r'));
+        }
+        return w;
+    },
+
+    getFrameHeight : function(){
+        var h  = this.el.getFrameWidth('tb');
+        h += (this.tbar ? this.tbar.getHeight() : 0) +
+             (this.bbar ? this.bbar.getHeight() : 0);
+
+        if(this.frame){
+            var hd = this.el.dom.firstChild;
+            var ft = this.el.dom.childNodes[1].lastChild;
+            h += (hd.offsetHeight + ft.offsetHeight);
+            var mc = this.el.dom.childNodes[1].firstChild.firstChild.firstChild;
+            h += Ext.fly(mc).getFrameWidth('tb');
+        }else{
+            h += (this.header ? this.header.getHeight() : 0) +
+                (this.footer ? this.footer.getHeight() : 0);
+        }
+        return h;
+    },
+
+    getInnerWidth : function(){
+        return this.getSize().width - this.getFrameWidth();
+    },
+
+    getInnerHeight : function(){
+        return this.getSize().height - this.getFrameHeight();
     },
 
     syncShadow : function(){
@@ -376,10 +400,24 @@ panel.load({<br/>
         this.els = this.elements.join(',');
 
         this.headerCls = this.baseCls + '-header';
+        this.headerTextCls = this.baseCls + '-header-text';
         this.bwrapCls = this.baseCls + '-bwrap';
         this.tbarCls = this.baseCls + '-tbar';
         this.bodyCls = this.baseCls + '-body';
         this.bbarCls = this.baseCls + '-bbar';
         this.footerCls = this.baseCls + '-footer';
+    },
+
+    createGhost : function(cls, preventAppend){
+        var el = document.createElement('div');
+        el.className = 'x-panel-ghost ' + (cls ? cls : '');
+        if(this.header){
+            el.appendChild(this.el.dom.firstChild.cloneNode(true));
+        }
+        Ext.fly(el.appendChild(document.createElement('ul'))).setSize(this.bwrap.getSize());
+        if(!preventAppend){
+            this.container.dom.appendChild(el);
+        }
+        return new Ext.Element(el);
     }
 });
