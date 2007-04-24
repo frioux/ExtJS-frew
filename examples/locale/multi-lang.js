@@ -50,7 +50,7 @@ Ext.onReady(function(){
 	
 	/* Language chooser combobox  */
     var store = new Ext.data.SimpleStore({
-        fields: ['code', 'language'],
+        fields: ['code', 'language', 'charset'],
         data : Ext.exampledata.languages // from languages.js
     });
     var combo = new Ext.form.ComboBox({
@@ -61,12 +61,26 @@ Ext.onReady(function(){
         triggerAction: 'all',
         emptyText:'Select a language...',
         selectOnFocus:true,
-		onSelect: function(record) {
-	    	//Ext.Msg.alert("Language selected", "Language: "+record.get("language")+" (code: "+record.get("code")+")");
-	    	window.location = "?lang="+record.get("code");
-		}
+	onSelect: function(record) {
+	    window.location.search = Ext.urlEncode({"lang":record.get("code"),"charset":record.get("charset")});
+	}
     });
     combo.applyTo('languages');
+
+    // get the selected language code parameter from url (if exists)
+    var params = Ext.urlDecode(window.location.search.substring(1));
+    if (params.lang) {
+	// check if there's really a language with that language code
+	record = store.data.find(function(item, key) {
+	    if (item.data.code==params.lang){
+		return true;
+	    }
+	});
+	// if language was found in store assign it as current value in combobox
+	if (record) {
+	    combo.setValue(record.data.language);
+	}
+    }
 
 	/* Email field */
 	var efield = new Ext.form.Form({ labelWidth: 75 });
