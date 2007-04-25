@@ -3,6 +3,7 @@
  * @extends Ext.BasicLayoutRegion
  * This class represents a region in a layout manager.
  * @cfg {Boolean} collapsible False to disable collapsing (defaults to true)
+ * @cfg {Boolean} collapsed True to set the initial display to collapsed (defaults to false)
  * @cfg {Boolean} floatable False to disable floating (defaults to true)
  * @cfg {Object} margins Margins for the element (defaults to {top: 0, left: 0, right:0, bottom: 0})
  * @cfg {Object} cmargins Margins for the element when collapsed (defaults to: north/south {top: 2, left: 0, right:0, bottom: 2} or east/west {top: 0, left: 2, right:2, bottom: 0})
@@ -17,7 +18,7 @@
  * @cfg {Boolean} preservePanels True to preserve removed panels so they can be readded later (defaults to false)
  * @cfg {Boolean} closeOnTab True to place the close icon on the tabs instead of the region titlebar (defaults to false)
  * @cfg {Boolean} hideTabs True to hide the tab strip (defaults to false)
- * @cfg {Boolean} resizeTabs True to enable automatic tab resizing. This will resize the tabs so they are all the same size and fit within 
+ * @cfg {Boolean} resizeTabs True to enable automatic tab resizing. This will resize the tabs so they are all the same size and fit within
  * the space available, similar to FireFox 1.5 tabs (defaults to false)
  * @cfg {Number} minTabWidth The minimum tab width (defaults to 40)
  * @cfg {Number} preferredTabWidth The preferred tab width (defaults to 150)
@@ -57,7 +58,7 @@ Ext.LayoutRegion = function(mgr, config, pos){
 };
 
 Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
-    
+
     createBody : function(){
         /** This regions body element @type Ext.Element */
         this.bodyEl = this.el.createChild({tag: "div", cls: "x-layout-panel-body"});
@@ -87,7 +88,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
                 this.collapsedTitleTextEl = dh.append(this.collapsedEl.dom, {tag: "div", cls: "x-unselectable x-layout-panel-hd-text",
                    id: "message", unselectable: "on", style:{"float":"left"}});
                this.collapsedTitleTextEl.innerHTML = c.collapsedTitle;
-             } 
+             }
             this.expandBtn = this.createTool(this.collapsedEl.dom.firstChild.firstChild, "x-layout-expand-"+this.position);
             this.expandBtn.on("click", this.expand, this);
         }
@@ -96,7 +97,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
         }
         this.cmargins = c.cmargins || this.cmargins ||
                          (this.position == "west" || this.position == "east" ?
-                             {top: 0, left: 2, right:2, bottom: 0} : 
+                             {top: 0, left: 2, right:2, bottom: 0} :
                              {top: 2, left: 0, right:0, bottom: 2});
         this.margins = c.margins || this.margins || {top: 0, left: 0, right:0, bottom: 0};
         this.bottomTabs = c.tabPosition != "top";
@@ -131,7 +132,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
     isVisible : function(){
         return this.visible;
     },
-    
+
     /**
      * Updates the collapsed text for north/south regions (used with collapsedTitle config option)
      */
@@ -141,7 +142,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
             this.collapsedTitleTextEl.innerHTML = title;
         }
     },
-   
+
     getBox : function(){
         var b;
         if(!this.collapsed){
@@ -151,19 +152,19 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
         }
         return b;
     },
-    
+
     getMargins : function(){
         return this.collapsed ? this.cmargins : this.margins;
     },
-    
+
     highlight : function(){
         this.el.addClass("x-layout-panel-dragover");
     },
-    
+
     unhighlight : function(){
         this.el.removeClass("x-layout-panel-dragover");
     },
-    
+
     updateBox : function(box){
         this.box = box;
         if(!this.collapsed){
@@ -223,7 +224,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
     getEl : function(){
         return this.el;
     },
-    
+
     /**
      * Hides this region.
      */
@@ -238,7 +239,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
         this.visible = false;
         this.fireEvent("visibilitychange", this, false);
     },
-    
+
     /**
      * Shows this region if it was previously hidden.
      */
@@ -251,13 +252,13 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
         this.visible = true;
         this.fireEvent("visibilitychange", this, true);
     },
-    
+
     closeClicked : function(){
         if(this.activePanel){
             this.remove(this.activePanel);
         }
     },
-    
+
     collapseClick : function(e){
         if(this.isSlid){
            e.stopPropagation();
@@ -267,7 +268,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
            this.slideOut();
         }
     },
-    
+
     /**
      * Collapses this region.
      * @param {Boolean} skipAnim (optional) true to collapse the element without animation (if animate is true)
@@ -289,11 +290,11 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
             this.fireEvent("invalidated", this);
         }
     },
-    
+
     animateCollapse : function(){
         // overridden
     },
-    
+
     /**
      * Expand this region if it was previously collapsed.
      * @param {Ext.EventObject} e The event that triggered the expand (or null if calling manually)
@@ -320,11 +321,11 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
             this.fireEvent("expanded", this);
         }
     },
-    
+
     animateExpand : function(){
         // overridden
     },
-    
+
     initTabs : function(){
         this.bodyEl.setStyle("overflow", "hidden");
         var ts = new Ext.TabPanel(this.bodyEl.dom, {
@@ -344,15 +345,15 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
         ts.bodyEl.addClass('x-layout-tabs-body');
         this.panels.each(this.initPanelAsTab, this);
     },
-    
+
     initPanelAsTab : function(panel){
-        var ti = this.tabs.addTab(panel.getEl().id, panel.getTitle(), null, 
+        var ti = this.tabs.addTab(panel.getEl().id, panel.getTitle(), null,
                     this.config.closeOnTab && panel.isClosable());
         if(panel.tabTip !== undefined){
             ti.setTooltip(panel.tabTip);
         }
         ti.on("activate", function(){
-              this.setActivePanel(panel); 
+              this.setActivePanel(panel);
         }, this);
         if(this.config.closeOnTab){
             ti.on("beforeclose", function(t, e){
@@ -362,7 +363,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
         }
         return ti;
     },
-    
+
     updatePanelTitle : function(panel, title){
         if(this.activePanel == panel){
             this.updateTitle(title);
@@ -375,13 +376,13 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
             }
         }
     },
-    
+
     updateTitle : function(title){
         if(this.titleTextEl && !this.config.title){
             this.titleTextEl.innerHTML = (typeof title != "undefined" && title.length > 0 ? title : "&#160;");
         }
     },
-    
+
     setActivePanel : function(panel){
         panel = this.getPanel(panel);
         if(this.activePanel && this.activePanel != panel){
@@ -399,7 +400,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
         }
         this.fireEvent("panelactivated", this, panel);
     },
-    
+
     /**
      * Show the specified panel.
      * @param {Number/String/ContentPanel} panelId The panels index, id or the panel itself
@@ -419,7 +420,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
         }
         return panel;
     },
-    
+
     /**
      * Get the active panel for this region.
      * @return {Ext.ContentPanel} The active panel or null
@@ -427,7 +428,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
     getActivePanel : function(){
         return this.activePanel;
     },
-    
+
     validateVisibility : function(){
         if(this.panels.getCount() < 1){
             this.updateTitle("&#160;");
@@ -439,7 +440,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
             }
         }
     },
-    
+
     /**
      * Add the passed ContentPanel(s)
      * @param {ContentPanel...} panel The ContentPanel(s) to add (you can pass more than one)
@@ -477,7 +478,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
         this.fireEvent("paneladded", this, panel);
         return panel;
     },
-    
+
     /**
      * Hides the tab for the specified panel.
      * @param {Number/String/ContentPanel} panel The panels index, id or the panel itself
@@ -487,7 +488,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
             this.tabs.hideTab(panel.getEl().id);
         }
     },
-    
+
     /**
      * Unhides the tab for a previously hidden panel.
      * @param {Number/String/ContentPanel} panel The panels index, id or the panel itself
@@ -497,13 +498,13 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
             this.tabs.unhideTab(panel.getEl().id);
         }
     },
-    
+
     clearPanels : function(){
         while(this.panels.getCount() > 0){
              this.remove(this.panels.first());
         }
     },
-    
+
     /**
      * Removes the specified panel. If preservePanel is not true (either here or in the config), the panel is destroyed.
      * @param {Number/String/ContentPanel} panel The panels index, id or the panel itself
@@ -553,15 +554,15 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
         this.fireEvent("panelremoved", this, panel);
         return panel;
     },
-    
+
     /**
      * Returns the TabPanel component used by this region
      * @return {Ext.TabPanel}
      */
     getTabs : function(){
-        return this.tabs;    
+        return this.tabs;
     },
-    
+
     createTool : function(parentEl, className){
         var btn = Ext.DomHelper.append(parentEl, {tag: "div", cls: "x-layout-tools-button",
             children: [{tag: "div", cls: "x-layout-tools-button-inner " + className, html: "&#160;"}]}, true);
