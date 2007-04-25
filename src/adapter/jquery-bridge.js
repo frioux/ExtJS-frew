@@ -44,15 +44,15 @@ Ext.lib.Dom = {
     },
 
     getY : function(el){
-        return jQuery(el).offset().top;
+        return jQuery(el).offset({scroll:false}).top;
     },
 
     getX : function(el){
-        return jQuery(el).offset().left;
+        return jQuery(el).offset({scroll:false}).left;
     },
 
     getXY : function(el){
-        var o = jQuery(el).offset();
+        var o = jQuery(el).offset({scroll:false});
         return [o.left,  o.top];
     },
 
@@ -240,8 +240,8 @@ Ext.lib.Anim = function(){
             // scroll anim not supported so just scroll immediately
             var anim = createAnim(cb, scope);
             el = Ext.getDom(el);
-            el.scrollLeft = args.to[0];
-            el.scrollTop = args.to[1];
+            el.scrollLeft = args.scroll.to[0];
+            el.scrollTop = args.scroll.to[1];
             anim.proxyCallback();
             return anim;
         },
