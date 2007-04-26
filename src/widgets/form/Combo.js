@@ -240,8 +240,8 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     valueNotFoundText : undefined,
 
     // private
-    onRender : function(ct){
-        Ext.form.ComboBox.superclass.onRender.call(this, ct);
+    onRender : function(ct, position){
+        Ext.form.ComboBox.superclass.onRender.call(this, ct, position);
         if(this.hiddenName){
             this.hiddenField = this.el.insertSibling({tag:'input', type:'hidden', name: this.hiddenName, id: this.hiddenName},
                     'before', true);
