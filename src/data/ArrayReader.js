@@ -14,7 +14,7 @@
    ]);
    var myReader = new Ext.data.ArrayReader({
        id: 0                     // The subscript within row Array that provides an ID for the Record (optional)
-   }, myRecordDefinition);
+   }, RecordDef);
   </code></pre>
  * <p>
  * This would consume an Array like this:
