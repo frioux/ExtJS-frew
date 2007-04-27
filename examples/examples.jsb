@@ -123,34 +123,8 @@
   <file name="layout\parent.html" path="layout" />
   <file name="grid\virtual-grid.html" path="grid" />
   <file name="grid\virtualgrid.js" path="grid" />
-  <file name="dialog\hello.js" path="dialog" />
-  <file name="dialog\layout.js" path="dialog" />
-  <file name="dialog\msg-box.js" path="dialog" />
-  <file name="dialog\post.js" path="dialog" />
-  <file name="form\combos.js" path="form" />
   <file name="form\dynamic.html" path="form" />
-  <file name="form\dynamic.js" path="form" />
-  <file name="form\forms.js" path="form" />
-  <file name="form\forum-search.js" path="form" />
-  <file name="form\states.js" path="form" />
-  <file name="grid\array-grid.js" path="grid" />
-  <file name="grid\custom-grid.js" path="grid" />
-  <file name="grid\edit-grid.js" path="grid" />
-  <file name="grid\from-markup.js" path="grid" />
-  <file name="grid\paging.js" path="grid" />
-  <file name="grid\xml-grid.js" path="grid" />
-  <file name="layout\feed-viewer.js" path="layout" />
-  <file name="menu\menus.js" path="menu" />
-  <file name="resizable\basic.js" path="resizable" />
-  <file name="tabs\tabs-adv.js" path="tabs" />
-  <file name="tabs\tabs-example.js" path="tabs" />
-  <file name="tree\organizer.js" path="tree" />
-  <file name="tree\reorder.js" path="tree" />
-  <file name="tree\two-trees.js" path="tree" />
-  <file name="view\chooser-example.js" path="view" />
-  <file name="view\chooser.js" path="view" />
   <file name="effects.js" path="" />
-  <file name="examples.js" path="" />
   <file name="jquery-plugins.js" path="" />
   <file name="lib.js" path="" />
   <file name="prototype.js" path="" />
@@ -161,12 +135,10 @@
   <file name="layout\images\warning.gif" path="layout\images" />
   <file name="layout\feed-proxy.ashx" path="layout" />
   <file name="layout\feed-proxy.ashx.vb" path="layout" />
-  <file name="form\xml-form.js" path="form" />
   <file name="form\xml-form.xml" path="form" />
   <file name="form\xml-form.html" path="form" />
   <file name="form\xml-errors.xml" path="form" />
   <file name="tree\dependency.html" path="tree" />
-  <file name="tree\dependency.js" path="tree" />
   <file name="tree\dependency.css" path="tree" />
   <file name="tree\dependency.php" path="tree" />
   <file name="shared\icons\fam\add.gif" path="shared\icons\fam" />
@@ -188,11 +160,7 @@
   <file name="form\load-form.php" path="form" />
   <file name="form\save-form.php" path="form" />
   <file name="locale\dutch-form.html" path="locale" />
-  <file name="locale\dutch-form.js" path="locale" />
-  <file name="locale\dutch-provinces.js" path="locale" />
-  <file name="locale\languages.js" path="locale" />
   <file name="locale\multi-lang.html" path="locale" />
-  <file name="locale\multi-lang.js" path="locale" />
   <file name="shared\icons\.DS_Store" path="shared\icons" />
   <file name="shared\icons\arrow-down.gif" path="shared\icons" />
   <file name="shared\icons\arrow-up.gif" path="shared\icons" />
@@ -200,5 +168,55 @@
   <file name="table.html" path="" />
   <file name="grid\grid-perf.html" path="grid" />
   <file name="panels\panels.html" path="panels" />
+  <file name="dialog\hello.js" path="dialog" />
+  <file name="dialog\layout.js" path="dialog" />
+  <file name="dialog\msg-box.js" path="dialog" />
+  <file name="dialog\post.js" path="dialog" />
+  <file name="form\combos.js" path="form" />
+  <file name="form\dynamic.js" path="form" />
+  <file name="form\forms.js" path="form" />
+  <file name="form\forum-search.js" path="form" />
+  <file name="form\states.js" path="form" />
+  <file name="form\xml-form.js" path="form" />
+  <file name="grid\array-grid.js" path="grid" />
+  <file name="grid\custom-grid.js" path="grid" />
+  <file name="grid\edit-grid.js" path="grid" />
+  <file name="grid\from-markup.js" path="grid" />
+  <file name="grid\paging.js" path="grid" />
+  <file name="grid\xml-grid.js" path="grid" />
+  <file name="layout\feed-viewer.js" path="layout" />
+  <file name="locale\dutch-form.js" path="locale" />
+  <file name="locale\dutch-provinces.js" path="locale" />
+  <file name="locale\languages.js" path="locale" />
+  <file name="locale\multi-lang.js" path="locale" />
+  <file name="menu\menus.js" path="menu" />
   <file name="panels\panels.js" path="panels" />
+  <file name="panels\stack.html" path="panels" />
+  <file name="resizable\basic.js" path="resizable" />
+  <file name="tabs\tabs-adv.js" path="tabs" />
+  <file name="tabs\tabs-example.js" path="tabs" />
+  <file name="tree\dependency.js" path="tree" />
+  <file name="tree\organizer.js" path="tree" />
+  <file name="tree\reorder.js" path="tree" />
+  <file name="tree\two-trees.js" path="tree" />
+  <file name="view\chooser-example.js" path="view" />
+  <file name="view\chooser.js" path="view" />
+  <file name="examples.js" path="" />
+  <file name="panels\desktop.html" path="panels" />
+  <file name="panels\desktop.js" path="panels" />
+  <file name="panels\images\appbar-bg.gif" path="panels\images" />
+  <file name="panels\images\desktop.gif" path="panels\images" />
+  <file name="panels\images\desktop.jpg" path="panels\images" />
+  <file name="panels\images\beach.jpg" path="panels\images" />
+  <file name="panels\images\task-btn-sprite.gif" path="panels\images" />
+  <file name="panels\app.css" path="panels" />
+  <file name="panels\app.html" path="panels" />
+  <file name="panels\app.js" path="panels" />
+  <file name="panels\desktop.css" path="panels" />
+  <file name="panels\images\appbar-btn-sprite.gif" path="panels\images" />
+  <file name="panels\images\qlaunch-bg.gif" path="panels\images" />
+  <file name="panels\images\title-bg.gif" path="panels\images" />
+  <file name="panels\images\app-win-btn-sprite.gif" path="panels\images" />
+  <file name="panels\images\windows-bg.gif" path="panels\images" />
+  <file name="panels\images\xtrack.gif" path="panels\images" />
 </project>

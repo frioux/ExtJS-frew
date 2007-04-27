@@ -22,6 +22,7 @@
     <include name="css\combo.css" />
     <include name="css\grid3.css" />
     <include name="css\panel.css" />
+    <include name="css\window.css" />
   </target>
   <file name="images\basic-dialog\gray\close.gif" path="images\basic-dialog\gray" />
   <file name="images\basic-dialog\gray\dlg-bg.gif" path="images\basic-dialog\gray" />
@@ -505,4 +506,17 @@
   <file name="images\default\window\corners-sprite.gif" path="images\default\window" />
   <file name="images\default\window\left-right.gif" path="images\default\window" />
   <file name="images\default\window\top-bottom.gif" path="images\default\window" />
+  <file name="css\window.css" path="css" />
+  <file name="images\default\panel\top-bottom.png" path="images\default\panel" />
+  <file name="images\default\window\top-bottom.png" path="images\default\window" />
+  <file name="images\default\window\corners-sprite.png" path="images\default\window" />
+  <file name="images\default\window\top-bottom.psd" path="images\default\window" />
+  <file name="images\default\window\corners-sprite.psd" path="images\default\window" />
+  <file name="images\default\window\left-right.png" path="images\default\window" />
+  <file name="images\default\window\left-right.psd" path="images\default\window" />
+  <file name="images\default\window\left-corners.png" path="images\default\window" />
+  <file name="images\default\window\left-corners.psd" path="images\default\window" />
+  <file name="images\default\window\right-corners.png" path="images\default\window" />
+  <file name="images\default\window\right-corners.psd" path="images\default\window" />
+  <file name="images\default\shadow-c.png" path="images\default" />
 </project>
