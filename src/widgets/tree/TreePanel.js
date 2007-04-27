@@ -1,7 +1,7 @@
 /**
  * @class Ext.tree.TreePanel
  * @extends Ext.data.Tree
- 
+
  * @cfg {Boolean} rootVisible false to hide the root node (defaults to true)
  * @cfg {Boolean} lines false to disable tree lines (defaults to true)
  * @cfg {Boolean} enableDD true to enable drag and drop
@@ -54,7 +54,7 @@ Ext.tree.TreePanel = function(el, config){
         */
         "textchange" : true,
         /**
-        * @event expand
+        * @event beforeexpand
         * Fires before a node is expanded, return false to cancel.
         * @param {Node} node The node
         * @param {Boolean} deep
@@ -62,7 +62,7 @@ Ext.tree.TreePanel = function(el, config){
         */
         "beforeexpand" : true,
         /**
-        * @event expand
+        * @event beforecollapse
         * Fires before a node is collapsed, return false to cancel.
         * @param {Node} node The node
         * @param {Boolean} deep
@@ -76,14 +76,14 @@ Ext.tree.TreePanel = function(el, config){
         */
         "expand" : true,
         /**
-        * @event textchange
+        * @event disabledchange
         * Fires when the disabled status of a node changes
         * @param {Node} node The node
         * @param {Boolean} disabled
         */
         "disabledchange" : true,
         /**
-        * @event textchange
+        * @event collapse
         * Fires when a node is collapsed
         * @param {Node} node The node
         */
@@ -124,7 +124,7 @@ Ext.tree.TreePanel = function(el, config){
         "beforechildrenrendered":true,
        /**
 	     * @event startdrag
-	     * Fires when a node starts being dragged 
+	     * Fires when a node starts being dragged
 	     * @param {Ext.tree.TreePanel} this
 	     * @param {Ext.tree.TreeNode} node
 	     * @param {event} e The raw browser event
@@ -140,7 +140,7 @@ Ext.tree.TreePanel = function(el, config){
 	    "enddrag" : true,
 	    /**
 	     * @event dragdrop
-	     * Fires when a dragged node is dropped on a valid DD target 
+	     * Fires when a dragged node is dropped on a valid DD target
 	     * @param {Ext.tree.TreePanel} this
 	     * @param {Ext.tree.TreeNode} node
 	     * @param {DD} dd The dd it was dropped on
@@ -158,7 +158,7 @@ Ext.tree.TreePanel = function(el, config){
 	     * <li>point - The point of the drop - append, above or below</li>
 	     * <li>source - The drag source</li>
 	     * <li>rawEvent - Raw mouse event</li>
-	     * <li>dropNode - Drop node(s) provided by the source <b>OR</b> you can supply node(s) 
+	     * <li>dropNode - Drop node(s) provided by the source <b>OR</b> you can supply node(s)
 	     * to be inserted by setting them on this object.</li>
 	     * <li>cancel - Set this to true to cancel the drop.</li>
 	     * </ul>
@@ -218,9 +218,9 @@ Ext.extend(Ext.tree.TreePanel, Ext.data.Tree, {
                 p.expandedChild.collapse();
             }
             p.expandedChild = node;
-        }    
+        }
     },
-    
+
     // private override
     setRootNode : function(node){
         Ext.tree.TreePanel.superclass.setRootNode.call(this, node);
@@ -229,35 +229,35 @@ Ext.extend(Ext.tree.TreePanel, Ext.data.Tree, {
         }
         return node;
     },
-    
+
     /**
      * Returns the container element for this TreePanel
      */
     getEl : function(){
-        return this.el;  
+        return this.el;
     },
-    
+
     /**
      * Returns the default TreeLoader for this TreePanel
      */
     getLoader : function(){
-        return this.loader;    
+        return this.loader;
     },
-    
+
     /**
      * Expand all nodes
      */
     expandAll : function(){
         this.root.expand(true);
     },
-    
+
     /**
      * Collapse all nodes
      */
     collapseAll : function(){
-        this.root.collapse(true);  
+        this.root.collapse(true);
     },
-    
+
     /**
      * Returns the selection model used by this TreePanel
      */
@@ -267,7 +267,7 @@ Ext.extend(Ext.tree.TreePanel, Ext.data.Tree, {
         }
         return this.selModel;
     },
-    
+
     /**
      * Expands a specified path in this TreePanel. A path can be retrieved from a node with {@link Ext.data.Node#getPath}
      * @param {String} path
@@ -305,7 +305,7 @@ Ext.extend(Ext.tree.TreePanel, Ext.data.Tree, {
         };
         curNode.expand(false, false, f);
     },
-    
+
     /**
      * Selects the node in this tree at the specified path. A path can be retrieved from a node with {@link Ext.data.Node#getPath}
      * @param {String} path
@@ -341,7 +341,7 @@ Ext.extend(Ext.tree.TreePanel, Ext.data.Tree, {
             }
         }
     },
-    
+
     /**
      * Trigger rendering of this TreePanel
      */
@@ -349,9 +349,9 @@ Ext.extend(Ext.tree.TreePanel, Ext.data.Tree, {
         this.container = this.el.createChild({tag:"ul",
                cls:"x-tree-root-ct " +
                (this.lines ? "x-tree-lines" : "x-tree-no-lines")});
-        
+
         if(this.containerScroll){
-            Ext.dd.ScrollManager.register(this.el);    
+            Ext.dd.ScrollManager.register(this.el);
         }
         if((this.enableDD || this.enableDrop) && !this.dropZone){
            /**
