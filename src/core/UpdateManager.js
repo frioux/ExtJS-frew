@@ -45,7 +45,7 @@ Ext.UpdateManager = function(el, forceNew){
      */
     this.defaultUrl = null;
     
-    this.events = {
+    this.addEvents({
         /**
          * @event beforeupdate
          * Fired before an update is made, return false from your handler and the update is cancelled. 
@@ -68,7 +68,7 @@ Ext.UpdateManager = function(el, forceNew){
          * @param {Object} oResponseObject The response Object
          */
         "failure": true
-    };
+    });
     var d = Ext.UpdateManager.defaults;
     /**
      * Blank page URL to use with SSL file uploads (Defaults to Ext.UpdateManager.defaults.sslBlankUrl or "about:blank").

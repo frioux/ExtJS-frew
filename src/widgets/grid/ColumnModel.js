@@ -56,7 +56,7 @@ Ext.grid.ColumnModel = function(config){
      */
     this.defaultSortable = false;
 
-    this.events = {
+    this.addEvents({
         /**
 	     * @event widthchange
 	     * Fires when the width of a column changes
@@ -97,7 +97,7 @@ Ext.grid.ColumnModel = function(config){
          * @param {Boolean} locked true if locked
          */
         "columnlockchange" : true
-    };
+    });
     Ext.grid.ColumnModel.superclass.constructor.call(this);
 };
 Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {

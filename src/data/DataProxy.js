@@ -11,7 +11,7 @@
  * {@link Ext.data.HttpProxy#load}.
  */
 Ext.data.DataProxy = function(){
-    this.events = {
+    this.addEvents({
         /**
          * @event beforeload
          * Fires before a network request is made to retrieve a data object.
@@ -33,7 +33,7 @@ Ext.data.DataProxy = function(){
          * @param {Object} e The Exception.
          */
         loadexception : true
-    };
+    });
     Ext.data.DataProxy.superclass.constructor.call(this);
 };
 

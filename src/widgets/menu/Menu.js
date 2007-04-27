@@ -10,7 +10,7 @@
 Ext.menu.Menu = function(config){
     Ext.apply(this, config);
     this.id = this.id || Ext.id();
-    this.events = {
+    this.addEvents({
         /**
          * @event beforeshow
          * Fires before this menu is displayed
@@ -66,7 +66,7 @@ Ext.menu.Menu = function(config){
          * @param {Ext.EventObject} e
          */
         itemclick: true
-    };
+    });
     Ext.menu.MenuMgr.register(this);
     var mis = this.items;
     this.items = new Ext.util.MixedCollection();

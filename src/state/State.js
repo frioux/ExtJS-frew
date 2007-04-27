@@ -13,9 +13,9 @@ Ext.state.Provider = function(){
      * @param {String} key The state key which was changed
      * @param {String} value The encoded value for the state
      */
-    this.events = {
+    this.addEvents({
         "statechange": true
-    };
+    });
     this.state = {};
     Ext.state.Provider.superclass.constructor.call(this);
 };

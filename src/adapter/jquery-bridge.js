@@ -195,7 +195,7 @@ Ext.lib.Ajax = function(){
 
         formRequest : function(form, uri, cb, data, isUpload, sslUri){
             jQuery.ajax({
-                type: 'POST',
+                type: Ext.getDom(form).method ||'POST',
                 url: uri,
                 data: jQuery(form).formSerialize()+(data?'&'+data:''),
                 timeout: cb.timeout,

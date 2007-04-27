@@ -69,7 +69,7 @@ Ext.BasicDialog = function(el, config){
                         {tag: "div", id: el, style:'visibility:hidden;'}, true);
         }
     }
-    el = this.el;
+    el = this.el;                                                                                                                                                                                                                                                                                                                                                                                                  
     el.setDisplayed(true);
     el.hide = this.hideAction;
     this.id = el.id;
@@ -199,7 +199,7 @@ Ext.BasicDialog = function(el, config){
     if(this.autoTabs){
         this.initTabs();
     }
-    this.events = {
+    this.addEvents({
         /**
          * @event keydown
          * Fires when a key is pressed
@@ -247,7 +247,7 @@ Ext.BasicDialog = function(el, config){
          * @param {Ext.BasicDialog} this
          */
         "show" : true
-    };
+    });
     el.on("keydown", this.onKeyDown, this);
     el.on("mousedown", this.toFront, this);
     Ext.EventManager.onWindowResize(this.adjustViewport, this, true);
@@ -992,8 +992,9 @@ Ext.DialogManager = function(){
         accessList.sort(sortDialogs);
         var seed = Ext.DialogManager.zseed;
         for(var i = 0, len = accessList.length; i < len; i++){
-            if(accessList[i]){
-                accessList[i].setZIndex(seed + (i*10));
+            var dlg = accessList[i];
+            if(dlg){
+                dlg.setZIndex(seed + (i*10));
             }
         }
     };

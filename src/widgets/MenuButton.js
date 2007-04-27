@@ -19,7 +19,7 @@ Ext.MenuButton = function(renderTo, config){
      * @param {MenuButton} this
      * @param {EventObject} e The click event
      */
-    this.events["arrowclick"] = true;
+    this.addEvents({"arrowclick":true});
 };
 
 Ext.extend(Ext.MenuButton, Ext.Button, {

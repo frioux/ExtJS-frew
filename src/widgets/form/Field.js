@@ -72,6 +72,10 @@ Ext.extend(Ext.form.Field, Ext.Component,  {
      */
     validationEvent : "keyup",
     /**
+     * @cfg {String/Boolean} validateOnBlur Defaults to true.
+     */
+    validateOnBlur : true,
+    /**
      * @cfg {Number} validationDelay The length of time in milliseconds after user input begins until validation is initiated (defaults to 250)
      */
     validationDelay : 250,
@@ -134,7 +138,7 @@ side          Add an error icon to the right of the field with a popup on hover
     },
 
     // private
-    onRender : function(ct){
+    onRender : function(ct, position){
         if(this.el){
             this.el = Ext.get(this.el);
             if(!this.target){
@@ -151,7 +155,7 @@ side          Add an error icon to the right of the field with a popup on hover
             if(this.tabIndex !== undefined){
                 cfg.tabIndex = this.tabIndex;
             }
-            this.el = ct.createChild(cfg);
+            this.el = ct.createChild(cfg, position);
         }
         var type = this.el.dom.type;
         if(type){
@@ -225,7 +229,7 @@ side          Add an error icon to the right of the field with a popup on hover
     onBlur : function(){
         this.el.removeClass(this.focusClass);
         this.hasFocus = false;
-        if(this.validationEvent != "blur"){
+        if(this.validationEvent !== false && this.validateOnBlur && this.validationEvent != "blur"){
             this.validate();
         }
         var v = this.getValue();

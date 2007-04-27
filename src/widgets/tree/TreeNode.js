@@ -42,7 +42,7 @@ Ext.tree.TreeNode = function(attributes){
      */
     this.disabled = attributes.disabled === true;
     
-    Ext.apply(this.events, {
+    this.addEvents({
         /**
         * @event textchange
         * Fires when the text for this node is changed

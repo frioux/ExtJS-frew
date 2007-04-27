@@ -182,7 +182,7 @@ Ext.lib.Ajax = {
 
     formRequest : function(form, uri, cb, data, isUpload, sslUri){
         CN.setForm(form, isUpload, sslUri);
-        return CN.asyncRequest('POST', uri, cb, data);
+        return CN.asyncRequest(Ext.getDom(form).method ||'POST', uri, cb, data);
     },
 
     isCallInProgress : function(trans){

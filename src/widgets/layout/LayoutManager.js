@@ -17,7 +17,7 @@ Ext.LayoutManager = function(container, config){
     /** false to disable window resize monitoring @type Boolean */
     this.monitorWindowResize = true;
     this.regions = {};
-    this.events = {
+    this.addEvents({
         /**
          * @event layout
          * Fires when a layout is performed. 
@@ -43,7 +43,7 @@ Ext.LayoutManager = function(container, config){
          * @param {Ext.LayoutRegion} region
          */
         "regionexpanded" : true
-    };
+    });
     this.updating = false;
     Ext.EventManager.onWindowResize(this.onWindowResize, this, true);
 };

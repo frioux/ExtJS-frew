@@ -34,7 +34,7 @@ Ext.data.Store = function(config){
 
     this.modified = [];
 
-    this.events = {
+    this.addEvents({
         /**
          * @event datachanged
          * Fires when the data cache has changed, and a widget which is using this Store
@@ -99,7 +99,7 @@ Ext.data.Store = function(config){
          * Called with the signature of the Proxy's "loadexception" event.
          */
         loadexception : true
-    };
+    });
 
     if(this.proxy){
         this.relayEvents(this.proxy,  ["loadexception"]);

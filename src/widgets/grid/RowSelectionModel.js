@@ -15,7 +15,7 @@ Ext.grid.RowSelectionModel = function(config){
     this.last = false;
     this.lastActive = false;
 
-    this.events = {
+    this.addEvents({
         /**
 	     * @event selectionchange
 	     * Fires when the selection changes 
@@ -38,7 +38,7 @@ Ext.grid.RowSelectionModel = function(config){
 	    "rowselect" : true,
         
         "rowdeselect" : true
-    };
+    });
     
     this.locked = false;
 };

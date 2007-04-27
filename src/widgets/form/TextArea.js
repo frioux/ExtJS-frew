@@ -36,7 +36,7 @@ Ext.extend(Ext.form.TextArea, Ext.form.TextField,  {
     preventScrollbars: false,
 
     // private
-    onRender : function(ct){
+    onRender : function(ct, position){
         if(!this.el){
             this.defaultAutoCreate = {
                 tag: "textarea",
@@ -44,7 +44,7 @@ Ext.extend(Ext.form.TextArea, Ext.form.TextField,  {
                 autocomplete: "off"
             };
         }
-        Ext.form.TextArea.superclass.onRender.call(this, ct);
+        Ext.form.TextArea.superclass.onRender.call(this, ct, position);
         if(this.grow){
             this.textSizeEl = Ext.DomHelper.append(document.body, {
                 tag: "pre", cls: "x-form-grow-sizer"

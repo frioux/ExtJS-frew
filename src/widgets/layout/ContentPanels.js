@@ -53,7 +53,7 @@ Ext.ContentPanel = function(el, config, content){
     }else{
         this.resizeEl = this.el;
     }
-    this.events = {
+    this.addEvents({
         /**
          * @event activate
          * Fires when this panel is activated. 
@@ -75,7 +75,7 @@ Ext.ContentPanel = function(el, config, content){
          * @param {Number} height The height after any component adjustments
          */
         "resize" : true
-    };
+    });
     if(this.autoScroll){
         this.resizeEl.setStyle("overflow", "auto");
     }

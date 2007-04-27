@@ -16,7 +16,7 @@ Ext.extend(Ext.menu.Adapter, Ext.menu.BaseItem, {
     canActivate : true,
 
     // private
-    onRender : function(container){
+    onRender : function(container, position){
         this.component.render(container);
         this.el = this.component.getEl();
     },

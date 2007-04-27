@@ -35,9 +35,9 @@
     left:0;
     top:0;
     overflow:hidden;
-    opacity: .01;
-    -moz-opacity: .01;
-    filter: alpha(opacity=1);
+}
+.ext-ie .ext-shim {
+    filter: alpha(opacity=0);
 }
 
 .x-mask-loading div {
@@ -143,6 +143,16 @@
     width: 10px;
 }
 
+.x-ie-shadow {
+    display: none;
+    position: absolute;
+    overflow: hidden;
+    left:0;
+    top:0;
+    background:#999;
+    zoom:1;
+}
+
 .x-shadow {
     display: none;
     position: absolute;
@@ -190,10 +200,7 @@
 .x-shadow .xsmc {
     float: left;
     height: 100%;
-    background: #333333;
-    opacity: .35;
-    -moz-opacity: .35;
-    filter: alpha(opacity=25);
+    background: transparent url( ../images/default/shadow-c.png );
 }
 
 .x-shadow .xst, .x-shadow .xsb {

@@ -90,7 +90,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
     updateEl : false,
 
     // private
-    onRender : function(ct){
+    onRender : function(ct, position){
         this.el = new Ext.Layer({
             shadow: this.shadow,
             cls: "x-editor",

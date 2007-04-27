@@ -32,7 +32,7 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
     ctype: "Ext.menu.Item",
 
     // private
-    onRender : function(container){
+    onRender : function(container, position){
         var el = document.createElement("a");
         el.hideFocus = true;
         el.unselectable = "on";
@@ -45,7 +45,7 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
                 '<img src="{0}" class="x-menu-item-icon">{1}',
                 this.icon || Ext.BLANK_IMAGE_URL, this.text);
         this.el = el;
-        Ext.menu.Item.superclass.onRender.call(this, container);
+        Ext.menu.Item.superclass.onRender.call(this, container, position);
     },
 
     /**

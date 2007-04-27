@@ -15,6 +15,7 @@ Ext.EventManager = function(){
     var fireDocReady = function(){
         if(!docReadyState){
             docReadyState = true;
+            Ext.isReady = true;
             if(docReadyProcId){
                 clearInterval(docReadyProcId);
             }

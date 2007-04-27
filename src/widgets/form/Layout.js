@@ -48,12 +48,12 @@ Ext.extend(Ext.form.Layout, Ext.Component, {
     defaultAutoCreate : {tag: 'div', cls: 'x-form-ct'},
 
     // private
-    onRender : function(ct){
+    onRender : function(ct, position){
         if(this.el){ // from markup
             this.el = Ext.get(this.el);
         }else {  // generate
             var cfg = this.getAutoCreate();
-            this.el = ct.createChild(cfg);
+            this.el = ct.createChild(cfg, position);
         }
         if(this.style){
             this.el.applyStyles(this.style);
@@ -144,8 +144,8 @@ Ext.extend(Ext.form.Column, Ext.form.Layout, {
     defaultAutoCreate : {tag: 'div', cls: 'x-form-ct x-form-column'},
 
     // private
-    onRender : function(ct){
-        Ext.form.Column.superclass.onRender.call(this, ct);
+    onRender : function(ct, position){
+        Ext.form.Column.superclass.onRender.call(this, ct, position);
         if(this.width){
             this.el.setWidth(this.width);
         }
@@ -177,8 +177,8 @@ Ext.extend(Ext.form.FieldSet, Ext.form.Layout, {
     defaultAutoCreate : {tag: 'fieldset', cn: {tag:'legend'}},
 
     // private
-    onRender : function(ct){
-        Ext.form.FieldSet.superclass.onRender.call(this, ct);
+    onRender : function(ct, position){
+        Ext.form.FieldSet.superclass.onRender.call(this, ct, position);
         if(this.legend){
             this.setLegend(this.legend);
         }

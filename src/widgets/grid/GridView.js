@@ -1323,7 +1323,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
 
         if((this.grid.enableDragDrop || this.grid.enableDrag) && Ext.grid.GridDragZone){
-            var dd = new Ext.grid.GridDragZone(this.grid, {
+            this.dd = new Ext.grid.GridDragZone(this.grid, {
                 ddGroup : this.grid.ddGroup || 'GridDD'
             });
         }
@@ -1396,8 +1396,8 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 
         if(!c.dom.offsetWidth){ // display:none?
             if(initialRender){
-                lw.show();
-                mw.show();
+                this.lockedWrap.show();
+                this.mainWrap.show();
             }
             return;
         }

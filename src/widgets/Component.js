@@ -56,6 +56,8 @@ Ext.Component = function(config){
     if(config.tagName || config.dom || typeof config == "string"){ // element object
         config = {el: config, id: config.id || config};
     }
+    this.initialConfig = config;
+
     Ext.apply(this, config);
     this.addEvents({
         /**
@@ -124,6 +126,7 @@ Ext.Component = function(config){
     }
     Ext.ComponentMgr.register(this);
     Ext.Component.superclass.constructor.call(this);
+    this.initComponent();
 };
 
 // private
@@ -160,11 +163,12 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
         return this[this.actionMode];
     },
 
+    initComponent : Ext.emptyFn,     
     /**
      * If this is a lazy rendering component, render it to its container element
      * @param {String/HTMLElement/Element} container (optional) The element this component should be rendered into. If it is being applied to existing markup, this should be left off.
      */
-    render : function(container){
+    render : function(container, position){
         if(!this.rendered && this.fireEvent("beforerender", this) !== false){
             if(!container && this.el){
                 this.el = Ext.get(this.el);
@@ -173,7 +177,14 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
             }
             this.container = Ext.get(container);
             this.rendered = true;
-            this.onRender(this.container);
+            if(position !== undefined){
+                if(typeof position == 'number'){
+                    position = this.container.dom.childNodes[position];
+                }else{
+                    position = Ext.getDom(position);
+                }
+            }
+            this.onRender(this.container, position || null);
             if(this.cls){
                 this.el.addClass(this.cls);
                 delete this.cls;
@@ -196,11 +207,11 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
 
     // private
     // default function is not really useful
-    onRender : function(ct){
+    onRender : function(ct, position){
         if(this.el){
             this.el = Ext.get(this.el);
             if(this.allowDomMove !== false){
-                ct.dom.appendChild(this.el.dom);
+                ct.dom.insertBefore(this.el.dom, position);
             }
         }
     },
@@ -382,5 +393,13 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
      */
     isVisible : function(){
         return this.getActionEl().isVisible();
+    },
+
+    cloneConfig : function(overrides){
+        overrides = overrides || {};
+        var id = overrides.id || Ext.id();
+        var cfg = Ext.applyIf(overrides, this.initialConfig);
+        cfg.id = id; // prevent dup id
+        return new this.__extcls(cfg);
     }
 });

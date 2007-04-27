@@ -74,7 +74,7 @@ Ext.TabPanel = function(container, config){
     this.active = null;
     this.activateDelegate = this.activate.createDelegate(this);
     
-    this.events = {
+    this.addEvents({
         /**
          * @event tabchange
          * Fires when the active tab changes
@@ -90,7 +90,7 @@ Ext.TabPanel = function(container, config){
          * @param {Ext.TabPanelItem} tab The tab being changed to
          */
         "beforetabchange" : true
-    };
+    });
     
     Ext.EventManager.onWindowResize(this.onResize, this);
     this.cpad = this.el.getPadding("lr");
@@ -425,7 +425,7 @@ Ext.TabPanelItem = function(tabPanel, id, text, closable){
         c.on("click", this.closeClick, this);
      }
     
-    this.events = {
+    this.addEvents({
          /**
          * @event activate
          * Fires when this tab becomes the active tab
@@ -453,7 +453,7 @@ Ext.TabPanelItem = function(tabPanel, id, text, closable){
          * @param {Ext.TabPanelItem} this
          */
          "deactivate" : true
-    };
+    });
     this.hidden = false;
 
     Ext.TabPanelItem.superclass.constructor.call(this);

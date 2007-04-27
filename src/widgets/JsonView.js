@@ -54,7 +54,6 @@ Ext.JsonView = function(container, tpl, config){
      * @param {Ext.View} this
      * @param {Object} data The json data loaded
      */
-    this.events["beforerender"] = true;
     /**
      * @event load
      * Fires when data is loaded.
@@ -62,14 +61,17 @@ Ext.JsonView = function(container, tpl, config){
      * @param {Object} data The json data loaded
      * @param {Object} response The raw Connect response object
      */
-    this.events["load"] = true;
     /**
      * @event loadexception
      * Fires when loading fails.
      * @param {Ext.View} this
      * @param {Object} response The raw Connect response object
      */
-    this.events["loadexception"] = true;
+    this.addEvents({
+        'beforerender' : true,
+        'load' : true,
+        'loadexception' : true
+    });
 };
 Ext.extend(Ext.JsonView, Ext.View, {
     /**

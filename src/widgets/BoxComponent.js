@@ -13,11 +13,24 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
     deferHeight: false,
 
     setSize : function(w, h){
+        // support for standard size objects
+        if(typeof w == 'object'){
+            h = w.height;
+            w = w.width;
+        }
+        // not rendered
         if(!this.boxReady){
             this.width = w;
             this.height = h;
             return;
         }
+
+        // prevent recalcs when not needed
+        if(this.lastSize && this.lastSize.width == w && this.lastSize.height == h){
+            return;
+        }
+        this.lastSize = {width: w, height: h};
+
         var adj = this.adjustSize(w, h);
         var aw = adj.width, ah = adj.height;
         if(aw !== undefined || ah !== undefined){ // this code is nasty but performs better with floaters
@@ -105,8 +118,8 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
         return this;
     },
 
-    onRender : function(ct){
-        Ext.BoxComponent.superclass.onRender.call(this, ct);
+    onRender : function(ct, position){
+        Ext.BoxComponent.superclass.onRender.call(this, ct, position);
         if(this.resizeEl){
             this.resizeEl = Ext.get(this.resizeEl);
         }

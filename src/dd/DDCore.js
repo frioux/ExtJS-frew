@@ -494,9 +494,16 @@ Ext.dd.DragDrop.prototype = {
         pad = pad || this.defaultPadding;
         var b = Ext.get(this.getEl()).getBox();
         var ce = Ext.get(constrainTo);
-        var c = ce.dom == document.body ? { x: 0, y: 0,
-                width: Ext.lib.Dom.getViewWidth(),
-                height: Ext.lib.Dom.getViewHeight()} : ce.getBox(inContent || false);
+        var s = ce.getScroll();
+        var c, cd = ce.dom;
+        if(cd == document.body){
+            c = { x: s.left, y: s.top, width: Ext.lib.Dom.getViewWidth(), height: Ext.lib.Dom.getViewHeight()};
+        }else{
+            xy = ce.getXY();
+            c = {x : xy[0]+s.left, y: xy[1]+s.top, width: cd.clientWidth, height: cd.clientHeight};
+        }
+
+
         var topSpace = b.y - c.y;
         var leftSpace = b.x - c.x;
 
@@ -1768,7 +1775,6 @@ Ext.dd.DragDropMgr = function() {
                 this.dragCurrent.b4Drag(e);
                 this.dragCurrent.onDrag(e);
                 if(!this.dragCurrent.moveOnly){
-                    console.log('wtf')
                     this.fireEvents(e, false);
                 }
             }

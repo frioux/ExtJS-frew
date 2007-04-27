@@ -50,6 +50,8 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
      */
     autoSize: Ext.emptyFn,
 
+    monitorTab : true,
+
     // private
     customSize : true,
 
@@ -80,8 +82,8 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
     },
 
     // private
-    onRender : function(ct){
-        Ext.form.TriggerField.superclass.onRender.call(this, ct);
+    onRender : function(ct, position){
+        Ext.form.TriggerField.superclass.onRender.call(this, ct, position);
         this.wrap = this.el.wrap({cls: "x-form-field-wrap"});
         this.trigger = this.wrap.createChild({
             tag: "img", src: Ext.BLANK_IMAGE_URL, cls: "x-form-trigger "+this.triggerClass});
@@ -110,8 +112,10 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
         Ext.form.TriggerField.superclass.onFocus.call(this);
         if(!this.mimicing){
             this.mimicing = true;
-            Ext.get(document).on("mousedown", this.mimicBlur, this);
-            this.el.on("keydown", this.checkTab, this);
+            Ext.get(Ext.isIE ? document.body : document).on("mousedown", this.mimicBlur, this);
+            if(this.monitorTab){
+                this.el.on("keydown", this.checkTab, this);
+            }
         }
     },
 
@@ -137,8 +141,10 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
     // private
     triggerBlur : function(){
         this.mimicing = false;
-        Ext.get(document).un("mousedown", this.mimicBlur);
-        this.el.un("keydown", this.checkTab, this);
+        Ext.get(Ext.isIE ? document.body : document).un("mousedown", this.mimicBlur);
+        if(this.monitorTab){
+            this.el.un("keydown", this.checkTab, this);
+        }
         Ext.form.TriggerField.superclass.onBlur.call(this);
     },
 

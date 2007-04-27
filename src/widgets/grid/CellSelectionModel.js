@@ -9,7 +9,7 @@ Ext.grid.CellSelectionModel = function(config){
 
     this.selection = null;
 
-    this.events = {
+    this.addEvents({
         /**
 	     * @event beforerowselect
 	     * Fires before a cell is selected.
@@ -37,7 +37,7 @@ Ext.grid.CellSelectionModel = function(config){
 	        </ul>
 	     */
 	    "selectionchange" : true
-    };
+    });
 };
 
 Ext.extend(Ext.grid.CellSelectionModel, Ext.grid.AbstractSelectionModel,  {

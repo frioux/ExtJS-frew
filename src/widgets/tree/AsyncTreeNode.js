@@ -14,13 +14,12 @@
     * Fires before this node is loaded, return false to cancel
     * @param {Node} this This node
     */
-    this.events["beforeload"] = true;
+    this.addEvents({'beforeload':true, 'load': true});
     /**
     * @event load
     * Fires when this node is loaded
     * @param {Node} this This node
     */
-    this.events["load"] = true;
     /**
      * The loader used by this node (defaults to using the tree's defined loader)
      * @type TreeLoader

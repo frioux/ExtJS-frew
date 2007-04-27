@@ -99,7 +99,7 @@ Ext.SplitBar = function(dragElement, resizingElement, orientation, placement, ex
         this.el.addClass("x-splitbar-v");
     }
     
-    this.events = {
+    this.addEvents({
         /**
          * @event resize
          * Fires when the splitter is moved (alias for moved)
@@ -120,7 +120,7 @@ Ext.SplitBar = function(dragElement, resizingElement, orientation, placement, ex
          * @param {Ext.SplitBar} this
          */
         "beforeresize" : true
-    };
+    });
 
     Ext.SplitBar.superclass.constructor.call(this);
 };

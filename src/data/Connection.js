@@ -11,11 +11,11 @@
  */
 Ext.data.Connection = function(config){
     Ext.apply(this, config);
-    this.events = {
+    this.addEvents({
         "beforerequest" : true,
         "requestcomplete" : true,
         "requestexception" : true
-    };
+    });
     Ext.data.Connection.superclass.constructor.call(this);
 };
 

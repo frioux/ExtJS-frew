@@ -34,7 +34,7 @@ Ext.util.ClickRepeater = function(el, config)
 
     Ext.apply(this, config);
 
-    this.events = {
+    this.addEvents({
     /**
      * @event mousedown
      * Fires when the mouse button is depressed.
@@ -53,7 +53,7 @@ Ext.util.ClickRepeater = function(el, config)
      * @param {Ext.util.ClickRepeater} this
      */
         "mouseup" : true
-    };
+    });
 
     this.el.on("mousedown", this.handleMouseDown, this);
     if(this.preventDefault || this.stopDefault){

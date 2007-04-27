@@ -60,7 +60,7 @@ Ext.grid.Grid = function(container, config){
         this.container.setHeight(this.height);
     }
     /** @private */
-	this.events = {
+	this.addEvents({
 	    // raw events
 	    /**
 	     * @event click
@@ -268,7 +268,7 @@ Ext.grid.Grid = function(container, config){
 	     * @param {event} e The raw browser event
 	     */
 	    "dragout" : true
-	};
+	});
 
     Ext.grid.Grid.superclass.constructor.call(this);
 };

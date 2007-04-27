@@ -67,8 +67,8 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
 
     
     // private
-    onRender : function(ct){
-        Ext.form.Checkbox.superclass.onRender.call(this, ct);
+    onRender : function(ct, position){
+        Ext.form.Checkbox.superclass.onRender.call(this, ct, position);
         if(this.inputValue !== undefined){
             this.el.dom.value = this.inputValue;
         }

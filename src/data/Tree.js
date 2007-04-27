@@ -16,7 +16,7 @@ Ext.data.Tree = function(root){
    if(root){
        this.setRootNode(root);
    }
-   this.events = {
+   this.addEvents({
        /**
         * @event append
         * Fires when a new child node is appended to a node in this tree.
@@ -88,7 +88,7 @@ Ext.data.Tree = function(root){
         * @param {Node} refNode The child node the node is being inserted before
         */
        "beforeinsert" : true
-   };
+   });
 
     Ext.data.Tree.superclass.constructor.call(this);
 };
@@ -195,7 +195,7 @@ Ext.data.Node = function(attributes){
      */
     this.nextSibling = null;
     
-    this.events = {
+    this.addEvents({
        /**
         * @event append
         * Fires when a new child node is appended
@@ -267,7 +267,7 @@ Ext.data.Node = function(attributes){
         * @param {Node} refNode The child node the node is being inserted before
         */
        "beforeinsert" : true
-   };
+   });
     this.listeners = this.attributes.listeners;
     Ext.data.Node.superclass.constructor.call(this);
 };

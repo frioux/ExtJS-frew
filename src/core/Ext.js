@@ -43,7 +43,8 @@ Ext.apply = function(o, c, defaults){
         isGecko = !isSafari && ua.indexOf("gecko") > -1,
         isBorderBox = isIE && !isStrict,
         isWindows = (ua.indexOf("windows") != -1 || ua.indexOf("win32") != -1),
-        isMac = (ua.indexOf("macintosh") != -1 || ua.indexOf("mac os x") != -1);
+        isMac = (ua.indexOf("macintosh") != -1 || ua.indexOf("mac os x") != -1),
+        isSecure = window.location.href.toLowerCase().indexOf("https") === 0;
 
     // remove css image flicker
 	if(isIE && !isIE7){
@@ -58,6 +59,16 @@ Ext.apply = function(o, c, defaults){
          * @type Boolean
          */
         isStrict : isStrict,
+        /**
+         * True if the page is running over SSL
+         * @type Boolean
+         */
+        isSecure : isSecure,
+        /**
+         * True when the document is fully initialized and ready for action
+         * @type Boolean
+         */
+        isReady : false,
         /**
          * URL to a blank file used by Ext when in secure mode for iframe src and onReady src to prevent
          * the IE insecure content warning (defaults to javascript:false).
@@ -90,6 +101,45 @@ Ext.apply = function(o, c, defaults){
         },
 
         /**
+         * Applies event listeners to elements by selectors when the document is ready.
+         * The event name is specified with an @ suffix.
+<pre><code>
+Ext.addBehaviors({
+   // add a listener for click on all anchors in element with id foo
+   '#foo a@click' : function(e, t){
+       // do something
+   },
+
+   // add the same listener to multiple selectors (separated by comma BEFORE the @)
+   '#foo a, #bar span.some-class@mouseover' : function(){
+       // do something
+   }
+});
+</code></pre>
+         * @param {Object} obj The list of behaviors to apply
+         */
+        addBehaviors : function(o){
+            if(!Ext.isReady){
+                Ext.onReady(function(){
+                    Ext.addBehaviors(o);
+                });
+                return;
+            }
+            var cache = {}; // simple cache for applying multiple behaviors to same selector does query multiple times
+            for(var b in o){
+                var parts = b.split('@');
+                if(parts[1]){ // for Object prototype breakers
+                    var s = parts[0];
+                    if(!cache[s]){
+                        cache[s] = Ext.select(s);
+                    }
+                    cache[s].on(parts[1], o[b]);
+                }
+            }
+            cache = null;
+        },
+
+        /**
          * Generates unique ids. If the element already has an id, it is unchanged
          * @param {String/HTMLElement/Element} el (optional) The element to generate an id for
          * @param {String} prefix (optional) Id prefix (defaults "ext-gen")
@@ -117,21 +167,27 @@ Ext.apply = function(o, c, defaults){
                     this[m] = o[m];
                 }
             };
-            return function(sc, sp, overrides){
-                var F = function(){}, scp, spp = sp.prototype;
+            return function(sb, sp, overrides){
+                if(typeof sp == 'object'){
+                    overrides = sp;
+                    sp = sb;
+                    sb = function(){};
+                }
+                var F = function(){}, sbp, spp = sp.prototype;
                 F.prototype = spp;
-                scp = sc.prototype = new F();
-                scp.constructor=sc;
-                sc.superclass=spp;
+                sbp = sb.prototype = new F();
+                sbp.constructor=sb;
+                sb.superclass=spp;
                 if(spp.constructor == Object.prototype.constructor){
                     spp.constructor=sp;
                 }
-                sc.override = function(o){
-                    Ext.override(sc, o);
+                sb.override = function(o){
+                    Ext.override(sb, o);
                 };
-                scp.override = io;
-                Ext.override(sc, overrides);
-                return sc;
+                sbp.override = io;
+                sbp.__extcls = sb;
+                Ext.override(sb, overrides);
+                return sb;
             };
         }(),
 
@@ -343,7 +399,7 @@ Ext.apply = function(o, c, defaults){
 })();
 
 Ext.namespace("Ext", "Ext.util", "Ext.grid", "Ext.dd", "Ext.tree", "Ext.data",
-                "Ext.form", "Ext.menu", "Ext.state", "Ext.lib");
+                "Ext.form", "Ext.menu", "Ext.state", "Ext.lib", "Ext.layout");
 
 
 /**

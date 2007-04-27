@@ -212,6 +212,9 @@
 .ext-ie .x-form fieldset legend {
     margin-bottom:10px;
 }
+.ext-ie .x-form fieldset {
+    padding-top: 0;
+}
 .x-form-empty-field {
     color:gray;
 }

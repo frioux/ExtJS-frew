@@ -75,8 +75,8 @@ Ext.extend(Ext.Layer, Ext.Element, {
         if(!shim){
             shim = this.createShim();
             shim.enableDisplayMode('block');
-            shim.dom.style.visibility = 'visible';
             shim.dom.style.display = 'none';
+            shim.dom.style.visibility = 'visible';
         }
         var pn = this.dom.parentNode;
         if(shim.dom.parentNode != pn){
@@ -95,6 +95,26 @@ Ext.extend(Ext.Layer, Ext.Element, {
         }
     },
 
+    disableShadow : function(){
+        if(this.shadow){
+            this.shadowDisabled = true;
+            this.shadow.hide();
+            this.lastShadowOffset = this.shadowOffset;
+            this.shadowOffset = 0;
+        }
+    },
+
+    enableShadow : function(show){
+        if(this.shadow){
+            this.shadowDisabled = false;
+            this.shadowOffset = this.lastShadowOffset;
+            delete this.lastShadowOffset;
+            if(show){
+                this.sync(true);
+            }
+        }
+    },
+
     // private
     // this code can execute repeatedly in milliseconds (i.e. during a drag) so
     // code size was sacrificed for effeciency (e.g. no getBox/setBox, no XY calls)
@@ -109,7 +129,7 @@ Ext.extend(Ext.Layer, Ext.Element, {
             var l = this.getLeft(true),
                 t = this.getTop(true);
 
-            if(sw){
+            if(sw && !this.shadowDisabled){
                 if(doShow && !sw.isVisible()){
                     sw.show(this);
                 }else{
@@ -121,8 +141,8 @@ Ext.extend(Ext.Layer, Ext.Element, {
                     }
                     // fit the shim behind the shadow, so it is shimmed too
                     var a = sw.adjusts, s = sh.dom.style;
-                    s.left = (l+a.l)+"px";
-                    s.top = (t+a.t)+"px";
+                    s.left = (Math.min(l, l+a.l))+"px";
+                    s.top = (Math.min(t, t+a.t))+"px";
                     s.width = (w+a.w)+"px";
                     s.height = (h+a.h)+"px";
                 }
@@ -181,7 +201,7 @@ Ext.extend(Ext.Layer, Ext.Element, {
                 vh = Ext.lib.Dom.getViewHeight();
             var s = Ext.get(document).getScroll();
 
-            xy = this.getXY();
+            var xy = this.getXY();
             var x = xy[0], y = xy[1];   
             var w = this.dom.offsetWidth+this.shadowOffset, h = this.dom.offsetHeight+this.shadowOffset;
             // only move it if it needs it
@@ -219,8 +239,13 @@ Ext.extend(Ext.Layer, Ext.Element, {
         }
     },
 
+    isVisible : function(){
+        return this.visible;    
+    },
+
     // private
     showAction : function(){
+        this.visible = true; // track visibility to prevent getStyle calls
         if(this.useDisplay === true){
             this.setDisplayed("");
         }else if(this.lastXY){
@@ -232,6 +257,7 @@ Ext.extend(Ext.Layer, Ext.Element, {
 
     // private
     hideAction : function(){
+        this.visible = false;
         if(this.useDisplay === true){
             this.setDisplayed(false);
         }else{
