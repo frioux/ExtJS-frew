@@ -23,6 +23,9 @@
     padding-left:0;
     padding-right:0;
 }
+.ext-ie .x-btn button {
+    padding-top:2px;
+}
 /*
  Predefined css class for buttons with only icon. Add this class (x-btn-icon) and a class with a background-image
  to your button for a button with just an icon.

@@ -43,11 +43,13 @@ Ext.extend(Ext.MenuButton, Ext.Button, {
         }
         this.el = btn;
         this.autoWidth();
-        btn.on("click", this.onClick, this);
-        btn.on("mouseover", this.onMouseOver, this);
-        btn.on("mouseout", this.onMouseOut, this);
-        btn.on("mousedown", this.onMouseDown, this);
-        btn.on("mouseup", this.onMouseUp, this);
+        if(this.handleMouseEvents){
+            btn.on("mouseover", this.onMouseOver, this);
+            btn.on("mouseout", this.onMouseOut, this);
+            btn.on("mousedown", this.onMouseDown, this);
+            btn.on("mouseup", this.onMouseUp, this);
+        }
+        btn.on(this.clickEvent, this.onClick, this);
         if(this.tooltip){
             var btnEl = btn.child("button:first");
             if(typeof this.tooltip == 'object'){

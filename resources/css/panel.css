@@ -1,11 +1,33 @@
 .x-panel-header {
     overflow:hidden;
     zoom:1;
+    color:#15428b;
+	font:bold 11px tahoma,arial,verdana,sans-serif;
+    padding:5px 3px 4px 5px;
+    border:1px solid #99bbe8;
+    background: transparent url(../images/default/panel/white-top-bottom.gif) repeat-x 0 -1px;
+}
+
+.x-panel-body {
+    border:1px solid #99bbe8;
+    border-top:0 none;
+    overflow:hidden;
+    background:white;
+}
+.x-panel-body-noheader {
+    border-top:1px solid #99bbe8;
+}
+
+.x-panel-header {
+    overflow:hidden;
+    zoom:1;
 }
 .x-panel-tl .x-panel-header {
     color:#15428b;
 	font:bold 11px tahoma,arial,verdana,sans-serif;
     padding:5px 0 4px 0;
+    border:0 none;
+    background:transparent;
 }
 .x-panel-icon {
     padding-left:18px !important;
@@ -52,6 +74,10 @@
     font: normal 11px tahoma,arial,helvetica,sans-serif;
     background:white;
 }
+.x-panel-mc .x-panel-body {
+    background:transparent;
+    border:0 none;
+}
 .x-panel-ml {
 	background: #fff url(../images/default/panel/white-left-right.gif) repeat-y 0 0;
 	padding-left:6px;
@@ -74,6 +100,12 @@
 .x-panel-blue .x-panel-mc{
     padding-top:6px;
     background:#dfe8f6;
+}
+.x-panel-bwrap {
+    overflow:hidden;
+}
+.x-panel-body {
+    overflow:hidden;
 }
 
 .x-panel-collapsed .x-resizable-handle{
@@ -162,4 +194,57 @@
 
 .x-panel-ghost * {
     cursor:move !important;
+}
+
+
+/* Buttons */
+
+.x-panel-btns-ct {
+    padding:5px;
+}
+
+.x-panel-btns-ct .x-btn{
+	float:right;
+	clear:none;
+}
+.x-panel-btns-ct .x-panel-btns td {
+	border:0;
+	padding:0;
+}
+.x-panel-btns-ct .x-panel-btns-right table{
+	float:right;
+	clear:none;
+}
+.x-panel-btns-ct .x-panel-btns-left table{
+	float:left;
+	clear:none;
+}
+.x-panel-btns-ct .x-panel-btns-center{
+	text-align:center; /*ie*/
+}
+.x-panel-btns-ct .x-panel-btns-center table{
+	margin:0 auto; /*everyone else*/
+}
+.x-panel-btns-ct table td.x-panel-btn-td{
+	padding:3px;
+}
+
+.x-panel-btns-ct .x-btn-focus .x-btn-left{
+	background-position:0 -147px;
+}
+.x-panel-btns-ct .x-btn-focus .x-btn-right{
+	background-position:0 -168px;
+}
+.x-panel-btns-ct .x-btn-focus .x-btn-center{
+	background-position:0 -189px;
+}
+
+.x-panel-btns-ct .x-btn-click .x-btn-center{
+	background-position:0 -126px;
+}
+.x-panel-btns-ct .x-btn-click  .x-btn-right{
+	background-position:0 -84px;
+}
+.x-panel-btns-ct .x-btn-click .x-btn-left{
+	background-position:0 -63px;
 }

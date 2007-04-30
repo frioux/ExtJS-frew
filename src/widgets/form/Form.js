@@ -37,10 +37,6 @@ Ext.extend(Ext.form.Form, Ext.form.BasicForm, {
     /**
      * @cfg {String} itemCls A css class to apply to the x-form-item of fields. This property cascades to child containers.
      */
-    /*
-     * unused
-     */
-    buttonPosition:'bottom',
     /**
      * @cfg {String} buttonAlign Valid values are "left," "center" and "right" (defaults to "center")
      */

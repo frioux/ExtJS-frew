@@ -119,9 +119,9 @@ Ext.extend(Ext.BorderLayout, Ext.LayoutManager, {
         
         var rs = this.regions;
         var n = rs["north"], s = rs["south"], west = rs["west"], e = rs["east"], c = rs["center"];
-        if(this.hideOnLayout){
-            c.el.setStyle("display", "none");
-        }
+        //if(this.hideOnLayout){ // not supported anymore
+            //c.el.setStyle("display", "none");
+        //}
         if(n && n.isVisible()){
             var b = n.getBox();
             var m = n.getMargins();
@@ -171,9 +171,9 @@ Ext.extend(Ext.BorderLayout, Ext.LayoutManager, {
                 width: centerW - (m.left+m.right),
                 height: centerH - (m.top+m.bottom)
             };
-            if(this.hideOnLayout){
-                c.el.setStyle("display", "block");
-            }
+            //if(this.hideOnLayout){
+                //c.el.setStyle("display", "block");
+            //}
             c.updateBox(this.safeBox(centerBox));
         }
         this.el.repaint();

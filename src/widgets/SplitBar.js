@@ -119,7 +119,9 @@ Ext.SplitBar = function(dragElement, resizingElement, orientation, placement, ex
          * Fires before the splitter is dragged
          * @param {Ext.SplitBar} this
          */
-        "beforeresize" : true
+        "beforeresize" : true,
+
+        "beforeapply" : true
     });
 
     Ext.SplitBar.superclass.constructor.call(this);
@@ -188,9 +190,11 @@ Ext.extend(Ext.SplitBar, Ext.util.Observable, {
         }
         newSize = Math.min(Math.max(newSize, this.activeMinSize), this.activeMaxSize);
         if(newSize != this.dragSpecs.startSize){
-            this.adapter.setElementSize(this, newSize);
-            this.fireEvent("moved", this, newSize);
-            this.fireEvent("resize", this, newSize);
+            if(this.fireEvent('beforeapply', this, newSize) !== false){
+                this.adapter.setElementSize(this, newSize);
+                this.fireEvent("moved", this, newSize);
+                this.fireEvent("resize", this, newSize);
+            }
         }
     },
     

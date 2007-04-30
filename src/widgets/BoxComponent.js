@@ -8,7 +8,6 @@ Ext.BoxComponent = function(config){
 
 Ext.extend(Ext.BoxComponent, Ext.Component, {
     boxReady : false,
-
     // private, used to defer height settings to subclasses
     deferHeight: false,
 

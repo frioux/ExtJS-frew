@@ -142,24 +142,24 @@ Ext.EventManager = function(){
     };
 
     var stopListening = function(el, ename, fn){
-        var id = Ext.id(el), hds = fn._handlers;
+        var id = Ext.id(el), hds = fn._handlers, hd = fn;
         if(hds){
             for(var i = 0, len = hds.length; i < len; i++){
                 var h = hds[i];
                 if(h[0] == id && h[1] == ename){
-                    var hd = h[2];
+                    hd = h[2];
                     hds.splice(i, 1);
-                    return E.un(el, ename, hd);
+                    break;
                 }
             }
         }
-        E.un(el, ename, fn);
+        E.un(el, ename, hd);
         el = Ext.getDom(el);
         if(ename == "mousewheel" && el.addEventListener){
-            el.removeEventListener("DOMMouseScroll", fn, false);
+            el.removeEventListener("DOMMouseScroll", hd, false);
         }
         if(ename == "mousedown" && el == document){ // fix stopped mousedowns on the document
-            Ext.EventManager.stoppedMouseDownEvent.removeListener(fn);
+            Ext.EventManager.stoppedMouseDownEvent.removeListener(hd);
         }
     };
 

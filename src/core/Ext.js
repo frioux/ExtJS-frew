@@ -171,7 +171,7 @@ Ext.addBehaviors({
                 if(typeof sp == 'object'){
                     overrides = sp;
                     sp = sb;
-                    sb = function(){};
+                    sb = function(){sp.apply(this, arguments);};
                 }
                 var F = function(){}, sbp, spp = sp.prototype;
                 F.prototype = spp;
@@ -342,6 +342,15 @@ Ext.addBehaviors({
                 return null;
             }
             return el.dom ? el.dom : (typeof el == 'string' ? document.getElementById(el) : el);
+        },
+
+        /**
+        * Shorthand for {@link Ext.ComponentMgr#get}
+        * @param {String} id
+        * @return Ext.Component
+        */
+        getCmp : function(id){
+            return Ext.ComponentMgr.get(id);
         },
 
         num : function(v, defaultValue){
