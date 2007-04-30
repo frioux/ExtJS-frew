@@ -4,8 +4,8 @@
  * unformatted data objects.
  * <p>
  * DataProxy implementations are usually used in conjunction with an implementation of Ext.data.DataReader
- * (of the approriate type which knows how to parse the data object) to provide a block of Records
- * to an Ext.data.Store.
+ * (of the appropriate type which knows how to parse the data object) to provide a block of
+ * {@link Ext.data.Records} to an {@link Ext.data.Store}.
  * <p>
  * Custom implementations must implement the load method as described in
  * {@link Ext.data.HttpProxy#load}.

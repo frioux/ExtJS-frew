@@ -3,17 +3,40 @@
  * The class encapsulates a connection to the page's originating domain, allowing requests to be made
  * either to a configured URL, or to a URL specified at request time.
  * <p>
- * Requests made by this class are asynchronous, and will return immediately, and no data from
- * the server will be available. To process the returned data, us a callback in the request options
- * object.
+ * Requests made by this class are asynchronous, and will return immediately. No data from
+ * the server will be available to the statement immediately following the {@link #request} call.
+ * To process returned data, use a callback in the request options object.
  * @constructor
  * @param config {Object} a configuration object.
  */
 Ext.data.Connection = function(config){
     Ext.apply(this, config);
     this.addEvents({
+        /**
+         * @event beforerequest
+         * Fires before a network request is made to retrieve a data object.
+         * @param {Connection} conn This Connection object.
+         * @param {Object} options The options config object passed to the {@link #request} method.
+         */
         "beforerequest" : true,
+        /**
+         * @event requestcomplete
+         * Fires before a network request is made to retrieve a data object.
+         * @param {Connection} conn This Connection object.
+         * @param {Object} response The XHR object containing the response data.
+         * See http://www.w3.org/TR/XMLHttpRequest/ for details.
+         * @param {Object} options The options config object passed to the {@link #request} method.
+         */
         "requestcomplete" : true,
+        /**
+         * @event requestexception
+         * Fires if an error HTTP status was returned from the server.
+         * See http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html for details of HTTP status codes.
+         * @param {Connection} conn This Connection object.
+         * @param {Object} response The XHR object containing the response data.
+         * See http://www.w3.org/TR/XMLHttpRequest/ for details.
+         * @param {Object} options The options config object passed to the {@link #request} method.
+         */
         "requestexception" : true
     });
     Ext.data.Connection.superclass.constructor.call(this);
@@ -47,7 +70,7 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
      * The callback is passed the following parameters:<ul>
      * <li>options {Object} The parameter to the request call.</li>
      * <li>success {Boolean} True if the request succeeded.</li>
-     * <li>resopnse {Object} The XMLHttpRequest object containing the response data.</li>
+     * <li>response {Object} The XMLHttpRequest object containing the response data.</li>
      * </ul></li>
      * <li>scope {Object} (Optional) The scope in which to execute the callback: The "this" object
      * for the callback function. Defaults to the browser window.</li>
