@@ -241,7 +241,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * the following parameters:<ul>
      * <li>Data value.</li>
      * <li>Cell metadata. An object in which you may set the following attributes:<ul>
-     * <li>css A CSS style string to apply to the table cell.</li>
+     * <li>css A CSS class name string to apply to the table cell.</li>
      * <li>attr An HTML attribute definition string to apply to the data container element <i>within</i> the table cell.</li></ul>
      * <li>The {@link Ext.data.Record} from which the data was extracted.</li>
      * <li>Row index</li>
