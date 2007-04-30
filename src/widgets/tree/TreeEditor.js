@@ -30,7 +30,7 @@ Ext.extend(Ext.tree.TreeEditor, Ext.Editor, {
         }
         var w = Math.min(
                 this.maxWidth,
-                td.clientWidth - Math.max(0, nd.offsetLeft-td.scrollLeft) - /*cushion*/5);
+                (td.clientWidth > 20 ? td.clientWidth : td.offsetWidth) - Math.max(0, nd.offsetLeft-td.scrollLeft) - /*cushion*/5);
         this.setSize(w, '');
     },
 
