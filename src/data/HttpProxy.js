@@ -22,7 +22,11 @@ Ext.data.HttpProxy = function(conn){
 };
 
 Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
-    // private
+    /**
+     * Return the {@link Ext.data.Connection} object being used by this Proxy.
+     * @return {Connection} The Connection object. This object may be used to subscribe to events on
+     * a finer-grained basis than the DataProxy events.
+     */
     getConnection : function(){
         return this.conn;
     },
