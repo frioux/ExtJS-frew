@@ -147,8 +147,8 @@ Ext.MessageBox = function(){
 
         /**
          * Updates the message box body text
-         * @param {String} text Replaces the message box element's innerHTML with the specified string (defaults to
-         * the XHTML-compliant non-breaking space character &#160;)
+         * @param {String} text (optional) Replaces the message box element's innerHTML with the specified string (defaults to
+         * the XHTML-compliant non-breaking space character &amp;#160;)
          * @return {Ext.MessageBox} messageBox This message box
          */
         updateText : function(text){
