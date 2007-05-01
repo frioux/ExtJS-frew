@@ -1,5 +1,5 @@
 /*
- * Español/Latinoamerica Translation by genius551v 04-08-2007
+ * Spanish/Latin American Translation by genius551v 04-08-2007
  * Revised by efege, 2007-04-15.
  */
 

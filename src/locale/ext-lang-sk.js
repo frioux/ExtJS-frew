@@ -3,7 +3,7 @@
  * Thank you Mystix!
  */
  
- /*  Translation to Slovak by Michal Thomka
+ /*  Slovak Translation by Michal Thomka
   *  14 April 2007
   */
 
