@@ -245,17 +245,16 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
      * and this call will return before the new data has been loaded. Perform any post-processing
      * in a callback function, or in a "load" event handler.</strong>
      * <p>
-     * @param {Object} options An object containing properties which control loading options:
-     * <pre><code>
- params {Object} An object containing properties to pass as HTTP parameters to a remote data source.
- callback {Function} A function to be called after the Records have been loaded. The callback is
- passed the following arguments:
-   r : Ext.data.Record[]
-   options: Options object from the load call
-   success: Boolean success indicator
- scope {Object} Scope with which to call the callback (defaults to the Store object)
- append {Boolean} indicator to append loaded records rather than replace the current cache.
- * </code></pre>
+     * @param {Object} options An object containing properties which control loading options:<ul>
+     * <li>params {Object} An object containing properties to pass as HTTP parameters to a remote data source.</li>
+     * <li>callback {Function} A function to be called after the Records have been loaded. The callback is
+     * passed the following arguments:<ul>
+     * <li>r : Ext.data.Record[]</li>
+     * <li>options: Options object from the load call</li>
+     * <li>success: Boolean success indicator</li></ul></li>
+     * <li>scope {Object} Scope with which to call the callback (defaults to the Store object)</li>
+     * <li>append {Boolean} indicator to append loaded records rather than replace the current cache.</li>
+     * </ul>
      */
     load : function(options){
         options = options || {};
