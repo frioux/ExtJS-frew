@@ -71,6 +71,10 @@ Ext.extend(Ext.Editor, Ext.Component, {
      * will never be ignored.
      */
     /**
+     * @cfg {Boolean} hideEl
+     * False to keep the bound element visible while the editor is displayed (defaults to true)
+     */
+    /**
      * @cfg {Mixed} value
      * The data value of the underlying field (defaults to "")
      */
