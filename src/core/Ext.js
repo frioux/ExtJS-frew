@@ -413,7 +413,7 @@ Ext.namespace("Ext", "Ext.util", "Ext.grid", "Ext.dd", "Ext.tree", "Ext.data",
 
 /**
  * @class Function
- * These functions are available on every Function object (any javascript function).
+ * These functions are available on every Function object (any JavaScript function).
  */
 Ext.apply(Function.prototype, {
      /**
@@ -519,17 +519,31 @@ Ext.apply(Function.prototype, {
     }
 });
 
+/**
+ * @class String
+ * These functions are available as static methods on the JavaScript String object.
+ */
 Ext.applyIf(String, {
 
-    /*
+    /**
      * Escapes the passed string for ' and \
-     * @param {String} str
-     * @return {String}
+     * @param {String} string The string to escape
+     * @return {String} The escaped string
+     * @static
      */
     escape : function(string) {
         return string.replace(/('|\\)/g, "\\$1");
     },
 
+    /**
+     * Pads the left side of a string with a specified character.  This is especially useful
+     * for normalizing number and date strings.
+     * @param {String} string The original string
+     * @param {Number} size The total length of the output string
+     * @param {String} char (optional) The character with which to pad the original string (defaults to empty string " ")
+     * @return {String} The padded string
+     * @static
+     */
     leftPad : function (val, size, ch) {
         var result = new String(val);
         if (ch == null) {
@@ -541,6 +555,20 @@ Ext.applyIf(String, {
         return result;
     },
 
+    /**
+     * Allows you to define a tokenized string and pass an arbitrary number of arguments to replace the tokens.  Each
+     * token must be unique, and must increment in the format {0}, {1}, etc.  Example usage:
+     * <pre><code>
+var cls = 'my-class', text = 'Some text';
+var s = String.format('<div class="{0}">{1}</div>', cls, text);
+// s now contains the string: '<div class="my-class">Some text</div>'
+</code></pre>
+     * @param {String} string The tokenized string to be formatted
+     * @param {String} value1 The value to replace token {0}
+     * @param {String} value2 Etc...
+     * @return {String} The formatted string
+     * @static
+     */
     format : function(format){
         var args = Array.prototype.slice.call(arguments, 1);
         return format.replace(/\{(\d+)\}/g, function(m, i){
