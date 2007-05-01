@@ -1,11 +1,11 @@
 /**
  * @class Ext.data.DataProxy
  * This class is an abstract base class for implementations which provide retrieval of
- * unformatted data objects.
+ * unformatted data objects.<br>
  * <p>
  * DataProxy implementations are usually used in conjunction with an implementation of Ext.data.DataReader
  * (of the appropriate type which knows how to parse the data object) to provide a block of
- * {@link Ext.data.Records} to an {@link Ext.data.Store}.
+ * {@link Ext.data.Records} to an {@link Ext.data.Store}.<br>
  * <p>
  * Custom implementations must implement the load method as described in
  * {@link Ext.data.HttpProxy#load}.

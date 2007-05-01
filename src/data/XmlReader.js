@@ -2,15 +2,22 @@
  * @class Ext.data.XmlReader
  * @extends Ext.data.DataReader
  * Data reader class to create an Array of {@link Ext.data.Record} objects from an XML document
- * based on mappings in a provided Ext.data.Record constructor.
+ * based on mappings in a provided Ext.data.Record constructor.<br>
  * <p>
- * The code below lists all configuration options.
+ * <em>Note that in order for the browser to parse a returned XML document, the Content-Type
+ * header in the HTTP response must be set to "text/xml"</em>
+ * <p>
+ * Example code:.
  * <pre><code>
+var RecordDef = Ext.data.Record.create([
+   {name: 'name', mapping: 'name'},     // "mapping" property not needed if it's the same as "name"
+   {name: 'occupation'}                 // This field will use "occupation" as the mapping.
+]);
 var myReader = new Ext.data.XmlReader({
-   record: "row",           // The repeated element which contains record information
-   totalRecords: "results", // The element which contains the number of returned records (optional)
-   id: "id"                 // The element within the record that provides an ID for the record (optional)
-}, myRecordDefinition);
+   totalRecords: "results", // The element which contains the total dataset size (optional)
+   record: "row",           // The repeated element which contains row information
+   id: "id"                 // The element within the row that provides an ID for the record (optional)
+}, RecordDef);
 </code></pre>
  * <p>
  * This would consume an XML file like this:
@@ -21,10 +28,12 @@ var myReader = new Ext.data.XmlReader({
  &lt;row>
    &lt;id>1&lt;/id>
    &lt;name>Bill&lt;/name>
+   &lt;occupation>Gardener&lt;/name>
  &lt;/row>
  &lt;row>
    &lt;id>2&lt;/id>
    &lt;name>Ben&lt;/name>
+   &lt;occupation>Horticulturalist&lt;/name>
  &lt;/row>
 &lt;/dataset>
 </code></pre>

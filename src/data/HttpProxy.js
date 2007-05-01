@@ -1,18 +1,17 @@
 /**
  * @class Ext.data.HttpProxy
  * An implementation of Ext.data.DataProxy that reads a data object from an Ext.data.Connection object
- * configured to reference a certain URL.
+ * configured to reference a certain URL.<br>
  * <p>
  * <em>Note that this class cannot be used to retrieve data from a domain other than the domain
- * from which the running page was served.
+ * from which the running page was served.<br>
  * <p>
- * For cross-domain access to remote data, use an Ext.data.ScriptTagProxy.
- * </em>
+ * For cross-domain access to remote data, use an {@link Ext.data.ScriptTagProxy}.</em><br>
  * <p>
- * Be aware that to enable the browser to parse an XML document, the server <strong>must</strong> set
- * the Content-Type header to "text/xml".
+ * Be aware that to enable the browser to parse an XML document, the server must set
+ * the Content-Type header in the HTTP response to "text/xml".
  * @constructor
- * @param {Object} conn An Ext.data.Connection object referencing the URL from which the data object
+ * @param {Object} conn An {@link Ext.data.Connection} object referencing the URL from which the data object
  * is to be read, or a configuration object for an Ext.data.Connection.
  */
 Ext.data.HttpProxy = function(conn){

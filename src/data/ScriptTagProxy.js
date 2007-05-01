@@ -1,14 +1,40 @@
 /**
  * @class Ext.data.ScriptTagProxy
  * An implementation of Ext.data.DataProxy that reads a data object from a URL which may be in a domain
- * other than the originating domain of the running page.
+ * other than the originating domain of the running page.<br>
  * <p>
  * <em>Note that this class must be used to retrieve data from a domain other than the domain
- * from which the running page was served.</em>
+ * from which the running page was served.</em><br>
+ * <p>
+ * The content passed back from a server resource requested by a ScriptTagProxy is executable javascript
+ * source code that is used as the source inside a &lt;script> tag.<br>
+ * <p>
+ * In order for the browser to process the returned data, the server must wrap the data object
+ * with a call to a callback function, the name of which is passed as a parameter by the ScriptTagProxy.
+ * Below is a Java example for a servlet which returns data for either a ScriptTagProxy, or an HttpProxy
+ * depending on whether the callback name was passed:
+ * <p>
+ * <pre><code.
+boolean scriptTag = false;
+String cb = request.getParameter("callback");
+if (cb != null) {
+    scriptTag = true;
+    response.setContentType("text/javascript");
+} else {
+    response.setContentType("application/x-json");
+}
+Writer out = response.getWriter();
+if (scriptTag) {
+    out.write(cb + "(");
+}
+out.print(dataBlock.toJsonString());
+if (scriptTag) {
+    out.write(");");
+}
+</pre></code>
  * 
- * @cfg {String} url The url from which to request the data object.
  * @constructor
- * @param {Object} conn A configuration object.
+ * @param {Object} config A configuration object.
  */
 Ext.data.ScriptTagProxy = function(config){
     Ext.data.ScriptTagProxy.superclass.constructor.call(this);
@@ -19,6 +45,9 @@ Ext.data.ScriptTagProxy = function(config){
 Ext.data.ScriptTagProxy.TRANS_ID = 1000;
 
 Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
+    /**
+     * @cfg {String} url The url from which to request the data object.
+     */
     /**
      * @cfg {Number} timeout (Optional) The number of milliseconds to wait for a response. Defaults to 30 seconds.
      */
@@ -31,7 +60,7 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
      */
     callbackParam : "callback",
     /**
-     *  @cfg nocache {Boolean} (Optional) Defaults to true. Disable cacheing by adding a unique parameter
+     *  @cfg {Boolean} nocache (Optional) Defaults to true. Disable cacheing by adding a unique parameter
      * name to the request.
      */
     nocache : true,

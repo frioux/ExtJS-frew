@@ -274,97 +274,97 @@ Ext.grid.Grid = function(container, config){
 };
 Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
     /**
-     * @cfg {Number} The minimum width a column can be resized to. Defaults to 25.
+     * @cfg {Number} minColumnWidth The minimum width a column can be resized to. Defaults to 25.
 	 */
 	minColumnWidth : 25,
 
     /**
-	 * @cfg {Boolean} True to automatically resize the columns to fit their content
+	 * @cfg {Boolean} autoSizeColumns True to automatically resize the columns to fit their content
 	 * <b>on initial render.</b> It is more efficient to explicitly size the columns
 	 * through the ColumnModel's {@link Ext.grid.ColumnModel#width} config option.
 	 */
 	autoSizeColumns : false,
 
 	/**
-	 * @cfg {Boolean} True to measure headers with column data when auto sizing columns.
+	 * @cfg {Boolean} autoSizeHeaders True to measure headers with column data when auto sizing columns.
 	 */
 	autoSizeHeaders : true,
 
 	/**
-	 * @cfg {Boolean} True to autoSize the grid when the window resizes. Defaults to true.
+	 * @cfg {Boolean} monitorWindowResize True to autoSize the grid when the window resizes. Defaults to true.
 	 */
 	monitorWindowResize : true,
 
 	/**
-	 * @cfg {Boolean} If autoSizeColumns is on, maxRowsToMeasure can be used to limit the number of
+	 * @cfg {Boolean} maxRowsToMeasure If autoSizeColumns is on, maxRowsToMeasure can be used to limit the number of
 	 * rows measured to get a columns size - defaults to 0 (all rows).
 	 */
 	maxRowsToMeasure : 0,
 
 	/**
-	 * @cfg {Boolean} True to highlight rows when the mouse is over. Default is false.
+	 * @cfg {Boolean} trackMouseOver True to highlight rows when the mouse is over. Default is false.
 	 */
 	trackMouseOver : true,
 
 	/**
-	 * @cfg {Boolean} True to enable drag and drop of rows.
+	 * @cfg {Boolean} enableDragDrop True to enable drag and drop of rows.
 	 */
 	enableDragDrop : false,
 
 	/**
-	 * @cfg {Boolean} True to enable drag and drop reorder of columns.
+	 * @cfg {Boolean} enableColumnMove True to enable drag and drop reorder of columns.
 	 */
 	enableColumnMove : true,
 
 	/**
-	 * @cfg {Boolean} True to enable hiding of columns with the header context menu.
+	 * @cfg {Boolean} enableColumnHide True to enable hiding of columns with the header context menu.
 	 */
 	enableColumnHide : true,
 
 	/**
-	 * @cfg {Boolean} True to manually sync row heights across locked and not locked rows.
+	 * @cfg {Boolean} enableRowHeightSync True to manually sync row heights across locked and not locked rows.
 	 */
 	enableRowHeightSync : false,
 
 	/**
-	 * @cfg {Boolean} True to stripe the rows. Default is true.
+	 * @cfg {Boolean} stripeRows True to stripe the rows. Default is true.
 	 */
 	stripeRows : true,
 
 	/**
-	 * @cfg {Boolean} True to fit the height of the grid container to the height of the data. Defaults to false.
+	 * @cfg {Boolean} autoHeight True to fit the height of the grid container to the height of the data. Defaults to false.
 	 */
 	autoHeight : false,
 
     /**
-     * @cfg {String} The id of a column in this grid that should expand to fill unused space.
+     * @cfg {String} autoExpandColumn The id of a column in this grid that should expand to fill unused space.
      */
     autoExpandColumn : false,
 
     /**
-    * @cfg {Number} The minimum width the autoExpandColumn can have (if enabled).
+    * @cfg {Number} autoExpandMin The minimum width the autoExpandColumn can have (if enabled).
     * defaults to 50.
     */
     autoExpandMin : 50,
 
     /**
-    * @cfg {Number} The maximum width the autoExpandColumn can have (if enabled). Defaults to 1000.
+    * @cfg {Number} autoExpandMax The maximum width the autoExpandColumn can have (if enabled). Defaults to 1000.
     */
     autoExpandMax : 1000,
 
     /**
-	 * @cfg {Object} The {@link Ext.grid.GridView} used by the grid. This can be set before a call to render().
+	 * @cfg {Object} view The {@link Ext.grid.GridView} used by the grid. This can be set before a call to render().
 	 */
 	view : null,
 
 	/**
-	 * @cfg {Object} A javascript RegExp defining tagNames
+	 * @cfg {Object} allowTextSelectionPattern A javascript RegExp defining tagNames
      * allowed to have text selection (Defaults to <code>/INPUT|TEXTAREA|SELECT/i</code>).
      */
     allowTextSelectionPattern : /INPUT|TEXTAREA|SELECT/i,
 
     /**
-     * @cfg {Object} An {@link Ext.LoadMask} config or true to mask the grid while loading (defaults to false).
+     * @cfg {Object} loadMask An {@link Ext.LoadMask} config or true to mask the grid while loading (defaults to false).
 	 */
 	loadMask : false,
 

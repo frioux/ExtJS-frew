@@ -2,13 +2,15 @@
  * @class Ext.data.Store
  * @extends Ext.util.Observable
  * The Store class encapsulates a client side cache of {@link Ext.data.Record} objects which provide input data
- * for widgets such as the Ext.grid.Grid, or the Ext.form.ComboBox.
+ * for widgets such as the Ext.grid.Grid, or the Ext.form.ComboBox.<br>
+ * <p>
  * A Store object uses an implementation of {@link Ext.data.DataProxy} to access a data object unless you call loadData() directly and pass in your data. The Store object
- * has no knowledge of the format of the data returned by the Proxy.
- * The Store object uses its configured implementation of Ext.data.DataReader to create Ext.data.Record
+ * has no knowledge of the format of the data returned by the Proxy.<br>
+ * <p>
+ * A Store object uses its configured implementation of {@link Ext.data.DataReader} to create {@link Ext.data.Record}
  * instances from the data object. These records are cached and made available through accessor functions.
  * @constructor
- * Creates a new Store
+ * Creates a new Store.
  * @param {Object} config A config object containing the objects needed for the Store to access data,
  * and read the data into Records.
  */

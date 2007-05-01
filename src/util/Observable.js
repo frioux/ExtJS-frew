@@ -1,4 +1,3 @@
-
 /**
  * @class Ext.util.Observable
  * Abstract base class that provides a common interface for publishing events. Subclasses are expected to
@@ -7,10 +6,10 @@
  * <pre><code>
  Employee = function(name){
     this.name = name;
-    this.events = {
+    this.addEvents({
         "fired" : true,
         "quit" : true
-    }
+    });
  }
  Ext.extend(Employee, Ext.util.Observable);
 </code></pre>
@@ -59,49 +58,49 @@ Ext.util.Observable.prototype = {
      * <li>buffer {Number} Causes the handler to be scheduled to run in an {@link Ext.util.DelayedTask} delayed
      * by the specified number of milliseconds. If the event fires again within that time, the original
      * handler is <em>not</em> invoked, but the new handler is scheduled in its place.</li>
-     * </ul>
+     * </ul><br>
      * <p>
      * <b>Combining Options</b><br>
      * Using the options argument, it is possible to combine different types of listeners:<br>
      * <br>
      * A normalized, delayed, one-time listener that auto stops the event and passes a custom argument (forumId)<div style="margin: 5px 20px 20px;">
-     * Code:
-     * 	<pre><code>el.on('click', this.onClick, this, {
-     * 	single: true,
-     * 	delay: 100,
-     * 	stopEvent : true,
-     *  forumId: 4
-     * });</pre>
-     * <p>
-     * The method also allows for a single argument to be passed which is a config object containing properties
-     * which specify multiple handlers.
+     * Code:<pre><code>
+el.on('click', this.onClick, this, {
+    single: true,
+    delay: 100,
+    stopEvent : true,
+    forumId: 4
+});</code></pre>
      * <p>
      * <b>Attaching multiple handlers in 1 call</b><br>
-     * Code:
-     * 	<pre><code>el.on({
-     * 	'click' : {
-     *     	fn: this.onClick
-     * 		scope: this,
-     * 		delay: 100
-     *     }, 
-     * 	'mouseover' : {
-     *     	fn: this.onMouseOver
-     * 		scope: this
-     *     },
-     * 	'mouseout' : {
-     *     	fn: this.onMouseOut
-     * 		scope: this
-     *     }
-     * });</pre>
+      * The method also allows for a single argument to be passed which is a config object containing properties
+     * which specify multiple handlers.
+     * <p>
+     * Code:<pre><code>
+el.on({
+    'click' : {
+        fn: this.onClick
+        scope: this,
+        delay: 100
+    }, 
+    'mouseover' : {
+        fn: this.onMouseOver
+        scope: this
+    },
+    'mouseout' : {
+        fn: this.onMouseOut
+        scope: this
+    }
+});</code></pre>
      * <p>
      * Or a shorthand syntax:<br>
-     * Code:
-     * 	<pre><code>el.on({
-     * 	'click' : this.onClick,
-     * 	'mouseover' : this.onMouseOver,
-     * 	'mouseout' : this.onMouseOut
-     * 	scope: this
-     * });</pre>
+     * Code:<pre><code>
+el.on({
+    'click' : this.onClick,
+    'mouseover' : this.onMouseOver,
+    'mouseout' : this.onMouseOut
+    scope: this
+});</code></pre>
      */
     addListener : function(eventName, fn, scope, o){
         if(typeof eventName == "object"){

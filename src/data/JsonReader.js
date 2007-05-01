@@ -4,26 +4,26 @@
  * Data reader class to create an Array of Ext.data.Record objects from a JSON response
  * based on mappings in a provided Ext.data.Record constructor.
  * <p>
- * The code below lists all configuration options.
+ * Example code:.
  * <pre><code>
-   var RecordDef = Ext.data.Record.create([
-       {name: 'name', mapping: 'name'},     // "mapping" property not needed if it's the same as "name"
-       {name: 'occupation'},                // This field will use "occupation" as the mapping.
-   ]);
-   var myReader = new Ext.data.JsonReader({
-       totalProperty: "results",    // The property which contains the number of returned records (optional)
-       root: "rows",                // The property which contains an Array of record objects
-       id: "id"                     // The property within the record object that provides an ID for the record (optional)
-   }, RecordDef);
-  </code></pre>
+var RecordDef = Ext.data.Record.create([
+    {name: 'name', mapping: 'name'},     // "mapping" property not needed if it's the same as "name"
+    {name: 'occupation'}                 // This field will use "occupation" as the mapping.
+]);
+var myReader = new Ext.data.JsonReader({
+    totalProperty: "results",    // The property which contains the total dataset size (optional)
+    root: "rows",                // The property which contains an Array of row objects
+    id: "id"                     // The property within each row object that provides an ID for the record (optional)
+}, RecordDef);
+</code></pre>
  * <p>
  * This would consume a JSON file like this:
  * <pre><code>
-   { 'results': 2, 'rows': [
-     { 'id': 1, 'name': 'Bill', occupation: 'Gardener' },
-     { 'id': 2, 'name': 'Ben', occupation: 'Horticulturalist' } ]
-   }
-  </code></pre>
+{ 'results': 2, 'rows': [
+    { 'id': 1, 'name': 'Bill', occupation: 'Gardener' },
+    { 'id': 2, 'name': 'Ben', occupation: 'Horticulturalist' } ]
+}
+</code></pre>
  * @cfg {String} totalProperty Name of the property from which to retrieve the total number of records
  * in the dataset. This is only needed if the whole dataset is not passed in one go, but is being
  * paged from the remote server.
@@ -33,7 +33,8 @@
  * @constructor
  * Create a new JsonReader
  * @param {Object} meta Metadata configuration options
- * @param {Object[]/Ext.data.Record constructor} recordType The record definition of the data record to produce.
+ * @param {Object} recordType Either an Array of field definition objects,
+ * or an {@link Ext.data.Record} object created using {@link Ext.data.Record#create}.
  */
 Ext.data.JsonReader = function(meta, recordType){
     Ext.data.JsonReader.superclass.constructor.call(this, meta, recordType);
