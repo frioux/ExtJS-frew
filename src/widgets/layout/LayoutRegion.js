@@ -113,7 +113,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
         }else{
             this.bodyEl.setStyle("overflow", "hidden");
         }
-        if(c.titlebar !== false){
+        //if(c.titlebar !== false){
             if((!c.titlebar && !c.title) || c.titlebar === false){
                 this.titleEl.hide();
             }else{
@@ -122,7 +122,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
                     this.titleTextEl.innerHTML = c.title;
                 }
             }
-        }
+        //}
         this.duration = c.duration || .30;
         this.slideDuration = c.slideDuration || .45;
         this.config = c;
