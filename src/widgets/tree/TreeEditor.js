@@ -1,6 +1,14 @@
+/**
+ * @class Ext.tree.TreeEditor
+ * @extends Ext.Editor
+ * Provides editor functionality for inline tree node editing.  Any valid {@link Ext.form.Field} can be used
+ * as the editor field.
+ * @constructor
+ * @param {TreePanel} tree
+ * @param {Object} config Either a prebuilt {@link Ext.form.Field} instance or a Field config object
+ */
 Ext.tree.TreeEditor = function(tree, config){
     config = config || {};
-    // config can either be a prebuilt field, or a field config
     var field = config.events ? config : new Ext.form.TextField(config);
     Ext.tree.TreeEditor.superclass.constructor.call(this, field);
 
@@ -15,14 +23,39 @@ Ext.tree.TreeEditor = function(tree, config){
 };
 
 Ext.extend(Ext.tree.TreeEditor, Ext.Editor, {
+    /**
+     * @cfg {String} alignment
+     * The position to align to (see {@link Ext.Element#alignTo} for more details, defaults to "l-l").
+     */
     alignment: "l-l",
+    // inherit
     autoSize: false,
+    /**
+     * @cfg {Boolean} hideEl
+     * True to hide the bound element while the editor is displayed (defaults to false)
+     */
     hideEl : false,
+    /**
+     * @cfg {String} cls
+     * CSS class to apply to the editor (defaults to "x-small-editor x-tree-editor")
+     */
     cls: "x-small-editor x-tree-editor",
+    /**
+     * @cfg {Boolean} shim
+     * True to shim the editor if selects/iframes could be displayed beneath it (defaults to false)
+     */
     shim:false,
+    // inherit
     shadow:"frame",
+    /**
+     * @cfg {Number} maxWidth
+     * The maximum width in pixels of the editor field (defaults to 250).  Note that if the maxWidth would exceed
+     * the containing tree element's size, it will be automatically limited for you to the container width, taking
+     * scroll and client offsets into account prior to each edit.
+     */
     maxWidth: 250,
 
+    // private
     fitToTree : function(ed, el){
         var td = this.tree.el.dom, nd = el.dom;
         if(td.scrollLeft >  nd.offsetLeft){ // ensure the node left point is visible
@@ -34,16 +67,19 @@ Ext.extend(Ext.tree.TreeEditor, Ext.Editor, {
         this.setSize(w, '');
     },
 
+    // private
     triggerEdit : function(node){
         this.completeEdit();
         this.editNode = node;
         this.startEdit(node.ui.textNode, node.text);
     },
 
+    // private
     bindScroll : function(){
         this.tree.el.on('scroll', this.cancelEdit, this);
     },
 
+    // private
     beforeNodeClick : function(node){
         if(this.tree.getSelectionModel().isSelected(node)){
             this.triggerEdit(node);
@@ -51,11 +87,13 @@ Ext.extend(Ext.tree.TreeEditor, Ext.Editor, {
         }
     },
 
+    // private
     updateNode : function(ed, value){
         this.tree.el.un('scroll', this.cancelEdit, this);
         this.editNode.setText(value);
     },
 
+    // private
     onSpecialKey : function(field, e){
         var k = e.getKey();
         if(k == e.ESC){
