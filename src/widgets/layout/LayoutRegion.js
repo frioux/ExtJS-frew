@@ -34,21 +34,19 @@ Ext.LayoutRegion = function(mgr, config, pos){
     this.el = dh.append(mgr.el.dom, {tag: "div", cls: "x-layout-panel x-layout-panel-" + this.position}, true);
     /** This regions title element @type Ext.Element */
 
-    if(config.titlebar !== false){
-        this.titleEl = dh.append(this.el.dom, {tag: "div", unselectable: "on", cls: "x-unselectable x-layout-panel-hd x-layout-title-"+this.position, children:[
-            {tag: "span", cls: "x-unselectable x-layout-panel-hd-text", unselectable: "on", html: "&#160;"},
-            {tag: "div", cls: "x-unselectable x-layout-panel-hd-tools", unselectable: "on"}
-        ]}, true);
-        this.titleEl.enableDisplayMode();
-        /** This regions title text element @type HTMLElement */
-        this.titleTextEl = this.titleEl.dom.firstChild;
-        this.tools = Ext.get(this.titleEl.dom.childNodes[1], true);
-        this.closeBtn = this.createTool(this.tools.dom, "x-layout-close");
-        this.closeBtn.enableDisplayMode();
-        this.closeBtn.on("click", this.closeClicked, this);
-        this.closeBtn.hide();
-    }
-    
+    this.titleEl = dh.append(this.el.dom, {tag: "div", unselectable: "on", cls: "x-unselectable x-layout-panel-hd x-layout-title-"+this.position, children:[
+        {tag: "span", cls: "x-unselectable x-layout-panel-hd-text", unselectable: "on", html: "&#160;"},
+        {tag: "div", cls: "x-unselectable x-layout-panel-hd-tools", unselectable: "on"}
+    ]}, true);
+    this.titleEl.enableDisplayMode();
+    /** This regions title text element @type HTMLElement */
+    this.titleTextEl = this.titleEl.dom.firstChild;
+    this.tools = Ext.get(this.titleEl.dom.childNodes[1], true);
+    this.closeBtn = this.createTool(this.tools.dom, "x-layout-close");
+    this.closeBtn.enableDisplayMode();
+    this.closeBtn.on("click", this.closeClicked, this);
+    this.closeBtn.hide();
+
     this.createBody(config);
     this.visible = true;
     this.collapsed = false;

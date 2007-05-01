@@ -118,6 +118,12 @@ side          Add an error icon to the right of the field with a popup on hover
     hasFocus : false,
 
     /**
+     * @cfg {Mixed} value A value to initialize this field with
+     */
+    value : undefined,
+
+
+    /**
      * Returns the name attribute of the field if available
      * @return {String} name The field name
      */
