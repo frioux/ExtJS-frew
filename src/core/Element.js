@@ -2218,7 +2218,8 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
     
     /**
      * Creates the passed DomHelper config and appends it to this element or optionally inserts it before the passed child element.
-     * @param {Object} config DomHelper element config object
+     * @param {Object} config DomHelper element config object.  If no tag is specified (e.g., {tag:'input'}) then a div will be
+     * automatically generated with the specified attributes.
      * @param {HTMLElement} insertBefore (optional) a child element of this element
      * @param {Boolean} returnDom (optional) true to return the dom node instead of creating an Element
      * @return {Ext.Element} The new child element
