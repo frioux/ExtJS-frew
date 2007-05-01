@@ -537,7 +537,11 @@ Ext.applyIf(String, {
 
     /**
      * Pads the left side of a string with a specified character.  This is especially useful
-     * for normalizing number and date strings.
+     * for normalizing number and date strings.  Example usage:
+     * <pre><code>
+var s = String.leftPad('123', 5, '0');
+// s now contains the string: '00123'
+</code></pre>
      * @param {String} string The original string
      * @param {Number} size The total length of the output string
      * @param {String} char (optional) The character with which to pad the original string (defaults to empty string " ")
