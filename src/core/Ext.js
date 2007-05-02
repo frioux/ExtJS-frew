@@ -143,6 +143,7 @@ Ext.addBehaviors({
          * Generates unique ids. If the element already has an id, it is unchanged
          * @param {String/HTMLElement/Element} el (optional) The element to generate an id for
          * @param {String} prefix (optional) Id prefix (defaults "ext-gen")
+         * @return {String} The generated Id.
          */
         id : function(el, prefix){
             prefix = prefix || "ext-gen";
