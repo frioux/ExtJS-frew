@@ -107,7 +107,7 @@ Ext.data.Store = function(config){
         this.relayEvents(this.proxy,  ["loadexception"]);
     }
     this.sortToggle = {};
-    
+
     Ext.data.Store.superclass.constructor.call(this);
 };
 Ext.extend(Ext.data.Store, Ext.util.Observable, {
@@ -253,7 +253,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
      * <li>options: Options object from the load call</li>
      * <li>success: Boolean success indicator</li></ul></li>
      * <li>scope {Object} Scope with which to call the callback (defaults to the Store object)</li>
-     * <li>append {Boolean} indicator to append loaded records rather than replace the current cache.</li>
+     * <li>add {Boolean} indicator to append loaded records rather than replace the current cache.</li>
      * </ul>
      */
     load : function(options){
