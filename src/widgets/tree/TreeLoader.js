@@ -11,6 +11,8 @@ Ext.tree.TreeLoader = function(config){
         "load" : true,
         "loadexception" : true
     });
+    
+    Ext.tree.TreeLoader.superclass.constructor.call(this);
 };
 
 Ext.extend(Ext.tree.TreeLoader, Ext.util.Observable, {
