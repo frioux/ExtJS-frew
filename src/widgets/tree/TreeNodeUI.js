@@ -347,10 +347,9 @@ Ext.tree.TreeNodeUI.prototype = {
                        this.textNode.setAttribute("ext:qtitle", a.qtipTitle);
                    }
                } 
-            }
-            if(a.qtipCfg){
+            }else if(a.qtipCfg){
                 a.qtipCfg.target = Ext.id(this.textNode);
-                Ext.QuickTips.register(o);
+                Ext.QuickTips.register(a.qtipCfg);
             }
             this.initEvents();
             if(!this.node.expanded){
