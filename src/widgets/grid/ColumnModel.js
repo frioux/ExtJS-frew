@@ -105,7 +105,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * @cfg {String} header The header text to display in the Grid view.
      */
     /**
-     * @cfg {String} dataIndex The name of the field in the grid's {@link Ext.data.Store}'s
+     * @cfg {String} dataIndex (Optional) The name of the field in the grid's {@link Ext.data.Store}'s
      * {@link Ext.data.Record} definition from which to draw the column's value. If not
      * specified, the column's index is used as an index into the Record's data Array.
      */
@@ -114,15 +114,18 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * instead of {@link Ext.grid.Grid#autoSizeColumns} is more efficient.
      */
     /**
-     * @cfg {Boolean} sortable True if sorting is to be allowed on this column. Defaults to true.
+     * @cfg {Boolean} sortable (Optional) True if sorting is to be allowed on this column. Defaults to true.
      * Whether local/remote sorting is used is specified in {@link Ext.data.Store#remoteSort}.
      */
     /**
-     * @cfg {Boolean} locked True to lock the column in place while scrolling the Grid.
+     * @cfg {Boolean} locked (Optional) True to lock the column in place while scrolling the Grid.
      * Defaults to false.
      */
     /**
-     * @cfg {Boolean} resizable False to disable column resizing. Defaults to true.
+     * @cfg {Boolean} resizable (Optional) False to disable column resizing. Defaults to true.
+     */
+    /**
+     * @cfg {Boolean} hidden (Optional) True to hide the column. Defaults to false.
      */
     /**
      * @cfg {Function} renderer (Optional) A function used to generate HTML markup for a cell
