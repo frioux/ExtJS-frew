@@ -14,17 +14,17 @@ if(Ext.grid.Grid){
 }
 
 if(Ext.TabPanelItem){
-   Ext.TabPanelItem.prototype.closeText = "Fechar Regi„o";
+   Ext.TabPanelItem.prototype.closeText = "Fechar Regi√£o";
 }
 
 if(Ext.form.Field){
-   Ext.form.Field.prototype.invalidText = "O valor para este campo È inv·lido";
+   Ext.form.Field.prototype.invalidText = "O valor para este campo √© inv√°lido";
 }
 
 Date.monthNames = [
    "Janeiro",
    "Fevereiro",
-   "MarÁo",
+   "Mar√ßo",
    "Abril",
    "Maio",
    "Junho",
@@ -39,11 +39,11 @@ Date.monthNames = [
 Date.dayNames = [
    "Domingo",
    "Segunda",
-   "TerÁa",
+   "Ter√ßa",
    "Quarta",
    "Quinta",
    "Sexta",
-   "S·bado"
+   "S√°bado"
 ];
 
 if(Ext.MessageBox){
@@ -51,7 +51,7 @@ if(Ext.MessageBox){
       ok     : "OK",
       cancel : "Cancelar",
       yes    : "Sim",
-      no     : "N„o"
+      no     : "N√£o"
    };
 }
 
@@ -66,28 +66,28 @@ if(Ext.util.Format){
 if(Ext.DatePicker){
    Ext.apply(Ext.DatePicker.prototype, {
       todayText         : "Hoje",
-      minText           : "Esta data È anterior a menor data",
-      maxText           : "Esta data È posterior a maior data",
+      minText           : "Esta data √© anterior a menor data",
+      maxText           : "Esta data √© posterior a maior data",
       disabledDaysText  : "",
       disabledDatesText : "",
       monthNames        : Date.monthNames,
       dayNames          : Date.dayNames,
-      nextText          : 'PrÛximo MÍs (Control+Direito)',
+      nextText          : 'Pr√≥ximo M√™s (Control+Direito)',
       prevText          : 'Previous Month (Control+Esquerdo)',
       monthYearText     : 'Choose a month (Control+Cima/Baixo para mover entre os anos)',
-      todayTip          : "{0} (EspaÁo)",
+      todayTip          : "{0} (Espa√ßo)",
       format            : "m/d/y"
    });
 }
 
 if(Ext.PagingToolbar){
    Ext.apply(Ext.PagingToolbar.prototype, {
-      beforePageText : "P·gina",
+      beforePageText : "P√°gina",
       afterPageText  : "de {0}",
-      firstText      : "Primeira P·gina",
-      prevText       : "P·gina Anterior",
-      nextText       : "PrÛxima P·gina",
-      lastText       : "⁄ltima P·gina",
+      firstText      : "Primeira P√°gina",
+      prevText       : "P√°gina Anterior",
+      nextText       : "Pr√≥xima P√°gina",
+      lastText       : "√öltima P√°gina",
       refreshText    : "Atualizar Listagem",
       displayMsg     : "<b>{0} a {1} de {2} registro(s)</b>",
       emptyMsg       : 'Sem registros para exibir'
@@ -96,9 +96,9 @@ if(Ext.PagingToolbar){
 
 if(Ext.form.TextField){
    Ext.apply(Ext.form.TextField.prototype, {
-      minLengthText : "O tamanho mÌnimo permitido para este campo È {0}",
-      maxLengthText : "O tamanho m·ximo para este campo È {0}",
-      blankText     : "Este campo È obrigatÛrio, favor preencher.",
+      minLengthText : "O tamanho m√≠nimo permitido para este campo √© {0}",
+      maxLengthText : "O tamanho m√°ximo para este campo √© {0}",
+      blankText     : "Este campo √© obrigat√≥rio, favor preencher.",
       regexText     : "",
       emptyText     : null
    });
@@ -106,9 +106,9 @@ if(Ext.form.TextField){
 
 if(Ext.form.NumberField){
    Ext.apply(Ext.form.NumberField.prototype, {
-      minText : "O valor mÌnimo para este campo È {0}",
-      maxText : "O valor m·ximo para este campo È {0}",
-      nanText : "{0} n„o È um n˙mero v·lido"
+      minText : "O valor m√≠nimo para este campo √© {0}",
+      maxText : "O valor m√°ximo para este campo √© {0}",
+      nanText : "{0} n√£o √© um n√∫mero v√°lido"
    });
 }
 
@@ -118,7 +118,7 @@ if(Ext.form.DateField){
       disabledDatesText : "Desabilitado",
       minText           : "A data deste campo deve ser posterior a {0}",
       maxText           : "A data deste campo deve ser anterior a {0}",
-      invalidText       : "{0} n„o È uma data v·lida - deve ser informado no formato {1}",
+      invalidText       : "{0} n√£o √© uma data v√°lida - deve ser informado no formato {1}",
       format            : "m/d/y"
    });
 }
@@ -132,10 +132,10 @@ if(Ext.form.ComboBox){
 
 if(Ext.form.VTypes){
    Ext.apply(Ext.form.VTypes, {
-      emailText    : 'Este campo deve ser um endereÁo de e-mail v·lido no formado "usuario@dominio.com"',
+      emailText    : 'Este campo deve ser um endere√ßo de e-mail v√°lido no formado "usuario@dominio.com"',
       urlText      : 'Este campo deve ser uma URL no formato "http:/'+'/www.dominio.com"',
       alphaText    : 'Este campo deve conter apenas letras e _',
-      alphanumText : 'Este campo devve conter apenas letras, n˙meros e _'
+      alphanumText : 'Este campo devve conter apenas letras, n√∫meros e _'
    });
 }
 
