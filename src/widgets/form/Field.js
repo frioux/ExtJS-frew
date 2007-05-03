@@ -197,7 +197,7 @@ side          Add an error icon to the right of the field with a popup on hover
         if(this.disabled) {
             return false;
         }
-        return this.getValue() !== this.originalValue;
+        return String(this.getValue()) !== String(this.originalValue);
     },
 
     // private
