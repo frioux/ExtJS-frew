@@ -190,6 +190,16 @@ side          Add an error icon to the right of the field with a popup on hover
         }
     },
 
+    /**
+     * Returns true if this field has ben changed since it was originally loaded and is not disabled.
+     */
+    isDirty : function() {
+        if(this.disabled) {
+            return false;
+        }
+        return this.getValue() !== this.originalValue;
+    },
+
     // private
     afterRender : function(){
         Ext.form.Field.superclass.afterRender.call(this);

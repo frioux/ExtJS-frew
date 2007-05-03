@@ -114,6 +114,21 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     },
 
     /**
+     * Returns true if any fields in this form have changed since their original load
+     * @return Boolean
+     */
+    isDirty : function(){
+        var dirty = false;
+        this.items.each(function(f){
+           if(f.isDirty()){
+               dirty = true;
+               return false;
+           }
+        });
+        return dirty;
+    },
+
+    /**
      * Performs a predefined action (submit or load) or custom actions you define on this form
      * @param {String} actionName The name of the action type
      * @param {Object} options The options to pass to the action
@@ -254,6 +269,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
                 var f = this.findField(v.id);
                 if(f){
                     f.setValue(v.value);
+                    f.originalValue = f.getValue();
                 }
             }
         }else{ // object hash
@@ -261,6 +277,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
             for(id in values){
                 if(typeof values[id] != 'function' && (field = this.findField(id))){
                     field.setValue(values[id]);
+                    field.originalValue = field.getValue();
                 }
             }
         }
