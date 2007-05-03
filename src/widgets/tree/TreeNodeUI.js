@@ -348,6 +348,10 @@ Ext.tree.TreeNodeUI.prototype = {
                    }
                } 
             }
+            if(a.qtipCfg){
+                a.qtipCfg.target = Ext.id(this.textNode);
+                Ext.QuickTips.register(o);
+            }
             this.initEvents();
             if(!this.node.expanded){
                 this.updateExpandIcon();
