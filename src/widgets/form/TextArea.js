@@ -56,6 +56,13 @@ Ext.extend(Ext.form.TextArea, Ext.form.TextField,  {
         }
     },
 
+    onDestroy : function(){
+        if(this.textSizeEl){
+            this.textSizeEl.remove();
+        }
+        Ext.form.TextArea.superclass.onDestroy.call(this);
+    },
+
     // private
     onKeyUp : function(e){
         if(!e.isNavKeyPress() || e.getKey() == e.ENTER){
