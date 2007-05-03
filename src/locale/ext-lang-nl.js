@@ -70,7 +70,7 @@ if(Ext.util.Format){
     Ext.util.Format.date = function(v, format){
        if(!v) return "";
        if(!(v instanceof Date)) v = new Date(Date.parse(v));
-       return v.dateFormat(format || "y/m/d");
+       return v.dateFormat(format || "d-m-y");
     };
 }
 
@@ -87,7 +87,7 @@ if(Ext.DatePicker){
        prevText          : 'Vorige Maand (Control+Links)',
        monthYearText     : 'Kies een maand (Control+Omhoog/Beneden volgend/vorige jaar)',
        todayTip          : "{0} (Spatie)",
-       format            : "d/m/y",
+       format            : "d-m-y",
        startDay          : 1
     });
 }
@@ -101,7 +101,7 @@ if(Ext.PagingToolbar){
        nextText       : "Volgende Pagina",
        lastText       : "Laatste Pagina",
        refreshText    : "Ververs",
-       displayMsg     : "Getoond {0} - {1} of {2}",
+       displayMsg     : "Getoond {0} - {1} van {2}",
        emptyMsg       : 'Geen gegeven om weer te geven'
     });
 }
@@ -118,8 +118,8 @@ if(Ext.form.TextField){
 
 if(Ext.form.NumberField){
     Ext.apply(Ext.form.NumberField.prototype, {
-       minText : "De minimale lengte voor dit veld is {0}",
-       maxText : "De maximale lengte voor dit veld is {0}",
+       minText : "De minimale waarde voor dit veld is {0}",
+       maxText : "De maximale waarde voor dit veld is {0}",
        nanText : "{0} is geen geldig getal"
     });
 }
@@ -144,7 +144,7 @@ if(Ext.form.ComboBox){
 
 if(Ext.form.VTypes){
     Ext.apply(Ext.form.VTypes, {
-       emailText    : 'Dit veld moet een e-mail adres in het formaat "gebruiker@domein.nl"',
+       emailText    : 'Dit veld moet een e-mail adres zijn in het formaat "gebruiker@domein.nl"',
        urlText      : 'Dit veld moet een URL zijn in het formaat "http:/'+'/www.domein.nl"',
        alphaText    : 'Dit veld mag alleen letters en _ bevatten',
        alphanumText : 'Dit veld mag alleen letters, cijfers en _ bevatten'
@@ -165,13 +165,13 @@ if(Ext.grid.PropertyColumnModel){
     Ext.apply(Ext.grid.PropertyColumnModel.prototype, {
        nameText   : "Naam",
        valueText  : "Waarde",
-       dateFormat : "Y/m/j"
+       dateFormat : "Y-m-j"
     });
 }
 
 if(Ext.SplitLayoutRegion){
     Ext.apply(Ext.SplitLayoutRegion.prototype, {
-       splitTip            : "Sleep om grote aan te passen.",
-       collapsibleSplitTip : "Sleep om grote aan te passen. Dubbel klikken om te verbergen."
+       splitTip            : "Sleep om grootte aan te passen.",
+       collapsibleSplitTip : "Sleep om grootte aan te passen. Dubbel klikken om te verbergen."
     });
 }
