@@ -22,7 +22,6 @@
  * @param {String} content (optional) Set the HTML content for this panel
  */
 Ext.ContentPanel = function(el, config, content){
-    Ext.ContentPanel.superclass.constructor.call(this);
     if(el.autoCreate){
         config = el;
         el = Ext.id();
@@ -86,6 +85,7 @@ Ext.ContentPanel = function(el, config, content){
     if(config && config.url){
         this.setUrl(this.url, this.params, this.loadOnce);
     }
+    Ext.ContentPanel.superclass.constructor.call(this);
 };
 
 Ext.extend(Ext.ContentPanel, Ext.util.Observable, {
