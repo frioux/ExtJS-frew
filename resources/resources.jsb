@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project path="" name="Ext - Resources" author="Ext JS, LLC" version="1.0" copyright="Ext JS Library $version&#xD;&#xA;Copyright(c) 2006-2007, $author.&#xD;&#xA;licensing@extjs.com&#xD;&#xA;&#xD;&#xA;http://www.extjs.com/license" output="F:\htdocs\deploy\ext-1.0\resources" source="true" source-dir="$output" minify="False" min-dir="$output\build" doc="False" doc-dir="$output\docs" master="true" master-file="$output\yui-ext.js" zip="true" zip-file="$output\yuo-ext.$version.zip">
+<project path="" name="Ext - Resources" author="Ext JS, LLC" version="1.0.1" copyright="Ext JS Library $version&#xD;&#xA;Copyright(c) 2006-2007, $author.&#xD;&#xA;licensing@extjs.com&#xD;&#xA;&#xD;&#xA;http://www.extjs.com/license" output="F:\htdocs\deploy\ext-1.0.1\resources" source="true" source-dir="$output" minify="False" min-dir="$output\build" doc="False" doc-dir="$output\docs" master="true" master-file="$output\yui-ext.js" zip="true" zip-file="$output\yuo-ext.$version.zip">
   <directory name="" />
   <target name="All css" file="$output\css\ext-all.css" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="css\reset-min.css" />
@@ -23,6 +23,8 @@
     <include name="css\grid3.css" />
     <include name="css\panel.css" />
     <include name="css\window.css" />
+    <include name="css\tabs2.css" />
+    <include name="css\layout2.css" />
   </target>
   <file name="images\basic-dialog\gray\close.gif" path="images\basic-dialog\gray" />
   <file name="images\basic-dialog\gray\dlg-bg.gif" path="images\basic-dialog\gray" />
@@ -488,35 +490,17 @@
   <file name="images\default\qtip\close.gif" path="images\default\qtip" />
   <file name="images\gray\qtip\tip-sprite.gif" path="images\gray\qtip" />
   <file name="images\vista\qtip\tip-sprite.gif" path="images\vista\qtip" />
-  <file name="css\grid3.css" path="css" />
   <file name="images\default\grid\hd-pop.gif" path="images\default\grid" />
   <file name="css\panel.css" path="css" />
   <file name="images\default\panel\panel-sprite.gif" path="images\default\panel" />
   <file name="images\default\panel\panel-blue-sprite.gif" path="images\default\panel" />
   <file name="images\default\panel\toggle-sprite.gif" path="images\default\panel" />
   <file name="images\default\panel\close-sprite.gif" path="images\default\panel" />
-  <file name="images\default\panel\tool-sprite-tpl.gif" path="images\default\panel" />
-  <file name="images\default\panel\tool-sprites.gif" path="images\default\panel" />
-  <file name="images\default\panel\corners-sprite.gif" path="images\default\panel" />
-  <file name="images\default\panel\left-right.gif" path="images\default\panel" />
-  <file name="images\default\panel\top-bottom.gif" path="images\default\panel" />
-  <file name="images\default\panel\white-left-right.gif" path="images\default\panel" />
-  <file name="images\default\panel\white-top-bottom.gif" path="images\default\panel" />
-  <file name="images\default\panel\white-corners-sprite.gif" path="images\default\panel" />
   <file name="images\default\window\corners-sprite.gif" path="images\default\window" />
   <file name="images\default\window\left-right.gif" path="images\default\window" />
   <file name="images\default\window\top-bottom.gif" path="images\default\window" />
   <file name="css\window.css" path="css" />
-  <file name="images\default\panel\top-bottom.png" path="images\default\panel" />
-  <file name="images\default\window\top-bottom.png" path="images\default\window" />
   <file name="images\default\window\corners-sprite.png" path="images\default\window" />
-  <file name="images\default\window\top-bottom.psd" path="images\default\window" />
   <file name="images\default\window\corners-sprite.psd" path="images\default\window" />
-  <file name="images\default\window\left-right.png" path="images\default\window" />
-  <file name="images\default\window\left-right.psd" path="images\default\window" />
-  <file name="images\default\window\left-corners.png" path="images\default\window" />
-  <file name="images\default\window\left-corners.psd" path="images\default\window" />
-  <file name="images\default\window\right-corners.png" path="images\default\window" />
-  <file name="images\default\window\right-corners.psd" path="images\default\window" />
   <file name="images\default\shadow-c.png" path="images\default" />
 </project>
