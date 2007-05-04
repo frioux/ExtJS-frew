@@ -52,28 +52,24 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
 
     monitorTab : true,
 
-    // private
-    customSize : true,
+    deferHeight : true,
 
     // private
-    setSize : function(w, h){
-        if(!this.wrap){
-            this.width = w;
-            this.height = h;
-            return;
+    onResize : function(w, h){
+        Ext.form.TriggerField.superclass.onResize.apply(this, arguments);
+        if(typeof w == 'number'){
+            this.el.setWidth(this.adjustWidth('input', w - this.trigger.getWidth()));
         }
-        if(w){
-            var wrapWidth = w;
-            w = w - this.trigger.getWidth();
-            Ext.form.TriggerField.superclass.setSize.call(this, w, h);
-            this.wrap.setWidth(wrapWidth);
-            if(this.onResize){
-                this.onResize(wrapWidth, h);
-            }
-        }else{
-            Ext.form.TriggerField.superclass.setSize.call(this, w, h);
-            this.wrap.setWidth(this.el.getWidth()+this.trigger.getWidth());
-        }
+    },
+
+    adjustSize : Ext.BoxComponent.prototype.adjustSize,
+
+    getResizeEl : function(){
+        return this.wrap;
+    },
+
+    getPositionEl : function(){
+        return this.wrap;
     },
 
     // private
@@ -93,7 +89,9 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
         if(this.hideTrigger){
             this.trigger.setDisplayed(false);
         }
-        this.setSize(this.width||'', this.height||'');
+        if(!this.width){
+            this.wrap.setWidth(this.el.getWidth()+this.trigger.getWidth());
+        }
     },
 
     onDestroy : function(){

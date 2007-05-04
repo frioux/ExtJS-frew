@@ -320,9 +320,11 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      * @param {Field} field1
      * @param {Field} field2 (optional)
      * @param {Field} etc (optional)
+     * @return {Form} this
      */
     add : function(){
         this.items.addAll(Array.prototype.slice.call(arguments, 0));
+        return this;
     },
 
 

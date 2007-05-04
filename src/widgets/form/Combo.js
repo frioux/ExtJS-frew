@@ -396,6 +396,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
 
     // private
     onResize: function(w, h){
+        Ext.form.ComboBox.superclass.onResize.apply(this, arguments);
         if(this.list && this.listWidth === undefined){
             this.list.setWidth(Math.max(w, this.minListWidth));
         }

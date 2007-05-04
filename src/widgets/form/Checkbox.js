@@ -42,18 +42,9 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
     /**
      * @cfg {String} inputValue The value that should go into the generated input element's value attribute
      */
-    /**
-     * Sets the width and height of the checkbox wrapper element
-     * @param {Number} width New width in pixels
-     * @param {Number} height New height in pixels
-     */
-    setSize : function(w, h){
-        if(!this.wrap){
-            this.width = w;
-            this.height = h;
-            return;
-        }
-        this.wrap.setSize(w, h);
+    //
+    onResize : function(){
+        Ext.form.Checkbox.superclass.onResize.apply(this, arguments);
         if(!this.boxLabel){
             this.el.alignTo(this.wrap, 'c-c');
         }
@@ -66,6 +57,14 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
     },
 
     
+    getResizeEl : function(){
+        return this.wrap;
+    },
+
+    getPositionEl : function(){
+        return this.wrap;
+    },
+
     // private
     onRender : function(ct, position){
         Ext.form.Checkbox.superclass.onRender.call(this, ct, position);

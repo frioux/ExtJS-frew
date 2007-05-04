@@ -8,52 +8,9 @@
  */
 Ext.form.Field = function(config){
     Ext.form.Field.superclass.constructor.call(this, config);
-    this.addEvents({
-        /**
-         * @event focus
-         * Fires when this field receives input focus
-	     * @param {Ext.form.Field} this
-	     */
-        focus : true,
-        /**
-         * @event blur
-         * Fires when
-	     * @param {Ext.form.Field} this
-	     */
-        blur : true,
-        /**
-         * @event specialkey
-         * Fires when any key related to navigation (arrows, tab, enter, esc, etc.) is pressed.  You can check
-         * {@link Ext.EventObject#getKey} to determine which key was pressed.
-	     * @param {Ext.form.Field} this
-	     * @param {Ext.EventObject} e The event object
-	     */
-        specialkey : true,
-        /**
-         * @event change
-         * Fires just before the field blurs if the field value has changed
-	     * @param {Ext.form.Field} this
-	     * @param {Mixed} value The changed value
-	     * @param {Mixed} value The original value
-	     */
-        change : true,
-        /**
-         * @event invalid
-         * Fires after the field has been marked as invalid
-	     * @param {Ext.form.Field} this
-	     * @param {String} msg The validation message
-	     */
-        invalid : true,
-        /**
-         * @event valid
-         * Fires after the field has been validated with no errors
-	     * @param {Ext.form.Field} this
-	     */
-        valid : true
-    });
 };
 
-Ext.extend(Ext.form.Field, Ext.Component,  {
+Ext.extend(Ext.form.Field, Ext.BoxComponent,  {
     /**
      * @cfg {String} invalidClass The CSS class to use when marking a field invalid (defaults to "x-form-invalid")
      */
@@ -123,6 +80,53 @@ side          Add an error icon to the right of the field with a popup on hover
     value : undefined,
 
 
+    initComponent : function(){
+        Ext.form.Field.superclass.initComponent.call(this);
+        this.addEvents({
+            /**
+             * @event focus
+             * Fires when this field receives input focus
+             * @param {Ext.form.Field} this
+             */
+            focus : true,
+            /**
+             * @event blur
+             * Fires when
+             * @param {Ext.form.Field} this
+             */
+            blur : true,
+            /**
+             * @event specialkey
+             * Fires when any key related to navigation (arrows, tab, enter, esc, etc.) is pressed.  You can check
+             * {@link Ext.EventObject#getKey} to determine which key was pressed.
+             * @param {Ext.form.Field} this
+             * @param {Ext.EventObject} e The event object
+             */
+            specialkey : true,
+            /**
+             * @event change
+             * Fires just before the field blurs if the field value has changed
+             * @param {Ext.form.Field} this
+             * @param {Mixed} value The changed value
+             * @param {Mixed} value The original value
+             */
+            change : true,
+            /**
+             * @event invalid
+             * Fires after the field has been marked as invalid
+             * @param {Ext.form.Field} this
+             * @param {String} msg The validation message
+             */
+            invalid : true,
+            /**
+             * @event valid
+             * Fires after the field has been validated with no errors
+             * @param {Ext.form.Field} this
+             */
+            valid : true
+        });
+    },
+
     /**
      * Returns the name attribute of the field if available
      * @return {String} name The field name
@@ -137,7 +141,7 @@ side          Add an error icon to the right of the field with a popup on hover
      * @return {Ext.form.Field} this
      */
     applyTo : function(target){
-        this.target = target;
+        this.allowDomMove = false;
         this.el = Ext.get(target);
         this.render(this.el.dom.parentNode);
         return this;
@@ -145,12 +149,8 @@ side          Add an error icon to the right of the field with a popup on hover
 
     // private
     onRender : function(ct, position){
-        if(this.el){
-            this.el = Ext.get(this.el);
-            if(!this.target){
-                ct.dom.appendChild(this.el.dom);
-            }
-        }else {
+        Ext.form.Field.superclass.onRender.call(this, ct, position);
+        if(!this.el){
             var cfg = this.getAutoCreate();
             if(!cfg.name){
                 cfg.name = this.name || this.id;
@@ -169,9 +169,6 @@ side          Add an error icon to the right of the field with a popup on hover
                 type = 'text';
             }
             this.el.addClass('x-form-'+type);
-        }
-        if(!this.customSize && (this.width || this.height)){
-            this.setSize(this.width || "", this.height || "");
         }
         if(this.readOnly){
             this.el.dom.readOnly = true;
@@ -253,27 +250,6 @@ side          Add an error icon to the right of the field with a popup on hover
             this.fireEvent('change', this, v, this.startValue);
         }
         this.fireEvent("blur", this);
-    },
-
-    /**
-     * Sets the height and width of the field
-     * @param {Number} width The new field width in pixels
-     * @param {Number} height The new field height in pixels
-     */
-    setSize : function(w, h){
-        if(!this.rendered || !this.el){
-            this.width = w;
-            this.height = h;
-            return;
-        }
-        if(w){
-            w = this.adjustWidth(this.el.dom.tagName, w);
-            this.el.setWidth(w);
-        }
-        if(h){
-            this.el.setHeight(h);
-        }
-        var h = this.el.dom.offsetHeight; // force browser recalc
     },
 
     /**
@@ -436,7 +412,12 @@ side          Add an error icon to the right of the field with a popup on hover
         }
     },
 
-    // private
+    adjustSize : function(w, h){
+        var s = Ext.form.Field.superclass.adjustSize.call(this, w, h);
+        s.width = this.adjustWidth(this.el.dom.tagName, s.width);
+        return s;
+    },
+
     adjustWidth : function(tag, w){
         tag = tag.toLowerCase();
         if(typeof w == 'number' && Ext.isStrict && !Ext.isSafari){
