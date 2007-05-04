@@ -97,18 +97,19 @@ var El = Ext.Element;
 
 El.prototype = {
     /**
-     * The element's default display mode @type String
+     * The element's default display mode  (defaults to "")
+     * @type String
      */
     originalDisplay : "",
     
     visibilityMode : 1,
     /**
-     * The default unit to append to CSS values where a unit isn't provided (Defaults to px).
+     * The default unit to append to CSS values where a unit isn't provided (defaults to px).
      * @type String
      */
     defaultUnit : "px",
     /**
-     * Sets the elements visibility mode. When setVisible() is called it
+     * Sets the element's visibility mode. When setVisible() is called it
      * will use this to determine whether to set the visibility or the display property.
      * @param visMode Element.VISIBILITY or Element.DISPLAY
      * @return {Ext.Element} this
@@ -130,11 +131,11 @@ El.prototype = {
     
     /**
      * Looks at this node and then at parent nodes for a match of the passed simple selector (e.g. div.some-class or span:first-child)
-     * @param {String} ss The simple selector to test
+     * @param {String} selector The simple selector to test
      * @param {Number/String/HTMLElement/Element} maxDepth (optional) The max depth to
             search as a number or element (defaults to 10 || document.body)
      * @param {Boolean} returnEl (optional) True to return a Ext.Element object instead of DOM node
-     * @return {HTMLElement}
+     * @return {HTMLElement} The matching DOM node (or null if no match was found)
      */
     findParent : function(simpleSelector, maxDepth, returnEl){
         var p = this.dom, b = document.body, depth = 0, dq = Ext.DomQuery, stopEl;
@@ -156,11 +157,11 @@ El.prototype = {
 
     /**
      * Looks at parent nodes for a match of the passed simple selector (e.g. div.some-class or span:first-child)
-     * @param {String} ss The simple selector to test
+     * @param {String} selector The simple selector to test
      * @param {Number/String/HTMLElement/Element} maxDepth (optional) The max depth to
             search as a number or element (defaults to 10 || document.body)
      * @param {Boolean} returnEl (optional) True to return a Ext.Element object instead of DOM node
-     * @return {HTMLElement}
+     * @return {HTMLElement} The matching DOM node (or null if no match was found)
      */
     findParentNode : function(simpleSelector, maxDepth, returnEl){
         var p = Ext.fly(this.dom.parentNode, '_internal');
@@ -170,10 +171,10 @@ El.prototype = {
     /**
      * Walks up the dom looking for a parent node that matches the passed simple selector (e.g. div.some-class or span:first-child).
      * This is a shortcut for findParentNode() that always returns an Ext.Element.
-     * @param {String} ss The simple selector to test
+     * @param {String} selector The simple selector to test
      * @param {Number/String/HTMLElement/Element} maxDepth (optional) The max depth to
             search as a number or element (defaults to 10 || document.body)
-     * @return {Ext.Element}
+     * @return {Ext.Element} The matching DOM node (or null if no match was found)
      */
     up : function(simpleSelector, maxDepth){
         return this.findParentNode(simpleSelector, maxDepth, true);
@@ -183,20 +184,20 @@ El.prototype = {
 
     /**
      * Returns true if this element matches the passed simple selector (e.g. div.some-class or span:first-child)
-     * @param {String} ss The simple selector to test
-     * @return {Boolean}
+     * @param {String} selector The simple selector to test
+     * @return {Boolean} True if this element matches the selector, else false
      */
     is : function(simpleSelector){
         return Ext.DomQuery.is(this.dom, simpleSelector);    
     },
     
     /**
-     * Perform  animation on this element.
+     * Perform animation on this element.
      * @param {Object} args The YUI animation control args
-     * @param {Float} duration (optional) How long the animation lasts. (Defaults to .35 seconds)
-     * @param {Function} onComplete (optional) Function to call when animation completes.
-     * @param {String} easing (optional) Easing method to use. (Defaults to 'easeOut')
-     * @param {String} animType (optional) 'run' is the default. Can be 'color', 'motion', or 'scroll'
+     * @param {Float} duration (optional) How long the animation lasts in seconds (defaults to .35)
+     * @param {Function} onComplete (optional) Function to call when animation completes
+     * @param {String} easing (optional) Easing method to use (defaults to 'easeOut')
+     * @param {String} animType (optional) 'run' is the default. Can also be 'color', 'motion', or 'scroll'
      * @return {Ext.Element} this
      */
     animate : function(args, duration, onComplete, easing, animType){
@@ -255,6 +256,7 @@ El.prototype = {
  	    return this;
  	},    
 
+    // private
     calcOffsetsTo : function(el){
         el = Ext.get(el), d = el.dom;
         var restorePos = false;
@@ -278,7 +280,7 @@ El.prototype = {
     /**
      * Scrolls this element into view within the passed container.
      * @param {String/HTMLElement/Element} container (optional) The container element to scroll (defaults to document.body)
-     * @param {Boolean} hscroll (optional) false to disable horizontal scroll
+     * @param {Boolean} hscroll (optional) False to disable horizontal scroll (defaults to true)
      * @return {Ext.Element} this
      */
     scrollIntoView : function(container, hscroll){
@@ -313,17 +315,18 @@ El.prototype = {
         return this;
     },
 
+    // private
     scrollChildIntoView : function(child){
         Ext.fly(child, '_scrollChildIntoView').scrollIntoView(this);
     },
 
     /**
-     * Measures the elements content height and updates height to match. Note, this function uses setTimeout and 
+     * Measures the element's content height and updates height to match. Note: this function uses setTimeout so
      * the new height may not be available immediately.
-     * @param {Boolean} animate (optional) Animate the transition (Default is false)
-     * @param {Float} duration (optional) Length of the animation. (Defaults to .35 seconds)
-     * @param {Function} onComplete (optional) Function to call when animation completes.
-     * @param {String} easing (optional) Easing method to use.
+     * @param {Boolean} animate (optional) Animate the transition (defaults to false)
+     * @param {Float} duration (optional) Length of the animation in seconds (defaults to .35)
+     * @param {Function} onComplete (optional) Function to call when animation completes
+     * @param {String} easing (optional) Easing method to use (defaults to easeOut)
      * @return {Ext.Element} this
      */
     autoHeight : function(animate, duration, onComplete, easing){
@@ -351,8 +354,8 @@ El.prototype = {
     
     /**
      * Returns true if this element is an ancestor of the passed element
-     * @param {HTMLElement/String} el
-     * @return {Boolean}
+     * @param {HTMLElement/String} el The element to check
+     * @return {Boolean} True if this element is an ancestor of el, else false
      */
     contains : function(el){
         if(!el){return false;}
@@ -361,8 +364,8 @@ El.prototype = {
     
     /**
      * Checks whether the element is currently visible using both visibility and display properties.
-     * @param {Boolean} deep True to walk the dom and see if parent elements are hidden.
-     * @return {Boolean} true if the element is currently visible 
+     * @param {Boolean} deep (optional) True to walk the dom and see if parent elements are hidden (defaults to false)
+     * @return {Boolean} True if the element is currently visible, else false
      */
     isVisible : function(deep) {
         var vis = !(this.getStyle("visibility") == "hidden" || this.getStyle("display") == "none");
@@ -380,9 +383,9 @@ El.prototype = {
     },
     
     /**
-     * Creates a CompositeElement for child nodes based on the passed CSS selector (the selector should not contain an id)
+     * Creates a {@link Ext.CompositeElement} for child nodes based on the passed CSS selector (the selector should not contain an id).
      * @param {String} selector The CSS selector
-     * @param {Boolean} unique true to create a unique Ext.Element for each child (defaults to a shared flyweight object)
+     * @param {Boolean} unique (optional) True to create a unique Ext.Element for each child (defaults to false, which creates a single shared flyweight object)
      * @return {CompositeElement/CompositeElementLite} The composite element
      */
     select : function(selector, unique){
@@ -390,7 +393,7 @@ El.prototype = {
     },
     
     /**
-     * Selects child nodes based on the passed CSS selector (the selector should not contain an id)
+     * Selects child nodes based on the passed CSS selector (the selector should not contain an id).
      * @param {String} selector The CSS selector
      * @return {Array} An array of the matched nodes
      */
@@ -399,10 +402,10 @@ El.prototype = {
     },
     
     /**
-     * Selects a single child based on the passed CSS selector (the selector should not contain an id)
+     * Selects a single child at any depth below this element based on the passed CSS selector (the selector should not contain an id).
      * @param {String} selector The CSS selector
-     * @param {Boolean} returnDom true to return the DOM node instead of Ext.Element
-     * @return {Element} The element
+     * @param {Boolean} returnDom (optional) True to return the DOM node instead of Ext.Element (defaults to false)
+     * @return {HTMLElement/Ext.Element} The child Ext.Element (or DOM node if returnDom = true)
      */
     child : function(selector, returnDom){
         var n = Ext.DomQuery.selectNode("#" + Ext.id(this.dom) + " " + selector);
@@ -410,10 +413,10 @@ El.prototype = {
     },
 
     /**
-     * Selects a single *direct* child based on the passed CSS selector (the selector should not contain an id)
+     * Selects a single *direct* child based on the passed CSS selector (the selector should not contain an id).
      * @param {String} selector The CSS selector
-     * @param {Boolean} returnDom true to return the DOM node instead of Ext.Element
-     * @return {Element} The element
+     * @param {Boolean} returnDom (optional) True to return the DOM node instead of Ext.Element (defaults to false)
+     * @return {HTMLElement/Ext.Element} The child Ext.Element (or DOM node if returnDom = true)
      */
     down : function(selector, returnDom){
         var n = Ext.DomQuery.selectNode("#" + Ext.id(this.dom) + " > " + selector);
@@ -421,7 +424,7 @@ El.prototype = {
     },
 
     /**
-     * Initializes a Ext.dd.DD object for this element.
+     * Initializes a {@link Ext.dd.DD} drag drop object for this element.
      * @param {String} group The group the DD object is member of
      * @param {Object} config The DD config object
      * @param {Object} overrides An object containing methods to override/implement on the DD object
@@ -433,7 +436,7 @@ El.prototype = {
     },
    
     /**
-     * Initializes a Ext.dd.DDProxy object for this element.
+     * Initializes a {@link Ext.dd.DDProxy} object for this element.
      * @param {String} group The group the DDProxy object is member of
      * @param {Object} config The DDProxy config object
      * @param {Object} overrides An object containing methods to override/implement on the DDProxy object
@@ -445,7 +448,7 @@ El.prototype = {
     },
    
     /**
-     * Initializes a Ext.dd.DDTarget object for this element.
+     * Initializes a {@link Ext.dd.DDTarget} object for this element.
      * @param {String} group The group the DDTarget object is member of
      * @param {Object} config The DDTarget config object
      * @param {Object} overrides An object containing methods to override/implement on the DDTarget object
@@ -460,7 +463,7 @@ El.prototype = {
      * Sets the visibility of the element (see details). If the visibilityMode is set to Element.DISPLAY, it will use 
      * the display property to hide the element, otherwise it uses visibility. The default is to hide and show using the visibility property.
      * @param {Boolean} visible Whether the element is visible
-     * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
+     * @param {Boolean/Object} animate (optional) True for the default animation, or a standard Element animation config object
      * @return {Ext.Element} this
      */
      setVisible : function(visible, animate){
@@ -504,8 +507,8 @@ El.prototype = {
     },
     
     /**
-     * Toggles the elements visibility or display, depending on visibility mode.
-     * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
+     * Toggles the element's visibility or display, depending on visibility mode.
+     * @param {Boolean/Object} animate (optional) True for the default animation, or a standard Element animation config object
      * @return {Ext.Element} this
      */
     toggle : function(animate){
@@ -514,8 +517,8 @@ El.prototype = {
     },
     
     /**
-     * Sets the css display. Uses originalDisplay if value is a boolean true.
-     * @param {Boolean} value Boolean to display the element using its default display or a string to set the display directly
+     * Sets the CSS display property. Uses originalDisplay if the specified value is a boolean true.
+     * @param {Boolean} value Boolean value to display the element using its default display, or a string to set the display directly
      * @return {Ext.Element} this
      */
     setDisplayed : function(value) {
@@ -527,7 +530,7 @@ El.prototype = {
     },
     
     /**
-     * Tries to focus the element. Any exceptions are caught.
+     * Tries to focus the element. Any exceptions are caught and ignored.
      * @return {Ext.Element} this
      */
     focus : function() {
@@ -538,7 +541,7 @@ El.prototype = {
     },
     
     /**
-     * Tries to blur the element. Any exceptions are caught.
+     * Tries to blur the element. Any exceptions are caught and ignored.
      * @return {Ext.Element} this
      */
     blur : function() {
@@ -549,8 +552,8 @@ El.prototype = {
     },
     
     /**
-     * Add a CSS class to the element.
-     * @param {String/Array} className The CSS class to add or an array of classes
+     * Adds one or more CSS classes to the element. Duplicate classes are automatically filtered out.
+     * @param {String/Array} className The CSS class to add, or an array of classes
      * @return {Ext.Element} this
      */
     addClass : function(className){
@@ -567,8 +570,8 @@ El.prototype = {
     },
     
     /**
-     * Adds the passed className to this element and removes the class from all siblings
-     * @param {String} className The className to add
+     * Adds one or more CSS classes to this element and removes the same class(es) from all siblings.
+     * @param {String/Array} className The CSS class to add, or an array of classes
      * @return {Ext.Element} this
      */
     radioClass : function(className){
@@ -584,8 +587,8 @@ El.prototype = {
     },
     
     /**
-     * Removes a CSS class from the element.
-     * @param {String/Array} className The CSS class to remove or an array of classes
+     * Removes one or more CSS classes from the element.
+     * @param {String/Array} className The CSS class to remove, or an array of classes
      * @return {Ext.Element} this
      */
     removeClass : function(className){
@@ -609,12 +612,13 @@ El.prototype = {
         }
         return this;
     },
-    
+
+    // private
     classReCache: {},
 
     /**
-     * Toggles (adds or removes) the passed class.
-     * @param {String} className
+     * Toggles the specified CSS class on this element (removes it if it already exists, otherwise adds it).
+     * @param {String} className The CSS class to toggle
      * @return {Ext.Element} this
      */
     toggleClass : function(className){
@@ -627,16 +631,16 @@ El.prototype = {
     },
     
     /**
-     * Checks if a CSS class is in use by the element.
-     * @param {String} className The CSS class to check
-     * @return {Boolean} true or false
+     * Checks if the specified CSS class exists on this element's DOM node.
+     * @param {String} className The CSS class to check for
+     * @return {Boolean} True if the class exists, else false
      */
     hasClass : function(className){
         return className && (' '+this.dom.className+' ').indexOf(' '+className+' ') != -1;
     },
     
     /**
-     * Replaces a CSS class on the element with another.
+     * Replaces a CSS class on the element with another.  If the old name does not exist, the new name will simply be added.
      * @param {String} oldClassName The CSS class to replace
      * @param {String} newClassName The replacement CSS class
      * @return {Ext.Element} this
@@ -648,13 +652,13 @@ El.prototype = {
     },
 
     /**
-     * Get an object with properties matching the styles requested.
-     * e.g. el.getStyles('color', 'font-size', 'width') might return
+     * Returns an object with properties matching the styles requested.
+     * For example, el.getStyles('color', 'font-size', 'width') might return
      * {'color': '#FFFFFF', 'font-size': '13px', 'width': '100px'}.
-     * @param {String} style1
-     * @param {String} style2
-     * @param {String} etc
-     * @return Object
+     * @param {String} style1 A style name
+     * @param {String} style2 A style name
+     * @param {String} etc.
+     * @return {Object} The style object
      */
     getStyles : function(){
         var a = arguments, len = a.length, r = {};
@@ -665,10 +669,10 @@ El.prototype = {
     },
 
     /**
-       * Normalizes currentStyle and computedStyle. This is not YUI getStyle, it is an optimised version.
-       * @param {String} property The style property whose value is returned.
-       * @return {String} The current value of the style property for this element.
-       */
+     * Normalizes currentStyle and computedStyle. This is not YUI getStyle, it is an optimised version.
+     * @param {String} property The style property whose value is returned.
+     * @return {String} The current value of the style property for this element.
+     */
     getStyle : function(){
         return view && view.getComputedStyle ?
             function(prop){
@@ -714,10 +718,10 @@ El.prototype = {
     }(),
     
     /**
-       * Wrapper for setting style properties, also takes single object parameter of multiple styles
-       * @param {String/Object} property The style property to be set or an object of multiple styles.
-       * @param {String} val (optional) The value to apply to the given property or null if an object was passed.
-       * @return {Ext.Element} this
+     * Wrapper for setting style properties, also takes single object parameter of multiple styles.
+     * @param {String/Object} property The style property to be set, or an object of multiple styles.
+     * @param {String} value (optional) The value to apply to the given property, or null if an object was passed.
+     * @return {Ext.Element} this
      */
     setStyle : function(prop, value){
         if(typeof prop == "string"){
@@ -742,7 +746,7 @@ El.prototype = {
     
     /**
      * More flexible version of {@link #setStyle} for setting style properties.
-     * @param {String/Object/Function} styles A style specification string eg "width:100px", or object in the form {width:"100px"}, or
+     * @param {String/Object/Function} styles A style specification string, e.g. "width:100px", or object in the form {width:"100px"}, or
      * a function which returns such a specification.
      * @return {Ext.Element} this
      */
@@ -752,33 +756,33 @@ El.prototype = {
     },
     
     /**
-       * Gets the current X position of the element based on page coordinates.  Element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
-       @return {Number} The X position of the element
-       */
+      * Gets the current X position of the element based on page coordinates.  Element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
+      * @return {Number} The X position of the element
+      */
     getX : function(){
         return D.getX(this.dom);
     },
     
     /**
-       * Gets the current Y position of the element based on page coordinates.  Element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
-       @return {Number} The Y position of the element
-       */
+      * Gets the current Y position of the element based on page coordinates.  Element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
+      * @return {Number} The Y position of the element
+      */
     getY : function(){
         return D.getY(this.dom);
     },
     
     /**
-       * Gets the current position of the element based on page coordinates.  Element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
-       @return {Array} The XY position of the element
-       */
+      * Gets the current position of the element based on page coordinates.  Element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
+      * @return {Array} The XY position of the element
+      */
     getXY : function(){
         return D.getXY(this.dom);
     },
     
     /**
-       * Sets the X position of the element based on page coordinates.  Element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
-       @param {Number} The X position of the element
-      * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
+     * Sets the X position of the element based on page coordinates.  Element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
+     * @param {Number} The X position of the element
+     * @param {Boolean/Object} animate (optional) True for the default animation, or a standard Element animation config object
      * @return {Ext.Element} this
      */
     setX : function(x, animate){
@@ -791,11 +795,11 @@ El.prototype = {
     },
     
     /**
-       * Sets the Y position of the element based on page coordinates.  Element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
-       @param {Number} The Y position of the element
-      * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
+     * Sets the Y position of the element based on page coordinates.  Element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
+     * @param {Number} The Y position of the element
+     * @param {Boolean/Object} animate (optional) True for the default animation, or a standard Element animation config object
      * @return {Ext.Element} this
-      */
+     */
     setY : function(y, animate){
         if(!animate || !A){
             D.setY(this.dom, y);
@@ -806,7 +810,7 @@ El.prototype = {
     },
     
     /**
-     * Set the element's left position directly using CSS style (instead of setX())
+     * Sets the element's left position directly using CSS style (instead of {@link #setX}).
      * @param {String} left The left CSS property value
      * @return {Ext.Element} this
      */
@@ -816,7 +820,7 @@ El.prototype = {
     },
     
     /**
-     * Set the element's top position directly using CSS style (instead of setY())
+     * Sets the element's top position directly using CSS style (instead of {@link setY}).
      * @param {String} top The top CSS property value
      * @return {Ext.Element} this
      */
@@ -826,7 +830,7 @@ El.prototype = {
     },
     
     /**
-     * Set the element's css right style
+     * Sets the element's CSS right style.
      * @param {String} right The right CSS property value
      * @return {Ext.Element} this
      */
@@ -836,7 +840,7 @@ El.prototype = {
     },
     
     /**
-     * Set the element's css bottom style
+     * Sets the element's CSS bottom style.
      * @param {String} bottom The bottom CSS property value
      * @return {Ext.Element} this
      */
@@ -846,12 +850,12 @@ El.prototype = {
     },
     
     /**
-     * Set the position of the element in page coordinates, regardless of how the element is positioned.
+     * Sets the position of the element in page coordinates, regardless of how the element is positioned.
      * The element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
      * @param {Array} pos Contains X & Y [x, y] values for new position (coordinates are page-based)
-     * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
-      * @return {Ext.Element} this
-       */
+     * @param {Boolean/Object} animate (optional) True for the default animation, or a standard Element animation config object
+     * @return {Ext.Element} this
+     */
     setXY : function(pos, animate){
         if(!animate || !A){
             D.setXY(this.dom, pos);
@@ -862,11 +866,11 @@ El.prototype = {
     },
     
     /**
-     * Set the position of the element in page coordinates, regardless of how the element is positioned.
+     * Sets the position of the element in page coordinates, regardless of how the element is positioned.
      * The element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
      * @param {Number} x X value for new position (coordinates are page-based)
      * @param {Number} y Y value for new position (coordinates are page-based)
-     * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
+     * @param {Boolean/Object} animate (optional) True for the default animation, or a standard Element animation config object
      * @return {Ext.Element} this
      */
     setLocation : function(x, y, animate){
@@ -875,11 +879,11 @@ El.prototype = {
     },
     
     /**
-     * Set the position of the element in page coordinates, regardless of how the element is positioned.
+     * Sets the position of the element in page coordinates, regardless of how the element is positioned.
      * The element must be part of the DOM tree to have page coordinates (display:none or elements not appended return false).
      * @param {Number} x X value for new position (coordinates are page-based)
      * @param {Number} y Y value for new position (coordinates are page-based)
-     * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
+     * @param {Boolean/Object} animate (optional) True for the default animation, or a standard Element animation config object
      * @return {Ext.Element} this
      */
     moveTo : function(x, y, animate){
@@ -888,10 +892,10 @@ El.prototype = {
     },
     
     /**
-       * Returns the region of the given element.
-       * The element must be part of the DOM tree to have a region (display:none or elements not appended return false).
-       * @return {Region} A Ext.lib.Region containing "top, left, bottom, right" member data.
-       */
+     * Returns the region of the given element.
+     * The element must be part of the DOM tree to have a region (display:none or elements not appended return false).
+     * @return {Region} A Ext.lib.Region containing "top, left, bottom, right" member data.
+     */
     getRegion : function(){
         return D.getRegion(this.dom);
     },
@@ -951,7 +955,7 @@ El.prototype = {
     },
 
     /**
-     * Returns the size of the element
+     * Returns the size of the element.
      * @param {Boolean} contentSize (optional) true to get the width/size minus borders and padding
      * @return {Object} An object containing the element's size {width: (element width), height: (element height)}
      */
@@ -959,6 +963,10 @@ El.prototype = {
         return {width: this.getWidth(contentSize), height: this.getHeight(contentSize)};
     },
 
+    /**
+     * Returns the width and height of the viewport.
+     * @return {Object} An object containing the viewport's size {width: (viewport width), height: (viewport height)}
+     */
     getViewSize : function(){
         var d = this.dom, doc = document, aw = 0, ah = 0;
         if(d == doc || d == doc.body){
@@ -980,7 +988,7 @@ El.prototype = {
         return asNumber ? parseInt(this.dom.value, 10) : this.dom.value;
     },
     
-    /** @private */
+    // private
     adjustWidth : function(width){
         if(typeof width == "number"){
             if(this.autoBoxAdjust && !this.isBorderBox()){
@@ -993,7 +1001,7 @@ El.prototype = {
         return width;
     },
     
-    /** @private */
+    // private
     adjustHeight : function(height){
         if(typeof height == "number"){
            if(this.autoBoxAdjust && !this.isBorderBox()){
@@ -1303,6 +1311,7 @@ El.prototype = {
         return this;
     },
 
+    // private
     fixDisplay : function(){
         if(this.getStyle("display") == "none"){
             this.setStyle("visibility", "hidden");
@@ -1497,7 +1506,7 @@ El.prototype = {
         }
         p1 = m[1], p2 = m[2], c = m[3] ? true : false;
 
-        //Subtract the aligned el"s internal xy from the target"s offset xy
+        //Subtract the aligned el's internal xy from the target's offset xy
         //plus custom offset to get the aligned el's new offset xy
         var a1 = this.getAnchorXY(p1, true);
         var a2 = el.getAnchorXY(p2, false);
@@ -1537,6 +1546,7 @@ El.prototype = {
         return [x,y];
     },
 
+    // private
     getConstrainToXY : function(){
         var os = {top:0, left:0, bottom:0, right: 0};
 
@@ -1603,12 +1613,12 @@ El.prototype = {
      * document it aligns it to the viewport.
      * The position parameter is optional, and can be specified in any one of the following formats:
      * <ul>
-     *   <li><b>Blank</b>: Defaults to aligning the element"s top-left corner to the target"s bottom-left corner ("tl-bl").</li>
+     *   <li><b>Blank</b>: Defaults to aligning the element's top-left corner to the target's bottom-left corner ("tl-bl").</li>
      *   <li><b>One anchor (deprecated)</b>: The passed anchor position is used as the target element's anchor point.
      *       The element being aligned will position its top-left corner (tl) to that point.  <i>This method has been
      *       deprecated in favor of the newer two anchor syntax below</i>.</li>
      *   <li><b>Two anchors</b>: If two values from the table below are passed separated by a dash, the first value is used as the
-     *       element"s anchor point, and the second value is used as the target"s anchor point.</li>
+     *       element's anchor point, and the second value is used as the target's anchor point.</li>
      * </ul>
      * In addition to the anchor points, the position parameter also supports the "?" character.  If "?" is passed at the end of
      * the position string, the element will attempt to align as specified, but the position will be adjusted to constrain to
@@ -1660,10 +1670,11 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
      * @param {String/HTMLElement/Ext.Element} element The element to align to.
      * @param {String} position The position to align to.
      * @param {Array} offsets (optional) Offset the positioning by [x, y]
-     * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
-     * @param {Boolean/Number} monitorScroll (optional) true to monitor body scroll and reposition. If this parameter
+     * @param {Boolean/Object} animate (optional) True for the default animation or a standard Element animation config object
+     * @param {Boolean/Number} monitorScroll (optional) True to monitor body scroll and reposition. If this parameter
      * is a number, it is used as the buffer delay (defaults to 50ms).
-     * @param 
+     * @param {Function} callback The function to call after the animation finishes
+     * @return {Ext.Element} this
      */
     anchorTo : function(el, alignment, offsets, animate, monitorScroll, callback){
         var action = function(){
@@ -1680,8 +1691,8 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
         return this;
     },
     /**
-    * Clears any opacity settings from this element. Required in some cases for IE.
-    * @return {Ext.Element} this
+     * Clears any opacity settings from this element. Required in some cases for IE.
+     * @return {Ext.Element} this
      */
     clearOpacity : function(){
         if (window.ActiveXObject) {
@@ -1695,10 +1706,10 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
     },
     
     /**
-    * Hide this element - Uses display mode to determine whether to use "display" or "visibility". See {@link #setVisible}.
-    * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
+     * Hide this element - Uses display mode to determine whether to use "display" or "visibility". See {@link #setVisible}.
+     * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
      * @return {Ext.Element} this
-      */
+     */
     hide : function(animate){
         this.setVisible(false, this.preanim(arguments, 0));
         return this;
@@ -1969,7 +1980,8 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
             return this.addStyles(side, El.margins);
          }
     },
-    
+
+    // private
     addStyles : function(sides, styles){
         var val = 0;
         for(var i = 0, len = sides.length; i < len; i++){
@@ -2520,6 +2532,10 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
         return {left: (x - o[0] + l), top: (y - o[1] + t)};
     },
 
+    /**
+     * Returns the current scroll position of the element.
+     * @return {Object} An object containing the scroll position in the format {left: (scrollLeft), top: (scrollTop)}
+     */
     getScroll : function(){
         var d = this.dom, doc = document;
         if(d == doc || d == doc.body){
@@ -2569,6 +2585,14 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
         return(color.length > 5 ? color.toLowerCase() : defaultValue);  
     },
 
+    /**
+     * Wraps the specified element with a special markup/CSS block that renders by default as a gray container with a
+     * gradient background, rounded corners and a 4-way shadow.
+     * @param {String} class (optional) A base CSS class to apply to the containing wrapper element (defaults to 'x-box').
+     * Note that there are a number of CSS rules that are dependent on this name to make the overall effect work,
+     * so if you supply an alternate base class, make sure you also supply all of the necessary rules.
+     * @return {Ext.Element} this
+     */
     boxWrap : function(cls){
         cls = cls || 'x-box';
         var el = Ext.get(this.insertHtml('beforeBegin', String.format('<div class="{0}">'+El.boxMarkup+'</div>', cls)));
@@ -2576,6 +2600,12 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
         return el;
     },
 
+    /**
+     * Returns the value of a namespaced attribute from the element's underlying DOM node.
+     * @param {String} namespace The namespace in which to look for the attribute
+     * @param {String} name The attribute name
+     * @return {String} The attribute value
+     */
     getAttributeNS : Ext.isIE ? function(ns, name){
         var d = this.dom;
         var type = typeof d[ns+":"+name];
@@ -2622,8 +2652,10 @@ ep.autoBoxAdjust = true;
  */
 ep.autoDisplayMode = true;
 
+// private
 El.unitPattern = /\d+(px|em|%|en|ex|pt|in|cm|mm|pc)$/i;
 
+// private
 El.addUnits = function(v, defaultUnit){
     if(v === "" || v == "auto"){
         return v;
