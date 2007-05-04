@@ -258,7 +258,8 @@ El.prototype = {
 
     // private
     calcOffsetsTo : function(el){
-        el = Ext.get(el), d = el.dom;
+        el = Ext.get(el);
+        var d = el.dom;
         var restorePos = false;
         if(el.getStyle('position') == 'static'){
             el.position('relative');

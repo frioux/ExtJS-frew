@@ -806,9 +806,9 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             function(cs, rs, ds, startRow, colCount, stripe){
                 var ts = this.templates, ct = ts.cell, rt = ts.row;
                 // buffers
-                var buf = "", lbuf = "", cb, lcb, c, p = {}, rp = {}, r;
+                var buf = "", lbuf = "", cb, lcb, c, p = {}, rp = {}, r, rowIndex;
                 for(var j = 0, len = rs.length; j < len; j++){
-                    r = rs[j], cb = "", lcb = "", rowIndex = (j+startRow);
+                    r = rs[j]; cb = ""; lcb = ""; rowIndex = (j+startRow);
                     for(var i = 0; i < colCount; i++){
                         c = cs[i];
                         p.cellId = "x-grid-cell-" + rowIndex + "-" + i;
@@ -847,9 +847,9 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             function(cs, rs, ds, startRow, colCount, stripe){
                 var ts = this.templates, ct = ts.cell, rt = ts.row;
                 // buffers
-                var buf = [], lbuf = [], cb, lcb, c, p = {}, rp = {}, r;
+                var buf = [], lbuf = [], cb, lcb, c, p = {}, rp = {}, r, rowIndex;
                 for(var j = 0, len = rs.length; j < len; j++){
-                    r = rs[j], cb = [], lcb = [], rowIndex = (j+startRow);
+                    r = rs[j]; cb = []; lcb = []; rowIndex = (j+startRow);
                     for(var i = 0; i < colCount; i++){
                         c = cs[i];
                         p.cellId = "x-grid-cell-" + rowIndex + "-" + i;

@@ -124,7 +124,7 @@ Ext.QuickTips = function(){
         }
         //tipBody.setWidth(w);
         el.setWidth(parseInt(w, 10) + p);
-        if(!ce.autoHide){
+        if(ce.autoHide === false){
             close.setDisplayed(true);
             if(dd){
                 dd.unlock();
@@ -257,7 +257,7 @@ Ext.QuickTips = function(){
               close = el.child('div.x-tip-close');
               close.enableDisplayMode("block");
               close.on("click", hide);
-              d = Ext.get(document);
+              var d = Ext.get(document);
               d.on("mousedown", onDown);
               d.on("mouseup", onUp);
               d.on("mouseover", onOver);
