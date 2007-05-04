@@ -1928,8 +1928,8 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
      * @param {String} sides
      * @return {Number}
      */
-    getFrameWidth : function(sides){
-        return this.getPadding(sides) + this.getBorderWidth(sides);
+    getFrameWidth : function(sides, onlyContentBox){
+        return onlyContentBox && Ext.isBorderBox ? 0 : (this.getPadding(sides) + this.getBorderWidth(sides));
     },
 
     /**
