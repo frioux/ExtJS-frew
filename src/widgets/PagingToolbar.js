@@ -70,6 +70,7 @@ Ext.extend(Ext.PagingToolbar, Ext.Toolbar, {
 
     // private
     renderButtons : function(el){
+        Ext.PagingToolbar.superclass.render.call(this, el);
         this.first = this.addButton({
             tooltip: this.firstText,
             cls: "x-btn-icon x-grid-page-first",
@@ -246,6 +247,7 @@ Ext.extend(Ext.PagingToolbar, Ext.Toolbar, {
         ds.un("beforeload", this.beforeLoad, this);
         ds.un("load", this.onLoad, this);
         ds.un("loadexception", this.onLoadError, this);
+        this.ds = undefined;
     },
 
     /**
@@ -256,5 +258,6 @@ Ext.extend(Ext.PagingToolbar, Ext.Toolbar, {
         ds.on("beforeload", this.beforeLoad, this);
         ds.on("load", this.onLoad, this);
         ds.on("loadexception", this.onLoadError, this);
+        this.ds = ds;
     }
 });

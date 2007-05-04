@@ -119,7 +119,7 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
                     // hideous table template
                     Ext.Button.buttonTemplate = new Ext.Template(
                         '<table border="0" cellpadding="0" cellspacing="0" class="x-btn-wrap"><tbody><tr>',
-                        '<td class="x-btn-left"><i>&#160;</i></td><td class="x-btn-center"><em><button class="x-btn-text">{0}</button></em></td><td class="x-btn-right"><i>&#160;</i></td>',
+                        '<td class="x-btn-left"><i>&#160;</i></td><td class="x-btn-center"><em unselectable="on"><button class="x-btn-text">{0}</button></em></td><td class="x-btn-right"><i>&#160;</i></td>',
                         "</tr></tbody></table>");
                 }
                 this.template = Ext.Button.buttonTemplate;

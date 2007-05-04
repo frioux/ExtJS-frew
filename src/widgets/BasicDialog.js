@@ -95,11 +95,11 @@ Ext.BasicDialog = function(el, config){
         this.xy = el.getCenterXY(true);
     }
     /** The header element @type Ext.Element */
-    this.header = el.child("/.x-dlg-hd");
+    this.header = el.child("> .x-dlg-hd");
     /** The body element @type Ext.Element */
-    this.body = el.child("/.x-dlg-bd");
+    this.body = el.child("> .x-dlg-bd");
     /** The footer element @type Ext.Element */
-    this.footer = el.child("/.x-dlg-ft");
+    this.footer = el.child("> .x-dlg-ft");
 
     if(!this.header){
         this.header = el.createChild({tag: "div", cls:"x-dlg-hd", html: "&#160;"}, this.body ? this.body.dom : null);

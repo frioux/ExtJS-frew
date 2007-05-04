@@ -314,7 +314,11 @@ Ext.Toolbar.Separator = function(){
     s.className = "ytb-sep";
     Ext.Toolbar.Separator.superclass.constructor.call(this, s);
 };
-Ext.extend(Ext.Toolbar.Separator, Ext.Toolbar.Item);
+Ext.extend(Ext.Toolbar.Separator, Ext.Toolbar.Item, {
+    enable:Ext.emptyFn,
+    disable:Ext.emptyFn,
+    focus:Ext.emptyFn
+});
 
 /**
  * @class Ext.Toolbar.Spacer
@@ -328,7 +332,11 @@ Ext.Toolbar.Spacer = function(){
     s.className = "ytb-spacer";
     Ext.Toolbar.Separator.superclass.constructor.call(this, s);
 };
-Ext.extend(Ext.Toolbar.Spacer, Ext.Toolbar.Item);
+Ext.extend(Ext.Toolbar.Spacer, Ext.Toolbar.Item, {
+    enable:Ext.emptyFn,
+    disable:Ext.emptyFn,
+    focus:Ext.emptyFn
+});
 
 /**
  * @class Ext.Toolbar.TextItem
@@ -344,7 +352,11 @@ Ext.Toolbar.TextItem = function(text){
     s.innerHTML = text;
     Ext.Toolbar.TextItem.superclass.constructor.call(this, s);
 };
-Ext.extend(Ext.Toolbar.TextItem, Ext.Toolbar.Item);
+Ext.extend(Ext.Toolbar.TextItem, Ext.Toolbar.Item, {
+    enable:Ext.emptyFn,
+    disable:Ext.emptyFn,
+    focus:Ext.emptyFn
+});
 
 /**
  * @class Ext.Toolbar.Button

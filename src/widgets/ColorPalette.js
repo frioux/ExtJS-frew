@@ -43,7 +43,7 @@ Ext.extend(Ext.ColorPalette, Ext.Component, {
      * the hex codes are case-sensitive.
      */
     value : null,
-
+    clickEvent:'click',
     // private
     ctype: "Ext.ColorPalette",
 
@@ -76,7 +76,7 @@ cp.colors = ["000000", "993300", "333300"];
     // private
     onRender : function(container, position){
         var t = new Ext.MasterTemplate(
-            '<tpl><a href="#" class="color-{0}" hidefocus="on"><em><span style="background:#{0}">&#160;</span></em></a></tpl>'
+            '<tpl><a href="#" class="color-{0}" hidefocus="on"><em><span style="background:#{0}" unselectable="on">&#160;</span></em></a></tpl>'
         );
         var c = this.colors;
         for(var i = 0, len = c.length; i < len; i++){
@@ -87,7 +87,10 @@ cp.colors = ["000000", "993300", "333300"];
         t.overwrite(el);
         container.dom.insertBefore(el, position);
         this.el = Ext.get(el);
-        this.el.on("click", this.handleClick,  this, {delegate: "a"});
+        this.el.on(this.clickEvent, this.handleClick,  this, {delegate: "a"});
+        if(this.clickEvent != 'click'){
+            this.el.on('click', Ext.emptyFn,  this, {delegate: "a", preventDefault:true});
+        }
     },
 
     // private

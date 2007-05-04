@@ -104,6 +104,10 @@ Ext.extend(Ext.Editor, Ext.Component, {
             id: this.id
         });
         this.el.setStyle("overflow", Ext.isGecko ? "auto" : "hidden");
+
+        if(this.field.msgTarget != 'title'){
+            this.field.msgTarget = 'qtip';
+        }
         this.field.render(this.el);
         if(Ext.isGecko){
             this.field.el.dom.setAttribute('autocomplete', 'off');

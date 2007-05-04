@@ -21,12 +21,12 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
         if(!this.boxReady){
             this.width = w;
             this.height = h;
-            return;
+            return this;
         }
 
         // prevent recalcs when not needed
         if(this.lastSize && this.lastSize.width == w && this.lastSize.height == h){
-            return;
+            return this;
         }
         this.lastSize = {width: w, height: h};
 
@@ -80,22 +80,27 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
         return this.resizeEl || this.el;
     },
 
+    getPositionEl : function(){
+        return this.positionEl || this.el;
+    },
+
     setPosition : function(x, y){
         this.x = x;
         this.y = y;
         if(!this.boxReady){
-            return;
+            return this;
         }
         var adj = this.adjustPosition(x, y);
         var ax = adj.x, ay = adj.y;
 
+        var el = this.getPositionEl();
         if(ax !== undefined || ay !== undefined){
             if(ax !== undefined && ay !== undefined){
-                this.el.setLeftTop(ax, ay);
+                el.setLeftTop(ax, ay);
             }else if(ax !== undefined){
-                this.el.setLeft(ax);
+                el.setLeft(ax);
             }else if(ay !== undefined){
-                this.el.setTop(ay);
+                el.setTop(ay);
             }
             this.onPosition(ax, ay);
             this.fireEvent('move', this, ax, ay);
@@ -121,6 +126,9 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
         Ext.BoxComponent.superclass.onRender.call(this, ct, position);
         if(this.resizeEl){
             this.resizeEl = Ext.get(this.resizeEl);
+        }
+        if(this.positionEl){
+            this.positionEl = Ext.get(this.positionEl);
         }
     },
 

@@ -270,10 +270,13 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
         }
         this.el.setXY(xy);
         this.el.show();
-        this.focusEl.focus.defer(50, this.focusEl);
+        this.focus();
         this.fireEvent("show", this);
     },
 
+    focus : function(){
+        this.focusEl.focus.defer(50, this.focusEl);
+    },
     /**
      * Hides this menu and optionally all parent menus
      * @param {Boolean} deep (optional) True to hide all parent menus recursively, if any (defaults to false)

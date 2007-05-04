@@ -24,6 +24,7 @@
  * @param {Object} config
  */
 Ext.tree.TreePanel = function(el, config){
+   Ext.apply(this, config);
    Ext.tree.TreePanel.superclass.constructor.call(this);
    this.el = Ext.get(el);
     this.el.addClass('x-tree');
@@ -31,7 +32,6 @@ Ext.tree.TreePanel = function(el, config){
     * Read-only. The id of the container element becomes this TreePanel's id.
     */
    this.id = this.el.id;
-   Ext.apply(this, config);
    this.addEvents({
         /**
         * @event beforeload

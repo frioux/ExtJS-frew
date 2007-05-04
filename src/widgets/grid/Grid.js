@@ -337,7 +337,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
 	autoHeight : false,
 
     /**
-     * @cfg {String} autoExpandColumn The id of a column in this grid that should expand to fill unused space.
+     * @cfg {String} autoExpandColumn The id of a column in this grid that should expand to fill unused space. This id can not be 0.
      */
     autoExpandColumn : false,
 
@@ -372,8 +372,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
     rendered : false,
 
     /**
-    * Sets the maximum height of the grid - ignored if autoHeight is not on.
-    * @type Number
+    * @cfg {Number} maxHeight Sets the maximum height of the grid - ignored if autoHeight is not on.
     */
     /**
      * Called once after all setup has been completed and the grid is ready to be rendered.
