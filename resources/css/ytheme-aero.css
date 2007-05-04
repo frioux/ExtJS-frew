@@ -550,10 +550,10 @@ body.x-masked #x-msg-box .x-dlg-bd, body.x-body-masked #x-msg-box .x-dlg-bd{
 
 
 .x-tab-strip-bottom .x-tab-right {
-	 background: url(../images/aero/tabs/tab-btm-inactive-right-bg.gif) no-repeat bottom left;
+	 background: url(../images/aero/tabs/tab-btm-inactive-right-bg.gif) no-repeat bottom right;
 }
 .x-tab-strip-bottom .x-tab-left {
-	 background: url(../images/aero/tabs/tab-btm-inactive-left-bg.gif) no-repeat bottom right;
+	 background: url(../images/aero/tabs/tab-btm-inactive-left-bg.gif) no-repeat bottom left;
 }
 .x-tab-strip-bottom .x-tab-strip-active .x-tab-right {
 	 background: url(../images/aero/tabs/tab-btm-right-bg.gif) no-repeat bottom left;

@@ -114,6 +114,7 @@
 .x-color-palette {
     width: 150px;
     height: 92px;
+    cursor: pointer;
 }
 
 .x-color-palette a {
@@ -123,6 +124,7 @@
     text-decoration: none;
     -moz-outline: 0 none;
     outline: 0 none;
+    cursor: pointer;
 }
 
 .x-color-palette a:hover, .x-color-palette a.x-color-palette-sel {
