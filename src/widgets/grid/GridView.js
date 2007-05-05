@@ -587,6 +587,28 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.updateSplitters();
     },
 
+    generateRules : function(cm){
+        var ruleBuf = [];
+        for(var i = 0, len = cm.getColumnCount(); i < len; i++){
+            var cid = cm.getColumnId(i);
+            var align = '';
+            if(cm.config[i].align){
+                align = 'text-align:'+cm.config[i].align+';';
+            }
+            var hidden = '';
+            if(cm.isHidden(i)){
+                hidden = 'display:none;';
+            }
+            var width = "width:" + (cm.getColumnWidth(i) - this.borderWidth) + "px;";
+            ruleBuf.push(
+                    this.colSelector, cid, " {\n", cm.config[i].css, align, width, "\n}\n",
+                    this.hdSelector, cid, " {\n", align, width, "}\n",
+                    this.tdSelector, cid, " {\n",hidden,"\n}\n",
+                    this.splitSelector, cid, " {\n", hidden , "\n}\n");
+        }
+        return Ext.util.CSS.createStyleSheet(ruleBuf.join(""));
+    },
+
     updateSplitters : function(){
         var cm = this.cm, s = this.getSplitters();
         if(s){ // splitters not created yet
@@ -1264,7 +1286,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             header: header[1]
         });
 
-        this.updateColumns();
+        //this.updateColumns();
 
         this.grid.container.dom.innerHTML = html;
 
@@ -1327,6 +1349,8 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
                 ddGroup : this.grid.ddGroup || 'GridDD'
             });
         }
+
+        /*
         for(var i = 0; i < colCount; i++){
             if(cm.isHidden(i)){
                 this.hideColumn(i);
@@ -1335,8 +1359,8 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
                 this.css.updateRule(this.colSelector + i, "textAlign", cm.config[i].align);
                 this.css.updateRule(this.hdSelector + i, "textAlign", cm.config[i].align);
             }
-        }
-
+        }*/
+        
         this.updateHeaderSortState();
 
         this.beforeInitialResize();
