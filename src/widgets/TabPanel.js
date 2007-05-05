@@ -589,7 +589,7 @@ Ext.extend(Ext.TabPanelItem, Ext.util.Observable, {
     },
     
     /**
-     * Disable this TabPanelItem - this call is ignore if this is the active TabPanelItem.
+     * Disable this TabPanelItem - this does nothing if this is the active TabPanelItem.
      */
     disable : function(){
         if(this.tabPanel.active != this){
