@@ -258,7 +258,6 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
     cleanHtml : function(html){
         html = String(html);
         if(html.length > 5){
-            var lhtml = html.toLowerCase();
             if(Ext.isSafari){ // strip safari nonsense
                 html = html.replace(/\sclass="(?:Apple-style-span|khtml-block-placeholder)"/gi, '');
             }
@@ -386,14 +385,17 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
 
         var btns = this.tb.items.map, doc = this.doc;
 
-        btns.bold.toggle(doc.queryCommandState('bold'));
-        btns.italic.toggle(doc.queryCommandState('italic'));
-        btns.underline.toggle(doc.queryCommandState('underline'));
-        btns.justifyleft.toggle(doc.queryCommandState('justifyleft'));
-        btns.justifycenter.toggle(doc.queryCommandState('justifycenter'));
-        btns.justifyright.toggle(doc.queryCommandState('justifyright'));
-
-        if(!Ext.isSafari){
+        if(this.enableFormat){
+            btns.bold.toggle(doc.queryCommandState('bold'));
+            btns.italic.toggle(doc.queryCommandState('italic'));
+            btns.underline.toggle(doc.queryCommandState('underline'));
+        }
+        if(this.enableAlignments){
+            btns.justifyleft.toggle(doc.queryCommandState('justifyleft'));
+            btns.justifycenter.toggle(doc.queryCommandState('justifycenter'));
+            btns.justifyright.toggle(doc.queryCommandState('justifyright'));
+        }
+        if(!Ext.isSafari && this.enableLists){
             btns.insertorderedlist.toggle(doc.queryCommandState('insertorderedlist'));
             btns.insertunorderedlist.toggle(doc.queryCommandState('insertunorderedlist'));
         }
