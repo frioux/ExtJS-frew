@@ -15,7 +15,6 @@ Ext.dd.DragSource = function(el, config){
     if(!this.proxy){
         this.proxy = new Ext.dd.StatusProxy();
     }
-    this.el.on("mouseup", this.handleMouseUp);
     Ext.dd.DragSource.superclass.constructor.call(this, this.el.dom, this.ddGroup || this.group, 
           {dragElId : this.proxy.id, resizeFrame: false, isTarget: false, scroll: this.scroll === true});
     
