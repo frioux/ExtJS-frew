@@ -1,6 +1,6 @@
 /**
  * @class Ext.form.Field
- * @extends Ext.Component
+ * @extends Ext.BoxComponent
  * Base class for form fields that provides default event handling, sizing, value handling and other functionality.
  * @constructor
  * Creates a new Field 
