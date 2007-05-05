@@ -450,10 +450,10 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         dbody.bgProperties = 'fixed'; // ie
         Ext.DomHelper.applyStyles(dbody, ss);
         Ext.EventManager.on(this.doc, {
-            'mousedown': this.updateToolbar,
-            'dblclick': this.updateToolbar,
-            'click': this.updateToolbar,
-            'keyup': this.updateToolbar,
+            'mousedown': this.onEditorEvent,
+            'dblclick': this.onEditorEvent,
+            'click': this.onEditorEvent,
+            'keyup': this.onEditorEvent,
             buffer:100,
             scope: this
         });
@@ -519,6 +519,11 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         this.execCmd('FontSize', v + (Ext.isSafari ? 'px' : 0));
     },
 
+    onEditorEvent : function(e){
+        this.updateToolbar();
+    },
+
+
     /**
      * Protected method that will not generally be called directly. It triggers
      * a toolbar update by reading the markup state of the current selection in the editor.
@@ -545,6 +550,10 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         if(!Ext.isSafari && this.enableLists){
             btns.insertorderedlist.toggle(doc.queryCommandState('insertorderedlist'));
             btns.insertunorderedlist.toggle(doc.queryCommandState('insertunorderedlist'));
+        }
+        if(this.enableColors){
+            btns.forecolor.menu.hide();
+            btns.backcolor.menu.hide();
         }
 
         this.syncValue();
