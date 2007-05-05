@@ -254,22 +254,12 @@ Ext.extend(Ext.dd.DragSource, Ext.dd.DDProxy, {
         if(this.dragging) {
             return;
         }
-        if(Ext.QuickTips){
-            Ext.QuickTips.disable();
-        }
         var data = this.getDragData(e);
         if(data && this.onBeforeDrag(data, e) !== false){
             this.dragData = data;
             this.proxy.stop();
             Ext.dd.DragSource.superclass.handleMouseDown.apply(this, arguments);
         } 
-    },
-
-    // private
-    handleMouseUp : function(e){
-        if(Ext.QuickTips){
-            Ext.QuickTips.enable();
-        }
     },
 
     /**

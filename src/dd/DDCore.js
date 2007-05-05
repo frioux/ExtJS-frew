@@ -1660,6 +1660,9 @@ Ext.dd.DragDropMgr = function() {
          * @static
          */
         startDrag: function(x, y) {
+            if(Ext.QuickTips){
+                Ext.QuickTips.disable();
+            }
             clearTimeout(this.clickTimeout);
             if (this.dragCurrent) {
                 this.dragCurrent.b4StartDrag(x, y);
@@ -1720,7 +1723,9 @@ Ext.dd.DragDropMgr = function() {
          * @static
          */
         stopDrag: function(e) {
-
+            if(Ext.QuickTips){
+                Ext.QuickTips.enable();
+            }
             // Fire the drag end event for the item that was dragged
             if (this.dragCurrent) {
                 if (this.dragThreshMet) {
