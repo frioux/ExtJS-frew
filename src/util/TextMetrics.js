@@ -47,7 +47,7 @@ Ext.util.TextMetrics.Instance = function(bindTo, fixedWidth){
     ml.hide();
 
     if(fixedWidth){
-        mi.setWidth(fixedWidth);
+        ml.setWidth(fixedWidth);
     }
 
     var instance = {
