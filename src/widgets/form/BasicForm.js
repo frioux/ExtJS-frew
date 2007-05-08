@@ -80,6 +80,12 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     activeAction : null,
 
     /**
+     * @cfg {Boolean} trackResetOnLoad If set to true, form.reset() resets to the last loaded
+     * or setValues() data instead of the when the form was first created.
+     */
+    trackResetOnLoad : false,
+
+    /**
      * By default wait messages are displayed with Ext.MessageBox.wait. You can target a specific
      * element by passing it or its id or mask the form itself by passing in true.
      * @type Mixed
@@ -269,7 +275,9 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
                 var f = this.findField(v.id);
                 if(f){
                     f.setValue(v.value);
-                    f.originalValue = f.getValue();
+                    if(this.trackResetOnLoad){
+                        f.originalValue = f.getValue();
+                    }
                 }
             }
         }else{ // object hash
@@ -277,7 +285,9 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
             for(id in values){
                 if(typeof values[id] != 'function' && (field = this.findField(id))){
                     field.setValue(values[id]);
-                    field.originalValue = field.getValue();
+                    if(this.trackResetOnLoad){
+                        field.originalValue = field.getValue();
+                    }
                 }
             }
         }
