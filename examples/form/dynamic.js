@@ -84,6 +84,14 @@ Ext.onReady(function(){
         })
     );
 
+    top.container({},
+        new Ext.form.HtmlEditor({
+            fieldLabel:'Biography',
+            width:450,
+            height:200
+        })
+    );
+
     top.addButton('Save');
     top.addButton('Cancel');
 
