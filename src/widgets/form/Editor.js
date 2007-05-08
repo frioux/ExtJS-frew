@@ -39,6 +39,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
     activated : false,
     sourceEditMode : false,
     onFocus : Ext.emptyFn,
+    iframePad:3,
     defaultAutoCreate : {
         tag: "textarea",
         style:"width:500px;height:300px;",
@@ -110,12 +111,18 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                 scope: editor,
                 handler:handler||editor.relayBtnCmd,
                 clickEvent:'mousedown',
-                tooltip: editor.buttonTips[id] || undefined
+                tooltip: editor.buttonTips[id] || undefined,
+                tabIndex:-1
             };
         }
 
         // build the toolbar
         var tb = new Ext.Toolbar(this.wrap.dom.firstChild);
+
+        // stop form submits
+        tb.el.on('click', function(e){
+            e.preventDefault();
+        });
 
         if(this.enableFormat){
             tb.add(
@@ -140,7 +147,9 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                     cls:'x-btn-icon x-edit-forecolor',
                     clickEvent:'mousedown',
                     tooltip: editor.buttonTips['forecolor'] || undefined,
+                    tabIndex:-1,
                     menu : new Ext.menu.ColorMenu({
+                        allowReselect: true,
                         focus: Ext.emptyFn,
                         value:'000000',
                         plain:true,
@@ -156,10 +165,12 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                     cls:'x-btn-icon x-edit-backcolor',
                     clickEvent:'mousedown',
                     tooltip: editor.buttonTips['backcolor'] || undefined,
+                    tabIndex:-1,
                     menu : new Ext.menu.ColorMenu({
                         focus: Ext.emptyFn,
                         value:'FFFFFF',
                         plain:true,
+                        allowReselect: true,
                         selectHandler: function(cp, color){
                             if(Ext.isGecko){
                                 this.execCmd('useCSS', false);
@@ -214,7 +225,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
      * want to change the initialization markup of the iframe (e.g. to add stylesheets).
      */
     getDocMarkup : function(){
-        return '<html><head><style type="text/css">body{border:0;margin:0;padding:3px;cursor:text;}</style></head><body></body></html>';
+        return '<html><head><style type="text/css">body{border:0;margin:0;padding:3px;height:98%;cursor:text;}</style></head><body></body></html>';
     },
 
     // private
@@ -292,6 +303,9 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                 var ah = h - this.wrap.getFrameWidth('tb') - this.tb.el.getHeight();
                 this.el.setHeight(this.adjustWidth('textarea', ah));
                 this.iframe.style.height = ah + 'px';
+                if(this.doc){
+                    (this.doc.body || this.doc.documentElement).style.height = (ah - (this.iframePad*2)) + 'px';
+                }
             }
         }
     },

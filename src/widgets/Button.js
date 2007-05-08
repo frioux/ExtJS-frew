@@ -80,6 +80,11 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
     pressed : false,
 
     /**
+     * @cfg {Number} tabIndex Set a DOM tabIndex for this button
+     */
+    tabIndex : undefined,
+
+    /**
      * @cfg {Boolean} enableToggle
      * True to enable pressed/not pressed toggling (defaults to false)
      */
@@ -133,6 +138,9 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
             }
             if(this.icon){
                 btnEl.setStyle('background-image', 'url(' +this.icon +')');
+            }
+            if(this.tabIndex !== undefined){
+                btnEl.dom.tabIndex = this.tabIndex;
             }
             if(this.tooltip){
                 if(typeof this.tooltip == 'object'){

@@ -48,6 +48,11 @@ Ext.extend(Ext.ColorPalette, Ext.Component, {
     ctype: "Ext.ColorPalette",
 
     /**
+     * @cfg {Boolean} allowReselect If set to true then reselecting a color that is already selected fires the selection event
+     */
+    allowReselect : false,
+
+    /**
      * <p>An array of 6-digit color hex code strings (without the # symbol).  This array can contain any number
      * of colors, and each hex code should be unique.  The width of the palette is controlled via CSS by adjusting
      * the width property of the 'x-color-palette' class (or assigning a custom class), so you can balance the number
@@ -118,7 +123,7 @@ cp.colors = ["000000", "993300", "333300"];
      */
     select : function(color){
         color = color.replace("#", "");
-        if(color != this.value){
+        if(color != this.value || this.allowReselect){
             var el = this.el;
             if(this.value){
                 el.child("a.color-"+this.value).removeClass("x-color-palette-sel");
