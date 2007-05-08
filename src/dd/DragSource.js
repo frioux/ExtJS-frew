@@ -198,6 +198,17 @@ Ext.extend(Ext.dd.DragSource, Ext.dd.DDProxy, {
     // private
     onValidDrop : function(target, e, id){
         this.hideProxy();
+        if(this.afterValidDrop){
+            /**
+             * An empty function by default, but provided so that you can perform a custom action
+             * after a valid drop has occurred by providing an implementation.
+             * @param {Object} target The target DD 
+             * @param {Event} e The event object
+             * @param {String} id The id of the dropped element
+             * @method afterInvalidDrop
+             */
+            this.afterValidDrop(target, e, id);
+        }
     },
 
     // private

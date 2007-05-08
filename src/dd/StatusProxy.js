@@ -154,7 +154,7 @@ Ext.dd.StatusProxy.prototype = {
         if(typeof this.callback == "function"){
             this.callback.call(this.scope || this);
         }
-        this.callback == null;
-        this.scope == null;
+        this.callback = null;
+        this.scope = null;
     }
 };
