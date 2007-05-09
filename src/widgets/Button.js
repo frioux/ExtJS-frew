@@ -112,6 +112,17 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
      */
     tooltipType : 'qtip',
 
+    /**
+     * @cfg {String} cls
+     * A CSS class name string to apply to the button's main element.
+     */
+    
+    /**
+     * @cfg {Ext.Template} template (Optional)
+     * An {@link Ext.Template} with which to create the Button's main element. This Template must
+     * contain numeric substitution parameter 0 if it is to display the text property.
+     */
+
     // private
     render : function(renderTo){
         var btn;
