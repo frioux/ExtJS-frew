@@ -63,7 +63,7 @@ Ext.dd.ScrollManager = function(){
         var pt = new Ext.lib.Point(xy[0], xy[1]);
         for(var id in els){
             var el = els[id], r = el._region;
-            if(r.contains(pt) && el.isScrollable()){
+            if(r && r.contains(pt) && el.isScrollable()){
                 if(r.bottom - pt.y <= dds.thresh){
                     if(proc.el != el){
                         startProc(el, "down");
