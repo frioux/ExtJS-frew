@@ -8,6 +8,8 @@
     overflow:auto;
     background:white;
     position:relative; /* for calculating scroll offsets */
+    zoom:1;
+    overflow-x:hidden;
 }
 .x-combo-list-hd {
     font:bold 11px tahoma, arial, helvetica, sans-serif;
@@ -23,7 +25,6 @@
     font:normal 12px tahoma, arial, helvetica, sans-serif;
     padding:2px;
     border:1px solid #fff;
-    zoom:1;
     white-space: nowrap;
     overflow:hidden;
     text-overflow: ellipsis;
