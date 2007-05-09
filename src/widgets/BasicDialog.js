@@ -257,7 +257,7 @@ Ext.BasicDialog = function(el, config){
 };
 
 Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
-    shadowOffset: 4,
+    shadowOffset: Ext.isIE ? 6 : 5,
     minHeight: 80,
     minWidth: 200,
     minButtonWidth: 75,

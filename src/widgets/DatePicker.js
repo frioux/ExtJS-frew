@@ -187,8 +187,8 @@ Ext.extend(Ext.DatePicker, Ext.Component, {
         container.dom.insertBefore(el, position);
 
         this.el = Ext.get(el);
-        new Ext.util.ClickRepeater(this.el.child("td.x-date-left a"), {handler: this.showPrevMonth, scope: this});
-        new Ext.util.ClickRepeater(this.el.child("td.x-date-right a"), {handler: this.showNextMonth, scope: this});
+        new Ext.util.ClickRepeater(this.el.child("td.x-date-left a"), {handler: this.showPrevMonth, scope: this, preventDefault:true});
+        new Ext.util.ClickRepeater(this.el.child("td.x-date-right a"), {handler: this.showNextMonth, scope: this, preventDefault:true});
 
         this.el.on("mousewheel", this.handleMouseWheel,  this);
 

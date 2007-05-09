@@ -14,33 +14,44 @@ Ext.Shadow = function(config){
     }
     var o = this.offset, a = {h: 0};
     var rad = Math.floor(this.offset/2);
-    switch(this.mode.toLowerCase()){
+    switch(this.mode.toLowerCase()){ // all this hideous nonsense calculates the various offsets for shadows
         case "drop":
             a.w = 0;
             a.l = a.t = o;
+            a.t -= 1;
             if(Ext.isIE){
                 a.l -= this.offset + rad;
                 a.t -= this.offset + rad;
+                a.w -= rad;
+                a.h -= rad;
+                a.t += 1;
             }
         break;
         case "sides":
             a.w = (o*2);
             a.l = -o;
-            a.t = o;
+            a.t = o-1;
             if(Ext.isIE){
                 a.l -= (this.offset - rad);
                 a.t -= this.offset + rad;
+                a.l += 1;
                 a.w -= (this.offset - rad)*2;
+                a.w -= rad + 1;
+                a.h -= 1;
             }
         break;
         case "frame":
             a.w = a.h = (o*2);
             a.l = a.t = -o;
+            a.t += 1;
+            a.h -= 2;
             if(Ext.isIE){
                 a.l -= (this.offset - rad);
                 a.t -= (this.offset - rad);
-                a.w -= (this.offset - rad)*2;
-                a.h -= (this.offset - rad)*2;
+                a.l += 1;
+                a.w -= (this.offset + rad + 1);
+                a.h -= (this.offset + rad);
+                a.h += 1;
             }
         break;
     };
