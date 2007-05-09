@@ -114,7 +114,7 @@ Ext.extend(Ext.grid.EditorGrid, Ext.grid.Grid, {
     startEditing : function(row, col){
         this.stopEditing();
         if(this.colModel.isCellEditable(col, row)){
-            this.view.focusCell(row, col);
+            this.view.ensureVisible(row, col, true);
             var r = this.dataSource.getAt(row);
             var field = this.colModel.getDataIndex(col);
             var e = {
@@ -127,9 +127,12 @@ Ext.extend(Ext.grid.EditorGrid, Ext.grid.Grid, {
                 cancel:false
             };
             if(this.fireEvent("beforeedit", e) !== false && !e.cancel){
-                this.editing = true; // flag for buffering of orphan key strokes
+                this.editing = true;
+                var ed = this.colModel.getCellEditor(col, row);
+                if(!ed.rendered){
+                    ed.render(ed.parentEl || document.body);
+                }
                 (function(){ // complex but required for focus issues in safari, ie and opera
-                    var ed = this.colModel.getCellEditor(col, row);
                     ed.row = row;
                     ed.col = col;
                     ed.record = r;

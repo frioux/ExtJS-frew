@@ -97,11 +97,11 @@ Ext.extend(Ext.tree.TreeEditor, Ext.Editor, {
     onSpecialKey : function(field, e){
         var k = e.getKey();
         if(k == e.ESC){
+            e.stopEvent();
             this.cancelEdit();
-            e.stopEvent();
         }else if(k == e.ENTER && !e.hasModifier()){
-            this.completeEdit();
             e.stopEvent();
+            this.completeEdit();
         }
     }
 });

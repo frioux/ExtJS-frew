@@ -1485,7 +1485,8 @@ El.prototype = {
      * @return {Array} [x, y]
      */
     getAlignToXY : function(el, p, o){
-        el = Ext.get(el), d = this.dom;
+        el = Ext.get(el);
+        var d = this.dom;
         if(!el.dom){
             throw "Element.alignTo with an element that doesn't exist";
         }
@@ -1505,7 +1506,7 @@ El.prototype = {
         if(!m){
            throw "Element.alignTo with an invalid alignment " + p;
         }
-        p1 = m[1], p2 = m[2], c = m[3] ? true : false;
+        p1 = m[1]; p2 = m[2]; c = !!m[3];
 
         //Subtract the aligned el's internal xy from the target's offset xy
         //plus custom offset to get the aligned el's new offset xy
@@ -1531,15 +1532,15 @@ El.prototype = {
            var scrollX = (doc.documentElement.scrollLeft || doc.body.scrollLeft || 0)+5;
            var scrollY = (doc.documentElement.scrollTop || doc.body.scrollTop || 0)+5;
 
-           if((x+w) > dw){
-               x = swapX ? r.left-w : dw-w;
-           }
+           if((x+w) > dw + scrollX){
+                x = swapX ? r.left-w : dw+scrollX-w;
+            }
            if(x < scrollX){
                x = swapX ? r.right : scrollX;
            }
-           if((y+h) > dh){
-               y = swapY ? r.top-h : dh-h;
-           }
+           if((y+h) > dh + scrollY){
+                y = swapY ? r.top-h : dh+scrollY-h;
+            }
            if (y < scrollY){
                y = swapY ? r.bottom : scrollY;
            }

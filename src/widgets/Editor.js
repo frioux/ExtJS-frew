@@ -100,11 +100,10 @@ Ext.extend(Ext.Editor, Ext.Component, {
             cls: "x-editor",
             parentEl : ct,
             shim : this.shim,
-            shadowOffset:3,
+            shadowOffset:4,
             id: this.id
         });
         this.el.setStyle("overflow", Ext.isGecko ? "auto" : "hidden");
-
         if(this.field.msgTarget != 'title'){
             this.field.msgTarget = 'qtip';
         }
@@ -212,8 +211,19 @@ Ext.extend(Ext.Editor, Ext.Component, {
             this.boundEl.hide();
         }
         this.field.show();
-        this.field.focus();
+        if(Ext.isIE && !this.fixIEFocus){ // IE has problems with focusing the first time
+            this.fixIEFocus = true;
+            this.deferredFocus.defer(50, this);
+        }else{
+            this.field.focus();
+        }
         this.fireEvent("startedit", this.boundEl, this.startValue);
+    },
+
+    deferredFocus : function(){
+        if(this.editing){
+            this.field.focus();
+        }
     },
 
     /**

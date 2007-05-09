@@ -161,7 +161,7 @@ Ext.extend(Ext.SplitLayoutRegion, Ext.LayoutRegion, {
         this.el.show();
         this.el.alignTo(this.collapsedEl, this.getCollapseAnchor());
         this.beforeSlide();
-        this.el.setStyle("z-index", 20000);
+        this.el.setStyle("z-index", 10001);
         this.el.slideIn(this.getSlideAnchor(), {
             callback: function(){
                 this.afterSlide();

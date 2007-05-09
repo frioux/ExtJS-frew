@@ -385,21 +385,21 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
     onEditorKey : function(field, e){
         var k = e.getKey(), newCell, g = this.grid, ed = g.activeEditor;
         if(k == e.TAB){
+            e.stopEvent();
             ed.completeEdit();
             if(e.shiftKey){
                 newCell = g.walkCells(ed.row, ed.col-1, -1, this.acceptsNav, this);
             }else{
                 newCell = g.walkCells(ed.row, ed.col+1, 1, this.acceptsNav, this);
             }
-            e.stopEvent();
         }else if(k == e.ENTER && !e.ctrlKey){
+            e.stopEvent();
             ed.completeEdit();
             if(e.shiftKey){
                 newCell = g.walkCells(ed.row-1, ed.col, -1, this.acceptsNav, this);
             }else{
                 newCell = g.walkCells(ed.row+1, ed.col, 1, this.acceptsNav, this);
             }
-            e.stopEvent();
         }else if(k == e.ESC){
             ed.cancelEdit();
         }

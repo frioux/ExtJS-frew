@@ -257,7 +257,7 @@ Ext.BasicDialog = function(el, config){
 };
 
 Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
-    shadowOffset: 5,
+    shadowOffset: 4,
     minHeight: 80,
     minWidth: 200,
     minButtonWidth: 75,
@@ -454,7 +454,7 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
      * object or a valid Ext.DomHelper element config
      * @param {Function} handler The function called when the button is clicked
      * @param {Object} scope (optional) The scope of the handler function
-     * @return {Ext.Button} this
+     * @return {Ext.Button} The new button
      */
     addButton : function(config, handler, scope){
         var dh = Ext.DomHelper;

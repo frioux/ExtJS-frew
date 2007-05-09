@@ -13,21 +13,38 @@ Ext.Shadow = function(config){
         this.mode = this.defaultMode;
     }
     var o = this.offset, a = {h: 0};
+    var rad = Math.floor(this.offset/2);
     switch(this.mode.toLowerCase()){
         case "drop":
             a.w = 0;
             a.l = a.t = o;
+            if(Ext.isIE){
+                a.l -= this.offset + rad;
+                a.t -= this.offset + rad;
+            }
         break;
         case "sides":
             a.w = (o*2);
             a.l = -o;
             a.t = o;
+            if(Ext.isIE){
+                a.l -= (this.offset - rad);
+                a.t -= this.offset + rad;
+                a.w -= (this.offset - rad)*2;
+            }
         break;
         case "frame":
             a.w = a.h = (o*2);
             a.l = a.t = -o;
+            if(Ext.isIE){
+                a.l -= (this.offset - rad);
+                a.t -= (this.offset - rad);
+                a.w -= (this.offset - rad)*2;
+                a.h -= (this.offset - rad)*2;
+            }
         break;
     };
+
     this.adjusts = a;
 };
 
@@ -66,7 +83,7 @@ drop     Traditional bottom-right drop shadow
         }
         this.el.setStyle("z-index", this.zIndex || parseInt(target.getStyle("z-index"), 10)-1);
         if(Ext.isIE){
-            this.el.dom.style.filter="progid:DXImageTransform.Microsoft.alpha(opacity=50) progid:DXImageTransform.Microsoft.Blur(pixelradius="+this.offset+")";
+            this.el.dom.style.filter="progid:DXImageTransform.Microsoft.alpha(opacity=50) progid:DXImageTransform.Microsoft.Blur(pixelradius="+(this.offset)+")";
         }
         this.realign(
             target.getLeft(true),
@@ -98,11 +115,8 @@ drop     Traditional bottom-right drop shadow
         }
         var a = this.adjusts, d = this.el.dom, s = d.style;
         var iea = 0;
-        if(Ext.isIE){
-            iea = -(this.offset);
-        }
-        s.left = (l+a.l+iea)+"px";
-        s.top = (t+a.t+iea)+"px";
+        s.left = (l+a.l)+"px";
+        s.top = (t+a.t)+"px";
         var sw = (w+a.w), sh = (h+a.h), sws = sw +"px", shs = sh + "px";
         if(s.width != sws || s.height != shs){
             s.width = sws;
