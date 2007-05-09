@@ -317,8 +317,8 @@ El.prototype = {
     },
 
     // private
-    scrollChildIntoView : function(child){
-        Ext.fly(child, '_scrollChildIntoView').scrollIntoView(this);
+    scrollChildIntoView : function(child, hscroll){
+        Ext.fly(child, '_scrollChildIntoView').scrollIntoView(this, hscroll);
     },
 
     /**

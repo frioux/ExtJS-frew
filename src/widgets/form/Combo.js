@@ -262,7 +262,8 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
             shadow: this.shadow, cls: [cls, this.listClass].join(' '), constrain:false
         });
 
-        this.list.setWidth(this.listWidth || Math.max(this.wrap.getWidth(), this.minListWidth));
+        var lw = this.listWidth || Math.max(this.wrap.getWidth(), this.minListWidth);
+        this.list.setWidth(lw);
         this.list.swallowEvent('mousewheel');
         this.assetHeight = 0;
 
@@ -274,6 +275,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         this.innerList = this.list.createChild({cls:cls+'-inner'});
         this.innerList.on('mouseover', this.onViewOver, this);
         this.innerList.on('mousemove', this.onViewMove, this);
+        this.innerList.setWidth(lw - this.list.getFrameWidth('lr'))
 
         if(this.pageSize){
             this.footer = this.list.createChild({cls:cls+'-ft'});
@@ -398,7 +400,9 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     onResize: function(w, h){
         Ext.form.ComboBox.superclass.onResize.apply(this, arguments);
         if(this.list && this.listWidth === undefined){
-            this.list.setWidth(Math.max(w, this.minListWidth));
+            var lw = Math.max(w, this.minListWidth);
+            this.list.setWidth(lw);
+            this.innerList.setWidth(lw - this.list.getFrameWidth('lr'))
         }
     },
 
@@ -629,7 +633,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         if(scrollIntoView !== false){
             var el = this.view.getNode(index);
             if(el){
-                this.innerList.scrollChildIntoView(el);
+                this.innerList.scrollChildIntoView(el, false);
             }
         }
     },
