@@ -6,6 +6,7 @@
  * element's UpdateManager load indicator and will be destroyed after the initial load.
  * @constructor
  * Create a new LoadMask
+ * @param {String/HTMLElement/Ext.Element} el The element or DOM node, or its id
  * @param {Object} config The config object
  */
 Ext.LoadMask = function(el, config){
