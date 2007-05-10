@@ -40,7 +40,7 @@ Ext.Template.prototype = {
         var fn = function(m, name, format, args){
             if(format && useF){
                 if(format.substr(0, 5) == "this."){
-                    return tpl.call(format.substr(5), values[name]);
+                    return tpl.call(format.substr(5), values[name], values);
                 }else{
                     if(args){
                         // quoted values are required for strings in compiled templates, 
@@ -106,10 +106,10 @@ Ext.Template.prototype = {
                     format = "fm." + format + '(';
                 }else{
                     format = 'this.call("'+ format.substr(5) + '", ';
-                    args = "";
+                    args = ", values";
                 }
             }else{
-                args= '', format = "(values['" + name + "'] == undefined ? '' : ";
+                args= ''; format = "(values['" + name + "'] == undefined ? '' : ";
             }
             return "'"+ sep + format + "values['" + name + "']" + args + ")"+sep+"'";
         };

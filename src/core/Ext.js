@@ -551,7 +551,7 @@ var s = String.leftPad('123', 5, '0');
      */
     leftPad : function (val, size, ch) {
         var result = new String(val);
-        if (ch == null) {
+        if(ch === null || ch === undefined || ch === '') {
             ch = " ";
         }
         while (result.length < size) {
