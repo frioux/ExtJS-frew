@@ -44,15 +44,15 @@ Ext.lib.Dom = {
     },
 
     getY : function(el){
-        return jQuery(el).offset({scroll:false}).top;
+        return jQuery(el).offset().top;
     },
 
     getX : function(el){
-        return jQuery(el).offset({scroll:false}).left;
+        return jQuery(el).offset().left;
     },
 
     getXY : function(el){
-        var o = jQuery(el).offset({scroll:false});
+        var o = jQuery(el).offset();
         return [o.left,  o.top];
     },
 
@@ -112,18 +112,25 @@ Ext.lib.Event = {
 
     preventDefault : function(e){
         e = e.browserEvent || e;
-        e.preventDefault();
+        if(e.preventDefault){
+            e.preventDefault();
+        }else{
+            e.returnValue = false;
+        }
     },
 
     stopPropagation : function(e){
         e = e.browserEvent || e;
-        e.stopPropagation();
+        if(e.stopPropagation){
+            e.stopPropagation();
+        }else{
+            e.cancelBubble = true;
+        }
     },
 
     stopEvent : function(e){
-        e = e.browserEvent || e;
-        e.preventDefault();
-        e.stopPropagation();
+        this.preventDefault(e);
+        this.stopPropagation(e);
     },
 
     onAvailable : function(id, fn, scope){
