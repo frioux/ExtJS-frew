@@ -42,7 +42,7 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
         }
         el.className = this.itemCls + (this.menu ?  " x-menu-item-arrow" : "") + (this.cls ?  " " + this.cls : "");
         el.innerHTML = String.format(
-                '<img src="{0}" class="x-menu-item-icon">{1}',
+                '<img src="{0}" class="x-menu-item-icon" />{1}',
                 this.icon || Ext.BLANK_IMAGE_URL, this.text);
         this.el = el;
         Ext.menu.Item.superclass.onRender.call(this, container, position);
