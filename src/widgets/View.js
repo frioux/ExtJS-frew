@@ -237,7 +237,9 @@ Ext.extend(Ext.View, Ext.util.Observable, {
             store.on("clear", this.refresh, this);
         }
         this.store = store;
-        this.refresh();
+        if(store){
+            this.refresh();
+        }
     },
 
     /**
