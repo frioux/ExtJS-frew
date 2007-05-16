@@ -85,10 +85,10 @@ Ext.extend(Ext.form.TextArea, Ext.form.TextField,  {
         if(v.length < 1){
             v = "&#160;&#160;";
         }else{
+            if(Ext.isIE){
+                v = v.replace(/\n/g, '<p>&#160;</p>');
+            }
             v += "&#160;\n&#160;";
-        }
-        if(Ext.isIE){
-            v = v.replace(/\n/g, '<br />');
         }
         ts.innerHTML = v;
         var h = Math.min(this.growMax, Math.max(ts.offsetHeight, this.growMin));
