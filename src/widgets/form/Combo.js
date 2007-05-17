@@ -604,7 +604,8 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     },
 
     /**
-     * Select an item in the dropdown list by its data value
+     * Select an item in the dropdown list by its data value. This function does NOT cause the select event to fire.
+     * The store must be loaded and the list expanded for this function to work, otherwise use setValue.
      * @param {String} value The data value of the item to select
      * @param {Boolean} scrollIntoView False to prevent the dropdown list from autoscrolling to display the
      * selected item if it is not currently in view (defaults to true)
@@ -622,7 +623,8 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     },
 
     /**
-     * Select an item in the dropdown list by its numeric index in the list
+     * Select an item in the dropdown list by its numeric index in the list. This function does NOT cause the select event to fire.
+     * The store must be loaded and the list expanded for this function to work, otherwise use setValue.
      * @param {Number} index The zero-based index of the list item to select
      * @param {Boolean} scrollIntoView False to prevent the dropdown list from autoscrolling to display the
      * selected item if it is not currently in view (defaults to true)
@@ -638,9 +640,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         }
     },
 
-    /**
-     * Select the next item in the dropdown list (selects the first item by default if no items are currently selected)
-     */
+    // private
     selectNext : function(){
         var ct = this.store.getCount();
         if(ct > 0){
@@ -652,9 +652,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         }
     },
 
-    /**
-     * Select the previous item in the dropdown list (selects the first item by default if no items are currently selected)
-     */
+    // private
     selectPrev : function(){
         var ct = this.store.getCount();
         if(ct > 0){
@@ -793,10 +791,13 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         if(this.isExpanded()){
             this.collapse();
             this.el.focus();
-        }else{
+        }else {
             this.hasFocus = true;
-            this.doQuery(this.triggerAction == 'all' ?
-                     this.doQuery(this.allQuery, true) : this.doQuery(this.getRawValue()));
+            if(this.triggerAction == 'all') {
+                this.doQuery(this.allQuery, true);
+            } else {
+                this.doQuery(this.getRawValue());
+            }
             this.el.focus();
         }
     }
