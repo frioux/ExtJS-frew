@@ -28,13 +28,13 @@ Ext.extend(Ext.MenuButton, Ext.Button, {
         var tpl = new Ext.Template(
             '<table cellspacing="0" class="x-btn-menu-wrap x-btn"><tr><td>',
             '<table cellspacing="0" class="x-btn-wrap x-btn-menu-text-wrap"><tbody>',
-            '<tr><td class="x-btn-left"><i>&#160;</i></td><td class="x-btn-center"><button class="x-btn-text">{0}</button></td></tr>',
+            '<tr><td class="x-btn-left"><i>&#160;</i></td><td class="x-btn-center"><button class="x-btn-text" type="{1}">{0}</button></td></tr>',
             "</tbody></table></td><td>",
             '<table cellspacing="0" class="x-btn-wrap x-btn-menu-arrow-wrap"><tbody>',
-            '<tr><td class="x-btn-center"><button class="x-btn-menu-arrow-el">&#160;</button></td><td class="x-btn-right"><i>&#160;</i></td></tr>',
+            '<tr><td class="x-btn-center"><button class="x-btn-menu-arrow-el" type="button">&#160;</button></td><td class="x-btn-right"><i>&#160;</i></td></tr>',
             "</tbody></table></td></tr></table>"
         );
-        var btn = tpl.append(renderTo, [this.text], true);
+        var btn = tpl.append(renderTo, [this.text, this.type], true);
         if(this.cls){
             btn.addClass(this.cls);
         }

@@ -100,6 +100,17 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
      */
     menuAlign : "tl-bl?",
 
+    /**
+     * @cfg {String} iconCls
+     * A css class which sets a background image to be used as the icon for this button
+     */
+    iconCls : undefined,
+    /**
+     * @cfg {String} type
+     * submit, reset or button - defaults to 'button'
+     */
+    type : 'button',
+
     // private
     menuClassTarget: 'tr',
 
@@ -135,12 +146,12 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
                     // hideous table template
                     Ext.Button.buttonTemplate = new Ext.Template(
                         '<table border="0" cellpadding="0" cellspacing="0" class="x-btn-wrap"><tbody><tr>',
-                        '<td class="x-btn-left"><i>&#160;</i></td><td class="x-btn-center"><em unselectable="on"><button class="x-btn-text">{0}</button></em></td><td class="x-btn-right"><i>&#160;</i></td>',
+                        '<td class="x-btn-left"><i>&#160;</i></td><td class="x-btn-center"><em unselectable="on"><button class="x-btn-text" type="{1}">{0}</button></em></td><td class="x-btn-right"><i>&#160;</i></td>',
                         "</tr></tbody></table>");
                 }
                 this.template = Ext.Button.buttonTemplate;
             }
-            btn = this.template.append(renderTo, [this.text || '&#160;'], true);
+            btn = this.template.append(renderTo, [this.text || '&#160;', this.type], true);
             var btnEl = btn.child("button:first");
             btnEl.on('focus', this.onFocus, this);
             btnEl.on('blur', this.onBlur, this);
@@ -149,6 +160,12 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
             }
             if(this.icon){
                 btnEl.setStyle('background-image', 'url(' +this.icon +')');
+            }
+            if(this.iconCls){
+                btnEl.addClass(this.iconCls);
+                if(!this.cls){
+                    btn.addClass(this.text ? 'x-btn-text-icon' : 'x-btn-icon');
+                }
             }
             if(this.tabIndex !== undefined){
                 btnEl.dom.tabIndex = this.tabIndex;
@@ -371,6 +388,9 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
         if(e){
             e.preventDefault();
         }
+        if(e.button != 0){
+            return;
+        }
         if(!this.disabled){
             if(this.enableToggle){
                 this.toggle();
@@ -410,16 +430,18 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
         this.el.removeClass("x-btn-focus");
     },
     // private
-    onMouseDown : function(){
-        if(!this.disabled){
+    onMouseDown : function(e){
+        if(!this.disabled && e.button == 0){
             this.el.addClass("x-btn-click");
             Ext.get(document).on('mouseup', this.onMouseUp, this);
         }
     },
     // private
-    onMouseUp : function(){
-        this.el.removeClass("x-btn-click");
-        Ext.get(document).un('mouseup', this.onMouseUp, this);
+    onMouseUp : function(e){
+        if(e.button == 0){
+            this.el.removeClass("x-btn-click");
+            Ext.get(document).un('mouseup', this.onMouseUp, this);
+        }
     },
     // private
     onMenuShow : function(e){
