@@ -4,14 +4,14 @@
  * 04-07-2007
  */
 
-Ext.UpdateManager.defaults.indicatorText = '<div class="loading-indicator">übertrage Daten ...</div>';
+Ext.UpdateManager.defaults.indicatorText = '<div class="loading-indicator">Übertrage Daten ...</div>';
 
 if(Ext.View){
    Ext.View.prototype.emptyText = "";
 }
 
 if(Ext.grid.Grid){
-   Ext.grid.Grid.prototype.ddText = "{0} Zeile(n) ausgewält";
+   Ext.grid.Grid.prototype.ddText = "{0} Zeile(n) ausgewählt";
 }
 
 if(Ext.TabPanelItem){
@@ -43,7 +43,7 @@ Date.dayNames = [
    "Dienstag",
    "Mittwoch",
    "Donnerstag",
-   "Fritag",
+   "Freitag",
    "Samstag"
 ];
 
@@ -73,9 +73,9 @@ if(Ext.DatePicker){
       disabledDatesText : "",
       monthNames	: Date.monthNames,
       dayNames		: Date.dayNames,
-      nextText          : 'Nächster Monat (Strg/Control + Rechts)',
-      prevText          : 'Vorheriger Monat (Strg/Control + Links)',
-      monthYearText     : 'Monat auswählen (Strg/Control + Hoch/Runter, um ein Jahr auszuwählen)',
+      nextText          : "Nächster Monat (Strg/Control + Rechts)",
+      prevText          : "Vorheriger Monat (Strg/Control + Links)",
+      monthYearText     : "Monat auswählen (Strg/Control + Hoch/Runter, um ein Jahr auszuwählen)",
       todayTip          : "Heute ({0}) (Leertaste)",
       format            : "d.m.Y"
    });
@@ -87,11 +87,11 @@ if(Ext.PagingToolbar){
       afterPageText  : "von {0}",
       firstText      : "Erste Seite",
       prevText       : "vorherige Seite",
-      nextText       : "nächste Siete",
+      nextText       : "nächste Seite",
       lastText       : "letzte Seite",
       refreshText    : "Aktualisieren",
       displayMsg     : "Anzeige Eintrag {0} - {1} von {2}",
-      emptyMsg       : 'Keine Daten vorhanden'
+      emptyMsg       : "Keine Daten vorhanden"
    });
 }
 
@@ -99,7 +99,7 @@ if(Ext.form.TextField){
    Ext.apply(Ext.form.TextField.prototype, {
       minLengthText : "Bitte geben Sie mindestens {0} Zeichen ein",
       maxLengthText : "Bitte geben Sie maximal {0} Zeichen ein",
-      blankText     : "Dieses Feld darf nich leer sein",
+      blankText     : "Dieses Feld darf nicht leer sein",
       regexText     : "",
       emptyText     : null
    });
@@ -134,9 +134,9 @@ if(Ext.form.ComboBox){
 if(Ext.form.VTypes){
    Ext.apply(Ext.form.VTypes, {
       emailText    : 'Dieses Feld sollte eine E-Mail-Adresse enthalten. Format: "user@domain.com"',
-      urlText      : 'Dieses Feld sollte eine URL enthalten. Format "http:/'+'/www.domain.com"',
-      alphaText    : 'Dieses Feld darf zur Buchstaben enthalten und _',
-      alphanumText : 'Dieses Feld darf zur Buchstaben und Zahlen enthalten und _'
+      urlText      : 'Dieses Feld sollte eine URL enthalten. Format: "http:/'+'/www.domain.com"',
+      alphaText    : 'Dieses Feld darf nur Buchstaben enthalten und _',
+      alphanumText : 'Dieses Feld darf nur Buchstaben und Zahlen enthalten und _'
    });
 }
 
