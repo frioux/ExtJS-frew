@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Swedish translation (utf8-encoding)
  * By Erik Andersson, Monator Technologies
  * 24 April 2007
@@ -19,7 +19,7 @@ if(Ext.TabPanelItem){
 }
 
 if(Ext.form.Field){
-   Ext.form.Field.prototype.invalidText = "Värdet i detta fält är icke tillåtet";
+   Ext.form.Field.prototype.invalidText = "Värdet i detta fält är inte tillåtet";
 }
 
 if(Ext.LoadMask){
@@ -64,15 +64,15 @@ if(Ext.util.Format){
    Ext.util.Format.date = function(v, format){
       if(!v) return "";
       if(!(v instanceof Date)) v = new Date(Date.parse(v));
-      return v.dateFormat(format || "Y/m/d");
+      return v.dateFormat(format || "Y-m-d");
    };
 }
 
 if(Ext.DatePicker){
    Ext.apply(Ext.DatePicker.prototype, {
       todayText         : "Idag",
-      minText           : "Detta datum är före det tidigast tillåtna",
-      maxText           : "Detta datum är efter det senast tillåtna",
+      minText           : "Detta datum inträffar före det tidigast tillåtna",
+      maxText           : "Detta datum inträffar efter det senast tillåtna",
       disabledDaysText  : "",
       disabledDatesText : "",
       monthNames	: Date.monthNames,
@@ -81,7 +81,7 @@ if(Ext.DatePicker){
       prevText          : 'Föregående Månad (Ctrl + vänster piltangent)',
       monthYearText     : 'Välj en månad (Ctrl + Uppåt/Neråt pil för att ändra årtal)',
       todayTip          : "{0} (Mellanslag)",
-      format            : "y/m/d",
+      format            : "y-m-d",
       startDay          : 1
    });
 }
@@ -102,8 +102,8 @@ if(Ext.PagingToolbar){
 
 if(Ext.form.TextField){
    Ext.apply(Ext.form.TextField.prototype, {
-      minLengthText : "Minsta tillåtna längden för detta fält är {0}",
-      maxLengthText : "Största tillåtna längden för detta fält är {0}",
+      minLengthText : "Minsta tillåtna längd för detta fält är {0}",
+      maxLengthText : "Största tillåtna längd för detta fält är {0}",
       blankText     : "Detta fält är obligatoriskt",
       regexText     : "",
       emptyText     : null
@@ -112,8 +112,8 @@ if(Ext.form.TextField){
 
 if(Ext.form.NumberField){
    Ext.apply(Ext.form.NumberField.prototype, {
-      minText : "Minsta tillåtna värdet för detta fält är {0}",
-      maxText : "Största tillåtna värdet för detta fält är {0}",
+      minText : "Minsta tillåtna värde för detta fält är {0}",
+      maxText : "Största tillåtna värde för detta fält är {0}",
       nanText : "{0} är inte ett tillåtet nummer"
    });
 }
@@ -122,9 +122,9 @@ if(Ext.form.DateField){
    Ext.apply(Ext.form.DateField.prototype, {
       disabledDaysText  : "Inaktiverad",
       disabledDatesText : "Inaktiverad",
-      minText           : "Datumet i detta fält måste vara efter {0}",
-      maxText           : "Datumet i detta fält måste vara före {0}",
-      invalidText       : "{0} är inte ett tillåtet datum - datum skall anges på formatet {1}",
+      minText           : "Datumet i detta fält måste inträffa efter {0}",
+      maxText           : "Datumet i detta fält måste inträffa före {0}",
+      invalidText       : "{0} är inte ett tillåtet datum - datum skall anges i formatet {1}",
       format            : "y/m/d"
    });
 }
@@ -138,8 +138,8 @@ if(Ext.form.ComboBox){
 
 if(Ext.form.VTypes){
    Ext.apply(Ext.form.VTypes, {
-      emailText    : 'Detta fält skall vara en e-post adress på formatet "user@domain.com"',
-      urlText      : 'Detta fält skall vara en länk (URL) på formatet "http:/'+'/www.domain.com"',
+      emailText    : 'Detta fält skall vara en e-post adress i formatet "user@domain.com"',
+      urlText      : 'Detta fält skall vara en länk (URL) i formatet "http:/'+'/www.domain.com"',
       alphaText    : 'Detta fält får bara innehålla bokstäver och "_"',
       alphanumText : 'Detta fält får bara innehålla bokstäver, nummer och "_"'
    });
@@ -165,7 +165,7 @@ if(Ext.grid.PropertyColumnModel){
 
 if(Ext.SplitLayoutRegion){
    Ext.apply(Ext.SplitLayoutRegion.prototype, {
-      splitTip            : "Drag för att ändra storleken.",
+      splitTip            : "Dra för att ändra storleken.",
       collapsibleSplitTip : "Drag för att ändra storleken. Dubbelklicka för att gömma."
    });
 }

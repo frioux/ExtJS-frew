@@ -1,7 +1,7 @@
 /*
  * Croatian translation
  * By Ylodi (utf8 encoding)
- * 10 April 2007
+ * 8 May 2007
  */
  
 Ext.UpdateManager.defaults.indicatorText = '<div class="loading-indicator">Učitavanje...</div>';
@@ -19,7 +19,7 @@ if(Ext.TabPanelItem){
 }
 
 if(Ext.form.Field){
-   Ext.form.Field.prototype.invalidText = "Vrijednost u ovom polju je neispravna";
+   Ext.form.Field.prototype.invalidText = "Unesena vrijednost u ovom polju je neispravna";
 }
 
 Date.monthNames = [
@@ -38,8 +38,8 @@ Date.monthNames = [
 ];
 
 Date.dayNames = [
-   "Nedelja",
-   "Ponedeljak",
+   "Nedjelja",
+   "Ponedjeljak",
    "Utorak",
    "Srijeda",
    "Četvrtak",
@@ -60,7 +60,7 @@ if(Ext.util.Format){
    Ext.util.Format.date = function(v, format){
       if(!v) return "";
       if(!(v instanceof Date)) v = new Date(Date.parse(v));
-      return v.dateFormat(format || "d/m/Y");
+      return v.dateFormat(format || "d.m.Y");
    };
 }
 
@@ -77,7 +77,7 @@ if(Ext.DatePicker){
       prevText          : 'Prethodni mjesec (Control+Lijevo)',
       monthYearText     : 'Odaberite mjesec (Control+Gore/Dolje za promjenu godine)',
       todayTip          : "{0} (Razmaknica)",
-      format            : "d/m/y",
+      format            : "d.m.y",
       startDay 		 : 1
    });
 }
@@ -89,7 +89,7 @@ if(Ext.PagingToolbar){
       firstText      : "Prva stranica",
       prevText       : "Prethodna stranica",
       nextText       : "Slijedeća stranica",
-      lastText       : "Zadnja stranica",
+      lastText       : "Posljednja stranica",
       refreshText    : "Obnovi",
       displayMsg     : "Prikazujem {0} - {1} od {2}",
       emptyMsg       : 'Nema podataka za prikaz'
@@ -110,7 +110,7 @@ if(Ext.form.NumberField){
    Ext.apply(Ext.form.NumberField.prototype, {
       minText : "Minimalna vrijednost za ovo polje je {0}",
       maxText : "Maksimalna vrijednost za ovo polje je {0}",
-      nanText : "{0} is not a valid number"
+      nanText : "{0} nije ispravan broj"
    });
 }
 
@@ -121,7 +121,7 @@ if(Ext.form.DateField){
       minText           : "Datum u ovom polje mora biti poslije {0}",
       maxText           : "Datum u ovom polju mora biti prije {0}",
       invalidText       : "{0} nije ispravan datum - mora biti u obliku {1}",
-      format            : "d/m/y"
+      format            : "d.m.y"
    });
 }
 
@@ -134,10 +134,10 @@ if(Ext.form.ComboBox){
 
 if(Ext.form.VTypes){
    Ext.apply(Ext.form.VTypes, {
-      emailText    : 'Ovo polje treba biti e-mail adresa u obliku "korisnik@domena.com"',
-      urlText      : 'Ovo polje treba biti URL u obliku "http:/'+'/www.domena.com"',
-      alphaText    : 'Ovo polje treba sadržavati samo slova i znak _',
-      alphanumText : 'Ovo polje treba sadržavati samo slova, brojeve i znak _'
+      emailText    : 'Ovdje možete unijeti samo e-mail adresu u obliku "korisnik@domena.com"',
+      urlText      : 'Ovdje možete unijeti samo URL u obliku "http:/'+'/www.domena.com"',
+      alphaText    : 'Ovo polje može sadržavati samo slova i znak _',
+      alphanumText : 'Ovo polje može sadržavati samo slova, brojeve i znak _'
    });
 }
 
@@ -155,7 +155,7 @@ if(Ext.grid.PropertyColumnModel){
    Ext.apply(Ext.grid.PropertyColumnModel.prototype, {
       nameText   : "Naziv",
       valueText  : "Vrijednost",
-      dateFormat : "j/m/Y"
+      dateFormat : "d.m.Y"
    });
 }
 
