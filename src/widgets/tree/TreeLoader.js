@@ -1,5 +1,30 @@
 /**
  * @class Ext.tree.TreeLoader
+ * @extends Ext.util.Observable
+ * A TreeLoader provides for lazy loading of an {@link Ext.tree.TreeNode}'s child
+ * nodes from a specified URL. The response must be a javascript Array definition
+ * who's elements are node definition objects. eg:
+ * <pre><code>
+   [{ 'id': 1, 'text': 'A folder Node', 'leaf': false },
+    { 'id': 2, 'text': 'A leaf Node', 'leaf': true }]
+</code></pre>
+ * <br><br>
+ * A server request is sent, and child nodes are loaded only when a node is expanded.
+ * The loading node's id is passed to the server under the parameter name "node" to
+ * enable the server to produce the correct child nodes.
+ * <br><br>
+ * To pass extra parameters, an event handler may be attached to the "beforeload"
+ * event, and the parameters specified in the TreeLoader's baseParams property:
+ * <pre><code>
+    myTreeLoader.on("beforeload", function(treeLoader, node) {
+        this.baseParams.category = node.attributes.category;
+    }, this);
+</code></pre><
+ * This would pass an HTTP parameter called "category" to the server containing
+ * the value of the Node's "category" attribute.
+ * @constructor
+ * Creates a new Treeloader.
+ * @param {Object} config A config object containing config properties.
  */
 Ext.tree.TreeLoader = function(config){
     this.baseParams = {};
@@ -7,8 +32,29 @@ Ext.tree.TreeLoader = function(config){
     Ext.apply(this, config);
     
     this.addEvents({
+        /**
+         * @event beforeload
+         * Fires before a network request is made to retrieve the Json text which specifies a node's children.
+         * @param {Object} This TreeLoader object.
+         * @param {Object} node The {@link Ext.tree.TreeNode} object being loaded.
+         * @param {Object} callback The callback function specified in the {@link #load} call.
+         */
         "beforeload" : true,
+        /**
+         * @event load
+         * Fires when the node has been successfuly loaded.
+         * @param {Object} This TreeLoader object.
+         * @param {Object} node The {@link Ext.tree.TreeNode} object being loaded.
+         * @param {Object} response The response object containing the data from the server.
+         */
         "load" : true,
+        /**
+         * @event loadexception
+         * Fires if the network request failed.
+         * @param {Object} This TreeLoader object.
+         * @param {Object} node The {@link Ext.tree.TreeNode} object being loaded.
+         * @param {Object} response The response object containing the data from the server.
+         */
         "loadexception" : true
     });
     
@@ -16,8 +62,36 @@ Ext.tree.TreeLoader = function(config){
 };
 
 Ext.extend(Ext.tree.TreeLoader, Ext.util.Observable, {
+    /**
+    * @cfg {String} dataUrl The URL from which to request a Json string which
+    * specifies an array of node definition object representing the child nodes
+    * to be loaded.
+    */
+    /**
+    * @cfg {Object} baseParams (optional) An object containing properties which
+    * specify HTTP parameters to be passed to each request for child nodes.
+    */
+
+    /**
+    * @cfg {Object} uiProviders (optional) An object containing properties which
+    * specify custom {@link Ext.tree.TreeNodeUI} implementations. If the optional
+    * <i>uiProvider</i> attribute of a returned child node is a string rather
+    * than a reference to a TreeNodeUI implementation, this that string value
+    * is used as a property name in the uiProviders object.
+    */
     uiProviders : {},
+
+    /**
+    * @cfg {Boolean} clearOnLoad (optional) Default to true. Remove previously existing
+    * child nodes before loading.
+    */
     clearOnLoad : true,
+
+	/**
+	 * Load an {@link Ext.tree.TreeNode} from the URL specified in the constructor.
+	 * This is called automatically when a node is expanded, but may be used to reload
+	 * a node (or append new children if the {@link #clearOnLoad} option is false.)
+	 */
     load : function(node, callback){
         if(this.clearOnLoad){
             while(node.firstChild){

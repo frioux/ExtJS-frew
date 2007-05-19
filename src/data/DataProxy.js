@@ -15,12 +15,14 @@ Ext.data.DataProxy = function(){
         /**
          * @event beforeload
          * Fires before a network request is made to retrieve a data object.
+         * @param {Object} This DataProxy object.
          * @param {Object} params The params parameter to the load function.
          */
         beforeload : true,
         /**
          * @event load
          * Fires before the load method's callback is called.
+         * @param {Object} This DataProxy object.
          * @param {Object} o The data object.
          * @param {Object} arg The callback argument object passed to the load function.
          */
@@ -28,6 +30,7 @@ Ext.data.DataProxy = function(){
         /**
          * @event loadexception
          * Fires if an Exception occurs during data retrieval.
+         * @param {Object} This DataProxy object.
          * @param {Object} o The data object.
          * @param {Object} arg The callback argument object passed to the load function.
          * @param {Object} e The Exception.
