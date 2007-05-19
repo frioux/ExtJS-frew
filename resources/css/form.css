@@ -79,7 +79,7 @@
     height:19px; /* safari doesn't allow height adjustments to the fields, so adjust trigger */
 }
 .x-form-field-wrap .x-form-date-trigger{
-    background:transparent url(../images/default/form/date-trigger.gif) no-repeat;
+    background:transparent url(../images/default/form/date-trigger.gif) no-repeat 0 0 !important;
     cursor:pointer;
 }
 .x-form-field-wrap .x-form-clear-trigger{
@@ -90,7 +90,7 @@
     background:transparent url(../images/default/form/search-trigger.gif) no-repeat 0 0;
     cursor:pointer;
 }
-.ext-safari .x-form-field-wrap .x-form-date-trigger{
+.ext-safari .x-form-field-wrap .x-form-trigger{
     right:0;
 }
 .x-form-field-wrap .x-form-twin-triggers{
