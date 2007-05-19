@@ -129,7 +129,7 @@ Ext.extend(Ext.MenuButton, Ext.Button, {
      */
     focus : function(){
         if(this.el){
-            this.el.child("a:first").focus();
+            this.el.child("button:first").focus();
         }
     },
 

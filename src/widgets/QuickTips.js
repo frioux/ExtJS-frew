@@ -244,6 +244,10 @@ Ext.QuickTips = function(){
           tm = Ext.QuickTips;
           cfg = tm.tagConfig;
           if(!inited){
+              if(!Ext.isReady){ // allow calling of init() before onReady
+                  Ext.onReady(Ext.QuickTips.init, Ext.QuickTips);
+                  return;
+              }
               el = new Ext.Layer({cls:"x-tip", shadow:"drop", shim: true, constrain:true, shadowOffset:4});
               el.fxDefaults = {stopFx: true};
               // maximum custom styling

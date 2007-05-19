@@ -131,7 +131,8 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
     /**
      * @cfg {Ext.Template} template (Optional)
      * An {@link Ext.Template} with which to create the Button's main element. This Template must
-     * contain numeric substitution parameter 0 if it is to display the text property.
+     * contain numeric substitution parameter 0 if it is to display the text property. Changing the template could
+     * require code modifications if required elements (e.g. a button) aren't present.
      */
 
     // private

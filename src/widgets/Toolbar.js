@@ -208,6 +208,13 @@ Ext.Toolbar.prototype = {
         var td = document.createElement("td");
         this.tr.appendChild(td);
         return td;
+    },
+
+    destroy : function(){
+        if(this.items){ // rendered?
+            Ext.destroy.apply(Ext, this.items.items);
+        }
+        Ext.Element.uncache(this.el, this.tr);
     }
 };
 

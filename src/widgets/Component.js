@@ -127,6 +127,10 @@ Ext.Component = function(config){
     Ext.ComponentMgr.register(this);
     Ext.Component.superclass.constructor.call(this);
     this.initComponent();
+    if(this.renderTo){ // not supported by all components yet. use at your own risk!
+        this.render(this.renderTo);
+        delete this.renderTo;
+    }
 };
 
 // private
