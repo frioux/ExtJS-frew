@@ -280,81 +280,81 @@ Ext.grid.Grid = function(container, config){
 };
 Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
     /**
-     * @cfg {Number} minColumnWidth The minimum width a column can be resized to. Defaults to 25.
+     * @cfg {Number} minColumnWidth The minimum width a column can be resized to. Default is 25.
 	 */
 	minColumnWidth : 25,
 
     /**
 	 * @cfg {Boolean} autoSizeColumns True to automatically resize the columns to fit their content
 	 * <b>on initial render.</b> It is more efficient to explicitly size the columns
-	 * through the ColumnModel's {@link Ext.grid.ColumnModel#width} config option.
+	 * through the ColumnModel's {@link Ext.grid.ColumnModel#width} config option.  Default is false.
 	 */
 	autoSizeColumns : false,
 
 	/**
-	 * @cfg {Boolean} autoSizeHeaders True to measure headers with column data when auto sizing columns.
+	 * @cfg {Boolean} autoSizeHeaders True to measure headers with column data when auto sizing columns. Default is true.
 	 */
 	autoSizeHeaders : true,
 
 	/**
-	 * @cfg {Boolean} monitorWindowResize True to autoSize the grid when the window resizes. Defaults to true.
+	 * @cfg {Boolean} monitorWindowResize True to autoSize the grid when the window resizes. Default is true.
 	 */
 	monitorWindowResize : true,
 
 	/**
 	 * @cfg {Boolean} maxRowsToMeasure If autoSizeColumns is on, maxRowsToMeasure can be used to limit the number of
-	 * rows measured to get a columns size - defaults to 0 (all rows).
+	 * rows measured to get a columns size. Default is 0 (all rows).
 	 */
 	maxRowsToMeasure : 0,
 
 	/**
-	 * @cfg {Boolean} trackMouseOver True to highlight rows when the mouse is over. Default is false.
+	 * @cfg {Boolean} trackMouseOver True to highlight rows when the mouse is over. Default is true.
 	 */
 	trackMouseOver : true,
 
 	/**
-	 * @cfg {Boolean} enableDragDrop True to enable drag and drop of rows.
+	 * @cfg {Boolean} enableDragDrop True to enable drag and drop of rows. Default is false.
 	 */
 	enableDragDrop : false,
 
 	/**
-	 * @cfg {Boolean} enableColumnMove True to enable drag and drop reorder of columns.
+	 * @cfg {Boolean} enableColumnMove True to enable drag and drop reorder of columns. Default is true.
 	 */
 	enableColumnMove : true,
 
 	/**
-	 * @cfg {Boolean} enableColumnHide True to enable hiding of columns with the header context menu.
+	 * @cfg {Boolean} enableColumnHide True to enable hiding of columns with the header context menu. Default is true.
 	 */
 	enableColumnHide : true,
 
 	/**
-	 * @cfg {Boolean} enableRowHeightSync True to manually sync row heights across locked and not locked rows.
+	 * @cfg {Boolean} enableRowHeightSync True to manually sync row heights across locked and not locked rows. Default is false.
 	 */
 	enableRowHeightSync : false,
 
 	/**
-	 * @cfg {Boolean} stripeRows True to stripe the rows. Default is true.
+	 * @cfg {Boolean} stripeRows True to stripe the rows.  Default is true.
 	 */
 	stripeRows : true,
 
 	/**
-	 * @cfg {Boolean} autoHeight True to fit the height of the grid container to the height of the data. Defaults to false.
+	 * @cfg {Boolean} autoHeight True to fit the height of the grid container to the height of the data. Default is false.
 	 */
 	autoHeight : false,
 
     /**
-     * @cfg {String} autoExpandColumn The id of a column in this grid that should expand to fill unused space. This id can not be 0.
+     * @cfg {String} autoExpandColumn The id of a column in this grid that should expand to fill unused space. This id can not be 0. Default is false.
      */
     autoExpandColumn : false,
 
     /**
     * @cfg {Number} autoExpandMin The minimum width the autoExpandColumn can have (if enabled).
-    * defaults to 50.
+    * Default is 50.
     */
     autoExpandMin : 50,
 
     /**
-    * @cfg {Number} autoExpandMax The maximum width the autoExpandColumn can have (if enabled). Defaults to 1000.
+    * @cfg {Number} autoExpandMax The maximum width the autoExpandColumn can have (if enabled). Default is 1000.
     */
     autoExpandMax : 1000,
 
@@ -364,7 +364,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
 	view : null,
 
 	/**
-     * @cfg {Object} loadMask An {@link Ext.LoadMask} config or true to mask the grid while loading (defaults to false).
+     * @cfg {Object} loadMask An {@link Ext.LoadMask} config or true to mask the grid while loading. Default is false.
 	 */
 	loadMask : false,
 
