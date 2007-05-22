@@ -83,6 +83,10 @@
 	background:url(../images/default/toolbar/tb-btn-sprite.gif) repeat-x 0 -105px;
 }
 
+.x-toolbar .x-btn-with-menu .x-btn-center em{
+	padding-right:8px;
+}
+
 .x-toolbar .ytb-text{
    padding:2px;
 }
@@ -112,6 +116,9 @@
 }
 .ext-ie .x-toolbar .x-form-field-wrap .x-form-trigger {
 	top:1px;
+}
+.ext-ie .x-toolbar .x-form-field-wrap .x-form-twin-triggers img {
+	margin-top:1px;
 }
 
 /* Paging Toolbar */

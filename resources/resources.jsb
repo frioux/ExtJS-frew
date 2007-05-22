@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project path="" name="Ext - Resources" author="Ext JS, LLC" version="1.0.1" copyright="Ext JS Library $version&#xD;&#xA;Copyright(c) 2006-2007, $author.&#xD;&#xA;licensing@extjs.com&#xD;&#xA;&#xD;&#xA;http://www.extjs.com/license" output="F:\htdocs\deploy\ext-1.0.1\resources" source="true" source-dir="$output" minify="False" min-dir="$output\build" doc="False" doc-dir="$output\docs" master="true" master-file="$output\yui-ext.js" zip="true" zip-file="$output\yuo-ext.$version.zip">
+<project path="" name="Ext - Resources" author="Ext JS, LLC" version="2.0" copyright="Ext JS Library $version&#xD;&#xA;Copyright(c) 2006-2007, $author.&#xD;&#xA;licensing@extjs.com&#xD;&#xA;&#xD;&#xA;http://www.extjs.com/license" output="C:\apps\www\deploy\ext-2.0\resources" source="true" source-dir="$output" minify="False" min-dir="$output\build" doc="False" doc-dir="$output\docs" master="true" master-file="$output\yui-ext.js" zip="true" zip-file="$output\yuo-ext.$version.zip">
   <directory name="" />
   <target name="All css" file="$output\css\ext-all.css" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="css\reset-min.css" />
@@ -24,7 +24,9 @@
     <include name="css\panel.css" />
     <include name="css\window.css" />
     <include name="css\tabs2.css" />
+    <include name="css\editor.css" />
     <include name="css\layout2.css" />
+    <include name="css\borders.css" />
   </target>
   <file name="images\basic-dialog\gray\close.gif" path="images\basic-dialog\gray" />
   <file name="images\basic-dialog\gray\dlg-bg.gif" path="images\basic-dialog\gray" />
@@ -503,4 +505,50 @@
   <file name="images\default\window\corners-sprite.png" path="images\default\window" />
   <file name="images\default\window\corners-sprite.psd" path="images\default\window" />
   <file name="images\default\shadow-c.png" path="images\default" />
+  <file name="css\grid3.css" path="css" />
+  <file name="css\layout2.css" path="css" />
+  <file name="css\tabs2.css" path="css" />
+  <file name="images\default\panel\corners-sprite.gif" path="images\default\panel" />
+  <file name="images\default\panel\left-right.gif" path="images\default\panel" />
+  <file name="images\default\panel\tool-sprite-tpl.gif" path="images\default\panel" />
+  <file name="images\default\panel\tool-sprites.gif" path="images\default\panel" />
+  <file name="images\default\panel\top-bottom.gif" path="images\default\panel" />
+  <file name="images\default\panel\top-bottom.png" path="images\default\panel" />
+  <file name="images\default\panel\white-corners-sprite.gif" path="images\default\panel" />
+  <file name="images\default\panel\white-left-right.gif" path="images\default\panel" />
+  <file name="images\default\panel\white-top-bottom.gif" path="images\default\panel" />
+  <file name="images\default\window\left-corners.png" path="images\default\window" />
+  <file name="images\default\window\left-corners.psd" path="images\default\window" />
+  <file name="images\default\window\left-right.png" path="images\default\window" />
+  <file name="images\default\window\left-right.psd" path="images\default\window" />
+  <file name="images\default\window\right-corners.png" path="images\default\window" />
+  <file name="images\default\window\right-corners.psd" path="images\default\window" />
+  <file name="images\default\window\top-bottom.png" path="images\default\window" />
+  <file name="images\default\window\top-bottom.psd" path="images\default\window" />
+  <file name="images\default\._.DS_Store" path="images\default" />
+  <file name="images\._.DS_Store" path="images" />
+  <file name="._.DS_Store" path="" />
+  <file name="css\editor.css" path="css" />
+  <file name="images\default\editor\tb-sprite.gif" path="images\default\editor" />
+  <file name="css\borders.css" path="css" />
+  <file name="images\default\form\clear-trigger.gif" path="images\default\form" />
+  <file name="images\default\form\search-trigger.gif" path="images\default\form" />
+  <file name="images\default\form\trigger-tpl.gif" path="images\default\form" />
+  <file name="images\default\grid\row-over.gif" path="images\default\grid" />
+  <file name="images\default\grid\row-sel.gif" path="images\default\grid" />
+  <file name="images\default\grid\grid3-hrow.gif" path="images\default\grid" />
+  <file name="images\default\grid\grid3-hrow-over.gif" path="images\default\grid" />
+  <file name="images\default\grid\row-collapse.gif" path="images\default\grid" />
+  <file name="images\default\grid\row-expand.gif" path="images\default\grid" />
+  <file name="images\default\grid\grid3-hd-btn.gif" path="images\default\grid" />
+  <file name="images\aero\menu\menu.gif" path="images\aero\menu" />
+  <file name="images\aero\menu\item-over.gif" path="images\aero\menu" />
+  <file name="images\aero\menu\checked.gif" path="images\aero\menu" />
+  <file name="images\aero\menu\unchecked.gif" path="images\aero\menu" />
+  <file name="images\default\grid\grid3-expander-b-bg.gif" path="images\default\grid" />
+  <file name="images\default\grid\grid3-expander-c-bg.gif" path="images\default\grid" />
+  <file name="images\default\grid\grid3-special-col-bg.gif" path="images\default\grid" />
+  <file name="images\default\grid\row-expand-sprite.gif" path="images\default\grid" />
+  <file name="images\default\grid\row-check-sprite.gif" path="images\default\grid" />
+  <file name="images\default\grid\grid3-special-col-sel-bg.gif" path="images\default\grid" />
 </project>

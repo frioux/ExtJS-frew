@@ -114,6 +114,7 @@ table.x-date-inner {
 }
 .x-date-inner .x-date-prevday a,.x-date-inner .x-date-nextday a {
 	color:#aaaaaa;
+    text-decoration:none !important;
 }
 .x-date-bottom {
     padding:4px;
@@ -122,7 +123,7 @@ table.x-date-inner {
 }
 
 .x-date-inner a:hover, .x-date-inner .x-date-disabled a:hover{
-    text-decoration:none;
+    text-decoration:none !important;
     color:black;
     background: #ddecfe;
 }

@@ -19,7 +19,7 @@
 	line-height:1px;
 }
 .x-menu-list-item{
-	font:normal 11px "Segoe UI",tahoma,"Lucida Sans Unicode",arial, sans-serif;
+	font:normal 11px tahoma,arial, sans-serif;
     white-space: nowrap;
     -moz-user-select: none;
 	-khtml-user-select: none;
@@ -32,9 +32,9 @@
 .x-menu-sep {
 	display:block;
 	font-size:1px;
+	line-height:1px;
 	background:#c3daf9;
 	margin: 3px 3px 3px 32px;
-    height:1px;
 }
 .x-menu-focus {
 	position:absolute;
