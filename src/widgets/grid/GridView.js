@@ -296,7 +296,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 
 	initElements : function(){
 	    var E = Ext.Element;
-	    var el = this.grid.container.dom.firstChild;
+	    var el = this.grid.getGridEl().dom.firstChild;
 	    var cs = el.childNodes;
 
 	    this.el = new E(el);
@@ -1135,7 +1135,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             delete this.hmenu;
         }
         if(this.grid.enableColumnMove){
-            var dds = Ext.dd.DDM.ids['gridHeader' + this.grid.container.id];
+            var dds = Ext.dd.DDM.ids['gridHeader' + this.grid.getGridEl().id];
             if(dds){
                 for(var dd in dds){
                     if(!dds[dd].config.isTarget && dds[dd].dragElId){
@@ -1151,7 +1151,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
                         delete Ext.dd.DDM.locationCache[dd];
                     }
                 }
-                delete Ext.dd.DDM.ids['gridHeader' + this.grid.container.id];
+                delete Ext.dd.DDM.ids['gridHeader' + this.grid.getGridEl().id];
             }
         }
 
@@ -1288,7 +1288,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 
         //this.updateColumns();
 
-        this.grid.container.dom.innerHTML = html;
+        this.grid.getGridEl().dom.innerHTML = html;
 
         this.initElements();
 
@@ -1413,7 +1413,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         var g = this.grid;
         var auto = g.autoHeight;
         var scrollOffset = 16;
-        var c = g.container, cm = this.cm,
+        var c = g.getGridEl(), cm = this.cm,
                 expandCol = g.autoExpandColumn,
                 gv = this;
         //c.beginMeasure();

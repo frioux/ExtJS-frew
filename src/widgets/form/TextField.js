@@ -180,6 +180,9 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
         if(!Ext.isIE && (e.isNavKeyPress() || k == e.BACKSPACE || (k == e.DELETE && e.button == -1))){
             return;
         }
+        if(Ext.isIE && (k == e.BACKSPACE || k == e.DELETE || e.isNavKeyPress() || k == e.HOME || k == e.END)){
+            return;
+        }
         var c = e.getCharCode();
         if(!this.maskRe.test(String.fromCharCode(c) || '')){
             e.stopEvent();

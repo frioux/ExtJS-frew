@@ -22,7 +22,7 @@ Ext.extend(Ext.grid.AbstractGridView, Ext.util.Observable, {
     
 	init: function(grid){
         this.grid = grid;
-		var cid = this.grid.container.id;
+		var cid = this.grid.getGridEl().id;
         this.colSelector = "#" + cid + " ." + this.cellClass + "-";
         this.tdSelector = "#" + cid + " ." + this.tdClass + "-";
         this.hdSelector = "#" + cid + " ." + this.hdClass + "-";

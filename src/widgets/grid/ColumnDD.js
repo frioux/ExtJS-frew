@@ -3,7 +3,7 @@
 Ext.grid.HeaderDragZone = function(grid, hd, hd2){
     this.grid = grid;
     this.view = grid.getView();
-    this.ddGroup = "gridHeader" + this.grid.container.id;
+    this.ddGroup = "gridHeader" + this.grid.getGridEl().id;
     Ext.grid.HeaderDragZone.superclass.constructor.call(this, hd);
     if(hd2){
         this.setHandleElId(Ext.id(hd));
@@ -25,6 +25,7 @@ Ext.extend(Ext.grid.HeaderDragZone, Ext.dd.DragZone, {
     onInitDrag : function(e){
         this.view.headersDisabled = true;
         var clone = this.dragData.ddel.cloneNode(true);
+        clone.id = Ext.id();
         clone.style.width = Math.min(this.dragData.header.offsetWidth,this.maxDragWidth) + "px";
         this.proxy.update(clone);
         return true;
@@ -61,10 +62,10 @@ Ext.grid.HeaderDropZone = function(grid, hd, hd2){
         this.setLeftTop(-100,-100);
         this.setStyle("visibility", "hidden");
     };
-    this.ddGroup = "gridHeader" + this.grid.container.id;
+    this.ddGroup = "gridHeader" + this.grid.getGridEl().id;
     // temporarily disabled
     //Ext.dd.ScrollManager.register(this.view.scroller.dom);
-    Ext.grid.HeaderDropZone.superclass.constructor.call(this, grid.container.dom);
+    Ext.grid.HeaderDropZone.superclass.constructor.call(this, grid.getGridEl().dom);
 };
 Ext.extend(Ext.grid.HeaderDropZone, Ext.dd.DropZone, {
     proxyOffsets : [-4, -9],
@@ -115,7 +116,13 @@ Ext.extend(Ext.grid.HeaderDropZone, Ext.dd.DropZone, {
         }
         var oldIndex = this.view.getCellIndex(h);
         var newIndex = this.view.getCellIndex(n);
+
+        if(this.grid.colModel.isFixed(newIndex)){
+            return false;
+        }
+
         var locked = this.grid.colModel.isLocked(newIndex);
+
         if(pt == "after"){
             newIndex++;
         }

@@ -57,7 +57,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
             this.grid.on("mousedown", this.handleMouseDown, this);
         }
 
-        this.rowNav = new Ext.KeyNav(this.grid.container, {
+        this.rowNav = new Ext.KeyNav(this.grid.getGridEl(), {
             "up" : function(e){
                 if(!e.shiftKey){
                     this.selectPrevious(e.shiftKey);

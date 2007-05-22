@@ -267,8 +267,14 @@ Ext.grid.Grid = function(container, config){
 	     * @param {String} targetId The target drag drop object
 	     * @param {event} e The raw browser event
 	     */
-	    "dragout" : true
-	});
+	    "dragout" : true,
+        /**
+         * @event render
+         * Fires when the grid is rendered
+         * @param {Grid} grid
+         */
+        render : true
+    });
 
     Ext.grid.Grid.superclass.constructor.call(this);
 };
@@ -358,12 +364,6 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
 	view : null,
 
 	/**
-	 * @cfg {Object} allowTextSelectionPattern A javascript RegExp defining tagNames
-     * allowed to have text selection (Defaults to <code>/INPUT|TEXTAREA|SELECT/i</code>).
-     */
-    allowTextSelectionPattern : /INPUT|TEXTAREA|SELECT/i,
-
-    /**
      * @cfg {Object} loadMask An {@link Ext.LoadMask} config or true to mask the grid while loading (defaults to false).
 	 */
 	loadMask : false,
@@ -403,6 +403,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
                     Ext.apply({store:this.dataSource}, this.loadMask));
         }
         this.rendered = true;
+        this.fireEvent('render', this);
         return this;
     },
 
@@ -536,6 +537,10 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
                 this.view.adjustForScroll();
             }
         }
+    },
+
+    getGridEl : function(){
+        return this.container;
     },
 
     // private for compatibility, overridden by editor grid

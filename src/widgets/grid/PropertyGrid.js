@@ -162,7 +162,7 @@ Ext.grid.PropertyGrid = function(container, config){
         trackMouseOver: false,
         clicksToEdit:1
     }, config));
-    this.container.addClass('x-props-grid');
+    this.getGridEl().addClass('x-props-grid');
     this.lastEditRow = null;
     this.on('columnresize', this.onColumnResize, this);
     this.addEvents({

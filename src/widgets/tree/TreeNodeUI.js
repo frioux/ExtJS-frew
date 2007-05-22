@@ -211,7 +211,7 @@ Ext.tree.TreeNodeUI.prototype = {
             }catch(e){}
         }else if(!Ext.isIE){
             try{
-                var noscroll = this.node.getOwnerTree().el.dom;
+                var noscroll = this.node.getOwnerTree().getTreeEl().dom;
                 var l = noscroll.scrollLeft;
                 this.anchor.focus();
                 noscroll.scrollLeft = l;
@@ -301,7 +301,7 @@ Ext.tree.TreeNodeUI.prototype = {
     render : function(bulkRender){
         var n = this.node;
         var targetNode = n.parentNode ? 
-              n.parentNode.ui.getContainer() : n.ownerTree.container.dom;
+              n.parentNode.ui.getContainer() : n.ownerTree.innerCt.dom;
         if(!this.rendered){
             this.rendered = true;
             var a = n.attributes;
@@ -401,6 +401,8 @@ Ext.tree.TreeNodeUI.prototype = {
             }else{
                 if(!this.wasLeaf){
                     Ext.fly(this.elNode).replaceClass("x-tree-node-expanded", "x-tree-node-leaf");
+                    delete this.c1;
+                    delete this.c2;
                     this.wasLeaf = true;
                 }
             }
@@ -453,7 +455,7 @@ Ext.tree.RootTreeNodeUI = function(){
 Ext.extend(Ext.tree.RootTreeNodeUI, Ext.tree.TreeNodeUI, {
     render : function(){
         if(!this.rendered){
-            var targetNode = this.node.ownerTree.container.dom;
+            var targetNode = this.node.ownerTree.innerCt.dom;
             this.node.expanded = true;
             targetNode.innerHTML = '<div class="x-tree-root-node"></div>';
             this.wrap = this.ctNode = targetNode.firstChild;

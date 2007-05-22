@@ -20,20 +20,33 @@ Ext.data.Store = function(config){
         return o.id;
     };
     this.baseParams = {};
+    // private
     this.paramNames = {
         "start" : "start",
         "limit" : "limit",
         "sort" : "sort",
         "dir" : "dir"
     };
-    Ext.apply(this, config);
 
-    if(this.reader && !this.recordType){ // reader passed
-        this.recordType = this.reader.recordType;
+    if(config && config.data){
+        this.inlineData = config.data;
+        delete config.data;
     }
 
-    this.fields = this.recordType.prototype.fields;
+    Ext.apply(this, config);
 
+    if(this.reader){ // reader passed
+        if(!this.recordType){
+            this.recordType = this.reader.recordType;
+        }
+        if(this.reader.onMetaChange){
+            this.reader.onMetaChange = this.onMetaChange.createDelegate(this);
+        }
+    }
+
+    if(this.recordType){
+        this.fields = this.recordType.prototype.fields;
+    }
     this.modified = [];
 
     this.addEvents({
@@ -109,10 +122,18 @@ Ext.data.Store = function(config){
     this.sortToggle = {};
 
     Ext.data.Store.superclass.constructor.call(this);
+
+    if(this.inlineData){
+        this.loadData(this.inlineData);
+        delete this.inlineData;
+    }
 };
 Ext.extend(Ext.data.Store, Ext.util.Observable, {
     /**
     * @cfg {Ext.data.DataProxy} proxy The Proxy object which provides access to a data object.
+    */
+    /**
+    * @cfg {Array} data Inline data to be l;oaded when the store is initialized.
     */
     /**
     * @cfg {Ext.data.Reader} reader The Reader object which processes the data object and returns
@@ -515,5 +536,13 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
         for(var i = 0, len = m.length; i < len; i++){
             m[i].reject();
         }
+    },
+
+    onMetaChange : function(meta, rtype, o){
+        this.recordType = rtype;
+        this.fields = rtype.prototype.fields;
+        delete this.snapshot;
+        this.sortInfo = meta.sortInfo;
+        this.modified = [];
     }
 });

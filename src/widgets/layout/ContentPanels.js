@@ -181,7 +181,7 @@ panel.load({<br/>
             this.removeListener("activate", this.refreshDelegate);
         }
         this.refreshDelegate = this._handleRefresh.createDelegate(this, [url, params, loadOnce]);
-        this.on("activate", this._handleRefresh.createDelegate(this, [url, params, loadOnce]));
+        this.on("activate", this.refreshDelegate);
         return this.el.getUpdateManager();
     },
     
@@ -313,7 +313,7 @@ panel.load({<br/>
 Ext.GridPanel = function(grid, config){
     this.wrapper = Ext.DomHelper.append(document.body, // wrapper for IE7 strict & safari scroll issue
         {tag: "div", cls: "x-layout-grid-wrapper x-layout-inactive-content"}, true);
-    this.wrapper.dom.appendChild(grid.container.dom);
+    this.wrapper.dom.appendChild(grid.getGridEl().dom);
     Ext.GridPanel.superclass.constructor.call(this, this.wrapper, config);
     if(this.toolbar){
         this.toolbar.el.insertBefore(this.wrapper.dom.firstChild);
@@ -322,7 +322,7 @@ Ext.GridPanel = function(grid, config){
     grid.autoHeight = false;
     grid.autoWidth = false;
     this.grid = grid;
-    this.grid.container.replaceClass("x-layout-inactive-content", "x-layout-component-panel");
+    this.grid.getGridEl().replaceClass("x-layout-inactive-content", "x-layout-component-panel");
 };
 
 Ext.extend(Ext.GridPanel, Ext.ContentPanel, {
@@ -342,7 +342,7 @@ Ext.extend(Ext.GridPanel, Ext.ContentPanel, {
         if(!this.ignoreResize(width, height)){
             var grid = this.grid;
             var size = this.adjustForComponents(width, height);
-            grid.container.setSize(size.width, size.height);
+            grid.getGridEl().setSize(size.width, size.height);
             grid.autoSize();
         }
     },

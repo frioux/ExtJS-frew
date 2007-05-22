@@ -45,7 +45,7 @@ Ext.extend(Ext.grid.CellSelectionModel, Ext.grid.AbstractSelectionModel,  {
     /** @ignore */
     initEvents : function(){
         this.grid.on("mousedown", this.handleMouseDown, this);
-        this.grid.container.on(Ext.isIE ? "keydown" : "keypress", this.handleKeyDown, this);
+        this.grid.getGridEl().on(Ext.isIE ? "keydown" : "keypress", this.handleKeyDown, this);
         var view = this.grid.view;
         view.on("refresh", this.onViewChange, this);
         view.on("rowupdated", this.onRowUpdated, this);

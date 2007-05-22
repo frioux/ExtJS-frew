@@ -460,6 +460,9 @@ Ext.EventObject = function(){
             if(e){
                 // normalize buttons
                 this.button = e.button ? btnMap[e.button] : (e.which ? e.which-1 : -1);
+                if(e.type == 'click' && this.button == -1){
+                    this.button = 0;
+                }
                 this.shiftKey = e.shiftKey;
                 // mac metaKey behaves like ctrlKey
                 this.ctrlKey = e.ctrlKey || e.metaKey;

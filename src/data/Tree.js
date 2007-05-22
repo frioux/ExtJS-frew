@@ -48,7 +48,7 @@ Ext.data.Tree = function(root){
         * @event insert
         * Fires when a new child node is inserted in a node in this tree.
         * @param {Tree} tree The owner tree
-        * @param {Node} parent The parent node 
+        * @param {Node} parent The parent node
         * @param {Node} node The child node inserted
         * @param {Node} refNode The child node the node was inserted before
         */
@@ -57,7 +57,7 @@ Ext.data.Tree = function(root){
         * @event beforeappend
         * Fires before a new child is appended to a node in this tree, return false to cancel the append.
         * @param {Tree} tree The owner tree
-        * @param {Node} parent The parent node 
+        * @param {Node} parent The parent node
         * @param {Node} node The child node to be appended
         */
        "beforeappend" : true,
@@ -65,7 +65,7 @@ Ext.data.Tree = function(root){
         * @event beforeremove
         * Fires before a child is removed from a node in this tree, return false to cancel the remove.
         * @param {Tree} tree The owner tree
-        * @param {Node} parent The parent node 
+        * @param {Node} parent The parent node
         * @param {Node} node The child node to be removed
         */
        "beforeremove" : true,
@@ -83,7 +83,7 @@ Ext.data.Tree = function(root){
         * @event beforeinsert
         * Fires before a new child is inserted in a node in this tree, return false to cancel the insert.
         * @param {Tree} tree The owner tree
-        * @param {Node} parent The parent node 
+        * @param {Node} parent The parent node
         * @param {Node} node The child node to be inserted
         * @param {Node} refNode The child node the node is being inserted before
         */
@@ -281,7 +281,7 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
         // then bubble it up to the tree if the event wasn't cancelled
         var ot = this.getOwnerTree();
         if(ot){
-            if(ot.fireEvent.apply(this.ownerTree, arguments) === false){
+            if(ot.proxyNodeEvent.apply(ot, arguments) === false){
                 return false;
             }
         }

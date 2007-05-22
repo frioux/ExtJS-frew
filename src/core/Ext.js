@@ -69,6 +69,13 @@ Ext.apply = function(o, c, defaults){
          * @type Boolean
          */
         isReady : false,
+
+        /**
+         * True to automatically uncache orphaned Ext.Elements periodically (defaults to true)
+         * @type Boolean
+         */
+        enableGarbageCollector : true,
+
         /**
          * URL to a blank file used by Ext when in secure mode for iframe src and onReady src to prevent
          * the IE insecure content warning (defaults to javascript:false).
@@ -409,7 +416,7 @@ Ext.addBehaviors({
 })();
 
 Ext.namespace("Ext", "Ext.util", "Ext.grid", "Ext.dd", "Ext.tree", "Ext.data",
-                "Ext.form", "Ext.menu", "Ext.state", "Ext.lib", "Ext.layout");
+                "Ext.form", "Ext.menu", "Ext.state", "Ext.lib", "Ext.layout", "Ext.app");
 
 
 /**

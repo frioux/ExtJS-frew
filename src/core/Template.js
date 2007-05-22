@@ -117,7 +117,7 @@ Ext.Template.prototype = {
         // branched to use + in gecko and [].join() in others
         if(Ext.isGecko){
             body = "this.compiled = function(values){ return '" +
-                   this.html.replace(/(\r\n|\n)/g, '\\n').replace("'", "\\'").replace(this.re, fn) +
+                   this.html.replace(/(\r\n|\n)/g, '\\n').replace(/'/g, "\\'").replace(this.re, fn) +
                     "';};";
         }else{
             body = ["this.compiled = function(values){ return ['"];

@@ -1698,7 +1698,9 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
      */
     clearOpacity : function(){
         if (window.ActiveXObject) {
-            this.dom.style.filter = "";
+            if(typeof this.dom.style.filter == 'string' && (/alpha/i).test(this.dom.style.filter)){
+                this.dom.style.filter = "";
+            }
         } else {
             this.dom.style.opacity = "";
             this.dom.style["-moz-opacity"] = "";
@@ -2355,10 +2357,12 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
      * Inserts an html fragment into this element
      * @param {String} where Where to insert the html in relation to the this element - beforeBegin, afterBegin, beforeEnd, afterEnd.
      * @param {String} html The HTML fragment
-     * @return {HTMLElement} The inserted node (or nearest related if more than 1 inserted)
+     * @param {Boolean} returnEl True to return an Ext.Element
+     * @return {HTMLElement/Ext.Element} The inserted node (or nearest related if more than 1 inserted)
      */
-    insertHtml : function(where, html){
-        return Ext.DomHelper.insertHtml(where, this.dom, html);
+    insertHtml : function(where, html, returnEl){
+        var el = Ext.DomHelper.insertHtml(where, this.dom, html);
+        return returnEl ? Ext.get(el) : el;
     },
     
     /**
@@ -2760,6 +2764,44 @@ El.uncache = function(el){
         }
     }
 };
+
+
+// Garbage collection - uncache elements/purge listeners on orphaned elements
+// so we don't hold a reference and cause the browser to retain them
+El.garbageCollect = function(){
+    if(!Ext.enableGarbageCollector){
+        clearInterval(El.collectorThread);
+        return;
+    }
+    for(var eid in El.cache){
+        var el = El.cache[eid], d = el.dom;
+        // -------------------------------------------------------
+        // Determining what is garbage:
+        // -------------------------------------------------------
+        // !d
+        // dom node is null, definitely garbage
+        // -------------------------------------------------------
+        // !d.parentNode
+        // no parentNode == direct orphan, definitely garbage
+        // -------------------------------------------------------
+        // !d.offsetParent && !document.getElementById(eid)
+        // display none elements have no offsetParent so we will
+        // also try to look it up by it's id. However, check
+        // offsetParent first so we don't do unneeded lookups.
+        // This enables collection of elements that are not orphans
+        // directly, but somewhere up the line they have an orphan
+        // parent.
+        // -------------------------------------------------------
+        if(!d || !d.parentNode || (!d.offsetParent && !document.getElementById(eid))){
+            delete El.cache[eid];
+            if(Ext.enableListenerCollection){
+                Ext.lib.Dom.purgeElement(d);
+            }
+        }
+    }
+}
+El.collectorThreadId = setInterval(El.garbageCollect, 30000);
+
 
 // dom is optional
 El.Flyweight = function(dom){

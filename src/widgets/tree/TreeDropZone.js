@@ -4,7 +4,7 @@ Ext.tree.TreeDropZone = function(tree, config){
     this.allowParentInsert = false;
     this.allowContainerDrop = false;
     this.appendOnly = false;
-    Ext.tree.TreeDropZone.superclass.constructor.call(this, tree.container, config);
+    Ext.tree.TreeDropZone.superclass.constructor.call(this, tree.innerCt, config);
     this.tree = tree;
     this.lastInsertClass = "x-tree-no-status";
     this.dragOverData = {};

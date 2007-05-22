@@ -15,7 +15,7 @@ Ext.tree.TreeEditor = function(tree, config){
     this.tree = tree;
 
     tree.on('beforeclick', this.beforeNodeClick, this);
-    tree.el.on('mousedown', this.hide, this);
+    tree.getTreeEl().on('mousedown', this.hide, this);
     this.on('complete', this.updateNode, this);
     this.on('beforestartedit', this.fitToTree, this);
     this.on('startedit', this.bindScroll, this, {delay:10});
@@ -57,7 +57,7 @@ Ext.extend(Ext.tree.TreeEditor, Ext.Editor, {
 
     // private
     fitToTree : function(ed, el){
-        var td = this.tree.el.dom, nd = el.dom;
+        var td = this.tree.getTreeEl().dom, nd = el.dom;
         if(td.scrollLeft >  nd.offsetLeft){ // ensure the node left point is visible
             td.scrollLeft = nd.offsetLeft;
         }
@@ -76,7 +76,7 @@ Ext.extend(Ext.tree.TreeEditor, Ext.Editor, {
 
     // private
     bindScroll : function(){
-        this.tree.el.on('scroll', this.cancelEdit, this);
+        this.tree.getTreeEl().on('scroll', this.cancelEdit, this);
     },
 
     // private
@@ -89,7 +89,7 @@ Ext.extend(Ext.tree.TreeEditor, Ext.Editor, {
 
     // private
     updateNode : function(ed, value){
-        this.tree.el.un('scroll', this.cancelEdit, this);
+        this.tree.getTreeEl().un('scroll', this.cancelEdit, this);
         this.editNode.setText(value);
     },
 

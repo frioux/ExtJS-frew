@@ -2,9 +2,11 @@
 // This is a support class used internally by the Grid components
 Ext.grid.GridDragZone = function(grid, config){
     this.view = grid.getView();
-    Ext.grid.GridDragZone.superclass.constructor.call(this, this.view.lockedBody.dom, config);
-    this.setHandleElId(Ext.id(this.view.lockedBody.dom));
-    this.setOuterHandleElId(Ext.id(this.view.mainBody.dom));
+    Ext.grid.GridDragZone.superclass.constructor.call(this, this.view.mainBody.dom, config);
+    if(this.view.lockedBody){
+        this.setHandleElId(Ext.id(this.view.mainBody.dom));
+        this.setOuterHandleElId(Ext.id(this.view.lockedBody.dom));
+    }
     this.scroll = false;
     this.grid = grid;
     this.ddel = document.createElement('div');

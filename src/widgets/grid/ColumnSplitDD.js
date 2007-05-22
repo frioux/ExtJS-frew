@@ -5,7 +5,7 @@ Ext.grid.SplitDragZone = function(grid, hd, hd2){
     this.view = grid.getView();
     this.proxy = this.view.resizeProxy;
     Ext.grid.SplitDragZone.superclass.constructor.call(this, hd,
-        "gridSplitters" + this.grid.container.id, {
+        "gridSplitters" + this.grid.getGridEl().id, {
         dragElId : Ext.id(this.proxy.dom), resizeFrame:false
     });
     this.setHandleElId(Ext.id(hd));

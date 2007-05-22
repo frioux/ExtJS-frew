@@ -10,7 +10,7 @@
  */
 Ext.grid.EditorGrid = function(container, config){
     Ext.grid.EditorGrid.superclass.constructor.call(this, container, config);
-    this.container.addClass("xedit-grid");
+    this.getGridEl().addClass("xedit-grid");
 
     if(!this.selModel){
         this.selModel = new Ext.grid.CellSelectionModel();
@@ -103,6 +103,7 @@ Ext.extend(Ext.grid.EditorGrid, Ext.grid.Grid, {
                 this.fireEvent("afteredit", e);
             }
         }
+        console.log(ed.row, ed.col)
         this.view.focusCell(ed.row, ed.col);
     },
 

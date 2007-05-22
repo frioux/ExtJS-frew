@@ -779,6 +779,10 @@ Ext.dd.DragDrop.prototype = {
         this.DDM._remove(this);
     },
 
+    destroy : function(){
+        this.unreg();
+    },
+
     /**
      * Returns true if this instance is locked, or the drag drop mgr is locked
      * (meaning that all drag/drop is disabled on the page.)

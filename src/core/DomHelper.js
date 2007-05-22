@@ -297,7 +297,7 @@ Ext.DomHelper = function(){
     /**
      * Creates new Dom element(s) and inserts them before el
      * @param {String/HTMLElement/Element} el The context element
-     * @param {Object} o The Dom object spec (and children)
+     * @param {Object/String} o The Dom object spec (and children) or raw HTML blob
      * @param {Boolean} returnElement (optional) true to return a Ext.Element
      * @return {HTMLElement} The new node
      */
@@ -319,7 +319,7 @@ Ext.DomHelper = function(){
     /**
      * Creates new Dom element(s) and inserts them as the first child of el
      * @param {String/HTMLElement/Element} el The context element
-     * @param {Object} o The Dom object spec (and children)
+     * @param {Object/String} o The Dom object spec (and children) or raw HTML blob
      * @param {Boolean} returnElement (optional) true to return a Ext.Element
      * @return {HTMLElement} The new node
      */
@@ -344,7 +344,7 @@ Ext.DomHelper = function(){
     /**
      * Creates new Dom element(s) and appends them to el
      * @param {String/HTMLElement/Element} el The context element
-     * @param {Object} o The Dom object spec (and children)
+     * @param {Object/String} o The Dom object spec (and children) or raw HTML blob
      * @param {Boolean} returnElement (optional) true to return a Ext.Element
      * @return {HTMLElement} The new node
      */
@@ -364,7 +364,7 @@ Ext.DomHelper = function(){
     /**
      * Creates new Dom element(s) and overwrites the contents of el with them
      * @param {String/HTMLElement/Element} el The context element
-     * @param {Object} o The Dom object spec (and children)
+     * @param {Object/String} o The Dom object spec (and children) or raw HTML blob
      * @param {Boolean} returnElement (optional) true to return a Ext.Element
      * @return {HTMLElement} The new node
      */

@@ -133,7 +133,6 @@ Ext.tree.TreeNode = function(attributes){
 };
 Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
     preventHScroll: true,
-
     /**
      * Returns true if this node is expanded
      * @return {Boolean}
@@ -323,7 +322,7 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
         if(deep === true){
             var cs = this.childNodes;
             for(var i = 0, len = cs.length; i < len; i++) {
-            	cs[i].collapse(true);
+            	cs[i].collapse(true, false);
             }
         }
     },
@@ -360,7 +359,7 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
     ensureVisible : function(callback){
         var tree = this.getOwnerTree();
         tree.expandPath(this.getPath(), false, function(){
-            tree.getEl().scrollChildIntoView(this.ui.anchor);
+            tree.getTreeEl().scrollChildIntoView(this.ui.anchor);
             Ext.callback(callback);
         }.createDelegate(this));
     },

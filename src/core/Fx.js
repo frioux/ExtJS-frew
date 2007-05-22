@@ -640,8 +640,8 @@ el.scale(
     duration: .35<br/>
 });
 </code></pre>
-    * @param {Number} width  The new width (pass null to keep the original width)
-    * @param {Number} height  The new height (pass null to keep the original height)
+    * @param {Number} width  The new width (pass undefined to keep the original width)
+    * @param {Number} height  The new height (pass undefined to keep the original height)
     * @param {Object} options (optional) Object literal with any of the Fx config options
     * @return {Element} The Element
     */

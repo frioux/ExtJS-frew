@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project path="" name="Ext - JS Lib" author="Ext JS, LLC" version="1.0.1" copyright="Ext JS Library $version&#xD;&#xA;Copyright(c) 2006-2007, $author.&#xD;&#xA;licensing@extjs.com&#xD;&#xA;&#xD;&#xA;http://www.extjs.com/license" output="C:\apps\www\deploy\ext-1.0.1\" source="True" source-dir="$output\source" minify="True" min-dir="$output\build" doc="False" doc-dir="$output\docs" min-dair="$output\build">
+<project path="" name="Ext - JS Lib" author="Ext JS, LLC" version="2.0" copyright="Ext JS Library $version&#xD;&#xA;Copyright(c) 2006-2007, $author.&#xD;&#xA;licensing@extjs.com&#xD;&#xA;&#xD;&#xA;http://www.extjs.com/license" output="C:\apps\www\deploy\ext-2.0\" source="False" source-dir="$output\source" minify="False" min-dir="$output\build" doc="False" doc-dir="$output\docs" min-dair="$output\build">
   <directory name="" />
   <target name="Core" file="$output\ext-core.js" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="core\DomHelper.js" />
@@ -151,6 +151,9 @@
     <include name="widgets\grid\GridEditor.js" />
     <include name="widgets\grid\PropertyGrid.js" />
     <include name="widgets\LoadMask.js" />
+    <include name="widgets\panel\TreePanel.js" />
+    <include name="widgets\panel\Grid.js" />
+    <include name="experimental\GridExtensions.js" />
     <include name="debug.js" />
   </target>
   <file name="layout\LayoutRegionLite.js" path="layout" />
@@ -454,6 +457,15 @@
   <file name="widgets\layout\AutoLayout.js" path="widgets\layout" />
   <file name="widgets\layout\ContainerLayout.js" path="widgets\layout" />
   <file name="widgets\TabPanel2.js" path="widgets" />
+  <file name="widgets\panel\ButtonPanel.js" path="widgets\panel" />
+  <target name="GridView3" file="$output\package\grid\view3.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
+    <include name="experimental\GridView3.js" />
+    <include name="experimental\GridViewUI.js" />
+    <include name="experimental\ModelEventHandler.js" />
+    <include name="experimental\UIEventHandler.js" />
+  </target>
+  <file name="widgets\._.DS_Store" path="widgets" />
+  <file name="._.DS_Store" path="" />
   <file name="adapter\jquery-bridge.js" path="adapter" />
   <file name="adapter\prototype-bridge.js" path="adapter" />
   <file name="adapter\yui-bridge.js" path="adapter" />
@@ -489,10 +501,20 @@
   <file name="dd\Registry.js" path="dd" />
   <file name="dd\ScrollManager.js" path="dd" />
   <file name="dd\StatusProxy.js" path="dd" />
+  <file name="experimental\Ajax.js" path="experimental" />
+  <file name="experimental\Anims.js" path="experimental" />
+  <file name="experimental\BasicDialog2.js" path="experimental" />
+  <file name="experimental\BasicGridView.js" path="experimental" />
+  <file name="experimental\GridView3.js" path="experimental" />
+  <file name="experimental\GridViewUI.js" path="experimental" />
+  <file name="experimental\ModelEventHandler.js" path="experimental" />
+  <file name="experimental\TaskPanel.js" path="experimental" />
+  <file name="experimental\UIEventHandler.js" path="experimental" />
   <file name="legacy\Actor.js" path="legacy" />
   <file name="legacy\Animator.js" path="legacy" />
   <file name="legacy\compat.js" path="legacy" />
   <file name="legacy\InlineEditor.js" path="legacy" />
+  <file name="locale\ext-lang-cs.js" path="locale" />
   <file name="locale\ext-lang-da.js" path="locale" />
   <file name="locale\ext-lang-de.js" path="locale" />
   <file name="locale\ext-lang-en.js" path="locale" />
@@ -510,6 +532,7 @@
   <file name="locale\ext-lang-ro.js" path="locale" />
   <file name="locale\ext-lang-ru.js" path="locale" />
   <file name="locale\ext-lang-sk.js" path="locale" />
+  <file name="locale\ext-lang-sl.js" path="locale" />
   <file name="locale\ext-lang-sp.js" path="locale" />
   <file name="locale\ext-lang-sv_se.js" path="locale" />
   <file name="locale\ext-lang-tr.js" path="locale" />
@@ -534,6 +557,7 @@
   <file name="widgets\form\Checkbox.js" path="widgets\form" />
   <file name="widgets\form\Combo.js" path="widgets\form" />
   <file name="widgets\form\DateField.js" path="widgets\form" />
+  <file name="widgets\form\Editor.js" path="widgets\form" />
   <file name="widgets\form\Field.js" path="widgets\form" />
   <file name="widgets\form\Form.js" path="widgets\form" />
   <file name="widgets\form\Layout.js" path="widgets\form" />
@@ -577,7 +601,17 @@
   <file name="widgets\menu\MenuMgr.js" path="widgets\menu" />
   <file name="widgets\menu\Separator.js" path="widgets\menu" />
   <file name="widgets\menu\TextItem.js" path="widgets\menu" />
-  <file name="widgets\panel\ButtonPanel.js" path="widgets\panel" />
+  <file name="widgets\panel\AutoLayout.js" path="widgets\panel" />
+  <file name="widgets\panel\BorderLayout.js" path="widgets\panel" />
+  <file name="widgets\panel\Container.js" path="widgets\panel" />
+  <file name="widgets\panel\ContainerLayout.js" path="widgets\panel" />
+  <file name="widgets\panel\Grid.js" path="widgets\panel" />
+  <file name="widgets\panel\Panel.js" path="widgets\panel" />
+  <file name="widgets\panel\TabPanel.js" path="widgets\panel" />
+  <file name="widgets\panel\TreePanel.js" path="widgets\panel" />
+  <file name="widgets\panel\Viewport.js" path="widgets\panel" />
+  <file name="widgets\panel\Window.js" path="widgets\panel" />
+  <file name="widgets\panel\WindowManager.js" path="widgets\panel" />
   <file name="widgets\tree\AsyncTreeNode.js" path="widgets\tree" />
   <file name="widgets\tree\TreeDragZone.js" path="widgets\tree" />
   <file name="widgets\tree\TreeDropZone.js" path="widgets\tree" />
@@ -615,24 +649,5 @@
   <file name="yui\event.js" path="yui" />
   <file name="yui\yahoo.js" path="yui" />
   <file name="debug.js" path="" />
-  <file name="locale\ext-lang-cs.js" path="locale" />
-  <file name="locale\ext-lang-sl.js" path="locale" />
-  <file name="widgets\form\Editor.js" path="widgets\form" />
-  <file name="widgets\panel\AutoLayout.js" path="widgets\panel" />
-  <file name="widgets\panel\BorderLayout.js" path="widgets\panel" />
-  <file name="widgets\panel\Container.js" path="widgets\panel" />
-  <file name="widgets\panel\ContainerLayout.js" path="widgets\panel" />
-  <file name="widgets\panel\Panel.js" path="widgets\panel" />
-  <file name="widgets\panel\TabPanel.js" path="widgets\panel" />
-  <file name="widgets\panel\Viewport.js" path="widgets\panel" />
-  <file name="widgets\panel\Window.js" path="widgets\panel" />
-  <file name="widgets\panel\WindowManager.js" path="widgets\panel" />
-  <file name="experimental\Anims.js" path="experimental" />
-  <file name="experimental\BasicDialog2.js" path="experimental" />
-  <file name="experimental\BasicGridView.js" path="experimental" />
-  <file name="experimental\GridView3.js" path="experimental" />
-  <file name="experimental\GridViewUI.js" path="experimental" />
-  <file name="experimental\ModelEventHandler.js" path="experimental" />
-  <file name="experimental\TaskPanel.js" path="experimental" />
-  <file name="experimental\UIEventHandler.js" path="experimental" />
+  <file name="experimental\GridExtensions.js" path="experimental" />
 </project>

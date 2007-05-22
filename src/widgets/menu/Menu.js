@@ -100,6 +100,8 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
      */
     allowOtherMenus : false,
 
+    hidden:true,
+    
     // private
     render : function(){
         if(this.el){
@@ -236,7 +238,7 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
      * @type Boolean
      */
     isVisible : function(){
-        return this.el && this.el.isVisible();
+        return this.el && !this.hidden;
     },
 
     /**
@@ -270,13 +272,23 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
         }
         this.el.setXY(xy);
         this.el.show();
+        this.hidden = false;
         this.focus();
         this.fireEvent("show", this);
     },
 
     focus : function(){
-        this.focusEl.focus.defer(50, this.focusEl);
+        if(!this.hidden){
+            this.doFocus.defer(50, this);
+        }
     },
+
+    doFocus : function(){
+        if(!this.hidden){
+            this.focusEl.focus();
+        }
+    },
+
     /**
      * Hides this menu and optionally all parent menus
      * @param {Boolean} deep (optional) True to hide all parent menus recursively, if any (defaults to false)
@@ -289,6 +301,7 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
                 this.activeItem = null;
             }
             this.el.hide();
+            this.hidden = true;
             this.fireEvent("hide", this);
         }
         if(deep === true && this.parentMenu){

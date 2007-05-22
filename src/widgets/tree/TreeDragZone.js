@@ -1,6 +1,6 @@
 if(Ext.dd.DragZone){
 Ext.tree.TreeDragZone = function(tree, config){
-    Ext.tree.TreeDragZone.superclass.constructor.call(this, tree.getEl(), config);
+    Ext.tree.TreeDragZone.superclass.constructor.call(this, tree.getTreeEl(), config);
     this.tree = tree;
 };
 

@@ -210,6 +210,10 @@ Ext.extend(Ext.tree.TreePanel, Ext.data.Tree, {
     enableDD : false,
     hlDrop : Ext.enableFx,
 
+    proxyNodeEvent : function(){
+        this.fireEvent.apply(this, arguments);
+    },
+
     // private
     restrictExpand : function(node){
         var p = node.parentNode;
@@ -342,11 +346,15 @@ Ext.extend(Ext.tree.TreePanel, Ext.data.Tree, {
         }
     },
 
+    getTreeEl : function(){
+        return this.el;
+    },
+
     /**
      * Trigger rendering of this TreePanel
      */
     render : function(){
-        this.container = this.el.createChild({tag:"ul",
+        this.innerCt = this.el.createChild({tag:"ul",
                cls:"x-tree-root-ct " +
                (this.lines ? "x-tree-lines" : "x-tree-no-lines")});
 

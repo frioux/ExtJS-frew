@@ -410,7 +410,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * @return {Boolean}
      */
     isResizable : function(colIndex){
-        return this.config[colIndex].resizable !== false;
+        return colIndex >= 0 && this.config[colIndex].resizable !== false && this.config[colIndex].fixed !== true;
     },
     /**
      * Sets if a column is hidden.

@@ -167,7 +167,14 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
         return this[this.actionMode];
     },
 
-    initComponent : Ext.emptyFn,     
+    /** @cfg {String} hideMode
+     * How this component should hidden. Supported values are
+     * "visibility" (css visibility), "offsets" (negative offset position) and
+     * "display" (css display) - defaults to display
+     */
+    hideMode: 'display',
+
+    initComponent : Ext.emptyFn,
     /**
      * If this is a lazy rendering component, render it to its container element
      * @param {String/HTMLElement/Element} container (optional) The element this component should be rendered into. If it is being applied to existing markup, this should be left off.
@@ -355,9 +362,14 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
 
     // private
     onShow : function(){
-        var st = this.getActionEl().dom.style;
-        st.display = "";
-        st.visibility = "visible";
+        var ae = this.getActionEl();
+        if(this.hideMode == 'visibility'){
+            ae.dom.style.visibility = "visible";
+        }else if(this.hideMode == 'offsets'){
+            ae.removeClass('x-hidden');
+        }else{
+            ae.dom.style.display = "";
+        }
     },
 
     /**
@@ -376,7 +388,14 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
 
     // private
     onHide : function(){
-        this.getActionEl().dom.style.display = "none";
+        var ae = this.getActionEl();
+        if(this.hideMode == 'visibility'){
+            ae.dom.style.visibility = "hidden";
+        }else if(this.hideMode == 'offsets'){
+            ae.addClass('x-hidden');
+        }else{
+            ae.dom.style.display = "none";
+        }
     },
 
     /**

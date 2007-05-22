@@ -242,7 +242,7 @@ Ext.lib.Event = {
         Event.stop(e.browserEvent || e);
     },
 
-    onAvailable : function(el, fn, scope, override){  // no equiv
+    onAvailable : function(id, fn, scope){  // no equiv
         var start = new Date(), iid;
         var f = function(){
             if(start.getElapsed() > 10000){

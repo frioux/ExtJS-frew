@@ -29,7 +29,7 @@ Ext.tree.DefaultSelectionModel = function(){
 Ext.extend(Ext.tree.DefaultSelectionModel, Ext.util.Observable, {
     init : function(tree){
         this.tree = tree;
-        tree.el.on("keydown", this.onKeyDown, this);
+        tree.getTreeEl().on("keydown", this.onKeyDown, this);
         tree.on("click", this.onNodeClick, this);
     },
     
@@ -208,7 +208,7 @@ Ext.tree.MultiSelectionModel = function(){
 Ext.extend(Ext.tree.MultiSelectionModel, Ext.util.Observable, {
     init : function(tree){
         this.tree = tree;
-        tree.el.on("keydown", this.onKeyDown, this);
+        tree.getTreeEl().on("keydown", this.onKeyDown, this);
         tree.on("click", this.onNodeClick, this);
     },
     

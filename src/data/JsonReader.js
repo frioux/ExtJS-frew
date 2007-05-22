@@ -52,10 +52,21 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
         if(!o) {
             throw {message: "JsonReader.read: Json object not found"};
         }
+        if(o.metaData){
+            delete this.ef;
+            this.meta = o.metaData;
+            this.recordType = Ext.data.Record.create(o.metaData.fields);
+            this.onMetaChange(this.meta, this.recordType, o);
+        }
         return this.readRecords(o);
     },
 
-	/**
+    // private function a store will implement
+    onMetaChange : function(meta, recordType, o){
+
+    },
+
+    /**
 	 * @ignore
 	 */
     simpleAccess: function(obj, subsc) {

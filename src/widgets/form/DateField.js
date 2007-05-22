@@ -206,7 +206,7 @@ dateField.setValue('2006-5-4');
             this.onFocus();
         },
         hide : function(){
-            this.focus();
+            this.focus.defer(10, this);
             var ml = this.menuListeners;
             this.menu.un("select", ml.select,  this);
             this.menu.un("show", ml.show,  this);
