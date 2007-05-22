@@ -3,7 +3,7 @@
  * @extends Ext.BoxComponent
  * Base class for form fields that provides default event handling, sizing, value handling and other functionality.
  * @constructor
- * Creates a new Field 
+ * Creates a new Field
  * @param {Object} config Configuration options
  */
 Ext.form.Field = function(config){
@@ -85,13 +85,13 @@ side          Add an error icon to the right of the field with a popup on hover
         this.addEvents({
             /**
              * @event focus
-             * Fires when this field receives input focus
+             * Fires when this field receives input focus.
              * @param {Ext.form.Field} this
              */
             focus : true,
             /**
              * @event blur
-             * Fires when
+             * Fires when this field loses input focus.
              * @param {Ext.form.Field} this
              */
             blur : true,
@@ -105,7 +105,7 @@ side          Add an error icon to the right of the field with a popup on hover
             specialkey : true,
             /**
              * @event change
-             * Fires just before the field blurs if the field value has changed
+             * Fires just before the field blurs if the field value has changed.
              * @param {Ext.form.Field} this
              * @param {Mixed} value The changed value
              * @param {Mixed} value The original value
@@ -113,14 +113,14 @@ side          Add an error icon to the right of the field with a popup on hover
             change : true,
             /**
              * @event invalid
-             * Fires after the field has been marked as invalid
+             * Fires after the field has been marked as invalid.
              * @param {Ext.form.Field} this
              * @param {String} msg The validation message
              */
             invalid : true,
             /**
              * @event valid
-             * Fires after the field has been validated with no errors
+             * Fires after the field has been validated with no errors.
              * @param {Ext.form.Field} this
              */
             valid : true
