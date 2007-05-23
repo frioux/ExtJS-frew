@@ -551,4 +551,5 @@
   <file name="images\default\grid\row-expand-sprite.gif" path="images\default\grid" />
   <file name="images\default\grid\row-check-sprite.gif" path="images\default\grid" />
   <file name="images\default\grid\grid3-special-col-sel-bg.gif" path="images\default\grid" />
+  <file name="images\default\shared\glass-bg.gif" path="images\default\shared" />
 </project>
