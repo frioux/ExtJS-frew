@@ -262,6 +262,8 @@ Ext.extend(Ext.DatePicker, Ext.Component, {
         });
 
         this.mbtn.on('click', this.showMonthPicker, this);
+        this.mbtn.el.child(this.mbtn.menuClassTarget).addClass("x-btn-with-menu");
+
 
         var today = (new Date()).dateFormat(this.format);
         var todayBtn = new Ext.Button(this.el.child("td.x-date-bottom", true), {
