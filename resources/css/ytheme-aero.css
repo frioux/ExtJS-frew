@@ -1,7 +1,6 @@
 /* menus */
 .x-menu {
-	border: 1px solid;
-	border-color: #96b9e6 #8bb8f3 #8bb8f3 #96b9e6;
+	border: 1px solid #718bb7;
 	z-index: 15000;
 	zoom: 1;
 	background: #f0f0f0 url(../images/aero/menu/menu.gif) repeat-y;
@@ -58,6 +57,13 @@
 	background-image:url(../images/aero/menu/checked.gif);
 }
 
+.x-menu-group-item .x-menu-item-icon{
+	background: transparent;
+}
+
+.x-menu-item-checked .x-menu-group-item .x-menu-item-icon{
+    background: transparent url(../images/default/menu/group-checked.gif) no-repeat center;
+}
 /**
 * Tabs
 */
