@@ -178,10 +178,10 @@ if(Ext.DomQuery){
     Ext.Element.selectorFunction = Ext.DomQuery.select;
 }
 
-Ext.Element.select = function(selector, unique){
+Ext.Element.select = function(selector, unique, root){
     var els;
     if(typeof selector == "string"){
-        els = Ext.Element.selectorFunction(selector);
+        els = Ext.Element.selectorFunction(selector, root);
     }else if(selector.length !== undefined){
         els = selector;
     }else{
@@ -197,6 +197,7 @@ Ext.Element.select = function(selector, unique){
  * Selects elements based on the passed CSS selector to enable working on them as 1.
  * @param {String/Array} selector The CSS selector or an array of elements
  * @param {Boolean} unique (optional) true to create a unique Ext.Element for each element (defaults to a shared flyweight object)
+ * @param {HTMLElement/String} root (optional) The root element of the query or id of the root
  * @return {CompositeElementLite/CompositeElement}
  * @member Ext
  * @method select

@@ -390,7 +390,7 @@ El.prototype = {
      * @return {CompositeElement/CompositeElementLite} The composite element
      */
     select : function(selector, unique){
-        return El.select("#" + Ext.id(this.dom) + " " + selector, unique);
+        return El.select(selector, unique, this.dom);
     },
     
     /**
@@ -399,7 +399,7 @@ El.prototype = {
      * @return {Array} An array of the matched nodes
      */
     query : function(selector, unique){
-        return Ext.DomQuery.select("#" + Ext.id(this.dom) + " " + selector);
+        return Ext.DomQuery.select(selector, this.dom);
     },
     
     /**
@@ -409,7 +409,7 @@ El.prototype = {
      * @return {HTMLElement/Ext.Element} The child Ext.Element (or DOM node if returnDom = true)
      */
     child : function(selector, returnDom){
-        var n = Ext.DomQuery.selectNode("#" + Ext.id(this.dom) + " " + selector);
+        var n = Ext.DomQuery.selectNode(selector, this.dom);
         return returnDom ? n : Ext.get(n);
     },
 
@@ -420,7 +420,7 @@ El.prototype = {
      * @return {HTMLElement/Ext.Element} The child Ext.Element (or DOM node if returnDom = true)
      */
     down : function(selector, returnDom){
-        var n = Ext.DomQuery.selectNode("#" + Ext.id(this.dom) + " > " + selector);
+        var n = Ext.DomQuery.selectNode(" > " + selector, this.dom);
         return returnDom ? n : Ext.get(n);
     },
 

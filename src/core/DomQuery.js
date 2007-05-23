@@ -302,10 +302,6 @@ Ext.DomQuery = function(){
          * @return {Function}
          */
         compile : function(path, type){
-            // strip leading slashes
-            while(path.substr(0, 1)=="/"){
-                path = path.substr(1);
-            }
             type = type || "select";
             
             var fn = ["var f = function(root){\n var mode; var n = root || document;\n"];
@@ -313,6 +309,18 @@ Ext.DomQuery = function(){
             var tk = Ext.DomQuery.matchers;
             var tklen = tk.length;
             var mm;
+
+            // accept leading mode switch
+            var lmode = q.match(modeRe);
+            if(lmode && lmode[1]){
+                fn[fn.length] = 'mode="'+lmode[1]+'";';
+                q = q.replace(lmode[1], "");
+            }
+            // strip leading slashes
+            while(path.substr(0, 1)=="/"){
+                path = path.substr(1);
+            }
+                        
             while(q && lq != q){
                 lq = q;
                 var tm = q.match(tagTokenRe);

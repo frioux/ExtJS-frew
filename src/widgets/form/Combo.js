@@ -524,7 +524,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
             var r = this.findRecord(this.valueField, v);
             if(r){
                 text = r.data[this.displayField];
-            }else if(this.valueNotFoundText){
+            }else if(this.valueNotFoundText !== undefined){
                 text = this.valueNotFoundText;
             }
         }

@@ -44,6 +44,16 @@ Ext.extend(Ext.DatePicker, Ext.Component, {
      */
     todayText : "Today",
     /**
+     * @cfg {String} okText
+     * The text to display on the ok button
+     */
+    okText : "&#160;OK&#160;", // &#160; to give the user extra clicking room
+    /**
+     * @cfg {String} cancelText
+     * The text to display on the cancel button
+     */
+    cancelText : "Cancel",
+    /**
      * @cfg {String} todayTip
      * The tooltip to display for the button that selects the current date (defaults to "{current date} (Spacebar)")
      */
@@ -178,7 +188,7 @@ Ext.extend(Ext.DatePicker, Ext.Component, {
             }
             m[m.length] = '<td><a href="#" hidefocus="on" class="x-date-date" tabIndex="1"><em><span></span></em></a></td>';
         }
-        m[m.length] = '</tr></tbody></table></td></tr><tr><td colspan="3" class="x-date-bottom" align="center"></td></tr></table>';
+        m[m.length] = '</tr></tbody></table></td></tr><tr><td colspan="3" class="x-date-bottom" align="center"></td></tr></table><div class="x-date-mp"></div>';
 
         var el = document.createElement("div");
         el.className = "x-date-picker";
@@ -187,13 +197,16 @@ Ext.extend(Ext.DatePicker, Ext.Component, {
         container.dom.insertBefore(el, position);
 
         this.el = Ext.get(el);
+        this.eventEl = Ext.get(el.firstChild);
         new Ext.util.ClickRepeater(this.el.child("td.x-date-left a"), {handler: this.showPrevMonth, scope: this, preventDefault:true});
         new Ext.util.ClickRepeater(this.el.child("td.x-date-right a"), {handler: this.showNextMonth, scope: this, preventDefault:true});
 
-        this.el.on("mousewheel", this.handleMouseWheel,  this);
+        this.eventEl.on("mousewheel", this.handleMouseWheel,  this);
 
-
-        var kn = new Ext.KeyNav(this.el, {
+        this.monthPicker = this.el.down('div.x-date-mp');
+        this.monthPicker.enableDisplayMode('block');
+        
+        var kn = new Ext.KeyNav(this.eventEl, {
             "left" : function(e){
                 e.ctrlKey ?
                     this.showPrevMonth() :
@@ -234,57 +247,21 @@ Ext.extend(Ext.DatePicker, Ext.Component, {
             scope : this
         });
 
-        this.el.on("click", this.handleDateClick,  this, {delegate: "a.x-date-date"});
+        this.eventEl.on("click", this.handleDateClick,  this, {delegate: "a.x-date-date"});
 
-        this.el.addKeyListener(Ext.EventObject.SPACE, this.selectToday,  this);
+        this.eventEl.addKeyListener(Ext.EventObject.SPACE, this.selectToday,  this);
 
         this.el.unselectable();
         
         this.cells = this.el.select("table.x-date-inner tbody td");
         this.textNodes = this.el.query("table.x-date-inner tbody span");
 
-        var mmenu = new Ext.menu.Menu({
-            plain:true,
-            cls: "x-date-mmenu",
-            allowOtherMenus : true
-        });
-
-        var menuGroup = Ext.id()+"months";
-        for(var i = 0; i < 12; i++){
-            mmenu.add(new Ext.menu.CheckItem({
-                id: "mm-"+i,
-                text: this.monthNames[i],
-                group:menuGroup,
-                month: i
-            }));
-        }
-
-        mmenu.on({
-            "beforeshow" : function(){
-                mmenu.items.get("mm-"+(this.activeDate || this.value).getMonth()).setChecked(true);
-            },
-            "itemclick" : function(item){
-                var d = (this.activeDate || this.value).clone();
-                d.setMonth(item.month);
-                this.update(d);
-            },
-            "show" : function(m){
-                this.visibleRegion = m.el.getRegion().adjust(2, 2, -2, -2);
-            },
-            "mouseout" : function(m, e){
-                if(!this.visibleRegion.contains(e.getPoint())){
-                    m.hide();
-                }
-            },
-            scope: this
-        });
-
         this.mbtn = new Ext.Button(this.el.child("td.x-date-middle", true), {
-            menu: mmenu,
             text: "&#160;",
-            menuAlign: "c-c?",
             tooltip: this.monthYearText
         });
+
+        this.mbtn.on('click', this.showMonthPicker, this);
 
         var today = (new Date()).dateFormat(this.format);
         var todayBtn = new Ext.Button(this.el.child("td.x-date-bottom", true), {
@@ -298,6 +275,137 @@ Ext.extend(Ext.DatePicker, Ext.Component, {
             this.el.repaint();
         }
         this.update(this.value);
+    },
+
+    createMonthPicker : function(){
+        if(!this.monthPicker.dom.firstChild){
+            var buf = ['<table border="0" cellspacing="0">'];
+            for(var i = 0; i < 6; i++){
+                buf.push(
+                    '<tr><td class="x-date-mp-month"><a href="#">', this.monthNames[i].substr(0, 3), '</a></td>',
+                    '<td class="x-date-mp-month x-date-mp-sep"><a href="#">', this.monthNames[i+6].substr(0, 3), '</a></td>',
+                    i == 0 ?
+                    '<td class="x-date-mp-ybtn" align="center"><a class="x-date-mp-prev"></a></td><td class="x-date-mp-ybtn" align="center"><a class="x-date-mp-next"></a></td>' :
+                    '<td class="x-date-mp-year"><a href="#"></a></td><td class="x-date-mp-year"><a href="#"></a></td></tr>'
+                );
+            }
+            buf.push(
+                '<tr class="x-date-mp-btns"><td colspan="4"><button type="button" class="x-date-mp-ok">',
+                    this.okText,
+                    '</button><button type="button" class="x-date-mp-cancel">',
+                    this.cancelText,
+                    '</button></td></tr>',
+                '</table>'
+            );
+            this.monthPicker.update(buf.join(''));
+            this.monthPicker.on('click', this.onMonthClick, this);
+            this.monthPicker.on('dblclick', this.onMonthDblClick, this);
+
+            this.mpMonths = this.monthPicker.select('td.x-date-mp-month');
+            this.mpYears = this.monthPicker.select('td.x-date-mp-year');
+
+            this.mpMonths.each(function(m, a, i){
+                i += 1;
+                if((i%2) == 0){
+                    m.dom.xmonth = 5 + Math.round(i * .5);
+                }else{
+                    m.dom.xmonth = Math.round((i-1) * .5);
+                }
+            });
+        }
+    },
+
+    showMonthPicker : function(){
+        this.createMonthPicker();
+        var size = this.el.getSize();
+        this.monthPicker.setSize(size);
+        this.monthPicker.child('table').setSize(size);
+
+        this.mpSelMonth = (this.activeDate || this.value).getMonth();
+        this.updateMPMonth(this.mpSelMonth);
+        this.mpSelYear = (this.activeDate || this.value).getFullYear();
+        this.updateMPYear(this.mpSelYear);
+
+        this.monthPicker.slideIn('t', {duration:.2});
+    },
+
+    updateMPYear : function(y){
+        this.mpyear = y;
+        var ys = this.mpYears.elements;
+        for(var i = 1; i <= 10; i++){
+            var td = ys[i-1], y2;
+            if((i%2) == 0){
+                y2 = y + Math.round(i * .5);
+                td.firstChild.innerHTML = y2;
+                td.xyear = y2;
+            }else{
+                y2 = y - (5-Math.round(i * .5));
+                td.firstChild.innerHTML = y2;
+                td.xyear = y2;
+            }
+            this.mpYears.item(i-1)[y2 == this.mpSelYear ? 'addClass' : 'removeClass']('x-date-mp-sel');
+        }
+    },
+
+    updateMPMonth : function(sm){
+        this.mpMonths.each(function(m, a, i){
+            m[m.dom.xmonth == sm ? 'addClass' : 'removeClass']('x-date-mp-sel');
+        });
+    },
+
+    selectMPMonth: function(m){
+        
+    },
+
+    onMonthClick : function(e, t){
+        e.stopEvent();
+        var el = new Ext.Element(t), pn;
+        if(el.is('button.x-date-mp-cancel')){
+            this.hideMonthPicker();
+        }
+        else if(el.is('button.x-date-mp-ok')){
+            this.update(new Date(this.mpSelYear, this.mpSelMonth, (this.activeDate || this.value).getDate()));
+            this.hideMonthPicker();
+        }
+        else if(pn = el.up('td.x-date-mp-month', 2)){
+            this.mpMonths.removeClass('x-date-mp-sel');
+            pn.addClass('x-date-mp-sel');
+            this.mpSelMonth = pn.dom.xmonth;
+        }
+        else if(pn = el.up('td.x-date-mp-year', 2)){
+            this.mpYears.removeClass('x-date-mp-sel');
+            pn.addClass('x-date-mp-sel');
+            this.mpSelYear = pn.dom.xyear;
+        }
+        else if(el.is('a.x-date-mp-prev')){
+            this.updateMPYear(this.mpyear-10);
+        }
+        else if(el.is('a.x-date-mp-next')){
+            this.updateMPYear(this.mpyear+10);
+        }
+    },
+
+    onMonthDblClick : function(e, t){
+        e.stopEvent();
+        var el = new Ext.Element(t), pn;
+        if(pn = el.up('td.x-date-mp-month', 2)){
+            this.update(new Date(this.mpSelYear, pn.dom.xmonth, (this.activeDate || this.value).getDate()));
+            this.hideMonthPicker();
+        }
+        else if(pn = el.up('td.x-date-mp-year', 2)){
+            this.update(new Date(pn.dom.xyear, this.mpSelMonth, (this.activeDate || this.value).getDate()));
+            this.hideMonthPicker();
+        }
+    },
+
+    hideMonthPicker : function(disableAnim){
+        if(this.monthPicker){
+            if(disableAnim === true){
+                this.monthPicker.hide();
+            }else{
+                this.monthPicker.slideOut('t', {duration:.2});
+            }
+        }
     },
 
     // private
@@ -351,7 +459,6 @@ Ext.extend(Ext.DatePicker, Ext.Component, {
     update : function(date){
         var vd = this.activeDate;
         this.activeDate = date;
-
         if(vd && this.el){
             var t = date.getTime();
             if(vd.getMonth() == date.getMonth() && vd.getFullYear() == date.getFullYear()){

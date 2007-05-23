@@ -22,5 +22,13 @@ Ext.menu.DateMenu = function(config){
      * @param {Date} date
      */
     this.relayEvents(di, ["select"]);
+
+    this.on('beforeshow', function(){
+        if(this.picker){
+            this.picker.hideMonthPicker(true);
+        }
+    }, this);
 };
-Ext.extend(Ext.menu.DateMenu, Ext.menu.Menu);
+Ext.extend(Ext.menu.DateMenu, Ext.menu.Menu, {
+    cls:'x-date-menu'
+});
