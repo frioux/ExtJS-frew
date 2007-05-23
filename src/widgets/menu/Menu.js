@@ -413,7 +413,7 @@ var item = menu.add(
     addMenuItem : function(config){
         if(!(config instanceof Ext.menu.Item)){
             if(typeof config.checked == "boolean"){ // must be check menu item config?
-                config = new Ext.menu.CheckItem(el);
+                config = new Ext.menu.CheckItem(config);
             }else{
                 config = new Ext.menu.Item(config);
             }
