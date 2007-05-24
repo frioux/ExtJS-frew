@@ -56,10 +56,12 @@
 .x-date-right a {
     background-image: url(../images/default/shared/right-btn.gif);
     margin-right:2px;
+    text-decoration:none !important;
 }
 .x-date-left a{
 	background-image: url(../images/default/shared/left-btn.gif);
     margin-left:2px;
+    text-decoration:none !important;
 }
 table.x-date-inner {
     width:100%;
@@ -69,7 +71,7 @@ table.x-date-inner {
     width:25px;
 }
 .x-date-inner th {
-    background: #ebf3fd url(../images/default/shared/glass-bg.gif) repeat-x left bottom;
+    background: #dfecfb url(../images/default/shared/glass-bg.gif) repeat-x left top;
     text-align:right !important;
 	border-bottom: 1px solid #a3bad9;
     font:normal 10px arial, helvetica,tahoma,sans-serif;
@@ -102,9 +104,9 @@ table.x-date-inner {
 	color:black;
 }
 .x-date-inner .x-date-selected a{
-	background: #ddecfe;
-	border: 1px solid #a3bad9;
-    padding:1px 4px;
+	background: #dfecfb url(../images/default/shared/glass-bg.gif) repeat-x left top;
+	border:1px solid #8db2e3;
+   padding:1px 4px;
 }
 .x-date-inner .x-date-today a{
 	border: 1px solid darkred;
@@ -120,7 +122,7 @@ table.x-date-inner {
 .x-date-bottom {
     padding:4px;
     border-top: 1px solid #a3bad9;
-    background: #ebf3fd url(../images/default/shared/glass-bg.gif) repeat-x left bottom;
+    background: #dfecfb url(../images/default/shared/glass-bg.gif) repeat-x left top;
 }
 
 .x-date-inner a:hover, .x-date-inner .x-date-disabled a:hover{
@@ -181,10 +183,10 @@ td.x-date-mp-month,td.x-date-mp-year,td.x-date-mp-ybtn {
 	cursor:pointer;
 }
 .x-date-mp-btns {
-	background: #ebf3fd url(../images/default/shared/glass-bg.gif) repeat-x left bottom;
+	background: #dfecfb url(../images/default/shared/glass-bg.gif) repeat-x left top;
 }
 .x-date-mp-btns td {
-	border-top: 1px solid #a3bad9;
+	border-top: 1px solid #c5d2df;
    text-align:center;
 }
 td.x-date-mp-month a,td.x-date-mp-year a {
@@ -204,8 +206,8 @@ td.x-date-mp-month a:hover,td.x-date-mp-year a:hover {
 
 td.x-date-mp-sel a {
 	padding:1px 3px;
-	background: #ddecfe;
-	border:1px solid #3366cc;
+	background: #dfecfb url(../images/default/shared/glass-bg.gif) repeat-x left top;
+	border:1px solid #8db2e3;
 }
 .x-date-mp-ybtn a {
     overflow:hidden;
@@ -232,5 +234,5 @@ td.x-date-mp-sel a {
    text-align:center;
 }
 td.x-date-mp-sep {
-   border-right:1px solid #a3bad9;
+   border-right:1px solid #c5d2df;
 }
