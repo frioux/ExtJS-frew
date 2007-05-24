@@ -35,7 +35,7 @@ Ext.extend(Ext.data.PagingMemoryProxy, Ext.data.MemoryProxy, {
 		}
 		
 		// filtering
-		if (params.filter) {
+		if (params.filter!==undefined) {
 			result.records = result.records.filter(function(el){
 			    if (typeof(el)=="object"){
 					var att = params.filterCol || 0;
@@ -48,7 +48,7 @@ Ext.extend(Ext.data.PagingMemoryProxy, Ext.data.MemoryProxy, {
 		}
 		
 		// sorting
-		if (params.sort) {
+		if (params.sort!==undefined) {
 		    // use integer as params.sort to specify column, since arrays are not named
 		    // params.sort=0; would also match a array without columns
 		    var dir = String(params.dir).toUpperCase() == "DESC" ? -1 : 1;
@@ -69,7 +69,7 @@ Ext.extend(Ext.data.PagingMemoryProxy, Ext.data.MemoryProxy, {
 		    });
 		}
 
-		// paging
+		// paging (use undefined cause start can also be 0 (thus false))
 		if (params.start!==undefined && params.limit!==undefined) {
 			result.records = result.records.slice(params.start, params.start+params.limit);
 		}
