@@ -30,6 +30,12 @@ Ext.extend(Ext.form.DateField, Ext.form.TriggerField,  {
      */
     format : "m/d/y",
     /**
+     * @cfg {String} altFormats
+     * Multiple date formats separated by | to try when parsing a user input value and it doesn't match the defined
+     * format (defaults to 'm/d/Y|m-d-y|m-d-Y|m/d|m-d|d').
+     */
+    altFormats : "m/d/Y|m-d-y|m-d-Y|m/d|m-d|md|mdy|mdY|d",
+    /**
      * @cfg {Array} disabledDays
      * An array of days to disable, 0 based. For example, [0, 6] disables Sunday and Saturday (defaults to null).
      */
@@ -187,8 +193,19 @@ dateField.setValue('2006-5-4');
 
     // private
     parseDate : function(value){
-        return (!value || value instanceof Date) ?
-               value : Date.parseDate(value, this.format);
+        if(!value || value instanceof Date){
+            return value;
+        }
+        var v = Date.parseDate(value, this.format);
+        if(!v && this.altFormats){
+            if(!this.altFormatsArray){
+                this.altFormatsArray = this.altFormats.split("|");
+            }
+            for(var i = 0, len = this.altFormatsArray.length; i < len && !v; i++){
+                v = Date.parseDate(value, this.altFormatsArray[i]);
+            }
+        }
+        return v;
     },
 
     // private
@@ -239,5 +256,12 @@ dateField.setValue('2006-5-4');
         }));
         this.menu.picker.setValue(this.getValue() || new Date());
         this.menu.show(this.el, "tl-bl?");
+    },
+
+    beforeBlur : function(){
+        var v = this.parseDate(this.getRawValue());
+        if(v){
+            this.setValue(v);
+        }
     }
 });
