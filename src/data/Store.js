@@ -203,7 +203,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
 
     /**
      * Get the index within the cache of the passed Record.
-     * @param {Ext.data.Record[]} records An Array of Ext.data.Record objects to add to the cache.
+     * @param {Ext.data.Record} record The Ext.data.Record object to to find.
      * @return {Number} The index of the passed Record. Returns -1 if not found.
      */
     indexOf : function(record){
