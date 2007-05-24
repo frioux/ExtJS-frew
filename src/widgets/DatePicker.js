@@ -198,8 +198,20 @@ Ext.extend(Ext.DatePicker, Ext.Component, {
 
         this.el = Ext.get(el);
         this.eventEl = Ext.get(el.firstChild);
-        new Ext.util.ClickRepeater(this.el.child("td.x-date-left a"), {handler: this.showPrevMonth, scope: this, preventDefault:true});
-        new Ext.util.ClickRepeater(this.el.child("td.x-date-right a"), {handler: this.showNextMonth, scope: this, preventDefault:true});
+
+        new Ext.util.ClickRepeater(this.el.child("td.x-date-left a"), {
+            handler: this.showPrevMonth,
+            scope: this,
+            preventDefault:true,
+            stopDefault:true
+        });
+
+        new Ext.util.ClickRepeater(this.el.child("td.x-date-right a"), {
+            handler: this.showNextMonth,
+            scope: this,
+            preventDefault:true,
+            stopDefault:true
+        });
 
         this.eventEl.on("mousewheel", this.handleMouseWheel,  this);
 
