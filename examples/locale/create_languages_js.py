@@ -28,6 +28,11 @@ def lang_name(file):
 	language = m.groups()[0]
     return language
 
+def print_locale(lang_code):
+    print lang_code,
+    sys.stdout.flush()
+    return True
+
 def main():
     base_dir = "../../src/locale"
     base_file = lambda f: os.path.join(base_dir, f)
@@ -41,11 +46,13 @@ def main():
     char_set = lambda f: chardet.detect(open(f).read())['encoding']
     lang_code = lambda f: f[9:f.rfind(".js")]
     info_set = lambda f: (lang_name(base_file(f)), (lang_code(f), char_set(base_file(f))))
-    locales = dict(info_set(file) for file in locales if valid_file(file))
+    locales = dict(info_set(file) for file in locales if valid_file(file) and print_locale(lang_code(file)))
+    print "... done"
     locale_strarray = ',\n'.join(["\t[%r, %r, %r]" % (code, name, charset) \
 				     for name, (code, charset) in sorted(locales.items())])
     # create languages.js
     open("languages.js", "w").write(js_template % locale_strarray)
+    print "saved %d languages to languages.js" % len(locales)
         
 if __name__=="__main__":
     main()
