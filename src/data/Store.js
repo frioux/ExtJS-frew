@@ -58,6 +58,13 @@ Ext.data.Store = function(config){
          */
         datachanged : true,
         /**
+         * @event metachange
+         * Fires when this stores reader provides new meta data (fields). This is currently only support for JsonReaders.
+         * @param {Store} this
+         * @param {Object} meta The JSON meta data
+         */
+        metachange : true,
+        /**
          * @event add
          * Fires when Records have been added to the Store
          * @param {Store} this
@@ -544,5 +551,6 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
         delete this.snapshot;
         this.sortInfo = meta.sortInfo;
         this.modified = [];
+        this.fireEvent('metachange', this, this.reader.meta);
     }
 });
