@@ -198,9 +198,24 @@ Date.getFormatCode = function(character) {
 };
 
 /**
- * Parses the passed string using the specified format. Example Usage:
+ * Parses the passed string using the specified format. Note that this function expects dates in normal calendar
+ * format, meaning that months are 1-based (1 = January) and not zero-based like in JavaScript dates.  Any part of
+ * the date format that is not specified will default to the current date value for that part.  Time parts can also
+ * be specified, but default to 0.  Keep in mind that the input date string must precisely match the specified format
+ * string or the parse operation will fail.
+ * Example Usage:
 <pre><code>
-var date = Date.parseDate('2006-12-25', 'Y-m-d');
+//dt = Fri May 25 2007 (current date)
+var dt = new Date();
+
+//dt = Thu May 25 2006 (today's month/day in 2006)
+dt = Date.parseDate("2006", "Y");
+
+//dt = Sun Jan 15 2006 (all date parts specified)
+dt = Date.parseDate("2006-1-15", "Y-m-d");
+
+//dt = Sun Jan 15 2006 15:20:01 GMT-0600 (CST)
+dt = Date.parseDate("2006-1-15 3:20:01 PM", "Y-m-d h:i:s A" );
 </code></pre>
  * @param {String} input The unparsed date as a string
  * @param {String} format The format the date is in
