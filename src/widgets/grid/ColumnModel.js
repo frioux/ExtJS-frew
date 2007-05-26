@@ -406,7 +406,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     },
 
     /**
-     * Returns true if the column cannot be resized
+     * Returns true if the column can be resized
      * @return {Boolean}
      */
     isResizable : function(colIndex){
