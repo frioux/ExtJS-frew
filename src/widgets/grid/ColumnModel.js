@@ -200,7 +200,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * @return {Number}
      */
     getColumnCount : function(visibleOnly){
-        if(visibleOnly == true){
+        if(visibleOnly === true){
             var c = 0;
             for(var i = 0, len = this.config.length; i < len; i++){
                 if(!this.isHidden(i)){
@@ -210,6 +210,23 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
             return c;
         }
         return this.config.length;
+    },
+
+    /**
+     * Returns the column configs that return true by the passed function that is called with (columnConfig, index)
+     * @param {Function} fn
+     * @param {Object} scope (optional)
+     * @return {Array} result
+     */
+    getColumnsBy : function(fn, scope){
+        var r = [];
+        for(var i = 0, len = this.config.length; i < len; i++){
+            var c = this.config[i];
+            if(fn.call(scope||this, c, i) === true){
+                r[r.length] = c;
+            }
+        }
+        return r;
     },
 
     /**

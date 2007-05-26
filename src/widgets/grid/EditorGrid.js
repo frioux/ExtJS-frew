@@ -103,7 +103,6 @@ Ext.extend(Ext.grid.EditorGrid, Ext.grid.Grid, {
                 this.fireEvent("afteredit", e);
             }
         }
-        console.log(ed.row, ed.col)
         this.view.focusCell(ed.row, ed.col);
     },
 
