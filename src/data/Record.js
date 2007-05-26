@@ -68,6 +68,7 @@ var myNewRecord = new TopicRecord({
 myStore.add(myNewRecord);
 </code></pre>
  * @method create
+ * @static
  */
 Ext.data.Record.create = function(o){
     var f = function(){
