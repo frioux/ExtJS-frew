@@ -62,6 +62,8 @@ Ext.Toolbar.prototype = {
                     this.addSeparator();
                 }else if(el == " "){
                     this.addSpacer();
+                }else if(el == "->"){
+                    this.addFill();
                 }else{
                     this.addText(el);
                 }
@@ -91,10 +93,18 @@ Ext.Toolbar.prototype = {
 
     /**
      * Adds a spacer element
-     * @return {Ext.Toolbar.Item} The spacer item
+     * @return {Ext.Toolbar.Spacer} The spacer item
      */
     addSpacer : function(){
         return this.addItem(new Ext.Toolbar.Spacer());
+    },
+
+    /**
+     * Adds a fill element that forces subsequent additions to the right side of the toolbar
+     * @return {Ext.Toolbar.Fill} The fill item
+     */
+    addFill : function(){
+        return this.addItem(new Ext.Toolbar.Fill());
     },
 
     /**
@@ -337,12 +347,21 @@ Ext.extend(Ext.Toolbar.Separator, Ext.Toolbar.Item, {
 Ext.Toolbar.Spacer = function(){
     var s = document.createElement("div");
     s.className = "ytb-spacer";
-    Ext.Toolbar.Separator.superclass.constructor.call(this, s);
+    Ext.Toolbar.Spacer.superclass.constructor.call(this, s);
 };
 Ext.extend(Ext.Toolbar.Spacer, Ext.Toolbar.Item, {
     enable:Ext.emptyFn,
     disable:Ext.emptyFn,
     focus:Ext.emptyFn
+});
+
+
+Ext.Toolbar.Fill = Ext.extend(Ext.Toolbar.Spacer, {
+    // private
+    render : function(td){
+        td.style.width = '100%';
+        Ext.Toolbar.Fill.superclass.render.call(this, td);
+    }
 });
 
 /**
