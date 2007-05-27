@@ -73,9 +73,9 @@ var Example = {
 		// the DefaultColumnModel expects this blob to define columns. It can be extended to provide
         // custom or reusable ColumnModels
         var colModel = new Ext.grid.ColumnModel([
-			{header: "Company", width: 160, sortable: true, locked:false, dataIndex: 'company'},
+			{id:'company',header: "Company", width: 160, sortable: true, locked:false, dataIndex: 'company'},
 			{header: "Price", width: 75, sortable: true, renderer: Ext.util.Format.usMoney, dataIndex: 'price'},
-			{id:'change',header: "Change", width: 75, sortable: true, renderer: change, dataIndex: 'change'},
+			{header: "Change", width: 75, sortable: true, renderer: change, dataIndex: 'change'},
 			{header: "% Change", width: 75, sortable: true, renderer: pctChange, dataIndex: 'pctChange'},
 			{header: "Last Updated", width: 85, sortable: true, renderer: Ext.util.Format.dateRenderer('m/d/Y'), dataIndex: 'lastChange'}
 		]);
@@ -85,7 +85,7 @@ var Example = {
         var grid = new Ext.grid.Grid('grid-example', {
             ds: ds,
             cm: colModel,
-            autoExpandColumn: 'change'
+            autoExpandColumn: 'company'
         });
         
         var layout = Ext.BorderLayout.create({
