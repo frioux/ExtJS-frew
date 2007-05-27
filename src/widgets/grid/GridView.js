@@ -1,542 +1,556 @@
-/**
- * @class Ext.grid.GridView
- * @extends AbstractGridView
- * The default GridView implementation
- * @constructor
- * @param {Object} config
- */
-
 Ext.grid.GridView = function(config){
-    Ext.grid.GridView.superclass.constructor.call(this);
-    this.el = null;
-
     Ext.apply(this, config);
+    Ext.grid.GridView.superclass.constructor.call(this);
 };
 
 Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 
-    /**
-     * Override this function to apply custom css classes to rows during rendering
-     * @param {Record} record The record
-     * @param {Number} index
-     * @method getRowClass
-     */
-    rowClass : "x-grid-row",
-
-    cellClass : "x-grid-col",
-
-    tdClass : "x-grid-td",
-
-    hdClass : "x-grid-hd",
-
-    splitClass : "x-grid-split",
+    borderWidth: 2,
+    scrollOffset: 19,
+    autoFill:false,
+    forceFit:false,
 
     sortClasses : ["sort-asc", "sort-desc"],
+    
+    sortAscText : "Sort Ascending",
+    sortDescText : "Sort Descending",
+    lockText : "Lock Column",
+    unlockText : "Unlock Column",
+    columnsText : "Columns",
 
-    enableMoveAnim : false,
 
-    hlColor: "C3DAF9",
+    /* -------------------------------- UI Specific ----------------------------- */
 
-    dh : Ext.DomHelper,
-
-    fly : Ext.Element.fly,
-
-    css : Ext.util.CSS,
-
-    borderWidth: 1,
-
-    splitOffset: 3,
-
-    scrollIncrement : 22,
-
-    cellRE: /(?:.*?)x-grid-(?:hd|cell|csplit)-(?:[\d]+)-([\d]+)(?:.*?)/,
-
-    findRE: /\s?(?:x-grid-hd|x-grid-col|x-grid-csplit)\s/,
-
-    bind : function(ds, cm){
-        if(this.ds){
-            this.ds.un("load", this.onLoad, this);
-            this.ds.un("datachanged", this.onDataChange);
-            this.ds.un("add", this.onAdd);
-            this.ds.un("remove", this.onRemove);
-            this.ds.un("update", this.onUpdate);
-            this.ds.un("clear", this.onClear);
+    initTemplates : function(){
+        var ts = this.templates || {};
+        if(!ts.master){
+            ts.master = new Ext.Template(
+                    '<div class="x-grid3" hidefocus="true">',
+                        '<div class="x-grid3-viewport">',
+                            '<div class="x-grid3-header"><div class="x-grid3-header-inner"><div class="x-grid3-header-offset">{header}</div></div><div class="x-clear"></div></div>',
+                            '<div class="x-grid3-body">{body}</div>',
+                        "</div>",
+                        '<a href="#" class="x-grid3-focus" tabIndex="-1"></a>',
+                        '<div class="x-grid3-resize-proxy">&#160;</div>',
+                    "</div>"
+                    );
         }
-        if(ds){
-            ds.on("load", this.onLoad, this);
-            ds.on("datachanged", this.onDataChange, this);
-            ds.on("add", this.onAdd, this);
-            ds.on("remove", this.onRemove, this);
-            ds.on("update", this.onUpdate, this);
-            ds.on("clear", this.onClear, this);
-        }
-        this.ds = ds;
 
-        if(this.cm){
-            this.cm.un("widthchange", this.onColWidthChange, this);
-            this.cm.un("headerchange", this.onHeaderChange, this);
-            this.cm.un("hiddenchange", this.onHiddenChange, this);
-            this.cm.un("columnmoved", this.onColumnMove, this);
-            this.cm.un("columnlockchange", this.onColumnLock, this);
+        if(!ts.header){
+            ts.header = new Ext.Template(
+                    '<table border="0" cellspacing="0" cellpadding="0" style="{tstyle}">',
+                    '<tbody><tr class="x-grid3-hd-row">{cells}</tr></tbody>',
+                    "</table>"
+                    );
         }
-        if(cm){
-            this.generateRules(cm);
-            cm.on("widthchange", this.onColWidthChange, this);
-            cm.on("headerchange", this.onHeaderChange, this);
-            cm.on("hiddenchange", this.onHiddenChange, this);
-            cm.on("columnmoved", this.onColumnMove, this);
-            cm.on("columnlockchange", this.onColumnLock, this);
+
+        if(!ts.hcell){
+            ts.hcell = new Ext.Template(
+                    '<td class="x-grid3-hd x-grid3-cell x-grid3-td-{id}" style="{style}"><div {attr} class="x-grid3-hd-inner x-grid3-hd-{id}" unselectable="on" style="{istyle}"><a class="x-grid3-hd-btn" href="#"></a>',
+                    '{value}<img class="x-grid3-sort-icon" src="', Ext.BLANK_IMAGE_URL, '" />',
+                    "</div></td>"
+                    );
         }
-        this.cm = cm;
+
+        if(!ts.body){
+            ts.body = new Ext.Template('{rows}');
+        }
+
+        if(!ts.row){
+            ts.row = new Ext.Template(
+                    '<div class="x-grid3-row {alt}" style="{tstyle}"><table class="x-grid3-row-table" border="0" cellspacing="0" cellpadding="0" style="{tstyle}">',
+                    '<tbody><tr>{cells}</tr>',
+                    (this.enableRowBody ? '<tr class="x-grid3-row-body-tr" style="{bodyStyle}"><td colspan="{cols}" class="x-grid3-body-cell"><div class="x-grid3-row-body">{body}</div></td></tr></tbody>' : ''),
+                    '</table></div>'
+                    );
+        }
+
+        if(!ts.cell){
+            ts.cell = new Ext.Template(
+                    '<td class="x-grid3-col x-grid3-cell x-grid3-td-{id} {css}" style="{style}" tabIndex="0" {cellAttr}>',
+                    '<div class="x-grid3-cell-inner x-grid3-col-{id}" unselectable="on" {attr}>{value}</div>',
+                    "</td>"
+                    );
+        }
+
+        for(var k in ts){
+            var t = ts[k];
+            if(t && typeof t.compile == 'function' && !t.compiled){
+                t.disableFormats = true;
+                t.compile();
+            }
+        }
+
+        this.templates = ts;
+
+        this.tdClass = 'x-grid3-cell';
+        this.cellSelector = 'td.x-grid3-cell';
+        this.hdCls = 'x-grid3-hd';
+        this.rowSelector = 'div.x-grid3-row';
+        this.colRe = new RegExp("x-grid3-td-([^\\s]+)", "");
     },
 
-    init: function(grid){
-		Ext.grid.GridView.superclass.init.call(this, grid);
-
-		this.bind(grid.dataSource, grid.colModel);
-
-	    grid.on("headerclick", this.handleHeaderClick, this);
-
-        if(grid.trackMouseOver){
-            grid.on("mouseover", this.onRowOver, this);
-	        grid.on("mouseout", this.onRowOut, this);
-	    }
-	    grid.cancelTextSelection = function(){};
-		this.gridId = grid.id;
-
-		var tpls = this.templates || {};
-
-		if(!tpls.master){
-		    tpls.master = new Ext.Template(
-		       '<div class="x-grid" hidefocus="true">',
-		          '<div class="x-grid-topbar"></div>',
-		          '<div class="x-grid-scroller"><div></div></div>',
-		          '<div class="x-grid-locked">',
-		              '<div class="x-grid-header">{lockedHeader}</div>',
-		              '<div class="x-grid-body">{lockedBody}</div>',
-		          "</div>",
-		          '<div class="x-grid-viewport">',
-		              '<div class="x-grid-header">{header}</div>',
-		              '<div class="x-grid-body">{body}</div>',
-		          "</div>",
-		          '<div class="x-grid-bottombar"></div>',
-		          '<a href="#" class="x-grid-focus" tabIndex="-1"></a>',
-		          '<div class="x-grid-resize-proxy">&#160;</div>',
-		       "</div>"
-		    );
-		    tpls.master.disableformats = true;
-		}
-
-		if(!tpls.header){
-		    tpls.header = new Ext.Template(
-		       '<table border="0" cellspacing="0" cellpadding="0">',
-		       '<tbody><tr class="x-grid-hd-row">{cells}</tr></tbody>',
-		       "</table>{splits}"
-		    );
-		    tpls.header.disableformats = true;
-		}
-		tpls.header.compile();
-
-		if(!tpls.hcell){
-		    tpls.hcell = new Ext.Template(
-		        '<td class="x-grid-hd x-grid-td-{id} {cellId}"><div title="{title}" class="x-grid-hd-inner x-grid-hd-{id}">',
-		        '<div class="x-grid-hd-text" unselectable="on">{value}<img class="x-grid-sort-icon" src="', Ext.BLANK_IMAGE_URL, '" /></div>',
-		        "</div></td>"
-		     );
-		     tpls.hcell.disableFormats = true;
-		}
-		tpls.hcell.compile();
-
-		if(!tpls.hsplit){
-		    tpls.hsplit = new Ext.Template('<div class="x-grid-split {splitId} x-grid-split-{id}" style="{style}" unselectable="on">&#160;</div>');
-		    tpls.hsplit.disableFormats = true;
-		}
-		tpls.hsplit.compile();
-
-		if(!tpls.body){
-		    tpls.body = new Ext.Template(
-		       '<table border="0" cellspacing="0" cellpadding="0">',
-		       "<tbody>{rows}</tbody>",
-		       "</table>"
-		    );
-		    tpls.body.disableFormats = true;
-		}
-		tpls.body.compile();
-
-		if(!tpls.row){
-		    tpls.row = new Ext.Template('<tr class="x-grid-row {alt}">{cells}</tr>');
-		    tpls.row.disableFormats = true;
-		}
-		tpls.row.compile();
-
-		if(!tpls.cell){
-		    tpls.cell = new Ext.Template(
-		        '<td class="x-grid-col x-grid-td-{id} {cellId} {css}" tabIndex="0">',
-		        '<div class="x-grid-col-{id} x-grid-cell-inner"><div class="x-grid-cell-text" unselectable="on" {attr}>{value}</div></div>',
-		        "</td>"
-		    );
-            tpls.cell.disableFormats = true;
+    fly : function(el){
+        if(!this._flyweight){
+            this._flyweight = new Ext.Element.Flyweight(document.body);
         }
-		tpls.cell.compile();
-
-		this.templates = tpls;
-	},
-
-	// remap these for backwards compat
-    onColWidthChange : function(){
-        this.updateColumns.apply(this, arguments);
-    },
-    onHeaderChange : function(){
-        this.updateHeaders.apply(this, arguments);
-    }, 
-    onHiddenChange : function(){
-        this.handleHiddenChange.apply(this, arguments);
-    },
-    onColumnMove : function(){
-        this.handleColumnMove.apply(this, arguments);
-    },
-    onColumnLock : function(){
-        this.handleLockChange.apply(this, arguments);
+        this._flyweight.dom = el;
+        return this._flyweight;
     },
 
-    onDataChange : function(){
-        this.refresh();
-        this.updateHeaderSortState();
-    },
+    initElements : function(){
+        var E = Ext.Element;
 
-	onClear : function(){
-        this.refresh();
-    },
-
-	onUpdate : function(ds, record){
-        this.refreshRow(record);
-    },
-
-    refreshRow : function(record){
-        var ds = this.ds, index;
-        if(typeof record == 'number'){
-            index = record;
-            record = ds.getAt(index);
-        }else{
-            index = ds.indexOf(record);
-        }
-        var rows = this.getRowComposite(index);
-        var cls = [];
-        this.insertRows(ds, index, index, true);
-        this.onRemove(ds, record, index+1, true);
-        this.syncRowHeights(index, index);
-        this.layout();
-        this.fireEvent("rowupdated", this, index, record);
-    },
-
-    onAdd : function(ds, records, index){
-        this.insertRows(ds, index, index + (records.length-1));
-    },
-
-    onRemove : function(ds, record, index, isUpdate){
-        if(isUpdate !== true){
-            this.fireEvent("beforerowremoved", this, index, record);
-        }
-        var bt = this.getBodyTable(), lt = this.getLockedTable();
-        if(bt.rows[index]){
-            bt.firstChild.removeChild(bt.rows[index]);
-        }
-        if(lt.rows[index]){
-            lt.firstChild.removeChild(lt.rows[index]);
-        }
-        if(isUpdate !== true){
-            this.stripeRows(index);
-            this.syncRowHeights(index, index);
-            this.layout();
-            this.fireEvent("rowremoved", this, index, record);
-        }
-    },
-
-    onLoad : function(){
-        this.scrollToTop();
-    },
-
-    /**
-     * Scrolls the grid to the top
-     */
-    scrollToTop : function(){
-        if(this.scroller){
-            this.scroller.dom.scrollTop = 0;
-            this.syncScroll();
-        }
-    },
-
-    /**
-     * Gets a panel in the header of the grid that can be used for toolbars etc.
-     * After modifying the contents of this panel a call to grid.autoSize() may be
-     * required to register any changes in size.
-     * @param {Boolean} doShow By default the header is hidden. Pass true to show the panel
-     * @return Ext.Element
-     */
-    getHeaderPanel : function(doShow){
-        if(doShow){
-            this.headerPanel.show();
-        }
-        return this.headerPanel;
-	},
-
-	/**
-     * Gets a panel in the footer of the grid that can be used for toolbars etc.
-     * After modifying the contents of this panel a call to grid.autoSize() may be
-     * required to register any changes in size.
-     * @param {Boolean} doShow By default the footer is hidden. Pass true to show the panel
-     * @return Ext.Element
-     */
-    getFooterPanel : function(doShow){
-        if(doShow){
-            this.footerPanel.show();
-        }
-        return this.footerPanel;
-	},
-
-	initElements : function(){
-	    var E = Ext.Element;
-	    var el = this.grid.getGridEl().dom.firstChild;
+        var el = this.grid.getGridEl().dom.firstChild;
 	    var cs = el.childNodes;
 
 	    this.el = new E(el);
-	    this.headerPanel = new E(el.firstChild);
-	    this.headerPanel.enableDisplayMode("block");
 
-        this.scroller = new E(cs[1]);
-	    this.scrollSizer = new E(this.scroller.dom.firstChild);
-
-	    this.lockedWrap = new E(cs[2]);
-	    this.lockedHd = new E(this.lockedWrap.dom.firstChild);
-	    this.lockedBody = new E(this.lockedWrap.dom.childNodes[1]);
-
-	    this.mainWrap = new E(cs[3]);
+        this.mainWrap = new E(cs[0]);
 	    this.mainHd = new E(this.mainWrap.dom.firstChild);
-	    this.mainBody = new E(this.mainWrap.dom.childNodes[1]);
+	    this.innerHd = this.mainHd.dom.firstChild;
+        this.mainBody = new E(this.mainWrap.dom.childNodes[1]);
 
-	    this.footerPanel = new E(cs[4]);
-	    this.footerPanel.enableDisplayMode("block");
-
-        this.focusEl = new E(cs[5]);
+	    this.focusEl = new E(cs[1]);
         this.focusEl.swallowEvent("click", true);
-        this.resizeProxy = new E(cs[6]);
 
-	    this.headerSelector = String.format(
-	       '#{0} td.x-grid-hd, #{1} td.x-grid-hd',
-	       this.lockedHd.id, this.mainHd.id
-	    );
-
-	    this.splitterSelector = String.format(
-	       '#{0} div.x-grid-split, #{1} div.x-grid-split',
-	       this.lockedHd.id, this.mainHd.id
-	    );
+        this.resizeProxy = new E(cs[2]);
     },
 
-	getHeaderCell : function(index){
-	    return Ext.DomQuery.select(this.headerSelector)[index];
-	},
 
-	getHeaderCellMeasure : function(index){
-	    return this.getHeaderCell(index).firstChild;
-	},
+    // finder methods, used with delegation
 
-	getHeaderCellText : function(index){
-	    return this.getHeaderCell(index).firstChild.firstChild;
-	},
-
-	getLockedTable : function(){
-	    return this.lockedBody.dom.firstChild;
-	},
-
-	getBodyTable : function(){
-	    return this.mainBody.dom.firstChild;
-	},
-
-	getLockedRow : function(index){
-	    return this.getLockedTable().rows[index];
-	},
-
-	getRow : function(index){
-	    return this.getBodyTable().rows[index];
-	},
-
-	getRowComposite : function(index){
-	    if(!this.rowEl){
-	        this.rowEl = new Ext.CompositeElementLite();
-	    }
-        var els = [], lrow, mrow;
-        if(lrow = this.getLockedRow(index)){
-            els.push(lrow);
-        }
-        if(mrow = this.getRow(index)){
-            els.push(mrow);
-        }
-        this.rowEl.elements = els;
-	    return this.rowEl;
-	},
-
-	getCell : function(rowIndex, colIndex){
-	    var locked = this.cm.getLockedCount();
-	    var source;
-	    if(colIndex < locked){
-	        source = this.lockedBody.dom.firstChild;
-	    }else{
-	        source = this.mainBody.dom.firstChild;
-	        colIndex -= locked;
-	    }
-        return source.rows[rowIndex].childNodes[colIndex];
-	},
-
-	getCellText : function(rowIndex, colIndex){
-	    return this.getCell(rowIndex, colIndex).firstChild.firstChild;
-	},
-
-	getCellBox : function(cell){
-	    var b = this.fly(cell).getBox();
-        if(Ext.isOpera){ // opera fails to report the Y
-            b.y = cell.offsetTop + this.mainBody.getY();
-        }
-        return b;
-    },
-
-    getCellIndex : function(cell){
-        var id = String(cell.className).match(this.cellRE);
-        if(id){
-            return parseInt(id[1], 10);
-        }
-        return 0;
-    },
-
-    findHeaderIndex : function(n){
-        var r = Ext.fly(n).findParent("td." + this.hdClass, 6);
-        return r ? this.getCellIndex(r) : false;
-    },
-
-    findHeaderCell : function(n){
-        var r = Ext.fly(n).findParent("td." + this.hdClass, 6);
-        return r ? r : false;
-    },
-
-    findRowIndex : function(n){
-        if(!n){
+    findCell : function(el){
+        if(!el){
             return false;
         }
-        var r = Ext.fly(n).findParent("tr." + this.rowClass, 6);
-        return r ? r.rowIndex : false;
+        return this.fly(el).findParent(this.cellSelector, 3);
     },
 
-    findCellIndex : function(node){
-        var stop = this.el.dom;
-        while(node && node != stop){
-            if(this.findRE.test(node.className)){
-                return this.getCellIndex(node);
-            }
-            node = node.parentNode;
+    findCellIndex : function(el, requiredCls){
+        var cell = this.findCell(el);
+        if(cell && (!requiredCls || this.fly(cell).hasClass(requiredCls))){
+            return this.getCellIndex(cell);
         }
         return false;
     },
 
-    getColumnId : function(index){
+    getCellIndex : function(el){
+        if(el){
+            var m = el.className.match(this.colRe);
+            if(m && m[1]){
+                return this.cm.getIndexById(m[1]);
+            }
+        }
+        return false;
+    },
+
+    findHeaderCell : function(el){
+        var cell = this.findCell(el);
+        return cell && this.fly(cell).hasClass(this.hdCls) ? cell : null;
+    },
+
+    findHeaderIndex : function(el){
+        return this.findCellIndex(el, this.hdCls);
+    },
+
+    findRow : function(el){
+        if(!el){
+            return false;
+        }
+        return this.fly(el).findParent(this.rowSelector, 10);
+    },
+
+    findRowIndex : function(el){
+        var r = this.findRow(el);
+        return r ? r.rowIndex : false;
+    },
+
+    // getter methods for fetching elements dynamically in the grid
+
+    getRow : function(row){
+        return this.mainBody.dom.childNodes[row];
+    },
+
+    getCell : function(row, col){
+        return this.mainBody.dom.childNodes[row].getElementsByTagName('td')[col];
+	},
+
+    getHeaderCell : function(index){
+	    return this.mainHd.dom.getElementsByTagName('td')[index];
+	},
+
+
+    // manipulating elements
+
+    addRowClass : function(row, cls){
+        var r = this.getRow(row);
+        if(r){
+            this.fly(r).addClass(cls);
+        }
+    },
+
+    removeRowClass : function(row, cls){
+        var r = this.getRow(row);
+        if(r){
+            this.fly(r).removeClass(cls);
+        }
+    },
+
+    removeRow : function(row){
+        var r = this.getRow(row);
+        if(r){
+            r.parentNode.removeChild(r);
+        }
+    },
+
+    removeRows : function(firstRow, lastRow){
+        var bd = this.mainBody.dom;
+        for(var rowIndex = firstRow; rowIndex <= lastRow; rowIndex++){
+            bd.removeChild(bd.childNodes[firstRow]);
+        }
+    },
+
+    // scrolling stuff
+
+    getScrollState : function(){
+        var sb = this.mainBody.dom;
+        return {left: sb.scrollLeft, top: sb.scrollTop};
+    },
+
+    restoreScroll : function(state){
+        var sb = this.mainBody.dom;
+        sb.scrollLeft = state.left;
+        sb.scrollTop = state.top;
+    },
+
+    scrollToTop : function(){
+        this.mainBody.dom.scrollTop = 0;
+        this.mainBody.dom.scrollLeft = 0;
+    },
+
+
+    syncScroll : function(){
+        var mb = this.mainBody.dom;
+        this.innerHd.scrollLeft = mb.scrollLeft;
+        this.grid.fireEvent("bodyscroll", mb.scrollLeft, mb.scrollTop);
+    },
+
+
+    updateSortIcon : function(col, dir){
+        var sc = this.sortClasses;
+        var hds = this.mainHd.select('td').removeClass(sc);
+        hds.item(col).addClass(sc[dir == "DESC" ? 1 : 0]);
+    },
+
+    updateAllColumnWidths : function(){
+        var tw = this.getTotalWidth();
+        var clen = this.cm.getColumnCount();
+        var ws = [];
+        for(var i = 0; i < clen; i++){
+            ws[i] = this.getColumnWidth(i);
+        }
+
+        this.innerHd.firstChild.firstChild.style.width = tw;
+
+        for(var i = 0; i < clen; i++){
+            var hd = this.getHeaderCell(i);
+            hd.style.width = ws[i];
+        }
+
+        var ns = this.mainBody.dom.childNodes;
+        for(var i = 0, len = ns.length; i < len; i++){
+            ns[i].style.width = tw;
+            ns[i].firstChild.style.width = tw;
+            var row = ns[i].firstChild.rows[0];
+            for(var j = 0; j < clen; j++){
+                row.childNodes[j].style.width = ws[j];
+            }
+        }
+    },
+
+    updateColumnWidth : function(col, width){
+        var w = this.getColumnWidth(col);
+        var tw = this.getTotalWidth();
+
+        this.innerHd.firstChild.firstChild.style.width = tw;
+        var hd = this.getHeaderCell(col);
+        hd.style.width = w;
+
+        var ns = this.mainBody.dom.childNodes;
+        for(var i = 0, len = ns.length; i < len; i++){
+            ns[i].style.width = tw;
+            ns[i].firstChild.style.width = tw;
+            ns[i].firstChild.rows[0].childNodes[col].style.width = w;
+        }
+    },
+
+    updateColumnHidden : function(col, hidden){
+        var tw = this.getTotalWidth();
+
+        this.innerHd.firstChild.firstChild.style.width = tw;
+
+        var display = hidden ? 'none' : '';
+
+        var hd = this.getHeaderCell(col);
+        hd.style.display = display;
+
+        var ns = this.mainBody.dom.childNodes;
+        for(var i = 0, len = ns.length; i < len; i++){
+            ns[i].style.width = tw;
+            ns[i].firstChild.style.width = tw;
+            ns[i].firstChild.rows[0].childNodes[col].style.display = display;
+        }
+        delete this.lastViewWidth; // force recalc
+        this.layout();
+    },
+
+    updateColumnText : function(col, text){
+
+    },
+
+    afterMove : function(colIndex){
+        //if(this.enableMoveAnim && Ext.enableFx){
+        //    this.fly(this.getHeaderCell(colIndex).firstChild).highlight(this.hlColor);
+        //}
+    },
+
+    doRender : function(cs, rs, ds, startRow, colCount, stripe){
+        var ts = this.templates, ct = ts.cell, rt = ts.row;
+        var tstyle = 'width:'+this.getTotalWidth()+';';
+        // buffers
+        var buf = [], cb, c, p = {}, rp = {tstyle: tstyle}, r;
+        for(var j = 0, len = rs.length; j < len; j++){
+            r = rs[j]; cb = [];var rowIndex = (j+startRow);
+            for(var i = 0; i < colCount; i++){
+                c = cs[i];
+                p.id = c.id;
+                p.css = p.attr = p.cellAttr = "";
+                p.value = c.renderer(r.data[c.name], p, r, rowIndex, i, ds);
+                p.style = c.style;
+                if(p.value == undefined || p.value === "") p.value = "&#160;";
+                if(r.dirty && typeof r.modified[c.name] !== 'undefined'){
+                    p.css += ' x-grid3-dirty-cell';
+                }
+                cb[cb.length] = ct.apply(p);
+            }
+            var alt = [];
+            if(stripe && ((rowIndex+1) % 2 == 0)){
+                alt[0] = "x-grid3-row-alt";
+            }
+            if(r.dirty){
+                alt[1] = " x-grid3-dirty-row";
+            }
+            rp.cols = colCount;
+            if(this.getRowClass){
+                alt[2] = this.getRowClass(r, rowIndex, rp, ds);
+            }
+            rp.alt = alt.join(" ");
+            rp.cells = cb.join("");
+            buf[buf.length] =  rt.apply(rp);
+        }
+        return buf.join("");
+    },
+
+    stripeRows : function(startRow, skipStripe){
+        if(this.ds.getCount() < 1){
+            return;
+        }
+        skipStripe = skipStripe || !this.grid.stripeRows;
+        startRow = startRow || 0;
+        var rows = this.mainBody.dom.childNodes;
+        var cls = ' x-grid3-row-alt ';
+        for(var i = startRow, len = rows.length; i < len; i++){
+            var row = rows[i];
+            row.rowIndex = i;
+            if(!skipStripe){
+                var isAlt = ((i+1) % 2 == 0);
+                var hasAlt = (' '+row.className + ' ').indexOf(cls) != -1;
+                if(isAlt == hasAlt){
+                    continue;
+                }
+                if(isAlt){
+                    row.className += " x-grid3-row-alt";
+                }else{
+                    row.className = row.className.replace("x-grid3-row-alt", "");
+                }
+            }
+        }
+    },
+
+    renderUI : function(){
+        var header = this.renderHeaders();
+        var body = this.templates.body.apply({rows:''});
+
+        var html = this.templates.master.apply({
+            body: body,
+            header: header
+        });
+
+        this.grid.getGridEl().dom.innerHTML = html;
+
+        this.initElements();
+
+        // get mousedowns early
+        Ext.fly(this.innerHd).on("click", this.handleHdDown, this);
+        this.mainHd.on("mouseover", this.handleHdOver, this);
+        this.mainHd.on("mouseout", this.handleHdOut, this);
+        this.mainHd.on("mousemove", this.handleHdMove, this);
+
+        this.mainBody.on('scroll', this.syncScroll,  this);
+        if(this.grid.enableColumnResize !== false){
+            new Ext.grid.GridView.SplitDragZone(this.grid, this.mainHd.dom);
+        }
+
+        if(this.grid.enableColumnMove){
+            this.columnDrag = new Ext.grid.GridView.ColumnDragZone(this.grid, this.innerHd);
+            this.columnDrop = new Ext.grid.HeaderDropZone(this.grid, this.mainHd.dom);
+        }
+
+        if(this.grid.enableCtxMenu !== false){
+            this.colMenu = new Ext.menu.Menu({id:this.grid.id + "-hcols-menu"});
+            this.colMenu.on("beforeshow", this.beforeColMenuShow, this);
+            this.colMenu.on("itemclick", this.handleHdMenuClick, this);
+
+            this.hmenu = new Ext.menu.Menu({id: this.grid.id + "-hctx"});
+            this.hmenu.add(
+                {id:"asc", text: this.sortAscText, cls: "xg-hmenu-sort-asc"},
+                {id:"desc", text: this.sortDescText, cls: "xg-hmenu-sort-desc"},
+                "separator"
+            );
+            this.hmenu.add(
+                {id:"columns", text: this.columnsText, menu: this.colMenu}
+            );
+            this.hmenu.on("itemclick", this.handleHdMenuClick, this);
+
+            //this.grid.on("headercontextmenu", this.handleHdCtx, this);
+        }
+
+        if(this.grid.enableDragDrop || this.grid.enableDrag){
+            var dd = new Ext.grid.GridDragZone(this.grid, {
+                ddGroup : this.grid.ddGroup || 'GridDD'
+            });
+        }
+
+        this.updateHeaderSortState();
+
+
+    },
+
+    layout : function(){
+        var g = this.grid;
+        var c = g.getGridEl(), cm = this.cm,
+                expandCol = g.autoExpandColumn,
+                gv = this;
+
+        //if(g.autoWidth){
+        //    c.setWidth(cm.getTotalWidth()+c.getBorderWidth('lr'));
+        //}
+
+        if(g.autoHeight){
+            this.mainBody.dom.style.overflow = 'visible';
+            return;
+        }
+
+        var scrollOffset = 16;
+
+        var csize = c.getSize(true);
+
+        if(!csize.width || !csize.height){ // display: none?
+            return;
+        }
+
+        this.el.setSize(csize.width, csize.height);
+
+        var hdHeight = this.mainHd.getHeight();
+        var vw = csize.width;
+        var vh = csize.height - (hdHeight);
+
+        this.mainBody.setSize(vw, vh);
+        this.innerHd.style.width = (vw)+'px';
+
+        this.autoExpand();
+
+        if(this.forceFit && this.lastViewWidth != vw){
+            this.fitColumns(false, false);
+            this.lastViewWidth = vw;
+        }
+    },
+
+    /* ----------------------------------- Core Specific -------------------------------------------*/
+    init: function(grid){
+        this.grid = grid;
+
+        this.initTemplates();
+        this.initData(grid.dataSource, grid.colModel);
+        this.initUI(grid);
+	},
+
+	getColumnId : function(index){
 	    return this.cm.getColumnId(index);
 	},
 
-	getSplitters : function(){
-	    if(this.splitterSelector){
-	       return Ext.DomQuery.select(this.splitterSelector);
-	    }else{
-	        return null;
-	    }
-	},
-
-	getSplitter : function(index){
-	    return this.getSplitters()[index];
-	},
-
-    onRowOver : function(e, t){
-        var row;
-        if((row = this.findRowIndex(t)) !== false){
-            this.getRowComposite(row).addClass("x-grid-row-over");
-        }
-    },
-
-    onRowOut : function(e, t){
-        var row;
-        if((row = this.findRowIndex(t)) !== false && row !== this.findRowIndex(e.getRelatedTarget())){
-            this.getRowComposite(row).removeClass("x-grid-row-over");
-        }
-    },
-
     renderHeaders : function(){
-	    var cm = this.cm;
-        var ct = this.templates.hcell, ht = this.templates.header, st = this.templates.hsplit;
-        var cb = [], lb = [], sb = [], lsb = [], p = {};
+	    var cm = this.cm, ts = this.templates;
+        var ct = ts.hcell;
+
+        var cb = [], sb = [], p = {};
+
         for(var i = 0, len = cm.getColumnCount(); i < len; i++){
-            p.cellId = "x-grid-hd-0-" + i;
-            p.splitId = "x-grid-csplit-0-" + i;
             p.id = cm.getColumnId(i);
-            p.title = cm.getColumnTooltip(i) || "";
             p.value = cm.getColumnHeader(i) || "";
-            p.style = (this.grid.enableColumnResize === false || !cm.isResizable(i) || cm.isFixed(i)) ? 'cursor:default' : '';
-            if(!cm.isLocked(i)){
-                cb[cb.length] = ct.apply(p);
-                sb[sb.length] = st.apply(p);
-            }else{
-                lb[lb.length] = ct.apply(p);
-                lsb[lsb.length] = st.apply(p);
+            p.style = this.getColumnStyle(i, true);
+            if(cm.config[i].align == 'right'){
+                p.istyle = 'padding-right:16px';
             }
+            cb[cb.length] = ct.apply(p);
         }
-        return [ht.apply({cells: lb.join(""), splits:lsb.join("")}),
-                ht.apply({cells: cb.join(""), splits:sb.join("")})];
+        return ts.header.apply({cells: cb.join(""), tstyle:'width:'+this.getTotalWidth()+';'});
 	},
 
-	updateHeaders : function(){
-        var html = this.renderHeaders();
-        this.lockedHd.update(html[0]);
-        this.mainHd.update(html[1]);
+    beforeUpdate : function(){
+        this.grid.stopEditing();
+    },
+
+    updateHeaders : function(){
+        this.innerHd.firstChild.innerHTML = this.renderHeaders();
     },
 
     /**
-     * Focuses the specified row.
+     * Focuses the specified row..
      * @param {Number} row The row index
      */
     focusRow : function(row){
-        var x = this.scroller.dom.scrollLeft;
         this.focusCell(row, 0, false);
-        this.scroller.dom.scrollLeft = x;
     },
 
     /**
      * Focuses the specified cell.
      * @param {Number} row The row index
      * @param {Number} col The column index
-     * @param {Boolean} hscroll false to disable horizontal scrolling
      */
     focusCell : function(row, col, hscroll){
         var el = this.ensureVisible(row, col, hscroll);
-        this.focusEl.alignTo(el, "tl-tl");
-        if(Ext.isGecko){
-            this.focusEl.focus();
-        }else{
-            this.focusEl.focus.defer(1, this.focusEl);
+        if(el){
+            this.focusEl.alignTo(el, "tl-tl");
+            if(Ext.isGecko){
+                this.focusEl.focus();
+            }else{
+                this.focusEl.focus.defer(1, this.focusEl);
+            }
         }
     },
 
-    /**
-     * Scrolls the specified cell into view
-     * @param {Number} row The row index
-     * @param {Number} col The column index
-     * @param {Boolean} hscroll false to disable horizontal scrolling
-     */
+    /** @ignore */
     ensureVisible : function(row, col, hscroll){
         if(typeof row != "number"){
             row = row.rowIndex;
         }
-        if(row < 0 && row >= this.ds.getCount()){
+        if(row < 0 || row >= this.ds.getCount()){
             return;
         }
         col = (col !== undefined ? col : 0);
-        var cm = this.grid.colModel;
-        while(cm.isHidden(col)){
+        while(this.cm.isHidden(col)){
             col++;
         }
 
@@ -544,14 +558,16 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         if(!el){
             return;
         }
-        var c = this.scroller.dom;
+        
 
-        var ctop = parseInt(el.offsetTop, 10);
+        var c = this.mainBody.dom;
+
+        var ctop = parseInt(el.parentNode.parentNode.parentNode.offsetTop, 10)-this.mainHd.dom.offsetHeight;
         var cleft = parseInt(el.offsetLeft, 10);
         var cbot = ctop + el.offsetHeight;
         var cright = cleft + el.offsetWidth;
 
-        var ch = c.clientHeight - this.mainHd.dom.offsetHeight;
+        var ch = c.clientHeight;
         var stop = parseInt(c.scrollTop, 10);
         var sleft = parseInt(c.scrollLeft, 10);
         var sbot = stop + ch;
@@ -573,90 +589,6 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         return el;
     },
 
-    updateColumns : function(){
-        this.grid.stopEditing();
-        var cm = this.grid.colModel, colIds = this.getColumnIds();
-        //var totalWidth = cm.getTotalWidth();
-        var pos = 0;
-        for(var i = 0, len = cm.getColumnCount(); i < len; i++){
-            //if(cm.isHidden(i)) continue;
-            var w = cm.getColumnWidth(i);
-            this.css.updateRule(this.colSelector+colIds[i], "width", (w - this.borderWidth) + "px");
-            this.css.updateRule(this.hdSelector+colIds[i], "width", (w - this.borderWidth) + "px");
-        }
-        this.updateSplitters();
-    },
-
-    generateRules : function(cm){
-        var ruleBuf = [];
-        for(var i = 0, len = cm.getColumnCount(); i < len; i++){
-            var cid = cm.getColumnId(i);
-            var align = '';
-            if(cm.config[i].align){
-                align = 'text-align:'+cm.config[i].align+';';
-            }
-            var hidden = '';
-            if(cm.isHidden(i)){
-                hidden = 'display:none;';
-            }
-            var width = "width:" + (cm.getColumnWidth(i) - this.borderWidth) + "px;";
-            ruleBuf.push(
-                    this.colSelector, cid, " {\n", cm.config[i].css, align, width, "\n}\n",
-                    this.hdSelector, cid, " {\n", align, width, "}\n",
-                    this.tdSelector, cid, " {\n",hidden,"\n}\n",
-                    this.splitSelector, cid, " {\n", hidden , "\n}\n");
-        }
-        return Ext.util.CSS.createStyleSheet(ruleBuf.join(""));
-    },
-
-    updateSplitters : function(){
-        var cm = this.cm, s = this.getSplitters();
-        if(s){ // splitters not created yet
-            var pos = 0, locked = true;
-            for(var i = 0, len = cm.getColumnCount(); i < len; i++){
-                if(cm.isHidden(i)) continue;
-                var w = cm.getColumnWidth(i);
-                if(!cm.isLocked(i) && locked){
-                    pos = 0;
-                    locked = false;
-                }
-                pos += w;
-                s[i].style.left = (pos-this.splitOffset) + "px";
-            }
-        }
-    },
-
-    handleHiddenChange : function(colModel, colIndex, hidden){
-        if(hidden){
-            this.hideColumn(colIndex);
-        }else{
-            this.unhideColumn(colIndex);
-        }
-    },
-
-    hideColumn : function(colIndex){
-        var cid = this.getColumnId(colIndex);
-        this.css.updateRule(this.tdSelector+cid, "display", "none");
-        this.css.updateRule(this.splitSelector+cid, "display", "none");
-        if(Ext.isSafari){
-            this.updateHeaders();
-        }
-        this.updateSplitters();
-        this.layout();
-    },
-
-    unhideColumn : function(colIndex){
-        var cid = this.getColumnId(colIndex);
-        this.css.updateRule(this.tdSelector+cid, "display", "");
-        this.css.updateRule(this.splitSelector+cid, "display", "");
-
-        if(Ext.isSafari){
-            this.updateHeaders();
-        }
-        this.updateSplitters();
-        this.layout();
-    },
-
     insertRows : function(dm, firstRow, lastRow, isUpdate){
         if(firstRow == 0 && lastRow == dm.getCount()-1){
             this.refresh();
@@ -664,131 +596,127 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             if(!isUpdate){
                 this.fireEvent("beforerowsinserted", this, firstRow, lastRow);
             }
-            var s = this.getScrollState();
-            var markup = this.renderRows(firstRow, lastRow);
-            this.bufferRows(markup[0], this.getLockedTable(), firstRow);
-            this.bufferRows(markup[1], this.getBodyTable(), firstRow);
-            this.restoreScroll(s);
+            var html = this.renderRows(firstRow, lastRow);
+            var before = this.mainBody.dom.childNodes[firstRow];
+            if(before){
+                Ext.DomHelper.insertHtml('beforeBegin', before, html);
+            }else{
+                Ext.DomHelper.insertHtml('beforeEnd', this.mainBody.dom, html);
+            }
             if(!isUpdate){
                 this.fireEvent("rowsinserted", this, firstRow, lastRow);
-                this.syncRowHeights(firstRow, lastRow);
                 this.stripeRows(firstRow);
-                this.layout();
             }
         }
-    },
-
-    bufferRows : function(markup, target, index){
-        var before = null, trows = target.rows, tbody = target.tBodies[0];
-        if(index < trows.length){
-            before = trows[index];
-        }
-        var b = document.createElement("div");
-        b.innerHTML = "<table><tbody>"+markup+"</tbody></table>";
-        var rows = b.firstChild.rows;
-        for(var i = 0, len = rows.length; i < len; i++){
-            if(before){
-                tbody.insertBefore(rows[0], before);
-            }else{
-                tbody.appendChild(rows[0]);
-            }
-        }
-        b.innerHTML = "";
-        b = null;
     },
 
     deleteRows : function(dm, firstRow, lastRow){
         if(dm.getRowCount()<1){
             this.fireEvent("beforerefresh", this);
             this.mainBody.update("");
-            this.lockedBody.update("");
             this.fireEvent("refresh", this);
         }else{
             this.fireEvent("beforerowsdeleted", this, firstRow, lastRow);
-            var bt = this.getBodyTable();
-            var tbody = bt.firstChild;
-            var rows = bt.rows;
-            for(var rowIndex = firstRow; rowIndex <= lastRow; rowIndex++){
-                tbody.removeChild(rows[firstRow]);
-            }
+
+            this.removeRows(firstRow, lastRow);
+
             this.stripeRows(firstRow);
             this.fireEvent("rowsdeleted", this, firstRow, lastRow);
         }
     },
 
-    updateRows : function(dataSource, firstRow, lastRow){
-        var s = this.getScrollState();
-        this.refresh();
-        this.restoreScroll(s);
-    },
-
-    handleSort : function(dataSource, sortColumnIndex, sortDir, noRefresh){
-        if(!noRefresh){
-           this.refresh();
+    getColumnStyle : function(col, isHeader){
+        var style = !isHeader ? (this.cm.config[col].css || '') : '';
+        style += 'width:'+this.getColumnWidth(col)+';';
+        if(this.cm.isHidden(col)){
+            style += 'display:none;';
         }
-        this.updateHeaderSortState();
-    },
-
-    getScrollState : function(){
-        var sb = this.scroller.dom;
-        return {left: sb.scrollLeft, top: sb.scrollTop};
-    },
-
-    stripeRows : function(startRow){
-        if(!this.grid.stripeRows || this.ds.getCount() < 1){
-            return;
+        var align = this.cm.config[col].align;
+        if(align){
+            style += 'text-align:'+align+';';
         }
-        startRow = startRow || 0;
-        var rows = this.getBodyTable().rows;
-        var lrows = this.getLockedTable().rows;
-        var cls = ' x-grid-row-alt ';
-        for(var i = startRow, len = rows.length; i < len; i++){
-            var row = rows[i], lrow = lrows[i];
-            var isAlt = ((i+1) % 2 == 0);
-            var hasAlt = (' '+row.className + ' ').indexOf(cls) != -1;
-            if(isAlt == hasAlt){
-                continue;
-            }
-            if(isAlt){
-                row.className += " x-grid-row-alt";
-            }else{
-                row.className = row.className.replace("x-grid-row-alt", "");
-            }
-            if(lrow){
-                lrow.className = row.className;
+        return style;
+    },
+
+    getColumnWidth : function(col){
+        var w = this.cm.getColumnWidth(col);
+        if(typeof w == 'number'){
+            return (Ext.isBorderBox ? w : w-this.borderWidth) + 'px';
+        }
+        return w;
+    },
+
+    getTotalWidth : function(){
+        return this.cm.getTotalWidth()+'px';
+    },
+
+    fitColumns : function(preventRefresh, onlyExpand, omitColumn){
+        var cm = this.cm, leftOver, dist, i;
+        var tw = cm.getTotalWidth(false);
+        var aw = this.grid.getGridEl().getWidth(true)-this.scrollOffset;
+        var extra = aw - tw;
+
+        if(extra === 0){
+            return false;
+        }
+
+        var vc = cm.getColumnCount(true);
+        var ac = vc-(typeof omitColumn == 'number' ? 1 : 0);
+        if(ac === 0){
+            ac = 1;
+            omitColumn = undefined;
+        }
+        var colCount = cm.getColumnCount();
+        var cols = [];
+        var extraCol = 0;
+        var width = 0;
+        var w;
+        for (i = 0; i < colCount; i++){
+            if(!cm.isHidden(i) && !cm.isFixed(i) && i !== omitColumn){
+                w = cm.getColumnWidth(i);
+                cols.push(i);
+                extraCol = i;
+                cols.push(w);
+                width += w;
             }
         }
+        var frac = (aw - cm.getTotalWidth())/width;
+        while (cols.length){
+            w = cols.pop();
+            i = cols.pop();
+            cm.setColumnWidth(i, Math.max(this.grid.minColumnWidth, Math.floor(w + w*frac)), true);
+        }
+
+        if((tw = cm.getTotalWidth(false)) > aw){
+            var adjustCol = ac != vc ? omitColumn : extraCol;
+             cm.setColumnWidth(adjustCol, Math.max(1,
+                     cm.getColumnWidth(adjustCol)- (tw-aw)), true);       
+        }
+
+        if(preventRefresh !== true){
+            this.updateAllColumnWidths();
+        }
+        return true;
     },
 
-    restoreScroll : function(state){
-        var sb = this.scroller.dom;
-        sb.scrollLeft = state.left;
-        sb.scrollTop = state.top;
-        this.syncScroll();
-    },
+    autoExpand : function(preventUpdate){
+        var g = this.grid, cm = this.cm;
+        if(!this.userResized && g.autoExpandColumn){
+            var tw = cm.getTotalWidth(false);
+            var aw = this.grid.getGridEl().getWidth(true)-this.scrollOffset;
+            if(tw != aw){
+                var ci = cm.getIndexById(g.autoExpandColumn);
+                var currentWidth = cm.getColumnWidth(ci);
+                var cw = Math.min(Math.max(((aw-tw)+currentWidth), g.autoExpandMin), g.autoExpandMax);
+                if(cw != currentWidth){
+                    cm.setColumnWidth(ci, cw, true);
+                    if(preventUpdate !== true){
+                        this.updateColumnWidth(ci, cw);
+                    }
+                }
+            }
 
-    syncScroll : function(){
-        var sb = this.scroller.dom;
-        var sh = this.mainHd.dom;
-        var bs = this.mainBody.dom;
-        var lv = this.lockedBody.dom;
-        sh.scrollLeft = bs.scrollLeft = sb.scrollLeft;
-        lv.scrollTop = bs.scrollTop = sb.scrollTop;
-    },
-
-    handleScroll : function(e){
-        this.syncScroll();
-        var sb = this.scroller.dom;
-        this.grid.fireEvent("bodyscroll", sb.scrollLeft, sb.scrollTop);
-        e.stopEvent();
-    },
-
-    handleWheel : function(e){
-        var d = e.getWheelDelta();
-        this.scroller.dom.scrollTop -= d*22;
-        // set this here to prevent jumpy scrolling on large tables
-        this.lockedBody.dom.scrollTop = this.mainBody.dom.scrollTop = this.scroller.dom.scrollTop;
-        e.stopEvent();
+        }
     },
 
     renderRows : function(startRow, endRow){
@@ -797,18 +725,20 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         var colCount = cm.getColumnCount();
 
         if(ds.getCount() < 1){
-            return ["", ""];
+            return "";
         }
 
         // build a map for all the columns
         var cs = [];
         for(var i = 0; i < colCount; i++){
             var name = cm.getDataIndex(i);
+
             cs[i] = {
-                name : typeof name == 'undefined' ? ds.fields.get(i).name : name,
+                name : (typeof name == 'undefined' ? ds.fields.get(i).name : name),
                 renderer : cm.getRenderer(i),
                 id : cm.getColumnId(i),
-                locked : cm.isLocked(i)
+                locked : cm.isLocked(i),
+                style : this.getColumnStyle(i)
             };
         }
 
@@ -821,276 +751,38 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         return this.doRender(cs, rs, ds, startRow, colCount, stripe);
     },
 
-    // As much as I hate to duplicate code, this was branched because FireFox really hates
-    // [].join("") on strings. The performance difference was substantial enough to
-    // branch this function
-    doRender : Ext.isGecko ?
-            function(cs, rs, ds, startRow, colCount, stripe){
-                var ts = this.templates, ct = ts.cell, rt = ts.row;
-                // buffers
-                var buf = "", lbuf = "", cb, lcb, c, p = {}, rp = {}, r, rowIndex;
-                for(var j = 0, len = rs.length; j < len; j++){
-                    r = rs[j]; cb = ""; lcb = ""; rowIndex = (j+startRow);
-                    for(var i = 0; i < colCount; i++){
-                        c = cs[i];
-                        p.cellId = "x-grid-cell-" + rowIndex + "-" + i;
-                        p.id = c.id;
-                        p.css = p.attr = "";
-                        p.value = c.renderer(r.data[c.name], p, r, rowIndex, i, ds);
-                        if(p.value == undefined || p.value === "") p.value = "&#160;";
-                        if(r.dirty && typeof r.modified[c.name] !== 'undefined'){
-                            p.css += p.css ? ' x-grid-dirty-cell' : 'x-grid-dirty-cell';
-                        }
-                        var markup = ct.apply(p);
-                        if(!c.locked){
-                            cb+= markup;
-                        }else{
-                            lcb+= markup;
-                        }
-                    }
-                    var alt = [];
-                    if(stripe && ((rowIndex+1) % 2 == 0)){
-                        alt[0] = "x-grid-row-alt";
-                    }
-                    if(r.dirty){
-                        alt[1] = " x-grid-dirty-row";
-                    }
-                    rp.cells = lcb;
-                    if(this.getRowClass){
-                        alt[2] = this.getRowClass(r, rowIndex);
-                    }
-                    rp.alt = alt.join(" ");
-                    lbuf+= rt.apply(rp);
-                    rp.cells = cb;
-                    buf+=  rt.apply(rp);
-                }
-                return [lbuf, buf];
-            } :
-            function(cs, rs, ds, startRow, colCount, stripe){
-                var ts = this.templates, ct = ts.cell, rt = ts.row;
-                // buffers
-                var buf = [], lbuf = [], cb, lcb, c, p = {}, rp = {}, r, rowIndex;
-                for(var j = 0, len = rs.length; j < len; j++){
-                    r = rs[j]; cb = []; lcb = []; rowIndex = (j+startRow);
-                    for(var i = 0; i < colCount; i++){
-                        c = cs[i];
-                        p.cellId = "x-grid-cell-" + rowIndex + "-" + i;
-                        p.id = c.id;
-                        p.css = p.attr = "";
-                        p.value = c.renderer(r.data[c.name], p, r, rowIndex, i, ds);
-                        if(p.value == undefined || p.value === "") p.value = "&#160;";
-                        if(r.dirty && typeof r.modified[c.name] !== 'undefined'){
-                            p.css += p.css ? ' x-grid-dirty-cell' : 'x-grid-dirty-cell';
-                        }
-                        var markup = ct.apply(p);
-                        if(!c.locked){
-                            cb[cb.length] = markup;
-                        }else{
-                            lcb[lcb.length] = markup;
-                        }
-                    }
-                    var alt = [];
-                    if(stripe && ((rowIndex+1) % 2 == 0)){
-                        alt[0] = "x-grid-row-alt";
-                    }
-                    if(r.dirty){
-                        alt[1] = " x-grid-dirty-row";
-                    }
-                    rp.cells = lcb;
-                    if(this.getRowClass){
-                        alt[2] = this.getRowClass(r, rowIndex);
-                    }
-                    rp.alt = alt.join(" ");
-                    rp.cells = lcb.join("");
-                    lbuf[lbuf.length] = rt.apply(rp);
-                    rp.cells = cb.join("");
-                    buf[buf.length] =  rt.apply(rp);
-                }
-                return [lbuf.join(""), buf.join("")];
-            },
-
     renderBody : function(){
         var markup = this.renderRows();
-        var bt = this.templates.body;
-        return [bt.apply({rows: markup[0]}), bt.apply({rows: markup[1]})];
+        return this.templates.body.apply({rows: markup});
     },
 
-    /**
-     * Refreshes the grid
-     * @param {Boolean} headersToo
-     */
+    refreshRow : function(record){
+        var ds = this.ds, index;
+        if(typeof record == 'number'){
+            index = record;
+            record = ds.getAt(index);
+        }else{
+            index = ds.indexOf(record);
+        }
+        var cls = [];
+        this.insertRows(ds, index, index, true);
+        this.mainBody.dom.childNodes[index].rowIndex = index;
+        this.onRemove(ds, record, index+1, true);
+        this.fireEvent("rowupdated", this, index, record);
+    },
+
     refresh : function(headersToo){
         this.fireEvent("beforerefresh", this);
         this.grid.stopEditing();
         var result = this.renderBody();
-        this.lockedBody.update(result[0]);
-        this.mainBody.update(result[1]);
+        this.mainBody.update(result);
         if(headersToo === true){
             this.updateHeaders();
-            this.updateColumns();
-            this.updateSplitters();
             this.updateHeaderSortState();
         }
-        this.syncRowHeights();
+        this.stripeRows(0, true);
         this.layout();
         this.fireEvent("refresh", this);
-    },
-
-    handleColumnMove : function(cm, oldIndex, newIndex){
-        this.indexMap = null;
-        var s = this.getScrollState();
-        this.refresh(true);
-        this.restoreScroll(s);
-        this.afterMove(newIndex);
-    },
-
-    afterMove : function(colIndex){
-        if(this.enableMoveAnim && Ext.enableFx){
-            this.fly(this.getHeaderCell(colIndex).firstChild).highlight(this.hlColor);
-        }
-    },
-
-    updateCell : function(dm, rowIndex, dataIndex){
-        var colIndex = this.getColumnIndexByDataIndex(dataIndex);
-        if(typeof colIndex == "undefined"){ // not present in grid
-            return;
-        }
-        var cm = this.grid.colModel;
-        var cell = this.getCell(rowIndex, colIndex);
-        var cellText = this.getCellText(rowIndex, colIndex);
-
-        var p = {
-            cellId : "x-grid-cell-" + rowIndex + "-" + colIndex,
-            id : cm.getColumnId(colIndex),
-            css: colIndex == cm.getColumnCount()-1 ? "x-grid-col-last" : ""
-        };
-        var renderer = cm.getRenderer(colIndex);
-        var val = renderer(dm.getValueAt(rowIndex, dataIndex), p, rowIndex, colIndex, dm);
-        if(typeof val == "undefined" || val === "") val = "&#160;";
-        cellText.innerHTML = val;
-        cell.className = this.cellClass + " " + p.cellId + " " + p.css;
-        this.syncRowHeights(rowIndex, rowIndex);
-    },
-
-    calcColumnWidth : function(colIndex, maxRowsToMeasure){
-        var maxWidth = 0;
-        if(this.grid.autoSizeHeaders){
-            var h = this.getHeaderCellMeasure(colIndex);
-            maxWidth = Math.max(maxWidth, h.scrollWidth);
-        }
-        var tb, index;
-        if(this.cm.isLocked(colIndex)){
-            tb = this.getLockedTable();
-            index = colIndex;
-        }else{
-            tb = this.getBodyTable();
-            index = colIndex - this.cm.getLockedCount();
-        }
-        if(tb && tb.rows){
-            var rows = tb.rows;
-            var stopIndex = Math.min(maxRowsToMeasure || rows.length, rows.length);
-            for(var i = 0; i < stopIndex; i++){
-                var cell = rows[i].childNodes[index].firstChild;
-                maxWidth = Math.max(maxWidth, cell.scrollWidth);
-            }
-        }
-        return maxWidth + /*margin for error in IE*/ 5;
-    },
-    /**
-     * Autofit a column to its content.
-     * @param {Number} colIndex
-     * @param {Boolean} forceMinSize true to force the column to go smaller if possible
-     */
-     autoSizeColumn : function(colIndex, forceMinSize, suppressEvent){
-         if(this.cm.isHidden(colIndex)){
-             return; // can't calc a hidden column
-         }
-        if(forceMinSize){
-            var cid = this.cm.getColumnId(colIndex);
-            this.css.updateRule(this.colSelector + cid, "width", this.grid.minColumnWidth + "px");
-           if(this.grid.autoSizeHeaders){
-               this.css.updateRule(this.hdSelector + cid, "width", this.grid.minColumnWidth + "px");
-           }
-        }
-        var newWidth = this.calcColumnWidth(colIndex);
-        this.cm.setColumnWidth(colIndex,
-            Math.max(this.grid.minColumnWidth, newWidth), suppressEvent);
-        if(!suppressEvent){
-            this.grid.fireEvent("columnresize", colIndex, newWidth);
-        }
-    },
-
-    /**
-     * Autofits all columns to their content and then expands to fit any extra space in the grid
-     */
-     autoSizeColumns : function(){
-        var cm = this.grid.colModel;
-        var colCount = cm.getColumnCount();
-        for(var i = 0; i < colCount; i++){
-            this.autoSizeColumn(i, true, true);
-        }
-        if(cm.getTotalWidth() < this.scroller.dom.clientWidth){
-            this.fitColumns();
-        }else{
-            this.updateColumns();
-            this.layout();
-        }
-    },
-
-    /**
-     * Autofits all columns to the grid's width proportionate with their current size
-     * @param {Boolean} reserveScrollSpace Reserve space for a scrollbar
-     */
-    fitColumns : function(reserveScrollSpace){
-        var cm = this.grid.colModel;
-        var colCount = cm.getColumnCount();
-        var cols = [];
-        var width = 0;
-        var i, w;
-        for (i = 0; i < colCount; i++){
-            if(!cm.isHidden(i) && !cm.isFixed(i)){
-                w = cm.getColumnWidth(i);
-                cols.push(i);
-                cols.push(w);
-                width += w;
-            }
-        }
-        var avail = Math.min(this.scroller.dom.clientWidth, this.el.getWidth());
-        if(reserveScrollSpace){
-            avail -= 17;
-        }
-        var frac = (avail - cm.getTotalWidth())/width;
-        while (cols.length){
-            w = cols.pop();
-            i = cols.pop();
-            cm.setColumnWidth(i, Math.floor(w + w*frac), true);
-        }
-        this.updateColumns();
-        this.layout();
-    },
-
-    onRowSelect : function(rowIndex){
-        var row = this.getRowComposite(rowIndex);
-        row.addClass("x-grid-row-selected");
-    },
-
-    onRowDeselect : function(rowIndex){
-        var row = this.getRowComposite(rowIndex);
-        row.removeClass("x-grid-row-selected");
-    },
-
-    onCellSelect : function(row, col){
-        var cell = this.getCell(row, col);
-        if(cell){
-            Ext.fly(cell).addClass("x-grid-cell-selected");
-        }
-    },
-
-    onCellDeselect : function(row, col){
-        var cell = this.getCell(row, col);
-        if(cell){
-            Ext.fly(cell).removeClass("x-grid-cell-selected");
-        }
     },
 
     updateHeaderSortState : function(){
@@ -1102,26 +794,12 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         var sortColumn = this.cm.findColumnIndex(state.field);
         if(sortColumn != -1){
             var sortDir = state.direction;
-            var sc = this.sortClasses;
-            var hds = this.el.select(this.headerSelector).removeClass(sc);
-            hds.item(sortColumn).addClass(sc[sortDir == "DESC" ? 1 : 0]);
+            this.updateSortIcon(sortColumn, sortDir);
         }
     },
-
-    handleHeaderClick : function(g, index){
-        if(this.headersDisabled){
-            return;
-        }
-        var dm = g.dataSource, cm = g.colModel;
-	    if(!cm.isSortable(index)){
-            return;
-        }
-	    g.stopEditing();
-        dm.sort(cm.getDataIndex(index));
-    },
-
 
     destroy : function(){
+        return;
         if(this.colMenu){
             this.colMenu.removeAll();
             Ext.menu.MenuMgr.unregister(this.colMenu);
@@ -1159,16 +837,217 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         Ext.EventManager.removeResizeListener(this.onWindowResize, this);
     },
 
-    handleLockChange : function(){
-        this.refresh(true);
-    },
-
-    onDenyColumnLock : function(){
-
-    },
-
     onDenyColumnHide : function(){
 
+    },
+
+    render : function(){
+
+        var cm = this.cm;
+        var colCount = cm.getColumnCount();
+
+        if(this.grid.monitorWindowResize === true){
+            Ext.EventManager.onWindowResize(this.onWindowResize, this, true);
+        }
+
+        if(this.autoFill){
+            this.fitColumns(true, true);
+        }else if(this.forceFit){
+            this.fitColumns(true, false);
+        }else if(this.grid.autoExpandColumn){
+            this.autoExpand(true);
+        }
+
+        this.renderUI();
+
+        //this.layout();
+
+        // two part rendering gives faster view to the user
+        //this.renderPhase2.defer(1, this);
+        this.renderPhase2();
+    },
+
+    renderPhase2 : function(){
+        // render the rows now
+        this.refresh();
+    },
+
+    onWindowResize : function(){
+        if(!this.grid.monitorWindowResize || this.grid.autoHeight){
+            return;
+        }
+        this.layout();
+    },
+
+
+    /* --------------------------------- Model Events and Handlers --------------------------------*/
+
+    initData : function(ds, cm){
+        if(this.ds){
+            this.ds.un("load", this.onLoad, this);
+            this.ds.un("datachanged", this.onDataChange);
+            this.ds.un("add", this.onAdd);
+            this.ds.un("remove", this.onRemove);
+            this.ds.un("update", this.onUpdate);
+            this.ds.un("clear", this.onClear);
+        }
+        if(ds){
+            ds.on("load", this.onLoad, this);
+            ds.on("datachanged", this.onDataChange, this);
+            ds.on("add", this.onAdd, this);
+            ds.on("remove", this.onRemove, this);
+            ds.on("update", this.onUpdate, this);
+            ds.on("clear", this.onClear, this);
+        }
+        this.ds = ds;
+
+        if(this.cm){
+            this.cm.un("widthchange", this.onColWidthChange, this);
+            this.cm.un("headerchange", this.onHeaderChange, this);
+            this.cm.un("hiddenchange", this.onHiddenChange, this);
+            this.cm.un("columnmoved", this.onColumnMove, this);
+            this.cm.un("columnlockchange", this.onColumnLock, this);
+        }
+        if(cm){
+            this.generateRules(cm);
+            cm.on("widthchange", this.onColWidthChange, this);
+            cm.on("headerchange", this.onHeaderChange, this);
+            cm.on("hiddenchange", this.onHiddenChange, this);
+            cm.on("columnmoved", this.onColumnMove, this);
+            cm.on("columnlockchange", this.onColumnLock, this);
+        }
+        this.cm = cm;
+    },
+
+    onDataChange : function(){
+        this.refresh();
+        this.updateHeaderSortState();
+    },
+
+	onClear : function(){
+        this.refresh();
+    },
+
+	onUpdate : function(ds, record){
+        this.refreshRow(record);
+    },
+
+    onAdd : function(ds, records, index){
+        this.insertRows(ds, index, index + (records.length-1));
+    },
+
+    onRemove : function(ds, record, index, isUpdate){
+        if(isUpdate !== true){
+            this.fireEvent("beforerowremoved", this, index, record);
+        }
+        this.removeRow(index);
+        if(isUpdate !== true){
+            this.stripeRows(index);
+            this.layout();
+            this.fireEvent("rowremoved", this, index, record);
+        }
+    },
+
+    onLoad : function(){
+        this.scrollToTop();
+    },
+
+    onColWidthChange : function(cm, col, width){
+        this.updateColumnWidth(col, width);
+    },
+
+    onHeaderChange : function(cm, col, text){
+        this.updateHeaderText(col, text);
+    },
+
+    onHiddenChange : function(cm, col, hidden){
+        this.updateColumnHidden(col, hidden);
+    },
+
+    onColumnMove : function(cm, oldIndex, newIndex){
+        this.indexMap = null;
+        var s = this.getScrollState();
+        this.refresh(true);
+        this.restoreScroll(s);
+        this.afterMove(newIndex);
+    },
+
+    /* -------------------- UI Events and Handlers ------------------------------ */
+
+    initUI : function(grid){
+        grid.on("headerclick", this.onHeaderClick, this);
+
+        if(grid.trackMouseOver){
+            grid.on("mouseover", this.onRowOver, this);
+	        grid.on("mouseout", this.onRowOut, this);
+	    }
+    },
+
+    initEvents : function(){
+
+    },
+
+    onHeaderClick : function(g, index){
+        if(this.headersDisabled || !this.cm.isSortable(index)){
+            return;
+        }
+	    g.stopEditing();
+        g.dataSource.sort(this.cm.getDataIndex(index));
+    },
+
+    onRowOver : function(e, t){
+        var row;
+        if((row = this.findRowIndex(t)) !== false){
+            this.addRowClass(row, "x-grid3-row-over");
+        }
+    },
+
+    onRowOut : function(e, t){
+        var row;
+        if((row = this.findRowIndex(t)) !== false && row !== this.findRowIndex(e.getRelatedTarget())){
+            this.removeRowClass(row, "x-grid3-row-over");
+        }
+    },
+
+    handleWheel : function(e){
+        e.stopPropagation();
+    },
+
+    onRowSelect : function(row){
+        this.addRowClass(row, "x-grid3-row-selected");
+    },
+
+    onRowDeselect : function(row){
+        this.removeRowClass(row, "x-grid3-row-selected");
+    },
+
+    onCellSelect : function(row, col){
+        var cell = this.getCell(row, col);
+        if(cell){
+            this.fly(cell).addClass("x-grid3-cell-selected");
+        }
+    },
+
+    onCellDeselect : function(row, col){
+        var cell = this.getCell(row, col);
+        if(cell){
+            this.fly(cell).removeClass("x-grid3-cell-selected");
+        }
+    },
+
+    onColumnSplitterMoved : function(i, w){
+        this.userResized = true;
+        var cm = this.grid.colModel;
+        cm.setColumnWidth(i, w, true);
+
+        if(this.forceFit){
+            this.fitColumns(true, false, i);
+            this.updateAllColumnWidths();
+        }else{
+            this.updateColumnWidth(i, w);
+        }
+
+        this.grid.fireEvent("columnresize", i, w);
     },
 
     handleHdMenuClick : function(item){
@@ -1181,34 +1060,10 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             case "desc":
                 ds.sort(cm.getDataIndex(index), "DESC");
                 break;
-            case "lock":
-                var lc = cm.getLockedCount();
-                if(cm.getColumnCount(true) <= lc+1){
-                    this.onDenyColumnLock();
-                    return;
-                }
-                if(lc != index){
-                    cm.setLocked(index, true, true);
-                    cm.moveColumn(index, lc);
-                    this.grid.fireEvent("columnmove", index, lc);
-                }else{
-                    cm.setLocked(index, true);
-                }
-            break;
-            case "unlock":
-                var lc = cm.getLockedCount();
-                if((lc-1) != index){
-                    cm.setLocked(index, false, true);
-                    cm.moveColumn(index, lc-1);
-                    this.grid.fireEvent("columnmove", index, lc-1);
-                }else{
-                    cm.setLocked(index, false);
-                }
-            break;
             default:
                 index = cm.getIndexById(item.id.substr(4));
                 if(index != -1){
-                    if(item.checked && cm.getColumnCount(true) <= 1){
+                    if(item.checked && cm.getColumnsBy(this.isHideableColumn, this).length <= 1){
                         this.onDenyColumnHide();
                         return false;
                     }
@@ -1218,311 +1073,168 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         return true;
     },
 
+    isHideableColumn : function(c){
+        return !c.hidden && !c.fixed;
+    },
+
     beforeColMenuShow : function(){
         var cm = this.cm,  colCount = cm.getColumnCount();
         this.colMenu.removeAll();
         for(var i = 0; i < colCount; i++){
-            this.colMenu.add(new Ext.menu.CheckItem({
-                id: "col-"+cm.getColumnId(i),
-                text: cm.getColumnHeader(i),
-                checked: !cm.isHidden(i),
-                hideOnClick:false
-            }));
-        }
-    },
-
-    handleHdCtx : function(g, index, e){
-        e.stopEvent();
-        var hd = this.getHeaderCell(index);
-        this.hdCtxIndex = index;
-        var ms = this.hmenu.items, cm = this.cm;
-        ms.get("asc").setDisabled(!cm.isSortable(index));
-        ms.get("desc").setDisabled(!cm.isSortable(index));
-        if(this.grid.enableColLock !== false){
-            ms.get("lock").setDisabled(cm.isLocked(index));
-            ms.get("unlock").setDisabled(!cm.isLocked(index));
-        }
-        this.hmenu.show(hd, "tl-bl");
-    },
-
-    handleHdOver : function(e){
-        var hd = this.findHeaderCell(e.getTarget());
-        if(hd && !this.headersDisabled){
-            if(this.grid.colModel.isSortable(this.getCellIndex(hd))){
-               this.fly(hd).addClass("x-grid-hd-over");
+            if(cm.config[i].fixed !== true){
+                this.colMenu.add(new Ext.menu.CheckItem({
+                    id: "col-"+cm.getColumnId(i),
+                    text: cm.getColumnHeader(i),
+                    checked: !cm.isHidden(i),
+                    hideOnClick:false
+                }));
             }
         }
     },
 
-    handleHdOut : function(e){
-        var hd = this.findHeaderCell(e.getTarget());
-        if(hd){
-            this.fly(hd).removeClass("x-grid-hd-over");
+    handleHdDown : function(e, t){
+        if(Ext.fly(t).hasClass('x-grid3-hd-btn')){
+            e.stopEvent();
+            var hd = this.findHeaderCell(t);
+            Ext.fly(hd).addClass('x-grid3-hd-menu-open');
+            var index = this.getCellIndex(hd);
+            this.hdCtxIndex = index;
+            var ms = this.hmenu.items, cm = this.cm;
+            ms.get("asc").setDisabled(!cm.isSortable(index));
+            ms.get("desc").setDisabled(!cm.isSortable(index));
+            this.hmenu.on("hide", function(){
+                Ext.fly(hd).removeClass('x-grid3-hd-menu-open');
+            }, this, {single:true});
+            this.hmenu.show(t, "tl-bl?");
+        }
+    },
+
+    handleHdOver : function(e, t){
+        var hd = this.findHeaderCell(t);
+        if(hd && !this.headersDisabled){
+            this.activeHd = hd;
+            this.activeHdIndex = this.getCellIndex(hd);
+            var fly = this.fly(hd);
+            this.activeHdRegion = fly.getRegion();
+            if(this.cm.isSortable(this.activeHdIndex) && !this.cm.isFixed(this.activeHdIndex)){
+                fly.addClass("x-grid3-hd-over");
+                this.activeHdBtn = fly.child('.x-grid3-hd-btn');
+                if(this.activeHdBtn){
+                    this.activeHdBtn.dom.style.height = (hd.firstChild.offsetHeight-1)+'px';
+                }
+            }
+        }
+    },
+
+    handleHdMove : function(e, t){
+        if(this.activeHd && !this.headersDisabled){
+            var hw = this.splitHandleWidth || 5;
+            var r = this.activeHdRegion;
+            var x = e.getPageX();
+            var ss = this.activeHd.style;
+            if(x - r.left <= hw && this.cm.isResizable(this.activeHdIndex-1)){
+                if(Ext.isSafari){
+                    ss.cursor = 'e-resize';// col-resize not always supported
+                }else{
+                    ss.cursor = 'col-resize';
+                }
+            }else if(r.right - x <= (!this.activeHdBtn ? hw : 2) && this.cm.isResizable(this.activeHdIndex)){
+                if(Ext.isSafari){
+                    ss.cursor = 'w-resize'; // col-resize not always supported
+                }else{
+                    ss.cursor = 'col-resize';
+                }
+            }else{
+                ss.cursor = '';
+            }
+        }
+    },
+
+    handleHdOut : function(e, t){
+        var hd = this.findHeaderCell(t);
+        if(hd && (!Ext.isIE || !e.within(hd, true))){
+            this.activeHd = null;
+            this.fly(hd).removeClass("x-grid3-hd-over");
+            hd.style.cursor = '';
         }
     },
 
     handleSplitDblClick : function(e, t){
+        return;
         var i = this.getCellIndex(t);
         if(this.grid.enableColumnResize !== false && this.cm.isResizable(i) && !this.cm.isFixed(i)){
             this.autoSizeColumn(i, true);
             this.layout();
         }
+    }
+});
+
+
+// private
+// This is a support class used internally by the Grid components
+Ext.grid.GridView.SplitDragZone = function(grid, hd){
+    this.grid = grid;
+    this.view = grid.getView();
+    this.proxy = this.view.resizeProxy;
+    Ext.grid.GridView.SplitDragZone.superclass.constructor.call(this, hd,
+        "gridSplitters" + this.grid.getGridEl().id, {
+        dragElId : Ext.id(this.proxy.dom), resizeFrame:false
+    });
+    this.scroll = false;
+    this.hw = this.view.splitHandleWidth || 5;
+};
+Ext.extend(Ext.grid.GridView.SplitDragZone, Ext.dd.DDProxy, {
+
+    b4StartDrag : function(x, y){
+        this.view.headersDisabled = true;
+        this.proxy.setHeight(this.view.mainWrap.getHeight());
+        var w = this.cm.getColumnWidth(this.cellIndex);
+        var minw = Math.max(w-this.grid.minColumnWidth, 0);
+        this.resetConstraints();
+        this.setXConstraint(minw, 1000);
+        this.setYConstraint(0, 0);
+        this.minX = x - minw;
+        this.maxX = x + 1000;
+        this.startPos = x;
+        Ext.dd.DDProxy.prototype.b4StartDrag.call(this, x, y);
     },
 
-    render : function(){
 
-        var cm = this.cm;
-        var colCount = cm.getColumnCount();
-
-        if(this.grid.monitorWindowResize === true){
-            Ext.EventManager.onWindowResize(this.onWindowResize, this, true);
-        }
-        var header = this.renderHeaders();
-        var body = this.templates.body.apply({rows:""});
-        var html = this.templates.master.apply({
-            lockedBody: body,
-            body: body,
-            lockedHeader: header[0],
-            header: header[1]
-        });
-
-        //this.updateColumns();
-
-        this.grid.getGridEl().dom.innerHTML = html;
-
-        this.initElements();
-
-        this.scroller.on("scroll", this.handleScroll, this);
-        this.lockedBody.on("mousewheel", this.handleWheel, this);
-        this.mainBody.on("mousewheel", this.handleWheel, this);
-
-        this.mainHd.on("mouseover", this.handleHdOver, this);
-        this.mainHd.on("mouseout", this.handleHdOut, this);
-        this.mainHd.on("dblclick", this.handleSplitDblClick, this,
-                {delegate: "."+this.splitClass});
-
-        this.lockedHd.on("mouseover", this.handleHdOver, this);
-        this.lockedHd.on("mouseout", this.handleHdOut, this);
-        this.lockedHd.on("dblclick", this.handleSplitDblClick, this,
-                {delegate: "."+this.splitClass});
-
-        if(this.grid.enableColumnResize !== false && Ext.grid.SplitDragZone){
-            new Ext.grid.SplitDragZone(this.grid, this.lockedHd.dom, this.mainHd.dom);
-        }
-
-        this.updateSplitters();
-
-        if(this.grid.enableColumnMove && Ext.grid.HeaderDragZone){
-            new Ext.grid.HeaderDragZone(this.grid, this.lockedHd.dom, this.mainHd.dom);
-            new Ext.grid.HeaderDropZone(this.grid, this.lockedHd.dom, this.mainHd.dom);
-        }
-
-        if(this.grid.enableCtxMenu !== false && Ext.menu.Menu){
-            this.hmenu = new Ext.menu.Menu({id: this.grid.id + "-hctx"});
-            this.hmenu.add(
-                {id:"asc", text: this.sortAscText, cls: "xg-hmenu-sort-asc"},
-                {id:"desc", text: this.sortDescText, cls: "xg-hmenu-sort-desc"}
-            );
-            if(this.grid.enableColLock !== false){
-                this.hmenu.add('-',
-                    {id:"lock", text: this.lockText, cls: "xg-hmenu-lock"},
-                    {id:"unlock", text: this.unlockText, cls: "xg-hmenu-unlock"}
-                );
+    handleMouseDown : function(e){
+        var t = this.view.findHeaderCell(e.getTarget());
+        if(t){
+            var xy = this.view.fly(t).getXY(), x = xy[0], y = xy[1];
+            var exy = e.getXY(), ex = exy[0], ey = exy[1];
+            var w = t.offsetWidth, adjust = false;
+            if((ex - x) <= this.hw){
+                adjust = -1;
+            }else if((x+w) - ex <= this.hw){
+                adjust = 0;
             }
-            if(this.grid.enableColumnHide !== false){
-
-                this.colMenu = new Ext.menu.Menu({id:this.grid.id + "-hcols-menu"});
-                this.colMenu.on("beforeshow", this.beforeColMenuShow, this);
-                this.colMenu.on("itemclick", this.handleHdMenuClick, this);
-
-                this.hmenu.add('-',
-                    {id:"columns", text: this.columnsText, menu: this.colMenu}
-                );
-            }
-            this.hmenu.on("itemclick", this.handleHdMenuClick, this);
-
-            this.grid.on("headercontextmenu", this.handleHdCtx, this);
-        }
-
-        if((this.grid.enableDragDrop || this.grid.enableDrag) && Ext.grid.GridDragZone){
-            this.dd = new Ext.grid.GridDragZone(this.grid, {
-                ddGroup : this.grid.ddGroup || 'GridDD'
-            });
-        }
-
-        /*
-        for(var i = 0; i < colCount; i++){
-            if(cm.isHidden(i)){
-                this.hideColumn(i);
-            }
-            if(cm.config[i].align){
-                this.css.updateRule(this.colSelector + i, "textAlign", cm.config[i].align);
-                this.css.updateRule(this.hdSelector + i, "textAlign", cm.config[i].align);
-            }
-        }*/
-        
-        this.updateHeaderSortState();
-
-        this.beforeInitialResize();
-        this.layout(true);
-
-        // two part rendering gives faster view to the user
-        this.renderPhase2.defer(1, this);
-    },
-
-    renderPhase2 : function(){
-        // render the rows now
-        this.refresh();
-        if(this.grid.autoSizeColumns){
-            this.autoSizeColumns();
-        }
-    },
-
-    beforeInitialResize : function(){
-
-    },
-
-    onColumnSplitterMoved : function(i, w){
-        this.userResized = true;
-        var cm = this.grid.colModel;
-        cm.setColumnWidth(i, w, true);
-        var cid = cm.getColumnId(i);
-        this.css.updateRule(this.colSelector + cid, "width", (w-this.borderWidth) + "px");
-        this.css.updateRule(this.hdSelector + cid, "width", (w-this.borderWidth) + "px");
-        this.updateSplitters();
-        this.layout();
-        this.grid.fireEvent("columnresize", i, w);
-    },
-
-    syncRowHeights : function(startIndex, endIndex){
-        if(this.grid.enableRowHeightSync === true && this.cm.getLockedCount() > 0){
-            startIndex = startIndex || 0;
-            var mrows = this.getBodyTable().rows;
-            var lrows = this.getLockedTable().rows;
-            var len = mrows.length-1;
-            endIndex = Math.min(endIndex || len, len);
-            for(var i = startIndex; i <= endIndex; i++){
-                var m = mrows[i], l = lrows[i];
-                var h = Math.max(m.offsetHeight, l.offsetHeight);
-                m.style.height = l.style.height = h + "px";
-            }
-        }
-    },
-
-    layout : function(initialRender, is2ndPass){
-        var g = this.grid;
-        var auto = g.autoHeight;
-        var scrollOffset = 16;
-        var c = g.getGridEl(), cm = this.cm,
-                expandCol = g.autoExpandColumn,
-                gv = this;
-        //c.beginMeasure();
-
-        if(!c.dom.offsetWidth){ // display:none?
-            if(initialRender){
-                this.lockedWrap.show();
-                this.mainWrap.show();
-            }
-            return;
-        }
-
-        var hasLock = this.cm.isLocked(0);
-
-        var tbh = this.headerPanel.getHeight();
-        var bbh = this.footerPanel.getHeight();
-
-        if(auto){
-            var ch = this.getBodyTable().offsetHeight + tbh + bbh + this.mainHd.getHeight();
-            var newHeight = ch + c.getBorderWidth("tb");
-            if(g.maxHeight){
-                newHeight = Math.min(g.maxHeight, newHeight);
-            }
-            c.setHeight(newHeight);
-        }
-
-        if(g.autoWidth){
-            c.setWidth(cm.getTotalWidth()+c.getBorderWidth('lr'));
-        }
-
-        var s = this.scroller;
-
-        var csize = c.getSize(true);
-
-        this.el.setSize(csize.width, csize.height);
-
-        this.headerPanel.setWidth(csize.width);
-        this.footerPanel.setWidth(csize.width);
-
-        var hdHeight = this.mainHd.getHeight();
-        var vw = csize.width;
-        var vh = csize.height - (tbh + bbh);
-
-        s.setSize(vw, vh);
-
-        var bt = this.getBodyTable();
-        var ltWidth = hasLock ?
-                      Math.max(this.getLockedTable().offsetWidth, this.lockedHd.dom.firstChild.offsetWidth) : 0;
-
-        var scrollHeight = bt.offsetHeight;
-        var scrollWidth = ltWidth + bt.offsetWidth;
-        var vscroll = false, hscroll = false;
-
-        this.scrollSizer.setSize(scrollWidth, scrollHeight+hdHeight);
-
-        var lw = this.lockedWrap, mw = this.mainWrap;
-        var lb = this.lockedBody, mb = this.mainBody;
-
-        setTimeout(function(){
-            var t = s.dom.offsetTop;
-            var w = s.dom.clientWidth,
-                h = s.dom.clientHeight;
-
-            lw.setTop(t);
-            lw.setSize(ltWidth, h);
-
-            mw.setLeftTop(ltWidth, t);
-            mw.setSize(w-ltWidth, h);
-
-            lb.setHeight(h-hdHeight);
-            mb.setHeight(h-hdHeight);
-
-            if(is2ndPass !== true && !gv.userResized && expandCol){
-                // high speed resize without full column calculation
-                var ci = cm.getIndexById(expandCol);
-                var tw = cm.getTotalWidth(false);
-                var currentWidth = cm.getColumnWidth(ci);
-                var cw = Math.min(Math.max(((w-tw)+currentWidth-2)-/*scrollbar*/(w <= s.dom.offsetWidth ? 0 : 18), g.autoExpandMin), g.autoExpandMax);
-                if(currentWidth != cw){
-                    cm.setColumnWidth(ci, cw, true);
-                    gv.css.updateRule(gv.colSelector+expandCol, "width", (cw - gv.borderWidth) + "px");
-                    gv.css.updateRule(gv.hdSelector+expandCol, "width", (cw - gv.borderWidth) + "px");
-                    gv.updateSplitters();
-                    gv.layout(false, true);
+            if(adjust !== false){
+                this.cellIndex = this.view.getCellIndex(t)+adjust;
+                this.split = t.dom;
+                this.cm = this.grid.colModel;
+                if(this.cm.isResizable(this.cellIndex) && !this.cm.isFixed(this.cellIndex)){
+                    Ext.grid.GridView.SplitDragZone.superclass.handleMouseDown.apply(this, arguments);
                 }
+            }else if(this.view.columnDrag){
+                this.view.columnDrag.callHandleMouseDown(e);
             }
-
-            if(initialRender){
-                lw.show();
-                mw.show();
-            }
-            //c.endMeasure();
-        }, 10);
-    },
-
-    onWindowResize : function(){
-        if(!this.grid.monitorWindowResize || this.grid.autoHeight){
-            return;
         }
-        this.layout();
     },
 
-    appendFooter : function(parentEl){
-        return null;
+    endDrag : function(e){
+        var v = this.view;
+        var endX = Math.max(this.minX, e.getPageX());
+        var diff = endX - this.startPos;
+        v.onColumnSplitterMoved(this.cellIndex, this.cm.getColumnWidth(this.cellIndex)+diff);
+        setTimeout(function(){
+            v.headersDisabled = false;
+        }, 50);
     },
 
-    sortAscText : "Sort Ascending",
-    sortDescText : "Sort Descending",
-    lockText : "Lock Column",
-    unlockText : "Unlock Column",
-    columnsText : "Columns"
+    autoOffset : function(){
+        this.setDelta(0,0);
+    }
 });

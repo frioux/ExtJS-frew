@@ -193,3 +193,19 @@ Ext.extend(Ext.grid.HeaderDropZone, Ext.dd.DropZone, {
         return false;
     }
 });
+
+
+Ext.grid.GridView.ColumnDragZone = function(grid, hd){
+    Ext.grid.GridView.ColumnDragZone.superclass.constructor.call(this, grid, hd, null);
+    this.proxy.el.addClass('x-grid3-col-dd');
+};
+
+Ext.extend(Ext.grid.GridView.ColumnDragZone, Ext.grid.HeaderDragZone, {
+    handleMouseDown : function(e){
+
+    },
+
+    callHandleMouseDown : function(e){
+        Ext.grid.GridView.ColumnDragZone.superclass.handleMouseDown.call(this, e);
+    }
+});
