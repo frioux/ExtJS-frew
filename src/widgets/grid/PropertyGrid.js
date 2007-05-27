@@ -155,38 +155,37 @@ Ext.grid.PropertyGrid = function(container, config){
     store.store.sort('name', 'ASC');
     Ext.grid.PropertyGrid.superclass.constructor.call(this, container, Ext.apply({
         ds: store.store,
-        cm: cm,
-        enableColLock:false,
-        enableColumnMove:false,
-        stripeRows:false,
-        trackMouseOver: false,
-        clicksToEdit:1
+        cm: cm
     }, config));
     this.getGridEl().addClass('x-props-grid');
     this.lastEditRow = null;
-    this.on('columnresize', this.onColumnResize, this);
     this.addEvents({
         beforepropertychange: true,
         propertychange: true
     });
     this.customEditors = this.customEditors || {};
+
+    this.selModel.on('beforecellselect', function(sm, rowIndex, colIndex){
+        if(colIndex === 0){
+            this.startEditing.defer(200, this, [rowIndex, 1]);
+            return false;
+        }
+    }, this);
 };
 Ext.extend(Ext.grid.PropertyGrid, Ext.grid.EditorGrid, {
+    enableColLock:false,
+    enableColumnMove:false,
+    stripeRows:false,
+    trackMouseOver: false,
+    clicksToEdit:1,
+    enableHdMenu : false,
+
+    viewConfig : {
+        forceFit:true
+    },
+
     render : function(){
         Ext.grid.PropertyGrid.superclass.render.call(this);
-        this.autoSize.defer(100, this);
-    },
-
-    autoSize : function(){
-        Ext.grid.PropertyGrid.superclass.autoSize.call(this);
-        if(this.view){
-            this.view.fitColumns();
-        }
-    },
-
-    onColumnResize : function(){
-        this.colModel.setColumnWidth(1, this.container.getWidth(true)-this.colModel.getColumnWidth(0));
-        this.autoSize();
     },
 
     setSource : function(source){

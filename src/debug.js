@@ -92,7 +92,7 @@
 
         var stylesGrid = new Ext.grid.PropertyGrid(bd.createChild(), {
             nameText: 'Style',
-            enableCtxMenu: false,
+            enableHdMenu: false,
             enableColumnResize: false
         });
 

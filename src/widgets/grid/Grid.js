@@ -579,7 +579,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
      */
     getView : function(){
         if(!this.view){
-            this.view = new Ext.grid.GridView(this.viewCfg);
+            this.view = new Ext.grid.GridView(this.viewConfig);
         }
         return this.view;
     },

@@ -297,23 +297,29 @@ td.x-grid3-hd-over .x-grid3-hd-inner, td.sort-desc .x-grid3-hd-inner, td.sort-as
 	border-top:1px solid #a9bfd3;
 }
 /* Props Grid Styles */
-.x-props-grid .x-grid3-cell-selected .x-grid3-cell-text{
-	 background-color: #316ac5 !important;
+.x-props-grid .x-grid3-cell-selected{
+	 background: #d9e8fb url(../images/default/grid/row-sel.gif) repeat-x left;
+    color:black !important;
 }
-.x-props-grid .x-grid3-col-value .x-grid3-cell-text{
-	background-color: white;
+.x-props-grid .x-grid3-cell{
+	padding:1px;
 }
-.x-props-grid .x-grid3-col-name{
-	 background-color: #c3daf9;
+.x-props-grid .x-grid3-td-name .x-grid3-cell-inner{
+	background:transparent url(../images/default/grid/grid3-special-col-bg.gif) repeat-y -16px !important;
+    padding-left:12px;
+    color:black !important;
 }
-.x-props-grid .x-grid3-col-name .x-grid3-cell-text{
-	background-color: white;
-    margin-left:10px;
+.x-props-grid .x-grid3-body .x-grid3-cell-selected{
+	padding:0;
+    border:1px solid #99bbe8;
 }
-.x-props-grid .x-grid3-split-value {
-    visibility:hidden;
+.x-props-grid .x-grid3-body .x-grid3-td-name{
+    padding:1px;
+    padding-right:0;
+    background:white !important;
+    border:0 none;
+    border-right:1px solid #eeeeee;
 }
-
 /* header menu */
 .xg-hmenu-sort-asc .x-menu-item-icon{
 	background-image: url(../images/default/grid/hmenu-asc.gif);

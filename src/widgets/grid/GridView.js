@@ -46,7 +46,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 
         if(!ts.hcell){
             ts.hcell = new Ext.Template(
-                    '<td class="x-grid3-hd x-grid3-cell x-grid3-td-{id}" style="{style}"><div {attr} class="x-grid3-hd-inner x-grid3-hd-{id}" unselectable="on" style="{istyle}"><a class="x-grid3-hd-btn" href="#"></a>',
+                    '<td class="x-grid3-hd x-grid3-cell x-grid3-td-{id}" style="{style}"><div {attr} class="x-grid3-hd-inner x-grid3-hd-{id}" unselectable="on" style="{istyle}">', this.grid.enableHdMenu ? '<a class="x-grid3-hd-btn" href="#"></a>' : '',
                     '{value}<img class="x-grid3-sort-icon" src="', Ext.BLANK_IMAGE_URL, '" />',
                     "</div></td>"
                     );
@@ -407,7 +407,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
             this.columnDrop = new Ext.grid.HeaderDropZone(this.grid, this.mainHd.dom);
         }
 
-        if(this.grid.enableCtxMenu !== false){
+        if(this.grid.enableHdMenu !== false){
             this.colMenu = new Ext.menu.Menu({id:this.grid.id + "-hcols-menu"});
             this.colMenu.on("beforeshow", this.beforeColMenuShow, this);
             this.colMenu.on("itemclick", this.handleHdMenuClick, this);
@@ -433,19 +433,16 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
 
         this.updateHeaderSortState();
-
-
     },
 
     layout : function(){
+        if(!this.mainBody){
+            return; // not rendered
+        }
         var g = this.grid;
         var c = g.getGridEl(), cm = this.cm,
                 expandCol = g.autoExpandColumn,
                 gv = this;
-
-        //if(g.autoWidth){
-        //    c.setWidth(cm.getTotalWidth()+c.getBorderWidth('lr'));
-        //}
 
         if(g.autoHeight){
             this.mainBody.dom.style.overflow = 'visible';
