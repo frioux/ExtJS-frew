@@ -249,4 +249,43 @@
   <file name="view\chooser.js" path="view" />
   <file name="examples.js" path="" />
   <file name="shared\icons\fam\grid.png" path="shared\icons\fam" />
+  <file name="window\desktop.html" path="window" />
+  <file name="window\Desktop.js" path="window" />
+  <file name="window\windows.js" path="window" />
+  <file name="window\images\winbar-bg.gif" path="window\images" />
+  <file name="window\images\winbar-btn.gif" path="window\images" />
+  <file name="window\images\windows-bg.gif" path="window\images" />
+  <file name="window\windows.css" path="window" />
+  <file name="window\css\windows.css" path="window\css" />
+  <file name="window\images\desktop.gif" path="window\images" />
+  <file name="window\images\desktop3.jpg" path="window\images" />
+  <file name="window\images\hd-bg.gif" path="window\images" />
+  <file name="window\images\hd-tb-bg.gif" path="window\images" />
+  <file name="window\images\launcher-bg.gif" path="window\images" />
+  <file name="window\images\launcher-btn.gif" path="window\images" />
+  <file name="window\images\bogus.png" path="window\images" />
+  <file name="window\images\accordian.gif" path="window\images" />
+  <file name="window\images\tabs.gif" path="window\images" />
+  <file name="shared\icons\fam\user.png" path="shared\icons\fam" />
+  <file name="shared\icons\fam\connect.png" path="shared\icons\fam" />
+  <file name="shared\icons\fam\user_add.png" path="shared\icons\fam" />
+  <file name="shared\icons\fam\user_comment.png" path="shared\icons\fam" />
+  <file name="shared\icons\fam\user_delete.png" path="shared\icons\fam" />
+  <file name="shared\icons\fam\user_edit.png" path="shared\icons\fam" />
+  <file name="shared\icons\fam\user_female.png" path="shared\icons\fam" />
+  <file name="shared\icons\fam\user_gray.png" path="shared\icons\fam" />
+  <file name="shared\icons\fam\user_green.png" path="shared\icons\fam" />
+  <file name="shared\icons\fam\user_orange.png" path="shared\icons\fam" />
+  <file name="shared\icons\fam\user_red.png" path="shared\icons\fam" />
+  <file name="shared\icons\fam\user_suit.png" path="shared\icons\fam" />
+  <file name="form\job.html" path="form" />
+  <file name="form\jobs.css" path="form" />
+  <file name="form\jobs.js" path="form" />
+  <file name="form\view-jobs.html" path="form" />
+  <file name="form\view-jobs.js" path="form" />
+  <file name="form\jobs-remote.php" path="form" />
+  <file name="grid\CheckboxSelectionModel.js" path="grid" />
+  <file name="grid\RowExpander.js" path="grid" />
+  <file name="grid\RowNumberer.js" path="grid" />
+  <file name="locale\PagingMemoryProxy.js" path="locale" />
 </project>

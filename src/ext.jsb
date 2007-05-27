@@ -63,15 +63,6 @@
     <include name="widgets\Shadow.js" />
     <include name="widgets\BoxComponent.js" />
     <include name="widgets\SplitBar.js" />
-    <include name="widgets\panel\Container.js" />
-    <include name="widgets\panel\ContainerLayout.js" />
-    <include name="widgets\panel\AutoLayout.js" />
-    <include name="widgets\panel\BorderLayout.js" />
-    <include name="widgets\panel\Panel.js" />
-    <include name="widgets\panel\TabPanel.js" />
-    <include name="widgets\panel\Window.js" />
-    <include name="widgets\panel\WindowManager.js" />
-    <include name="widgets\panel\Viewport.js" />
     <include name="widgets\View.js" />
     <include name="widgets\JsonView.js" />
     <include name="widgets\ColorPalette.js" />
@@ -139,10 +130,6 @@
     <include name="widgets\grid\ColumnDD.js" />
     <include name="widgets\grid\ColumnSplitDD.js" />
     <include name="widgets\grid\GridDD.js" />
-    <include name="experimental\GridView3.js" />
-    <include name="experimental\GridViewUI.js" />
-    <include name="experimental\UIEventHandler.js" />
-    <include name="experimental\ModelEventHandler.js" />
     <include name="widgets\grid\ColumnModel.js" />
     <include name="widgets\grid\AbstractSelectionModel.js" />
     <include name="widgets\grid\RowSelectionModel.js" />
@@ -151,9 +138,6 @@
     <include name="widgets\grid\GridEditor.js" />
     <include name="widgets\grid\PropertyGrid.js" />
     <include name="widgets\LoadMask.js" />
-    <include name="widgets\panel\TreePanel.js" />
-    <include name="widgets\panel\Grid.js" />
-    <include name="experimental\GridExtensions.js" />
     <include name="debug.js" />
   </target>
   <file name="layout\LayoutRegionLite.js" path="layout" />
@@ -277,11 +261,6 @@
   <file name="widgets\form\Select.js" path="widgets\form" />
   <file name="widgets\Notifier.js" path="widgets" />
   <file name="ext.jsb" path="" />
-  <target name="Compat" file="$output\ext-back-compat.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
-    <include name="legacy\compat.js" />
-    <include name="legacy\Actor.js" />
-    <include name="legacy\Animator.js" />
-  </target>
   <file name="yui\dragdrop.js" path="yui" />
   <file name="yui-overrides.js" path="" />
   <target name="YUI" file="$output\adapter\yui\ext-yui-adapter.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
@@ -458,12 +437,6 @@
   <file name="widgets\layout\ContainerLayout.js" path="widgets\layout" />
   <file name="widgets\TabPanel2.js" path="widgets" />
   <file name="widgets\panel\ButtonPanel.js" path="widgets\panel" />
-  <target name="GridView3" file="$output\package\grid\view3.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
-    <include name="experimental\GridView3.js" />
-    <include name="experimental\GridViewUI.js" />
-    <include name="experimental\ModelEventHandler.js" />
-    <include name="experimental\UIEventHandler.js" />
-  </target>
   <file name="widgets\._.DS_Store" path="widgets" />
   <file name="._.DS_Store" path="" />
   <file name="adapter\jquery-bridge.js" path="adapter" />
@@ -650,4 +623,7 @@
   <file name="yui\yahoo.js" path="yui" />
   <file name="debug.js" path="" />
   <file name="experimental\GridExtensions.js" path="experimental" />
+  <file name="legacy\GridView2.js" path="legacy" />
+  <file name="locale\ext-lang-el_GR.js" path="locale" />
+  <file name="locale\ext-lang-sr_RS.js" path="locale" />
 </project>
