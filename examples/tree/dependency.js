@@ -295,7 +295,7 @@ Ext.onReady(function(){
     function addOption(){
         var n = sm.getSelectedNode();
         if(n){
-            createOption(n, 'Option'+(++oseed));
+            var node = createOption(n, 'Option'+(++oseed));
             node.select();
             ge.triggerEdit(node);
         }

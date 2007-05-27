@@ -1,3 +1,12 @@
+Ext.tree.TreeNodeUI.prototype.initEvents =
+Ext.tree.TreeNodeUI.prototype.initEvents.createSequence(function(){
+      if(this.node.attributes.tipCfg){
+          var o = this.node.attributes.tipCfg;
+          o.target = Ext.id(this.textNode);
+          Ext.QuickTips.register(o);
+      }
+});
+
 var TreeTest = function(){
     // shorthand
     var Tree = Ext.tree;

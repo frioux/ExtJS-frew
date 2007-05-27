@@ -138,6 +138,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      * Performs a predefined action (submit or load) or custom actions you define on this form
      * @param {String} actionName The name of the action type
      * @param {Object} options The options to pass to the action
+     * @return {BasicForm} this
      */
     doAction : function(action, options){
         if(typeof action == 'string'){
@@ -147,27 +148,33 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
             this.beforeAction(action);
             action.run.defer(100, action);
         }
+        return this;
     },
 
     /**
      * Shortcut to do a submit action
      * @param {Object} options The options to pass to the action
+     * @return {BasicForm} this
      */
     submit : function(options){
         this.doAction('submit', options);
+        return this;
     },
 
     /**
      * Shortcut to do a load action
      * @param {Object} options The options to pass to the action
+     * @return {BasicForm} this
      */
     load : function(options){
         this.doAction('load', options);
+        return this;
     },
 
     /**
      * Persists the values in this form into the passed Ext.data.Record object in a beginEdit/endEdit block.
      * @param {Record} record The record to edit
+     * @return {BasicForm} this
      */
     updateRecord : function(record){
         record.beginEdit();
@@ -179,6 +186,17 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
             }
         }, this);
         record.endEdit();
+        return this;
+    },
+
+    /**
+     * Loads an Ext.data.Record into this form
+     * @param {Record} record The record to load
+     * @return {BasicForm} this
+     */
+    loadRecord : function(record){
+        this.setValues(record.data);
+        return this;
     },
 
     // private
@@ -244,6 +262,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     /**
      * Mark fields in this form invalid in bulk.
      * @param {Array/Object} errors Either an array in the form [{id:'fieldId', msg:'The message'},...] or an object hash of {id: msg, id2: msg2}
+     * @return {BasicForm} this
      */
     markInvalid : function(errors){
         if(errors instanceof Array){
@@ -262,11 +281,13 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
                 }
             }
         }
+        return this;
     },
 
     /**
      * Set values for fields in this form in bulk.
      * @param {Array/Object} values Either an array in the form [{id:'fieldId', value:'foo'},...] or an object hash of {id: value, id2: value2}
+     * @return {BasicForm} this
      */
     setValues : function(values){
         if(values instanceof Array){ // array of objects
@@ -291,6 +312,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
                 }
             }
         }
+        return this;
     },
 
     /**
@@ -309,20 +331,24 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
 
     /**
      * Clears all invalid messages in this form
+     * @return {BasicForm} this
      */
     clearInvalid : function(){
         this.items.each(function(f){
            f.clearInvalid();
         });
+        return this;
     },
 
     /**
      * Resets this form
+     * @return {BasicForm} this
      */
     reset : function(){
         this.items.each(function(f){
             f.reset();
         });
+        return this;
     },
 
     /**
@@ -330,7 +356,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      * @param {Field} field1
      * @param {Field} field2 (optional)
      * @param {Field} etc (optional)
-     * @return {Form} this
+     * @return {BasicForm} this
      */
     add : function(){
         this.items.addAll(Array.prototype.slice.call(arguments, 0));
@@ -341,14 +367,17 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     /**
      * Removes a field from the items collection (does NOT remove its markup)
      * @param {Field} field
+     * @return {BasicForm} this
      */
     remove : function(field){
         this.items.remove(field);
+        return this;
     },
 
     /**
      * Looks at the fields in this form, checks them for an id attribute
      * and call applyTo on the existing dom element with that id
+     * @return {BasicForm} this
      */
     render : function(){
         this.items.each(function(f){
@@ -356,26 +385,31 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
                 f.applyTo(f.id);
             }
         });
+        return this;
     },
 
     /**
      * Calls {@link Ext#apply} for all field in this form with the passed object
      * @param {Object} values
+     * @return {BasicForm} this
      */
     applyToFields : function(o){
         this.items.each(function(f){
            Ext.apply(f, o);
         });
+        return this;
     },
 
     /**
      * Calls {@link Ext#applyIf} for all field in this form with the passed object
      * @param {Object} values
+     * @return {BasicForm} this
      */
     applyIfToFields : function(o){
         this.items.each(function(f){
            Ext.applyIf(f, o);
         });
+        return this;
     }
 });
 

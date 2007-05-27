@@ -43,17 +43,85 @@ Ext.lib.Dom = {
         return Ext.lib.Region.getRegion(el);
     },
 
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Use of jQuery.offset() removed to promote consistent behavior across libs.
+    // JVS 05/23/07
+    //////////////////////////////////////////////////////////////////////////////////////
+
     getY : function(el){
-        return jQuery(el).offset().top;
+        return this.getXY(el)[1];
     },
 
     getX : function(el){
-        return jQuery(el).offset().left;
+        return this.getXY(el)[0];
     },
 
+    // original version based on YahooUI getXY
+    // this version fixes several issues in Safari and FF
+    // and boosts performance by removing the batch overhead, repetitive dom lookups and array index calls
     getXY : function(el){
-        var o = jQuery(el).offset();
-        return [o.left,  o.top];
+        var p, pe, b, scroll, bd = document.body;
+        el = Ext.getDom(el);
+
+        if(el.getBoundingClientRect){ // IE
+            b = el.getBoundingClientRect();
+            scroll = fly(document).getScroll();
+            return [b.left + scroll.left, b.top + scroll.top];
+        } else{
+            var x = el.offsetLeft, y = el.offsetTop;
+            p = el.offsetParent;
+
+            // ** flag if a parent is positioned for Safari
+            var hasAbsolute = false;
+
+            if(p != el){
+                while(p){
+                    x += p.offsetLeft;
+                    y += p.offsetTop;
+
+                    // ** flag Safari abs position bug - only check if needed
+                    if(Ext.isSafari && !hasAbsolute && fly(p).getStyle("position") == "absolute"){
+                        hasAbsolute = true;
+                    }
+
+                    // ** Fix gecko borders measurements
+                    // Credit jQuery dimensions plugin for the workaround
+                    if(Ext.isGecko){
+                        pe = fly(p);
+                        var bt = parseInt(pe.getStyle("borderTopWidth"), 10) || 0;
+                        var bl = parseInt(pe.getStyle("borderLeftWidth"), 10) || 0;
+
+                        // add borders to offset
+                        x += bl;
+                        y += bt;
+
+                        // Mozilla removes the border if the parent has overflow property other than visible
+                        if(p != el && pe.getStyle('overflow') != 'visible'){
+                            x += bl;
+                            y += bt;
+                        }
+                    }
+                    p = p.offsetParent;
+                }
+            }
+            // ** safari doubles in some cases, use flag from offsetParent's as well
+            if(Ext.isSafari && (hasAbsolute || fly(el).getStyle("position") == "absolute")){
+                x -= bd.offsetLeft;
+                y -= bd.offsetTop;
+            }
+        }
+
+        p = el.parentNode;
+
+        while(p && p != bd){
+            // ** opera TR has bad scroll values, so filter them jvs
+            if(!Ext.isOpera || (Ext.isOpera && p.tagName != 'TR' && fly(p).getStyle("display") != "inline")){
+                x -= p.scrollLeft;
+                y -= p.scrollTop;
+            }
+            p = p.parentNode;
+        }
+        return [x, y];
     },
 
     setXY : function(el, xy){

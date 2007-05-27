@@ -88,7 +88,11 @@ Ext.onReady(function(){
         new Ext.form.HtmlEditor({
             fieldLabel:'Biography',
             width:450,
-            height:200
+            height:200,
+            listeners: {'initialize': function(ed){
+                ed.setValue('wtf')
+                alert(ed.getValue())
+            }}
         })
     );
 
@@ -103,7 +107,7 @@ Ext.onReady(function(){
      */
     var fs = new Ext.form.Form({
         labelAlign: 'right',
-        labelWidth: 75
+        labelWidth: 80
     });
 
     fs.fieldset(

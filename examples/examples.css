@@ -41,3 +41,6 @@ pre.code{
     width:250px;
     z-index:20000;
 }
+.x-grid3-row-body p {
+    margin:5px 5px 10px 5px !important;
+}

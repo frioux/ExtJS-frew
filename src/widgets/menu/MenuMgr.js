@@ -131,6 +131,8 @@ Ext.menu.MenuMgr = function(){
                return menus[menu];
            }else if(menu.events){  // menu instance
                return menu;
+           }else if(typeof menu.length == 'number'){ // array of menu items?
+               return new Ext.menu.Menu({items:menu});
            }else{ // otherwise, must be a config
                return new Ext.menu.Menu(menu);
            }

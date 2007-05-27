@@ -34,7 +34,7 @@
  * @param {Object} config The config object
  */
 Ext.View = function(container, tpl, config){
-    this.el = Ext.get(container, true);
+    this.el = Ext.get(container);
     if(typeof tpl == "string"){
         tpl = new Ext.Template(tpl);
     }
