@@ -118,7 +118,7 @@ Ext.extend(Ext.PagingToolbar, Ext.Toolbar, {
         });
 
         if(this.displayInfo){
-            this.displayEl = this.el.createChild({cls:'x-paging-info'});
+            this.displayEl = Ext.fly(this.el.dom.firstChild).createChild({cls:'x-paging-info'});
         }
     },
 

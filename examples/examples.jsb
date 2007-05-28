@@ -288,4 +288,7 @@
   <file name="grid\RowExpander.js" path="grid" />
   <file name="grid\RowNumberer.js" path="grid" />
   <file name="locale\PagingMemoryProxy.js" path="locale" />
+  <file name="form\custom.html" path="form" />
+  <file name="form\custom.js" path="form" />
+  <file name="menu\menubar.html" path="menu" />
 </project>

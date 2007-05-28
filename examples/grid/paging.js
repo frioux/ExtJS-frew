@@ -5,27 +5,26 @@ Ext.onReady(function(){
         // load using script tags for cross domain, if the data in on the same domain as
         // this page, an HttpProxy would be better
         proxy: new Ext.data.ScriptTagProxy({
-            url: 'http://www.yui-ext.com/forum2/topics-remote.php'
+            url: 'http://extjs.com/forum/topics-remote.php'
         }),
 
         // create reader that reads the Topic records
         reader: new Ext.data.JsonReader({
             root: 'topics',
             totalProperty: 'totalCount',
-            id: 'topic_id'
+            id: 'post_id'
         }, [
             {name: 'title', mapping: 'topic_title'},
-            {name: 'author', mapping: 'username'},
+            {name: 'author', mapping: 'author'},
             {name: 'totalPosts', mapping: 'topic_replies', type: 'int'},
             {name: 'lastPost', mapping: 'post_time', type: 'date', dateFormat: 'timestamp'},
-            {name: 'lastPoster', mapping: 'user2'},
             {name: 'excerpt', mapping: 'post_text'}
         ]),
 
         // turn on remote sorting
         remoteSort: true
     });
-    ds.setDefaultSort('lastPost', 'desc');
+
 
     // pluggable renders
     function renderTopic(value, p, record){
@@ -35,7 +34,7 @@ Ext.onReady(function(){
         return String.format('<b><i>{0}</i></b>', value);
     }
     function renderLast(value, p, r){
-        return String.format('{0}<br/>by {1}', value.dateFormat('M j, Y, g:i a'), r.data['lastPoster']);
+        return String.format('{0}<br/>by {1}', value.dateFormat('M j, Y, g:i a'), r.data['author']);
     }
     function renderLastPlain(value){
         return value.dateFormat('M j, Y, g:i a');
@@ -48,7 +47,7 @@ Ext.onReady(function(){
            id: 'topic', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
            header: "Topic",
            dataIndex: 'title',
-           width: 420,
+           width: 490,
            renderer: renderTopic,
            css: 'white-space:normal;'
         },{
@@ -57,11 +56,6 @@ Ext.onReady(function(){
            width: 100,
            hidden: true
         },{
-           header: "Total Posts",
-           dataIndex: 'totalPosts',
-           width: 70,
-           align: 'right'
-        },{
            id: 'last',
            header: "Last Post",
            dataIndex: 'lastPost',
@@ -69,8 +63,7 @@ Ext.onReady(function(){
            renderer: renderLast
         }]);
 
-    // by default columns are sortable
-    cm.defaultSortable = true;
+    
 
     // create the editor grid
     var grid = new Ext.grid.Grid('topic-grid', {
@@ -112,7 +105,7 @@ Ext.onReady(function(){
     });
 
     // trigger the data store load
-    ds.load({params:{start:0, limit:25, forumId: 4}});
+    ds.load({params:{start:0, limit:25}});
 
     function toggleDetails(btn, pressed){
         cm.getColumnById('topic').renderer = pressed ? renderTopic : renderTopicPlain;
