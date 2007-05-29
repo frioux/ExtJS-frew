@@ -89,6 +89,10 @@ Ext.extend(Ext.Editor, Ext.Component, {
      * for bottom-right shadow (defaults to "frame")
      */
     shadow : "frame",
+    /**
+     * @cfg {Boolean} constrain True to constrain the editor to the viewport
+     */
+    constrain : false,
 
     // private
     updateEl : false,
