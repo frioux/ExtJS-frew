@@ -64,6 +64,10 @@ side          Add an error icon to the right of the field with a popup on hover
     msgFx : 'normal',
 
     /**
+     * @cfg {Boolean} readOnly True to mark the field as readOnly in HTML - Note: this only sets the readOnly attribute.
+     */
+    
+    /**
      * @cfg {String} inputType The type attribute for input fields - e.g. radio, text, password. (defaults to "text")
      */
     inputType : undefined,
