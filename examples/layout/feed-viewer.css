@@ -14,7 +14,7 @@ html, body {
 	border:0px none;
 	border-top:1px solid #ddecfe;
 }
-.x-layout-panel-north, .ytheme-gray .x-layout-panel-north{
+.x-layout-panel-north, .xtheme-gray .x-layout-panel-north{
 	background-image: url(images/header.gif);
 	background-repeat: repeat-x;
 	color:#FFF;
@@ -24,14 +24,14 @@ html, body {
 	border:0px none;
 	border-bottom:2px solid #c3daf9;
 }
-.ytheme-gray .x-layout-panel-north{
+.xtheme-gray .x-layout-panel-north{
 	border-bottom:2px solid #f3f2e7;
 }
 .x-layout-panel-hd-text{
 	font: bold 11px tahoma,verdana,helvetica;
 	color:#083772;
 }
-.ytheme-gray .x-layout-panel-hd-text{
+.xtheme-gray .x-layout-panel-hd-text{
 	font: bold 11px tahoma,verdana,helvetica;
 	color:#333333;
 }

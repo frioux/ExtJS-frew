@@ -7,7 +7,7 @@ var LayoutExample = function(){
     var dialog, showBtn;
     
     var toggleTheme = function(){
-        Ext.get(document.body, true).toggleClass('ytheme-gray');
+        Ext.get(document.body, true).toggleClass('xtheme-gray');
     };
     // return a public interface
     return {

@@ -209,11 +209,11 @@ body.x-body-masked .x-dlg select {
 	background-image:url(../images/default/s.gif);
 	border:0;
 }
-.x-dlg div.x-resizable-handle-northeast, .ytheme-gray .x-dlg div.x-resizable-handle-northeast{
+.x-dlg div.x-resizable-handle-northeast, .xtheme-gray .x-dlg div.x-resizable-handle-northeast{
 	background-image:url(../images/default/s.gif);
 	border:0;
 }
-.x-dlg div.x-resizable-handle-northwest, .ytheme-gray .x-dlg div.x-resizable-handle-northwest{
+.x-dlg div.x-resizable-handle-northwest, .xtheme-gray .x-dlg div.x-resizable-handle-northwest{
 	background-image:url(../images/default/s.gif);
 	border:0;
 }

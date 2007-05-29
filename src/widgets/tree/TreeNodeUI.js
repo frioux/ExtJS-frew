@@ -299,42 +299,14 @@ Ext.tree.TreeNodeUI.prototype = {
     },
     
     render : function(bulkRender){
-        var n = this.node;
-        var targetNode = n.parentNode ? 
+        var n = this.node, a = n.attributes;
+        var targetNode = n.parentNode ?
               n.parentNode.ui.getContainer() : n.ownerTree.innerCt.dom;
         if(!this.rendered){
             this.rendered = true;
-            var a = n.attributes;
-        
-            // add some indent caching, this helps performance when rendering a large tree
-            this.indentMarkup = "";
-            if(n.parentNode){
-                this.indentMarkup = n.parentNode.ui.getChildIndent();
-            }
-            
-            var buf = ['<li class="x-tree-node"><div class="x-tree-node-el ', n.attributes.cls,'">',
-                '<span class="x-tree-node-indent">',this.indentMarkup,"</span>",
-                '<img src="', this.emptyIcon, '" class="x-tree-ec-icon">',
-                '<img src="', a.icon || this.emptyIcon, '" class="x-tree-node-icon',(a.icon ? " x-tree-node-inline-icon" : ""),(a.iconCls ? " "+a.iconCls : ""),'" unselectable="on">',
-                '<a hidefocus="on" href="',a.href ? a.href : "#",'" tabIndex="1" ',
-                 a.hrefTarget ? ' target="'+a.hrefTarget+'"' : "", '><span unselectable="on">',n.text,"</span></a></div>",
-                '<ul class="x-tree-node-ct" style="display:none;"></ul>',
-                "</li>"];
-                
-            if(bulkRender !== true && n.nextSibling && n.nextSibling.ui.getEl()){
-                this.wrap = Ext.DomHelper.insertHtml("beforeBegin",
-                                    n.nextSibling.ui.getEl(), buf.join(""));
-            }else{
-                this.wrap = Ext.DomHelper.insertHtml("beforeEnd", targetNode, buf.join(""));
-            }
-            this.elNode = this.wrap.childNodes[0];
-            this.ctNode = this.wrap.childNodes[1];
-            var cs = this.elNode.childNodes;
-            this.indentNode = cs[0];
-            this.ecNode = cs[1];
-            this.iconNode = cs[2];
-            this.anchor = cs[3];
-            this.textNode = cs[3].firstChild;
+
+            this.renderElements(n, a, targetNode, bulkRender);
+
             if(a.qtip){
                if(this.textNode.setAttributeNS){
                    this.textNode.setAttributeNS("ext", "qtip", a.qtip);
@@ -346,7 +318,7 @@ Ext.tree.TreeNodeUI.prototype = {
                    if(a.qtipTitle){
                        this.textNode.setAttribute("ext:qtitle", a.qtipTitle);
                    }
-               } 
+               }
             }else if(a.qtipCfg){
                 a.qtipCfg.target = Ext.id(this.textNode);
                 Ext.QuickTips.register(a.qtipCfg);
@@ -361,7 +333,37 @@ Ext.tree.TreeNodeUI.prototype = {
             }
         }
     },
-    
+
+    renderElements : function(n, a, targetNode, bulkRender){
+        // add some indent caching, this helps performance when rendering a large tree
+        this.indentMarkup = n.parentNode ? n.parentNode.ui.getChildIndent() : '';
+        
+        var buf = ['<li class="x-tree-node"><div class="x-tree-node-el ', a.cls,'">',
+            '<span class="x-tree-node-indent">',this.indentMarkup,"</span>",
+            '<img src="', this.emptyIcon, '" class="x-tree-ec-icon">',
+            '<img src="', a.icon || this.emptyIcon, '" class="x-tree-node-icon',(a.icon ? " x-tree-node-inline-icon" : ""),(a.iconCls ? " "+a.iconCls : ""),'" unselectable="on">',
+            '<a hidefocus="on" href="',a.href ? a.href : "#",'" tabIndex="1" ',
+             a.hrefTarget ? ' target="'+a.hrefTarget+'"' : "", '><span unselectable="on">',n.text,"</span></a></div>",
+            '<ul class="x-tree-node-ct" style="display:none;"></ul>',
+            "</li>"];
+
+        if(bulkRender !== true && n.nextSibling && n.nextSibling.ui.getEl()){
+            this.wrap = Ext.DomHelper.insertHtml("beforeBegin",
+                                n.nextSibling.ui.getEl(), buf.join(""));
+        }else{
+            this.wrap = Ext.DomHelper.insertHtml("beforeEnd", targetNode, buf.join(""));
+        }
+
+        this.elNode = this.wrap.childNodes[0];
+        this.ctNode = this.wrap.childNodes[1];
+        var cs = this.elNode.childNodes;
+        this.indentNode = cs[0];
+        this.ecNode = cs[1];
+        this.iconNode = cs[2];
+        this.anchor = cs[3];
+        this.textNode = cs[3].firstChild;
+    },
+
     getAnchor : function(){
         return this.anchor;
     },
