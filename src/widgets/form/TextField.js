@@ -275,7 +275,12 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
             this.metrics = Ext.util.TextMetrics.createInstance(this.el);
         }
         var el = this.el;
-        var v = el.dom.value + "&#160;";
+        var v = el.dom.value;
+        var d = document.createElement('div');
+        d.appendChild(document.createTextNode(v));
+        v = d.innerHTML;
+        d = null;
+        v += "&#160;";
         var w = Math.min(this.growMax, Math.max(this.metrics.getWidth(v) + /* add extra padding */ 10, this.growMin));
         this.el.setWidth(w);
         this.fireEvent("autosize", this, w);

@@ -81,6 +81,11 @@ Ext.extend(Ext.form.TextArea, Ext.form.TextField,  {
         var el = this.el;
         var v = el.dom.value;
         var ts = this.textSizeEl;
+
+        ts.innerHTML = '';
+        ts.appendChild(document.createTextNode(v));
+        v = ts.innerHTML;
+
         Ext.fly(ts).setWidth(this.el.getWidth());
         if(v.length < 1){
             v = "&#160;&#160;";
