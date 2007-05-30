@@ -801,4 +801,12 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
             this.el.focus();
         }
     }
+
+    /** @cfg {Boolean} grow @hide */
+    /** @cfg {Number} growMin @hide */
+    /** @cfg {Number} growMax @hide */
+    /**
+     * @hide
+     * @method autoSize
+     */
 });

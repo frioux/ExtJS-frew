@@ -264,4 +264,12 @@ dateField.setValue('2006-5-4');
             this.setValue(v);
         }
     }
+
+    /** @cfg {Boolean} grow @hide */
+    /** @cfg {Number} growMin @hide */
+    /** @cfg {Number} growMax @hide */
+    /**
+     * @hide
+     * @method autoSize
+     */
 });

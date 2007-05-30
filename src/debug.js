@@ -506,7 +506,7 @@
      */
     time : function(name){
         name = name || "def";
-        Ext._timers[name] = new Date().getTime();
+        Ext.debug._timers[name] = new Date().getTime();
     },
 
     /**
@@ -518,8 +518,8 @@
     timeEnd : function(name, printResults){
         var t = new Date().getTime();
         name = name || "def";
-        var v = String.format("{0} ms", t-Ext._timers[name]);
-        Ext._timers[name] = new Date().getTime();
+        var v = String.format("{0} ms", t-Ext.debug._timers[name]);
+        Ext.debug._timers[name] = new Date().getTime();
         if(printResults !== false){
             Ext.debug.log('Timer ' + (name == "def" ? v : name + ": " + v));
         }
