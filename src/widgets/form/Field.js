@@ -304,6 +304,9 @@ side          Add an error icon to the right of the field with a popup on hover
             case 'qtip':
                 this.el.dom.qtip = msg;
                 this.el.dom.qclass = 'x-form-invalid-tip';
+                if(Ext.QuickTips){ // fix for floating editors interacting with DND
+                    Ext.QuickTips.enable();
+                }
                 break;
             case 'title':
                 this.el.dom.title = msg;

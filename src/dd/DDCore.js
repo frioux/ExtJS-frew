@@ -1631,7 +1631,6 @@ Ext.dd.DragDropMgr = function() {
          * @static
          */
         handleMouseDown: function(e, oDD) {
-
             if(Ext.QuickTips){
                 Ext.QuickTips.disable();
             }

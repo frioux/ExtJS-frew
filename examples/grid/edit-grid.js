@@ -1,5 +1,5 @@
 Ext.onReady(function(){
-
+    Ext.QuickTips.init();
     function formatBoolean(value){
         return value ? 'Yes' : 'No';  
     };

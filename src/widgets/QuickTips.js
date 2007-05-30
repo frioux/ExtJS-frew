@@ -315,7 +315,7 @@ Ext.QuickTips = function(){
      * Enable this quick tip
      */
        enable : function(){
-           if(inited){
+           if(inited && disabled){
                locks.pop();
                if(locks.length < 1){
                    disabled = false;
