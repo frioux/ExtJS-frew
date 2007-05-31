@@ -79,6 +79,10 @@
     height:19px; /* safari doesn't allow height adjustments to the fields, so adjust trigger */
 }
 
+.x-form-field-wrap .x-form-date-trigger{
+    background-image: url(../images/default/form/date-trigger.gif);
+    cursor:pointer;
+}
 .x-form-field-wrap .x-form-clear-trigger{
     background-image: url(../images/default/form/clear-trigger.gif);
     cursor:pointer;

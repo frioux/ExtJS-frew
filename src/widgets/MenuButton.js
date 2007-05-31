@@ -42,7 +42,7 @@ Ext.extend(Ext.MenuButton, Ext.Button, {
             btn.child("button").setStyle('background-image', 'url(' +this.icon +')');
         }
         this.el = btn;
-        this.autoWidth();
+
         if(this.handleMouseEvents){
             btn.on("mouseover", this.onMouseOver, this);
             btn.on("mouseout", this.onMouseOut, this);
@@ -69,6 +69,11 @@ Ext.extend(Ext.MenuButton, Ext.Button, {
         }
         if(this.disabled){
             this.disable();
+        }
+        if(Ext.isIE && !Ext.isIE7){
+            this.autoWidth.defer(1, this);
+        }else{
+            this.autoWidth();
         }
         if(this.menu){
             this.menu.on("show", this.onMenuShow, this);
