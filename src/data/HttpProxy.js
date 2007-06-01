@@ -11,13 +11,14 @@
  * Be aware that to enable the browser to parse an XML document, the server must set
  * the Content-Type header in the HTTP response to "text/xml".
  * @constructor
- * @param {Object} conn An {@link Ext.data.Connection} object referencing the URL from which the data object
- * is to be read, or a configuration object for an Ext.data.Connection.
+ * @param {Object} conn A set of Connection options to add to each request (e.g. {url: 'foo.php'} or
+ * an {@link Ext.data.Connection} object
  */
 Ext.data.HttpProxy = function(conn){
     Ext.data.HttpProxy.superclass.constructor.call(this);
     // is conn a conn config or a real conn?
-    this.conn = conn.events ? conn : new Ext.data.Connection(conn);
+    this.conn = conn;
+    this.useAjax = !conn || !conn.events;
 };
 
 Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
@@ -27,7 +28,7 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
      * a finer-grained basis than the DataProxy events.
      */
     getConnection : function(){
-        return this.conn;
+        return this.useAjax ? Ext.Ajax : this.conn;
     },
 
     /**
@@ -49,8 +50,8 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
      */
     load : function(params, reader, callback, scope, arg){
         if(this.fireEvent("beforeload", this, params) !== false){
-            this.conn.request({
-                params : params || {}, 
+            var  o = {
+                params : params || {},
                 request: {
                     callback : callback,
                     scope : scope,
@@ -58,13 +59,21 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
                 },
                 reader: reader,
                 callback : this.loadResponse,
-                scope: this
-            });
+                scope: this,
+                autoAbort : true
+
+            };
+            if(this.useAjax){
+                Ext.applyIf(o, this.conn);
+                Ext.Ajax.request(o);
+            }else{
+                this.conn.request(o);
+            }
         }else{
             callback.call(scope||this, null, arg, false);
         }
     },
-    
+
     // private
     loadResponse : function(o, success, response){
         if(!success){
@@ -83,14 +92,14 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
         this.fireEvent("load", this, o, o.request.arg);
         o.request.callback.call(o.request.scope, result, o.request.arg, true);
     },
-    
+
     // private
     update : function(dataSet){
-        
+
     },
-    
+
     // private
     updateResponse : function(dataSet){
-        
+
     }
 });

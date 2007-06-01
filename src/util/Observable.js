@@ -326,7 +326,7 @@ Ext.util.Observable.releaseCapture = function(o){
                 var args = Array.prototype.slice.call(arguments, 0);
                 for(var i = 0; i < len; i++){
                     var l = ls[i];
-                    if(l.fireFn.apply(l.scope, arguments) === false){
+                    if(l.fireFn.apply(l.scope||this.obj||window, arguments) === false){
                         this.firing = false;
                         return false;
                     }

@@ -77,9 +77,11 @@ Ext.Element = function(element, forceNew){
     if(!dom){ // invalid id/element
         return null;
     }
-    if(!forceNew && Ext.Element.cache[dom.id]){ // element object already exists
-        return Ext.Element.cache[dom.id];
+    var id = dom.id;
+    if(forceNew !== true && id && Ext.Element.cache[id]){ // element object already exists
+        return Ext.Element.cache[id];
     }
+
     /**
      * The DOM element
      * @type HTMLElement
@@ -90,7 +92,7 @@ Ext.Element = function(element, forceNew){
      * The DOM element ID
      * @type String
      */
-    this.id = dom.id || Ext.id(dom);
+    this.id = id || Ext.id(dom);
 };
 
 var El = Ext.Element;
@@ -2383,7 +2385,9 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
                 else el[attr] = o[attr];
             }
         }
-        Ext.DomHelper.applyStyles(el, o.style);
+        if(o.style){
+            Ext.DomHelper.applyStyles(el, o.style);
+        }
         return this;
     },
     

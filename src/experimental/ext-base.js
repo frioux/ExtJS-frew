@@ -1,10 +1,3 @@
-/*
- * Portions of this file are based on pieces of Yahoo User Interface Library
- * Copyright (c) 2007, Yahoo! Inc. All rights reserved.
- * Code licensed under the BSD License:
- * http://developer.yahoo.net/yui/license.txt
- */
-
 (function() {
     var libFlyweight;
 
@@ -178,58 +171,31 @@
         }
     };
 
+/*
+ * Portions of this file are based on pieces of Yahoo User Interface Library
+ * Copyright (c) 2007, Yahoo! Inc. All rights reserved.
+ * YUI licensed under the BSD License:
+ * http://developer.yahoo.net/yui/license.txt
+ */
     Ext.lib.Event = function() {
-
-
         var loadComplete = false;
-
-
         var listeners = [];
-
-
         var unloadListeners = [];
-
-
         var retryCount = 0;
-
-
         var onAvailStack = [];
-
-
         var counter = 0;
-
-
         var lastError = null;
 
         return {
-
-
             POLL_RETRYS: 200,
-
-
             POLL_INTERVAL: 20,
-
-
             EL: 0,
-
-
             TYPE: 1,
-
-
             FN: 2,
-
-
             WFN: 3,
-
-
             OBJ: 3,
-
-
             ADJ_SCOPE: 4,
-
-
             _interval: null,
-
 
             startInterval: function() {
                 if (!this._interval) {
@@ -241,7 +207,6 @@
 
                 }
             },
-
 
             onAvailable: function(p_id, p_fn, p_obj, p_override) {
                 onAvailStack.push({ id:         p_id,
@@ -268,8 +233,7 @@
                 }
 
                 var wrappedFn = function(e) {
-                    return fn.call(scope, Ext.lib.Event.getEvent(e),
-                            obj);
+                    return fn(Ext.lib.Event.getEvent(e));
                 };
 
                 var li = [el, eventName, fn, wrappedFn];
@@ -704,13 +668,16 @@
     Ext.lib.Event.un = Ext.lib.Event.removeListener;
 
     Ext.lib.Ajax = {
-        request : function(method, uri, cb, data) {
+        request : function(method, uri, cb, data, options) {
+            if(options && options.headers){
+                var hs = options.headers;
+                for(var h in hs){
+                    if(hs.hasOwnProperty(h)){
+                        this.initHeader(h, hs[h], false);
+                    }
+                }
+            }
             return this.asyncRequest(method, uri, cb, data);
-        },
-
-        formRequest : function(form, uri, cb, data, isUpload, sslUri) {
-            this.setForm(form, isUpload, sslUri);
-            return this.asyncRequest(Ext.getDom(form).method || 'POST', uri, cb, data);
         },
 
         serializeForm : function(form) {
@@ -787,14 +754,6 @@
         hasDefaultHeaders:true,
 
         defaultHeaders:{},
-
-        isFormSubmit:false,
-
-        isFileUpload:false,
-
-        formNode:null,
-
-        formData:null,
 
         poll:{},
 
@@ -885,32 +844,6 @@
                 return null;
             }
             else {
-                if (this.isFormSubmit) {
-                    if (this.isFileUpload) {
-                        this.uploadFile(o.tId, callback, uri, postData);
-                        this.releaseObject(o);
-
-                        return;
-                    }
-
-
-                    if (method.toUpperCase() == 'GET') {
-                        if (this.formData.length != 0) {
-
-
-                            uri += ((uri.indexOf('?') == -1) ? '?' : '&') + this.formData;
-                        }
-                        else {
-                            uri += "?" + this.formData;
-                        }
-                    }
-                    else if (method.toUpperCase() == 'POST') {
-
-
-                        postData = postData ? this.formData + "&" + postData : this.formData;
-                    }
-                }
-
                 o.conn.open(method, uri, true);
 
                 if (this.useDefaultXhrHeader) {
@@ -918,13 +851,6 @@
                         this.initHeader('X-Requested-With', this.defaultXhrHeader, true);
                     }
                 }
-                if (this.isFormSubmit || (postData && this.useDefaultHeader)) {
-                    this.initHeader('Content-Type', this.defaultPostHeader);
-                    if (this.isFormSubmit) {
-                        this.resetFormState();
-                    }
-                }
-
                 if (this.hasDefaultHeaders || this.hasHeaders) {
                     this.setHeader(o);
                 }
@@ -1146,165 +1072,6 @@
             this.defaultHeaders = {};
             this.hasDefaultHeaders = false;
         },
-
-        setForm:function(form, isUpload, secureUri){
-            this.resetFormState();
-            if(typeof form == 'string') {
-                form = (document.getElementById(form) || document.forms[form]);
-            }
-
-            if (isUpload) {
-                this.createFrame(secureUri ? secureUri : null);
-
-
-                this.isFormSubmit = true;
-                this.isFileUpload = true;
-                this.formNode = form;
-
-                return;
-            }
-
-            this.isFormSubmit = true;
-            this.formData = this.serializeForm(form);
-
-            return this.formData;
-        },
-
-        resetFormState:function() {
-            this.isFormSubmit = false;
-            this.isFileUpload = false;
-            this.formNode = null;
-            this.formData = "";
-        },
-
-        createFrame:function(secureUri) {
-
-
-            var frameId = 'yuiIO' + this.transactionId;
-            if (window.ActiveXObject) {
-                var io = document.createElement('<iframe id="' + frameId + '" name="' + frameId + '" />');
-
-
-                if (typeof secureUri == 'boolean') {
-                    io.src = 'javascript:false';
-                }
-                else if (typeof secureURI == 'string') {
-
-                    io.src = secureUri;
-                }
-            }
-            else {
-                var io = document.createElement('iframe');
-                io.id = frameId;
-                io.name = frameId;
-            }
-
-            io.style.position = 'absolute';
-            io.style.top = '-1000px';
-            io.style.left = '-1000px';
-
-            document.body.appendChild(io);
-        },
-
-        appendPostData:function(postData)
-        {
-            var formElements = [];
-            var postMessage = postData.split('&');
-            for (var i = 0; i < postMessage.length; i++) {
-                var delimitPos = postMessage[i].indexOf('=');
-                if (delimitPos != -1) {
-                    formElements[i] = document.createElement('input');
-                    formElements[i].type = 'hidden';
-                    formElements[i].name = postMessage[i].substring(0, delimitPos);
-                    formElements[i].value = postMessage[i].substring(delimitPos + 1);
-                    this.formNode.appendChild(formElements[i]);
-                }
-            }
-
-            return formElements;
-        },
-
-
-        uploadFile:function(id, callback, uri, postData) {
-
-
-            var frameId = 'yuiIO' + id;
-            var uploadEncoding = 'multipart/form-data';
-            var io = document.getElementById(frameId);
-
-
-            this.formNode.action = uri;
-            this.formNode.method = 'POST';
-            this.formNode.target = frameId;
-
-            if (this.formNode.encoding) {
-
-
-                this.formNode.encoding = uploadEncoding;
-            }
-            else {
-                this.formNode.enctype = uploadEncoding;
-            }
-
-
-            if (postData) {
-                var oElements = this.appendPostData(postData);
-            }
-
-            this.formNode.submit();
-
-            if (oElements && oElements.length > 0) {
-                for (var i = 0; i < oElements.length; i++) {
-                    this.formNode.removeChild(oElements[i]);
-                }
-            }
-
-
-            this.resetFormState();
-
-
-            var uploadCallback = function()
-            {
-                var obj = {};
-                obj.tId = id;
-                obj.argument = callback.argument;
-
-                try
-                {
-                    obj.responseText = io.contentWindow.document.body ? io.contentWindow.document.body.innerHTML : null;
-                    obj.responseXML = io.contentWindow.document.XMLDocument ? io.contentWindow.document.XMLDocument : io.contentWindow.document;
-                }
-                catch(e) {
-                }
-
-                if (callback && callback.upload) {
-                    if (!callback.scope) {
-                        callback.upload(obj);
-                    }
-                    else {
-                        callback.upload.apply(callback.scope, [obj]);
-                    }
-                }
-
-                if (Ext.lib.Event) {
-                    Ext.lib.Event.removeListener(io, "load", uploadCallback);
-                }
-                else if (window.detachEvent) {
-                    io.detachEvent('onload', uploadCallback);
-                }
-                else {
-                    io.removeEventListener('load', uploadCallback, false);
-                }
-                setTimeout(
-                        function() {
-                            document.body.removeChild(io);
-                        }, 100);
-            };
-
-
-            Ext.EventManager.addListener(io, "load", uploadCallback);
-        },
-
 
         abort:function(o, callback, isTimeout)
         {
@@ -1554,12 +1321,12 @@
 
         animateX : function(callback, scope) {
             var f = function() {
-                this.onComplete.unsubscribe(f);
+                this.onComplete.removeListener(f);
                 if (typeof callback == "function") {
                     callback.call(scope || this, this);
                 }
             };
-            this.onComplete.subscribe(f, this, true);
+            this.onComplete.addListener(f, this);
             this.animate();
         },
 
@@ -1614,7 +1381,7 @@
             var actualFrames = 0;
 
 
-            el = Ext.lib.Dom.get(el);
+            el = Ext.getDom(el);
 
 
             this.attributes = attributes || {};
@@ -1734,25 +1501,15 @@
             };
 
 
-            this._onStart = new Ext.lib.CustomEvent('_start', this, true);
-
-
-            this.onStart = new Ext.lib.CustomEvent('start', this);
-
-
-            this.onTween = new Ext.lib.CustomEvent('tween', this);
-
-
-            this._onTween = new Ext.lib.CustomEvent('_tween', this, true);
-
-
-            this.onComplete = new Ext.lib.CustomEvent('complete', this);
-
-            this._onComplete = new Ext.lib.CustomEvent('_complete', this, true);
-
-            this._onStart.subscribe(onStart);
-            this._onTween.subscribe(onTween);
-            this._onComplete.subscribe(onComplete);
+            this._onStart = new Ext.util.Event(this);
+            this.onStart = new Ext.util.Event(this);
+            this.onTween = new Ext.util.Event(this);
+            this._onTween = new Ext.util.Event(this);
+            this.onComplete = new Ext.util.Event(this);
+            this._onComplete = new Ext.util.Event(this);
+            this._onStart.addListener(onStart);
+            this._onTween.addListener(onTween);
+            this._onComplete.addListener(onComplete);
         }
     };
 

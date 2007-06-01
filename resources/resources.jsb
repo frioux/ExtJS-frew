@@ -553,4 +553,11 @@
   <file name="images\default\grid\grid3-special-col-sel-bg.gif" path="images\default\grid" />
   <file name="images\default\shared\glass-bg.gif" path="images\default\shared" />
   <file name="legacy\grid.css" path="legacy" />
+  <file name="css\xtheme-aero.css" path="css" />
+  <file name="css\xtheme-gray.css" path="css" />
+  <file name="css\xtheme-vista.css" path="css" />
+  <file name="images\default\form\clear-trigger.psd" path="images\default\form" />
+  <file name="images\default\form\date-trigger.psd" path="images\default\form" />
+  <file name="images\default\form\search-trigger.psd" path="images\default\form" />
+  <file name="images\default\form\trigger.psd" path="images\default\form" />
 </project>

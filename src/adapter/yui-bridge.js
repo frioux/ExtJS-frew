@@ -5,7 +5,7 @@ if(typeof YAHOO == "undefined"){
 (function(){
 var E = YAHOO.util.Event;
 var D = YAHOO.util.Dom;
-var CN = YAHOO.util.Connect;    
+var CN = YAHOO.util.Connect;
 
 var ES = YAHOO.util.Easing;
 var A = YAHOO.util.Anim;
@@ -176,7 +176,15 @@ Ext.lib.Event = {
 };
 
 Ext.lib.Ajax = {
-    request : function(method, uri, cb, data){
+    request : function(method, uri, cb, data, options){
+        if(options && options.headers){
+            var hs = options.headers;
+            for(var h in hs){
+                if(hs.hasOwnProperty(h)){
+                    CN.initHeader(h, hs[h], false);
+                }
+            }
+		}
         return CN.asyncRequest(method, uri, cb, data);
     },
 
@@ -192,7 +200,7 @@ Ext.lib.Ajax = {
     abort : function(trans){
         return CN.abort(trans);
     },
-    
+
     serializeForm : function(form){
         var d = CN.setForm(form.dom || form);
         CN.resetFormState();

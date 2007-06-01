@@ -278,14 +278,18 @@ Ext.lib.Ajax = function(){
          } : Ext.emptyFn;
     };
     return {
-        request : function(method, uri, cb, data){
-            new Ajax.Request(uri, {
+        request : function(method, uri, cb, data, options){
+            var o = {
                 method: method,
                 parameters: data || '',
                 timeout: cb.timeout,
                 onSuccess: createSuccess(cb),
                 onFailure: createFailure(cb)
-            });
+            };
+            if(options && options.headers){
+                o.requestHeaders =	options.headers;
+            }
+            new Ajax.Request(uri, o);
         },
 
         formRequest : function(form, uri, cb, data, isUpload, sslUri){
@@ -305,7 +309,7 @@ Ext.lib.Ajax = function(){
         abort : function(trans){
             return false;
         },
-        
+
         serializeForm : function(form){
             return Form.serialize(form.dom||form);
         }
@@ -314,7 +318,7 @@ Ext.lib.Ajax = function(){
 
 
 Ext.lib.Anim = function(){
-    
+
     var easings = {
         easeOut: function(pos) {
             return 1-Math.pow(1-pos,2);
@@ -408,7 +412,7 @@ function fly(el){
     libFlyweight.dom = el;
     return libFlyweight;
 }
-    
+
 Ext.lib.Region = function(t, r, b, l) {
     this.top = t;
     this[1] = t;

@@ -99,11 +99,12 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
         var o = this.options;
         var isPost = this.getMethod() == 'POST';
         if(o.clientValidation === false || this.form.isValid()){
-            Ext.lib.Ajax.formRequest(
-                this.form.el.dom,
-                this.getUrl(!isPost),
-                this.createCallback(),
-                isPost ? this.getParams() : null, this.form.fileUpload, Ext.SSL_SECURE_URL);
+            Ext.Ajax.request(Ext.apply(this.createCallback(), {
+                form:this.form.el.dom,
+                url:this.getUrl(!isPost),
+                params:isPost ? this.getParams() : null,
+                isUpload: this.form.fileUpload
+            }));
 
         }else if (o.clientValidation !== false){ // client validation failed
             this.failureType = Ext.form.Action.CLIENT_INVALID;
@@ -156,11 +157,12 @@ Ext.extend(Ext.form.Action.Load, Ext.form.Action, {
     type : 'load',
 
     run : function(){
-        Ext.lib.Ajax.request(
-            this.getMethod(),
-            this.getUrl(false),
-            this.createCallback(),
-            this.getParams());
+        Ext.Ajax.request(Ext.apply(
+                this.createCallback(), {
+                    method:this.getMethod(),
+                    url:this.getUrl(false),
+                    params:this.getParams()
+        }));
     },
 
     success : function(response){

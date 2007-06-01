@@ -124,14 +124,15 @@ Ext.extend(Ext.tree.TreeLoader, Ext.util.Observable, {
     
     requestData : function(node, callback){
         if(this.fireEvent("beforeload", this, node, callback) !== false){
-            var params = this.getParams(node);
-            var cb = {
+            this.transId = Ext.Ajax.request({
+                method:this.requestMethod,
+                url: this.dataUrl||this.url,
                 success: this.handleResponse,
                 failure: this.handleFailure,
                 scope: this,
-        		argument: {callback: callback, node: node}
-            };
-            this.transId = Ext.lib.Ajax.request(this.requestMethod, this.dataUrl, cb, params);
+        		argument: {callback: callback, node: node},
+                params: this.getParams(node)
+            });
         }else{
             // if the load is cancelled, make sure we notify 
             // the node that we are done
@@ -147,7 +148,7 @@ Ext.extend(Ext.tree.TreeLoader, Ext.util.Observable, {
     
     abort : function(){
         if(this.isLoading()){
-            Ext.lib.Ajax.abort(this.transId);
+            Ext.Ajax.abort(this.transId);
         }
     },
 

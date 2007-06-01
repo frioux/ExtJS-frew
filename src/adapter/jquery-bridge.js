@@ -3,6 +3,7 @@ if(typeof jQuery == "undefined"){
 }
 
 (function(){
+var libFlyweight;
 
 Ext.lib.Dom = {
     getViewWidth : function(full){
@@ -145,6 +146,14 @@ Ext.lib.Dom = {
     }
 };
 
+// all lib flyweight calls use their own flyweight to prevent collisions with developer flyweights
+function fly(el){
+    if(!libFlyweight){
+        libFlyweight = new Ext.Element.Flyweight();
+    }
+    libFlyweight.dom = el;
+    return libFlyweight;
+}
 Ext.lib.Event = {
     getPageX : function(e){
         e = e.browserEvent || e;
@@ -215,7 +224,7 @@ Ext.lib.Event = {
         };
         var iid = setInterval(f, 50);
     },
-    
+
     resolveTextNode: function(node) {
         if (node && 3 == node.nodeType) {
             return node.parentNode;
@@ -258,14 +267,25 @@ Ext.lib.Ajax = function(){
          };
     };
     return {
-        request : function(method, uri, cb, data){
-            jQuery.ajax({
+        request : function(method, uri, cb, data, options){
+            var o = {
                 type: method,
                 url: uri,
                 data: data,
                 timeout: cb.timeout,
                 complete: createComplete(cb)
-            });
+            };
+            if(options && options.headers){
+                o.beforeSend = function(xhr){
+                    var hs = options.headers;
+                    for(var h in hs){
+                        if(hs.hasOwnProperty(h)){
+                            xhr.setRequestHeader(h, hs[h]);
+                        }
+                    }
+                }
+            }
+            jQuery.ajax(o);
         },
 
         formRequest : function(form, uri, cb, data, isUpload, sslUri){

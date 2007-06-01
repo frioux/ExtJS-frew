@@ -10,6 +10,7 @@
     <include name="core\Element.js" />
     <include name="core\Fx.js" />
     <include name="core\CompositeElement.js" />
+    <include name="data\Connection.js" />
     <include name="core\UpdateManager.js" />
     <include name="util\DelayedTask.js" />
   </target>
@@ -22,6 +23,7 @@
     <include name="core\Element.js" />
     <include name="core\Fx.js" />
     <include name="core\CompositeElement.js" />
+    <include name="data\Connection.js" />
     <include name="core\UpdateManager.js" />
     <include name="util\Date.js" />
     <include name="util\DelayedTask.js" />
@@ -47,7 +49,6 @@
     <include name="data\Record.js" />
     <include name="data\Store.js" />
     <include name="data\SimpleStore.js" />
-    <include name="data\Connection.js" />
     <include name="data\DataField.js" />
     <include name="data\DataReader.js" />
     <include name="data\DataProxy.js" />
@@ -109,7 +110,7 @@
     <include name="widgets\form\Combo.js" />
     <include name="widgets\form\Checkbox.js" />
     <include name="widgets\form\Radio.js" />
-    <include name="widgets\form\Editor.js" />
+    <include name="widgets\form\HtmlEditor.js" />
     <include name="widgets\form\BasicForm.js" />
     <include name="widgets\form\Form.js" />
     <include name="widgets\form\Action.js" />
@@ -470,6 +471,7 @@
     <include name="core\Ext.js" />
     <include name="experimental\ext-base.js" />
   </target>
+  <file name="widgets\form\Editor.js" path="widgets\form" />
   <file name="adapter\jquery-bridge.js" path="adapter" />
   <file name="adapter\prototype-bridge.js" path="adapter" />
   <file name="adapter\yui-bridge.js" path="adapter" />
@@ -551,9 +553,9 @@
   <file name="widgets\form\Checkbox.js" path="widgets\form" />
   <file name="widgets\form\Combo.js" path="widgets\form" />
   <file name="widgets\form\DateField.js" path="widgets\form" />
-  <file name="widgets\form\Editor.js" path="widgets\form" />
   <file name="widgets\form\Field.js" path="widgets\form" />
   <file name="widgets\form\Form.js" path="widgets\form" />
+  <file name="widgets\form\HtmlEditor.js" path="widgets\form" />
   <file name="widgets\form\Layout.js" path="widgets\form" />
   <file name="widgets\form\NumberField.js" path="widgets\form" />
   <file name="widgets\form\Radio.js" path="widgets\form" />

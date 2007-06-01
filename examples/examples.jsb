@@ -209,45 +209,13 @@
   <file name="editor\editor.html" path="editor" />
   <file name="editor\blank.html" path="editor" />
   <file name="grid\perf.html" path="grid" />
-  <file name="dialog\hello.js" path="dialog" />
-  <file name="dialog\layout.js" path="dialog" />
-  <file name="dialog\msg-box.js" path="dialog" />
-  <file name="dialog\post.js" path="dialog" />
   <file name="editor\editor.js" path="editor" />
-  <file name="form\combos.js" path="form" />
-  <file name="form\dynamic.js" path="form" />
-  <file name="form\forms.js" path="form" />
-  <file name="form\forum-search.js" path="form" />
-  <file name="form\states.js" path="form" />
-  <file name="form\xml-form.js" path="form" />
-  <file name="grid\array-grid.js" path="grid" />
-  <file name="grid\custom-grid.js" path="grid" />
-  <file name="grid\edit-grid.js" path="grid" />
-  <file name="grid\from-markup.js" path="grid" />
   <file name="grid\grid3.html" path="grid" />
   <file name="grid\grid3.js" path="grid" />
-  <file name="grid\paging.js" path="grid" />
   <file name="grid\perf.js" path="grid" />
-  <file name="grid\xml-grid.js" path="grid" />
-  <file name="layout\feed-viewer.js" path="layout" />
-  <file name="locale\dutch-form.js" path="locale" />
-  <file name="locale\dutch-provinces.js" path="locale" />
-  <file name="locale\languages.js" path="locale" />
-  <file name="locale\multi-lang.js" path="locale" />
-  <file name="menu\menus.js" path="menu" />
   <file name="panels\app.js" path="panels" />
   <file name="panels\desktop.js" path="panels" />
   <file name="panels\panels.js" path="panels" />
-  <file name="resizable\basic.js" path="resizable" />
-  <file name="tabs\tabs-adv.js" path="tabs" />
-  <file name="tabs\tabs-example.js" path="tabs" />
-  <file name="tree\dependency.js" path="tree" />
-  <file name="tree\organizer.js" path="tree" />
-  <file name="tree\reorder.js" path="tree" />
-  <file name="tree\two-trees.js" path="tree" />
-  <file name="view\chooser-example.js" path="view" />
-  <file name="view\chooser.js" path="view" />
-  <file name="examples.js" path="" />
   <file name="shared\icons\fam\grid.png" path="shared\icons\fam" />
   <file name="window\desktop.html" path="window" />
   <file name="window\Desktop.js" path="window" />
@@ -284,11 +252,45 @@
   <file name="form\view-jobs.html" path="form" />
   <file name="form\view-jobs.js" path="form" />
   <file name="form\jobs-remote.php" path="form" />
+  <file name="form\custom.html" path="form" />
+  <file name="menu\menubar.html" path="menu" />
+  <file name="dialog\hello.js" path="dialog" />
+  <file name="dialog\layout.js" path="dialog" />
+  <file name="dialog\msg-box.js" path="dialog" />
+  <file name="dialog\post.js" path="dialog" />
+  <file name="form\combos.js" path="form" />
+  <file name="form\custom.js" path="form" />
+  <file name="form\dynamic.js" path="form" />
+  <file name="form\forms.js" path="form" />
+  <file name="form\forum-search.js" path="form" />
+  <file name="form\states.js" path="form" />
+  <file name="form\upload-test.html" path="form" />
+  <file name="form\xml-form.js" path="form" />
+  <file name="grid\array-grid.js" path="grid" />
   <file name="grid\CheckboxSelectionModel.js" path="grid" />
+  <file name="grid\custom-grid.js" path="grid" />
+  <file name="grid\edit-grid.js" path="grid" />
+  <file name="grid\from-markup.js" path="grid" />
+  <file name="grid\paging.js" path="grid" />
   <file name="grid\RowExpander.js" path="grid" />
   <file name="grid\RowNumberer.js" path="grid" />
+  <file name="grid\xml-grid.js" path="grid" />
+  <file name="layout\feed-viewer.js" path="layout" />
+  <file name="locale\dutch-form.js" path="locale" />
+  <file name="locale\dutch-provinces.js" path="locale" />
+  <file name="locale\languages.js" path="locale" />
+  <file name="locale\multi-lang.js" path="locale" />
   <file name="locale\PagingMemoryProxy.js" path="locale" />
-  <file name="form\custom.html" path="form" />
-  <file name="form\custom.js" path="form" />
-  <file name="menu\menubar.html" path="menu" />
+  <file name="menu\menus.js" path="menu" />
+  <file name="resizable\basic.js" path="resizable" />
+  <file name="tabs\tabs-adv.js" path="tabs" />
+  <file name="tabs\tabs-example.js" path="tabs" />
+  <file name="tree\dependency.js" path="tree" />
+  <file name="tree\organizer.js" path="tree" />
+  <file name="tree\reorder.js" path="tree" />
+  <file name="tree\two-trees.js" path="tree" />
+  <file name="view\chooser-example.js" path="view" />
+  <file name="view\chooser.js" path="view" />
+  <file name="examples.js" path="" />
+  <file name="form\upload.php" path="form" />
 </project>
