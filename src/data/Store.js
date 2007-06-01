@@ -322,10 +322,10 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
             return;
         }
         var r = o.records, t = o.totalRecords || r.length;
-        for(var i = 0, len = r.length; i < len; i++){
-            r[i].join(this);
-        }
         if(!options || options.add !== true){
+            for(var i = 0, len = r.length; i < len; i++){
+                r[i].join(this);
+            }
             this.data.clear();
             this.data.addAll(r);
             this.totalLength = t;
@@ -333,7 +333,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
             this.fireEvent("datachanged", this);
         }else{
             this.totalLength = Math.max(t, this.data.length+r.length);
-            this.data.addAll(r);
+            this.add(r);
         }
         this.fireEvent("load", this, r, options);
         if(options.callback){
