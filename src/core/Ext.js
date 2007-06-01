@@ -199,6 +199,23 @@ Ext.addBehaviors({
             };
         }(),
 
+        /**
+         * Adds a list of functions to the prototype of an existing class, overwriting any existing methods with the same name.
+         * Usage:<pre><code>
+Ext.override(MyClass, {
+    newMethod1: function(){
+        // etc.
+    },
+    newMethod2: function(foo){
+        // etc.
+    }
+});
+ </code></pre>
+         * @param {Object} origclass The class to override
+         * @param {Object} overrides The list of functions to add to origClass.  This should be specified as an object literal
+         * containing one or more methods.
+         * @method override
+         */
         override : function(origclass, overrides){
             if(overrides){
                 var p = origclass.prototype;
