@@ -305,6 +305,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
             this.resizer.on('resize', function(r, w, h){
                 this.maxHeight = h-this.handleHeight-this.list.getFrameWidth('tb')-this.assetHeight;
                 this.listWidth = w;
+                this.innerList.setWidth(w - this.list.getFrameWidth('lr'));
                 this.restrictHeight();
             }, this);
             this[this.pageSize?'footer':'innerList'].setStyle('margin-bottom', this.handleHeight+'px');
@@ -402,7 +403,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         if(this.list && this.listWidth === undefined){
             var lw = Math.max(w, this.minListWidth);
             this.list.setWidth(lw);
-            this.innerList.setWidth(lw - this.list.getFrameWidth('lr'))
+            this.innerList.setWidth(lw - this.list.getFrameWidth('lr'));
         }
     },
 

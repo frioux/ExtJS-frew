@@ -256,7 +256,7 @@ Ext.extend(Ext.TabPanel, Ext.util.Observable, {
         if(!tab){
             return null;
         }
-        if(tab == this.active){
+        if(tab == this.active || tab.disabled){
             return tab;
         } 
         var e = {};

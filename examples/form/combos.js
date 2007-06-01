@@ -11,7 +11,8 @@ Ext.onReady(function(){
         mode: 'local',
         triggerAction: 'all',
         emptyText:'Select a state...',
-        selectOnFocus:true
+        selectOnFocus:true,
+        resizable:true
     });
     combo.applyTo('local-states');
 

@@ -65,7 +65,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      */
     /**
      * @cfg {Boolean} fileUpload
-     * Set to true if this form is a file upload (YUI adapter only)
+     * Set to true if this form is a file upload
      */
     /**
      * @cfg {Object} baseParams
