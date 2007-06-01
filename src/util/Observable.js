@@ -48,11 +48,6 @@ Ext.util.Observable.prototype = {
      * @param {Object}   options (optional) An object containing handler configuration
      * properties. This may contain any of the following properties:<ul>
      * <li>scope {Object} The scope in which to execute the handler function. The handler function's "this" context.</li>
-     * <li>delegate {String} A simple selector to filter the target or look for a descendant of the target</li>
-     * <li>stopEvent {Boolean} True to stop the event. That is stop propagation, and prevent the default action.</li>
-     * <li>preventDefault {Boolean} True to prevent the default action</li>
-     * <li>stopPropagation {Boolean} True to prevent event propagation</li>
-     * <li>normalized {Boolean} False to pass a browser event to the handler function instead of an Ext.EventObject</li>
      * <li>delay {Number} The number of milliseconds to delay the invocation of the handler after te event fires.</li>
      * <li>single {Boolean} True to add a handler to handle just the next firing of the event, and then remove itself.</li>
      * <li>buffer {Number} Causes the handler to be scheduled to run in an {@link Ext.util.DelayedTask} delayed
@@ -68,7 +63,6 @@ Ext.util.Observable.prototype = {
 el.on('click', this.onClick, this, {
     single: true,
     delay: 100,
-    stopEvent : true,
     forumId: 4
 });</code></pre>
      * <p>
@@ -77,7 +71,7 @@ el.on('click', this.onClick, this, {
      * which specify multiple handlers.
      * <p>
      * Code:<pre><code>
-el.on({
+foo.on({
     'click' : {
         fn: this.onClick
         scope: this,
@@ -95,7 +89,7 @@ el.on({
      * <p>
      * Or a shorthand syntax:<br>
      * Code:<pre><code>
-el.on({
+foo.on({
     'click' : this.onClick,
     'mouseover' : this.onMouseOver,
     'mouseout' : this.onMouseOut
@@ -167,9 +161,8 @@ el.on({
     },
 
     /**
-     * Copies any events from the passed object onto this object if they do not already exist.  The passed object
-     * must also inherit from Observable for this method to have any effect.
-     * @param {Object} object The object from which to copy events
+     * Used to define events on this Observable
+     * @param {Object} object The object with the events defined
      */
     addEvents : function(o){
         if(!this.events){
@@ -179,7 +172,7 @@ el.on({
     },
 
     /**
-     * Checks to see if this object is currently listening for a specified event
+     * Checks to see if this object has any listeners for a specified event
      * @param {String} eventName The name of the event to check for
      * @return {Boolean} True if the event is being listened for, else false
      */
@@ -192,6 +185,8 @@ el.on({
  * Appends an event handler to this element (shorthand for addListener)
  * @param {String}   eventName     The type of event to listen for
  * @param {Function} handler        The method the event invokes
+ * @param {Object}   scope (optional) The scope in which to execute the handler
+ * function. The handler function's "this" context.
  * @param {Object}   options  (optional)
  * @method
  */

@@ -67,32 +67,32 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
     /**
      * Sends an HTTP request to a remote server.
      * @param {Object} options An object which may contain the following properties:<ul>
-     * <li>url {String} (Optional) The URL to which to send the request. Defaults to configured URL</li>
-     * <li>params {Object/String/Function} (Optional) An object containing properties which are used as extra parameters to the
-     * request, or a url encoded string and function to call to get either.</li>
-     * <li>method {String} (Optional) The HTTP method to use for the request. Defaults to the configured method, or
+     * <li><b>url</b> {String} (Optional) The URL to which to send the request. Defaults to configured URL</li>
+     * <li><b>params</b> {Object/String/Function} (Optional) An object containing properties which are used as parameters to the
+     * request, a url encoded string or a function to call to get either.</li>
+     * <li><b>method</b> {String} (Optional) The HTTP method to use for the request. Defaults to the configured method, or
      * if no method was configured, "GET" if no parameters are being sent, and "POST" if parameters are being sent.</li>
-     * <li>callback {Function} (Optional) The function to be called upon receipt of the HTTP response.
-     * The callback is passed the following parameters:<ul>
+     * <li><b>callback</b> {Function} (Optional) The function to be called upon receipt of the HTTP response.
+     * The callback is called regardless of success or failure and is passed the following parameters:<ul>
      * <li>options {Object} The parameter to the request call.</li>
      * <li>success {Boolean} True if the request succeeded.</li>
      * <li>response {Object} The XMLHttpRequest object containing the response data.</li>
      * </ul></li>
-     * <li>success {Function} (Optional) The function to be called upon success of the request.
+     * <li><b>success</b> {Function} (Optional) The function to be called upon success of the request.
      * The callback is passed the following parameters:<ul>
      * <li>response {Object} The XMLHttpRequest object containing the response data.</li>
      * <li>options {Object} The parameter to the request call.</li>
      * </ul></li>
-     * <li>failure {Function} (Optional) The function to be called upon failure of the request.
+     * <li><b>failure</b> {Function} (Optional) The function to be called upon failure of the request.
      * The callback is passed the following parameters:<ul>
      * <li>response {Object} The XMLHttpRequest object containing the response data.</li>
      * <li>options {Object} The parameter to the request call.</li>
      * </ul></li>
-     * <li>scope {Object} (Optional) The scope in which to execute the callbacks: The "this" object
+     * <li><b>scope</b> {Object} (Optional) The scope in which to execute the callbacks: The "this" object
      * for the callback function. Defaults to the browser window.</li>
-     * <li>form {Object/String} (Optional) A form object or id to pull parameters from.</li>
-     * <li>isUpload {Boolean} (Optional) True if the form object is a file upload.</li>
-     * <li>headers {Object} (Optional) Request headers to set for the request.</li>
+     * <li><b>form</b> {Object/String} (Optional) A form object or id to pull parameters from.</li>
+     * <li><b>isUpload</b> {Boolean} (Optional) True if the form object is a file upload (will usually be automatically detected).</li>
+     * <li><b>headers</b> {Object} (Optional) Request headers to set for the request.</li>
      * </ul>
      * @return {Number} transactionId
      */
@@ -293,14 +293,60 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
  * @class Ext.Ajax
  * @extends Ext.data.Connection
  * Global Ajax request class.
+ *
  * @singleton
  */
 Ext.Ajax = new Ext.data.Connection({
+    // fix up the docs
+    /**
+     * @cfg {String} url @hide
+     */
+    /**
+     * @cfg {Object} extraParams @hide
+     */
+    /**
+     * @cfg {Object} defaultHeaders @hide
+     */
+    /**
+     * @cfg {String} method (Optional) @hide
+     */
+    /**
+     * @cfg  {Number} timeout (Optional) @hide
+     */
+
+    /**
+     *  The default URL to be used for requests to the server. (defaults to undefined)
+     * @type String
+     * @property  url
+     */
+    /**
+     * An object containing properties which are used as
+     * extra parameters to each request made by this object. (defaults to undefined)
+     * @type Object
+     * @property  extraParams
+     */
+    /**
+     * An object containing request headers which are added
+     *  to each request made by this object. (defaults to undefined)
+     * @type Object
+     * @property  defaultHeaders
+     */
+    /**
+     * The default HTTP method to be used for requests. (defaults to undefined)
+     * @type String
+     * @property  method
+     */
+    /**
+     * The timeout in milliseconds to be used for requests. (defaults
+     * to 30000)
+     * @type Number
+     * @property  timeout
+     */
     autoAbort : false,
-    
+
     /**
      * Serialize the passed form into a url encoded string
-     * return {String}
+     * @return {String}
      */
     serializeForm : function(form){
         return Ext.lib.Ajax.serializeForm(form);

@@ -184,14 +184,69 @@ Ext.EventManager = function(){
         },
         
         /**
-         * Appends an event handler
-         *
-         * @param {String/HTMLElement}   element        The html element or id to assign the 
-         *                             event to
-         * @param {String}   eventName     The type of event to append
-         * @param {Function} fn        The method the event invokes
-         * @param {Object}   options   An object with standard EventManager options
-         */
+     * Appends an event handler to an element (shorthand for addListener)
+     * @param {String/HTMLElement}   element        The html element or id to assign the
+     * @param {String}   eventName The type of event to listen for
+     * @param {Function} handler The method the event invokes
+     * @param {Object}   scope (optional) The scope in which to execute the handler
+     * function. The handler function's "this" context.
+     * @param {Object}   options (optional) An object containing handler configuration
+     * properties. This may contain any of the following properties:<ul>
+     * <li>scope {Object} The scope in which to execute the handler function. The handler function's "this" context.</li>
+     * <li>delegate {String} A simple selector to filter the target or look for a descendant of the target</li>
+     * <li>stopEvent {Boolean} True to stop the event. That is stop propagation, and prevent the default action.</li>
+     * <li>preventDefault {Boolean} True to prevent the default action</li>
+     * <li>stopPropagation {Boolean} True to prevent event propagation</li>
+     * <li>normalized {Boolean} False to pass a browser event to the handler function instead of an Ext.EventObject</li>
+     * <li>delay {Number} The number of milliseconds to delay the invocation of the handler after te event fires.</li>
+     * <li>single {Boolean} True to add a handler to handle just the next firing of the event, and then remove itself.</li>
+     * <li>buffer {Number} Causes the handler to be scheduled to run in an {@link Ext.util.DelayedTask} delayed
+     * by the specified number of milliseconds. If the event fires again within that time, the original
+     * handler is <em>not</em> invoked, but the new handler is scheduled in its place.</li>
+     * </ul><br>
+     * <p>
+     * <b>Combining Options</b><br>
+     * Using the options argument, it is possible to combine different types of listeners:<br>
+     * <br>
+     * A normalized, delayed, one-time listener that auto stops the event and passes a custom argument (forumId)<div style="margin: 5px 20px 20px;">
+     * Code:<pre><code>
+el.on('click', this.onClick, this, {
+    single: true,
+    delay: 100,
+    stopEvent : true,
+    forumId: 4
+});</code></pre>
+     * <p>
+     * <b>Attaching multiple handlers in 1 call</b><br>
+      * The method also allows for a single argument to be passed which is a config object containing properties
+     * which specify multiple handlers.
+     * <p>
+     * Code:<pre><code>
+el.on({
+    'click' : {
+        fn: this.onClick
+        scope: this,
+        delay: 100
+    },
+    'mouseover' : {
+        fn: this.onMouseOver
+        scope: this
+    },
+    'mouseout' : {
+        fn: this.onMouseOut
+        scope: this
+    }
+});</code></pre>
+     * <p>
+     * Or a shorthand syntax:<br>
+     * Code:<pre><code>
+el.on({
+    'click' : this.onClick,
+    'mouseover' : this.onMouseOver,
+    'mouseout' : this.onMouseOut
+    scope: this
+});</code></pre>
+     */
         addListener : function(element, eventName, fn, scope, options){
             if(typeof eventName == "object"){
                 var o = eventName;
@@ -311,19 +366,69 @@ Ext.EventManager = function(){
         ieDeferSrc : false,
         textResizeInterval : 50
     };
-    /**
-     * Appends an event handler (shorthand for addListener)
-     *
-     * @param {String/HTMLElement}   element        The html element or id to assign the 
-     *                             event to
-     * @param {String}   eventName     The type of event to append
-     * @param {Function} fn        The method the event invokes
-     * @param {Object}   scope    An arbitrary object that will be 
-     *                             passed as a parameter to the handler
-     * @param {boolean}  override If true, the obj passed in becomes
-     *                             the execution scope of the listener
-     * @return {Function} The wrapper function created (to be used to remove the listener if necessary)
-     * @method
+     /**
+     * Appends an event handler to an element (shorthand for addListener)
+     * @param {String/HTMLElement}   element        The html element or id to assign the
+     * @param {String}   eventName The type of event to listen for
+     * @param {Function} handler The method the event invokes
+     * @param {Object}   scope (optional) The scope in which to execute the handler
+     * function. The handler function's "this" context.
+     * @param {Object}   options (optional) An object containing handler configuration
+     * properties. This may contain any of the following properties:<ul>
+     * <li>scope {Object} The scope in which to execute the handler function. The handler function's "this" context.</li>
+     * <li>delegate {String} A simple selector to filter the target or look for a descendant of the target</li>
+     * <li>stopEvent {Boolean} True to stop the event. That is stop propagation, and prevent the default action.</li>
+     * <li>preventDefault {Boolean} True to prevent the default action</li>
+     * <li>stopPropagation {Boolean} True to prevent event propagation</li>
+     * <li>normalized {Boolean} False to pass a browser event to the handler function instead of an Ext.EventObject</li>
+     * <li>delay {Number} The number of milliseconds to delay the invocation of the handler after te event fires.</li>
+     * <li>single {Boolean} True to add a handler to handle just the next firing of the event, and then remove itself.</li>
+     * <li>buffer {Number} Causes the handler to be scheduled to run in an {@link Ext.util.DelayedTask} delayed
+     * by the specified number of milliseconds. If the event fires again within that time, the original
+     * handler is <em>not</em> invoked, but the new handler is scheduled in its place.</li>
+     * </ul><br>
+     * <p>
+     * <b>Combining Options</b><br>
+     * Using the options argument, it is possible to combine different types of listeners:<br>
+     * <br>
+     * A normalized, delayed, one-time listener that auto stops the event and passes a custom argument (forumId)<div style="margin: 5px 20px 20px;">
+     * Code:<pre><code>
+el.on('click', this.onClick, this, {
+    single: true,
+    delay: 100,
+    stopEvent : true,
+    forumId: 4
+});</code></pre>
+     * <p>
+     * <b>Attaching multiple handlers in 1 call</b><br>
+      * The method also allows for a single argument to be passed which is a config object containing properties
+     * which specify multiple handlers.
+     * <p>
+     * Code:<pre><code>
+el.on({
+    'click' : {
+        fn: this.onClick
+        scope: this,
+        delay: 100
+    },
+    'mouseover' : {
+        fn: this.onMouseOver
+        scope: this
+    },
+    'mouseout' : {
+        fn: this.onMouseOut
+        scope: this
+    }
+});</code></pre>
+     * <p>
+     * Or a shorthand syntax:<br>
+     * Code:<pre><code>
+el.on({
+    'click' : this.onClick,
+    'mouseover' : this.onMouseOver,
+    'mouseout' : this.onMouseOut
+    scope: this
+});</code></pre>
      */
     pub.on = pub.addListener;
     pub.un = pub.removeListener;
