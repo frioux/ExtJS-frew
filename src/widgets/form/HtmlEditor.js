@@ -3,7 +3,9 @@
  * @extends Ext.form.Field
  * Provides a lightweight HTML Editor component.
  * <br><br><b>Note: The focus/blur and validation marking functionality inherited from Ext.form.Field is NOT
- * supported by this editor.</b>
+ * supported by this editor.</b><br/><br/>
+ * An Editor is a sensitive component that can't be used in all spots standard fields can be used. Putting an Editor within
+ * any element that has display set to 'none' can cause problems in Safari and FireFox.
  */
 
 Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
@@ -31,6 +33,22 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
      * @cfg {Boolean} enableSourceEdit Enable the switch to source edit button. This button is not available in Safari. (defaults to true)
      */
     enableSourceEdit : true,
+    /**
+     * @cfg {Boolean} enableLinks Enable the create link button. This button is not available in Safari. (defaults to true)
+     */
+    enableLinks : true,
+
+    /**
+     * @cfg {String} createLinkText The default text for the create link prompt
+     */
+    createLinkText : 'Please enter the URL for the link:',
+
+    /**
+     * @cfg {String} defaultLinkValue The default value for the create link prompt (defaults to http:/ /)
+     */
+    defaultLinkValue : 'http:/'+'/',
+
+
 
     // private properties
     validationEvent : false,
@@ -40,6 +58,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
     sourceEditMode : false,
     onFocus : Ext.emptyFn,
     iframePad:3,
+    hideMode:'offsets',
     defaultAutoCreate : {
         tag: "textarea",
         style:"width:500px;height:300px;",
@@ -199,6 +218,13 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         };
 
         if(!Ext.isSafari){
+            if(this.enableLinks){
+                tb.add(
+                    '-',
+                    btn('createlink', false, this.createLink)
+                );
+            };
+
             if(this.enableLists){
                 tb.add(
                     '-',
@@ -349,6 +375,14 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         this.fireEvent('editmodechange', this, this.sourceEditMode);
     },
 
+    // private used internally
+    createLink : function(){
+        var url = prompt(this.createLinkText, this.defaultLinkValue);
+        if(url && url != 'http:/'+'/'){
+            this.relayCmd('createlink', url);
+        }
+    },
+
     // private (for BoxComponent)
     adjustSize : Ext.BoxComponent.prototype.adjustSize,
 
@@ -475,7 +509,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             Ext.EventManager.on(this.doc, 'keypress', this.applyCommand, this);
         }
         if(Ext.isIE || Ext.isSafari || Ext.isOpera){
-            Ext.EventManager.on(this.doc, 'keydown', this.fixTab, this);
+            Ext.EventManager.on(this.doc, 'keydown', this.fixKeys, this);
         }
         this.initialized = true;
 
@@ -630,26 +664,49 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
     },
 
     // private
-    fixTab : function(e){
-        if(e.getKey() == e.TAB){
-            e.stopEvent();
-            if(Ext.isIE){
-                var r = this.doc.selection.createRange();
-                if(r){
-                    r.collapse(true);
-                    r.pasteHTML('&nbsp;&nbsp;&nbsp;&nbsp;');
+    fixKeys : function(){ // load time branching for fastest keydown performance
+        if(Ext.isIE){
+            return function(e){
+                var k = e.getKey(), r;
+                if(k == e.TAB){
+                    e.stopEvent();
+                    r = this.doc.selection.createRange();
+                    if(r){
+                        r.collapse(true);
+                        r.pasteHTML('&nbsp;&nbsp;&nbsp;&nbsp;');
+                        this.deferFocus();
+                    }
+                }else if(k == e.ENTER && !e.getTarget('li')){
+                    e.stopEvent();
+                    r = this.doc.selection.createRange();
+                    if(r){
+                        r.pasteHTML('<br />');
+                        r.collapse(false);
+                        r.select();
+                    }
+                }
+            };
+        }else if(Ext.isOpera){
+            return function(e){
+                var k = e.getKey();
+                if(k == e.TAB){
+                    e.stopEvent();
+                    this.win.focus();
+                    this.execCmd('InsertHTML','&nbsp;&nbsp;&nbsp;&nbsp;');
                     this.deferFocus();
                 }
-            }else if(Ext.isOpera){
-                this.win.focus();
-                this.execCmd('InsertHTML','&nbsp;&nbsp;&nbsp;&nbsp;');
-                this.deferFocus();
-            }else{
-                this.execCmd('InsertText','\t');
-                this.deferFocus();
-            }
+            };
+        }else if(Ext.isSafari){
+            return function(e){
+                var k = e.getKey();
+                if(k == e.TAB){
+                    e.stopEvent();
+                    this.execCmd('InsertText','\t');
+                    this.deferFocus();
+                }
+             };
         }
-    },
+    }(),
 
     /**
      * Returns the editor's toolbar. <b>This is only available after the editor has been rendered.</b>

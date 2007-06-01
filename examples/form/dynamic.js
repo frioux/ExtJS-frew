@@ -86,6 +86,7 @@ Ext.onReady(function(){
 
     top.container({},
         new Ext.form.HtmlEditor({
+            id:'bio',
             fieldLabel:'Biography',
             width:450,
             height:200
@@ -96,7 +97,6 @@ Ext.onReady(function(){
     top.addButton('Cancel');
 
     top.render('form-ct2');
-
 
     /*
      * ================  Form 3  =======================
