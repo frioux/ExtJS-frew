@@ -80,7 +80,8 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
     pressed : false,
 
     /**
-     * @cfg {Number} tabIndex Set a DOM tabIndex for this button
+     * @cfg {Number} tabIndex 
+     * The DOM tabIndex for this button (defaults to undefined)
      */
     tabIndex : undefined,
 
@@ -91,7 +92,7 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
     enableToggle: false,
     /**
      * @cfg {Mixed} menu
-     * Standard menu attribute consisting of a reference to a menu object, a menu id or a menu config blob
+     * Standard menu attribute consisting of a reference to a menu object, a menu id or a menu config blob (defaults to undefined).
      */
     menu : undefined,
     /**
@@ -102,30 +103,39 @@ Ext.extend(Ext.Button, Ext.util.Observable, {
 
     /**
      * @cfg {String} iconCls
-     * A css class which sets a background image to be used as the icon for this button
+     * A css class which sets a background image to be used as the icon for this button (defaults to undefined).
      */
     iconCls : undefined,
     /**
      * @cfg {String} type
-     * submit, reset or button - defaults to 'button'
+     * The button's type, corresponding to the DOM input element type attribute.  Either "submit," "reset" or "button" (default).
      */
     type : 'button',
 
     // private
     menuClassTarget: 'tr',
 
+    /**
+     * @cfg {String} clickEvent
+     * The type of event to map to the button's event handler (defaults to 'click')
+     */
     clickEvent : 'click',
+
+    /**
+     * @cfg {Boolean} handleMouseEvents
+     * False to disable visual cues on mouseover, mouseout and mousedown (defaults to true)
+     */
     handleMouseEvents : true,
 
     /**
      * @cfg {String} tooltipType
-     * The type of tooltip to use. Either "qtip" for QuickTips or "title" for title attribute.
+     * The type of tooltip to use. Either "qtip" (default) for QuickTips or "title" for title attribute.
      */
     tooltipType : 'qtip',
 
     /**
      * @cfg {String} cls
-     * A CSS class name string to apply to the button's main element.
+     * A CSS class to apply to the button's main element.
      */
     
     /**

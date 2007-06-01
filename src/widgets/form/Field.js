@@ -83,6 +83,12 @@ side          Add an error icon to the right of the field with a popup on hover
      */
     value : undefined,
 
+    /**
+     * @cfg {String} name The field's HTML name attribute
+     */
+    /**
+     * @cfg {String} cls A CSS class to apply to the field's underlying element
+     */
 
     initComponent : function(){
         Ext.form.Field.superclass.initComponent.call(this);

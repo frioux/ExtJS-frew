@@ -152,10 +152,12 @@ Ext.extend(Ext.form.Form, Ext.form.BasicForm, {
     },
 
     /**
-     * Add Ext.form components to the current open container (e.g. column, fieldset, etc)
+     * Add Ext.form components to the current open container (e.g. column, fieldset, etc.).  Fields added via this method
+     * can also be passed with an additional property of fieldLabel, which if supplied, will provide the text to display
+     * as the label of the field.
      * @param {Field} field1
      * @param {Field} field2 (optional)
-     * @param {Field} etc (optional)
+     * @param {Field} etc. (optional)
      * @return {Form} this
      */
     add : function(){
@@ -238,7 +240,7 @@ Ext.extend(Ext.form.Form, Ext.form.BasicForm, {
     },
 
     /**
-     * Starts monitoring of the valid state of this form. Usually this is don't by passing the config
+     * Starts monitoring of the valid state of this form. Usually this is done by passing the config
      * option "monitorValid"
      */
     startMonitoring : function(){

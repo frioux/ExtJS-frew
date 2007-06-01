@@ -238,8 +238,29 @@ Ext.QuickTips = function(){
         * True to turn on fade animation. Defaults to false (ClearType/scrollbar flicker issues in IE7).
         */
        animate : false,
-               
-        // private
+
+       /**
+        * @cfg {String} title
+        * Title text to display (defaults to '').  This can be any valid HTML markup.
+        */
+       /**
+        * @cfg {String} text
+        * Body text to display (defaults to '').  This can be any valid HTML markup.
+        */
+       /**
+        * @cfg {String} cls
+        * A CSS class to apply to the base quick tip element (defaults to '').
+        */
+       /**
+        * @cfg {Number} width
+        * Width in pixels of the quick tip (defaults to auto).  Width will be ignored if it exceeds the bounds of
+        * minWidth or maxWidth.
+        */
+
+    /**
+     * Initialize and enable QuickTips for first use.  This should be called once before the first attempt to access
+     * or display QuickTips in a page.
+     */
        init : function(){
           tm = Ext.QuickTips;
           cfg = tm.tagConfig;
@@ -284,7 +305,7 @@ Ext.QuickTips = function(){
        },
 
     /**
-     * Configures a new quick tip instance and assigns it to a target element
+     * Configures a new quick tip instance and assigns it to a target element (should be passed as config.target).
      * @param {Object} config The config object
      */
        register : function(config){
