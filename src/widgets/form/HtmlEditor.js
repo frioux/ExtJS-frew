@@ -797,6 +797,11 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             text: 'Start a numbered list.',
             cls: 'x-html-editor-tip'
         },
+        createlink : {
+            title: 'Hyperlink',
+            text: 'Make the selected text a hyperlink.',
+            cls: 'x-html-editor-tip'
+        },
         sourceedit : {
             title: 'Source Edit',
             text: 'Switch to source editing mode.',
