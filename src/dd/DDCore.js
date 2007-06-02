@@ -835,7 +835,7 @@ Ext.dd.DragDrop.prototype = {
     },
 
     clickValidator: function(e) {
-        var target = Ext.lib.Event.getTarget(e);
+        var target = e.getTarget();
         return ( this.isValidHandleChild(target) &&
                     (this.id == this.handleElId ||
                         this.DDM.handleWasClicked(target, this.id)) );
@@ -1634,15 +1634,15 @@ Ext.dd.DragDropMgr = function() {
             if(Ext.QuickTips){
                 Ext.QuickTips.disable();
             }
-            this.currentTarget = Ext.lib.Event.getTarget(e);
+            this.currentTarget = e.getTarget();
 
             this.dragCurrent = oDD;
 
             var el = oDD.getEl();
 
             // track start position
-            this.startX = Ext.lib.Event.getPageX(e);
-            this.startY = Ext.lib.Event.getPageY(e);
+            this.startX = e.getPageX();
+            this.startY = e.getPageY();
 
             this.deltaX = this.startX - el.offsetLeft;
             this.deltaY = this.startY - el.offsetTop;
@@ -1771,8 +1771,8 @@ Ext.dd.DragDropMgr = function() {
             }
 
             if (!this.dragThreshMet) {
-                var diffX = Math.abs(this.startX - Ext.lib.Event.getPageX(e));
-                var diffY = Math.abs(this.startY - Ext.lib.Event.getPageY(e));
+                var diffX = Math.abs(this.startX - e.getPageX());
+                var diffY = Math.abs(this.startY - e.getPageY());
                 if (diffX > this.clickPixelThresh ||
                             diffY > this.clickPixelThresh) {
                     this.startDrag(this.startX, this.startY);
@@ -1810,9 +1810,7 @@ Ext.dd.DragDropMgr = function() {
                 return;
             }
 
-            var x = Ext.lib.Event.getPageX(e);
-            var y = Ext.lib.Event.getPageY(e);
-            var pt = new Ext.lib.Point(x,y);
+            var pt = e.getPoint();
 
             // cache the previous dragOver array
             var oldOvers = [];
@@ -2682,8 +2680,8 @@ Ext.extend(Ext.dd.DD, Ext.dd.DragDrop, {
      */
     b4MouseDown: function(e) {
         // this.resetConstraints();
-        this.autoOffset(Ext.lib.Event.getPageX(e),
-                            Ext.lib.Event.getPageY(e));
+        this.autoOffset(e.getPageX(),
+                            e.getPageY());
     },
 
     /*
@@ -2691,8 +2689,8 @@ Ext.extend(Ext.dd.DD, Ext.dd.DragDrop, {
      * Ext.dd.DragDrop.
      */
     b4Drag: function(e) {
-        this.setDragElPos(Ext.lib.Event.getPageX(e),
-                            Ext.lib.Event.getPageY(e));
+        this.setDragElPos(e.getPageX(),
+                            e.getPageY());
     },
 
     toString: function() {
@@ -2872,8 +2870,8 @@ Ext.extend(Ext.dd.DDProxy, Ext.dd.DD, {
 
     // overrides Ext.dd.DragDrop
     b4MouseDown: function(e) {
-        var x = Ext.lib.Event.getPageX(e);
-        var y = Ext.lib.Event.getPageY(e);
+        var x = e.getPageX();
+        var y = e.getPageY();
         this.autoOffset(x, y);
         this.setDragElPos(x, y);
     },

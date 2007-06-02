@@ -302,6 +302,7 @@
 
 
             getTarget: function(ev, resolveTextNode) {
+                ev = ev.browserEvent || ev;
                 var t = ev.target || ev.srcElement;
                 return this.resolveTextNode(t);
             },
@@ -317,6 +318,7 @@
 
 
             getPageX: function(ev) {
+                ev = ev.browserEvent || ev;
                 var x = ev.pageX;
                 if (!x && 0 !== x) {
                     x = ev.clientX || 0;
@@ -331,6 +333,7 @@
 
 
             getPageY: function(ev) {
+                ev = ev.browserEvent || ev;
                 var y = ev.pageY;
                 if (!y && 0 !== y) {
                     y = ev.clientY || 0;
@@ -346,11 +349,13 @@
 
 
             getXY: function(ev) {
+                ev = ev.browserEvent || ev;
                 return [this.getPageX(ev), this.getPageY(ev)];
             },
 
 
             getRelatedTarget: function(ev) {
+                ev = ev.browserEvent || ev;
                 var t = ev.relatedTarget;
                 if (!t) {
                     if (ev.type == "mouseout") {
@@ -365,6 +370,7 @@
 
 
             getTime: function(ev) {
+                ev = ev.browserEvent || ev;
                 if (!ev.time) {
                     var t = new Date().getTime();
                     try {
@@ -386,6 +392,7 @@
 
 
             stopPropagation: function(ev) {
+                ev = ev.browserEvent || ev;
                 if (ev.stopPropagation) {
                     ev.stopPropagation();
                 } else {
@@ -395,6 +402,7 @@
 
 
             preventDefault: function(ev) {
+                ev = ev.browserEvent || ev;
                 if(ev.preventDefault) {
                     ev.preventDefault();
                 } else {
@@ -420,6 +428,7 @@
 
 
             getCharCode: function(ev) {
+                ev = ev.browserEvent || ev;
                 return ev.charCode || ev.keyCode || 0;
             },
 
