@@ -26,17 +26,21 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
      */
     enableAlignments : true,
     /**
-     * @cfg {Boolean} enableLists Enable the bullet and numbered list buttons. These buttons are not available in Safari. (defaults to true)
+     * @cfg {Boolean} enableLists Enable the bullet and numbered list buttons. Not available in Safari. (defaults to true)
      */
     enableLists : true,
     /**
-     * @cfg {Boolean} enableSourceEdit Enable the switch to source edit button. This button is not available in Safari. (defaults to true)
+     * @cfg {Boolean} enableSourceEdit Enable the switch to source edit button. Not available in Safari. (defaults to true)
      */
     enableSourceEdit : true,
     /**
-     * @cfg {Boolean} enableLinks Enable the create link button. This button is not available in Safari. (defaults to true)
+     * @cfg {Boolean} enableLinks Enable the create link button. Not available in Safari. (defaults to true)
      */
     enableLinks : true,
+    /**
+     * @cfg {Boolean} enableFont Enable font selection. Not available in Safari. (defaults to true)
+     */
+    enableFont : true,
 
     /**
      * @cfg {String} createLinkText The default text for the create link prompt
@@ -48,7 +52,17 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
      */
     defaultLinkValue : 'http:/'+'/',
 
-
+    /**
+     * @cfg {Array} fontFamilies An array of available font families
+     */
+    fontFamilies : [
+        'Arial',
+        'Courier New',
+        'Tahoma',
+        'Times New Roman',
+        'Verdana'
+    ],
+    defaultFont: 'tahoma',
 
     // private properties
     validationEvent : false,
@@ -114,6 +128,20 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         })
     },
 
+    createFontOptions : function(){
+        var buf = [], fs = this.fontFamilies, ff, lc;
+        for(var i = 0, len = fs.length; i< len; i++){
+            ff = fs[i];
+            lc = ff.toLowerCase();
+            buf.push(
+                '<option value="',lc,'" style="font-family:',ff,';"',
+                    (this.defaultFont == lc ? ' selected="true">' : '>'),
+                    ff,
+                '</option>'
+            );
+        }
+        return buf.join('');
+    },
     /**
      * Protected method that will not generally be called directly. It
      * is called when the editor creates its toolbar. Override this method if you need to
@@ -142,6 +170,23 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         tb.el.on('click', function(e){
             e.preventDefault();
         });
+
+        if(this.enableFont && !Ext.isSafari){
+            this.fontSelect = tb.el.createChild({
+                tag:'select',
+                cls:'x-font-select',
+                html: this.createFontOptions()
+            });
+            this.fontSelect.on('change', function(){
+                var font = this.fontSelect.dom.value;
+                this.relayCmd('fontname', font);
+                this.deferFocus();
+            }, this);
+            tb.add(
+                this.fontSelect.dom,
+                '-'
+            );
+        };
 
         if(this.enableFormat){
             tb.add(
@@ -585,6 +630,12 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
 
         var btns = this.tb.items.map, doc = this.doc;
 
+        if(this.enableFont && !Ext.isSafari){
+            var name = (this.doc.queryCommandValue('FontName')||this.defaultFont).toLowerCase();
+            if(name != this.fontSelect.dom.value){
+                this.fontSelect.dom.value = name;
+            }
+        }
         if(this.enableFormat){
             btns.bold.toggle(doc.queryCommandState('bold'));
             btns.italic.toggle(doc.queryCommandState('italic'));

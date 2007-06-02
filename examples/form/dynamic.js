@@ -54,33 +54,33 @@ Ext.onReady(function(){
     });
 
     top.column(
-        {width:232}, // precise column sizes or percentages or straight CSS
+        {width:282}, // precise column sizes or percentages or straight CSS
         new Ext.form.TextField({
             fieldLabel: 'First Name',
             name: 'first',
-            width:200
+            width:225
         }),
 
         new Ext.form.TextField({
             fieldLabel: 'Company',
             name: 'company',
-            width:200
+            width:225
         })
     );
 
     top.column(
-        {width:222, style:'margin-left:10px', clear:true}, // apply custom css, clear:true means it is the last column
+        {width:272, style:'margin-left:10px', clear:true}, // apply custom css, clear:true means it is the last column
         new Ext.form.TextField({
             fieldLabel: 'Last Name',
             name: 'last',
-            width:200
+            width:225
         }),
 
         new Ext.form.TextField({
             fieldLabel: 'Email',
             name: 'email',
             vtype:'email',
-            width:200
+            width:225
         })
     );
 
@@ -88,7 +88,7 @@ Ext.onReady(function(){
         new Ext.form.HtmlEditor({
             id:'bio',
             fieldLabel:'Biography',
-            width:450,
+            width:550,
             height:200
         })
     );
