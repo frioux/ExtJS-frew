@@ -192,6 +192,7 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
     handleResponse : function(response){
         this.transId = false;
         var options = response.argument.options;
+        response.argument = options ? options.argument : null;
         this.fireEvent("requestcomplete", this, response, options);
         Ext.callback(options.success, options.scope, [response, options]);
         Ext.callback(options.callback, options.scope, [options, true, response]);
@@ -201,6 +202,7 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
     handleFailure : function(response, e){
         this.transId = false;
         var options = response.argument.options;
+        response.argument = options ? options.argument : null;
         this.fireEvent("requestexception", this, response, options, e);
         Ext.callback(options.failure, options.scope, [response, options]);
         Ext.callback(options.callback, options.scope, [options, false, response]);
