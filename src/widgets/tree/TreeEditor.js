@@ -80,8 +80,9 @@ Ext.extend(Ext.tree.TreeEditor, Ext.Editor, {
     },
 
     // private
-    beforeNodeClick : function(node){
+    beforeNodeClick : function(node, e){
         if(this.tree.getSelectionModel().isSelected(node)){
+            e.stopEvent();
             this.triggerEdit(node);
             return false;
         }

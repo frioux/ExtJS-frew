@@ -150,6 +150,7 @@ Ext.tree.TreeNodeUI.prototype = {
     
     onClick : function(e){
         if(this.dropping){
+            e.stopEvent();
             return;
         }
         if(this.fireEvent("beforeclick", this.node, e) !== false){
@@ -161,11 +162,9 @@ Ext.tree.TreeNodeUI.prototype = {
             if(this.disabled){
                 return;
             }
-
             if(this.node.attributes.singleClickExpand && !this.animating && this.node.hasChildNodes()){
                 this.node.toggle();
             }
-
             this.fireEvent("click", this.node, e);
         }else{
             e.stopEvent();
