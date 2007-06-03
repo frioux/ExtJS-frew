@@ -454,24 +454,47 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
         return this.modified;
     },
 
-    /**
-     * Filter the records by a specified property.
-     * @param {String} field A field on your records
-     * @param {String/RegExp} value Either a string that the field
-     * should start with or a RegExp to test against the field
-     * @return {Boolean} True if the filter matched at least one record, else false
-     */
-    filter : function(property, value){
+    // private
+    createFilterFn : function(property, value, anyMatch){
         if(!value.exec){ // not a regex
             value = String(value);
             if(value.length == 0){
                 return this.clearFilter();
             }
-            value = new RegExp("^" + Ext.escapeRe(value), "i");
+            value = new RegExp((anyMatch === true ? '' : '^') + Ext.escapeRe(value), "i");
         }
-        this.filterBy(function(r){
+        return function(r){
             return value.test(r.data[property]);
-        });
+        };
+    },
+
+    /**
+     * Sums the value of <i>property</i> for each record between start and end and returns the result.
+     * @param {String} property A field on your records
+     * @param {Number} start The record index to start at (defaults to 0)
+     * @param {Number} end The last record index to include (defaults to length - 1)
+     * @return {Number} The sum
+     */
+    sum : function(property, start, end){
+        var rs = this.data.items, v = 0;
+        start = start || 0;
+        end = (end || end === 0) ? end : rs.length-1;
+
+        for(var i = start; i <= end; i++){
+            v += (rs[i].data[property] || 0);
+        }
+        return v;
+    },
+
+    /**
+     * Filter the records by a specified property.
+     * @param {String} field A field on your records
+     * @param {String/RegExp} value Either a string that the field
+     * should start with or a RegExp to test against the field
+     * @param {Boolean} anyMatch True to match any part not just the beginning
+     */
+    filter : function(property, value, anyMatch){
+        this.filterBy(this.createFilterFn(property, value, anyMatch));
     },
 
     /**
@@ -482,10 +505,34 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
      * @param {Object} scope (optional) The scope of the function (defaults to this)
      */
     filterBy : function(fn, scope){
-        var data = this.snapshot || this.data;
-        this.snapshot = data;
-        this.data = data.filterBy(fn, scope);
+        this.snapshot = this.snapshot || this.data;
+        this.data = this.queryBy(fn, scope||this);
         this.fireEvent("datachanged", this);
+    },
+
+    /**
+     * Query the records by a specified property.
+     * @param {String} field A field on your records
+     * @param {String/RegExp} value Either a string that the field
+     * should start with or a RegExp to test against the field
+     * @param {Boolean} anyMatch True to match any part not just the beginning
+     * @return {MixedCollection} Returns an Ext.util.MixedCollection of the matched records
+     */
+    query : function(property, value, anyMatch){
+        return this.queryBy(this.createFilterFn(property, value, anyMatch));
+    },
+
+    /**
+     * Query by a function. The specified function will be called with each
+     * record in this data source. If the function returns true the record is included
+     * in the results.
+     * @param {Function} fn The function to be called, it will receive 2 args (record, id)
+     * @param {Object} scope (optional) The scope of the function (defaults to this)
+      @return {MixedCollection} Returns an Ext.util.MixedCollection of the matched records
+     **/
+    queryBy : function(fn, scope){
+        var data = this.snapshot || this.data;
+        return data.filterBy(fn, scope||this);
     },
 
     /**

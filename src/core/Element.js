@@ -1108,7 +1108,7 @@ El.prototype = {
      * @param {String}   eventName     The type of event to append
      * @param {Function} fn        The method the event invokes
      * @param {Object} scope       (optional) The scope (this object) of the fn
-     * @param {Object}   options   (optional)An object with standard EventManager options
+     * @param {Object}   options   (optional)An object with standard {@link EventManager#addListener} options
      */
     addListener : function(eventName, fn, scope, options){
         Ext.EventManager.on(this.dom,  eventName, fn, scope || this, options);
@@ -2639,7 +2639,7 @@ var ep = El.prototype;
  * @param {String}   eventName     The type of event to append
  * @param {Function} fn        The method the event invokes
  * @param {Object} scope       (optional) The scope (this object) of the fn
- * @param {Object}   options   (optional)An object with standard EventManager options
+ * @param {Object}   options   (optional)An object with standard {@link EventManager#addListener} options
  * @method
  */
 ep.on = ep.addListener;
@@ -2659,11 +2659,6 @@ ep.un = ep.removeListener;
  * true to automatically adjust width and height settings for box-model issues (default to true)
  */
 ep.autoBoxAdjust = true;
-/**
- * true to automatically detect display mode and use display instead of visibility with show()/hide() (defaults to false).
- * To enable this globally:<pre><code>Ext.Element.prototype.autoDisplayMode = true;</code></pre>
- */
-ep.autoDisplayMode = true;
 
 // private
 El.unitPattern = /\d+(px|em|%|en|ex|pt|in|cm|mm|pc)$/i;
