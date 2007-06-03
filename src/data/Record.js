@@ -44,7 +44,11 @@ Ext.data.Record = function(data, id){
  * <li>date</li></ul></li>
  * <li>sortType {Mixed} (Optional) A member of {@link Ext.data.SortTypes}.</li>
  * <li>sortDir {String} (Optional) Initial direction to sort. "ASC" or "DESC"</li>
- * <li>convert {Function} (Optional) A function which accepts a data value and returns it formatted for display.</li>
+ * <li>convert {Function} (Optional) A function which converts the value provided
+ * by the Reader into an object that will be stored in the Record. It is passed the
+ * following parameters:<ul>
+ * <li>v {Mixed} The data value as read by the Reader.</li>
+ * </ul></li>
  * <li>dateFormat {String} (Optional) A format String for the Date.parseDate function.</li>
  * </ul>
  * <br>usage:<br><pre><code>
