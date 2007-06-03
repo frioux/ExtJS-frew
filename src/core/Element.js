@@ -1989,10 +1989,13 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
 
     // private
     addStyles : function(sides, styles){
-        var val = 0;
+        var val = 0, v, w;
         for(var i = 0, len = sides.length; i < len; i++){
-             var w = parseInt(this.getStyle(styles[sides.charAt(i)]), 10);
-             if(!isNaN(w)) val += w;
+            v = this.getStyle(styles[sides.charAt(i)]);
+            if(v){
+                 w = parseInt(v, 10);
+                 if(w){ val += w; }
+            }
         }
         return val;
     },

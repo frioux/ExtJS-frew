@@ -2028,14 +2028,18 @@ Ext.dd.DragDropMgr = function() {
          * @static
          */
         verifyEl: function(el) {
-            try {
-                if (el) {
-                    var parent = el.offsetParent;
-                    if (parent) {
-                        return true;
-                    }
+            if (el) {
+                var parent;
+                if(Ext.isIE){
+                    try{
+                        parent = el.offsetParent;
+                    }catch(e){}
+                }else{
+                    parent = el.offsetParent;
                 }
-            } catch(e) {
+                if (parent) {
+                    return true;
+                }
             }
 
             return false;

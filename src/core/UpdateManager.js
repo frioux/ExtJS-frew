@@ -231,13 +231,14 @@ um.update({<br/>
             if(typeof url == "function"){
                 url = url.call(this);
             }
+            form = Ext.getDom(form)
             this.transaction = Ext.Ajax.request({
-                form:Ext.getDom(form),
+                form: form,
                 url:url,
                 success: this.successDelegate,
                 failure: this.failureDelegate,
                 timeout: (this.timeout*1000),
-                argument: {"url": url, "form": formEl, "callback": callback, "reset": reset}
+                argument: {"url": url, "form": form, "callback": callback, "reset": reset}
             });
             this.showLoading.defer(1, this);
         }
