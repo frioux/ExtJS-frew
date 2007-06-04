@@ -72,7 +72,7 @@ Ext.DomHelper = function(){
     // build as dom
     /** @ignore */
     var createDom = function(o, parentNode){
-        var el = document.createElement(o.tag);
+        var el = document.createElement(o.tag||'div');
         var useSet = el.setAttribute ? true : false; // In IE some elements don't have setAttribute
         for(var attr in o){
             if(attr == "tag" || attr == "children" || attr == "cn" || attr == "html" || attr == "style" || typeof o[attr] == "function") continue;
