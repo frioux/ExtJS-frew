@@ -1,13 +1,13 @@
 /**
  * @class Ext.data.ScriptTagProxy
  * An implementation of Ext.data.DataProxy that reads a data object from a URL which may be in a domain
- * other than the originating domain of the running page.<br>
+ * other than the originating domain of the running page.<br><br>
  * <p>
  * <em>Note that if you are retrieving data from a page that is in a domain that is NOT the same as the originating domain
- * of the running page, you must use this class, rather than DataProxy.</em><br>
+ * of the running page, you must use this class, rather than DataProxy.</em><br><br>
  * <p>
- * The content passed back from a server resource requested by a ScriptTagProxy is executable javascript
- * source code that is used as the source inside a &lt;script> tag.<br>
+ * The content passed back from a server resource requested by a ScriptTagProxy is executable JavaScript
+ * source code that is used as the source inside a &lt;script> tag.<br><br>
  * <p>
  * In order for the browser to process the returned data, the server must wrap the data object
  * with a call to a callback function, the name of which is passed as a parameter by the ScriptTagProxy.
@@ -46,7 +46,7 @@ Ext.data.ScriptTagProxy.TRANS_ID = 1000;
 
 Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
     /**
-     * @cfg {String} url The url from which to request the data object.
+     * @cfg {String} url The URL from which to request the data object.
      */
     /**
      * @cfg {Number} timeout (Optional) The number of milliseconds to wait for a response. Defaults to 30 seconds.
