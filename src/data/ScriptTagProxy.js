@@ -14,7 +14,7 @@
  * Below is a Java example for a servlet which returns data for either a ScriptTagProxy, or an HttpProxy
  * depending on whether the callback name was passed:
  * <p>
- * <pre><code.
+ * <pre><code>
 boolean scriptTag = false;
 String cb = request.getParameter("callback");
 if (cb != null) {
