@@ -678,7 +678,6 @@ Ext.debug.InnerLayout = function(id, w, cfg){
 
     var mtbEl = tbPanel.resizeEl = tbPanel.el.child('div.x-toolbar');
     mtbEl.setStyle('border-bottom', '0 none');
-
     layout.endUpdate(true);
 };
 

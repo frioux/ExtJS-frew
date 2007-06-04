@@ -867,7 +867,12 @@
                         this.initHeader('X-Requested-With', this.defaultXhrHeader, true);
                     }
                 }
-                if (this.hasDefaultHeaders || this.hasHeaders) {
+
+                if(postData && this.useDefaultHeader){
+                    this.initHeader('Content-Type', this.defaultPostHeader);
+                }
+
+                 if (this.hasDefaultHeaders || this.hasHeaders) {
                     this.setHeader(o);
                 }
 
@@ -1072,12 +1077,10 @@
 
             if (this.hasHeaders) {
                 for (var prop in this.headers) {
-                    if (this.defaultHeaders.hasOwnProperty(prop)) {
+                    if (this.headers.hasOwnProperty(prop)) {
                         o.conn.setRequestHeader(prop, this.headers[prop]);
                     }
                 }
-                delete this.headers;
-
                 this.headers = {};
                 this.hasHeaders = false;
             }

@@ -77,6 +77,13 @@ Ext.apply = function(o, c, defaults){
         enableGarbageCollector : true,
 
         /**
+         * True to automatically purge event listeners after uncaching an element (defaults to false). 
+         * Note: this only happens if enableGarbageCollector is true.
+         * @type Boolean
+         */
+        enableListenerCollection:false,
+
+        /**
          * URL to a blank file used by Ext when in secure mode for iframe src and onReady src to prevent
          * the IE insecure content warning (defaults to javascript:false).
          * @type String

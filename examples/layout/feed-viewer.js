@@ -31,7 +31,7 @@ var Viewer = function(){
             closeBtn.on('click', addFeed.hide, addFeed, true);
             
             // create Elements for the feed and suggested lists
-            feeds = Ext.get('feeds'), suggested = Ext.get('suggested');
+            feeds = Ext.get('feeds'); suggested = Ext.get('suggested');
             
             // delegate clicks on the lists
             feeds.on('click', feedClicked);
@@ -274,9 +274,9 @@ var Viewer = function(){
         },
         
         changeActiveFeed : function(feedId){
-            YAHOO.util.Dom.removeClass(suggested.dom.getElementsByTagName('a'), 'selected');
-            YAHOO.util.Dom.removeClass(feeds.dom.getElementsByTagName('a'), 'selected');
-            YAHOO.util.Dom.addClass('feed-'+feedId, 'selected');
+            suggested.select('a').removeClass('selected');
+            feeds.select('a').removeClass('selected');
+            Ext.fly('feed-'+feedId).addClass('selected');
             var feed = sfeeds[feedId] || myfeeds[feedId];
             feedPanel.setTitle('View Feed (' + feed.name.ellipse(16) + ')');
         },

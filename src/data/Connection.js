@@ -348,6 +348,7 @@ Ext.Ajax = new Ext.data.Connection({
 
     /**
      * Serialize the passed form into a url encoded string
+     * @param {String/HTMLElement} form
      * @return {String}
      */
     serializeForm : function(form){

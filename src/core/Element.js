@@ -2796,7 +2796,7 @@ El.garbageCollect = function(){
         // -------------------------------------------------------
         if(!d || !d.parentNode || (!d.offsetParent && !document.getElementById(eid))){
             delete El.cache[eid];
-            if(Ext.enableListenerCollection){
+            if(d && Ext.enableListenerCollection){
                 Ext.lib.Dom.purgeElement(d);
             }
         }
