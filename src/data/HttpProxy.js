@@ -59,13 +59,14 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
                 },
                 reader: reader,
                 callback : this.loadResponse,
-                scope: this,
-                autoAbort : true
-
+                scope: this
             };
             if(this.useAjax){
                 Ext.applyIf(o, this.conn);
-                Ext.Ajax.request(o);
+                if(this.activeRequest){
+                    Ext.Ajax.abort(this.activeRequest);
+                }
+                this.activeRequest = Ext.Ajax.request(o);
             }else{
                 this.conn.request(o);
             }
@@ -76,6 +77,7 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
 
     // private
     loadResponse : function(o, success, response){
+        delete this.activeRequest;
         if(!success){
             this.fireEvent("loadexception", this, o, response);
             o.request.callback.call(o.request.scope, null, o.request.arg, false);
