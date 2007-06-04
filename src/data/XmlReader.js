@@ -1,13 +1,13 @@
-/**
+	/**
  * @class Ext.data.XmlReader
  * @extends Ext.data.DataReader
  * Data reader class to create an Array of {@link Ext.data.Record} objects from an XML document
- * based on mappings in a provided Ext.data.Record constructor.<br>
+ * based on mappings in a provided Ext.data.Record constructor.<br><br>
  * <p>
  * <em>Note that in order for the browser to parse a returned XML document, the Content-Type
- * header in the HTTP response must be set to "text/xml"</em>
+ * header in the HTTP response must be set to "text/xml".</em>
  * <p>
- * Example code:.
+ * Example code:
  * <pre><code>
 var RecordDef = Ext.data.Record.create([
    {name: 'name', mapping: 'name'},     // "mapping" property not needed if it's the same as "name"

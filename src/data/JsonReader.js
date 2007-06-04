@@ -4,7 +4,7 @@
  * Data reader class to create an Array of Ext.data.Record objects from a JSON response
  * based on mappings in a provided Ext.data.Record constructor.
  * <p>
- * Example code:.
+ * Example code:
  * <pre><code>
 var RecordDef = Ext.data.Record.create([
     {name: 'name', mapping: 'name'},     // "mapping" property not needed if it's the same as "name"

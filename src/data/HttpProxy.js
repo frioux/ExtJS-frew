@@ -1,12 +1,12 @@
 /**
  * @class Ext.data.HttpProxy
  * An implementation of Ext.data.DataProxy that reads a data object from an Ext.data.Connection object
- * configured to reference a certain URL.<br>
+ * configured to reference a certain URL.<br><br>
  * <p>
  * <em>Note that this class cannot be used to retrieve data from a domain other than the domain
- * from which the running page was served.<br>
+ * from which the running page was served.<br><br>
  * <p>
- * For cross-domain access to remote data, use an {@link Ext.data.ScriptTagProxy}.</em><br>
+ * For cross-domain access to remote data, use an {@link Ext.data.ScriptTagProxy}.</em><br><br>
  * <p>
  * Be aware that to enable the browser to parse an XML document, the server must set
  * the Content-Type header in the HTTP response to "text/xml".

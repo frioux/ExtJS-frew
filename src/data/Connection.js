@@ -2,13 +2,13 @@
  * @class Ext.data.Connection
  * @extends Ext.util.Observable
  * The class encapsulates a connection to the page's originating domain, allowing requests to be made
- * either to a configured URL, or to a URL specified at request time.<br>
+ * either to a configured URL, or to a URL specified at request time.<br><br>
  * <p>
  * Requests made by this class are asynchronous, and will return immediately. No data from
  * the server will be available to the statement immediately following the {@link #request} call.
- * To process returned data, use a callback in the request options object.
+ * To process returned data, use a callback in the request options object, or an event listener.
  * @constructor
- * @param config {Object} a configuration object.
+ * @param {Object} config a configuration object.
  */
 Ext.data.Connection = function(config){
     Ext.apply(this, config);
@@ -25,17 +25,17 @@ Ext.data.Connection = function(config){
          * Fires before a network request is made to retrieve a data object.
          * @param {Connection} conn This Connection object.
          * @param {Object} response The XHR object containing the response data.
-         * See http://www.w3.org/TR/XMLHttpRequest/ for details.
+         * See {@link http://www.w3.org/TR/XMLHttpRequest/} for details.
          * @param {Object} options The options config object passed to the {@link #request} method.
          */
         "requestcomplete" : true,
         /**
          * @event requestexception
          * Fires if an error HTTP status was returned from the server.
-         * See http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html for details of HTTP status codes.
+         * See {@link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html} for details of HTTP status codes.
          * @param {Connection} conn This Connection object.
          * @param {Object} response The XHR object containing the response data.
-         * See http://www.w3.org/TR/XMLHttpRequest/ for details.
+         * See {@link http://www.w3.org/TR/XMLHttpRequest/} for details.
          * @param {Object} options The options config object passed to the {@link #request} method.
          */
         "requestexception" : true
