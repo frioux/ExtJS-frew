@@ -6,7 +6,7 @@ window["undefined"] = window["undefined"];
 
 /**
  * @class Ext
- * Ext core utilties and functions
+ * Ext core utilities and functions.
  * @singleton
  */
 
@@ -77,7 +77,7 @@ Ext.apply = function(o, c, defaults){
         enableGarbageCollector : true,
 
         /**
-         * True to automatically purge event listeners after uncaching an element (defaults to false). 
+         * True to automatically purge event listeners after uncaching an element (defaults to false).
          * Note: this only happens if enableGarbageCollector is true.
          * @type Boolean
          */
