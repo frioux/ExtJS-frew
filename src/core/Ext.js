@@ -613,17 +613,46 @@ var s = String.format('<div class="{0}">{1}</div>', cls, text);
     }
 });
 
+/**
+ * Utility function that allows you to easily switch a string between two alternating values.  The passed value
+ * is compared to the current string, and if they are equal, the other value that was passed in is returned.  If
+ * they are already different, the first value passed in is returned.  Note that this method returns the new value
+ * but does not change the current string.
+ * <pre><code>
+// alternate sort directions
+sort = sort.toggle('ASC', 'DESC');
+
+// instead of conditional logic:
+sort = (sort == 'ASC' ? 'DESC' : 'ASC');
+</code></pre>
+ * @param {String} value The value to compare to the current string
+ * @param {String} other The new value to use if the string already equals the first value passed in
+ * @return {String} The new value
+ */
 String.prototype.toggle = function(value, other){
     return this == value ? other : value;
 };
 
 Ext.applyIf(Number.prototype, {
+    /**
+     * Checks whether or not the current number is within a desired range.  If the number is already within the
+     * range it is returned, otherwise the min or max value is returned depending on which side of the range is
+     * exceeded.  Note that this method returns the constrained value but does not change the current number.
+     * @param {Number} min The minimum number in the range
+     * @param {Number} max The maximum number in the range
+     * @return {Number} The constrained value if outside the range, otherwise the current value
+     */
     constrain : function(min, max){
         return Math.min(Math.max(this, min), max);
     }
 });
 
 Ext.applyIf(Array.prototype, {
+    /**
+     * Checks whether or not the specified object exists in the array.
+     * @param {Object} o The object to check for
+     * @return {Number} The index of o in the array (or -1 if it is not found)
+     */
     indexOf : function(o){
        for (var i = 0, len = this.length; i < len; i++){
  	      if(this[i] == o) return i;
@@ -631,6 +660,10 @@ Ext.applyIf(Array.prototype, {
  	   return -1;
     },
 
+    /**
+     * Removes the specified object from the array.  If the object is not found nothing happens.
+     * @param {Object} o The object to remove
+     */
     remove : function(o){
        var index = this.indexOf(o);
        if(index != -1){
