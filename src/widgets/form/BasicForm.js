@@ -51,17 +51,17 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      */
     /**
      * @cfg {DataReader} reader
-     * An Ext.data.DataReader (e.g. {@link Ext.data.XmlReader} to be used to read data when executing "load" actions.
-     * This is completely optional as there is built-in support for processing JSON.
+     * An Ext.data.DataReader (e.g. {@link Ext.data.XmlReader}) to be used to read data when executing "load" actions.
+     * This is optional as there is built-in support for processing JSON.
      */
     /**
      * @cfg {DataReader} errorReader
-     * An Ext.data.DataReader (e.g. {@link Ext.data.XmlReader} to be used to read data when reading validation errors on "submit" actions.
+     * An Ext.data.DataReader (e.g. {@link Ext.data.XmlReader}) to be used to read data when reading validation errors on "submit" actions.
      * This is completely optional as there is built-in support for processing JSON.
      */
     /**
      * @cfg {String} url
-     * The url to use for form actions if one isn't supplied in the action options.
+     * The URL to use for form actions if one isn't supplied in the action options.
      */
     /**
      * @cfg {Boolean} fileUpload
@@ -72,7 +72,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      * Parameters to pass with all requests. e.g. baseParams: {id: '123', foo: 'bar'}.
      */
     /**
-     * @cfg {Number} timeout
+     * @cfg {Number} timeout Timeout for form actions in seconds (default is 30 seconds).
      */
     timeout: 30,
 
@@ -81,7 +81,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
 
     /**
      * @cfg {Boolean} trackResetOnLoad If set to true, form.reset() resets to the last loaded
-     * or setValues() data instead of the when the form was first created.
+     * or setValues() data instead of when the form was first created.
      */
     trackResetOnLoad : false,
 
@@ -316,7 +316,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     },
 
     /**
-     * Returns the fields in this form as an object with key value pair. If multiple fields exist with the same name.
+     * Returns the fields in this form as an object with key/value pairs. If multiple fields exist with the same name.
      * they are returned as an array.
      * @param {Boolean} asString
      * @return {Object}
@@ -375,8 +375,8 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     },
 
     /**
-     * Looks at the fields in this form, checks them for an id attribute
-     * and call applyTo on the existing dom element with that id.
+     * Looks at the fields in this form, checks them for an id attribute,
+     * and calls applyTo on the existing dom element with that id.
      * @return {BasicForm} this
      */
     render : function(){
@@ -389,7 +389,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     },
 
     /**
-     * Calls {@link Ext#apply} for all field in this form with the passed object.
+     * Calls {@link Ext#apply} for all fields in this form with the passed object.
      * @param {Object} values
      * @return {BasicForm} this
      */
