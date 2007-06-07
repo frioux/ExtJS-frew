@@ -132,8 +132,8 @@ Ext.form.Column = function(config){
 
 Ext.extend(Ext.form.Column, Ext.form.Layout, {
     /**
-     * @cfg {Number} width
-     * The fixed width of the column in pixels (defaults to auto)
+     * @cfg {Number/String} width
+     * The fixed width of the column in pixels or CSS value (defaults to "auto")
      */
     /**
      * @cfg {String/Object} autoCreate
