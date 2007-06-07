@@ -25,11 +25,11 @@ Ext.extend(Ext.form.Field, Ext.BoxComponent,  {
     focusClass : "x-form-focus",
     /**
      * @cfg {String/Boolean} validationEvent The event that should initiate field validation. Set to false to disable
-      automatic validation. (defaults to "keyup")
+      automatic validation (defaults to "keyup").
      */
     validationEvent : "keyup",
     /**
-     * @cfg {String/Boolean} validateOnBlur Defaults to true.
+     * @cfg {String/Boolean} validateOnBlur Whether the field should validate when it loses focus (defaults to true).
      */
     validateOnBlur : true,
     /**
@@ -64,11 +64,11 @@ side          Add an error icon to the right of the field with a popup on hover
     msgFx : 'normal',
 
     /**
-     * @cfg {Boolean} readOnly True to mark the field as readOnly in HTML - Note: this only sets the readOnly attribute.
+     * @cfg {Boolean} readOnly True to mark the field as readOnly in HTML -- Note: this only sets the element's readOnly DOM attribute.
      */
     
     /**
-     * @cfg {String} inputType The type attribute for input fields - e.g. radio, text, password. (defaults to "text")
+     * @cfg {String} inputType The type attribute for input fields -- e.g. radio, text, password (defaults to "text").
      */
     inputType : undefined,
 
@@ -90,6 +90,7 @@ side          Add an error icon to the right of the field with a popup on hover
      * @cfg {String} cls A CSS class to apply to the field's underlying element
      */
 
+	// private ??
     initComponent : function(){
         Ext.form.Field.superclass.initComponent.call(this);
         this.addEvents({
@@ -117,8 +118,8 @@ side          Add an error icon to the right of the field with a popup on hover
              * @event change
              * Fires just before the field blurs if the field value has changed.
              * @param {Ext.form.Field} this
-             * @param {Mixed} value The changed value
-             * @param {Mixed} value The original value
+             * @param {Mixed} newValue The new value
+             * @param {Mixed} oldValue The original value
              */
             change : true,
             /**
@@ -147,7 +148,7 @@ side          Add an error icon to the right of the field with a popup on hover
 
     /**
      * Apply the behaviors of this component to an existing element. <b>This is used instead of render().</b>
-     * @param {String/HTMLElement/Element} el The id of the node, a DOM Node or an existing Element
+     * @param {String/HTMLElement/Element} el The id of the node, a DOM node or an existing Element
      * @return {Ext.form.Field} this
      */
     applyTo : function(target){
@@ -198,7 +199,7 @@ side          Add an error icon to the right of the field with a popup on hover
     },
 
     /**
-     * Returns true if this field has ben changed since it was originally loaded and is not disabled.
+     * Returns true if this field has been changed since it was originally loaded and is not disabled.
      */
     isDirty : function() {
         if(this.disabled) {
@@ -221,7 +222,7 @@ side          Add an error icon to the right of the field with a popup on hover
     },
 
     /**
-     * Resets the current field value to the originally-loaded value and clears any validation messages
+     * Resets the current field value to the originally loaded value and clears any validation messages
      */
     reset : function(){
         this.setValue(this.originalValue);
