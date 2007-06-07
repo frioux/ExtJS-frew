@@ -28,7 +28,7 @@ Ext.extend(Ext.form.NumberField, Ext.form.TextField,  {
      */
     decimalPrecision : 2,
     /**
-     * @cfg {Boolean} allowNegative False to require only positive numbers (defaults to true)
+     * @cfg {Boolean} allowNegative False to prevent entering a negative sign (defaults to true)
      */
     allowNegative : true,
     /**
