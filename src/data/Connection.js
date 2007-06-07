@@ -6,7 +6,11 @@
  * <p>
  * Requests made by this class are asynchronous, and will return immediately. No data from
  * the server will be available to the statement immediately following the {@link #request} call.
- * To process returned data, use a callback in the request options object, or an event listener.
+ * To process returned data, use a callback in the request options object, or an event listener.</p>
+ * <p>
+ * Note: If you are doing a file upload, you will not get a normal response object sent back to
+ * your callback or event handler.  Since the upload is handled via in IFRAME, there is no HTTP Response.
+ * The response object in this case will be simply {responseText:'', responseXML:null}.</p>
  * @constructor
  * @param {Object} config a configuration object.
  */
@@ -129,7 +133,7 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
 
 
             }
-            
+
             var hs = o.headers;
             if(this.defaultHeaders){
                 hs = Ext.apply(hs || {}, this.defaultHeaders);
