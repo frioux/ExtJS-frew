@@ -1,6 +1,6 @@
 /**
  * @class Ext.form.VTypes
- * Overrideable validation definitions. The validations provided are basic and intended to be easily customizable and extended.
+ * Overridable validation definitions. The validations provided are basic and intended to be easily customizable and extended.
  * @singleton
  */
 Ext.form.VTypes = function(){
@@ -31,8 +31,8 @@ Ext.form.VTypes = function(){
         'emailMask' : /[a-z0-9_\.\-@]/i,
 
         /**
-         * The function used to validate urls
-         * @param {String} value The url
+         * The function used to validate URLs
+         * @param {String} value The URL
          */
         'url' : function(v){
             return url.test(v);

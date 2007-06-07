@@ -17,7 +17,7 @@ Ext.extend(Ext.form.Layout, Ext.Component, {
      */
     /**
      * @cfg {String/Object/Function} style
-     * A style specification string eg "width:100px", or object in the form {width:"100px"}, or
+     * A style specification string, e.g. "width:100px", or object in the form {width:"100px"}, or
      * a function which returns such a specification.
      */
     /**

@@ -5,7 +5,7 @@
  * <br><br><b>Note: The focus/blur and validation marking functionality inherited from Ext.form.Field is NOT
  * supported by this editor.</b><br/><br/>
  * An Editor is a sensitive component that can't be used in all spots standard fields can be used. Putting an Editor within
- * any element that has display set to 'none' can cause problems in Safari and FireFox.
+ * any element that has display set to 'none' can cause problems in Safari and Firefox.
  */
 
 Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
@@ -465,8 +465,8 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
     /**
      * Protected method that will not generally be called directly. If you need/want
      * custom HTML cleanup, this is the method you should override.
-     * @param {String} html
-     * return {String} The cleaned html
+     * @param {String} html The HTML to be cleaned
+     * return {String} The cleaned HTML
      */
     cleanHtml : function(html){
         html = String(html);
@@ -770,7 +770,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
     /**
      * Object collection of toolbar tooltips for the buttons in the editor. The key
      * is the command id associated with that button and the value is a valid QuickTips object.
-     * For Example:
+     * For example:
 <pre><code>
 {
     bold : {
