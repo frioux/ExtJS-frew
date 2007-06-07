@@ -1,7 +1,7 @@
 /**
  * @class Ext.form.Form
  * @extends Ext.form.BasicForm
- * Adds the ability to dynamically render forms with JS to {@link Ext.form.BasicForm}.
+ * Adds the ability to dynamically render forms with JavaScript to {@link Ext.form.BasicForm}.
  * @constructor
  * @param {Object} config Configuration options
  */
@@ -15,7 +15,7 @@ Ext.form.Form = function(config){
     }
     this.active = this.root;
     /**
-     * Array of all the buttons that have been added to this form via addButton
+     * Array of all the buttons that have been added to this form via {@link addButton}
      * @type Array
      */
     this.buttons = [];
@@ -43,7 +43,7 @@ Ext.extend(Ext.form.Form, Ext.form.BasicForm, {
     buttonAlign:'center',
 
     /**
-     * @cfg {Number} minButtonWidth Minimum width of all buttons (defaults to 75)
+     * @cfg {Number} minButtonWidth Minimum width of all buttons in pixels (defaults to 75)
      */
     minButtonWidth:75,
 
@@ -54,7 +54,7 @@ Ext.extend(Ext.form.Form, Ext.form.BasicForm, {
     labelAlign:'left',
 
     /**
-     * @cfg {Boolean} monitorValid If true the form monitors it's valid state <b>client-side</b> and
+     * @cfg {Boolean} monitorValid If true the form monitors its valid state <b>client-side</b> and
      * fires a looping event with that state. This is required to bind buttons to the valid
      * state using the config value bindForm:true on the button.
      */
@@ -66,7 +66,7 @@ Ext.extend(Ext.form.Form, Ext.form.BasicForm, {
     monitorPoll : 200,
 
     /**
-     * Opens the a new {@link Ext.form.Column} container in the layout stack. If fields are passed after the config, the
+     * Opens a new {@link Ext.form.Column} container in the layout stack. If fields are passed after the config, the
      * fields are added and the column is closed. If no fields are passed the column remains open
      * until end() is called.
      * @param {Object} config The config to pass to the column
@@ -86,7 +86,7 @@ Ext.extend(Ext.form.Form, Ext.form.BasicForm, {
     },
 
     /**
-     * Opens the a new {@link Ext.form.FieldSet} container in the layout stack. If fields are passed after the config, the
+     * Opens a new {@link Ext.form.FieldSet} container in the layout stack. If fields are passed after the config, the
      * fields are added and the fieldset is closed. If no fields are passed the fieldset remains open
      * until end() is called.
      * @param {Object} config The config to pass to the fieldset
@@ -106,7 +106,7 @@ Ext.extend(Ext.form.Form, Ext.form.BasicForm, {
     },
 
     /**
-     * Opens the a new {@link Ext.form.Layout} container in the layout stack. If fields are passed after the config, the
+     * Opens a new {@link Ext.form.Layout} container in the layout stack. If fields are passed after the config, the
      * fields are added and the container is closed. If no fields are passed the container remains open
      * until end() is called.
      * @param {Object} config The config to pass to the Layout
