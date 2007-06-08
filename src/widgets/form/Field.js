@@ -391,7 +391,11 @@ side          Add an error icon to the right of the field with a popup on hover
      * @return {Mixed} value The field value
      */
     getRawValue : function(){
-        return this.el.getValue();
+        var v = this.el.getValue();
+        if(v === this.emptyText){
+            v = '';
+        }
+        return v;
     },
 
     /**

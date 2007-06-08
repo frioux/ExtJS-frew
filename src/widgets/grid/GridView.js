@@ -212,8 +212,6 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }else{
             index = ds.indexOf(record);
         }
-        var rows = this.getRowComposite(index);
-        var cls = [];
         this.insertRows(ds, index, index, true);
         this.onRemove(ds, record, index+1, true);
         this.syncRowHeights(index, index);

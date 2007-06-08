@@ -159,7 +159,7 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
     // private
     preFocus : function(){
         if(this.emptyText){
-            if(this.getRawValue() == this.emptyText){
+            if(this.el.dom.value == this.emptyText){
                 this.setRawValue('');
             }
             this.el.removeClass(this.emptyClass);
@@ -194,6 +194,7 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
             this.el.removeClass(this.emptyClass);
         }
         Ext.form.TextField.superclass.setValue.apply(this, arguments);
+        this.applyEmptyText();
     },
 
     /**

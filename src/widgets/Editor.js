@@ -123,7 +123,12 @@ Ext.extend(Ext.Editor, Ext.Component, {
         }
     },
 
-    // private
+    /**
+     * Starts the editing process and shows the editor.
+     * @param {String/HTMLElement/Element} el The element to edit
+     * @param {String} value (optional) A value to initialize the editor with. If a value is not provided, it defaults
+      * to the innerHTML of el.
+     */
     startEdit : function(el, value){
         if(this.editing){
             this.completeEdit();

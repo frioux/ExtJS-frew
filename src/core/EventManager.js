@@ -163,7 +163,7 @@ Ext.EventManager = function(){
         }
     };
 
-    var propRe = /^(?:scope|delay|buffer|single|stopEvent|preventDefault|stopPropagation|normalized)$/;
+    var propRe = /^(?:scope|delay|buffer|single|stopEvent|preventDefault|stopPropagation|normalized|args|delegate)$/;
     var pub = {
         
         /** 
@@ -450,18 +450,31 @@ Ext.onReady = Ext.EventManager.onDocumentReady;
 Ext.onReady(function(){
     var bd = Ext.get(document.body);
     if(!bd){ return; }
-    var cls = Ext.isIE ? "ext-ie"
+
+    var cls = [
+            Ext.isIE ? "ext-ie"
             : Ext.isGecko ? "ext-gecko"
             : Ext.isOpera ? "ext-opera"
-            : Ext.isSafari ? "ext-safari" : "";
+            : Ext.isSafari ? "ext-safari" : ""];
+
+    if(Ext.isMac){
+        cls.push("ext-mac");
+    }
+    if(Ext.isLinux){
+        cls.push("ext-linux");
+    }
     if(Ext.isBorderBox){
-        cls += ' ext-border-box';
+        cls.push('ext-border-box');
     }
-    if(Ext.isStrict){
-        cls += ' ext-strict';
+    if(Ext.isStrict){ // add to the parent to allow for selectors like ".ext-strict .ext-ie"
+        var p = bd.dom.parentNode;
+        if(p){
+            p.className = p.className ? ' ext-strict' : 'ext-strict';
+        }
     }
-    bd.addClass(cls);
+    bd.addClass(cls.join(' '));
 });
+
 /**
  * @class Ext.EventObject
  * EventObject exposes the Yahoo! UI Event functionality directly on the object

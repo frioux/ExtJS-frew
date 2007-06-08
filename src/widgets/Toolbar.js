@@ -143,7 +143,9 @@ Ext.Toolbar.prototype = {
         }
         var b = config;
         if(!(config instanceof Ext.Toolbar.Button)){
-             b = new Ext.Toolbar.Button(config);
+              b = config.split ?
+                  new Ext.Toolbar.SplitButton(config) :
+                  new Ext.Toolbar.Button(config);
         }
         var td = this.nextBlock();
         b.render(td);
@@ -445,27 +447,27 @@ Ext.extend(Ext.Toolbar.Button, Ext.Button, {
 Ext.ToolbarButton = Ext.Toolbar.Button;
 
 /**
- * @class Ext.Toolbar.MenuButton
- * @extends Ext.MenuButton
+ * @class Ext.Toolbar.SplitButton
+ * @extends Ext.SplitButton
  * A menu button that renders into a toolbar.
  * @constructor
- * Creates a new MenuButton
- * @param {Object} config A standard {@link Ext.MenuButton} config object
+ * Creates a new SplitButton
+ * @param {Object} config A standard {@link Ext.SplitButton} config object
  */
-Ext.Toolbar.MenuButton = function(config){
-    Ext.Toolbar.MenuButton.superclass.constructor.call(this, null, config);
+Ext.Toolbar.SplitButton = function(config){
+    Ext.Toolbar.SplitButton.superclass.constructor.call(this, null, config);
 };
-Ext.extend(Ext.Toolbar.MenuButton, Ext.MenuButton, {
+Ext.extend(Ext.Toolbar.SplitButton, Ext.SplitButton, {
     render : function(td){
         this.td = td;
-        Ext.Toolbar.MenuButton.superclass.render.call(this, td);
+        Ext.Toolbar.SplitButton.superclass.render.call(this, td);
     },
     
     /**
      * Remove and destroy this button
      */
     destroy : function(){
-        Ext.Toolbar.MenuButton.superclass.destroy.call(this);
+        Ext.Toolbar.SplitButton.superclass.destroy.call(this);
         this.td.parentNode.removeChild(this.td);
     },
     
@@ -486,3 +488,5 @@ Ext.extend(Ext.Toolbar.MenuButton, Ext.MenuButton, {
     }
 });
 
+// backwards compat
+Ext.Toolbar.MenuButton = Ext.Toolbar.SplitButton;

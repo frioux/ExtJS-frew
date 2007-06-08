@@ -53,10 +53,10 @@ Ext.grid.HeaderDropZone = function(grid, hd, hd2){
     this.view = grid.getView();
     // split the proxies so they don't interfere with mouse events
     this.proxyTop = Ext.DomHelper.append(document.body, {
-        tag:"div", cls:"col-move-top", html:"&#160;"
+        cls:"col-move-top", html:"&#160;"
     }, true);
     this.proxyBottom = Ext.DomHelper.append(document.body, {
-        tag:"div", cls:"col-move-bottom", html:"&#160;"
+        cls:"col-move-bottom", html:"&#160;"
     }, true);
     this.proxyTop.hide = this.proxyBottom.hide = function(){
         this.setLeftTop(-100,-100);

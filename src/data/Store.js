@@ -459,7 +459,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
         if(!value.exec){ // not a regex
             value = String(value);
             if(value.length == 0){
-                return this.clearFilter();
+                return false;
             }
             value = new RegExp((anyMatch === true ? '' : '^') + Ext.escapeRe(value), "i");
         }
@@ -494,7 +494,8 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
      * @param {Boolean} anyMatch True to match any part not just the beginning
      */
     filter : function(property, value, anyMatch){
-        this.filterBy(this.createFilterFn(property, value, anyMatch));
+        var fn = this.createFilterFn(property, value, anyMatch);
+        return fn ? this.filterBy(fn) : this.clearFilter();
     },
 
     /**
@@ -519,7 +520,8 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
      * @return {MixedCollection} Returns an Ext.util.MixedCollection of the matched records
      */
     query : function(property, value, anyMatch){
-        return this.queryBy(this.createFilterFn(property, value, anyMatch));
+        var fn = this.createFilterFn(property, value, anyMatch);
+        return fn ? this.queryBy(fn) : this.data.clone();
     },
 
     /**

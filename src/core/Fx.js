@@ -490,7 +490,7 @@ el.frame("C3DAF9", 1, {<br/>
             var b = this.getBox();
             var animFn = function(){
                 var proxy = this.createProxy({
-                     tag:"div",
+
                      style:{
                         visbility:"hidden",
                         position:"absolute",

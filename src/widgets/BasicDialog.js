@@ -463,7 +463,7 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
         }
         if(!this.btnContainer){
             var tb = this.footer.createChild({
-                tag:"div",
+
                 cls:"x-dlg-btns x-dlg-btns-"+this.buttonAlign,
                 html:'<table cellspacing="0"><tbody><tr></tr></tbody></table><div class="x-clear"></div>'
             }, null, true);

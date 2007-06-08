@@ -44,6 +44,7 @@ Ext.apply = function(o, c, defaults){
         isBorderBox = isIE && !isStrict,
         isWindows = (ua.indexOf("windows") != -1 || ua.indexOf("win32") != -1),
         isMac = (ua.indexOf("macintosh") != -1 || ua.indexOf("mac os x") != -1),
+        isLinux = (ua.indexOf("linux") != -1),
         isSecure = window.location.href.toLowerCase().indexOf("https") === 0;
 
     // remove css image flicker
@@ -411,21 +412,23 @@ Ext.override(MyClass, {
             }
         },
 
-        /* @type Boolean */
+        /** @type Boolean */
         isOpera : isOpera,
-        /* @type Boolean */
+        /** @type Boolean */
         isSafari : isSafari,
-        /* @type Boolean */
+        /** @type Boolean */
         isIE : isIE,
-        /* @type Boolean */
+        /** @type Boolean */
         isIE7 : isIE7,
-        /* @type Boolean */
+        /** @type Boolean */
         isGecko : isGecko,
-        /* @type Boolean */
+        /** @type Boolean */
         isBorderBox : isBorderBox,
-        /* @type Boolean */
+        /** @type Boolean */
         isWindows : isWindows,
-        /* @type Boolean */
+        /** @type Boolean */
+        isLinux : isLinux,
+        /** @type Boolean */
         isMac : isMac,
 
     /**
