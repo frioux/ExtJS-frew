@@ -1,7 +1,9 @@
 /**
- @class Ext.grid.AbstractSelectionModel
- @extends Ext.util.Observable
- @constructor
+ * @class Ext.grid.AbstractSelectionModel
+ * @extends Ext.util.Observable
+ * Abstract base class for grid SelectionModels.  It provides the interface that should be
+ * implemented by descendant classes.  This class should not be directly instantiated.
+ * @constructor
  */
 Ext.grid.AbstractSelectionModel = function(){
     this.locked = false;
@@ -14,26 +16,26 @@ Ext.extend(Ext.grid.AbstractSelectionModel, Ext.util.Observable,  {
         this.grid = grid;
         this.initEvents();
     },
-    
+
     /**
-     * Lock the selections
+     * Locks the selections.
      */
     lock : function(){
         this.locked = true;
     },
-    
+
     /**
-     * Unlock the selections
+     * Unlocks the selections.
      */
     unlock : function(){
-        this.locked = false;  
+        this.locked = false;
     },
-    
+
     /**
-     * Returns true if the selections are locked
+     * Returns true if the selections are locked.
      * @return {Boolean}
      */
     isLocked : function(){
-        return this.locked;    
+        return this.locked;
     }
 });

@@ -59,7 +59,7 @@ Ext.grid.ColumnModel = function(config){
     this.addEvents({
         /**
 	     * @event widthchange
-	     * Fires when the width of a column changes
+	     * Fires when the width of a column changes.
 	     * @param {ColumnModel} this
 	     * @param {Number} columnIndex The column index
 	     * @param {Number} newWidth The new width
@@ -67,7 +67,7 @@ Ext.grid.ColumnModel = function(config){
 	    "widthchange": true,
         /**
 	     * @event headerchange
-	     * Fires when the text of a header changes
+	     * Fires when the text of a header changes.
 	     * @param {ColumnModel} this
 	     * @param {Number} columnIndex The column index
 	     * @param {Number} newText The new header text
@@ -75,7 +75,7 @@ Ext.grid.ColumnModel = function(config){
 	    "headerchange": true,
         /**
 	     * @event hiddenchange
-	     * Fires when a column is hidden or "unhidden"
+	     * Fires when a column is hidden or "unhidden".
 	     * @param {ColumnModel} this
 	     * @param {Number} columnIndex The column index
 	     * @param {Number} hidden true if hidden, false otherwise
@@ -83,7 +83,7 @@ Ext.grid.ColumnModel = function(config){
 	    "hiddenchange": true,
 	    /**
          * @event columnmoved
-         * Fires when a column is moved
+         * Fires when a column is moved.
          * @param {ColumnModel} this
          * @param {Number} oldIndex
          * @param {Number} newIndex
@@ -134,18 +134,28 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      */
 
     /**
-     * Returns the id of the column at the specified index
-     * @param {Number} index
+     * Returns the id of the column at the specified index.
+     * @param {Number} index The column index
      * @return {String} the id
      */
     getColumnId : function(index){
         return this.config[index].id;
     },
 
+    /**
+     * Returns the column for a specified id.
+     * @param {String} id The column id
+     * @return {Object} the column
+     */
     getColumnById : function(id){
         return this.lookup[id];
     },
 
+    /**
+     * Returns the index for a specified column id.
+     * @param {String} id The column id
+     * @return {Number} the index, or -1 if not found
+     */
     getIndexById : function(id){
         for(var i = 0, len = this.config.length; i < len; i++){
             if(this.config[i].id == id){
