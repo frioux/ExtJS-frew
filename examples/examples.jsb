@@ -254,6 +254,11 @@
   <file name="form\jobs-remote.php" path="form" />
   <file name="form\custom.html" path="form" />
   <file name="menu\menubar.html" path="menu" />
+  <file name="form\upload-test.html" path="form" />
+  <file name="grid\CheckboxSelectionModel.js" path="grid" />
+  <file name="grid\RowExpander.js" path="grid" />
+  <file name="grid\RowNumberer.js" path="grid" />
+  <file name="form\upload.php" path="form" />
   <file name="dialog\hello.js" path="dialog" />
   <file name="dialog\layout.js" path="dialog" />
   <file name="dialog\msg-box.js" path="dialog" />
@@ -264,16 +269,12 @@
   <file name="form\forms.js" path="form" />
   <file name="form\forum-search.js" path="form" />
   <file name="form\states.js" path="form" />
-  <file name="form\upload-test.html" path="form" />
   <file name="form\xml-form.js" path="form" />
   <file name="grid\array-grid.js" path="grid" />
-  <file name="grid\CheckboxSelectionModel.js" path="grid" />
   <file name="grid\custom-grid.js" path="grid" />
   <file name="grid\edit-grid.js" path="grid" />
   <file name="grid\from-markup.js" path="grid" />
   <file name="grid\paging.js" path="grid" />
-  <file name="grid\RowExpander.js" path="grid" />
-  <file name="grid\RowNumberer.js" path="grid" />
   <file name="grid\xml-grid.js" path="grid" />
   <file name="layout\feed-viewer.js" path="layout" />
   <file name="locale\dutch-form.js" path="locale" />
@@ -292,5 +293,4 @@
   <file name="view\chooser-example.js" path="view" />
   <file name="view\chooser.js" path="view" />
   <file name="examples.js" path="" />
-  <file name="form\upload.php" path="form" />
 </project>
