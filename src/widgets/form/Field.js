@@ -29,7 +29,7 @@ Ext.extend(Ext.form.Field, Ext.BoxComponent,  {
      */
     validationEvent : "keyup",
     /**
-     * @cfg {String/Boolean} validateOnBlur Whether the field should validate when it loses focus (defaults to true).
+     * @cfg {Boolean} validateOnBlur Whether the field should validate when it loses focus (defaults to true).
      */
     validateOnBlur : true,
     /**
@@ -64,9 +64,15 @@ side          Add an error icon to the right of the field with a popup on hover
     msgFx : 'normal',
 
     /**
-     * @cfg {Boolean} readOnly True to mark the field as readOnly in HTML -- Note: this only sets the element's readOnly DOM attribute.
+     * @cfg {Boolean} readOnly True to mark the field as readOnly in HTML (defaults to false) -- Note: this only sets the element's readOnly DOM attribute.
      */
-    
+    readOnly : false,
+
+    /**
+     * @cfg {Boolean} disabled True to disable the field (defaults to false).
+     */
+    disabled: false,
+
     /**
      * @cfg {String} inputType The type attribute for input fields -- e.g. radio, text, password (defaults to "text").
      */
