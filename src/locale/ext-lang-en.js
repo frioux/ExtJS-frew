@@ -169,3 +169,4 @@ if(Ext.SplitLayoutRegion){
       collapsibleSplitTip : "Drag to resize. Double click to hide."
    });
 }
+
