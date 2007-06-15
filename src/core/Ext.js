@@ -367,7 +367,7 @@ Ext.override(MyClass, {
 
         /**
          * Return the dom node for the passed string (id), dom node, or Ext.Element
-         * @param {String/HTMLElement/Element) el
+         * @param {String/HTMLElement/Ext.Element} el
          * @return HTMLElement
          */
         getDom : function(el){
