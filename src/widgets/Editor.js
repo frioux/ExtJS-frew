@@ -4,6 +4,7 @@
  * A base editor field that handles displaying/hiding on demand and has some built-in sizing and event handling logic.
  * @constructor
  * Create a new Editor
+ * @param {@link Ext.form.Field} field The Field object (or descendant)
  * @param {Object} config The config object
  */
 Ext.Editor = function(field, config){
