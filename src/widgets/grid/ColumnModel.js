@@ -78,7 +78,7 @@ Ext.grid.ColumnModel = function(config){
 	     * Fires when a column is hidden or "unhidden".
 	     * @param {ColumnModel} this
 	     * @param {Number} columnIndex The column index
-	     * @param {Number} hidden true if hidden, false otherwise
+	     * @param {Boolean} hidden true if hidden, false otherwise
 	     */
 	    "hiddenchange": true,
 	    /**
