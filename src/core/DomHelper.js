@@ -1,13 +1,13 @@
 /**
  * @class Ext.DomHelper
- * Utility class for working with DOM and/or Templates. It transparently supports using HTML fragments or DOM. 
+ * Utility class for working with DOM and/or Templates. It transparently supports using HTML fragments or DOM.
  * For more information see <a href="http://www.jackslocum.com/yui/2006/10/06/domhelper-create-elements-using-dom-html-fragments-or-templates/">this blog post with examples</a>.
  * @singleton
  */
 Ext.DomHelper = function(){
     var tempTableEl = null;
     var emptyTags = /^(?:br|frame|hr|img|input|link|meta|range|spacer|wbr|area|param|col)$/i;
-           
+
     // build as innerHTML where available
     /** @ignore */
     var createHtml = function(o){
@@ -68,7 +68,7 @@ Ext.DomHelper = function(){
         }
         return b;
     };
-    
+
     // build as dom
     /** @ignore */
     var createDom = function(o, parentNode){
@@ -122,7 +122,7 @@ Ext.DomHelper = function(){
 
     /**
      * @ignore
-     * Nasty code for IE's broken table implementation 
+     * Nasty code for IE's broken table implementation
      */
     var insertIntoTable = function(tag, where, el, html){
         if(!tempTableEl){
@@ -185,7 +185,7 @@ Ext.DomHelper = function(){
         el.insertBefore(node, before);
         return node;
     };
-    
+
     return {
     /** True to force the use of DOM instead of html fragments @type Boolean */
     useDom : false,
@@ -222,8 +222,8 @@ Ext.DomHelper = function(){
                 Ext.DomHelper.applyStyles(el, styles.call());
            }
         }
-    }, 
-    
+    },
+
     /**
      * Inserts an HTML fragment into the Dom
      * @param {String} where Where to insert the html in relation to el - beforeBegin, afterBegin, beforeEnd, afterEnd.
@@ -293,24 +293,24 @@ Ext.DomHelper = function(){
             }
             throw 'Illegal insertion point -> "' + where + '"';
     },
-    
+
     /**
      * Creates new Dom element(s) and inserts them before el
      * @param {String/HTMLElement/Element} el The context element
      * @param {Object/String} o The Dom object spec (and children) or raw HTML blob
      * @param {Boolean} returnElement (optional) true to return a Ext.Element
-     * @return {HTMLElement} The new node
+     * @return {HTMLElement/Ext.Element} The new node
      */
     insertBefore : function(el, o, returnElement){
         return this.doInsert(el, o, returnElement, "beforeBegin");
     },
-    
+
     /**
      * Creates new Dom element(s) and inserts them after el
      * @param {String/HTMLElement/Element} el The context element
      * @param {Object} o The Dom object spec (and children)
      * @param {Boolean} returnElement (optional) true to return a Ext.Element
-     * @return {HTMLElement} The new node
+     * @return {HTMLElement/Ext.Element} The new node
      */
     insertAfter : function(el, o, returnElement){
         return this.doInsert(el, o, returnElement, "afterEnd", "nextSibling");
@@ -321,7 +321,7 @@ Ext.DomHelper = function(){
      * @param {String/HTMLElement/Element} el The context element
      * @param {Object/String} o The Dom object spec (and children) or raw HTML blob
      * @param {Boolean} returnElement (optional) true to return a Ext.Element
-     * @return {HTMLElement} The new node
+     * @return {HTMLElement/Ext.Element} The new node
      */
     insertFirst : function(el, o, returnElement){
         return this.doInsert(el, o, returnElement, "afterBegin");
@@ -346,7 +346,7 @@ Ext.DomHelper = function(){
      * @param {String/HTMLElement/Element} el The context element
      * @param {Object/String} o The Dom object spec (and children) or raw HTML blob
      * @param {Boolean} returnElement (optional) true to return a Ext.Element
-     * @return {HTMLElement} The new node
+     * @return {HTMLElement/Ext.Element} The new node
      */
     append : function(el, o, returnElement){
         el = Ext.getDom(el);
@@ -360,22 +360,22 @@ Ext.DomHelper = function(){
         }
         return returnElement ? Ext.get(newNode, true) : newNode;
     },
-    
+
     /**
      * Creates new Dom element(s) and overwrites the contents of el with them
      * @param {String/HTMLElement/Element} el The context element
      * @param {Object/String} o The Dom object spec (and children) or raw HTML blob
      * @param {Boolean} returnElement (optional) true to return a Ext.Element
-     * @return {HTMLElement} The new node
+     * @return {HTMLElement/Ext.Element} The new node
      */
     overwrite : function(el, o, returnElement){
         el = Ext.getDom(el);
         el.innerHTML = createHtml(o);
         return returnElement ? Ext.get(el.firstChild, true) : el.firstChild;
     },
-    
+
     /**
-     * Creates a new Ext.DomHelper.Template from the Dom object spec 
+     * Creates a new Ext.DomHelper.Template from the Dom object spec
      * @param {Object} o The Dom object spec (and children)
      * @return {Ext.DomHelper.Template} The new template
      */
