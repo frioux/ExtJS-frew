@@ -1,7 +1,7 @@
 /**
  @class Ext.grid.RowSelectionModel
  * @extends Ext.grid.AbstractSelectionModel
- * The default SelectionModel used by {@link Ext.grid.Grid}. 
+ * The default SelectionModel used by {@link Ext.grid.Grid}.
  It supports multiple selections and keyboard selection/navigation. <br><br>
  @constructor
  * @param {Object} config
@@ -11,14 +11,14 @@ Ext.grid.RowSelectionModel = function(config){
     this.selections = new Ext.util.MixedCollection(false, function(o){
         return o.id;
     });
-    
+
     this.last = false;
     this.lastActive = false;
 
     this.addEvents({
         /**
 	     * @event selectionchange
-	     * Fires when the selection changes 
+	     * Fires when the selection changes
 	     * @param {SelectionModel} this
 	     */
 	    "selectionchange" : true,
@@ -27,6 +27,7 @@ Ext.grid.RowSelectionModel = function(config){
 	     * Fires when a row is selected being selected, return false to cancel.
 	     * @param {SelectionModel} this
 	     * @param {Number} rowIndex The selected index
+	     * @param {Boolean} keepExisting False if other selections will be cleared
 	     */
 	    "beforerowselect" : true,
         /**
@@ -34,12 +35,18 @@ Ext.grid.RowSelectionModel = function(config){
 	     * Fires when a row is selected.
 	     * @param {SelectionModel} this
 	     * @param {Number} rowIndex The selected index
+	     * @param {@link Ext.data.Record} r The record
 	     */
 	    "rowselect" : true,
-        
+        /**
+	     * @event rowdeselect
+	     * Fires when a row is deselected.
+	     * @param {SelectionModel} this
+	     * @param {Number} rowIndex The selected index
+	     */
         "rowdeselect" : true
     });
-    
+
     this.locked = false;
 };
 
@@ -134,7 +141,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
             this.selectRow(ds.indexOf(records[i]), true);
         }
     },
-    
+
     /**
      * Gets the number of selected rows.
      * @return {Number}
@@ -142,7 +149,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
     getCount : function(){
         return this.selections.length;
     },
-    
+
     /**
      * Selects the first row in the grid.
      */
@@ -168,7 +175,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
             this.grid.getView().focusRow(this.last);
         }
     },
-    
+
     /**
      * Selects the row that precedes the last selected row.
      * @param {Boolean} keepExisting (optional) True to keep existing selections
@@ -179,7 +186,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
             this.grid.getView().focusRow(this.last);
         }
     },
-    
+
     /**
      * Returns the selected records
      * @return {Array} Array of selected records
@@ -187,7 +194,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
     getSelections : function(){
         return [].concat(this.selections.items);
     },
-    
+
     /**
      * Returns the first selected record.
      * @return {Record}
@@ -195,8 +202,8 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
     getSelected : function(){
         return this.selections.itemAt(0);
     },
-    
-    
+
+
     /**
      * Clears all selections.
      */
@@ -214,8 +221,8 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
         }
         this.last = false;
     },
-    
-        
+
+
     /**
      * Selects all rows.
      */
@@ -226,7 +233,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
             this.selectRow(i, true);
         }
     },
-    
+
     /**
      * Returns True if there is a selection.
      * @return {Boolean}
@@ -277,7 +284,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
             }
         }
     },
-    
+
     /**
      * Selects multiple rows.
      * @param {Array} rows Array of the indexes of the row to select
@@ -291,7 +298,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
             this.selectRow(rows[i], true);
         }
     },
-    
+
     /**
      * Selects a range of rows. All rows in between startRow and endRow are also selected.
      * @param {Number} startRow The index of the first row in the range
@@ -313,7 +320,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
             }
         }
     },
-    
+
     /**
      * Deselects a range of rows. All rows in between startRow and endRow are also deselected.
      * @param {Number} startRow The index of the first row in the range
@@ -325,7 +332,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
             this.deselectRow(i, preventViewNotify);
         }
     },
-    
+
     /**
      * Selects a row.
      * @param {Number} row The index of the row to select
@@ -373,7 +380,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
     restoreLast : function(){
         if(this._last){
             this.last = this._last;
-        }    
+        }
     },
 
     // private
