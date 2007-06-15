@@ -22,8 +22,8 @@
  * @cfg {String} title Default text to display in the title bar (defaults to null)
  * @cfg {Number} width Width of the dialog in pixels (can also be set via CSS).  Determined by browser if unspecified.
  * @cfg {Number} height Height of the dialog in pixels (can also be set via CSS).  Determined by browser if unspecified.
- * @cfg {Number} x The default top page coordinate of the dialog (defaults to center screen)
- * @cfg {Number} y The default left page coordinate of the dialog (defaults to center screen)
+ * @cfg {Number} x The default left page coordinate of the dialog (defaults to center screen)
+ * @cfg {Number} y The default top page coordinate of the dialog (defaults to center screen)
  * @cfg {String/Element} animateTarget Id or element from which the dialog should animate while opening
  * (defaults to null with no animation)
  * @cfg {Boolean} resizable False to disable manual dialog resizing (defaults to true)
@@ -69,7 +69,7 @@ Ext.BasicDialog = function(el, config){
                         {tag: "div", id: el, style:'visibility:hidden;'}, true);
         }
     }
-    el = this.el;                                                                                                                                                                                                                                                                                                                                                                                                  
+    el = this.el;
     el.setDisplayed(true);
     el.hide = this.hideAction;
     this.id = el.id;
