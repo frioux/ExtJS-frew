@@ -165,7 +165,6 @@ Ext.grid.Grid = function(container, config){
 	     * @event headerdblclick
 	     * Fires when a header cell is double clicked
 	     * @param {Grid} this
-	     * @param {Number} rowIndex
 	     * @param {Number} columnIndex
 	     * @param {Ext.EventObject} e
 	     */
