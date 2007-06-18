@@ -77,7 +77,8 @@ if(Ext.DatePicker){
       prevText          : "Vorheriger Monat (Strg/Control + Links)",
       monthYearText     : "Monat auswählen (Strg/Control + Hoch/Runter, um ein Jahr auszuwählen)",
       todayTip          : "Heute ({0}) (Leertaste)",
-      format            : "d.m.Y"
+      format            : "d.m.Y",
+      startDay		: 1
    });
 }
 
