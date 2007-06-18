@@ -142,6 +142,9 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
             var hs = o.headers;
             if(this.defaultHeaders){
                 hs = Ext.apply(hs || {}, this.defaultHeaders);
+                if(!o.headers){
+                    o.headers = hs;
+                }
             }
 
             var cb = {

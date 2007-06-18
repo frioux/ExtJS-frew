@@ -190,7 +190,7 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
     },
 
     setValue : function(v){
-        if(this.emptyText && v !== undefined && v !== null && v !== ''){
+        if(this.emptyText && this.el && v !== undefined && v !== null && v !== ''){
             this.el.removeClass(this.emptyClass);
         }
         Ext.form.TextField.superclass.setValue.apply(this, arguments);

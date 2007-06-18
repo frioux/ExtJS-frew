@@ -146,12 +146,9 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
         if(this.monitorTab){
             this.el.un("keydown", this.checkTab, this);
         }
-        this.beforeBlur();
         this.wrap.removeClass('x-trigger-wrap-focus');
         Ext.form.TriggerField.superclass.onBlur.call(this);
     },
-
-    beforeBlur : Ext.emptyFn, 
 
     // private
     // This should be overriden by any subclass that needs to check whether or not the field can be blurred.

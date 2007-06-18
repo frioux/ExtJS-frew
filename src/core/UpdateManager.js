@@ -135,11 +135,13 @@ Ext.UpdateManager = function(el, forceNew){
      */
     this.failureDelegate = this.processFailure.createDelegate(this);
 
+    if(!this.renderer){
      /**
       * The renderer for this UpdateManager. Defaults to {@link Ext.UpdateManager.BasicRenderer}.
       */
     this.renderer = new Ext.UpdateManager.BasicRenderer();
-
+    }
+    
     Ext.UpdateManager.superclass.constructor.call(this);
 };
 

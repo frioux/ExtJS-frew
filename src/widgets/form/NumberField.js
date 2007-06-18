@@ -84,12 +84,11 @@ Ext.extend(Ext.form.NumberField, Ext.form.TextField,  {
         if(value.length < 1){ // if it's blank and textfield didn't flag it then it's valid
              return true;
         }
-        value = String(value).replace(this.decimalSeparator, ".");
-        if(isNaN(value)){
+        var num = this.parseValue(value);
+        if(isNaN(num)){
             this.markInvalid(String.format(this.nanText, value));
             return false;
         }
-        var num = this.parseValue(value);
         if(num < this.minValue){
             this.markInvalid(String.format(this.minText, this.minValue));
             return false;
@@ -101,6 +100,10 @@ Ext.extend(Ext.form.NumberField, Ext.form.TextField,  {
         return true;
     },
 
+    getValue : function(){
+        return this.fixPrecision(this.parseValue(Ext.form.NumberField.superclass.getValue.call(this)));
+    },
+
     // private
     parseValue : function(value){
         return parseFloat(String(value).replace(this.decimalSeparator, "."));
@@ -108,7 +111,7 @@ Ext.extend(Ext.form.NumberField, Ext.form.TextField,  {
 
     // private
     fixPrecision : function(value){
-       if(!this.allowDecimals || this.decimalPrecision == -1 || isNaN(value) || value == 0 || !value){
+       if(!this.allowDecimals || this.decimalPrecision == -1 || isNaN(value) || !value){
            return value;
        }
        // this should work but doesn't due to precision error in JS
@@ -126,5 +129,12 @@ Ext.extend(Ext.form.NumberField, Ext.form.TextField,  {
     // private
     decimalPrecisionFcn : function(v){
         return Math.floor(v);
+    },
+
+    beforeBlur : function(){
+        var v = this.parseValue(this.getRawValue());
+        if(v){
+            this.setValue(this.fixPrecision(v));
+        }
     }
 });

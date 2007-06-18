@@ -255,8 +255,11 @@ side          Add an error icon to the right of the field with a popup on hover
         this.fireEvent("focus", this);
     },
 
+    beforeBlur : Ext.emptyFn,
+
     // private
     onBlur : function(){
+        this.beforeBlur();
         this.el.removeClass(this.focusClass);
         this.hasFocus = false;
         if(this.validationEvent !== false && this.validateOnBlur && this.validationEvent != "blur"){
