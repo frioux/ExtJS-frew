@@ -732,6 +732,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             return;
         }
         if(Ext.isIE){
+            this.win.focus();
             var r = this.doc.selection.createRange();
             if(r){
                 r.collapse(true);
