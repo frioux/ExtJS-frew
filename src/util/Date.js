@@ -1,6 +1,6 @@
 /**
  * @class Date
- * 
+ *  
  * The date parsing and format syntax is a subset of 
  * <a href="http://www.php.net/date">PHP's date() function</a>, and the formats that are
  * supported will provide results equivalent to their PHP versions.
