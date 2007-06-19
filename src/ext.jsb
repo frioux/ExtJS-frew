@@ -514,6 +514,7 @@
   <file name="locale\ext-lang-el_GR.js" path="locale" />
   <file name="locale\ext-lang-en.js" path="locale" />
   <file name="locale\ext-lang-fr_CA.js" path="locale" />
+  <file name="locale\ext-lang-fr_FR.js" path="locale" />
   <file name="locale\ext-lang-hr.js" path="locale" />
   <file name="locale\ext-lang-hu.js" path="locale" />
   <file name="locale\ext-lang-it.js" path="locale" />

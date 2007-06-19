@@ -31,9 +31,6 @@
     padding-top:2px; /* FF won't center the text vertically */
     padding-bottom:0;
 }
-.ext-strict .ext-gecko .x-form-text {
-    height:22px;
-}
 /* select boxes */
 
 .x-form-select-one {
@@ -280,9 +277,6 @@
 }
 .ext-strict .x-small-editor .x-form-text {
     height:16px !important;
-}
-.ext-strict .ext-gecko .x-small-editor .x-form-text {
-    height:20px !important;
 }
 .ext-safari .x-small-editor .x-form-field {
     /* safari text field will not size so needs bigger font */

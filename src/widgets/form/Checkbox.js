@@ -105,7 +105,7 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
      * @param {Boolean/String} checked True, 'true,' or '1' to check the checkbox, any other value will uncheck it
      */
     setValue : function(v){
-        this.checked = (v === true || v === 'true' || v == '1');
+        this.checked = (v === true || v === 'true' || v == '1' || String(v).toLowerCase() == 'on');
         if(this.el && this.el.dom){
             this.el.dom.checked = this.checked;
         }
