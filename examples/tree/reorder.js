@@ -4,7 +4,10 @@ Ext.onReady(function(){
     
     var tree = new Tree.TreePanel('tree-div', {
         animate:true, 
-        loader: new Tree.TreeLoader({dataUrl:'get-nodes.php'}),
+        loader: new Tree.TreeLoader({
+            dataUrl:'get-nodes.php',
+            baseAttrs:{checked:false}
+        }),
         enableDD:true,
         containerScroll: true
     });

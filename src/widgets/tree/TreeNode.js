@@ -95,6 +95,13 @@ Ext.tree.TreeNode = function(attributes){
         */
         "beforeclick":true,
         /**
+        * @event checkchange
+        * Fires when a node with a checkbox's checked property changes
+        * @param {Node} this This node
+        * @param {Boolean} checked
+        */
+        "checkchange":true,
+        /**
         * @event click
         * Fires when this node is clicked
         * @param {Node} this This node

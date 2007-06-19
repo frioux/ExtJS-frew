@@ -73,6 +73,12 @@ Ext.extend(Ext.tree.TreeLoader, Ext.util.Observable, {
     */
 
     /**
+    * @cfg {Object} baseAttrs (optional) An object containing attributes to be added to all nodes
+    * created by this loader. If the attributes sent by the server have an attribute in this object,
+    * they take priority.
+    */
+
+    /**
     * @cfg {Object} uiProviders (optional) An object containing properties which
     * specify custom {@link Ext.tree.TreeNodeUI} implementations. If the optional
     * <i>uiProvider</i> attribute of a returned child node is a string rather
@@ -156,6 +162,10 @@ Ext.extend(Ext.tree.TreeLoader, Ext.util.Observable, {
     * Override this function for custom TreeNode node implementation
     */
     createNode : function(attr){
+        // apply baseAttrs, nice idea Corey!
+        if(this.baseAttrs){
+            Ext.applyIf(attr, this.baseAttrs);
+        }
         if(this.applyLoader !== false){
             attr.loader = this;
         }

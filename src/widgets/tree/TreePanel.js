@@ -96,6 +96,13 @@ Ext.tree.TreePanel = function(el, config){
         */
         "beforeclick":true,
         /**
+        * @event checkchange
+        * Fires when a node with a checkbox's checked property changes
+        * @param {Node} this This node
+        * @param {Boolean} checked
+        */
+        "checkchange":true,
+        /**
         * @event click
         * Fires when a node is clicked
         * @param {Node} node The node
@@ -266,6 +273,24 @@ Ext.extend(Ext.tree.TreePanel, Ext.data.Tree, {
             this.selModel = new Ext.tree.DefaultSelectionModel();
         }
         return this.selModel;
+    },
+
+    /**
+     * Retrieve an array of checked nodes, or an array of a specific attribute of checked nodes (e.g. "id")
+     * @param {String} attribute (optional) Defaults to null (return the actual nodes)
+     * @param {TreeNode} startNode (optional) The node to start from, defaults to the root
+     * @return {Array}
+     */
+    getChecked : function(a, startNode){
+        startNode = startNode || this.root;
+        var r = [];
+        var f = function(){
+            if(this.attributes.checked){
+                r.push(!a ? this : (a == 'id' ? this.id : this.attributes[a]));
+            }
+        }
+        startNode.cascade(f);
+        return r;
     },
 
     /**

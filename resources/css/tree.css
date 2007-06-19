@@ -29,6 +29,19 @@
 	background-image:url(../images/default/tree/leaf.gif);
 }
 
+/* checkboxes */
+.ext-ie input.x-tree-node-cb {
+    width:15px;
+    height:15px;
+}
+input.x-tree-node-cb {
+    margin-left:1px;
+}
+.ext-ie input.x-tree-node-cb {
+    margin-left:0;
+}
+
+
 .x-tree-noicon .x-tree-node-icon{
 	width:0; height:0;
 }
