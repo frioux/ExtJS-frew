@@ -91,7 +91,7 @@ Ext.lib.Dom = {
             }
         }
 
-        p = el.parentNode;
+        p = el.offsetParent;
 
         while(p && p != bd){
             // ** opera TR has bad scroll values, so filter them jvs

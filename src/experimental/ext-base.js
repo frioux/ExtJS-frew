@@ -137,7 +137,7 @@
                 }
             }
 
-            p = el.parentNode;
+            p = el.offsetParent;
 
             while (p && p != bd) {
 

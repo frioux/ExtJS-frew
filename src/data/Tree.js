@@ -96,6 +96,10 @@ Ext.data.Tree = function(root){
 Ext.extend(Ext.data.Tree, Ext.util.Observable, {
     pathSeparator: "/",
 
+    proxyNodeEvent : function(){
+        return this.fireEvent.apply(this, arguments);
+    },
+
     /**
      * Returns the root node for this tree.
      * @return {Node}

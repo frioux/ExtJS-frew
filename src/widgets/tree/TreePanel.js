@@ -210,10 +210,6 @@ Ext.extend(Ext.tree.TreePanel, Ext.data.Tree, {
     enableDD : false,
     hlDrop : Ext.enableFx,
 
-    proxyNodeEvent : function(){
-        this.fireEvent.apply(this, arguments);
-    },
-
     // private
     restrictExpand : function(node){
         var p = node.parentNode;

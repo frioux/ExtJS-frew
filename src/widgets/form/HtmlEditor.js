@@ -714,6 +714,26 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         }
     },
 
+    insertAtCursor : function(text){
+        if(!this.activated){
+            return;
+        }
+        if(Ext.isIE){
+            var r = this.doc.selection.createRange();
+            if(r){
+                r.pasteHTML(text);
+                this.deferFocus();
+            }
+        }else if(Ext.isGecko || Ext.isOpera){
+            this.win.focus();
+            this.execCmd('InsertHTML', text);
+            this.deferFocus();
+        }else if(Ext.isSafari){
+            this.execCmd('InsertText', text);
+            this.deferFocus();
+        }
+    },
+
     // private
     fixKeys : function(){ // load time branching for fastest keydown performance
         if(Ext.isIE){
