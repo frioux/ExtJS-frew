@@ -88,6 +88,13 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
              * @param {HtmlEditor} this
              */
             initialize: true,
+            /**
+             * @event activate
+             * Fires when the editor is first receives the focus. Any insertion must wait
+             * until after this event.
+             * @param {HtmlEditor} this
+             */
+            activate: true,
              /**
              * @event beforesync
              * Fires before the textarea is updated with content from the editor iframe. Return false
@@ -599,6 +606,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                 this.execCmd('styleWithCSS', false);
             }catch(e){}
         }
+        this.fireEvent('activate', this);
     },
 
     // private
@@ -714,6 +722,11 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         }
     },
 
+    /**
+     * Inserts the passed text at the current cursor position. Note: the editor must be initialized and activated
+     * to insert text.
+     * @param {String} text
+     */
     insertAtCursor : function(text){
         if(!this.activated){
             return;
@@ -721,6 +734,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         if(Ext.isIE){
             var r = this.doc.selection.createRange();
             if(r){
+                r.collapse(true);
                 r.pasteHTML(text);
                 this.deferFocus();
             }
