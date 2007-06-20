@@ -48,14 +48,9 @@ Ext.KeyMap = function(el, config, eventName){
     this.el  = Ext.get(el);
     this.eventName = eventName || "keydown";
     this.bindings = [];
-    if(config instanceof Array){
-	    for(var i = 0, len = config.length; i < len; i++){
-	        this.addBinding(config[i]);
-	    }
-    }else{
+    if(config){
         this.addBinding(config);
     }
-    this.keyDownDelegate = Ext.EventManager.wrap(this.handleKeyDown, this, true);
     this.enable();
 };
 
@@ -97,10 +92,16 @@ map.addBinding({
     scope: this
 });
 </code></pre>
-     * @param {Object} config A single KeyMap config
+     * @param {Object/Array} config A single KeyMap config or an array of configs
      */
 	addBinding : function(config){
-        var keyCode = config.key, 
+        if(config instanceof Array){
+            for(var i = 0, len = config.length; i < len; i++){
+                this.addBinding(config[i]);
+            }
+            return;
+        }
+        var keyCode = config.key,
             shift = config.shift, 
             ctrl = config.ctrl, 
             alt = config.alt,
@@ -141,6 +142,34 @@ map.addBinding({
         this.bindings.push(handler);  
 	},
 
+    /**
+     * Shorthand for adding a single key listener
+     * @param {Number/Array/Object} key Either the numeric key code, array of key codes or an object with the
+     * following options:
+     * {key: (number or array), shift: (true/false), ctrl: (true/false), alt: (true/false)}
+     * @param {Function} fn The function to call
+     * @param {Object} scope (optional) The scope of the function
+     */
+    on : function(key, fn, scope){
+        var keyCode, shift, ctrl, alt;
+        if(typeof key == "object" && !(key instanceof Array)){
+            keyCode = key.key;
+            shift = key.shift;
+            ctrl = key.ctrl;
+            alt = key.alt;
+        }else{
+            keyCode = key;
+        }
+        this.addBinding({
+            key: keyCode,
+            shift: shift,
+            ctrl: ctrl,
+            alt: alt,
+            fn: fn,
+            scope: scope
+        })
+    },
+
     // private
     handleKeyDown : function(e){
 	    if(this.enabled){ //just in case
@@ -164,17 +193,17 @@ map.addBinding({
 	 */
 	enable: function(){
 		if(!this.enabled){
-		    this.el.on(this.eventName, this.keyDownDelegate);
+		    this.el.on(this.eventName, this.handleKeyDown, this);
 		    this.enabled = true;
 		}
 	},
 
 	/**
-	 * Disables this KeyMap
+	 * Disable this KeyMap
 	 */
 	disable: function(){
 		if(this.enabled){
-		    this.el.removeListener(this.eventName, this.keyDownDelegate);
+		    this.el.removeListener(this.eventName, this.handleKeyDown, this);
 		    this.enabled = false;
 		}
 	}
