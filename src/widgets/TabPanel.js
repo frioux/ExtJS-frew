@@ -5,37 +5,36 @@
  * <br><br>
  * Usage:
  * <pre><code>
-    <font color="#008000">// basic tabs 1, built from existing content</font>
-    var tabs = new Ext.TabPanel("tabs1");
-    tabs.addTab("script", "View Script");
-    tabs.addTab("markup", "View Markup");
-    tabs.activate("script");
-    
-    <font color="#008000">// more advanced tabs, built from javascript</font>
-    var jtabs = new Ext.TabPanel("jtabs");
-    jtabs.addTab("jtabs-1", "Normal Tab", "My content was added during construction.");
-    
-    <font color="#008000">// set up the UpdateManager</font>
-    var tab2 = jtabs.addTab("jtabs-2", "Ajax Tab 1");
-    var updater = tab2.getUpdateManager();
-    updater.setDefaultUrl("ajax1.htm");
-    tab2.on('activate', updater.refresh, updater, true);
+<font color="#008000">// basic tabs 1, built from existing content</font>
+var tabs = new Ext.TabPanel("tabs1");
+tabs.addTab("script", "View Script");
+tabs.addTab("markup", "View Markup");
+tabs.activate("script");
 
-    <font color="#008000">// Use setUrl for Ajax loading</font>
-    var tab3 = jtabs.addTab("jtabs-3", "Ajax Tab 2");
-    tab3.setUrl("ajax2.htm", null, true);
-    
-    <font color="#008000">// Disabled tab</font>
-    var tab4 = jtabs.addTab("tabs1-5", "Disabled Tab", "Can"t see me cause I"m disabled");
-    tab4.disable();
-    
-    jtabs.activate("jtabs-1");
-}
+<font color="#008000">// more advanced tabs, built from javascript</font>
+var jtabs = new Ext.TabPanel("jtabs");
+jtabs.addTab("jtabs-1", "Normal Tab", "My content was added during construction.");
+
+<font color="#008000">// set up the UpdateManager</font>
+var tab2 = jtabs.addTab("jtabs-2", "Ajax Tab 1");
+var updater = tab2.getUpdateManager();
+updater.setDefaultUrl("ajax1.htm");
+tab2.on('activate', updater.refresh, updater, true);
+
+<font color="#008000">// Use setUrl for Ajax loading</font>
+var tab3 = jtabs.addTab("jtabs-3", "Ajax Tab 2");
+tab3.setUrl("ajax2.htm", null, true);
+
+<font color="#008000">// Disabled tab</font>
+var tab4 = jtabs.addTab("tabs1-5", "Disabled Tab", "Can't see me cause I'm disabled");
+tab4.disable();
+
+jtabs.activate("jtabs-1");
  * </code></pre>
  * @constructor
- * Create new TabPanel.
- * @param {String/HTMLElement/Element} container The id, DOM element or Ext.Element container where this TabPanel is to be rendered. 
- * @param {Boolean} config Config object to set any properties for this TabPanel or true to render the tabs on the bottom. 
+ * Create a new TabPanel.
+ * @param {String/HTMLElement/Ext.Element} container The id, DOM element or Ext.Element container where this TabPanel is to be rendered. 
+ * @param {Object/Boolean} config Config object to set any properties for this TabPanel, or true to render the tabs on the bottom. 
  */
 Ext.TabPanel = function(container, config){
     /**
@@ -61,7 +60,7 @@ Ext.TabPanel = function(container, config){
         Ext.fly(this.stripWrap.dom.firstChild).setStyle("overflow-x", "hidden");
     }
     if(this.tabPosition != "bottom"){
-    /** The body element that contains TabPaneItem bodies. 
+    /** The body element that contains {@link Ext.TabPanelItem} bodies. 
      * @type Ext.Element
      */
       this.bodyEl = Ext.get(this.createBody(this.el.dom));
@@ -103,19 +102,19 @@ Ext.extend(Ext.TabPanel, Ext.util.Observable, {
     /** The position of the tabs. Can be "top" or "bottom" @type String */
     tabPosition : "top",
     currentTabWidth : 0,
-    /** The minimum width of a tab (ignored if resizeTabs is not true). @type Number */
+    /** The minimum width of a tab (ignored if {@link #resizeTabs} is not true). @type Number */
     minTabWidth : 40,
-    /** The maximum width of a tab (ignored if resizeTabs is not true). @type Number */
+    /** The maximum width of a tab (ignored if {@link #resizeTabs} is not true). @type Number */
     maxTabWidth : 250,
-    /** The preferred (default) width of a tab (ignored if resizeTabs is not true). @type Number */
+    /** The preferred (default) width of a tab (ignored if {@link #resizeTabs} is not true). @type Number */
     preferredTabWidth : 175,
     /** Set this to true to enable dynamic tab resizing. @type Boolean */
     resizeTabs : false,
-    /** Set this to true to turn on window resizing monitoring (ignored if resizeTabs is not true). @type Boolean */
+    /** Set this to true to turn on window resizing monitoring (ignored if {@link #resizeTabs} is not true). @type Boolean */
     monitorResize : true,
 
     /**
-     * Creates a new TabPanelItem by looking for an existing element with the provided id - if it's not found it creates one.
+     * Creates a new {@link Ext.TabPanelItem} by looking for an existing element with the provided id -- if it's not found it creates one.
      * @param {String} id The id of the div to use <b>or create</b>
      * @param {String} text The text for the tab
      * @param {String} content (optional) Content to put in the TabPanelItem body
@@ -132,7 +131,7 @@ Ext.extend(Ext.TabPanel, Ext.util.Observable, {
     },
     
     /**
-     * Returns the TabPanelItem with the specified id/index
+     * Returns the {@link Ext.TabPanelItem} with the specified id/index
      * @param {String/Number} id The id or index of the TabPanelItem to fetch.
      * @return {Ext.TabPanelItem}
      */
@@ -141,7 +140,7 @@ Ext.extend(Ext.TabPanel, Ext.util.Observable, {
     },
     
     /**
-     * Hides the TabPanelItem with the specified id/index
+     * Hides the {@link Ext.TabPanelItem} with the specified id/index
      * @param {String/Number} id The id or index of the TabPanelItem to hide.
      */
     hideTab : function(id){
@@ -154,7 +153,7 @@ Ext.extend(Ext.TabPanel, Ext.util.Observable, {
     },
     
     /**
-     * "Unhides" the TabPanelItem with the specified id/index
+     * "Unhides" the {@link Ext.TabPanelItem} with the specified id/index.
      * @param {String/Number} id The id or index of the TabPanelItem to unhide.
      */
     unhideTab : function(id){
@@ -167,7 +166,7 @@ Ext.extend(Ext.TabPanel, Ext.util.Observable, {
     },
     
     /**
-     * Add an existing TabPanelItem.
+     * Adds an existing {@link Ext.TabPanelItem}.
      * @param {Ext.TabPanelItem} item The TabPanelItem to add
      */
     addTabItem : function(item){
@@ -182,7 +181,7 @@ Ext.extend(Ext.TabPanel, Ext.util.Observable, {
     },
         
     /**
-     * Remove a TabPanelItem.
+     * Removes a {@link Ext.TabPanelItem}.
      * @param {String/Number} id The id or index of the TabPanelItem to remove.
      */
     removeTab : function(id){
@@ -228,7 +227,7 @@ Ext.extend(Ext.TabPanel, Ext.util.Observable, {
     },
     
     /**
-     * Disable a TabPanelItem. <b>It cannot be the active tab, if it is this call is ignored.</b>. 
+     * Disables a {@link Ext.TabPanelItem}. It cannot be the active tab, if it is this call is ignored.
      * @param {String/Number} id The id or index of the TabPanelItem to disable.
      */
     disableTab : function(id){
@@ -239,7 +238,7 @@ Ext.extend(Ext.TabPanel, Ext.util.Observable, {
     },
     
     /**
-     * Enable a TabPanelItem that is disabled.
+     * Enables a {@link Ext.TabPanelItem} that is disabled.
      * @param {String/Number} id The id or index of the TabPanelItem to enable.
      */
     enableTab : function(id){
@@ -248,8 +247,9 @@ Ext.extend(Ext.TabPanel, Ext.util.Observable, {
     },
     
     /**
-     * Activate a TabPanelItem. The currently active will be deactivated. 
+     * Activates a {@link Ext.TabPanelItem}. The currently active one will be deactivated. 
      * @param {String/Number} id The id or index of the TabPanelItem to activate.
+     * @return {Ext.TabPanelItem} The TabPanelItem.
      */
     activate : function(id){
         var tab = this.items[id];
@@ -273,7 +273,7 @@ Ext.extend(Ext.TabPanel, Ext.util.Observable, {
     },
     
     /**
-     * Get the active TabPanelItem
+     * Gets the active {@link Ext.TabPanelItem}.
      * @return {Ext.TabPanelItem} The active TabPanelItem or null if none are active.
      */
     getActiveTab : function(){
@@ -300,14 +300,14 @@ Ext.extend(Ext.TabPanel, Ext.util.Observable, {
     },
 
     /**
-     * Disables tab resizing while tabs are being added (if resizeTabs is false this does nothing)
+     * Disables tab resizing while tabs are being added (if {@link #resizeTabs} is false this does nothing)
      */
     beginUpdate : function(){
         this.updating = true;    
     },
     
     /**
-     * Stops an update and resizes the tabs (if resizeTabs is false this does nothing)
+     * Stops an update and resizes the tabs (if {@link #resizeTabs} is false this does nothing)
      */
     endUpdate : function(){
         this.updating = false;
@@ -315,7 +315,7 @@ Ext.extend(Ext.TabPanel, Ext.util.Observable, {
     },
     
     /**
-     * Manual call to resize the tabs (if resizeTabs is false this does nothing)
+     * Manual call to resize the tabs (if {@link #resizeTabs} is false this does nothing)
      */
     autoSizeTabs : function(){
         var count = this.items.length;
@@ -342,7 +342,7 @@ Ext.extend(Ext.TabPanel, Ext.util.Observable, {
     },
     
     /**
-     * Returns the number of tabs
+     * Returns the number of tabs in this TabPanel.
      * @return {Number}
      */
      getCount : function(){
@@ -362,7 +362,7 @@ Ext.extend(Ext.TabPanel, Ext.util.Observable, {
     
     /**
      * Destroys this TabPanel
-     * @param {Boolean} removeEl (optional) True to remove the element from the DOM as well
+     * @param {Boolean} removeEl (optional) True to remove the element from the DOM as well (defaults to undefined)
      */
     destroy : function(removeEl){
         Ext.EventManager.removeResizeListener(this.onResize, this);
@@ -377,12 +377,13 @@ Ext.extend(Ext.TabPanel, Ext.util.Observable, {
 });
 
 /**
-* @class Ext.TabPanelItem
-* @extends Ext.util.Observable
-*/ 
+ * @class Ext.TabPanelItem
+ * @extends Ext.util.Observable
+ * Represents an individual item (tab plus body) in a TabPanel.
+ */ 
 Ext.TabPanelItem = function(tabPanel, id, text, closable){
     /**
-     * The TabPanel this TabPanelItem belongs to
+     * The {@link Ext.TabPanel} this TabPanelItem belongs to
      * @type Ext.TabPanel
      */
     this.tabPanel = tabPanel;
@@ -400,7 +401,7 @@ Ext.TabPanelItem = function(tabPanel, id, text, closable){
     this.closable = closable;
     
     /** 
-     * The body element for this TabPanelItem
+     * The body element for this TabPanelItem.
      * @type Ext.Element
      */
     this.bodyEl = Ext.get(tabPanel.createItemBody(tabPanel.bodyEl.dom, id));
@@ -428,28 +429,28 @@ Ext.TabPanelItem = function(tabPanel, id, text, closable){
     this.addEvents({
          /**
          * @event activate
-         * Fires when this tab becomes the active tab
-         * @param {Ext.TabPanel} tabPanel
+         * Fires when this tab becomes the active tab.
+         * @param {Ext.TabPanel} tabPanel The parent TabPanel
          * @param {Ext.TabPanelItem} this
          */
         "activate": true,
         /**
          * @event beforeclose
-         * Fires before this tab is closed. To cancal the close, set cancel to true on e. (e.cancel = true)
+         * Fires before this tab is closed. To cancel the close, set cancel to true on e (e.cancel = true).
          * @param {Ext.TabPanelItem} this
          * @param {Object} e Set cancel to true on this object to cancel the close.
          */
         "beforeclose": true,
         /**
          * @event close
-         * Fires when this tab is closed
+         * Fires when this tab is closed.
          * @param {Ext.TabPanelItem} this
          */
          "close": true,
         /**
          * @event deactivate
-         * Fires when this tab is no longer the active tab
-         * @param {Ext.TabPanel} tabPanel
+         * Fires when this tab is no longer the active tab.
+         * @param {Ext.TabPanel} tabPanel The parent TabPanel
          * @param {Ext.TabPanelItem} this
          */
          "deactivate" : true
@@ -465,7 +466,7 @@ Ext.extend(Ext.TabPanelItem, Ext.util.Observable, {
        this.el.removeAllListeners(); 
     },
     /**
-     * Show this TabPanelItem - this <b>does not</b> deactivate the currently active TabPanelItem.
+     * Shows this TabPanelItem -- this <b>does not</b> deactivate the currently active TabPanelItem.
      */
     show : function(){
         this.pnode.addClass("on");
@@ -485,7 +486,7 @@ Ext.extend(Ext.TabPanelItem, Ext.util.Observable, {
     },
     
     /**
-     * Hide this TabPanelItem - if you don't activate another TabPanelItem this could look odd.
+     * Hides this TabPanelItem -- if you don't activate another TabPanelItem this could look odd.
      */
     hide : function(){
         this.pnode.removeClass("on");
@@ -570,7 +571,7 @@ Ext.extend(Ext.TabPanelItem, Ext.util.Observable, {
     },
     
     /**
-     * Sets the text for the tab (Note: this also sets the tooltip)
+     * Sets the text for the tab (Note: this also sets the tooltip text)
      * @param {String} text
      */
     setText : function(text){
@@ -582,14 +583,14 @@ Ext.extend(Ext.TabPanelItem, Ext.util.Observable, {
         }
     },
     /**
-     * Activate this TabPanelItem - this <b>does</b> deactivate the currently active TabPanelItem.
+     * Activates this TabPanelItem -- this <b>does</b> deactivate the currently active TabPanelItem.
      */
     activate : function(){
         this.tabPanel.activate(this.id);
     },
     
     /**
-     * Disable this TabPanelItem - this does nothing if this is the active TabPanelItem.
+     * Disables this TabPanelItem -- this does nothing if this is the active TabPanelItem.
      */
     disable : function(){
         if(this.tabPanel.active != this){
@@ -599,7 +600,7 @@ Ext.extend(Ext.TabPanelItem, Ext.util.Observable, {
     },
     
     /**
-     * Enable this TabPanelItem if it was previously disabled.
+     * Enables this TabPanelItem if it was previously disabled.
      */
     enable : function(){
         this.disabled = false;
@@ -607,7 +608,7 @@ Ext.extend(Ext.TabPanelItem, Ext.util.Observable, {
     },
     
     /**
-     * Set the content for this TabPanelItem.
+     * Sets the content for this TabPanelItem.
      * @param {String} content The content
      * @param {Boolean} loadScripts true to look for and load scripts
      */
@@ -616,7 +617,7 @@ Ext.extend(Ext.TabPanelItem, Ext.util.Observable, {
     },
     
     /**
-     * Get the {@link Ext.UpdateManager} for the body of this TabPanelItem. Enables you to perform Ajax updates.
+     * Gets the {@link Ext.UpdateManager} for the body of this TabPanelItem. Enables you to perform Ajax updates.
      * @return {Ext.UpdateManager} The UpdateManager
      */
     getUpdateManager : function(){
@@ -625,7 +626,7 @@ Ext.extend(Ext.TabPanelItem, Ext.util.Observable, {
     
     /**
      * Set a URL to be used to load the content for this TabPanelItem.
-     * @param {String/Function} url The url to load the content from or a function to call to get the url
+     * @param {String/Function} url The URL to load the content from, or a function to call to get the URL
      * @param {String/Object} params (optional) The string params for the update call or an object of the params. See {@link Ext.UpdateManager#update} for more details. (Defaults to null)
      * @param {Boolean} loadOnce (optional) Whether to only load the content once. If this is false it makes the Ajax call every time this TabPanelItem is activated. (Defaults to false)
      * @return {Ext.UpdateManager} The UpdateManager
@@ -648,7 +649,7 @@ Ext.extend(Ext.TabPanelItem, Ext.util.Observable, {
     },
     
     /**
-     *   Force a content refresh from the URL specified in the setUrl() method.
+     *   Forces a content refresh from the URL specified in the {@link #setUrl} method.
      *   Will fail silently if the setUrl method has not been called.
      *   This does not activate the panel, just updates its content.
      */
