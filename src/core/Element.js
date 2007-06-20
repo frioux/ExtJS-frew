@@ -823,7 +823,7 @@ El.prototype = {
     },
     
     /**
-     * Sets the element's top position directly using CSS style (instead of {@link setY}).
+     * Sets the element's top position directly using CSS style (instead of {@link #setY}).
      * @param {String} top The top CSS property value
      * @return {Ext.Element} this
      */

@@ -8,22 +8,22 @@
  * A KeyMap can also handle a string representation of keys.<br />
  * Usage:
  <pre><code>
- // map one key by key code
- var map = new Ext.KeyMap("my-element", {
-     key: 13, // or Ext.EventObject.ENTER
-     fn: myHandler,
-     scope: myObject
- });
- 
- // map multiple keys to one action by string
- var map = new Ext.KeyMap("my-element", {
-     key: "a\r\n\t",
-     fn: myHandler,
-     scope: myObject
- });
- 
- // map multiple keys to multiple actions by strings and array of codes
- var map = new Ext.KeyMap("my-element", [
+// map one key by key code
+var map = new Ext.KeyMap("my-element", {
+    key: 13, // or Ext.EventObject.ENTER
+    fn: myHandler,
+    scope: myObject
+});
+
+// map multiple keys to one action by string
+var map = new Ext.KeyMap("my-element", {
+    key: "a\r\n\t",
+    fn: myHandler,
+    scope: myObject
+});
+
+// map multiple keys to multiple actions by strings and array of codes
+var map = new Ext.KeyMap("my-element", [
     {
         key: [10,13],
         fn: function(){ alert("Return was pressed"); }
@@ -38,10 +38,10 @@
     }
 ]);
 </code></pre>
- * <b>Note: A KepMap starts enabled</b>
+ * <b>Note: A KeyMap starts enabled</b>
  * @constructor
  * @param {String/HTMLElement/Ext.Element} el The element to bind to
- * @param {Object} config The config
+ * @param {Object} config The config (see {@link #addBinding})
  * @param {String} eventName (optional) The event to bind to (defaults to "keydown")
  */
 Ext.KeyMap = function(el, config, eventName){
@@ -152,7 +152,7 @@ map.addBinding({
 	},
 	
 	/**
-	 * Returns true if this KepMap is enabled
+	 * Returns true if this KeyMap is enabled
 	 * @return {Boolean} 
 	 */
 	isEnabled : function(){
@@ -160,7 +160,7 @@ map.addBinding({
 	},
 	
 	/**
-	 * Enable this KeyMap
+	 * Enables this KeyMap
 	 */
 	enable: function(){
 		if(!this.enabled){
@@ -170,7 +170,7 @@ map.addBinding({
 	},
 
 	/**
-	 * Disable this KeyMap
+	 * Disables this KeyMap
 	 */
 	disable: function(){
 		if(this.enabled){

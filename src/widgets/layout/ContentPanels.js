@@ -3,18 +3,18 @@
  * @extends Ext.util.Observable
  * A basic ContentPanel element.
  * @cfg {Boolean} fitToFrame True for this panel to adjust its size to fit when the region resizes  (defaults to false)
- * @cfg {Boolean} fitContainer When using fitToFrame and resizeEl, you can also fit the parent container  (defaults to false)
- * @cfg {Boolean/Object} autoCreate True to auto generate the DOM element for this panel, or a DomHelper config of the element to create
+ * @cfg {Boolean} fitContainer When using {@link #fitToFrame} and {@link #resizeEl}, you can also fit the parent container  (defaults to false)
+ * @cfg {Boolean/Object} autoCreate True to auto generate the DOM element for this panel, or a {@link Ext.DomHelper} config of the element to create
  * @cfg {Boolean} closable True if the panel can be closed/removed
  * @cfg {Boolean} background True if the panel should not be activated when it is added (defaults to false)
- * @cfg {String/HTMLElement/Element} resizeEl An element to resize if fitToFrame is true (instead of this panel's element)
+ * @cfg {String/HTMLElement/Element} resizeEl An element to resize if {@link #fitToFrame} is true (instead of this panel's element)
  * @cfg {Toolbar} toolbar A toolbar for this panel
- * @cfg {Boolean} autoScroll True to scroll overflow in this panel (use with fitToFrame)
+ * @cfg {Boolean} autoScroll True to scroll overflow in this panel (use with {@link #fitToFrame})
  * @cfg {String} title The title for this panel
  * @cfg {Array} adjustments Values to <b>add</b> to the width/height when doing a fitToFrame (default is [0, 0])
- * @cfg {String} url Calls setUrl() with this value
- * @cfg {String/Object} params When used with "url", calls setUrl() with this value
- * @cfg {Boolean} loadOnce Calls When used with "url", calls setUrl() with this value
+ * @cfg {String} url Calls {@link #setUrl} with this value
+ * @cfg {String/Object} params When used with {@link #url}, calls {@link #setUrl} with this value
+ * @cfg {Boolean} loadOnce When used with {@link #url}, calls {@link #setUrl} with this value
  * @constructor
  * Create a new ContentPanel.
  * @param {String/HTMLElement/Element} el The container element for this panel
@@ -308,7 +308,7 @@ panel.load({<br/>
  * @constructor
  * Create a new GridPanel.
  * @param {Ext.grid.Grid} grid The grid for this panel
- * @param {String/Object} config A string to set only the title or a config object
+ * @param {String/Object} config A string to set only the panel's title, or a config object
  */
 Ext.GridPanel = function(grid, config){
     this.wrapper = Ext.DomHelper.append(document.body, // wrapper for IE7 strict & safari scroll issue

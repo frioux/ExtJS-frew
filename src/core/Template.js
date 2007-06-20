@@ -229,7 +229,7 @@ var t = new Ext.MasterTemplate(
 t.add('options', {value: 'foo', text: 'bar'});
 // or you can add multiple child elements in one shot
 t.addAll('options', [
-    {value: 'foo', text: 'bar'},
+    {value: 'foo1', text: 'bar2'},
     {value: 'foo2', text: 'bar2'},
     {value: 'foo3', text: 'bar3'}
 ]);
@@ -276,7 +276,7 @@ Ext.extend(Ext.MasterTemplate, Ext.Template, {
      * Applies the passed values to a child template.
      * @param {String/Number} name (optional) The name or index of the child template
      * @param {Array/Object} values The values to be applied to the template
-     * @return {MasterTemplate} this
+     * @return {Ext.MasterTemplate} this
      */
      add : function(name, values){
         if(arguments.length == 1){
@@ -293,7 +293,7 @@ Ext.extend(Ext.MasterTemplate, Ext.Template, {
      * @param {String/Number} name (optional) The name or index of the child template
      * @param {Array} values The values to be applied to the template, this should be an array of objects.
      * @param {Boolean} reset (optional) True to reset the template first
-     * @return {MasterTemplate} this
+     * @return {Ext.MasterTemplate} this
      */
     fill : function(name, values, reset){
         var a = arguments;
@@ -313,7 +313,7 @@ Ext.extend(Ext.MasterTemplate, Ext.Template, {
     
     /**
      * Resets the template for reuse
-     * @return {MasterTemplate} this
+     * @return {Ext.MasterTemplate} this
      */
      reset : function(){
         var s = this.subs;
@@ -345,9 +345,10 @@ Ext.extend(Ext.MasterTemplate, Ext.Template, {
  */
 Ext.MasterTemplate.prototype.addAll = Ext.MasterTemplate.prototype.fill;
  /**
- * Creates a template from the passed element's value (display:none textarea, preferred) or innerHTML. e.g.
+ * Creates a template from the passed element's value (<i>display:none</i> textarea, preferred) or innerHTML, e.g.
  * var tpl = Ext.MasterTemplate.from('element-id');
  * @param {String/HTMLElement} el
+ * @return {Ext.MasterTemplate} The created template
  * @static
  */
 Ext.MasterTemplate.from = function(el){

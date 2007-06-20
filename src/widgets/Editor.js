@@ -166,7 +166,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
     },
 
     /**
-     * Sets the height and width of this editor
+     * Sets the height and width of this editor.
      * @param {Number} width The new width
      * @param {Number} height The new height
      */
@@ -185,7 +185,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
     },
 
     /**
-     * Ends the editing process, persist the changed value to the underlying field and hides the editor.
+     * Ends the editing process, persists the changed value to the underlying field and hides the editor.
      * @param {Boolean} remainVisible Override the default behavior and keep the editor visible after edit (defaults to false)
      */
     completeEdit : function(remainVisible){
@@ -287,7 +287,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
 
     /**
      * Gets the data value of the editor
-     * @return {Mixed} value The data value
+     * @return {Mixed} The data value
      */
     getValue : function(){
         return this.field.getValue();

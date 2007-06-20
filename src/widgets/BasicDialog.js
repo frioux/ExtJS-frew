@@ -1083,23 +1083,24 @@ Ext.DialogManager = function(){
  * @class Ext.LayoutDialog
  * @extends Ext.BasicDialog
  * Dialog which provides adjustments for working with a layout in a Dialog.
- * Add your neccessary layout config options to the dialogs config.<br>
- * Example Usage (including a nested layout):
- * <pre><code>    if(!dialog){
+ * Add your necessary layout config options to the dialog's config.<br>
+ * Example usage (including a nested layout):
+ * <pre><code>
+if(!dialog){
     dialog = new Ext.LayoutDialog("download-dlg", {
-            modal: true,
-            width:600,
-            height:450,
-            shadow:true,
-            minWidth:500,
-            minHeight:350,
-            autoTabs:true,
-            proxyDrag:true,
-            // layout config merges with the dialog config
-            center:{
-                tabPosition: "top",
-                alwaysShowTabs: true
-            }
+        modal: true,
+        width:600,
+        height:450,
+        shadow:true,
+        minWidth:500,
+        minHeight:350,
+        autoTabs:true,
+        proxyDrag:true,
+        // layout config merges with the dialog config
+        center:{
+            tabPosition: "top",
+            alwaysShowTabs: true
+        }
     });
     dialog.addKeyListener(27, dialog.hide, dialog);
     dialog.setDefaultButton(dialog.addButton("Close", dialog.hide, dialog));
@@ -1128,7 +1129,8 @@ Ext.DialogManager = function(){
     layout.add("center", new Ext.NestedLayoutPanel(innerLayout,
                {title: "Build your own ext.js"}));
     layout.getRegion("center").showPanel(sp);
-    layout.endUpdate();</code></pre>
+    layout.endUpdate();
+}</code></pre>
     * @constructor
     * @param {String/HTMLElement/Ext.Element} el The id of or container element
     * @param {Object} config configuration options
