@@ -54,24 +54,28 @@ Ext.data.Connection = function(config){
 
 Ext.extend(Ext.data.Connection, Ext.util.Observable, {
     /**
-     * @cfg {String} url (Optional) The default URL to be used for requests to the server.
+     * @cfg {String} url (Optional) The default URL to be used for requests to the server. (defaults to undefined)
      */
     /**
      * @cfg {Object} extraParams (Optional) An object containing properties which are used as
-     * extra parameters to each request made by this object.
+     * extra parameters to each request made by this object. (defaults to undefined)
      */
     /**
      * @cfg {Object} defaultHeaders (Optional) An object containing request headers which are added
-     *  to each request made by this object.
+     *  to each request made by this object. (defaults to undefined)
      */
     /**
-     * @cfg {String} method (Optional) The default HTTP method to be used for requests.
+     * @cfg {String} method (Optional) The default HTTP method to be used for requests. (defaults to undefined; if not set but parms are present will use POST, otherwise GET)
      */
     /**
-     * @cfg  {Number} timeout (Optional) The timeout in milliseconds to be used for requests. Defaults
-     * to 30000.
+     * @cfg {Number} timeout (Optional) The timeout in milliseconds to be used for requests. (defaults to 30000)
      */
     timeout : 30000,
+    /**
+     * @cfg {Boolean} autoAbort (Optional) Whether this request should abort any pending requests. (defaults to false)
+     * @type Boolean
+     */
+	autoAbort:false,
 
     /**
      * Sends an HTTP request to a remote server.
@@ -135,8 +139,6 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
                 }
                 var f = Ext.lib.Ajax.serializeForm(form);
                 p = p ? (p + '&' + f) : f;
-
-
             }
 
             var hs = o.headers;
@@ -327,6 +329,9 @@ Ext.Ajax = new Ext.data.Connection({
     /**
      * @cfg  {Number} timeout (Optional) @hide
      */
+    /**
+     * @cfg {Boolean} autoAbort (Optional) @hide
+     */
 
     /**
      *  The default URL to be used for requests to the server. (defaults to undefined)
@@ -340,21 +345,25 @@ Ext.Ajax = new Ext.data.Connection({
      * @property  extraParams
      */
     /**
-     * An object containing request headers which are added
-     *  to each request made by this object. (defaults to undefined)
+     * An object containing request headers which are added to each request made by this object. (defaults to undefined)
      * @type Object
      * @property  defaultHeaders
      */
     /**
-     * The default HTTP method to be used for requests. (defaults to undefined)
+     * The default HTTP method to be used for requests. (defaults to undefined; if not set but parms are present will use POST, otherwise GET)
      * @type String
      * @property  method
      */
     /**
-     * The timeout in milliseconds to be used for requests. (defaults
-     * to 30000)
+     * The timeout in milliseconds to be used for requests. (defaults to 30000)
      * @type Number
      * @property  timeout
+     */
+
+    /**
+     * @cfg {Boolean} autoAbort (Optional) Whether this request should abort any pending requests. (defaults to false)
+     * @type Boolean
+     * @property  autoAbort
      */
     autoAbort : false,
 
