@@ -1,19 +1,20 @@
 /**
 * @class Ext.Template
 * Represents an HTML fragment template. Templates can be precompiled for greater performance.
-* For a list of available format functions, see {@link Ext.util.Format}.
+* For a list of available format functions, see {@link Ext.util.Format}.<br />
+* Usage:
 <pre><code>
 var t = new Ext.Template(
-	'&lt;div name="{id}"&gt;',
-		'&lt;span class="{cls}"&gt;{name:trim} {value:ellipsis(10)}&lt;/span&gt;',
-	'&lt;/div&gt;'
+    '&lt;div name="{id}"&gt;',
+        '&lt;span class="{cls}"&gt;{name:trim} {value:ellipsis(10)}&lt;/span&gt;',
+    '&lt;/div&gt;'
 );
-t.append('some-element', {id: 'myid', name: 'foo', value: 'bar'});
+t.append('some-element', {id: 'myid', cls: 'myclass', name: 'foo', value: 'bar'});
 </code></pre>
-* For more information see <a href="http://www.jackslocum.com/yui/2006/10/06/domhelper-create-elements-using-dom-html-fragments-or-templates/">this blog post with examples</a>. 
+* For more information see this blog post with examples: <a href="http://www.jackslocum.com/yui/2006/10/06/domhelper-create-elements-using-dom-html-fragments-or-templates/">DomHelper - Create Elements using DOM, HTML fragments and Templates</a>. 
 * <br>
 * @constructor
-* @param {String/Array} html The HTML fragment or an array of fragments to join('') or multiple arguments to join('')
+* @param {String/Array} html The HTML fragment or an array of fragments to join("") or multiple arguments to join("")
 */
 Ext.Template = function(html){
     if(html instanceof Array){
@@ -27,9 +28,9 @@ Ext.Template = function(html){
 };
 Ext.Template.prototype = {
     /**
-     * Returns an HTML fragment of this template with the specified values applied
+     * Returns an HTML fragment of this template with the specified values applied.
      * @param {Object} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
-     * @return {String}
+     * @return {String} The HTML fragment
      */
     applyTemplate : function(values){
         if(this.compiled){
@@ -65,10 +66,10 @@ Ext.Template.prototype = {
     },
     
     /**
-     * Sets the html used as the template and optionally compiles it
+     * Sets the HTML used as the template and optionally compiles it
      * @param {String} html
-     * @param {Boolean} compile (optional)
-     * @return {Template} this
+     * @param {Boolean} compile (optional) True to compile the template (defaults to undefined)
+     * @return {Ext.Template} this
      */
     set : function(html, compile){
         this.html = html;
@@ -80,7 +81,7 @@ Ext.Template.prototype = {
     },
     
     /**
-     * True to disable format functions (default to false)
+     * True to disable format functions (defaults to false)
      * @type Boolean
      */
     disableFormats : false,
@@ -93,7 +94,8 @@ Ext.Template.prototype = {
     re : /\{([\w-]+)(?:\:([\w\.]*)(?:\((.*?)?\))?)?\}/g,
     
     /**
-     * Compiles the template into an internal function, eliminating the RegEx overhead
+     * Compiles the template into an internal function, eliminating the RegEx overhead.
+     * @return {Ext.Template} this
      */
     compile : function(){
         var fm = Ext.util.Format;
@@ -136,10 +138,10 @@ Ext.Template.prototype = {
     
     /**
      * Applies the supplied values to the template and inserts the new node(s) as the first child of el
-     * @param {String/HTMLElement/Element} el The context element
+     * @param {String/HTMLElement/Ext.Element} el The context element
      * @param {Object} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
-     * @param {Boolean} returnElement (optional) true to return a Ext.Element
-     * @return {HTMLElement} The new node
+     * @param {Boolean} returnElement (optional) true to return a Ext.Element (defaults to undefined)
+     * @return {HTMLElement/Ext.Element} The new node or Element
      */
     insertFirst: function(el, values, returnElement){
         return this.doInsert('afterBegin', el, values, returnElement);
@@ -147,10 +149,10 @@ Ext.Template.prototype = {
 
     /**
      * Applies the supplied values to the template and inserts the new node(s) before el
-     * @param {String/HTMLElement/Element} el The context element
+     * @param {String/HTMLElement/Ext.Element} el The context element
      * @param {Object} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
-     * @param {Boolean} returnElement (optional) true to return a Ext.Element
-     * @return {HTMLElement} The new node
+     * @param {Boolean} returnElement (optional) true to return a Ext.Element (defaults to undefined)
+     * @return {HTMLElement/Ext.Element} The new node or Element
      */
     insertBefore: function(el, values, returnElement){
         return this.doInsert('beforeBegin', el, values, returnElement);
@@ -158,21 +160,21 @@ Ext.Template.prototype = {
 
     /**
      * Applies the supplied values to the template and inserts the new node(s) after el
-     * @param {String/HTMLElement/Element} el The context element
+     * @param {String/HTMLElement/Ext.Element} el The context element
      * @param {Object} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
-     * @param {Boolean} returnElement (optional) true to return a Ext.Element
-     * @return {HTMLElement} The new node
+     * @param {Boolean} returnElement (optional) true to return a Ext.Element (defaults to undefined)
+     * @return {HTMLElement/Ext.Element} The new node or Element
      */
     insertAfter : function(el, values, returnElement){
         return this.doInsert('afterEnd', el, values, returnElement);
     },
     
     /**
-     * Applies the supplied values to the template and append the new node(s) to el
-     * @param {String/HTMLElement/Element} el The context element
+     * Applies the supplied values to the template and appends the new node(s) to el
+     * @param {String/HTMLElement/Ext.Element} el The context element
      * @param {Object} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
-     * @param {Boolean} returnElement (optional) true to return a Ext.Element
-     * @return {HTMLElement} The new node
+     * @param {Boolean} returnElement (optional) true to return a Ext.Element (defaults to undefined)
+     * @return {HTMLElement/Ext.Element} The new node or Element
      */
     append : function(el, values, returnElement){
         return this.doInsert('beforeEnd', el, values, returnElement);
@@ -186,10 +188,10 @@ Ext.Template.prototype = {
 
     /**
      * Applies the supplied values to the template and overwrites the content of el with the new node(s)
-     * @param {String/HTMLElement/Element} el The context element
+     * @param {String/HTMLElement/Ext.Element} el The context element
      * @param {Object} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
-     * @param {Boolean} returnElement (optional) true to return a Ext.Element
-     * @return {HTMLElement} The new node
+     * @param {Boolean} returnElement (optional) true to return a Ext.Element (defaults to undefined)
+     * @return {HTMLElement/Ext.Element} The new node or Element
      */
     overwrite : function(el, values, returnElement){
         el = Ext.getDom(el);
@@ -198,7 +200,7 @@ Ext.Template.prototype = {
     }
 };
 /**
- * Alias for applyTemplate
+ * Alias for {@link #applyTemplate}
  * @method
  */
 Ext.Template.prototype.apply = Ext.Template.prototype.applyTemplate;
@@ -207,8 +209,9 @@ Ext.Template.prototype.apply = Ext.Template.prototype.applyTemplate;
 Ext.DomHelper.Template = Ext.Template;
 
 /**
- * Creates a template from the passed element's value (display:none textarea, preferred) or innerHTML
- * @param {String/HTMLElement} el
+ * Creates a template from the passed element's value (display:none textarea, preferred) or innerHTML.
+ * @param {String/HTMLElement} el A DOM element or its id
+ * @returns {Ext.Template} The created template
  * @static
  */
 Ext.Template.from = function(el){
@@ -340,14 +343,14 @@ Ext.extend(Ext.MasterTemplate, Ext.Template, {
 });
 
 /**
- * Alias for fill().
+ * Alias for {@link #fill}.
  * @method
  */
 Ext.MasterTemplate.prototype.addAll = Ext.MasterTemplate.prototype.fill;
  /**
  * Creates a template from the passed element's value (<i>display:none</i> textarea, preferred) or innerHTML, e.g.
  * var tpl = Ext.MasterTemplate.from('element-id');
- * @param {String/HTMLElement} el
+ * @param {String/HTMLElement} el A DOM element or its id
  * @return {Ext.MasterTemplate} The created template
  * @static
  */
