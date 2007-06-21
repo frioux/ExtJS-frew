@@ -121,7 +121,7 @@ if(Ext.form.DateField){
       minText           : "Das Datum in diesem Feld muß nach dem {0} liegen",
       maxText           : "Das Datum in diesem Feld muß vor dem {0} liegen",
       invalidText       : "{0} ist kein valides Datum - es muß im Format {1} eingegeben werden",
-      format            : "Tag.Monat.Jahr"
+      format            : "d.m.Y"
    });
 }
 
