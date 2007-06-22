@@ -697,10 +697,13 @@ El.prototype = {
             function(prop){
                 var el = this.dom, v, cs, camel;
                 if(prop == 'opacity'){
-                    if(typeof el.filter == 'string'){
-                        var fv = parseFloat(el.filter.match(/alpha\(opacity=(.*)\)/i)[1]);
-                        if(!isNaN(fv)){
-                            return fv ? fv / 100 : 0;
+                    if(typeof el.style.filter == 'string'){
+                        var m = el.style.filter.match(/alpha\(opacity=(.*)\)/i);
+                        if(m){
+                            var fv = parseFloat(m[1]);
+                            if(!isNaN(fv)){
+                                return fv ? fv / 100 : 0;
+                            }
                         }
                     }
                     return 1;
