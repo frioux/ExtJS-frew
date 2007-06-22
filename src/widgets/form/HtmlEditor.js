@@ -693,6 +693,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
      */
     execCmd : function(cmd, value){
         this.doc.execCommand(cmd, false, value === undefined ? null : value);
+        this.syncValue();
     },
 
     // private
@@ -737,6 +738,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             if(r){
                 r.collapse(true);
                 r.pasteHTML(text);
+                this.syncValue();
                 this.deferFocus();
             }
         }else if(Ext.isGecko || Ext.isOpera){

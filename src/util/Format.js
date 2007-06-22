@@ -38,6 +38,15 @@ Ext.util.Format = function(){
         },
 
         /**
+         * Convert certain characters (&, <, >, and ') from their HTML character equivalents.
+         * @param {String} value The string to decode
+         * @return {String} The decoded text
+         */
+        htmlDecode : function(value){
+            return !value ? value : String(value).replace(/&amp;/g, "&").replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&quot;/g, '"');
+        },
+
+        /**
          * Trims any whitespace from either side of a string
          * @param {String} value The text to trim
          * @return {String} The trimmed text

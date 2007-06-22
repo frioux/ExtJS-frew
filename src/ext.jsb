@@ -31,6 +31,8 @@
     <include name="util\MixedCollection.js" />
     <include name="util\JSON.js" />
     <include name="util\Format.js" />
+    <include name="util\MasterTemplate.js" />
+    <include name="util\XTemplate.js" />
     <include name="util\CSS.js" />
     <include name="util\ClickRepeater.js" />
     <include name="util\KeyNav.js" />
@@ -545,10 +547,12 @@
   <file name="util\JSON.js" path="util" />
   <file name="util\KeyMap.js" path="util" />
   <file name="util\KeyNav.js" path="util" />
+  <file name="util\MasterTemplate.js" path="util" />
   <file name="util\MixedCollection.js" path="util" />
   <file name="util\Observable.js" path="util" />
   <file name="util\TaskMgr.js" path="util" />
   <file name="util\TextMetrics.js" path="util" />
+  <file name="util\XTemplate.js" path="util" />
   <file name="widgets\form\Action.js" path="widgets\form" />
   <file name="widgets\form\BasicForm.js" path="widgets\form" />
   <file name="widgets\form\Checkbox.js" path="widgets\form" />

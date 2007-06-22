@@ -319,7 +319,7 @@ Ext.QuickTips = function(){
                            tagEls[target[j]] = c;
                        }
                    }else{
-                       tagEls[typeof target == 'string' ? target : Ext.id(target.id)] = c;
+                       tagEls[typeof target == 'string' ? target : Ext.id(target)] = c;
                    }
                }
            }
