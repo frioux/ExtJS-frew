@@ -455,8 +455,6 @@ side          Add an error icon to the right of the field with a popup on hover
                 if(tag = 'textarea'){
                     return w-2;
                 }
-            }else if(Ext.isGecko && tag == 'textarea'){
-                return w-6;
             }else if(Ext.isOpera){
                 if(tag == 'input'){
                     return w + 2;
