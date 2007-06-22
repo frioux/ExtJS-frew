@@ -14,7 +14,7 @@
  * {@link #create}. The parameters are the same.
  * @param {Array} data An associative Array of data values keyed by the field name.
  * @param {Object} id (Optional) The id of the record. This id should be unique, and is used by the
- * @link Ext.data.Store} object which owns the Record to index its collection of Records. If
+ * {@link Ext.data.Store} object which owns the Record to index its collection of Records. If
  * not specified an integer id is generated.
  */
 Ext.data.Record = function(data, id){

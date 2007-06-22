@@ -33,7 +33,7 @@ var myReader = new Ext.data.XmlReader({
  &lt;row>
    &lt;id>2&lt;/id>
    &lt;name>Ben&lt;/name>
-   &lt;occupation>Horticulturalist&lt;/name>
+   &lt;occupation>Horticulturalist&lt;/occupation>
  &lt;/row>
 &lt;/dataset>
 </code></pre>
