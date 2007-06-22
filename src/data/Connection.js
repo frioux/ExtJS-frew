@@ -233,7 +233,9 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
             frame.src = Ext.SSL_SECURE_URL;
         }
         document.body.appendChild(frame);
-
+        if(Ext.isIE){
+           document.frames[id].name = id;
+        }
 
         var form = Ext.getDom(o.form);
         form.target = id;
