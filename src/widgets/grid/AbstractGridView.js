@@ -75,7 +75,8 @@ Ext.extend(Ext.grid.AbstractGridView, Ext.util.Observable, {
     },
     
     generateRules : function(cm){
-        var ruleBuf = [];
+        var ruleBuf = [], rulesId = this.grid.id + '-cssrules';
+        Ext.util.CSS.removeStyleSheet(rulesId);
         for(var i = 0, len = cm.getColumnCount(); i < len; i++){
             var cid = cm.getColumnId(i);
             ruleBuf.push(this.colSelector, cid, " {\n", cm.config[i].css, "}\n",
@@ -83,6 +84,6 @@ Ext.extend(Ext.grid.AbstractGridView, Ext.util.Observable, {
                          this.hdSelector, cid, " {\n}\n",
                          this.splitSelector, cid, " {\n}\n");
         }
-        return Ext.util.CSS.createStyleSheet(ruleBuf.join(""));
+        return Ext.util.CSS.createStyleSheet(ruleBuf.join(""), rulesId);
     }
 });

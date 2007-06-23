@@ -15,13 +15,15 @@ Ext.util.CSS = function(){
     * Very simple dynamic creation of stylesheets from a text blob of rules.  The text will wrapped in a style
     * tag and appended to the HEAD of the document.
     * @param {String} cssText The text containing the css rules
-    * @return {StyleSheet} 
+    * @param {String} id An id to add to the stylesheet for later removal
+    * @return {StyleSheet}
     */
-   createStyleSheet : function(cssText){
+   createStyleSheet : function(cssText, id){
        var ss;
        if(Ext.isIE){
            ss = doc.createStyleSheet();
            ss.cssText = cssText;
+           ss.id = id;
        }else{
            var head = doc.getElementsByTagName("head")[0];
            var rules = doc.createElement("style");
@@ -31,6 +33,7 @@ Ext.util.CSS = function(){
            }catch(e){
                rules.cssText = cssText; 
            }
+           rules.id = id;
            head.appendChild(rules);
            ss = rules.styleSheet ? rules.styleSheet : (rules.sheet || doc.styleSheets[doc.styleSheets.length-1]);
        }
