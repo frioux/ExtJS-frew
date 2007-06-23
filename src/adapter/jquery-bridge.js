@@ -282,12 +282,20 @@ Ext.lib.Ajax = function(){
                 timeout: cb.timeout,
                 complete: createComplete(cb)
             };
-            if(options && options.headers){
-                o.beforeSend = function(xhr){
-                    var hs = options.headers;
-                    for(var h in hs){
-                        if(hs.hasOwnProperty(h)){
-                            xhr.setRequestHeader(h, hs[h]);
+            if(options){
+                if(options.xmlData){
+                    o.data = options.xmlData;
+                    o.processData = false;
+                    o.type = 'POST';
+                    o.contentType = 'text/xml';
+                }
+                if(options.headers){
+                    o.beforeSend = function(xhr){
+                        var hs = options.headers;
+                        for(var h in hs){
+                            if(hs.hasOwnProperty(h)){
+                                xhr.setRequestHeader(h, hs[h]);
+                            }
                         }
                     }
                 }

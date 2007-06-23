@@ -106,6 +106,8 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
      * <li><b>form</b> {Object/String} (Optional) A form object or id to pull parameters from.</li>
      * <li><b>isUpload</b> {Boolean} (Optional) True if the form object is a file upload (will usually be automatically detected).</li>
      * <li><b>headers</b> {Object} (Optional) Request headers to set for the request.</li>
+     * <li><b>xmlData</b> {Object} (Optional) XML document to use for the post. Note: This will be used instead of
+     * params for the post data. Any params will be appended to the URL.</li>
      * </ul>
      * @return {Number} transactionId
      */
@@ -167,7 +169,7 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
                 this.abort();
             }
 
-            if(method == 'GET' && p){
+            if((method == 'GET' && p) || o.xmlData){
                 url += (url.indexOf('?') != -1 ? '&' : '?') + p;
                 p = '';
             }

@@ -184,14 +184,21 @@ Ext.lib.Event = {
 
 Ext.lib.Ajax = {
     request : function(method, uri, cb, data, options){
-        if(options && options.headers){
+        if(options){
             var hs = options.headers;
-            for(var h in hs){
-                if(hs.hasOwnProperty(h)){
-                    CN.initHeader(h, hs[h], false);
+            if(hs){
+                for(var h in hs){
+                    if(hs.hasOwnProperty(h)){
+                        CN.initHeader(h, hs[h], false);
+                    }
                 }
             }
-		}
+            if(options.xmlData){
+                CN.initHeader('Content-Type', 'text/xml', false);
+                method = 'POST';
+                data = options.xmlData;
+            }
+        }
         return CN.asyncRequest(method, uri, cb, data);
     },
 

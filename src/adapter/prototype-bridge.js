@@ -293,8 +293,16 @@ Ext.lib.Ajax = function(){
                 onSuccess: createSuccess(cb),
                 onFailure: createFailure(cb)
             };
-            if(options && options.headers){
-                o.requestHeaders =	options.headers;
+            if(options){
+                if(options.headers){
+                    o.requestHeaders =	options.headers;
+                }
+                if(options.xmlData){
+                    method = 'POST';
+                    o.contentType = 'text/xml';
+                    o.postBody = options.xmlData;
+                    delete o.parameters;
+                }
             }
             new Ajax.Request(uri, o);
         },
