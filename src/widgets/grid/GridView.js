@@ -578,7 +578,8 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
     },
 
     generateRules : function(cm){
-        var ruleBuf = [];
+        var ruleBuf = [], rulesId = this.grid.id + '-cssrules';
+        Ext.util.CSS.removeStyleSheet(rulesId);
         for(var i = 0, len = cm.getColumnCount(); i < len; i++){
             var cid = cm.getColumnId(i);
             var align = '';
@@ -596,7 +597,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
                     this.tdSelector, cid, " {\n",hidden,"\n}\n",
                     this.splitSelector, cid, " {\n", hidden , "\n}\n");
         }
-        return Ext.util.CSS.createStyleSheet(ruleBuf.join(""));
+        return Ext.util.CSS.createStyleSheet(ruleBuf.join(""), rulesId);
     },
 
     updateSplitters : function(){

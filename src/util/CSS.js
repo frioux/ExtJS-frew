@@ -20,20 +20,22 @@ Ext.util.CSS = function(){
     */
    createStyleSheet : function(cssText, id){
        var ss;
+       var head = doc.getElementsByTagName("head")[0];
+       var rules = doc.createElement("style");
+       rules.setAttribute("type", "text/css");
+       if(id){
+           rules.setAttribute("id", id);
+       }
        if(Ext.isIE){
-           ss = doc.createStyleSheet();
+           head.appendChild(rules);
+           ss = rules.styleSheet;
            ss.cssText = cssText;
-           ss.id = id;
        }else{
-           var head = doc.getElementsByTagName("head")[0];
-           var rules = doc.createElement("style");
-           rules.setAttribute("type", "text/css");
            try{
                 rules.appendChild(doc.createTextNode(cssText));
            }catch(e){
                rules.cssText = cssText; 
            }
-           rules.id = id;
            head.appendChild(rules);
            ss = rules.styleSheet ? rules.styleSheet : (rules.sheet || doc.styleSheets[doc.styleSheets.length-1]);
        }
