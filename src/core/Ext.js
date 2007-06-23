@@ -412,6 +412,50 @@ Ext.override(MyClass, {
             }
         },
 
+        // inpired by a similar function in mootools library
+        /**
+         * Returns the type of object that is passed in. If the object passed in is null or undefined it
+         * return false otherwise it returns one of the following values:<ul>
+         * <li><b>string</b>: If the object passed is a string</li>
+         * <li><b>number</b>: If the object passed is a number</li>
+         * <li><b>boolean</b>: If the object passed is a boolean value</li>
+         * <li><b>function</b>: If the object passed is a function reference</li>
+         * <li><b>object</b>: If the object passed is an object</li>
+         * <li><b>array</b>: If the object passed is an array</li>
+         * <li><b>regexp</b>: If the object passed is a regular expression</li>
+         * <li><b>element</b>: If the object passed is a DOM Element</li>
+         * <li><b>nodelist</b>: If the object passed is a DOM NodeList</li>
+         * <li><b>textnode</b>: If the object passed is a DOM text node and contains something other than whitespace</li>
+         * <li><b>whitespace</b>: If the object passed is a DOM text node and contains only whitespace</li>
+         * @param {Mixed} object
+         * @return {String}
+         */
+        type : function(o){
+            if(o === undefined || o === null){
+                return false;
+            }
+            if(o.htmlElement){
+                return 'element';
+            }
+            var t = typeof o;
+            if(t == 'object' && o.nodeName) {
+                switch(o.nodeType) {
+                    case 1: return 'element';
+                    case 3: return (/\S/).test(o.nodeValue) ? 'textnode' : 'whitespace';
+                }
+            }
+            if(t == 'object' || t == 'function') {
+                switch(o.constructor) {
+                    case Array: return 'array';
+                    case RegExp: return 'regexp';
+                }
+                if(typeof o.length == 'number' && typeof o.item == 'function') {
+                    return 'nodelist';
+                }
+            }
+            return t;
+        },
+
         /** @type Boolean */
         isOpera : isOpera,
         /** @type Boolean */

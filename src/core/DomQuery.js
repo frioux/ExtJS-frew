@@ -482,7 +482,7 @@ Ext.DomQuery = function(){
             var n = valueCache[path](root);
             n = n[0] ? n[0] : n;
             var v = (n && n.firstChild ? n.firstChild.nodeValue : null);
-            return (v === null ? defaultValue : v);
+            return ((v === null||v === undefined||v==='') ? defaultValue : v);
         },
         
         /**
