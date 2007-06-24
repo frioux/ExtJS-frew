@@ -7,17 +7,17 @@
  * @param {Array} buttons (optional) array of button configs or elements to add
  * @param {Object} config The config object
  */ 
- Ext.Toolbar = function(container, buttons, config){
-     if(container instanceof Array){ // omit the container for later rendering
-         buttons = container;
-         config = buttons;
-         container = null;
-     }
-     Ext.apply(this, config);
-     this.buttons = buttons;
-     if(container){
-         this.render(container);
-     }
+Ext.Toolbar = function(container, buttons, config){
+    if(container instanceof Array){ // omit the container for later rendering
+        buttons = container;
+        config = buttons;
+        container = null;
+    }
+    Ext.apply(this, config);
+    this.buttons = buttons;
+    if(container){
+        this.render(container);
+    }
 };
 
 Ext.Toolbar.prototype = {
@@ -41,7 +41,7 @@ Ext.Toolbar.prototype = {
     },
 
     /**
-     * Adds element(s) to the toolbar - this function takes a variable number of 
+     * Adds element(s) to the toolbar -- this function takes a variable number of 
      * arguments of mixed type and adds them to the toolbar.
      * @param {Mixed} arg1 If arg is a Toolbar.Button, it is added. If arg is a string, it is wrapped 
      * in a ytb-text element and added unless the text is "separator" in which case a separator
@@ -76,7 +76,7 @@ Ext.Toolbar.prototype = {
     },
     
     /**
-     * Returns the element for this toolbar
+     * Returns the Element for this toolbar.
      * @return {Ext.Element}
      */
     getEl : function(){
@@ -129,7 +129,7 @@ Ext.Toolbar.prototype = {
     },
     
     /**
-     * Add a button (or buttons), see {@link Ext.Toolbar.Button} for more info on the config
+     * Adds a button (or buttons). See {@link Ext.Toolbar.Button} for more info on the config.
      * @param {Object/Array} config A button config or array of configs
      * @return {Ext.Toolbar.Button/Array}
      */
@@ -163,9 +163,9 @@ Ext.Toolbar.prototype = {
     },
     
     /**
-     * Inserts any Toolbar.Item/Toolbar.Button at the specified index
+     * Inserts any {@link Ext.Toolbar.Item}/{@link Ext.Toolbar.Button} at the specified index.
      * @param {Number} index The index where the item is to be inserted
-     * @param {Object/Toolbar.Item/Toolbar.Button (may be Array)} item The button, or button config object to be inserted.
+     * @param {Object/Ext.Toolbar.Item/Ext.Toolbar.Button (may be Array)} item The button, or button config object to be inserted.
      * @return {Ext.Toolbar.Button/Item}
      */
     insertButton : function(index, item){
@@ -187,7 +187,7 @@ Ext.Toolbar.prototype = {
     },
     
     /**
-     * Adds a new element to the toolbar from the passed DomHelper config
+     * Adds a new element to the toolbar from the passed {@link Ext.DomHelper} config.
      * @param {Object} config
      * @return {Ext.Toolbar.Item} The element's item
      */
@@ -201,10 +201,10 @@ Ext.Toolbar.prototype = {
     },
 
     /**
-     * Add a dynamically rendered Ext.form field (TextField, ComboBox, etc). Note: the field should not have
-     * been rendered yet. For a field that has already been rendered, use addElement.
-     * @param {Field} field
-     * @return {ToolbarItem}
+     * Adds a dynamically rendered Ext.form field (TextField, ComboBox, etc). Note: the field should not have
+     * been rendered yet. For a field that has already been rendered, use {@link #addElement}.
+     * @param {Ext.form.Field} field
+     * @return {Ext.ToolbarItem}
      */
     addField : function(field){
         var td = this.nextBlock();
@@ -260,14 +260,14 @@ Ext.Toolbar.Item.prototype = {
     },
     
     /**
-     * Remove and destroy this button
+     * Removes and destroys this item
      */
     destroy : function(){
         this.td.parentNode.removeChild(this.td);
     },
     
     /**
-     * Show this item
+     * Shows this item
      */
     show: function(){
         this.hidden = false;
@@ -275,7 +275,7 @@ Ext.Toolbar.Item.prototype = {
     },
     
     /**
-     * Hide this item
+     * Hides this item
      */
     hide: function(){
         this.hidden = true;
@@ -302,7 +302,7 @@ Ext.Toolbar.Item.prototype = {
     },
     
     /**
-     * Disable this item
+     * Disables this item
      */
     disable : function(){
         Ext.fly(this.td).addClass("x-item-disabled");
@@ -311,7 +311,7 @@ Ext.Toolbar.Item.prototype = {
     },
     
     /**
-     * Enable this item
+     * Enables this item
      */
     enable : function(){
         Ext.fly(this.td).removeClass("x-item-disabled");
@@ -404,7 +404,7 @@ Ext.extend(Ext.Toolbar.Button, Ext.Button, {
     },
     
     /**
-     * Remove and destroy this button
+     * Removes and destroys this button
      */
     destroy : function(){
         Ext.Toolbar.Button.superclass.destroy.call(this);
@@ -412,7 +412,7 @@ Ext.extend(Ext.Toolbar.Button, Ext.Button, {
     },
     
     /**
-     * Show this button
+     * Shows this button
      */
     show: function(){
         this.hidden = false;
@@ -420,7 +420,7 @@ Ext.extend(Ext.Toolbar.Button, Ext.Button, {
     },
     
     /**
-     * Hide this button
+     * Hides this button
      */
     hide: function(){
         this.hidden = true;
@@ -428,7 +428,7 @@ Ext.extend(Ext.Toolbar.Button, Ext.Button, {
     },
 
     /**
-     * Disable this item
+     * Disables this item
      */
     disable : function(){
         Ext.fly(this.td).addClass("x-item-disabled");
@@ -436,7 +436,7 @@ Ext.extend(Ext.Toolbar.Button, Ext.Button, {
     },
 
     /**
-     * Enable this item
+     * Enables this item
      */
     enable : function(){
         Ext.fly(this.td).removeClass("x-item-disabled");
@@ -464,7 +464,7 @@ Ext.extend(Ext.Toolbar.SplitButton, Ext.SplitButton, {
     },
     
     /**
-     * Remove and destroy this button
+     * Removes and destroys this button
      */
     destroy : function(){
         Ext.Toolbar.SplitButton.superclass.destroy.call(this);
@@ -472,7 +472,7 @@ Ext.extend(Ext.Toolbar.SplitButton, Ext.SplitButton, {
     },
     
     /**
-     * Show this button
+     * Shows this button
      */
     show: function(){
         this.hidden = false;
@@ -480,7 +480,7 @@ Ext.extend(Ext.Toolbar.SplitButton, Ext.SplitButton, {
     },
     
     /**
-     * Hide this button
+     * Hides this button
      */
     hide: function(){
         this.hidden = true;
