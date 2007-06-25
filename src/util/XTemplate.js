@@ -33,7 +33,11 @@ Ext.XTemplate = function(){
            }
        }
        if(name){
-           name = new Function('values', 'parent', 'with(values){ return '+name+'; }');
+           switch(name){
+               case '.': name = new Function('values', 'parent', 'with(values){ return values; }'); break;
+               case '..': name = new Function('values', 'parent', 'with(values){ return parent; }'); break;
+               default: name = new Function('values', 'parent', 'with(values){ return '+name+'; }');
+           }
        }
        tpls.push({
             id: id,

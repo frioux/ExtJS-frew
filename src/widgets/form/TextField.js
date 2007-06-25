@@ -195,6 +195,7 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
         }
         Ext.form.TextField.superclass.setValue.apply(this, arguments);
         this.applyEmptyText();
+        this.autoSize();
     },
 
     /**

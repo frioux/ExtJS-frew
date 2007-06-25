@@ -47,9 +47,12 @@ Ext.Editor = function(field, config){
 	     */
         "complete" : true,
         /**
-	     * @event specialkey
-	     * Fires when special key is pressed
-	     */
+         * @event specialkey
+         * Fires when any key related to navigation (arrows, tab, enter, esc, etc.) is pressed.  You can check
+         * {@link Ext.EventObject#getKey} to determine which key was pressed.
+         * @param {Ext.form.Field} this
+         * @param {Ext.EventObject} e The event object
+         */
         "specialkey" : true
     });
 };
@@ -94,6 +97,16 @@ Ext.extend(Ext.Editor, Ext.Component, {
      * @cfg {Boolean} constrain True to constrain the editor to the viewport
      */
     constrain : false,
+    /**
+     * @cfg {Boolean} completeOnEnter True to complete the edit when the enter key is pressed (defaults to false)
+     */
+    completeOnEnter : false,
+
+    /**
+     * @cfg {Boolean} cancelOnEsc True to cancel the edit when the escape key is pressed (defaults to false)
+     */
+    cancelOnEsc : false,
+
 
     // private
     updateEl : false,
@@ -106,7 +119,8 @@ Ext.extend(Ext.Editor, Ext.Component, {
             parentEl : ct,
             shim : this.shim,
             shadowOffset:4,
-            id: this.id
+            id: this.id,
+            constrain: this.constrain
         });
         this.el.setStyle("overflow", Ext.isGecko ? "auto" : "hidden");
         if(this.field.msgTarget != 'title'){
@@ -116,11 +130,24 @@ Ext.extend(Ext.Editor, Ext.Component, {
         if(Ext.isGecko){
             this.field.el.dom.setAttribute('autocomplete', 'off');
         }
+        this.field.on("specialkey", this.onSpecialKey, this);
+        if(this.swallowKeys){
+            this.field.el.swallowEvent(['keydown','keypress']);
+        }
         this.field.show();
         this.field.on("blur", this.onBlur, this);
-        this.relayEvents(this.field,  ["specialkey"]);
         if(this.field.grow){
             this.field.on("autosize", this.el.sync,  this.el, {delay:1});
+        }
+    },
+
+    onSpecialKey : function(field, e){
+        if(this.completeOnEnter && e.getKey() == e.ENTER){
+            this.completeEdit();
+        }else if(this.cancelOnEsc && e.getKey() == e.ESC){
+            this.cancelEdit();
+        }else{
+            this.fireEvent('specialkey', field, e);
         }
     },
 

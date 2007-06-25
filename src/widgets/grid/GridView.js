@@ -1145,7 +1145,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
                 delete Ext.dd.DDM.ids['gridHeader' + this.grid.getGridEl().id];
             }
         }
-
+        Ext.util.CSS.removeStyleSheet(this.grid.id + '-cssrules');
         this.bind(null, null);
         Ext.EventManager.removeResizeListener(this.onWindowResize, this);
     },

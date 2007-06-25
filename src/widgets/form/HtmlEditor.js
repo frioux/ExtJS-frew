@@ -181,6 +181,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         if(this.enableFont && !Ext.isSafari){
             this.fontSelect = tb.el.createChild({
                 tag:'select',
+                tabIndex: -1,
                 cls:'x-font-select',
                 html: this.createFontOptions()
             });

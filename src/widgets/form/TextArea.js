@@ -102,11 +102,5 @@ Ext.extend(Ext.form.TextArea, Ext.form.TextField,  {
             this.el.setHeight(h);
             this.fireEvent("autosize", this, h);
         }
-    },
-
-    // private
-    setValue : function(v){
-        Ext.form.TextArea.superclass.setValue.call(this, v);
-        this.autoSize();
     }
 });
