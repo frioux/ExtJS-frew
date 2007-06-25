@@ -101,14 +101,13 @@ Ext.extend(Ext.Editor, Ext.Component, {
      * @cfg {Boolean} completeOnEnter True to complete the edit when the enter key is pressed (defaults to false)
      */
     completeOnEnter : false,
-
     /**
      * @cfg {Boolean} cancelOnEsc True to cancel the edit when the escape key is pressed (defaults to false)
      */
     cancelOnEsc : false,
-
-
-    // private
+    /**
+     * @cfg {Boolean} updateEl True to update the innerHTML of the bound element when the update completes (defaults to false)
+     */
     updateEl : false,
 
     // private
