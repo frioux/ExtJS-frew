@@ -132,6 +132,9 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * given the cell's data value. See {@link #setRenderer}. If not specified, the
      * default renderer uses the raw data value.
      */
+    /**
+     * @cfg {String} align (Optional) Set the CSS text-align property of the column.  Defaults to undefined.
+     */
 
     /**
      * Returns the id of the column at the specified index.
