@@ -1095,7 +1095,7 @@
         },
 
         resetDefaultHeaders:function() {
-            delete this.defaultHeaders
+            delete this.defaultHeaders;
             this.defaultHeaders = {};
             this.hasDefaultHeaders = false;
         },
