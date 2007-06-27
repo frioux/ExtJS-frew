@@ -49,7 +49,7 @@ var TreeTest = function(){
             
             // add the root node
             var root2 = new Tree.AsyncTreeNode({
-                text: 'Yahoo! UI Source', 
+                text: 'My Files', 
                 draggable:false, 
                 id:'yui'
             });

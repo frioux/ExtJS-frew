@@ -148,9 +148,11 @@ Ext.tree.TreeNodeUI.prototype = {
     },
 
     onContextMenu : function(e){
-        e.preventDefault();
-        this.focus();
-        this.fireEvent("contextmenu", this.node, e);
+        if (this.node.hasListener("contextmenu") || this.node.getOwnerTree().hasListener("contextmenu")) {
+            e.preventDefault();
+            this.focus();
+            this.fireEvent("contextmenu", this.node, e);
+        }
     },
 
     onClick : function(e){

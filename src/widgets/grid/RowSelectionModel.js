@@ -62,6 +62,13 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
 
         if(!this.grid.enableDragDrop && !this.grid.enableDrag){
             this.grid.on("mousedown", this.handleMouseDown, this);
+        }else{ // allow click to work like normal
+            this.grid.on("rowclick", function(grid, rowIndex, e) {
+                if(e.button === 0 && !e.shiftKey && !e.ctrlKey) {
+                    this.selectRow(rowIndex, false);
+                    grid.view.focusRow(rowIndex);
+                }
+            }, this);
         }
 
         this.rowNav = new Ext.KeyNav(this.grid.getGridEl(), {

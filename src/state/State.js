@@ -5,7 +5,6 @@
  * Provider interface.
  */
 Ext.state.Provider = function(){
-    Ext.state.Provider.superclass.constructor.call(this);
     /**
      * @event statechange
      * Fires when a state change occurs.

@@ -538,6 +538,28 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     },
 
     /**
+     * Collects unique values for a particular dataIndex from this store.
+     * @param {String} dataIndex The property to collect
+     * @param {Boolean} allowNull (optional) Pass true to allow null, undefined or empty string values
+     * @param {Boolean} bypassFilter (optional) Pass true to collect from all records, even ones which are filtered
+     * @return {Array} An array of the unique values
+     **/
+    collect : function(dataIndex, allowNull, bypassFilter){
+        var d = (bypassFilter === true && this.snapshot) ?
+                this.snapshot.items : this.data.items;
+        var v, sv, r = [], l = {};
+        for(var i = 0, len = d.length; i < len; i++){
+            v = d[i].data[dataIndex];
+            sv = String(v);
+            if((allowNull || !Ext.isEmpty(v)) && !l[sv]){
+                l[sv] = true;
+                r[r.length] = v;
+            }
+        }
+        return r;
+    },
+
+    /**
      * Revert to a view of the Record cache with no filtering applied.
      * @param {Boolean} suppressEvent If true the filter is cleared silently without notifying listeners
      */

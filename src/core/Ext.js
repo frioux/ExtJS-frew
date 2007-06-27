@@ -456,6 +456,16 @@ Ext.override(MyClass, {
             return t;
         },
 
+        /**
+         * Returns true if the passed value is null, undefined or an empty string (optional).
+         * @param {Mixed} value The value to test
+         * @param {Boolean} allowBlank (optional) Pass true if an empty string is not considered empty
+         * @return {Boolean}
+         */
+        isEmpty : function(v, allowBlank){
+            return v === null || v === undefined || (!allowBlank ? v === '' : false);
+        },
+        
         /** @type Boolean */
         isOpera : isOpera,
         /** @type Boolean */

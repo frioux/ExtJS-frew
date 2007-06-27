@@ -213,7 +213,7 @@ Ext.DomQuery = function(){
     
     function byAttribute(cs, attr, value, op, custom){
         var r = [], st = custom=="{";
-        var f = Ext.DomQuery.operators[op];
+        var f = Ext.DomQuery.operators[op], ci;
         for(var i = 0; ci = cs[i]; i++){
             var a;
             if(st){
@@ -592,7 +592,7 @@ Ext.DomQuery = function(){
             },
             
             "last-child" : function(c){
-                var r = [];
+                var r = [], n;
                 for(var i = 0, ci; ci = n = c[i]; i++){
                     while((n = n.nextSibling) && n.nodeType != 1);
                     if(!n){

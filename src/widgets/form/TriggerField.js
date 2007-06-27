@@ -21,10 +21,8 @@ trigger.applyTo('my-field');
  * to the base TextField)
  */
 Ext.form.TriggerField = function(config){
-    Ext.form.TriggerField.superclass.constructor.call(this, config);
     this.mimicing = false;
-    this.on('disable', this.disableWrapper, this);
-    this.on('enable', this.enableWrapper, this);
+    Ext.form.TriggerField.superclass.constructor.call(this, config);
 };
 
 Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
@@ -157,14 +155,16 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
     },
 
     // private
-    disableWrapper : function(){
+    onDisable : function(){
+        Ext.form.TriggerField.superclass.onDisable.call(this);
         if(this.wrap){
             this.wrap.addClass('x-item-disabled');
         }
     },
 
     // private
-    enableWrapper : function(){
+    onEnable : function(){
+        Ext.form.TriggerField.superclass.onEnable.call(this);
         if(this.wrap){
             this.wrap.removeClass('x-item-disabled');
         }

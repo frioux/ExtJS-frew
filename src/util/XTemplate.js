@@ -1,6 +1,6 @@
 
 Ext.XTemplate = function(){
-    Ext.MasterTemplate.superclass.constructor.apply(this, arguments);
+    Ext.XTemplate.superclass.constructor.apply(this, arguments);
     var s = this.html;
 
     s = ['<tpl>', s, '</tpl>'].join('');

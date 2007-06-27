@@ -37,7 +37,8 @@ var myReader = new Ext.data.JsonReader({
  * or an {@link Ext.data.Record} object created using {@link Ext.data.Record#create}.
  */
 Ext.data.JsonReader = function(meta, recordType){
-    Ext.data.JsonReader.superclass.constructor.call(this, meta, recordType);
+    meta = meta || {};
+    Ext.data.JsonReader.superclass.constructor.call(this, meta, recordType||meta.fields);
 };
 Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
     /**

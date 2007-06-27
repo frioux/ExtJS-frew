@@ -52,7 +52,8 @@ var myReader = new Ext.data.XmlReader({
  * Ext.data.Record.create.  See the {@link Ext.data.Record} class for more details.
  */
 Ext.data.XmlReader = function(meta, recordType){
-    Ext.data.XmlReader.superclass.constructor.call(this, meta, recordType);
+    meta = meta || {};
+    Ext.data.XmlReader.superclass.constructor.call(this, meta, recordType||meta.fields);
 };
 Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
     /**

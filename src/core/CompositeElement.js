@@ -7,9 +7,11 @@
  * <br><br>
  * All methods return <i>this</i> and can be chained.
  <pre><code>
- var els = getEls("#some-el div.some-class");
- // or
- var els = Ext.Element.select("#some-el div.some-class");
+ var els = Ext.select("#some-el div.some-class", true);
+ // or select directly from an existing element
+ var el = Ext.get('some-el');
+ el.select('div.some-class', true);
+
  els.setWidth(100); // all elements become 100 width
  els.hide(true); // all elements fade out and hide
  // or
@@ -225,7 +227,17 @@ for(var fnName in Ext.Element.prototype){
  * @class Ext.CompositeElementLite
  * @extends Ext.CompositeElement
  * Flyweight composite class. Reuses the same Ext.Element for element operations.
- * <br><br>
+ <pre><code>
+ var els = Ext.select("#some-el div.some-class");
+ // or select directly from an existing element
+ var el = Ext.get('some-el');
+ el.select('div.some-class');
+
+ els.setWidth(100); // all elements become 100 width
+ els.hide(true); // all elements fade out and hide
+ // or
+ els.setWidth(100).hide(true);
+ </code></pre><br><br>
  * <b>NOTE: Although they are not listed, this class supports all of the set/update methods of Ext.Element. All Ext.Element
  * actions will be performed on all the elements in this collection.</b>
  */

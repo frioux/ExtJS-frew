@@ -21,27 +21,30 @@
  * config objects for details.
 */
 Ext.grid.ColumnModel = function(config){
-	Ext.grid.ColumnModel.superclass.constructor.call(this);
-    /**
+	/**
      * The config passed into the constructor
      */
     this.config = config;
     this.lookup = {};
 
-    // if id, create one
+    // if no id, create one
     // if the column does not have a dataIndex mapping,
     // map it to the order it is in the config
     for(var i = 0, len = config.length; i < len; i++){
-        if(typeof config[i].dataIndex == "undefined"){
-            config[i].dataIndex = i;
+        var c = config[i];
+        if(typeof c.dataIndex == "undefined"){
+            c.dataIndex = i;
         }
-        if(typeof config[i].renderer == "string"){
-            config[i].renderer = Ext.util.Format[config[i].renderer];
+        if(typeof c.renderer == "string"){
+            c.renderer = Ext.util.Format[c.renderer];
         }
-        if(typeof config[i].id == "undefined"){
-            config[i].id = i;
+        if(typeof c.id == "undefined"){
+            c.id = i;
         }
-        this.lookup[config[i].id] = config[i];
+        if(c.editor && c.editor.isFormField){
+            c.editor = new Ext.grid.GridEditor(c.editor);
+        }
+        this.lookup[c.id] = c;
     }
 
     /**

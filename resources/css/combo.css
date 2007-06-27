@@ -37,3 +37,6 @@
 .x-combo-noedit{
     cursor:pointer;
 }
+.x-combo-list-small .x-combo-list-item {
+    font:normal 11px tahoma, arial, helvetica, sans-serif;
+}
