@@ -97,7 +97,7 @@ Ext.extend(Ext.tree.TreeEditor, Ext.Editor, {
     // private
     onHide : function(){
         Ext.tree.TreeEditor.superclass.onHide.call(this);
-        if(this.editNode)
+        if(this.editNode){
             this.editNode.ui.focus();
         }
     },
