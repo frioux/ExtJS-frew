@@ -238,12 +238,12 @@ Date.createParser = function(format) {
     Date.parseFunctions[format] = funcName;
 
     var code = "Date." + funcName + " = function(input){\n"
-        + "var y = -1, m = -1, d = -1, h = -1, i = -1, s = -1;\n"
+        + "var y = -1, m = -1, d = -1, h = -1, i = -1, s = -1, o, z;\n"
         + "var d = new Date();\n"
         + "y = d.getFullYear();\n"
         + "m = d.getMonth();\n"
         + "d = d.getDate();\n"
-        + "var results = input.match(Date.parseRegexes[" + regexNum + "]);\n"
+        + "var v = null, results = input.match(Date.parseRegexes[" + regexNum + "]);\n"
         + "if (results && results.length > 0) {";
     var regex = "";
 
@@ -269,18 +269,21 @@ Date.createParser = function(format) {
     }
 
     code += "if (y > 0 && m >= 0 && d > 0 && h >= 0 && i >= 0 && s >= 0)\n"
-        + "{return new Date(y, m, d, h, i, s);}\n"
+        + "{v = new Date(y, m, d, h, i, s);}\n"
         + "else if (y > 0 && m >= 0 && d > 0 && h >= 0 && i >= 0)\n"
-        + "{return new Date(y, m, d, h, i);}\n"
+        + "{v = new Date(y, m, d, h, i);}\n"
         + "else if (y > 0 && m >= 0 && d > 0 && h >= 0)\n"
-        + "{return new Date(y, m, d, h);}\n"
+        + "{v = new Date(y, m, d, h);}\n"
         + "else if (y > 0 && m >= 0 && d > 0)\n"
-        + "{return new Date(y, m, d);}\n"
+        + "{v = new Date(y, m, d);}\n"
         + "else if (y > 0 && m >= 0)\n"
-        + "{return new Date(y, m);}\n"
+        + "{v = new Date(y, m);}\n"
         + "else if (y > 0)\n"
-        + "{return new Date(y);}\n"
-        + "}return null;}";
+        + "{v = new Date(y);}\n"
+        + "}return (v && (z || o))?\n" // favour UTC offset over GMT offset
+        + "    ((z)? v.add(Date.SECOND, (v.getTimezoneOffset() * 60) + (z*1)) :\n" // reset to UTC, then add offset
+        + "        v.add(Date.HOUR, (v.getGMTOffset() / 100) + (o / -100))) : v\n" // reset to GMT, then add offset
+        + ";}";
 
     Date.parseRegexes[regexNum] = new RegExp("^" + regex + "$");
     eval(code);
@@ -376,17 +379,27 @@ Date.formatCodeToRegex = function(character, currentGroup) {
             c:"s = parseInt(results[" + currentGroup + "], 10);\n",
             s:"(\\d{2})"};
     case "O":
-        return {g:0,
-            c:null,
-            s:"[+-]\\d{4}"};
+        return {g:1,
+            c:"o = results[" + currentGroup + "];\n"
+                  + "o = ("
+                          // begin implicit variable declarations
+                          + "(((sn = o.substring(0,1)) && " // get + / - sign
+                              + "(hr = o.substring(1,3)*1 + Math.floor(o.substring(3,5) / 60)) && " // get hours
+                              + "(mn = o.substring(3,5) % 60)) || true" // get minutes
+                          + ") && "
+                          // end implicit variable declarations
+                      + "(-12 <= (hr*60 + mn)/60) && ((hr*60 + mn)/60 <= 14)" // -12hrs <= GMT offset <= 14hrs
+                  + ")? (sn + String.leftPad(hr, 2, 0) + String.leftPad(mn, 2, 0)) : null;\n",
+            s:"([+\-]\\d{4})"};
     case "T":
         return {g:0,
             c:null,
-            s:"[A-Z]{3}"};
+            s:"[A-Z]{1,4}"}; // timezone abbrev. may be between 1 - 4 chars
     case "Z":
-        return {g:0,
-            c:null,
-            s:"[+-]\\d{1,5}"};
+        return {g:1,
+            c:"z = results[" + currentGroup + "];\n" // -43200 < UTC offset < 50400
+                  + "z = (-43200 <= z*1 && z*1 <= 50400)? z : null;\n",
+            s:"([+\-]?\\d{1,5})"}; // leading '+' sign is optional for UTC offset
     default:
         return {g:0,
             c:null,
@@ -399,9 +412,7 @@ Date.formatCodeToRegex = function(character, currentGroup) {
  * @return {String} The abbreviated timezone name (e.g. 'CST')
  */
 Date.prototype.getTimezone = function() {
-    return this.toString().replace(
-        /^.*? ([A-Z]{3}) [0-9]{4}.*$/, "$1").replace(
-        /^.*?\(([A-Z])[a-z]+ ([A-Z])[a-z]+ ([A-Z])[a-z]+\)$/, "$1$2$3");
+    return this.toString().replace(/^.*? ([A-Z]{1,4})[\-+][0-9]{4} .*$/, "$1");
 };
 
 /**
@@ -410,7 +421,7 @@ Date.prototype.getTimezone = function() {
  */
 Date.prototype.getGMTOffset = function() {
     return (this.getTimezoneOffset() > 0 ? "-" : "+")
-        + String.leftPad(Math.floor(this.getTimezoneOffset() / 60), 2, "0")
+        + String.leftPad(Math.abs(Math.floor(this.getTimezoneOffset() / 60)), 2, "0")
         + String.leftPad(this.getTimezoneOffset() % 60, 2, "0");
 };
 
