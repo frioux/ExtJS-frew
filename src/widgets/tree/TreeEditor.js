@@ -95,6 +95,14 @@ Ext.extend(Ext.tree.TreeEditor, Ext.Editor, {
     },
 
     // private
+    onHide : function(){
+        Ext.tree.TreeEditor.superclass.onHide.call(this);
+        if(this.editNode)
+            this.editNode.ui.focus();
+        }
+    },
+
+    // private
     onSpecialKey : function(field, e){
         var k = e.getKey();
         if(k == e.ESC){
