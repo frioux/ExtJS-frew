@@ -380,16 +380,14 @@ Date.formatCodeToRegex = function(character, currentGroup) {
             s:"(\\d{2})"};
     case "O":
         return {g:1,
-            c:"o = results[" + currentGroup + "];\n"
-                  + "o = ("
-                          // begin implicit variable declarations
-                          + "(((sn = o.substring(0,1)) && " // get + / - sign
-                              + "(hr = o.substring(1,3)*1 + Math.floor(o.substring(3,5) / 60)) && " // get hours
-                              + "(mn = o.substring(3,5) % 60)) || true" // get minutes
-                          + ") && "
-                          // end implicit variable declarations
-                      + "(-12 <= (hr*60 + mn)/60) && ((hr*60 + mn)/60 <= 14)" // -12hrs <= GMT offset <= 14hrs
-                  + ")? (sn + String.leftPad(hr, 2, 0) + String.leftPad(mn, 2, 0)) : null;\n",
+            c:[
+                "o = results[", currentGroup, "];\n",
+                "var sn = o.substring(0,1);\n", // get + / - sign
+                "var hr = o.substring(1,3)*1 + Math.floor(o.substring(3,5) / 60);\n", // get hours (performs minutes-to-hour conversion also)
+                "var mn = o.substring(3,5) % 60;\n", // get minutes
+                "o = ((-12 <= (hr*60 + mn)/60) && ((hr*60 + mn)/60 <= 14))?\n", // -12hrs <= GMT offset <= 14hrs
+                "    (sn + String.leftPad(hr, 2, 0) + String.leftPad(mn, 2, 0)) : null;\n"
+            ].join(""),
             s:"([+\-]\\d{4})"};
     case "T":
         return {g:0,
