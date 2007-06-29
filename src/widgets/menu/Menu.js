@@ -39,7 +39,7 @@ Ext.menu.Menu = function(config){
          * @event click
          * Fires when this menu is clicked (or when the enter key is pressed while it is active)
          * @param {Ext.menu.Menu} this
-         * @param {String} menuItemId The id of the menu item that was clicked
+         * @param {Ext.menu.Item} menuItem The menu item that was clicked
          * @param {Ext.EventObject} e
          */
         click : true,
@@ -48,7 +48,7 @@ Ext.menu.Menu = function(config){
          * Fires when the mouse is hovering over this menu
          * @param {Ext.menu.Menu} this
          * @param {Ext.EventObject} e
-         * @param {String} menuItemId The id of the menu item that the mouse is over
+         * @param {Ext.menu.Item} menuItem The menu item that was clicked
          */
         mouseover : true,
         /**
@@ -56,7 +56,7 @@ Ext.menu.Menu = function(config){
          * Fires when the mouse exits this menu
          * @param {Ext.menu.Menu} this
          * @param {Ext.EventObject} e
-         * @param {String} menuItemId The id of the menu item that the mouse has exited
+         * @param {Ext.menu.Item} menuItem The menu item that was clicked
          */
         mouseout : true,
         /**
@@ -101,7 +101,7 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
     allowOtherMenus : false,
 
     hidden:true,
-    
+
     // private
     render : function(){
         if(this.el){
