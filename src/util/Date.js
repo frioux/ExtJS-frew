@@ -1,10 +1,10 @@
 /**
  * @class Date
- *  
- * The date parsing and format syntax is a subset of 
+ *
+ * The date parsing and format syntax is a subset of
  * <a href="http://www.php.net/date">PHP's date() function</a>, and the formats that are
  * supported will provide results equivalent to their PHP versions.
- * 
+ *
  * Following is the list of all currently supported formats:
  *<pre>
 Sample date:
@@ -28,7 +28,7 @@ Format  Output      Description
   L      0          Whether it's a leap year (1 if it is a leap year, else 0)
   Y      2007       A full numeric representation of a year, 4 digits
   y      07         A two digit representation of a year
-  a      pm         Lowercase Ante meridiem and Post meridiem	
+  a      pm         Lowercase Ante meridiem and Post meridiem
   A      PM         Uppercase Ante meridiem and Post meridiem
   g      3          12-hour format of an hour without leading zeros
   G      15         24-hour format of an hour without leading zeros
@@ -48,7 +48,7 @@ document.write(dt.format('Y-m-d'));                         //2007-01-10
 document.write(dt.format('F j, Y, g:i a'));                 //January 10, 2007, 3:05 pm
 document.write(dt.format('l, \\t\\he dS of F Y h:i:s A'));  //Wednesday, the 10th of January 2007 03:05:01 PM
  </code></pre>
- * 
+ *
  * Here are some standard date/time patterns that you might find helpful.  They
  * are not part of the source of Date.js, but to use them you can simply copy this
  * block of code into any script that is included after Date.js and they will also become
@@ -78,8 +78,8 @@ document.write(dt.format(Date.patterns.ShortDate));
 
 /*
  * Most of the date-formatting functions below are the excellent work of Baron Schwartz.
- * They generate precompiled functions from date formats instead of parsing and 
- * processing the pattern every time you format a date.  These functions are available 
+ * They generate precompiled functions from date formats instead of parsing and
+ * processing the pattern every time you format a date.  These functions are available
  * on every Date object (any javascript function).
  *
  * The original article and download are here:
@@ -425,7 +425,7 @@ Date.prototype.getGMTOffset = function() {
 
 /**
  * Get the numeric day number of the year, adjusted for leap year.
- * @return {Number} 0 through 365 (366 in leap years)
+ * @return {Number} 0 through 364 (365 in leap years)
  */
 Date.prototype.getDayOfYear = function() {
     var num = 0;
@@ -560,7 +560,7 @@ Date.monthNames =
     "October",
     "November",
     "December"];
-    
+
 /**
  * An array of textual day names.
  * Override these values for international dates, for example...
@@ -596,8 +596,8 @@ Date.monthNumbers = {
 
 /**
  * Creates and returns a new Date instance with the exact same date value as the called instance.
- * Dates are copied and passed by reference, so if a copied date variable is modified later, the original 
- * variable will also be changed.  When the intention is to create a new variable that will not 
+ * Dates are copied and passed by reference, so if a copied date variable is modified later, the original
+ * variable will also be changed.  When the intention is to create a new variable that will not
  * modify the original instance, you should create a clone.
  *
  * Example of correctly cloning a date:
@@ -668,7 +668,7 @@ Date.MONTH = "mo";
 /** Date interval constant @static @type String */
 Date.YEAR = "y";
 
-/** 
+/**
  * Provides a convenient method of performing basic date arithmetic.  This method
  * does not modify the Date instance being called - it creates and returns
  * a new Date instance containing the resulting date value.
