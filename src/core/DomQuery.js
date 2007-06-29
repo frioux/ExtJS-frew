@@ -68,7 +68,7 @@ Ext.DomQuery = function(){
     var tplRe = /\{(\d+)\}/g;
     var modeRe = /^(\s?[\/>]\s?|\s|$)/;
     var tagTokenRe = /^(#)?([\w-\*]+)/;
-    
+
     function child(p, index){
         var i = 0;
         var n = p.firstChild;
@@ -82,17 +82,17 @@ Ext.DomQuery = function(){
         }
         return null;
     };
-    
+
     function next(n){
         while((n = n.nextSibling) && n.nodeType != 1);
         return n;
     };
-    
+
     function prev(n){
         while((n = n.previousSibling) && n.nodeType != 1);
         return n;
     };
-    
+
     function clean(d){
         var n = d.firstChild, ni = -1;
  	    while(n){
@@ -135,9 +135,9 @@ Ext.DomQuery = function(){
             return n.className;
         }
         return n.getAttribute(attr) || n[attr];
-          
+
     };
-    
+
     function getNodes(ns, mode, tagName){
         var result = [], cs;
         if(!ns){
@@ -146,7 +146,7 @@ Ext.DomQuery = function(){
         mode = mode ? mode.replace(trimRe, "") : "";
         tagName = tagName || "*";
         if(typeof ns.getElementsByTagName != "undefined"){
-            ns = [ns];   
+            ns = [ns];
         }
         if(mode != "/" && mode != ">"){
             for(var i = 0, ni; ni = ns[i]; i++){
@@ -167,7 +167,7 @@ Ext.DomQuery = function(){
         }
         return result;
     };
-    
+
     function concat(a, b){
         if(b.slice){
             return a.concat(b);
@@ -177,7 +177,7 @@ Ext.DomQuery = function(){
         }
         return a;
     }
-    
+
     function byTag(cs, tagName){
         if(cs.tagName || cs == document){
             cs = [cs];
@@ -191,9 +191,9 @@ Ext.DomQuery = function(){
                 r[r.length] = ci;
             }
         }
-        return r; 
+        return r;
     };
-    
+
     function byId(cs, attr, id){
         if(cs.tagName || cs == document){
             cs = [cs];
@@ -208,9 +208,9 @@ Ext.DomQuery = function(){
                 return r;
             }
         }
-        return r; 
+        return r;
     };
-    
+
     function byAttribute(cs, attr, value, op, custom){
         var r = [], st = custom=="{";
         var f = Ext.DomQuery.operators[op], ci;
@@ -234,11 +234,11 @@ Ext.DomQuery = function(){
         }
         return r;
     };
-    
+
     function byPseudo(cs, name, value){
         return Ext.DomQuery.pseudos[name](cs, value);
     };
-    
+
     // This is for IE MSXML which does not support expandos.
     // IE runs the same speed using setAttribute, however FF slows way down
     // and Safari completely fails so they need to continue to use expandos.
@@ -333,7 +333,7 @@ Ext.DomQuery = function(){
         }
         return r;
     }
-    
+
     function quickId(ns, mode, root, id){
         if(ns == root){
            var d = root.ownerDocument || root;
@@ -342,21 +342,21 @@ Ext.DomQuery = function(){
         ns = getNodes(ns, mode, "*");
         return byId(ns, null, id);
     }
-    
+
     return {
         getStyle : function(el, name){
             return Ext.fly(el).getStyle(name);
         },
         /**
          * Compiles a selector/xpath query into a reusable function. The returned function
-         * takes one parameter "root" (optional), which is the context node from where the query should start. 
+         * takes one parameter "root" (optional), which is the context node from where the query should start.
          * @param {String} selector The selector/xpath query
          * @param {String} type (optional) Either "select" (the default) or "simple" for a simple selector match
          * @return {Function}
          */
         compile : function(path, type){
             type = type || "select";
-            
+
             var fn = ["var f = function(root){\n var mode; var n = root || document;\n"];
             var q = path, mode, lq;
             var tk = Ext.DomQuery.matchers;
@@ -373,7 +373,7 @@ Ext.DomQuery = function(){
             while(path.substr(0, 1)=="/"){
                 path = path.substr(1);
             }
-                        
+
             while(q && lq != q){
                 lq = q;
                 var tm = q.match(tagTokenRe);
@@ -426,10 +426,10 @@ Ext.DomQuery = function(){
             eval(fn.join(""));
             return f;
         },
-        
+
         /**
          * Selects a group of elements.
-         * @param {String} selector The selector/xpath query
+         * @param {String} selector The selector/xpath query (can be a comma separated list of selectors)
          * @param {Node} root (optional) The start of the query (defaults to document).
          * @return {Array}
          */
@@ -457,7 +457,7 @@ Ext.DomQuery = function(){
             }
             return results;
         },
-        
+
         /**
          * Selects a single element.
          * @param {String} selector The selector/xpath query
@@ -467,7 +467,7 @@ Ext.DomQuery = function(){
         selectNode : function(path, root){
             return Ext.DomQuery.select(path, root)[0];
         },
-        
+
         /**
          * Selects the value of a node, optionally replacing null with the defaultValue.
          * @param {String} selector The selector/xpath query
@@ -484,7 +484,7 @@ Ext.DomQuery = function(){
             var v = (n && n.firstChild ? n.firstChild.nodeValue : null);
             return ((v === null||v === undefined||v==='') ? defaultValue : v);
         },
-        
+
         /**
          * Selects the value of a node, parsing integers and floats.
          * @param {String} selector The selector/xpath query
@@ -496,7 +496,7 @@ Ext.DomQuery = function(){
             var v = Ext.DomQuery.selectValue(path, root, defaultValue || 0);
             return parseFloat(v);
         },
-        
+
         /**
          * Returns true if the passed element(s) match the passed simple selector (e.g. div.some-class or span:first-child)
          * @param {String/HTMLElement/Array} el An element id, element or array of elements
@@ -511,12 +511,12 @@ Ext.DomQuery = function(){
             var result = Ext.DomQuery.filter(isArray ? el : [el], ss);
             return isArray ? (result.length == el.length) : (result.length > 0);
         },
-        
+
         /**
          * Filters an array of elements to only include matches of a simple selector (e.g. div.some-class or span:first-child)
          * @param {Array} el An array of elements to filter
          * @param {String} selector The simple selector to test
-         * @param {Boolean} nonMatches If true, it returns the elements that DON'T match 
+         * @param {Boolean} nonMatches If true, it returns the elements that DON'T match
          * the selector instead of the ones that match
          * @return {Array}
          */
@@ -528,9 +528,9 @@ Ext.DomQuery = function(){
             var result = simpleCache[ss](els);
             return nonMatches ? quickDiff(result, els) : result;
         },
-        
+
         /**
-         * Collection of matching regular expressions and code snippets. 
+         * Collection of matching regular expressions and code snippets.
          */
         matchers : [{
                 re: /^\.([\w-]+)/,
@@ -549,7 +549,7 @@ Ext.DomQuery = function(){
                 select: 'return {firstChild:{nodeValue:attrValue(n, "{1}")}};'
             }
         ],
-        
+
         /**
          * Collection of operator comparison functions. The default operators are =, !=, ^=, $=, *= and %=.
          * New operators can be added as long as the match the format <i>c</i>= where <i>c</i> is any character other than space, &gt; &lt;.
@@ -574,7 +574,7 @@ Ext.DomQuery = function(){
                 return (a % v) == 0;
             }
         },
-        
+
         /**
          * Collection of "pseudo class" processors. Each processor is passed the current nodeset (array)
          * and the argument (if any) supplied in the selector.
@@ -590,7 +590,7 @@ Ext.DomQuery = function(){
                 }
                 return r;
             },
-            
+
             "last-child" : function(c){
                 var r = [], n;
                 for(var i = 0, ci; ci = n = c[i]; i++){
@@ -601,7 +601,7 @@ Ext.DomQuery = function(){
                 }
                 return r;
             },
-            
+
             "nth-child" : function(c, a){
                 var r = [];
                 if(a != "odd" && a != "even"){
@@ -636,7 +636,7 @@ Ext.DomQuery = function(){
                 }
                 return r;
             },
-            
+
             "only-child" : function(c){
                 var r = [];
                 for(var i = 0, ci; ci = c[i]; i++){
@@ -646,7 +646,7 @@ Ext.DomQuery = function(){
                 }
                 return r;
             },
-            
+
             "empty" : function(c){
                 var r = [];
                 for(var i = 0, ci; ci = c[i]; i++){
@@ -664,7 +664,7 @@ Ext.DomQuery = function(){
                 }
                 return r;
             },
-            
+
             "contains" : function(c, v){
                 var r = [];
                 for(var i = 0, ci; ci = c[i]; i++){
@@ -694,31 +694,31 @@ Ext.DomQuery = function(){
                 }
                 return r;
             },
-            
+
             "not" : function(c, ss){
                 return Ext.DomQuery.filter(c, ss, true);
             },
-            
+
             "odd" : function(c){
                 return this["nth-child"](c, "odd");
             },
-            
+
             "even" : function(c){
                 return this["nth-child"](c, "even");
             },
-            
+
             "nth" : function(c, a){
                 return c[a-1] || [];
             },
-            
+
             "first" : function(c){
                 return c[0] || [];
             },
-            
+
             "last" : function(c){
                 return c[c.length-1] || [];
             },
-            
+
             "has" : function(c, ss){
                 var s = Ext.DomQuery.select;
                 var r = [];
@@ -729,7 +729,7 @@ Ext.DomQuery = function(){
                 }
                 return r;
             },
-            
+
             "next" : function(c, ss){
                 var is = Ext.DomQuery.is;
                 var r = [];
@@ -741,7 +741,7 @@ Ext.DomQuery = function(){
                 }
                 return r;
             },
-            
+
             "prev" : function(c, ss){
                 var is = Ext.DomQuery.is;
                 var r = [];
