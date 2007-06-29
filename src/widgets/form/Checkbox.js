@@ -11,7 +11,7 @@ Ext.form.Checkbox = function(config){
     this.addEvents({
         /**
          * @event check
-         * Fires when the checkbox is checked or unchecked
+         * Fires when the checkbox is checked or unchecked.
 	     * @param {Ext.form.Checkbox} this This checkbox
 	     * @param {Boolean} checked The new checked value
 	     */
@@ -56,7 +56,7 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
         this.el.on("change", this.onClick,  this);
     },
 
-    
+
     getResizeEl : function(){
         return this.wrap;
     },
@@ -94,6 +94,7 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
         return false;
     },
 
+	// private
     onClick : function(){
         if(this.el.dom.checked != this.checked){
             this.setValue(this.el.dom.checked);
@@ -101,8 +102,8 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
     },
 
     /**
-     * Sets the checked state of the checkbox
-     * @param {Boolean/String} checked True, 'true,' or '1' to check the checkbox, any other value will uncheck it
+     * Sets the checked state of the checkbox.
+     * @param {Boolean/String} checked True, 'true', '1', or 'on' to check the checkbox, any other value will uncheck it.
      */
     setValue : function(v){
         this.checked = (v === true || v === 'true' || v == '1' || String(v).toLowerCase() == 'on');
