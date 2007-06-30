@@ -2,7 +2,7 @@
  * @class Ext.JsonView
  * @extends Ext.View
  * Shortcut class to create a JSON + {@link Ext.UpdateManager} template view. Usage:
- <pre><code>
+<pre><code>
 var view = new Ext.JsonView("my-element",
     '&lt;div id="{id}"&gt;{foo} - {bar}&lt;/div&gt;', // auto create template
     { multiSelect: true, jsonRoot: "data" }

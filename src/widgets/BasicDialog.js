@@ -3,20 +3,20 @@
  * @extends Ext.util.Observable
  * Lightweight Dialog Class.  The code below shows the creation of a typical dialog using existing HTML markup:
  * <pre><code>
-    var dlg = new Ext.BasicDialog("my-dlg", {
-        height: 200,
-        width: 300,
-        minHeight: 100,
-        minWidth: 150,
-        modal: true,
-        proxyDrag: true,
-        shadow: true
-    });
-    dlg.addKeyListener(27, dlg.hide, dlg); // ESC can also close the dialog
-    dlg.addButton('OK', dlg.hide, dlg);    // Could call a save function instead of hiding
-    dlg.addButton('Cancel', dlg.hide, dlg);
-    dlg.show();
-  </code></pre>
+var dlg = new Ext.BasicDialog("my-dlg", {
+    height: 200,
+    width: 300,
+    minHeight: 100,
+    minWidth: 150,
+    modal: true,
+    proxyDrag: true,
+    shadow: true
+});
+dlg.addKeyListener(27, dlg.hide, dlg); // ESC can also close the dialog
+dlg.addButton('OK', dlg.hide, dlg);    // Could call a save function instead of hiding
+dlg.addButton('Cancel', dlg.hide, dlg);
+dlg.show();
+</code></pre>
   <b>A Dialog should always be a direct child of the body element.</b>
  * @cfg {Boolean/DomHelper} autoCreate True to auto create from scratch, or using a DomHelper Object (defaults to false)
  * @cfg {String} title Default text to display in the title bar (defaults to null)
@@ -1130,7 +1130,8 @@ if(!dialog){
                {title: "Build your own ext.js"}));
     layout.getRegion("center").showPanel(sp);
     layout.endUpdate();
-}</code></pre>
+}
+</code></pre>
     * @constructor
     * @param {String/HTMLElement/Ext.Element} el The id of or container element
     * @param {Object} config configuration options

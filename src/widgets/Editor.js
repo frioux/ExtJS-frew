@@ -211,7 +211,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
     },
 
     /**
-     * Ends the editing process, persists the changed value to the underlying field and hides the editor.
+     * Ends the editing process, persists the changed value to the underlying field, and hides the editor.
      * @param {Boolean} remainVisible Override the default behavior and keep the editor visible after edit (defaults to false)
      */
     completeEdit : function(remainVisible){
