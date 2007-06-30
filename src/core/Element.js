@@ -1853,7 +1853,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
     },
 
     /**
-    * Gets this elements UpdateManager
+    * Gets this element's UpdateManager
     * @return {Ext.UpdateManager} The UpdateManager
     */
     getUpdateManager : function(){
@@ -2468,7 +2468,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
 
     /**
      * Scrolls this element the specified direction. Does bounds checking to make sure the scroll is
-     * within this elements scrollable range.
+     * within this element's scrollable range.
      * @param {String} direction Possible values are: "l","left" - "r","right" - "t","top","up" - "b","bottom","down".
      * @param {Number} distance How far to scroll the element in pixels
      * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
@@ -2880,4 +2880,3 @@ Ext.EventManager.on(window, 'unload', function(){
     delete El._flyweights;
 });
 })();
-

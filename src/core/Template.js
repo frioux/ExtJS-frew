@@ -12,7 +12,6 @@ var t = new Ext.Template(
 t.append('some-element', {id: 'myid', cls: 'myclass', name: 'foo', value: 'bar'});
 </code></pre>
 * For more information see this blog post with examples: <a href="http://www.jackslocum.com/yui/2006/10/06/domhelper-create-elements-using-dom-html-fragments-or-templates/">DomHelper - Create Elements using DOM, HTML fragments and Templates</a>. 
-* <br>
 * @constructor
 * @param {String/Array} html The HTML fragment or an array of fragments to join("") or multiple arguments to join("")
 */
@@ -66,7 +65,7 @@ Ext.Template.prototype = {
     },
     
     /**
-     * Sets the HTML used as the template and optionally compiles it
+     * Sets the HTML used as the template and optionally compiles it.
      * @param {String} html
      * @param {Boolean} compile (optional) True to compile the template (defaults to undefined)
      * @return {Ext.Template} this
@@ -137,7 +136,7 @@ Ext.Template.prototype = {
     },
     
     /**
-     * Applies the supplied values to the template and inserts the new node(s) as the first child of el
+     * Applies the supplied values to the template and inserts the new node(s) as the first child of el.
      * @param {String/HTMLElement/Ext.Element} el The context element
      * @param {Object} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
      * @param {Boolean} returnElement (optional) true to return a Ext.Element (defaults to undefined)
@@ -148,7 +147,7 @@ Ext.Template.prototype = {
     },
 
     /**
-     * Applies the supplied values to the template and inserts the new node(s) before el
+     * Applies the supplied values to the template and inserts the new node(s) before el.
      * @param {String/HTMLElement/Ext.Element} el The context element
      * @param {Object} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
      * @param {Boolean} returnElement (optional) true to return a Ext.Element (defaults to undefined)
@@ -159,7 +158,7 @@ Ext.Template.prototype = {
     },
 
     /**
-     * Applies the supplied values to the template and inserts the new node(s) after el
+     * Applies the supplied values to the template and inserts the new node(s) after el.
      * @param {String/HTMLElement/Ext.Element} el The context element
      * @param {Object} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
      * @param {Boolean} returnElement (optional) true to return a Ext.Element (defaults to undefined)
@@ -170,7 +169,7 @@ Ext.Template.prototype = {
     },
     
     /**
-     * Applies the supplied values to the template and appends the new node(s) to el
+     * Applies the supplied values to the template and appends the new node(s) to el.
      * @param {String/HTMLElement/Ext.Element} el The context element
      * @param {Object} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
      * @param {Boolean} returnElement (optional) true to return a Ext.Element (defaults to undefined)
@@ -187,7 +186,7 @@ Ext.Template.prototype = {
     },
 
     /**
-     * Applies the supplied values to the template and overwrites the content of el with the new node(s)
+     * Applies the supplied values to the template and overwrites the content of el with the new node(s).
      * @param {String/HTMLElement/Ext.Element} el The context element
      * @param {Object} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
      * @param {Boolean} returnElement (optional) true to return a Ext.Element (defaults to undefined)
@@ -209,7 +208,7 @@ Ext.Template.prototype.apply = Ext.Template.prototype.applyTemplate;
 Ext.DomHelper.Template = Ext.Template;
 
 /**
- * Creates a template from the passed element's value (display:none textarea, preferred) or innerHTML.
+ * Creates a template from the passed element's value (<i>display:none</i> textarea, preferred) or innerHTML.
  * @param {String/HTMLElement} el A DOM element or its id
  * @returns {Ext.Template} The created template
  * @static

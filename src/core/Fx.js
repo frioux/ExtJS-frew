@@ -634,8 +634,8 @@ el.scale(100, 100);
 // common config options shown with default values.  The height and width will default to
 // the element's existing values if passed as null.
 el.scale(
-	[element's width],
-	[element's height], {
+    [element's width],
+    [element's height], {
     easing: 'easeOut',
     duration: .35
 });
@@ -665,11 +665,11 @@ el.shift({ x: 200, height: 50, opacity: .8 });
 
 // common config options shown with default values.
 el.shift({
-	width: [element's width],
-	height: [element's height],
-	x: [element's x position],
-	y: [element's y position],
-	opacity: [element's opacity],
+    width: [element's width],
+    height: [element's height],
+    x: [element's x position],
+    y: [element's y position],
+    opacity: [element's opacity],
     easing: 'easeOut',
     duration: .35
 });
