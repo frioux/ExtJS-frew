@@ -142,7 +142,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
     },
 
     /**
-     * Updates the title for collapsed north/south regions (used with {@link #collapsedTitle} config option).
+     * Updates the title for collapsed north/south regions (used with {@link #collapsedTitle} config option)
      * @param {String} title (optional) The title text (accepts HTML markup, defaults to the numeric character reference for a non-breaking space, "&amp;#160;")
      */
     setCollapsedTitle : function(title){
@@ -460,7 +460,7 @@ Ext.extend(Ext.LayoutRegion, Ext.BasicLayoutRegion, {
     add : function(panel){
         if(arguments.length > 1){
             for(var i = 0, len = arguments.length; i < len; i++) {
-            	this.add(arguments[i]);
+                this.add(arguments[i]);
             }
             return null;
         }
