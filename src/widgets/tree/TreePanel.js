@@ -351,6 +351,8 @@ Ext.extend(Ext.tree.TreePanel, Ext.data.Tree, {
                         if(callback){
                             callback(true, n);
                         }
+                    }else if(callback){
+                        callback(false, n);
                     }
                 }else{
                     if(callback){

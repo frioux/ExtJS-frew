@@ -55,6 +55,8 @@ Ext.extend(Ext.tree.TreeEditor, Ext.Editor, {
      */
     maxWidth: 250,
 
+    editDelay : 350,
+
     // private
     fitToTree : function(ed, el){
         var td = this.tree.getTreeEl().dom, nd = el.dom;
@@ -81,7 +83,9 @@ Ext.extend(Ext.tree.TreeEditor, Ext.Editor, {
 
     // private
     beforeNodeClick : function(node, e){
-        if(this.tree.getSelectionModel().isSelected(node)){
+        var sinceLast = (this.lastClick ? this.lastClick.getElapsed() : 0);
+        this.lastClick = new Date();
+        if(sinceLast > this.editDelay && this.tree.getSelectionModel().isSelected(node)){
             e.stopEvent();
             this.triggerEdit(node);
             return false;
