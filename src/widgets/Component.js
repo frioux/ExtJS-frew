@@ -7,12 +7,18 @@ Ext.ComponentMgr = function(){
     var all = new Ext.util.MixedCollection();
 
     return {
-        // private
+        /**
+         * Registers a component.
+         * @param {Ext.Component} c The component
+         */
         register : function(c){
             all.add(c);
         },
 
-        // private
+        /**
+         * Unregisters a component.
+         * @param {Ext.Component} c The component
+         */
         unregister : function(c){
             all.remove(c);
         },
@@ -62,61 +68,61 @@ Ext.Component = function(config){
     this.addEvents({
         /**
          * @event disable
-         * Fires after the component is disabled
+         * Fires after the component is disabled.
 	     * @param {Ext.Component} this
 	     */
         disable : true,
         /**
          * @event enable
-         * Fires after the component is enabled
+         * Fires after the component is enabled.
 	     * @param {Ext.Component} this
 	     */
         enable : true,
         /**
          * @event beforeshow
-         * Fires before the component is shown
+         * Fires before the component is shown.  Return false to stop the show.
 	     * @param {Ext.Component} this
 	     */
         beforeshow : true,
         /**
          * @event show
-         * Fires after the component is shown
+         * Fires after the component is shown.
 	     * @param {Ext.Component} this
 	     */
         show : true,
         /**
          * @event beforehide
-         * Fires before the component is hidden
+         * Fires before the component is hidden. Return false to stop the hide.
 	     * @param {Ext.Component} this
 	     */
         beforehide : true,
         /**
          * @event hide
-         * Fires after the component is hidden
+         * Fires after the component is hidden.
 	     * @param {Ext.Component} this
 	     */
         hide : true,
         /**
          * @event beforerender
-         * Fires before the component is rendered
+         * Fires before the component is rendered. Return false to stop the render.
 	     * @param {Ext.Component} this
 	     */
         beforerender : true,
         /**
          * @event render
-         * Fires after the component is rendered
+         * Fires after the component is rendered.
 	     * @param {Ext.Component} this
 	     */
         render : true,
         /**
          * @event beforedestroy
-         * Fires before the component is destroyed
+         * Fires before the component is destroyed. Return false to stop the destroy.
 	     * @param {Ext.Component} this
 	     */
         beforedestroy : true,
         /**
          * @event destroy
-         * Fires after the component is destroyed
+         * Fires after the component is destroyed.
 	     * @param {Ext.Component} this
 	     */
         destroy : true
@@ -170,13 +176,13 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
     /** @cfg {String} hideMode
      * How this component should hidden. Supported values are
      * "visibility" (css visibility), "offsets" (negative offset position) and
-     * "display" (css display) - defaults to display
+     * "display" (css display) - defaults to "display".
      */
     hideMode: 'display',
 
     initComponent : Ext.emptyFn,
     /**
-     * If this is a lazy rendering component, render it to its container element
+     * If this is a lazy rendering component, render it to its container element.
      * @param {String/HTMLElement/Element} container (optional) The element this component should be rendered into. If it is being applied to existing markup, this should be left off.
      */
     render : function(container, position){
@@ -258,16 +264,18 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
         }
     },
 
+	// private
     beforeDestroy : function(){
 
     },
 
-    onDestroy : function(){
+	// private
+	onDestroy : function(){
 
     },
 
     /**
-     * Returns the underlying {@link Ext.Element}
+     * Returns the underlying {@link Ext.Element}.
      * @return {Ext.Element} The element
      */
     getEl : function(){
@@ -275,7 +283,7 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
     },
 
     /**
-     * Returns the id of this component
+     * Returns the id of this component.
      * @return {String}
      */
     getId : function(){
@@ -283,8 +291,9 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
     },
 
     /**
-     * Try to focus this component
+     * Try to focus this component.
      * @param {Boolean} selectText True to also select the text in this component (if applicable)
+     * @return {Ext.Component} this
      */
     focus : function(selectText){
         if(this.rendered){
@@ -305,7 +314,8 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
     },
 
     /**
-     * Disable this component
+     * Disable this component.
+     * @return {Ext.Component} this
      */
     disable : function(){
         if(this.rendered){
@@ -316,13 +326,15 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
         return this;
     },
 
+	// private
     onDisable : function(){
         this.getActionEl().addClass(this.disabledClass);
         this.el.dom.disabled = true;
     },
 
     /**
-     * Enable this component
+     * Enable this component.
+     * @return {Ext.Component} this
      */
     enable : function(){
         if(this.rendered){
@@ -333,13 +345,14 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
         return this;
     },
 
+	// private
     onEnable : function(){
         this.getActionEl().removeClass(this.disabledClass);
         this.el.dom.disabled = false;
     },
 
     /**
-     * Convenience function for setting disabled/enabled by boolean
+     * Convenience function for setting disabled/enabled by boolean.
      * @param {Boolean} disabled
      */
     setDisabled : function(disabled){
@@ -347,7 +360,8 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
     },
 
     /**
-     * Show this component
+     * Show this component.
+     * @return {Ext.Component} this
      */
     show: function(){
         if(this.fireEvent("beforeshow", this) !== false){
@@ -373,7 +387,8 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
     },
 
     /**
-     * Hide this component
+     * Hide this component.
+     * @return {Ext.Component} this
      */
     hide: function(){
         if(this.fireEvent("beforehide", this) !== false){
@@ -399,8 +414,9 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
     },
 
     /**
-     * Convenience function to hide or show this component by boolean
+     * Convenience function to hide or show this component by boolean.
      * @param {Boolean} visible True to show, false to hide
+     * @return {Ext.Component} this
      */
     setVisible: function(visible){
         if(visible) {
@@ -412,7 +428,7 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
     },
 
     /**
-     * Returns true if this component is visible
+     * Returns true if this component is visible.
      */
     isVisible : function(){
         return this.getActionEl().isVisible();
