@@ -60,8 +60,9 @@ layout.endUpdate();
 </code></pre>
 
 <b>The container the layout is rendered into can be either the body element or any other element.
-If it is not the body element, the element needs to either be an absolute positioned element,
-or you will need to add "position:relative" to the css of the element.</b>
+If it is not the body element, the container needs to either be an absolute positioned element,
+or you will need to add "position:relative" to the css of the container.  You will also need to specify
+the container size if it is not the body element.</b>
 
 * @constructor
 * Create a new BorderLayout
@@ -106,7 +107,7 @@ Ext.extend(Ext.BorderLayout, Ext.LayoutManager, {
         r.on("collapsed", this.onRegionCollapsed, this);
         r.on("expanded", this.onRegionExpanded, this);
     },
-    
+
     /**
      * Performs a layout update.
      */
@@ -116,7 +117,7 @@ Ext.extend(Ext.BorderLayout, Ext.LayoutManager, {
         var w = size.width, h = size.height;
         var centerW = w, centerH = h, centerY = 0, centerX = 0;
         //var x = 0, y = 0;
-        
+
         var rs = this.regions;
         var n = rs["north"], s = rs["south"], west = rs["west"], e = rs["east"], c = rs["center"];
         //if(this.hideOnLayout){ // not supported anymore
@@ -179,13 +180,13 @@ Ext.extend(Ext.BorderLayout, Ext.LayoutManager, {
         this.el.repaint();
         this.fireEvent("layout", this);
     },
-    
+
     safeBox : function(box){
         box.width = Math.max(0, box.width);
         box.height = Math.max(0, box.height);
         return box;
     },
-    
+
     /**
      * Adds a ContentPanel (or subclass) to this layout.
      * @param {String} target The target region key (north, south, east, west or center).
@@ -196,7 +197,7 @@ Ext.extend(Ext.BorderLayout, Ext.LayoutManager, {
         target = target.toLowerCase();
         return this.regions[target].add(panel);
     },
-    
+
     /**
      * Remove a ContentPanel (or subclass) to this layout.
      * @param {String} target The target region key (north, south, east, west or center).
@@ -207,7 +208,7 @@ Ext.extend(Ext.BorderLayout, Ext.LayoutManager, {
         target = target.toLowerCase();
         return this.regions[target].remove(panel);
     },
-    
+
     /**
      * Searches all regions for a panel with the specified id
      * @param {String} panelId
@@ -225,7 +226,7 @@ Ext.extend(Ext.BorderLayout, Ext.LayoutManager, {
         }
         return null;
     },
-    
+
     /**
      * Searches all regions for a panel with the specified id and activates (shows) it.
      * @param {String/ContentPanel} panelId The panels id or the panel itself
@@ -243,7 +244,7 @@ Ext.extend(Ext.BorderLayout, Ext.LayoutManager, {
       }
       return null;
    },
-   
+
    /**
      * Restores this layouts state using Ext.state.Manager or the state provided by the passed provider.
      * @param {Ext.state.Provider} provider (optional) An alternate state provider
@@ -307,7 +308,7 @@ Ext.BorderLayout.create = function(config, targetEl){
 
 Ext.BorderLayout.RegionFactory = {
     validRegions : ["north","south","east","west","center"],
-    
+
     create : function(target, mgr, config){
         target = target.toLowerCase();
         if(config.lightweight || config.basic){
