@@ -17,6 +17,8 @@ All selectors, attribute filters and pseudos below can be combined infinitely in
     <li> <b>E</b> an element with the tag E</li>
     <li> <b>E F</b> All descendent elements of E that have the tag F</li>
     <li> <b>E > F</b> or <b>E/F</b> all direct children elements of E that have the tag F</li>
+    <li> <b>E + F</b> all elements with the tag F that are immediately preceded by an element with the tag E</li>
+    <li> <b>E ~ F</b> all elements with the tag F that are preceded by a sibling element with the tag E</li>
 </ul>
 <h4>Attribute Selectors:</h4>
 <p>The use of @ and quotes are optional. For example, div[@foo='bar'] is also a valid attribute selector.</p>
@@ -66,8 +68,10 @@ Ext.DomQuery = function(){
     var nonSpace = /\S/;
     var trimRe = /^\s+|\s+$/g;
     var tplRe = /\{(\d+)\}/g;
-    var modeRe = /^(\s?[\/>]\s?|\s|$)/;
+    var modeRe = /^(\s?[\/>+~]\s?|\s|$)/;
     var tagTokenRe = /^(#)?([\w-\*]+)/;
+    var batch = 30803;
+    var nthRe = /(\d*)n\+?(\d*)/, nthRe2 = /\D/;
 
     function child(p, index){
         var i = 0;
@@ -93,7 +97,7 @@ Ext.DomQuery = function(){
         return n;
     };
 
-    function clean(d){
+    function children(d){
         var n = d.firstChild, ni = -1;
  	    while(n){
  	        var nx = n.nextSibling;
@@ -143,25 +147,38 @@ Ext.DomQuery = function(){
         if(!ns){
             return result;
         }
-        mode = mode ? mode.replace(trimRe, "") : "";
         tagName = tagName || "*";
         if(typeof ns.getElementsByTagName != "undefined"){
             ns = [ns];
         }
-        if(mode != "/" && mode != ">"){
+        if(!mode){
             for(var i = 0, ni; ni = ns[i]; i++){
                 cs = ni.getElementsByTagName(tagName);
                 for(var j = 0, ci; ci = cs[j]; j++){
                     result[result.length] = ci;
                 }
             }
-        }else{
+        }else if(mode == "/" || mode == ">"){
             for(var i = 0, ni; ni = ns[i]; i++){
                 var cn = ni.getElementsByTagName(tagName);
                 for(var j = 0, cj; cj = cn[j]; j++){
                     if(cj.parentNode == ni){
                         result[result.length] = cj;
                     }
+                }
+            }
+        }else if(mode == "+"){
+            for(var i = 0, n; n = ns[i]; i++){
+                while((n = n.nextSibling) && n.nodeType != 1);
+                if(n && (tagName == '*' || n.tagName.toLowerCase()==tagName)){
+                    result[result.length] = n;
+                }
+            }
+        }else if(mode == "~"){
+            for(var i = 0, n; n = ns[i]; i++){
+                while((n = n.nextSibling) && (n.nodeType != 1 || (tagName == '*' || n.tagName.toLowerCase()!=tagName)));
+                if(n){
+                    result[result.length] = n;
                 }
             }
         }
@@ -185,7 +202,8 @@ Ext.DomQuery = function(){
         if(!tagName){
             return cs;
         }
-        var r = []; tagName = tagName.toLowerCase();
+        var r = [];
+        tagName = tagName.toLowerCase();
         for(var i = 0, ci; ci = cs[i]; i++){
             if(ci.nodeType == 1 && ci.tagName.toLowerCase()==tagName){
                 r[r.length] = ci;
@@ -213,8 +231,8 @@ Ext.DomQuery = function(){
 
     function byAttribute(cs, attr, value, op, custom){
         var r = [], st = custom=="{";
-        var f = Ext.DomQuery.operators[op], ci;
-        for(var i = 0; ci = cs[i]; i++){
+        var f = Ext.DomQuery.operators[op];
+        for(var i = 0, ci; ci = cs[i]; i++){
             var a;
             if(st){
                 a = Ext.DomQuery.getStyle(ci, attr);
@@ -357,7 +375,7 @@ Ext.DomQuery = function(){
         compile : function(path, type){
             type = type || "select";
 
-            var fn = ["var f = function(root){\n var mode; var n = root || document;\n"];
+            var fn = ["var f = function(root){\n var mode; ++batch; var n = root || document;\n"];
             var q = path, mode, lq;
             var tk = Ext.DomQuery.matchers;
             var tklen = tk.length;
@@ -366,7 +384,7 @@ Ext.DomQuery = function(){
             // accept leading mode switch
             var lmode = q.match(modeRe);
             if(lmode && lmode[1]){
-                fn[fn.length] = 'mode="'+lmode[1]+'";';
+                fn[fn.length] = 'mode="'+lmode[1].replace(trimRe, "")+'";';
                 q = q.replace(lmode[1], "");
             }
             // strip leading slashes
@@ -418,7 +436,7 @@ Ext.DomQuery = function(){
                     }
                 }
                 if(mm[1]){
-                    fn[fn.length] = 'mode="'+mm[1]+'";';
+                    fn[fn.length] = 'mode="'+mm[1].replace(trimRe, "")+'";';
                     q = q.replace(mm[1], "");
                 }
             }
@@ -602,38 +620,30 @@ Ext.DomQuery = function(){
                 return r;
             },
 
-            "nth-child" : function(c, a){
+            "nth-child" : function(c, a) {
                 var r = [];
-                if(a != "odd" && a != "even"){
-                    for(var i = 0, ci; ci = c[i]; i++){
-                        var m = child(ci.parentNode, a);
-                        if(m == ci){
-                            r[r.length] = m;
+                var m = nthRe.exec(a == "even" && "2n" || a == "odd" && "2n+1" || !nthRe2.test(a) && "n+" + a || a);
+                var f = (m[1] || 1) - 0, l = m[2] - 0;
+                for(var i = 0, n; n = c[i]; i++){
+                    var pn = n.parentNode;
+                    if (batch != pn._batch) {
+                        var j = 0;
+                        for(var cn = pn.firstChild; cn; cn = cn.nextSibling){
+                            if(cn.nodeType == 1){
+                               cn.nodeIndex = ++j;
+                            }
                         }
+                        pn._batch = batch;
                     }
-                    return r;
-                }
-                var p;
-                // first let's clean up the parent nodes
-                for(var i = 0, l = c.length; i < l; i++){
-                    var cp = c[i].parentNode;
-                    if(cp != p){
-                        clean(cp);
-                        p = cp;
+                    if (f == 1) {
+                        if (l == 0 || n.nodeIndex == l){
+                            r[r.length] = n;
+                        }
+                    } else if ((n.nodeIndex + l) % f == 0){
+                        r[r.length] = n;
                     }
                 }
-                // then lets see if we match
-                for(var i = 0, ci; ci = c[i]; i++){
-                    var m = false;
-                    if(a == "odd"){
-                        m = ((ci.nodeIndex+1) % 2 == 1);
-                    }else if(a == "even"){
-                        m = ((ci.nodeIndex+1) % 2 == 0);
-                    }
-                    if(m){
-                        r[r.length] = ci;
-                    }
-                }
+
                 return r;
             },
 
