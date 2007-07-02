@@ -137,15 +137,15 @@ Ext.Toolbar.prototype = {
         if(config instanceof Array){
             var buttons = [];
             for(var i = 0, len = config.length; i < len; i++) {
-            	buttons.push(this.addButton(config[i]));
+                buttons.push(this.addButton(config[i]));
             }
             return buttons;
         }
         var b = config;
         if(!(config instanceof Ext.Toolbar.Button)){
-              b = config.split ?
-                  new Ext.Toolbar.SplitButton(config) :
-                  new Ext.Toolbar.Button(config);
+            b = config.split ?
+                new Ext.Toolbar.SplitButton(config) :
+                new Ext.Toolbar.Button(config);
         }
         var td = this.nextBlock();
         b.render(td);
@@ -260,14 +260,14 @@ Ext.Toolbar.Item.prototype = {
     },
     
     /**
-     * Removes and destroys this item
+     * Removes and destroys this item.
      */
     destroy : function(){
         this.td.parentNode.removeChild(this.td);
     },
     
     /**
-     * Shows this item
+     * Shows this item.
      */
     show: function(){
         this.hidden = false;
@@ -275,7 +275,7 @@ Ext.Toolbar.Item.prototype = {
     },
     
     /**
-     * Hides this item
+     * Hides this item.
      */
     hide: function(){
         this.hidden = true;
@@ -283,7 +283,7 @@ Ext.Toolbar.Item.prototype = {
     },
     
     /**
-     * Convenience function for boolean show/hide
+     * Convenience function for boolean show/hide.
      * @param {Boolean} visible true to show/false to hide
      */
     setVisible: function(visible){
@@ -295,14 +295,14 @@ Ext.Toolbar.Item.prototype = {
     },
     
     /**
-     * Try to focus this item
+     * Try to focus this item.
      */
     focus : function(){
         Ext.fly(this.el).focus();
     },
     
     /**
-     * Disables this item
+     * Disables this item.
      */
     disable : function(){
         Ext.fly(this.td).addClass("x-item-disabled");
@@ -311,7 +311,7 @@ Ext.Toolbar.Item.prototype = {
     },
     
     /**
-     * Enables this item
+     * Enables this item.
      */
     enable : function(){
         Ext.fly(this.td).removeClass("x-item-disabled");
