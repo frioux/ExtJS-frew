@@ -41,17 +41,14 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
      * @cfg {Boolean} enableFont Enable font selection. Not available in Safari. (defaults to true)
      */
     enableFont : true,
-
     /**
      * @cfg {String} createLinkText The default text for the create link prompt
      */
     createLinkText : 'Please enter the URL for the link:',
-
     /**
      * @cfg {String} defaultLinkValue The default value for the create link prompt (defaults to http:/ /)
      */
     defaultLinkValue : 'http:/'+'/',
-
     /**
      * @cfg {Array} fontFamilies An array of available font families
      */
@@ -901,6 +898,10 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
     // hide stuff that is not compatible
     /**
      * @event blur
+     * @hide
+     */
+    /**
+     * @event change
      * @hide
      */
     /**
