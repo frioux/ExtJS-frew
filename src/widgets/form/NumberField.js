@@ -106,13 +106,14 @@ Ext.extend(Ext.form.NumberField, Ext.form.TextField,  {
 
     // private
     parseValue : function(value){
-        return parseFloat(String(value).replace(this.decimalSeparator, "."));
+        return parseFloat(String(value).replace(this.decimalSeparator, ".")) || '';
     },
 
     // private
     fixPrecision : function(value){
-       if(!this.allowDecimals || this.decimalPrecision == -1 || isNaN(value) || !value){
-           return value;
+        var nan = isNaN(value);
+        if(!this.allowDecimals || this.decimalPrecision == -1 || nan || !value){
+           return nan ? '' : value;
        }
        // this should work but doesn't due to precision error in JS
        // var scale = Math.pow(10, this.decimalPrecision);

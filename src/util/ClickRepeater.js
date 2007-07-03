@@ -81,7 +81,6 @@ Ext.extend(Ext.util.ClickRepeater, Ext.util.Observable, {
     preventDefault : true,
     stopDefault : false,
     timer : 0,
-    docEl : Ext.get(document),
 
     // private
     handleMouseDown : function(){
@@ -92,7 +91,7 @@ Ext.extend(Ext.util.ClickRepeater, Ext.util.Observable, {
         }
         this.mousedownTime = new Date();
 
-        this.docEl.on("mouseup", this.handleMouseUp, this);
+        Ext.get(document).on("mouseup", this.handleMouseUp, this);
         this.el.on("mouseout", this.handleMouseOut, this);
 
         this.fireEvent("mousedown", this);
@@ -155,7 +154,7 @@ Ext.extend(Ext.util.ClickRepeater, Ext.util.Observable, {
         clearTimeout(this.timer);
         this.el.un("mouseover", this.handleMouseReturn);
         this.el.un("mouseout", this.handleMouseOut);
-        this.docEl.un("mouseup", this.handleMouseUp);
+        Ext.get(document).un("mouseup", this.handleMouseUp);
         this.el.removeClass(this.pressClass);
         this.fireEvent("mouseup", this);
     }
