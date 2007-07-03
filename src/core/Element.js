@@ -1111,7 +1111,7 @@ El.prototype = {
      * @param {String}   eventName     The type of event to append
      * @param {Function} fn        The method the event invokes
      * @param {Object} scope       (optional) The scope (this object) of the fn
-     * @param {Object}   options   (optional)An object with standard {@link EventManager#addListener} options
+     * @param {Object}   options   (optional)An object with standard {@link Ext.EventManager#addListener} options
      */
     addListener : function(eventName, fn, scope, options){
         Ext.EventManager.on(this.dom,  eventName, fn, scope || this, options);
@@ -2645,7 +2645,7 @@ var ep = El.prototype;
  * @param {String}   eventName     The type of event to append
  * @param {Function} fn        The method the event invokes
  * @param {Object} scope       (optional) The scope (this object) of the fn
- * @param {Object}   options   (optional)An object with standard {@link EventManager#addListener} options
+ * @param {Object}   options   (optional)An object with standard {@link Ext.EventManager#addListener} options
  * @method
  */
 ep.on = ep.addListener;
