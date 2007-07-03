@@ -146,7 +146,7 @@ Ext.extend(Ext.util.MixedCollection, Ext.util.Observable, {
         }else{
             for(var key in objs){
                 if(this.allowFunctions || typeof objs[key] != "function"){
-                    this.add(objs[key], key);
+                    this.add(key, objs[key]);
                 }
             }
         }
