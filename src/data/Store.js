@@ -140,7 +140,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     * @cfg {Ext.data.DataProxy} proxy The Proxy object which provides access to a data object.
     */
     /**
-    * @cfg {Array} data Inline data to be l;oaded when the store is initialized.
+    * @cfg {Array} data Inline data to be loaded when the store is initialized.
     */
     /**
     * @cfg {Ext.data.Reader} reader The Reader object which processes the data object and returns
