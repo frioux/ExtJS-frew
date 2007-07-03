@@ -56,7 +56,7 @@ Ext.extend(Ext.form.Form, Ext.form.BasicForm, {
     /**
      * @cfg {Boolean} monitorValid If true the form monitors its valid state <b>client-side</b> and
      * fires a looping event with that state. This is required to bind buttons to the valid
-     * state using the config value bindForm:true on the button.
+     * state using the config value formBind:true on the button.
      */
     monitorValid : false,
 
