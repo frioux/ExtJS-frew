@@ -142,13 +142,6 @@ Ext.lib.Dom = {
                 x -= p.scrollLeft;
                 y -= p.scrollTop;
             }
-            if (Ext.isGecko) {
-                pe = fly(p);
-                if(pe.getStyle('overflow') != 'visible'){
-                    x += parseInt(pe.getStyle("borderLeftWidth"), 10) || 0;
-                    y += parseInt(pe.getStyle("borderTopWidth"), 10) || 0;
-                }
-            }
             p = p.parentNode;
         }
         return [x, y];

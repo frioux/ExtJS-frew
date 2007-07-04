@@ -416,7 +416,6 @@ Ext.tree.TreeNodeUI.prototype = {
     updateExpandIcon : function(){
         if(this.rendered){
             var n = this.node, c1, c2;
-            //console.log(n.id)
             var cls = n.isLast() ? "x-tree-elbow-end" : "x-tree-elbow";
             var hasChild = n.hasChildNodes();
             if(hasChild){

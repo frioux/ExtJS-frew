@@ -14,7 +14,6 @@ Ext.XTemplate = function(){
     var tpls = [];
 
     while(m = s.match(re)){
-        console.log(m)
        var m2 = m[0].match(nameRe);
        var m3 = m[0].match(ifRe);
        var m4 = m[0].match(execRe);
@@ -51,9 +50,6 @@ Ext.XTemplate = function(){
     }
     for(var i = tpls.length-1; i >= 0; --i){
         this.compileTpl(tpls[i]);
-    }
-    for(var i = 0; i < tpls.length; i++){
-        console.log(tpls[i])
     }
     this.master = tpls[tpls.length-1];
     this.tpls = tpls;

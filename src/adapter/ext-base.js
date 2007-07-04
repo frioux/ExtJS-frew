@@ -96,6 +96,7 @@
                 return [b.left + scroll.left, b.top + scroll.top];
             } else {
                 var x = el.offsetLeft, y = el.offsetTop;
+
                 p = el.offsetParent;
 
 
@@ -144,13 +145,6 @@
                 if (!Ext.isOpera || (Ext.isOpera && p.tagName != 'TR' && fly(p).getStyle("display") != "inline")) {
                     x -= p.scrollLeft;
                     y -= p.scrollTop;
-                }
-                if (Ext.isGecko) {
-                    pe = fly(p);
-                    if(pe.getStyle('overflow') != 'visible'){
-                        x += parseInt(pe.getStyle("borderLeftWidth"), 10) || 0;
-                        y += parseInt(pe.getStyle("borderTopWidth"), 10) || 0;
-                    }
                 }
                 p = p.parentNode;
             }
