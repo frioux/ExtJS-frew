@@ -1,7 +1,7 @@
 /**
  * @class Ext.SplitLayoutRegion
  * @extends Ext.LayoutRegion
- * Adds a splitbar and other (private) useful functionality to a LayoutRegion
+ * Adds a splitbar and other (private) useful functionality to a {@link Ext.LayoutRegion}.
  */
 Ext.SplitLayoutRegion = function(mgr, config, pos, cursor){
     this.cursor = cursor;
@@ -60,7 +60,7 @@ Ext.extend(Ext.SplitLayoutRegion, Ext.LayoutRegion, {
     },
     
     /** 
-     * Returns the SplitBar for this region.
+     * Returns the {@link Ext.SplitBar} for this region.
      * @return {Ext.SplitBar}
      */
     getSplitBar : function(){
