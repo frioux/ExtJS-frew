@@ -85,19 +85,19 @@ side          Add an error icon to the right of the field with a popup on hover
     hasFocus : false,
 
     /**
-     * @cfg {Mixed} value A value to initialize this field with
+     * @cfg {Mixed} value A value to initialize this field with.
      */
     value : undefined,
 
     /**
-     * @cfg {String} name The field's HTML name attribute
+     * @cfg {String} name The field's HTML name attribute.
      */
     /**
-     * @cfg {String} cls A CSS class to apply to the field's underlying element
+     * @cfg {String} cls A CSS class to apply to the field's underlying element.
      */
 
 	// private ??
-    initComponent : function(){
+	initComponent : function(){
         Ext.form.Field.superclass.initComponent.call(this);
         this.addEvents({
             /**
@@ -150,18 +150,6 @@ side          Add an error icon to the right of the field with a popup on hover
      */
     getName: function(){
          return this.rendered && this.el.dom.name ? this.el.dom.name : (this.hiddenName || '');
-    },
-
-    /**
-     * Apply the behaviors of this component to an existing element. <b>This is used instead of render().</b>
-     * @param {String/HTMLElement/Element} el The id of the node, a DOM node or an existing Element
-     * @return {Ext.form.Field} this
-     */
-    applyTo : function(target){
-        this.allowDomMove = false;
-        this.el = Ext.get(target);
-        this.render(this.el.dom.parentNode);
-        return this;
     },
 
     // private
@@ -259,8 +247,7 @@ side          Add an error icon to the right of the field with a popup on hover
 
     // private
     onBlur : function(){
-        this.beforeBlur();
-        this.el.removeClass(this.focusClass);
+        this.beforeBlur();    this.el.removeClass(this.focusClass);
         this.hasFocus = false;
         if(this.validationEvent !== false && this.validateOnBlur && this.validationEvent != "blur"){
             this.validate();
@@ -283,7 +270,7 @@ side          Add an error icon to the right of the field with a popup on hover
         }
         var restore = this.preventMark;
         this.preventMark = preventMark === true;
-        var v = this.validateValue(this.getRawValue());
+        var v = this.validateValue(this.processValue(this.getRawValue()));
         this.preventMark = restore;
         return v;
     },
@@ -293,11 +280,15 @@ side          Add an error icon to the right of the field with a popup on hover
      * @return {Boolean} True if the value is valid, else false
      */
     validate : function(){
-        if(this.disabled || this.validateValue(this.getRawValue())){
+        if(this.disabled || this.validateValue(this.processValue(this.getRawValue()))){
             this.clearInvalid();
             return true;
         }
         return false;
+    },
+
+    processValue : function(value){
+        return value;
     },
 
     // private
@@ -345,6 +336,7 @@ side          Add an error icon to the right of the field with a popup on hover
                 this.errorIcon.dom.qtip = msg;
                 this.errorIcon.dom.qclass = 'x-form-invalid-tip';
                 this.errorIcon.show();
+                this.on('resize', this.alignErrorIcon, this);
                 break;
             default:
                 var t = Ext.getDom(this.msgTarget);
@@ -384,6 +376,7 @@ side          Add an error icon to the right of the field with a popup on hover
                 if(this.errorIcon){
                     this.errorIcon.dom.qtip = '';
                     this.errorIcon.hide();
+                    this.un('resize', this.alignErrorIcon, this);
                 }
                 break;
             default:

@@ -308,6 +308,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
     onRender : function(ct, position){
         Ext.form.HtmlEditor.superclass.onRender.call(this, ct, position);
         this.el.dom.style.border = '0 none';
+        this.el.dom.setAttribute('tabIndex', -1);
         this.el.addClass('x-hidden');
         if(Ext.isIE){ // fix IE 1px bogus margin
             this.el.applyStyles('margin-top:-1px;margin-bottom:-1px;')
@@ -409,6 +410,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             this.syncValue();
             this.iframe.className = 'x-hidden';
             this.el.removeClass('x-hidden');
+            this.el.dom.removeAttribute('tabIndex');
             this.el.focus();
         }else{
             if(this.initialized){
@@ -419,6 +421,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             this.pushValue();
             this.iframe.className = '';
             this.el.addClass('x-hidden');
+            this.el.dom.setAttribute('tabIndex', -1);
             this.deferFocus();
         }
         this.setSize(this.wrap.getSize());

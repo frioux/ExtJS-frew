@@ -92,7 +92,6 @@ Ext.onReady(function(){
     var grid = new Ext.grid.EditorGrid('editor-grid', {
         ds: ds,
         cm: cm,
-        //selModel: new Ext.grid.RowSelectionModel(),
         enableColLock:false
     });
 

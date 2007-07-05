@@ -127,6 +127,17 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
         }
     },
 
+    processValue : function(value){
+        if(this.stripCharsRe){
+            var newValue = value.replace(this.stripCharsRe, '');
+            if(newValue !== value){
+                this.setRawValue(newValue);
+                return newValue;
+            }
+        }
+        return value;
+    },
+
     filterValidation : function(e){
         if(!e.isNavKeyPress()){
             this.validationTask.delay(this.validationDelay);
