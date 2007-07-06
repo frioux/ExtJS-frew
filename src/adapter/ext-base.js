@@ -88,67 +88,67 @@
 
         getXY : function(el) {
             var p, pe, b, scroll, bd = document.body;
-            el = Ext.getDom(el);
+        el = Ext.getDom(el);
 
-            if (el.getBoundingClientRect) {
-                b = el.getBoundingClientRect();
-                scroll = fly(document).getScroll();
-                return [b.left + scroll.left, b.top + scroll.top];
-            } else {
-                var x = el.offsetLeft, y = el.offsetTop;
+        if (el.getBoundingClientRect) {
+            b = el.getBoundingClientRect();
+            scroll = fly(document).getScroll();
+            return [b.left + scroll.left, b.top + scroll.top];
+        }
+        var x = 0, y = 0;
 
-                p = el.offsetParent;
+        p = el;
 
+        var hasAbsolute = fly(el).getStyle("position") == "absolute";
 
-                var hasAbsolute = false;
+        while (p) {
 
-                if (p != el) {
-                    while (p) {
-                        x += p.offsetLeft;
-                        y += p.offsetTop;
+            x += p.offsetLeft;
+            y += p.offsetTop;
 
-
-                        if (Ext.isSafari && !hasAbsolute && fly(p).getStyle("position") == "absolute") {
-                            hasAbsolute = true;
-                        }
-
-
-                        if (Ext.isGecko) {
-                            pe = fly(p);
-                            var bt = parseInt(pe.getStyle("borderTopWidth"), 10) || 0;
-                            var bl = parseInt(pe.getStyle("borderLeftWidth"), 10) || 0;
-
-
-                            x += bl;
-                            y += bt;
-
-
-                            if (p != el && pe.getStyle('overflow') != 'visible') {
-                                x += bl;
-                                y += bt;
-                            }
-                        }
-                        p = p.offsetParent;
-                    }
-                }
-
-                if (Ext.isSafari && (hasAbsolute || fly(el).getStyle("position") == "absolute")) {
-                    x -= bd.offsetLeft;
-                    y -= bd.offsetTop;
-                }
+            if (!hasAbsolute && fly(p).getStyle("position") == "absolute") {
+                hasAbsolute = true;
             }
 
-            p = el.offsetParent;
+            if (Ext.isGecko) {
+                pe = fly(p);
 
-            while (p && p != bd) {
+                var bt = parseInt(pe.getStyle("borderTopWidth"), 10) || 0;
+                var bl = parseInt(pe.getStyle("borderLeftWidth"), 10) || 0;
 
-                if (!Ext.isOpera || (Ext.isOpera && p.tagName != 'TR' && fly(p).getStyle("display") != "inline")) {
-                    x -= p.scrollLeft;
-                    y -= p.scrollTop;
+
+                x += bl;
+                y += bt;
+
+
+                if (p != el && pe.getStyle('overflow') != 'visible') {
+                    x += bl;
+                    y += bt;
                 }
-                p = p.parentNode;
             }
-            return [x, y];
+            p = p.offsetParent;
+        }
+
+        if (Ext.isSafari && hasAbsolute) {
+            x -= bd.offsetLeft;
+            y -= bd.offsetTop;
+        }
+
+        if (Ext.isGecko && !hasAbsolute) {
+            var dbd = fly(bd);
+            x += parseInt(dbd.getStyle("borderLeftWidth"), 10) || 0;
+            y += parseInt(dbd.getStyle("borderTopWidth"), 10) || 0;
+        }
+
+        p = el.offsetParent;
+        while (p && p != bd) {
+            if (!(Ext.isOpera && p.tagName != 'TR' && fly(p).getStyle("display") != "inline")) {
+                x -= p.scrollLeft;
+                y -= p.scrollTop;
+            }
+            p = p.parentNode;
+        }
+        return [x, y];
         },
 
         setXY : function(el, xy) {

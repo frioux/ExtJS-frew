@@ -64,59 +64,59 @@ Ext.lib.Dom = {
         var p, pe, b, scroll, bd = document.body;
         el = Ext.getDom(el);
 
-        if(el.getBoundingClientRect){ // IE
+        if (el.getBoundingClientRect) {
             b = el.getBoundingClientRect();
             scroll = fly(document).getScroll();
             return [b.left + scroll.left, b.top + scroll.top];
-        } else{
-            var x = el.offsetLeft, y = el.offsetTop;
-            p = el.offsetParent;
+        }
+        var x = 0, y = 0;
 
-            // ** flag if a parent is positioned for Safari
-            var hasAbsolute = false;
+        p = el;
 
-            if(p != el){
-                while(p){
-                    x += p.offsetLeft;
-                    y += p.offsetTop;
+        var hasAbsolute = fly(el).getStyle("position") == "absolute";
 
-                    // ** flag Safari abs position bug - only check if needed
-                    if(Ext.isSafari && !hasAbsolute && fly(p).getStyle("position") == "absolute"){
-                        hasAbsolute = true;
-                    }
+        while (p) {
 
-                    // ** Fix gecko borders measurements
-                    // Credit jQuery dimensions plugin for the workaround
-                    if(Ext.isGecko){
-                        pe = fly(p);
-                        var bt = parseInt(pe.getStyle("borderTopWidth"), 10) || 0;
-                        var bl = parseInt(pe.getStyle("borderLeftWidth"), 10) || 0;
+            x += p.offsetLeft;
+            y += p.offsetTop;
 
-                        // add borders to offset
-                        x += bl;
-                        y += bt;
+            if (!hasAbsolute && fly(p).getStyle("position") == "absolute") {
+                hasAbsolute = true;
+            }
 
-                        // Mozilla removes the border if the parent has overflow property other than visible
-                        if(p != el && pe.getStyle('overflow') != 'visible'){
-                            x += bl;
-                            y += bt;
-                        }
-                    }
-                    p = p.offsetParent;
+            if (Ext.isGecko) {
+                pe = fly(p);
+
+                var bt = parseInt(pe.getStyle("borderTopWidth"), 10) || 0;
+                var bl = parseInt(pe.getStyle("borderLeftWidth"), 10) || 0;
+
+
+                x += bl;
+                y += bt;
+
+
+                if (p != el && pe.getStyle('overflow') != 'visible') {
+                    x += bl;
+                    y += bt;
                 }
             }
-            // ** safari doubles in some cases, use flag from offsetParent's as well
-            if(Ext.isSafari && (hasAbsolute || fly(el).getStyle("position") == "absolute")){
-                x -= bd.offsetLeft;
-                y -= bd.offsetTop;
-            }
+            p = p.offsetParent;
+        }
+
+        if (Ext.isSafari && hasAbsolute) {
+            x -= bd.offsetLeft;
+            y -= bd.offsetTop;
+        }
+
+        if (Ext.isGecko && !hasAbsolute) {
+            var dbd = fly(bd);
+            x += parseInt(dbd.getStyle("borderLeftWidth"), 10) || 0;
+            y += parseInt(dbd.getStyle("borderTopWidth"), 10) || 0;
         }
 
         p = el.offsetParent;
-
-        while(p && p != bd){
-            // ** opera TR has bad scroll values, so filter them jvs
-            if(!Ext.isOpera || (Ext.isOpera && p.tagName != 'TR' && fly(p).getStyle("display") != "inline")){
+        while (p && p != bd) {
+            if (!(Ext.isOpera && p.tagName != 'TR' && fly(p).getStyle("display") != "inline")) {
                 x -= p.scrollLeft;
                 y -= p.scrollTop;
             }
