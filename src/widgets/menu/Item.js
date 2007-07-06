@@ -31,6 +31,9 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
     // private
     ctype: "Ext.menu.Item",
 
+    showDelay: 200,
+    hideDelay: 200,
+
     // private
     onRender : function(container, position){
         var el = document.createElement("a");
@@ -101,19 +104,35 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
     // private
     expandMenu : function(autoActivate){
         if(!this.disabled && this.menu){
-            if(!this.menu.isVisible()){
-                this.menu.show(this.container, this.parentMenu.subMenuAlign || "tl-tr?", this.parentMenu);
-            }
-            if(autoActivate){
+            clearTimeout(this.hideTimer);
+            delete this.hideTimer;
+            if(!this.menu.isVisible() && !this.showTimer){
+                this.showTimer = this.deferExpand.defer(this.showDelay, this, [autoActivate]);
+            }else if (this.menu.isVisible() && autoActivate){
                 this.menu.tryActivate(0, 1);
             }
         }
     },
 
+    deferExpand : function(autoActivate){
+        delete this.showTimer;
+        this.menu.show(this.container, this.parentMenu.subMenuAlign || "tl-tr?", this.parentMenu);
+        if(autoActivate){
+            this.menu.tryActivate(0, 1);
+        }
+    },
+
     // private
     hideMenu : function(){
-        if(this.menu && this.menu.isVisible()){
-            this.menu.hide();
+        clearTimeout(this.showTimer);
+        delete this.showTimer;
+        if(!this.hideTimer && this.menu && this.menu.isVisible()){
+            this.hideTimer = this.deferHide.defer(this.hideDelay, this);
         }
+    },
+
+    deferHide : function(){
+        delete this.hideTimer;
+        this.menu.hide();
     }
 });
