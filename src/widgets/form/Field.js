@@ -183,6 +183,18 @@ side          Add an error icon to the right of the field with a popup on hover
         this.initValue();
     },
 
+    /**
+     * Apply the behaviors of this component to an existing element. <b>This is used instead of render().</b>
+     * @param {String/HTMLElement/Element} el The id of the node, a DOM node or an existing Element
+     * @return {Ext.form.Field} this
+     */
+    applyTo : function(target){
+        this.allowDomMove = false;
+        this.el = Ext.get(target);
+        this.render(this.el.dom.parentNode);
+        return this;
+    },
+
     // private
     initValue : function(){
         if(this.value !== undefined){
