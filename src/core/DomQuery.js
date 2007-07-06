@@ -70,7 +70,6 @@ Ext.DomQuery = function(){
     var tplRe = /\{(\d+)\}/g;
     var modeRe = /^(\s?[\/>+~]\s?|\s|$)/;
     var tagTokenRe = /^(#)?([\w-\*]+)/;
-    var batch = 30803;
     var nthRe = /(\d*)n\+?(\d*)/, nthRe2 = /\D/;
 
     function child(p, index){
@@ -261,6 +260,10 @@ Ext.DomQuery = function(){
     // IE runs the same speed using setAttribute, however FF slows way down
     // and Safari completely fails so they need to continue to use expandos.
     var isIE = window.ActiveXObject ? true : false;
+
+    // this eval is stop the compressor from
+    // renaming the variable to something shorter
+    eval("var batch = 30803;");
 
     var key = 30803;
 
