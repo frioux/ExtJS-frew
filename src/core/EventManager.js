@@ -581,6 +581,7 @@ Ext.EventObject = function(){
                 if(e.type == 'click' && this.button == -1){
                     this.button = 0;
                 }
+                this.type = e.type;
                 this.shiftKey = e.shiftKey;
                 // mac metaKey behaves like ctrlKey
                 this.ctrlKey = e.ctrlKey || e.metaKey;
@@ -635,7 +636,7 @@ Ext.EventObject = function(){
 
         isSpecialKey : function(){
             var k = this.keyCode;
-            return k == 9 || k == 13  || k == 40 || k == 27 ||
+            return (this.type == 'keypress' && this.ctrlKey) || k == 9 || k == 13  || k == 40 || k == 27 ||
             (k == 16) || (k == 17) ||
             (k >= 18 && k <= 20) ||
             (k >= 33 && k <= 35) ||
@@ -647,7 +648,7 @@ Ext.EventObject = function(){
          */
         stopPropagation : function(){
             if(this.browserEvent){
-                if(this.browserEvent.type == 'mousedown'){
+                if(this.type == 'mousedown'){
                     Ext.EventManager.stoppedMouseDownEvent.fire(this);
                 }
                 E.stopPropagation(this.browserEvent);
@@ -750,7 +751,7 @@ Ext.EventObject = function(){
          * @return {Boolean}
          */
         hasModifier : function(){
-            return ((this.ctrlKey || this.altKey) || this.shiftKey) ? true : false;
+            return !!((this.ctrlKey || this.altKey) || this.shiftKey);
         },
 
         /**
