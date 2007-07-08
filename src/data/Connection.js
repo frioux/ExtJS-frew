@@ -31,7 +31,7 @@ Ext.data.Connection = function(config){
         "beforerequest" : true,
         /**
          * @event requestcomplete
-         * Fires before a network request is made to retrieve a data object.
+         * Fires if the request was successfully completed.
          * @param {Connection} conn This Connection object.
          * @param {Object} response The XHR object containing the response data.
          * See {@link http://www.w3.org/TR/XMLHttpRequest/} for details.
@@ -75,7 +75,7 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
      * @cfg {Boolean} autoAbort (Optional) Whether this request should abort any pending requests. (defaults to false)
      * @type Boolean
      */
-	autoAbort:false,
+    autoAbort:false,
 
     /**
      * Sends an HTTP request to a remote server.
@@ -155,8 +155,8 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
                 success: this.handleResponse,
                 failure: this.handleFailure,
                 scope: this,
-        		argument: {options: o},
-        		timeout : this.timeout
+                argument: {options: o},
+                timeout : this.timeout
             };
 
             var method = o.method||this.method||(p ? "POST" : "GET");
@@ -235,6 +235,7 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
             frame.src = Ext.SSL_SECURE_URL;
         }
         document.body.appendChild(frame);
+
         if(Ext.isIE){
            document.frames[id].name = id;
         }
@@ -331,14 +332,14 @@ Ext.Ajax = new Ext.data.Connection({
      * @cfg {String} method (Optional) @hide
      */
     /**
-     * @cfg  {Number} timeout (Optional) @hide
+     * @cfg {Number} timeout (Optional) @hide
      */
     /**
      * @cfg {Boolean} autoAbort (Optional) @hide
      */
 
     /**
-     *  The default URL to be used for requests to the server. (defaults to undefined)
+     * The default URL to be used for requests to the server. (defaults to undefined)
      * @type String
      * @property  url
      */
