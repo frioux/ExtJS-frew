@@ -142,6 +142,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
 
     onSpecialKey : function(field, e){
         if(this.completeOnEnter && e.getKey() == e.ENTER){
+            e.stopEvent();
             this.completeEdit();
         }else if(this.cancelOnEsc && e.getKey() == e.ESC){
             this.cancelEdit();
