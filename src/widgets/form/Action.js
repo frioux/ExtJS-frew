@@ -97,11 +97,13 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
 
     run : function(){
         var o = this.options;
-        var isPost = this.getMethod() == 'POST';
+        var method = this.getMethod();
+        var isPost = method == 'POST';
         if(o.clientValidation === false || this.form.isValid()){
             Ext.Ajax.request(Ext.apply(this.createCallback(), {
                 form:this.form.el.dom,
                 url:this.getUrl(!isPost),
+                method: method,
                 params:isPost ? this.getParams() : null,
                 isUpload: this.form.fileUpload
             }));

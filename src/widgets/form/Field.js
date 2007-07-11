@@ -163,9 +163,6 @@ side          Add an error icon to the right of the field with a popup on hover
             if(this.inputType){
                 cfg.type = this.inputType;
             }
-            if(this.tabIndex !== undefined){
-                cfg.tabIndex = this.tabIndex;
-            }
             this.el = ct.createChild(cfg, position);
         }
         var type = this.el.dom.type;
@@ -177,6 +174,9 @@ side          Add an error icon to the right of the field with a popup on hover
         }
         if(this.readOnly){
             this.el.dom.readOnly = true;
+        }
+        if(this.tabIndex !== undefined){
+            this.el.dom.setAttribute('tabIndex', this.tabIndex);
         }
 
         this.el.addClass([this.fieldClass, this.cls]);
