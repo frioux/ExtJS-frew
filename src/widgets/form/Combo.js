@@ -407,9 +407,10 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     },
 
     /**
-     * Allow or prevent the user from directly editing the field text.  If false is passed in,
+     * Allow or prevent the user from directly editing the field text.  If false is passed,
      * the user will only be able to select from the items defined in the dropdown list.  This method
-     * is the runtime equivalent of setting the editable config option at config time.
+     * is the runtime equivalent of setting the 'editable' config option at config time.
+     * @param {Boolean} value True to allow the user to directly edit the field text
      */
     setEditable : function(value){
         if(value == this.editable){

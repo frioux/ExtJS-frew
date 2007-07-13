@@ -44,7 +44,7 @@ Ext.extend(Ext.form.Field, Ext.BoxComponent,  {
     /**
      * @cfg {String} fieldClass The default CSS class for the field (defaults to "x-form-field")
      */
-    fieldClass: "x-form-field",
+    fieldClass : "x-form-field",
     /**
      * @cfg {String} msgTarget The location where error text should display.  Should be one of the following values (defaults to 'qtip'):
      *<pre>
@@ -57,7 +57,7 @@ side          Add an error icon to the right of the field with a popup on hover
 [element id]  Add the error text directly to the innerHTML of the specified element
 </pre>
      */
-    msgTarget: 'qtip',
+    msgTarget : 'qtip',
     /**
      * @cfg {String} msgFx <b>Experimental</b> The effect used when displaying a validation message under the field (defaults to 'normal').
      */
@@ -71,13 +71,18 @@ side          Add an error icon to the right of the field with a popup on hover
     /**
      * @cfg {Boolean} disabled True to disable the field (defaults to false).
      */
-    disabled: false,
+    disabled : false,
 
     /**
      * @cfg {String} inputType The type attribute for input fields -- e.g. radio, text, password (defaults to "text").
      */
     inputType : undefined,
-
+    
+    /**
+     * @cfg {Number} tabIndex The tabIndex for this field. Note this only applies to fields that are rendered, not those which are built via applyTo (defaults to undefined).
+	 */
+	tabIndex : undefined,
+	
     // private
     isFormField : true,
 
