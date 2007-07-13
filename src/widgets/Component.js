@@ -152,15 +152,24 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
      */
     disabled : false,
     /**
-     * CSS class added to the component when it is disabled.
-     */
-    disabledClass : "x-item-disabled",
-    /**
      * true if this component has been rendered. Read-only.
      */
     rendered : false,
-
-    allowDomMove: true,
+    
+    /** @cfg {String} disableClass
+     * CSS class added to the component when it is disabled (defaults to "x-item-disabled").
+     */
+    disabledClass : "x-item-disabled",
+	/** @cfg {Boolean} allowDomMove
+	 * Whether the component can move the Dom node when rendering (defaults to true).
+	 */
+    allowDomMove : true,
+    /** @cfg {String} hideMode
+     * How this component should hidden. Supported values are
+     * "visibility" (css visibility), "offsets" (negative offset position) and
+     * "display" (css display) - defaults to "display".
+     */
+    hideMode: 'display',
 
     // private
     ctype : "Ext.Component",
@@ -172,13 +181,6 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
     getActionEl : function(){
         return this[this.actionMode];
     },
-
-    /** @cfg {String} hideMode
-     * How this component should hidden. Supported values are
-     * "visibility" (css visibility), "offsets" (negative offset position) and
-     * "display" (css display) - defaults to "display".
-     */
-    hideMode: 'display',
 
     initComponent : Ext.emptyFn,
     /**

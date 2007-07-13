@@ -326,14 +326,15 @@ Ext.QuickTips = function(){
        },
 
     /**
-     * Removes this quick tip from its element and destroys it
+     * Removes this quick tip from its element and destroys it.
+     * @param {String/HTMLElement/Element} el The element from which the quick tip is to be removed.
      */
        unregister : function(el){
            delete tagEls[Ext.id(el)];
        },
 
     /**
-     * Enable this quick tip
+     * Enable this quick tip.
      */
        enable : function(){
            if(inited && disabled){
@@ -345,7 +346,7 @@ Ext.QuickTips = function(){
        },
 
     /**
-     * Disable this quick tip
+     * Disable this quick tip.
      */
        disable : function(){
           disabled = true;
@@ -359,7 +360,7 @@ Ext.QuickTips = function(){
        },
 
     /**
-     * Returns true if the quick tip is enabled, else false
+     * Returns true if the quick tip is enabled, else false.
      */
        isEnabled : function(){
             return !disabled;
