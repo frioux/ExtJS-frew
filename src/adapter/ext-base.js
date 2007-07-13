@@ -674,8 +674,17 @@
 
     }();
 
-    Ext.lib.Event.on = Ext.lib.Event.addListener;
-    Ext.lib.Event.un = Ext.lib.Event.removeListener;
+    var E = Ext.lib.Event;
+    E.on = E.addListener;
+    E.un = E.removeListener;
+
+    if (document && document.body) {
+        E._load();
+    } else {
+        E.doAdd(window, "load", E._load);
+    }
+    E.doAdd(window, "unload", E._unload);
+    E._tryPreloadAttach();
 
     Ext.lib.Ajax = {
         request : function(method, uri, cb, data, options) {
@@ -1257,8 +1266,9 @@
     }
 
 
-    if (Ext.isIE) {
-        function fnCleaup() {
+
+    if(Ext.isIE) {
+        function fnCleanUp() {
             var p = Function.prototype;
             delete p.createSequence;
             delete p.defer;
@@ -1266,10 +1276,9 @@
             delete p.createCallback;
             delete p.createInterceptor;
 
-            window.detachEvent("unload", fnCleaup);
+            window.detachEvent("onunload", fnCleanUp);
         }
-
-        window.attachEvent("unload", fnCleaup);
+        window.attachEvent("onunload", fnCleanUp);
     }
 
 

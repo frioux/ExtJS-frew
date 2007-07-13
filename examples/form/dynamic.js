@@ -239,20 +239,24 @@ Ext.onReady(function(){
         {legend:'Options', hideLabels:true},
         new Ext.form.Checkbox({
             boxLabel:'Ext 1.0 User',
-            name:'extuser'
+            name:'extuser',
+            width:'auto'
         }),
         new Ext.form.Checkbox({
             boxLabel:'Ext Commercial User',
-            name:'extcomm'
+            name:'extcomm',
+            width:'auto'
         }),
         new Ext.form.Checkbox({
             boxLabel:'Ext Premium Member',
-            name:'extprem'
+            name:'extprem',
+            width:'auto'
         }),
         new Ext.form.Checkbox({
             boxLabel:'Ext Team Member',
             name:'extteam',
-            checked:true
+            checked:true,
+            width:'auto'
         })
     );
 
