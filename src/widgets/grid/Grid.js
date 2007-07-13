@@ -406,6 +406,12 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
         return this;
     },
 
+	/**
+	 * Reconfigures the grid to use a different Store and Column Model.
+	 * The View will be bound to the new objects and refreshed.
+	 * @param {Ext.data.Store} dataSource The new {@link Ext.data.Store} object
+	 * @param {Ext.grid.ColumnModel} The new {@link Ext.grid.ColumnModel} object
+	 */
     reconfigure : function(dataSource, colModel){
         if(this.loadMask){
             this.loadMask.destroy();
