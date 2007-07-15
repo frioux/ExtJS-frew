@@ -1,6 +1,6 @@
 /**
  * @class Ext.ComponentMgr
- * Provides a common registry of all components on a page so that they can be easily accessed by component id.
+ * Provides a common registry of all components on a page so that they can be easily accessed by component id (see {@link Ext.getCmp}).
  * @singleton
  */
 Ext.ComponentMgr = function(){
@@ -51,7 +51,11 @@ Ext.ComponentMgr = function(){
 /**
  * @class Ext.Component
  * @extends Ext.util.Observable
- * Base class for all Ext form controls that provides a common set of events and functionality shared by all components.
+ * Base class for all major Ext components.  All subclasses of Component can automatically participate in the standard
+ * Ext component lifecycle of creation, rendering and destruction.  They also have automatic support for basic hide/show
+ * and enable/disable behavior.  Component allows any subclass to be lazy-rendered into any {@link Ext.Container} and
+ * to be automatically registered with the {@link Ext.ComponentMgr} so that it can be referenced at any time via {@link Ext.getCmp}.
+ * All visual components (widgets) that require rendering into a layout should subclass Component.
  * @constructor
  * @param {Ext.Element/String/Object} config The configuration options.  If an element is passed, it is set as the internal
  * element and its id used as the component id.  If a string is passed, it is assumed to be the id of an existing element
