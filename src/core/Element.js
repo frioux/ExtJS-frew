@@ -2192,20 +2192,31 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
     },
 
     /**
+     * @private
+     */
+  fitToParentDelegate : Ext.emptyFn, // keep a reference to the fitToParent delegate
+
+    /**
      * Sizes this element to its parent element's dimensions performing
      * neccessary box adjustments.
      * @param {Boolean} monitorResize (optional) If true maintains the fit when the browser window is resized.
      * @param {String/HTMLElment/Element} targetParent (optional) The target parent, default to the parentNode.
      * @return {Ext.Element} this
      */
-    fitToParent : function(monitorResize, targetParent){
-        var p = Ext.get(targetParent || this.dom.parentNode);
-        this.setSize(p.getComputedWidth()-p.getFrameWidth('lr'), p.getComputedHeight()-p.getFrameWidth('tb'));
-        if(monitorResize === true){
-            Ext.EventManager.onWindowResize(this.fitToParent.createDelegate(this, []));
-        }
-        return this;
-    },
+    fitToParent : function(monitorResize, targetParent) {
+      Ext.EventManager.removeResizeListener(this.fitToParentDelegate); // always remove previous fitToParent delegate from onWindowResize
+      this.fitToParentDelegate = Ext.emptyFn; // remove reference to previous delegate
+      if (monitorResize === true && !this.dom.parentNode) { // check if this Element still exists
+        return;
+      }
+      var p = Ext.get(targetParent || this.dom.parentNode);
+      this.setSize(p.getComputedWidth() - p.getFrameWidth('lr'), p.getComputedHeight() - p.getFrameWidth('tb'));
+      if (monitorResize === true) {
+        this.fitToParentDelegate = this.fitToParent.createDelegate(this, [true, targetParent]);
+        Ext.EventManager.onWindowResize(this.fitToParentDelegate);
+      }
+      return this;
+    }
 
     /**
      * Gets the next sibling, skipping text nodes
