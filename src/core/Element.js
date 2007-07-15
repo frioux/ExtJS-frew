@@ -2216,7 +2216,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
         Ext.EventManager.onWindowResize(this.fitToParentDelegate);
       }
       return this;
-    }
+    },
 
     /**
      * Gets the next sibling, skipping text nodes
