@@ -101,7 +101,7 @@ Ext.extend(Ext.XTemplate, Ext.Template, {
                     args = ", values";
                 }
             }else{
-                args= ''; format = "("+v+" == undefined ? '' : ";
+                args= ''; format = "("+v+" === undefined ? '' : ";
             }
             return "'"+ sep + format + v + args + ")"+sep+"'";
         };

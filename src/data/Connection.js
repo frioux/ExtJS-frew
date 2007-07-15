@@ -270,6 +270,8 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
                 responseXML : null
             };
 
+            r.argument = o ? o.argument : null;
+
             try { //
                 var doc;
                 if(Ext.isIE){
