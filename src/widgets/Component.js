@@ -252,7 +252,10 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
     // private
     afterRender : Ext.emptyFn,
 
-    // private
+    /**
+     * Destroys this component by purging any event listeners, removing the component's element from the DOM,
+     * removing the component from its {@link Ext.Container} (if applicable) and unregistering it from {@link Ext.ComponentMgr}.
+     */
     destroy : function(){
         if(this.fireEvent("beforedestroy", this) !== false){
             this.purgeListeners();
