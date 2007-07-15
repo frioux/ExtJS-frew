@@ -222,6 +222,7 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
      */
     syncSize : function(){
         this.setSize(this.el.getWidth(), this.el.getHeight());
+        return this;
     },
 
     /**
