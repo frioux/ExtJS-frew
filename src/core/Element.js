@@ -1905,7 +1905,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
      * size/location to match this element.
      * @param {Boolean} contentBox (optional) If true a box for the content of the element is returned.
      * @param {Boolean} local (optional) If true the element's left and top are returned instead of page x/y.
-     * @return {Object}
+     * @return {Object} box An object in the format {x, y, width, height}
      */
     getBox : function(contentBox, local){
         var xy;
