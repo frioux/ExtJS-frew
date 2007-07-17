@@ -110,15 +110,14 @@ Ext.DomQuery = function(){
  	    return this;
  	};
 
-    function byClassName(c, a, v, re, cn){
+    function byClassName(c, a, v){
         if(!v){
             return c;
         }
-        var r = [];
+        var r = [], ri = -1, cn;
         for(var i = 0, ci; ci = c[i]; i++){
-            cn = ci.className;
-            if(cn && (' '+cn+' ').indexOf(v) != -1){
-                r[r.length] = ci;
+            if((' '+ci.className+' ').indexOf(v) != -1){
+                r[++ri] = ci;
             }
         }
         return r;
@@ -142,7 +141,7 @@ Ext.DomQuery = function(){
     };
 
     function getNodes(ns, mode, tagName){
-        var result = [], cs;
+        var result = [], ri = -1, cs;
         if(!ns){
             return result;
         }
@@ -154,30 +153,32 @@ Ext.DomQuery = function(){
             for(var i = 0, ni; ni = ns[i]; i++){
                 cs = ni.getElementsByTagName(tagName);
                 for(var j = 0, ci; ci = cs[j]; j++){
-                    result[result.length] = ci;
+                    result[++ri] = ci;
                 }
             }
         }else if(mode == "/" || mode == ">"){
-            for(var i = 0, ni; ni = ns[i]; i++){
-                var cn = ni.getElementsByTagName(tagName);
+            var utag = tagName.toUpperCase();
+            for(var i = 0, ni, cn; ni = ns[i]; i++){
+                cn = ni.children || ni.childNodes;
                 for(var j = 0, cj; cj = cn[j]; j++){
-                    if(cj.parentNode == ni){
-                        result[result.length] = cj;
+                    if(cj.nodeName == utag || cj.nodeName == tagName  || tagName == '*'){
+                        result[++ri] = cj;
                     }
                 }
             }
         }else if(mode == "+"){
+            var utag = tagName.toUpperCase();
             for(var i = 0, n; n = ns[i]; i++){
                 while((n = n.nextSibling) && n.nodeType != 1);
-                if(n && (tagName == '*' || n.tagName.toLowerCase()==tagName)){
-                    result[result.length] = n;
+                if(n && (n.nodeName == utag || n.nodeName == tagName || tagName == '*')){
+                    result[++ri] = n;
                 }
             }
         }else if(mode == "~"){
             for(var i = 0, n; n = ns[i]; i++){
                 while((n = n.nextSibling) && (n.nodeType != 1 || (tagName == '*' || n.tagName.toLowerCase()!=tagName)));
                 if(n){
-                    result[result.length] = n;
+                    result[++ri] = n;
                 }
             }
         }
@@ -201,11 +202,11 @@ Ext.DomQuery = function(){
         if(!tagName){
             return cs;
         }
-        var r = [];
+        var r = [], ri = -1;
         tagName = tagName.toLowerCase();
         for(var i = 0, ci; ci = cs[i]; i++){
             if(ci.nodeType == 1 && ci.tagName.toLowerCase()==tagName){
-                r[r.length] = ci;
+                r[++ri] = ci;
             }
         }
         return r;
@@ -218,10 +219,10 @@ Ext.DomQuery = function(){
         if(!id){
             return cs;
         }
-        var r = [];
+        var r = [], ri = -1;
         for(var i = 0,ci; ci = cs[i]; i++){
             if(ci && ci.id == id){
-                r[r.length] = ci;
+                r[++ri] = ci;
                 return r;
             }
         }
@@ -229,7 +230,7 @@ Ext.DomQuery = function(){
     };
 
     function byAttribute(cs, attr, value, op, custom){
-        var r = [], st = custom=="{";
+        var r = [], ri = -1, st = custom=="{";
         var f = Ext.DomQuery.operators[op];
         for(var i = 0, ci; ci = cs[i]; i++){
             var a;
@@ -246,7 +247,7 @@ Ext.DomQuery = function(){
                 a = ci.getAttribute(attr);
             }
             if((f && f(a, value)) || (!f && a)){
-                r[r.length] = ci;
+                r[++ri] = ci;
             }
         }
         return r;
@@ -288,7 +289,7 @@ Ext.DomQuery = function(){
         if(!cs){
             return [];
         }
-        var len = cs.length, c, i, r = cs, cj;
+        var len = cs.length, c, i, r = cs, cj, ri = -1;
         if(!len || typeof cs.nodeType != "undefined" || len == 1){
             return cs;
         }
@@ -303,12 +304,12 @@ Ext.DomQuery = function(){
             }else{
                 r = [];
                 for(var j = 0; j < i; j++){
-                    r[r.length] = cs[j];
+                    r[++ri] = cs[j];
                 }
                 for(j = i+1; cj = cs[j]; j++){
                     if(cj._nodup != d){
                         cj._nodup = d;
-                        r[r.length] = cj;
+                        r[++ri] = cj;
                     }
                 }
                 return r;
@@ -596,6 +597,12 @@ Ext.DomQuery = function(){
             },
             "%=" : function(a, v){
                 return (a % v) == 0;
+            },
+            "|=" : function(a, v){
+                return a && (a == v || a.substr(0, v.length+1) == v+'-');
+            },
+            "~=" : function(a, v){
+                return a && (' '+a+' ').indexOf(' '+v+' ') != -1;
             }
         },
 
@@ -605,29 +612,29 @@ Ext.DomQuery = function(){
          */
         pseudos : {
             "first-child" : function(c){
-                var r = [], n;
+                var r = [], ri = -1, n;
                 for(var i = 0, ci; ci = n = c[i]; i++){
                     while((n = n.previousSibling) && n.nodeType != 1);
                     if(!n){
-                        r[r.length] = ci;
+                        r[++ri] = ci;
                     }
                 }
                 return r;
             },
 
             "last-child" : function(c){
-                var r = [], n;
+                var r = [], ri = -1, n;
                 for(var i = 0, ci; ci = n = c[i]; i++){
                     while((n = n.nextSibling) && n.nodeType != 1);
                     if(!n){
-                        r[r.length] = ci;
+                        r[++ri] = ci;
                     }
                 }
                 return r;
             },
 
             "nth-child" : function(c, a) {
-                var r = [];
+                var r = [], ri = -1;
                 var m = nthRe.exec(a == "even" && "2n" || a == "odd" && "2n+1" || !nthRe2.test(a) && "n+" + a || a);
                 var f = (m[1] || 1) - 0, l = m[2] - 0;
                 for(var i = 0, n; n = c[i]; i++){
@@ -643,10 +650,10 @@ Ext.DomQuery = function(){
                     }
                     if (f == 1) {
                         if (l == 0 || n.nodeIndex == l){
-                            r[r.length] = n;
+                            r[++ri] = n;
                         }
                     } else if ((n.nodeIndex + l) % f == 0){
-                        r[r.length] = n;
+                        r[++ri] = n;
                     }
                 }
 
@@ -654,17 +661,17 @@ Ext.DomQuery = function(){
             },
 
             "only-child" : function(c){
-                var r = [];
+                var r = [], ri = -1;;
                 for(var i = 0, ci; ci = c[i]; i++){
                     if(!prev(ci) && !next(ci)){
-                        r[r.length] = ci;
+                        r[++ri] = ci;
                     }
                 }
                 return r;
             },
 
             "empty" : function(c){
-                var r = [];
+                var r = [], ri = -1;
                 for(var i = 0, ci; ci = c[i]; i++){
                     var cns = ci.childNodes, j = 0, cn, empty = true;
                     while(cn = cns[j]){
@@ -675,37 +682,37 @@ Ext.DomQuery = function(){
                         }
                     }
                     if(empty){
-                        r[r.length] = ci;
+                        r[++ri] = ci;
                     }
                 }
                 return r;
             },
 
             "contains" : function(c, v){
-                var r = [];
+                var r = [], ri = -1;
                 for(var i = 0, ci; ci = c[i]; i++){
-                    if(ci.innerHTML.indexOf(v) !== -1){
-                        r[r.length] = ci;
+                    if((ci.textContent||ci.innerText||'').indexOf(v) != -1){
+                        r[++ri] = ci;
                     }
                 }
                 return r;
             },
 
             "nodeValue" : function(c, v){
-                var r = [];
+                var r = [], ri = -1;
                 for(var i = 0, ci; ci = c[i]; i++){
                     if(ci.firstChild && ci.firstChild.nodeValue == v){
-                        r[r.length] = ci;
+                        r[++ri] = ci;
                     }
                 }
                 return r;
             },
 
             "checked" : function(c){
-                var r = [];
+                var r = [], ri = -1;
                 for(var i = 0, ci; ci = c[i]; i++){
                     if(ci.checked == true){
-                        r[r.length] = ci;
+                        r[++ri] = ci;
                     }
                 }
                 return r;
@@ -737,10 +744,10 @@ Ext.DomQuery = function(){
 
             "has" : function(c, ss){
                 var s = Ext.DomQuery.select;
-                var r = [];
+                var r = [], ri = -1;
                 for(var i = 0, ci; ci = c[i]; i++){
                     if(s(ss, ci).length > 0){
-                        r[r.length] = ci;
+                        r[++ri] = ci;
                     }
                 }
                 return r;
@@ -748,11 +755,11 @@ Ext.DomQuery = function(){
 
             "next" : function(c, ss){
                 var is = Ext.DomQuery.is;
-                var r = [];
+                var r = [], ri = -1;
                 for(var i = 0, ci; ci = c[i]; i++){
                     var n = next(ci);
                     if(n && is(n, ss)){
-                        r[r.length] = ci;
+                        r[++ri] = ci;
                     }
                 }
                 return r;
@@ -760,11 +767,11 @@ Ext.DomQuery = function(){
 
             "prev" : function(c, ss){
                 var is = Ext.DomQuery.is;
-                var r = [];
+                var r = [], ri = -1;
                 for(var i = 0, ci; ci = c[i]; i++){
                     var n = prev(ci);
                     if(n && is(n, ss)){
-                        r[r.length] = ci;
+                        r[++ri] = ci;
                     }
                 }
                 return r;

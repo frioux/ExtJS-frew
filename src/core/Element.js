@@ -1557,7 +1557,7 @@ El.prototype = {
     getConstrainToXY : function(){
         var os = {top:0, left:0, bottom:0, right: 0};
 
-        return function(el, local, offsets){
+        return function(el, local, offsets, proposedXY){
             el = Ext.get(el);
             offsets = offsets ? Ext.applyIf(offsets, os) : os;
 
@@ -1586,7 +1586,7 @@ El.prototype = {
             var vr = vx+vw;
             var vb = vy+vh;
 
-            var xy = !local ? this.getXY() : [this.getLeft(true), this.getTop(true)];
+            var xy = proposedXY || (!local ? this.getXY() : [this.getLeft(true), this.getTop(true)]);
             var x = xy[0], y = xy[1];
             var w = this.dom.offsetWidth, h = this.dom.offsetHeight;
 
@@ -1614,6 +1614,11 @@ El.prototype = {
             return moved ? [x, y] : false;
         };
     }(),
+
+    // private
+    adjustForConstraints : function(xy, parent, offsets){
+        return this.getConstrainToXY(parent || document, false, offsets, xy) ||  xy;
+    },
 
     /**
      * Aligns this element with another element relative to the specified anchor points. If the other element is the

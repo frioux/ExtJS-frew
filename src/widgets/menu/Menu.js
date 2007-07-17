@@ -262,13 +262,14 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
      * @param {Array} xyPosition Contains X & Y [x, y] values for the position at which to show the menu (coordinates are page-based)
      * @param {Ext.menu.Menu} parentMenu (optional) This menu's parent menu, if applicable (defaults to undefined)
      */
-    showAt : function(xy, parentMenu, /* private: */_fireBefore){
+    showAt : function(xy, parentMenu, /* private: */_e){
         this.parentMenu = parentMenu;
         if(!this.el){
             this.render();
         }
-        if(_fireBefore !== false){
+        if(_e !== false){
             this.fireEvent("beforeshow", this);
+            xy = this.el.adjustForConstraints(xy);
         }
         this.el.setXY(xy);
         this.el.show();
