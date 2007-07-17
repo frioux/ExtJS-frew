@@ -129,10 +129,14 @@ Ext.tree.TreeNodeUI.prototype = {
         if(dd && (!this.node.isRoot || ot.rootVisible)){
             Ext.dd.Registry.register(this.elNode, {
                 node: this.node,
-                handles: [this.iconNode, this.textNode],
+                handles: this.getDDHandles(),
                 isHandle: false
             });
         }
+    },
+
+    getDDHandles : function(){
+        return [this.iconNode, this.textNode];
     },
 
     hide : function(){
