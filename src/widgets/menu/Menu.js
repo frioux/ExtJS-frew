@@ -86,7 +86,7 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
      */
     shadow : "sides",
     /**
-     * @cfg {String} subMenuAlign The {@link Ext.Element#alignTo) anchor position value to use for submenus of
+     * @cfg {String} subMenuAlign The {@link Ext.Element#alignTo} anchor position value to use for submenus of
      * this menu (defaults to "tl-tr?")
      */
     subMenuAlign : "tl-tr?",
