@@ -210,5 +210,14 @@ Ext.data.Record.prototype = {
     // private
     clearError : function(){
         this.error = null;
+    },
+
+    /**
+     * Creates a copy of this record.
+     * @param {String} id (optional) A new record id if you don't want to use this record's id
+     * @return {Record}
+     */
+    copy : function(newId) {
+        return new this.constructor(Ext.apply({}, this.data), newId || this.id);
     }
 };

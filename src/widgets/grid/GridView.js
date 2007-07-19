@@ -48,11 +48,11 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
     bind : function(ds, cm){
         if(this.ds){
             this.ds.un("load", this.onLoad, this);
-            this.ds.un("datachanged", this.onDataChange);
-            this.ds.un("add", this.onAdd);
-            this.ds.un("remove", this.onRemove);
-            this.ds.un("update", this.onUpdate);
-            this.ds.un("clear", this.onClear);
+            this.ds.un("datachanged", this.onDataChange, this);
+            this.ds.un("add", this.onAdd, this);
+            this.ds.un("remove", this.onRemove, this);
+            this.ds.un("update", this.onUpdate, this);
+            this.ds.un("clear", this.onClear, this);
         }
         if(ds){
             ds.on("load", this.onLoad, this);

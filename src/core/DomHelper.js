@@ -7,7 +7,8 @@
 Ext.DomHelper = function(){
     var tempTableEl = null;
     var emptyTags = /^(?:br|frame|hr|img|input|link|meta|range|spacer|wbr|area|param|col)$/i;
-
+    var tableRe = /^table|tbody|tr|td$/i;
+    
     // build as innerHTML where available
     /** @ignore */
     var createHtml = function(o){
@@ -234,25 +235,24 @@ Ext.DomHelper = function(){
     insertHtml : function(where, el, html){
         where = where.toLowerCase();
         if(el.insertAdjacentHTML){
-            var tag = el.tagName.toLowerCase();
-            if(tag == "table" || tag == "tbody" || tag == "tr" || tag == 'td'){
+            if(tableRe.test(el.tagName)){
                 var rs;
-                if(rs = insertIntoTable(tag, where, el, html)){
+                if(rs = insertIntoTable(el.tagName.toLowerCase(), where, el, html)){
                     return rs;
                 }
             }
             switch(where){
                 case "beforebegin":
-                    el.insertAdjacentHTML(where, html);
+                    el.insertAdjacentHTML('BeforeBegin', html);
                     return el.previousSibling;
                 case "afterbegin":
-                    el.insertAdjacentHTML(where, html);
+                    el.insertAdjacentHTML('AfterBegin', html);
                     return el.firstChild;
                 case "beforeend":
-                    el.insertAdjacentHTML(where, html);
+                    el.insertAdjacentHTML('BeforeEnd', html);
                     return el.lastChild;
                 case "afterend":
-                    el.insertAdjacentHTML(where, html);
+                    el.insertAdjacentHTML('AfterEnd', html);
                     return el.nextSibling;
             }
             throw 'Illegal insertion point -> "' + where + '"';

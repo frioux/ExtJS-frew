@@ -659,10 +659,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             btns.insertorderedlist.toggle(doc.queryCommandState('insertorderedlist'));
             btns.insertunorderedlist.toggle(doc.queryCommandState('insertunorderedlist'));
         }
-        if(this.enableColors){
-            btns.forecolor.menu.hide();
-            btns.backcolor.menu.hide();
-        }
+        Ext.MenuMgr.hideAll();
 
         this.syncValue();
     },

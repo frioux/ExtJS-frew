@@ -78,6 +78,12 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
     autoAbort:false,
 
     /**
+     * @cfg {Boolean} disableCaching (Optional) True to add a unique cache-buster param to get requests. (defaults to true)
+     * @type Boolean
+     */
+    disableCaching: true,
+
+    /**
      * Sends an HTTP request to a remote server.
      * @param {Object} options An object which may contain the following properties:<ul>
      * <li><b>url</b> {String} (Optional) The URL to which to send the request. Defaults to configured URL</li>
@@ -113,6 +119,10 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
      */
     request : function(o){
         if(this.fireEvent("beforerequest", this, o) !== false){
+            if(this.disableCaching){
+                this.extraParams = this.extraParams || {};
+                this.extraParams['_dc'] = new Date().getTime();
+            }
             var p = o.params;
 
             if(typeof p == "function"){
