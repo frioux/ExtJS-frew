@@ -201,7 +201,6 @@ Ext.addBehaviors({
                     Ext.override(sb, o);
                 };
                 sbp.override = io;
-                sbp.__extcls = sb;
                 Ext.override(sb, overrides);
                 return sb;
             };

@@ -78,7 +78,7 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
     autoAbort:false,
 
     /**
-     * @cfg {Boolean} disableCaching (Optional) True to add a unique cache-buster param to get requests. (defaults to true)
+     * @cfg {Boolean} disableCaching (Optional) True to add a unique cache-buster param to GET requests. (defaults to true)
      * @type Boolean
      */
     disableCaching: true,
@@ -114,15 +114,12 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
      * <li><b>headers</b> {Object} (Optional) Request headers to set for the request.</li>
      * <li><b>xmlData</b> {Object} (Optional) XML document to use for the post. Note: This will be used instead of
      * params for the post data. Any params will be appended to the URL.</li>
+     * <li><b>disableCaching</b> {Boolean} (Optional) True to add a unique cache-buster param to GET requests.</li>
      * </ul>
      * @return {Number} transactionId
      */
     request : function(o){
         if(this.fireEvent("beforerequest", this, o) !== false){
-            if(this.disableCaching){
-                this.extraParams = this.extraParams || {};
-                this.extraParams['_dc'] = new Date().getTime();
-            }
             var p = o.params;
 
             if(typeof p == "function"){
@@ -170,6 +167,10 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
             };
 
             var method = o.method||this.method||(p ? "POST" : "GET");
+
+            if(method == 'GET' && (this.disableCaching && o.disableCaching !== false) || o.disableCaching === true){
+                url += (url.indexOf('?') != -1 ? '&' : '?') + '_dc=' + (new Date().getTime());
+            }
 
             if(typeof o.autoAbort == 'boolean'){ // options gets top priority
                 if(o.autoAbort){

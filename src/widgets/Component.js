@@ -448,6 +448,6 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
         var id = overrides.id || Ext.id();
         var cfg = Ext.applyIf(overrides, this.initialConfig);
         cfg.id = id; // prevent dup id
-        return new this.__extcls(cfg);
+        return new this.constructor(cfg);
     }
 });
