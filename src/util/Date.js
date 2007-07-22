@@ -175,11 +175,11 @@ Date.getFormatCode = function(character) {
     case "A":
         return "(this.getHours() < 12 ? 'AM' : 'PM') + ";
     case "g":
-        return "((this.getHours() %12) ? this.getHours() % 12 : 12) + ";
+        return "((this.getHours() % 12) ? this.getHours() % 12 : 12) + ";
     case "G":
         return "this.getHours() + ";
     case "h":
-        return "String.leftPad((this.getHours() %12) ? this.getHours() % 12 : 12, 2, '0') + ";
+        return "String.leftPad((this.getHours() % 12) ? this.getHours() % 12 : 12, 2, '0') + ";
     case "H":
         return "String.leftPad(this.getHours(), 2, '0') + ";
     case "i":
@@ -238,12 +238,12 @@ Date.createParser = function(format) {
     Date.parseFunctions[format] = funcName;
 
     var code = "Date." + funcName + " = function(input){\n"
-        + "var y = -1, m = -1, d = -1, h = -1, i = -1, s = -1, o, z;\n"
+        + "var y = -1, m = -1, d = -1, h = -1, i = -1, s = -1, o, z, v;\n"
         + "var d = new Date();\n"
         + "y = d.getFullYear();\n"
         + "m = d.getMonth();\n"
         + "d = d.getDate();\n"
-        + "var v = null, results = input.match(Date.parseRegexes[" + regexNum + "]);\n"
+        + "var results = input.match(Date.parseRegexes[" + regexNum + "]);\n"
         + "if (results && results.length > 0) {";
     var regex = "";
 
@@ -268,17 +268,17 @@ Date.createParser = function(format) {
         }
     }
 
-    code += "if (y > 0 && m >= 0 && d > 0 && h >= 0 && i >= 0 && s >= 0)\n"
+    code += "if (y >= 0 && m >= 0 && d > 0 && h >= 0 && i >= 0 && s >= 0)\n"
         + "{v = new Date(y, m, d, h, i, s);}\n"
-        + "else if (y > 0 && m >= 0 && d > 0 && h >= 0 && i >= 0)\n"
+        + "else if (y >= 0 && m >= 0 && d > 0 && h >= 0 && i >= 0)\n"
         + "{v = new Date(y, m, d, h, i);}\n"
-        + "else if (y > 0 && m >= 0 && d > 0 && h >= 0)\n"
+        + "else if (y >= 0 && m >= 0 && d > 0 && h >= 0)\n"
         + "{v = new Date(y, m, d, h);}\n"
-        + "else if (y > 0 && m >= 0 && d > 0)\n"
+        + "else if (y >= 0 && m >= 0 && d > 0)\n"
         + "{v = new Date(y, m, d);}\n"
-        + "else if (y > 0 && m >= 0)\n"
+        + "else if (y >= 0 && m >= 0)\n"
         + "{v = new Date(y, m);}\n"
-        + "else if (y > 0)\n"
+        + "else if (y >= 0)\n"
         + "{v = new Date(y);}\n"
         + "}return (v && (z || o))?\n" // favour UTC offset over GMT offset
         + "    ((z)? v.add(Date.SECOND, (v.getTimezoneOffset() * 60) + (z*1)) :\n" // reset to UTC, then add offset
@@ -297,10 +297,13 @@ Date.formatCodeToRegex = function(character, currentGroup) {
         c:null,
         s:"(?:Sun|Mon|Tue|Wed|Thu|Fri|Sat)"};
     case "j":
+        return {g:1,
+            c:"d = parseInt(results[" + currentGroup + "], 10);\n",
+            s:"(\\d{1,2})"}; // day of month without leading zeroes
     case "d":
         return {g:1,
             c:"d = parseInt(results[" + currentGroup + "], 10);\n",
-            s:"(\\d{1,2})"};
+            s:"(\\d{2})"}; // day of month with leading zeroes
     case "l":
         return {g:0,
             c:null,
@@ -330,10 +333,13 @@ Date.formatCodeToRegex = function(character, currentGroup) {
             c:"m = parseInt(Date.monthNumbers[results[" + currentGroup + "]], 10);\n",
             s:"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)"};
     case "n":
+        return {g:1,
+            c:"m = parseInt(results[" + currentGroup + "], 10) - 1;\n",
+            s:"(\\d{1,2})"}; // Numeric representation of a month, without leading zeros
     case "m":
         return {g:1,
             c:"m = parseInt(results[" + currentGroup + "], 10) - 1;\n",
-            s:"(\\d{1,2})"};
+            s:"(\\d{2})"}; // Numeric representation of a month, with leading zeros
     case "t":
         return {g:0,
             c:null,
@@ -365,11 +371,14 @@ Date.formatCodeToRegex = function(character, currentGroup) {
             s:"(AM|PM)"};
     case "g":
     case "G":
+        return {g:1,
+            c:"h = parseInt(results[" + currentGroup + "], 10);\n",
+            s:"(\\d{1,2})"}; // 12/24-hr format  format of an hour without leading zeroes
     case "h":
     case "H":
         return {g:1,
             c:"h = parseInt(results[" + currentGroup + "], 10);\n",
-            s:"(\\d{1,2})"};
+            s:"(\\d{2})"}; //  12/24-hr format  format of an hour with leading zeroes
     case "i":
         return {g:1,
             c:"i = parseInt(results[" + currentGroup + "], 10);\n",
@@ -395,7 +404,7 @@ Date.formatCodeToRegex = function(character, currentGroup) {
             s:"[A-Z]{1,4}"}; // timezone abbrev. may be between 1 - 4 chars
     case "Z":
         return {g:1,
-            c:"z = results[" + currentGroup + "];\n" // -43200 < UTC offset < 50400
+            c:"z = results[" + currentGroup + "];\n" // -43200 <= UTC offset <= 50400
                   + "z = (-43200 <= z*1 && z*1 <= 50400)? z : null;\n",
             s:"([+\-]?\\d{1,5})"}; // leading '+' sign is optional for UTC offset
     default:
