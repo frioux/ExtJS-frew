@@ -332,7 +332,7 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
  */
 Ext.Ajax = new Ext.data.Connection({
     // fix up the docs
-    /**
+   /**
      * @cfg {String} url @hide
      */
     /**
@@ -352,36 +352,45 @@ Ext.Ajax = new Ext.data.Connection({
      */
 
     /**
-     * The default URL to be used for requests to the server. (defaults to undefined)
-     * @type String
-     * @property  url
-     */
-    /**
-     * An object containing properties which are used as
-     * extra parameters to each request made by this object. (defaults to undefined)
-     * @type Object
-     * @property  extraParams
-     */
-    /**
-     * An object containing request headers which are added to each request made by this object. (defaults to undefined)
-     * @type Object
-     * @property  defaultHeaders
-     */
-    /**
-     * The default HTTP method to be used for requests. (defaults to undefined; if not set but parms are present will use POST, otherwise GET)
-     * @type String
-     * @property  method
-     */
-    /**
-     * The timeout in milliseconds to be used for requests. (defaults to 30000)
-     * @type Number
-     * @property  timeout
+     * @cfg {Boolean} disableCaching (Optional) @hide
      */
 
     /**
-     * @cfg {Boolean} autoAbort (Optional) Whether this request should abort any pending requests. (defaults to false)
+     * @property  disableCaching
+     * True to add a unique cache-buster param to GET requests. (defaults to true)
      * @type Boolean
+     */
+    /**
+     * @property  url
+     * The default URL to be used for requests to the server. (defaults to undefined)
+     * @type String
+     */
+    /**
+     * @property  extraParams
+     * An object containing properties which are used as
+     * extra parameters to each request made by this object. (defaults to undefined)
+     * @type Object
+     */
+    /**
+     * @property  defaultHeaders
+     * An object containing request headers which are added to each request made by this object. (defaults to undefined)
+     * @type Object
+     */
+    /**
+     * @property  method
+     * The default HTTP method to be used for requests. (defaults to undefined; if not set but parms are present will use POST, otherwise GET)
+     * @type String
+     */
+    /**
+     * @property  timeout
+     * The timeout in milliseconds to be used for requests. (defaults to 30000)
+     * @type Number
+     */
+
+    /**
      * @property  autoAbort
+     * Whether a new request should abort any pending requests. (defaults to false)
+     * @type Boolean
      */
     autoAbort : false,
 
