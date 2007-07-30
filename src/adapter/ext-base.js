@@ -910,7 +910,8 @@
                             window.clearInterval(oConn.poll[o.tId]);
                             delete oConn.poll[o.tId];
 
-                            if (callback && callback.timeout) {
+                            if(callback && callback.timeout) {
+                                window.clearTimeout(oConn.timeout[o.tId]);
                                 delete oConn.timeout[o.tId];
                             }
 
@@ -1105,7 +1106,7 @@
 
         abort:function(o, callback, isTimeout)
         {
-            if (this.isCallInProgress(o)) {
+            if(this.isCallInProgress(o)) {
                 o.conn.abort();
                 window.clearInterval(this.poll[o.tId]);
                 delete this.poll[o.tId];
@@ -1125,9 +1126,7 @@
 
         isCallInProgress:function(o)
         {
-
-
-            if (o.conn) {
+            if (o && o.conn) {
                 return o.conn.readyState != 4 && o.conn.readyState != 0;
             }
             else {

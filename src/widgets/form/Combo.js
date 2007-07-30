@@ -355,7 +355,9 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
                    return Ext.KeyNav.prototype.doRelay.apply(this, arguments);
                 }
                 return true;
-            }
+            },
+
+            forceKeyDown: true
         });
         this.queryDelay = Math.max(this.queryDelay || 10,
                 this.mode == 'local' ? 10 : 250);

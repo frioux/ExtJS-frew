@@ -365,7 +365,7 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
      */
     ensureVisible : function(callback){
         var tree = this.getOwnerTree();
-        tree.expandPath(this.getPath(), false, function(){
+        tree.expandPath(this.parentNode.getPath(), false, function(){
             tree.getTreeEl().scrollChildIntoView(this.ui.anchor);
             Ext.callback(callback);
         }.createDelegate(this));

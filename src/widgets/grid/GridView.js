@@ -1,3 +1,10 @@
+/**
+ * @class Ext.grid.GridView
+ * @extends Ext.util.Observable
+ *
+ * @constructor
+ * @param {Object} config
+ */
 Ext.grid.GridView = function(config){
     Ext.grid.GridView.superclass.constructor.call(this);
     this.el = null;

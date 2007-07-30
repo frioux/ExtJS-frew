@@ -159,6 +159,12 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     */
     remoteSort : false,
 
+    /**
+    * @cfg {boolean} pruneModifiedRecords True to clear all modified record information each time the store is
+     * loaded or when a record is removed. (defaults to false).
+    */
+    pruneModifiedRecords : false,
+
     // private
     lastOptions : null,
 
@@ -183,6 +189,9 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     remove : function(record){
         var index = this.data.indexOf(record);
         this.data.removeAt(index);
+        if(this.pruneModifiedRecords){
+            this.modified.remove(record);
+        }
         this.fireEvent("remove", this, record, index);
     },
 
@@ -191,6 +200,9 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
      */
     removeAll : function(){
         this.data.clear();
+        if(this.pruneModifiedRecords){
+            this.modified = [];
+        }
         this.fireEvent("clear", this);
     },
 
@@ -323,6 +335,9 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
         }
         var r = o.records, t = o.totalRecords || r.length;
         if(!options || options.add !== true){
+            if(this.pruneModifiedRecords){
+                this.modified = [];
+            }
             for(var i = 0, len = r.length; i < len; i++){
                 r[i].join(this);
             }

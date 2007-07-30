@@ -762,13 +762,16 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                         r.pasteHTML('&nbsp;&nbsp;&nbsp;&nbsp;');
                         this.deferFocus();
                     }
-                }else if(k == e.ENTER && !e.getTarget('li')){
-                    e.stopEvent();
+                }else if(k == e.ENTER){
                     r = this.doc.selection.createRange();
                     if(r){
-                        r.pasteHTML('<br />');
-                        r.collapse(false);
-                        r.select();
+                        var target = r.parentElement();
+                        if(!target || target.tagName.toLowerCase() != 'li'){
+                            e.stopEvent();
+                            r.pasteHTML('<br />');
+                            r.collapse(false);
+                            r.select();
+                        }
                     }
                 }
             };

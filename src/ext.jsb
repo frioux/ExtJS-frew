@@ -477,6 +477,24 @@
   </target>
   <file name="widgets\form\Editor.js" path="widgets\form" />
   <file name="experimental\ext-base.js" path="experimental" />
+  <file name="locale\ext-lang-fr_FR.js" path="locale" />
+  <file name="locale\ext-lang-pt_br.js" path="locale" />
+  <file name="locale\ext-lang-sv_se.js" path="locale" />
+  <target name="Slickspeed" file="c:\apps\www\playpen\slickspeed\frameworks\ext.js" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
+    <include name="core\Ext.js" />
+    <include name="adapter\ext-base.js" />
+    <include name="core\DomHelper.js" />
+    <include name="core\Template.js" />
+    <include name="core\DomQuery.js" />
+    <include name="util\Observable.js" />
+    <include name="core\EventManager.js" />
+    <include name="core\Element.js" />
+    <include name="core\Fx.js" />
+    <include name="core\CompositeElement.js" />
+    <include name="data\Connection.js" />
+    <include name="core\UpdateManager.js" />
+    <include name="util\DelayedTask.js" />
+  </target>
   <file name="adapter\ext-base.js" path="adapter" />
   <file name="adapter\jquery-bridge.js" path="adapter" />
   <file name="adapter\prototype-bridge.js" path="adapter" />
@@ -519,8 +537,9 @@
   <file name="locale\ext-lang-de.js" path="locale" />
   <file name="locale\ext-lang-el_GR.js" path="locale" />
   <file name="locale\ext-lang-en.js" path="locale" />
+  <file name="locale\ext-lang-fr.js" path="locale" />
   <file name="locale\ext-lang-fr_CA.js" path="locale" />
-  <file name="locale\ext-lang-fr_FR.js" path="locale" />
+  <file name="locale\ext-lang-gr.js" path="locale" />
   <file name="locale\ext-lang-hr.js" path="locale" />
   <file name="locale\ext-lang-hu.js" path="locale" />
   <file name="locale\ext-lang-it.js" path="locale" />
@@ -530,14 +549,14 @@
   <file name="locale\ext-lang-nl.js" path="locale" />
   <file name="locale\ext-lang-no.js" path="locale" />
   <file name="locale\ext-lang-pl.js" path="locale" />
-  <file name="locale\ext-lang-pt_br.js" path="locale" />
+  <file name="locale\ext-lang-pt_BR.js" path="locale" />
   <file name="locale\ext-lang-ro.js" path="locale" />
   <file name="locale\ext-lang-ru.js" path="locale" />
   <file name="locale\ext-lang-sk.js" path="locale" />
   <file name="locale\ext-lang-sl.js" path="locale" />
   <file name="locale\ext-lang-sp.js" path="locale" />
   <file name="locale\ext-lang-sr_RS.js" path="locale" />
-  <file name="locale\ext-lang-sv_se.js" path="locale" />
+  <file name="locale\ext-lang-sv_SE.js" path="locale" />
   <file name="locale\ext-lang-tr.js" path="locale" />
   <file name="locale\ext-lang-vn.js" path="locale" />
   <file name="locale\ext-lang-zh_CN.js" path="locale" />
@@ -643,19 +662,4 @@
   <file name="yui\event.js" path="yui" />
   <file name="yui\yahoo.js" path="yui" />
   <file name="debug.js" path="" />
-  <target name="Slickspeed" file="c:\apps\www\playpen\slickspeed\frameworks\ext.js" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
-    <include name="core\Ext.js" />
-    <include name="adapter\ext-base.js" />
-    <include name="core\DomHelper.js" />
-    <include name="core\Template.js" />
-    <include name="core\DomQuery.js" />
-    <include name="util\Observable.js" />
-    <include name="core\EventManager.js" />
-    <include name="core\Element.js" />
-    <include name="core\Fx.js" />
-    <include name="core\CompositeElement.js" />
-    <include name="data\Connection.js" />
-    <include name="core\UpdateManager.js" />
-    <include name="util\DelayedTask.js" />
-  </target>
 </project>

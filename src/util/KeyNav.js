@@ -34,6 +34,8 @@ Ext.KeyNav.prototype = {
     disabled : false,
     defaultEventAction: "stopEvent",
 
+    forceKeyDown : false,
+
     prepareEvent : function(e){
         var k = e.getKey();
         var h = this.keyToHandler[k];
@@ -96,7 +98,7 @@ Ext.KeyNav.prototype = {
 		if(this.disabled){
             // ie won't do special keys on keypress, no one else will repeat keys with keydown
             // the EventObject will normalize Safari automatically
-            if(Ext.isIE){
+            if(this.forceKeyDown || Ext.isIE || Ext.isAir){
                 this.el.on("keydown", this.relay,  this);
             }else{
                 this.el.on("keydown", this.prepareEvent,  this);
@@ -111,7 +113,7 @@ Ext.KeyNav.prototype = {
 	 */
 	disable: function(){
 		if(!this.disabled){
-		    if(Ext.isIE){
+		    if(this.forceKeyDown || Ext.isIE || Ext.isAir){
                 this.el.un("keydown", this.relay);
             }else{
                 this.el.un("keydown", this.prepareEvent);
