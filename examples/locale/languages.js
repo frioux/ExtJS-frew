@@ -5,14 +5,17 @@ Ext.namespace('Ext.exampledata');
 
 // TODO: complete and sort the list
 Ext.exampledata.languages = [
+	['af', 'Afrikaans', 'ISO-8859-2'],
 	['hr', 'Croatian', 'utf-8'],
 	['cs', 'Czech', 'utf-8'],
 	['da', 'Danish', 'utf-8'],
 	['nl', 'Dutch', 'ascii'],
 	['en', 'English', 'ascii'],
+	['en_UK', 'English (UK)', 'ascii'],
 	['fr_CA', 'France (Canadian)', 'UTF-8'],
+	['fr', 'Fran\xc3\xa7ais (France)', 'utf-8'],
 	['de', 'German', 'utf-8'],
-	['el_GR', 'Greek', 'utf-8'],
+	['gr', 'Greek', 'utf-8'],
 	['hu', 'Hungarian', 'utf-8'],
 	['it', 'Italian', 'ascii'],
 	['ja', 'Japanese', 'utf-8'],
@@ -20,7 +23,7 @@ Ext.exampledata.languages = [
 	['mk', 'Macedonia', 'utf-8'],
 	['no', 'Norwegian', 'utf-8'],
 	['pl', 'Polish', 'utf-8'],
-	['pt_br', 'Portuguese/Brazil', 'utf-8'],
+	['pt_BR', 'Portuguese/Brazil', 'utf-8'],
 	['ro', 'Romanian', 'utf-8'],
 	['ru', 'Russian', 'utf-8'],
 	['sr_RS', 'Serbian Cyrillic', 'UTF-8'],
@@ -28,7 +31,7 @@ Ext.exampledata.languages = [
 	['sk', 'Slovak', 'utf-8'],
 	['sl', 'Slovenian', 'utf-8'],
 	['sp', 'Spanish/Latin American', 'utf-8'],
-	['sv_se', 'Swedish', 'utf-8'],
+	['sv_SE', 'Swedish', 'utf-8'],
 	['zh_TW', 'Traditional Chinese', 'UTF-8'],
 	['tr', 'Turkish', 'utf-8'],
 	['vn', 'Vietnamese', 'UTF-8']
