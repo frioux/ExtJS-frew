@@ -37,7 +37,7 @@ Ext.extend(Ext.SplitLayoutRegion, Ext.LayoutRegion, {
             if(typeof config.maxSize != "undefined"){
                 this.split.maxSize = config.maxSize;
             }
-            if(config.hideWhenEmpty || config.hidden){
+            if(config.hideWhenEmpty || config.hidden || config.collapsed){
                 this.hideSplitter();
             }
         }
