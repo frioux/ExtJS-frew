@@ -113,7 +113,6 @@ Ext.extend(Ext.PagingToolbar, Ext.Toolbar, {
         this.loading = this.addButton({
             tooltip: this.refreshText,
             cls: "x-btn-icon x-grid-loading",
-            disabled: true,
             handler: this.onClick.createDelegate(this, ["refresh"])
         });
 

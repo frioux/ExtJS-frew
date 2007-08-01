@@ -114,7 +114,7 @@ Ext.lib.Dom = {
             y += parseInt(dbd.getStyle("borderTopWidth"), 10) || 0;
         }
 
-        p = el.offsetParent;
+        p = el.parentNode;
         while (p && p != bd) {
             if (!(Ext.isOpera && p.tagName != 'TR' && fly(p).getStyle("display") != "inline")) {
                 x -= p.scrollLeft;

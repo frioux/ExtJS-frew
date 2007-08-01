@@ -1,4 +1,3 @@
-
 Ext.XTemplate = function(){
     Ext.XTemplate.superclass.constructor.apply(this, arguments);
     var s = this.html;
