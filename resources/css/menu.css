@@ -32,7 +32,8 @@
 	display:block;
 	font-size:1px;
 	line-height:1px;
-	background:#c3daf9;
+    height:1px;
+    background:#c3daf9;
 	margin: 3px 3px 3px 32px;
 }
 .x-menu-focus {
