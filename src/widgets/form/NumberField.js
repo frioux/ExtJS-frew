@@ -107,7 +107,8 @@ Ext.extend(Ext.form.NumberField, Ext.form.TextField,  {
 
     // private
     parseValue : function(value){
-        return parseFloat(String(value).replace(this.decimalSeparator, ".")) || '';
+        value = parseFloat(String(value).replace(this.decimalSeparator, "."));
+        return isNaN(value) ? '' : value;
     },
 
     // private
@@ -115,7 +116,7 @@ Ext.extend(Ext.form.NumberField, Ext.form.TextField,  {
         var nan = isNaN(value);
         if(!this.allowDecimals || this.decimalPrecision == -1 || nan || !value){
            return nan ? '' : value;
-       }
+        }
        // this should work but doesn't due to precision error in JS
        // var scale = Math.pow(10, this.decimalPrecision);
        // var fixed = this.decimalPrecisionFcn(value * scale);
