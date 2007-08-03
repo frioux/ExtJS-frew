@@ -23,6 +23,10 @@ if(Ext.form.Field){
    Ext.form.Field.prototype.invalidText = "Унешена вредност није правилна";
 }
 
+if(Ext.LoadMask){
+    Ext.LoadMask.prototype.msg = "Учитавам...";
+}
+
 Date.monthNames = [
    "Јануар",
    "Фебруар",

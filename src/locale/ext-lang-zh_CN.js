@@ -22,6 +22,10 @@ if(Ext.form.Field){
    Ext.form.Field.prototype.invalidText = "输入值非法";
 }
 
+if(Ext.LoadMask){
+    Ext.LoadMask.prototype.msg = "加载中...";
+}
+
 Date.monthNames = [
    "一月",
    "二月",

@@ -22,6 +22,10 @@ if(Ext.form.Field){
    Ext.form.Field.prototype.invalidText = "La valeur de ce champ est invalide";
 }
 
+if(Ext.LoadMask){
+    Ext.LoadMask.prototype.msg = "En cours de chargement...";
+}
+
 Date.monthNames = [
    "Janvier",
    "Février",

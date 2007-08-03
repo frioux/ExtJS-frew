@@ -26,6 +26,10 @@ if(Ext.form.Field){
    Ext.form.Field.prototype.invalidText = "Bu alandaki değer geçersiz";
 }
 
+if(Ext.LoadMask){
+    Ext.LoadMask.prototype.msg = "Yükleniyor...";
+}
+
 Date.monthNames = [
    "Ocak",
    "Şubat",

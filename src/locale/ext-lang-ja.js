@@ -22,6 +22,10 @@ if(Ext.form.Field){
   Ext.form.Field.prototype.invalidText = "フィールドの値が不正です。";
 }
 
+if(Ext.LoadMask){
+    Ext.LoadMask.prototype.msg = "読み込み中...";
+}
+
 Date.monthNames = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月','11月','12月'];
 
 Date.dayNames = [

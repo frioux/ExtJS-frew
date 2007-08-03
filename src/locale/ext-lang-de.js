@@ -4,7 +4,7 @@
  * 04-07-2007
  */
 
-Ext.UpdateManager.defaults.indicatorText = '<div class="loading-indicator">Übertrage Daten ...</div>';
+Ext.UpdateManager.defaults.indicatorText = '<div class="loading-indicator">Übertrage Daten...</div>';
 
 if(Ext.View){
    Ext.View.prototype.emptyText = "";
@@ -20,6 +20,10 @@ if(Ext.TabPanelItem){
 
 if(Ext.form.Field){
    Ext.form.Field.prototype.invalidText = "Der Wert des Feldes ist nicht korrekt";
+}
+
+if(Ext.LoadMask){
+    Ext.LoadMask.prototype.msg = "Übertrage Daten...";
 }
 
 Date.monthNames = [

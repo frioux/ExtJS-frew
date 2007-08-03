@@ -25,6 +25,10 @@ if(Ext.form.Field){
    Ext.form.Field.prototype.invalidText = "Hodnota v tomto poli je nesprávna";
 }
 
+if(Ext.LoadMask){
+    Ext.LoadMask.prototype.msg = "Nahrávam...";
+}
+
 Date.monthNames = [
    "Január",
    "Február",

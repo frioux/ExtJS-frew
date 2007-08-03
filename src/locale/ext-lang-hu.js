@@ -27,6 +27,10 @@ if(Ext.form.Field){
    Ext.form.Field.prototype.invalidText = "A mező tartalma érvénytelen";
 }
 
+if(Ext.LoadMask){
+    Ext.LoadMask.prototype.msg = "Betöltés...";
+}
+
 Date.monthNames = [
    "Január",
    "Február",

@@ -22,6 +22,10 @@ if(Ext.form.Field){
     Ext.form.Field.prototype.invalidText = "數值不符合欄位規定";
 }
 
+if(Ext.LoadMask){
+    Ext.LoadMask.prototype.msg = "讀取中...";
+}
+
 Date.monthNames = [
     "一月",
     "二月",

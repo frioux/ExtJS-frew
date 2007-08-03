@@ -22,6 +22,10 @@ if(Ext.form.Field){
    Ext.form.Field.prototype.invalidText = "Værdien i dette felt er ikke tilladt";
 }
 
+if(Ext.LoadMask){
+    Ext.LoadMask.prototype.msg = "Henter...";
+}
+
 Date.monthNames = [
    "Januar",
    "Februar",
