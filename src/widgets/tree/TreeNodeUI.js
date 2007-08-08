@@ -107,7 +107,8 @@ Ext.tree.TreeNodeUI.prototype = {
         el.on("dblclick", this.onDblClick, this);
 
         if(this.checkbox){
-            Ext.EventManager.on(this.checkbox, "change", this.onCheckChange, this);
+            Ext.EventManager.on(this.checkbox,
+                    Ext.isIE ? 'click' : 'change', this.onCheckChange, this);
         }
 
         el.on("contextmenu", this.onContextMenu, this);

@@ -270,7 +270,7 @@ side          Add an error icon to the right of the field with a popup on hover
             this.validate();
         }
         var v = this.getValue();
-        if(v != this.startValue){
+        if(String(v) !== String(this.startValue)){
             this.fireEvent('change', this, v, this.startValue);
         }
         this.fireEvent("blur", this);

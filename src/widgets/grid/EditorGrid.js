@@ -84,7 +84,7 @@ Ext.extend(Ext.grid.EditorGrid, Ext.grid.Grid, {
         this.editing = false;
         this.activeEditor = null;
         ed.un("specialkey", this.selModel.onEditorKey, this.selModel);
-        if(String(value) != String(startValue)){
+        if(String(value) !== String(startValue)){
             var r = ed.record;
             var field = this.colModel.getDataIndex(ed.col);
             var e = {

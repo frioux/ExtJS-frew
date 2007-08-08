@@ -22,6 +22,13 @@ Ext.EventManager = function(){
             if(Ext.isGecko || Ext.isOpera) {
                 document.removeEventListener("DOMContentLoaded", fireDocReady, false);
             }
+            if(Ext.isIE){
+                var defer = document.getElementById("ie-deferred-loader");
+                if(defer){
+                    defer.onreadystatechange = null;
+                    defer.parentNode.removeChild(defer);
+                }
+            }
             if(docReadyEvent){
                 docReadyEvent.fire();
                 docReadyEvent.clearListeners();
@@ -34,14 +41,11 @@ Ext.EventManager = function(){
         if(Ext.isGecko || Ext.isOpera) {
             document.addEventListener("DOMContentLoaded", fireDocReady, false);
         }else if(Ext.isIE){
-            // inspired by  http://www.thefutureoftheweb.com/blog/2006/6/adddomloadevent
             document.write("<s"+'cript id="ie-deferred-loader" defer="defer" src="/'+'/:"></s'+"cript>");
             var defer = document.getElementById("ie-deferred-loader");
             defer.onreadystatechange = function(){
                 if(this.readyState == "complete"){
                     fireDocReady();
-                    defer.onreadystatechange = null;
-                    defer.parentNode.removeChild(defer);
                 }
             };
         }else if(Ext.isSafari){ 
@@ -289,7 +293,9 @@ el.on({
          */
         onDocumentReady : function(fn, scope, options){
             if(docReadyState){ // if it already fired
-                fn.call(scope || window, scope);
+                docReadyEvent.addListener(fn, scope, options);
+                docReadyEvent.fire();
+                docReadyEvent.clearListeners();
                 return;
             }
             if(!docReadyEvent){
@@ -469,7 +475,7 @@ Ext.onReady(function(){
     if(Ext.isStrict){ // add to the parent to allow for selectors like ".ext-strict .ext-ie"
         var p = bd.dom.parentNode;
         if(p){
-            p.className = p.className ? ' ext-strict' : 'ext-strict';
+            p.className += ' ext-strict';
         }
     }
     bd.addClass(cls.join(' '));

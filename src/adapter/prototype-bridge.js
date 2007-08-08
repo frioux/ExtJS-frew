@@ -355,8 +355,12 @@ Ext.lib.Anim = function(){
             // not supported so scroll immediately?
             var anim = createAnim(cb, scope);
             el = Ext.getDom(el);
-            el.scrollLeft = args.to[0];
-            el.scrollTop = args.to[1];
+            if(typeof args.scroll.to[0] == 'number'){
+                el.scrollLeft = args.scroll.to[0];
+            }
+            if(typeof args.scroll.to[1] == 'number'){
+                el.scrollTop = args.scroll.to[1];
+            }
             anim.proxyCallback();
             return anim;
         },

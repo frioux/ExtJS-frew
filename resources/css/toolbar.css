@@ -112,16 +112,6 @@
 	background-image: url(../images/default/grid/grid-blue-split.gif);
 }
 
-/* IE refuses to respect the negative margins in the toolbar */
-.ext-ie .x-toolbar .x-form-field-wrap {
-	padding-bottom:1px;
-}
-.ext-ie .x-toolbar .x-form-field-wrap .x-form-trigger {
-	top:1px;
-}
-.ext-ie .x-toolbar .x-form-field-wrap .x-form-twin-triggers img {
-	margin-top:1px;
-}
 
 /* Paging Toolbar */
 

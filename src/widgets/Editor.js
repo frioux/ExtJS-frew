@@ -224,7 +224,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
             v = this.startValue;
             this.cancelEdit(true);
         }
-        if(String(v) == String(this.startValue) && this.ignoreNoChange){
+        if(String(v) === String(this.startValue) && this.ignoreNoChange){
             this.editing = false;
             this.hide();
             return;

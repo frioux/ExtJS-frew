@@ -8,7 +8,8 @@ Ext.menu.MenuMgr = function(){
 
    // private - called when first menu is created
    function init(){
-       menus = {}, active = new Ext.util.MixedCollection();
+       menus = {};
+       active = new Ext.util.MixedCollection();
        Ext.get(document).addKeyListener(27, function(){
            if(active.length > 0){
                hideAll();
@@ -18,7 +19,7 @@ Ext.menu.MenuMgr = function(){
 
    // private
    function hideAll(){
-       if(active.length > 0){
+       if(active && active.length > 0){
            var c = active.clone();
            c.each(function(m){
                m.hide();

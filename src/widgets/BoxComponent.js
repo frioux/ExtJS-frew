@@ -221,6 +221,7 @@ Ext.extend(Ext.BoxComponent, Ext.Component, {
      * @returns {Ext.BoxComponent} this
      */
     syncSize : function(){
+        delete this.lastSize;
         this.setSize(this.el.getWidth(), this.el.getHeight());
         return this;
     },

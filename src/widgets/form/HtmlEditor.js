@@ -330,7 +330,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         iframe.name = Ext.id();
         iframe.frameBorder = 'no';
 
-        iframe.src="javascript:false";
+        iframe.src = (Ext.SSL_SECURE_URL || "javascript:false");
 
         this.wrap.dom.appendChild(iframe);
 

@@ -111,6 +111,7 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
         this.checked = (v === true || v === 'true' || v == '1' || String(v).toLowerCase() == 'on');
         if(this.el && this.el.dom){
             this.el.dom.checked = this.checked;
+            this.el.dom.defaultChecked = this.checked;
         }
         this.fireEvent("check", this, this.checked);
     }

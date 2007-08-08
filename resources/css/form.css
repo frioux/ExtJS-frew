@@ -391,3 +391,9 @@
     display:block;
     background:transparent url(../images/default/form/exclamation.gif) no-repeat 0 2px;
 }
+
+
+.ext-ie td .x-form-text {
+    position:relative;
+    top:-1px;
+}
