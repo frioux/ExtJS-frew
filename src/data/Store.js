@@ -59,9 +59,9 @@ Ext.data.Store = function(config){
         datachanged : true,
         /**
          * @event metachange
-         * Fires when this stores reader provides new meta data (fields). This is currently only support for JsonReaders.
+         * Fires when this store's reader provides new metadata (fields). This is currently only support for JsonReaders.
          * @param {Store} this
-         * @param {Object} meta The JSON meta data
+         * @param {Object} meta The JSON metadata
          */
         metachange : true,
         /**
@@ -462,7 +462,8 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     },
 
     /**
-     * Get all records modified since the last load, or since the last commit.
+     * Gets all records modified since the last commit.  Modified records are persisted across load operations
+     * (e.g., during paging).
      * @return {Ext.data.Record[]} An array of Records containing outstanding modifications.
      */
     getModifiedRecords : function(){
