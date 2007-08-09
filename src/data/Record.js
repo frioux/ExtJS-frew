@@ -49,7 +49,7 @@ Ext.data.Record = function(data, id){
  * following parameters:<ul>
  * <li><b>v</b> : Mixed<p style="margin-left:1em">The data value as read by the Reader.</p></li>
  * </ul></p></li>
- * <li><b>dateFormat</b> : String<p style="margin-left:1em">(Optional) A format String for the {@link Date#Date.parseDate} function.</p></li>
+ * <li><b>dateFormat</b> : String<p style="margin-left:1em">(Optional) A format String for the {@link Date#parseDate} function.</p></li>
  * </ul>
  * <br>usage:<br><pre><code>
 var TopicRecord = Ext.data.Record.create(
