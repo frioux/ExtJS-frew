@@ -1330,6 +1330,8 @@ El.prototype = {
 
     /**
      * Quick set left and top adding default units
+     * @param {String} left The left CSS property value
+     * @param {String} top The top CSS property value
      * @return {Ext.Element} this
      */
      setLeftTop : function(left, top){
@@ -2357,7 +2359,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
      * Creates and wraps this element with another element
      * @param {Object} config (optional) DomHelper element config object for the wrapper element or null for an empty div
      * @param {Boolean} returnDom (optional) True to return the raw DOM element instead of Ext.Element
-     * @return {/HTMLElementElement} The newly created wrapper element
+     * @return {HTMLElement/Element} The newly created wrapper element
      */
     wrap: function(config, returnDom){
         if(!config){
@@ -2545,7 +2547,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
      * Translates the passed page coordinates into left/top css values for this element
      * @param {Number/Array} x The page x or an array containing [x, y]
      * @param {Number} y The page y
-     * @param {Object} An object with left and top properties. e.g. {left: (value), top: (value)}
+     * @return {Object} An object with left and top properties. e.g. {left: (value), top: (value)}
      */
     translatePoints : function(x, y){
         if(typeof x == 'object' || x instanceof Array){
@@ -2781,6 +2783,7 @@ El.get = function(el){
     return null;
 };
 
+// private
 El.uncache = function(el){
     for(var i = 0, a = arguments, len = a.length; i < len; i++) {
         if(a[i]){
@@ -2789,7 +2792,7 @@ El.uncache = function(el){
     }
 };
 
-
+// private
 // Garbage collection - uncache elements/purge listeners on orphaned elements
 // so we don't hold a reference and cause the browser to retain them
 El.garbageCollect = function(){
