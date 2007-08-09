@@ -117,12 +117,15 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * instead of {@link Ext.grid.Grid#autoSizeColumns} is more efficient.
      */
     /**
-     * @cfg {Boolean} sortable (Optional) True if sorting is to be allowed on this column. Defaults to true.
+     * @cfg {Boolean} sortable (Optional) True if sorting is to be allowed on this column.
+     * Defaults to the value of the {@link #defaultSortable} property.
      * Whether local/remote sorting is used is specified in {@link Ext.data.Store#remoteSort}.
      */
     /**
-     * @cfg {Boolean} locked (Optional) True to lock the column in place while scrolling the Grid.
-     * Defaults to false.
+     * @cfg {Boolean} locked (Optional) True to lock the column in place while scrolling the Grid.  Defaults to false.
+     */
+    /**
+     * @cfg {Boolean} fixed (Optional) True if the column width cannot be changed.  Defaults to false.
      */
     /**
      * @cfg {Boolean} resizable (Optional) False to disable column resizing. Defaults to true.
