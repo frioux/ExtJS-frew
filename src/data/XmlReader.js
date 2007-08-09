@@ -28,7 +28,7 @@ var myReader = new Ext.data.XmlReader({
  &lt;row>
    &lt;id>1&lt;/id>
    &lt;name>Bill&lt;/name>
-   &lt;occupation>Gardener&lt;/name>
+   &lt;occupation>Gardener&lt;/occupation>
  &lt;/row>
  &lt;row>
    &lt;id>2&lt;/id>
