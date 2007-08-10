@@ -209,21 +209,40 @@ Ext.MessageBox = function(){
          * The following config object properties are supported:
          * <pre>
 Property    Type             Description
-----------  ---------------  ----------------------------------------------------------------------
-title       String           The title text
-closable    Boolean          False to hide the top-right close box (defaults to true)
-prompt      Boolean          True to prompt the user to enter single-line text (defaults to false)
-multiline   Boolean          True to prompt the user to enter multi-line text (defaults to false)
-progress    Boolean          True to display a progress bar (defaults to false)
-value       String           The string value to set into the active textbox element if displayed
-buttons     Object/Boolean   A button config object (e.g., Ext.MessageBox.OKCANCEL or {ok:'Foo',
-                             cancel:'Bar'}), or false to not show any buttons (defaults to false)
-msg         String           A string that will replace the existing message box body text (defaults
-                             to the XHTML-compliant non-breaking space character &#160;)
-cls         String           A custom CSS class to apply to the message box element
-proxyDrag   Boolean          True to display a lightweight proxy while dragging (defaults to false)
-modal       Boolean          False to allow user interaction with the page while the message box is
-                             displayed (defaults to true)
+----------  ---------------  ------------------------------------------------------------------------------------
+animEl            String/Element   An id or Element from which the message box should animate as it opens and
+                                   closes (defaults to undefined)
+buttons           Object/Boolean   A button config object (e.g., Ext.MessageBox.OKCANCEL or {ok:'Foo',
+                                   cancel:'Bar'}), or false to not show any buttons (defaults to false)
+closable          Boolean          False to hide the top-right close button (defaults to true).  Note that
+                                   progress and wait dialogs will ignore this property and always hide the
+                                   close button as they can only be closed programmatically.
+cls               String           A custom CSS class to apply to the message box element
+defaultTextHeight Number           The default height in pixels of the message box's multiline textarea if
+                                   displayed (defaults to 75)
+fn                Function         A callback function to execute after closing the dialog.  The arguments to the
+                                   function will be btn (the name of the button that was clicked, if applicable,
+                                   e.g. "ok"), and text (the value of the active text field, if applicable).
+                                   Progress and wait dialogs will ignore this option since they do not respond to
+                                   user actions and can only be closed programmatically, so any required function
+                                   should be called by the same code after it closes the dialog.
+icon              String           A CSS class that provides a background image to be used as an icon for
+                                   the dialog (e.g., Ext.MessageBox.WARNING or 'custom-class', defaults to '')
+maxWidth          Number           The maximum width in pixels of the message box (defaults to 600)
+minWidth          Number           The minimum width in pixels of the message box (defaults to 100)
+modal             Boolean          False to allow user interaction with the page while the message box is
+                                   displayed (defaults to true)
+msg               String           A string that will replace the existing message box body text (defaults
+                                   to the XHTML-compliant non-breaking space character '&#160;')
+multiline         Boolean          True to prompt the user to enter multi-line text (defaults to false)
+progress          Boolean          True to display a progress bar (defaults to false)
+progressText      String           The text to display inside the progress bar if progress = true (defaults to '')
+prompt            Boolean          True to prompt the user to enter single-line text (defaults to false)
+proxyDrag         Boolean          True to display a lightweight proxy while dragging (defaults to false)
+title             String           The title text
+value             String           The string value to set into the active textbox element if displayed
+wait              Boolean          True to display a progress bar (defaults to false)
+width             Number           The width of the dialog in pixels
 </pre>
          *
          * Example usage:
@@ -454,7 +473,8 @@ Ext.Msg.show({
          */
         minWidth : 100,
         /**
-         * The minimum width in pixels of the message box progress bar if displayed (defaults to 250)
+         * The minimum width in pixels of the message box if it is a progress-style dialog.  This is useful
+         * for setting a different minimum width than text-only dialogs may need (defaults to 250)
          * @type Number
          */
         minProgressWidth : 250,
