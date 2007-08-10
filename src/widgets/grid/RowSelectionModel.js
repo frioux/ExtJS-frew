@@ -35,7 +35,7 @@ Ext.grid.RowSelectionModel = function(config){
 	     * Fires when a row is selected.
 	     * @param {SelectionModel} this
 	     * @param {Number} rowIndex The selected index
-	     * @param {@link Ext.data.Record} r The record
+	     * @param {Ext.data.Record} r The record
 	     */
 	    "rowselect" : true,
         /**
