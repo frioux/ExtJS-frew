@@ -137,7 +137,18 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     /**
      * Performs a predefined action (submit or load) or custom actions you define on this form.
      * @param {String} actionName The name of the action type
-     * @param {Object} options The options to pass to the action
+     * @param {Object} options (optional) The options to pass to the action.  All of the config options listed
+     * below are supported by both the submit and load actions unless otherwise noted (custom actions could also
+     * accept other config options):
+     * <pre>
+Property          Type             Description
+----------------  ---------------  ----------------------------------------------------------------------------------
+url               String           The url for the action (defaults to the form's url)
+method            String           The form method to use (defaults to the form's method, or POST if not defined)
+params            String/Object    The params to pass (defaults to the form's baseParams, or none if not defined)
+clientValidation  Boolean          Applies to submit only.  Pass true to call form.isValid() prior to posting to
+                                   validate the form on the client (defaults to false)
+     * </pre>
      * @return {BasicForm} this
      */
     doAction : function(action, options){
@@ -153,7 +164,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
 
     /**
      * Shortcut to do a submit action.
-     * @param {Object} options The options to pass to the action
+     * @param {Object} options The options to pass to the action (see {@link #doAction} for details)
      * @return {BasicForm} this
      */
     submit : function(options){
@@ -163,7 +174,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
 
     /**
      * Shortcut to do a load action.
-     * @param {Object} options The options to pass to the action
+     * @param {Object} options The options to pass to the action (see {@link #doAction} for details)
      * @return {BasicForm} this
      */
     load : function(options){
