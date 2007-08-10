@@ -371,6 +371,10 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
     rendered : false,
 
     /**
+    * @cfg {Boolean} autoWidth True to set the grid's width to the default total width of the grid's columns instead
+    * of a fixed width. Default is false.
+    */
+    /**
     * @cfg {Number} maxHeight Sets the maximum height of the grid - ignored if autoHeight is not on.
     */
     /**
@@ -424,6 +428,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
         this.view.refresh(true);
     },
 
+    // private
     onKeyDown : function(e){
         this.fireEvent("keydown", e);
     },
@@ -484,6 +489,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
         this.processEvent("dblclick", e);
     },
 
+    // private
     walkCells : function(row, col, step, fn, scope){
         var cm = this.colModel, clen = cm.getColumnCount();
         var ds = this.dataSource, rlen = ds.getCount(), first = true;
@@ -527,6 +533,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
         return null;
     },
 
+    // private
     getSelections : function(){
         return this.selModel.getSelections();
     },
@@ -544,6 +551,10 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
         }
     },
 
+    /**
+     * Returns the grid's underlying element.
+     * @return {Element} The element
+     */
     getGridEl : function(){
         return this.container;
     },
