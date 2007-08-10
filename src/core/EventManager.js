@@ -744,8 +744,6 @@ Ext.EventObject = function(){
             var delta = 0;
             if(e.wheelDelta){ /* IE/Opera. */
                 delta = e.wheelDelta/120;
-                /* In Opera 9, delta differs in sign as compared to IE. */
-                if(window.opera) delta = -delta;
             }else if(e.detail){ /* Mozilla case. */
                 delta = -e.detail/3;
             }
