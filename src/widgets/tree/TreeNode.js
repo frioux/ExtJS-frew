@@ -16,6 +16,8 @@
  * @cfg {String} qtipCfg An Ext QuickTip config for the node (used instead of qtip)
  * @cfg {Boolean} singleClickExpand True for single click expand on this node
  * @cfg {Function} uiProvider A UI <b>class</b> to use for this node (defaults to Ext.tree.TreeNodeUI)
+ * @cfg {Boolean} checked True to render a checked checkbox for this node, false to render an unchecked checkbox
+ * (defaults to undefined with no checkbox rendered)
  * @constructor
  * @param {Object/String} attributes The attributes/config for the node or just a string with the text for the node
  */
