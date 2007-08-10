@@ -18,6 +18,10 @@ Ext.PagingToolbar = function(el, ds, config){
 
 Ext.extend(Ext.PagingToolbar, Ext.Toolbar, {
     /**
+     * @cfg {Boolean} displayInfo
+     * True to display the displayMsg (defaults to false)
+     */
+    /**
      * @cfg {Number} pageSize
      * The number of records to display per page (defaults to 20)
      */
