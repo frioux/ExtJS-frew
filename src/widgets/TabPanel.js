@@ -1,7 +1,7 @@
 /**
  * @class Ext.TabPanel
  * @extends Ext.util.Observable
- * Creates a lightweight TabPanel component using Yahoo! UI.
+ * A lightweight tab container.
  * <br><br>
  * Usage:
  * <pre><code>
