@@ -255,9 +255,11 @@ side          Add an error icon to the right of the field with a popup on hover
         if(!Ext.isOpera){ // don't touch in Opera
             this.el.addClass(this.focusClass);
         }
-        this.hasFocus = true;
-        this.startValue = this.getValue();
-        this.fireEvent("focus", this);
+        if(!this.hasFocus){
+            this.hasFocus = true;
+            this.startValue = this.getValue();
+            this.fireEvent("focus", this);
+        }
     },
 
     beforeBlur : Ext.emptyFn,

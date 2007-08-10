@@ -138,7 +138,7 @@ Ext.lib.Dom = {
 
         p = el.parentNode;
         while (p && p != bd) {
-            if (!(Ext.isOpera && p.tagName != 'TR' && fly(p).getStyle("display") != "inline")) {
+            if (!Ext.isOpera || (p.tagName != 'TR' && fly(p).getStyle("display") != "inline")) {
                 x -= p.scrollLeft;
                 y -= p.scrollTop;
             }
