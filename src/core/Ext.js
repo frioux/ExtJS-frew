@@ -688,7 +688,9 @@ sort = (sort == 'ASC' ? 'DESC' : 'ASC');
 String.prototype.toggle = function(value, other){
     return this == value ? other : value;
 };
-
+/**
+ * @class Number
+ */
 Ext.applyIf(Number.prototype, {
     /**
      * Checks whether or not the current number is within a desired range.  If the number is already within the
@@ -702,7 +704,9 @@ Ext.applyIf(Number.prototype, {
         return Math.min(Math.max(this, min), max);
     }
 });
-
+/**
+ * @class Array
+ */
 Ext.applyIf(Array.prototype, {
     /**
      * Checks whether or not the specified object exists in the array.
