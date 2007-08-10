@@ -502,7 +502,7 @@ Date.prototype.getLastDayOfMonth = function() {
 
 
 /**
- * Get a Date of the first day of this date's month
+ * Get the first date of this date's month
  * @return {Date}
  */
 Date.prototype.getFirstDateOfMonth = function() {
@@ -510,7 +510,7 @@ Date.prototype.getFirstDateOfMonth = function() {
 };
 
 /**
- * Get a Date of the late day of this date's month
+ * Get the last date of this date's month
  * @return {Date}
  */
 Date.prototype.getLastDateOfMonth = function() {
