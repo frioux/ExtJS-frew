@@ -108,6 +108,13 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
      * @cfg {Boolean/Object} autoCreate A DomHelper element spec, or true for a default element spec (defaults to:
      * {tag: "input", type: "text", size: "24", autocomplete: "off"})
      */
+    /**
+     * @cfg {Ext.data.Store} store The data store to which this combo is bound (defaults to undefined)
+     */
+    /**
+     * @cfg {String} title If supplied, a header element is created containing this text and added into the top of
+     * the dropdown list (defaults to undefined, with no header element)
+     */
 
     // private
     defaultAutoCreate : {tag: "input", type: "text", size: "24", autocomplete: "off"},
