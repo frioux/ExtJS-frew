@@ -21,7 +21,7 @@ Ext.Toolbar = function(container, buttons, config){
 };
 
 Ext.Toolbar.prototype = {
-
+    // private
     render : function(ct){
         this.el = Ext.get(ct);
         if(this.cls){
@@ -43,11 +43,20 @@ Ext.Toolbar.prototype = {
     /**
      * Adds element(s) to the toolbar -- this function takes a variable number of 
      * arguments of mixed type and adds them to the toolbar.
-     * @param {Mixed} arg1 If arg is a Toolbar.Button, it is added. If arg is a string, it is wrapped 
-     * in a ytb-text element and added unless the text is "separator" in which case a separator
-     * is added. Otherwise, it is assumed the element is an HTMLElement and it is added directly.
+     * @param {Mixed} arg1 The following types of arguments are all valid:<br />
+     * <ul>
+     * <li>{@link Ext.Toolbar.Button} config: A valid button config object (equivalent to {@link #addButton})</li>
+     * <li>HtmlElement: Any standard HTML element (equivalent to {@link #addElement})</li>
+     * <li>Field: Any form field (equivalent to {@link #addField})</li>
+     * <li>Item: Any subclass of {@link Ext.Toolbar.Item} (equivalent to {@link #addItem})</li>
+     * <li>String: Any generic string (gets wrapped in a {@link Ext.Toolbar.TextItem}, equivalent to {@link #addText}).
+     * Note that there are a few special strings that are treated differently as explained next.</li>
+     * <li>'separator' or '-': Creates a separator element (equivalent to {@link #addSeparator})</li>
+     * <li>' ': Creates a spacer element (equivalent to {@link #addSpacer})</li>
+     * <li>'->': Creates a fill element (equivalent to {@link #addFill})</li>
+     * </ul>
      * @param {Mixed} arg2
-     * @param {Mixed} etc
+     * @param {Mixed} etc.
      */
     add : function(){
         var a = arguments, l = a.length;
@@ -118,7 +127,7 @@ Ext.Toolbar.prototype = {
     
     /**
      * Adds any Toolbar.Item or subclass
-     * @param {Toolbar.Item} item
+     * @param {Ext.Toolbar.Item} item
      * @return {Ext.Toolbar.Item} The item
      */
     addItem : function(item){
@@ -222,6 +231,7 @@ Ext.Toolbar.prototype = {
         return td;
     },
 
+    // private
     destroy : function(){
         if(this.items){ // rendered?
             Ext.destroy.apply(Ext, this.items.items);
@@ -357,7 +367,13 @@ Ext.extend(Ext.Toolbar.Spacer, Ext.Toolbar.Item, {
     focus:Ext.emptyFn
 });
 
-
+/**
+ * @class Ext.Toolbar.Fill
+ * @extends Ext.Toolbar.Spacer
+ * A simple element that adds a greedy (100% width) horizontal space to a toolbar.
+ * @constructor
+ * Creates a new Spacer
+ */
 Ext.Toolbar.Fill = Ext.extend(Ext.Toolbar.Spacer, {
     // private
     render : function(td){
