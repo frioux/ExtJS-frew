@@ -305,7 +305,13 @@ Ext.QuickTips = function(){
        },
 
     /**
-     * Configures a new quick tip instance and assigns it to a target element (should be passed as config.target).
+     * Configures a new quick tip instance and assigns it to a target element.  The following config options
+     * are supported:
+     * <pre>
+Property    Type                   Description
+----------  ---------------------  ------------------------------------------------------------------------
+target      Element/String/Array   An Element, id or array of ids that this quick tip should be tied to
+     * </ul>
      * @param {Object} config The config object
      */
        register : function(config){
