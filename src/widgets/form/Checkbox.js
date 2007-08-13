@@ -21,9 +21,9 @@ Ext.form.Checkbox = function(config){
 
 Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
     /**
-     * @cfg {String} focusClass The CSS class to use when the checkbox receives focus (defaults to 'x-form-check-focus')
+     * @cfg {String} focusClass The CSS class to use when the checkbox receives focus (defaults to undefined)
      */
-    focusClass : "x-form-check-focus",
+    focusClass : undefined,
     /**
      * @cfg {String} fieldClass The default CSS class for the checkbox (defaults to "x-form-field")
      */

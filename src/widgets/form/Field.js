@@ -252,7 +252,7 @@ side          Add an error icon to the right of the field with a popup on hover
 
     // private
     onFocus : function(){
-        if(!Ext.isOpera){ // don't touch in Opera
+        if(!Ext.isOpera && this.focusClass){ // don't touch in Opera
             this.el.addClass(this.focusClass);
         }
         if(!this.hasFocus){
@@ -266,7 +266,10 @@ side          Add an error icon to the right of the field with a popup on hover
 
     // private
     onBlur : function(){
-        this.beforeBlur();    this.el.removeClass(this.focusClass);
+        this.beforeBlur();
+        if(!Ext.isOpera && this.focusClass){ // don't touch in Opera
+            this.el.removeClass(this.focusClass);
+        }
         this.hasFocus = false;
         if(this.validationEvent !== false && this.validateOnBlur && this.validationEvent != "blur"){
             this.validate();
