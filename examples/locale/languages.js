@@ -13,7 +13,7 @@ Ext.exampledata.languages = [
 	['en', 'English', 'ascii'],
 	['en_UK', 'English (UK)', 'ascii'],
 	['fr_CA', 'France (Canadian)', 'UTF-8'],
-	['fr', 'Fran\xc3\xa7ais (France)', 'utf-8'],
+	['fr', 'France (France)', 'utf-8'],
 	['de', 'German', 'utf-8'],
 	['gr', 'Greek', 'utf-8'],
 	['hu', 'Hungarian', 'utf-8'],

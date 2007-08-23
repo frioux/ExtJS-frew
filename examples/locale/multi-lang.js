@@ -125,17 +125,13 @@ Ext.onReady(function(){
     top.container({},
         new Ext.form.HtmlEditor({
             id:'bio',
-            fieldLabel:'Html Editor',
+            fieldLabel:'Html Editor (currently only localized in a few languages)',
             width:550,
             height:200
         })
     );
-    var okText = Ext.form.DateField.prototype.okText;
-    var cancelText = Ext.form.DateField.prototype.cancelText;
-    okText = okText?okText:"OK (NoTranslation)";
-    cancelText = cancelText?cancelText:"Cancel (NoTranslation)";
-    top.addButton(okText);
-    top.addButton(cancelText);
+    top.addButton(Ext.DatePicker.prototype.okText);
+    top.addButton(Ext.DatePicker.prototype.cancelText);
 
     top.render('form-ct2');
 });
