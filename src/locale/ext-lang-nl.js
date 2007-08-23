@@ -85,6 +85,8 @@ if(Ext.DatePicker){
        monthYearText     : 'Kies een maand (Control+Omhoog/Beneden volgend/vorige jaar)',
        todayTip          : "{0} (Spatie)",
        format            : "d-m-y",
+       okText		 : "&#160;OK&#160;",
+       cancelText	 : "Annuleren",
        startDay          : 1
     });
 }
@@ -128,10 +130,7 @@ if(Ext.form.DateField){
        minText           : "De datum in dit veld moet na {0} liggen",
        maxText           : "De datum in dit veld moet voor {0} liggen",
        invalidText       : "{0} is geen geldige datum - formaat voor datum is {1}",
-       format            : "d/m/y",
-       okText		 : "&#160;OK&#160;",
-       cancelText	 : "Annuleren",
-       startDay		 : 0
+       format            : "d/m/y"
     });
 }
 
