@@ -23,7 +23,7 @@ Ext.exampledata.languages = [
 	['mk', 'Macedonia', 'utf-8'],
 	['no', 'Norwegian', 'utf-8'],
 	['pl', 'Polish', 'utf-8'],
-	['pt_BR', 'Portuguese/Brazil', 'utf-8'],
+	['pt_BR', 'Portuguese/Brazil', 'ascii'],
 	['ro', 'Romanian', 'utf-8'],
 	['ru', 'Russian', 'utf-8'],
 	['sr_RS', 'Serbian Cyrillic', 'UTF-8'],

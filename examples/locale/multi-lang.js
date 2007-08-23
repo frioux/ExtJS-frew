@@ -54,7 +54,7 @@ Ext.onReady(function(){
 		name: 'date',
 		width: 175
 	}));
-	efield.render('form-ct2');
+	efield.render('form-ct1');
 });
 
 Ext.onReady(function(){
@@ -113,4 +113,29 @@ Ext.onReady(function(){
 
     // trigger the data store load
     ds.load({params:{start:0, limit:6}});
+    
+    /*
+     * ================  Form 2  =======================
+     */
+    var top = new Ext.form.Form({
+        labelAlign: 'top'
+    });
+
+
+    top.container({},
+        new Ext.form.HtmlEditor({
+            id:'bio',
+            fieldLabel:'Html Editor',
+            width:550,
+            height:200
+        })
+    );
+    var okText = Ext.form.DateField.prototype.okText;
+    var cancelText = Ext.form.DateField.prototype.cancelText;
+    okText = okText?okText:"OK (NoTranslation)";
+    cancelText = cancelText?cancelText:"Cancel (NoTranslation)";
+    top.addButton(okText);
+    top.addButton(cancelText);
+
+    top.render('form-ct2');
 });
