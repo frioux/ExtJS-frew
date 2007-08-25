@@ -74,14 +74,11 @@ Ext.QuickTips = function(){
             if(tm.hideOnClick){
                 hide();
                 tm.disable();
+                tm.enable.defer(100, tm);
             }
         }
     };
     
-    var onUp = function(e){
-        tm.enable();
-    };
-
     var getPad = function(){
         return bdLeft.getPadding('l')+bdRight.getPadding('r');
     };
@@ -284,7 +281,6 @@ Ext.QuickTips = function(){
               close.on("click", hide);
               var d = Ext.get(document);
               d.on("mousedown", onDown);
-              d.on("mouseup", onUp);
               d.on("mouseover", onOver);
               d.on("mouseout", onOut);
               d.on("mousemove", onMove);
