@@ -206,6 +206,9 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
         }else{
             this.ui.updateExpandIcon();
         }
+        if(!this.firstChild) {
+            this.childrenRendered = false;
+        }
         return node;
     },
 

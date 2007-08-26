@@ -281,12 +281,12 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
             view.focusRow(rowIndex);
         }else{
             var isSelected = this.isSelected(rowIndex);
-            if(e.button != 0 && isSelected){
+            if(e.button !== 0 && isSelected){
                 view.focusRow(rowIndex);
             }else if(e.ctrlKey && isSelected){
                 this.deselectRow(rowIndex);
-            }else{
-                this.selectRow(rowIndex, e.button == 0 && (e.ctrlKey || e.shiftKey));
+            }else if(!isSelected){
+                this.selectRow(rowIndex, e.button === 0 && (e.ctrlKey || e.shiftKey));
                 view.focusRow(rowIndex);
             }
         }

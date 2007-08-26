@@ -120,6 +120,10 @@ Ext.extend(Ext.form.NumberField, Ext.form.TextField,  {
         return parseFloat(value).toFixed(this.decimalPrecision);
     },
 
+    setValue : function(v){
+        Ext.form.NumberField.superclass.setValue.call(this, String(v).replace(".", this.decimalSeparator));
+    },
+
     // private
     decimalPrecisionFcn : function(v){
         return Math.floor(v);

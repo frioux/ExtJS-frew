@@ -341,6 +341,10 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
             for(var i = 0, len = r.length; i < len; i++){
                 r[i].join(this);
             }
+            if(this.snapshot){
+                this.data = this.snapshot;
+                delete this.snapshot;
+            }
             this.data.clear();
             this.data.addAll(r);
             this.totalLength = t;
@@ -380,7 +384,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     },
 
     /**
-     * Gets the total number of records in the dataset.
+     * Gets the total number of records in the dataset as returned by the server.
      * <p>
      * <em>If using paging, for this to be accurate, the data object used by the Reader must contain
      * the dataset size</em>

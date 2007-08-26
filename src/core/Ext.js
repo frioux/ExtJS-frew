@@ -267,16 +267,20 @@ Company.data.CustomStore = function(config) { ... }
             }
             var buf = [];
             for(var key in o){
-                var ov = o[key];
+                var ov = o[key], k = encodeURIComponent(key);
                 var type = typeof ov;
                 if(type == 'undefined'){
-                    buf.push(encodeURIComponent(key), "=&");
+                    buf.push(k, "=&");
                 }else if(type != "function" && type != "object"){
-                    buf.push(encodeURIComponent(key), "=", encodeURIComponent(ov), "&");
+                    buf.push(k, "=", encodeURIComponent(ov), "&");
                 }else if(ov instanceof Array){
-                    for(var i = 0, len = ov.length; i < len; i++) {
-                        buf.push(encodeURIComponent(key), "=", encodeURIComponent(ov[i] === undefined ? '' : ov[i]), "&");
-                    }
+                    if (ov.length) {
+	                    for(var i = 0, len = ov.length; i < len; i++) {
+	                        buf.push(k, "=", encodeURIComponent(ov[i] === undefined ? '' : ov[i]), "&");
+	                    }
+	                } else {
+	                    buf.push(k, "=", '&');
+	                }
                 }
             }
             buf.pop();
