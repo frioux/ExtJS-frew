@@ -34,6 +34,10 @@ Ext.extend(Ext.form.TextArea, Ext.form.TextField,  {
      * in the field (equivalent to setting overflow: hidden, defaults to false)
      */
     preventScrollbars: false,
+    /**
+     * @cfg {String/Object} autoCreate A DomHelper element spec, or true for a default element spec (defaults to
+     * {tag: "textarea", style: "width:300px;height:60px;", autocomplete: "off"})
+     */
 
     // private
     onRender : function(ct, position){

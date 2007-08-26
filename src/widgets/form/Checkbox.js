@@ -34,7 +34,7 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
     checked: false,
     /**
      * @cfg {String/Object} autoCreate A DomHelper element spec, or true for a default element spec (defaults to
-     * { tag: "input", type: 'checkbox', autocomplete: "off"})
+     * {tag: "input", type: "checkbox", autocomplete: "off"})
      */
     defaultAutoCreate : { tag: "input", type: 'checkbox', autocomplete: "off"},
     /**
