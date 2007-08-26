@@ -13,12 +13,13 @@
  * @cfg {String} ddAppendOnly True if the tree should only allow append drops (use for trees which are sorted)
  * @cfg {Boolean} ddScroll true to enable YUI body scrolling
  * @cfg {Boolean} containerScroll true to register this container with ScrollManager
- * @cfg {Boolean} hlDrop false to disable node highlight on drop (defaults to true)
+ * @cfg {Boolean} hlDrop false to disable node highlight on drop (defaults to the value of Ext.enableFx)
  * @cfg {String} hlColor The color of the node highlight (defaults to C3DAF9)
- * @cfg {Boolean} animate true to enable animated expand/collapse
+ * @cfg {Boolean} animate true to enable animated expand/collapse (defaults to the value of Ext.enableFx)
  * @cfg {Boolean} singleExpand true if only 1 node per branch may be expanded
  * @cfg {Boolean} selModel A tree selection model to use with this TreePanel (defaults to a {@link Ext.tree.DefaultSelectionModel})
  * @cfg {Boolean} loader A TreeLoader for use with this TreePanel
+  * @cfg {String} pathSeparator The token used to separate sub-paths in path strings (defaults to '/')
  * @constructor
  * @param {String/HTMLElement/Element} el The container element
  * @param {Object} config
