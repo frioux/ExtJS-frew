@@ -74,7 +74,7 @@ Ext.data.Store = function(config){
         add : true,
         /**
          * @event remove
-         * Fires when Records have been removed from the Store
+         * Fires when a Record has been removed from the Store
          * @param {Store} this
          * @param {Ext.data.Record} record The Record that was removed
          * @param {Number} index The index at which the record was removed
@@ -82,7 +82,7 @@ Ext.data.Store = function(config){
         remove : true,
         /**
          * @event update
-         * Fires when Records have been updated
+         * Fires when a Record has been updated
          * @param {Store} this
          * @param {Ext.data.Record} record The Record that was updated
          * @param {String} operation The update operation being performed.  Value may be one of:
