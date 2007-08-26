@@ -5,9 +5,9 @@
  * <br><br><b>Note: The focus/blur and validation marking functionality inherited from Ext.form.Field is NOT
  * supported by this editor.</b><br/><br/>
  * An Editor is a sensitive component that can't be used in all spots standard fields can be used. Putting an Editor within
- * any element that has display set to 'none' can cause problems in Safari and Firefox.
+ * any element that has display set to 'none' can cause problems in Safari and Firefox.<br/><br/>
+ * <b>Note:</b> In Ext 1.1 there can only be one HtmlEditor on a page at a time.  This restriction does not apply in Ext 2.0+.
  */
-
 Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
     /**
      * @cfg {Boolean} enableFormat Enable the bold, italic and underline buttons (defaults to true)
