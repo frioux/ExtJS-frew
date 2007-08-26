@@ -29,7 +29,10 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
     /**
      * @cfg {String} triggerClass A CSS class to apply to the trigger
      */
-    // private
+    /**
+     * @cfg {String/Object} autoCreate A DomHelper element spec, or true for a default element spec (defaults to
+     * {tag: "input", type: "text", size: "16", autocomplete: "off"})
+     */
     defaultAutoCreate : {tag: "input", type: "text", size: "16", autocomplete: "off"},
     /**
      * @cfg {Boolean} hideTrigger True to hide the trigger element and display only the base text field (defaults to false)
