@@ -232,7 +232,12 @@ Ext.override(MyClass, {
             }
         },
         /**
-         * Creates namespaces but does not assume YAHOO is the root.
+         * Creates namespaces to be used for scoping variables and classes so that they are not global.  Usage:
+         * <pre><code>
+Ext.namespace('Company', 'Company.data');
+Company.Widget = function() { ... }
+Company.data.CustomStore = function(config) { ... }
+</code></pre>
          * @param {String} namespace1
          * @param {String} namespace2
          * @param {String} etc
