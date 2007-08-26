@@ -32,8 +32,10 @@ Ext.extend(Ext.form.Checkbox, Ext.form.Field,  {
      * @cfg {Boolean} checked True if the the checkbox should render already checked (defaults to false)
      */
     checked: false,
-
-    // private
+    /**
+     * @cfg {String/Object} autoCreate A DomHelper element spec, or true for a default element spec (defaults to
+     * { tag: "input", type: 'checkbox', autocomplete: "off"})
+     */
     defaultAutoCreate : { tag: "input", type: 'checkbox', autocomplete: "off"},
     /**
      * @cfg {String} boxLabel The text that appears beside the checkbox
