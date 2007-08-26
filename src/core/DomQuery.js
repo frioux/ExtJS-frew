@@ -576,7 +576,7 @@ Ext.DomQuery = function(){
         ],
 
         /**
-         * Collection of operator comparison functions. The default operators are =, !=, ^=, $=, *= and %=.
+         * Collection of operator comparison functions. The default operators are =, !=, ^=, $=, *=, %=, |= and ~=.
          * New operators can be added as long as the match the format <i>c</i>= where <i>c</i> is any character other than space, &gt; &lt;.
          */
         operators : {
