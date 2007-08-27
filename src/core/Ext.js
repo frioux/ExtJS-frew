@@ -279,7 +279,7 @@ Company.data.CustomStore = function(config) { ... }
 	                        buf.push(k, "=", encodeURIComponent(ov[i] === undefined ? '' : ov[i]), "&");
 	                    }
 	                } else {
-	                    buf.push(k, "=", '&');
+	                    buf.push(k, "=&");
 	                }
                 }
             }
