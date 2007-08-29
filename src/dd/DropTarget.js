@@ -23,6 +23,11 @@ Ext.dd.DropTarget = function(el, config){
 
 Ext.extend(Ext.dd.DropTarget, Ext.dd.DDTarget, {
     /**
+     * @cfg {String} ddGroup
+     * A named drag drop group to which this object belongs.  If a group is specified, then this object will only
+     * interact with other drag drop objects in the same group (defaults to undefined).
+     */
+    /**
      * @cfg {String} overClass
      * The CSS class applied to the drop target element while the drag source is over it (defaults to "").
      */

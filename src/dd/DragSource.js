@@ -24,6 +24,11 @@ Ext.dd.DragSource = function(el, config){
 
 Ext.extend(Ext.dd.DragSource, Ext.dd.DDProxy, {
     /**
+     * @cfg {String} ddGroup
+     * A named drag drop group to which this object belongs.  If a group is specified, then this object will only
+     * interact with other drag drop objects in the same group (defaults to undefined).
+     */
+    /**
      * @cfg {String} dropAllowed
      * The CSS class returned to the drag source when drop is allowed (defaults to "x-dd-drop-ok").
      */
