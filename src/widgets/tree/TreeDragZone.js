@@ -1,10 +1,27 @@
+/**
+ * @class Ext.tree.TreeDragZone
+ * @extends Ext.dd.DragZone
+ * @constructor
+ * @param {String/HTMLElement/Element} tree The {@link Ext.tree.TreePanel} for which to enable dragging
+ * @param {Object} config
+ */
 if(Ext.dd.DragZone){
 Ext.tree.TreeDragZone = function(tree, config){
     Ext.tree.TreeDragZone.superclass.constructor.call(this, tree.getTreeEl(), config);
+    /**
+    * The TreePanel for this drag zone
+    * @type Ext.tree.TreePanel
+    * @property
+    */
     this.tree = tree;
 };
 
 Ext.extend(Ext.tree.TreeDragZone, Ext.dd.DragZone, {
+    /**
+     * @cfg {String} ddGroup
+     * A named drag drop group to which this object belongs.  If a group is specified, then this object will only
+     * interact with other drag drop objects in the same group (defaults to 'TreeDD').
+     */
     ddGroup : "TreeDD",
     
     onBeforeDrag : function(data, e){

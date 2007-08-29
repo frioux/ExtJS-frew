@@ -1,18 +1,60 @@
+/**
+ * @class Ext.tree.TreeDropZone
+ * @extends Ext.dd.DropZone
+ * @constructor
+ * @param {String/HTMLElement/Element} tree The {@link Ext.tree.TreePanel} for which to enable dropping
+ * @param {Object} config
+ */
 if(Ext.dd.DropZone){
     
 Ext.tree.TreeDropZone = function(tree, config){
+    /**
+     * @cfg {Boolean} allowParentInsert
+     * Allow inserting a dragged node between an expanded parent node and its first child that will become a
+     * sibling of the parent when dropped (defaults to false)
+     */
     this.allowParentInsert = false;
+    /**
+     * @cfg {String} allowContainerDrop
+     * True if drops on the tree container (outside of a specific tree node) are allowed (defaults to false)
+     */
     this.allowContainerDrop = false;
+    /**
+     * @cfg {String} appendOnly
+     * True if the tree should only allow append drops (use for trees which are sorted, defaults to false)
+     */
     this.appendOnly = false;
     Ext.tree.TreeDropZone.superclass.constructor.call(this, tree.innerCt, config);
+    /**
+    * The TreePanel for this drop zone
+    * @type Ext.tree.TreePanel
+    * @property
+    */
     this.tree = tree;
-    this.lastInsertClass = "x-tree-no-status";
+    /**
+    * Arbitrary data that can be associated with this tree and will be included in the event object that gets
+    * passed to any nodedragover event handler (defaults to {})
+    * @type Ext.tree.TreePanel
+    * @property
+    */
     this.dragOverData = {};
+    // private
+    this.lastInsertClass = "x-tree-no-status";
 };
 
 Ext.extend(Ext.tree.TreeDropZone, Ext.dd.DropZone, {
+    /**
+     * @cfg {String} ddGroup
+     * A named drag drop group to which this object belongs.  If a group is specified, then this object will only
+     * interact with other drag drop objects in the same group (defaults to 'TreeDD').
+     */
     ddGroup : "TreeDD",
-    
+
+    /**
+     * @cfg {String} expandDelay
+     * The delay in milliseconds to wait before expanding a target tree node while dragging a droppable node
+     * over the target (defaults to 1000)
+     */
     expandDelay : 1000,
     
     expandNode : function(node){
