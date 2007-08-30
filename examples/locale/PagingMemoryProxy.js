@@ -1,3 +1,21 @@
+/**
+  * Ext.ux.data.PagingMemoryProxy.js
+  *
+  * A proxy for local / in-browser data structures
+  * supports paging / sorting / filtering / etc
+  *
+  * @file	Ext.ux.PagingMemoryProxy.js
+  * @author	Ing. Ido Sebastiaan Bas van Oostveen
+  * @version	1.1
+  * @date	30-August-2007
+  * @version	1.0
+  * @date	22-August-2007
+  *
+  */
+
+Ext.namespace("Ext.ux");
+Ext.namespace("Ext.ux.data");
+
 /* Fix for Opera, which does not seem to include the map function on Array's */
 if(!Array.prototype.map){
     Array.prototype.map = function(fun){
@@ -17,18 +35,18 @@ if(!Array.prototype.map){
 }
 
 /* Paging Memory Proxy, allows to use paging grid with in memory dataset */
-Ext.data.PagingMemoryProxy = function(data) {
-	Ext.data.PagingMemoryProxy.superclass.constructor.call(this);
+Ext.ux.data.PagingMemoryProxy = function(data) {
+	Ext.ux.data.PagingMemoryProxy.superclass.constructor.call(this);
 	this.data = data;
 };
 
-Ext.extend(Ext.data.PagingMemoryProxy, Ext.data.MemoryProxy, {
+Ext.extend(Ext.ux.data.PagingMemoryProxy, Ext.data.MemoryProxy, {
 	load : function(params, reader, callback, scope, arg) {
 		params = params || {};
 		var result;
 		try {
 			result = reader.readRecords(this.data);
-		}catch(e){
+		} catch(e) {
 			this.fireEvent("loadexception", this, arg, null, e);
 			callback.call(scope, null, arg, false);
 			return;
@@ -53,8 +71,8 @@ Ext.extend(Ext.data.PagingMemoryProxy, Ext.data.MemoryProxy, {
 		    // params.sort=0; would also match a array without columns
 		    var dir = String(params.dir).toUpperCase() == "DESC" ? -1 : 1;
         	var fn = function(r1, r2){
-				return r1 < r2;
-            };
+			    return r1==r2 ? 0 : (r1<r2 ? -1 : 1);
+        	};
 		    result.records.sort(function(a, b) {
 				var v = 0;
 				if (typeof(a)=="object"){

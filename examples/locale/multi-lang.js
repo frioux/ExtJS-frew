@@ -1,6 +1,6 @@
 /* multi-lang.js extscript */
 Ext.onReady(function(){
-	Ext.QuickTips.init();
+    Ext.QuickTips.init();
 	Ext.form.Field.prototype.msgTarget = 'side';
 	
 	/* Language chooser combobox  */
@@ -16,25 +16,26 @@ Ext.onReady(function(){
         triggerAction: 'all',
         emptyText:'Select a language...',
         selectOnFocus:true,
-	onSelect: function(record) {
-	    window.location.search = Ext.urlEncode({"lang":record.get("code"),"charset":record.get("charset")});
-	}
+        onSelect: function(record) {
+            window.location.search = Ext.urlEncode({"lang":record.get("code"),"charset":record.get("charset")});
+        }
     });
     combo.applyTo('languages');
 
     // get the selected language code parameter from url (if exists)
     var params = Ext.urlDecode(window.location.search.substring(1));
     if (params.lang) {
-	// check if there's really a language with that language code
-	record = store.data.find(function(item, key) {
-	    if (item.data.code==params.lang){
-		return true;
-	    }
-	});
-	// if language was found in store assign it as current value in combobox
-	if (record) {
-	    combo.setValue(record.data.language);
-	}
+        // check if there's really a language with that language code
+        record = store.data.find(function(item, key) {
+            if (item.data.code==params.lang){
+                return true;
+            }
+            return false;
+        });
+    	// if language was found in store assign it as current value in combobox
+    	if (record) {
+    	    combo.setValue(record.data.language);
+    	}
     }
 
 	/* Email field */
@@ -55,9 +56,7 @@ Ext.onReady(function(){
 		width: 175
 	}));
 	efield.render('form-ct1');
-});
 
-Ext.onReady(function(){
     // shorthand alias
     var fm = Ext.form, Ed = Ext.grid.GridEditor;
     // the column model has information about grid columns
@@ -79,10 +78,11 @@ Ext.onReady(function(){
 
     // create the Data Store
     var ds = new Ext.data.Store({
-		proxy: new Ext.data.PagingMemoryProxy(monthArray),
+		proxy: new Ext.ux.data.PagingMemoryProxy(monthArray),
 		reader: new Ext.data.ArrayReader({}, [
 			{name: 'month'}
-		])
+		]),
+        remoteSort: true
     });
 
     // create the editor grid
