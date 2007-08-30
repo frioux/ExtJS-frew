@@ -1,7 +1,7 @@
 /*
  * Russian translation
- * By Arikon (utf-8 encoding)
- * 08 April 2007
+ * By ZooKeeper (utf-8 encoding)
+ * 30 August 2007
  */
 
 Ext.UpdateManager.defaults.indicatorText = '<div class="loading-indicator">Идет загрузка...</div>';
@@ -23,7 +23,7 @@ if(Ext.form.Field){
 }
 
 if(Ext.LoadMask){
-    Ext.LoadMask.prototype.msg = "Идет загрузка...";
+   Ext.LoadMask.prototype.msg = "Загрузка...";
 }
 
 Date.monthNames = [
@@ -82,6 +82,8 @@ if(Ext.DatePicker){
       monthYearText     : 'Выбор месяца (Control+Вверх/Вниз для выбора года)',
       todayTip          : "{0} (Пробел)",
       format            : "d.m.y",
+      okText            : "&#160;OK&#160;",
+      cancelText        : "Отмена",
       startDay          : 1
    });
 }
@@ -142,6 +144,84 @@ if(Ext.form.VTypes){
       urlText      : 'Это поле должно содержать URL в формате "http:/'+'/www.domain.com"',
       alphaText    : 'Это поле должно содержать только латинские буквы и символ подчеркивания "_"',
       alphanumText : 'Это поле должно содержать только латинские буквы, цифры и символ подчеркивания "_"'
+   });
+}
+
+if(Ext.form.HtmlEditor){
+   Ext.apply(Ext.form.HtmlEditor.prototype, {
+     createLinkText : 'Пожалуйста введите адрес:',
+     buttonTips : {
+            bold : {
+               title: 'Полужирный (Ctrl+B)',
+               text: 'Применение полужирного начертания к выделенному тексту.',
+               cls: 'x-html-editor-tip'
+            },
+            italic : {
+               title: 'Курсив (Ctrl+I)',
+               text: 'Применение курсивного начертания к выделенному тексту.',
+               cls: 'x-html-editor-tip'
+            },
+            underline : {
+               title: 'Подчёркнутый (Ctrl+U)',
+               text: 'Подчёркивание выделенного текста.',
+               cls: 'x-html-editor-tip'
+           },
+           increasefontsize : {
+               title: 'Увеличить размер',
+               text: 'Увеличение размера шрифта.',
+               cls: 'x-html-editor-tip'
+           },
+           decreasefontsize : {
+               title: 'Уменьшить размер',
+               text: 'Уменьшение размера шрифта.',
+               cls: 'x-html-editor-tip'
+           },
+           backcolor : {
+               title: 'Заливка',
+               text: 'Изменение цвета фона для выделенного текста или абзаца.',
+               cls: 'x-html-editor-tip'
+           },
+           forecolor : {
+               title: 'Цвет текста',
+               text: 'Измение цвета текста.',
+               cls: 'x-html-editor-tip'
+           },
+           justifyleft : {
+               title: 'Выровнять текст по левому краю',
+               text: 'Выровнивание текста по левому краю.',
+               cls: 'x-html-editor-tip'
+           },
+           justifycenter : {
+               title: 'По центру',
+               text: 'Выровнивание текста по центру.',
+               cls: 'x-html-editor-tip'
+           },
+           justifyright : {
+               title: 'Выровнять текст по правому краю',
+               text: 'Выровнивание текста по правому краю.',
+               cls: 'x-html-editor-tip'
+           },
+           insertunorderedlist : {
+               title: 'Маркеры',
+               text: 'Начать маркированный список.',
+               cls: 'x-html-editor-tip'
+           },
+           insertorderedlist : {
+               title: 'Нумерация',
+               text: 'Начать нумернованный список.',
+               cls: 'x-html-editor-tip'
+           },
+           createlink : {
+               title: 'Вставить гиперссылку',
+               text: 'Создание ссылки из выделенного текста.',
+               cls: 'x-html-editor-tip'
+           },
+           sourceedit : {
+               title: 'Исходный код',
+               text: 'Переключиться на исходный код.',
+               cls: 'x-html-editor-tip'
+           }
+        }
    });
 }
 
