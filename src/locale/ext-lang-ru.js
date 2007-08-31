@@ -1,7 +1,7 @@
 /*
  * Russian translation
- * By ZooKeeper (utf-8 encoding)
- * 30 August 2007
+ * By Arikon (utf-8 encoding) - 08 April 2007
+ * Updated By ZooKeeper - 30 August 2007
  */
 
 Ext.UpdateManager.defaults.indicatorText = '<div class="loading-indicator">Идет загрузка...</div>';
