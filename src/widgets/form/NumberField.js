@@ -117,7 +117,7 @@ Ext.extend(Ext.form.NumberField, Ext.form.TextField,  {
         if(!this.allowDecimals || this.decimalPrecision == -1 || nan || !value){
             return nan ? '' : value;
         }
-        return parseFloat(value).toFixed(this.decimalPrecision);
+        return parseFloat(parseFloat(value).toFixed(this.decimalPrecision));
     },
 
     setValue : function(v){

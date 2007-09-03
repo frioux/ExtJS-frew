@@ -5,27 +5,27 @@
  * <br><br>
  * Usage:
  * <pre><code>
-<font color="#008000">// basic tabs 1, built from existing content</font>
+// basic tabs 1, built from existing content
 var tabs = new Ext.TabPanel("tabs1");
 tabs.addTab("script", "View Script");
 tabs.addTab("markup", "View Markup");
 tabs.activate("script");
 
-<font color="#008000">// more advanced tabs, built from javascript</font>
+// more advanced tabs, built from javascript
 var jtabs = new Ext.TabPanel("jtabs");
 jtabs.addTab("jtabs-1", "Normal Tab", "My content was added during construction.");
 
-<font color="#008000">// set up the UpdateManager</font>
+// set up the UpdateManager
 var tab2 = jtabs.addTab("jtabs-2", "Ajax Tab 1");
 var updater = tab2.getUpdateManager();
 updater.setDefaultUrl("ajax1.htm");
 tab2.on('activate', updater.refresh, updater, true);
 
-<font color="#008000">// Use setUrl for Ajax loading</font>
+// Use setUrl for Ajax loading
 var tab3 = jtabs.addTab("jtabs-3", "Ajax Tab 2");
 tab3.setUrl("ajax2.htm", null, true);
 
-<font color="#008000">// Disabled tab</font>
+// Disabled tab
 var tab4 = jtabs.addTab("tabs1-5", "Disabled Tab", "Can't see me cause I'm disabled");
 tab4.disable();
 

@@ -40,8 +40,12 @@ Ext.lib.Dom = {
     // this version fixes several issues in Safari and FF
     // and boosts performance by removing the batch overhead, repetitive dom lookups and array index calls
     getXY : function(el){
-        var p, pe, b, scroll, bd = document.body;
+        var p, pe, b, scroll, bd = (document.body || document.documentElement);
         el = Ext.getDom(el);
+
+        if(el == bd){
+            return [0, 0];
+        }
 
         if (el.getBoundingClientRect) {
             b = el.getBoundingClientRect();

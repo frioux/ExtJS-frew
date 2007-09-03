@@ -86,9 +86,13 @@
 
 
 
-        getXY : function(el) {
-            var p, pe, b, scroll, bd = document.body;
+    getXY : function(el) {
+        var p, pe, b, scroll, bd = (document.body || document.documentElement);
         el = Ext.getDom(el);
+
+        if(el == bd){
+            return [0, 0];
+        }
 
         if (el.getBoundingClientRect) {
             b = el.getBoundingClientRect();

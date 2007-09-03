@@ -83,8 +83,12 @@ Ext.lib.Dom = {
     },
 
     getXY : function(el){ // this initially used Position.cumulativeOffset but it is not accurate enough
-        var p, pe, b, scroll, bd = document.body;
+        var p, pe, b, scroll, bd = (document.body || document.documentElement);
         el = Ext.getDom(el);
+
+        if(el == bd){
+            return [0, 0];
+        }
 
         if (el.getBoundingClientRect) {
             b = el.getBoundingClientRect();
