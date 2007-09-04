@@ -223,11 +223,11 @@ Ext.extend(Ext.View, Ext.util.Observable, {
      */
     setStore : function(store, initial){
         if(!initial && this.store){
-            this.store.un("datachanged", this.refresh);
-            this.store.un("add", this.onAdd);
-            this.store.un("remove", this.onRemove);
-            this.store.un("update", this.onUpdate);
-            this.store.un("clear", this.refresh);
+            this.store.un("datachanged", this.refresh, this);
+            this.store.un("add", this.onAdd, this);
+            this.store.un("remove", this.onRemove, this);
+            this.store.un("update", this.onUpdate, this);
+            this.store.un("clear", this.refresh, this);
         }
         if(store){
             store.on("datachanged", this.refresh, this);
