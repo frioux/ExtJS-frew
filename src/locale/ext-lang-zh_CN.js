@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Simplified Chinese translation
  * By DavidHu
  * 09 April 2007
@@ -22,10 +22,6 @@ if(Ext.form.Field){
    Ext.form.Field.prototype.invalidText = "输入值非法";
 }
 
-if(Ext.LoadMask){
-    Ext.LoadMask.prototype.msg = "加载中...";
-}
-
 Date.monthNames = [
    "一月",
    "二月",
@@ -42,13 +38,13 @@ Date.monthNames = [
 ];
 
 Date.dayNames = [
-   "周日",
-   "周一",
-   "周二",
-   "周三",
-   "周四",
-   "周五",
-   "周六"
+   "日",
+   "一",
+   "二",
+   "三",
+   "四",
+   "五",
+   "六"
 ];
 
 if(Ext.MessageBox){
@@ -80,7 +76,7 @@ if(Ext.DatePicker){
       nextText          : '下月 (Control+Right)',
       prevText          : '上月 (Control+Left)',
       monthYearText     : '选择一个月 (Control+Up/Down 来改变年)',
-      todayTip          : "{0} (Spacebar)",
+      todayTip          : "{0} (空格键选择)",
       format            : "y年m月d日"
    });
 }
@@ -88,13 +84,13 @@ if(Ext.DatePicker){
 if(Ext.PagingToolbar){
    Ext.apply(Ext.PagingToolbar.prototype, {
       beforePageText : "页",
-      afterPageText  : "of {0}",
+   	  afterPageText  : "页共 {0} 页", 
       firstText      : "第一页",
       prevText       : "前一页",
       nextText       : "下一页",
       lastText       : "最后页",
       refreshText    : "刷新",
-      displayMsg     : "显示 {0} - {1} of {2}",
+	  displayMsg     : "显示 {0} - {1}，共 {2} 条",
       emptyMsg       : '没有数据需要显示'
    });
 }
