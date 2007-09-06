@@ -113,10 +113,11 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
     onRefresh : function(){
         var ds = this.grid.dataSource, index;
         var s = this.getSelections();
+        this.clearSelections(true);
         for(var i = 0, len = s.length; i < len; i++){
             var r = s[i];
             if((index = ds.indexOfId(r.id)) != -1){
-                this.selectRow(i, true);
+                this.selectRow(index, true);
             }
         }
     },
