@@ -220,13 +220,13 @@ Ext.QuickTips = function(){
         */
        autoHide : true,
         /**
-        * @cfg {Boolean}
+        * @cfg {Boolean} autoDismiss
         * True to automatically hide the quick tip after a set period of time, regardless of the user's actions
         * (defaults to true).  Used in conjunction with autoDismissDelay.
         */
        autoDismiss : true,
         /**
-        * @cfg {Number}
+        * @cfg {Number} autoDismissDelay
         * Delay in milliseconds before the quick tip hides when autoDismiss = true (defaults to 5000)
         */
        autoDismissDelay : 5000,
