@@ -496,6 +496,9 @@
     <include name="core\UpdateManager.js" />
     <include name="util\DelayedTask.js" />
   </target>
+  <file name="hs_err_pid7176.log" path="" />
+  <file name="hs_err_pid9692.log" path="" />
+  <file name="hs_err_pid11972.log" path="" />
   <file name="adapter\ext-base.js" path="adapter" />
   <file name="adapter\jquery-bridge.js" path="adapter" />
   <file name="adapter\prototype-bridge.js" path="adapter" />

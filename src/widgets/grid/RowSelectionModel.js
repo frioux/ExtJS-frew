@@ -111,15 +111,14 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
 
     // private
     onRefresh : function(){
-        var ds = this.grid.dataSource, i, v = this.grid.view;
-        var s = this.selections;
-        s.each(function(r){
-            if((i = ds.indexOfId(r.id)) != -1){
-                v.onRowSelect(i);
-            }else{
-                s.remove(r);
+        var ds = this.grid.dataSource, index;
+        var s = this.getSelections();
+        for(var i = 0, len = s.length; i < len; i++){
+            var r = s[i];
+            if((index = ds.indexOfId(r.id)) != -1){
+                this.selectRow(i, true);
             }
-        });
+        }
     },
 
     // private

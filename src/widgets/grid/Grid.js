@@ -215,58 +215,6 @@ Ext.grid.Grid = function(container, config){
 	     * @param {Number} newIndex
 	     */
 	    "columnmove" : true,
-	    /**
-	     * @event startdrag
-	     * Fires when row(s) start being dragged
-	     * @param {Grid} this
-	     * @param {Ext.GridDD} dd The drag drop object
-	     * @param {event} e The raw browser event
-	     */
-	    "startdrag" : true,
-	    /**
-	     * @event enddrag
-	     * Fires when a drag operation is complete
-	     * @param {Grid} this
-	     * @param {Ext.GridDD} dd The drag drop object
-	     * @param {event} e The raw browser event
-	     */
-	    "enddrag" : true,
-	    /**
-	     * @event dragdrop
-	     * Fires when dragged row(s) are dropped on a valid DD target
-	     * @param {Grid} this
-	     * @param {Ext.GridDD} dd The drag drop object
-	     * @param {String} targetId The target drag drop object
-	     * @param {event} e The raw browser event
-	     */
-	    "dragdrop" : true,
-	    /**
-	     * @event dragover
-	     * Fires while row(s) are being dragged. "targetId" is the id of the Yahoo.util.DD object the selected rows are being dragged over.
-	     * @param {Grid} this
-	     * @param {Ext.GridDD} dd The drag drop object
-	     * @param {String} targetId The target drag drop object
-	     * @param {event} e The raw browser event
-	     */
-	    "dragover" : true,
-	    /**
-	     * @event dragenter
-	     *  Fires when the dragged row(s) first cross another DD target while being dragged
-	     * @param {Grid} this
-	     * @param {Ext.GridDD} dd The drag drop object
-	     * @param {String} targetId The target drag drop object
-	     * @param {event} e The raw browser event
-	     */
-	    "dragenter" : true,
-	    /**
-	     * @event dragout
-	     * Fires when the dragged row(s) leave another DD target while being dragged
-	     * @param {Grid} this
-	     * @param {Ext.GridDD} dd The drag drop object
-	     * @param {String} targetId The target drag drop object
-	     * @param {event} e The raw browser event
-	     */
-	    "dragout" : true,
         /**
          * @event render
          * Fires when the grid is rendered
