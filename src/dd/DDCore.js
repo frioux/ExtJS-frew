@@ -499,7 +499,7 @@ Ext.dd.DragDrop.prototype = {
         if(cd == document.body){
             c = { x: s.left, y: s.top, width: Ext.lib.Dom.getViewWidth(), height: Ext.lib.Dom.getViewHeight()};
         }else{
-            xy = ce.getXY();
+            var xy = ce.getXY();
             c = {x : xy[0]+s.left, y: xy[1]+s.top, width: cd.clientWidth, height: cd.clientHeight};
         }
 
@@ -2168,7 +2168,7 @@ Ext.dd.DragDropMgr = function() {
 
             this._execOnAll("unreg", []);
 
-            for (i in this.elementCache) {
+            for (var i in this.elementCache) {
                 delete this.elementCache[i];
             }
 
