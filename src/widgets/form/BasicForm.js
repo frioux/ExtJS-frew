@@ -100,6 +100,14 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
         this.el.addClass('x-form');
     },
 
+    /**
+     * Get the HTML form Element
+     * @return Ext.Element
+     */
+    getEl: function(){
+        return this.el;
+    },
+
     // private
     onSubmit : function(e){
         e.stopEvent();
