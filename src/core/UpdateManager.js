@@ -461,7 +461,7 @@ Ext.UpdateManager.BasicRenderer.prototype = {
      * updates the elements innerHTML with the responseText - To perform a custom render (i.e. XML or JSON processing),
      * create an object with a "render(el, response)" method and pass it to setRenderer on the UpdateManager.
      * @param {Ext.Element} el The element being rendered
-     * @param {Object} response The YUI Connect response object
+     * @param {Object} response The XMLHttpRequest object
      * @param {UpdateManager} updateManager The calling update manager
      * @param {Function} callback A callback that will need to be called if loadScripts is true on the UpdateManager
      */
