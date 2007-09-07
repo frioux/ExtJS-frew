@@ -285,7 +285,7 @@ Date.createParser = function(format) {
         + "        v.add(Date.HOUR, (v.getGMTOffset() / 100) + (o / -100))) : v\n" // reset to GMT, then add offset
         + ";}";
 
-    Date.parseRegexes[regexNum] = new RegExp("^" + regex + "$");
+    Date.parseRegexes[regexNum] = new RegExp("^" + regex + "$", "i");
     eval(code);
 };
 
