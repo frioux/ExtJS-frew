@@ -1,9 +1,8 @@
 /*
  * Portuguese/Brazil Translation by Weber Souza
  * 08 April 2007
- *
- * Actualized by Allan Brazute Alves (EthraZa)
- * 02 August 2007
+ * Updated by Allan Brazute Alves (EthraZa)
+ * 06 September 2007
  */
 
 Ext.UpdateManager.defaults.indicatorText = '<div class="loading-indicator">Carregando...</div>';
@@ -66,7 +65,7 @@ if(Ext.util.Format){
    Ext.util.Format.date = function(v, format){
       if(!v) return "";
       if(!(v instanceof Date)) v = new Date(Date.parse(v));
-      return v.dateFormat(format || "m/d/Y");
+      return v.dateFormat(format || "d/m/Y");
    };
 }
 
@@ -83,7 +82,10 @@ if(Ext.DatePicker){
       prevText          : 'M&ecirc;s Anterior (Control+Esquerda)',
       monthYearText     : 'Escolha um M&ecirc;s (Control+Cima/Baixo para mover entre os anos)',
       todayTip          : "{0} (Espa&ccedil;o)",
-      format            : "m/d/y"
+      format            : "d/m/Y",
+      okText            : "&#160;OK&#160;",
+      cancelText        : "Cancelar",
+      startDay          : 0
    });
 }
 
@@ -143,6 +145,84 @@ if(Ext.form.VTypes){
       urlText      : 'Este campo deve ser uma URL no formato "http:/'+'/www.dominio.com.br"',
       alphaText    : 'Este campo deve conter apenas letras e _',
       alphanumText : 'Este campo deve conter apenas letras, n&uacute;meros e _'
+   });
+}
+
+if(Ext.form.HtmlEditor){
+   Ext.apply(Ext.form.HtmlEditor.prototype, {
+	 createLinkText : 'Porfavor, entre com a URL do link:',
+	 buttonTips : {
+            bold : {
+               title: 'Negrito (Ctrl+B)',
+               text: 'Deixa o texto selecionado em negrito.',
+               cls: 'x-html-editor-tip'
+            },
+            italic : {
+               title: 'Italico (Ctrl+I)',
+               text: 'Deixa o texto selecionado em italico.',
+               cls: 'x-html-editor-tip'
+            },
+            underline : {
+               title: 'Sublinhado (Ctrl+U)',
+               text: 'Sublinha o texto selecionado.',
+               cls: 'x-html-editor-tip'
+           },
+           increasefontsize : {
+               title: 'Aumentar Texto',
+               text: 'Aumenta o tamanho da fonte.',
+               cls: 'x-html-editor-tip'
+           },
+           decreasefontsize : {
+               title: 'Diminuir Texto',
+               text: 'Diminui o tamanho da fonte.',
+               cls: 'x-html-editor-tip'
+           },
+           backcolor : {
+               title: 'Cor de Fundo',
+               text: 'Muda a cor do fundo do texto selecionado.',
+               cls: 'x-html-editor-tip'
+           },
+           forecolor : {
+               title: 'Cor da Fonte',
+               text: 'Muda a cor do texto selecionado.',
+               cls: 'x-html-editor-tip'
+           },
+           justifyleft : {
+               title: 'Alinhar &agrave; Esquerda',
+               text: 'Alinha o texto &agrave; esquerda.',
+               cls: 'x-html-editor-tip'
+           },
+           justifycenter : {
+               title: 'Centralizar Texto',
+               text: 'Centraliza o texto no editor.',
+               cls: 'x-html-editor-tip'
+           },
+           justifyright : {
+               title: 'Alinhar &agrave; Direita',
+               text: 'Alinha o texto &agrave; direita.',
+               cls: 'x-html-editor-tip'
+           },
+           insertunorderedlist : {
+               title: 'Lista com Marcadores',
+               text: 'Inicia uma lista com marcadores.',
+               cls: 'x-html-editor-tip'
+           },
+           insertorderedlist : {
+               title: 'Lista Numerada',
+               text: 'Inicia uma lista numerada.',
+               cls: 'x-html-editor-tip'
+           },
+           createlink : {
+               title: 'Hyperliga&ccedil;&atilde;o',
+               text: 'Transforma o texto selecionado em um hyperlink.',
+               cls: 'x-html-editor-tip'
+           },
+           sourceedit : {
+               title: 'Editar Fonte',
+               text: 'Troca para o modo de edi&ccedil;&atilde;o de c&oacute;digo fonte.',
+               cls: 'x-html-editor-tip'
+           }
+        }
    });
 }
 

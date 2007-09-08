@@ -68,7 +68,7 @@ if(Ext.util.Format){
    Ext.util.Format.date = function(v, format){
       if(!v) return "";
       if(!(v instanceof Date)) v = new Date(Date.parse(v));
-      return v.dateFormat(format || "d/m/Y");
+      return v.dateFormat(format || "m/d/Y");
    };
 }
 
@@ -76,17 +76,19 @@ if(Ext.DatePicker){
    Ext.apply(Ext.DatePicker.prototype, {
       todayText         : "Bugün",
       minText           : "Bu tarih minimum tarihten önce",
-      maxText           : "Bu tarih maximum tarihten sonra",
+      maxText           : "Bu tarih maximum tarihten önce",
       disabledDaysText  : "",
       disabledDatesText : "",
-      monthNames	: Date.monthNames,
-      dayNames		: Date.dayNames,
-      nextText          : 'Sonraki Ay (Ctrl+Sağ)',
-      prevText          : 'Önceki Ay (Ctrl+Sol)',
-      monthYearText     : 'Bir ay seçin (Yılları değiştirmek için Ctrl+Yukarı/Aşağı)',
-      todayTip          : "{0} (Boşluk)",
+      monthNames		: Date.monthNames,
+      dayNames			: Date.dayNames,
+      nextText          : 'Sonraki ay (Ctrl+Sag)',
+      prevText          : 'Önceki ay (Ctrl+Sol)',
+   	  monthYearText     : 'Bir ay seçin (Yillari değiştirmek için Ctrl+Yukarı/Aşağı)',
+      todayTip          : "{0} (Bosluk)",
       format            : "d/m/y",
-      startDay          : 1
+      okText		: "Tamam",
+      cancelText	: "&#160; İptal &#160;&#160;",
+      startDay		: 0
    });
 }
 
@@ -128,7 +130,7 @@ if(Ext.form.DateField){
       disabledDatesText : "Pasif",
       minText           : "Bu alana {0} tarihinden sonraki bir tarih girilmeli",
       maxText           : "Bu alana {0} tarihinden önceki bir tarih girilmeli",
-      invalidText       : "{0} geçerli bir tarih değil - şu formatta olmalı {1}",
+      invalidText       : "{0} geçerli bir tarih değil - {1} biçiminde olmalı",
       format            : "d/m/y"
    });
 }
@@ -142,26 +144,104 @@ if(Ext.form.ComboBox){
 
 if(Ext.form.VTypes){
    Ext.apply(Ext.form.VTypes, {
-      emailText    : 'Bu alan bir e-mail adresi formatında olmalı "kullanici@alanadi.com"',
-      urlText      : 'Bu alan bir URL formatında olmalı "http:/'+'/www.alanadi.com"',
+      emailText    : 'Bu alan bir e-mail adresi biçiminde olmalı "kullanici@alanadi.com"',
+      urlText      : 'Bu alan bir URL biçiminde olmalu "http:/'+'/www.alanadi.com"',
       alphaText    : 'Bu alan sadece harf ve _ içermeli',
-      alphanumText : 'Bu alan sadece harf, sayı ve _ içermeli'
+	  alphanumText : 'Bu alan sadece harf, sayı ve _ içermeli'
+   });
+}
+
+if(Ext.form.HtmlEditor){
+   Ext.apply(Ext.form.HtmlEditor.prototype, {
+	 createLinkText : 'Lütfen link için URL giriniz:',
+	 buttonTips : {
+            bold : {
+               title: 'Kalın (Ctrl+B)',
+               text: 'Seçilen metni kalın yap.',
+               cls: 'x-html-editor-tip'
+            },
+            italic : {
+               title: 'Yatık (Ctrl+I)',
+               text: 'Seçilen metni yatık yap.',
+               cls: 'x-html-editor-tip'
+            },
+            underline : {
+               title: 'Altçizgi (Ctrl+U)',
+               text: 'Seçilen metnin altını çiz.',
+               cls: 'x-html-editor-tip'
+           },
+           increasefontsize : {
+               title: 'Metni büyüt',
+               text: 'Yazi tipini büyüt.',
+               cls: 'x-html-editor-tip'
+           },
+           decreasefontsize : {
+               title: 'Metni küçült',
+               text: 'Yazi tipini küçült.',
+               cls: 'x-html-editor-tip'
+           },
+           backcolor : {
+               title: 'Metin arkaplan rengi',
+               text: 'Seçilen metnin arkaplan rengini değiştir.',
+               cls: 'x-html-editor-tip'
+           },
+           forecolor : {
+               title: 'Metin rengi',
+               text: 'Seçilen metnin rengini değiştir.',
+               cls: 'x-html-editor-tip'
+           },
+           justifyleft : {
+               title: 'Metni sola yasla',
+               text: 'Metni sola yasla',
+               cls: 'x-html-editor-tip'
+           },
+           justifycenter : {
+               title: 'Metni ortala',
+               text: 'Metni ortala',
+               cls: 'x-html-editor-tip'
+           },
+           justifyright : {
+               title: 'Metni sağa yasla',
+               text: 'Metni sağa yasla',
+               cls: 'x-html-editor-tip'
+           },
+           insertunorderedlist : {
+               title: 'Sırasız liste',
+               text: 'Sırasız liste başlat.',
+               cls: 'x-html-editor-tip'
+           },
+           insertorderedlist : {
+               title: 'Sıralı liste',
+               text: 'Sıralı liste başlat',
+               cls: 'x-html-editor-tip'
+           },
+           createlink : {
+               title: 'Bağlanti',
+               text: 'Seçilen yazıya bağlantı ver.',
+               cls: 'x-html-editor-tip'
+           },
+           sourceedit : {
+               title: 'Kaynağı düzenle',
+               text: 'Kaynak düzenle görünümüne geç.',
+               cls: 'x-html-editor-tip'
+           }
+        }
    });
 }
 
 if(Ext.grid.GridView){
    Ext.apply(Ext.grid.GridView.prototype, {
-      sortAscText  : "Artarak Sırala",
-      sortDescText : "Azalarak Sırala",
-      lockText     : "Sütünu Kilitle",
-      unlockText   : "Sütunun Kilidini Kaldır",
+      sortAscText  : "Artan sıra",
+      sortDescText : "Azalan sıra",
+      lockText     : "Sütunu kilitle",
+      unlockText   : "Sütunun kilidini kaldır",
       columnsText  : "Sütunlar"
    });
 }
 
 if(Ext.grid.PropertyColumnModel){
    Ext.apply(Ext.grid.PropertyColumnModel.prototype, {
-      nameText   : "İsim",
+      nameText   : "Ad",
       valueText  : "Değer",
       dateFormat : "j/m/Y"
    });
