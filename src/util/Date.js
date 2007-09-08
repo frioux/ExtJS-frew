@@ -326,11 +326,11 @@ Date.formatCodeToRegex = function(character, currentGroup) {
             s:"(?:\\d{2})"};
     case "F":
         return {g:1,
-            c:"m = parseInt(Date.monthNumbers[results[" + currentGroup + "].substring(0, 3)], 10);\n",
+            c:"m = parseInt(Date.monthNumbers[results[" + currentGroup + "].substring(0, 1).toUpperCase() + results[" + currentGroup + "].substring(1, 3).toLowerCase()], 10);\n",
             s:"(" + Date.monthNames.join("|") + ")"};
     case "M":
         return {g:1,
-            c:"m = parseInt(Date.monthNumbers[results[" + currentGroup + "]], 10);\n",
+            c:"m = parseInt(Date.monthNumbers[results[" + currentGroup + "].substring(0, 1).toUpperCase() + results[" + currentGroup + "].substring(1, 3).toLowerCase()], 10);\n",
             s:"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)"};
     case "n":
         return {g:1,
