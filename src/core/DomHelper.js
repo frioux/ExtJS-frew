@@ -1,7 +1,19 @@
 /**
  * @class Ext.DomHelper
- * Utility class for working with DOM and/or Templates. It transparently supports using HTML fragments or DOM.
- * For more information see <a href="http://www.jackslocum.com/yui/2006/10/06/domhelper-create-elements-using-dom-html-fragments-or-templates/">this blog post with examples</a>.
+ * Utility class for working with DOM and/or Templates. It transparently supports using HTML fragments or DOM.<br>
+ * This is an example, where an unordered list with 5 children items is appended to an existing element with id 'my-div':<br>
+ <pre><code>
+var list = dh.append('my-div', {
+    tag: 'ul', cls: 'my-list', children: [
+        {tag: 'li', id: 'item0', html: 'List Item 0'}, 
+        {tag: 'li', id: 'item1', html: 'List Item 1'}, 
+        {tag: 'li', id: 'item2', html: 'List Item 2'}, 
+        {tag: 'li', id: 'item3', html: 'List Item 3'}, 
+        {tag: 'li', id: 'item4', html: 'List Item 4'}
+    ]
+});
+ </code></pre>
+ * For more information and examples, see <a href="http://www.jackslocum.com/yui/2006/10/06/domhelper-create-elements-using-dom-html-fragments-or-templates/">the original blog post</a>.
  * @singleton
  */
 Ext.DomHelper = function(){
