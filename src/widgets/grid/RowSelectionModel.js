@@ -120,6 +120,9 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
                 this.selectRow(index, true);
             }
         }
+        if(s.length != this.selections.getCount()){
+            this.fireEvent("selectionchange", this);
+        }
     },
 
     // private
