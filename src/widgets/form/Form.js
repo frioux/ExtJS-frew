@@ -2,6 +2,16 @@
  * @class Ext.form.Form
  * @extends Ext.form.BasicForm
  * Adds the ability to dynamically render forms with JavaScript to {@link Ext.form.BasicForm}.
+ * <br><br>
+ * By default, Ext Forms are submitted through Ajax, using {@link Ext.form.Action}.
+ * To enable normal browser submission of an Ext Form, override the Form's onSubmit,
+ * and submit methods:<br><br><pre><code>
+    var myForm = new Ext.form.Form({
+        onSubmit: Ext.emptyFn,
+        submit: function() {
+            this.getEl().dom.submit();
+        }
+    });</code></pre><br>
  * @constructor
  * @param {Object} config Configuration options
  */

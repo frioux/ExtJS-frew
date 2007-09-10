@@ -2,6 +2,16 @@
  * @class Ext.form.BasicForm
  * @extends Ext.util.Observable
  * Supplies the functionality to do "actions" on forms and initialize Ext.form.Field types on existing markup.
+ * <br><br>
+ * By default, Ext Forms are submitted through Ajax, using {@link Ext.form.Action}.
+ * To enable normal browser submission of an Ext Form, override the Form's onSubmit,
+ * and submit methods:<br><br><pre><code>
+    var myForm = new Ext.form.BasicForm("form-el-id", {
+        onSubmit: Ext.emptyFn,
+        submit: function() {
+            this.getEl().dom.submit();
+        }
+    });</code></pre><br>
  * @constructor
  * @param {String/HTMLElement/Ext.Element} el The form element or its id
  * @param {Object} config Configuration options
