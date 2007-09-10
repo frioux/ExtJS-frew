@@ -81,7 +81,8 @@ if(Ext.DatePicker){
       prevText          : 'Mese precedente (Ctrl+Sinistra)',
       monthYearText     : 'Scegli un mese (Ctrl+Su/Giu per cambiare anno)',
       todayTip          : "{0} (Barra spaziatrice)",
-      format            : "d/m/y"
+      format            : "d/m/y",
+      cancelText	: "Annulla"
    });
 }
 
