@@ -1,18 +1,67 @@
-// define the action interface
+/**
+ * @class Ext.form.Action
+ * The subclasses of this class provide actions to perform upon {@link Ext.form.BasicForm}s.
+ * <br><br>
+ * Instances of this class are only created by am {@link Ext.form.BasicForm} when 
+ * the Form needs to perform an action such as submit or load.
+ * <br><br>
+ * The instance of Action which performed the action is passed to the callback 
+ * of the Form's action methods, and to the {@link Ext.form.BasicForm#actioncomplete}
+ * and {@link Ext.form.BasicForm#actionfailed} event handlers.
+ */
 Ext.form.Action = function(form, options){
     this.form = form;
     this.options = options || {};
 };
 
+/**
+ * Failure type returned when client side validation of the Form fails
+ * thus aborting a submit action.
+ * @type {String}
+ */
 Ext.form.Action.CLIENT_INVALID = 'client';
+/**
+ * Failure type returned when server side validation of the Form fails
+ * indicating that field-specific error messages have been returned in the
+ * response's <pre>errors</pre> property.
+ * @type {String}
+ */
 Ext.form.Action.SERVER_INVALID = 'server';
+/**
+ * Failure type returned when a communication error happens when attempting
+ * to send a request to the remote server.
+ * @type {String}
+ */
 Ext.form.Action.CONNECT_FAILURE = 'connect';
+/**
+ * Failure type returned when no field values are returned in the respons's
+ * <pre>data</pre> property.
+ * @type {String}
+ */
 Ext.form.Action.LOAD_FAILURE = 'load';
 
 Ext.form.Action.prototype = {
+/**
+ * The type of action this Action instance performs.
+ * Currently only "submit" and "load" are supported.
+ * @type {String}
+ */
     type : 'default',
+/**
+ * The type of failure detected.
+ * @type {String}
+ */
     failureType : undefined,
+/**
+ * The XMLHttpRequest object used to perform the action.
+ * @type {Object}
+ */
     response : undefined,
+/**
+ * The decoded response object containing a boolean <success> property and
+ * other, action-specific preoperties.
+ * @type {Object}
+ */
     result : undefined,
 
     // interface method
@@ -88,6 +137,32 @@ Ext.form.Action.prototype = {
     }
 };
 
+/**
+ * @class Ext.form.Action.Submit
+ * A class which handles submission of data from {@link Ext.form.BasicForm}s
+ * and processes the returned response. 
+ * <br><br>
+ * Instances of this class are only created by am {@link Ext.form.BasicForm} when 
+ * submitting.
+ * <br><br>
+ * A response packet must contain a boolean <pre>success</pre> property, and, optionally
+ * an <pre>errors</pre> property. The <pre>errors</pre> property contains error
+ * messages for invalid fields.
+ * <br><br>
+ * By default, response packets are assumed to be JSON, so a typical response
+ * packet may look like this:
+ * <br><br><pre><code>
+{
+    success: false,
+    errors: {
+        clientCode: "Client not found",
+        portOfLoading: "This field must not be null"
+    }
+}</code></pre>
+ * <br><br>
+ * Other data may be placed into the response for processing the the {Ext.form.BasicForm}'s callback
+ * or event handler methods.
+ */
 Ext.form.Action.Submit = function(form, options){
     Ext.form.Action.Submit.superclass.constructor.call(this, form, options);
 };
@@ -150,6 +225,34 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
 });
 
 
+/**
+ * @class Ext.form.Action.Submit
+ * A class which handles loading of data from a server into the Fields of
+ * an {@link Ext.form.BasicForm}s. 
+ * <br><br>
+ * Instances of this class are only created by am {@link Ext.form.BasicForm} when 
+ * submitting.
+ * <br><br>
+ * A response packet must contain a boolean <pre>success</pre> property, and
+ * an <pre>data</pre> property. The <pre>data</pre> property contains the
+ * values of Fields to load. The individual value object for each Field
+ * is passed to the Field's {@link Ext.form.Field#setValue} method.
+ * <br><br>
+ * By default, response packets are assumed to be JSON, so a typical response
+ * packet may look like this:
+ * <br><br><pre><code>
+{
+    success: true,
+    data: {
+        clientName: "Fred. Olsen Lines",
+        portOfLoading: "FXT",
+        portOfDischarge: "OSL"
+    }
+}</code></pre>
+ * <br><br>
+ * Other data may be placed into the response for processing the the {Ext.form.BasicForm}'s callback
+ * or event handler methods.
+ */
 Ext.form.Action.Load = function(form, options){
     Ext.form.Action.Load.superclass.constructor.call(this, form, options);
     this.reader = this.form.reader;
