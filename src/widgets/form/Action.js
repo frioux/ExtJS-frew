@@ -58,7 +58,7 @@ Ext.form.Action.prototype = {
  */
     response : undefined,
 /**
- * The decoded response object containing a boolean <success> property and
+ * The decoded response object containing a boolean <pre>success</pre> property and
  * other, action-specific preoperties.
  * @type {Object}
  */
