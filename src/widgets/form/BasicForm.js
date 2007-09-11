@@ -30,21 +30,21 @@ Ext.form.BasicForm = function(el, config){
          * @event beforeaction
          * Fires before any action is performed. Return false to cancel the action.
          * @param {Form} this
-         * @param {Action} action The action to be performed
+         * @param {Action} action The {@link Ext.form.Action} to be performed
          */
         beforeaction: true,
         /**
          * @event actionfailed
          * Fires when an action fails.
          * @param {Form} this
-         * @param {Action} action The action that failed
+         * @param {Action} action The {@link Ext.form.Action} that failed
          */
         actionfailed : true,
         /**
          * @event actioncomplete
          * Fires when an action is completed.
          * @param {Form} this
-         * @param {Action} action The action that completed
+         * @param {Action} action The {@link Ext.form.Action} that completed
          */
         actioncomplete : true
     });
@@ -153,11 +153,15 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     },
 
     /**
-     * Performs a predefined action (submit or load) or custom actions you define on this form.
-     * @param {String} actionName The name of the action type
-     * @param {Object} options (optional) The options to pass to the action.  All of the config options listed
-     * below are supported by both the submit and load actions unless otherwise noted (custom actions could also
-     * accept other config options):
+     * Performs a predefined action ({@link Ext.form.Action.Submit} or
+     * {@link Ext.form.Action.Load}) or  a custom extension of {@link Ext.form.Action} 
+     * to perform application-specific processing.
+     * @param {String/Object} actionName The name of the predefined action type,
+     * or instance of {@link Ext.form.Action} to perform.
+     * @param {Object} options (optional) The options to pass to the {@link Ext.form.Action}. 
+     * All of the config options listed below are supported by both the submit
+     * and load actions unless otherwise noted (custom actions could also accept
+     * other config options):
      * <pre>
 Property          Type             Description
 ----------------  ---------------  ----------------------------------------------------------------------------------
@@ -315,7 +319,16 @@ clientValidation  Boolean          Applies to submit only.  Pass true to call fo
 
     /**
      * Set values for fields in this form in bulk.
-     * @param {Array/Object} values Either an array in the form [{id:'fieldId', value:'foo'},...] or an object hash of {id: value, id2: value2}
+     * @param {Array/Object} values Either an array in the form:<br><br><code><pre>
+[{id:'clientName', value:'Fred. Olsen Lines'},
+ {id:'portOfLoading', value:'FXT'},
+ {id:'portOfDischarge', value:'OSL'} ]</pre></code><br><br>
+     * or an object hash of the form:<br><br><code><pre>
+{
+    clientName: 'Fred. Olsen Lines',
+    portOfLoading: 'FXT',
+    portOfDischarge: 'OSL'
+}</pre></code><br>
      * @return {BasicForm} this
      */
     setValues : function(values){
