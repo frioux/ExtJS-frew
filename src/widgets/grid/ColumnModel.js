@@ -1,8 +1,13 @@
 /**
  * @class Ext.grid.ColumnModel
  * @extends Ext.util.Observable
- * This is the default implementation of a ColumnModel used by the Grid. It defines
- * the columns in the grid.
+ * This is the default implementation of a ColumnModel used by the Grid. This class is initialized
+ * with an Array of column config objects.
+ * <br><br>
+ * An individual column's config object defines the header string, the {@link Ext.data.Record}
+ * field the column draws its data from, an otional rendering function to provide customized
+ * data formatting, and the ability to apply a CSS class to all cells in a column through its
+ * {@link #id} config option.<br>
  * <br>Usage:<br>
  <pre><code>
  var colModel = new Ext.grid.ColumnModel([
@@ -104,6 +109,14 @@ Ext.grid.ColumnModel = function(config){
     Ext.grid.ColumnModel.superclass.constructor.call(this);
 };
 Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
+    /**
+     * @cfg {String} id (Optional) Defaults to the column's initial ordinal position.
+     * A name which identifies this column. The id is used to create a CSS class which
+     * is applied to all table cells in that column of the form <pre>x-grid-td-<b>id<b></pre>
+     * <br><br>
+     * The {@link Ext.grid.Grid#autoExpandColumn} grid config option references the column
+     * via this identifier.
+     */
     /**
      * @cfg {String} header The header text to display in the Grid view.
      */
