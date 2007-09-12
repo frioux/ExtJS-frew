@@ -154,19 +154,24 @@ Ext.extend(Ext.UpdateManager, Ext.util.Observable, {
         return this.el;
     },
     /**
-     * Performs an async request, updating this element with the response. If params are specified it uses POST, otherwise it uses GET.
+     * Performs an <b>asynchronous</b> request, updating this element with the response.
+     * If params are specified it uses POST, otherwise it uses GET.<br>
+     * <p>
+     * <b>NB:</b> Due to the asynchronous nature of remote server requests, the returned data will
+     * not be available to the line immediately following the load() call. To process the returned
+     * data, use the callback option, or an {@link #event-update update} event handler.
      * @param {Object/String/Function} url The url for this request or a function to call to get the url or a config object containing any of the following options:
 <pre><code>
-um.update({<br/>
-    url: "your-url.php",<br/>
-    params: {param1: "foo", param2: "bar"}, // or a URL encoded string<br/>
-    callback: yourFunction,<br/>
-    scope: yourObject, //(optional scope)  <br/>
-    discardUrl: false, <br/>
-    nocache: false,<br/>
-    text: "Loading...",<br/>
-    timeout: 30,<br/>
-    scripts: false<br/>
+um.update({
+    url: "your-url.php",
+    params: {param1: "foo", param2: "bar"}, // or a URL encoded string
+    callback: yourFunction,
+    scope: yourObject, //(optional scope)  
+    discardUrl: false, 
+    nocache: false,
+    text: "Loading...",
+    timeout: 30,
+    scripts: false
 });
 </code></pre>
      * The only required property is url. The optional properties nocache, text and scripts
