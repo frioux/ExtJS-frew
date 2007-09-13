@@ -151,8 +151,10 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
     },
 
     /**
-     * Returns the UI object for this node
-     * @return {TreeNodeUI}
+     * Returns the UI object for this node.
+     * @return {TreeNodeUI} The object which is providing the user interface for this tree
+     * node. Unless otherwise specified in the {@link #uiProvider}, this will be an instance
+     * of {@link Ext.tree.TreeNodeUI}
      */
     getUI : function(){
         return this.ui;

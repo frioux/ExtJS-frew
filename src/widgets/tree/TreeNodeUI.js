@@ -1,7 +1,15 @@
 /**
+ * @class Ext.tree.TreeNodeUI
+ * This class provides the default UI implementation for Ext TreeNodes.
  * The TreeNode UI implementation is separate from the
- * tree implementation. Unless you are customizing the tree UI,
- * you should never have to use this directly.
+ * tree implementation, and allows customizing of the appearance of
+ * tree nodes.<br>
+ * <p>
+ * If you are customizing the Tree's user interface, you
+ * may need to extend this class, but you should never need to instantiate this class.<br>
+ * <p>
+ * This class provides access to the user interface components of an Ext TreeNode, through
+ * {@link Ext.tree.TreeNode#getUI}
  */
 Ext.tree.TreeNodeUI = function(node){
     this.node = node;
@@ -69,12 +77,21 @@ Ext.tree.TreeNodeUI.prototype = {
         }
     },
 
+/**
+ * Adds one or more CSS classes to the node's UI element.
+ * Duplicate classes are automatically filtered out.
+ * @param {String/Array} className The CSS class to add, or an array of classes
+ */
     addClass : function(cls){
         if(this.elNode){
             Ext.fly(this.elNode).addClass(cls);
         }
     },
 
+/**
+ * Removes one or more CSS classes from the node's UI element.
+ * @param {String/Array} className The CSS class to remove, or an array of classes
+ */
     removeClass : function(cls){
         if(this.elNode){
             Ext.fly(this.elNode).removeClass(cls);
@@ -241,6 +258,11 @@ Ext.tree.TreeNodeUI.prototype = {
         }
     },
 
+/**
+ * Sets the checked status of the tree node to the passed value, or, if no value was passed,
+ * toggles the checked status. If the node was rendered with no checkbox, this has no effect.
+ * @param {Boolean} (optional) The new checked status.
+ */
     toggleCheck : function(value){
         var cb = this.checkbox;
         if(cb){
@@ -402,18 +424,35 @@ Ext.tree.TreeNodeUI.prototype = {
         this.textNode = cs[index].firstChild;
     },
 
+/**
+ * Returns the &lt;a> element that provides focus for the node's UI.
+ * @return {HtmlElement} The DOM anchor element.
+ */
     getAnchor : function(){
         return this.anchor;
     },
 
+/**
+ * Returns the text node
+ * @return {HtmlNode} The DOM text node.
+ */
     getTextEl : function(){
         return this.textNode;
     },
 
+/**
+ * Returns the icon &lt;img> element.
+ * @return {HtmlElement} The DOM image element.
+ */
     getIconEl : function(){
         return this.iconNode;
     },
 
+/**
+ * Returns the checked status of the node. If the node was rendered with no
+ * checkbox, it returns false;
+ * @return {Boolean} The checked flag.
+ */
     isChecked : function(){
         return this.checkbox ? this.checkbox.checked : false;
     },
