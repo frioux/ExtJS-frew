@@ -28,6 +28,7 @@ Ext.exampledata.languages = [
 	['ro', 'Romanian', 'utf-8'],
 	['ru', 'Russian', 'utf-8'],
 	['sr_RS', 'Serbian Cyrillic', 'UTF-8'],
+	['sr', 'Serbian Latin', 'utf-8'],
 	['zh_CN', 'Simplified Chinese', 'utf-8'],
 	['sk', 'Slovak', 'utf-8'],
 	['sl', 'Slovenian', 'utf-8'],
