@@ -1,6 +1,12 @@
 /**
  * @class Ext.grid.GridView
  * @extends Ext.util.Observable
+ * This class encapsulates the user interface of an {@link Ext.grid.Grid}<p>
+ * Methods of this class may be used to access user interface elements to enable
+ * special display effects. Do not change the DOM structure of the user interface.
+ * <br>
+ * <p>This class does not provide ways to manipulate the underlying data. The data
+ * model of a Grid is held in an {@link Ext.data.Store}.
  *
  * @constructor
  * @param {Object} config
@@ -329,6 +335,11 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 	    );
     },
 
+/**
+ * Return the &ltTD> HtmlElement which represents the Grid's header for the specified column index.
+ * @param {Number} index The column index
+ * @return {HtmlElement} The &ltTD> element.
+ */
 	getHeaderCell : function(index){
 	    return Ext.DomQuery.select(this.headerSelector)[index];
 	},
@@ -353,6 +364,11 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 	    return this.getLockedTable().rows[index];
 	},
 
+/**
+ * Return the &ltTR> HtmlElement which represents a Grid row for the specified index.
+ * @param {Number} index The row index
+ * @return {HtmlElement} The &ltTR> element.
+ */
 	getRow : function(index){
 	    return this.getBodyTable().rows[index];
 	},
@@ -372,6 +388,12 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 	    return this.rowEl;
 	},
 
+/**
+ * Returns the grid's table cell element at the specified coordinates.
+ * @param {Number} rowIndex The row index in which to find the cell.
+ * @param {Number} colIndex The column index of the cell.
+ * @return The &ltTD> HtmlElement at the specified coordinates.
+ */
 	getCell : function(rowIndex, colIndex){
 	    var locked = this.cm.getLockedCount();
 	    var source;
