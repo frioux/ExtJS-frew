@@ -87,7 +87,7 @@
 }
 
 .x-menu-plain {
-	background:#fff;
+	background:#fff !important;
 }
 .x-menu-date-item{
 	padding:0;
