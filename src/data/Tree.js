@@ -94,8 +94,13 @@ Ext.data.Tree = function(root){
 };
 
 Ext.extend(Ext.data.Tree, Ext.util.Observable, {
+    /**
+     * @cfg {String} pathSeparator
+     * The token used to separate paths in node ids (defaults to '/').
+     */
     pathSeparator: "/",
 
+    // private
     proxyNodeEvent : function(){
         return this.fireEvent.apply(this, arguments);
     },
@@ -130,10 +135,12 @@ Ext.extend(Ext.data.Tree, Ext.util.Observable, {
         return this.nodeHash[id];
     },
 
+    // private
     registerNode : function(node){
         this.nodeHash[node.id] = node;
     },
 
+    // private
     unregisterNode : function(node){
         delete this.nodeHash[node.id];
     },
@@ -277,6 +284,7 @@ Ext.data.Node = function(attributes){
 };
 
 Ext.extend(Ext.data.Node, Ext.util.Observable, {
+    // private
     fireEvent : function(evtName){
         // first do standard event for this node
         if(Ext.data.Node.superclass.fireEvent.apply(this, arguments) === false){
