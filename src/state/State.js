@@ -198,9 +198,9 @@ Ext.state.Manager = function(){
  <pre><code>
    var cp = new Ext.state.CookieProvider({
        path: "/cgi-bin/",
-       expires: new Date(new Date().getTime()+(1000*60*60*24*30)); //30 days
+       expires: new Date(new Date().getTime()+(1000*60*60*24*30)), //30 days
        domain: "extjs.com"
-   })
+   });
    Ext.state.Manager.setProvider(cp);
  </code></pre>
  * @cfg {String} path The path for which the cookie is active (defaults to root '/' which makes it active for all pages in the site)
