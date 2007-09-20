@@ -5,9 +5,10 @@
  * Instances of this class are only created by am {@link Ext.form.BasicForm} when 
  * the Form needs to perform an action such as submit or load.
  * <br><br>
- * The instance of Action which performed the action is passed to the callback 
- * of the Form's action methods, and to the {@link Ext.form.BasicForm#actioncomplete}
- * and {@link Ext.form.BasicForm#actionfailed} event handlers.
+ * The instance of Action which performed the action is passed to the success
+ * and failure callbacks of the Form's action methods, and to the
+ * {@link Ext.form.BasicForm#actioncomplete} and {@link Ext.form.BasicForm#actionfailed}
+ * event handlers.
  */
 Ext.form.Action = function(form, options){
     this.form = form;
@@ -18,6 +19,7 @@ Ext.form.Action = function(form, options){
  * Failure type returned when client side validation of the Form fails
  * thus aborting a submit action.
  * @type {String}
+ * @static
  */
 Ext.form.Action.CLIENT_INVALID = 'client';
 /**
@@ -25,30 +27,67 @@ Ext.form.Action.CLIENT_INVALID = 'client';
  * indicating that field-specific error messages have been returned in the
  * response's <pre>errors</pre> property.
  * @type {String}
+ * @static
  */
 Ext.form.Action.SERVER_INVALID = 'server';
 /**
  * Failure type returned when a communication error happens when attempting
  * to send a request to the remote server.
  * @type {String}
+ * @static
  */
 Ext.form.Action.CONNECT_FAILURE = 'connect';
 /**
- * Failure type returned when no field values are returned in the respons's
+ * Failure type returned when no field values are returned in the response's
  * <pre>data</pre> property.
  * @type {String}
+ * @static
  */
 Ext.form.Action.LOAD_FAILURE = 'load';
 
 Ext.form.Action.prototype = {
 /**
+ * @cfg {String} url The URL that the Action is to invoke.
+ */
+/**
+ * @cfg {String} method The HTTP method to use to access the requested URL. Defaults to the
+ * {@link Ext.form.Form}'s method, or if that is not specified, the underlying DOM form's method.
+ */
+/**
+ * @cfg {Mixed} params Extra parameter values to pass. These are added to the Form's
+ * {@link Ext.form.BasicForm#baseParams} and passed to the specified URL along with the Form's
+ * input fields.
+ */
+/**
+ * @cfg {Function} success The function to call when a valid success return packet is recieved.
+ * The function is passed the following parameters:
+ * <ul>
+ * <li><code>form</code> : Ext.form.Form<div class="sub-desc">The form that requested the action</div></li>
+ * <li><code>action</code> : Ext.form.Action<div class="sub-desc">The Action class. The {@link #result}
+ * property of this object may be examined to perform custom postprocessing.</div></li>
+ * </ul>
+ */
+/**
+ * @cfg {Function} failure The function to call when a failure packet was recieved, or when an
+ * error ocurred in the Ajax communication. 
+ * The function is passed the following parameters:
+ * <ul>
+ * <li><code>form</code> : Ext.form.Form<div class="sub-desc">The form that requested the action</div></li>
+ * <li><code>action</code> : Ext.form.Action<div class="sub-desc">The Action class. If an Ajax
+ * error ocurred, the failure type will be in {@link #failureType}. The {@link #result}
+ * property of this object may be examined to perform custom postprocessing.</div></li>
+ * </ul>
+*/
+
+/**
  * The type of action this Action instance performs.
- * Currently only "submit" and "load" are supported.
+ * Currently only "submit" and "load" are supplied.
  * @type {String}
  */
     type : 'default',
 /**
- * The type of failure detected.
+ * The type of failure detected. See {@link #CLIENT_INVALID}, {@link #SERVER_INVALID},
+ * {@link #CONNECT_FAILURE}, {@link #LOAD_FAILURE}
  * @type {String}
  */
     failureType : undefined,
@@ -59,7 +98,7 @@ Ext.form.Action.prototype = {
     response : undefined,
 /**
  * The decoded response object containing a boolean <pre>success</pre> property and
- * other, action-specific preoperties.
+ * other, action-specific properties.
  * @type {Object}
  */
     result : undefined,
@@ -168,6 +207,11 @@ Ext.form.Action.Submit = function(form, options){
 };
 
 Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
+    /**
+    * @cfg {boolean} clientValidation Applies to submit only. Pass true to call form.isValid()
+    * prior to posting to validate the form on the client (defaults to false)
+    */
+
     type : 'submit',
 
     run : function(){
@@ -233,7 +277,7 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
  * Instances of this class are only created by am {@link Ext.form.BasicForm} when 
  * submitting.
  * <br><br>
- * A response packet must contain a boolean <pre>success</pre> property, and
+ * A response packet <b>must<b> contain a boolean <pre>success</pre> property, and
  * an <pre>data</pre> property. The <pre>data</pre> property contains the
  * values of Fields to load. The individual value object for each Field
  * is passed to the Field's {@link Ext.form.Field#setValue} method.
