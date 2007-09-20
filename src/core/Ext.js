@@ -394,6 +394,12 @@ Company.data.CustomStore = function(config) { ... }
             return Ext.ComponentMgr.get(id);
         },
 
+        /**
+         * Utility method for validating that a value is numeric, returning the specified default value if it is not.
+         * @param {Mixed} value Should be a number, but any type will be handled appropriately
+         * @param {Number} defaultValue The value to return if the original value is non-numeric
+         * @return {Number} Value, if numeric, else defaultValue
+         */
         num : function(v, defaultValue){
             if(typeof v != 'number'){
                 return defaultValue;
@@ -401,6 +407,16 @@ Company.data.CustomStore = function(config) { ... }
             return v;
         },
 
+        /**
+         * Attempts to destroy any objects passed to it by removing all event listeners, removing them from the
+         * DOM (if applicable) and calling their destroy functions (if available).  This method is primarily
+         * intended for arguments of type {@link Ext.Element} and {@link Ext.Component}, but any subclass of
+         * {@link Ext.util.Observable} can be passed in.  Any number of elements and/or components can be
+         * passed into this function in a single call as separate arguments.
+         * @param {Mixed} arg1 An {@link Ext.Element} or {@link Ext.Component} to destroy
+         * @param {Mixed} (optional) arg2
+         * @param {Mixed} (optional) etc...
+         */
         destroy : function(){
             for(var i = 0, a = arguments, len = a.length; i < len; i++) {
                 var as = a[i];
