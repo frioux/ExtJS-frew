@@ -204,8 +204,8 @@ Ext.DomHelper = function(){
     useDom : false,
 
     /**
-     * Returns the markup for the passed Element(s) config
-     * @param {Object} o The Dom object spec (and children)
+     * Returns the markup for the passed Element(s) config.
+     * @param {Object} o The DOM object spec (and children)
      * @return {String}
      */
     markup : function(o){
@@ -213,7 +213,7 @@ Ext.DomHelper = function(){
     },
 
     /**
-     * Applies a style specification to an element
+     * Applies a style specification to an element.
      * @param {String/HTMLElement} el The element to apply styles to
      * @param {String/Object/Function} styles A style specification string eg "width:100px", or object in the form {width:"100px"}, or
      * a function which returns such a specification.
@@ -238,7 +238,7 @@ Ext.DomHelper = function(){
     },
 
     /**
-     * Inserts an HTML fragment into the Dom
+     * Inserts an HTML fragment into the DOM.
      * @param {String} where Where to insert the html in relation to el - beforeBegin, afterBegin, beforeEnd, afterEnd.
      * @param {HTMLElement} el The context element
      * @param {String} html The HTML fragmenet
@@ -307,9 +307,9 @@ Ext.DomHelper = function(){
     },
 
     /**
-     * Creates new Dom element(s) and inserts them before el
+     * Creates new DOM element(s) and inserts them before el.
      * @param {String/HTMLElement/Element} el The context element
-     * @param {Object/String} o The Dom object spec (and children) or raw HTML blob
+     * @param {Object/String} o The DOM object spec (and children) or raw HTML blob
      * @param {Boolean} returnElement (optional) true to return a Ext.Element
      * @return {HTMLElement/Ext.Element} The new node
      */
@@ -318,9 +318,9 @@ Ext.DomHelper = function(){
     },
 
     /**
-     * Creates new Dom element(s) and inserts them after el
+     * Creates new DOM element(s) and inserts them after el.
      * @param {String/HTMLElement/Element} el The context element
-     * @param {Object} o The Dom object spec (and children)
+     * @param {Object} o The DOM object spec (and children)
      * @param {Boolean} returnElement (optional) true to return a Ext.Element
      * @return {HTMLElement/Ext.Element} The new node
      */
@@ -329,9 +329,9 @@ Ext.DomHelper = function(){
     },
 
     /**
-     * Creates new Dom element(s) and inserts them as the first child of el
+     * Creates new DOM element(s) and inserts them as the first child of el.
      * @param {String/HTMLElement/Element} el The context element
-     * @param {Object/String} o The Dom object spec (and children) or raw HTML blob
+     * @param {Object/String} o The DOM object spec (and children) or raw HTML blob
      * @param {Boolean} returnElement (optional) true to return a Ext.Element
      * @return {HTMLElement/Ext.Element} The new node
      */
@@ -354,9 +354,9 @@ Ext.DomHelper = function(){
     },
 
     /**
-     * Creates new Dom element(s) and appends them to el
+     * Creates new DOM element(s) and appends them to el.
      * @param {String/HTMLElement/Element} el The context element
-     * @param {Object/String} o The Dom object spec (and children) or raw HTML blob
+     * @param {Object/String} o The DOM object spec (and children) or raw HTML blob
      * @param {Boolean} returnElement (optional) true to return a Ext.Element
      * @return {HTMLElement/Ext.Element} The new node
      */
@@ -374,9 +374,9 @@ Ext.DomHelper = function(){
     },
 
     /**
-     * Creates new Dom element(s) and overwrites the contents of el with them
+     * Creates new DOM element(s) and overwrites the contents of el with them.
      * @param {String/HTMLElement/Element} el The context element
-     * @param {Object/String} o The Dom object spec (and children) or raw HTML blob
+     * @param {Object/String} o The DOM object spec (and children) or raw HTML blob
      * @param {Boolean} returnElement (optional) true to return a Ext.Element
      * @return {HTMLElement/Ext.Element} The new node
      */
@@ -387,9 +387,9 @@ Ext.DomHelper = function(){
     },
 
     /**
-     * Creates a new Ext.DomHelper.Template from the Dom object spec
-     * @param {Object} o The Dom object spec (and children)
-     * @return {Ext.DomHelper.Template} The new template
+     * Creates a new Ext.Template from the DOM object spec.
+     * @param {Object} o The DOM object spec (and children)
+     * @return {Ext.Template} The new template
      */
     createTemplate : function(o){
         var html = createHtml(o);
