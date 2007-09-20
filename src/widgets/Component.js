@@ -189,7 +189,8 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
     initComponent : Ext.emptyFn,
     /**
      * If this is a lazy rendering component, render it to its container element.
-     * @param {String/HTMLElement/Element} container (optional) The element this component should be rendered into. If it is being applied to existing markup, this should be left off.
+     * @param {String/HTMLElement/Element} container (optional) The element this component should be rendered into.
+     * If it is being applied to existing markup, this should be left off.
      */
     render : function(container, position){
         if(!this.rendered && this.fireEvent("beforerender", this) !== false){
@@ -254,7 +255,7 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
 
     /**
      * Destroys this component by purging any event listeners, removing the component's element from the DOM,
-     * removing the component from its {@link Ext.Container} (if applicable) and unregistering it from {@link Ext.ComponentMgr}.
+     * removing the component from its container (if applicable) and unregistering it from {@link Ext.ComponentMgr}.
      */
     destroy : function(){
         if(this.fireEvent("beforedestroy", this) !== false){
