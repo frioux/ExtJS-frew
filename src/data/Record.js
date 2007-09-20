@@ -72,7 +72,8 @@ var myNewRecord = new TopicRecord({
 myStore.add(myNewRecord);
 </code></pre>
  * @method create
- * @return {Record} The created record
+ * @return {function} A constructor which is used to create new Records according
+ * to the definition.
  * @static
  */
 Ext.data.Record.create = function(o){
