@@ -168,6 +168,12 @@ Property          Type             Description
 url               String           The url for the action (defaults to the form's url)
 method            String           The form method to use (defaults to the form's method, or POST if not defined)
 params            String/Object    The params to pass (defaults to the form's baseParams, or none if not defined)
+success           Function         The callback that will be invoked after a successful response.  Note that this
+                                   is HTTP success (the transaction was sent and received correctly), but the resulting
+                                   response data can still contain data errors.
+failure           Function         The callback that will be invoked after a failed transaction attempt.  Note that
+                                   this is HTTP faillure, which means a non-successful HTTP code was returned from
+                                   the server.
 clientValidation  Boolean          Applies to submit only.  Pass true to call form.isValid() prior to posting to
                                    validate the form on the client (defaults to false)
      * </pre>
