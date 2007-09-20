@@ -78,6 +78,14 @@ Ext.form.Action.prototype = {
  * property of this object may be examined to perform custom postprocessing.</div></li>
  * </ul>
 */
+/**
+ * @cfg {String} waitMsg The message to be displayed by a call to {@link Ext.MessageBox#wait}
+ * during the time the action is being processed.
+ */
+/**
+ * @cfg {String} waitTitle The title to be displayed by a call to {@link Ext.MessageBox#wait}
+ * during the time the action is being processed.
+ */
 
 /**
  * The type of action this Action instance performs.
