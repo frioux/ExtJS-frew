@@ -4,7 +4,8 @@
  * The Store class encapsulates a client side cache of {@link Ext.data.Record} objects which provide input data
  * for widgets such as the Ext.grid.Grid, or the Ext.form.ComboBox.<br>
  * <p>
- * A Store object uses an implementation of {@link Ext.data.DataProxy} to access a data object unless you call loadData() directly and pass in your data. The Store object
+ * A Store object uses an implementation of {@link Ext.data.DataProxy} to access a data object unless you call
+ * loadData() directly and pass in your data. The Store object
  * has no knowledge of the format of the data returned by the Proxy.<br>
  * <p>
  * A Store object uses its configured implementation of {@link Ext.data.DataReader} to create {@link Ext.data.Record}
@@ -59,7 +60,7 @@ Ext.data.Store = function(config){
         datachanged : true,
         /**
          * @event metachange
-         * Fires when this store's reader provides new metadata (fields). This is currently only support for JsonReaders.
+         * Fires when this store's reader provides new metadata (fields). This is currently only supported for JsonReaders.
          * @param {Store} this
          * @param {Object} meta The JSON metadata
          */
