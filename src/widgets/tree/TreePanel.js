@@ -239,14 +239,16 @@ Ext.extend(Ext.tree.TreePanel, Ext.data.Tree, {
     },
 
     /**
-     * Returns the container element for this TreePanel
+     * Returns the container element for this TreePanel.
+     * @return {Element} The container element for this TreePanel.
      */
     getEl : function(){
         return this.el;
     },
 
     /**
-     * Returns the default TreeLoader for this TreePanel
+     * Returns the default TreeLoader for this TreePanel.
+     * @return {TreeLoader} The TreeLoader for this TreePanel.
      */
     getLoader : function(){
         return this.loader;
@@ -267,7 +269,8 @@ Ext.extend(Ext.tree.TreePanel, Ext.data.Tree, {
     },
 
     /**
-     * Returns the selection model used by this TreePanel
+     * Returns the selection model used by this TreePanel.
+     * @return {TreeSelectionModel} The selection model used by this TreePanel
      */
     getSelectionModel : function(){
         if(!this.selModel){
