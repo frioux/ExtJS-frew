@@ -1,7 +1,11 @@
 /**
  * Greek translation
  * By thesilentman (utf8 encoding)
- * 06 May 2007
+ * 22 Sep 2007
+ *
+ * Changes since previous (first) Version:
+ * - HTMLEditor Translation
+ * - some minor corrections
  */
 
 Ext.UpdateManager.defaults.indicatorText = '<div class="loading-indicator">Μεταφόρτωση δεδομένων...</div>';
@@ -71,7 +75,7 @@ if(Ext.util.Format){
 if(Ext.DatePicker){
    Ext.apply(Ext.DatePicker.prototype, {
       todayText         : "Σήμερα",
-      minText           : "Η Ημερομηνία είναι προηγούμενη από την παλαιότερη αποδεκτή",
+      minText           : "Η Ημερομηνία είναι προγενέστερη από την παλαιότερη αποδεκτή",
       maxText           : "Η Ημερομηνία είναι μεταγενέστερη από την νεότερη αποδεκτή",
       disabledDaysText  : "",
       disabledDatesText : "",
@@ -103,7 +107,7 @@ if(Ext.form.TextField){
    Ext.apply(Ext.form.TextField.prototype, {
       minLengthText : "Το μικρότερο αποδεκτό μήκος για το πεδίο είναι {0}",
       maxLengthText : "Το μεγαλύτερο αποδεκτό μήκος για το πεδίο είναι {0}",
-      blankText     : "Το πεδίο έιναι υποχρεωτικό",
+      blankText     : "Το πεδίο είναι υποχρεωτικό",
       regexText     : "",
       emptyText     : null
    });
@@ -121,8 +125,8 @@ if(Ext.form.DateField){
    Ext.apply(Ext.form.DateField.prototype, {
       disabledDaysText  : "Ανενεργό",
       disabledDatesText : "Ανενεργό",
-      minText           : "Η ημερομηνία αυτού του πεδίου πρέπει να είναι μετά τη {0}",
-      maxText           : "Η ημερομηνία αυτού του πεδίου πρέπει να είναι πριν της {0}",
+      minText           : "Η ημερομηνία αυτού του πεδίου πρέπει να είναι μετά την {0}",
+      maxText           : "Η ημερομηνία αυτού του πεδίου πρέπει να είναι πριν την {0}",
       invalidText       : "{0} δεν είναι έγκυρη ημερομηνία - πρέπει να είναι στη μορφή {1}",
       format            : "d/m/y"
    });
@@ -144,6 +148,85 @@ if(Ext.form.VTypes){
    });
 }
 
+if(Ext.form.HtmlEditor){
+   Ext.apply(Ext.form.HtmlEditor.prototype, {
+	 createLinkText : 'Δώστε τη διεύθυνση (URL) για το σύνδεσμο (link):',
+	 buttonTips : {
+            bold : {
+               title: 'Έντονα (Ctrl+B)',
+               text: 'Κάνετε το προεπιλεγμένο κείμενο έντονο.',
+               cls: 'x-html-editor-tip'
+            },
+            italic : {
+               title: 'Πλάγια (Ctrl+I)',
+               text: 'Κάνετε το προεπιλεγμένο κείμενο πλάγιο.',
+               cls: 'x-html-editor-tip'
+            },
+            underline : {
+               title: 'Υπογράμμιση (Ctrl+U)',
+               text: 'Υπογραμμίζετε το προεπιλεγμένο κείμενο.',
+               cls: 'x-html-editor-tip'
+           },
+           increasefontsize : {
+               title: 'Μεγέθυνση κειμένου,
+               text: 'Μεγαλώνετε τη γραμματοσειρά.',
+               cls: 'x-html-editor-tip'
+           },
+           decreasefontsize : {
+               title: 'Σμίκρυνση κειμένου',
+               text: 'Μικραίνετε τη γραμματοσειρά.',
+               cls: 'x-html-editor-tip'
+           },
+           backcolor : {
+               title: 'Χρώμα Φόντου Κειμένου,
+               text: 'Αλλάζετε το χρώμα στο φόντο του προεπιλεγμένου κειμένου.',
+               cls: 'x-html-editor-tip'
+           },
+           forecolor : {
+               title: Χρώμα Γραμματοσειράς',
+               text: 'Αλλάζετε το χρώμα στη γραμματοσειρά του προεπιλεγμένου κειμένου.',               
+               cls: 'x-html-editor-tip'
+           },
+           justifyleft : {
+               title: 'Αριστερή Στοίχιση Κειμένου',
+               text: 'Στοιχίζετε το κείμενο στα αριστερά.',
+               cls: 'x-html-editor-tip'
+           },
+           justifycenter : {
+               title: 'Κεντράρισμα Κειμένου',
+               text: 'Στοιχίζετε το κείμενο στο κέντρο.',
+               cls: 'x-html-editor-tip'
+           },
+           justifyright : {
+               title: 'Δεξιά Στοίχιση Κειμένου',
+               text: 'Στοιχίζετε το κείμενο στα δεξιά.',
+               cls: 'x-html-editor-tip'
+           },
+           insertunorderedlist : {
+               title: 'Εισαγωγή Λίστας Κουκίδων',
+               text: 'Ξεκινήστε μια λίστα με κουκίδες.',
+               cls: 'x-html-editor-tip'
+           },
+           insertorderedlist : {
+               title: 'Εισαγωγή Λίστας Αρίθμησης',
+               text: 'Ξεκινήστε μια λίστα με αρίθμηση.',
+               cls: 'x-html-editor-tip'
+           },
+           createlink : {
+               title: 'Hyperlink',
+               text: 'Μετατρέπετε το προεπιλεγμένο κείμενο σε Link.',
+               cls: 'x-html-editor-tip'
+           },
+           sourceedit : {
+               title: 'Επεξεργασία Κώδικα',
+               text: 'Μεταβαίνετε στη λειτουργία επεξεργασίας κώδικα.',
+               cls: 'x-html-editor-tip'
+           }
+        }
+   });
+}
+
+
 if(Ext.grid.GridView){
    Ext.apply(Ext.grid.GridView.prototype, {
       sortAscText  : "Αύξουσα ταξινόμηση",
@@ -164,7 +247,8 @@ if(Ext.grid.PropertyColumnModel){
 
 if(Ext.SplitLayoutRegion){
    Ext.apply(Ext.SplitLayoutRegion.prototype, {
-      splitTip            : "Τραβήξτε για αλλαγή μεγέθους.",
-      collapsibleSplitTip : "Τραβήξτε για αλλαγή μεγέθους. Διπλό κλικ για απόκρυψη."
+      splitTip            : "Σύρετε για αλλαγή μεγέθους.",
+      collapsibleSplitTip : "Σύρετε για αλλαγή μεγέθους. Διπλό κλικ για απόκρυψη."
    });
 }
+
