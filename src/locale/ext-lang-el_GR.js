@@ -168,7 +168,7 @@ if(Ext.form.HtmlEditor){
                cls: 'x-html-editor-tip'
            },
            increasefontsize : {
-               title: 'Μεγέθυνση κειμένου,
+               title: 'Μεγέθυνση κειμένου',
                text: 'Μεγαλώνετε τη γραμματοσειρά.',
                cls: 'x-html-editor-tip'
            },
@@ -178,12 +178,12 @@ if(Ext.form.HtmlEditor){
                cls: 'x-html-editor-tip'
            },
            backcolor : {
-               title: 'Χρώμα Φόντου Κειμένου,
+               title: 'Χρώμα Φόντου Κειμένου',
                text: 'Αλλάζετε το χρώμα στο φόντο του προεπιλεγμένου κειμένου.',
                cls: 'x-html-editor-tip'
            },
            forecolor : {
-               title: Χρώμα Γραμματοσειράς',
+               title: 'Χρώμα Γραμματοσειράς',
                text: 'Αλλάζετε το χρώμα στη γραμματοσειρά του προεπιλεγμένου κειμένου.',               
                cls: 'x-html-editor-tip'
            },
