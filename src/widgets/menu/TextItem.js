@@ -13,6 +13,9 @@ Ext.menu.TextItem = function(text){
 
 Ext.extend(Ext.menu.TextItem, Ext.menu.BaseItem, {
     /**
+     * @cfg {String} text The text to display for this item (defaults to '')
+     */
+    /**
      * @cfg {Boolean} hideOnClick True to hide the containing menu after this item is clicked (defaults to false)
      */
     hideOnClick : false,
