@@ -2575,10 +2575,10 @@ Ext.extend(Ext.dd.DD, Ext.dd.DragDrop, {
 
         if (this.scroll) {
             // The client height
-            var clientH = Ext.lib.Dom.getViewWidth();
+            var clientH = Ext.lib.Dom.getViewHeight();
 
             // The client width
-            var clientW = Ext.lib.Dom.getViewHeight();
+            var clientW = Ext.lib.Dom.getViewWidth();
 
             // The amt scrolled down
             var st = this.DDM.getScrollTop();
