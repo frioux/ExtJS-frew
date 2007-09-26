@@ -8,13 +8,13 @@
  * <p>
  * Example code:.
  * <pre><code>
-var RecordDef = Ext.data.Record.create([
+var Employee = Ext.data.Record.create([
     {name: 'name', mapping: 1},         // "mapping" only needed if an "id" field is present which
     {name: 'occupation', mapping: 2}    // precludes using the ordinal position as the index.
 ]);
 var myReader = new Ext.data.ArrayReader({
     id: 0                     // The subscript within row Array that provides an ID for the Record (optional)
-}, RecordDef);
+}, Employee);
 </code></pre>
  * <p>
  * This would consume an Array like this:
@@ -23,7 +23,7 @@ var myReader = new Ext.data.ArrayReader({
   </code></pre>
  * @cfg {String} id (optional) The subscript within row Array that provides an ID for the Record
  * @constructor
- * Create a new JsonReader
+ * Create a new ArrayReader
  * @param {Object} meta Metadata configuration options.
  * @param {Object} recordType Either an Array of field definition objects
  * as specified to {@link Ext.data.Record#create},
