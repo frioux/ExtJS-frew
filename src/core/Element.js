@@ -2063,7 +2063,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
             mm.center(this);
         }
         if(Ext.isIE && !(Ext.isIE7 && Ext.isStrict) && this.getStyle('height') == 'auto'){ // ie will not expand full height automatically
-            this._mask.setHeight(this.getHeight());
+            this._mask.setSize(this.dom.clientWidth, this.getHeight());
         }
         return this._mask;
     },

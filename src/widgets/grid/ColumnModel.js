@@ -37,9 +37,6 @@ Ext.grid.ColumnModel = function(config){
     // map it to the order it is in the config
     for(var i = 0, len = config.length; i < len; i++){
         var c = config[i];
-        if(typeof c.dataIndex == "undefined"){
-            c.dataIndex = i;
-        }
         if(typeof c.renderer == "string"){
             c.renderer = Ext.util.Format[c.renderer];
         }
