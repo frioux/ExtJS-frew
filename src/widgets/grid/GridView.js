@@ -21,9 +21,22 @@ Ext.grid.GridView = function(config){
 Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 
     /**
-     * Override this function to apply custom css classes to rows during rendering
-     * @param {Record} record The record
-     * @param {Number} index
+     * Override this function to apply custom CSS classes to rows during rendering.  You can also supply custom
+     * parameters to the row template for the current row to customize how it is rendered using the <b>rowParams</b>
+     * parameter.  This function should return the CSS class name (or empty string '' for none) that will be added
+     * to the row's wrapping div.  To apply multiple class names, simply return them space-delimited within the string
+     * (e.g., 'my-class another-class').
+     * @param {Record} record The {@link Ext.data.Record} corresponding to the current row
+     * @param {Number} index The row index
+     * @param {Object} rowParams A config object that is passed to the row template during rendering that allows
+     * customization of various aspects of a body row, if applicable.  Note that this object will only be applied if
+     * {@link #enableRowBody} = true, otherwise it will be ignored. The object may contain any of these properties:<ul>
+     * <li><code>body</code> : String <div class="sub-desc">An HTML fragment to be rendered as the cell's body content (defaults to '').</div></li>
+     * <li><code>bodyStyle</code> : String <div class="sub-desc">A CSS style string that will be applied to the row's TR style attribute (defaults to '').</div></li>
+     * <li><code>cols</code> : Number <div class="sub-desc">The column count to apply to the body row's TD colspan attribute (defaults to the current
+     * column count of the grid).</div></li>
+     * </ul>
+     * @param {Store} ds The {@link Ext.data.Store} this grid is bound to
      * @method getRowClass
      */
     rowClass : "x-grid-row",
@@ -336,9 +349,9 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
     },
 
 /**
- * Return the &ltTD> HtmlElement which represents the Grid's header for the specified column index.
+ * Return the &lt;TD> HtmlElement which represents the Grid's header for the specified column index.
  * @param {Number} index The column index
- * @return {HtmlElement} The &ltTD> element.
+ * @return {HtmlElement} The &lt;TD> element.
  */
 	getHeaderCell : function(index){
 	    return Ext.DomQuery.select(this.headerSelector)[index];
@@ -365,9 +378,9 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 	},
 
 /**
- * Return the &ltTR> HtmlElement which represents a Grid row for the specified index.
+ * Return the &lt;TR> HtmlElement which represents a Grid row for the specified index.
  * @param {Number} index The row index
- * @return {HtmlElement} The &ltTR> element.
+ * @return {HtmlElement} The &lt;TR> element.
  */
 	getRow : function(index){
 	    return this.getBodyTable().rows[index];
@@ -392,7 +405,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
  * Returns the grid's table cell element at the specified coordinates.
  * @param {Number} rowIndex The row index in which to find the cell.
  * @param {Number} colIndex The column index of the cell.
- * @return The &ltTD> HtmlElement at the specified coordinates.
+ * @return The &lt;TD> HtmlElement at the specified coordinates.
  */
 	getCell : function(rowIndex, colIndex){
 	    var locked = this.cm.getLockedCount();

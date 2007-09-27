@@ -6,9 +6,10 @@
  * the Form needs to perform an action such as submit or load.
  * <br><br>
  * The instance of Action which performed the action is passed to the success
- * and failure callbacks of the Form's action methods, and to the
- * {@link Ext.form.BasicForm#actioncomplete} and {@link Ext.form.BasicForm#actionfailed}
- * event handlers.
+ * and failure callbacks of the Form's action methods ({@link Ext.form.BasicForm.submit submit},
+ * {@link Ext.form.BasicForm.load load} and {@link Ext.form.BasicForm.doAction doAction}),
+ * and to the {@link Ext.form.BasicForm#actioncomplete} and
+ * {@link Ext.form.BasicForm#actionfailed} event handlers.
  */
 Ext.form.Action = function(form, options){
     this.form = form;
@@ -25,7 +26,7 @@ Ext.form.Action.CLIENT_INVALID = 'client';
 /**
  * Failure type returned when server side validation of the Form fails
  * indicating that field-specific error messages have been returned in the
- * response's <pre>errors</pre> property.
+ * response's <tt style="font-weight:bold>errors</tt> property.
  * @type {String}
  * @static
  */
@@ -39,7 +40,7 @@ Ext.form.Action.SERVER_INVALID = 'server';
 Ext.form.Action.CONNECT_FAILURE = 'connect';
 /**
  * Failure type returned when no field values are returned in the response's
- * <pre>data</pre> property.
+ * <tt style="font-weight:bold">data</tt> property.
  * @type {String}
  * @static
  */
@@ -105,7 +106,7 @@ Ext.form.Action.prototype = {
  */
     response : undefined,
 /**
- * The decoded response object containing a boolean <pre>success</pre> property and
+ * The decoded response object containing a boolean <tt style="font-weight:bold>success</tt> property and
  * other, action-specific properties.
  * @type {Object}
  */
@@ -192,8 +193,8 @@ Ext.form.Action.prototype = {
  * Instances of this class are only created by am {@link Ext.form.BasicForm} when 
  * submitting.
  * <br><br>
- * A response packet must contain a boolean <pre>success</pre> property, and, optionally
- * an <pre>errors</pre> property. The <pre>errors</pre> property contains error
+ * A response packet <b>must</b> contain a boolean <tt style="font-weight:bold>success</tt> property, and, optionally
+ * an <tt style="font-weight:bold>errors</tt> property. The <tt style="font-weight:bold>errors</tt> property contains error
  * messages for invalid fields.
  * <br><br>
  * By default, response packets are assumed to be JSON, so a typical response
@@ -278,15 +279,15 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
 
 
 /**
- * @class Ext.form.Action.Submit
+ * @class Ext.form.Action.Load
  * A class which handles loading of data from a server into the Fields of
- * an {@link Ext.form.BasicForm}s. 
+ * an {@link Ext.form.BasicForm}. 
  * <br><br>
  * Instances of this class are only created by am {@link Ext.form.BasicForm} when 
  * submitting.
  * <br><br>
- * A response packet <b>must<b> contain a boolean <pre>success</pre> property, and
- * an <pre>data</pre> property. The <pre>data</pre> property contains the
+ * A response packet <b>must</b> contain a boolean <tt style="font-weight:bold>success</tt> property, and
+ * a <tt style="font-weight:bold>data</tt> property. The <tt style="font-weight:bold>data</tt> property contains the
  * values of Fields to load. The individual value object for each Field
  * is passed to the Field's {@link Ext.form.Field#setValue} method.
  * <br><br>
