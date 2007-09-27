@@ -99,31 +99,31 @@ Ext.TabPanel = function(container, config){
 };
 
 Ext.extend(Ext.TabPanel, Ext.util.Observable, {
-	/*
+	/**
 	 *@cfg {String} tabPosition "top" or "bottom" (defaults to "top")
 	 */
     tabPosition : "top",
-	/*
+	/**
 	 *@cfg {Number} currentTabWidth The width of the current tab (defaults to 0)
 	 */
     currentTabWidth : 0,
-	/*
+	/**
 	 *@cfg {Number} minTabWidth The minimum width of a tab (defaults to 40) (ignored if {@link #resizeTabs} is not true)
 	 */
     minTabWidth : 40,
-	/*
+	/**
 	 *@cfg {Number} maxTabWidth The maximum width of a tab (defaults to 250) (ignored if {@link #resizeTabs} is not true)
 	 */
     maxTabWidth : 250,
-	/*
+	/**
 	 *@cfg {Number} preferredTabWidth The preferred (default) width of a tab (defaults to 175) (ignored if {@link #resizeTabs} is not true)
 	 */
     preferredTabWidth : 175,
-	/*
+	/**
 	 *@cfg {Boolean} resizeTabs True to enable dynamic tab resizing (defaults to false)
 	 */
     resizeTabs : false,
-	/*
+	/**
 	 *@cfg {Boolean} monitorResize Set this to true to turn on window resize monitoring (ignored if {@link #resizeTabs} is not true) (defaults to true)
 	 */
     monitorResize : true,
