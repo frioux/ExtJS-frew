@@ -68,7 +68,7 @@ Ext.ContentPanel = function(el, config, content){
 
         /**
          * @event resize
-         * Fires when this panel is resized if fitToFrame is true.
+         * Fires when this panel is resized if {@link #fitToFrame} is true.
          * @param {Ext.ContentPanel} this
          * @param {Number} width The width after any component adjustments
          * @param {Number} height The height after any component adjustments
