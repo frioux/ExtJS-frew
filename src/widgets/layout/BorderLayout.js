@@ -70,6 +70,11 @@ the container size if it is not the body element.</b>
 * @param {Object} config Configuration options
  */
 Ext.BorderLayout = function(container, config){
+		/**
+		 * @event layout
+		 * Fires when a layout is performed. 
+		 * @param {Ext.BorderLayout} this
+		 */
     config = config || {};
     Ext.BorderLayout.superclass.constructor.call(this, container, config);
     this.factory = config.factory || Ext.BorderLayout.RegionFactory;
