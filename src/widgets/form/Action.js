@@ -6,8 +6,8 @@
  * the Form needs to perform an action such as submit or load.
  * <br><br>
  * The instance of Action which performed the action is passed to the success
- * and failure callbacks of the Form's action methods ({@link Ext.form.BasicForm.submit submit},
- * {@link Ext.form.BasicForm.load load} and {@link Ext.form.BasicForm.doAction doAction}),
+ * and failure callbacks of the Form's action methods ({@link Ext.form.BasicForm#submit submit},
+ * {@link Ext.form.BasicForm#load load} and {@link Ext.form.BasicForm#doAction doAction}),
  * and to the {@link Ext.form.BasicForm#actioncomplete} and
  * {@link Ext.form.BasicForm#actionfailed} event handlers.
  */
@@ -187,10 +187,10 @@ Ext.form.Action.prototype = {
 
 /**
  * @class Ext.form.Action.Submit
- * A class which handles submission of data from {@link Ext.form.BasicForm}s
+ * A class which handles submission of data from {@link Ext.form.BasicForm Form}s
  * and processes the returned response. 
  * <br><br>
- * Instances of this class are only created by am {@link Ext.form.BasicForm} when 
+ * Instances of this class are only created by a {@link Ext.form.BasicForm Form} when 
  * submitting.
  * <br><br>
  * A response packet <b>must</b> contain a boolean <tt style="font-weight:bold">success</tt> property, and, optionally
@@ -208,7 +208,7 @@ Ext.form.Action.prototype = {
     }
 }</code></pre>
  * <br><br>
- * Other data may be placed into the response for processing the the {Ext.form.BasicForm}'s callback
+ * Other data may be placed into the response for processing the the {@link Ext.form.BasicForm Form}'s callback
  * or event handler methods.
  */
 Ext.form.Action.Submit = function(form, options){
@@ -281,9 +281,9 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
 /**
  * @class Ext.form.Action.Load
  * A class which handles loading of data from a server into the Fields of
- * an {@link Ext.form.BasicForm}. 
+ * an= {@link Ext.form.BasicForm Form}. 
  * <br><br>
- * Instances of this class are only created by am {@link Ext.form.BasicForm} when 
+ * Instances of this class are only created by a {@link Ext.form.BasicForm Form} when 
  * submitting.
  * <br><br>
  * A response packet <b>must</b> contain a boolean <tt style="font-weight:bold">success</tt> property, and
@@ -303,7 +303,7 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
     }
 }</code></pre>
  * <br><br>
- * Other data may be placed into the response for processing the the {Ext.form.BasicForm}'s callback
+ * Other data may be placed into the response for processing the the {@link Ext.form.BasicForm Form}'s callback
  * or event handler methods.
  */
 Ext.form.Action.Load = function(form, options){
