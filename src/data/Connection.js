@@ -34,17 +34,20 @@ Ext.data.Connection = function(config){
          * Fires if the request was successfully completed.
          * @param {Connection} conn This Connection object.
          * @param {Object} response The XHR object containing the response data.
-         * See {@link http://www.w3.org/TR/XMLHttpRequest/} for details.
+         * See <a href="http://www.w3.org/TR/XMLHttpRequest/">The XMLHttpRequest Object</a>
+         * for details.
          * @param {Object} options The options config object passed to the {@link #request} method.
          */
         "requestcomplete" : true,
         /**
          * @event requestexception
          * Fires if an error HTTP status was returned from the server.
-         * See {@link http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html} for details of HTTP status codes.
+         * See <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html>HTTP Status Code Definitions</a>
+         * for details of HTTP status codes.
          * @param {Connection} conn This Connection object.
          * @param {Object} response The XHR object containing the response data.
-         * See {@link http://www.w3.org/TR/XMLHttpRequest/} for details.
+         * See <a href="http://www.w3.org/TR/XMLHttpRequest/">The XMLHttpRequest Object</a>
+         * for details.
          * @param {Object} options The options config object passed to the {@link #request} method.
          */
         "requestexception" : true
