@@ -405,7 +405,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
  * Returns the grid's table cell element at the specified coordinates.
  * @param {Number} rowIndex The row index in which to find the cell.
  * @param {Number} colIndex The column index of the cell.
- * @return The &lt;TD> HtmlElement at the specified coordinates.
+ * @return {HtmlElement} The &lt;TD> at the specified coordinates.
  */
 	getCell : function(rowIndex, colIndex){
 	    var locked = this.cm.getLockedCount();
