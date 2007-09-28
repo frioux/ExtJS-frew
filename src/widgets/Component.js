@@ -259,7 +259,6 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
      */
     destroy : function(){
         if(this.fireEvent("beforedestroy", this) !== false){
-            this.purgeListeners();
             this.beforeDestroy();
             if(this.rendered){
                 this.el.removeAllListeners();
@@ -271,6 +270,7 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
             this.onDestroy();
             Ext.ComponentMgr.unregister(this);
             this.fireEvent("destroy", this);
+            this.purgeListeners();
         }
     },
 

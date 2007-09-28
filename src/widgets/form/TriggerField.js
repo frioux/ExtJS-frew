@@ -140,7 +140,7 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
 
     // private
     mimicBlur : function(e, t){
-        if(!this.wrap.contains(t) && this.validateBlur()){
+        if(!this.wrap.contains(t) && this.validateBlur(e)){
             this.triggerBlur();
         }
     },
@@ -158,7 +158,7 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
 
     // private
     // This should be overriden by any subclass that needs to check whether or not the field can be blurred.
-    validateBlur : function(e, t){
+    validateBlur : function(e){
         return true;
     },
 

@@ -77,10 +77,7 @@ myStore.add(myNewRecord);
  * @static
  */
 Ext.data.Record.create = function(o){
-    var f = function(){
-        f.superclass.constructor.apply(this, arguments);
-    };
-    Ext.extend(f, Ext.data.Record);
+    var f = Ext.extend(Ext.data.Record, {});
     var p = f.prototype;
     p.fields = new Ext.util.MixedCollection(false, function(field){
         return field.name;
