@@ -295,6 +295,10 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
             this.tpl = '<div class="'+cls+'-item">{' + this.displayField + '}</div>';
         }
 
+	    /**
+	    * The {@link Ext.View View} used to display the ComboBox's options.
+	    * @type Ext.View
+	    */
         this.view = new Ext.View(this.innerList, this.tpl, {
             singleSelect:true, store: this.store, selectedClass: this.selectedClass
         });
