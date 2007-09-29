@@ -39,13 +39,14 @@ Ext.form.ComboBox = function(config){
         'select' : true,
         /**
          * @event beforequery
-         * Fires before all queries are processed. Return false to cancel the query or set cancel to true.
-         * The event object passed has these properties:
-	     * @param {Ext.form.ComboBox} combo This combo box
-	     * @param {String} query The query
-	     * @param {Boolean} forceAll true to force "all" query
-	     * @param {Boolean} cancel true to cancel the query
-	     * @param {Object} e The query event object
+         * Fires before all queries are processed. Return false to cancel the query or set the queryEvent's
+         * cancel property to true.
+         * @param {Object} queryEvent An object that has these properties:<ul>
+	     * <li><code>combo</code> : Ext.form.ComboBox <div class="sub-desc">This combo box</div></li>
+	     * <li><code>query</code> : String <div class="sub-desc">The query</div></li>
+	     * <li><code>forceAll</code> : Boolean <div class="sub-desc">True to force "all" query</div></li>
+	     * <li><code>cancel</code> : Boolean <div class="sub-desc">Set to true to cancel the query</div></li>
+	     * </ul>
 	     */
         'beforequery': true
     });

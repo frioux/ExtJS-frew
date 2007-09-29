@@ -12,7 +12,7 @@ Ext.grid.CellSelectionModel = function(config){
 
     this.addEvents({
         /**
-	     * @event beforerowselect
+	     * @event beforecellselect
 	     * Fires before a cell is selected.
 	     * @param {SelectionModel} this
 	     * @param {Number} rowIndex The selected row index

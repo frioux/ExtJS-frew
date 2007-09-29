@@ -75,7 +75,7 @@ Ext.grid.ColumnModel = function(config){
 	     * Fires when the text of a header changes.
 	     * @param {ColumnModel} this
 	     * @param {Number} columnIndex The column index
-	     * @param {Number} newText The new header text
+	     * @param {String} newText The new header text
 	     */
 	    "headerchange": true,
         /**
@@ -95,7 +95,7 @@ Ext.grid.ColumnModel = function(config){
          */
         "columnmoved" : true,
         /**
-         * @event columlockchange
+         * @event columnlockchange
          * Fires when a column's locked state is changed
          * @param {ColumnModel} this
          * @param {Number} colIndex
@@ -149,7 +149,11 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * default renderer uses the raw data value.
      */
     /**
-     * @cfg {String} align (Optional) Set the CSS text-align property of the column.  Defaults to undefined.
+     * @cfg {String} align (Optional) Set the CSS text-align property of the column.  Defaults to left.
+     */
+    /**
+     * @cfg {String} css (Optional) A raw CSS style specification to apply to the column (e.g.,
+     * 'font-weight:bold;color:red;' - defaults to '').  Note that the style string should always end with a semi-colon.
      */
 
     /**
@@ -184,6 +188,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
         return -1;
     },
 
+    // private
     moveColumn : function(oldIndex, newIndex){
         var c = this.config[oldIndex];
         this.config.splice(oldIndex, 1);
@@ -192,10 +197,16 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
         this.fireEvent("columnmoved", this, oldIndex, newIndex);
     },
 
+    /**
+     * Gets the current locked status of the specified column.
+     * @param {Number} colIndex The index of the column to check
+     * @return {Boolean} True if the column is locked, else false
+     */
     isLocked : function(colIndex){
         return this.config[colIndex].locked === true;
     },
 
+    // private
     setLocked : function(colIndex, value, suppressEvent){
         if(this.isLocked(colIndex) == value){
             return;
@@ -206,6 +217,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
         }
     },
 
+    // private
     getTotalLockedWidth : function(){
         var totalWidth = 0;
         for(var i = 0; i < this.config.length; i++){
@@ -216,6 +228,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
         return totalWidth;
     },
 
+    // private
     getLockedCount : function(){
         for(var i = 0, len = this.config.length; i < len; i++){
             if(!this.isLocked(i)){
@@ -290,8 +303,9 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * the following parameters:<ul>
      * <li>Data value.</li>
      * <li>Cell metadata. An object in which you may set the following attributes:<ul>
-     * <li>css A CSS style string to apply to the table cell.</li>
-     * <li>attr An HTML attribute definition string to apply to the data container element <i>within</i> the table cell.</li></ul>
+     * <li>css A CSS class name to add to the cell's TD element.</li>
+     * <li>attr An HTML attribute definition string to apply to the data container element <i>within</i> the table cell
+     * (e.g. 'style="color:red;"').</li></ul>
      * <li>The {@link Ext.data.Record} from which the data was extracted.</li>
      * <li>Row index</li>
      * <li>Column index</li>
@@ -394,6 +408,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
         this.config[col].dataIndex = dataIndex;
     },
 
+    // private
     findColumnIndex : function(dataIndex){
         var c = this.config;
         for(var i = 0, len = c.length; i < len; i++){
@@ -433,7 +448,6 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
         this.config[col].editable = editable;
     },
 
-
     /**
      * Returns true if the column is hidden.
      * @param {Number} colIndex The column index
@@ -442,7 +456,6 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     isHidden : function(colIndex){
         return this.config[colIndex].hidden;
     },
-
 
     /**
      * Returns true if the column width cannot be changed
@@ -458,6 +471,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     isResizable : function(colIndex){
         return colIndex >= 0 && this.config[colIndex].resizable !== false && this.config[colIndex].fixed !== true;
     },
+
     /**
      * Sets if a column is hidden.
      * @param {Number} colIndex The column index
@@ -479,6 +493,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     }
 });
 
+// private
 Ext.grid.ColumnModel.defaultRenderer = function(value){
 	if(typeof value == "string" && value.length < 1){
 	    return "&#160;";

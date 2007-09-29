@@ -24,6 +24,10 @@ Ext.form.TextField = function(config){
 
 Ext.extend(Ext.form.TextField, Ext.form.Field,  {
     /**
+     * @cfg {String} vtypeText A custom error message to display in place of the default message provided
+     * for the {@link #vtype} currently set for this field (defaults to '').  Only applies if vtype is set, else ignored.
+     */
+    /**
      * @cfg {Boolean} grow True if this field should automatically grow and shrink to its content
      */
     grow : false,
@@ -211,7 +215,7 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
 
     /**
      * Validates a value according to the field's validation rules and marks the field as invalid
-     * if the validation fails
+     * if the validation fails.
      * @param {Mixed} value The value to validate
      * @return {Boolean} True if the value is valid, else false
      */
