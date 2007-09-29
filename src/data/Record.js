@@ -97,6 +97,11 @@ Ext.data.Record.REJECT = 'reject';
 Ext.data.Record.COMMIT = 'commit';
 
 Ext.data.Record.prototype = {
+	/**
+	 * The unique ID of the record as specified at construction time.
+	 * @property id
+	 * @type {Object}
+	 */
     /**
      * Readonly flag - true if this record has been modified.
      * @type Boolean
