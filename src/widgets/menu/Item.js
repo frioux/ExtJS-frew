@@ -16,19 +16,32 @@ Ext.menu.Item = function(config){
 };
 Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
     /**
-     * @cfg {String} icon
-     * The path to an icon to display in this menu item (defaults to Ext.BLANK_IMAGE_URL)
+     * @cfg {String} icon The path to an icon to display in this item (defaults to Ext.BLANK_IMAGE_URL).  If
+     * icon is specified {@link #iconCls} should not be.
      */
     /**
-     * @cfg {String} itemCls The default CSS class to use for menu items (defaults to "x-menu-item")
+     * @cfg {String} iconCls A CSS class that specifies a background image that will be used as the icon for
+     * this item (defaults to '').  If iconCls is specified {@link #icon} should not be.
+     */
+    /**
+     * @cfg {String} text The text to display in this item (defaults to '').
+     */
+    /**
+     * @cfg {String} href The href attribute to use for the underlying anchor link (defaults to '#').
+     */
+    /**
+     * @cfg {String} hrefTarget The target attribute to use for the underlying anchor link (defaults to '').
+     */
+    /**
+     * @cfg {String} itemCls The default CSS class to use for menu items (defaults to "x-menu-item").
      */
     itemCls : "x-menu-item",
     /**
-     * @cfg {Boolean} canActivate True if this item can be visually activated (defaults to true)
+     * @cfg {Boolean} canActivate True if this item can be visually activated (defaults to true).
      */
     canActivate : true,
     /**
-     * @cfg {Number} showDelay Length of time in milliseconds to wait before showing this item (defaults to 200)
+     * @cfg {Number} showDelay Length of time in milliseconds to wait before showing this item (defaults to 200).
      */
     showDelay: 200,
     // doc'd in BaseItem

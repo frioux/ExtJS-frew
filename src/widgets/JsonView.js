@@ -128,6 +128,7 @@ Ext.extend(Ext.JsonView, Ext.View, {
         um.update.apply(um, arguments);
     },
 
+    // private
     render : function(el, response){
         this.clearSelections();
         this.el.update("");

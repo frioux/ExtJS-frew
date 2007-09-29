@@ -2,7 +2,7 @@
  * @class Ext.LayoutRegion
  * @extends Ext.BasicLayoutRegion
  * This class represents a region in a layout manager.
- * @cfg {Boolean} collapsible False to disable collapsing (defaults to true)
+ * @cfg {Boolean} collapsible True to allow the user to collapse this region (defaults to false)
  * @cfg {Boolean} collapsed True to set the initial display to collapsed (defaults to false)
  * @cfg {Boolean} floatable False to disable floating (defaults to true)
  * @cfg {Object} margins Margins for the element (defaults to {top: 0, left: 0, right:0, bottom: 0})

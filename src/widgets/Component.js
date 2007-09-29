@@ -148,6 +148,20 @@ Ext.Component.AUTO_ID = 1000;
 
 Ext.extend(Ext.Component, Ext.util.Observable, {
     /**
+     * @cfg {String} id
+     * The unique id of this component (defaults to an auto-assigned id).
+     */
+    /**
+     * @cfg {String} cls
+     * An optional extra CSS class that will be added to this component's Element (defaults to '').  This can be
+     * useful for adding customized styles to the component or any of its children using standard CSS rules.
+     */
+    /**
+     * @cfg {String} style
+     * A custom style specification to be applied to this component's Element.  Should be a valid argument to
+     * {@link Ext.Element#applyStyles}.
+     */
+    /**
      * true if this component is hidden. Read-only.
      */
     hidden : false,

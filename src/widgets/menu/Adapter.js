@@ -5,6 +5,7 @@
  * It provides basic rendering, activation management and enable/disable logic required to work in menus.
  * @constructor
  * Creates a new Adapter
+ * @param {Ext.Component} component The component being adapted to render into a menu
  * @param {Object} config Configuration options
  */
 Ext.menu.Adapter = function(component, config){

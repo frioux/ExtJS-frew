@@ -125,8 +125,12 @@ Ext.extend(Ext.View, Ext.util.Observable, {
      * @type {Ext.DomHelper.Template}
      */
     selectedClass : "x-view-selected",
-    
+    /**
+     * @cfg {String} emptyText
+     * The text to display in the view when there is no data to display (defaults to '').
+     */
     emptyText : "",
+
     /**
      * Returns the element this view is bound to.
      * @return {Ext.Element}
@@ -167,6 +171,7 @@ Ext.extend(Ext.View, Ext.util.Observable, {
         return data;
     },
 
+    // private
     onUpdate : function(ds, record){
         this.clearSelections();
         var index = this.store.indexOf(record);
@@ -176,6 +181,7 @@ Ext.extend(Ext.View, Ext.util.Observable, {
         this.updateIndexes(index, index);
     },
 
+    // private
     onAdd : function(ds, records, index){
         this.clearSelections();
         if(this.nodes.length == 0){
@@ -194,6 +200,7 @@ Ext.extend(Ext.View, Ext.util.Observable, {
         this.updateIndexes(index);
     },
 
+    // private
     onRemove : function(ds, record, index){
         this.clearSelections();
         this.el.dom.removeChild(this.nodes[index]);
@@ -208,6 +215,7 @@ Ext.extend(Ext.View, Ext.util.Observable, {
         this.onUpdate(this.store, this.store.getAt(index));
     },
 
+    // private
     updateIndexes : function(startIndex, endIndex){
         var ns = this.nodes;
         startIndex = startIndex || 0;
@@ -262,7 +270,7 @@ Ext.extend(Ext.View, Ext.util.Observable, {
 	    return null;
     },
 
-    /** @ignore */
+    // private
     onClick : function(e){
         var item = this.findItemFromChild(e.getTarget());
         if(item){
@@ -275,7 +283,7 @@ Ext.extend(Ext.View, Ext.util.Observable, {
         }
     },
 
-    /** @ignore */
+    // private
     onContextMenu : function(e){
         var item = this.findItemFromChild(e.getTarget());
         if(item){
@@ -283,7 +291,7 @@ Ext.extend(Ext.View, Ext.util.Observable, {
         }
     },
 
-    /** @ignore */
+    // private
     onDblClick : function(e){
         var item = this.findItemFromChild(e.getTarget());
         if(item){
@@ -291,6 +299,7 @@ Ext.extend(Ext.View, Ext.util.Observable, {
         }
     },
 
+    // private
     onItemClick : function(item, index, e){
         if(this.fireEvent("beforeclick", this, index, item, e) === false){
             return false;
