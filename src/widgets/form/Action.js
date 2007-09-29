@@ -2,7 +2,7 @@
  * @class Ext.form.Action
  * The subclasses of this class provide actions to perform upon {@link Ext.form.BasicForm}s.
  * <br><br>
- * Instances of this class are only created by am {@link Ext.form.BasicForm} when 
+ * Instances of this class are only created by an {@link Ext.form.BasicForm} when
  * the Form needs to perform an action such as submit or load.
  * <br><br>
  * The instance of Action which performed the action is passed to the success
@@ -134,6 +134,7 @@ Ext.form.Action.prototype = {
         this.form.afterAction(this, false);
     },
 
+    // private
     processResponse : function(response){
         this.response = response;
         if(!response.responseText){
@@ -155,10 +156,12 @@ Ext.form.Action.prototype = {
         return url;
     },
 
+    // private
     getMethod : function(){
         return (this.options.method || this.form.method || this.form.el.dom.method || 'POST').toUpperCase();
     },
 
+    // private
     getParams : function(){
         var bp = this.form.baseParams;
         var p = this.options.params;
@@ -174,6 +177,7 @@ Ext.form.Action.prototype = {
         return p;
     },
 
+    // private
     createCallback : function(){
         return {
             success: this.success,
@@ -221,8 +225,10 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
     * prior to posting to validate the form on the client (defaults to false)
     */
 
+    // private
     type : 'submit',
 
+    // private
     run : function(){
         var o = this.options;
         var method = this.getMethod();
@@ -242,6 +248,7 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
         }
     },
 
+    // private
     success : function(response){
         var result = this.processResponse(response);
         if(result === true || result.success){
@@ -255,6 +262,7 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
         this.form.afterAction(this, false);
     },
 
+    // private
     handleResponse : function(response){
         if(this.form.errorReader){
             var rs = this.form.errorReader.read(response);
@@ -312,8 +320,10 @@ Ext.form.Action.Load = function(form, options){
 };
 
 Ext.extend(Ext.form.Action.Load, Ext.form.Action, {
+    // private
     type : 'load',
 
+    // private
     run : function(){
         Ext.Ajax.request(Ext.apply(
                 this.createCallback(), {
@@ -323,6 +333,7 @@ Ext.extend(Ext.form.Action.Load, Ext.form.Action, {
         }));
     },
 
+    // private
     success : function(response){
         var result = this.processResponse(response);
         if(result === true || !result.success || !result.data){
@@ -335,6 +346,7 @@ Ext.extend(Ext.form.Action.Load, Ext.form.Action, {
         this.form.afterAction(this, true);
     },
 
+    // private
     handleResponse : function(response){
         if(this.form.reader){
             var rs = this.form.reader.read(response);
