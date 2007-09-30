@@ -108,9 +108,12 @@ Ext.grid.ColumnModel = function(config){
 Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     /**
      * @cfg {String} id (Optional) Defaults to the column's initial ordinal position.
-     * A name which identifies this column. The id is used to create a CSS class which
-     * is applied to all table cells in that column of the form <pre>x-grid-td-<b>id<b></pre>
+     * A name which identifies this column. The id is used to create a CSS class name which
+     * is applied to all table cells (including headers) in that column. The class name
+     * takes the form of <pre>x-grid-td-<b>id<b></pre>
      * <br><br>
+     * Header cells will also recieve this class name, but will also have the class x-grid-hd,
+     * so to target header cells, use CSS selectors such as:<pre>.x-grid-hd.x-grid-td-<b>id</b></pre>
      * The {@link Ext.grid.Grid#autoExpandColumn} grid config option references the column
      * via this identifier.
      */
