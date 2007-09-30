@@ -39,38 +39,35 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
      * @param {Store} ds The {@link Ext.data.Store} this grid is bound to
      * @method getRowClass
      */
-    rowClass : "x-grid-row",
 
-    cellClass : "x-grid-col",
-
-    tdClass : "x-grid-td",
-
-    hdClass : "x-grid-hd",
-
-    splitClass : "x-grid-split",
-
+    /**
+     * The CSS classes applied to a header when it is sorted. (defaults to ["sort-asc", "sort-desc"])
+     * @type Array
+     */
     sortClasses : ["sort-asc", "sort-desc"],
 
-    enableMoveAnim : false,
-
+    //private - internal configs
     hlColor: "C3DAF9",
+    enableMoveAnim : false,
+    rowClass : "x-grid-row",
+    cellClass : "x-grid-col",
+    tdClass : "x-grid-td",
+    hdClass : "x-grid-hd",
+    splitClass : "x-grid-split",
 
+    // private shorthand vars
     dh : Ext.DomHelper,
-
     fly : Ext.Element.fly,
-
     css : Ext.util.CSS,
 
+    // private
     borderWidth: 1,
-
     splitOffset: 3,
-
     scrollIncrement : 22,
-
     cellRE: /(?:.*?)x-grid-(?:hd|cell|csplit)-(?:[\d]+)-([\d]+)(?:.*?)/,
-
     findRE: /\s?(?:x-grid-hd|x-grid-col|x-grid-csplit)\s/,
 
+    // private
     bind : function(ds, cm){
         if(this.ds){
             this.ds.un("load", this.onLoad, this);
@@ -108,6 +105,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.cm = cm;
     },
 
+    // private
     init: function(grid){
 		Ext.grid.GridView.superclass.init.call(this, grid);
 
@@ -217,19 +215,23 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.handleLockChange.apply(this, arguments);
     },
 
+    // private
     onDataChange : function(){
         this.refresh();
         this.updateHeaderSortState();
     },
 
-	onClear : function(){
+    // private
+    onClear : function(){
         this.refresh();
     },
 
-	onUpdate : function(ds, record){
+    // private
+    onUpdate : function(ds, record){
         this.refreshRow(record);
     },
 
+    // private
     refreshRow : function(record){
         var ds = this.ds, index;
         if(typeof record == 'number'){
@@ -245,10 +247,12 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.fireEvent("rowupdated", this, index, record);
     },
 
+    // private
     onAdd : function(ds, records, index){
         this.insertRows(ds, index, index + (records.length-1));
     },
 
+    // private
     onRemove : function(ds, record, index, isUpdate){
         if(isUpdate !== true){
             this.fireEvent("beforerowremoved", this, index, record);
@@ -268,6 +272,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
     },
 
+    // private
     onLoad : function(){
         this.scrollToTop();
     },
@@ -310,7 +315,8 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         return this.footerPanel;
 	},
 
-	initElements : function(){
+    // private
+    initElements : function(){
 	    var E = Ext.Element;
 	    var el = this.grid.getGridEl().dom.firstChild;
 	    var cs = el.childNodes;
@@ -349,7 +355,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
     },
 
 /**
- * Return the &lt;TD> HtmlElement which represents the Grid's header for the specified column index.
+ * Returns the &lt;TD> HtmlElement which represents the Grid's header for the specified column index.
  * @param {Number} index The column index
  * @return {HtmlElement} The &lt;TD> element.
  */
@@ -357,28 +363,33 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 	    return Ext.DomQuery.select(this.headerSelector)[index];
 	},
 
-	getHeaderCellMeasure : function(index){
+    // private
+    getHeaderCellMeasure : function(index){
 	    return this.getHeaderCell(index).firstChild;
 	},
 
-	getHeaderCellText : function(index){
+    // private
+    getHeaderCellText : function(index){
 	    return this.getHeaderCell(index).firstChild.firstChild;
 	},
 
-	getLockedTable : function(){
+    // private
+    getLockedTable : function(){
 	    return this.lockedBody.dom.firstChild;
 	},
 
-	getBodyTable : function(){
+    // private
+    getBodyTable : function(){
 	    return this.mainBody.dom.firstChild;
 	},
 
-	getLockedRow : function(index){
+    // private
+    getLockedRow : function(index){
 	    return this.getLockedTable().rows[index];
 	},
 
 /**
- * Return the &lt;TR> HtmlElement which represents a Grid row for the specified index.
+ * Returns the &lt;TR> HtmlElement which represents a Grid row for the specified index.
  * @param {Number} index The row index
  * @return {HtmlElement} The &lt;TR> element.
  */
@@ -386,7 +397,8 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 	    return this.getBodyTable().rows[index];
 	},
 
-	getRowComposite : function(index){
+    // private
+    getRowComposite : function(index){
 	    if(!this.rowEl){
 	        this.rowEl = new Ext.CompositeElementLite();
 	    }
@@ -402,7 +414,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 	},
 
 /**
- * Returns the grid's table cell element at the specified coordinates.
+ * Returns the grid's &lt;TD> HtmlElement at the specified coordinates.
  * @param {Number} rowIndex The row index in which to find the cell.
  * @param {Number} colIndex The column index of the cell.
  * @return {HtmlElement} The &lt;TD> at the specified coordinates.
@@ -419,11 +431,13 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         return source.rows[rowIndex].childNodes[colIndex];
 	},
 
-	getCellText : function(rowIndex, colIndex){
+    // private
+    getCellText : function(rowIndex, colIndex){
 	    return this.getCell(rowIndex, colIndex).firstChild.firstChild;
 	},
 
-	getCellBox : function(cell){
+    // private
+    getCellBox : function(cell){
 	    var b = this.fly(cell).getBox();
         if(Ext.isOpera){ // opera fails to report the Y
             b.y = cell.offsetTop + this.mainBody.getY();
@@ -431,6 +445,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         return b;
     },
 
+    // private
     getCellIndex : function(cell){
         var id = String(cell.className).match(this.cellRE);
         if(id){
@@ -439,16 +454,19 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         return 0;
     },
 
+    // private
     findHeaderIndex : function(n){
         var r = Ext.fly(n).findParent("td." + this.hdClass, 6);
         return r ? this.getCellIndex(r) : false;
     },
 
+    // private
     findHeaderCell : function(n){
         var r = Ext.fly(n).findParent("td." + this.hdClass, 6);
         return r ? r : false;
     },
 
+    // private
     findRowIndex : function(n){
         if(!n){
             return false;
@@ -457,6 +475,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         return r ? r.rowIndex : false;
     },
 
+    // private
     findCellIndex : function(node){
         var stop = this.el.dom;
         while(node && node != stop){
@@ -468,11 +487,13 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         return false;
     },
 
+    // private
     getColumnId : function(index){
 	    return this.cm.getColumnId(index);
 	},
 
-	getSplitters : function(){
+    // private
+    getSplitters : function(){
 	    if(this.splitterSelector){
 	       return Ext.DomQuery.select(this.splitterSelector);
 	    }else{
@@ -480,10 +501,12 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
 	    }
 	},
 
-	getSplitter : function(index){
+    // private
+    getSplitter : function(index){
 	    return this.getSplitters()[index];
 	},
 
+    // private
     onRowOver : function(e, t){
         var row;
         if((row = this.findRowIndex(t)) !== false){
@@ -491,6 +514,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
     },
 
+    // private
     onRowOut : function(e, t){
         var row;
         if((row = this.findRowIndex(t)) !== false && row !== this.findRowIndex(e.getRelatedTarget())){
@@ -498,6 +522,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
     },
 
+    // private
     renderHeaders : function(){
 	    var cm = this.cm;
         var ct = this.templates.hcell, ht = this.templates.header, st = this.templates.hsplit;
@@ -521,7 +546,8 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
                 ht.apply({cells: cb.join(""), splits:sb.join("")})];
 	},
 
-	updateHeaders : function(){
+    // private
+    updateHeaders : function(){
         var html = this.renderHeaders();
         this.lockedHd.update(html[0]);
         this.mainHd.update(html[1]);
@@ -605,6 +631,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         return el;
     },
 
+    // private
     updateColumns : function(){
         this.grid.stopEditing();
         var cm = this.grid.colModel, colIds = this.getColumnIds();
@@ -619,6 +646,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.updateSplitters();
     },
 
+    // private
     generateRules : function(cm){
         var ruleBuf = [], rulesId = this.grid.id + '-cssrules';
         Ext.util.CSS.removeStyleSheet(rulesId);
@@ -642,6 +670,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         return Ext.util.CSS.createStyleSheet(ruleBuf.join(""), rulesId);
     },
 
+    // private
     updateSplitters : function(){
         var cm = this.cm, s = this.getSplitters();
         if(s){ // splitters not created yet
@@ -659,6 +688,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
     },
 
+    // private
     handleHiddenChange : function(colModel, colIndex, hidden){
         if(hidden){
             this.hideColumn(colIndex);
@@ -667,6 +697,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
     },
 
+    // private
     hideColumn : function(colIndex){
         var cid = this.getColumnId(colIndex);
         this.css.updateRule(this.tdSelector+cid, "display", "none");
@@ -678,6 +709,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.layout();
     },
 
+    // private
     unhideColumn : function(colIndex){
         var cid = this.getColumnId(colIndex);
         this.css.updateRule(this.tdSelector+cid, "display", "");
@@ -690,6 +722,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.layout();
     },
 
+    // private
     insertRows : function(dm, firstRow, lastRow, isUpdate){
         if(firstRow == 0 && lastRow == dm.getCount()-1){
             this.refresh();
@@ -711,6 +744,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
     },
 
+    // private
     bufferRows : function(markup, target, index){
         var before = null, trows = target.rows, tbody = target.tBodies[0];
         if(index < trows.length){
@@ -730,6 +764,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         b = null;
     },
 
+    // private
     deleteRows : function(dm, firstRow, lastRow){
         if(dm.getRowCount()<1){
             this.fireEvent("beforerefresh", this);
@@ -749,12 +784,14 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
     },
 
+    // private
     updateRows : function(dataSource, firstRow, lastRow){
         var s = this.getScrollState();
         this.refresh();
         this.restoreScroll(s);
     },
 
+    // private
     handleSort : function(dataSource, sortColumnIndex, sortDir, noRefresh){
         if(!noRefresh){
            this.refresh();
@@ -762,11 +799,13 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.updateHeaderSortState();
     },
 
+    // private
     getScrollState : function(){
         var sb = this.scroller.dom;
         return {left: sb.scrollLeft, top: sb.scrollTop};
     },
 
+    // private
     stripeRows : function(startRow){
         if(!this.grid.stripeRows || this.ds.getCount() < 1){
             return;
@@ -793,6 +832,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
     },
 
+    // private
     restoreScroll : function(state){
         var sb = this.scroller.dom;
         sb.scrollLeft = state.left;
@@ -800,6 +840,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.syncScroll();
     },
 
+    // private
     syncScroll : function(){
         var sb = this.scroller.dom;
         var sh = this.mainHd.dom;
@@ -809,6 +850,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         lv.scrollTop = bs.scrollTop = sb.scrollTop;
     },
 
+    // private
     handleScroll : function(e){
         this.syncScroll();
         var sb = this.scroller.dom;
@@ -816,6 +858,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         e.stopEvent();
     },
 
+    // private
     handleWheel : function(e){
         var d = e.getWheelDelta();
         this.scroller.dom.scrollTop -= d*22;
@@ -824,6 +867,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         e.stopEvent();
     },
 
+    // private
     renderRows : function(startRow, endRow){
         // pull in all the crap needed to render rows
         var g = this.grid, cm = g.colModel, ds = g.dataSource, stripe = g.stripeRows;
@@ -854,6 +898,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         return this.doRender(cs, rs, ds, startRow, colCount, stripe);
     },
 
+    // private
     // As much as I hate to duplicate code, this was branched because FireFox really hates
     // [].join("") on strings. The performance difference was substantial enough to
     // branch this function
@@ -942,6 +987,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
                 return [lbuf.join(""), buf.join("")];
             },
 
+    // private
     renderBody : function(){
         var markup = this.renderRows();
         var bt = this.templates.body;
@@ -969,6 +1015,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.fireEvent("refresh", this);
     },
 
+    // private
     handleColumnMove : function(cm, oldIndex, newIndex){
         this.indexMap = null;
         var s = this.getScrollState();
@@ -977,12 +1024,14 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.afterMove(newIndex);
     },
 
+    // private
     afterMove : function(colIndex){
         if(this.enableMoveAnim && Ext.enableFx){
             this.fly(this.getHeaderCell(colIndex).firstChild).highlight(this.hlColor);
         }
     },
 
+    // private
     updateCell : function(dm, rowIndex, dataIndex){
         var colIndex = this.getColumnIndexByDataIndex(dataIndex);
         if(typeof colIndex == "undefined"){ // not present in grid
@@ -1005,6 +1054,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.syncRowHeights(rowIndex, rowIndex);
     },
 
+    // private
     calcColumnWidth : function(colIndex, maxRowsToMeasure){
         var maxWidth = 0;
         if(this.grid.autoSizeHeaders){
@@ -1029,6 +1079,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
         return maxWidth + /*margin for error in IE*/ 5;
     },
+
     /**
      * Autofit a column to its content.
      * @param {Number} colIndex
@@ -1102,16 +1153,19 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.layout();
     },
 
+    // private
     onRowSelect : function(rowIndex){
         var row = this.getRowComposite(rowIndex);
         row.addClass("x-grid-row-selected");
     },
 
+    // private
     onRowDeselect : function(rowIndex){
         var row = this.getRowComposite(rowIndex);
         row.removeClass("x-grid-row-selected");
     },
 
+    // private
     onCellSelect : function(row, col){
         var cell = this.getCell(row, col);
         if(cell){
@@ -1119,6 +1173,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
     },
 
+    // private
     onCellDeselect : function(row, col){
         var cell = this.getCell(row, col);
         if(cell){
@@ -1126,6 +1181,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
     },
 
+    // private
     updateHeaderSortState : function(){
         var state = this.ds.getSortState();
         if(!state){
@@ -1141,6 +1197,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
     },
 
+    // private
     handleHeaderClick : function(g, index){
         if(this.headersDisabled){
             return;
@@ -1153,7 +1210,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         dm.sort(cm.getDataIndex(index));
     },
 
-
+    // private
     destroy : function(){
         if(this.colMenu){
             this.colMenu.removeAll();
@@ -1192,18 +1249,22 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         Ext.EventManager.removeResizeListener(this.onWindowResize, this);
     },
 
+    // private
     handleLockChange : function(){
         this.refresh(true);
     },
 
+    // template method
     onDenyColumnLock : function(){
 
     },
 
+    // template method
     onDenyColumnHide : function(){
 
     },
 
+    // private
     handleHdMenuClick : function(item){
         var index = this.hdCtxIndex;
         var cm = this.cm, ds = this.ds;
@@ -1251,6 +1312,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         return true;
     },
 
+    // private
     beforeColMenuShow : function(){
         var cm = this.cm,  colCount = cm.getColumnCount();
         this.colMenu.removeAll();
@@ -1264,6 +1326,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
     },
 
+    // private
     handleHdCtx : function(g, index, e){
         e.stopEvent();
         var hd = this.getHeaderCell(index);
@@ -1278,6 +1341,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.hmenu.show(hd, "tl-bl");
     },
 
+    // private
     handleHdOver : function(e){
         var hd = this.findHeaderCell(e.getTarget());
         if(hd && !this.headersDisabled){
@@ -1287,6 +1351,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
     },
 
+    // private
     handleHdOut : function(e){
         var hd = this.findHeaderCell(e.getTarget());
         if(hd){
@@ -1294,6 +1359,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
     },
 
+    // private
     handleSplitDblClick : function(e, t){
         var i = this.getCellIndex(t);
         if(this.grid.enableColumnResize !== false && this.cm.isResizable(i) && !this.cm.isFixed(i)){
@@ -1302,8 +1368,8 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
     },
 
+    // private
     render : function(){
-
         var cm = this.cm;
         var colCount = cm.getColumnCount();
 
@@ -1403,6 +1469,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.renderPhase2.defer(1, this);
     },
 
+    // private
     renderPhase2 : function(){
         // render the rows now
         this.refresh();
@@ -1411,10 +1478,12 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
     },
 
+    // template method
     beforeInitialResize : function(){
 
     },
 
+    // private
     onColumnSplitterMoved : function(i, w){
         this.userResized = true;
         var cm = this.grid.colModel;
@@ -1427,6 +1496,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.grid.fireEvent("columnresize", i, w);
     },
 
+    // private
     syncRowHeights : function(startIndex, endIndex){
         if(this.grid.enableRowHeightSync === true && this.cm.getLockedCount() > 0){
             startIndex = startIndex || 0;
@@ -1442,6 +1512,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }
     },
 
+    // private
     layout : function(initialRender, is2ndPass){
         var g = this.grid;
         var auto = g.autoHeight;
@@ -1542,6 +1613,7 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         }, 10);
     },
 
+    // private
     onWindowResize : function(){
         if(!this.grid.monitorWindowResize || this.grid.autoHeight){
             return;
@@ -1549,13 +1621,34 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         this.layout();
     },
 
+    // private
     appendFooter : function(parentEl){
         return null;
     },
 
+    /**
+     * The text displayed in the "Sort Ascending" menu item
+     * @type String
+     */
     sortAscText : "Sort Ascending",
+    /**
+     * The text displayed in the "Sort Descending" menu item
+     * @type String
+     */
     sortDescText : "Sort Descending",
+    /**
+     * The text displayed in the "Lock Column" menu item
+     * @type String
+     */
     lockText : "Lock Column",
+    /**
+     * The text displayed in the "Unlock Column" menu item
+     * @type String
+     */
     unlockText : "Unlock Column",
+    /**
+     * The text displayed in the "Columns" menu item
+     * @type String
+     */
     columnsText : "Columns"
 });

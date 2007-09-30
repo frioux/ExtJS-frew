@@ -227,89 +227,128 @@ Ext.grid.Grid = function(container, config){
 };
 Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
     /**
+     * @cfg {String} id An optional id for the grid (defaults to the grid container's id).
+     */
+    /**
+     * @cfg {Boolean} autoWidth True to set the grid's width to the default total width of the grid's columns instead
+     * of a fixed width (defaults to false).
+     */
+    /**
+     * @cfg {Number} maxHeight Sets the maximum height of the grid (defaults to auto).  Only applies if {@link #autoHeight} = true.
+     */
+    /**
+     * @cfg {Boolean} enableCtxMenu False to turn off the grid header's context menu (defaults to true).
+     */
+    /**
+     * @cfg {Boolean} enableColLock False to turn off the column locking context menu items (defaults to true).
+     */
+    /**
+     * @cfg {Boolean} enableColumnMove False to turn off column reordering via drag drop (defaults to true).
+     */
+    /**
+     * @cfg {Boolean} enableColumnResize False to turn off column resizing for the whole grid (defaults to true).
+     */
+    /**
+     * @cfg {Boolean} enableRowHeightSync True to turn on sync of locked and non locked row heights (defaults to false).
+     */
+    /**
+     * @cfg {Ext.data.Store} dataSource The {@link Ext.data.Store} backing the grid (required).
+     */
+    /**
+     * @cfg {Ext.data.Store} ds Shorthand for {@link #dataSource}.
+     */
+    /**
+     * @cfg {Object} colModel The {@link Ext.grid.ColumnModel} to use when rendering the grid (required).
+     */
+    /**
+     * @cfg {Object} cm Shorthand for {@link #colModel}.
+     */
+    /**
+     * @cfg {Object} selModel Any subclass of AbstractSelectionModel that will provide the selection model for
+     * the grid (defaults to {@link Ext.grid.RowSelectionModel} if not specified).
+     */
+    /**
+     * @cfg {Object} sm Shorthand for {@link #selModel}.
+     */
+    /**
+     * @cfg {Number} width The width in pixels of the grid (defaults to auto).
+     */
+    /**
+     * @cfg {Number} height The height in pixels of the grid (defaults to auto).
+     */
+    /**
+     * @cfg {Object} viewConfig A config object that will be applied to the grid's UI view.  Any of
+     * the config options available for {@link Ext.grid.GridView} can be specified here.
+     */
+
+    /**
      * @cfg {Number} minColumnWidth The minimum width a column can be resized to. Default is 25.
 	 */
 	minColumnWidth : 25,
-
     /**
 	 * @cfg {Boolean} autoSizeColumns True to automatically resize the columns to fit their content
 	 * <b>on initial render.</b> It is more efficient to explicitly size the columns
 	 * through the ColumnModel's {@link Ext.grid.ColumnModel#width} config option.  Default is false.
 	 */
 	autoSizeColumns : false,
-
 	/**
 	 * @cfg {Boolean} autoSizeHeaders True to measure headers with column data when auto sizing columns. Default is true.
 	 */
 	autoSizeHeaders : true,
-
 	/**
 	 * @cfg {Boolean} monitorWindowResize True to autoSize the grid when the window resizes. Default is true.
 	 */
 	monitorWindowResize : true,
-
 	/**
 	 * @cfg {Boolean} maxRowsToMeasure If autoSizeColumns is on, maxRowsToMeasure can be used to limit the number of
 	 * rows measured to get a columns size. Default is 0 (all rows).
 	 */
 	maxRowsToMeasure : 0,
-
 	/**
 	 * @cfg {Boolean} trackMouseOver True to highlight rows when the mouse is over. Default is true.
 	 */
 	trackMouseOver : true,
-
 	/**
 	 * @cfg {Boolean} enableDragDrop True to enable drag and drop of rows. Default is false.
 	 */
 	enableDragDrop : false,
-
 	/**
 	 * @cfg {Boolean} enableColumnMove True to enable drag and drop reorder of columns. Default is true.
 	 */
 	enableColumnMove : true,
-
 	/**
 	 * @cfg {Boolean} enableColumnHide True to enable hiding of columns with the header context menu. Default is true.
 	 */
 	enableColumnHide : true,
-
 	/**
 	 * @cfg {Boolean} enableRowHeightSync True to manually sync row heights across locked and not locked rows. Default is false.
 	 */
 	enableRowHeightSync : false,
-
 	/**
 	 * @cfg {Boolean} stripeRows True to stripe the rows.  Default is true.
 	 */
 	stripeRows : true,
-
 	/**
 	 * @cfg {Boolean} autoHeight True to fit the height of the grid container to the height of the data. Default is false.
 	 */
 	autoHeight : false,
-
     /**
      * @cfg {String} autoExpandColumn The id of a column in this grid that should expand to fill unused space. This id can not be 0. Default is false.
      */
     autoExpandColumn : false,
-
     /**
     * @cfg {Number} autoExpandMin The minimum width the autoExpandColumn can have (if enabled).
     * Default is 50.
     */
     autoExpandMin : 50,
-
     /**
     * @cfg {Number} autoExpandMax The maximum width the autoExpandColumn can have (if enabled). Default is 1000.
     */
     autoExpandMax : 1000,
-
     /**
 	 * @cfg {Object} view The {@link Ext.grid.GridView} used by the grid. This can be set before a call to render().
 	 */
 	view : null,
-
 	/**
      * @cfg {Object} loadMask An {@link Ext.LoadMask} config or true to mask the grid while loading. Default is false.
 	 */
@@ -318,13 +357,6 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
     // private
     rendered : false,
 
-    /**
-    * @cfg {Boolean} autoWidth True to set the grid's width to the default total width of the grid's columns instead
-    * of a fixed width. Default is false.
-    */
-    /**
-    * @cfg {Number} maxHeight Sets the maximum height of the grid - ignored if autoHeight is not on.
-    */
     /**
      * Called once after all setup has been completed and the grid is ready to be rendered.
      * @return {Ext.grid.Grid} this
@@ -362,7 +394,7 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
 	 * Reconfigures the grid to use a different Store and Column Model.
 	 * The View will be bound to the new objects and refreshed.
 	 * @param {Ext.data.Store} dataSource The new {@link Ext.data.Store} object
-	 * @param {Ext.grid.ColumnModel} The new {@link Ext.grid.ColumnModel} object
+	 * @param {Ext.grid.ColumnModel} colModel The new {@link Ext.grid.ColumnModel} object
 	 */
     reconfigure : function(dataSource, colModel){
         if(this.loadMask){
@@ -522,8 +554,8 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
     },
 
     /**
-     * Returns the grid's DataSource.
-     * @return {DataSource}
+     * Returns the grid's data store.
+     * @return {Ext.data.Store} The store
      */
     getDataSource : function(){
         return this.dataSource;
@@ -557,8 +589,8 @@ Ext.extend(Ext.grid.Grid, Ext.util.Observable, {
     }
 });
 /**
- * Configures the text is the drag proxy (defaults to "%0 selected row(s)").
- * %0 is replaced with the number of selected rows.
+ * Configures the text in the drag proxy (defaults to "{0} selected row(s)").
+ * {0} is replaced with the number of selected rows.
  * @type String
  */
 Ext.grid.Grid.prototype.ddText = "{0} selected row{1}";
