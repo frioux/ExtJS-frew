@@ -1,3 +1,11 @@
+/**
+* @class Ext.XTemplate
+* A template class that supports advanced functionality like autofilling arrays, conditional processing with
+* basic comparison operators, sub-templates, basic math function support, special built-in template variables,
+* inline code execution and more.
+* @constructor
+* @param {String/Array} html The HTML fragment or an array of fragments to join("") or multiple arguments to join("")
+*/
 Ext.XTemplate = function(){
     Ext.XTemplate.superclass.constructor.apply(this, arguments);
     var s = this.html;
@@ -54,9 +62,10 @@ Ext.XTemplate = function(){
     this.tpls = tpls;
 };
 Ext.extend(Ext.XTemplate, Ext.Template, {
-
+    // private
     re : /\{([\w-\.]+)(?:\:([\w\.]*)(?:\((.*?)?\))?)?\}/g,
 
+    // private
     applySubTemplate : function(id, values, parent){
         var t = this.tpls[id];
         if(t.test && !t.test.call(this, values, parent)){
@@ -77,6 +86,7 @@ Ext.extend(Ext.XTemplate, Ext.Template, {
         return t.compiled.call(this, vs, parent);
     },
 
+    // private
     compileTpl : function(tpl){
         var fm = Ext.util.Format;
         var useF = this.disableFormats !== true;
@@ -120,18 +130,36 @@ Ext.extend(Ext.XTemplate, Ext.Template, {
         return this;
     },
 
+    /**
+     * Returns an HTML fragment of this template with the specified values applied.
+     * @param {Object} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
+     * @return {String} The HTML fragment
+     */
     applyTemplate : function(values){
         return this.master.compiled.call(this, values, {});
         var s = this.subs;
     },
 
+    /**
+     * Alias of {@link #applyTemplate}.
+     */
     apply : function(){
         return this.applyTemplate.apply(this, arguments);
     },
 
+    /**
+     * Compile the template to a function for optimized performance.  Recommended if the template will be used frequently.
+     * @return {Function} The compiled function
+     */
     compile : function(){return this;}
 });
 
+/**
+ * Generates a template from an existing Element containing the template's contents.
+ * @param {Mixed} The Element, DOM node or element id from which to generate the template
+ * @return {Ext.XTemplate} The template
+ * @static
+ */
 Ext.XTemplate.from = function(el){
     el = Ext.getDom(el);
     return new Ext.XTemplate(el.value || el.innerHTML);

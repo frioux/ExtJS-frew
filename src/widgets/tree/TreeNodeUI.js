@@ -19,26 +19,31 @@ Ext.tree.TreeNodeUI = function(node){
 };
 
 Ext.tree.TreeNodeUI.prototype = {
+    // private
     removeChild : function(node){
         if(this.rendered){
             this.ctNode.removeChild(node.ui.getEl());
         }
     },
 
+    // private
     beforeLoad : function(){
          this.addClass("x-tree-node-loading");
     },
 
+    // private
     afterLoad : function(){
          this.removeClass("x-tree-node-loading");
     },
 
+    // private
     onTextChange : function(node, text, oldText){
         if(this.rendered){
             this.textNode.innerHTML = text;
         }
     },
 
+    // private
     onDisableChange : function(node, state){
         this.disabled = state;
         if(state){
@@ -48,6 +53,7 @@ Ext.tree.TreeNodeUI.prototype = {
         }
     },
 
+    // private
     onSelectedChange : function(state){
         if(state){
             this.focus();
@@ -58,6 +64,7 @@ Ext.tree.TreeNodeUI.prototype = {
         }
     },
 
+    // private
     onMove : function(tree, node, oldParent, newParent, index, refNode){
         this.childIndent = null;
         if(this.rendered){
@@ -98,6 +105,7 @@ Ext.tree.TreeNodeUI.prototype = {
         }
     },
 
+    // private
     remove : function(){
         if(this.rendered){
             this.holder = document.createElement("div");
@@ -105,10 +113,12 @@ Ext.tree.TreeNodeUI.prototype = {
         }
     },
 
+    // private
     fireEvent : function(){
         return this.node.fireEvent.apply(this.node, arguments);
     },
 
+    // private
     initEvents : function(){
         this.node.on("move", this.onMove, this);
         var E = Ext.EventManager;
@@ -153,22 +163,30 @@ Ext.tree.TreeNodeUI.prototype = {
         }
     },
 
+    // private
     getDDHandles : function(){
         return [this.iconNode, this.textNode];
     },
 
+/**
+ * Hides this node.
+ */
     hide : function(){
         if(this.rendered){
             this.wrap.style.display = "none";
         }
     },
 
+/**
+ * Shows this node.
+ */
     show : function(){
         if(this.rendered){
             this.wrap.style.display = "";
         }
     },
 
+    // private
     onContextMenu : function(e){
         if (this.node.hasListener("contextmenu") || this.node.getOwnerTree().hasListener("contextmenu")) {
             e.preventDefault();
@@ -177,6 +195,7 @@ Ext.tree.TreeNodeUI.prototype = {
         }
     },
 
+    // private
     onClick : function(e){
         if(this.dropping){
             e.stopEvent();
@@ -202,6 +221,7 @@ Ext.tree.TreeNodeUI.prototype = {
         }
     },
 
+    // private
     onDblClick : function(e){
         e.preventDefault();
         if(this.disabled){
@@ -216,18 +236,21 @@ Ext.tree.TreeNodeUI.prototype = {
         this.fireEvent("dblclick", this.node, e);
     },
 
+    // private
     onCheckChange : function(){
         var checked = this.checkbox.checked;
         this.node.attributes.checked = checked;
         this.fireEvent('checkchange', this.node, checked);
     },
 
+    // private
     ecClick : function(e){
         if(!this.animating && this.node.hasChildNodes()){
             this.node.toggle();
         }
     },
 
+    // private
     startDrop : function(){
         this.dropping = true;
     },
@@ -239,11 +262,13 @@ Ext.tree.TreeNodeUI.prototype = {
        }.createDelegate(this), 50);
     },
 
+    // private
     expand : function(){
         this.updateExpandIcon();
         this.ctNode.style.display = "";
     },
 
+    // private
     focus : function(){
         if(!this.node.preventHScroll){
             try{this.anchor.focus();
@@ -270,12 +295,14 @@ Ext.tree.TreeNodeUI.prototype = {
         }
     },
 
+    // private
     blur : function(){
         try{
             this.anchor.blur();
         }catch(e){}
     },
 
+    // private
     animExpand : function(callback){
         var ct = Ext.get(this.ctNode);
         ct.stopFx();
@@ -298,6 +325,7 @@ Ext.tree.TreeNodeUI.prototype = {
         });
     },
 
+    // private
     highlight : function(){
         var tree = this.node.getOwnerTree();
         Ext.fly(this.wrap).highlight(
@@ -306,11 +334,13 @@ Ext.tree.TreeNodeUI.prototype = {
         );
     },
 
+    // private
     collapse : function(){
         this.updateExpandIcon();
         this.ctNode.style.display = "none";
     },
 
+    // private
     animCollapse : function(callback){
         var ct = Ext.get(this.ctNode);
         ct.enableDisplayMode('block');
@@ -329,26 +359,32 @@ Ext.tree.TreeNodeUI.prototype = {
         });
     },
 
+    // private
     getContainer : function(){
         return this.ctNode;
     },
 
+    // private
     getEl : function(){
         return this.wrap;
     },
 
+    // private
     appendDDGhost : function(ghostNode){
         ghostNode.appendChild(this.elNode.cloneNode(true));
     },
 
+    // private
     getDDRepairXY : function(){
         return Ext.lib.Dom.getXY(this.iconNode);
     },
 
+    // private
     onRender : function(){
         this.render();
     },
 
+    // private
     render : function(bulkRender){
         var n = this.node, a = n.attributes;
         var targetNode = n.parentNode ?
@@ -386,6 +422,7 @@ Ext.tree.TreeNodeUI.prototype = {
         }
     },
 
+    // private
     renderElements : function(n, a, targetNode, bulkRender){
         // add some indent caching, this helps performance when rendering a large tree
         this.indentMarkup = n.parentNode ? n.parentNode.ui.getChildIndent() : '';
@@ -433,7 +470,7 @@ Ext.tree.TreeNodeUI.prototype = {
     },
 
 /**
- * Returns the text node
+ * Returns the text node.
  * @return {HtmlNode} The DOM text node.
  */
     getTextEl : function(){
@@ -450,13 +487,14 @@ Ext.tree.TreeNodeUI.prototype = {
 
 /**
  * Returns the checked status of the node. If the node was rendered with no
- * checkbox, it returns false;
+ * checkbox, it returns false.
  * @return {Boolean} The checked flag.
  */
     isChecked : function(){
         return this.checkbox ? this.checkbox.checked : false;
     },
 
+    // private
     updateExpandIcon : function(){
         if(this.rendered){
             var n = this.node, c1, c2;
@@ -496,6 +534,7 @@ Ext.tree.TreeNodeUI.prototype = {
         }
     },
 
+    // private
     getChildIndent : function(){
         if(!this.childIndent){
             var buf = [];
@@ -515,6 +554,7 @@ Ext.tree.TreeNodeUI.prototype = {
         return this.childIndent;
     },
 
+    // private
     renderIndent : function(){
         if(this.rendered){
             var indent = "";
@@ -531,10 +571,19 @@ Ext.tree.TreeNodeUI.prototype = {
     }
 };
 
+/**
+ * @class Ext.tree.RootTreeNodeUI
+ * This class provides the default UI implementation for <b>root</b> Ext TreeNodes.
+ * The RootTreeNode UI implementation allows customizing the appearance of the root tree node.<br>
+ * <p>
+ * If you are customizing the Tree's user interface, you
+ * may need to extend this class, but you should never need to instantiate this class.<br>
+ */
 Ext.tree.RootTreeNodeUI = function(){
     Ext.tree.RootTreeNodeUI.superclass.constructor.apply(this, arguments);
 };
 Ext.extend(Ext.tree.RootTreeNodeUI, Ext.tree.TreeNodeUI, {
+    // private
     render : function(){
         if(!this.rendered){
             var targetNode = this.node.ownerTree.innerCt.dom;

@@ -21,12 +21,12 @@
  });
 
  // load XML data
- dataModel.load("foobar.xml");
+ store.load("foobar.xml");
  </code></pre>
  For an example of creating a JSON/UpdateManager view, see {@link Ext.JsonView}.
  * <br><br>
- * <b>Note: The root of your template must be a single node. Table/row implementations may work but are not supported due to
- * IE"s limited insertion support with tables and Opera"s faulty event bubbling.</b>
+ * <b>Note: The root of your template must be a single node. Table/row or select/options implementations may work
+ * but are not supported due to IE's limited insertion support with tables and Opera's faulty event bubbling.</b>
  * @constructor
  * Create a new View
  * @param {String/HTMLElement/Element} container The container element where the view is to be rendered.
@@ -121,8 +121,22 @@ Ext.View = function(container, tpl, config){
 
 Ext.extend(Ext.View, Ext.util.Observable, {
     /**
-     * The css class to add to selected nodes
-     * @type {Ext.DomHelper.Template}
+     * @cfg {Ext.data.Store} store
+     * The {@link Ext.data.Store} to bind this view to.
+     */
+    /**
+     * @cfg {Boolean} multiSelect
+     * True to allow selection of more than one item at a time, false to allow selection of only a single item
+     * at a time or no selection at all, depending on the value of {@link #singleSelect} (defaults to false).
+     */
+    /**
+     * @cfg {Boolean} singleSelect
+     * True to allow selection of exactly one item at a time, false to allow no selection at all (defaults to false).
+     * Note that if {@link #multiSelect} = true, this value will be ignored.
+     */
+    /**
+     * @cfg {String} selectedClass
+     * A CSS class to apply to each selected item in the view (defaults to 'x-view-selected').
      */
     selectedClass : "x-view-selected",
     /**

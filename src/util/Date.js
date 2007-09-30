@@ -212,10 +212,10 @@ var dt = new Date();
 dt = Date.parseDate("2006", "Y");
 
 //dt = Sun Jan 15 2006 (all date parts specified)
-dt = Date.parseDate("2006-1-15", "Y-m-d");
+dt = Date.parseDate("2006-01-15", "Y-m-d");
 
 //dt = Sun Jan 15 2006 15:20:01 GMT-0600 (CST)
-dt = Date.parseDate("2006-1-15 3:20:01 PM", "Y-m-d h:i:s A" );
+dt = Date.parseDate("2006-01-15 3:20:01 PM", "Y-m-d h:i:s A" );
 </code></pre>
  * @param {String} input The unparsed date as a string
  * @param {String} format The format the date is in
