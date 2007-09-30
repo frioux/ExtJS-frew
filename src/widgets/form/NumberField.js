@@ -53,10 +53,12 @@ Ext.extend(Ext.form.NumberField, Ext.form.TextField,  {
      */
     nanText : "{0} is not a valid number",
 
+    baseChars : "0123456789",
+
     // private
     initEvents : function(){
         Ext.form.NumberField.superclass.initEvents.call(this);
-        var allowed = "0123456789";
+        var allowed = this.baseChars+'';
         if(this.allowDecimals){
             allowed += this.decimalSeparator;
         }
