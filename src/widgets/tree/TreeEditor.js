@@ -54,7 +54,11 @@ Ext.extend(Ext.tree.TreeEditor, Ext.Editor, {
      * scroll and client offsets into account prior to each edit.
      */
     maxWidth: 250,
-
+    /**
+     * @cfg {Number} editDelay The number of milliseconds between clicks to register a double-click that will trigger
+     * editing on the current node (defaults to 350).  If two clicks occur on the same node within this time span,
+     * the editor for the node will display, otherwise it will be processed as a regular click.
+     */
     editDelay : 350,
 
     // private

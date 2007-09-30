@@ -18,8 +18,8 @@
  * @cfg {Boolean} animate true to enable animated expand/collapse (defaults to the value of Ext.enableFx)
  * @cfg {Boolean} singleExpand true if only 1 node per branch may be expanded
  * @cfg {Boolean} selModel A tree selection model to use with this TreePanel (defaults to a {@link Ext.tree.DefaultSelectionModel})
- * @cfg {Boolean} loader A TreeLoader for use with this TreePanel
-  * @cfg {String} pathSeparator The token used to separate sub-paths in path strings (defaults to '/')
+ * @cfg {Ext.tree.TreeLoader} loader A {@link Ext.tree.TreeLoader} for use with this TreePanel
+ * @cfg {String} pathSeparator The token used to separate sub-paths in path strings (defaults to '/')
  * @constructor
  * @param {String/HTMLElement/Element} el The container element
  * @param {Object} config
@@ -247,8 +247,8 @@ Ext.extend(Ext.tree.TreePanel, Ext.data.Tree, {
     },
 
     /**
-     * Returns the default TreeLoader for this TreePanel.
-     * @return {TreeLoader} The TreeLoader for this TreePanel.
+     * Returns the default {@link Ext.tree.TreeLoader} for this TreePanel.
+     * @return {Ext.tree.TreeLoader} The TreeLoader for this TreePanel.
      */
     getLoader : function(){
         return this.loader;
@@ -373,6 +373,10 @@ Ext.extend(Ext.tree.TreePanel, Ext.data.Tree, {
         }
     },
 
+    /**
+     * Returns the underlying Element for this tree
+     * @return {Ext.Element} The Element
+     */
     getTreeEl : function(){
         return this.el;
     },

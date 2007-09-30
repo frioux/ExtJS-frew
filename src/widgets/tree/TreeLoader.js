@@ -64,7 +64,7 @@ Ext.tree.TreeLoader = function(config){
 Ext.extend(Ext.tree.TreeLoader, Ext.util.Observable, {
     /**
     * @cfg {String} dataUrl The URL from which to request a Json string which
-    * specifies an array of node definition object representing the child nodes
+    * specifies an array of node definition objects representing the child nodes
     * to be loaded.
     */
     /**

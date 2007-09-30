@@ -480,6 +480,13 @@ Ext.TabPanelItem = function(tabPanel, id, text, closable){
 };
 
 Ext.extend(Ext.TabPanelItem, Ext.util.Observable, {
+    /**
+     * @cfg {Boolean} disableTooltips True to disable tooltips on this tab, false to enable them (defaults to false).
+     */
+    /**
+     * @cfg {String} closeText The title text for the tab's close icon (defaults to '').
+     */
+    // private
     purgeListeners : function(){
        Ext.util.Observable.prototype.purgeListeners.call(this);
        this.el.removeAllListeners();
@@ -513,6 +520,7 @@ Ext.extend(Ext.TabPanelItem, Ext.util.Observable, {
         this.fireEvent("deactivate", this.tabPanel, this);
     },
 
+    // private
     hideAction : function(){
         this.bodyEl.hide();
         this.bodyEl.setStyle("position", "absolute");
@@ -520,6 +528,7 @@ Ext.extend(Ext.TabPanelItem, Ext.util.Observable, {
         this.bodyEl.setTop("-20000px");
     },
 
+    // private
     showAction : function(){
         this.bodyEl.setStyle("position", "relative");
         this.bodyEl.setTop("");
@@ -540,20 +549,24 @@ Ext.extend(Ext.TabPanelItem, Ext.util.Observable, {
         }
     },
 
+    // private
     onTabClick : function(e){
         e.preventDefault();
         this.tabPanel.activate(this.id);
     },
 
+    // private
     onTabMouseDown : function(e){
         e.preventDefault();
         this.tabPanel.activate(this.id);
     },
 
+    // private
     getWidth : function(){
         return this.inner.getWidth();
     },
 
+    // private
     setWidth : function(width){
         var iwidth = width - this.pnode.getPadding("lr");
         this.inner.setWidth(iwidth);
@@ -586,6 +599,7 @@ Ext.extend(Ext.TabPanelItem, Ext.util.Observable, {
         return this.text;
     },
 
+    // private
     autoSize : function(){
         //this.el.beginMeasure();
         this.textEl.setWidth(1);

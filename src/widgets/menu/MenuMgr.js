@@ -126,6 +126,7 @@ Ext.menu.MenuMgr = function(){
          * Returns a {@link Ext.menu.Menu} object
          * @param {String/Object} menu The string menu id, an existing menu object reference, or a Menu config that will
          * be used to generate and return a new Menu instance.
+         * @return {Ext.menu.Menu} The specified menu
          */
        get : function(menu){
            if(typeof menu == "string"){ // menu id

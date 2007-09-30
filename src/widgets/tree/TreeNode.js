@@ -2,10 +2,10 @@
  * @class Ext.tree.TreeNode
  * @extends Ext.data.Node
  * @cfg {String} text The text for this node
- * @cfg {Boolean} expanded true to start the node expanded
- * @cfg {Boolean} allowDrag false to make this node undraggable if DD is on (defaults to true)
- * @cfg {Boolean} allowDrop false if this node cannot be drop on
- * @cfg {Boolean} disabled true to start the node disabled
+ * @cfg {Boolean} expanded True to start the node expanded
+ * @cfg {Boolean} allowDrag False to make this node undraggable if {@link #draggable} = true (defaults to true)
+ * @cfg {Boolean} allowDrop False if this node cannot have child nodes dropped on it (defaults to true)
+ * @cfg {Boolean} disabled True to start the node disabled
  * @cfg {String} icon The path to an icon for the node. The preferred way to do this
  * is to use the cls or iconCls attributes and add the icon via a CSS background image.
  * @cfg {String} cls A css class to be added to the node
@@ -18,6 +18,9 @@
  * @cfg {Function} uiProvider A UI <b>class</b> to use for this node (defaults to Ext.tree.TreeNodeUI)
  * @cfg {Boolean} checked True to render a checked checkbox for this node, false to render an unchecked checkbox
  * (defaults to undefined with no checkbox rendered)
+ * @cfg {Boolean} draggable True to make this node draggable (defaults to false)
+ * @cfg {Boolean} isTarget False to not allow this node to act as a drop target (defaults to true)
+ * @cfg {Boolean} allowChildren False to not allow this node to have child nodes (defaults to true)
  * @constructor
  * @param {Object/String} attributes The attributes/config for the node or just a string with the text for the node
  */

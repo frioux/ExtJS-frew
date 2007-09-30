@@ -77,6 +77,10 @@ Ext.menu.Menu = function(config){
 
 Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
     /**
+     * @cfg {Mixed} items
+     * An array of items to be added to this menu.  See {@link #add} for a list of valid item types.
+     */
+    /**
      * @cfg {Number} minWidth The minimum width of the menu in pixels (defaults to 120)
      */
     minWidth : 120,
