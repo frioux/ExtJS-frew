@@ -155,9 +155,9 @@ Ext.extend(Ext.XTemplate, Ext.Template, {
 });
 
 /**
- * Generates a template from an existing Element containing the template's contents.
- * @param {Mixed} The Element, DOM node or element id from which to generate the template
- * @return {Ext.XTemplate} The template
+ * Creates a template from the passed element's value (<i>display:none</i> textarea, preferred) or innerHTML.
+ * @param {String/HTMLElement} el A DOM element or its id
+ * @returns {Ext.Template} The created template
  * @static
  */
 Ext.XTemplate.from = function(el){
