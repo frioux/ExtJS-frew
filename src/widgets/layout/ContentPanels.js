@@ -55,13 +55,13 @@ Ext.ContentPanel = function(el, config, content){
     this.addEvents({
         /**
          * @event activate
-         * Fires when this panel is activated. 
+         * Fires when this panel is activated.
          * @param {Ext.ContentPanel} this
          */
         "activate" : true,
         /**
          * @event deactivate
-         * Fires when this panel is activated. 
+         * Fires when this panel is deactivated.
          * @param {Ext.ContentPanel} this
          */
         "deactivate" : true,
@@ -96,17 +96,17 @@ Ext.extend(Ext.ContentPanel, Ext.util.Observable, {
            this.el.replaceClass("x-layout-inactive-content", "x-layout-active-content");
         }else{
            this.el.replaceClass("x-layout-active-content", "x-layout-inactive-content");
-        } 
+        }
     },
-    
+
     /**
-     * Returns the toolbar for this Panel if one was configured. 
-     * @return {Ext.Toolbar} 
+     * Returns the toolbar for this Panel if one was configured.
+     * @return {Ext.Toolbar}
      */
     getToolbar : function(){
         return this.toolbar;
     },
-    
+
     setActiveState : function(active){
         this.active = active;
         if(!active){
@@ -184,34 +184,34 @@ panel.load({
         this.on("activate", this.refreshDelegate);
         return this.el.getUpdateManager();
     },
-    
+
     _handleRefresh : function(url, params, loadOnce){
         if(!loadOnce || !this.loaded){
             var updater = this.el.getUpdateManager();
             updater.update(url, params, this._setLoaded.createDelegate(this));
         }
     },
-    
+
     _setLoaded : function(){
         this.loaded = true;
-    }, 
-    
+    },
+
     /**
      * Returns this panel's id
-     * @return {String} 
+     * @return {String}
      */
     getId : function(){
         return this.el.id;
     },
-    
+
     /**
      * Returns this panel's element
-     * @return {Ext.Element} 
+     * @return {Ext.Element}
      */
     getEl : function(){
         return this.el;
     },
-    
+
     adjustForComponents : function(width, height){
         if(this.resizeEl != this.el){
             width -= this.el.getFrameWidth('lr');
@@ -228,7 +228,7 @@ panel.load({
         }
         return {"width": width, "height": height};
     },
-    
+
     setSize : function(width, height){
         if(this.fitToFrame && !this.ignoreResize(width, height)){
             if(this.fitContainer && this.resizeEl != this.el){
@@ -239,15 +239,15 @@ panel.load({
             this.fireEvent('resize', this, size.width, size.height);
         }
     },
-    
+
     /**
      * Returns this panel's title
-     * @return {String} 
+     * @return {String}
      */
     getTitle : function(){
         return this.title;
     },
-    
+
     /**
      * Set this panel's title
      * @param {String} title
@@ -258,25 +258,25 @@ panel.load({
             this.region.updatePanelTitle(this, title);
         }
     },
-    
+
     /**
      * Returns true is this panel was configured to be closable
-     * @return {Boolean} 
+     * @return {Boolean}
      */
     isClosable : function(){
         return this.closable;
     },
-    
+
     beforeSlide : function(){
         this.el.clip();
         this.resizeEl.clip();
     },
-    
+
     afterSlide : function(){
         this.el.unclip();
         this.resizeEl.unclip();
     },
-    
+
     /**
      *   Force a content refresh from the URL specified in the {@link #setUrl} method.
      *   Will fail silently if the {@link #setUrl} method has not been called.
@@ -288,7 +288,7 @@ panel.load({
            this.refreshDelegate();
         }
     },
-    
+
     /**
      * Destroys this panel
      */
@@ -329,15 +329,15 @@ Ext.extend(Ext.GridPanel, Ext.ContentPanel, {
     getId : function(){
         return this.grid.id;
     },
-    
+
     /**
      * Returns the grid for this panel
-     * @return {Ext.grid.Grid} 
+     * @return {Ext.grid.Grid}
      */
     getGrid : function(){
-        return this.grid;    
+        return this.grid;
     },
-    
+
     setSize : function(width, height){
         if(!this.ignoreResize(width, height)){
             var grid = this.grid;
@@ -346,19 +346,19 @@ Ext.extend(Ext.GridPanel, Ext.ContentPanel, {
             grid.autoSize();
         }
     },
-    
+
     beforeSlide : function(){
         this.grid.getView().scroller.clip();
     },
-    
+
     afterSlide : function(){
         this.grid.getView().scroller.unclip();
     },
-    
+
     destroy : function(){
         this.grid.destroy();
         delete this.grid;
-        Ext.GridPanel.superclass.destroy.call(this); 
+        Ext.GridPanel.superclass.destroy.call(this);
     }
 });
 
@@ -394,10 +394,10 @@ Ext.extend(Ext.NestedLayoutPanel, Ext.ContentPanel, {
             }
         }
     },
-    
+
     /**
      * Returns the nested BorderLayout for this panel
-     * @return {Ext.BorderLayout} 
+     * @return {Ext.BorderLayout}
      */
     getLayout : function(){
         return this.layout;
@@ -408,7 +408,7 @@ Ext.ScrollPanel = function(el, config, content){
     config = config || {};
     config.fitToFrame = true;
     Ext.ScrollPanel.superclass.constructor.call(this, el, config, content);
-    
+
     this.el.dom.style.overflow = "hidden";
     var wrap = this.el.wrap({cls: "x-scroller x-layout-inactive-content"});
     this.el.removeClass("x-layout-inactive-content");
