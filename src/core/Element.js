@@ -2628,7 +2628,16 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
 
     /**
      * Wraps the specified element with a special markup/CSS block that renders by default as a gray container with a
-     * gradient background, rounded corners and a 4-way shadow.
+     * gradient background, rounded corners and a 4-way shadow.  Example usage:
+     * <pre><code>
+// Basic box wrap
+Ext.get("foo").boxWrap();
+
+// You can also add a custom class and use CSS inheritance rules to customize the box look.
+// 'x-box-blue' is a built-in alternative -- look at the related CSS definitions as an example
+// for how to create a custom box wrap style.
+Ext.get("foo").boxWrap().addClass("x-box-blue");
+</pre></code>
      * @param {String} class (optional) A base CSS class to apply to the containing wrapper element (defaults to 'x-box').
      * Note that there are a number of CSS rules that are dependent on this name to make the overall effect work,
      * so if you supply an alternate base class, make sure you also supply all of the necessary rules.
