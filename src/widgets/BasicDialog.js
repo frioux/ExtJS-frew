@@ -976,6 +976,7 @@ Ext.extend(Ext.BasicDialog, Ext.util.Observable, {
  * @class Ext.DialogManager
  * Provides global access to BasicDialogs that have been created and
  * support for z-indexing (layering) multiple open dialogs.
+ * @singleton
  */
 Ext.DialogManager = function(){
     var list = {};
