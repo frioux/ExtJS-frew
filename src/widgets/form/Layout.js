@@ -29,6 +29,12 @@ Ext.extend(Ext.form.Layout, Ext.Component, {
      * Fixed width in pixels of all field labels (defaults to undefined)
      */
     /**
+     * @cfg {String} labelStyle A default CSS style specification to apply to each field's label (defaults to '').
+     * For example, <code>labelStyle: 'font-weight:bold;'</code>.  If any field also specifies a labelStyle, the
+     * field's style will take precendence.
+     */
+    
+    /**
      * @cfg {Boolean} clear
      * True to add a clearing element at the end of this layout, equivalent to CSS clear: both (defaults to true)
      */

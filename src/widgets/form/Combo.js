@@ -174,7 +174,7 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     triggerAction: 'query',
     /**
      * @cfg {Number} minChars The minimum number of characters the user must type before autocomplete and typeahead activate
-     * (defaults to 4, does not apply if editable = false)
+     * (defaults to 4 if remote or 0 if local, does not apply if editable = false)
      */
     minChars : 4,
     /**

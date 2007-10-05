@@ -44,7 +44,8 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
      */
     vtype : null,
     /**
-     * @cfg {String} maskRe An input mask regular expression that will be used to filter keystrokes that don't match (defaults to null)
+     * @cfg {RegExp} maskRe An input mask regular expression that will be used to filter keystrokes that don't match 
+     * (defaults to null)
      */
     maskRe : null,
     /**
@@ -64,15 +65,18 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
      */
     maxLength : Number.MAX_VALUE,
     /**
-     * @cfg {String} minLengthText Error text to display if the minimum length validation fails (defaults to "The minimum length for this field is {minLength}")
+     * @cfg {String} minLengthText Error text to display if the minimum length validation fails (defaults to
+     * "The minimum length for this field is {minLength}")
      */
     minLengthText : "The minimum length for this field is {0}",
     /**
-     * @cfg {String} maxLengthText Error text to display if the maximum length validation fails (defaults to "The maximum length for this field is {maxLength}")
+     * @cfg {String} maxLengthText Error text to display if the maximum length validation fails (defaults to
+     * "The maximum length for this field is {maxLength}")
      */
     maxLengthText : "The maximum length for this field is {0}",
     /**
-     * @cfg {Boolean} selectOnFocus True to automatically select any existing field text when the field receives input focus (defaults to false)
+     * @cfg {Boolean} selectOnFocus True to automatically select any existing field text when the field receives
+     * input focus (defaults to false)
      */
     selectOnFocus : false,
     /**
@@ -92,7 +96,8 @@ Ext.extend(Ext.form.TextField, Ext.form.Field,  {
      */
     regex : null,
     /**
-     * @cfg {String} regexText The error text to display if {@link #regex} is used and the test fails during validation (defaults to "")
+     * @cfg {String} regexText The error text to display if {@link #regex} is used and the test fails during
+     * validation (defaults to "")
      */
     regexText : "",
     /**

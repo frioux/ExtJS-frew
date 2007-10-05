@@ -12,6 +12,23 @@ Ext.form.Field = function(config){
 
 Ext.extend(Ext.form.Field, Ext.BoxComponent,  {
     /**
+     * @cfg {String} fieldLabel The label text to display next to this field (defaults to '')
+     */
+    /**
+     * @cfg {String} labelStyle A CSS style specification to apply directly to this field's label (defaults to the
+     * container's labelStyle value if set, or ''). For example, <code>labelStyle: 'font-weight:bold;'</code>.
+     */
+    /**
+     * @cfg {String} labelSeparator The standard separator to display after the text of each form label (defaults
+     * to the value of {@link Ext.layout.FormLayout#labelSeparator}, which is a colon ':' by default).  To display
+     * no separator for this field's label specify empty string ''.
+     */
+    /**
+     * @cfg {String} itemCls An additional CSS class to apply to this field (defaults to the container's itemCls
+     * value if set, or '')
+     */
+
+    /**
      * @cfg {String} invalidClass The CSS class to use when marking a field invalid (defaults to "x-form-invalid")
      */
     invalidClass : "x-form-invalid",
