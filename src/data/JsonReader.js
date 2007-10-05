@@ -101,7 +101,8 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
      */
     readRecords : function(o){
         /**
-         * After any data loads, the raw JSON data is available for further custom processing.
+         * After any data loads, the raw JSON data is available for further custom processing.  If no data is
+         * loaded or there is a load exception this property will be undefined.
          * @type Object
          */
         this.jsonData = o;

@@ -302,7 +302,8 @@ mc.add(otherEl);
     },
    
 /**
- * Returns the item associated with the passed key OR index. Key has priority over index.
+ * Returns the item associated with the passed key OR index. Key has priority over index.  This is the equivalent
+ * of calling {@link #key} first, then if nothing matched calling {@link #itemAt}.
  * @param {String/Number} key The key or index of the item.
  * @return {Object} The item associated with the passed key.
  */

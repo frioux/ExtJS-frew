@@ -136,7 +136,8 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     valueField: undefined,
     /**
      * @cfg {String} hiddenName If specified, a hidden form field with this name is dynamically generated to store the
-     * field's data value (defaults to the underlying DOM element's name)
+     * field's data value (defaults to the underlying DOM element's name). Required for the combo's value to automatically
+     * post during a form submission.
      */
     hiddenName: undefined,
     /**
