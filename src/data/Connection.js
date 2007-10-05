@@ -329,8 +329,33 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
 /**
  * @class Ext.Ajax
  * @extends Ext.data.Connection
- * Global Ajax request class.
- *
+ * Global Ajax request class.  Provides a simple way to make Ajax requests with maximum flexibility.  Example usage:
+ * <pre><code>
+// Basic request
+Ext.Ajax.request({
+   url: 'foo.php',
+   success: someFn,
+   failure: otherFn,
+   headers: {
+       'my-header': 'foo'
+   },
+   params: { foo: 'bar' }
+});
+
+// Simple ajax form submission
+Ext.Ajax.request({
+    form: 'some-form',
+    params: 'foo=bar'
+});
+
+// Default headers to pass in every request
+Ext.Ajax.defaultHeaders = {
+    'Powered-By': 'Ext'
+};
+
+// Global Ajax events can be handled on every request!
+Ext.Ajax.on('beforerequest', this.showSpinner, this);
+</code></pre>
  * @singleton
  */
 Ext.Ajax = new Ext.data.Connection({

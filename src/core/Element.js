@@ -15,7 +15,8 @@ var el = Ext.get(myDivElement);
  * each call instead of constructing a new one.<br><br>
  * <b>Animations</b><br />
  * Many of the functions for manipulating an element have an optional "animate" parameter. The animate parameter
- * should either be a boolean (true) or an object literal with animation options. The animation options are:
+ * should either be a boolean (true) or an object literal with animation options. Note that the supported Element animation
+ * options are a subset of the {@link Ext.Fx} animation options specific to Fx effects.  The animation options are:
 <pre>
 Option    Default   Description
 --------- --------  ---------------------------------------------
@@ -2746,7 +2747,7 @@ var docEl;
  * Static method to retrieve Element objects. Uses simple caching to consistently return the same object.
  * Automatically fixes if an object was recreated with the same id via AJAX or DOM.
  * @param {String/HTMLElement/Element} el The id of the node, a DOM Node or an existing Element.
- * @return {Element} The Element object
+ * @return {Element} The Element object (or null if no matching element was found)
  * @static
  */
 El.get = function(el){
@@ -2857,7 +2858,7 @@ El._flyweights = {};
  * @param {String} named (optional) Allows for creation of named reusable flyweights to
  *                                  prevent conflicts (e.g. internally Ext uses "_internal")
  * @static
- * @return {Element} The shared Element object
+ * @return {Element} The shared Element object (or null if no matching element was found)
  */
 El.fly = function(el, named){
     named = named || '_global';
