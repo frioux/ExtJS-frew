@@ -23,12 +23,14 @@ Ext.extend(Ext.tree.TreeDragZone, Ext.dd.DragZone, {
      * interact with other drag drop objects in the same group (defaults to 'TreeDD').
      */
     ddGroup : "TreeDD",
-    
+
+    // private
     onBeforeDrag : function(data, e){
         var n = data.node;
         return n && n.draggable && !n.disabled;
     },
-    
+
+    // private
     onInitDrag : function(e){
         var data = this.dragData;
         this.tree.getSelectionModel().select(data.node);
@@ -36,20 +38,24 @@ Ext.extend(Ext.tree.TreeDragZone, Ext.dd.DragZone, {
         data.node.ui.appendDDGhost(this.proxy.ghost.dom);
         this.tree.fireEvent("startdrag", this.tree, data.node, e);
     },
-    
+
+    // private
     getRepairXY : function(e, data){
         return data.node.ui.getDDRepairXY();
     },
-    
+
+    // private
     onEndDrag : function(data, e){
         this.tree.fireEvent("enddrag", this.tree, data.node, e);
     },
-    
+
+    // private
     onValidDrop : function(dd, e, id){
         this.tree.fireEvent("dragdrop", this.tree, this.dragData.node, dd, e);
         this.hideProxy();
     },
-    
+
+    // private
     beforeInvalidDrop : function(e, id){
         // this scrolls the original position back into view
         var sm = this.tree.getSelectionModel();

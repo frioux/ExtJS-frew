@@ -56,24 +56,28 @@ Ext.extend(Ext.tree.TreeDropZone, Ext.dd.DropZone, {
      * over the target (defaults to 1000)
      */
     expandDelay : 1000,
-    
+
+    // private
     expandNode : function(node){
         if(node.hasChildNodes() && !node.isExpanded()){
             node.expand(false, null, this.triggerCacheRefresh.createDelegate(this));
         }
     },
-    
+
+    // private
     queueExpand : function(node){
         this.expandProcId = this.expandNode.defer(this.expandDelay, this, [node]);
     },
-    
+
+    // private
     cancelExpand : function(){
         if(this.expandProcId){
             clearTimeout(this.expandProcId);
             this.expandProcId = false;
         }
     },
-    
+
+    // private
     isValidDropPoint : function(n, pt, dd, e, data){
         if(!n || !data){ return false; }
         var targetNode = n.node;
@@ -104,7 +108,8 @@ Ext.extend(Ext.tree.TreeDropZone, Ext.dd.DropZone, {
         var result = this.tree.fireEvent("nodedragover", overEvent);
         return overEvent.cancel === false && result !== false;
     },
-    
+
+    // private
     getDropPoint : function(e, n, dd){
         var tn = n.node;
         if(tn.isRoot){
@@ -130,11 +135,13 @@ Ext.extend(Ext.tree.TreeDropZone, Ext.dd.DropZone, {
             return "append";
         }
     },
-    
+
+    // private
     onNodeEnter : function(n, dd, e, data){
         this.cancelExpand();
     },
-    
+
+    // private
     onNodeOver : function(n, dd, e, data){
         var pt = this.getDropPoint(e, n, dd);
         var node = n.node;
@@ -170,12 +177,14 @@ Ext.extend(Ext.tree.TreeDropZone, Ext.dd.DropZone, {
        }
        return returnCls;
     },
-    
+
+    // private
     onNodeOut : function(n, dd, e, data){
         this.cancelExpand();
         this.removeDropIndicators(n);
     },
-    
+
+    // private
     onNodeDrop : function(n, dd, e, data){
         var point = this.getDropPoint(e, n, dd);
         var targetNode = n.node;
@@ -212,7 +221,8 @@ Ext.extend(Ext.tree.TreeDropZone, Ext.dd.DropZone, {
         }
         return true;
     },
-    
+
+    // private
     completeDrop : function(de){
         var ns = de.dropNode, p = de.point, t = de.target;
         if(!(ns instanceof Array)){
@@ -236,7 +246,8 @@ Ext.extend(Ext.tree.TreeDropZone, Ext.dd.DropZone, {
         t.ui.endDrop();
         this.tree.fireEvent("nodedrop", de);
     },
-    
+
+    // private
     afterNodeMoved : function(dd, data, e, targetNode, dropNode){
         if(this.tree.hlDrop){
             dropNode.ui.focus();
@@ -244,11 +255,13 @@ Ext.extend(Ext.tree.TreeDropZone, Ext.dd.DropZone, {
         }
         this.tree.fireEvent("nodedrop", this.tree, targetNode, data, dd, e);
     },
-    
+
+    // private
     getTree : function(){
         return this.tree;
     },
-    
+
+    // private
     removeDropIndicators : function(n){
         if(n && n.ddel){
             var el = n.ddel;
@@ -259,12 +272,14 @@ Ext.extend(Ext.tree.TreeDropZone, Ext.dd.DropZone, {
             this.lastInsertClass = "_noclass";
         }
     },
-    
+
+    // private
     beforeDragDrop : function(target, e, id){
         this.cancelExpand();
         return true;
     },
-    
+
+    // private
     afterRepair : function(data){
         if(data && Ext.enableFx){
             data.node.ui.highlight();
