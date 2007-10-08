@@ -822,9 +822,15 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
         }
     }
 
-    /** @cfg {Boolean} grow @hide */
-    /** @cfg {Number} growMin @hide */
-    /** @cfg {Number} growMax @hide */
+    /**
+     * @cfg {Boolean} grow @hide
+     */
+    /**
+     * @cfg {Number} growMin @hide
+     */
+    /**
+     * @cfg {Number} growMax @hide
+     */
     /**
      * @hide
      * @method autoSize

@@ -39,10 +39,6 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
      */
     hideTrigger:false,
 
-    /** @cfg {Boolean} grow @hide */
-    /** @cfg {Number} growMin @hide */
-    /** @cfg {Number} growMax @hide */
-
     /**
      * @hide 
      * @method
@@ -198,6 +194,16 @@ Ext.extend(Ext.form.TriggerField, Ext.form.TextField,  {
      * @param {EventObject} e
      */
     onTriggerClick : Ext.emptyFn
+
+    /**
+     * @cfg {Boolean} grow @hide
+     */
+    /**
+     * @cfg {Number} growMin @hide
+     */
+    /**
+     * @cfg {Number} growMax @hide
+     */
 });
 
 // TwinTriggerField is not a public class to be used directly.  It is meant as an abstract base class
