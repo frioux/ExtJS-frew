@@ -52,7 +52,9 @@ Ext.extend(Ext.form.NumberField, Ext.form.TextField,  {
      * if a valid character like '.' or '-' is left in the field with no number (defaults to "{value} is not a valid number")
      */
     nanText : "{0} is not a valid number",
-
+    /**
+     * @cfg {String} baseChars The base set of characters to evaluate as valid numbers (defaults to '0123456789').
+     */
     baseChars : "0123456789",
 
     // private
