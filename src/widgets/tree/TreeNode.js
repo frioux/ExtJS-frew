@@ -211,7 +211,7 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
         }else{
             this.ui.updateExpandIcon();
         }
-        if(!this.firstChild) {
+        if(!this.firstChild && !this.isHiddenRoot()) {
             this.childrenRendered = false;
         }
         return node;

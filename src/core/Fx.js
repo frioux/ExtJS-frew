@@ -428,14 +428,14 @@ el.highlight("ffff9c", {
 
         el.queueFx(o, function(){
             color = color || "ffff9c";
-            attr = o.attr || "backgroundColor";
+            var attr = o.attr || "backgroundColor";
 
             this.clearOpacity();
             this.show();
 
             var origColor = this.getColor(attr);
             var restoreColor = this.dom.style[attr];
-            endColor = (o.endColor || origColor) || "ffffff";
+            var endColor = (o.endColor || origColor) || "ffffff";
 
             var after = function(){
                 el.dom.style[attr] = restoreColor;
@@ -484,7 +484,7 @@ el.frame("C3DAF9", 1, {
                 color = "#" + color;
             }
             count = count || 1;
-            duration = o.duration || 1;
+            var duration = o.duration || 1;
             this.show();
 
             var b = this.getBox();

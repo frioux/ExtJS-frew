@@ -2116,15 +2116,19 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
         if(this.getStyle("position") == "static"){
             this.setStyle("position", "relative");
         }
-        if(!this._mask){
-            this._mask = Ext.DomHelper.append(this.dom, {cls:"ext-el-mask"}, true);
+        if(this._maskMsg){
+            this._maskMsg.remove();
         }
+        if(this._mask){
+            this._mask.remove();
+        }
+
+        this._mask = Ext.DomHelper.append(this.dom, {cls:"ext-el-mask"}, true);
+
         this.addClass("x-masked");
         this._mask.setDisplayed(true);
         if(typeof msg == 'string'){
-            if(!this._maskMsg){
-                this._maskMsg = Ext.DomHelper.append(this.dom, {cls:"ext-el-mask-msg", cn:{tag:'div'}}, true);
-            }
+            this._maskMsg = Ext.DomHelper.append(this.dom, {cls:"ext-el-mask-msg", cn:{tag:'div'}}, true);
             var mm = this._maskMsg;
             mm.dom.className = msgCls ? "ext-el-mask-msg " + msgCls : "ext-el-mask-msg";
             mm.dom.firstChild.innerHTML = msg;
@@ -2138,24 +2142,16 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
     },
 
     /**
-     * Removes a previously applied mask. If removeEl is true the mask overlay is destroyed, otherwise
-     * it is cached for reuse.
+     * Removes a previously applied mask. 
      */
-    unmask : function(removeEl){
+    unmask : function(){
         if(this._mask){
-            if(removeEl === true){
-                this._mask.remove();
-                delete this._mask;
-                if(this._maskMsg){
-                    this._maskMsg.remove();
-                    delete this._maskMsg;
-                }
-            }else{
-                this._mask.setDisplayed(false);
-                if(this._maskMsg){
-                    this._maskMsg.setDisplayed(false);
-                }
+            if(this._maskMsg){
+                this._maskMsg.remove();
+                delete this._maskMsg;
             }
+            this._mask.remove();
+            delete this._mask;
         }
         this.removeClass("x-masked");
     },
