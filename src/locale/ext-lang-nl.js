@@ -1,4 +1,7 @@
 /*
+ * List compiled by mystix on the extjs.com forums.
+ * Thank you Mystix!
+ *
  * Dutch Translations
  * by Bas van Oostveen (04 April 2007)
  */
@@ -130,7 +133,7 @@ if(Ext.form.DateField){
        minText           : "De datum in dit veld moet na {0} liggen",
        maxText           : "De datum in dit veld moet voor {0} liggen",
        invalidText       : "{0} is geen geldige datum - formaat voor datum is {1}",
-       format            : "d/m/y"
+       format            : "d-m-y"
     });
 }
 
