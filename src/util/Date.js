@@ -16,7 +16,7 @@ Format  Description                                                             
   S     English ordinal suffix for the day of the month, 2 characters           st, nd, rd or th. Works well with j
   w     Numeric representation of the day of the week                           0 (for Sunday) to 6 (for Saturday)
   z     The day of the year (starting from 0)                                   0 to 364 (365 in leap years)
-  W     ISO-8601 2-digit week number of year, weeks starting on Monday          01 to 53
+  W     ISO-8601 week number of year, weeks starting on Monday                  1 to 53
   F     A full textual representation of a month, such as January or March      January to December
   m     Numeric representation of a month, with leading zeros                   01 to 12
   M     A short textual representation of a month, three letters                Jan to Dec
@@ -334,7 +334,7 @@ Date.formatCodeToRegex = function(character, currentGroup) {
     case "W":
         return {g:0,
             c:null,
-            s:"(?:\\d{2})"};
+            s:"(?:\\d{1,2})"};
     case "F":
         return {g:1,
             c:"m = parseInt(Date.monthNumbers[results[" + currentGroup + "].substring(0, 1).toUpperCase() + results[" + currentGroup + "].substring(1, 3).toLowerCase()], 10);\n",
@@ -449,7 +449,7 @@ Date.prototype.getGMTOffset = function() {
 
 /**
  * Get the numeric day number of the year, adjusted for leap year.
- * @return {Number} 0 through 364 (365 in leap years)
+ * @return {Number} 0 to 364 (365 in leap years)
  */
 Date.prototype.getDayOfYear = function() {
     var num = 0;
@@ -461,9 +461,9 @@ Date.prototype.getDayOfYear = function() {
 };
 
 /**
- * Get the string representation of the ISO-8601 week number of the year
+ * Get the numeric ISO-8601 week number of the year
  * (equivalent to the format specifier 'W').
- * @return {String} '01' to '53'
+ * @return {Number} 1 to 53
  */
 Date.prototype.getWeekOfYear = function() {
   /*
@@ -488,7 +488,7 @@ Date.prototype.getWeekOfYear = function() {
   } else {
     weeknum = Math.floor((daynum + day - 1) / 7) || 52;
   }
-  return String.leftPad(weeknum, 2, "0");
+  return weeknum;
 };
 
 /**
