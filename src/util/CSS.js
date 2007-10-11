@@ -12,8 +12,8 @@ Ext.util.CSS = function(){
 
    return {
    /**
-    * Very simple dynamic creation of stylesheets from a text blob of rules.  The text will wrapped in a style
-    * tag and appended to the HEAD of the document.
+    * Creates a stylesheet from a text blob of rules.
+    * These rules will be wrapped in a STYLE tag and appended to the HEAD of the document.
     * @param {String} cssText The text containing the css rules
     * @param {String} id An id to add to the stylesheet for later removal
     * @return {StyleSheet}
