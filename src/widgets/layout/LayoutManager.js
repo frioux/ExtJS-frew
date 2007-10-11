@@ -4,6 +4,34 @@
  * Base class for layout managers.
  */
 Ext.LayoutManager = function(container, config){
+    this.listeners = config.listeners;
+    this.addEvents({
+        /**
+         * @event layout
+         * Fires when a layout is performed.
+         * @param {Ext.LayoutManager} this
+         */
+        "layout" : true,
+        /**
+         * @event regionresized
+         * Fires when the user resizes a region.
+         * @param {Ext.LayoutRegion} region The resized region
+         * @param {Number} newSize The new size (width for east/west, height for north/south)
+         */
+        "regionresized" : true,
+        /**
+         * @event regioncollapsed
+         * Fires when a region is collapsed.
+         * @param {Ext.LayoutRegion} region The collapsed region
+         */
+        "regioncollapsed" : true,
+        /**
+         * @event regionexpanded
+         * Fires when a region is expanded.
+         * @param {Ext.LayoutRegion} region The expanded region
+         */
+        "regionexpanded" : true
+    });
     Ext.LayoutManager.superclass.constructor.call(this);
     this.el = Ext.get(container);
     // ie scrollbar fix
@@ -17,33 +45,6 @@ Ext.LayoutManager = function(container, config){
     /** false to disable window resize monitoring @type Boolean */
     this.monitorWindowResize = true;
     this.regions = {};
-    this.addEvents({
-        /**
-         * @event layout
-         * Fires when a layout is performed. 
-         * @param {Ext.LayoutManager} this
-         */
-        "layout" : true,
-        /**
-         * @event regionresized
-         * Fires when the user resizes a region. 
-         * @param {Ext.LayoutRegion} region The resized region
-         * @param {Number} newSize The new size (width for east/west, height for north/south)
-         */
-        "regionresized" : true,
-        /**
-         * @event regioncollapsed
-         * Fires when a region is collapsed. 
-         * @param {Ext.LayoutRegion} region The collapsed region
-         */
-        "regioncollapsed" : true,
-        /**
-         * @event regionexpanded
-         * Fires when a region is expanded.  
-         * @param {Ext.LayoutRegion} region The expanded region
-         */
-        "regionexpanded" : true
-    });
     this.updating = false;
     Ext.EventManager.onWindowResize(this.onWindowResize, this, true);
 };
