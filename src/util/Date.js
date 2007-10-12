@@ -47,7 +47,7 @@ Format  Description                                                             
 var dt = new Date('1/10/2007 03:05:01 PM GMT-0600');
 document.write(dt.format('Y-m-d'));                         //2007-01-10
 document.write(dt.format('F j, Y, g:i a'));                 //January 10, 2007, 3:05 pm
-document.write(dt.format('l, \\t\\he dS of F Y h:i:s A'));  //Wednesday, the 10th of January 2007 03:05:01 PM
+document.write(dt.format('l, \\t\\he jS of F Y h:i:s A'));  //Wednesday, the 10th of January 2007 03:05:01 PM
  </code></pre>
  *
  * Here are some standard date/time patterns that you might find helpful.  They
