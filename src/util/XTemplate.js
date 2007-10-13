@@ -157,7 +157,7 @@ Ext.extend(Ext.XTemplate, Ext.Template, {
 /**
  * Creates a template from the passed element's value (<i>display:none</i> textarea, preferred) or innerHTML.
  * @param {String/HTMLElement} el A DOM element or its id
- * @returns {Ext.Template} The created template
+ * @return {Ext.Template} The created template
  * @static
  */
 Ext.XTemplate.from = function(el){
