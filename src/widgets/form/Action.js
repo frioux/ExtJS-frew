@@ -191,6 +191,7 @@ Ext.form.Action.prototype = {
 
 /**
  * @class Ext.form.Action.Submit
+ * @extends Ext.form.Action
  * A class which handles submission of data from {@link Ext.form.BasicForm Form}s
  * and processes the returned response. 
  * <br><br>
@@ -288,6 +289,7 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
 
 /**
  * @class Ext.form.Action.Load
+ * @extends Ext.form.Action
  * A class which handles loading of data from a server into the Fields of
  * an= {@link Ext.form.BasicForm Form}. 
  * <br><br>
