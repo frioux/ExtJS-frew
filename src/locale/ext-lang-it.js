@@ -75,14 +75,14 @@ if(Ext.DatePicker){
       maxText           : "Data successiva alla data massima",
       disabledDaysText  : "",
       disabledDatesText : "",
-      monthNames	: Date.monthNames,
-      dayNames		: Date.dayNames,
+      monthNames		: Date.monthNames,
+      dayNames			: Date.dayNames,
       nextText          : 'Mese successivo (Ctrl+Destra)',
       prevText          : 'Mese precedente (Ctrl+Sinistra)',
       monthYearText     : 'Scegli un mese (Ctrl+Su/Giu per cambiare anno)',
       todayTip          : "{0} (Barra spaziatrice)",
       format            : "d/m/y",
-      cancelText	: "Annulla"
+      cancelText		: "Annulla"
    });
 }
 

@@ -175,3 +175,4 @@ if(Ext.SplitLayoutRegion){
        collapsibleSplitTip : "Trek om grootte aan te pas. Dubbel-klik om weg te steek."
     });
 }
+

@@ -75,14 +75,14 @@ if(Ext.DatePicker){
       maxText           : "Dieses Datum liegt nach dem letztmöglichen Datum",
       disabledDaysText  : "",
       disabledDatesText : "",
-      monthNames	: Date.monthNames,
-      dayNames		: Date.dayNames,
+      monthNames		: Date.monthNames,
+      dayNames			: Date.dayNames,
       nextText          : "Nächster Monat (Strg/Control + Rechts)",
       prevText          : "Vorheriger Monat (Strg/Control + Links)",
       monthYearText     : "Monat auswählen (Strg/Control + Hoch/Runter, um ein Jahr auszuwählen)",
       todayTip          : "Heute ({0}) (Leertaste)",
       format            : "d.m.Y",
-      startDay		: 1
+      startDay			: 1
    });
 }
 

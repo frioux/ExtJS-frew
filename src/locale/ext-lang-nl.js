@@ -3,7 +3,7 @@
  * Thank you Mystix!
  *
  * Dutch Translations
- * by Bas van Oostveen (04 April 2007)
+ * by Ido Sebastiaan Bas van Oostveen (12 Oct 2007)
  */
 
 /* Ext Core translations */
@@ -45,6 +45,21 @@ Date.monthNames = [
    "November",
    "December"
 ];
+
+Date.monthNumbers = {
+  Jan : 0,
+  Feb : 1,
+  Maa : 2,
+  Apr : 3,
+  Mei : 4,
+  Jun : 5,
+  Jul : 6,
+  Aug : 7,
+  Sep : 8,
+  Okt : 9,
+  Nov : 10,
+  Dec : 11
+};
 
 Date.dayNames = [
    "Zondag",
