@@ -663,7 +663,7 @@ Date.prototype.clone = function() {
 
 /**
  * Clears any time information from this date
- @param {Boolean} clone true to create a clone of this date, clear the time and return it
+ @param {Boolean} clone true to create a clone of this date, clear the time and return it (defaults to false)
  @return {Date} this or the clone
  */
 Date.prototype.clearTime = function(clone){
