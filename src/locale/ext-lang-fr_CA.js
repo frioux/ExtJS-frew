@@ -78,10 +78,13 @@ if(Ext.DatePicker){
       monthNames	: Date.monthNames,
       dayNames		: Date.dayNames,
       nextText          : 'Prochain mois (CTRL+Fléche droite)',
-      prevText          : 'Mois précédent (CTRL+Fléche gauche)',
-      monthYearText     : 'Choissisez un mois (CTRL+Fléche haut ou bas pour changer d\'année.)',
+      prevText          : "Mois précédent (CTRL+Fléche gauche)",
+      monthYearText     : "Choisissez un mois (CTRL+Fléche haut ou bas pour changer d\'année.)",
       todayTip          : "{0} (Barre d'espace)",
-      format            : "d/m/y"
+      okText            : "&#160;OK&#160;",
+      cancelText        : "Annuler",
+      format            : "d/m/y",
+      startDay          : 1
    });
 }
 
@@ -141,6 +144,84 @@ if(Ext.form.VTypes){
       urlText      : 'Ce champ doit contenir une URL sous le format suivant: "http:/'+'/www.domaine.com"',
       alphaText    : 'Ce champ ne peut contenir que des lettres et le caractère souligné (_)',
       alphanumText : 'Ce champ ne peut contenir que des caractères alphanumériques ainsi que le caractère souligné (_)'
+   });
+}
+
+if(Ext.form.HtmlEditor){
+   Ext.apply(Ext.form.HtmlEditor.prototype, {
+      createLinkText : "Veuillez entrer l'URL pour ce lien:",
+          buttonTips : {
+              bold : {
+                  title: 'Gras (Ctrl+B)',
+                  text: 'Met le texte sélectionné en gras.',
+                  cls: 'x-html-editor-tip'
+              },
+              italic : {
+                  title: 'Italique (Ctrl+I)',
+                  text: 'Met le texte sélectionné en italique.',
+                  cls: 'x-html-editor-tip'
+              },
+              underline : {
+                  title: 'Souligné (Ctrl+U)',
+                  text: 'Souligne le texte sélectionné.',
+                  cls: 'x-html-editor-tip'
+              },
+              increasefontsize : {
+                  title: 'Agrandir la police',
+                  text: 'Augmente la taille de la police.',
+                  cls: 'x-html-editor-tip'
+              },
+              decreasefontsize : {
+                  title: 'Réduire la police',
+                  text: 'Réduit la taille de la police.',
+                  cls: 'x-html-editor-tip'
+              },
+              backcolor : {
+                  title: 'Couleur de surbrillance',
+                  text: 'Modifie la couleur de fond du texte sélectionné.',
+                  cls: 'x-html-editor-tip'
+              },
+              forecolor : {
+                  title: 'Couleur de police',
+                  text: 'Modifie la couleur du texte sélectionné.',
+                  cls: 'x-html-editor-tip'
+              },
+              justifyleft : {
+                  title: 'Aligner à gauche',
+                  text: 'Aligne le texte à gauche.',
+                  cls: 'x-html-editor-tip'
+              },
+              justifycenter : {
+                  title: 'Centrer',
+                  text: 'Centre le texte.',
+                  cls: 'x-html-editor-tip'
+              },
+              justifyright : {
+                  title: 'Aligner à droite',
+                  text: 'Aligner le texte à droite.',
+                  cls: 'x-html-editor-tip'
+              },
+              insertunorderedlist : {
+                  title: 'Liste à puce',
+                  text: 'Démarre une liste à puce.',
+                  cls: 'x-html-editor-tip'
+              },
+              insertorderedlist : {
+                  title: 'Liste numérotée',
+                  text: 'Démarre une liste numérotée.',
+                  cls: 'x-html-editor-tip'
+              },
+              createlink : {
+                  title: 'Lien hypertexte',
+                  text: 'Transforme en lien hypertexte.',
+                  cls: 'x-html-editor-tip'
+              },
+              sourceedit : {
+                  title: 'Code source',
+                  text: 'Basculer en mode édition du code source.',
+                  cls: 'x-html-editor-tip'
+              }
+        }
    });
 }
 

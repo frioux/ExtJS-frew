@@ -1,4 +1,4 @@
-/*
+﻿/*
  * France (France) translation
  * By Perrich
  * 06-08-2007, 09:07 PM
