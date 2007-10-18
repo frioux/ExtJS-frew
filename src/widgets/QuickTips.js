@@ -301,8 +301,9 @@ Ext.QuickTips = function(){
        },
 
     /**
-     * Configures a new quick tip instance and assigns it to a target element.  The following config options
-     * are supported:
+     * Configures a new quick tip instance and assigns it to a target element.  In addition to all of the standard
+     * QuickTips config options, this method supports a target config, which is required for the quick tip to
+     * be properly registered:
      * <pre>
 Property    Type                   Description
 ----------  ---------------------  ------------------------------------------------------------------------
