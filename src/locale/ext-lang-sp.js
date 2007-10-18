@@ -144,6 +144,89 @@ if(Ext.form.VTypes){
    });
 }
 
+if(Ext.form.HtmlEditor){
+   Ext.apply(Ext.form.HtmlEditor.prototype, {
+	 createLinkText : 'Por favor, ingrese la direccion URL para el enlace:',
+	 buttonTips : {
+           insertimage:{
+              title:'Imagen',
+              text:'Inserta una imagen en la posición actual',
+              cls:'x-html-editor-tip'
+            },
+            bold : {
+               title: 'Negrita (Ctrl+B)',
+               text: 'Pone el texto seleccionado en negrita.',
+               cls: 'x-html-editor-tip'
+            },
+            italic : {
+               title: 'Italica (Ctrl+I)',
+               text: 'Pone el texto seleccionado ent italica.',
+               cls: 'x-html-editor-tip'
+            },
+            underline : {
+               title: 'Linea Baja (Ctrl+U)',
+               text: 'Pone un linea bajo el texto seleccionado.',
+               cls: 'x-html-editor-tip'
+           },
+           increasefontsize : {
+               title: 'Incrementar Texto',
+               text: 'Incrementa el tamaño de la fuente.',
+               cls: 'x-html-editor-tip'
+           },
+           decreasefontsize : {
+               title: 'Decrementar Texto',
+               text: 'Decrementa el tamaño de la fuente.',
+               cls: 'x-html-editor-tip'
+           },
+           backcolor : {
+               title: 'Color de fondo',
+               text: 'Cambia el color de fondo del texto seleccionado.',
+               cls: 'x-html-editor-tip'
+           },
+           forecolor : {
+               title: 'Color de la fuente',
+               text: 'Cambia el color de la fuente del texto seleccionado.',
+               cls: 'x-html-editor-tip'
+           },
+           justifyleft : {
+               title: 'Alinear a la izquierda',
+               text: 'Alinea el texto a la izquierda.',
+               cls: 'x-html-editor-tip'
+           },
+           justifycenter : {
+               title: 'Centrar el texto',
+               text: 'Centra el texto en el editor.',
+               cls: 'x-html-editor-tip'
+           },
+           justifyright : {
+               title: 'Alinear a la derecha',
+               text: 'Alinea el texto a la derecha.',
+               cls: 'x-html-editor-tip'
+           },
+           insertunorderedlist : {
+               title: 'Lista tachada',
+               text: 'Comienza una lista tachada.',
+               cls: 'x-html-editor-tip'
+           },
+           insertorderedlist : {
+               title: 'Lista numerada',
+               text: 'Comienza una lista numerada.',
+               cls: 'x-html-editor-tip'
+           },
+           createlink : {
+               title: 'Enlace',
+               text: 'Convierte el texto seleccionado en un enlace.',
+               cls: 'x-html-editor-tip'
+           },
+           sourceedit : {
+               title: 'Editar codigo',
+               text: 'Cambia al modo de edición de codigo fuente.',
+               cls: 'x-html-editor-tip'
+           }
+        }
+   });
+}
+
 if(Ext.grid.GridView){
    Ext.apply(Ext.grid.GridView.prototype, {
       sortAscText  : "Ordenar en forma ascendente",
