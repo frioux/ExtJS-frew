@@ -1,6 +1,65 @@
 /**
  * @class Ext.QuickTips
- * Provides attractive and customizable tooltips for any element.
+ * <p>Provides attractive and customizable tooltips for any element.  Quicktips can be configured via tag attributes
+ * directly in markup, or by registering quick tips programmatically via the {@link #register} method.</p>
+ * <p>Although all of the available config values are listed on the QuickTips singleton API, some are only
+ * valid on the singleton while others are only valid for specific quick tip target elements.  Here is the summary
+ * of how the configs can be used:</p>
+ * <p><b>QuickTips singleton configs (all are optional)</b></p>
+ * <ul><li>animate</li>
+ * <li>autoDismiss</li>
+ * <li>autoDismissDelay</li>
+ * <li>autoHide</li>
+ * <li>hideDelay</li>
+ * <li>hideOnClick</li>
+ * <li>interceptTitles</li>
+ * <li>maxWidth</li>
+ * <li>minWidth</li>
+ * <li>showDelay</li>
+ * <li>trackMouse</li></ul>
+ * <p><b>Target element configs (optional unless otherwise noted)</b></p>
+ * <ul><li>autoHide: When set to false at this level, a clickable close tool button will display in the quick tip.</li>
+ * <li>cls</li>
+ * <li>target (required)</li>
+ * <li>text (required)</li>
+ * <li>title</li>
+ * <li>width</li></ul>
+ * <p>Here is an example showing how some of these config options could be used:</p>
+ * <pre><code>
+var q = Ext.QuickTips;
+// Init the singleton.  Any tag-based quick tips will start working.
+q.init();
+
+// Singleton properties shared by all quick tips:
+q.animate = true;
+q.maxWidth = 200;
+q.minWidth = 100;
+q.showDelay = 50;
+q.trackMouse = true;
+
+// Manually register a quick tip for a specific element
+q.register({
+    target: 'my-div',
+    title: 'My Tooltip',
+    text: 'This tooltip was added in code',
+    width: 100
+});
+</code></pre>
+ * <p>To register a quick tip in markup, you simply add one or more of the valid QuickTip attributes prefixed with
+ * the <b>ext:</b> namespace.  The HTML element itself is automatically set as the quick tip target. Here is the summary
+ * of supported attributes (optional unless otherwise noted):</p>
+ * <ul><li><b>hide</b>: Specifying "user" is equivalent to setting autoHide = false for target elements above and a close
+ * button will be added to the quick tip.  Any other value will be the same as autoHide = true.</li>
+ * <li><b>qclass</b>: A CSS class to be applied to the quick tip (equivalent to the 'cls' target element config).</li>
+ * <li><b>qtip (required)</b>: The quick tip text (equivalent to the 'text' target element config).</li>
+ * <li><b>qtitle</b>: The quick tip title (equivalent to the 'title' target element config).</li>
+ * <li><b>width</b>: The quick tip width (equivalent to the 'width' target element config).</li></ul>
+ * <p>Here is an example of configuring an HTML element to display a tooltip from markup:</p>
+ * <pre><code>
+// Add a quick tip to an HTML button
+&lt;input type="button" value="OK" ext:qtitle="OK Button"
+     ext:qtip="This is a quick tip from markup!">&lt;/input>
+</code></pre>
  * @singleton
  */
 Ext.QuickTips = function(){
@@ -222,7 +281,9 @@ Ext.QuickTips = function(){
         /**
         * @cfg {Boolean} autoDismiss
         * True to automatically hide the quick tip after a set period of time, regardless of the user's actions
-        * (defaults to true).  Used in conjunction with autoDismissDelay.
+        * (defaults to true).  Used in conjunction with autoDismissDelay.  When set to false at the target element
+        * level (as opposed to at the singleton level), a clickable close tool button will display in the quick tip
+        * for that target element.
         */
        autoDismiss : true,
         /**
@@ -301,14 +362,14 @@ Ext.QuickTips = function(){
        },
 
     /**
-     * Configures a new quick tip instance and assigns it to a target element.  In addition to all of the standard
-     * QuickTips config options, this method supports a target config, which is required for the quick tip to
-     * be properly registered:
-     * <pre>
-Property    Type                   Description
-----------  ---------------------  ------------------------------------------------------------------------
-target      Element/String/Array   An Element, id or array of ids that this quick tip should be tied to
-     * </ul>
+     * Configures a new quick tip instance and assigns it to a target element.  The following config values are
+     * supported (for example usage, see the class header):
+     * <ul><li>autoHide</li>
+     * <li>cls</li>
+     * <li>target (required)</li>
+     * <li>text (required)</li>
+     * <li>title</li>
+     * <li>width</li></ul>
      * @param {Object} config The config object
      */
        register : function(config){
@@ -329,7 +390,7 @@ target      Element/String/Array   An Element, id or array of ids that this quic
        },
 
     /**
-     * Removes this quick tip from its element and destroys it.
+     * Removes any registered quick tip from the target element and destroys it.
      * @param {String/HTMLElement/Element} el The element from which the quick tip is to be removed.
      */
        unregister : function(el){
@@ -337,7 +398,7 @@ target      Element/String/Array   An Element, id or array of ids that this quic
        },
 
     /**
-     * Enable this quick tip.
+     * Enable quick tips globally.
      */
        enable : function(){
            if(inited && disabled){
@@ -349,7 +410,7 @@ target      Element/String/Array   An Element, id or array of ids that this quic
        },
 
     /**
-     * Disable this quick tip.
+     * Disable quick tips globally.
      */
        disable : function(){
           disabled = true;
@@ -363,7 +424,7 @@ target      Element/String/Array   An Element, id or array of ids that this quic
        },
 
     /**
-     * Returns true if the quick tip is enabled, else false.
+     * Returns true if quick tips are enabled, else false.
      */
        isEnabled : function(){
             return !disabled;
