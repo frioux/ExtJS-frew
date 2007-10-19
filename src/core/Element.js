@@ -1479,10 +1479,12 @@ el.un('click', this.handlerFn);
 
     /**
      * Gets the x,y coordinates specified by the anchor position on the element.
-     * @param {String} anchor (optional) The specified anchor position (defaults to "c").  See {@link #alignTo} for details on supported anchor positions.
+     * @param {String} anchor (optional) The specified anchor position (defaults to "c").  See {@link #alignTo}
+     * for details on supported anchor positions.
+     * @param {Boolean} local (optional) True to get the local (element top/left-relative) anchor position instead
+     * of page coordinates
      * @param {Object} size (optional) An object containing the size to use for calculating anchor position
-     *                       {width: (target width), height: (target height)} (defaults to the element's current size)
-     * @param {Boolean} local (optional) True to get the local (element top/left-relative) anchor position instead of page coordinates
+     * {width: (target width), height: (target height)} (defaults to the element's current size)
      * @return {Array} [x, y] An array containing the element's x and y coordinates
      */
     getAnchorXY : function(anchor, local, s){
