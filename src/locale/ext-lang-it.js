@@ -125,7 +125,8 @@ if(Ext.form.DateField){
       minText           : "La data del campo deve essere successiva a {0}",
       maxText           : "La data del campo deve essere precedente a {0}",
       invalidText       : "{0} non &grave; una data valida. Deve essere nel formato {1}",
-      format            : "d/m/y"
+      format            : "d/m/y",
+      altFormats        : "d/m/Y|d-m-y|d-m-Y|d/m|d-m|dm|dmy|dmY|d|Y-m-d"
    });
 }
 
