@@ -1865,7 +1865,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
     * Update the innerHTML of this element, optionally searching for and processing scripts
     * @param {String} html The new HTML
     * @param {Boolean} loadScripts (optional) true to look for and process scripts
-    * @param {Function} callback For async script loading you can be noticed when the update completes
+    * @param {Function} callback For async script loading you can be notified when the update completes
     * @return {Ext.Element} this
      */
     update : function(html, loadScripts, callback){
