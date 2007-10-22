@@ -34,7 +34,7 @@ Ext.extend(Ext.form.DateField, Ext.form.TriggerField,  {
      * Multiple date formats separated by "|" to try when parsing a user input value and it doesn't match the defined
      * format (defaults to 'm/d/Y|m-d-y|m-d-Y|m/d|m-d|d').
      */
-    altFormats : "m/d/Y|m-d-y|m-d-Y|m/d|m-d|md|mdy|mdY|d",
+    altFormats : "m/d/Y|m-d-y|m-d-Y|m/d|m-d|md|mdy|mdY|d|Y-m-d",
     /**
      * @cfg {Array} disabledDays
      * An array of days to disable, 0 based. For example, [0, 6] disables Sunday and Saturday (defaults to null).
