@@ -125,7 +125,7 @@ Ext.extend(Ext.form.NumberField, Ext.form.TextField,  {
     },
 
     setValue : function(v){
-        Ext.form.NumberField.superclass.setValue.call(this, String(v).replace(".", this.decimalSeparator));
+        Ext.form.NumberField.superclass.setValue.call(this, String(parseFloat(v)).replace(".", this.decimalSeparator));
     },
 
     // private
