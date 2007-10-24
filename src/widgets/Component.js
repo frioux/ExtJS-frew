@@ -26,6 +26,7 @@ Ext.ComponentMgr = function(){
         /**
          * Returns a component by id
          * @param {String} id The component id
+				 * @return Ext.Component
          */
         get : function(id){
             return all.get(id);
