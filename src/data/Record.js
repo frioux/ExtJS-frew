@@ -52,14 +52,14 @@ Ext.data.Record = function(data, id){
  * <li><b>dateFormat</b> : String<p style="margin-left:1em">(Optional) A format String for the Date.parseDate function.</p></li>
  * </ul>
  * <br>usage:<br><pre><code>
-var TopicRecord = Ext.data.Record.create(
+var TopicRecord = Ext.data.Record.create([
     {name: 'title', mapping: 'topic_title'},
     {name: 'author', mapping: 'username'},
     {name: 'totalPosts', mapping: 'topic_replies', type: 'int'},
     {name: 'lastPost', mapping: 'post_time', type: 'date'},
     {name: 'lastPoster', mapping: 'user2'},
     {name: 'excerpt', mapping: 'post_text'}
-);
+]);
 
 var myNewRecord = new TopicRecord({
     title: 'Do my job please',
