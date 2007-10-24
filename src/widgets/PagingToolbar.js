@@ -28,7 +28,9 @@ Ext.extend(Ext.PagingToolbar, Ext.Toolbar, {
     pageSize: 20,
     /**
      * @cfg {String} displayMsg
-     * The paging status message to display (defaults to "Displaying {start} - {end} of {total}")
+     * The paging status message to display (defaults to "Displaying {0} - {1} of {2}").  Note that this string is
+     * formatted using the braced numbers 0-2 as tokens that are replaced by the values for start, end and total
+     * respectively. These tokens should be preserved when overriding this string if showing those values is desired.
      */
     displayMsg : 'Displaying {0} - {1} of {2}',
     /**
