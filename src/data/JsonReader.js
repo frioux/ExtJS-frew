@@ -92,7 +92,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
     }(),
 
     /**
-     * Create a data block containing Ext.data.Records from an XML document.
+     * Create a data block containing Ext.data.Records from a JSON object.
      * @param {Object} o An object which contains an Array of row objects in the property specified
      * in the config as 'root, and optionally a property, specified in the config as 'totalProperty'
      * which contains the total size of the dataset.

@@ -42,7 +42,7 @@ Ext.data.Connection = function(config){
         /**
          * @event requestexception
          * Fires if an error HTTP status was returned from the server.
-         * See <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html>HTTP Status Code Definitions</a>
+         * See <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">HTTP Status Code Definitions</a>
          * for details of HTTP status codes.
          * @param {Connection} conn This Connection object.
          * @param {Object} response The XHR object containing the response data.
