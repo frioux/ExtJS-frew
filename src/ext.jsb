@@ -543,6 +543,7 @@
   <file name="locale\ext-lang-el_GR.js" path="locale" />
   <file name="locale\ext-lang-en.js" path="locale" />
   <file name="locale\ext-lang-en_UK.js" path="locale" />
+  <file name="locale\ext-lang-fa.js" path="locale" />
   <file name="locale\ext-lang-fr.js" path="locale" />
   <file name="locale\ext-lang-fr_CA.js" path="locale" />
   <file name="locale\ext-lang-gr.js" path="locale" />
@@ -566,6 +567,7 @@
   <file name="locale\ext-lang-sr_RS.js" path="locale" />
   <file name="locale\ext-lang-sv_SE.js" path="locale" />
   <file name="locale\ext-lang-tr.js" path="locale" />
+  <file name="locale\ext-lang-ukr.js" path="locale" />
   <file name="locale\ext-lang-vn.js" path="locale" />
   <file name="locale\ext-lang-zh_CN.js" path="locale" />
   <file name="locale\ext-lang-zh_TW.js" path="locale" />
