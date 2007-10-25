@@ -537,6 +537,7 @@
   <file name="dd\ScrollManager.js" path="dd" />
   <file name="dd\StatusProxy.js" path="dd" />
   <file name="locale\ext-lang-af.js" path="locale" />
+  <file name="locale\ext-lang-bg.js" path="locale" />
   <file name="locale\ext-lang-cs.js" path="locale" />
   <file name="locale\ext-lang-da.js" path="locale" />
   <file name="locale\ext-lang-de.js" path="locale" />
