@@ -5,38 +5,39 @@
  * <a href="http://www.php.net/date">PHP's date() function</a>, and the formats that are
  * supported will provide results equivalent to their PHP versions.
  *
- * Following is the list of all currently supported formats:
+ * The following is a list of all currently supported formats:
  *<pre>
-Format  Description                                                             Example returned values
-------  ----------------------------------------------------------------------  -----------------------
-  d     Day of the month, 2 digits with leading zeros                           01 to 31
-  D     A textual representation of a day, three letters                        Mon to Sun
-  j     Day of the month without leading zeros                                  1 to 31
-  l     A full textual representation of the day of the week                    Sunday to Saturday
-  S     English ordinal suffix for the day of the month, 2 characters           st, nd, rd or th. Works well with j
-  w     Numeric representation of the day of the week                           0 (for Sunday) to 6 (for Saturday)
-  z     The day of the year (starting from 0)                                   0 to 364 (365 in leap years)
-  W     ISO-8601 week number of year, weeks starting on Monday                  1 to 53
-  F     A full textual representation of a month, such as January or March      January to December
-  m     Numeric representation of a month, with leading zeros                   01 to 12
-  M     A short textual representation of a month, three letters                Jan to Dec
-  n     Numeric representation of a month, without leading zeros                1 to 12
-  t     Number of days in the given month                                       28 to 31
-  L     Whether it's a leap year                                                1 if it is a leap year, 0 otherwise.
-  Y     A full numeric representation of a year, 4 digits                       Examples: 1999 or 2003
-  y     A two digit representation of a year                                    Examples: 99 or 03
-  a     Lowercase Ante meridiem and Post meridiem                               am or pm
-  A     Uppercase Ante meridiem and Post meridiem                               AM or PM
-  g     12-hour format of an hour without leading zeros                         1 to 12
-  G     24-hour format of an hour without leading zeros                         0 to 23
-  h     12-hour format of an hour with leading zeros                            01 to 12
-  H     24-hour format of an hour with leading zeros                            00 to 23
-  i     Minutes, with leading zeros                                             00 to 59
-  s     Seconds, with leading zeros                                             00 to 59
-  u     Milliseconds, with leading zeros                                        001 to 999
-  O     Difference to Greenwich time (GMT) in hours                             Example: +0200
-  T     Timezone abbreviation of the machine running the code                   Examples: EST, MDT ...
-  Z     Timezone offset in seconds (negative if west of UTC, positive if east)  -43200 to 50400
+Format  Description                                                               Example returned values
+------  -----------------------------------------------------------------------   -----------------------
+  d     Day of the month, 2 digits with leading zeros                             01 to 31
+  D     A textual representation of a day, three letters                          Mon to Sun
+  j     Day of the month without leading zeros                                    1 to 31
+  l     A full textual representation of the day of the week                      Sunday to Saturday
+  S     English ordinal suffix for the day of the month, 2 characters             st, nd, rd or th. Works well with j
+  w     Numeric representation of the day of the week                             0 (for Sunday) to 6 (for Saturday)
+  z     The day of the year (starting from 0)                                     0 to 364 (365 in leap years)
+  W     ISO-8601 week number of year, weeks starting on Monday                    1 to 53
+  F     A full textual representation of a month, such as January or March        January to December
+  m     Numeric representation of a month, with leading zeros                     01 to 12
+  M     A short textual representation of a month, three letters                  Jan to Dec
+  n     Numeric representation of a month, without leading zeros                  1 to 12
+  t     Number of days in the given month                                         28 to 31
+  L     Whether it's a leap year                                                  1 if it is a leap year, 0 otherwise.
+  Y     A full numeric representation of a year, 4 digits                         Examples: 1999 or 2003
+  y     A two digit representation of a year                                      Examples: 99 or 03
+  a     Lowercase Ante meridiem and Post meridiem                                 am or pm
+  A     Uppercase Ante meridiem and Post meridiem                                 AM or PM
+  g     12-hour format of an hour without leading zeros                           1 to 12
+  G     24-hour format of an hour without leading zeros                           0 to 23
+  h     12-hour format of an hour with leading zeros                              01 to 12
+  H     24-hour format of an hour with leading zeros                              00 to 23
+  i     Minutes, with leading zeros                                               00 to 59
+  s     Seconds, with leading zeros                                               00 to 59
+  u     Milliseconds, with leading zeros                                          001 to 999
+  O     Difference to Greenwich time (GMT) in hours and minutes                   Example: +1030
+  P     Difference to Greenwich time (GMT) with colon between hours and minutes   Example: -08:00
+  T     Timezone abbreviation of the machine running the code                     Examples: EST, MDT, PDT ...
+  Z     Timezone offset in seconds (negative if west of UTC, positive if east)    -43200 to 50400
 </pre>
  *
  * Example usage (note that you must escape format specifiers with '\\' to render them as character literals):
@@ -45,9 +46,9 @@ Format  Description                                                             
 // 'Wed Jan 10 2007 15:05:01 GMT-0600 (Central Standard Time)'
 
 var dt = new Date('1/10/2007 03:05:01 PM GMT-0600');
-document.write(dt.format('Y-m-d'));                         //2007-01-10
-document.write(dt.format('F j, Y, g:i a'));                 //January 10, 2007, 3:05 pm
-document.write(dt.format('l, \\t\\he jS of F Y h:i:s A'));  //Wednesday, the 10th of January 2007 03:05:01 PM
+document.write(dt.format('Y-m-d'));                         // 2007-01-10
+document.write(dt.format('F j, Y, g:i a'));                 // January 10, 2007, 3:05 pm
+document.write(dt.format('l, \\t\\he jS of F Y h:i:s A'));  // Wednesday, the 10th of January 2007 03:05:01 PM
  </code></pre>
  *
  * Here are some standard date/time patterns that you might find helpful.  They
@@ -191,6 +192,8 @@ Date.getFormatCode = function(character) {
         return "String.leftPad(this.getMilliseconds(), 3, '0') + ";
     case "O":
         return "this.getGMTOffset() + ";
+    case "P":
+        return "this.getGMTOffset(true) + ";
     case "T":
         return "this.getTimezone() + ";
     case "Z":
@@ -403,16 +406,17 @@ Date.formatCodeToRegex = function(character, currentGroup) {
             c:"ms = parseInt(results[" + currentGroup + "], 10);\n",
             s:"(\\d{3})"};
     case "O":
+    case "P":
         return {g:1,
             c:[
                 "o = results[", currentGroup, "];\n",
                 "var sn = o.substring(0,1);\n", // get + / - sign
-                "var hr = o.substring(1,3)*1 + Math.floor(o.substring(3,5) / 60);\n", // get hours (performs minutes-to-hour conversion also)
-                "var mn = o.substring(3,5) % 60;\n", // get minutes
+                "var hr = o.substring(1,3)*1 + Math.floor(o.substring(" + (character == "O" ? "3,5" : "4,6") + ") / 60);\n", // get hours (performs minutes-to-hour conversion also)
+                "var mn = o.substring(" + (character == "O" ? "3,5" : "4,6") + ") % 60;\n", // get minutes
                 "o = ((-12 <= (hr*60 + mn)/60) && ((hr*60 + mn)/60 <= 14))?\n", // -12hrs <= GMT offset <= 14hrs
                 "    (sn + String.leftPad(hr, 2, 0) + String.leftPad(mn, 2, 0)) : null;\n"
             ].join(""),
-            s:"([+\-]\\d{4})"};
+            s: character == "O" ? "([+\-]\\d{4})" : "([+\-]\\d{2}:\\d{2})"};
     case "T":
         return {g:0,
             c:null,
@@ -431,19 +435,28 @@ Date.formatCodeToRegex = function(character, currentGroup) {
 
 /**
  * Get the timezone abbreviation of the current date (equivalent to the format specifier 'T').
+ *
+ * Note: The date string returned by the javascript Date object's toString() method varies
+ * between browsers (e.g. FF vs IE) and system region settings (e.g. IE in Asia vs IE in America).
+ * For a given date string e.g. "Thu Oct 25 2007 22:55:35 GMT+0800 (Malay Peninsula Standard Time)",
+ * getTimezone() first tries to get the timezone abbreviation from between a pair of parantheses
+ * (which may or may not be present), failing which it proceeds to get the timezone abbreviation
+ * from the GMT offset portion of the date string.
  * @return {String} The abbreviated timezone name (e.g. 'CST')
  */
 Date.prototype.getTimezone = function() {
-    return this.toString().replace(/^.*? ([A-Z]{1,4})[\-+][0-9]{4} .*$/, "$1");
+    return this.toString().replace(/^.* (\(.*\))$/, "$1").replace(/(\()?([A-Z])[a-z]+(\b)?(\s)?(\))?/g, "$2").replace(/^.*? ([A-Z]{1,4})[\-+][0-9]{4}.*$/, "$1");
 };
 
 /**
  * Get the offset from GMT of the current date (equivalent to the format specifier 'O').
+ * @param {Boolean} colon true to separate the hours and minutes with a colon (defaults to false)
  * @return {String} The 4-character offset string prefixed with + or - (e.g. '-0600')
  */
-Date.prototype.getGMTOffset = function() {
+Date.prototype.getGMTOffset = function(colon) {
     return (this.getTimezoneOffset() > 0 ? "-" : "+")
         + String.leftPad(Math.abs(Math.floor(this.getTimezoneOffset() / 60)), 2, "0")
+        + (colon ? ":" : "")
         + String.leftPad(this.getTimezoneOffset() % 60, 2, "0");
 };
 
