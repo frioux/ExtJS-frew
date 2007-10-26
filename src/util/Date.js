@@ -445,7 +445,7 @@ Date.formatCodeToRegex = function(character, currentGroup) {
  * @return {String} The abbreviated timezone name (e.g. 'CST')
  */
 Date.prototype.getTimezone = function() {
-    return this.toString().replace(/^.* (\(.*\))$/, "$1").replace(/(\()?([A-Z])[a-z]+(\b)?(\s)?(\))?/g, "$2").replace(/^.*? ([A-Z]{1,4})[\-+][0-9]{4}.*$/, "$1");
+    return this.toString().replace(/^.* (\(.*\))$/, "$1").replace(/(\()?([A-Z])[a-z]+(\b)?(\s)?(\))?/g, "$2").replace(/^.*? ([A-Z]{1,4})([\-+][0-9]{4})?( -?\d+)?$/, "$1");
 };
 
 /**
