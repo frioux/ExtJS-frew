@@ -10,7 +10,7 @@
 Format  Description                                                               Example returned values
 ------  -----------------------------------------------------------------------   -----------------------
   d     Day of the month, 2 digits with leading zeros                             01 to 31
-  D     A textual representation of a day, three letters                          Mon to Sun
+  D     A short textual representation of the day of the week                     Mon to Sun
   j     Day of the month without leading zeros                                    1 to 31
   l     A full textual representation of the day of the week                      Sunday to Saturday
   S     English ordinal suffix for the day of the month, 2 characters             st, nd, rd or th. Works well with j
@@ -19,7 +19,7 @@ Format  Description                                                             
   W     ISO-8601 week number of year, weeks starting on Monday                    1 to 53
   F     A full textual representation of a month, such as January or March        January to December
   m     Numeric representation of a month, with leading zeros                     01 to 12
-  M     A short textual representation of a month, three letters                  Jan to Dec
+  M     A short textual representation of a month                                 Jan to Dec
   n     Numeric representation of a month, without leading zeros                  1 to 12
   t     Number of days in the given month                                         28 to 31
   L     Whether it's a leap year                                                  1 if it is a leap year, 0 otherwise.
@@ -143,7 +143,7 @@ Date.getFormatCode = function(character) {
     case "d":
         return "String.leftPad(this.getDate(), 2, '0') + ";
     case "D":
-        return "Date.dayNames[this.getDay()].substring(0, 3) + ";
+        return "Date.getShortDayName(this.getDay()) + "; // get short day name via function to handle L10n
     case "j":
         return "this.getDate() + ";
     case "l":
@@ -161,7 +161,7 @@ Date.getFormatCode = function(character) {
     case "m":
         return "String.leftPad(this.getMonth() + 1, 2, '0') + ";
     case "M":
-        return "Date.monthNames[this.getMonth()].substring(0, 3) + ";
+        return "Date.getShortMonthName(this.getMonth()) + "; // get short month name via function to handle L10n
     case "n":
         return "(this.getMonth() + 1) + ";
     case "t":
@@ -309,7 +309,7 @@ Date.formatCodeToRegex = function(character, currentGroup) {
     case "D":
         return {g:0,
         c:null,
-        s:"(?:Sun|Mon|Tue|Wed|Thu|Fri|Sat)"};
+        s:"(?:" + function(){for(var a=[],i=0;i<7;a.push(Date.getShortDayName(i)),++i);return a.join("|");}() +")"}; // get short day names via function to handle L10n
     case "j":
         return {g:1,
             c:"d = parseInt(results[" + currentGroup + "], 10);\n",
@@ -340,12 +340,12 @@ Date.formatCodeToRegex = function(character, currentGroup) {
             s:"(?:\\d{1,2})"};
     case "F":
         return {g:1,
-            c:"m = parseInt(Date.monthNumbers[results[" + currentGroup + "].substring(0, 1).toUpperCase() + results[" + currentGroup + "].substring(1, 3).toLowerCase()], 10);\n",
+            c:"m = parseInt(Date.getMonthNumber(results[" + currentGroup + "]), 10);\n", // get month number via function to handle L10n
             s:"(" + Date.monthNames.join("|") + ")"};
     case "M":
         return {g:1,
-            c:"m = parseInt(Date.monthNumbers[results[" + currentGroup + "].substring(0, 1).toUpperCase() + results[" + currentGroup + "].substring(1, 3).toLowerCase()], 10);\n",
-            s:"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)"};
+            c:"m = parseInt(Date.getMonthNumber(results[" + currentGroup + "]), 10);\n", // get month number via function to handle L10n
+            s:"(" + function(){for(var a=[],i=0;i<12;a.push(Date.getShortMonthName(i)),++i);return a.join("|");}() + ")"}; // get short month names via function to handle L10n
     case "n":
         return {g:1,
             c:"m = parseInt(results[" + currentGroup + "], 10) - 1;\n",
@@ -445,7 +445,15 @@ Date.formatCodeToRegex = function(character, currentGroup) {
  * @return {String} The abbreviated timezone name (e.g. 'CST')
  */
 Date.prototype.getTimezone = function() {
-    return this.toString().replace(/^.* (\(.*\))$/, "$1").replace(/(\()?([A-Z])[a-z]+(\b)?(\s)?(\))?/g, "$2").replace(/^.*? ([A-Z]{1,4})([\-+][0-9]{4})?( -?\d+)?$/, "$1");
+    // the following list shows the differences between date strings from different browsers on a WinXP SP2 machine from an Asian locale:
+		//
+    // Opera  : "Thu, 25 Oct 2007 22:53:45 GMT+0800" -- shortest (weirdest) date string of the lot
+    // Safari : "Thu Oct 25 2007 22:55:35 GMT+0800 (Malay Peninsula Standard Time)" -- value in parentheses always gives the correct timezone (same as FF)
+    // FF     : "Thu Oct 25 2007 22:55:35 GMT+0800 (Malay Peninsula Standard Time)" -- value in parentheses always gives the correct timezone
+    // IE     : "Thu Oct 25 22:54:35 UTC+0800 2007" on an Asian system, "Thu Oct 25 17:06:37 PDT 2007" on an American system -- look for 3-4 letter timezone abbrev if parentheses are missing
+    //
+    // this crazy regex attempts to guess the correct timezone abbreviation despite these differences:
+    return this.toString().replace(/^.* (\(.*\))$/, "$1").replace(/(?:\()?([A-Z])[a-z]+(?:\b)?(?:\s)?(?:\))?/g, "$1").replace(/^.*? ([A-Z]{1,4})(?:[\-+][0-9]{4})?(?: -?\d+)?$/, "$1");
 };
 
 /**
@@ -616,6 +624,17 @@ Date.monthNames =
     "December"];
 
 /**
+ * Get the short month name for the given month number.
+ * Override this function for international dates.
+ * @param {Number} month A zero-based javascript month number.
+ * @return {String} The short month name.
+ * @static
+ */
+Date.getShortMonthName = function(month) {
+    return Date.monthNames[month].substring(0, 3);
+}
+
+/**
  * An array of textual day names.
  * Override these values for international dates, for example...
  * Date.dayNames = ['SundayInYourLang', 'MondayInYourLang', ...];
@@ -631,9 +650,27 @@ Date.dayNames =
     "Friday",
     "Saturday"];
 
+/**
+ * Get the short day name for the given day number.
+ * Override this function for international dates.
+ * @param {Number} day A zero-based javascript day number.
+ * @return {String} The short day name.
+ * @static
+ */
+Date.getShortDayName = function(day) {
+    return Date.dayNames[day].substring(0, 3);
+}
+
 // private
 Date.y2kYear = 50;
-// private
+
+/**
+ * An object hash of zero-based javascript month numbers (with short month names as keys. note: keys are case-sensitive).
+ * Override these values for international dates, for example...
+ * Date.monthNumbers = {'ShortJanNameInYourLang':0, 'ShortFebNameInYourLang':1, ...};
+ * @type Object
+ * @static
+ */
 Date.monthNumbers = {
     Jan:0,
     Feb:1,
@@ -647,6 +684,18 @@ Date.monthNumbers = {
     Oct:9,
     Nov:10,
     Dec:11};
+
+/**
+ * Get the zero-based javascript month number for the given short/full month name.
+ * Override this function for international dates.
+ * @param {String} name The short/full month name.
+ * @return {Number} The zero-based javascript month number.
+ * @static
+ */
+Date.getMonthNumber = function(name) {
+    // handle camel casing for english month names (since the keys for the Date.monthNumbers hash are case sensitive)
+    return Date.monthNumbers[name.substring(0, 1).toUpperCase() + name.substring(1, 3).toLowerCase()];
+}
 
 /**
  * Creates and returns a new Date instance with the exact same date value as the called instance.
