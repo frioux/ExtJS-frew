@@ -42,6 +42,10 @@ Date.monthNames = [
   "December"
 ];
 
+Date.getShortMonthName = function(month) {
+  return Date.monthNames[month].substring(0, 3);
+};
+
 Date.monthNumbers = {
   Jan : 0,
   Feb : 1,
@@ -57,6 +61,10 @@ Date.monthNumbers = {
   Dec : 11
 };
 
+Date.getMonthNumber = function(name) {
+  return Date.monthNumbers[name.substring(0, 1).toUpperCase() + name.substring(1, 3).toLowerCase()];
+};
+
 Date.dayNames = [
   "Sunday",
   "Monday",
@@ -66,6 +74,10 @@ Date.dayNames = [
   "Friday",
   "Saturday"
 ];
+
+Date.getShortDayName = function(day) {
+  return Date.dayNames[day].substring(0, 3);
+};
 
 if(Ext.MessageBox){
   Ext.MessageBox.buttonText = {
