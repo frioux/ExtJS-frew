@@ -13,16 +13,19 @@ Format  Description                                                             
   D     A short textual representation of the day of the week                     Mon to Sun
   j     Day of the month without leading zeros                                    1 to 31
   l     A full textual representation of the day of the week                      Sunday to Saturday
+  N     ISO-8601 numeric representation of the day of the week                    1 (for Monday) through 7 (for Sunday)
   S     English ordinal suffix for the day of the month, 2 characters             st, nd, rd or th. Works well with j
   w     Numeric representation of the day of the week                             0 (for Sunday) to 6 (for Saturday)
   z     The day of the year (starting from 0)                                     0 to 364 (365 in leap years)
-  W     ISO-8601 week number of year, weeks starting on Monday                    1 to 53
+  W     ISO-8601 week number of year, weeks starting on Monday                    01 to 53
   F     A full textual representation of a month, such as January or March        January to December
   m     Numeric representation of a month, with leading zeros                     01 to 12
   M     A short textual representation of a month                                 Jan to Dec
   n     Numeric representation of a month, without leading zeros                  1 to 12
   t     Number of days in the given month                                         28 to 31
   L     Whether it's a leap year                                                  1 if it is a leap year, 0 otherwise.
+  o     ISO-8601 year number (identical to (Y), but if the ISO week number (W)    Examples: 1998 or 2004
+        belongs to the previous or next year, that year is used instead)
   Y     A full numeric representation of a year, 4 digits                         Examples: 1999 or 2003
   y     A two digit representation of a year                                      Examples: 99 or 03
   a     Lowercase Ante meridiem and Post meridiem                                 am or pm
@@ -38,6 +41,8 @@ Format  Description                                                             
   P     Difference to Greenwich time (GMT) with colon between hours and minutes   Example: -08:00
   T     Timezone abbreviation of the machine running the code                     Examples: EST, MDT, PDT ...
   Z     Timezone offset in seconds (negative if west of UTC, positive if east)    -43200 to 50400
+  c     ISO 8601 date                                                             2007-04-17T15:19:21+08:00
+  U     Seconds since the Unix Epoch (January 1 1970 00:00:00 GMT)                1193432466 or -2138434463
 </pre>
  *
  * Example usage (note that you must escape format specifiers with '\\' to render them as character literals):
@@ -107,9 +112,9 @@ Date.prototype.dateFormat = function(format) {
 
 
 /**
- * Formats a date given the supplied format string
- * @param {String} format The format string
- * @return {String} The formatted date
+ * Formats a date given the supplied format string.
+ * @param {String} format The format string.
+ * @return {String} The formatted date.
  * @method
  */
 Date.prototype.format = Date.prototype.dateFormat;
@@ -143,11 +148,13 @@ Date.getFormatCode = function(character) {
     case "d":
         return "String.leftPad(this.getDate(), 2, '0') + ";
     case "D":
-        return "Date.getShortDayName(this.getDay()) + "; // get short day name via function to handle L10n
+        return "Date.getShortDayName(this.getDay()) + "; // get L10n short day name
     case "j":
         return "this.getDate() + ";
     case "l":
         return "Date.dayNames[this.getDay()] + ";
+    case "N":
+        return "(this.getDay() ? this.getDay() : 7) + ";
     case "S":
         return "this.getSuffix() + ";
     case "w":
@@ -155,19 +162,21 @@ Date.getFormatCode = function(character) {
     case "z":
         return "this.getDayOfYear() + ";
     case "W":
-        return "this.getWeekOfYear() + ";
+        return "String.leftPad(this.getWeekOfYear(), 2, '0') + ";
     case "F":
         return "Date.monthNames[this.getMonth()] + ";
     case "m":
         return "String.leftPad(this.getMonth() + 1, 2, '0') + ";
     case "M":
-        return "Date.getShortMonthName(this.getMonth()) + "; // get short month name via function to handle L10n
+        return "Date.getShortMonthName(this.getMonth()) + "; // get L10n short month name
     case "n":
         return "(this.getMonth() + 1) + ";
     case "t":
         return "this.getDaysInMonth() + ";
     case "L":
         return "(this.isLeapYear() ? 1 : 0) + ";
+    case "o":
+        return "(this.getFullYear() + (this.getWeekOfYear() == 1 && this.getMonth() > 0 ? +1 : (this.getWeekOfYear() >= 52 && this.getMonth() < 11 ? -1 : 0))) + ";
     case "Y":
         return "this.getFullYear() + ";
     case "y":
@@ -198,6 +207,14 @@ Date.getFormatCode = function(character) {
         return "this.getTimezone() + ";
     case "Z":
         return "(this.getTimezoneOffset() * -60) + ";
+    case "c":
+        for (var df = Date.getFormatCode, c = "Y-m-dTH:i:sP", code = "", i = 0, l = c.length; i < l; ++i) {
+          var e = c.charAt(i);
+          code += e == "T" ? "'T' + " : df(e); // treat T as a literal
+        }
+        return code;
+    case "U":
+        return "Math.round(this.getTime() / 1000) + ";
     default:
         return "'" + String.escape(character) + "' + ";
     }
@@ -223,9 +240,9 @@ dt = Date.parseDate("2006-01-15", "Y-m-d");
 //dt = Sun Jan 15 2006 15:20:01 GMT-0600 (CST)
 dt = Date.parseDate("2006-01-15 3:20:01 PM", "Y-m-d h:i:s A" );
 </code></pre>
- * @param {String} input The unparsed date as a string
- * @param {String} format The format the date is in
- * @return {Date} The parsed date
+ * @param {String} input The unparsed date as a string.
+ * @param {String} format The format the date is in.
+ * @return {Date} The parsed date.
  * @static
  */
 Date.parseDate = function(input, format) {
@@ -244,7 +261,7 @@ Date.createParser = function(format) {
     Date.parseFunctions[format] = funcName;
 
     var code = "Date." + funcName + " = function(input){\n"
-        + "var y = -1, m = -1, d = -1, h = -1, i = -1, s = -1, ms = -1, o, z, v;\n"
+        + "var y = -1, m = -1, d = -1, h = -1, i = -1, s = -1, ms = -1, o, z, u, v;\n"
         + "var d = new Date();\n"
         + "y = d.getFullYear();\n"
         + "m = d.getMonth();\n"
@@ -274,7 +291,9 @@ Date.createParser = function(format) {
         }
     }
 
-    code += "if (y >= 0 && m >= 0 && d > 0 && h >= 0 && i >= 0 && s >= 0 && ms >= 0)\n"
+    code += "if (u)\n"
+        + "{v = new Date(u * 1000);}" // give top priority to UNIX time
+        + "else if (y >= 0 && m >= 0 && d > 0 && h >= 0 && i >= 0 && s >= 0 && ms >= 0)\n"
         + "{v = new Date(y, m, d, h, i, s, ms);}\n"
         + "else if (y >= 0 && m >= 0 && d > 0 && h >= 0 && i >= 0 && s >= 0)\n"
         + "{v = new Date(y, m, d, h, i, s);}\n"
@@ -289,7 +308,7 @@ Date.createParser = function(format) {
         + "else if (y >= 0)\n"
         + "{v = new Date(y);}\n"
         + "}return (v && (z || o))?\n" // favour UTC offset over GMT offset
-        + "    ((z)? v.add(Date.SECOND, (v.getTimezoneOffset() * 60) + (z*1)) :\n" // reset to UTC, then add offset
+        + "    (z ? v.add(Date.SECOND, (v.getTimezoneOffset() * 60) + (z*1)) :\n" // reset to UTC, then add offset
         + "        v.add(Date.HOUR, (v.getGMTOffset() / 100) + (o / -100))) : v\n" // reset to GMT, then add offset
         + ";}";
 
@@ -306,22 +325,27 @@ Date.formatCodeToRegex = function(character, currentGroup) {
      * s = regex string
      */
     switch (character) {
-    case "D":
-        return {g:0,
-        c:null,
-        s:"(?:" + function(){for(var a=[],i=0;i<7;a.push(Date.getShortDayName(i)),++i);return a.join("|");}() +")"}; // get short day names via function to handle L10n
-    case "j":
-        return {g:1,
-            c:"d = parseInt(results[" + currentGroup + "], 10);\n",
-            s:"(\\d{1,2})"}; // day of month without leading zeroes
     case "d":
         return {g:1,
             c:"d = parseInt(results[" + currentGroup + "], 10);\n",
-            s:"(\\d{2})"}; // day of month with leading zeroes
+            s:"(\\d{2})"}; // day of month with leading zeroes (01 - 31)
+    case "D":
+        for (var a = [], i = 0; i < 7; a.push(Date.getShortDayName(i)), ++i); // get L10n short day names
+        return {g:0,
+            c:null,
+            s:"(?:" + a.join("|") +")"};
+    case "j":
+        return {g:1,
+            c:"d = parseInt(results[" + currentGroup + "], 10);\n",
+            s:"(\\d{1,2})"}; // day of month without leading zeroes (1 - 31)
     case "l":
         return {g:0,
             c:null,
             s:"(?:" + Date.dayNames.join("|") + ")"};
+    case "N":
+        return {g:0,
+            c:null,
+            s:"[1-7]"}; // ISO-8601 day number (1 (monday) - 7 (sunday))
     case "S":
         return {g:0,
             c:null,
@@ -329,48 +353,50 @@ Date.formatCodeToRegex = function(character, currentGroup) {
     case "w":
         return {g:0,
             c:null,
-            s:"\\d"};
+            s:"[0-6]"}; // javascript day number (0 (sunday) - 6 (saturday))
     case "z":
         return {g:0,
             c:null,
-            s:"(?:\\d{1,3})"};
+            s:"(?:\\d{1,3}"}; // day of the year (0 - 364 (365 in leap years))
     case "W":
         return {g:0,
             c:null,
-            s:"(?:\\d{1,2})"};
+            s:"(?:\\d{2})"}; // ISO-8601 week number (with leading zero)
     case "F":
         return {g:1,
-            c:"m = parseInt(Date.getMonthNumber(results[" + currentGroup + "]), 10);\n", // get month number via function to handle L10n
+            c:"m = parseInt(Date.getMonthNumber(results[" + currentGroup + "]), 10);\n", // get L10n month number
             s:"(" + Date.monthNames.join("|") + ")"};
-    case "M":
-        return {g:1,
-            c:"m = parseInt(Date.getMonthNumber(results[" + currentGroup + "]), 10);\n", // get month number via function to handle L10n
-            s:"(" + function(){for(var a=[],i=0;i<12;a.push(Date.getShortMonthName(i)),++i);return a.join("|");}() + ")"}; // get short month names via function to handle L10n
-    case "n":
-        return {g:1,
-            c:"m = parseInt(results[" + currentGroup + "], 10) - 1;\n",
-            s:"(\\d{1,2})"}; // Numeric representation of a month, without leading zeros
     case "m":
         return {g:1,
             c:"m = parseInt(results[" + currentGroup + "], 10) - 1;\n",
-            s:"(\\d{2})"}; // Numeric representation of a month, with leading zeros
+            s:"(\\d{2})"}; // month number with leading zeros (01 - 12)
+    case "M":
+        for (var a = [], i = 0; i < 12; a.push(Date.getShortMonthName(i)), ++i); // get L10n short month names
+        return {g:1,
+            c:"m = parseInt(Date.getMonthNumber(results[" + currentGroup + "]), 10);\n", // get L10n month number
+            s:"(" + a.join("|") + ")"};
+    case "n":
+        return {g:1,
+            c:"m = parseInt(results[" + currentGroup + "], 10) - 1;\n",
+            s:"(\\d{1,2})"}; // month number without leading zeros (1 - 12)
     case "t":
         return {g:0,
             c:null,
-            s:"\\d{1,2}"};
+            s:"(?:\\d{2})"}; // no. of days in the month (28 - 31)
     case "L":
         return {g:0,
             c:null,
             s:"(?:1|0)"};
+    case "o":
     case "Y":
         return {g:1,
             c:"y = parseInt(results[" + currentGroup + "], 10);\n",
-            s:"(\\d{4})"};
+            s:"(\\d{4})"}; // 4-digit year
     case "y":
         return {g:1,
             c:"var ty = parseInt(results[" + currentGroup + "], 10);\n"
                 + "y = ty > Date.y2kYear ? 1900 + ty : 2000 + ty;\n",
-            s:"(\\d{1,2})"};
+            s:"(\\d{1,2})"}; // 2-digit year
     case "a":
         return {g:1,
             c:"if (results[" + currentGroup + "] == 'am') {\n"
@@ -387,36 +413,46 @@ Date.formatCodeToRegex = function(character, currentGroup) {
     case "G":
         return {g:1,
             c:"h = parseInt(results[" + currentGroup + "], 10);\n",
-            s:"(\\d{1,2})"}; // 12/24-hr format  format of an hour without leading zeroes
+            s:"(\\d{1,2})"}; // 24-hr format of an hour without leading zeroes (0 - 23)
     case "h":
     case "H":
         return {g:1,
             c:"h = parseInt(results[" + currentGroup + "], 10);\n",
-            s:"(\\d{2})"}; //  12/24-hr format  format of an hour with leading zeroes
+            s:"(\\d{2})"}; //  24-hr format of an hour with leading zeroes (00 - 23)
     case "i":
         return {g:1,
             c:"i = parseInt(results[" + currentGroup + "], 10);\n",
-            s:"(\\d{2})"};
+            s:"(\\d{2})"}; // minutes with leading zeros (00 - 59)
     case "s":
         return {g:1,
             c:"s = parseInt(results[" + currentGroup + "], 10);\n",
-            s:"(\\d{2})"};
+            s:"(\\d{2})"}; // seconds with leading zeros (00 - 59)
     case "u":
         return {g:1,
             c:"ms = parseInt(results[" + currentGroup + "], 10);\n",
-            s:"(\\d{3})"};
+            s:"(\\d{3})"}; // milliseconds with leading zeros (000 - 999)
     case "O":
+        return {g:1,
+            c:[
+                "o = results[", currentGroup, "];\n",
+                "var sn = o.substring(0,1);\n", // get + / - sign
+                "var hr = o.substring(1,3)*1 + Math.floor(o.substring(3,5) / 60);\n", // get hours (performs minutes-to-hour conversion also, just in case)
+                "var mn = o.substring(3,5) % 60;\n", // get minutes
+                "o = ((-12 <= (hr*60 + mn)/60) && ((hr*60 + mn)/60 <= 14))?\n", // -12hrs <= GMT offset <= 14hrs
+                "    (sn + String.leftPad(hr, 2, 0) + String.leftPad(mn, 2, 0)) : null;\n"
+            ].join(""),
+            s: "([+\-]\\d{4})"}; // GMT offset in hrs and mins
     case "P":
         return {g:1,
             c:[
                 "o = results[", currentGroup, "];\n",
                 "var sn = o.substring(0,1);\n", // get + / - sign
-                "var hr = o.substring(1,3)*1 + Math.floor(o.substring(" + (character == "O" ? "3,5" : "4,6") + ") / 60);\n", // get hours (performs minutes-to-hour conversion also)
-                "var mn = o.substring(" + (character == "O" ? "3,5" : "4,6") + ") % 60;\n", // get minutes
+                "var hr = o.substring(1,3)*1 + Math.floor(o.substring(4,6) / 60);\n", // get hours (performs minutes-to-hour conversion also, just in case)
+                "var mn = o.substring(4,6) % 60;\n", // get minutes
                 "o = ((-12 <= (hr*60 + mn)/60) && ((hr*60 + mn)/60 <= 14))?\n", // -12hrs <= GMT offset <= 14hrs
                 "    (sn + String.leftPad(hr, 2, 0) + String.leftPad(mn, 2, 0)) : null;\n"
             ].join(""),
-            s: character == "O" ? "([+\-]\\d{4})" : "([+\-]\\d{2}:\\d{2})"};
+            s: "([+\-]\\d{2}:\\d{2})"}; // GMT offset in hrs and mins (with colon separator)
     case "T":
         return {g:0,
             c:null,
@@ -426,6 +462,19 @@ Date.formatCodeToRegex = function(character, currentGroup) {
             c:"z = results[" + currentGroup + "] * 1;\n" // -43200 <= UTC offset <= 50400
                   + "z = (-43200 <= z && z <= 50400)? z : null;\n",
             s:"([+\-]?\\d{1,5})"}; // leading '+' sign is optional for UTC offset
+    case "c":
+        var df = Date.formatCodeToRegex, calc = [];
+        var arr = [df("Y", 1), df("m", 2), df("d", 3), df("h", 4), df("i", 5), df("s", 6), df("P", 7)];
+        for (var i = 0, l = arr.length; i < l; ++i) {
+          calc.push(arr[i].c);
+        }
+        return {g:1,
+            c:calc.join(""),
+            s:arr[0].s + "-" + arr[1].s + "-" + arr[2].s + "T" + arr[3].s + ":" + arr[4].s + ":" + arr[5].s + arr[6].s};
+    case "U":
+        return {g:1,
+            c:"u = parseInt(results[" + currentGroup + "], 10);\n",
+            s:"(-?\\d+)"}; // leading minus sign indicates seconds before UNIX epoch
     default:
         return {g:0,
             c:null,
@@ -442,24 +491,28 @@ Date.formatCodeToRegex = function(character, currentGroup) {
  * getTimezone() first tries to get the timezone abbreviation from between a pair of parentheses
  * (which may or may not be present), failing which it proceeds to get the timezone abbreviation
  * from the GMT offset portion of the date string.
- * @return {String} The abbreviated timezone name (e.g. 'CST')
+ * @return {String} The abbreviated timezone name (e.g. 'CST', 'PDT', 'EDT', 'MPST' ...).
  */
 Date.prototype.getTimezone = function() {
     // the following list shows the differences between date strings from different browsers on a WinXP SP2 machine from an Asian locale:
-		//
+    //
     // Opera  : "Thu, 25 Oct 2007 22:53:45 GMT+0800" -- shortest (weirdest) date string of the lot
     // Safari : "Thu Oct 25 2007 22:55:35 GMT+0800 (Malay Peninsula Standard Time)" -- value in parentheses always gives the correct timezone (same as FF)
     // FF     : "Thu Oct 25 2007 22:55:35 GMT+0800 (Malay Peninsula Standard Time)" -- value in parentheses always gives the correct timezone
-    // IE     : "Thu Oct 25 22:54:35 UTC+0800 2007" on an Asian system, "Thu Oct 25 17:06:37 PDT 2007" on an American system -- look for 3-4 letter timezone abbrev if parentheses are missing
+    // IE     : "Thu Oct 25 22:54:35 UTC+0800 2007" -- (Asian system setting) look for 3-4 letter timezone abbrev
+    // IE     : "Thu Oct 25 17:06:37 PDT 2007" -- (American system setting) look for 3-4 letter timezone abbrev
     //
-    // this crazy regex attempts to guess the correct timezone abbreviation despite these differences:
-    return this.toString().replace(/^.* (\(.*\))$/, "$1").replace(/(?:\()?([A-Z])[a-z]+(?:\b)?(?:\s)?(?:\))?/g, "$1").replace(/^.*? ([A-Z]{1,4})(?:[\-+][0-9]{4})?(?: -?\d+)?$/, "$1");
+    // this crazy regex attempts to guess the correct timezone abbreviation despite these differences.
+    // step 1: (?:\((.*)\) -- find timezone in parentheses
+    // step 2: ([A-Z]{1,4})(?:[\-+][0-9]{4})?(?: -?\d+)?) -- if nothing was found in step 1, find timezone from timezone offset portion of date string
+    // step 3: remove all non uppercase characters found in step 1 and 2
+    return this.toString().replace(/^.* (?:\((.*)\)|([A-Z]{1,4})(?:[\-+][0-9]{4})?(?: -?\d+)?)$/, "$1$2").replace(/[^A-Z]/g, "");
 };
 
 /**
  * Get the offset from GMT of the current date (equivalent to the format specifier 'O').
- * @param {Boolean} colon true to separate the hours and minutes with a colon (defaults to false)
- * @return {String} The 4-character offset string prefixed with + or - (e.g. '-0600')
+ * @param {Boolean} colon true to separate the hours and minutes with a colon (defaults to false).
+ * @return {String} The 4-character offset string prefixed with + or - (e.g. '-0600').
  */
 Date.prototype.getGMTOffset = function(colon) {
     return (this.getTimezoneOffset() > 0 ? "-" : "+")
@@ -470,7 +523,7 @@ Date.prototype.getGMTOffset = function(colon) {
 
 /**
  * Get the numeric day number of the year, adjusted for leap year.
- * @return {Number} 0 to 364 (365 in leap years)
+ * @return {Number} 0 to 364 (365 in leap years).
  */
 Date.prototype.getDayOfYear = function() {
     var num = 0;
@@ -482,39 +535,23 @@ Date.prototype.getDayOfYear = function() {
 };
 
 /**
- * Get the numeric ISO-8601 week number of the year
- * (equivalent to the format specifier 'W').
+ * Get the numeric ISO-8601 week number of the year.
+ * (equivalent to the format specifier 'W', but without a leading zero).
  * @return {Number} 1 to 53
  */
 Date.prototype.getWeekOfYear = function() {
-  /*
-    original getWeek() function developed by Nick Baicoianu
-    at MeanFreePath: http://www.meanfreepath.com
-  */
-  var jan1 = new Date(this.getFullYear(), 0, 1);
-  var day = jan1.getDay() - 1; // the day of week the year begins on
-  day = (day >= 0 ? day : day + 7);
-  var daynum = Math.floor((this.getTime() - jan1.getTime() - (this.getTimezoneOffset()-jan1.getTimezoneOffset())*60000)/86400000) + 1;
-  var weeknum;
-  // if the year starts before the middle of a week
-  if (day < 4) {
-    weeknum = Math.floor((daynum + day - 1) / 7) + 1;
-    if (weeknum > 52) {
-      jan1 = new Date(this.getFullYear() + 1, 0, 1);
-      day = jan1.getDay() - 1;
-      day = (day >= 0 ? day : day + 7);
-      // if the next year starts before the middle of the week, it is week #1 of that year
-      weeknum = day < 4 ? 1 : 53;
-    }
-  } else {
-    weeknum = Math.floor((daynum + day - 1) / 7) || 52;
-  }
-  return weeknum;
+    // adapted from http://www.merlyn.demon.co.uk/weekcalc.htm
+    var ms1d = 864e5; // milliseconds in a day
+    var ms7d = 7 * ms1d; // milliseconds in a week
+    var DC3 = Date.UTC(this.getFullYear(), this.getMonth(), this.getDate() + 3) / ms1d; // an Absolute Day Number
+    var AWN = Math.floor(DC3 / 7); // an Absolute Week Number
+    var Wyr = new Date(AWN * ms7d).getUTCFullYear();
+    return AWN - Math.floor(Date.UTC(Wyr, 0, 7) / ms7d) + 1;
 };
 
 /**
  * Whether or not the current date is in a leap year.
- * @return {Boolean} True if the current date is in a leap year, else false
+ * @return {Boolean} True if the current date is in a leap year, else false.
  */
 Date.prototype.isLeapYear = function() {
     var year = this.getFullYear();
@@ -530,7 +567,7 @@ Date.prototype.isLeapYear = function() {
 var dt = new Date('1/10/2007');
 document.write(Date.dayNames[dt.getFirstDayOfMonth()]); //output: 'Monday'
 </code></pre>
- * @return {Number} The day number (0-6)
+ * @return {Number} The day number (0-6).
  */
 Date.prototype.getFirstDayOfMonth = function() {
     var day = (this.getDay() - (this.getDate() - 1)) % 7;
@@ -546,7 +583,7 @@ Date.prototype.getFirstDayOfMonth = function() {
 var dt = new Date('1/10/2007');
 document.write(Date.dayNames[dt.getLastDayOfMonth()]); //output: 'Wednesday'
 </code></pre>
- * @return {Number} The day number (0-6)
+ * @return {Number} The day number (0-6).
  */
 Date.prototype.getLastDayOfMonth = function() {
     var day = (this.getDay() + (Date.daysInMonth[this.getMonth()] - this.getDate())) % 7;
@@ -555,7 +592,7 @@ Date.prototype.getLastDayOfMonth = function() {
 
 
 /**
- * Get the date of the first day of the month in which this date resides
+ * Get the date of the first day of the month in which this date resides.
  * @return {Date}
  */
 Date.prototype.getFirstDateOfMonth = function() {
@@ -563,7 +600,7 @@ Date.prototype.getFirstDateOfMonth = function() {
 };
 
 /**
- * Get the date of the last day of the month in which this date resides
+ * Get the date of the last day of the month in which this date resides.
  * @return {Date}
  */
 Date.prototype.getLastDateOfMonth = function() {
@@ -571,7 +608,7 @@ Date.prototype.getLastDateOfMonth = function() {
 };
 /**
  * Get the number of days in the current month, adjusted for leap year.
- * @return {Number} The number of days in the month
+ * @return {Number} The number of days in the month.
  */
 Date.prototype.getDaysInMonth = function() {
     Date.daysInMonth[1] = this.isLeapYear() ? 29 : 28;
@@ -580,7 +617,7 @@ Date.prototype.getDaysInMonth = function() {
 
 /**
  * Get the English ordinal suffix of the current day (equivalent to the format specifier 'S').
- * @return {String} 'st, 'nd', 'rd' or 'th'
+ * @return {String} 'st, 'nd', 'rd' or 'th'.
  */
 Date.prototype.getSuffix = function() {
     switch (this.getDate()) {
@@ -717,16 +754,16 @@ var copy = orig.clone();
 copy.setDate(5);
 document.write(orig);  //returns 'Thu Oct 01 2006'
 </code></pre>
- * @return {Date} The new Date instance
+ * @return {Date} The new Date instance.
  */
 Date.prototype.clone = function() {
   return new Date(this.getTime());
 };
 
 /**
- * Clears any time information from this date
- @param {Boolean} clone true to create a clone of this date, clear the time and return it (defaults to false)
- @return {Date} this or the clone
+ * Clears any time information from this date.
+ @param {Boolean} clone true to create a clone of this date, clear the time and return it (defaults to false).
+ @return {Date} this or the clone.
  */
 Date.prototype.clearTime = function(clone){
     if(clone){
@@ -791,9 +828,9 @@ var dt3 = new Date('10/1/2006').add(Date.DAY, 5).add(Date.HOUR, 8).add(Date.MINU
 document.write(dt3); //returns 'Fri Oct 06 2006 07:30:00'
  </code></pre>
  *
- * @param {String} interval   A valid date interval enum value
- * @param {Number} value      The amount to add to the current date
- * @return {Date} The new Date instance
+ * @param {String} interval   A valid date interval enum value.
+ * @param {Number} value      The amount to add to the current date.
+ * @return {Date} The new Date instance.
  */
 Date.prototype.add = function(interval, value){
   var d = this.clone();
@@ -830,10 +867,10 @@ Date.prototype.add = function(interval, value){
 };
 
 /**
- * Checks if this date falls on or between the given start and end dates
+ * Checks if this date falls on or between the given start and end dates.
  * @param {Date} start Start date
  * @param {Date} end End date
- * @return {Boolean} true if this date falls on or between the given start and end dates
+ * @return {Boolean} true if this date falls on or between the given start and end dates.
  */
 Date.prototype.between = function(start, end){
     var t = this.getTime();
