@@ -1,5 +1,6 @@
 /**
  * @class Ext.data.DataProxy
+ * @extends Ext.util.Observable
  * This class is an abstract base class for implementations which provide retrieval of
  * unformatted data objects.<br>
  * <p>
