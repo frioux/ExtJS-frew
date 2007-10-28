@@ -1,5 +1,6 @@
 /**
  * @class Ext.data.ScriptTagProxy
+ * @extends Ext.data.DataProxy
  * An implementation of Ext.data.DataProxy that reads a data object from a URL which may be in a domain
  * other than the originating domain of the running page.<br><br>
  * <p>
