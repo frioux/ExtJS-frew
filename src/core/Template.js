@@ -28,7 +28,7 @@ Ext.Template = function(html){
 Ext.Template.prototype = {
     /**
      * Returns an HTML fragment of this template with the specified values applied.
-     * @param {Object} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
+     * @param {Object/Array} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
      * @return {String} The HTML fragment
      */
     applyTemplate : function(values){
@@ -138,7 +138,7 @@ Ext.Template.prototype = {
     /**
      * Applies the supplied values to the template and inserts the new node(s) as the first child of el.
      * @param {String/HTMLElement/Ext.Element} el The context element
-     * @param {Object} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
+     * @param {Object/Array} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
      * @param {Boolean} returnElement (optional) true to return a Ext.Element (defaults to undefined)
      * @return {HTMLElement/Ext.Element} The new node or Element
      */
@@ -149,7 +149,7 @@ Ext.Template.prototype = {
     /**
      * Applies the supplied values to the template and inserts the new node(s) before el.
      * @param {String/HTMLElement/Ext.Element} el The context element
-     * @param {Object} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
+     * @param {Object/Array} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
      * @param {Boolean} returnElement (optional) true to return a Ext.Element (defaults to undefined)
      * @return {HTMLElement/Ext.Element} The new node or Element
      */
@@ -160,7 +160,7 @@ Ext.Template.prototype = {
     /**
      * Applies the supplied values to the template and inserts the new node(s) after el.
      * @param {String/HTMLElement/Ext.Element} el The context element
-     * @param {Object} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
+     * @param {Object/Array} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
      * @param {Boolean} returnElement (optional) true to return a Ext.Element (defaults to undefined)
      * @return {HTMLElement/Ext.Element} The new node or Element
      */
@@ -171,7 +171,7 @@ Ext.Template.prototype = {
     /**
      * Applies the supplied values to the template and appends the new node(s) to el.
      * @param {String/HTMLElement/Ext.Element} el The context element
-     * @param {Object} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
+     * @param {Object/Array} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
      * @param {Boolean} returnElement (optional) true to return a Ext.Element (defaults to undefined)
      * @return {HTMLElement/Ext.Element} The new node or Element
      */
@@ -188,7 +188,7 @@ Ext.Template.prototype = {
     /**
      * Applies the supplied values to the template and overwrites the content of el with the new node(s).
      * @param {String/HTMLElement/Ext.Element} el The context element
-     * @param {Object} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
+     * @param {Object/Array} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
      * @param {Boolean} returnElement (optional) true to return a Ext.Element (defaults to undefined)
      * @return {HTMLElement/Ext.Element} The new node or Element
      */
