@@ -446,15 +446,20 @@ Ext.Msg.show({
          */
         OK : {ok:true},
         /**
-         * Button config that displays Yes and No buttons
+         * Button config that displays a single Cancel button
          * @type Object
          */
-        YESNO : {yes:true, no:true},
+        CANCEL : {cancel:true},
         /**
          * Button config that displays OK and Cancel buttons
          * @type Object
          */
         OKCANCEL : {ok:true, cancel:true},
+        /**
+         * Button config that displays Yes and No buttons
+         * @type Object
+         */
+        YESNO : {yes:true, no:true},
         /**
          * Button config that displays Yes, No and Cancel buttons
          * @type Object
