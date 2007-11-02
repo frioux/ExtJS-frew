@@ -68,6 +68,7 @@ Ext.menu.Menu = function(config){
         itemclick: true
     });
     Ext.menu.MenuMgr.register(this);
+    Ext.menu.Menu.superclass.constructor.call(this);
     var mis = this.items;
     this.items = new Ext.util.MixedCollection();
     if(mis){
