@@ -1564,10 +1564,10 @@ el.un('click', this.handlerFn);
      */
     getAlignToXY : function(el, p, o){
         el = Ext.get(el);
-        var d = this.dom;
-        if(!el.dom){
-            throw "Element.alignTo with an element that doesn't exist";
+        if(!el || !el.dom){
+            throw "Element.alignToXY with an element that doesn't exist";
         }
+        var d = this.dom;
         var c = false; //constrain to viewport
         var p1 = "", p2 = "";
         o = o || [0,0];
