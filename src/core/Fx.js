@@ -32,7 +32,11 @@ br     The bottom right corner
 </pre>
  * <b>Although some Fx methods accept specific custom config parameters, the ones shown in the Config Options section
  * below are common options that can be passed to any Fx method.</b>
- * @cfg {Function} callback A function called when the effect is finished
+ * 
+ * @cfg {Function} callback A function called when the effect is finished.  Note that effects are queued internally by the
+ * Fx class, so do not need to use the callback parameter to specify another effect -- effects can simply be chained together
+ * and called in sequence (e.g., el.slideIn().highlight();).  The callback is intended for any additional code that should
+ * run once a particular effect has completed.
  * @cfg {Object} scope The scope of the effect function
  * @cfg {String} easing A valid Easing value for the effect
  * @cfg {String} afterCls A css class to apply after the effect
@@ -584,7 +588,8 @@ el.fadeIn({
 
    /**
     * Fade an element out (from opaque to transparent).  The ending opacity can be specified
-    * using the "endOpacity" config option.
+    * using the "endOpacity" config option.  Note that IE may require useDisplay:true in order
+    * to redisplay correctly.
     * Usage:
 <pre><code>
 // default: fade out from the element's current opacity to 0
