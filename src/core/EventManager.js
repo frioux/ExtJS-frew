@@ -641,7 +641,8 @@ Ext.EventObject = function(){
          * @return {HTMLelement}
          */
         getTarget : function(selector, maxDepth, returnEl){
-            return selector ? Ext.fly(this.target).findParent(selector, maxDepth, returnEl) : this.target;
+        	var t = Ext.get(this.target);
+            return selector ? t.findParent(selector, maxDepth, returnEl) : (returnEl ? t : this.target);
         },
         /**
          * Gets the related target.
