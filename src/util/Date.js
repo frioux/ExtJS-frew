@@ -478,7 +478,7 @@ Date.formatCodeToRegex = function(character, currentGroup) {
     default:
         return {g:0,
             c:null,
-            s:String.escape(character)};
+            s:Ext.escapeRe(character)};
     }
 };
 
