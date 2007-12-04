@@ -122,24 +122,25 @@ Ext.extend(Ext.form.ComboBox, Ext.form.TriggerField, {
     /**
      * @cfg {Number} listWidth The width in pixels of the dropdown list (defaults to the width of the ComboBox field)
      */
-    listWidth: undefined,
     /**
      * @cfg {String} displayField The underlying data field name to bind to this CombBox (defaults to undefined if
      * mode = 'remote' or 'text' if mode = 'local')
      */
-    displayField: undefined,
     /**
      * @cfg {String} valueField The underlying data value name to bind to this CombBox (defaults to undefined if
      * mode = 'remote' or 'value' if mode = 'local'). Note: use of a valueField requires the user to make a selection
      * in order for a value to be mapped.
      */
-    valueField: undefined,
     /**
      * @cfg {String} hiddenName If specified, a hidden form field with this name is dynamically generated to store the
      * field's data value (defaults to the underlying DOM element's name). Required for the combo's value to automatically
      * post during a form submission.
      */
-    hiddenName: undefined,
+    /**
+     * @cfg {String} hiddenId If {@link #hiddenName} is specified, hiddenId can also be provided to give the hidden field
+     * a unique id (defaults to the hiddenName).  The hiddenId and combo {@link #id} should be different, since no two DOM 
+     * nodes should share the same id.
+     */
     /**
      * @cfg {String} listClass CSS class to apply to the dropdown list element (defaults to '')
      */
