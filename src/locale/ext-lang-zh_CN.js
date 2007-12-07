@@ -77,7 +77,9 @@ if(Ext.DatePicker){
       prevText          : '上月 (Control+Left)',
       monthYearText     : '选择一个月 (Control+Up/Down 来改变年)',
       todayTip          : "{0} (空格键选择)",
-      format            : "y年m月d日"
+      format            : "y年m月d日",
+      okText            : "确定",
+      cancelText        : "取消"
    });
 }
 

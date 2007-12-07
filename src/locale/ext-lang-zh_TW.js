@@ -81,7 +81,9 @@ if(Ext.DatePicker){
        prevText          : "上個月 (Ctrl+左方向鍵)",
        monthYearText     : "選擇月份 (Ctrl+上/下方向鍵選擇年份)",
        todayTip          : "{0} (空白鍵)",
-       format            : "y/m/d"
+       format            : "y/m/d",
+       okText            : "确定",
+       cancelText        : "取消"
     });
 }
 
