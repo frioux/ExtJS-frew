@@ -407,7 +407,8 @@ Ext.Ajax = new Ext.data.Connection({
      */
     /**
      * @property  method
-     * The default HTTP method to be used for requests. (defaults to undefined; if not set but parms are present will use POST, otherwise GET)
+     * The default HTTP method to be used for requests. Note that this is case-sensitive and should be all caps (defaults 
+     * to undefined; if not set but parms are present will use "POST," otherwise "GET.")
      * @type String
      */
     /**
