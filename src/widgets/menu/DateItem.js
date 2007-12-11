@@ -1,7 +1,7 @@
 /**
  * @class Ext.menu.DateItem
  * @extends Ext.menu.Adapter
- * A menu item that wraps the {@link Ext.DatPicker} component.
+ * A menu item that wraps the {@link Ext.DatePicker} component.
  * @constructor
  * Creates a new DateItem
  * @param {Object} config Configuration options
