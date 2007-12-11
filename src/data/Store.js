@@ -152,7 +152,8 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     * on any HTTP request
     */
     /**
-    * @cfg {Object} sortInfo A config object in the format: {field: "fieldName", direction: "ASC|DESC"}
+    * @cfg {Object} sortInfo A config object in the format: {field: "fieldName", direction: "ASC|DESC"}. The direction
+    * property is case-sensitive.
     */
     /**
     * @cfg {boolean} remoteSort True if sorting is to be handled by requesting the Proxy to provide a refreshed
@@ -398,7 +399,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
      * Returns the sort state of the Store as an object with two properties:
      * <pre><code>
  field {String} The name of the field by which the Records are sorted
- direction {String} The sort order, "ASC" or "DESC"
+ direction {String} The sort order, "ASC" or "DESC" (case-sensitive)
      * </code></pre>
      */
     getSortState : function(){
@@ -424,7 +425,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     /**
      * Sets the default sort column and order to be used by the next load operation.
      * @param {String} fieldName The name of the field to sort by.
-     * @param {String} dir (optional) The sort order, "ASC" or "DESC" (defaults to "ASC")
+     * @param {String} dir (optional) The sort order, "ASC" or "DESC" (case-sensitive, defaults to "ASC")
      */
     setDefaultSort : function(field, dir){
         this.sortInfo = {field: field, direction: dir ? dir.toUpperCase() : "ASC"};
@@ -435,7 +436,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
      * If remote sorting is used, the sort is performed on the server, and the cache is
      * reloaded. If local sorting is used, the cache is sorted internally.
      * @param {String} fieldName The name of the field to sort by.
-     * @param {String} dir (optional) The sort order, "ASC" or "DESC" (defaults to "ASC")
+     * @param {String} dir (optional) The sort order, "ASC" or "DESC" (case-sensitive, defaults to "ASC")
      */
     sort : function(fieldName, dir){
         var f = this.fields.get(fieldName);

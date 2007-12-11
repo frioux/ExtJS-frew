@@ -93,7 +93,8 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
      * <li><b>params</b> {Object/String/Function} (Optional) An object containing properties which are used as parameters to the
      * request, a url encoded string or a function to call to get either.</li>
      * <li><b>method</b> {String} (Optional) The HTTP method to use for the request. Defaults to the configured method, or
-     * if no method was configured, "GET" if no parameters are being sent, and "POST" if parameters are being sent.</li>
+     * if no method was configured, "GET" if no parameters are being sent, and "POST" if parameters are being sent. Note that
+     * the method name is case-sensitive and should be all caps.</li>
      * <li><b>callback</b> {Function} (Optional) The function to be called upon receipt of the HTTP response.
      * The callback is called regardless of success or failure and is passed the following parameters:<ul>
      * <li>options {Object} The parameter to the request call.</li>
