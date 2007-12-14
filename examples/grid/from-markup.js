@@ -1,13 +1,12 @@
 Ext.onReady(function() {
-    var btn = Ext.get("create-grid");
-    btn.on("click", function(){
-        btn.dom.disabled = true;
+  var btn = Ext.get("create-grid");
+  btn.on("click", function(){
+    btn.dom.disabled = true;
 
-        // create the grid
-        var grid = new Ext.grid.TableGrid("the-table");
-        grid.render();
-
-    }, false, {single:true}); // run once
+    // create the grid
+    var grid = new Ext.grid.TableGrid("the-table");
+    grid.render();
+  }, false, {single:true}); // run once
 });
 
 /**
@@ -25,58 +24,59 @@ Ext.onReady(function() {
  * 2007-03-10 jvs Slightly refactored to reuse existing classes
  */
 Ext.grid.TableGrid = function(table, config) {
-    config = config || {};
-    var cf = config.fields || [], ch = config.columns || [];
-    table = Ext.get(table);
+  config = config || {};
+  Ext.apply(this, config);
+  var cf = config.fields || [], ch = config.columns || [];
+  table = Ext.get(table);
 
-    var ct = table.insertSibling();
+  var ct = table.insertSibling();
 
-    var fields = [], cols = [];
-    var headers = table.query("thead th");
-	for (var i = 0, h; h = headers[i]; i++) {
-		var text = h.innerHTML;
-		var name = 'tcol-'+i;
+  var fields = [], cols = [];
+  var headers = table.query("thead th");
+  for (var i = 0, h; h = headers[i]; i++) {
+    var text = h.innerHTML;
+    var name = 'tcol-'+i;
 
-        fields.push(Ext.applyIf(cf[i] || {}, {
-            name: name,
-            mapping: 'td:nth('+(i+1)+')/@innerHTML'
-        }));
+    fields.push(Ext.applyIf(cf[i] || {}, {
+      name: name,
+      mapping: 'td:nth('+(i+1)+')/@innerHTML'
+    }));
 
-		cols.push(Ext.applyIf(ch[i] || {}, {
-			'header': text,
-			'dataIndex': name,
-			'width': h.offsetWidth,
-			'tooltip': h.title,
-            'sortable': true
-        }));
-	}
+    cols.push(Ext.applyIf(ch[i] || {}, {
+      'header': text,
+      'dataIndex': name,
+      'width': h.offsetWidth,
+      'tooltip': h.title,
+      'sortable': true
+    }));
+  }
 
-    var ds  = new Ext.data.Store({
-        reader: new Ext.data.XmlReader({
-            record:'tbody tr'
-        }, fields)
-    });
+  var ds  = new Ext.data.Store({
+    reader: new Ext.data.XmlReader({
+      record:'tbody tr'
+    }, fields)
+  });
 
-	ds.loadData(table.dom);
+  ds.loadData(table.dom);
 
-    var cm = new Ext.grid.ColumnModel(cols);
+  var cm = new Ext.grid.ColumnModel(cols);
 
-    if(config.width || config.height){
-        ct.setSize(config.width || 'auto', config.height || 'auto');
+  if (config.width || config.height) {
+    ct.setSize(config.width || 'auto', config.height || 'auto');
+  }
+  if (config.remove !== false) {
+    table.remove();
+  }
+
+  Ext.grid.TableGrid.superclass.constructor.call(this, ct,
+    Ext.applyIf(config, {
+      'ds': ds,
+      'cm': cm,
+      'sm': new Ext.grid.RowSelectionModel(),
+      autoHeight: true,
+      autoWidth: true
     }
-    if(config.remove !== false){
-        table.remove();
-    }
-
-    Ext.grid.TableGrid.superclass.constructor.call(this, ct,
-        Ext.applyIf(config, {
-            'ds': ds,
-            'cm': cm,
-            'sm': new Ext.grid.RowSelectionModel(),
-            autoHeight:true,
-            autoWidth:true
-        }
-    ));
+  ));
 };
 
 Ext.extend(Ext.grid.TableGrid, Ext.grid.Grid);
