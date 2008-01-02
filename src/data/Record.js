@@ -31,7 +31,7 @@ Ext.data.Record = function(data, id){
  * for example the <em>dataIndex</em> property in column definition objects passed to {@link Ext.grid.ColumnModel}</p></li>
  * <li><b>mapping</b> : String<p style="margin-left:1em">(Optional) A path specification for use by the {@link Ext.data.Reader} implementation
  * that is creating the Record to access the data value from the data object. If an {@link Ext.data.JsonReader}
- * is being used, then this is a string containing the javascript expression to reference the data relative to 
+ * is being used, then this is a string containing the javascript expression to reference the data relative to
  * the record item's root. If an {@link Ext.data.XmlReader} is being used, this is an {@link Ext.DomQuery} path
  * to the data item relative to the record element. If the mapping expression is the same as the field name,
  * this may be omitted.</p></li>
@@ -86,7 +86,7 @@ Ext.data.Record.create = function(o){
         p.fields.add(new Ext.data.Field(o[i]));
     }
     f.getField = function(name){
-        return p.fields.get(name);  
+        return p.fields.get(name);
     };
     return f;
 };
@@ -133,9 +133,9 @@ Ext.data.Record.prototype = {
             this.modified[name] = this.data[name];
         }
         this.data[name] = value;
-        if(!this.editing){
+        if(!this.editing && this.store){
             this.store.afterEdit(this);
-        }       
+        }
     },
 
     /**
@@ -144,13 +144,13 @@ Ext.data.Record.prototype = {
      * @return {Object} The value of the field.
      */
     get : function(name){
-        return this.data[name]; 
+        return this.data[name];
     },
 
     // private
     beginEdit : function(){
         this.editing = true;
-        this.modified = {}; 
+        this.modified = {};
     },
 
     // private
