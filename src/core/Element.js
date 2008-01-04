@@ -2388,7 +2388,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
      */
     insertFirst: function(el, returnDom){
         el = el || {};
-        if(typeof el == 'object' && !el.nodeType){ // dh config
+        if(typeof el == 'object' && !el.nodeType && !el.dom){ // dh config
             return this.createChild(el, this.dom.firstChild, returnDom);
         }else{
             el = Ext.getDom(el);
