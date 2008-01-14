@@ -589,6 +589,9 @@ Ext.extend(Ext.grid.GridView, Ext.grid.AbstractGridView, {
         if(typeof row != "number"){
             row = row.rowIndex;
         }
+        if(!this.ds) {
+            return;
+        }
         if(row < 0 && row >= this.ds.getCount()){
             return;
         }
