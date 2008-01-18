@@ -244,7 +244,7 @@ Ext.QuickTips = function(){
        minWidth : 40,
         /**
         * @cfg {Number} maxWidth
-        * The maximum width of the quick tip (defaults to 300)
+        * The maximum width of the quick tip (defaults to 300). The maximum supported value is 500.
         */
        maxWidth : 300,
         /**
