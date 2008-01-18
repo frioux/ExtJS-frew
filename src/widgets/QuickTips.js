@@ -312,7 +312,7 @@ Ext.QuickTips = function(){
        /**
         * @cfg {Number} width
         * Width in pixels of the quick tip (defaults to auto).  Width will be ignored if it exceeds the bounds of
-        * minWidth or maxWidth.
+        * minWidth or maxWidth.  The maximum supported value is 500.
         */
 
     /**
