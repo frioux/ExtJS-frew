@@ -18,6 +18,22 @@ Ext.extend(Ext.form.Radio, Ext.form.Checkbox, {
      * @return {String}
      */
     getGroupValue : function(){
-        return this.el.up('form').child('input[name='+this.el.dom.name+']:checked', true).value;
+    	var p = this.el.up('form') || Ext.get(document.body);
+        return p.child('input[name='+this.el.dom.name+']:checked', true).value;
+    },
+    
+    // private
+    onClick : function(){
+    	if(this.el.dom.checked != this.checked){
+    		var p = this.el.up('form') || Ext.get(document.body);
+			var els = p.select('input[name='+this.el.dom.name+']');
+			els.each(function(el){
+				if(el.dom.id == this.id){
+					this.setValue(true);
+				}else{
+					Ext.getCmp(el.dom.id).setValue(false);
+				}
+			}, this);
+		}
     }
 });
