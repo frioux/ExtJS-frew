@@ -189,7 +189,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
                 c.renderer = Ext.util.Format[c.renderer];
             }
             if(typeof c.id == "undefined"){
-                c.id = i;
+                c.id = 'xgc'+i;
             }
             if(c.editor && c.editor.isFormField){
                 c.editor = new Ext.grid.GridEditor(c.editor);
