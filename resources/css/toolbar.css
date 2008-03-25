@@ -93,7 +93,8 @@
 }
 
 .x-toolbar .xtb-text{
-   padding:2px;
+    padding:2px;
+    line-height:17px;
 }
 .x-toolbar .ytb-sep {
 	background-image: url(../images/default/grid/grid-blue-split.gif);
