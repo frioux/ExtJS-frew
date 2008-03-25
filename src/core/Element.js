@@ -2795,8 +2795,6 @@ var ep = El.prototype;
  * @method on
  */
 ep.on = ep.addListener;
-    // backwards compat
-ep.mon = ep.addListener;
 
 ep.getUpdateManager = ep.getUpdater;
 

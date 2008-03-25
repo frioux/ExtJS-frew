@@ -6,6 +6,10 @@
  * Create a new PagingToolbar
  * @param {Object} config The config object
  */
+(function() {
+
+var T = Ext.Toolbar;
+
 Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
     /**
      * @cfg {Ext.data.Store} store The {@link Ext.data.Store} the paging toolbar should use as its data source (required).
@@ -18,6 +22,11 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
      * @cfg {Number} pageSize
      * The number of records to display per page (defaults to 20)
      */
+    /**
+     * @cfg {Boolean} prependButtons
+     * True to insert any configured items <i>before</i> the paging buttons. Defaults to false.
+     */
+
     pageSize: 20,
     /**
      * @cfg {String} displayMsg
@@ -72,71 +81,81 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
      */
     paramNames : {start: 'start', limit: 'limit'},
 
-    initComponent : function(){
-        Ext.PagingToolbar.superclass.initComponent.call(this);
+    constructor: function(config) {
+	    var pagingItems = [this.first = new T.Button({
+	        tooltip: this.firstText,
+	        iconCls: "x-tbar-page-first",
+	        disabled: true,
+	        handler: this.onClick,
+	        scope: this
+	    }), this.prev = new T.Button({
+	        tooltip: this.prevText,
+	        iconCls: "x-tbar-page-prev",
+	        disabled: true,
+	        handler: this.onClick,
+	        scope: this
+	    }), '-', this.beforePageText,
+	    this.inputItem = new T.Item({
+	    	height: 18,
+	    	autoEl: {
+		        tag: "input",
+		        type: "text",
+		        size: "3",
+		        value: "1",
+		        cls: "x-tbar-page-number"
+		    }
+	    }), this.afterTextItem = new T.TextItem({
+	    	text: String.format(this.afterPageText, 1)
+	    }), '-', this.next = new T.Button({
+            tooltip: this.nextText,
+	        iconCls: "x-tbar-page-next",
+	        disabled: true,
+	        handler: this.onClick,
+	        scope: this
+	    }), this.last = new T.Button({
+	        tooltip: this.lastText,
+	        iconCls: "x-tbar-page-last",
+	        disabled: true,
+	        handler: this.onClick,
+	        scope: this
+	    }), '-', this.refresh = new T.Button({
+	        tooltip: this.refreshText,
+	        iconCls: "x-tbar-loading",
+	        handler: this.onClick,
+	        scope: this
+	    })]
+            var userItems = config.items || config.buttons || [];
+            if (config.prependButtons) {
+                config.items = userItems.concat(pagingItems);
+            }else{
+                config.items = pagingItems.concat(userItems);
+            }
+	    delete config.buttons;
+	    if(config.displayInfo){
+            config.items.push(this.displayItem = new T.TextItem({
+            	align: 'right'
+            }));
+        }
+	    Ext.PagingToolbar.superclass.constructor.apply(this, arguments);
         this.cursor = 0;
         this.bind(this.store);
-    },
+        this.on('afterlayout', this.onFirstLayout, this, {single: true});
+	},
 
-    // private
-    onRender : function(ct, position){
-        Ext.PagingToolbar.superclass.onRender.call(this, ct, position);
-        this.first = this.addButton({
-            tooltip: this.firstText,
-            iconCls: "x-tbar-page-first",
-            disabled: true,
-            handler: this.onClick.createDelegate(this, ["first"])
-        });
-        this.prev = this.addButton({
-            tooltip: this.prevText,
-            iconCls: "x-tbar-page-prev",
-            disabled: true,
-            handler: this.onClick.createDelegate(this, ["prev"])
-        });
-        this.addSeparator();
-        this.add(this.beforePageText);
-        this.field = Ext.get(this.addDom({
-           tag: "input",
-           type: "text",
-           size: "3",
-           value: "1",
-           cls: "x-tbar-page-number"
-        }).el);
-        this.field.on("keydown", this.onPagingKeydown, this);
-        this.field.on("focus", function(){this.dom.select();});
-        this.afterTextEl = this.addText(String.format(this.afterPageText, 1));
-        this.field.setHeight(18);
-        this.addSeparator();
-        this.next = this.addButton({
-            tooltip: this.nextText,
-            iconCls: "x-tbar-page-next",
-            disabled: true,
-            handler: this.onClick.createDelegate(this, ["next"])
-        });
-        this.last = this.addButton({
-            tooltip: this.lastText,
-            iconCls: "x-tbar-page-last",
-            disabled: true,
-            handler: this.onClick.createDelegate(this, ["last"])
-        });
-        this.addSeparator();
-        this.loading = this.addButton({
-            tooltip: this.refreshText,
-            iconCls: "x-tbar-loading",
-            handler: this.onClick.createDelegate(this, ["refresh"])
-        });
-
-        if(this.displayInfo){
-            this.displayEl = Ext.fly(this.el.dom).createChild({cls:'x-paging-info'});
-        }
+	onFirstLayout: function(ii) {
+    	this.inputItem.el.on({
+	    	keydown: {fn: this.onPagingKeydown, scope: this},
+	    	focus: function(){this.select();}
+	    });
+        this.field = this.inputItem.el.dom;
         if(this.dsLoaded){
             this.onLoad.apply(this, this.dsLoaded);
         }
-    },
+	},
 
     // private
     updateInfo : function(){
-        if(this.displayEl){
+        if(this.displayItem){
             var count = this.store.getCount();
             var msg = count == 0 ?
                 this.emptyMsg :
@@ -144,7 +163,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
                     this.displayMsg,
                     this.cursor+1, this.cursor+count, this.store.getTotalCount()
                 );
-            this.displayEl.update(msg);
+            this.displayItem.setText(msg);
         }
     },
 
@@ -154,16 +173,16 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
             this.dsLoaded = [store, r, o];
             return;
         }
-       this.cursor = o.params ? o.params[this.paramNames.start] : 0;
+       this.cursor = (o.params && o.params[this.paramNames.start]) ? o.params[this.paramNames.start] : 0;
        var d = this.getPageData(), ap = d.activePage, ps = d.pages;
 
-       this.afterTextEl.el.innerHTML = String.format(this.afterPageText, d.pages);
-       this.field.dom.value = ap;
+       this.afterTextItem.setText(String.format(this.afterPageText, d.pages));
+       this.field.value = ap;
        this.first.setDisabled(ap == 1);
        this.prev.setDisabled(ap == 1);
        this.next.setDisabled(ap == ps);
        this.last.setDisabled(ap == ps);
-       this.loading.enable();
+       this.refresh.enable();
        this.updateInfo();
     },
 
@@ -182,13 +201,13 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         if(!this.rendered){
             return;
         }
-        this.loading.enable();
+        this.refresh.enable();
     },
 
     readPage : function(d){
-        var v = this.field.dom.value, pageNum;
+        var v = this.field.value, pageNum;
         if (!v || isNaN(pageNum = parseInt(v, 10))) {
-            this.field.dom.value = d.activePage;
+            this.field.value = d.activePage;
             return false;
         }
         return pageNum;
@@ -206,7 +225,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         }else if (k == e.HOME || k == e.END){
             e.stopEvent();
             pageNum = k == e.HOME ? 1 : d.pages;
-            this.field.dom.value = pageNum;
+            this.field.value = pageNum;
         }else if (k == e.UP || k == e.PAGEUP || k == e.DOWN || k == e.PAGEDOWN){
             e.stopEvent();
             if(pageNum = this.readPage(d)){
@@ -216,7 +235,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
                 }
                 pageNum += increment;
                 if(pageNum >= 1 & pageNum <= d.pages){
-                    this.field.dom.value = pageNum;
+                    this.field.value = pageNum;
                 }
             }
         }
@@ -224,8 +243,8 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
 
     // private
     beforeLoad : function(){
-        if(this.rendered && this.loading){
-            this.loading.disable();
+        if(this.rendered && this.refresh){
+            this.refresh.disable();
         }
     },
 
@@ -237,25 +256,25 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
     },
 
     // private
-    onClick : function(which){
+    onClick : function(button){
         var store = this.store;
-        switch(which){
-            case "first":
+        switch(button){
+            case this.first:
                 this.doLoad(0);
             break;
-            case "prev":
+            case this.prev:
                 this.doLoad(Math.max(0, this.cursor-this.pageSize));
             break;
-            case "next":
+            case this.next:
                 this.doLoad(this.cursor+this.pageSize);
             break;
-            case "last":
+            case this.last:
                 var total = store.getTotalCount();
                 var extra = total % this.pageSize;
                 var lastStart = extra ? (total - extra) : total-this.pageSize;
                 this.doLoad(lastStart);
             break;
-            case "refresh":
+            case this.refresh:
                 this.doLoad(this.cursor);
             break;
         }
@@ -283,6 +302,10 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         store.on("load", this.onLoad, this);
         store.on("loadexception", this.onLoadError, this);
         this.store = store;
+        this.paramNames.start = store.paramNames.start;
+        this.paramNames.limit = store.paramNames.limit;
     }
 });
+
+})();
 Ext.reg('paging', Ext.PagingToolbar);

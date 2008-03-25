@@ -7,6 +7,7 @@
     background:#d0def0 url(../images/default/toolbar/bg.gif) repeat-x top left;
     position:relative;
     zoom:1;
+    overflow:hidden;
 }
 .x-toolbar .x-item-disabled .x-btn-icon {
     opacity: .35;
@@ -91,7 +92,7 @@
 	padding-right:8px;
 }
 
-.x-toolbar .ytb-text{
+.x-toolbar .xtb-text{
    padding:2px;
 }
 .x-toolbar .ytb-sep {
@@ -152,4 +153,12 @@
     top:5px;
     right: 8px;
     color:#444;
+}
+
+.x-toolbar-left {
+	float: left;
+}
+
+.x-toolbar-right {
+	float: right;
 }

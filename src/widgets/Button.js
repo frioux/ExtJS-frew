@@ -600,6 +600,23 @@ Ext.ButtonToggleMgr = function(){
                g.remove(btn);
                btn.un("toggle", toggleGroup);
            }
+       },
+
+       /**
+        * Gets the pressed button in the passed group or null
+        * @param {String} group
+        * @return Button
+        */
+       getPressed : function(group){
+           var g = groups[group];
+           if(g){
+               for(var i = 0, len = g.length; i < len; i++){
+                   if(g[i].pressed === true){
+                       return g[i];
+                   }
+               }
+           }
+           return null;
        }
    };
 }();

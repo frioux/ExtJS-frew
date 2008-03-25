@@ -219,9 +219,6 @@ Ext.Template.prototype = {
  */
 Ext.Template.prototype.apply = Ext.Template.prototype.applyTemplate;
 
-// backwards compat
-Ext.DomHelper.Template = Ext.Template;
-
 /**
  * Creates a template from the passed element's value (<i>display:none</i> textarea, preferred) or innerHTML.
  * @param {String/HTMLElement} el A DOM element or its id

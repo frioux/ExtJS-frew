@@ -493,8 +493,6 @@ Ext.Updater.updateElement = function(el, url, params, options){
     Ext.apply(um, options);
     um.update(url, params, options ? options.callback : null);
 };
-// alias for backwards compat
-Ext.Updater.update = Ext.Updater.updateElement;
 /**
  * @class Ext.Updater.BasicRenderer
  * Default Content renderer. Updates the elements innerHTML with the responseText.

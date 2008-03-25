@@ -551,5 +551,3 @@ Ext.grid.ColumnModel.defaultRenderer = function(value){
 	return value;
 };
 
-// Alias for backwards compatibility
-Ext.grid.DefaultColumnModel = Ext.grid.ColumnModel;

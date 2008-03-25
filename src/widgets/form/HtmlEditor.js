@@ -329,6 +329,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                 item.disable();
             }
         });
+        this.tb.doLayout();
 
         var iframe = document.createElement('iframe');
         iframe.name = Ext.id();

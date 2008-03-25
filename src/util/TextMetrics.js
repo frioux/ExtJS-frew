@@ -108,6 +108,3 @@ Ext.util.TextMetrics.Instance = function(bindTo, fixedWidth){
 
     return instance;
 };
-
-// backwards compat
-Ext.Element.measureText = Ext.util.TextMetrics.measure;

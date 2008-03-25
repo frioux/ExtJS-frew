@@ -183,8 +183,4 @@ Ext.SplitButton = Ext.extend(Ext.Button, {
     }
 });
 
-// backwards compat
-Ext.MenuButton = Ext.SplitButton;
-
-
 Ext.reg('splitbutton', Ext.SplitButton);

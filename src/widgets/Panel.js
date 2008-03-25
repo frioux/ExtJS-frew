@@ -680,12 +680,16 @@ new Ext.Panel({
         if(this.tbar && this.topToolbar){
             if(Ext.isArray(this.topToolbar)){
                 this.topToolbar = new Ext.Toolbar(this.topToolbar);
+            }else if(!this.topToolbar.events){
+                this.topToolbar = Ext.ComponentMgr.create(this.topToolbar, 'toolbar');
             }
             this.topToolbar.render(this.tbar);
         }
         if(this.bbar && this.bottomToolbar){
             if(Ext.isArray(this.bottomToolbar)){
                 this.bottomToolbar = new Ext.Toolbar(this.bottomToolbar);
+            }else if(!this.bottomToolbar.events){
+                this.bottomToolbar = Ext.ComponentMgr.create(this.bottomToolbar, 'toolbar');
             }
             this.bottomToolbar.render(this.bbar);
         }
@@ -1063,6 +1067,13 @@ new Ext.Panel({
                 }else if(h == 'auto'){
                     this.body.setHeight(h);
                 }
+
+                if(this.topToolbar){
+                    this.topToolbar.setSize(this.tbar.getWidth());
+                }
+                if(this.bottomToolbar){
+                    this.bottomToolbar.setSize(this.bbar.getWidth());
+                }                
             }else{
                 this.queuedBodySize = {width: w, height: h};
                 if(!this.queuedExpand && this.allowQueuedExpand !== false){
