@@ -10,11 +10,22 @@ Ext.util.Format = function(){
          * Truncate a string and add an ellipsis ('...') to the end if it exceeds the specified length
          * @param {String} value The string to truncate
          * @param {Number} length The maximum length to allow before truncating
+         * @param {Boolean} word True to try to find a common work break
          * @return {String} The converted text
          */
-        ellipsis : function(value, len){
+        ellipsis : function(value, len, word){
             if(value && value.length > len){
-                return value.substr(0, len-3)+"...";
+                if(word){
+                    var vs = value.substr(0, len - 2);
+                    var index = Math.max(vs.lastIndexOf(' '), vs.lastIndexOf('.'), vs.lastIndexOf('!'), vs.lastIndexOf('?'));
+                    if(index == -1 || index < (len - 15)){
+                        return value.substr(0, len - 3) + "...";
+                    }else{
+                        return vs.substr(0, index) + "...";
+                    }
+                } else{
+                    return value.substr(0, len - 3) + "...";
+                }
             }
             return value;
         },
@@ -280,6 +291,18 @@ Ext.util.Format = function(){
             return function(v){
                 return Ext.util.Format.number(v, format);
             };
+        },
+
+        /**
+         * Selectively do a plural form of a word based on a numeric value. For example, in a template,
+         * {commentCount:plural("Comment")}  would result in "1 Comment" if commentCount was 1 or would be "x Comments"
+         * if the value is 0 or greater than 1.
+         * @param {Number} value The value to compare against
+         * @param {String} singular The singular form of the word
+         * @param {String} plural (optional) The plural form of the word (defaults to the singular with an "s")
+         */
+        plural : function(v, s, p){
+            return v +' ' + (v == 1 ? s : (p ? p : s+'s'));
         }
     }
 }();

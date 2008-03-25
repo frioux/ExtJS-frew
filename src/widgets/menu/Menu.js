@@ -304,7 +304,7 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
         this.fireEvent("show", this);
     },
 
-    
+
 
     focus : function(){
         if(!this.hidden){
@@ -339,7 +339,7 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
     },
 
     /**
-     * Addds one or more items of any type supported by the Menu class, or that can be converted into menu items.
+     * Adds one or more items of any type supported by the Menu class, or that can be converted into menu items.
      * Any of the following are valid:
      * <ul>
      * <li>Any menu item object based on {@link Ext.menu.Item}</li>
@@ -507,14 +507,14 @@ var item = menu.add(
         this.beforeDestroy();
         Ext.menu.MenuMgr.unregister(this);
         if (this.keyNav) {
-        	this.keyNav.disable();	
+        	this.keyNav.disable();
         }
         this.removeAll();
         if (this.ul) {
-        	this.ul.removeAllListeners();	
+        	this.ul.removeAllListeners();
         }
         if (this.el) {
-        	this.el.destroy();	
+        	this.el.destroy();
         }
     },
 

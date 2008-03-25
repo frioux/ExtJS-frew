@@ -868,6 +868,23 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
             this.findParentBy(function(p){
                 return p.constructor.xtype === xtype;
             });
+    },
+
+    // internal function for auto removal of assigned event handlers on destruction
+    mon : function(item, ename, fn, scope, opt){
+        if(!this.mons){
+            this.mons = [];
+            this.on('beforedestroy', function(){
+                for(var i= 0, len = this.mons.length; i < len; i++){
+                    var m = this.mons[i];
+                    m.item.un(m.ename, m.fn, m.scope);
+                }
+            }, this);
+        }
+        this.mons.push({
+            item: item, ename: ename, fn: fn, scope: scope
+        });
+        item.on(ename, fn, scope, opt);
     }
 });
 
