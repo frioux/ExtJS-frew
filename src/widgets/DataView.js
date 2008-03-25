@@ -200,7 +200,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
     afterRender : function(){
         Ext.DataView.superclass.afterRender.call(this);
 
-        this.el.on({
+        this.getTemplateTarget().on({
             "click": this.onClick,
             "dblclick": this.onDblClick,
             "contextmenu": this.onContextMenu,
@@ -208,7 +208,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
         });
 
         if(this.overClass){
-            this.el.on({
+            this.getTemplateTarget().on({
                 "mouseover": this.onMouseOver,
                 "mouseout": this.onMouseOut,
                 scope:this
@@ -225,20 +225,25 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
      */
     refresh : function(){
         this.clearSelections(false, true);
-        this.el.update("");
+        var el = this.getTemplateTarget();
+        el.update("");
         var html = [];
         var records = this.store.getRange();
         if(records.length < 1){
             if(!this.deferEmptyText || this.hasSkippedEmptyText){
-                this.el.update(this.emptyText);
+                el.update(this.emptyText);
             }
             this.hasSkippedEmptyText = true;
             this.all.clear();
             return;
         }
-        this.tpl.overwrite(this.el, this.collectData(records, 0));
-        this.all.fill(Ext.query(this.itemSelector, this.el.dom));
+        this.tpl.overwrite(el, this.collectData(records, 0));
+        this.all.fill(Ext.query(this.itemSelector, el.dom));
         this.updateIndexes(0);
+    },
+
+    getTemplateTarget: function(){
+        return this.el;
     },
 
     /**
@@ -359,12 +364,12 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
      * @return {HTMLElement} The template node
      */
     findItemFromChild : function(node){
-        return Ext.fly(node).findParent(this.itemSelector, this.el);
+        return Ext.fly(node).findParent(this.itemSelector, this.getTemplateTarget());
     },
 
     // private
     onClick : function(e){
-        var item = e.getTarget(this.itemSelector, this.el);
+        var item = e.getTarget(this.itemSelector, this.getTemplateTarget());
         if(item){
             var index = this.indexOf(item);
             if(this.onItemClick(item, index, e) !== false){
@@ -372,14 +377,18 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
             }
         }else{
             if(this.fireEvent("containerclick", this, e) !== false){
-                this.clearSelections();
+                this.onContainerClick(e);
             }
         }
     },
 
+    onContainerClick : function(e){
+        this.clearSelections();
+    },
+
     // private
     onContextMenu : function(e){
-        var item = e.getTarget(this.itemSelector, this.el);
+        var item = e.getTarget(this.itemSelector, this.getTemplateTarget());
         if(item){
             this.fireEvent("contextmenu", this, this.indexOf(item), item, e);
         }
@@ -387,7 +396,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
 
     // private
     onDblClick : function(e){
-        var item = e.getTarget(this.itemSelector, this.el);
+        var item = e.getTarget(this.itemSelector, this.getTemplateTarget());
         if(item){
             this.fireEvent("dblclick", this, this.indexOf(item), item, e);
         }
@@ -395,7 +404,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
 
     // private
     onMouseOver : function(e){
-        var item = e.getTarget(this.itemSelector, this.el);
+        var item = e.getTarget(this.itemSelector, this.getTemplateTarget());
         if(item && item !== this.lastItem){
             this.lastItem = item;
             Ext.fly(item).addClass(this.overClass);
@@ -658,7 +667,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
     onBeforeLoad : function(){
         if(this.loadingText){
             this.clearSelections(false, true);
-            this.el.update('<div class="loading-indicator">'+this.loadingText+'</div>');
+            this.getTemplateTarget().update('<div class="loading-indicator">'+this.loadingText+'</div>');
             this.all.clear();
         }
     },

@@ -50,3 +50,8 @@ pre.code{
 .x-grid3-row-body p {
     margin:5px 5px 10px 5px !important;
 }
+
+.x-panel-header-text i {
+    font-weight:normal !important;
+    font-style:normal;
+}

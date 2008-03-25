@@ -99,7 +99,7 @@ Ext.BoxComponent = Ext.extend(Ext.Component, {
         }
 
         // prevent recalcs when not needed
-        if(this.lastSize && this.lastSize.width == w && this.lastSize.height == h){
+        if(this.cacheSizes !== false && this.lastSize && this.lastSize.width == w && this.lastSize.height == h){
             return this;
         }
         this.lastSize = {width: w, height: h};
