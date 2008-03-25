@@ -133,6 +133,11 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
      */
     loadMask : false,
 
+    /**
+     * @cfg {Boolean} columnLines True to add css for column separation lines. Default is false.
+     */
+    columnLines : false,
+
     // private
     rendered : false,
     // private
@@ -144,6 +149,9 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
     initComponent : function(){
         Ext.grid.GridPanel.superclass.initComponent.call(this);
 
+        if(this.columnLines){
+            this.cls = (this.cls || '') + ' x-grid-with-col-lines';
+        }
         // override any provided value since it isn't valid
         // and is causing too many bug reports ;)
         this.autoScroll = false;

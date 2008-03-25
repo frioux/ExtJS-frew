@@ -68,6 +68,7 @@
     -moz-outline:0 none;
     outline:0 none;
 }
+
 /* IE Quirks to clip */
 .ext-ie .x-grid3-cell-inner, .ext-ie .x-grid3-hd-inner{
 	width:100%;
@@ -538,4 +539,17 @@ a.x-grid3-hd-btn:hover {
 /* fix floating toolbar issue */
 .ext-ie7 .x-grid-panel .x-panel-bbar {
     position:relative;
+}
+
+
+/* column lines */
+.x-grid-with-col-lines .x-grid3-row td.x-grid3-cell {
+    padding-right:0;
+    border-right:1px solid #ededed;
+}
+.x-grid-with-col-lines .x-grid3-row{
+    border-top-color:#ededed;
+}
+.x-grid-with-col-lines .x-grid3-row-selected {
+	border-top-color:#a3bae9;
 }
