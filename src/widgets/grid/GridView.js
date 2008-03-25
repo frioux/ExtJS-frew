@@ -637,10 +637,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
             return; // not rendered
         }
         var g = this.grid;
-        var c = g.getGridEl(), cm = this.cm,
-                expandCol = g.autoExpandColumn,
-                gv = this;
-
+        var c = g.getGridEl();
         var csize = c.getSize(true);
         var vw = csize.width;
 
