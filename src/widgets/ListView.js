@@ -1,18 +1,20 @@
-/*
- * TODO header click plugin for sorting
- */
 Ext.ListView = Ext.extend(Ext.DataView, {
     itemSelector: 'dl',
     selectedClass:'x-list-selected',
     overClass:'x-list-over',
     scrollOffset : 19,
     columnResize: true,
+    columnSort: true,
     hideHeaders: false,
     
     initComponent : function(){
         if(this.columnResize){
             this.colResizer = new Ext.ListView.ColumnResizer();
             this.colResizer.init(this);
+        }
+        if(this.columnSort){
+            this.colSorter = new Ext.ListView.Sorter();
+            this.colSorter.init(this);
         }
         if(!this.internalTpl){
             this.internalTpl = new Ext.XTemplate(
@@ -162,6 +164,10 @@ Ext.ListView = Ext.extend(Ext.DataView, {
 
 Ext.ListView.ColumnResizer = Ext.extend(Ext.util.Observable, {
     minPct: .05,
+    constructor: function(config){
+        Ext.apply(this, config);
+        Ext.ListView.ColumnResizer.superclass.constructor.call(this);
+    },
     init : function(listView){
         this.view = listView;
         listView.on('render', this.initEvents, this);
@@ -217,6 +223,7 @@ Ext.ListView.ColumnResizer = Ext.extend(Ext.util.Observable, {
     },
 
     onStart: function(e){
+        this.view.disableHeaders = true;
         this.proxy = this.view.el.createChild({cls:'x-list-resizer'});
         this.proxy.setHeight(this.view.el.getHeight());
 
@@ -243,7 +250,7 @@ Ext.ListView.ColumnResizer = Ext.extend(Ext.util.Observable, {
         this.proxy.remove();
 
         var index = this.hdIndex;
-        var cs = this.view.columns, len = cs.length;
+        var vw = this.view, cs = vw.columns, len = cs.length;
         var w = this.view.innerHd.getWidth(), minPct = this.minPct * 100;
 
         var pct = Math.ceil((nw*100) / w);
@@ -264,6 +271,66 @@ Ext.ListView.ColumnResizer = Ext.extend(Ext.util.Observable, {
         delete this.dragHd;
         this.view.setHdWidths();
         this.view.refresh();
+        setTimeout(function(){
+            vw.disableHeaders = false;
+        }, 100);
+    }
+});
+
+
+Ext.ListView.Sorter = Ext.extend(Ext.util.Observable, {
+    /**
+     * The CSS classes applied to a header when it is sorted. (defaults to ["sort-asc", "sort-desc"])
+     * @type Array
+     */
+    sortClasses : ["sort-asc", "sort-desc"],
+    constructor: function(config){
+        Ext.apply(this, config);
+        Ext.ListView.Sorter.superclass.constructor.call(this);
+    },
+    init : function(listView){
+        this.view = listView;
+        listView.on('render', this.initEvents, this);
+    },
+
+    initEvents : function(view){
+        view.mon(view.innerHd, 'click', this.onHdClick, this);
+        view.innerHd.setStyle('cursor', 'pointer');
+        view.mon(view.store, 'datachanged', this.updateSortState, this);
+        this.updateSortState.defer(10, this, [view.store]);
+    },
+
+    updateSortState : function(store){
+        var state = store.getSortState();
+        if(!state){
+            return;
+        }
+        this.sortState = state;
+        var cs = this.view.columns, sortColumn = -1;
+        for(var i = 0, len = cs.length; i < len; i++){
+            if(cs[i].dataIndex == state.field){
+                sortColumn = i;
+                break;
+            }
+        }
+        if(sortColumn != -1){
+            var sortDir = state.direction;
+            this.updateSortIcon(sortColumn, sortDir);
+        }
+    },
+
+    updateSortIcon : function(col, dir){
+        var sc = this.sortClasses;
+        var hds = this.view.innerHd.select('em').removeClass(sc);
+        hds.item(col).addClass(sc[dir == "DESC" ? 1 : 0]);
+    },
+
+    onHdClick : function(e){
+        var hd = e.getTarget('em', 3);
+        if(hd && !this.view.disableHeaders){
+            var index = this.view.findHeaderIndex(hd);
+            this.view.store.sort(this.view.columns[index].dataIndex);
+        }
     }
 });
 
