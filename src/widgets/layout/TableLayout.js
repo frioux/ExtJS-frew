@@ -54,7 +54,11 @@ Ext.layout.TableLayout = Ext.extend(Ext.layout.ContainerLayout, {
     /**
      * @cfg {Number} columns
      * The total number of columns to create in the table for this layout.  If not specified, all panels added to
-      * this layout will be rendered into a single row using a column per panel.
+     * this layout will be rendered into a single row using a column per panel.
+     */
+    /**
+     * @cfg {String} cellCls
+     * A CSS class name to add to all table cells in the layout.
      */
 
     // private
