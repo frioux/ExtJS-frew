@@ -2654,7 +2654,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
     /**
      * Translates the passed page coordinates into left/top css values for this element
      * @param {Number/Array} x The page x or an array containing [x, y]
-     * @param {Number} y The page y
+     * @param {Number} y (optional) The page y, required if x is not an array
      * @return {Object} An object with left and top properties. e.g. {left: (value), top: (value)}
      */
     translatePoints : function(x, y){
