@@ -5,9 +5,9 @@
  * as the editor field.
  * @constructor
  * @param {TreePanel} tree
- * @param {Object} (optional) fieldConfig Either a prebuilt {@link Ext.form.Field} instance or a Field config object
+ * @param {Object} fieldConfig (optional) Either a prebuilt {@link Ext.form.Field} instance or a Field config object
  * that will be applied to the default field instance (defaults to a {@link Ext.form.TextField}).
- * @param {Object} (optional) config A TreeEditor config object
+ * @param {Object} config (optional) A TreeEditor config object
  */
 Ext.tree.TreeEditor = function(tree, fc, config){
     fc = fc || {};
