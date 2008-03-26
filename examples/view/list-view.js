@@ -13,23 +13,28 @@ Ext.onReady(function(){
         multiSelect: true,
         emptyText: 'No images to display',
         reserveScrollOffset: true,
-        
+
         columns: [{
             header: 'File',
-            width:'50%',
+            width: .5,
             dataIndex: 'name'
         },{
             header: 'Last Modified',
-            width: '50%',
+            width: .35, 
             dataIndex: 'lastmod',
             tpl: '{lastmod:date("m-d h:i a")}'
+        },{
+            header: 'Size',
+            dataIndex: 'size',
+            tpl: '{size:fileSize}',
+            align: 'right'
         }]
     });
     
     // put it in a Panel so it looks pretty
     var panel = new Ext.Panel({
         id:'images-view',
-        width:350,
+        width:425,
         height:250,
         collapsible:true,
         layout:'fit',

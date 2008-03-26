@@ -2,7 +2,7 @@
 	background: #f9f9f9 url(../images/default/grid/grid3-hrow.gif) repeat-x 0 bottom;
 	cursor:default;
     zoom:1;
-    height:22px;
+    height:20px;
 }
 .x-list-header-inner div {
     display:block;
@@ -19,7 +19,7 @@
     overflow:hidden;
     -moz-user-select: none;
     -khtml-user-select: none;
-    font:normal 12px arial, tahoma, helvetica, sans-serif;
+    font:normal 11px arial, tahoma, helvetica, sans-serif;
 }
 .x-list-body {
     overflow:auto;
@@ -46,7 +46,7 @@
     overflow:hidden;
     -moz-user-select: none;
     -khtml-user-select: none;
-    font:normal 12px arial, tahoma, helvetica, sans-serif;
+    font:normal 11px arial, tahoma, helvetica, sans-serif;
 }
 .x-list-over {
     background-color:#eee;
@@ -54,4 +54,12 @@
 
 .x-list-selected {
     background-color:#DFE8F6;
+}
+
+.x-list-resizer {
+    border-left:1px solid #555;
+    border-right:1px solid #555;
+    position:absolute;
+    left:0;
+    top:0;
 }

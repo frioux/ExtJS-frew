@@ -50,7 +50,7 @@ Ext.extend(Ext.DataView.LabelEditor, Ext.Editor, {
 
 Ext.DataView.DragSelector = function(cfg){
     cfg = cfg || {};
-    var view, regions, proxy, tracker;
+    var view, proxy, tracker;
     var rs, bodyRegion, dragRegion = new Ext.lib.Region(0,0,0,0);
     var dragSafe = cfg.dragSafe === true;
 
