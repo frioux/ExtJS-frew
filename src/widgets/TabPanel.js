@@ -874,7 +874,14 @@ var tabs = new Ext.TabPanel({
      * @cfg {Boolean} collapsed
      * @hide
      */
-
+    /**
+     * @cfg {String} layout
+     * @hide
+     */
+    /**
+     * @cfg {Object} layoutConfig
+     * @hide
+     */
 });
 Ext.reg('tabpanel', Ext.TabPanel);
 
