@@ -182,7 +182,7 @@ foo.on({
         if(typeof o == 'string'){
             for(var i = 0, a = arguments, v; v = a[i]; i++){
                 if(!this.events[a[i]]){
-                    o[a[i]] = true;
+                    this.events[a[i]] = true;
                 }
             }
         }else{
