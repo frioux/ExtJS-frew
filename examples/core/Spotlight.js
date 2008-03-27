@@ -1,5 +1,5 @@
 Ext.Spotlight = function(config){
-    Ext.apply(this.config);
+    Ext.apply(this, config);
 }
 Ext.Spotlight.prototype = {
     active : false,
