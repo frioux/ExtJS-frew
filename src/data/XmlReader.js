@@ -22,7 +22,7 @@ var myReader = new Ext.data.XmlReader({
  * <p>
  * This would consume an XML file like this:
  * <pre><code>
-&lt;?xml?>
+&lt;?xml version="1.0" encoding="UTF-8"?>
 &lt;dataset>
  &lt;results>2&lt;/results>
  &lt;row>
