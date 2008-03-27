@@ -36,8 +36,10 @@ Ext.MessageBox = function(){
 
     // private
     var handleButton = function(button){
-        dlg.hide();
-        Ext.callback(opt.fn, opt.scope||window, [button, activeTextEl.dom.value], 1);
+        if(dlg.isVisible()){
+            dlg.hide();
+            Ext.callback(opt.fn, opt.scope||window, [button, activeTextEl.dom.value], 1);
+        }
     };
 
     // private
