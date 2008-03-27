@@ -684,6 +684,7 @@ new Ext.Panel({
                 this.topToolbar = Ext.ComponentMgr.create(this.topToolbar, 'toolbar');
             }
             this.topToolbar.render(this.tbar);
+            this.topToolbar.ownerCt = this;
         }
         if(this.bbar && this.bottomToolbar){
             if(Ext.isArray(this.bottomToolbar)){
@@ -692,6 +693,7 @@ new Ext.Panel({
                 this.bottomToolbar = Ext.ComponentMgr.create(this.bottomToolbar, 'toolbar');
             }
             this.bottomToolbar.render(this.bbar);
+            this.bottomToolbar.ownerCt = this;
         }
     },
 
