@@ -90,6 +90,9 @@
     <include name="state\StateManager.js" />
     <include name="state\CookieProvider.js" />
     <include name="widgets\DataView.js" />
+    <include name="widgets\list\ListView.js" />
+    <include name="widgets\list\ColumnResizer.js" />
+    <include name="widgets\list\Sorter.js" />
     <include name="widgets\ColorPalette.js" />
     <include name="widgets\DatePicker.js" />
     <include name="widgets\TabPanel.js" />
@@ -169,6 +172,7 @@
     <include name="widgets\chart\swfobject.js" />
     <include name="widgets\chart\FlashComponent.js" />
     <include name="widgets\chart\EventProxy.js" />
+    <include name="widgets\Slider.js" />
     <include name="widgets\chart\Chart.js" />
   </target>
   <file name="layout\LayoutRegionLite.js" path="layout" />
@@ -531,6 +535,8 @@
   <file name="legacy\MasterTemplate.js" path="legacy" />
   <file name="legacy\View.js" path="legacy" />
   <file name="widgets\chart\FlashPanel.js" path="widgets\chart" />
+  <file name="ext.jsb" path="" />
+  <file name="license.txt" path="" />
   <file name="adapter\ext-base.js" path="adapter" />
   <file name="adapter\jquery-bridge.js" path="adapter" />
   <file name="adapter\prototype-bridge.js" path="adapter" />
@@ -618,6 +624,7 @@
   <file name="state\Provider.js" path="state" />
   <file name="state\StateManager.js" path="state" />
   <file name="util\ClickRepeater.js" path="util" />
+  <file name="util\Cookies.js" path="util" />
   <file name="util\CSS.js" path="util" />
   <file name="util\Date.js" path="util" />
   <file name="util\DelayedTask.js" path="util" />
@@ -718,6 +725,7 @@
   <file name="widgets\DatePicker.js" path="widgets" />
   <file name="widgets\Editor.js" path="widgets" />
   <file name="widgets\Layer.js" path="widgets" />
+  <file name="widgets\ListView.js" path="widgets" />
   <file name="widgets\LoadMask.js" path="widgets" />
   <file name="widgets\MessageBox.js" path="widgets" />
   <file name="widgets\PagingToolbar.js" path="widgets" />
@@ -734,6 +742,8 @@
   <file name="widgets\Window.js" path="widgets" />
   <file name="widgets\WindowManager.js" path="widgets" />
   <file name="debug.js" path="" />
-  <file name="ext.jsb" path="" />
-  <file name="license.txt" path="" />
+  <file name="widgets\list\ColumnResizer.js" path="widgets\list" />
+  <file name="widgets\list\ListView.js" path="widgets\list" />
+  <file name="widgets\list\Sorter.js" path="widgets\list" />
+  <file name="widgets\Slider.js" path="widgets" />
 </project>

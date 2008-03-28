@@ -339,10 +339,28 @@
   <file name="dependency\dependency.html" path="dependency" />
   <file name="dependency\dependency.php" path="dependency" />
   <file name="dependency\dependency.js" path="dependency" />
-  <file name="chart\charts.html" path="chart" />
-  <file name="chart\chart.gif" path="chart" />
+  <file name="grid\auto-width-grid.html" path="grid" />
+  <file name="grid\auto-width-grid.js" path="grid" />
+  <file name="slider\echo.php" path="slider" />
+  <file name="slider\simple-slider.html" path="slider" />
+  <file name="slider\simple-slider.js" path="slider" />
+  <file name="slider\slider.css" path="slider" />
+  <file name="slider\slider.html" path="slider" />
+  <file name="slider\slider.js" path="slider" />
+  <file name="slider\slider2.html" path="slider" />
+  <file name="slider\slider2.js" path="slider" />
+  <file name="slider\SliderField.css" path="slider" />
+  <file name="slider\SliderField.js" path="slider" />
+  <file name="slider\slider-bg.png" path="slider" />
+  <file name="slider\slider-thumb.png" path="slider" />
+  <file name="slider\slider-v-bg.png" path="slider" />
+  <file name="slider\slider-v-thumb.png" path="slider" />
   <file name="chart\bar.gif" path="chart" />
+  <file name="chart\chart.gif" path="chart" />
+  <file name="chart\charts.html" path="chart" />
   <file name="chart\charts.js" path="chart" />
+  <file name="core\spotlight-example.js" path="core" />
+  <file name="core\spotlight.html" path="core" />
   <file name="core\Spotlight.js" path="core" />
   <file name="core\templates.html" path="core" />
   <file name="core\templates.js" path="core" />
@@ -699,13 +717,6 @@
   <file name="simple-widgets\qtips.css" path="simple-widgets" />
   <file name="simple-widgets\qtips.html" path="simple-widgets" />
   <file name="simple-widgets\qtips.js" path="simple-widgets" />
-  <file name="slider\echo.php" path="slider" />
-  <file name="slider\slider.html" path="slider" />
-  <file name="slider\slider.js" path="slider" />
-  <file name="slider\slider2.html" path="slider" />
-  <file name="slider\slider2.js" path="slider" />
-  <file name="slider\SliderField.css" path="slider" />
-  <file name="slider\SliderField.js" path="slider" />
   <file name="state\get-state.php" path="state" />
   <file name="state\README.txt" path="state" />
   <file name="state\save-state.php" path="state" />
@@ -791,6 +802,9 @@
   <file name="view\data-view.html" path="view" />
   <file name="view\data-view.js" path="view" />
   <file name="view\get-images.php" path="view" />
+  <file name="view\list-view.css" path="view" />
+  <file name="view\list-view.html" path="view" />
+  <file name="view\list-view.js" path="view" />
   <file name="window\hello.html" path="window" />
   <file name="window\hello.js" path="window" />
   <file name="window\layout.html" path="window" />

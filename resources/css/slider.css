@@ -1,17 +1,18 @@
 /* Shared styles */
 .x-slider {
-    overflow:hidden;
+    zoom:1;
 }
 .x-slider-inner {
     position:relative;
     left:0;
     top:0;
     overflow:visible;
+    zoom:1;
 }
 .x-slider-focus {
 	position:absolute;
 	left:0;
-	top:-5px;
+	top:-10000px;
 	width:1px;
 	height:1px;
     line-height:1px;
@@ -28,6 +29,7 @@
 }
 .x-slider-horz .x-slider-end {
     padding-right:7px;
+    zoom:1;
     background:transparent url(../images/default/slider/slider-bg.png) no-repeat right -44px;
 }
 .x-slider-horz .x-slider-inner {
@@ -57,6 +59,7 @@
 }
 .x-slider-vert .x-slider-end {
     padding-bottom:7px;
+    zoom:1;
     background:transparent url(../images/default/slider/slider-v-bg.png) no-repeat -22px bottom;
 }
 .x-slider-vert .x-slider-inner {
