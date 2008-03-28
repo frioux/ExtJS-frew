@@ -8,7 +8,12 @@
  * <p>Note that when creating a layout via config, the layout-specific config properties must be passed in via
  * the {@link Ext.Container#layoutConfig} object which will then be applied internally to the layout.  In the
  * case of TableLayout, the only valid layout config property is {@link #columns}.  However, the items added to a
- * TableLayout can supply table-specific config properties of <b>rowspan</b> and <b>colspan</b>, as explained below.</p>
+ * TableLayout can supply the following table-specific config properties:</p>
+ * <ul>
+ * <li><b>rowspan</b> Applied to the table cell containing the item.</li>
+ * <li><b>colspan</b> Applied to the table cell containing the item.</li>
+ * <li><b>cellCls</b> A CSS class name added to the table cell containing the item.</li>
+ * </ul>
  * <p>The basic concept of building up a TableLayout is conceptually very similar to building up a standard
  * HTML table.  You simply add each panel (or "cell") that you want to include along with any span attributes
  * specified as the special config properties of rowspan and colspan which work exactly like their HTML counterparts.
@@ -55,10 +60,6 @@ Ext.layout.TableLayout = Ext.extend(Ext.layout.ContainerLayout, {
      * @cfg {Number} columns
      * The total number of columns to create in the table for this layout.  If not specified, all panels added to
      * this layout will be rendered into a single row using a column per panel.
-     */
-    /**
-     * @cfg {String} cellCls
-     * A CSS class name to add to all table cells in the layout.
      */
 
     // private
