@@ -3,16 +3,12 @@
  * Represents an Element in the DOM.<br><br>
  * Usage:<br>
 <pre><code>
+// by id
 var el = Ext.get("my-div");
 
-// or with getEl
-var el = getEl("my-div");
-
-// or with a DOM element
+// by DOM element reference
 var el = Ext.get(myDivElement);
 </code></pre>
- * Using Ext.get() or getEl() instead of calling the constructor directly ensures you get the same object
- * each call instead of constructing a new one.<br><br>
  * <b>Animations</b><br />
  * Many of the functions for manipulating an element have an optional "animate" parameter. The animate parameter
  * should either be a boolean (true) or an object literal with animation options. Note that the supported Element animation
