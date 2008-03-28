@@ -557,6 +557,9 @@ Ext.Foo = Ext.extend(Ext.Bar, {
             if(this.allowDomMove !== false){
                 ct.dom.insertBefore(this.el.dom, position);
             }
+            if(this.overCls) {
+                this.el.addClassOnOver(this.overCls);
+            }            
         }
     },
 
