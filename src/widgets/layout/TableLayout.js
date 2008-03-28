@@ -12,6 +12,7 @@
  * <ul>
  * <li><b>rowspan</b> Applied to the table cell containing the item.</li>
  * <li><b>colspan</b> Applied to the table cell containing the item.</li>
+ * <li><b>cellId</b> An id applied to the table cell containing the item.</li>
  * <li><b>cellCls</b> A CSS class name added to the table cell containing the item.</li>
  * </ul>
  * <p>The basic concept of building up a TableLayout is conceptually very similar to building up a standard
@@ -48,7 +49,8 @@ var table = new Ext.Panel({
         html: '&lt;p&gt;Cell B content&lt;/p&gt;',
         colspan: 2
     },{
-        html: '&lt;p&gt;Cell C content&lt;/p&gt;'
+        html: '&lt;p&gt;Cell C content&lt;/p&gt;',
+        cellCls: 'highlight'
     },{
         html: '&lt;p&gt;Cell D content&lt;/p&gt;'
     }]
