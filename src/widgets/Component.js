@@ -246,6 +246,12 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
      * useful for adding customized styles to the component or any of its children using standard CSS rules.
      */
     /**
+     * @cfg {String} overCls
+     * An optional extra CSS class that will be added to this component's Element when the mouse moves
+     * over the Element, and removed when the mouse moves out. (defaults to '').  This can be
+     * useful for adding customized "active" or "hover" styles to the component or any of its children using standard CSS rules.
+     */
+    /**
      * @cfg {String} style
      * A custom style specification to be applied to this component's Element.  Should be a valid argument to
      * {@link Ext.Element#applyStyles}.
