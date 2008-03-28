@@ -515,11 +515,16 @@ El.prototype = {
 
     /**
      * Tries to focus the element. Any exceptions are caught and ignored.
+     * @param {Number} defer (optional) Milliseconds to defer the focus
      * @return {Ext.Element} this
      */
-    focus : function() {
+    focus : function(defer) {
         try{
-            this.dom.focus();
+            if(typeof defer == 'number'){
+                this.focus.defer(defer, this);
+            }else{
+                this.dom.focus();
+            }
         }catch(e){}
         return this;
     },
@@ -1121,8 +1126,7 @@ El.prototype = {
      * Appends an event handler to this element.  The shorthand version {@link #on} is equivalent.
      * @param {String} eventName The type of event to handle
      * @param {Function} fn The handler function the event invokes
-     * @param {Object} scope (optional) The scope (The <tt>this</tt> reference) of the handler function. Defaults
-     * to this Element.
+     * @param {Object} scope (optional) The scope (this element) of the handler function
      * @param {Object} options (optional) An object containing handler configuration properties.
      * This may contain any of the following properties:<ul>
      * <li>scope {Object} : The scope in which to execute the handler function. The handler function's "this" context.</li>
@@ -1150,11 +1154,11 @@ el.on('click', this.onClick, this, {
     delay: 100,
     stopEvent : true,
     forumId: 4
-});</code></pre></p>
+});</code></pre>
      * <p>
      * <b>Attaching multiple handlers in 1 call</b><br>
       * The method also allows for a single argument to be passed which is a config object containing properties
-     * which specify multiple handlers.</p>
+     * which specify multiple handlers.
      * <p>
      * Code:<pre><code>
 el.on({
@@ -1171,7 +1175,7 @@ el.on({
         fn: this.onMouseOut,
         scope: this
     }
-});</code></pre></p>
+});</code></pre>
      * <p>
      * Or a shorthand syntax:<br>
      * Code:<pre><code>
@@ -1180,7 +1184,7 @@ el.on({
     'mouseover' : this.onMouseOver,
     'mouseout' : this.onMouseOut,
     scope: this
-});</code></pre></p>
+});</code></pre>
      */
     addListener : function(eventName, fn, scope, options){
         Ext.EventManager.on(this.dom,  eventName, fn, scope || this, options);
@@ -2654,7 +2658,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
     /**
      * Translates the passed page coordinates into left/top css values for this element
      * @param {Number/Array} x The page x or an array containing [x, y]
-     * @param {Number} y (optional) The page y, required if x is not an array
+     * @param {Number} y The page y
      * @return {Object} An object with left and top properties. e.g. {left: (value), top: (value)}
      */
     translatePoints : function(x, y){
@@ -2860,14 +2864,10 @@ El.cache = {};
 var docEl;
 
 /**
- * Static method to retrieve Ext.Element objects.
- * <p><b>This method does not retrieve {@link Ext.Component Component}s.</b> This method
- * retrieves Ext.Element objects which encapsulate DOM elements. To retrieve a Component by
- * its ID, use {@link Ext.ComponentMgr#get}.</p>
- * <p>Uses simple caching to consistently return the same object.
- * Automatically fixes if an object was recreated with the same id via AJAX or DOM.</p>
+ * Static method to retrieve Element objects. Uses simple caching to consistently return the same object.
+ * Automatically fixes if an object was recreated with the same id via AJAX or DOM.
  * @param {Mixed} el The id of the node, a DOM Node or an existing Element.
- * @return {Element} The {@link Ext.Element Element} object (or null if no matching element was found)
+ * @return {Element} The Element object (or null if no matching element was found)
  * @static
  */
 El.get = function(el){

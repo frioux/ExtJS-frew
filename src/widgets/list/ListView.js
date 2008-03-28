@@ -161,3 +161,5 @@ Ext.ListView = Ext.extend(Ext.DataView, {
         }
     }
 });
+
+Ext.reg('listview', Ext.ListView);

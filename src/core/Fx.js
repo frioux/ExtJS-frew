@@ -693,6 +693,18 @@ el.shift({
             if(h !== undefined){
                 a.height = {to: this.adjustHeight(h)};
             }
+            if(o.left !== undefined){
+                a.left = {to: o.left};
+            }
+            if(o.top !== undefined){
+                a.top = {to: o.top};
+            }
+            if(o.right !== undefined){
+                a.right = {to: o.right};
+            }
+            if(o.bottom !== undefined){
+                a.bottom = {to: o.bottom};
+            }
             if(x !== undefined || y !== undefined){
                 a.points = {to: [
                     x !== undefined ? x : this.getX(),
