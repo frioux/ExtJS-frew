@@ -98,7 +98,7 @@ Ext.DomHelper = function(){
             for(var i = 0, l = o.length; i < l; i++) {
                 createDom(o[i], el);
             }
-        } else if (typeof o == "string)") {         // Allow a string as a child spec.
+        } else if (typeof o == "string") {         // Allow a string as a child spec.
             el = document.createTextNode(o);
         } else {
             el = document.createElement(o.tag||'div');
