@@ -185,7 +185,7 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
     },
 
     onResize : function(w, h){
-        this.innerEl.setWidth(h - (this.el.getPadding('t') + this.endEl.getPadding('b')));
+        this.innerEl.setWidth(w - (this.el.getPadding('l') + this.endEl.getPadding('r')));
     },
 
     getValue : function(){
