@@ -8,6 +8,7 @@ Ext.Spotlight.prototype = {
     easing:'easeNone',
 
     animated : false,
+    
     createElements : function(){
         var bd = Ext.getBody();
 
