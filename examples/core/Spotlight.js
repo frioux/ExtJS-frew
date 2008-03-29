@@ -4,10 +4,10 @@ Ext.Spotlight = function(config){
 Ext.Spotlight.prototype = {
     active : false,
     animate : true,
-    animated : false,
     duration: .25,
     easing:'easeNone',
 
+    animated : false,
     createElements : function(){
         var bd = Ext.getBody();
 
