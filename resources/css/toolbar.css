@@ -163,3 +163,62 @@
 .x-toolbar-right {
 	float: right;
 }
+
+
+.x-toolbar-xl .x-btn-over .x-btn-menu-arrow-wrap .x-btn-center button {
+	background-position: 0 -47px;
+}
+
+
+.x-toolbar-xl .x-btn-over .x-btn-left{
+	background: url(../images/default/toolbar/tb-xl-btn-sprite.gif) no-repeat 0 0;
+}
+.x-toolbar-xl .x-btn-over .x-btn-right{
+	background: url(../images/default/toolbar/tb-xl-btn-sprite.gif) no-repeat 0 -52px;
+}
+.x-toolbar-xl .x-btn-over .x-btn-center{
+	background: url(../images/default/toolbar/tb-xl-btn-sprite.gif) repeat-x 0 -104px;
+}
+
+.x-toolbar-xl .x-btn-click .x-btn-left, .x-toolbar-xl .x-btn-pressed .x-btn-left, .x-toolbar-xl .x-btn-menu-active .x-btn-left{
+	background: url(../images/default/toolbar/tb-xl-btn-sprite.gif) no-repeat 0 -156px;
+}
+.x-toolbar-xl .x-btn-click .x-btn-right, .x-toolbar-xl .x-btn-pressed .x-btn-right, .x-toolbar-xl .x-btn-menu-active .x-btn-right{
+	background: url(../images/default/toolbar/tb-xl-btn-sprite.gif) no-repeat 0 -208px;
+}
+
+.x-toolbar-xl .x-btn-click .x-btn-center, .x-toolbar-xl .x-btn-pressed .x-btn-center, .x-toolbar .x-btn-menu-active .x-btn-center{
+	background: url(../images/default/toolbar/tb-xl-btn-sprite.gif) repeat-x 0 -260px;
+}
+
+.x-toolbar-xl .ytb-sep {
+	background-image: url(../images/default/toolbar/tb-xl-sep.gif);
+	background-position: center;
+	background-repeat: repeat-y;
+	display: block;
+	font-size: 1px;
+	height: 35px;
+	width:4px;
+	overflow: hidden;
+	cursor:default;
+	margin: 0 2px 0;
+	border:0;
+}
+.x-toolbar-xl tr {
+    height:52px;
+}
+.x-toolbar-xl .x-btn-text-icon .x-btn-center .x-btn-text{
+	background-position: center 2px;
+	background-repeat: no-repeat;
+	padding-left:2px;
+	padding-top:34px;
+	padding-bottom:2px;
+    padding-right:2px;
+    text-align:center;
+}
+
+.x-toolbar-xl .x-btn-with-menu .x-btn-center em{
+	padding-right:10px;
+    background-position: right 16px;
+}
+
