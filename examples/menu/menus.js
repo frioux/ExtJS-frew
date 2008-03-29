@@ -79,7 +79,7 @@ Ext.onReady(function(){
             iconCls: 'bmenu',  // <-- icon
             menu: menu  // assign menu by instance
         }, 
-        new Ext.Toolbar.MenuButton({
+        new Ext.Toolbar.SplitButton({
             text: 'Split Button',
             handler: onButtonClick,
             tooltip: {text:'This is a QuickTip with autoHide set to false and a title', title:'Tip Title', autoHide:false},
