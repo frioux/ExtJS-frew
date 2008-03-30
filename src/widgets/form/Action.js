@@ -249,7 +249,7 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
             this.failureType = Ext.form.Action.CLIENT_INVALID;
             this.form.afterAction(this, false);
         }
-    }
+    },
 
     // private
     success : function(response){
