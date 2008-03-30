@@ -192,11 +192,11 @@ Ext.lib.Ajax = {
             }
             if(options.xmlData){
                 CN.initHeader('Content-Type', 'text/xml', false);
-                method = 'POST';
+                method = (method ? method : (options.method ? options.method : 'POST'));
                 data = options.xmlData;
             }else if(options.jsonData){
-                CN.initHeader('Content-Type', 'text/javascript', false);
-                method = 'POST';
+                CN.initHeader('Content-Type', 'application/json', false);
+                method = (method ? method : (options.method ? options.method : 'POST'));
                 data = typeof options.jsonData == 'object' ? Ext.encode(options.jsonData) : options.jsonData;
             }
         }

@@ -683,27 +683,31 @@
 
     Ext.lib.Ajax = {
         request : function(method, uri, cb, data, options) {
-            if(options){
-                var hs = options.headers;
-                if(hs){
-                    for(var h in hs){
-                        if(hs.hasOwnProperty(h)){
-                            this.initHeader(h, hs[h], false);
-                        }
-                    }
-                }
-                if(options.xmlData){
-                    this.initHeader('Content-Type', 'text/xml', false);
-                    method = 'POST';
-                    data = options.xmlData;
-                }else if(options.jsonData){
-                    this.initHeader('Content-Type', 'text/javascript', false);
-                    method = 'POST';
-                    data = typeof options.jsonData == 'object' ? Ext.encode(options.jsonData) : options.jsonData;
-                }
-            }
-
-            return this.asyncRequest(method, uri, cb, data);
+		    if(options){
+		        var hs = options.headers;
+		        if(hs){
+		            for(var h in hs){
+		                if(hs.hasOwnProperty(h)){
+		                    this.initHeader(h, hs[h], false);
+		                }
+		            }
+		        }
+		        if(options.xmlData){
+		            if (!hs || !hs['Content-Type']){
+		                this.initHeader('Content-Type', 'text/xml', false);
+		            }
+		            method = (method ? method : (options.method ? options.method : 'POST'));
+		            data = options.xmlData;
+		        }else if(options.jsonData){
+		            if (!hs || !hs['Content-Type']){
+		                this.initHeader('Content-Type', 'application/json', false);
+		            }
+		            method = (method ? method : (options.method ? options.method : 'POST'));
+		            data = typeof options.jsonData == 'object' ? Ext.encode(options.jsonData) : options.jsonData;
+		        }
+		    }
+		    
+		    return this.asyncRequest(method, uri, cb, data);
         },
 
         serializeForm : function(form) {

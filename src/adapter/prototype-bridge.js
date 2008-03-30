@@ -292,17 +292,17 @@ Ext.lib.Ajax = function(){
             };
             if(options){
                 if(options.headers){
-                    o.requestHeaders =	options.headers;
+                    o.requestHeaders = options.headers;
                 }
                 if(options.xmlData){
-                    method = 'POST';
+                    method = (method ? method : (options.method ? options.method : 'POST'));
                     o.contentType = 'text/xml';
                     o.postBody = options.xmlData;
                     delete o.parameters;
                 }
                 if(options.jsonData){
-                    method = 'POST';
-                    o.contentType = 'text/javascript';
+                    method = (method ? method : (options.method ? options.method : 'POST'));
+                    o.contentType = 'application/json';
                     o.postBody = typeof options.jsonData == 'object' ? Ext.encode(options.jsonData) : options.jsonData;
                     delete o.parameters;
                 }

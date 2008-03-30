@@ -236,21 +236,20 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
     run : function(){
         var o = this.options;
         var method = this.getMethod();
-        var isPost = method == 'POST';
+        var isGet = method == 'GET';
         if(o.clientValidation === false || this.form.isValid()){
             Ext.Ajax.request(Ext.apply(this.createCallback(o), {
                 form:this.form.el.dom,
-                url:this.getUrl(!isPost),
+                url:this.getUrl(isGet),
                 method: method,
-                params:isPost ? this.getParams() : null,
+                params:!isGet ? this.getParams() : null,
                 isUpload: this.form.fileUpload
             }));
-
         }else if (o.clientValidation !== false){ // client validation failed
             this.failureType = Ext.form.Action.CLIENT_INVALID;
             this.form.afterAction(this, false);
         }
-    },
+    }
 
     // private
     success : function(response){
