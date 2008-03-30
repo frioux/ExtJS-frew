@@ -191,11 +191,15 @@ Ext.lib.Ajax = {
                 }
             }
             if(options.xmlData){
-                CN.initHeader('Content-Type', 'text/xml', false);
+                if (!hs || !hs['Content-Type']){
+                    CN.initHeader('Content-Type', 'text/xml', false);
+                }
                 method = (method ? method : (options.method ? options.method : 'POST'));
                 data = options.xmlData;
             }else if(options.jsonData){
-                CN.initHeader('Content-Type', 'application/json', false);
+                if (!hs || !hs['Content-Type']){
+                    CN.initHeader('Content-Type', 'application/json', false);
+                }
                 method = (method ? method : (options.method ? options.method : 'POST'));
                 data = typeof options.jsonData == 'object' ? Ext.encode(options.jsonData) : options.jsonData;
             }

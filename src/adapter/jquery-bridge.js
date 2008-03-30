@@ -278,20 +278,24 @@ Ext.lib.Ajax = function(){
             };
 
             if(options){
+                var hs = options.headers;
                 if(options.xmlData){
                     o.data = options.xmlData;
                     o.processData = false;
                     o.type = (method ? method : (options.method ? options.method : 'POST'));
-                    o.contentType = 'text/xml';
+                    if (!hs || !hs['Content-Type']){
+                        o.contentType = 'text/xml';
+                    }
                 }else if(options.jsonData){
                     o.data = typeof options.jsonData == 'object' ? Ext.encode(options.jsonData) : options.jsonData;
                     o.processData = false;
                     o.type = (method ? method : (options.method ? options.method : 'POST'));
-                    o.contentType = 'application/json';
+                    if (!hs || !hs['Content-Type']){
+                        o.contentType = 'application/json';
+                    }
                 }
-                if(options.headers){
+                if(hs){
                     o.beforeSend = function(xhr){
-                        var hs = options.headers;
                         for(var h in hs){
                             if(hs.hasOwnProperty(h)){
                                 xhr.setRequestHeader(h, hs[h]);
