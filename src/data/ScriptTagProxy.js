@@ -41,6 +41,25 @@ Ext.data.ScriptTagProxy = function(config){
     Ext.data.ScriptTagProxy.superclass.constructor.call(this);
     Ext.apply(this, config);
     this.head = document.getElementsByTagName("head")[0];
+    
+    /**
+     * @event loadexception
+     * Fires if an exception occurs in the Proxy during data loading.  This event can be fired for one of two reasons:
+     * <ul><li><b>The load call timed out.</b>  This means the load callback did not execute within the time limit
+     * specified by {@link #timeout}.  In this case, this event will be raised and the
+     * fourth parameter (read error) will be null.</li>
+     * <li><b>The load succeeded but the reader could not read the response.</b>  This means the server returned
+     * data, but the configured Reader threw an error while reading the data.  In this case, this event will be 
+     * raised and the caught error will be passed along as the fourth parameter of this event.</li></ul>
+     * Note that this event is also relayed through {@link Ext.data.Store}, so you can listen for it directly
+     * on any Store instance.
+     * @param {Object} this
+     * @param {Object} options The loading options that were specified (see {@link #load} for details).  If the load
+     * call timed out, this parameter will be null.
+     * @param {Object} arg The callback's arg object passed to the {@link #load} function
+     * @param {Error} e The JavaScript Error object caught if the configured Reader could not read the data.
+     * If the load call returned success: false, this parameter will be null.
+     */
 };
 
 Ext.data.ScriptTagProxy.TRANS_ID = 1000;
@@ -50,7 +69,7 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
      * @cfg {String} url The URL from which to request the data object.
      */
     /**
-     * @cfg {Number} timeout (Optional) The number of milliseconds to wait for a response. Defaults to 30 seconds.
+     * @cfg {Number} timeout (optional) The number of milliseconds to wait for a response. Defaults to 30 seconds.
      */
     timeout : 30000,
     /**
@@ -61,7 +80,7 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
      */
     callbackParam : "callback",
     /**
-     *  @cfg {Boolean} nocache (Optional) Defaults to true. Disable cacheing by adding a unique parameter
+     *  @cfg {Boolean} nocache (optional) Defaults to true. Disable caching by adding a unique parameter
      * name to the request.
      */
     nocache : true,
