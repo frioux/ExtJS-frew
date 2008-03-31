@@ -2464,7 +2464,7 @@ Ext.extend(Ext.dd.DD, Ext.dd.DragDrop, {
 
     /**
      * When set to true, the utility automatically tries to scroll the browser
-     * window wehn a drag and drop element is dragged near the viewport boundary.
+     * window when a drag and drop element is dragged near the viewport boundary.
      * Defaults to true.
      * @property scroll
      * @type boolean
