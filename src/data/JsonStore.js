@@ -1,7 +1,9 @@
 /**
  * @class Ext.data.JsonStore
  * @extends Ext.data.Store
- * Small helper class to make creating Stores for JSON data easier. <br/>
+ * Small helper class to make creating Stores for remotely-loaded JSON data easier. JsonStore is pre-configured 
+ * with a built-in {@link Ext.data.HttpProxy} and {@link Ext.data.JsonReader}.  If you require some other proxy/reader
+ * combination then you'll have to create a basic {@link Ext.data.Store} configured as needed.<br/>
 <pre><code>
 var store = new Ext.data.JsonStore({
     url: 'get-images.php',
