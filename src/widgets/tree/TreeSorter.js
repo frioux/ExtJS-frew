@@ -1,6 +1,6 @@
 /**
  * @class Ext.tree.TreeSorter
- * Provides sorting of nodes in a {@link Ext.TreePanel}.  The TreeSorter automatically monitors events on the 
+ * Provides sorting of nodes in a {@link Ext.tree.TreePanel}.  The TreeSorter automatically monitors events on the 
  * associated TreePanel that might affect the tree's sort order (beforechildrenrendered, append, insert and textchange).
  * Example usage:<br />
  * <pre><code>
