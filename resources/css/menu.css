@@ -63,7 +63,7 @@
 	cursor:pointer;
 }
 .x-menu-item-active {
-	background: #ebf3fd url(../images/default/menu/item-over.gif) repeat-x left bottom;
+	background: #ebf3fd;
 	border:1px solid #aaccf6;
 	padding: 0;
 }

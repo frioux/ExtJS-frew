@@ -101,6 +101,9 @@ Ext.Button = Ext.extend(Ext.Component, {
 
     buttonSelector : "button:first",
 
+    scale: 'small',
+    iconAlign : 'left',
+    arrowAlign : 'right',
     /**
      * @cfg {Ext.Template} template (Optional)
      * An {@link Ext.Template} with which to create the Button's main element. This Template must
@@ -183,19 +186,38 @@ Ext.Button = Ext.extend(Ext.Component, {
         }
     },
 
+    // protected
+    getTemplateArgs : function(){
+        var cls = (this.cls || '');
+        cls += this.iconCls ? (this.text ? ' x-btn-text-icon' : ' x-btn-icon') : 'x-btn-noicon';
+        if(this.pressed){
+            cls += ' x-btn-pressed';
+        }
+        return [this.text || '&#160;', this.type, this.iconCls || '', cls, 'x-btn-' + this.scale + ' x-btn-icon-' + this.scale + '-' + this.iconAlign, this.getMenuClass()];
+    },
+
+    // protected
+    getMenuClass : function(){
+        return this.menu ? (this.arrowAlign != 'bottom' ? 'x-btn-arrow' : 'x-btn-arrow-bottom') : '';
+    },
+
     // private
     onRender : function(ct, position){
         if(!this.template){
             if(!Ext.Button.buttonTemplate){
                 // hideous table template
                 Ext.Button.buttonTemplate = new Ext.Template(
-                    '<table border="0" cellpadding="0" cellspacing="0" class="x-btn-wrap"><tbody><tr>',
-                    '<td class="x-btn-left"><i>&#160;</i></td><td class="x-btn-center"><em unselectable="on"><button class="x-btn-text" type="{1}">{0}</button></em></td><td class="x-btn-right"><i>&#160;</i></td>',
-                    "</tr></tbody></table>");
+                    '<table cellspacing="0" class="x-btn {3}"><tbody class="{4}">',
+                    '<tr><td class="x-btn-tl"><i>&#160;</i></td><td class="x-btn-tc"></td><td class="x-btn-tr"><i>&#160;</i></td></tr>',
+                    '<tr><td class="x-btn-ml"><i>&#160;</i></td><td class="x-btn-mc"><em class="{5}" unselectable="on"><button class="x-btn-text {2}" type="{1}">{0}</button></em></td><td class="x-btn-mr"><i>&#160;</i></td></tr>',
+                    '<tr><td class="x-btn-bl"><i>&#160;</i></td><td class="x-btn-bc"></td><td class="x-btn-br"><i>&#160;</i></td></tr>',
+                    "</tbody></table>");
+                Ext.Button.buttonTemplate.compile();
             }
             this.template = Ext.Button.buttonTemplate;
         }
-        var btn, targs = [this.text || '&#160;', this.type];
+
+        var btn, targs = this.getTemplateArgs();
 
         if(position){
             btn = this.template.insertBefore(position, targs, true);
@@ -208,26 +230,15 @@ Ext.Button = Ext.extend(Ext.Component, {
 
         this.initButtonEl(btn, btnEl);
 
-        if(this.menu){
-            this.el.child(this.menuClassTarget).addClass("x-btn-with-menu");
-        }
         Ext.ButtonToggleMgr.register(this);
     },
 
     // private
     initButtonEl : function(btn, btnEl){
-
         this.el = btn;
-        btn.addClass("x-btn");
 
         if(this.icon){
             btnEl.setStyle('background-image', 'url(' +this.icon +')');
-        }
-        if(this.iconCls){
-            btnEl.addClass(this.iconCls);
-            if(!this.cls){
-                btn.addClass(this.text ? 'x-btn-text-icon' : 'x-btn-icon');
-            }
         }
         if(this.tabIndex !== undefined){
             btnEl.dom.tabIndex = this.tabIndex;
@@ -240,10 +251,6 @@ Ext.Button = Ext.extend(Ext.Component, {
             } else {
                 btnEl.dom[this.tooltipType] = this.tooltip;
             }
-        }
-
-        if(this.pressed){
-            this.el.addClass("x-btn-pressed");
         }
 
         if(this.handleMouseEvents){
@@ -316,7 +323,7 @@ Ext.Button = Ext.extend(Ext.Component, {
 
     // private
     autoWidth : function(){
-        if(this.el){
+        if(this.el && this.text){
             this.el.setWidth("auto");
             if(Ext.isIE7 && Ext.isStrict){
                 var ib = this.el.child(this.buttonSelector);

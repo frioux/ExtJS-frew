@@ -24,7 +24,7 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
     onRender : function(){
         this.autoEl = {
             cls: 'x-slider ' + (this.vertical ? 'x-slider-vert' : 'x-slider-horz'),
-            cn:{cls:'x-slider-end',cn:{cls:'x-slider-inner',cn:[{cls:'x-slider-thumb'},{tag:'a', cls:'x-slider-focus', href:"#", tabIndex: '-1'}]}}
+            cn:{cls:'x-slider-end',cn:{cls:'x-slider-inner',cn:[{cls:'x-slider-thumb'},{tag:'a', cls:'x-slider-focus', href:"#", tabIndex: '-1', hidefocus:'on'}]}}
         };
         Ext.Slider.superclass.onRender.apply(this, arguments);
         this.endEl = this.el.first();

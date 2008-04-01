@@ -12,14 +12,15 @@
 .x-slider-focus {
 	position:absolute;
 	left:0;
-	top:-10000px;
+	top:0;
 	width:1px;
 	height:1px;
     line-height:1px;
+    font-size:1px;
     -moz-outline:0 none;
     outline:0 none;
     -moz-user-select: normal;
-    -khtml-user-select: normal;
+    -khtml-user-select: normal;  
 }
 
 /* Horizontal styles */

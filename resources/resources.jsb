@@ -702,4 +702,21 @@
   <file name="images\default\slider\slider-thumb.png" path="images\default\slider" />
   <file name="images\default\slider\slider-v-bg.png" path="images\default\slider" />
   <file name="images\default\slider\slider-v-thumb.png" path="images\default\slider" />
+  <file name="images\default\toolbar\tb-xl-btn-sprite.gif" path="images\default\toolbar" />
+  <file name="images\default\toolbar\tb-xl-sep.gif" path="images\default\toolbar" />
+  <file name="images\default\button\dyna-btn-sprite.gif" path="images\default\button" />
+  <file name="images\default\button\btn-split-arrow.gif" path="images\default\button" />
+  <file name="images\default\button\btn-split-arrow-over.gif" path="images\default\button" />
+  <file name="images\default\button\btn-split-arrow-pressed.gif" path="images\default\button" />
+  <file name="images\default\button\arrow.gif" path="images\default\button" />
+  <file name="images\default\button\btn.gif" path="images\default\button" />
+  <file name="images\default\button\s-arrow-b.gif" path="images\default\button" />
+  <file name="images\default\button\s-arrow-bo.gif" path="images\default\button" />
+  <file name="images\default\button\s-arrow-o.gif" path="images\default\button" />
+  <file name="images\default\button\s-arrow.gif" path="images\default\button" />
+  <file name="images\default\button\group-cs.gif" path="images\default\button" />
+  <file name="images\default\button\group-lr.gif" path="images\default\button" />
+  <file name="images\default\button\group-tb.gif" path="images\default\button" />
+  <file name="images\default\button\s-arrow-b-noline.gif" path="images\default\button" />
+  <file name="images\default\button\s-arrow-noline.gif" path="images\default\button" />
 </project>

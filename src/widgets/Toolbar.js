@@ -29,7 +29,8 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
     // private
 	getNextCell : function(c){
-		return (((c.align == 'right') || (this.container.align == 'right') || (this.align == 'right')) ? this.rightTr : this.leftTr).appendChild(document.createElement('td'));
+        var a = c.align || this.align || this.container.align;
+        return ((a == 'right') ? this.rightTr : this.leftTr).appendChild(document.createElement('td'));
     },
 
     // private
@@ -106,7 +107,7 @@ Ext.extend(T, Ext.Container, {
     onRender : function(ct, position){
         this.el = ct.createChild(Ext.apply({ id: this.id },this.autoCreate), position);
     },
-
+    
     /**
      * Adds element(s) to the toolbar -- this function takes a variable number of
      * arguments of mixed type and adds them to the toolbar.
@@ -215,7 +216,7 @@ Ext.extend(T, Ext.Container, {
             return buttons;
         }
         var b = config;
-        if(!(config instanceof T.Button)){
+        if(!b.events){
             b = config.split ?
                 new T.SplitButton(config) :
                 new T.Button(config);
@@ -233,7 +234,7 @@ Ext.extend(T, Ext.Container, {
                 'menushow' : this.onButtonMenuShow,
                 'menuhide' : this.onButtonMenuHide,
                 scope: this
-            })
+            });
         }
     },
 
@@ -519,3 +520,36 @@ T.SplitButton = Ext.extend(Ext.SplitButton, {
 Ext.reg('tbsplit', T.SplitButton);
 
 })();
+
+Ext.ButtonGroup = Ext.extend(Ext.Panel, {
+    baseCls: 'x-btn-group',
+    layout:'table',
+    defaultType: 'button',
+    frame: true,
+    internalDefaults: {removeMode: 'container', hideParent: true},
+
+    initComponent : function(){
+        this.layoutConfig = this.layoutConfig || {};
+        Ext.applyIf(this.layoutConfig, {
+            columns : this.columns
+        });
+        if(!this.title){
+            this.addClass('x-btn-group-notitle');
+        }
+        Ext.ButtonGroup.superclass.initComponent.call(this);
+    },
+
+    applyDefaults : function(c){
+        c = Ext.ButtonGroup.superclass.applyDefaults.call(this, c);
+        var d = this.internalDefaults;
+        if(c.events){
+            Ext.applyIf(c.initialConfig, d);
+            Ext.apply(c, d);
+        }else{
+            Ext.applyIf(c, d);
+        }
+        return c;
+    }
+});
+
+Ext.reg('buttongroup', Ext.ButtonGroup);

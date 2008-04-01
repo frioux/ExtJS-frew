@@ -345,8 +345,6 @@
   <file name="slider\simple-slider.html" path="slider" />
   <file name="slider\simple-slider.js" path="slider" />
   <file name="slider\slider.css" path="slider" />
-  <file name="slider\slider.html" path="slider" />
-  <file name="slider\slider.js" path="slider" />
   <file name="slider\slider2.html" path="slider" />
   <file name="slider\slider2.js" path="slider" />
   <file name="slider\SliderField.css" path="slider" />
@@ -355,6 +353,27 @@
   <file name="slider\slider-thumb.png" path="slider" />
   <file name="slider\slider-v-bg.png" path="slider" />
   <file name="slider\slider-v-thumb.png" path="slider" />
+  <file name="menu\images\dyna-btn-sprite.gif" path="menu\images" />
+  <file name="menu\xl-toolbar.css" path="menu" />
+  <file name="menu\xl-toolbar.html" path="menu" />
+  <file name="menu\xl-toolbar.js" path="menu" />
+  <file name="toolbar\images\add.gif" path="toolbar\images" />
+  <file name="toolbar\images\add16.gif" path="toolbar\images" />
+  <file name="toolbar\images\add24.gif" path="toolbar\images" />
+  <file name="toolbar\toolbars.css" path="toolbar" />
+  <file name="toolbar\toolbars.html" path="toolbar" />
+  <file name="toolbar\toolbars.js" path="toolbar" />
+  <file name="button\images\add.gif" path="button\images" />
+  <file name="button\images\add16.gif" path="button\images" />
+  <file name="button\images\add24.gif" path="button\images" />
+  <file name="button\buttons.css" path="button" />
+  <file name="button\buttons.html" path="button" />
+  <file name="button\buttons.js" path="button" />
+  <file name="slider\images\slider-bg.png" path="slider\images" />
+  <file name="slider\images\slider-thumb.png" path="slider\images" />
+  <file name="slider\images\ticks.gif" path="slider\images" />
+  <file name="slider\slider.html" path="slider" />
+  <file name="slider\slider.js" path="slider" />
   <file name="chart\bar.gif" path="chart" />
   <file name="chart\chart.gif" path="chart" />
   <file name="chart\charts.html" path="chart" />
@@ -598,6 +617,11 @@
   <file name="locale\multi-lang.html" path="locale" />
   <file name="locale\multi-lang.js" path="locale" />
   <file name="locale\PagingMemoryProxy.js" path="locale" />
+  <file name="menu\images\delete.gif" path="menu\images" />
+  <file name="menu\images\edit.gif" path="menu\images" />
+  <file name="menu\images\find.gif" path="menu\images" />
+  <file name="menu\images\group.gif" path="menu\images" />
+  <file name="menu\images\view.gif" path="menu\images" />
   <file name="menu\actions.html" path="menu" />
   <file name="menu\actions.js" path="menu" />
   <file name="menu\list-items.gif" path="menu" />

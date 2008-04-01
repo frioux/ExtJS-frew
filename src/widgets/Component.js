@@ -594,7 +594,7 @@ Ext.Foo = Ext.extend(Ext.Bar, {
             if(this.rendered){
                 this.el.removeAllListeners();
                 this.el.remove();
-                if(this.actionMode == "container"){
+                if(this.actionMode == "container" || this.removeMode == "container"){
                     this.container.remove();
                 }
             }
