@@ -1,18 +1,47 @@
 /**
  * @class Ext.tree.TreeSorter
- * Provides sorting of nodes in a TreePanel
- * 
- * @cfg {Boolean} folderSort True to sort leaf nodes under non leaf nodes
- * @cfg {String} property The named attribute on the node to sort by (defaults to text)
- * @cfg {String} dir The direction to sort (asc or desc) (defaults to asc)
- * @cfg {String} leafAttr The attribute used to determine leaf nodes in folder sort (defaults to "leaf")
- * @cfg {Boolean} caseSensitive true for case sensitive sort (defaults to false)
- * @cfg {Function} sortType A custom "casting" function used to convert node values before sorting
+ * Provides sorting of nodes in a {@link Ext.TreePanel}.  The TreeSorter automatically monitors events on the 
+ * associated TreePanel that might affect the tree's sort order (beforechildrenrendered, append, insert and textchange).
+ * Example usage:<br />
+ * <pre><code>
+new Ext.tree.TreeSorter(myTree, {
+    folderSort: true,
+    dir: "desc",
+    sortType: function(node) {
+        // sort by a custom, typed attribute:
+        return parseInt(node.id, 10);
+    }
+});
+</code></pre>
  * @constructor
  * @param {TreePanel} tree
  * @param {Object} config
  */
 Ext.tree.TreeSorter = function(tree, config){
+    /**
+     * @cfg {Boolean} folderSort True to sort leaf nodes under non-leaf nodes (defaults to false)
+     */
+    /** 
+     * @cfg {String} property The named attribute on the node to sort by (defaults to "text").  Note that this 
+     * property is only used if no {@link #sortType} function is specified, otherwise it is ignored.
+     */
+    /** 
+     * @cfg {String} dir The direction to sort ("asc" or "desc," case-insensitive, defaults to "asc")
+     */
+    /** 
+     * @cfg {String} leafAttr The attribute used to determine leaf nodes when {@link #folderSort} = true (defaults to "leaf")
+     */
+    /** 
+     * @cfg {Boolean} caseSensitive true for case-sensitive sort (defaults to false)
+     */
+    /** 
+     * @cfg {Function} sortType A custom "casting" function used to convert node values before sorting.  The function
+     * will be called with a single parameter (the {@link Ext.tree.TreeNode} being evaluated) and is expected to return
+     * the node's sort value cast to the specific data type required for sorting.  This could be used, for example, when
+     * a node's text (or other attribute) should be sorted as a date or numeric value.  See the class description for 
+     * example usage.  Note that if a sortType is specified, any {@link #property} config will be ignored.
+     */
+    
     Ext.apply(this, config);
     tree.on("beforechildrenrendered", this.doSort, this);
     tree.on("append", this.updateSort, this);
