@@ -39,12 +39,21 @@ Ext.onReady(function(){
     });
 
     new Ext.Slider({
-        renderTo: 'custom-slider',
+        renderTo: 'custom-tip-slider',
         width: 214,
         increment: 10,
         minValue: 0,
         maxValue: 100,
         plugins: tip
+    });
+
+    new Ext.Slider({
+        renderTo: 'custom-slider',
+        width: 214,
+        increment: 10,
+        minValue: 0,
+        maxValue: 100,
+        plugins: new Ext.ux.SliderTip()
     });
 });
 
