@@ -3,58 +3,164 @@
  * @extends Ext.layout.ContainerLayout
  */
 Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
-
+    monitorResize: true,
+    triggerWidth: 16,
+    noItemsMenuText: '<div class="x-toolbar-no-items">(None)</div>',
     // private
     onLayout : function(ct, target){
         if(!this.leftTr){
             target.addClass('x-toolbar-layout-ct');
-            target.createChild([
-            	{tag:'table', cls:'x-toolbar-left', cellspacing: 0, cn: {tag: 'tbody', cn: {tag: 'tr'}}},
-            	{tag:'table', cls:'x-toolbar-right', cellspacing: 0, cn: {tag: 'tbody', cn: {tag: 'tr'}}}
-            ]);
-            this.leftTr = target.child('.x-toolbar-left tr', true);
-            this.rightTr = target.child('.x-toolbar-right tr', true);
-        } else {
-        	this.align = this.container.initialConfig.align;
-        	while(this.leftTr.lastChild) this.leftTr.removeChild(this.leftTr.lastChild);
-        	while(this.rightTr.lastChild) this.rightTr.removeChild(this.rightTr.lastChild);
+            target.insertHtml('beforeEnd',
+                 '<table cellspacing="0" class="x-toolbar-ct"><tbody><tr><td class="x-toolbar-left" align="left"><table cellspacing="0"><tbody><tr class="x-toolbar-left-row"></tr></tbody></table></td><td class="x-toolbar-right" align="right"><table cellspacing="0"><tbody><tr class="x-toolbar-right-row"></tr></tbody></table></td></tr></tbody></table>');
+            this.leftTr = target.child('tr.x-toolbar-left-row', true);
+            this.rightTr = target.child('tr.x-toolbar-right-row', true);
         }
+        var side = this.leftTr;
+        var pos = 0;
 
-//		Layout all the items.
         var items = ct.items.items;
-        for(var i = 0, len = items.length; i < len; i++) {
-            this.renderItem(items[i], i, target);
+        for(var i = 0, len = items.length, c; i < len; i++, pos++) {
+            c = items[i];
+            if(c.isFill){
+                side = this.rightTr;
+                pos = 0;
+            }else if(!c.rendered){
+                c.render(this.insertCell(c, side, pos));
+            }else{
+                if(!c.xtbHidden && !this.isValidParent(c, side.childNodes[pos])){
+                    var td = this.insertCell(c, side, pos);
+                    td.appendChild(c.getDomPositionEl().dom);
+                    c.container = Ext.get(td);
+                }
+            }
+        }
+        //strip extra empty cells
+        Ext.fly(this.leftTr).select('tr.x-toolbar-left-row > td:empty()').remove();
+        Ext.fly(this.rightTr).select('tr.x-toolbar-right-row > td:empty()').remove();
+
+        this.fitToSize(target);
+    },
+
+    insertCell : function(c, side, pos){
+        var td = document.createElement('td');
+        side.insertBefore(td, side.childNodes[pos]||null);
+        return td;
+    },
+
+    hideItem: function(item){
+        var h = (this.hiddens = this.hiddens || []);
+        h.push(item);
+        item.xtbHidden = true;
+        item.xtbWidth = item.getDomPositionEl().dom.parentNode.offsetWidth;
+        item.hide();
+    },
+
+    unhideItem: function(item){
+        item.show();
+        item.xtbHidden = false;
+        this.hiddens.remove(item);
+        if(this.hiddens.length < 1){
+            delete this.hiddens;
+        }
+    },
+
+    getItemWidth : function(c){
+        return c.hidden ? (c.xtbWidth || 0) : c.getDomPositionEl().dom.parentNode.offsetWidth;
+    },
+
+    fitToSize :function(t){
+        var w = t.dom.clientWidth;
+        var lw = this.lastWidth || 0;
+        this.lastWidth = w;
+        var iw = t.dom.firstChild.offsetWidth;
+
+        var clipWidth = w - this.triggerWidth;
+        var hideIndex = -1;
+
+        if(iw > w || (this.hiddens && w > lw)){
+            var i, items = this.container.items.items, len = items.length, c;
+            var loopWidth = 0;
+            for(i = 0; i < len; i++) {
+                c = items[i];
+                if(!c.isFill){
+                    loopWidth += this.getItemWidth(c);
+                    if(loopWidth > clipWidth){
+                        if(!c.xtbHidden){
+                            this.hideItem(c);
+                        }
+                    }else{
+                        if(c.xtbHidden){
+                            this.unhideItem(c);
+                        }
+                    }
+                }
+            }
+        }
+        if(this.hiddens){
+            this.initMore();
+        }else if(this.more){
+            this.more.destroy();
+            delete this.more;
+        }
+    },
+
+    createMenuConfig: function(c, hideOnClick){
+        var cfg = Ext.apply({}, c.initialConfig);
+        cfg.hideOnClick = hideOnClick;
+        delete cfg.xtype;
+        return cfg;
+    },
+
+    // private
+    addComponentToMenu: function(m, c){
+        if(c instanceof Ext.Toolbar.Separator){
+            m.add('-');
+        }else if(typeof c.isXType == 'function'){
+            if(c.isXType('splitbutton')){
+                m.add(this.createMenuConfig(c, true));
+            }else if(c.isXType('button')){
+                m.add(this.createMenuConfig(c, !c.menu));
+            }else if(c.isXType('buttongroup')){
+                m.add('-');
+                c.items.each(function(item){
+                     this.addComponentToMenu(m, item);
+                }, this);
+                m.add('-');
+            }
         }
     },
 
     // private
-	getNextCell : function(c){
-        var a = c.align || this.align || this.container.align;
-        return ((a == 'right') ? this.rightTr : this.leftTr).appendChild(document.createElement('td'));
+    beforeMoreShow : function(m){
+        m.removeAll();
+        for(var i = 0, h = this.container.items.items, len = h.length, c; i < len; i++){
+            c = h[i];
+            if(c.xtbHidden){
+                this.addComponentToMenu(m, c);
+            }
+        }
+        // put something so the menu isn't empty
+        // if no compatible items found
+        if(m.items.length < 1){
+            m.add(this.noItemsMenuText);
+        }
     },
 
-    // private
-    renderItem : function(c, position, target){
-        if(c) {
-        	if (c.isFill) { // A Fill just switches sides
-        		this.align = 'right';
-        	} else {
-	        	if (c instanceof Ext.Element) {
-	        		this.getNextCell().appendChild(c.dom);
-	        	} else {
-		        	if (c.rendered){
-		        		if (this.renderOnLayout) {
-			        		c.el.remove();
-			        		delete c.el;
-			        		c.rendered = false;
-		        		} else {
-			        		this.getNextCell(c).appendChild(c[c.wrap ? 'wrap' : 'el'].dom);
-			        	}
-		        	} else {
-			            c.render(this.getNextCell(c));
-			        }
-			    }
-			}
+    initMore : function(){
+        if(!this.more){
+            this.moreMenu = new Ext.menu.Menu({
+                listeners: {
+                    beforeshow: this.beforeMoreShow,
+                    scope: this
+                }
+            });
+            this.more = new Ext.Button({
+                iconCls: 'x-toolbar-more-icon',
+                cls: 'x-toolbar-more',
+                menu: this.moreMenu
+            });
+            var td = this.insertCell(this.more, this.rightTr, 100);
+            this.more.render(td);
         }
     }
     /**
@@ -94,9 +200,10 @@ var T = Ext.Toolbar;
 
 Ext.extend(T, Ext.Container, {
 
-    defaultType: 'tbbutton',
+    defaultType: 'button',
 
     trackMenus : true,
+    internalDefaults: {removeMode: 'container', hideParent: true},
 
     // private
     autoCreate: {
@@ -293,6 +400,18 @@ Ext.extend(T, Ext.Container, {
     	return field;
     },
 
+    applyDefaults : function(c){
+        c = Ext.Toolbar.superclass.applyDefaults.call(this, c);
+        var d = this.internalDefaults;
+        if(c.events){
+            Ext.applyIf(c.initialConfig, d);
+            Ext.apply(c, d);
+        }else{
+            Ext.applyIf(c, d);
+        }
+        return c;
+    },
+
     // private
     onDisable : function(){
         this.items.each(function(item){
@@ -452,71 +571,10 @@ T.TextItem = Ext.extend(T.Item, {
 });
 Ext.reg('tbtext', T.TextItem);
 
-/**
- * @class Ext.Toolbar.Button
- * @extends Ext.Button
- * A button that renders into a toolbar. Use the <tt>handler</tt> config to specify a callback function
- * to handle the button's click event.
- * <pre><code>
-new Ext.Panel({
-	tbar : [
-		{text: 'OK', handler: okHandler} // tbbutton is the default xtype if not specified
-	]
-});
-</code></pre>
- * @constructor
- * Creates a new Button
- * @param {Object} config A standard {@link Ext.Button} config object
- */
-T.Button = Ext.extend(Ext.Button, {
-    hideParent : true,
-
-    onDestroy : function(){
-        T.Button.superclass.onDestroy.call(this);
-        if(this.container){
-            this.container.remove();
-        }
-    }
-});
+// backwards compat
+T.Button = Ext.extend(Ext.Button, {});
+T.SplitButton = Ext.extend(Ext.SplitButton, {});
 Ext.reg('tbbutton', T.Button);
-
-/**
- * @class Ext.Toolbar.SplitButton
- * @extends Ext.SplitButton
- * A split button that renders into a toolbar.
- * <pre><code>
-new Ext.Panel({
-	tbar : [
-		{
-			xtype: 'tbsplit',
-		   	text: 'Options',
-		   	handler: optionsHandler, // handle a click on the button itself
-		   	menu: new Ext.menu.Menu({
-		        items: [
-		        	// These items will display in a dropdown menu when the split arrow is clicked
-			        {text: 'Item 1', handler: item1Handler},
-			        {text: 'Item 2', handler: item2Handler},
-		        ]
-		   	})
-		}
-	]
-});
-</code></pre>
- * @constructor
- * Creates a new SplitButton
- * @param {Object} config A standard {@link Ext.SplitButton} config object
- */
-T.SplitButton = Ext.extend(Ext.SplitButton, {
-    hideParent : true,
-
-    onDestroy : function(){
-        T.SplitButton.superclass.onDestroy.call(this);
-        if(this.container){
-            this.container.remove();
-        }
-    }
-});
-
 Ext.reg('tbsplit', T.SplitButton);
 
 })();
@@ -536,6 +594,7 @@ Ext.ButtonGroup = Ext.extend(Ext.Panel, {
         if(!this.title){
             this.addClass('x-btn-group-notitle');
         }
+        this.on('afterlayout', this.onAfterLayout, this);
         Ext.ButtonGroup.superclass.initComponent.call(this);
     },
 
@@ -549,6 +608,12 @@ Ext.ButtonGroup = Ext.extend(Ext.Panel, {
             Ext.applyIf(c, d);
         }
         return c;
+    },
+
+    onAfterLayout : function(){
+        var bodyWidth = this.body.getFrameWidth('lr') + this.body.dom.firstChild.offsetWidth;
+        this.body.setWidth(bodyWidth);
+        this.el.setWidth(bodyWidth + this.getFrameWidth());
     }
 });
 

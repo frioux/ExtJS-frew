@@ -1057,25 +1057,31 @@ new Ext.Panel({
         if(w !== undefined || h !== undefined){
             if(!this.collapsed){
                 if(typeof w == 'number'){
-                    this.body.setWidth(
-                            this.adjustBodyWidth(w - this.getFrameWidth()));
+                    w = this.adjustBodyWidth(w - this.getFrameWidth());
+                    this.body.setWidth(w);
                 }else if(w == 'auto'){
                     this.body.setWidth(w);
                 }
 
                 if(typeof h == 'number'){
-                    this.body.setHeight(
-                            this.adjustBodyHeight(h - this.getFrameHeight()));
+                    h = this.adjustBodyHeight(h - this.getFrameHeight());
+                    this.body.setHeight(h);
                 }else if(h == 'auto'){
                     this.body.setHeight(h);
                 }
 
-                if(this.topToolbar){
-                    this.topToolbar.setSize(this.tbar.getWidth());
+                if(this.tbar){
+                    this.tbar.setWidth(w);
+                    if(this.topToolbar){
+                        this.topToolbar.setSize(w);
+                    }
                 }
-                if(this.bottomToolbar){
-                    this.bottomToolbar.setSize(this.bbar.getWidth());
-                }                
+                if(this.bbar){
+                    this.bbar.setWidth(w);
+                    if(this.bottomToolbar){
+                        this.bottomToolbar.setSize(w);
+                    }
+                }
             }else{
                 this.queuedBodySize = {width: w, height: h};
                 if(!this.queuedExpand && this.allowQueuedExpand !== false){

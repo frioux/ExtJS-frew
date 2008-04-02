@@ -879,6 +879,10 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
             });
     },
 
+    getDomPositionEl : function(){
+        return this.getPositionEl ? this.getPositionEl() : this.getEl();
+    },
+
     // internal function for auto removal of assigned event handlers on destruction
     mon : function(item, ename, fn, scope, opt){
         if(!this.mons){

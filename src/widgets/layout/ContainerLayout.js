@@ -48,8 +48,7 @@ Ext.layout.ContainerLayout.prototype = {
 
     // private
     isValidParent : function(c, target){
-		var el = c.getPositionEl ? c.getPositionEl() : c.getEl();
-		return el.dom.parentNode == target.dom;
+		return target && c.getDomPositionEl().dom.parentNode == (target.dom || target);
     },
 
     // private
@@ -81,7 +80,8 @@ Ext.layout.ContainerLayout.prototype = {
             if(typeof position == 'number'){
                 position = target.dom.childNodes[position];
             }
-            target.dom.insertBefore(c.getEl().dom, position || null);
+            target.dom.insertBefore(c.getDomPositionEl().dom, position || null);
+            c.container = target;
             if (this.renderHidden && c != this.activeItem) {
                 c.hide();
             }

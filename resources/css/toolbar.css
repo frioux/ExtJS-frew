@@ -6,6 +6,8 @@
 	padding:2px;
     background:#d0def0 url(../images/default/toolbar/bg.gif) repeat-x top left;
     position:relative;
+    left:0;
+    top:0;
     zoom:1;
     overflow:hidden;
 }
@@ -210,10 +212,37 @@
 
 /* floating */
 
-.x-toolbar-left {
-	float: left;
+.x-toolbar-ct {
+    width:100%;
 }
 
-.x-toolbar-right {
-	float: right;
+.x-toolbar-left {
+
+}
+
+.x-toolbar-right td {
+    text-align:left;
+}
+
+.x-panel-tbar, .x-panel-bbar, .x-window-tbar, .x-window-bbar, .x-tab-panel-tbar, .x-tab-panel-bbar, .x-plain-tbar, .x-plain-bbar {
+    overflow:hidden;
+    zoom:1;
+}
+
+.x-toolbar-more-icon {
+    background-image: url(../images/default/toolbar/more.gif) !important;
+}
+.x-toolbar-more .x-btn-small .x-btn-text{
+	height: 16px;
+	width: 12px;
+}
+.x-toolbar-more em.x-btn-arrow {
+    display:inline;
+    background:transparent;
+	padding-right:0;
+}
+
+div.x-toolbar-no-items {
+    color:gray !important;
+    padding:5px 10px !important;
 }
