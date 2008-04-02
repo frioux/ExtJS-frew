@@ -50,7 +50,9 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
     /**
      * @cfg {String} hiddenName If specified, a hidden form field with this name is dynamically generated to store the
      * field's data value (defaults to the underlying DOM element's name). Required for the combo's value to automatically
-     * post during a form submission.
+     * post during a form submission.  Note that the hidden field's id will also default to this name if {@link #hiddenId}
+     * is not specified.  The combo's id and the hidden field's ids should be different, since no two DOM nodes should
+     * share the same id, so if the combo and hidden names are the same, you should specify a unique hiddenId.
      */
     /**
      * @cfg {String} hiddenId If {@link #hiddenName} is specified, hiddenId can also be provided to give the hidden field
