@@ -59,6 +59,13 @@ Ext.Button = Ext.extend(Ext.Component, {
      */
     enableToggle: false,
     /**
+     * @cfg {Function} toggleHandler
+     * Function called when a Button with {@link #enableToggle} set to true is clicked. Two arguments are passed:<ul class="mdetail-params">
+     * <li><b>button</b> : Ext.Button<div class="sub-desc">this Button object</div></li>
+     * <li><b>state</b> : Boolean<div class="sub-desc">The next state if the Button, true means pressed.</div></li>
+     * </ul>
+     */
+    /**
      * @cfg {Mixed} menu
      * Standard menu attribute consisting of a reference to a menu object, a menu id or a menu config blob (defaults to undefined).
      */
