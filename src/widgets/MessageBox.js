@@ -404,7 +404,7 @@ Ext.MessageBox.ERROR
          * and closing the message box when the process is complete.
          * @param {String} title The title bar text
          * @param {String} msg The message box body text
-         * @param {String} progressText The text to display inside the progress bar (defaults to '')
+         * @param {String} progressText (optional) The text to display inside the progress bar (defaults to '')
          * @return {Ext.MessageBox} this
          */
         progress : function(title, msg, progressText){
@@ -499,6 +499,7 @@ Ext.MessageBox.ERROR
          * @param {Object} scope (optional) The scope of the callback function
          * @param {Boolean/Number} multiline (optional) True to create a multiline textbox using the defaultTextHeight
          * property, or the height in pixels to create the textbox (defaults to false / single-line)
+         * @param {String} value (optional) Default value of the text input element (defaults to '')
          * @return {Ext.MessageBox} this
          */
         prompt : function(title, msg, fn, scope, multiline){
@@ -510,7 +511,8 @@ Ext.MessageBox.ERROR
                 minWidth:250,
                 scope : scope,
                 prompt:true,
-                multiline: multiline
+                multiline: multiline,
+                value: value
             });
             return this;
         },
