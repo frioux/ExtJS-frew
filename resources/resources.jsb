@@ -719,4 +719,5 @@
   <file name="images\default\button\group-tb.gif" path="images\default\button" />
   <file name="images\default\button\s-arrow-b-noline.gif" path="images\default\button" />
   <file name="images\default\button\s-arrow-noline.gif" path="images\default\button" />
+  <file name="images\default\toolbar\more.gif" path="images\default\toolbar" />
 </project>

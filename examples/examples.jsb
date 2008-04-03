@@ -344,7 +344,6 @@
   <file name="slider\echo.php" path="slider" />
   <file name="slider\simple-slider.html" path="slider" />
   <file name="slider\simple-slider.js" path="slider" />
-  <file name="slider\slider.css" path="slider" />
   <file name="slider\slider2.html" path="slider" />
   <file name="slider\slider2.js" path="slider" />
   <file name="slider\SliderField.css" path="slider" />
@@ -360,6 +359,8 @@
   <file name="toolbar\images\add.gif" path="toolbar\images" />
   <file name="toolbar\images\add16.gif" path="toolbar\images" />
   <file name="toolbar\images\add24.gif" path="toolbar\images" />
+  <file name="toolbar\overflow.html" path="toolbar" />
+  <file name="toolbar\overflow.js" path="toolbar" />
   <file name="toolbar\toolbars.css" path="toolbar" />
   <file name="toolbar\toolbars.html" path="toolbar" />
   <file name="toolbar\toolbars.js" path="toolbar" />
@@ -369,11 +370,6 @@
   <file name="button\buttons.css" path="button" />
   <file name="button\buttons.html" path="button" />
   <file name="button\buttons.js" path="button" />
-  <file name="slider\images\slider-bg.png" path="slider\images" />
-  <file name="slider\images\slider-thumb.png" path="slider\images" />
-  <file name="slider\images\ticks.gif" path="slider\images" />
-  <file name="slider\slider.html" path="slider" />
-  <file name="slider\slider.js" path="slider" />
   <file name="chart\bar.gif" path="chart" />
   <file name="chart\chart.gif" path="chart" />
   <file name="chart\charts.html" path="chart" />
@@ -741,6 +737,12 @@
   <file name="simple-widgets\qtips.css" path="simple-widgets" />
   <file name="simple-widgets\qtips.html" path="simple-widgets" />
   <file name="simple-widgets\qtips.js" path="simple-widgets" />
+  <file name="slider\images\slider-bg.png" path="slider\images" />
+  <file name="slider\images\slider-thumb.png" path="slider\images" />
+  <file name="slider\images\ticks.gif" path="slider\images" />
+  <file name="slider\slider.css" path="slider" />
+  <file name="slider\slider.html" path="slider" />
+  <file name="slider\slider.js" path="slider" />
   <file name="state\get-state.php" path="state" />
   <file name="state\README.txt" path="state" />
   <file name="state\save-state.php" path="state" />
