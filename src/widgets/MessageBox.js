@@ -502,7 +502,7 @@ Ext.MessageBox.ERROR
          * @param {String} value (optional) Default value of the text input element (defaults to '')
          * @return {Ext.MessageBox} this
          */
-        prompt : function(title, msg, fn, scope, multiline){
+        prompt : function(title, msg, fn, scope, multiline, value){
             this.show({
                 title : title,
                 msg : msg,
