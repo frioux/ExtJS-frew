@@ -242,6 +242,7 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
                 form:this.form.el.dom,
                 url:this.getUrl(isGet),
                 method: method,
+                headers: o.headers,
                 params:!isGet ? this.getParams() : null,
                 isUpload: this.form.fileUpload
             }));
@@ -333,6 +334,7 @@ Ext.extend(Ext.form.Action.Load, Ext.form.Action, {
                 this.createCallback(this.options), {
                     method:this.getMethod(),
                     url:this.getUrl(false),
+                    headers: this.options.headers,
                     params:this.getParams()
         }));
     },

@@ -197,6 +197,8 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      * to the form's method, or POST if not defined)</p></li>
      * <li><b>params</b> : String/Object<p style="margin-left:1em">The params to pass
      * (defaults to the form's baseParams, or none if not defined)</p></li>
+     * <li><b>headers</b> : Object<p style="margin-left:1em">Request headers to set for the action
+     * (defaults to the form's default headers)</p></li>
      * <li><b>success</b> : Function<p style="margin-left:1em">The callback that will
      * be invoked after a successful response.  Note that this is HTTP success
      * (the transaction was sent and received correctly), but the resulting response data
