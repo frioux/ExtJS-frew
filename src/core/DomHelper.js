@@ -3,12 +3,13 @@
  * Utility class for working with DOM and/or Templates. It transparently supports using HTML fragments or DOM.<br>
  * This is an example, where an unordered list with 5 children items is appended to an existing element with id 'my-div':<br>
  <pre><code>
+var dh = Ext.DomHelper;
 var list = dh.append('my-div', {
     id: 'my-ul', tag: 'ul', cls: 'my-list', children: [
-        {tag: 'li', id: 'item0', html: 'List Item 0'}, 
-        {tag: 'li', id: 'item1', html: 'List Item 1'}, 
-        {tag: 'li', id: 'item2', html: 'List Item 2'}, 
-        {tag: 'li', id: 'item3', html: 'List Item 3'}, 
+        {tag: 'li', id: 'item0', html: 'List Item 0'},
+        {tag: 'li', id: 'item1', html: 'List Item 1'},
+        {tag: 'li', id: 'item2', html: 'List Item 2'},
+        {tag: 'li', id: 'item3', html: 'List Item 3'},
         {tag: 'li', id: 'item4', html: 'List Item 4'}
     ]
 });
@@ -17,7 +18,7 @@ var list = dh.append('my-div', {
  * specification objects. This can be used to insert multiple sibling nodes into an existing
  * container very efficiently. For example, to add more list items to the example above:<pre><code>
 dh.append('my-ul', [
-    {tag: 'li', id: 'item5', html: 'List Item 5'}, 
+    {tag: 'li', id: 'item5', html: 'List Item 5'},
     {tag: 'li', id: 'item6', html: 'List Item 6'} ]);
 </code></pre></p>
  * <p>Element creation specification parameters may also be strings. If {@link useDom} is false, then the string is used
@@ -29,7 +30,7 @@ Ext.DomHelper = function(){
     var tempTableEl = null;
     var emptyTags = /^(?:br|frame|hr|img|input|link|meta|range|spacer|wbr|area|param|col)$/i;
     var tableRe = /^table|tbody|tr|td$/i;
-    
+
     // build as innerHTML where available
     var createHtml = function(o){
         if(typeof o == 'string'){
