@@ -46,7 +46,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
      */
     beforePageText : "Page",
     /**
-     * Customizable piece of the default paging text (defaults to "of %0")
+     * Customizable piece of the default paging text (defaults to "of {0}")
      * @type String
      */
     afterPageText : "of {0}",
