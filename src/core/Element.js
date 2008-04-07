@@ -257,7 +257,8 @@ El.prototype = {
 
     /**
      * Scrolls this element into view within the passed container.
-     * @param {Mixed} container (optional) The container element to scroll (defaults to document.body)
+     * @param {Mixed} container (optional) The container element to scroll (defaults to document.body).  Should be a 
+     * string (id), dom node, or Ext.Element.
      * @param {Boolean} hscroll (optional) False to disable horizontal scroll (defaults to true)
      * @return {Ext.Element} this
      */
