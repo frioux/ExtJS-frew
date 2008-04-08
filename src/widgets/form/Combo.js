@@ -168,11 +168,12 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
     typeAheadDelay : 250,
     /**
      * @cfg {String} valueNotFoundText When using a name/value combo, if the value passed to setValue is not found in
-     * the store, valueNotFoundText will be displayed as the field text if defined (defaults to undefined)
+     * the store, valueNotFoundText will be displayed as the field text if defined (defaults to undefined). If this
+     * defaut text is used, it means there is no value set and no validation will occur on this field.
      */
 
     /**
-     * @cfg {Boolean} lazyInit True to not initialize the list for this combo until the field is focused. (defaults to true)
+     * @cfg {Boolean} lazyInit True to not initialize the list for this combo until the field is focused (defaults to true)
      */
     lazyInit : true,
 

@@ -339,6 +339,7 @@ side          Add an error icon to the right of the field with a popup on hover
         return false;
     },
 
+    // protected - should be overridden by subclasses if necessary to prepare raw values for validation
     processValue : function(value){
         return value;
     },
@@ -350,8 +351,9 @@ side          Add an error icon to the right of the field with a popup on hover
     },
 
     /**
-     * Mark this field as invalid
-     * @param {String} msg The validation message
+     * Mark this field as invalid, using {@link #msgTarget} to determine how to display the error and 
+     * applying {@link #invalidClass} to the field's element.
+     * @param {String} msg (optional) The validation message (defaults to {@link #invalidText})
      */
     markInvalid : function(msg){
         if(!this.rendered || this.preventMark){ // not rendered
