@@ -105,7 +105,7 @@ Ext.QuickTips = function(){
          * @return {Boolean}
          */
         isEnabled : function(){
-            return tip && !tip.disabled;
+            return tip !== undefined && !tip.disabled;
         },
 
         /**
