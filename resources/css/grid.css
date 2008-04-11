@@ -132,11 +132,16 @@
 }
 .x-grid3-focus {
 	position:absolute;
+	left:0;
 	top:0;
-	-moz-outline:0 none;
+	width:1px;
+	height:1px;
+    line-height:1px;
+    font-size:1px;
+    -moz-outline:0 none;
     outline:0 none;
     -moz-user-select: normal;
-    -khtml-user-select: normal;
+    -khtml-user-select: normal;  
 }
 
 /* header styles */

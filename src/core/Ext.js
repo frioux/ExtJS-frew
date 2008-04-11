@@ -1,5 +1,5 @@
 
-Ext = {version: '2.0.2'};
+Ext = {version: '3.0'};
 
 // for old browsers
 window["undefined"] = window["undefined"];

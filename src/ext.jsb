@@ -537,6 +537,7 @@
   <file name="widgets\chart\FlashPanel.js" path="widgets\chart" />
   <file name="ext.jsb" path="" />
   <file name="license.txt" path="" />
+  <file name="widgets\ListView.js" path="widgets" />
   <file name="adapter\ext-base.js" path="adapter" />
   <file name="adapter\jquery-bridge.js" path="adapter" />
   <file name="adapter\prototype-bridge.js" path="adapter" />
@@ -685,6 +686,9 @@
   <file name="widgets\layout\FitLayout.js" path="widgets\layout" />
   <file name="widgets\layout\FormLayout.js" path="widgets\layout" />
   <file name="widgets\layout\TableLayout.js" path="widgets\layout" />
+  <file name="widgets\list\ColumnResizer.js" path="widgets\list" />
+  <file name="widgets\list\ListView.js" path="widgets\list" />
+  <file name="widgets\list\Sorter.js" path="widgets\list" />
   <file name="widgets\menu\Adapter.js" path="widgets\menu" />
   <file name="widgets\menu\BaseItem.js" path="widgets\menu" />
   <file name="widgets\menu\CheckItem.js" path="widgets\menu" />
@@ -725,7 +729,6 @@
   <file name="widgets\DatePicker.js" path="widgets" />
   <file name="widgets\Editor.js" path="widgets" />
   <file name="widgets\Layer.js" path="widgets" />
-  <file name="widgets\ListView.js" path="widgets" />
   <file name="widgets\LoadMask.js" path="widgets" />
   <file name="widgets\MessageBox.js" path="widgets" />
   <file name="widgets\PagingToolbar.js" path="widgets" />
@@ -734,6 +737,7 @@
   <file name="widgets\ProgressBar.js" path="widgets" />
   <file name="widgets\Resizable.js" path="widgets" />
   <file name="widgets\Shadow.js" path="widgets" />
+  <file name="widgets\Slider.js" path="widgets" />
   <file name="widgets\SplitBar.js" path="widgets" />
   <file name="widgets\SplitButton.js" path="widgets" />
   <file name="widgets\TabPanel.js" path="widgets" />
@@ -742,8 +746,4 @@
   <file name="widgets\Window.js" path="widgets" />
   <file name="widgets\WindowManager.js" path="widgets" />
   <file name="debug.js" path="" />
-  <file name="widgets\list\ColumnResizer.js" path="widgets\list" />
-  <file name="widgets\list\ListView.js" path="widgets\list" />
-  <file name="widgets\list\Sorter.js" path="widgets\list" />
-  <file name="widgets\Slider.js" path="widgets" />
 </project>
