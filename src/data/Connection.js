@@ -91,14 +91,17 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
     /**
      * <p>Sends an HTTP request to a remote server.</p>
      * <p><b>Important:</b> Ajax server requests are asynchronous, and this call will
-     * return before the response has been recieved. Process any returned data
-     * in a callback function.
+     * return before the response has been received. Process any returned data
+     * in a callback function.</p>
+     * <p>To execute a callback function in the correct scope, use the <tt>scope</tt> option.</p>
      * @param {Object} options An object which may contain the following properties:<ul>
-     * <li><b>url</b> : String (Optional)<div class="sub-desc">The URL to
-     * which to send the request. Defaults to configured URL</div></li>
+     * <li><b>url</b> : String/Function (Optional)<div class="sub-desc">The URL to
+     * which to send the request, or a function to call which returns a URL string. The scope of the
+     * function is specified by the <tt>scope</tt> option. Defaults to configured URL.</div></li>
      * <li><b>params</b> : Object/String/Function (Optional)<div class="sub-desc">
      * An object containing properties which are used as parameters to the
-     * request, a url encoded string or a function to call to get either.</div></li>
+     * request, a url encoded string or a function to call to get either. The scope of the function
+     * is specified by the <tt>scope</tt> option.</div></li>
      * <li><b>method</b> : String (Optional)<div class="sub-desc">The HTTP method to use
      * for the request. Defaults to the configured method, or if no method was configured,
      * "GET" if no parameters are being sent, and "POST" if parameters are being sent.  Note that
@@ -124,7 +127,8 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
      * <li><b>options</b> : Object<div class="sub-desc">The parameter to the request call.</div></li>
      * </ul></div></li>
      * <li><b>scope</b> : Object (Optional)<div class="sub-desc">The scope in
-     * which to execute the callbacks: The "this" object for the callback function.
+     * which to execute the callbacks: The "this" object for the callback function. If the <tt>url</tt>, or <tt>params</tt> options were
+     * specified as functions from which to draw values, then this also serves as the scope for those function calls.
      * Defaults to the browser window.</div></li>
      * <li><b>form</b> : Object/String (Optional)<div class="sub-desc">A form
      * object or id to pull parameters from.</div></li>
