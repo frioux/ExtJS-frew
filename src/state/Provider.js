@@ -1,7 +1,7 @@
 /**
  * @class Ext.state.Provider
  * Abstract base class for state provider implementations. This class provides methods
- * for encoding and decoding <b>typed</b> variables including dates and defines the 
+ * for encoding and decoding <b>typed</b> variables including dates and defines the
  * Provider interface.
  */
 Ext.state.Provider = function(){
@@ -27,7 +27,7 @@ Ext.extend(Ext.state.Provider, Ext.util.Observable, {
         return typeof this.state[name] == "undefined" ?
             defaultValue : this.state[name];
     },
-    
+
     /**
      * Clears a value from the state
      * @param {String} name The key name
@@ -36,7 +36,7 @@ Ext.extend(Ext.state.Provider, Ext.util.Observable, {
         delete this.state[name];
         this.fireEvent("statechange", this, name, null);
     },
-    
+
     /**
      * Sets the value for a key
      * @param {String} name The key name
@@ -44,10 +44,9 @@ Ext.extend(Ext.state.Provider, Ext.util.Observable, {
      */
     set : function(name, value){
         this.state[name] = value;
-        //console.log(value);
         this.fireEvent("statechange", this, name, value);
     },
-    
+
     /**
      * Decodes a string previously encoded with {@link #encodeValue}.
      * @param {String} value The value to decode
@@ -85,7 +84,7 @@ Ext.extend(Ext.state.Provider, Ext.util.Observable, {
                 return v;
         }
     },
-    
+
     /**
      * Encodes a value including type information.  Decode with {@link #decodeValue}.
      * @param {Mixed} value The value to encode
@@ -117,6 +116,6 @@ Ext.extend(Ext.state.Provider, Ext.util.Observable, {
         }else{
             enc = "s:" + v;
         }
-        return escape(enc);        
+        return escape(enc);
     }
 });
