@@ -1122,7 +1122,13 @@ El.prototype = {
     /**
      * Appends an event handler to this element.  The shorthand version {@link #on} is equivalent.
      * @param {String} eventName The type of event to handle
-     * @param {Function} fn The handler function the event invokes
+     * @param {Function} fn The handler function the event invokes. This function is passed
+     * the following parameters:<ul>
+     * <li>evt : EventObject<div class="sub-desc">The {@link Ext.EventObject EventObject} describing the event.</div></li>
+     * <li>t : Element<div class="sub-desc">The {@link Ext.Element Element} which was the target of the event.
+     * Note that this may be filtered by using the <tt>delegate</tt> option.</div></li>
+     * <li>o : Object<div class="sub-desc">The the options object from the addListener call.</div></li>
+     * </ul>
      * @param {Object} scope (optional) The scope (The <tt>this</tt> reference) of the handler function. Defaults
      * to this Element.
      * @param {Object} options (optional) An object containing handler configuration properties.
@@ -1145,7 +1151,8 @@ El.prototype = {
      * addListener.  The two are equivalent.  Using the options argument, it is possible to combine different
      * types of listeners:<br>
      * <br>
-     * A normalized, delayed, one-time listener that auto stops the event and passes a custom argument (forumId)<div style="margin: 5px 20px 20px;">
+     * A normalized, delayed, one-time listener that auto stops the event and adds a custom argument (forumId) to the
+     * options object. The options object is available as the third parameter in the handler function.<div style="margin: 5px 20px 20px;">
      * Code:<pre><code>
 el.on('click', this.onClick, this, {
     single: true,
