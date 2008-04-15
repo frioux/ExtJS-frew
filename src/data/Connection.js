@@ -143,8 +143,7 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
      * <p>The server response is parsed by the browser to create the document for the IFRAME. If the
      * server is using JSON to send the return object, then the
      * {@link http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17 Content-Type} header
-     * must be set to "text/plain" in order to prevent the browser attempting to parse the response
-     * as an HTML document.</p>
+     * must be set to "text/html" in order to tell the browser to insert the text unchanged into the document body.</p>
      * <p>The response text is retrieved from the document, and a fake XMLHttpRequest object
      * is created containing a <tt>responseText</tt> property in order to conform to the
      * requirements of event handlers and callbacks.</p>

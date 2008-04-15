@@ -29,6 +29,44 @@ Ext.Panel = Ext.extend(Ext.Container, {
      * @property body
      */
     /**
+     * @cfg {Object} bodyCfg
+     * <p>A {@link Ext.DomHelper DomHelper} configuration object specifying the element structure
+     * of this Panel's {@link #body} Element.</p>
+     * <p>This may be used to force the body Element to use a different form of markup than
+     * is created automatically. An example of this might be to create a child Panel containing
+     * custom content, such as a header, or forcing centering of all Panel
+     * content by having the body be a &lt;center&gt; element:</p><code><pre>
+new Ext.Panel({
+    title: 'New Message',
+    collapsible: true,
+    renderTo: Ext.getBody(),
+    width: 400,
+    bodyCfg: {
+        tag: 'center',
+        cls: 'x-panel-body'
+    },
+    items: [{
+        border: false,
+        header: false,
+        bodyCfg: {tag: 'h2', html: 'Message'}
+    }, {
+        xtype: 'textarea',
+        style: {
+            width: '95%',
+            marginBottom: '10px'
+        }
+    },
+        new Ext.Button({
+            text: 'Send',
+            minWidth: '100',
+            style: {
+                marginBottom: '10px'
+            }
+        })
+    ]
+});</pre></code>
+     */
+    /**
      * The Panel's footer {@link Ext.Element Element}. Read-only.
      * <p>This Element is used to house the Panel's {@link #buttons}.</p>
      * @type Ext.Element
