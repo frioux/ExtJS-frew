@@ -2062,7 +2062,7 @@
                     control = tmp;
                 }
 
-                Ext.fly(el).position();
+                Ext.fly(el, '_anim').position();
 
                 if (isset(attributes['points']['from'])) {
                     Ext.lib.Dom.setXY(el, attributes['points']['from']);
