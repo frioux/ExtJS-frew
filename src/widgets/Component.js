@@ -262,6 +262,14 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
      * useful for adding customized styles to the container or any of its children using standard CSS rules.
      */
     /**
+     * @cfg {Boolean} disabled.
+     * Render this component disabled. Default is false.
+     */
+    /**
+     * @cfg {Boolean} hidden.
+     * Render this component hidden. Default is false.
+     */
+    /**
      * @cfg {Object/Array} plugins
      * An object or array of objects that will provide custom functionality for this component.  The only
      * requirement for a valid plugin is that it contain an init method that accepts a reference of type Ext.Component.
