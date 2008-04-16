@@ -204,8 +204,18 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         this.templates = ts;
 
         this.tdClass = 'x-grid3-cell';
+    /**
+     * A {@link Ext.DomQuery DomQuery} selector used to select the GridView's cell elements.
+     * @type String
+     * @property cellSelector
+     */
         this.cellSelector = 'td.x-grid3-cell';
         this.hdCls = 'x-grid3-hd';
+    /**
+     * A {@link Ext.DomQuery DomQuery} selector used to select the GridView's row elements.
+     * @type String
+     * @property rowSelector
+     */
         this.rowSelector = 'div.x-grid3-row';
         this.colRe = new RegExp("x-grid3-td-([^\\s]+)", "");
     },
@@ -300,7 +310,11 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         return this.findCellIndex(el, this.hdCls);
     },
 
-    // private
+/**
+ * Return the HtmlElement representing the grid row which contains the passed element.
+ * @param {Element} el The target element
+ * @return The row element, or null if the target element is not within a row of this GridView.
+ */
     findRow : function(el){
         if(!el){
             return false;
@@ -308,7 +322,11 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         return this.fly(el).findParent(this.rowSelector, 10);
     },
 
-    // private
+/**
+ * Return the index of the grid row which contains the passed element.
+ * @param {Element} el The target element
+ * @return The row index, or <b>false</b> if the target element is not within a row of this GridView.
+ */
     findRowIndex : function(el){
         var r = this.findRow(el);
         return r ? r.rowIndex : false;
@@ -317,9 +335,9 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
     // getter methods for fetching elements dynamically in the grid
 
 /**
- * Return the &lt;TR> HtmlElement which represents a Grid row for the specified index.
+ * Return the HtmlElement which represents a Grid row for the specified index.
  * @param {Number} index The row index
- * @return {HtmlElement} The &lt;TR> element.
+ * @return {HtmlElement} The element.
  */
     getRow : function(row){
         return this.getRows()[row];
