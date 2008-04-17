@@ -88,6 +88,12 @@ Ext.ComponentMgr = function(){
     };
 }();
 
-// this will be called a lot internally,
-// shorthand to keep the bytes down
-Ext.reg = Ext.ComponentMgr.registerType;
+/**
+ * Shorthand for {@link Ext.ComponentMgr#registerType}
+ * @param {String} xtype The mnemonic string by which the Component class
+ * may be looked up.
+ * @param {Constructor} cls The new Component class.
+ * @member Ext
+ * @method reg
+ */
+Ext.reg = Ext.ComponentMgr.registerType; // this will be called a lot internally, shorthand to keep the bytes down
