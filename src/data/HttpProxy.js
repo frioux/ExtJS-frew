@@ -13,7 +13,12 @@
  * the Content-Type header in the HTTP response to "text/xml".
  * @constructor
  * @param {Object} conn an {@link Ext.data.Connection} object, or options parameter to {@link Ext.Ajax.request}.
- * If an options parameter is passed, the singleton {@link Ext.Ajax} object will be used to make the request.
+ * <p>Note that if this HttpProxy is being used by a (@link Ext.data.Store Store}, then the Store's call to
+ * {@link #load} will override any specified <tt>callback</tt> and <tt>params</tt> options. In this
+ * case, use the Store's {@link Ext.data.Store#events events} to modify parameters, or react to loading events.
+ * The Store's {@link Ext.data.Store#baseParams baseParams} may also be used to pass parameters known at
+ * instantiation time.</p>
+ * <p>If an options parameter is passed, the singleton {@link Ext.Ajax} object will be used to make the request.</p>
  */
 Ext.data.HttpProxy = function(conn){
     Ext.data.HttpProxy.superclass.constructor.call(this);
