@@ -199,20 +199,19 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      * <li><b>headers</b> : Object<p style="margin-left:1em">Request headers to set for the action
      * (defaults to the form's default headers)</p></li>
      * <li><b>success</b> : Function<p style="margin-left:1em">The callback that will
-     * be invoked after a successful response.  Note that this is HTTP success
-     * (the transaction was sent and received correctly), but the resulting response data
-     * can still contain data errors. The function is passed the following parameters:<ul>
+     * be invoked after a successful response. The function is passed the following parameters:<ul>
      * <li><code>form</code> : Ext.form.BasicForm<div class="sub-desc">The form that requested the action</div></li>
      * <li><code>action</code> : Ext.form.Action<div class="sub-desc">The Action class. The {@link Ext.form.Action#result result}
      * property of this object may be examined to perform custom postprocessing.</div></li>
      * </ul></p></li>
      * <li><b>failure</b> : Function<p style="margin-left:1em">The callback that will
-     * be invoked after a failed transaction attempt.  Note that this is HTTP failure,
-     * which means a non-successful HTTP code was returned from the server. The function
-     * is passed the following parameters:<ul>
+     * be invoked after a failed transaction attempt.  This is invoked for field validation failure,
+     * communication failure, and in the case of the server returning a failure response packet.
+     * Which type of failure is indicated in the Action's {@link Ext.form.Action#failureType failureType}.
+     * The function is passed the following parameters:<ul>
      * <li><code>form</code> : Ext.form.BasicForm<div class="sub-desc">The form that requested the action</div></li>
-     * <li><code>action</code> : Ext.form.Action<div class="sub-desc">The Action class. If an Ajax
-     * error ocurred, the failure type will be in {@link Ext.form.Action#failureType failureType}. The {@link Ext.form.Action#result result}
+     * <li><code>action</code> : Ext.form.Action<div class="sub-desc">The Action class. The failure type
+     * will be in {@link Ext.form.Action#failureType failureType}. The {@link Ext.form.Action#result result}
      * property of this object may be examined to perform custom postprocessing.</div></li>
      * </ul></p></li>
      * <li><b>scope</b> : Object<p style="margin-left:1em">The scope in which to call the

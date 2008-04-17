@@ -20,28 +20,32 @@ Ext.form.Action = function(form, options){
 
 /**
  * Failure type returned when client side validation of the Form fails
- * thus aborting a submit action.
+ * thus aborting a submit action. Client side validation is performed unless
+ * {@link #clientValidation} is explicitly set to <tt>false</tt>.
  * @type {String}
  * @static
  */
 Ext.form.Action.CLIENT_INVALID = 'client';
 /**
- * Failure type returned when server side validation of the Form fails
- * indicating that field-specific error messages have been returned in the
- * response's <tt style="font-weight:bold">errors</tt> property.
+ * <p>Failure type returned when server side processing fails and the {@link #result}'s
+ * <tt style="font-weight:bold">success</tt> property is set to <tt>false</tt>.</p>
+ * <p>In the case of a form submission, field-specific error messages may be returned in the
+ * {@link #result}'s <tt style="font-weight:bold">errors</tt> property.</p>
  * @type {String}
  * @static
  */
 Ext.form.Action.SERVER_INVALID = 'server';
 /**
  * Failure type returned when a communication error happens when attempting
- * to send a request to the remote server.
+ * to send a request to the remote server. The {@link #response} may be examined to
+ * provide further information.
  * @type {String}
  * @static
  */
 Ext.form.Action.CONNECT_FAILURE = 'connect';
 /**
- * Failure type returned when no field values are returned in the response's
+ * Failure type returned when the response's <tt style="font-weight:bold">success</tt>
+ * property is set to <tt>false</tt>, or no field values are returned in the response's
  * <tt style="font-weight:bold">data</tt> property.
  * @type {String}
  * @static
@@ -99,15 +103,17 @@ Ext.form.Action.prototype = {
  */
     type : 'default',
 /**
- * The type of failure detected. See {@link #Ext.form.Action.CLIENT_INVALID CLIENT_INVALID}, {@link #Ext.form.Action.SERVER_INVALID SERVER_INVALID},
- * {@link #Ext.form.Action.CONNECT_FAILURE CONNECT_FAILURE}, {@link #Ext.form.Action.LOAD_FAILURE LOAD_FAILURE}
+ * The type of failure detected. See {@link #CLIENT_INVALID}, {@link #SERVER_INVALID},
+ * {@link #CONNECT_FAILURE}, {@link #LOAD_FAILURE}
  * @property failureType
  * @type {String}
- *//**
+ */
+ /**
  * The XMLHttpRequest object used to perform the action.
  * @property response
  * @type {Object}
- *//**
+ */
+ /**
  * The decoded response object containing a boolean <tt style="font-weight:bold">success</tt> property and
  * other, action-specific properties.
  * @property result
