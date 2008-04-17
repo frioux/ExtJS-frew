@@ -60,6 +60,11 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
      * nodes should share the same id.
      */
     /**
+     * @cfg {String} hiddenValue Sets the initial value of the hidden field if {@link #hiddenName} is
+     * specified to contain the selected {@link #valueField}, from the Store. <b>Defaults to the configured
+     * {@link #value}</b>.
+     */
+    /**
      * @cfg {String} listClass CSS class to apply to the dropdown list element (defaults to '')
      */
     listClass: '',
