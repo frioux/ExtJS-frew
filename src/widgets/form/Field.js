@@ -26,9 +26,10 @@ Ext.form.Field = Ext.extend(Ext.BoxComponent,  {
      * @cfg {String} clearCls The CSS class used to provide field clearing (defaults to 'x-form-clear-left')
      */
     /**
-     * @cfg {String} itemCls An additional CSS class to apply to the wrapper element of this field (defaults to the container's itemCls
-     * value if set, or '').  Since it is applied to the wrapper, it allows you to write standard CSS rules that can apply to
-     * the field, the label (if specified) or any other element within the markup for the field.  Example use:
+     * @cfg {String} itemCls An additional CSS class to apply to the wrappers form item element of this field (defaults 
+     * to the container's itemCls value if set, or '').  Since it is applied to the item wrapper, it allows you to write 
+     * standard CSS rules that can apply to the field, the label (if specified) or any other lement within the markup for 
+     * the field. NOTE: this will not have any effect on fields that are not part of a form. Example use:
      * <pre><code>
 // Apply a style to the field's label:
 &lt;style>
