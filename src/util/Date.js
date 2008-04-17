@@ -41,7 +41,8 @@ Format  Description                                                             
   P     Difference to Greenwich time (GMT) with colon between hours and minutes   Example: -08:00
   T     Timezone abbreviation of the machine running the code                     Examples: EST, MDT, PDT ...
   Z     Timezone offset in seconds (negative if west of UTC, positive if east)    -43200 to 50400
-  c     ISO 8601 date                                                             2007-04-17T15:19:21+08:00
+  c     ISO 8601 date                                                             2007-04-17T15:19:21+08:00 or
+                                                                                  2007-04-17T15:19:21Z
   U     Seconds since the Unix Epoch (January 1 1970 00:00:00 GMT)                1193432466 or -2138434463
 </pre>
  *
@@ -291,26 +292,26 @@ Date.createParser = function(format) {
         }
     }
 
-    code += "if (u)\n"
-        + "{v = new Date(u * 1000);}" // give top priority to UNIX time
-        + "else if (y >= 0 && m >= 0 && d > 0 && h >= 0 && i >= 0 && s >= 0 && ms >= 0)\n"
-        + "{v = new Date(y, m, d, h, i, s, ms);}\n"
-        + "else if (y >= 0 && m >= 0 && d > 0 && h >= 0 && i >= 0 && s >= 0)\n"
-        + "{v = new Date(y, m, d, h, i, s);}\n"
-        + "else if (y >= 0 && m >= 0 && d > 0 && h >= 0 && i >= 0)\n"
-        + "{v = new Date(y, m, d, h, i);}\n"
-        + "else if (y >= 0 && m >= 0 && d > 0 && h >= 0)\n"
-        + "{v = new Date(y, m, d, h);}\n"
-        + "else if (y >= 0 && m >= 0 && d > 0)\n"
-        + "{v = new Date(y, m, d);}\n"
-        + "else if (y >= 0 && m >= 0)\n"
-        + "{v = new Date(y, m);}\n"
-        + "else if (y >= 0)\n"
-        + "{v = new Date(y);}\n"
-        + "}return (v && (z || o))?\n" // favour UTC offset over GMT offset
-        + "    (z ? v.add(Date.SECOND, (v.getTimezoneOffset() * 60) + (z*1)) :\n" // reset to UTC, then add offset
-        + "        v.add(Date.HOUR, (v.getGMTOffset() / 100) + (o / -100))) : v\n" // reset to GMT, then add offset
-        + ";}";
+    code += "if (u){\n"
+        + "v = new Date(u * 1000);\n" // give top priority to UNIX time
+        + "}else if (y >= 0 && m >= 0 && d > 0 && h >= 0 && i >= 0 && s >= 0 && ms >= 0){\n"
+        + "v = new Date(y, m, d, h, i, s, ms);\n"
+        + "}else if (y >= 0 && m >= 0 && d > 0 && h >= 0 && i >= 0 && s >= 0){\n"
+        + "v = new Date(y, m, d, h, i, s);\n"
+        + "}else if (y >= 0 && m >= 0 && d > 0 && h >= 0 && i >= 0){\n"
+        + "v = new Date(y, m, d, h, i);\n"
+        + "}else if (y >= 0 && m >= 0 && d > 0 && h >= 0){\n"
+        + "v = new Date(y, m, d, h);\n"
+        + "}else if (y >= 0 && m >= 0 && d > 0){\n"
+        + "v = new Date(y, m, d);\n"
+        + "}else if (y >= 0 && m >= 0){\n"
+        + "v = new Date(y, m);\n"
+        + "}else if (y >= 0){\n"
+        + "v = new Date(y);\n"
+        + "}\n}\nreturn (v && Ext.type(z || o) == 'number')?" // favour UTC offset over GMT offset
+        +     " (Ext.type(z) == 'number' ? v.add(Date.SECOND, (v.getTimezoneOffset() * 60) + z) :" // reset to UTC, then add offset
+        +         " v.add(Date.HOUR, (v.getGMTOffset() / 100) + (o / -100))) : v;\n" // reset to GMT, then add offset
+        + "}";
 
     Date.parseRegexes[regexNum] = new RegExp("^" + regex + "$", "i");
     eval(code);
@@ -318,6 +319,8 @@ Date.createParser = function(format) {
 
 // private
 Date.formatCodeToRegex = function(character, currentGroup) {
+    var df = Date.formatCodeToRegex;
+
     /*
      * currentGroup = position in regex result array
      * g = calculation group (0 or 1. only group 1 contributes to date calculations.)
@@ -325,160 +328,215 @@ Date.formatCodeToRegex = function(character, currentGroup) {
      * s = regex string
      */
     switch (character) {
-    case "d":
-        return {g:1,
-            c:"d = parseInt(results[" + currentGroup + "], 10);\n",
-            s:"(\\d{2})"}; // day of month with leading zeroes (01 - 31)
-    case "D":
-        for (var a = [], i = 0; i < 7; a.push(Date.getShortDayName(i)), ++i); // get L10n short day names
-        return {g:0,
-            c:null,
-            s:"(?:" + a.join("|") +")"};
-    case "j":
-        return {g:1,
-            c:"d = parseInt(results[" + currentGroup + "], 10);\n",
-            s:"(\\d{1,2})"}; // day of month without leading zeroes (1 - 31)
-    case "l":
-        return {g:0,
-            c:null,
-            s:"(?:" + Date.dayNames.join("|") + ")"};
-    case "N":
-        return {g:0,
-            c:null,
-            s:"[1-7]"}; // ISO-8601 day number (1 (monday) - 7 (sunday))
-    case "S":
-        return {g:0,
-            c:null,
-            s:"(?:st|nd|rd|th)"};
-    case "w":
-        return {g:0,
-            c:null,
-            s:"[0-6]"}; // javascript day number (0 (sunday) - 6 (saturday))
-    case "z":
-        return {g:0,
-            c:null,
-            s:"(?:\\d{1,3}"}; // day of the year (0 - 364 (365 in leap years))
-    case "W":
-        return {g:0,
-            c:null,
-            s:"(?:\\d{2})"}; // ISO-8601 week number (with leading zero)
-    case "F":
-        return {g:1,
-            c:"m = parseInt(Date.getMonthNumber(results[" + currentGroup + "]), 10);\n", // get L10n month number
-            s:"(" + Date.monthNames.join("|") + ")"};
-    case "m":
-        return {g:1,
-            c:"m = parseInt(results[" + currentGroup + "], 10) - 1;\n",
-            s:"(\\d{2})"}; // month number with leading zeros (01 - 12)
-    case "M":
-        for (var a = [], i = 0; i < 12; a.push(Date.getShortMonthName(i)), ++i); // get L10n short month names
-        return {g:1,
-            c:"m = parseInt(Date.getMonthNumber(results[" + currentGroup + "]), 10);\n", // get L10n month number
-            s:"(" + a.join("|") + ")"};
-    case "n":
-        return {g:1,
-            c:"m = parseInt(results[" + currentGroup + "], 10) - 1;\n",
-            s:"(\\d{1,2})"}; // month number without leading zeros (1 - 12)
-    case "t":
-        return {g:0,
-            c:null,
-            s:"(?:\\d{2})"}; // no. of days in the month (28 - 31)
-    case "L":
-        return {g:0,
-            c:null,
-            s:"(?:1|0)"};
-    case "o":
-    case "Y":
-        return {g:1,
-            c:"y = parseInt(results[" + currentGroup + "], 10);\n",
-            s:"(\\d{4})"}; // 4-digit year
-    case "y":
-        return {g:1,
-            c:"var ty = parseInt(results[" + currentGroup + "], 10);\n"
-                + "y = ty > Date.y2kYear ? 1900 + ty : 2000 + ty;\n",
-            s:"(\\d{1,2})"}; // 2-digit year
-    case "a":
-        return {g:1,
-            c:"if (results[" + currentGroup + "] == 'am') {\n"
-                + "if (h == 12) { h = 0; }\n"
-                + "} else { if (h < 12) { h += 12; }}",
-            s:"(am|pm)"};
-    case "A":
-        return {g:1,
-            c:"if (results[" + currentGroup + "] == 'AM') {\n"
-                + "if (h == 12) { h = 0; }\n"
-                + "} else { if (h < 12) { h += 12; }}",
-            s:"(AM|PM)"};
-    case "g":
-    case "G":
-        return {g:1,
-            c:"h = parseInt(results[" + currentGroup + "], 10);\n",
-            s:"(\\d{1,2})"}; // 24-hr format of an hour without leading zeroes (0 - 23)
-    case "h":
-    case "H":
-        return {g:1,
-            c:"h = parseInt(results[" + currentGroup + "], 10);\n",
-            s:"(\\d{2})"}; //  24-hr format of an hour with leading zeroes (00 - 23)
-    case "i":
-        return {g:1,
-            c:"i = parseInt(results[" + currentGroup + "], 10);\n",
-            s:"(\\d{2})"}; // minutes with leading zeros (00 - 59)
-    case "s":
-        return {g:1,
-            c:"s = parseInt(results[" + currentGroup + "], 10);\n",
-            s:"(\\d{2})"}; // seconds with leading zeros (00 - 59)
-    case "u":
-        return {g:1,
-            c:"ms = parseInt(results[" + currentGroup + "], 10);\n",
-            s:"(\\d{3})"}; // milliseconds with leading zeros (000 - 999)
-    case "O":
-        return {g:1,
-            c:[
-                "o = results[", currentGroup, "];\n",
-                "var sn = o.substring(0,1);\n", // get + / - sign
-                "var hr = o.substring(1,3)*1 + Math.floor(o.substring(3,5) / 60);\n", // get hours (performs minutes-to-hour conversion also, just in case)
-                "var mn = o.substring(3,5) % 60;\n", // get minutes
-                "o = ((-12 <= (hr*60 + mn)/60) && ((hr*60 + mn)/60 <= 14))?\n", // -12hrs <= GMT offset <= 14hrs
-                "    (sn + String.leftPad(hr, 2, '0') + String.leftPad(mn, 2, '0')) : null;\n"
-            ].join(""),
-            s: "([+\-]\\d{4})"}; // GMT offset in hrs and mins
-    case "P":
-        return {g:1,
-            c:[
-                "o = results[", currentGroup, "];\n",
-                "var sn = o.substring(0,1);\n", // get + / - sign
-                "var hr = o.substring(1,3)*1 + Math.floor(o.substring(4,6) / 60);\n", // get hours (performs minutes-to-hour conversion also, just in case)
-                "var mn = o.substring(4,6) % 60;\n", // get minutes
-                "o = ((-12 <= (hr*60 + mn)/60) && ((hr*60 + mn)/60 <= 14))?\n", // -12hrs <= GMT offset <= 14hrs
-                "    (sn + String.leftPad(hr, 2, '0') + String.leftPad(mn, 2, '0')) : null;\n"
-            ].join(""),
-            s: "([+\-]\\d{2}:\\d{2})"}; // GMT offset in hrs and mins (with colon separator)
-    case "T":
-        return {g:0,
-            c:null,
-            s:"[A-Z]{1,4}"}; // timezone abbrev. may be between 1 - 4 chars
-    case "Z":
-        return {g:1,
-            c:"z = results[" + currentGroup + "] * 1;\n" // -43200 <= UTC offset <= 50400
-                  + "z = (-43200 <= z && z <= 50400)? z : null;\n",
-            s:"([+\-]?\\d{1,5})"}; // leading '+' sign is optional for UTC offset
-    case "c":
-        var df = Date.formatCodeToRegex, calc = [];
-        var arr = [df("Y", 1), df("m", 2), df("d", 3), df("h", 4), df("i", 5), df("s", 6), df("P", 7)];
-        for (var i = 0, l = arr.length; i < l; ++i) {
-          calc.push(arr[i].c);
-        }
-        return {g:1,
-            c:calc.join(""),
-            s:arr[0].s + "-" + arr[1].s + "-" + arr[2].s + "T" + arr[3].s + ":" + arr[4].s + ":" + arr[5].s + arr[6].s};
-    case "U":
-        return {g:1,
-            c:"u = parseInt(results[" + currentGroup + "], 10);\n",
-            s:"(-?\\d+)"}; // leading minus sign indicates seconds before UNIX epoch
-    default:
-        return {g:0,
-            c:null,
-            s:Ext.escapeRe(character)};
+        case "d":
+            return {
+                g:1,
+                c:"d = parseInt(results[" + currentGroup + "], 10);\n",
+                s:"(\\d{2})" // day of month with leading zeroes (01 - 31)
+            }
+        case "j":
+            return Ext.apply(df("d", currentGroup), {
+                s:"(\\d{1,2})" // day of month without leading zeroes (1 - 31)
+            });
+        case "D":
+            for (var a = [], i = 0; i < 7; a.push(Date.getShortDayName(i)), ++i); // get L10n short day names
+            return {
+                g:0,
+                c:null,
+                s:"(?:" + a.join("|") +")"
+            }
+        case "l":
+            return {
+                g:0,
+                c:null,
+                s:"(?:" + Date.dayNames.join("|") + ")"
+            }
+        case "N":
+            return {
+                g:0,
+                c:null,
+                s:"[1-7]" // ISO-8601 day number (1 (monday) - 7 (sunday))
+            }
+        case "S":
+            return {
+                g:0,
+                c:null,
+                s:"(?:st|nd|rd|th)"
+            }
+        case "w":
+            return {
+                g:0,
+                c:null,
+                s:"[0-6]" // javascript day number (0 (sunday) - 6 (saturday))
+            }
+        case "z":
+            return {
+                g:0,
+                c:null,
+                s:"(?:\\d{1,3}" // day of the year (0 - 364 (365 in leap years))
+            }
+        case "W":
+            return {
+                g:0,
+                c:null,
+                s:"(?:\\d{2})" // ISO-8601 week number (with leading zero)
+            }
+        case "F":
+            return {
+                g:1,
+                c:"m = parseInt(Date.getMonthNumber(results[" + currentGroup + "]), 10);\n", // get L10n month number
+                s:"(" + Date.monthNames.join("|") + ")"
+            }
+        case "M":
+            for (var a = [], i = 0; i < 12; a.push(Date.getShortMonthName(i)), ++i); // get L10n short month names
+            return Ext.apply(df("F", currentGroup), {
+                s:"(" + a.join("|") + ")"
+            });
+        case "m":
+            return {
+                g:1,
+                c:"m = parseInt(results[" + currentGroup + "], 10) - 1;\n",
+                s:"(\\d{2})" // month number with leading zeros (01 - 12)
+            }
+        case "n":
+            return Ext.apply(df("m", currentGroup), {
+                s:"(\\d{1,2})" // month number without leading zeros (1 - 12)
+            });
+        case "t":
+            return {
+                g:0,
+                c:null,
+                s:"(?:\\d{2})" // no. of days in the month (28 - 31)
+            }
+        case "L":
+            return {
+                g:0,
+                c:null,
+                s:"(?:1|0)"
+            }
+        case "o":
+        case "Y":
+            return {
+                g:1,
+                c:"y = parseInt(results[" + currentGroup + "], 10);\n",
+                s:"(\\d{4})" // 4-digit year
+            }
+        case "y":
+            return {
+                g:1,
+                c:"var ty = parseInt(results[" + currentGroup + "], 10);\n"
+                    + "y = ty > Date.y2kYear ? 1900 + ty : 2000 + ty;\n", // 2-digit year
+                s:"(\\d{1,2})"
+            }
+        case "a":
+            return {
+                g:1,
+                c:"if (results[" + currentGroup + "] == 'am') {\n"
+                    + "if (h == 12) { h = 0; }\n"
+                    + "} else { if (h < 12) { h += 12; }}",
+                s:"(am|pm)"
+            }
+        case "A":
+            return {
+                g:1,
+                c:"if (results[" + currentGroup + "] == 'AM') {\n"
+                    + "if (h == 12) { h = 0; }\n"
+                    + "} else { if (h < 12) { h += 12; }}",
+                s:"(AM|PM)"
+            }
+        case "g":
+        case "G":
+            return {
+                g:1,
+                c:"h = parseInt(results[" + currentGroup + "], 10);\n",
+                s:"(\\d{1,2})" // 24-hr format of an hour without leading zeroes (0 - 23)
+            }
+        case "h":
+        case "H":
+            return {
+                g:1,
+                c:"h = parseInt(results[" + currentGroup + "], 10);\n",
+                s:"(\\d{2})" //  24-hr format of an hour with leading zeroes (00 - 23)
+            }
+        case "i":
+            return {
+                g:1,
+                c:"i = parseInt(results[" + currentGroup + "], 10);\n",
+                s:"(\\d{2})" // minutes with leading zeros (00 - 59)
+            }
+        case "s":
+            return {
+                g:1,
+                c:"s = parseInt(results[" + currentGroup + "], 10);\n",
+                s:"(\\d{2})" // seconds with leading zeros (00 - 59)
+            }
+        case "u":
+            return {
+                g:1,
+                c:"ms = parseInt(results[" + currentGroup + "], 10);\n",
+                s:"(\\d{3})" // milliseconds with leading zeros (000 - 999)
+            }
+        case "O":
+            return {
+                g:1,
+                c:[
+                    "o = results[", currentGroup, "];\n",
+                    "var sn = o.substring(0,1);\n", // get + / - sign
+                    "var hr = o.substring(1,3)*1 + Math.floor(o.substring(3,5) / 60);\n", // get hours (performs minutes-to-hour conversion also, just in case)
+                    "var mn = o.substring(3,5) % 60;\n", // get minutes
+                    "o = ((-12 <= (hr*60 + mn)/60) && ((hr*60 + mn)/60 <= 14))?", // -12hrs <= GMT offset <= 14hrs
+                       " (sn + String.leftPad(hr, 2, '0') + String.leftPad(mn, 2, '0')) : null;\n"
+                ].join(""),
+                s: "([+\-]\\d{4})" // GMT offset in hrs and mins
+            }
+        case "P":
+            return Ext.apply(df("O", currentGroup), {
+                s: "([+\-]\\d{2}:\\d{2})" // GMT offset in hrs and mins (with colon separator)
+            });
+        case "T":
+            return {
+                g:0,
+                c:null,
+                s:"[A-Z]{1,4}" // timezone abbrev. may be between 1 - 4 chars
+            }
+        case "Z":
+            return {
+                g:1,
+                c:"z = results[" + currentGroup + "] * 1;\n" // -43200 <= UTC offset <= 50400
+                      + "z = (-43200 <= z && z <= 50400)? z : null;\n",
+                s:"([+\-]?\\d{1,5})" // leading '+' sign is optional for UTC offset
+            }
+        case "c":
+            var df = Date.formatCodeToRegex, calc = [];
+            var arr = [
+                df("Y", 1),
+                df("m", 2),
+                df("d", 3),
+                df("h", 4),
+                df("i", 5),
+                df("s", 6),
+                {c:"if(results[7] == 'Z'){\no = 0;\n}else{\n" + df("P", 7).c + "\n}"}
+            ];
+            for (var i = 0, l = arr.length; i < l; ++i) {
+                calc.push(arr[i].c);
+            }
+            return {
+                g:1,
+                c:calc.join(""),
+                s:arr[0].s + "-" + arr[1].s + "-" + arr[2].s + "T" + arr[3].s + ":" + arr[4].s + ":" + arr[5].s + "(" + df("P", 7).s + "|Z)"
+            }
+        case "U":
+            return {
+                g:1,
+                c:"u = parseInt(results[" + currentGroup + "], 10);\n",
+                s:"(-?\\d+)" // leading minus sign indicates seconds before UNIX epoch
+            }
+        default:
+            return {
+                g:0,
+                c:null,
+                s:Ext.escapeRe(character)
+            }
     }
 };
 
