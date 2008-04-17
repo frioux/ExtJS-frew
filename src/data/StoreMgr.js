@@ -5,12 +5,28 @@
  * @singleton
  */
 Ext.StoreMgr = Ext.apply(new Ext.util.MixedCollection(), {
+    /**
+     * @cfg {Object} listeners @hide
+     */
+
+    /**
+     * Registers one or more Stores with the StoreMgr
+     * @param {Ext.data.Store} store1 A Store instance
+     * @param {Ext.data.Store} store2 (optional)
+     * @param {Ext.data.Store} etc... (optional)
+     */
     register : function(){
         for(var i = 0, s; s = arguments[i]; i++){
             this.add(s);
         }
     },
 
+    /**
+     * Unregisters one or more Stores with the StoreMgr
+     * @param {String/Object} id1 The id of the Store, or a Store instance
+     * @param {String/Object} id2 (optional)
+     * @param {String/Object} etc... (optional)
+     */
     unregister : function(){
         for(var i = 0, s; s = arguments[i]; i++){
             this.remove(this.lookup(s));
@@ -19,7 +35,7 @@ Ext.StoreMgr = Ext.apply(new Ext.util.MixedCollection(), {
 
     /**
      * Gets a registered Store by id
-     * @param {String/Object} id The id of the Store or a Store
+     * @param {String/Object} id The id of the Store, or a Store instance
      * @return {Ext.data.Store}
      */
     lookup : function(id){
@@ -28,6 +44,6 @@ Ext.StoreMgr = Ext.apply(new Ext.util.MixedCollection(), {
 
     // getKey implementation for MixedCollection
     getKey : function(o){
-         return o.storeId || o.id; 
+         return o.storeId || o.id;
     }
 });
