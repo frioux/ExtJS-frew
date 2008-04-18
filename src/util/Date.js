@@ -219,10 +219,16 @@ Date.formatCodes = {
 
 // private
 Date.getFormatCode = function(character) {
-    var df = Date.formatCodes[character];
+    var f = Date.formatCodes[character];
+    f = Ext.type(f) == 'function'? f() : f;
+    
+    if (f) {
+       // reassign function result to prevent repeated execution
+      Date.formatCodes[character] = f;
+    }
 
     // note: unknown characters are treated as literals
-    return (Ext.type(df) == 'function'? df() : (df || ("'" + String.escape(character) + "'"))) + " + ";
+    return (f || ("'" + String.escape(character) + "'")) + " + ";
 };
 
 /**
@@ -532,14 +538,19 @@ Date.parseCodes = {
 // private
 Date.formatCodeToRegex = function(character, currentGroup) {
     // Note: currentGroup - position in regex result array (see notes for Date.parseCodes above)
-    var pc = Date.parseCodes[character];
-    pc = Ext.type(pc) == 'function'? pc() : pc;
+    var p = Date.parseCodes[character];
+    p = Ext.type(p) == 'function'? p() : p;
 
-    if (pc && pc.c) {
-      pc.c = String.format(pc.c, currentGroup);
+    if (p) {
+      // reassign function result to prevent repeated execution
+      Date.parseCodes[character] = p;
+      
+      if (p.c) {
+        p.c = String.format(p.c, currentGroup);
+      }
     }
 
-    return pc || {
+    return p || {
         g:0,
         c:null,
         s:Ext.escapeRe(character) // treat unrecognised characters as literals
