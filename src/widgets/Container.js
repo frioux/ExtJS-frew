@@ -1,10 +1,35 @@
 /**
  * @class Ext.Container
  * @extends Ext.BoxComponent
- * Base class for any {@link Ext.BoxComponent} that can contain other components.  Containers handle the basic
+ * <p>Base class for any {@link Ext.BoxComponent} that can contain other components.  Containers handle the basic
  * behavior of containing items, namely adding, inserting and removing them.  The specific layout logic required
  * to visually render contained items is delegated to any one of the different {@link #layout} classes available.
- * This class is intended to be extended and should generally not need to be created directly via the new keyword.
+ * This class is intended to be extended and should generally not need to be created directly via the new keyword.</p>
+ * <p>When either specifying child {@link #items} of a Container, or dynamically adding components to a Container,
+ * remember to consider how you wish the Container to arrange those child elements, and whether those child elements
+ * need to be sized using one of Ext's built-in layout schemes.</p>
+ * <p>By default, Containers use the {@link Ext.layout.ContainerLayout ContainerLayout} scheme. This simply renders
+ * child components, appending them one after the other inside the Container, and does not apply any sizing at all.
+ * This is a common source of confusion when widgets like GridPanels or TreePanels are added to Containers for
+ * which no layout has been specified. If a Container is left to use the ContainerLayout scheme, none of its child
+ * components will be resized, or changed in any way when the Container is resized.</p>
+ * <p>A very common example of this is where a developer will attempt to add a GridPanel to a TabPanel by wrapping
+ * the GridPanel <i>inside</i> a wrapping Panel and add that wrapping Panel to the TabPanel. This misses the point that
+ * Ext's inheritance means that a GridPanel <b>is</b> a Component which can be added unadorned into a Container. If
+ * that wrapping Panel has no layout configuration, then the GridPanel will not be sized as expected.<p>
+ * <p>Below is an example of adding a newly created GridPanel to a TabPanel. This requires prior knowledge of how
+ * to create GridPanels. See {@link Ext.grid.GridPanel}, {@link Ext.data.Store} and {@link Ext.data.JsonReader} as
+ * well as the grid examples in the your Ext installation <tt>examples/grid</tt> directory.</p><pre><code>
+//  Create the GridPanel.
+myGrid = new Ext.grid.GridPanel({
+    myStore,
+    myColumnModel,
+    title: 'Results',
+});
+
+myTabPanel.add(myGrid);
+myTabPanel.setActiveItem(myGrid);
+</code></pre>
  */
 Ext.Container = Ext.extend(Ext.BoxComponent, {
     /** @cfg {Boolean} monitorResize
