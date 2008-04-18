@@ -19,7 +19,7 @@
  * that wrapping Panel has no layout configuration, then the GridPanel will not be sized as expected.<p>
  * <p>Below is an example of adding a newly created GridPanel to a TabPanel. This requires prior knowledge of how
  * to create GridPanels. See {@link Ext.grid.GridPanel}, {@link Ext.data.Store} and {@link Ext.data.JsonReader} as
- * well as the grid examples in the your Ext installation <tt>examples/grid</tt> directory.</p><pre><code>
+ * well as the grid examples in the Ext installation's <tt>examples/grid</tt> directory.</p><pre><code>
 //  Create the GridPanel.
 myGrid = new Ext.grid.GridPanel({
     myStore,
