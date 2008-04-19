@@ -66,6 +66,10 @@ Ext.form.Action.prototype = {
  * input fields.
  */
 /**
+ * @cfg {Number} timeout The number of milliseconds to wait for a server response before
+ * failing with the {@link #failureType} as {@link #CONNECT_FAILURE}.
+ */
+/**
  * @cfg {Function} success The function to call when a valid success return packet is recieved.
  * The function is passed the following parameters:<ul class="mdetail-params">
  * <li><b>form</b> : Ext.form.BasicForm<div class="sub-desc">The form that requested the action</div></li>
