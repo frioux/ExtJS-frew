@@ -10,6 +10,16 @@
  */
 Ext.Window = Ext.extend(Ext.Panel, {
     /**
+     * @cfg {Number} x
+     * The X position of the left edge of the Window on initial showing. Defaults to centering the Window within
+     * the width of the Window's container {@link Ext.Element Element) (The Element that the Window is rendered to).
+     */
+    /**
+     * @cfg {Number} y
+     * The Y position of the top edge of the Window on initial showing. Defaults to centering the Window within
+     * the height of the Window's container {@link Ext.Element Element) (The Element that the Window is rendered to).
+     */
+    /**
      * @cfg {Boolean} modal
      * True to make the window modal and mask everything behind it when displayed, false to display it without
      * restricting access to other UI elements (defaults to false).
