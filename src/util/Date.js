@@ -137,18 +137,17 @@ Date.createNewFormat = function(format) {
             code += "'" + String.escape(ch) + "' + ";
         }
         else {
-            code += Date.getFormatCode(ch);
+            code += Date.getFormatCode(ch) + " + ";
         }
     }
     eval(code.substring(0, code.length - 3) + ";}");
 };
 
 /**
- * A single character code-to-format hashmap.
- * Formatting functions are javascript expressions wrapped in strings
- * (or functions which return expressions wrapped in strings) which, when evaluated 
- * in the context of the Date object from which the {@link #format} method is called, will
- * return the appropriate value for the given code.
+ * A format-code to formatting-function hashmap used by the {@link #format} method.
+ * A formatting function is a string (or a function which returns a string) which
+ * will return the appropriate value when evaluated in the context of the Date object
+ * from which the {@link #format} method is called.
  * Add to / override these mappings for custom date formatting.
  * Note: Date.format() treats characters as literals if an appropriate mapping cannot be found.
  * Example:
@@ -191,14 +190,13 @@ Date.formatCodes = {
     P: "this.getGMTOffset(true)",
     T: "this.getTimezone()",
     Z: "(this.getTimezoneOffset() * -60)",
-    //* ISO-8601 format quick switch block -- append an additional '/' to the first '/' on this line to enable UTC format
+    //* ISO-8601 format quick switch block -- remove the first '/' on this line to enable UTC format
     c: function() { // ISO-8601 -- GMT format
-        for (var c = "Y-m-dTH:i:sP", code = "", i = 0, l = c.length; i < l; ++i) {
+        for (var c = "Y-m-dTH:i:sP", code = [], i = 0, l = c.length; i < l; ++i) {
             var e = c.charAt(i);
-            code += e == "T" ? "'T' + " // treat T as a character literal
-                    : Date.getFormatCode(e);
+            code.push(e == "T" ? "'T'" : Date.getFormatCode(e)); // treat T as a character literal
         }
-        return code.substring(0, code.length - 3); // remove trailing " + "
+        return code.join(" + ");
     },
     /*/
     c: function() { // ISO-8601 -- UTC format
@@ -211,7 +209,7 @@ Date.formatCodes = {
           "String.leftPad(this.getUTCMinutes(), 2, '0')", "':'",
           "String.leftPad(this.getUTCSeconds(), 2, '0')",
           "'Z'"
-        ].join("+");
+        ].join(" + ");
     },
     //*/
     U: "Math.round(this.getTime() / 1000)"
@@ -228,7 +226,7 @@ Date.getFormatCode = function(character) {
     }
 
     // note: unknown characters are treated as literals
-    return (f || ("'" + String.escape(character) + "'")) + " + ";
+    return f || ("'" + String.escape(character) + "'");
 };
 
 /**
