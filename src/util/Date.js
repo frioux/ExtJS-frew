@@ -218,11 +218,10 @@ Date.formatCodes = {
 // private
 Date.getFormatCode = function(character) {
     var f = Date.formatCodes[character];
-    f = Ext.type(f) == 'function'? f() : f;
     
     if (f) {
-       // reassign function result to prevent repeated execution
-      Date.formatCodes[character] = f;
+      f = Ext.type(f) == 'function'? f() : f;
+      Date.formatCodes[character] = f; // reassign function result to prevent repeated execution
     }
 
     // note: unknown characters are treated as literals
@@ -534,11 +533,10 @@ Date.parseCodes = {
 Date.formatCodeToRegex = function(character, currentGroup) {
     // Note: currentGroup - position in regex result array (see notes for Date.parseCodes above)
     var p = Date.parseCodes[character];
-    p = Ext.type(p) == 'function'? p() : p;
 
     if (p) {
-      // reassign function result to prevent repeated execution
-      Date.parseCodes[character] = p;
+      p = Ext.type(p) == 'function'? p() : p;
+      Date.parseCodes[character] = p; // reassign function result to prevent repeated execution
       
       if (p.c) {
         p.c = String.format(p.c, currentGroup);
