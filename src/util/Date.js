@@ -144,8 +144,8 @@ Date.createNewFormat = function(format) {
 };
 
 /**
- * A format-code to formatting-function hashmap used by the {@link #format} method.
- * A formatting function is a string (or a function which returns a string) which
+ * The base format-code to formatting-function hashmap used by the {@link #format} method.
+ * Formatting functions are strings (or functions which return strings) which
  * will return the appropriate value when evaluated in the context of the Date object
  * from which the {@link #format} method is called.
  * Add to / override these mappings for custom date formatting.
@@ -190,7 +190,6 @@ Date.formatCodes = {
     P: "this.getGMTOffset(true)",
     T: "this.getTimezone()",
     Z: "(this.getTimezoneOffset() * -60)",
-    //* ISO-8601 format quick switch block -- remove the first '/' on this line to enable UTC format
     c: function() { // ISO-8601 -- GMT format
         for (var c = "Y-m-dTH:i:sP", code = [], i = 0, l = c.length; i < l; ++i) {
             var e = c.charAt(i);
@@ -198,7 +197,7 @@ Date.formatCodes = {
         }
         return code.join(" + ");
     },
-    /*/
+    /*
     c: function() { // ISO-8601 -- UTC format
         return [
           "this.getUTCFullYear()", "'-'",
@@ -211,7 +210,7 @@ Date.formatCodes = {
           "'Z'"
         ].join(" + ");
     },
-    //*/
+    */
     U: "Math.round(this.getTime() / 1000)"
 }
 
