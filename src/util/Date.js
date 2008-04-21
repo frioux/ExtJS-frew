@@ -336,10 +336,10 @@ Date.parseCodes = {
         c:"d = parseInt(results[{0}], 10);\n",
         s:"(\\d{2})" // day of month with leading zeroes (01 - 31)
     },
-    j: function() {
-        return Ext.applyIf({
-            s:"(\\d{1,2})" // day of month without leading zeroes (1 - 31)
-        }, Date.parseCodes["d"]);
+    j: {
+        g:1,
+        c:"d = parseInt(results[{0}], 10);\n",
+        s:"(\\d{1,2})" // day of month without leading zeroes (1 - 31)
     },
     D: function() {
         for (var a = [], i = 0; i < 7; a.push(Date.getShortDayName(i)), ++i); // get localised short day names
@@ -392,17 +392,17 @@ Date.parseCodes = {
         for (var a = [], i = 0; i < 12; a.push(Date.getShortMonthName(i)), ++i); // get localised short month names
         return Ext.applyIf({
             s:"(" + a.join("|") + ")"
-        }, Date.parseCodes["F"]);
+        }, Date.formatCodeToRegex("F"));
     },
     m: {
         g:1,
         c:"m = parseInt(results[{0}], 10) - 1;\n",
         s:"(\\d{2})" // month number with leading zeros (01 - 12)
     },
-    n: function() {
-        return Ext.applyIf({
-            s:"(\\d{1,2})" // month number without leading zeros (1 - 12)
-        }, Date.parseCodes["m"]);
+    n: {
+        g:1,
+        c:"m = parseInt(results[{0}], 10) - 1;\n",
+        s:"(\\d{1,2})" // month number without leading zeros (1 - 12)
     },
     t: {
         g:0,
@@ -415,7 +415,7 @@ Date.parseCodes = {
         s:"(?:1|0)"
     },
     o: function() {
-        return Date.parseCodes["Y"];
+        return Date.formatCodeToRegex("Y");
     },
     Y: {
         g:1,
@@ -443,7 +443,7 @@ Date.parseCodes = {
         s:"(AM|PM)"
     },
     g: function() {
-        return Date.parseCodes["G"];
+        return Date.formatCodeToRegex("G");
     },
     G: {
         g:1,
@@ -451,7 +451,7 @@ Date.parseCodes = {
         s:"(\\d{1,2})" // 24-hr format of an hour without leading zeroes (0 - 23)
     },
     h: function() {
-        return Date.parseCodes["H"];
+        return Date.formatCodeToRegex("H");
     },
     H: {
         g:1,
@@ -487,7 +487,7 @@ Date.parseCodes = {
     P: function() {
       return Ext.applyIf({
         s: "([+\-]\\d{2}:\\d{2})" // GMT offset in hrs and mins (with colon separator)
-      }, Date.parseCodes["O"]);
+      }, Date.formatCodeToRegex("O"));
     },
     T: {
         g:0,
@@ -535,14 +535,12 @@ Date.formatCodeToRegex = function(character, currentGroup) {
 
     if (p) {
       p = Ext.type(p) == 'function'? p() : p;
-      Date.parseCodes[character] = p; // reassign function result to prevent repeated execution
-      
-      if (p.c) {
-        p.c = String.format(p.c, currentGroup);
-      }
+      Date.parseCodes[character] = p; // reassign function result to prevent repeated execution      
     }
 
-    return p || {
+    return p? Ext.applyIf({
+      c: p.c? String.format(p.c, currentGroup || "{0}") : p.c
+    }, p) : {
         g:0,
         c:null,
         s:Ext.escapeRe(character) // treat unrecognised characters as literals
