@@ -26,8 +26,8 @@
  * directory.</p><pre><code>
 //  Create the GridPanel.
 myGrid = new Ext.grid.GridPanel({
-    myStore,
-    myColumnModel,
+    store: myStore,
+    columns: myColumnModel,
     title: 'Results',
 });
 
