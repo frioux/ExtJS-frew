@@ -11,8 +11,8 @@ if(Ext.View){
    Ext.View.prototype.emptyText = "";
 }
 
-if(Ext.grid.Grid){
-   Ext.grid.Grid.prototype.ddText = "{0} wybrano wiersze(y)";
+if(Ext.grid.GridPanel){
+   Ext.grid.GridPanel.prototype.ddText = "{0} wybrano wiersze(y)";
 }
 
 if(Ext.TabPanelItem){

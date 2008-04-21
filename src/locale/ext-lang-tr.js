@@ -12,8 +12,8 @@ if(Ext.View){
   Ext.View.prototype.emptyText = "";
 }
 
-if(Ext.grid.Grid){
-  Ext.grid.Grid.prototype.ddText = "Şeçili satır sayısı : {0}";
+if(Ext.grid.GridPanel){
+  Ext.grid.GridPanel.prototype.ddText = "Şeçili satır sayısı : {0}";
 }
 
 if(Ext.TabPanelItem){

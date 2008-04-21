@@ -10,8 +10,8 @@ if(Ext.View){
     Ext.View.prototype.emptyText = "";
 }
 
-if(Ext.grid.Grid){
-    Ext.grid.Grid.prototype.ddText = "選擇了 {0} 行";
+if(Ext.grid.GridPanel){
+    Ext.grid.GridPanel.prototype.ddText = "選擇了 {0} 行";
 }
 
 if(Ext.TabPanelItem){

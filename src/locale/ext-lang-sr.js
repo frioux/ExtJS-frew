@@ -11,8 +11,8 @@ if(Ext.View){
    Ext.View.prototype.emptyText = "Ne postoji ni jedan slog";
 }
 
-if(Ext.grid.Grid){
-   Ext.grid.Grid.prototype.ddText = "{0} izabranih redova";
+if(Ext.grid.GridPanel){
+   Ext.grid.GridPanel.prototype.ddText = "{0} izabranih redova";
 }
 
 if(Ext.TabPanelItem){

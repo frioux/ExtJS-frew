@@ -9,8 +9,8 @@ if(Ext.View){
   Ext.View.prototype.emptyText = "";
 }
 
-if(Ext.grid.Grid){
-  Ext.grid.Grid.prototype.ddText = "שורות נבחרות {0}";
+if(Ext.grid.GridPanel){
+  Ext.grid.GridPanel.prototype.ddText = "שורות נבחרות {0}";
 }
 
 if(Ext.TabPanelItem){
