@@ -67,11 +67,11 @@ Ext.ComponentMgr = function(){
         all : all,
 
         /**
-         * Registers a new Component constructor, keyed by a new
-         * {@link Ext.Component#xtype}.<br><br>
-         * Use this method to register new subclasses of {@link Ext.Component} so
+         * <p>Registers a new Component constructor, keyed by a new
+         * {@link Ext.Component#xtype}.</p>
+         * <p>Use this method to register new subclasses of {@link Ext.Component} so
          * that lazy instantiation may be used when specifying child Components.
-         * see {@link Ext.Container#items}
+         * see {@link Ext.Container#items}</p>
          * @param {String} xtype The mnemonic string by which the Component class
          * may be looked up.
          * @param {Constructor} cls The new Component class.
@@ -81,7 +81,13 @@ Ext.ComponentMgr = function(){
             cls.xtype = xtype;
         },
 
-        // private
+        /**
+         * Creates a new Component from the specified config object using the
+         * config object's {@link Ext.component#xtype xtype} to determine the class to instantiate.
+         * @param config {Object} A configuration object for the Component you wish to create.
+         * @param defaultType {Constructor} The constructor to provide the default Component type if
+         * the config object does not contain an xtype. (Optional if the config contains an xtype).
+         */
         create : function(config, defaultType){
             return new types[config.xtype || defaultType](config);
         }
