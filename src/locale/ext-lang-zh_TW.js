@@ -164,7 +164,7 @@ if(Ext.grid.PropertyColumnModel){
     });
 }
 
-if(Ext.layout.BorderLayout.SplitRegion){
+if(Ext.layout.BorderLayout && Ext.layout.BorderLayout.SplitRegion){
     Ext.apply(Ext.layout.BorderLayout.SplitRegion.prototype, {
        splitTip            : "拖曳縮放大小.",
        collapsibleSplitTip : "拖曳縮放大小. 滑鼠雙擊隱藏."

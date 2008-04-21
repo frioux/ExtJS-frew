@@ -290,7 +290,7 @@ if(Ext.grid.PropertyColumnModel){
 	});
 }
 
-if(Ext.layout.BorderLayout.SplitRegion){
+if(Ext.layout.BorderLayout && Ext.layout.BorderLayout.SplitRegion){
 	Ext.apply(Ext.layout.BorderLayout.SplitRegion.prototype, {
 	    splitTip			: "Przeciągnij aby zmienić rozmiar.",
 		collapsibleSplitTip	: "Przeciągnij aby zmienić rozmiar. Kliknij dwukrotnie aby ukryć."

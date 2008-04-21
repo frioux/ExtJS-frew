@@ -291,7 +291,7 @@ if(Ext.grid.PropertyColumnModel){
   });
 }
 
-if(Ext.layout.BorderLayout.SplitRegion){
+if(Ext.layout.BorderLayout && Ext.layout.BorderLayout.SplitRegion){
   Ext.apply(Ext.layout.BorderLayout.SplitRegion.prototype, {
     splitTip            : "Patraukite juostelę.",
     collapsibleSplitTip : "Patraukite juostelę arba Paspauskite dvigubai kad paslėpti."

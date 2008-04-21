@@ -280,7 +280,7 @@ if(Ext.grid.PropertyColumnModel){
   });
 }
 
-if(Ext.layout.BorderLayout.SplitRegion){
+if(Ext.layout.BorderLayout && Ext.layout.BorderLayout.SplitRegion){
   Ext.apply(Ext.layout.BorderLayout.SplitRegion.prototype, {
     splitTip            : "Dra for å endre storleik.",
     collapsibleSplitTip : "Dra for å endre storleik. Dobbelklikk for å skjule."

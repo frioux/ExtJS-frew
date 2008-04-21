@@ -163,7 +163,7 @@ if(Ext.grid.PropertyColumnModel){
    });
 }
 
-if(Ext.layout.BorderLayout.SplitRegion){
+if(Ext.layout.BorderLayout && Ext.layout.BorderLayout.SplitRegion){
    Ext.apply(Ext.layout.BorderLayout.SplitRegion.prototype, {
       splitTip            : "Povuci za promjenu veličine.",
       collapsibleSplitTip : "Povuci za promjenu veličine. Dvostruki klik za skrivanje."

@@ -286,7 +286,7 @@ if(Ext.SplitLayoutRegion){
   });
 }
 
-if(Ext.layout.BorderLayout.SplitRegion){
+if(Ext.layout.BorderLayout && Ext.layout.BorderLayout.SplitRegion){
   Ext.apply(Ext.layout.BorderLayout.SplitRegion.prototype, {
     splitTip            : "Тяните для изменения размера.",
     collapsibleSplitTip : "Тяните для изменения размера. Двойной щелчок спрячет панель."

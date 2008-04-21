@@ -284,7 +284,7 @@ if(Ext.grid.PropertyColumnModel){
     });
 }
 
-if(Ext.layout.BorderLayout.SplitRegion){
+if(Ext.layout.BorderLayout && Ext.layout.BorderLayout.SplitRegion){
     Ext.apply(Ext.layout.BorderLayout.SplitRegion.prototype, {
        splitTip            : "Sleep om grootte aan te passen.",
        collapsibleSplitTip : "Sleep om grootte aan te passen. Dubbel klikken om te verbergen."

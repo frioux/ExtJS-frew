@@ -264,7 +264,7 @@ if(Ext.grid.PropertyColumnModel){
   });
 }
 
-if(Ext.layout.BorderLayout.SplitRegion){
+if(Ext.layout.BorderLayout && Ext.layout.BorderLayout.SplitRegion){
   Ext.apply(Ext.layout.BorderLayout.SplitRegion.prototype, {
     splitTip            : "Влачете с мишката за да промените размера.",
     collapsibleSplitTip : "Влачете с мишката за да промените размера. Чукнете два пъти за да скриете."

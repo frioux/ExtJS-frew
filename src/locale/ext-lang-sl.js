@@ -162,7 +162,7 @@ if(Ext.grid.PropertyColumnModel){
    });
 }
 
-if(Ext.layout.BorderLayout.SplitRegion){
+if(Ext.layout.BorderLayout && Ext.layout.BorderLayout.SplitRegion){
    Ext.apply(Ext.layout.BorderLayout.SplitRegion.prototype, {
       splitTip            : "Potegni za razširitev.",
       collapsibleSplitTip : "Potegni za razširitev. Dvojni klik, če želite skriti."
