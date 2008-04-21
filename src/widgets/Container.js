@@ -1,10 +1,12 @@
 /**
  * @class Ext.Container
  * @extends Ext.BoxComponent
- * <p>Base class for any {@link Ext.BoxComponent} that can contain other components.  Containers handle the basic
- * behavior of containing items, namely adding, inserting and removing them.  The specific layout logic required
- * to visually render contained items is delegated to any one of the different {@link #layout} classes available.
- * This class is intended to be extended and should generally not need to be created directly via the new keyword.</p>
+ * <p>Base class for any {@link Ext.BoxComponent} that can contain other components. This class is intended
+ * to be extended and should generally not need to be created directly via the new keyword. {@link Ext.Panel},
+ * {@link Ext.Window} and {@link Ext.TabPanel} are the most commonly used Container classes.</p>
+ * Containers handle the basic behavior of containing items, namely adding, inserting and removing them. 
+ * The specific layout logic required to visually render contained items is delegated to any one of the different
+ * {@link #layout} classes available.</p>
  * <p>When either specifying child {@link #items} of a Container, or dynamically adding components to a Container,
  * remember to consider how you wish the Container to arrange those child elements, and whether those child elements
  * need to be sized using one of Ext's built-in layout schemes.</p>
@@ -17,9 +19,11 @@
  * the GridPanel <i>inside</i> a wrapping Panel and add that wrapping Panel to the TabPanel. This misses the point that
  * Ext's inheritance means that a GridPanel <b>is</b> a Component which can be added unadorned into a Container. If
  * that wrapping Panel has no layout configuration, then the GridPanel will not be sized as expected.<p>
- * <p>Below is an example of adding a newly created GridPanel to a TabPanel. This requires prior knowledge of how
- * to create GridPanels. See {@link Ext.grid.GridPanel}, {@link Ext.data.Store} and {@link Ext.data.JsonReader} as
- * well as the grid examples in the Ext installation's <tt>examples/grid</tt> directory.</p><pre><code>
+ * <p>Below is an example of adding a newly created GridPanel to a TabPanel. A TabPanel uses {@link Ext.layout.CardLayout}
+ * as its layout manager which means all its child items are sized to fit exactly into its client area. The following
+ * code requires prior knowledge of how to create GridPanels. See {@link Ext.grid.GridPanel}, {@link Ext.data.Store}
+ * and {@link Ext.data.JsonReader} as well as the grid examples in the Ext installation's <tt>examples/grid</tt>
+ * directory.</p><pre><code>
 //  Create the GridPanel.
 myGrid = new Ext.grid.GridPanel({
     myStore,
