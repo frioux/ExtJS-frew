@@ -3,6 +3,8 @@
  * 08 April 2007
  * Updated by Allan Brazute Alves (EthraZa)
  * 06 September 2007
+ * Updated by Leonardo Lima
+ * 05 March 2008
  */
 
 Ext.UpdateManager.defaults.indicatorText = '<div class="loading-indicator">Carregando...</div>';
@@ -84,12 +86,31 @@ if(Ext.MessageBox){
    };
 }
 
-if(Ext.util.Format){
-   Ext.util.Format.date = function(v, format){
-      if(!v) return "";
-      if(!(v instanceof Date)) v = new Date(Date.parse(v));
-      return v.dateFormat(format || "d/m/Y");
-   };
+if (Ext.util.Format) {
+  Ext.util.Format.date = function(v, format){
+    if (!v) 
+      return "";
+    if (!(v instanceof Date)) 
+      v = new Date(Date.parse(v));
+    return v.dateFormat(format || "d/m/Y");
+  };
+  Ext.util.Format.brMoney = function(v){
+    v = (Math.round((v - 0) * 100)) / 100;
+    v = (v == Math.floor(v)) ? v + ".00" : ((v * 10 == Math.floor(v * 10)) ? v + "0" : v);
+    v = String(v);
+    var ps = v.split('.');
+    var whole = ps[0];
+    var sub = ps[1] ? '.' + ps[1] : '.00';
+    var r = /(\d+)(\d{3})/;
+    while (r.test(whole)) {
+      whole = whole.replace(r, '$1' + '.' + '$2');
+    }
+    v = whole + sub;
+    if (v.charAt(0) == '-') {
+      return '- R$ ' + v.substr(1);
+    }
+    return "R$ " + v;
+  }
 }
 
 if(Ext.DatePicker){
@@ -173,8 +194,8 @@ if(Ext.form.VTypes){
 
 if(Ext.form.HtmlEditor){
    Ext.apply(Ext.form.HtmlEditor.prototype, {
-	 createLinkText : 'Porfavor, entre com a URL do link:',
-	 buttonTips : {
+   createLinkText : 'Porfavor, entre com a URL do link:',
+   buttonTips : {
             bold : {
                title: 'Negrito (Ctrl+B)',
                text: 'Deixa o texto selecionado em negrito.',
