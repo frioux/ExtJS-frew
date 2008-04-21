@@ -1,21 +1,28 @@
 /**
  * @class Ext.data.Connection
  * @extends Ext.util.Observable
- * The class encapsulates a connection to the page's originating domain, allowing requests to be made
- * either to a configured URL, or to a URL specified at request time.<br><br>
- * <p>
- * Requests made by this class are asynchronous, and will return immediately. No data from
+ * <p>The class encapsulates a connection to the page's originating domain, allowing requests to be made
+ * either to a configured URL, or to a URL specified at request time.</p>
+ * <p>Requests made by this class are asynchronous, and will return immediately. No data from
  * the server will be available to the statement immediately following the {@link #request} call.
- * To process returned data, use a callback in the request options object, or an event listener.</p><br>
- * <p>
- * Note: If you are doing a file upload, you will not get a normal response object sent back to
- * your callback or event handler.  Since the upload is handled via in IFRAME, there is no XMLHttpRequest.
- * The response object is created using the innerHTML of the IFRAME's document as the responseText
- * property and, if present, the IFRAME's XML document as the responseXML property.</p><br>
- * This means that a valid XML or HTML document must be returned. If JSON data is required, it is suggested
- * that it be placed either inside a &lt;textarea> in an HTML document and retrieved from the responseText
- * using a regex, or inside a CDATA section in an XML document and retrieved from the responseXML using
- * standard DOM methods.
+ * To process returned data, use a {@link #request-option-success callback} in the request options object,
+ * or an {@link #requestcomplete event listener}.</p>
+ * <p>{@link #request-option-isUpload File uploads} are not performed using normal "Ajax" techniques, that
+ * is they are <b>not</b> performed using XMLHttpRequests. Instead the form is submitted in the standard
+ * manner with the DOM <tt>&lt;form></tt> element temporarily modified to have its
+ * {@link http://www.w3.org/TR/REC-html40/present/frames.html#adef-target target} set to refer
+ * to a dynamically generated, hidden <tt>&lt;iframe></tt> which is inserted into the document
+ * but removed after the return data has been gathered.</p>
+ * <p>The server response is parsed by the browser to create the document for the IFRAME. If the
+ * server is using JSON to send the return object, then the
+ * {@link http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17 Content-Type} header
+ * must be set to "text/html" in order to tell the browser to insert the text unchanged into the document body.</p>
+ * <p>The response text is retrieved from the document, and a fake XMLHttpRequest object
+ * is created containing a <tt>responseText</tt> property in order to conform to the
+ * requirements of event handlers and callbacks.</p>
+ * <p>Be aware that file upload packets are sent with the content type {@link http://www.faqs.org/rfcs/rfc2388.html multipart/form}
+ * and some server technologies (notably JEE) may require some custom processing in order to
+ * retrieve parameter names and parameter values from the packet content.</p>
  * @constructor
  * @param {Object} config a configuration object.
  */
@@ -111,7 +118,7 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
      * called regardless of success or failure and is passed the following
      * parameters:<ul>
      * <li><b>options</b> : Object<div class="sub-desc">The parameter to the request call.</div></li>
-     * <li><b>success</b> : Boolean<div class="sub-desc">True if the request succeeded.</div></li>
+     * <a id="request-option-success"><li><b>success</b> : Boolean<div class="sub-desc">True if the request succeeded.</div></li>
      * <li><b>response</b> : Object<div class="sub-desc">The XMLHttpRequest object containing the response data. See http://www.w3.org/TR/XMLHttpRequest/ for details about accessing elements of the response.</div></li>
      * </ul></div></li>
      * <li><b>success</b> : Function (Optional)<div class="sub-desc">The function
@@ -132,7 +139,7 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
      * Defaults to the browser window.</div></li>
      * <li><b>form</b> : Object/String (Optional)<div class="sub-desc">A form
      * object or id to pull parameters from.</div></li>
-     * <li><b>isUpload</b> : Boolean (Optional)<div class="sub-dec">True if the form object is a
+     * <a id="request-option-isUpload"><li><b>isUpload</b> : Boolean (Optional)<div class="sub-dec">True if the form object is a
      * file upload (will usually be automatically detected).
      * <p>File uploads are not performed using normal "Ajax" techniques, that is they are <b>not</b>
      * performed using XMLHttpRequests. Instead the form is submitted in the standard manner with the
