@@ -222,7 +222,7 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
                 timeout : o.timeout || this.timeout
             };
 
-            var method = o.method||this.method||(p ? "POST" : "GET");
+            var method = o.method||this.method||((p || o.xmlData || o.jsonData) ? "POST" : "GET");
 
             if(method == 'GET' && (this.disableCaching && o.disableCaching !== false) || o.disableCaching === true){
                 url += (url.indexOf('?') != -1 ? '&' : '?') + '_dc=' + (new Date().getTime());
