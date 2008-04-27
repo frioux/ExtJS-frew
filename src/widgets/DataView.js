@@ -250,6 +250,8 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
      * Function that can be overridden to provide custom formatting for the data that is sent to the template for each node.
      * @param {Array/Object} data The raw data (array of colData for a data model bound view or
      * a JSON object for an Updater bound view).
+     * @param {Number} recordIndex the index number of the Record being prepared for rendering.
+     * @param {Record} record The Record being prepared for rendering.
      * @return {Array/Object} The formatted data in a format expected by the internal {@link #tpl}'s overwrite() method.
      * (either an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'}))
      */
