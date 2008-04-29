@@ -19,10 +19,6 @@ if(Ext.TabPanelItem){
   Ext.TabPanelItem.prototype.closeText = "Close this tab";
 }
 
-if(Ext.form.Field){
-  Ext.form.Field.prototype.invalidText = "The value in this field is invalid";
-}
-
 if(Ext.LoadMask){
   Ext.LoadMask.prototype.msg = "Loading...";
 }
@@ -128,6 +124,10 @@ if(Ext.PagingToolbar){
     displayMsg     : "Displaying {0} - {1} of {2}",
     emptyMsg       : 'No data to display'
   });
+}
+
+if(Ext.form.Field){
+  Ext.form.Field.prototype.invalidText = "The value in this field is invalid";
 }
 
 if(Ext.form.TextField){
@@ -252,6 +252,10 @@ if(Ext.form.HtmlEditor){
       }
     }
   });
+}
+
+if(Ext.form.BasicForm){
+  Ext.form.BasicForm.prototype.waitTitle = "Please wait...";
 }
 
 if(Ext.grid.GridView){
