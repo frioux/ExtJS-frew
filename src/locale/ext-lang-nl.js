@@ -20,10 +20,6 @@ if(Ext.TabPanelItem){
   Ext.TabPanelItem.prototype.closeText = 'Sluit dit tabblad';
 }
 
-if(Ext.form.Field){
-  Ext.form.Field.prototype.invalidText = 'De waarde van dit veld is ongeldig';
-}
-
 if(Ext.LoadMask){
   Ext.LoadMask.prototype.msg = 'Bezig met laden...';
 }
@@ -136,6 +132,10 @@ if(Ext.PagingToolbar){
     displayMsg: 'Getoond {0} - {1} van {2}',
     emptyMsg: 'Geen gegevens om weer te geven'
   });
+}
+
+if(Ext.form.Field){
+  Ext.form.Field.prototype.invalidText = 'De waarde van dit veld is ongeldig';
 }
 
 if(Ext.form.TextField){
@@ -260,6 +260,10 @@ if(Ext.form.HtmlEditor){
       }
     }
   });
+}
+
+if(Ext.form.BasicForm){
+  Ext.form.BasicForm.prototype.waitTitle = "Even wachten a.u.b...";
 }
 
 if(Ext.grid.GridView){
