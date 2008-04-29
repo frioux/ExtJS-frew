@@ -330,6 +330,25 @@ Date.createParser = function(format) {
     eval(code);
 };
 
+// private
+Date.formatCodeToRegex = function(character, currentGroup) {
+    // Note: currentGroup - position in regex result array (see notes for Date.parseCodes above)
+    var p = Date.parseCodes[character];
+
+    if (p) {
+      p = Ext.type(p) == 'function'? p() : p;
+      Date.parseCodes[character] = p; // reassign function result to prevent repeated execution
+    }
+
+    return p? Ext.applyIf({
+      c: p.c? String.format(p.c, currentGroup || "{0}") : p.c
+    }, p) : {
+        g:0,
+        c:null,
+        s:Ext.escapeRe(character) // treat unrecognised characters as literals
+    }
+};
+
 (function() {
   var df = Date.formatCodeToRegex;
 
@@ -542,24 +561,6 @@ Date.createParser = function(format) {
   }
 })();
 
-// private
-Date.formatCodeToRegex = function(character, currentGroup) {
-    // Note: currentGroup - position in regex result array (see notes for Date.parseCodes above)
-    var p = Date.parseCodes[character];
-
-    if (p) {
-      p = Ext.type(p) == 'function'? p() : p;
-      Date.parseCodes[character] = p; // reassign function result to prevent repeated execution
-    }
-
-    return p? Ext.applyIf({
-      c: p.c? String.format(p.c, currentGroup || "{0}") : p.c
-    }, p) : {
-        g:0,
-        c:null,
-        s:Ext.escapeRe(character) // treat unrecognised characters as literals
-    }
-};
 
 /**
  * Get the timezone abbreviation of the current date (equivalent to the format specifier 'T').
