@@ -156,6 +156,21 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * @cfg {Ext.form.Field} editor (optional) The {@link Ext.form.Field} to use when editing values in this column if
      * editing is supported by the grid.
      */
+    /**
+     * @cfg {Function} groupRenderer If the grid is being rendered by an {@link Ext.grid.GroupingView}, this
+     * option may be used to specify the function used to format the grouping field value for
+     * display in the group header. Should return a string value.
+     * <p>This takes the following parameters:
+     * <div class="mdetail-params"><ul>
+     * <li><b>v</b> : Object<p class="sub-desc">The new value of the group field.</p></li>
+     * <li><b>unused</b> : undefined<p class="sub-desc">Unused parameter.</p></li>
+     * <li><b>r</b> : Ext.data.Record<p class="sub-desc">The Record providing the data
+     * for the row which caused group change.</p></li>
+     * <li><b>rowIndex</b> : Number<p class="sub-desc">The row index of the Record which caused group change.</p></li>
+     * <li><b>colIndex</b> : Number<p class="sub-desc">The column index of the group field.</p></li>
+     * <li><b>ds</b> : Ext.data.Store<p class="sub-desc">The Store which is providing the data Model.</p></li>
+     * </ul></div></p>
+     */
 
     /**
      * Returns the id of the column at the specified index.

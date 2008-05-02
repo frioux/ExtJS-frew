@@ -93,7 +93,10 @@ Ext.grid.GroupingView = Ext.extend(Ext.grid.GridView, {
     groupTextTpl : '{text}',
     /**
      * @cfg {Function} groupRenderer The function used to format the grouping field value for
-     * display in the group header. Should return a string value. This takes the following parameters:
+     * display in the group header. Should return a string value. <b>This configuration object
+     * is in fact a configuration option of the column definition in the grid's
+     * {@link Ext.grid.ColumnModel#groupRenderer ColumnModel}, it is included here for ease of reference.</b>
+     * <p>This takes the following parameters:
      * <div class="mdetail-params"><ul>
      * <li><b>v</b> : Object<p class="sub-desc">The new value of the group field.</p></li>
      * <li><b>unused</b> : undefined<p class="sub-desc">Unused parameter.</p></li>
