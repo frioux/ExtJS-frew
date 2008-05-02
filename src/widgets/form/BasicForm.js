@@ -12,6 +12,7 @@
 Ext.form.BasicForm = function(el, config){
     Ext.apply(this, config);
     /*
+     * @property
      * The Ext.form.Field items in this form.
      * @type MixedCollection
      */
