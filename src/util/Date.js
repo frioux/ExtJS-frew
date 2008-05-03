@@ -684,7 +684,7 @@ Ext.apply(Date, {
                 $f("h", 4), // hour
                 $f("i", 5), // minute
                 $f("s", 6), // second
-                {c:"ms = results[7].substring(1); ms = parseInt(ms, 10)/Math.pow(10, ms.length - 3);\n"}, // millisecond decimal fraction (with leading zeroes + arbitrary no. of digits)
+                {c:"ms = (results[7] || '.0').substring(1); ms = parseInt(ms, 10)/Math.pow(10, ms.length - 3);\n"}, // millisecond decimal fraction (with leading zeroes + arbitrary no. of digits)
                 {c:"if(results[9] == 'Z'){\no = 0;\n}else{\n" + $f("P", 9).c + "\n}"} // allow both "Z" (i.e. UTC) and "+08:00" (i.e. GMT) time zone delimiters
             ];
             for (var i = 0, l = arr.length; i < l; ++i) {
