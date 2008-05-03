@@ -150,7 +150,9 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * @cfg {String} css (optional) Set custom CSS for all table cells in the column (excluding headers).  Defaults to undefined.
      */
     /**
-     * @cfg {Boolean} hideable (optional) Specify as <tt>false</tt> to prevent the user from hiding this column.  Defaults to true.
+     * @cfg {Boolean} hideable (optional) Specify as <tt>false</tt> to prevent the user from hiding this column 
+     * (defaults to true).  To disallow column hiding globally for all columns in the grid, use 
+     * {@link Ext.grid.GridPanel#enableColumnHide} instead.
      */
     /**
      * @cfg {Ext.form.Field} editor (optional) The {@link Ext.form.Field} to use when editing values in this column if
