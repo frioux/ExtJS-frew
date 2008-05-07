@@ -335,8 +335,21 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
        return (!this.parentNode ? true : this.parentNode.firstChild == this);
     },
 
+    /**
+     * Returns true if this node has one or more child nodes, else false.
+     * @return {Boolean}
+     */
     hasChildNodes : function(){
         return !this.isLeaf() && this.childNodes.length > 0;
+    },
+    
+    /**
+     * Returns true if this node has one or more child nodes, or if the <tt>expandable</tt>
+     * node attribute is explicitly specified as true (see {@link #attributes}), otherwise returns false.
+     * @return {Boolean}
+     */
+    isExpandable : function(){
+        return this.attributes.expandable || this.hasChildNodes();
     },
 
     /**

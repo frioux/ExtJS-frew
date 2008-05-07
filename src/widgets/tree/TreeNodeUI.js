@@ -200,7 +200,7 @@ Ext.tree.TreeNodeUI.prototype = {
                 return;
             }
 
-            if(this.node.attributes.singleClickExpand && !this.animating && this.node.hasChildNodes()){
+            if(this.node.attributes.singleClickExpand && !this.animating && this.node.isExpandable()){
                 this.node.toggle();
             }
 
@@ -219,7 +219,7 @@ Ext.tree.TreeNodeUI.prototype = {
         if(this.checkbox){
             this.toggleCheck();
         }
-        if(!this.animating && this.node.hasChildNodes()){
+        if(!this.animating && this.node.isExpandable()){
             this.node.toggle();
         }
         this.fireEvent("dblclick", this.node, e);
@@ -244,7 +244,7 @@ Ext.tree.TreeNodeUI.prototype = {
 
     // private
     ecClick : function(e){
-        if(!this.animating && (this.node.hasChildNodes() || this.node.attributes.expandable)){
+        if(!this.animating && this.node.isExpandable()){
             this.node.toggle();
         }
     },
@@ -306,7 +306,7 @@ Ext.tree.TreeNodeUI.prototype = {
     animExpand : function(callback){
         var ct = Ext.get(this.ctNode);
         ct.stopFx();
-        if(!this.node.hasChildNodes()){
+        if(!this.node.isExpandable()){
             this.updateExpandIcon();
             this.ctNode.style.display = "";
             Ext.callback(callback);
