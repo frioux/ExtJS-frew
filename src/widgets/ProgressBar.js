@@ -136,6 +136,7 @@ interval   Number        The length of time in milliseconds between each progres
 increment  Number        The number of progress update segments to display within the progress
                          bar (defaults to 10).  If the bar reaches the end and is still
                          updating, it will automatically wrap back to the beginning.
+text       String        Optional text to display in the progress bar element (defaults to '').
 fn         Function      A callback function to execute after the progress bar finishes auto-
                          updating.  The function will be called with no arguments.  This function
                          will be ignored if duration is not specified since in that case the
@@ -156,6 +157,7 @@ p.wait({
    interval: 100, //bar will move fast!
    duration: 5000,
    increment: 15,
+   text: 'Updating...',
    scope: this,
    fn: function(){
       Ext.fly('status').update('Done!');
@@ -176,6 +178,7 @@ myAction.on('complete', function(){
         if(!this.waitTimer){
             var scope = this;
             o = o || {};
+            this.updateText(o.text);
             this.waitTimer = Ext.TaskMgr.start({
                 run: function(i){
                     var inc = o.increment || 10;
