@@ -9,11 +9,11 @@
  * var el = Ext.get("foo");
  * var mgr = el.getUpdater();
  * mgr.update({
- *     url: "http://myserver.com/index.php", 
- *     params: {
- *         param1: "foo",
- *         param2: "bar"
- *     }
+        url: "http://myserver.com/index.php", 
+        params: {
+            param1: "foo",
+            param2: "bar"
+        }
  * });
  * ...
  * mgr.formUpdate("myFormId", "http://myserver.com/index.php");
@@ -23,13 +23,13 @@
  * mgr.startAutoRefresh(60, "http://myserver.com/index.php");
  * mgr.on("update", myFcnNeedsToKnow);
  * <br>
-   // short handed call directly from the element object
-   Ext.get("foo").load({
+ * // short handed call directly from the element object
+ * Ext.get("foo").load({
         url: "bar.php",
         scripts: true,
         params: "param1=foo&amp;param2=bar",
         text: "Loading Foo..."
-   });
+ * });
  * </code></pre>
  * @constructor
  * Create new Updater directly.
