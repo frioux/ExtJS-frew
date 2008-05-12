@@ -372,7 +372,7 @@ Company.data.CustomStore = function(config) { ... }
          * @param {Object} scope
          */
         each : function(array, fn, scope){
-            if(!Ext.isArray(array)){
+            if(typeof array.length == "undefined" || typeof array == "string"){
                 array = [array];
             }
             for(var i = 0, len = array.length; i < len; i++){
