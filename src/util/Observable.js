@@ -33,7 +33,11 @@ Ext.util.Observable.prototype = {
      * @return {Boolean} returns false if any of the handlers return false otherwise it returns true
      */
     fireEvent : function(){
-        if(this.eventsSuspended !== true){
+        if(this.eventsSuspended === true){
+            if (this.suspendedEventsQueue) {
+                this.suspendedEventsQueue.push(arguments);
+            }
+        } else {
             var ce = this.events[arguments[0].toLowerCase()];
             if(typeof ce == "object"){
                 return ce.fire.apply(ce, Array.prototype.slice.call(arguments, 1));
@@ -202,16 +206,29 @@ foo.on({
 
     /**
      * Suspend the firing of all events. (see {@link #resumeEvents})
+     * @param queueSuspended {Boolean} Pass as true to queue up suspended events to be fired
+     * after the {@link #resumeEvents} call instead of discarding all suspended events;
      */
-    suspendEvents : function(){
+    suspendEvents : function(queueSuspended){
         this.eventsSuspended = true;
+        if (queueSuspended === true) {
+            this.suspendedEventsQueue = [];
+        }
     },
 
     /**
      * Resume firing events. (see {@link #suspendEvents})
+     * If events were suspended using the <tt><b>queueSuspended</b></tt> parameter, then all
+     * events fired during event suspension will be sent to any listeners now.
      */
     resumeEvents : function(){
         this.eventsSuspended = false;
+        if (this.suspendedEventsQueue) {
+            for (var i = 0, e = this.suspendedEventsQueue, l = e.length; i < l; i++) {
+                this.fireEvent.apply(this, e[i]);
+            }
+            delete this.suspendedEventQueue;
+        }
     },
 
     // these are considered experimental
