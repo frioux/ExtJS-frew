@@ -75,7 +75,7 @@ Ext.DatePicker = Ext.extend(Ext.Component, {
     disabledDatesText : "",
     /**
      * @cfg {Boolean} constrainToViewport
-     * True to constrain the date picker to the viewport (defaults to true)
+     * <b>Deprecated</b> (not currently used). True to constrain the date picker to the viewport (defaults to true)
      */
     constrainToViewport : true,
     /**
