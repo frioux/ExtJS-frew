@@ -673,11 +673,19 @@ Ext.EventObject = function(){
         },
 
         /**
-         * Returns true if the target of this event equals el or is a child of el.  Example usage:
-         * <pre><code>
+         * Returns true if the target of this event is a child of el.  If the target is el, it returns false. 
+         * Example usage:<pre><code>
+// Handle click on any child of an element
 Ext.getBody().on('click', function(e){
     if(e.within('some-el')){
-        alert('Clicked some-el!');
+        alert('Clicked on a child of some-el!');
+    }
+});
+
+// Handle click directly on an element, ignoring clicks on child nodes
+Ext.getBody().on('click', function(e,t){
+    if((t.id == 'some-el') && !e.within(t, true)){
+        alert('Clicked directly on some-el!');
     }
 });
 </code></pre>
@@ -687,7 +695,7 @@ Ext.getBody().on('click', function(e){
          */
         within : function(el, related){
             var t = this[related ? "getRelatedTarget" : "getTarget"]();
-            return t && ((t == Ext.getDom(el)) || Ext.fly(el).contains(t));
+            return t && Ext.fly(el).contains(t);
         },
 
         getPoint : function(){
