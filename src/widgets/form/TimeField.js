@@ -9,14 +9,14 @@
 Ext.form.TimeField = Ext.extend(Ext.form.ComboBox, {
     /**
      * @cfg {Date/String} minValue
-     * The minimum allowed time. Can be either a Javascript date object or a string date in a
-     * valid format (defaults to null).
+     * The minimum allowed time. Can be either a Javascript date object with a valid time value or a string 
+     * time in a valid format -- see {@link #format} and {@link #altFormats} (defaults to null).
      */
     minValue : null,
     /**
      * @cfg {Date/String} maxValue
-     * The maximum allowed time. Can be either a Javascript date object or a string date in a
-     * valid format (defaults to null).
+     * The maximum allowed time. Can be either a Javascript date object with a valid time value or a string 
+     * time in a valid format -- see {@link #format} and {@link #altFormats} (defaults to null).
      */
     maxValue : null,
     /**
