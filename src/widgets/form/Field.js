@@ -228,7 +228,6 @@ side          Add an error icon to the right of the field with a popup on hover
         }
 
         this.el.addClass([this.fieldClass, this.cls]);
-        this.initValue();
     },
 
     // private
@@ -254,6 +253,7 @@ side          Add an error icon to the right of the field with a popup on hover
     afterRender : function(){
         Ext.form.Field.superclass.afterRender.call(this);
         this.initEvents();
+        this.initValue();
     },
 
     // private
