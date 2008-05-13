@@ -376,6 +376,10 @@ side          Add an error icon to the right of the field with a popup on hover
             case 'under':
                 if(!this.errorEl){
                     var elp = this.getErrorCt();
+                    if(!elp){ // field has no container el
+                        this.el.dom.title = msg;
+                        break;
+                    }
                     this.errorEl = elp.createChild({cls:'x-form-invalid-msg'});
                     this.errorEl.setWidth(elp.getWidth(true)-20);
                 }
@@ -385,6 +389,10 @@ side          Add an error icon to the right of the field with a popup on hover
             case 'side':
                 if(!this.errorIcon){
                     var elp = this.getErrorCt();
+                    if(!elp){ // field has no container el
+                        this.el.dom.title = msg;
+                        break;
+                    }
                     this.errorIcon = elp.createChild({cls:'x-form-invalid-icon'});
                 }
                 this.alignErrorIcon();
