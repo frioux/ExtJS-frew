@@ -575,7 +575,7 @@ Ext.EventObject = function(){
         },
 
         /**
-         * Gets the key code for the event.
+         * Gets the character code for the event.
          * @return {Number}
          */
         getCharCode : function(){
