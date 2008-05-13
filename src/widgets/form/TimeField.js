@@ -1,10 +1,17 @@
 /**
  * @class Ext.form.TimeField
  * @extends Ext.form.ComboBox
- * Provides a time input field with a time dropdown and automatic time validation.
-* @constructor
-* Create a new TimeField
-* @param {Object} config
+ * Provides a time input field with a time dropdown and automatic time validation.  Example usage:
+ * <pre><code>
+new Ext.form.TimeField({
+    minValue: '9:00 AM',
+    maxValue: '6:00 PM',
+    increment: 30
+});
+</code></pre>
+ * @constructor
+ * Create a new TimeField
+ * @param {Object} config
  */
 Ext.form.TimeField = Ext.extend(Ext.form.ComboBox, {
     /**
@@ -62,6 +69,11 @@ Ext.form.TimeField = Ext.extend(Ext.form.ComboBox, {
     triggerAction: 'all',
     // private override
     typeAhead: false,
+    
+    // private - This is the date to use when generating time values in the absence of either minValue
+    // or maxValue.  Using the current date causes DST issues on DST boundary dates, so this is an 
+    // arbitrary "safe" date that can be any date aside from DST boundary dates.
+    initDate: '1/1/2008',
 
     // private
     initComponent : function(){
@@ -77,11 +89,11 @@ Ext.form.TimeField = Ext.extend(Ext.form.ComboBox, {
         if(!this.store){
             var min = this.parseDate(this.minValue);
             if(!min){
-                min = new Date().clearTime();
+                min = new Date(this.initDate).clearTime();
             }
             var max = this.parseDate(this.maxValue);
             if(!max){
-                max = new Date().clearTime().add('mi', (24 * 60) - 1);
+                max = new Date(this.initDate).clearTime().add('mi', (24 * 60) - 1);
             }
             var times = [];
             while(min <= max){
