@@ -1628,8 +1628,8 @@ el.un('click', this.handlerFn);
         if(c){
             //constrain the aligned el to viewport if necessary
             var w = this.getWidth(), h = this.getHeight(), r = el.getRegion();
-            // 5px of margin for ie
-            var dw = D.getViewWidth()-5, dh = D.getViewHeight()-5;
+            // 10px of margin for ie
+            var dw = D.getViewWidth()-10, dh = D.getViewHeight()-10;
 
             //If we are at a viewport boundary and the aligned el is anchored on a target border that is
             //perpendicular to the vp border, allow the aligned el to slide on that border,

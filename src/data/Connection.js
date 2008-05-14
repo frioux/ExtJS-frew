@@ -346,7 +346,12 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
                     doc = (frame.contentDocument || window.frames[id].document);
                 }
                 if(doc && doc.body){
-                    r.responseText = doc.body.innerHTML;
+                    var fc = doc.body.firstChild;
+                    if(fc && String(fc.tagName).toLowerCase() == 'textarea'){ // json response wrapped in textarea
+                        r.responseText = fc.value;
+                    }else{
+                        r.responseText = doc.body.innerHTML;
+                    }
                 }
                 if(doc && doc.XMLDocument){
                     r.responseXML = doc.XMLDocument;
@@ -365,7 +370,9 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
             Ext.callback(o.success, o.scope, [r, o]);
             Ext.callback(o.callback, o.scope, [o, true, r]);
 
-            setTimeout(function(){Ext.removeNode(frame);}, 100);
+            if(!this.debugUploads){
+                setTimeout(function(){Ext.removeNode(frame);}, 100);
+            }
         }
 
         Ext.EventManager.on(frame, 'load', cb, this);

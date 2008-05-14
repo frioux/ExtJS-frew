@@ -20,7 +20,9 @@
     -moz-outline:0 none;
     outline:0 none;
     -moz-user-select: normal;
-    -khtml-user-select: normal;  
+    -khtml-user-select: normal;
+	display:block;
+	overflow:hidden;  
 }
 
 /* Horizontal styles */

@@ -159,6 +159,10 @@
     zoom:1;
     /*margin:3px;*/
 }
+.x-column-inner {
+    overflow:hidden;
+    zoom:1;
+}
 
 /* mini mode */
 

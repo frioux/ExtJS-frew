@@ -364,7 +364,7 @@ Ext.Button = Ext.extend(Ext.Component, {
     setText : function(text){
         this.text = text;
         if(this.el){
-            this.el.child("td.x-btn-center " + this.buttonSelector).update(text);
+            this.el.child("td.x-btn-mc " + this.buttonSelector).update(text);
         }
         this.autoWidth();
     },

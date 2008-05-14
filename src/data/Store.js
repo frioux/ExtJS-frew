@@ -800,5 +800,10 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
         this.data = data;
         this.resumeEvents();
         return index;
+    },
+
+    setBaseParam : function (name, value){
+        this.baseParams = this.baseParams || {};
+        this.baseParams[name] = value;
     }
 });

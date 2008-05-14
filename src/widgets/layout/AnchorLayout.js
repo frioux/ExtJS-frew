@@ -47,7 +47,7 @@ Ext.layout.AnchorLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
         var w = size.width, h = size.height;
 
-        if(w < 20 || h < 20){
+        if(w < 20 && h < 20){
             return;
         }
 

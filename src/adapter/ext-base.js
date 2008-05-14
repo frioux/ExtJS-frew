@@ -30,9 +30,11 @@
         },
 
         getViewportWidth: function() {
-            if(Ext.isIE){
-                return Ext.isStrict ? document.documentElement.clientWidth :
-                         document.body.clientWidth;
+            if(!Ext.isStrict && !Ext.isOpera){
+                return document.body.clientWidth;
+            }
+            else if(Ext.isIE){
+                return document.documentElement.clientWidth;
             }else{
                 return self.innerWidth;
             }
@@ -167,20 +169,18 @@
         }
     };
 
-/*
- * Portions of this file are based on pieces of Yahoo User Interface Library
- * Copyright (c) 2007, Yahoo! Inc. All rights reserved.
- * YUI licensed under the BSD License:
- * http://developer.yahoo.net/yui/license.txt
- */
     Ext.lib.Event = function() {
         var loadComplete = false;
         var listeners = [];
+        var listenersById = {};
         var unloadListeners = [];
         var retryCount = 0;
         var onAvailStack = [];
-        var counter = 0;
-        var lastError = null;
+
+        var addElementListener = function(el, ename, h){
+            var id = Ext.id(el);
+            var ls = listenersById[id] ? listenersById[id] : (listenersById[id] = {});
+        }
 
         return {
             POLL_RETRYS: 200,
@@ -298,7 +298,7 @@
             },
 
 
-            getTarget: function(ev, resolveTextNode) {
+            getTarget: function(ev) {
                 ev = ev.browserEvent || ev;
                 var t = ev.target || ev.srcElement;
                 return this.resolveTextNode(t);
@@ -373,7 +373,6 @@
                     try {
                         ev.time = t;
                     } catch(ex) {
-                        this.lastError = ex;
                         return t;
                     }
                 }
@@ -681,6 +680,14 @@
     E.doAdd(window, "unload", E._unload);
     E._tryPreloadAttach();
 
+
+
+/*
+ * Portions of this file are based on pieces of Yahoo User Interface Library
+ * Copyright (c) 2007, Yahoo! Inc. All rights reserved.
+ * YUI licensed under the BSD License:
+ * http://developer.yahoo.net/yui/license.txt
+ */
     Ext.lib.Ajax = {
         request : function(method, uri, cb, data, options) {
 		    if(options){

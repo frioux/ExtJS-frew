@@ -43,6 +43,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
     insertCell : function(c, side, pos){
         var td = document.createElement('td');
+        td.className='x-toolbar-cell';
         side.insertBefore(td, side.childNodes[pos]||null);
         return td;
     },
@@ -555,9 +556,9 @@ new Ext.Panel({
 T.TextItem = Ext.extend(T.Item, {
 	constructor: function(config){
 		if (typeof config == 'string') {
-			config = { autoEl: { cls: 'xtb-text', html: config }};
+			config = { autoEl: {cls: 'xtb-text', html: config }};
 		} else {
-			config.autoEl = { cls: 'xtb-text', html: config.text || ''};
+			config.autoEl = {cls: 'xtb-text', html: config.text || ''};
 		}
 	    T.TextItem.superclass.constructor.call(this, config);
 	},

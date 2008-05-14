@@ -24,6 +24,7 @@
     <include name="core\Fx.js" />
     <include name="core\CompositeElement.js" />
     <include name="data\Connection.js" />
+    <include name="data\Direct.js" />
     <include name="core\UpdateManager.js" />
     <include name="util\Date.js" />
     <include name="util\DelayedTask.js" />
@@ -52,12 +53,14 @@
     <include name="data\Store.js" />
     <include name="data\SimpleStore.js" />
     <include name="data\JsonStore.js" />
+    <include name="data\DirectStore.js" />
     <include name="data\DataField.js" />
     <include name="data\DataReader.js" />
     <include name="data\DataProxy.js" />
     <include name="data\MemoryProxy.js" />
     <include name="data\HttpProxy.js" />
     <include name="data\ScriptTagProxy.js" />
+    <include name="data\DirectProxy.js" />
     <include name="data\JsonReader.js" />
     <include name="data\XmlReader.js" />
     <include name="data\ArrayReader.js" />
@@ -173,7 +176,9 @@
     <include name="widgets\chart\FlashComponent.js" />
     <include name="widgets\chart\EventProxy.js" />
     <include name="widgets\Slider.js" />
+    <include name="util\Cookies.js" />
     <include name="widgets\chart\Chart.js" />
+    <include name="util\History.js" />
   </target>
   <file name="layout\LayoutRegionLite.js" path="layout" />
   <file name="DDScrollManager.js" path="" />
@@ -556,6 +561,7 @@
   <file name="data\DataField.js" path="data" />
   <file name="data\DataProxy.js" path="data" />
   <file name="data\DataReader.js" path="data" />
+  <file name="data\Direct.js" path="data" />
   <file name="data\GroupingStore.js" path="data" />
   <file name="data\HttpProxy.js" path="data" />
   <file name="data\JsonReader.js" path="data" />
@@ -630,6 +636,7 @@
   <file name="util\Date.js" path="util" />
   <file name="util\DelayedTask.js" path="util" />
   <file name="util\Format.js" path="util" />
+  <file name="util\History.js" path="util" />
   <file name="util\JSON.js" path="util" />
   <file name="util\KeyMap.js" path="util" />
   <file name="util\KeyNav.js" path="util" />
@@ -746,4 +753,6 @@
   <file name="widgets\Window.js" path="widgets" />
   <file name="widgets\WindowManager.js" path="widgets" />
   <file name="debug.js" path="" />
+  <file name="data\DirectProxy.js" path="data" />
+  <file name="data\DirectStore.js" path="data" />
 </project>

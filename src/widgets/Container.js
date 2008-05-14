@@ -201,7 +201,7 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
                 this.layout = new Ext.Container.LAYOUTS[this.layout.toLowerCase()](this.layoutConfig);
             }
             this.setLayout(this.layout);
-
+            
             if(this.activeItem !== undefined){
                 var item = this.activeItem;
                 delete this.activeItem;
@@ -533,6 +533,15 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
             }
         });
         return m;
+    },
+
+    /**
+     * Get a component contained by this container (alias for items.get(key))
+     * @param {String/Number} key The index or id of the component
+     * @return {Ext.Component} Ext.Component
+     */
+    get : function(key){
+        return this.items.get(key);
     }
 });
 

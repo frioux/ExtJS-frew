@@ -428,6 +428,14 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
         return Ext.urlDecode(fs);
     },
 
+    getFieldValues : function(){
+        var o = {};
+        this.items.each(function(f){
+           o[f.getName()] = f.getValue();
+        });
+        return o;
+    },
+
     /**
      * Clears all invalid messages in this form.
      * @return {BasicForm} this
@@ -507,6 +515,16 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     applyIfToFields : function(o){
         this.items.each(function(f){
            Ext.applyIf(f, o);
+        });
+        return this;
+    },
+
+    callFieldMethod : function(fnName, args){
+        args = args || [];
+        this.items.each(function(f){
+            if(typeof f[fnName] == 'function'){
+                f[fnName].apply(f, args);
+            }
         });
         return this;
     }

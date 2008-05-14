@@ -6,7 +6,7 @@
 .x-btn button{
     border:0 none;
     background:transparent;
-    font:normal 11px tahoma,verdana,helvetica;
+    font:normal 11px arial,tahoma,verdana,helvetica;
     padding-left:3px;
     padding-right:3px;
     cursor:pointer;
@@ -261,6 +261,10 @@
 }
 .x-btn-click .x-btn-bc, .x-btn-menu-active .x-btn-bc, .x-btn-pressed .x-btn-bc{
 	background-position: 0 -21px;
+}
+
+.x-btn-click .x-btn-text, .x-btn-menu-active .x-btn-text, .x-btn-pressed .x-btn-text{
+    color:#000;
 }
 
 

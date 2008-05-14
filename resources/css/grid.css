@@ -442,7 +442,7 @@ a.x-grid3-hd-btn:hover {
 .x-grid3-row .x-grid3-row-checker {
     background-position:2px 2px;
 }
-.x-grid3-row-selected .x-grid3-row-checker, .x-grid3-hd-checker-on .x-grid3-hd-checker {
+.x-grid3-row-selected .x-grid3-row-checker, .x-grid3-hd-checker-on .x-grid3-hd-checker,.x-grid3-row-checked .x-grid3-row-checker {
     background-position:-23px 2px;
 }
 .x-grid3-hd-checker {

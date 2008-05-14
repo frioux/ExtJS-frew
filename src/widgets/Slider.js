@@ -39,6 +39,7 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
         this.thumb.addClassOnOver('x-slider-thumb-over');
         this.mon(this.el, 'mousedown', this.onMouseDown, this);
         this.mon(this.el, 'keydown', this.onKeyDown, this);
+        this.focusEl.swallowEvent("click", true);
 
         this.tracker = new Ext.dd.DragTracker({
             onBeforeStart: this.onBeforeDragStart.createDelegate(this),

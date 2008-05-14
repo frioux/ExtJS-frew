@@ -93,7 +93,9 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
         var f = this.form;
         var formPanel = this;
         var fn = function(c){
-            if(c.doLayout && c != formPanel){
+            if(c.isFormField){
+                f.add(c);
+            }else if(c.doLayout && c != formPanel){
                 Ext.applyIf(c, {
                     labelAlign: c.ownerCt.labelAlign,
                     labelWidth: c.ownerCt.labelWidth,
@@ -102,8 +104,6 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
                 if(c.items){
                     c.items.each(fn);
                 }
-            }else if(c.isFormField){
-                f.add(c);
             }
         }
         this.items.each(fn);
@@ -127,6 +127,7 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
         this.initFields();
 
         Ext.FormPanel.superclass.onRender.call(this, ct, position);
+
         var o = {
             tag: 'form',
             method : this.method || 'POST',

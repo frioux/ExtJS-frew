@@ -29,6 +29,14 @@ Ext.grid.CheckboxSelectionModel = Ext.extend(Ext.grid.RowSelectionModel, {
     dataIndex: '',
     id: 'checker',
 
+    constructor: function(){
+        Ext.grid.CheckboxSelectionModel.superclass.constructor.apply(this, arguments);
+
+        if(this.checkOnly){
+            this.handleMouseDown = Ext.emptyFn;
+        }
+    },
+
     // private
     initEvents : function(){
         Ext.grid.CheckboxSelectionModel.superclass.initEvents.call(this);

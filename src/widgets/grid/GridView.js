@@ -135,6 +135,8 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
      */
     columnsText : "Columns",
 
+    selectedRowClass: "x-grid3-row-selected",
+
     // private
     borderWidth: 2,
 
@@ -1327,12 +1329,12 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
 
     // private
     onRowSelect : function(row){
-        this.addRowClass(row, "x-grid3-row-selected");
+        this.addRowClass(row, this.selectedRowClass);
     },
 
     // private
     onRowDeselect : function(row){
-        this.removeRowClass(row, "x-grid3-row-selected");
+        this.removeRowClass(row, this.selectedRowClass);
     },
 
     // private

@@ -125,18 +125,19 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
 	        iconCls: "x-tbar-loading",
 	        handler: this.onClick,
 	        scope: this
-	    })]
-            var userItems = config.items || config.buttons || [];
-            if (config.prependButtons) {
-                config.items = userItems.concat(pagingItems);
-            }else{
-                config.items = pagingItems.concat(userItems);
-            }
+	    })];
+
+
+        var userItems = config.items || config.buttons || [];
+        if (config.prependButtons) {
+            config.items = userItems.concat(pagingItems);
+        }else{
+            config.items = pagingItems.concat(userItems);
+        }
 	    delete config.buttons;
 	    if(config.displayInfo){
-            config.items.push(this.displayItem = new T.TextItem({
-            	align: 'right'
-            }));
+            config.items.push('->');
+            config.items.push(this.displayItem = new T.TextItem({}));
         }
 	    Ext.PagingToolbar.superclass.constructor.apply(this, arguments);
         this.cursor = 0;

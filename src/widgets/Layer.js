@@ -199,17 +199,18 @@ Ext.extend(Ext.Layer, Ext.Element, {
             var s = Ext.getDoc().getScroll();
 
             var xy = this.getXY();
-            var x = xy[0], y = xy[1];   
-            var w = this.dom.offsetWidth+this.shadowOffset, h = this.dom.offsetHeight+this.shadowOffset;
+            var x = xy[0], y = xy[1];
+            var so = this.shadowOffset;
+            var w = this.dom.offsetWidth+so, h = this.dom.offsetHeight+so;
             // only move it if it needs it
             var moved = false;
             // first validate right/bottom
             if((x + w) > vw+s.left){
-                x = vw - w - this.shadowOffset;
+                x = vw - w - so;
                 moved = true;
             }
             if((y + h) > vh+s.top){
-                y = vh - h - this.shadowOffset;
+                y = vh - h - so;
                 moved = true;
             }
             // then make sure top/left isn't negative

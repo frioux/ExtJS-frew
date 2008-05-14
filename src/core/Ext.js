@@ -491,6 +491,13 @@ Company.data.CustomStore = function(config) { ... }
             }
         },
 
+        destroyMembers : function(o, arg1, arg2, etc){
+            for(var i = 1, a = arguments, len = a.length; i < len; i++) {
+                Ext.destroy(o[a[i]]);
+                delete o[a[i]];
+            }
+        },
+
         /**
          * Removes a DOM node from the document.  The body node will be ignored if passed in.
          * @param {HTMLElement} node The node to remove
@@ -585,6 +592,19 @@ Company.data.CustomStore = function(config) { ... }
 		isDate : function(v){
 			return v && typeof v.getFullYear == 'function';
 		},
+
+        copyTo: function(dest, source, names){
+            if(typeof names == 'string'){
+                names = names.split(/[,;\s]/);
+            }
+            for(var i = 0, len = names.length; i< len; i++){
+                var n = names[i];
+                if(source.hasOwnProperty(n)){
+                    dest[n] = source[n];
+                }
+            }
+            return dest;
+        },
 
         /** @type Boolean */
         isOpera : isOpera,

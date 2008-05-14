@@ -158,18 +158,7 @@
   <file name="images\grid\grid-hrow.gif" path="images\grid" />
   <file name="images\aero\toolbar\gray-bg.gif" path="images\aero\toolbar" />
   <file name="css\basic-dialog.css" path="css" />
-  <file name="css\button.css" path="css" />
-  <file name="css\core.css" path="css" />
-  <file name="css\dd.css" path="css" />
-  <file name="css\grid.css" path="css" />
   <file name="css\inline-editor.css" path="css" />
-  <file name="css\layout.css" path="css" />
-  <file name="css\qtips.css" path="css" />
-  <file name="css\reset-min.css" path="css" />
-  <file name="css\resizable.css" path="css" />
-  <file name="css\tabs.css" path="css" />
-  <file name="css\toolbar.css" path="css" />
-  <file name="css\tree.css" path="css" />
   <file name="css\ytheme-aero.css" path="css" />
   <file name="css\ytheme-gray.css" path="css" />
   <file name="css\ytheme-vista.css" path="css" />
@@ -267,13 +256,10 @@
   <file name="images\default\grid\col-move.gif" path="images\default\grid" />
   <file name="images\default\basic-dialog\btn-arrow.gif" path="images\default\basic-dialog" />
   <file name="images\aero\toolbar\tb-btn-sprite.gif" path="images\aero\toolbar" />
-  <file name="css\menu.css" path="css" />
   <file name="css\grid2.css" path="css" />
-  <file name="css\README.txt" path="css" />
   <file name="images\default\menu\shadow-lite.png" path="images\default\menu" />
   <file name="images\default\menu\shadow.png" path="images\default\menu" />
   <file name="license.txt" path="" />
-  <file name="css\date-picker.css" path="css" />
   <file name="images\default\basic-dialog\collapse.gif" path="images\default\basic-dialog" />
   <file name="images\default\basic-dialog\expand.gif" path="images\default\basic-dialog" />
   <file name="images\aero\basic-dialog\collapse.gif" path="images\aero\basic-dialog" />
@@ -285,14 +271,11 @@
   <file name="css\.DS_Store" path="css" />
   <file name="images\default\grid\.DS_Store" path="images\default\grid" />
   <file name="images\default\.DS_Store" path="images\default" />
-  <file name="css\form.css" path="css" />
   <file name="images\aero\grid\pspbrwse.jbf" path="images\aero\grid" />
   <file name="images\default\bg.png" path="images\default" />
   <file name="images\.DS_Store" path="images" />
   <file name=".DS_Store" path="" />
   <file name="yui-ext-resources.jsb" path="" />
-  <file name="resources.jsb" path="" />
-  <file name="css\box.css" path="css" />
   <file name="images\default\box\.DS_Store" path="images\default\box" />
   <file name="images\gray\menu\checked.gif" path="images\gray\menu" />
   <file name="images\gray\menu\group-checked.gif" path="images\gray\menu" />
@@ -301,11 +284,8 @@
   <file name="images\gray\menu\unchecked.gif" path="images\gray\menu" />
   <file name="images\gray\layout\stick.gif" path="images\gray\layout" />
   <file name="images\gray\grid\grid-hrow.gif" path="images\gray\grid" />
-  <file name="css\debug.css" path="css" />
-  <file name="css\combo.css" path="css" />
   <file name="images\default\form\exclamation.png" path="images\default\form" />
   <file name="images\default\form\error-tip-bg.gif" path="images\default\form" />
-  <file name="css\panel.css" path="css" />
   <file name="images\default\panel\panel-sprite.gif" path="images\default\panel" />
   <file name="images\default\panel\panel-blue-sprite.gif" path="images\default\panel" />
   <file name="images\default\panel\toggle-sprite.gif" path="images\default\panel" />
@@ -313,7 +293,6 @@
   <file name="images\default\window\corners-sprite.gif" path="images\default\window" />
   <file name="images\default\window\left-right.gif" path="images\default\window" />
   <file name="images\default\window\top-bottom.gif" path="images\default\window" />
-  <file name="css\window.css" path="css" />
   <file name="images\default\window\corners-sprite.png" path="images\default\window" />
   <file name="images\default\window\corners-sprite.psd" path="images\default\window" />
   <file name="css\grid3.css" path="css" />
@@ -322,8 +301,6 @@
   <file name="images\default\._.DS_Store" path="images\default" />
   <file name="images\._.DS_Store" path="images" />
   <file name="._.DS_Store" path="" />
-  <file name="css\editor.css" path="css" />
-  <file name="css\borders.css" path="css" />
   <file name="images\default\grid\row-collapse.gif" path="images\default\grid" />
   <file name="images\default\grid\row-expand.gif" path="images\default\grid" />
   <file name="images\aero\menu\menu.gif" path="images\aero\menu" />
@@ -334,17 +311,14 @@
   <file name="images\default\grid\grid3-expander-c-bg.gif" path="images\default\grid" />
   <file name="legacy\grid.css" path="legacy" />
   <file name="css\xtheme-aero.css" path="css" />
-  <file name="css\xtheme-gray.css" path="css" />
   <file name="css\xtheme-vista.css" path="css" />
   <file name="legacy\basic-dialog.css" path="legacy" />
   <file name="images\aero\tabs\tab-close.gif" path="images\aero\tabs" />
   <file name="images\aero\tabs\scroller-bg.gif" path="images\aero\tabs" />
-  <file name="css\dialog.css" path="css" />
   <file name="images\default\basic-dialog\icon-error.gif" path="images\default\basic-dialog" />
   <file name="images\default\basic-dialog\icon-info.gif" path="images\default\basic-dialog" />
   <file name="images\default\basic-dialog\icon-question.gif" path="images\default\basic-dialog" />
   <file name="images\default\basic-dialog\icon-warning.gif" path="images\default\basic-dialog" />
-  <file name="css\progress.css" path="css" />
   <file name="images\default\widgets\progress-bg.gif" path="images\default\widgets" />
   <file name="images\gray\window\left-corners.psd" path="images\gray\window" />
   <file name="images\gray\window\left-right.psd" path="images\gray\window" />
@@ -397,15 +371,45 @@
   <file name="images\dark\window\top-bottom.png" path="images\dark\window" />
   <file name="images\dark\gradient-bg.gif" path="images\dark" />
   <file name="images\dark\s.gif" path="images\dark" />
-  <file name="css\reset.css" path="css" />
   <file name="raw-images\shadow.psd" path="raw-images" />
   <file name="images\default\tree\arrow-closed-over.gif" path="images\default\tree" />
   <file name="images\default\tree\arrow-closed.gif" path="images\default\tree" />
   <file name="images\default\tree\arrow-open-over.gif" path="images\default\tree" />
   <file name="images\default\tree\arrow-open.gif" path="images\default\tree" />
-  <file name="charts.swf" path="" />
-  <file name="expressinstall.swf" path="" />
+  <file name="images\default\button\btn-arrow.gif" path="images\default\button" />
+  <file name="images\default\button\btn-sprite.gif" path="images\default\button" />
+  <file name="images\default\button\dyna-btn-sprite.gif" path="images\default\button" />
+  <file name="images\default\button\btn-split-arrow.gif" path="images\default\button" />
+  <file name="images\default\button\btn-split-arrow-over.gif" path="images\default\button" />
+  <file name="images\default\button\btn-split-arrow-pressed.gif" path="images\default\button" />
+  <file name="css\borders.css" path="css" />
+  <file name="css\box.css" path="css" />
+  <file name="css\button.css" path="css" />
+  <file name="css\combo.css" path="css" />
+  <file name="css\core.css" path="css" />
+  <file name="css\date-picker.css" path="css" />
+  <file name="css\dd.css" path="css" />
+  <file name="css\debug.css" path="css" />
+  <file name="css\dialog.css" path="css" />
+  <file name="css\editor.css" path="css" />
+  <file name="css\form.css" path="css" />
+  <file name="css\grid.css" path="css" />
+  <file name="css\layout.css" path="css" />
   <file name="css\list-view.css" path="css" />
+  <file name="css\menu.css" path="css" />
+  <file name="css\panel.css" path="css" />
+  <file name="css\progress.css" path="css" />
+  <file name="css\qtips.css" path="css" />
+  <file name="css\README.txt" path="css" />
+  <file name="css\reset-min.css" path="css" />
+  <file name="css\reset.css" path="css" />
+  <file name="css\resizable.css" path="css" />
+  <file name="css\slider.css" path="css" />
+  <file name="css\tabs.css" path="css" />
+  <file name="css\toolbar.css" path="css" />
+  <file name="css\tree.css" path="css" />
+  <file name="css\window.css" path="css" />
+  <file name="css\xtheme-gray.css" path="css" />
   <file name="images\default\box\corners-blue.gif" path="images\default\box" />
   <file name="images\default\box\corners.gif" path="images\default\box" />
   <file name="images\default\box\l-blue.gif" path="images\default\box" />
@@ -414,8 +418,17 @@
   <file name="images\default\box\r.gif" path="images\default\box" />
   <file name="images\default\box\tb-blue.gif" path="images\default\box" />
   <file name="images\default\box\tb.gif" path="images\default\box" />
-  <file name="images\default\button\btn-arrow.gif" path="images\default\button" />
-  <file name="images\default\button\btn-sprite.gif" path="images\default\button" />
+  <file name="images\default\button\arrow.gif" path="images\default\button" />
+  <file name="images\default\button\btn.gif" path="images\default\button" />
+  <file name="images\default\button\group-cs.gif" path="images\default\button" />
+  <file name="images\default\button\group-lr.gif" path="images\default\button" />
+  <file name="images\default\button\group-tb.gif" path="images\default\button" />
+  <file name="images\default\button\s-arrow-b-noline.gif" path="images\default\button" />
+  <file name="images\default\button\s-arrow-b.gif" path="images\default\button" />
+  <file name="images\default\button\s-arrow-bo.gif" path="images\default\button" />
+  <file name="images\default\button\s-arrow-noline.gif" path="images\default\button" />
+  <file name="images\default\button\s-arrow-o.gif" path="images\default\button" />
+  <file name="images\default\button\s-arrow.gif" path="images\default\button" />
   <file name="images\default\dd\drop-add.gif" path="images\default\dd" />
   <file name="images\default\dd\drop-no.gif" path="images\default\dd" />
   <file name="images\default\dd\drop-yes.gif" path="images\default\dd" />
@@ -544,6 +557,10 @@
   <file name="images\default\sizer\square.gif" path="images\default\sizer" />
   <file name="images\default\sizer\sw-handle-dark.gif" path="images\default\sizer" />
   <file name="images\default\sizer\sw-handle.gif" path="images\default\sizer" />
+  <file name="images\default\slider\slider-bg.png" path="images\default\slider" />
+  <file name="images\default\slider\slider-thumb.png" path="images\default\slider" />
+  <file name="images\default\slider\slider-v-bg.png" path="images\default\slider" />
+  <file name="images\default\slider\slider-v-thumb.png" path="images\default\slider" />
   <file name="images\default\tabs\scroll-left.gif" path="images\default\tabs" />
   <file name="images\default\tabs\scroll-right.gif" path="images\default\tabs" />
   <file name="images\default\tabs\scroller-bg.gif" path="images\default\tabs" />
@@ -561,8 +578,11 @@
   <file name="images\default\toolbar\btn-arrow.gif" path="images\default\toolbar" />
   <file name="images\default\toolbar\btn-over-bg.gif" path="images\default\toolbar" />
   <file name="images\default\toolbar\gray-bg.gif" path="images\default\toolbar" />
+  <file name="images\default\toolbar\more.gif" path="images\default\toolbar" />
   <file name="images\default\toolbar\tb-bg.gif" path="images\default\toolbar" />
   <file name="images\default\toolbar\tb-btn-sprite.gif" path="images\default\toolbar" />
+  <file name="images\default\toolbar\tb-xl-btn-sprite.gif" path="images\default\toolbar" />
+  <file name="images\default\toolbar\tb-xl-sep.gif" path="images\default\toolbar" />
   <file name="images\default\tree\arrows.gif" path="images\default\tree" />
   <file name="images\default\tree\drop-add.gif" path="images\default\tree" />
   <file name="images\default\tree\drop-between.gif" path="images\default\tree" />
@@ -697,27 +717,8 @@
   <file name="images\vista\toolbar\tb-btn-sprite.gif" path="images\vista\toolbar" />
   <file name="images\vista\gradient-bg.gif" path="images\vista" />
   <file name="images\vista\s.gif" path="images\vista" />
-  <file name="css\slider.css" path="css" />
-  <file name="images\default\slider\slider-bg.png" path="images\default\slider" />
-  <file name="images\default\slider\slider-thumb.png" path="images\default\slider" />
-  <file name="images\default\slider\slider-v-bg.png" path="images\default\slider" />
-  <file name="images\default\slider\slider-v-thumb.png" path="images\default\slider" />
-  <file name="images\default\toolbar\tb-xl-btn-sprite.gif" path="images\default\toolbar" />
-  <file name="images\default\toolbar\tb-xl-sep.gif" path="images\default\toolbar" />
-  <file name="images\default\button\dyna-btn-sprite.gif" path="images\default\button" />
-  <file name="images\default\button\btn-split-arrow.gif" path="images\default\button" />
-  <file name="images\default\button\btn-split-arrow-over.gif" path="images\default\button" />
-  <file name="images\default\button\btn-split-arrow-pressed.gif" path="images\default\button" />
-  <file name="images\default\button\arrow.gif" path="images\default\button" />
-  <file name="images\default\button\btn.gif" path="images\default\button" />
-  <file name="images\default\button\s-arrow-b.gif" path="images\default\button" />
-  <file name="images\default\button\s-arrow-bo.gif" path="images\default\button" />
-  <file name="images\default\button\s-arrow-o.gif" path="images\default\button" />
-  <file name="images\default\button\s-arrow.gif" path="images\default\button" />
-  <file name="images\default\button\group-cs.gif" path="images\default\button" />
-  <file name="images\default\button\group-lr.gif" path="images\default\button" />
-  <file name="images\default\button\group-tb.gif" path="images\default\button" />
-  <file name="images\default\button\s-arrow-b-noline.gif" path="images\default\button" />
-  <file name="images\default\button\s-arrow-noline.gif" path="images\default\button" />
-  <file name="images\default\toolbar\more.gif" path="images\default\toolbar" />
+  <file name="charts.swf" path="" />
+  <file name="expressinstall.swf" path="" />
+  <file name="resources.jsb" path="" />
+  <file name="images\gray\button\group-cs.gif" path="images\gray\button" />
 </project>

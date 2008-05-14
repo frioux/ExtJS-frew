@@ -13,7 +13,7 @@
 textarea.x-form-field {
     padding:2px 3px;
 }
-.x-form-text {
+.x-form-text, .ext-ie .x-form-file {
     height:22px;
     line-height:18px;
     vertical-align:middle;
@@ -88,6 +88,7 @@ textarea {
     position:absolute;
     top:0;
 }
+
 .ext-safari .x-form-field-wrap .x-form-trigger{
     height:21px; /* safari doesn't allow height adjustments to the fields, so adjust trigger */
 }
@@ -107,15 +108,18 @@ textarea {
 .ext-safari .x-form-field-wrap .x-form-trigger{
     right:0;
 }
-.x-form-field-wrap .x-form-twin-triggers{
 
-}
 .x-form-field-wrap .x-form-twin-triggers .x-form-trigger{
     position:static;
     top:auto;
     vertical-align:top;
 }
 
+.x-form-field-wrap {
+    position:relative;
+    zoom:1;
+    white-space: nowrap;
+}
 
 .x-form-field-wrap .x-form-trigger-over{
     background-position:-17px 0;
@@ -154,7 +158,7 @@ textarea {
 /* invalid fields */
 .x-form-invalid, textarea.x-form-invalid{
 	background:#fff url(../images/default/grid/invalid_line.gif) repeat-x bottom;
-	border: 1px solid #dd7870;
+	border: 1px solid #cc3300;
 }
 .ext-safari .x-form-invalid{
 	background-color:#ffeeee;
@@ -227,7 +231,7 @@ textarea {
 }
 
 .x-form-invalid-msg {
-    color:#ee0000;
+    color:#cc3300;
     padding:2px;
     padding-left:18px;
     font:normal 11px tahoma, arial, helvetica, sans-serif;

@@ -304,3 +304,21 @@
     height:0;
     zoom: 1;
 }
+
+#x-history-frame {
+    position:absolute;
+    top:-1px;
+    left:0;
+	width:1px;
+    height:1px;
+    visibility:hidden;
+}
+
+#x-history-field {
+    position:absolute;
+    top:0;
+    left:-1px;
+	width:1px;
+    height:1px;
+    visibility:hidden;
+}

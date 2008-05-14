@@ -158,8 +158,8 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
 	            this.getSuccess = this.getJsonAccessor(s.successProperty);
 	        }
 	        this.getRoot = s.root ? this.getJsonAccessor(s.root) : function(p){return p;};
-	        if (s.id) {
-	        	var g = this.getJsonAccessor(s.id);
+	        if (s.id || s.idProperty) {
+	        	var g = this.getJsonAccessor(s.id || s.idProperty);
 	        	this.getId = function(rec) {
 	        		var r = g(rec);
 		        	return (r === undefined || r === "") ? null : r;

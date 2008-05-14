@@ -18,7 +18,7 @@ Ext.util.Cookies = {
         while(i < clen){
             j = i + alen;
             if(document.cookie.substring(i, j) == arg)
-                return Cookies.getCookieVal(j);
+                return Ext.util.Cookies.getCookieVal(j);
             i = document.cookie.indexOf(" ", i) + 1;
             if(i == 0)
                 break;
@@ -27,7 +27,7 @@ Ext.util.Cookies = {
     },
 
     clear : function(name){
-        if(Cookies.get(name)){
+        if(Ext.util.Cookies.get(name)){
             document.cookie = name + "=" + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
         }
     },

@@ -107,7 +107,6 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
     // private
     setContainer : function(ct){
         Ext.layout.FormLayout.superclass.setContainer.call(this, ct);
-
         if(ct.labelAlign){
             ct.addClass('x-form-label-'+ct.labelAlign);
         }

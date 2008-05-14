@@ -21,7 +21,7 @@
 }
 .x-toolbar td,.x-toolbar span,.x-toolbar input,.x-toolbar div,.x-toolbar select,.x-toolbar label{
 	white-space: nowrap;
-    font:normal 11px tahoma, arial, helvetica, sans-serif;
+    font:normal 11px arial,tahoma, helvetica, sans-serif;
 }
 .x-toolbar .x-item-disabled {
 	color:gray;
@@ -35,6 +35,9 @@
 	cursor:default;
 }
 
+.x-toolbar .x-toolbar-cell {
+    vertical-align:middle;
+}
 
 .x-toolbar .x-btn-tl{
 	background-position: 500px 500px;
@@ -145,10 +148,10 @@
     background-image:url(../images/default/button/s-arrow-bo.gif);
 }
 
-
-.x-toolbar .xtb-text{
-    padding:2px;
-    line-height:17px;
+.x-toolbar div.xtb-text{
+    padding:2px 2px 0;
+    line-height:16px;
+    display:block;
 }
 .x-toolbar .ytb-sep {
 	background-image: url(../images/default/grid/grid-blue-split.gif);
@@ -177,7 +180,7 @@
 	background-image: url(../images/default/grid/page-first.gif) !important;
 }
 .x-tbar-loading{
-	background-image: url(../images/default/grid/done.gif) !important;
+	background-image: url(../images/default/grid/refresh.gif) !important;
 }
 .x-tbar-page-last{
 	background-image: url(../images/default/grid/page-last.gif) !important;
@@ -245,4 +248,18 @@
 div.x-toolbar-no-items {
     color:gray !important;
     padding:5px 10px !important;
+}
+
+/* fix ie toolbar form items */
+
+.ext-border-box .x-toolbar-cell .x-form-text {
+    margin-top:1px !important;
+    margin-bottom:-1px !important;
+}
+
+.ext-border-box .x-toolbar-cell .x-form-field-wrap .x-form-text {
+    margin:0 !important;
+}
+.ext-ie .x-toolbar-cell .x-form-field-wrap {
+    height:21px;
 }

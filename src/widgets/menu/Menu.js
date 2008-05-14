@@ -164,11 +164,11 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
             item.render(li, this);
         }, this);
         this.ul = ul;
-        this.autoWidth();
+        this.doAutoSize();
     },
 
     // private
-    autoWidth : function(){
+    doAutoSize : function(){
         var el = this.el, ul = this.ul;
         if(!el){
             return;
@@ -180,14 +180,14 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
             el.setWidth(this.minWidth);
             var t = el.dom.offsetWidth; // force recalc
             el.setWidth(ul.getWidth()+el.getFrameWidth("lr"));
-        }
+        }       
     },
 
     // private
     delayAutoWidth : function(){
         if(this.el){
             if(!this.awTask){
-                this.awTask = new Ext.util.DelayedTask(this.autoWidth, this);
+                this.awTask = new Ext.util.DelayedTask(this.doAutoSize, this);
             }
             this.awTask.delay(20);
         }

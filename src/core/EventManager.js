@@ -10,7 +10,8 @@ Ext.EventManager = function(){
     var resizeEvent, resizeTask, textEvent, textSize;
     var E = Ext.lib.Event;
     var D = Ext.lib.Dom;
-
+    // fix parser confusion
+    var xname = 'Ex' + 't';
 
     var fireDocReady = function(){
         if(!docReadyState){
@@ -94,6 +95,10 @@ Ext.EventManager = function(){
             throw "Error listening for \"" + ename + '\". Element "' + element + '" doesn\'t exist.';
         }
         var h = function(e){
+            // prevent errors while unload occurring
+            if(!window[xname]){
+                return;
+            }
             e = Ext.EventObject.setEvent(e);
             var t;
             if(o.delegate){
