@@ -489,7 +489,7 @@ Ext.apply(Date, {
             + "v = new Date(y, m);\n"
             + "}else if (y >= 0){\n"
             + "v = new Date(y);\n"
-            + "}\n}\nreturn (v && Ext.type(z || o) == 'number')?" // favour UTC offset over GMT offset
+            + "}\n}\nreturn (v && (z || o))?" // favour UTC offset over GMT offset
             +     " (Ext.type(z) == 'number' ? v.add(Date.SECOND, (v.getTimezoneOffset() * 60) + z) :" // reset to UTC, then add offset
             +         " v.add(Date.HOUR, (v.getGMTOffset() / 100) + (o / -100))) : v;\n" // reset to GMT, then add offset
             + "}";
@@ -659,10 +659,16 @@ Ext.apply(Date, {
             ].join("\n"),
             s: "([+\-]\\d{4})" // GMT offset in hrs and mins
         },
-        P: function() {
-          return Ext.applyIf({
+        P: {
+            g:1,
+            c:[
+                "o = results[{0}];",
+                "var sn = o.substring(0,1);", // get + / - sign
+                "var hr = o.substring(1,3)*1 + Math.floor(o.substring(4,6) / 60);", // get hours (performs minutes-to-hour conversion also, just in case)
+                "var mn = o.substring(4,6) % 60;", // get minutes
+                "o = ((-12 <= (hr*60 + mn)/60) && ((hr*60 + mn)/60 <= 14))? (sn + String.leftPad(hr, 2, '0') + String.leftPad(mn, 2, '0')) : null;\n" // -12hrs <= GMT offset <= 14hrs
+            ].join("\n"),
             s: "([+\-]\\d{2}:\\d{2})" // GMT offset in hrs and mins (with colon separator)
-          }, $f("O"));
         },
         T: {
             g:0,
