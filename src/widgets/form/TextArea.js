@@ -70,6 +70,7 @@ Ext.form.TextArea = Ext.extend(Ext.form.TextField,  {
         if(!e.isNavKeyPress() || e.getKey() == e.ENTER){
             this.autoSize();
         }
+        Ext.form.TextArea.superclass.onKeyUp.call(this, e);
     },
 
     /**
