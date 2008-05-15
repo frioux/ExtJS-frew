@@ -10,8 +10,80 @@ Ext.EventManager = function(){
     var resizeEvent, resizeTask, textEvent, textSize;
     var E = Ext.lib.Event;
     var D = Ext.lib.Dom;
-    // fix parser confusion
-    var xname = 'Ex' + 't';
+
+    var elHash = {};
+
+    var addListener = function(el, ename, fn, wrap){
+        var id = Ext.id(el);
+        if(!elHash[id]){
+            elHash[id] = {};
+        }
+        var es = elHash[id];
+        if(!es[ename]){
+            es[ename] = [];
+        }
+        var ls = es[ename];
+        ls.push({
+            id: id,
+            ename: ename,
+            fn: fn,
+            wrap: wrap
+        });
+
+         E.on(el, ename, wrap);
+
+        if(ename == "mousewheel" && el.addEventListener){ // workaround for jQuery
+            el.addEventListener("DOMMouseScroll", wrap, false);
+            E.on(window, 'unload', function(){
+                el.removeEventListener("DOMMouseScroll", wrap, false);
+            });
+        }
+        if(ename == "mousedown" && el == document){ // fix stopped mousedowns on the document
+            Ext.EventManager.stoppedMouseDownEvent.addListener(wrap);
+        }
+    }
+
+    var removeListener = function(el, ename, fn){
+        el = Ext.getDom(el);
+        var id = Ext.id(el), es = elHash[id], wrap;
+        if(es){
+            var ls = es[ename];
+            if(ls){
+                for(var i = 0, len = ls.length; i < len; i++){
+                    if(ls.fn == fn){
+                        wrap = ls.wrap;
+                        E.un(el, ename, wrap);
+                        ls.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+        }
+        if(ename == "mousewheel" && el.addEventListener && wrap){
+            el.removeEventListener("DOMMouseScroll", wrap, false);
+        }
+        if(ename == "mousedown" && el == document && wrap){ // fix stopped mousedowns on the document
+            Ext.EventManager.stoppedMouseDownEvent.removeListener(wrap);
+        }
+    }
+
+    var removeAll = function(el){
+        var id = Ext.id(el), es = elHash[id], ls;
+        if(es){
+            for(var ename in es){
+                if(es.hasOwnProperty(ename)){
+                    ls = es[ename];
+                    for(var i = 0, len = ls.length; i < len; i++){
+                        E.un(id, ename, ls[i].wrap);
+                        ls[i] = null;
+                    }
+                }
+                es[ename] = null;
+            }
+            delete elHash[id];
+        }
+    }
+
 
     var fireDocReady = function(){
         if(!docReadyState){
@@ -95,10 +167,6 @@ Ext.EventManager = function(){
             throw "Error listening for \"" + ename + '\". Element "' + element + '" doesn\'t exist.';
         }
         var h = function(e){
-            // prevent errors while unload occurring
-            if(!window[xname]){
-                return;
-            }
             e = Ext.EventObject.setEvent(e);
             var t;
             if(o.delegate){
@@ -134,42 +202,9 @@ Ext.EventManager = function(){
         if(o.buffer){
             h = createBuffered(h, o);
         }
-        fn._handlers = fn._handlers || [];
-        fn._handlers.push([Ext.id(el), ename, h]);
 
-        E.on(el, ename, h);
-        if(ename == "mousewheel" && el.addEventListener){ // workaround for jQuery
-            el.addEventListener("DOMMouseScroll", h, false);
-            E.on(window, 'unload', function(){
-                el.removeEventListener("DOMMouseScroll", h, false);
-            });
-        }
-        if(ename == "mousedown" && el == document){ // fix stopped mousedowns on the document
-            Ext.EventManager.stoppedMouseDownEvent.addListener(h);
-        }
+        addListener(el, ename, fn, h);
         return h;
-    };
-
-    var stopListening = function(el, ename, fn){
-        var id = Ext.id(el), hds = fn._handlers, hd = fn;
-        if(hds){
-            for(var i = 0, len = hds.length; i < len; i++){
-                var h = hds[i];
-                if(h[0] == id && h[1] == ename){
-                    hd = h[2];
-                    hds.splice(i, 1);
-                    break;
-                }
-            }
-        }
-        E.un(el, ename, hd);
-        el = Ext.getDom(el);
-        if(ename == "mousewheel" && el.addEventListener){
-            el.removeEventListener("DOMMouseScroll", hd, false);
-        }
-        if(ename == "mousedown" && el == document){ // fix stopped mousedowns on the document
-            Ext.EventManager.stoppedMouseDownEvent.removeListener(hd);
-        }
     };
 
     var propRe = /^(?:scope|delay|buffer|single|stopEvent|preventDefault|stopPropagation|normalized|args|delegate)$/;
@@ -180,7 +215,7 @@ Ext.EventManager = function(){
      * use {@link Ext.Element#addListener} directly on an Element in favor of calling this version.
      * @param {String/HTMLElement} el The html element or id to assign the event handler to
      * @param {String} eventName The type of event to listen for
-     * @param {Function} handler The handler function the event invokes. This function is passed
+     * @param {Function} handler The handler function the event invokes This function is passed
      * the following parameters:<ul>
      * <li>evt : EventObject<div class="sub-desc">The {@link Ext.EventObject EventObject} describing the event.</div></li>
      * <li>t : Element<div class="sub-desc">The {@link Ext.Element Element} which was the target of the event.
@@ -231,10 +266,13 @@ Ext.EventManager = function(){
          * @param {String/HTMLElement} el The id or html element from which to remove the event
          * @param {String} eventName The type of event
          * @param {Function} fn The handler function to remove
-         * @return {Boolean} True if a listener was actually removed, else false
          */
         removeListener : function(element, eventName, fn){
-            return stopListening(element, eventName, fn);
+            return removeListener(element, eventName, fn);
+        },
+
+        removeAll : function(element){
+            return removeAll(element);
         },
 
         /**
@@ -523,7 +561,7 @@ Ext.EventObject = function(){
                 this.ctrlKey = false;
                 this.altKey = false;
                 this.keyCode = 0;
-                this.charCode =0;
+                this.charCode = 0;
                 this.target = null;
                 this.xy = [0, 0];
             }
@@ -642,7 +680,7 @@ Ext.EventObject = function(){
         getTarget : function(selector, maxDepth, returnEl){
             return selector ? Ext.fly(this.target).findParent(selector, maxDepth, returnEl) : (returnEl ? Ext.get(this.target) : this.target);
         },
-        
+
         /**
          * Gets the related target.
          * @return {HTMLElement}
@@ -678,7 +716,7 @@ Ext.EventObject = function(){
         },
 
         /**
-         * Returns true if the target of this event is a child of el.  If the target is el, it returns false. 
+         * Returns true if the target of this event is a child of el.  If the target is el, it returns false.
          * Example usage:<pre><code>
 // Handle click on any child of an element
 Ext.getBody().on('click', function(e){
