@@ -120,9 +120,16 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
      * @cfg {Boolean} allowOtherMenus True to allow multiple menus to be displayed at the same time (defaults to false)
      */
     allowOtherMenus : false,
+    /**
+     * @cfg {Boolean} ignoreParentClicks True to ignore clicks on any item in this menu that is a parent item (displays
+     * a submenu) so that the submenu is not dismissed when clicking the parent item (defaults to false).
+     */
+    ignoreParentClicks : false,
 
+    // private
     hidden:true,
 
+    // private
     createEl : function(){
         return new Ext.Layer({
             cls: "x-menu",
@@ -205,8 +212,12 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
     onClick : function(e){
         var t;
         if(t = this.findTargetItem(e)){
-            t.onClick(e);
-            this.fireEvent("click", this, t, e);
+            if(t.menu && this.ignoreParentClicks){
+                t.expandMenu();
+            }else{
+                t.onClick(e);
+                this.fireEvent("click", this, t, e);
+            }
         }
     },
 
