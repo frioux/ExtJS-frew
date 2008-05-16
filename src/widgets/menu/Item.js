@@ -167,6 +167,10 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
     // private
     deferHide : function(){
         delete this.hideTimer;
-        this.menu.hide();
+        if(this.menu.over){
+            this.parentMenu.setActiveItem(this, false);
+        }else{
+            this.menu.hide();
+        }
     }
 });

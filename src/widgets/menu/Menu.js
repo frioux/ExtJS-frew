@@ -244,6 +244,7 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
                 this.setActiveItem(t, true);
             }
         }
+        this.over = true;
         this.fireEvent("mouseover", this, e, t);
     },
 
@@ -256,6 +257,7 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
                 delete this.activeItem;
             }
         }
+        this.over = false;
         this.fireEvent("mouseout", this, e, t);
     },
 
