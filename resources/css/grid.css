@@ -460,7 +460,23 @@ a.x-grid3-hd-btn:hover {
 .x-grid3-body .x-grid3-td-numberer .x-grid3-cell-inner {
     padding:3px 5px 0 0 !important;
     text-align:right;
-	 color:#444;
+	color:#444;
+}
+
+/* Row Icon */
+
+.x-grid3-body .x-grid3-td-row-icon {
+    background:transparent url(../images/default/grid/grid3-special-col-bg.gif) repeat-y right;
+    vertical-align:middle;
+    text-align:center;
+}
+.x-grid3-body .x-grid3-td-row-icon .x-grid3-cell-inner {
+    padding:0 !important;
+    background-position:center center;
+    background-repeat:no-repeat;
+    width:16px;
+    height:16px;
+    margin-left:2px;
 }
 
 /* All specials */

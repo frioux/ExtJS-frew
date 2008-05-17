@@ -581,7 +581,7 @@ Company.data.CustomStore = function(config) { ... }
          * @return {Boolean}
          */
 		isArray : function(v){
-			return v && typeof v.pop == 'function';
+			return v && typeof v.length == 'number' && typeof v.splice == 'function';
 		},
 
 		/**
