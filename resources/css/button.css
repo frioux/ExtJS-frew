@@ -24,6 +24,9 @@
     padding-left:0;
     padding-right:0;
 }
+.ext-gecko .x-btn button::-moz-focus-inner {
+    padding:0;
+}
 .ext-ie .x-btn button {
     padding-top:2px;
 }

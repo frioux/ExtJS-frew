@@ -1151,25 +1151,6 @@ new Ext.Panel({
         this.syncShadow();
     },
 
-    // private
-    onDestroy : function(){
-        if(this.tools){
-            for(var k in this.tools){
-                Ext.destroy(this.tools[k]);
-            }
-        }
-        if(this.buttons){
-            for(var b in this.buttons){
-                Ext.destroy(this.buttons[b]);
-            }
-        }
-        Ext.destroy(
-            this.topToolbar,
-            this.bottomToolbar
-        );
-        Ext.Panel.superclass.onDestroy.call(this);
-    },
-
     /**
      * Returns the width in pixels of the framing elements of this panel (not including the body width).  To
      * retrieve the body width see {@link #getInnerWidth}.
@@ -1292,7 +1273,7 @@ panel.load({
         return this;
     },
 
-    // private
+     // private
     beforeDestroy : function(){
         Ext.Element.uncache(
             this.header,
@@ -1301,6 +1282,21 @@ panel.load({
             this.footer,
             this.body
         );
+        if(this.tools){
+            for(var k in this.tools){
+                Ext.destroy(this.tools[k]);
+            }
+        }
+        if(this.buttons){
+            for(var b in this.buttons){
+                Ext.destroy(this.buttons[b]);
+            }
+        }
+        Ext.destroy(
+            this.topToolbar,
+            this.bottomToolbar
+        );
+        Ext.Panel.superclass.beforeDestroy.call(this);
     },
 
     // private
