@@ -150,9 +150,7 @@ Ext.form.TextField = Ext.extend(Ext.form.Field,  {
             this.on("focus", this.preFocus, this);
             this.el.on('mousedown', function(){
                 if(!this.hasFocus){
-                    console.log(this.hasFocus);
                     this.el.on('mouseup', function(e){
-                        console.log('stopping');
                         e.preventDefault();
                     }, this, {single:true});
                 }
