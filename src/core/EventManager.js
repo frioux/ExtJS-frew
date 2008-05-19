@@ -15,7 +15,7 @@ Ext.EventManager = function(){
 
     var elHash = {};
 
-    var addListener = function(el, ename, fn, wrap){
+    var addListener = function(el, ename, fn, wrap, scope){
         var id = Ext.id(el);
         if(!elHash[id]){
             elHash[id] = {};
@@ -29,7 +29,8 @@ Ext.EventManager = function(){
             id: id,
             ename: ename,
             fn: fn,
-            wrap: wrap
+            wrap: wrap,
+            scope: scope
         });
 
          E.on(el, ename, wrap);
@@ -45,15 +46,16 @@ Ext.EventManager = function(){
         }
     }
 
-    var removeListener = function(el, ename, fn){
+    var removeListener = function(el, ename, fn, scope){
         el = Ext.getDom(el);
         var id = Ext.id(el), es = elHash[id], wrap;
         if(es){
-            var ls = es[ename];
+            var ls = es[ename], l;
             if(ls){
                 for(var i = 0, len = ls.length; i < len; i++){
-                    if(ls.fn == fn){
-                        wrap = ls.wrap;
+                    l = ls[i];
+                    if(l.fn == fn && l.scope == scope){
+                        wrap = l.wrap;
                         E.un(el, ename, wrap);
                         ls.splice(i, 1);
                         break;
@@ -144,9 +146,9 @@ Ext.EventManager = function(){
         };
     };
 
-    var createSingle = function(h, el, ename, fn){
+    var createSingle = function(h, el, ename, fn, scope){
         return function(e){
-            Ext.EventManager.removeListener(el, ename, fn);
+            Ext.EventManager.removeListener(el, ename, fn, scope);
             h(e);
         };
     };
@@ -203,13 +205,13 @@ Ext.EventManager = function(){
             h = createDelayed(h, o);
         }
         if(o.single){
-            h = createSingle(h, el, ename, fn);
+            h = createSingle(h, el, ename, fn, scope);
         }
         if(o.buffer){
             h = createBuffered(h, o);
         }
 
-        addListener(el, ename, fn, h);
+        addListener(el, ename, fn, h, scope);
         return h;
     };
 
@@ -273,8 +275,8 @@ Ext.EventManager = function(){
          * @param {String} eventName The type of event
          * @param {Function} fn The handler function to remove
          */
-        removeListener : function(element, eventName, fn){
-            return removeListener(element, eventName, fn);
+        removeListener : function(element, eventName, fn, scope){
+            return removeListener(element, eventName, fn, scope);
         },
 
         removeAll : function(element){

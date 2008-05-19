@@ -1,6 +1,9 @@
 Ext.data.DirectProxy = function(config){
 	Ext.apply(this, config);
-	Ext.data.DirectProxy.superclass.constructor.call(this);
+    if(typeof this.paramOrder == 'string'){
+        this.paramOrder = this.paramOrder.split(/[\s,|]/);
+    }
+    Ext.data.DirectProxy.superclass.constructor.call(this);
 };
 
 Ext.extend(Ext.data.DirectProxy, Ext.data.DataProxy, {
@@ -12,12 +15,12 @@ Ext.extend(Ext.data.DirectProxy, Ext.data.DataProxy, {
     load: function(params, reader, cb, scope, arg){
 		if(this.fireEvent("beforeload", this, params) !== false) {
 			var args = [];
-			if(this.paramsAsHash){
-				args.push(params);
-			}else if(this.paramOrder){
+			if(this.paramOrder){
 				for(var i = 0, len = this.paramOrder.length; i < len; i++){
 					args.push(params[this.paramOrder[i]]);
 				}
+			}else if(this.paramsAsHash){
+				args.push(params);
 			}
 			args.push({
 				callback: function(result, e){

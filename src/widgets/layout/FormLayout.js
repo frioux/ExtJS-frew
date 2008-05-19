@@ -101,7 +101,7 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
 
     // private
     getAnchorViewSize : function(ct, target){
-        return ct.body.getStyleSize();
+        return (ct.body||ct.el).getStyleSize();
     },
 
     // private
@@ -148,7 +148,7 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
 
     // private
     renderItem : function(c, position, target){
-        if(c && !c.rendered && c.isFormField && c.inputType != 'hidden'){
+        if(c && !c.rendered && (c.isFormField||c.fieldLabel) && c.inputType != 'hidden'){
             var args = [
                    c.id, c.fieldLabel,
                    c.labelStyle||this.labelStyle||'',

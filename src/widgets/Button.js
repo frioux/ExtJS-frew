@@ -495,7 +495,10 @@ Ext.Button = Ext.extend(Ext.Component, {
             var internal = e.within(this.el,  true);
             if(!internal){
                 this.el.addClass("x-btn-over");
-                Ext.getDoc().on('mouseover', this.monitorMouseOver, this);
+                if(!this.monitoringMouseOver){
+                    Ext.getDoc().on('mouseover', this.monitorMouseOver, this);
+                    this.monitoringMouseOver = true;
+                }
                 this.fireEvent('mouseover', this, e);
             }
             if(this.isMenuTriggerOver(e, internal)){
@@ -507,7 +510,10 @@ Ext.Button = Ext.extend(Ext.Component, {
     // private
     monitorMouseOver : function(e){
         if(e.target != this.el.dom && !e.within(this.el)){
-            Ext.getDoc().un('mouseover', this.monitorMouseOver, this);
+            if(this.monitoringMouseOver){
+                Ext.getDoc().un('mouseover', this.monitorMouseOver, this);
+                this.monitoringMouseOver = false;
+            }
             this.onMouseOut(e);
         }
     },
