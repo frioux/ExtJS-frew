@@ -418,17 +418,14 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
     },
 
     // private
-    onDestroy : function(){
+    beforeDestroy : function(){
         if(this.items){
-            var cs = this.items.items;
-            for(var i = 0, len = cs.length; i < len; i++) {
-                Ext.destroy(cs[i]);
-            }
+            Ext.destroy.apply(Ext, this.items.items);
         }
         if(this.monitorResize){
             Ext.EventManager.removeResizeListener(this.doLayout, this);
         }
-        Ext.Container.superclass.onDestroy.call(this);
+        Ext.Container.superclass.beforeDestroy.call(this);
     },
 
     /**
