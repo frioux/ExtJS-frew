@@ -1204,10 +1204,12 @@ el.un('click', this.handlerFn);
 </code></pre>
      * @param {String} eventName the type of event to remove
      * @param {Function} fn the method the event invokes
+     * @param {Object} scope (optional) The scope (The <tt>this</tt> reference) of the handler function. Defaults
+     * to this Element.
      * @return {Ext.Element} this
      */
-    removeListener : function(eventName, fn){
-        Ext.EventManager.removeListener(this.dom,  eventName, fn);
+    removeListener : function(eventName, fn, scope){
+        Ext.EventManager.removeListener(this.dom,  eventName, fn, scope || this);
         return this;
     },
 

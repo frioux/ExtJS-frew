@@ -48,13 +48,14 @@ Ext.EventManager = function(){
 
     var removeListener = function(el, ename, fn, scope){
         el = Ext.getDom(el);
+
         var id = Ext.id(el), es = elHash[id], wrap;
         if(es){
             var ls = es[ename], l;
             if(ls){
                 for(var i = 0, len = ls.length; i < len; i++){
                     l = ls[i];
-                    if(l.fn == fn && l.scope == scope){
+                    if(l.fn == fn && (!scope || l.scope == scope)){
                         wrap = l.wrap;
                         E.un(el, ename, wrap);
                         ls.splice(i, 1);
@@ -175,7 +176,7 @@ Ext.EventManager = function(){
             if(!window[xname]){
                 return;
             }
-            e = Ext.EventObject.setEvent(e);
+            e = Ext.EventObject.setEvent(Ext.lib.Event.getEvent(e));
             var t;
             if(o.delegate){
                 t = e.getTarget(o.delegate, el);

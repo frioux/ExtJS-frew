@@ -982,6 +982,7 @@ Ext.applyIf(Array.prototype, {
     }
 });
 
+// here to prevent dependency on Date.js
 /**
  Returns the number of milliseconds between this date and date
  @param {Date} date (optional) Defaults to now

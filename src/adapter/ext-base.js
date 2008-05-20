@@ -172,15 +172,9 @@
     Ext.lib.Event = function() {
         var loadComplete = false;
         var listeners = [];
-        var listenersById = {};
         var unloadListeners = [];
         var retryCount = 0;
         var onAvailStack = [];
-
-        var addElementListener = function(el, ename, h){
-            var id = Ext.id(el);
-            var ls = listenersById[id] ? listenersById[id] : (listenersById[id] = {});
-        }
 
         return {
             POLL_RETRYS: 200,
@@ -229,16 +223,16 @@
                 }
 
                 // prevent unload errors with simple check
-                var wrappedFn = function(e) {
-                    return typeof Ext != 'undefined' ? fn(Ext.lib.Event.getEvent(e)) : false;
-                };
+                //var wrappedFn = function(e) {
+                //    return typeof Ext != 'undefined' ? fn(Ext.lib.Event.getEvent(e)) : false;
+                //};
 
-                var li = [el, eventName, fn, wrappedFn];
+                var li = [el, eventName, fn, fn];
 
                 var index = listeners.length;
                 listeners[index] = li;
 
-                this.doAdd(el, eventName, wrappedFn, false);
+                this.doAdd(el, eventName, fn, false);
                 return true;
 
             },
