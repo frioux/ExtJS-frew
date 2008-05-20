@@ -21,6 +21,8 @@ Ext.form.Radio = Ext.extend(Ext.form.Checkbox, {
      */
     clearInvalid : Ext.emptyFn,
 
+    valueAsGroup : false,
+
     /**
      * If this radio is part of a group, it will return the selected value
      * @return {String}
@@ -55,11 +57,32 @@ Ext.form.Radio = Ext.extend(Ext.form.Checkbox, {
     	if (typeof v == 'boolean') {
             Ext.form.Radio.superclass.setValue.call(this, v);
         } else {
-            var r = this.el.up('form').child('input[name='+this.el.dom.name+'][value='+v+']', true);
-            if (r){
-                r.checked = true;
-            };
+            var rs = this.getRadioElements();
+            for(var i = 0, len = rs.length; i < len; i++){
+                if(rs[i].value == v){
+                    rs[i].checked = true;
+                    rs[i].defaultChecked = true;
+                }
+            }
         }
+    },
+
+    getValue : function(){
+        if(!this.valueAsGroup) {
+            return Ext.form.Radio.superclass.getValue.call(this);
+        } else {
+            var rs = this.getRadioElements();
+            for(var i = 0, len = rs.length; i < len; i++){
+                if(rs[i].checked){
+                    return rs[i].value;
+                }
+            }
+            return null;
+        }
+    },
+
+    getRadioElements : function(){
+        return this.el.up('form').query('input[name='+this.el.dom.name+']');
     }
 });
 Ext.reg('radio', Ext.form.Radio);
