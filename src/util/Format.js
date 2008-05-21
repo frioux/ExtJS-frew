@@ -223,8 +223,27 @@ Ext.util.Format = function(){
             }
         }(),
 
-        // Original code based on Matt Snider's Number.prototype.format
-        // http://mattsnider.com/javascript/numbers-and-number-format-function/
+        /**
+         * Formats the number according to the format string; adheres to the american number standard
+         * where a comma is inserted after every 3 digits. note: there should be only 1 contiguous number
+         * in the format, where a number consists of digits, period, and commas
+         * any other characters can be wrapped around this number, including ?$?, ?%?, or text
+         * <div style="margin-left:40px">examples (123456.789):
+         * <div style="margin-left:10px">
+         * ?0? - (123456) show only digits, no precision<br>
+         * ?0.00? - (123456.78) show only digits, 2 precision<br>
+         * ?0.0000? - (123456.7890) show only digits, 4 precision<br>
+         * ?0,000? - (123,456) show comma and digits, no precision<br>
+         * ?0,000.00? - (123,456.78) show comma and digits, 2 precision<br>
+         * ?0,0.00? - (123,456.78) shortcut method, show comma and digits, 2 precision<br>
+         * </div</div>
+         *
+         * @method format
+         * @param v {Number} The number to format.
+         * @param format {String} The way you would like to format this text.
+         * @return {String} The formatted number.
+         * @public
+         */
         number: function(v, format) {
             if(!format){
                 return v;
@@ -234,7 +253,7 @@ Ext.util.Format = function(){
                 return '';
             }
             var hasComma = -1 < format.indexOf(','),
-                psplit = format.replace(/[^\d]/g,'').split('.');
+                psplit = format.replace(/[^\d\.]/g,'').split('.');
 
             // compute precision
             if (1 < psplit.length) {
@@ -284,7 +303,7 @@ Ext.util.Format = function(){
 
         /**
          * Returns a number rendering function that can be reused to apply a number format multiple times efficiently
-         * @param {String} format Any valid number format string
+         * @param {String} format Any valid number format string for {@link #number}
          * @return {Function} The number formatting function
          */
         numberRenderer : function(format){
