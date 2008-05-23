@@ -163,7 +163,7 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
 	// private
     onClickChange : function(local){
         if(local.top > this.clickRange[0] && local.top < this.clickRange[1]){
-            this.setValue(Math.round(local.left/this.getRatio()), undefined, true);
+            this.setValue(Math.round(this.reverseValue(local.left)), undefined, true);
         }
     },
 
@@ -230,7 +230,7 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
     getRatio : function(){
         var w = this.innerEl.getWidth();
         var v = this.maxValue - this.minValue;
-        return w/v;
+        return v == 0 ? w : (w/v);
     },
 
 	// private
@@ -264,7 +264,13 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
 
 	// private
     translateValue : function(v){
-        return (v * this.getRatio())-this.halfThumb;
+        var ratio = this.getRatio();
+        return (v * ratio)-(this.minValue * ratio)-this.halfThumb;
+    },
+
+	reverseValue : function(pos){
+        var ratio = this.getRatio();
+        return (pos+this.halfThumb+(this.minValue * ratio))/ratio;
     },
 
 	// private
@@ -297,7 +303,7 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
 	// private
     onDrag: function(e){
         var pos = this.innerEl.translatePoints(this.tracker.getXY());
-        this.setValue(Math.round(pos.left/this.getRatio()), false);
+        this.setValue(Math.round(this.reverseValue(pos.left)), false);
         this.fireEvent('drag', this, e);
     },
 
