@@ -1,8 +1,8 @@
 /**
  * @class Ext.menu.Menu
  * @extends Ext.util.Observable
- * A menu object.  This is the container to which you add all other menu items.  Menu can also serve a as a base class
- * when you want a specialzed menu based off of another component (like {@link Ext.menu.DateMenu} for example).
+ * A menu object.  This is the container to which you add all other menu items.  Menu can also serve as a base class
+ * when you want a specialized menu based off of another component (like {@link Ext.menu.DateMenu} for example).
  * @constructor
  * Creates a new Menu
  * @param {Object} config Configuration options
