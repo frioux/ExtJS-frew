@@ -467,7 +467,7 @@ a.x-grid3-hd-btn:hover {
 
 .x-grid3-body .x-grid3-td-row-icon {
     background:transparent url(../images/default/grid/grid3-special-col-bg.gif) repeat-y right;
-    vertical-align:middle;
+    vertical-align:top;
     text-align:center;
 }
 .x-grid3-body .x-grid3-td-row-icon .x-grid3-cell-inner {
@@ -477,6 +477,7 @@ a.x-grid3-hd-btn:hover {
     width:16px;
     height:16px;
     margin-left:2px;
+    margin-top:3px;
 }
 
 /* All specials */

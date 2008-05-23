@@ -1,30 +1,27 @@
 Ext.onReady(function(){
 
     // create the Data Store
-    var store = new Ext.data.Store({
+    var store = new Ext.data.JsonStore({
+        root: 'topics',
+        totalProperty: 'totalCount',
+        idProperty: 'threadid',
+        remoteSort: true,
+
+        fields: [
+            'title', 'forumtitle', 'forumid', 'author',
+            {name: 'replycount', type: 'int'},
+            {name: 'lastpost', mapping: 'lastpost', type: 'date', dateFormat: 'timestamp'},
+            'lastposter', 'excerpt'
+        ],
+
         // load using script tags for cross domain, if the data in on the same domain as
         // this page, an HttpProxy would be better
         proxy: new Ext.data.ScriptTagProxy({
             url: 'http://extjs.com/forum/topics-browse-remote.php'
-        }),
-
-        // create reader that reads the Topic records
-        reader: new Ext.data.JsonReader({
-            root: 'topics',
-            totalProperty: 'totalCount',
-            id: 'threadid',
-            fields: [
-                'title', 'forumtitle', 'forumid', 'author',
-                {name: 'replycount', type: 'int'},
-                {name: 'lastpost', mapping: 'lastpost', type: 'date', dateFormat: 'timestamp'},
-                'lastposter', 'excerpt'
-            ]
-        }),
-
-        // turn on remote sorting
-        remoteSort: true
+        })
     });
     store.setDefaultSort('lastpost', 'desc');
+
 
     // pluggable renders
     function renderTopic(value, p, record){
@@ -36,46 +33,46 @@ Ext.onReady(function(){
         return String.format('{0}<br/>by {1}', value.dateFormat('M j, Y, g:i a'), r.data['lastposter']);
     }
 
-    // the column model has information about grid columns
-    // dataIndex maps the column to the specific data field in
-    // the data store
-    var cm = new Ext.grid.ColumnModel([{
-           id: 'topic', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
-           header: "Topic",
-           dataIndex: 'title',
-           width: 420,
-           renderer: renderTopic
-        },{
-           header: "Author",
-           dataIndex: 'author',
-           width: 100,
-           hidden: true
-        },{
-           header: "Replies",
-           dataIndex: 'replycount',
-           width: 70,
-           align: 'right'
-        },{
-           id: 'last',
-           header: "Last Post",
-           dataIndex: 'lastpost',
-           width: 150,
-           renderer: renderLast
-        }]);
-
-    // by default columns are sortable
-    cm.defaultSortable = true;
-
     var grid = new Ext.grid.GridPanel({
         el:'topic-grid',
         width:700,
         height:500,
         title:'ExtJS.com - Browse Forums',
         store: store,
-        cm: cm,
         trackMouseOver:false,
-        sm: new Ext.grid.RowSelectionModel({selectRow:Ext.emptyFn}),
+        disableSelection:true,
         loadMask: true,
+
+        // grid columns
+        columns:[{
+            id: 'topic', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
+            header: "Topic",
+            dataIndex: 'title',
+            width: 420,
+            renderer: renderTopic,
+            sortable: true
+        },{
+            header: "Author",
+            dataIndex: 'author',
+            width: 100,
+            hidden: true,
+            sortable: true
+        },{
+            header: "Replies",
+            dataIndex: 'replycount',
+            width: 70,
+            align: 'right',
+            sortable: true
+        },{
+            id: 'last',
+            header: "Last Post",
+            dataIndex: 'lastpost',
+            width: 150,
+            renderer: renderLast,
+            sortable: true
+        }],
+
+        // customize view config
         viewConfig: {
             forceFit:true,
             enableRowBody:true,
@@ -88,6 +85,8 @@ Ext.onReady(function(){
                 return 'x-grid3-row-collapsed';
             }
         },
+
+        // paging bar on the bottom
         bbar: new Ext.PagingToolbar({
             pageSize: 25,
             store: store,
@@ -100,7 +99,11 @@ Ext.onReady(function(){
                 enableToggle:true,
                 text: 'Show Preview',
                 cls: 'x-btn-text-icon details',
-                toggleHandler: toggleDetails
+                toggleHandler: function(btn, pressed){
+                    var view = grid.getView();
+                    view.showPreview = pressed;
+                    view.refresh();
+                }
             }]
         })
     });
@@ -110,10 +113,4 @@ Ext.onReady(function(){
 
     // trigger the data store load
     store.load({params:{start:0, limit:25}});
-
-    function toggleDetails(btn, pressed){
-        var view = grid.getView();
-        view.showPreview = pressed;
-        view.refresh();
-    }
 });

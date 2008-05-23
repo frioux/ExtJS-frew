@@ -40,7 +40,7 @@ Ext.data.JsonStore = function(c){
      * @cfg {Ext.data.DataProxy} proxy @hide
      */
     Ext.data.JsonStore.superclass.constructor.call(this, Ext.apply(c, {
-        proxy: !c.data ? new Ext.data.HttpProxy({url: c.url}) : undefined,
+        proxy: c.proxy || (!c.data ? new Ext.data.HttpProxy({url: c.url}) : undefined),
         reader: new Ext.data.JsonReader(c, c.fields)
     }));
 };

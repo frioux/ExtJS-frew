@@ -140,6 +140,9 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
             config.items.push(this.displayItem = new T.TextItem({}));
         }
 	    Ext.PagingToolbar.superclass.constructor.apply(this, arguments);
+
+        this.addEvents('change', 'beforechange');
+               
         this.cursor = 0;
         this.bind(this.store);
         this.on('afterlayout', this.onFirstLayout, this, {single: true});
@@ -176,17 +179,18 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
             this.dsLoaded = [store, r, o];
             return;
         }
-       this.cursor = (o.params && o.params[this.paramNames.start]) ? o.params[this.paramNames.start] : 0;
-       var d = this.getPageData(), ap = d.activePage, ps = d.pages;
+        this.cursor = (o.params && o.params[this.paramNames.start]) ? o.params[this.paramNames.start] : 0;
+        var d = this.getPageData(), ap = d.activePage, ps = d.pages;
 
-       this.afterTextItem.setText(String.format(this.afterPageText, d.pages));
-       this.field.value = ap;
-       this.first.setDisabled(ap == 1);
-       this.prev.setDisabled(ap == 1);
-       this.next.setDisabled(ap == ps);
-       this.last.setDisabled(ap == ps);
-       this.refresh.enable();
-       this.updateInfo();
+        this.afterTextItem.setText(String.format(this.afterPageText, d.pages));
+        this.field.value = ap;
+        this.first.setDisabled(ap == 1);
+        this.prev.setDisabled(ap == 1);
+        this.next.setDisabled(ap == ps);
+        this.last.setDisabled(ap == ps);
+        this.refresh.enable();
+        this.updateInfo();
+        this.fireEvent('change', this, d);
     },
 
     // private
@@ -197,6 +201,14 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
             activePage : Math.ceil((this.cursor+this.pageSize)/this.pageSize),
             pages :  total < this.pageSize ? 1 : Math.ceil(total/this.pageSize)
         };
+    },
+
+    /**
+     * Change the active page
+     * @param {Integer} page The page to display
+     */
+    changePage: function(page){
+        this.doLoad(((page-1) * this.pageSize).constrain(0, this.store.getTotalCount()));
     },
 
     // private
@@ -255,7 +267,9 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         var o = {}, pn = this.paramNames;
         o[pn.start] = start;
         o[pn.limit] = this.pageSize;
-        this.store.load({params:o});
+        if(this.fireEvent('beforechange', this, o) !== false){
+            this.store.load({params:o});
+        }
     },
 
     // private
