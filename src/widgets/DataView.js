@@ -110,6 +110,10 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
      * @cfg {Boolean} deferEmptyText True to defer emptyText being applied until the store's first load
      */
     deferEmptyText: true,
+    /**
+     * @cfg {Boolean} trackOver True to enable mouseenter and mouseleave events
+     */
+    trackOver: false,
 
     //private
     last: false,
@@ -140,6 +144,24 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
              * @param {Ext.EventObject} e The raw event object
              */
             "click",
+            /**
+             * @event mouseenter
+             * Fires when the mouse enters a template node. trackOver:true or an overCls must be set to enable this event.
+             * @param {Ext.DataView} this
+             * @param {Number} index The index of the target node
+             * @param {HTMLElement} node The target node
+             * @param {Ext.EventObject} e The raw event object
+             */
+            "mouseenter",
+            /**
+             * @event mouseleave
+             * Fires when the mouse leaves a template node. trackOver:true or an overCls must be set to enable this event.
+             * @param {Ext.DataView} this
+             * @param {Number} index The index of the target node
+             * @param {HTMLElement} node The target node
+             * @param {Ext.EventObject} e The raw event object
+             */
+            "mouseleave",
             /**
              * @event containerclick
              * Fires when a click occurs and it is not on a template node.
@@ -207,7 +229,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
             scope:this
         });
 
-        if(this.overClass){
+        if(this.overClass || this.trackOver){
             this.getTemplateTarget().on({
                 "mouseover": this.onMouseOver,
                 "mouseout": this.onMouseOut,
@@ -227,7 +249,6 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
         this.clearSelections(false, true);
         var el = this.getTemplateTarget();
         el.update("");
-        var html = [];
         var records = this.store.getRange();
         if(records.length < 1){
             if(!this.deferEmptyText || this.hasSkippedEmptyText){
@@ -410,6 +431,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
         if(item && item !== this.lastItem){
             this.lastItem = item;
             Ext.fly(item).addClass(this.overClass);
+            this.fireEvent("mouseenter", this, this.indexOf(item), item, e);
         }
     },
 
@@ -418,6 +440,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
         if(this.lastItem){
             if(!e.within(this.lastItem, true)){
                 Ext.fly(this.lastItem).removeClass(this.overClass);
+                this.fireEvent("mouseleave", this, this.indexOf(this.lastItem), this.lastItem, e);
                 delete this.lastItem;
             }
         }
@@ -556,7 +579,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
      */
     deselect : function(node){
         if(this.isSelected(node)){
-            var node = this.getNode(node);
+            node = this.getNode(node);
             this.selected.removeElement(node);
             if(this.last == node.viewIndex){
                 this.last = false;
