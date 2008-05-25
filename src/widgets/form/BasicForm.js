@@ -69,7 +69,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      * The URL to use for form actions if one isn't supplied in the action options.
      */
     /**
-     * @cfg {Boolean} fileUpload.
+     * @cfg {Boolean} fileUpload
      * Set to true if this form is a file upload.
      * <p>File uploads are not performed using normal "Ajax" techniques, that is they are <b>not</b>
      * performed using XMLHttpRequests. Instead the form is submitted in the standard manner with the
