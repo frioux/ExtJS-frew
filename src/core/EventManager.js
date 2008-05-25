@@ -523,6 +523,8 @@ Ext.EventObject = function(){
         /** Key constant @type Number */
         ENTER: 13,
         /** Key constant @type Number */
+        RETURN: 13,
+        /** Key constant @type Number */
         SHIFT: 16,
         /** Key constant @type Number */
         CTRL: 17,
