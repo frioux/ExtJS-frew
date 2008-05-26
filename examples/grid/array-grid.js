@@ -30,7 +30,7 @@ Ext.onReady(function(){
         ['The Home Depot, Inc.',34.64,0.35,1.02,'9/1 12:00am'],
         ['The Procter & Gamble Company',61.91,0.01,0.02,'9/1 12:00am'],
         ['United Technologies Corporation',63.26,0.55,0.88,'9/1 12:00am'],
-        ['Verizon Communications',35.57,0.39,1.11,'9/1 12:00am'],
+        ['Verizon Communications',35.57,0.39,1.11,'9/1 12:00am'],            
         ['Wal-Mart Stores, Inc.',45.45,0.73,1.63,'9/1 12:00am']
     ];
 
@@ -82,8 +82,7 @@ Ext.onReady(function(){
         width:600,
         title:'Array Grid'
     });
-
     grid.render('grid-example');
-
+    
     grid.getSelectionModel().selectFirstRow();
 });

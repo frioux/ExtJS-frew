@@ -578,6 +578,15 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         }
     },
 
+    afterRender: function(){
+        this.mainBody.dom.innerHTML = this.renderRows();
+        this.processRows(0, true);
+
+        if(this.deferEmptyText !== true){
+            this.applyEmptyText();
+        }
+    },
+
     // private
     renderUI : function(){
 
@@ -595,14 +604,6 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         g.getGridEl().dom.innerHTML = html;
 
         this.initElements();
-
-
-        this.mainBody.dom.innerHTML = this.renderRows();
-        this.processRows(0, true);
-
-        if(this.deferEmptyText !== true){
-            this.applyEmptyText();
-        }
 
         // get mousedowns early
         Ext.fly(this.innerHd).on("click", this.handleHdDown, this);
@@ -1156,9 +1157,6 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
 
     // private
     render : function(){
-
-        var cm = this.cm;
-        var colCount = cm.getColumnCount();
 
         if(this.autoFill){
             this.fitColumns(true, true);

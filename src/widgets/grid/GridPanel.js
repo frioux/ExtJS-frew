@@ -138,6 +138,11 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
      */
     columnLines : false,
 
+    /**
+     * @cfg {Boolean} deferRowRender True to enable deferred row rendering. Default is true.
+     */
+    deferRowRender : true,
+
     // private
     rendered : false,
     // private
@@ -459,6 +464,11 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
     afterRender : function(){
         Ext.grid.GridPanel.superclass.afterRender.call(this);
         this.view.layout();
+        if(this.deferRowRender){
+            this.view.afterRender.defer(10, this.view);
+        }else{
+            this.view.afterRender();
+        }
         this.viewReady = true;
     },
 
