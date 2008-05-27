@@ -443,7 +443,7 @@ Ext.apply(Date, {
         Date.parseFunctions[format] = funcName;
 
         var code = "Date." + funcName + " = function(input){\n"
-            + "var y = -1, m = -1, d = -1, h = -1, i = -1, s = -1, ms = -1, o, z, u, v;\n"
+            + "var y, m, d, h = 0, i = 0, s = 0, ms = 0, o, z, u, v;\n"
             + "input = String(input);var d = new Date();\n"
             + "y = d.getFullYear();\n"
             + "m = d.getMonth();\n"
