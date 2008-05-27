@@ -89,90 +89,101 @@ Ext.Component = function(config){
         /**
          * @event disable
          * Fires after the component is disabled.
-	     * @param {Ext.Component} this
-	     */
+         * @param {Ext.Component} this
+         */
         'disable',
         /**
          * @event enable
          * Fires after the component is enabled.
-	     * @param {Ext.Component} this
-	     */
+         * @param {Ext.Component} this
+         */
         'enable',
         /**
          * @event beforeshow
          * Fires before the component is shown. Return false to stop the show.
-	     * @param {Ext.Component} this
-	     */
+         * @param {Ext.Component} this
+         */
         'beforeshow',
         /**
          * @event show
          * Fires after the component is shown.
-	     * @param {Ext.Component} this
-	     */
+         * @param {Ext.Component} this
+         */
         'show',
         /**
          * @event beforehide
          * Fires before the component is hidden. Return false to stop the hide.
-	     * @param {Ext.Component} this
-	     */
+         * @param {Ext.Component} this
+         */
         'beforehide',
         /**
          * @event hide
          * Fires after the component is hidden.
-	     * @param {Ext.Component} this
-	     */
+         * @param {Ext.Component} this
+         */
         'hide',
         /**
          * @event beforerender
          * Fires before the component is rendered. Return false to stop the render.
-	     * @param {Ext.Component} this
-	     */
+         * @param {Ext.Component} this
+         */
         'beforerender',
         /**
          * @event render
          * Fires after the component is rendered.
-	     * @param {Ext.Component} this
-	     */
+         * @param {Ext.Component} this
+         */
         'render',
         /**
          * @event beforedestroy
          * Fires before the component is destroyed. Return false to stop the destroy.
-	     * @param {Ext.Component} this
-	     */
+         * @param {Ext.Component} this
+         */
         'beforedestroy',
         /**
          * @event destroy
          * Fires after the component is destroyed.
-	     * @param {Ext.Component} this
-	     */
+         * @param {Ext.Component} this
+         */
         'destroy',
         /**
          * @event beforestaterestore
          * Fires before the state of the component is restored. Return false to stop the restore.
-	     * @param {Ext.Component} this
-	     * @param {Object} state The hash of state values
-	     */
+         * @param {Ext.Component} this
+         * @param {Object} state The hash of state values returned from the StateProvider. If this
+         * event is not vetoed, then the state object is passed to <b><tt>applyState</tt></b>. By default,
+         * that simply copies property values into this Component. The method maybe overriden to
+         * provide custom state restoration.
+         */
         'beforestaterestore',
         /**
          * @event staterestore
          * Fires after the state of the component is restored.
-	     * @param {Ext.Component} this
-	     * @param {Object} state The hash of state values
-	     */
+         * @param {Ext.Component} this
+         * @param {Object} state The hash of state values returned from the StateProvider. This is passed
+         * to <b><tt>applyState</tt></b>. By default, that simply copies property values into this
+         * Component. The method maybe overriden to provide custom state restoration.
+         */
         'staterestore',
         /**
          * @event beforestatesave
          * Fires before the state of the component is saved to the configured state provider. Return false to stop the save.
-	     * @param {Ext.Component} this
-	     * @param {Object} state The hash of state values
-	     */
+         * @param {Ext.Component} this
+         * @param {Object} state The hash of state values. This is determined by calling
+         * <b><tt>getState()</tt></b> on the Component. This method must be provided by the
+         * developer to return whetever representation of state is required, by default, Ext.Component
+         * has a null implementation.
+         */
         'beforestatesave',
         /**
          * @event statesave
          * Fires after the state of the component is saved to the configured state provider.
-	     * @param {Ext.Component} this
-	     * @param {Object} state The hash of state values
-	     */
+         * @param {Ext.Component} this
+         * @param {Object} state The hash of state values. This is determined by calling
+         * <b><tt>getState()</tt></b> on the Component. This method must be provided by the
+         * developer to return whetever representation of state is required, by default, Ext.Component
+         * has a null implementation.
+         */
         'statesave'
     );
     this.getId();
@@ -295,20 +306,30 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
 
     /**
      * @cfg {Boolean} stateful
-     * A flag which causes the Component to attempt to restore the state of internal properties
-     * from a saved state on startup.<p>
-     * For state saving to work, the state manager's provider must have been set to an implementation
+     * <p>A flag which causes the Component to attempt to restore the state of internal properties
+     * from a saved state on startup.</p>
+     * <p>For state saving to work, the state manager's provider must have been set to an implementation
      * of {@link Ext.state.Provider} which overrides the {@link Ext.state.Provider#set set}
      * and {@link Ext.state.Provider#get get} methods to save and recall name/value pairs.
      * A built-in implementation, {@link Ext.state.CookieProvider} is available.</p>
-     * <p>To set the state provider for the current page:</p>	
+     * <p>To set the state provider for the current page:</p>    
      * <pre><code>
 Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 </code></pre>
-     * <p>Components attempt to save state when one of the events listed in the {@link #stateEvents}
+     * <p>A stateful Component attempts to save state when one of the events listed in the {@link #stateEvents}
      * configuration fires.</p>
+     * To save state, A stateful Component first serializes its state by calling <b><tt>getState</tt></b>. By default,
+     * this function does nothing. The developer must provide an implementation which returns an object hash
+     * which represents the Component's restorable state.</p>
+     * <p>The value yielded by getState is passed to {@link Ext.state.Manager#set} which uses the configured
+     * {@link Ext.state.Provider} to save the object keyed by the Component's {@link stateId}, or,
+     * if that is not specified, its {@link #id}.</p>
+     * <p>During construction, a stateful Component attempts to <i>restore</i> its state by calling
+     * {@link Ext.state.Manager#get} passing the (@link #stateId}, or, if that is not specified, the {@link #id}.</p>
+     * <p>The resulting object is passed to <b><tt>applyState</tt></b>. The default implementation of applyState
+     * simply copies properties into the object, but a developer may override this to support more behaviour.</p>
      * <p>You can perform extra processing on state save and restore by attaching handlers to the
-     * {@link #beforestaterestore}, {@link staterestore}, {@link beforestatesave} and {@link statesave} events</p>
+     * {@link #beforestaterestore}, {@link #staterestore}, {@link beforestatesave} and {@link #statesave} events</p>
      */
     /**
      * @cfg {String} stateId
@@ -328,16 +349,16 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
      * CSS class added to the component when it is disabled (defaults to "x-item-disabled").
      */
     disabledClass : "x-item-disabled",
-	/**
-	 * @cfg {Boolean} allowDomMove
-	 * Whether the component can move the Dom node when rendering (defaults to true).
-	 */
+    /**
+     * @cfg {Boolean} allowDomMove
+     * Whether the component can move the Dom node when rendering (defaults to true).
+     */
     allowDomMove : true,
-	/**
-	 * @cfg {Boolean} autoShow
-	 * True if the component should check for hidden classes (e.g. 'x-hidden' or 'x-hide-display') and remove
-	 * them on render (defaults to false).
-	 */
+    /**
+     * @cfg {Boolean} autoShow
+     * True if the component should check for hidden classes (e.g. 'x-hidden' or 'x-hide-display') and remove
+     * them on render (defaults to false).
+     */
     autoShow : false,
     /**
      * @cfg {String} hideMode
@@ -394,11 +415,11 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
      * <pre><code>
 // Traditional constructor:
 Ext.Foo = function(config){
-	// call superclass constructor:
+    // call superclass constructor:
     Ext.Foo.superclass.constructor.call(this, config);
 
     this.addEvents({
-		// add events
+        // add events
     });
 };
 Ext.extend(Ext.Foo, Ext.Bar, {
@@ -408,7 +429,7 @@ Ext.extend(Ext.Foo, Ext.Bar, {
 // initComponent replaces the constructor:
 Ext.Foo = Ext.extend(Ext.Bar, {
     initComponent : function(){
-		// call superclass initComponent
+        // call superclass initComponent
         Ext.Container.superclass.initComponent.call(this);
 
         this.addEvents({
@@ -563,7 +584,7 @@ Ext.Foo = Ext.extend(Ext.Bar, {
                 this.el = div.firstChild;
             }
             if (!this.el.id) {
-            	this.el.id = this.getId();
+                this.el.id = this.getId();
             }
         }
         if(this.el){
@@ -613,10 +634,10 @@ Ext.Foo = Ext.extend(Ext.Bar, {
         }
     },
 
-	// private
+    // private
     beforeDestroy : Ext.emptyFn,
 
-	// private
+    // private
     onDestroy  : Ext.emptyFn,
 
     /**
@@ -684,7 +705,7 @@ Ext.Foo = Ext.extend(Ext.Bar, {
         return this;
     },
 
-	// private
+    // private
     onDisable : function(){
         this.getActionEl().addClass(this.disabledClass);
         this.el.dom.disabled = true;
@@ -703,7 +724,7 @@ Ext.Foo = Ext.extend(Ext.Bar, {
         return this;
     },
 
-	// private
+    // private
     onEnable : function(){
         this.getActionEl().removeClass(this.disabledClass);
         this.el.dom.disabled = false;
