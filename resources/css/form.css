@@ -244,6 +244,9 @@ textarea {
 .x-form-label-right label {
    text-align:right;
 }
+.x-form-label-left label {
+   text-align:left;
+}
 
 .x-form-label-top .x-form-item label {
     width:auto;
