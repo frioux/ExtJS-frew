@@ -25,7 +25,8 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
 	 * @cfg {String} formId (optional) The id of the FORM tag (defaults to an auto-generated id).
 	 */
     /**
-     * @cfg {Number} labelWidth The width of labels. This property cascades to child containers.
+     * @cfg {Number} labelWidth The width of labels. This property cascades to child containers and can be overridden
+     * on any child container (e.g., a fieldset can specify a different labelWidth for its fields).
      */
     /**
      * @cfg {String} itemCls A css class to apply to the x-form-item of fields. This property cascades to child containers.
@@ -42,7 +43,8 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
 
     /**
      * @cfg {String} labelAlign Valid values are "left," "top" and "right" (defaults to "left").
-     * This property cascades to child containers if not set.
+     * This property cascades to child containers and can be overridden on any child container 
+     * (e.g., a fieldset can specify a different labelAlign for its fields).
      */
     labelAlign:'left',
 
