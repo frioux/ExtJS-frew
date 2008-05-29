@@ -1,7 +1,11 @@
 /**
  * @class Ext.form.ComboBox
  * @extends Ext.form.TriggerField
- * A combobox control with support for autocomplete, remote-loading, paging and many other features.
+ * <p>A combobox control with support for autocomplete, remote-loading, paging and many other features.</p>
+ * A ComboBox works in a similar manner to a traditional HTML &lt;select> field. The difference is that to submit the
+ * {@link #valueField}, you must specify a {@link #hiddenName} to create a hidden input field to hold the
+ * value of the valueField. The <i>{@link #displayField}</i> is shown in the text field which is named
+ * according to the {@link #name}.
  * @constructor
  * Create a new ComboBox.
  * @param {Object} config Configuration options
