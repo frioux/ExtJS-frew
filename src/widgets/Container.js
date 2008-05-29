@@ -32,7 +32,7 @@ myGrid = new Ext.grid.GridPanel({
 });
 
 myTabPanel.add(myGrid);
-myTabPanel.setActiveItem(myGrid);
+myTabPanel.setActiveTab(myGrid);
 </code></pre>
  */
 Ext.Container = Ext.extend(Ext.BoxComponent, {
