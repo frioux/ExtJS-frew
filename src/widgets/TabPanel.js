@@ -335,9 +335,11 @@ var tabs = new Ext.TabPanel({
 
         this.stripWrap = st.createChild({cls:'x-tab-strip-wrap', cn:{
             tag:'ul', cls:'x-tab-strip x-tab-strip-'+this.tabPosition}});
-        this.stripSpacer = st.createChild({cls:'x-tab-strip-spacer'});
-        this.strip = new Ext.Element(this.stripWrap.dom.firstChild);
 
+        var beforeEl = (this.tabPosition=='bottom' ? this.stripWrap : null);
+        this.stripSpacer = st.createChild({cls:'x-tab-strip-spacer'}, beforeEl);
+        this.strip = new Ext.Element(this.stripWrap.dom.firstChild);
+        
         this.edge = this.strip.createChild({tag:'li', cls:'x-tab-edge'});
         this.strip.createChild({cls:'x-clear'});
 
