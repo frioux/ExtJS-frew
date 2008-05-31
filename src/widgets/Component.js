@@ -199,10 +199,10 @@ Ext.Component = function(config){
     if(this.plugins){
         if(Ext.isArray(this.plugins)){
             for(var i = 0, len = this.plugins.length; i < len; i++){
-                this.initPlugin(this.plugins[i]);
+                this.plugins[i] = this.initPlugin(this.plugins[i]);
             }
         }else{
-            this.initPlugin(this.plugins);
+            this.plugins = this.initPlugin(this.plugins);
         }
     }
 
@@ -412,6 +412,7 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 
     initPlugin : function(p){
         p.init(this);
+        return p;
     },
 
     /* // protected
