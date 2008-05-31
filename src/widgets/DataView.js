@@ -654,21 +654,21 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
 
     /**
      * Gets a range nodes.
-     * @param {Number} start The index of the first node in the range
-     * @param {Number} end The index of the last node in the range
+     * @param {Number} start (optional) The index of the first node in the range
+     * @param {Number} end (optional) The index of the last node in the range
      * @return {Array} An array of nodes
      */
     getNodes : function(start, end){
         var ns = this.all.elements;
         start = start || 0;
-        end = typeof end == "undefined" ? ns.length - 1 : end;
+        end = typeof end == "undefined" ? Math.max(ns.length - 1, 0) : end;
         var nodes = [], i;
         if(start <= end){
-            for(i = start; i <= end; i++){
+            for(i = start; i <= end, ns[i]; i++){
                 nodes.push(ns[i]);
             }
         } else{
-            for(i = start; i >= end; i--){
+            for(i = start; i >= end, ns[i]; i--){
                 nodes.push(ns[i]);
             }
         }
