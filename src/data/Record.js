@@ -129,6 +129,11 @@ Ext.data.Record.prototype = {
 
     // private
     join : function(store){
+        /**
+         * The {@link Ext.data.Store} to which this Record belongs.
+         * @property store
+         * @type {Ext.data.Store}
+         */
         this.store = store;
     },
 
