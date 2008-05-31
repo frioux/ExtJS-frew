@@ -664,11 +664,11 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
         end = typeof end == "undefined" ? Math.max(ns.length - 1, 0) : end;
         var nodes = [], i;
         if(start <= end){
-            for(i = start; i <= end, ns[i]; i++){
+            for(i = start; i <= end && ns[i]; i++){
                 nodes.push(ns[i]);
             }
         } else{
-            for(i = start; i >= end, ns[i]; i--){
+            for(i = start; i >= end && ns[i]; i--){
                 nodes.push(ns[i]);
             }
         }
