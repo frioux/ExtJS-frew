@@ -144,6 +144,7 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
     // private
     beforeDestroy: function(){
         Ext.FormPanel.superclass.beforeDestroy.call(this);
+        this.stopMonitoring();
         Ext.destroy(this.form);
     },
 
