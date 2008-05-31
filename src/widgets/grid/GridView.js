@@ -858,7 +858,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
                 c.scrollLeft = cright-c.clientWidth;
             }
         }
-        return cellEl ? Ext.fly(cellEl).getXY() : [c.scrollLeft, Ext.fly(rowEl).getY()];
+        return cellEl ? Ext.fly(cellEl).getXY() : [c.scrollLeft+this.el.getX(), Ext.fly(rowEl).getY()];
     },
 
     // private

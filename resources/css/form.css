@@ -69,12 +69,6 @@ textarea {
 
 /* wrapped fields and triggers */
 
-.x-form-field-wrap {
-    position:relative;
-    zoom:1;
-    white-space: nowrap;
-}
-
 .x-editor .x-form-check-wrap {
     background:#fff;
 }
@@ -117,6 +111,7 @@ textarea {
 
 .x-form-field-wrap {
     position:relative;
+    left:0;top:0;
     zoom:1;
     white-space: nowrap;
 }
@@ -444,7 +439,7 @@ fieldset.x-panel-collapsed .x-fieldset-bwrap {
 .ext-ie .x-fieldset-bwrap {
     zoom:1;
 }
-.ext-ie td .x-form-text {
+.ext-ie .x-toolbar .x-form-text {
     position:relative;
     top:-1px;
 }
