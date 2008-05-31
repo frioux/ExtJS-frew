@@ -1199,6 +1199,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
             this.cm.un("columnlockchange", this.onColumnLock, this);
         }
         if(cm){
+            delete this.lastViewWidth;
             cm.on("configchange", this.onColConfigChange, this);
             cm.on("widthchange", this.onColWidthChange, this);
             cm.on("headerchange", this.onHeaderChange, this);
