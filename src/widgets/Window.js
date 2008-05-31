@@ -814,6 +814,8 @@ Ext.Window = Ext.extend(Ext.Panel, {
         this.setPagePosition(xy[0], xy[1]);
         return this;
     }
+
+    /**@cfg {Boolean} autoWidth @hide */
 });
 Ext.reg('window', Ext.Window);
 

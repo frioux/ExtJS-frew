@@ -199,10 +199,10 @@ Ext.Component = function(config){
     if(this.plugins){
         if(Ext.isArray(this.plugins)){
             for(var i = 0, len = this.plugins.length; i < len; i++){
-                this.plugins[i].init(this);
+                this.initPlugin(this.plugins[i]);
             }
         }else{
-            this.plugins.init(this);
+            this.initPlugin(this.plugins);
         }
     }
 
@@ -408,6 +408,10 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
     // private
     getActionEl : function(){
         return this[this.actionMode];
+    },
+
+    initPlugin : function(p){
+        p.init(this);
     },
 
     /* // protected
