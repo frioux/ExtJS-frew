@@ -68,7 +68,16 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
     // private
     initComponent :function(){
         this.form = this.createForm();
-        
+        this.bodyCfg = {
+            tag: 'form',
+            cls: this.baseCls + '-body',
+            method : this.method || 'POST',
+            id : this.formId || Ext.id()
+        };
+        if(this.fileUpload) {
+            this.bodyCfg.enctype = 'multipart/form-data';
+        }
+
         Ext.FormPanel.superclass.initComponent.call(this);
 
         this.addEvents(
@@ -127,18 +136,8 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
     // private
     onRender : function(ct, position){
         this.initFields();
-
         Ext.FormPanel.superclass.onRender.call(this, ct, position);
-
-        var o = {
-            tag: 'form',
-            method : this.method || 'POST',
-            id : this.formId || Ext.id()
-        };
-        if(this.fileUpload) {
-            o.enctype = 'multipart/form-data';
-        }
-        this.form.initEl(this.body.createChild(o));
+        this.form.initEl(this.body);
     },
     
     // private
