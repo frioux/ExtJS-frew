@@ -1,15 +1,14 @@
 Ext.onReady(function(){
     var tree = new Ext.tree.ColumnTree({
-        el:'tree-ct',
-        width:552,
-        autoHeight:true,
+        width: 550,
+        height: 300,
         rootVisible:false,
         autoScroll:true,
         title: 'Example Tasks',
         
         columns:[{
             header:'Task',
-            width:350,
+            width:330,
             dataIndex:'task'
         },{
             header:'Duration',
@@ -30,7 +29,7 @@ Ext.onReady(function(){
 
         root: new Ext.tree.AsyncTreeNode({
             text:'Tasks'
-        })
+        }),
+        renderTo: document.body
     });
-    tree.render();
 });

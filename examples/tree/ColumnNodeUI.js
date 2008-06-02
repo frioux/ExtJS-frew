@@ -5,8 +5,7 @@ Ext.tree.ColumnTree = Ext.extend(Ext.tree.TreePanel, {
     
     onRender : function(){
         Ext.tree.ColumnTree.superclass.onRender.apply(this, arguments);
-        this.headers = this.body.createChild(
-            {cls:'x-tree-headers'},this.innerCt.dom);
+        this.headers = this.header.createChild({cls:'x-tree-headers'});
 
         var cols = this.columns, c;
         var totalWidth = 0;
