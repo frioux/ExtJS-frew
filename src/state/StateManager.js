@@ -9,6 +9,7 @@ init : function(){
    Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
    var win = new Window(...);
    win.restoreState();
+}
  </code></pre>
  * @singleton
  */
