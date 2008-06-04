@@ -815,7 +815,9 @@ Ext.Window = Ext.extend(Ext.Panel, {
         return this;
     }
 
-    /**@cfg {Boolean} autoWidth @hide */
+    /**
+     * @cfg {Boolean} autoWidth @hide 
+     **/
 });
 Ext.reg('window', Ext.Window);
 
