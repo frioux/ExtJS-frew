@@ -159,7 +159,9 @@ textarea {
 	background-color:#ffeeee;
 	border: 1px solid #ff7870;
 }
-
+.x-form-inner-invalid, textarea.x-form-inner-invalid{
+	background:#fff url(../images/default/grid/invalid_line.gif) repeat-x bottom;
+}
 /* editors */
 
 .x-editor {
@@ -226,7 +228,7 @@ textarea {
 }
 
 .x-form-invalid-msg {
-    color:#cc3300;
+    color:#c0272b;
     padding:2px;
     padding-left:18px;
     font:normal 11px tahoma, arial, helvetica, sans-serif;

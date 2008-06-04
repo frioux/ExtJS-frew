@@ -103,3 +103,5 @@ Ext.extend(Ext.tree.AsyncTreeNode, Ext.tree.TreeNode, {
         this.expand(false, false, callback);
     }
 });
+
+Ext.tree.TreePanel.nodeTypes.async = Ext.tree.AsyncTreeNode;

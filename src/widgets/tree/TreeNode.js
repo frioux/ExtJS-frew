@@ -164,6 +164,11 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
         return this.ui;
     },
 
+    getLoader : function(){
+        var owner;
+        return this.loader || ((owner = this.getOwnerTree()) && owner.loader ? owner.loader : new Ext.tree.TreeLoader());
+    },
+
     // private override
     setFirstChild : function(node){
         var of = this.firstChild;
@@ -190,8 +195,11 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
 
     // these methods are overridden to provide lazy rendering support
     // private override
-    appendChild : function(){
-        var node = Ext.tree.TreeNode.superclass.appendChild.apply(this, arguments);
+    appendChild : function(n){
+        if(!n.render && !Ext.isArray(n)){
+            n = this.getLoader().createNode(n);
+        }
+        var node = Ext.tree.TreeNode.superclass.appendChild.call(this, n);
         if(node && this.childrenRendered){
             node.render();
         }
@@ -220,7 +228,10 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
 
     // private override
     insertBefore : function(node, refNode){
-        var newNode = Ext.tree.TreeNode.superclass.insertBefore.apply(this, arguments);
+        if(!node.render){ 
+            node = this.getLoader().createNode(node);
+        }
+        var newNode = Ext.tree.TreeNode.superclass.insertBefore.call(this, node, refNode);
         if(newNode && refNode && this.childrenRendered){
             node.render();
         }
@@ -500,3 +511,5 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
         }
     }
 });
+
+Ext.tree.TreePanel.nodeTypes.node = Ext.tree.TreeNode;

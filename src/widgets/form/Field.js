@@ -227,6 +227,10 @@ side          Add an error icon to the right of the field with a popup on hover
         this.el.addClass([this.fieldClass, this.cls]);
     },
 
+    getItemCt : function(){
+        return this.el.up('.x-form-item', 4);
+    },
+
     // private
     initValue : function(){
         if(this.value !== undefined){
@@ -349,7 +353,7 @@ side          Add an error icon to the right of the field with a popup on hover
     },
 
     /**
-     * Mark this field as invalid, using {@link #msgTarget} to determine how to display the error and 
+     * Mark this field as invalid, using {@link #msgTarget} to determine how to display the error and
      * applying {@link #invalidClass} to the field's element.
      * @param {String} msg (optional) The validation message (defaults to {@link #invalidText})
      */
@@ -357,65 +361,20 @@ side          Add an error icon to the right of the field with a popup on hover
         if(!this.rendered || this.preventMark){ // not rendered
             return;
         }
-        this.el.addClass(this.invalidClass);
         msg = msg || this.invalidText;
-        switch(this.msgTarget){
-            case 'qtip':
-                this.el.dom.qtip = msg;
-                this.el.dom.qclass = 'x-form-invalid-tip';
-                if(Ext.QuickTips){ // fix for floating editors interacting with DND
-                    Ext.QuickTips.enable();
-                }
-                break;
-            case 'title':
-                this.el.dom.title = msg;
-                break;
-            case 'under':
-                if(!this.errorEl){
-                    var elp = this.getErrorCt();
-                    if(!elp){ // field has no container el
-                        this.el.dom.title = msg;
-                        break;
-                    }
-                    this.errorEl = elp.createChild({cls:'x-form-invalid-msg'});
-                    this.errorEl.setWidth(elp.getWidth(true)-20);
-                }
-                this.errorEl.update(msg);
-                Ext.form.Field.msgFx[this.msgFx].show(this.errorEl, this);
-                break;
-            case 'side':
-                if(!this.errorIcon){
-                    var elp = this.getErrorCt();
-                    if(!elp){ // field has no container el
-                        this.el.dom.title = msg;
-                        break;
-                    }
-                    this.errorIcon = elp.createChild({cls:'x-form-invalid-icon'});
-                }
-                this.alignErrorIcon();
-                this.errorIcon.dom.qtip = msg;
-                this.errorIcon.dom.qclass = 'x-form-invalid-tip';
-                this.errorIcon.show();
-                this.on('resize', this.alignErrorIcon, this);
-                break;
-            default:
-                var t = Ext.getDom(this.msgTarget);
+
+        var mt = this.getMessageHandler();
+        if(mt){
+            mt.mark(this, msg);
+        }else if(this.msgTarget){
+            this.el.addClass(this.invalidClass);
+            var t = Ext.getDom(this.msgTarget);
+            if(t){
                 t.innerHTML = msg;
                 t.style.display = this.msgDisplay;
-                break;
+            }
         }
         this.fireEvent('invalid', this, msg);
-    },
-    
-    // private
-    getErrorCt : function(){
-        return this.el.findParent('.x-form-element', 5, true) || // use form element wrap if available
-            this.el.findParent('.x-form-field-wrap', 5, true);   // else direct field wrap
-    },
-
-    // private
-    alignErrorIcon : function(){
-        this.errorIcon.alignTo(this.el, 'tl-tr', [2, 0]);
     },
 
     /**
@@ -426,32 +385,33 @@ side          Add an error icon to the right of the field with a popup on hover
             return;
         }
         this.el.removeClass(this.invalidClass);
-        switch(this.msgTarget){
-            case 'qtip':
-                this.el.dom.qtip = '';
-                break;
-            case 'title':
-                this.el.dom.title = '';
-                break;
-            case 'under':
-                if(this.errorEl){
-                    Ext.form.Field.msgFx[this.msgFx].hide(this.errorEl, this);
-                }
-                break;
-            case 'side':
-                if(this.errorIcon){
-                    this.errorIcon.dom.qtip = '';
-                    this.errorIcon.hide();
-                    this.un('resize', this.alignErrorIcon, this);
-                }
-                break;
-            default:
-                var t = Ext.getDom(this.msgTarget);
+        var mt = this.getMessageHandler();
+        if(mt){
+            mt.clear(this);
+        }else if(this.msgTarget){
+            this.el.removeClass(this.invalidClass);
+            var t = Ext.getDom(this.msgTarget);
+            if(t){
                 t.innerHTML = '';
                 t.style.display = 'none';
-                break;
+            }
         }
         this.fireEvent('valid', this);
+    },
+
+    getMessageHandler : function(){
+        return Ext.form.MessageTargets[this.msgTarget];
+    },
+
+    // private
+    getErrorCt : function(){
+        return this.el.findParent('.x-form-element', 5, true) || // use form element wrap if available
+            this.el.findParent('.x-form-field-wrap', 5, true);   // else direct field wrap
+    },
+
+    // private
+    alignErrorIcon : function(){
+        this.errorIcon.alignTo(this.el, 'tl-tr', [2, 0]);
     },
 
     /**
@@ -505,6 +465,11 @@ side          Add an error icon to the right of the field with a popup on hover
     adjustSize : function(w, h){
         var s = Ext.form.Field.superclass.adjustSize.call(this, w, h);
         s.width = this.adjustWidth(this.el.dom.tagName, s.width);
+        if(this.offsetCt){
+            var ct = this.getItemCt();
+            s.width -= ct.getFrameWidth('lr');
+            s.height -= ct.getFrameWidth('tb');
+        }
         return s;
     },
 
@@ -545,6 +510,84 @@ side          Add an error icon to the right of the field with a popup on hover
      */
 });
 
+
+Ext.form.MessageTargets = {
+    'qtip' : {
+        mark: function(field, msg){
+            field.el.addClass(field.invalidClass);
+            field.el.dom.qtip = msg;
+            field.el.dom.qclass = 'x-form-invalid-tip';
+            if(Ext.QuickTips){ // fix for floating editors interacting with DND
+                Ext.QuickTips.enable();
+            }
+        },
+        clear: function(field){
+            field.el.removeClass(field.invalidClass);
+            field.el.dom.qtip = '';
+        }
+    },
+    'title' : {
+        mark: function(field, msg){
+            field.el.addClass(field.invalidClass);
+            field.el.dom.title = msg;
+        },
+        clear: function(field){
+            field.el.dom.title = '';
+        }
+    },
+    'under' : {
+        mark: function(field, msg){
+            field.el.addClass(field.invalidClass);
+            if(!field.errorEl){
+                var elp = field.getErrorCt();
+                if(!elp){ // field has no container el
+                    field.el.dom.title = msg;
+                    return;
+                }
+                field.errorEl = elp.createChild({cls:'x-form-invalid-msg'});
+                field.errorEl.setWidth(elp.getWidth(true)-20);
+            }
+            field.errorEl.update(msg);
+            Ext.form.Field.msgFx[field.msgFx].show(field.errorEl, field);
+        },
+        clear: function(field){
+            field.el.removeClass(field.invalidClass);
+            if(field.errorEl){
+                Ext.form.Field.msgFx[field.msgFx].hide(field.errorEl, field);
+            }else{
+                field.el.dom.title = '';
+            }
+        }
+    },
+    'side' : {
+        mark: function(field, msg){
+            field.el.addClass(field.invalidClass);
+            if(!field.errorIcon){
+                var elp = field.getErrorCt();
+                if(!elp){ // field has no container el
+                    field.el.dom.title = msg;
+                    return;
+                }
+                field.errorIcon = elp.createChild({cls:'x-form-invalid-icon'});
+            }
+            field.alignErrorIcon();
+            field.errorIcon.dom.qtip = msg;
+            field.errorIcon.dom.qclass = 'x-form-invalid-tip';
+            field.errorIcon.show();
+            field.on('resize', field.alignErrorIcon, field);
+        },
+        clear: function(field){
+            field.el.removeClass(field.invalidClass);
+            if(field.errorIcon){
+                field.errorIcon.dom.qtip = '';
+                field.errorIcon.hide();
+                field.un('resize', field.alignErrorIcon, field);
+            }else{
+                field.el.dom.title = '';
+            }
+        }
+    }
+};
 
 // anything other than normal should be considered experimental
 Ext.form.Field.msgFx = {
