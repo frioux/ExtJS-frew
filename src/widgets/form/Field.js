@@ -50,7 +50,26 @@ new Ext.FormPanel({
 });
 </code></pre>
      */
-
+    /**
+     * @cfg {String} inputType The type attribute for input fields -- e.g. radio, text, password, file (defaults 
+     * to "text"). The types "file" and "password" must be used to render those field types currently -- there are 
+     * no separate Ext components for those. Note that if you use <tt>inputType:'file'</tt>, {@link #emptyText} 
+     * is not supported and should be avoided.
+     */
+    /**
+     * @cfg {Number} tabIndex The tabIndex for this field. Note this only applies to fields that are rendered,
+     * not those which are built via applyTo (defaults to undefined).
+     */
+    /**
+     * @cfg {Mixed} value A value to initialize this field with (defaults to undefined).
+     */
+    /**
+     * @cfg {String} name The field's HTML name attribute (defaults to "").
+     */
+    /**
+     * @cfg {String} cls A custom CSS class to apply to the field's underlying element (defaults to "").
+     */
+    
     /**
      * @cfg {String} invalidClass The CSS class to use when marking a field invalid (defaults to "x-form-invalid")
      */
@@ -106,43 +125,21 @@ side          Add an error icon to the right of the field with a popup on hover
      * (defaults to 'normal').
      */
     msgFx : 'normal',
-    
     /**
      * @cfg {Boolean} readOnly True to mark the field as readOnly in HTML (defaults to false) -- Note: this only
      * sets the element's readOnly DOM attribute.
      */
     readOnly : false,
-
     /**
      * @cfg {Boolean} disabled True to disable the field (defaults to false).
      */
     disabled : false,
-
-    /**
-     * @cfg {String} inputType The type attribute for input fields -- e.g. radio, text, password (defaults to "text").
-     */
-
-    /**
-     * @cfg {Number} tabIndex The tabIndex for this field. Note this only applies to fields that are rendered,
-     * not those which are built via applyTo (defaults to undefined).
-	 */
 
     // private
     isFormField : true,
 
     // private
     hasFocus : false,
-
-    /**
-     * @cfg {Mixed} value A value to initialize this field with.
-     */
-    
-    /**
-     * @cfg {String} name The field's HTML name attribute.
-     */
-    /**
-     * @cfg {String} cls A CSS class to apply to the field's underlying element.
-     */
 
 	// private ??
 	initComponent : function(){
@@ -487,6 +484,7 @@ side          Add an error icon to the right of the field with a popup on hover
     /**
      * Sets the underlying DOM field's value directly, bypassing validation.  To set the value with validation see {@link #setValue}.
      * @param {Mixed} value The value to set
+     * @return {Mixed} value The field value that is set
      */
     setRawValue : function(v){
         return this.el.dom.value = (v === null || v === undefined ? '' : v);
