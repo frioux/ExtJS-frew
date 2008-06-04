@@ -172,7 +172,8 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
     onDisable : function(){
         Ext.form.TriggerField.superclass.onDisable.call(this);
         if(this.wrap){
-            this.wrap.addClass('x-item-disabled');
+            this.wrap.addClass(this.disabledClass);
+            this.el.removeClass(this.disabledClass);
         }
     },
 
@@ -180,10 +181,9 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
     onEnable : function(){
         Ext.form.TriggerField.superclass.onEnable.call(this);
         if(this.wrap){
-            this.wrap.removeClass('x-item-disabled');
+            this.wrap.removeClass(this.disabledClass);
         }
     },
-
 
     // private
     onShow : function(){
