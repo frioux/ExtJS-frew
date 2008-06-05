@@ -65,6 +65,9 @@ var tabsNestedLayouts = {
 				title: 'Inner Tab 2',
 				cls: 'inner-tab-custom', // custom styles in layout-browser.css
 				layout: 'border',
+                // Make sure IE can still calculate dimensions after a resize when the tab is not active.
+                // With display mode, if the tab is rendered but hidden, IE will mess up the layout on show:
+                hideMode: Ext.isIE ? 'offsets' : 'display', 
 				items: [{
 					title: 'West',
 					region: 'west',
