@@ -29,10 +29,6 @@ textarea.x-form-field {
 .ext-strict .x-form-text {
     height:18px;
 }
-.ext-safari .x-form-text {
-    height:20px; /* safari always same size */
-    padding:0 3px; /* remove extra top/bottom padding */
-}
 .ext-safari.ext-mac textarea.x-form-field {
     margin-bottom:-2px; /* another bogus margin bug, safari/mac only */
 }

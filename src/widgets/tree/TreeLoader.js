@@ -238,7 +238,7 @@ Ext.extend(Ext.tree.TreeLoader, Ext.util.Observable, {
     handleResponse : function(response){
         this.transId = false;
         var a = response.argument;
-        this.processResponse(response, a.node, a.callback);
+        this.processResponse(response, a.node, a.callback);        
         this.fireEvent("load", this, a.node, response);
     },
 

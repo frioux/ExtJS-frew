@@ -46,11 +46,17 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
         if(!this.eventModel){
             this.eventModel = new Ext.tree.TreeEventModel(this);
         }
-        if(!this.loader){
-            this.loader = new Ext.tree.TreeLoader({
+
+        // initialize the loader
+        var l = this.loader;
+        if(!l){
+            l = new Ext.tree.TreeLoader({
                 dataUrl: this.dataUrl
             });
+        }else if(typeof l == 'object' && !l.load){
+            l = new Ext.tree.TreeLoader(l);
         }
+        this.loader = l;
         
         this.nodeHash = {};
 

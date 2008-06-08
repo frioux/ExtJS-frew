@@ -431,7 +431,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             if(!doc){
                 return;
             }
-            if(!doc.editorInitialized || doc.designMode != 'on'){
+            if(!doc.editorInitialized || String(doc.designMode).toLowerCase() != 'on'){
                 this.initFrame();
             }
         }

@@ -337,14 +337,15 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
      */
     hide : function(deep){
         if(this.el && this.isVisible()){
-            this.fireEvent("beforehide", this);
-            if(this.activeItem){
-                this.activeItem.deactivate();
-                this.activeItem = null;
+            if(this.fireEvent("beforehide", this) !== false){
+                if(this.activeItem){
+                    this.activeItem.deactivate();
+                    this.activeItem = null;
+                }
+                this.el.hide();
+                this.hidden = true;
+                this.fireEvent("hide", this);
             }
-            this.el.hide();
-            this.hidden = true;
-            this.fireEvent("hide", this);
         }
         if(deep === true && this.parentMenu){
             this.parentMenu.hide(true);

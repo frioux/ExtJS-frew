@@ -107,6 +107,11 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
             if(c.isFormField){
                 f.add(c);
             }if(c.isFieldWrap){
+                Ext.applyIf(c, {
+                    labelAlign: c.ownerCt.labelAlign,
+                    labelWidth: c.ownerCt.labelWidth,
+                    itemCls: c.ownerCt.itemCls
+                });
                 f.add(c.field);
             }else if(c.doLayout && c != formPanel){
                 Ext.applyIf(c, {
