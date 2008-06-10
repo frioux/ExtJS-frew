@@ -10,17 +10,17 @@
  * <p>{@link #request-option-isUpload File uploads} are not performed using normal "Ajax" techniques, that
  * is they are <b>not</b> performed using XMLHttpRequests. Instead the form is submitted in the standard
  * manner with the DOM <tt>&lt;form></tt> element temporarily modified to have its
- * {@link http://www.w3.org/TR/REC-html40/present/frames.html#adef-target target} set to refer
+ * <a href="http://www.w3.org/TR/REC-html40/present/frames.html#adef-target">target</a> set to refer
  * to a dynamically generated, hidden <tt>&lt;iframe></tt> which is inserted into the document
  * but removed after the return data has been gathered.</p>
  * <p>The server response is parsed by the browser to create the document for the IFRAME. If the
  * server is using JSON to send the return object, then the
- * {@link http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17 Content-Type} header
+ * <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> header
  * must be set to "text/html" in order to tell the browser to insert the text unchanged into the document body.</p>
  * <p>The response text is retrieved from the document, and a fake XMLHttpRequest object
  * is created containing a <tt>responseText</tt> property in order to conform to the
  * requirements of event handlers and callbacks.</p>
- * <p>Be aware that file upload packets are sent with the content type {@link http://www.faqs.org/rfcs/rfc2388.html multipart/form}
+ * <p>Be aware that file upload packets are sent with the content type <a href="http://www.faqs.org/rfcs/rfc2388.html">multipart/form</a>
  * and some server technologies (notably JEE) may require some custom processing in order to
  * retrieve parameter names and parameter values from the packet content.</p>
  * @constructor
@@ -118,10 +118,12 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
      * called regardless of success or failure and is passed the following
      * parameters:<ul>
      * <li><b>options</b> : Object<div class="sub-desc">The parameter to the request call.</div></li>
-     * <a id="request-option-success"><li><b>success</b> : Boolean<div class="sub-desc">True if the request succeeded.</div></li>
-     * <li><b>response</b> : Object<div class="sub-desc">The XMLHttpRequest object containing the response data. See http://www.w3.org/TR/XMLHttpRequest/ for details about accessing elements of the response.</div></li>
+     * <li><b>success</b> : Boolean<div class="sub-desc">True if the request succeeded.</div></li>
+     * <li><b>response</b> : Object<div class="sub-desc">The XMLHttpRequest object containing the response data. 
+     * See <a href="http://www.w3.org/TR/XMLHttpRequest/">http://www.w3.org/TR/XMLHttpRequest/</a> for details about 
+     * accessing elements of the response.</div></li>
      * </ul></div></li>
-     * <li><b>success</b> : Function (Optional)<div class="sub-desc">The function
+     * <a id="request-option-success"></a><li><b>success</b> : Function (Optional)<div class="sub-desc">The function
      * to be called upon success of the request. The callback is passed the following
      * parameters:<ul>
      * <li><b>response</b> : Object<div class="sub-desc">The XMLHttpRequest object containing the response data.</div></li>
@@ -139,22 +141,22 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
      * Defaults to the browser window.</div></li>
      * <li><b>form</b> : Object/String (Optional)<div class="sub-desc">A form
      * object or id to pull parameters from.</div></li>
-     * <a id="request-option-isUpload"><li><b>isUpload</b> : Boolean (Optional)<div class="sub-dec">True if the form object is a
+     * <a id="request-option-isUpload"></a><li><b>isUpload</b> : Boolean (Optional)<div class="sub-dec">True if the form object is a
      * file upload (will usually be automatically detected).
      * <p>File uploads are not performed using normal "Ajax" techniques, that is they are <b>not</b>
      * performed using XMLHttpRequests. Instead the form is submitted in the standard manner with the
      * DOM <tt>&lt;form></tt> element temporarily modified to have its
-     * {@link http://www.w3.org/TR/REC-html40/present/frames.html#adef-target target} set to refer
+     * <a href="http://www.w3.org/TR/REC-html40/present/frames.html#adef-target">target</a> set to refer
      * to a dynamically generated, hidden <tt>&lt;iframe></tt> which is inserted into the document
      * but removed after the return data has been gathered.</p>
      * <p>The server response is parsed by the browser to create the document for the IFRAME. If the
      * server is using JSON to send the return object, then the
-     * {@link http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17 Content-Type} header
+     * <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> header
      * must be set to "text/html" in order to tell the browser to insert the text unchanged into the document body.</p>
      * <p>The response text is retrieved from the document, and a fake XMLHttpRequest object
      * is created containing a <tt>responseText</tt> property in order to conform to the
      * requirements of event handlers and callbacks.</p>
-     * <p>Be aware that file upload packets are sent with the content type {@link http://www.faqs.org/rfcs/rfc2388.html multipart/form}
+     * <p>Be aware that file upload packets are sent with the content type <a href="http://www.faqs.org/rfcs/rfc2388.html">multipart/form</a>
      * and some server technologies (notably JEE) may require some custom processing in order to
      * retrieve parameter names and parameter values from the packet content.</p>
      * </div></li>
