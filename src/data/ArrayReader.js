@@ -1,7 +1,7 @@
 /**
  * @class Ext.data.ArrayReader
  * @extends Ext.data.JsonReader
- * Data reader class to create an Array of Ext.data.Record objects from an Array.
+ * Data reader class to create an Array of {@link Ext.data.Record} objects from an Array.
  * Each element of that Array represents a row of data fields. The
  * fields are pulled into a Record object using as a subscript, the <em>mapping</em> property
  * of the field definition if it exists, or the field's ordinal position in the definition.<br>

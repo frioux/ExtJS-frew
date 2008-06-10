@@ -1,8 +1,8 @@
 /**
  * @class Ext.data.JsonReader
  * @extends Ext.data.DataReader
- * Data reader class to create an Array of Ext.data.Record objects from a JSON response
- * based on mappings in a provided Ext.data.Record constructor.<br>
+ * Data reader class to create an Array of {@link Ext.data.Record} objects from a JSON response
+ * based on mappings in a provided {@link Ext.data.Record} constructor.<br>
  * <p>
  * Example code:
  * <pre><code>
