@@ -12,7 +12,7 @@
  * Be aware that to enable the browser to parse an XML document, the server must set
  * the Content-Type header in the HTTP response to "text/xml".
  * @constructor
- * @param {Object} conn an {@link Ext.data.Connection} object, or options parameter to {@link Ext.Ajax.request}.
+ * @param {Object} conn an {@link Ext.data.Connection} object, or options parameter to {@link Ext.Ajax#request}.
  * <p>Note that if this HttpProxy is being used by a (@link Ext.data.Store Store}, then the Store's call to
  * {@link #load} will override any specified <tt>callback</tt> and <tt>params</tt> options. In this
  * case, use the Store's {@link Ext.data.Store#events events} to modify parameters, or react to loading events.
@@ -23,7 +23,7 @@
 Ext.data.HttpProxy = function(conn){
     Ext.data.HttpProxy.superclass.constructor.call(this);
     /**
-     * The Connection object (Or options parameter to {@link Ext.Ajax.request}) which this HttpProxy uses to make requests to the server.
+     * The Connection object (Or options parameter to {@link Ext.Ajax#request}) which this HttpProxy uses to make requests to the server.
      * Properties of this object may be changed dynamically to change the way data is requested.
      * @property
      */
