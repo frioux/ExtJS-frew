@@ -30,7 +30,7 @@ var myReader = new Ext.data.JsonReader({
  * {@link Ext.data.Store#metachange metachange} event.</p>
  * <p>The <b><tt>metaData</tt></b> property may contain any of the configuration
  * options for this class. Additionally, it may contain a <b><tt>fields</tt></b>
- * property which the JsonReader will use as an argument to {@link Ext.data.Record.create}
+ * property which the JsonReader will use as an argument to {@link Ext.data.Record#create}
  * to configure the layout of the Records which it will produce.<p>
  * Using the <b><tt>metaData</tt></b> property, and the Store's {@link Ext.data.Store#metachange metachange} event,
  * it is possible to have a Store-driven control initialize itself. The metachange
