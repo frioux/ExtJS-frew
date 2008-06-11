@@ -59,7 +59,7 @@ Ext.extend(Ext.util.MixedCollection, Ext.util.Observable, {
 /**
  * Adds an item to the collection. Fires the {@link #add} event when complete.
  * @param {String} key <p>The key to associate with the item, or the new item.</p>
- * <p>If you supplied a {@link #getKey) implementation for this MixedCollection, or if the key
+ * <p>If you supplied a {@link #getKey} implementation for this MixedCollection, or if the key
  * of your stored items is in a property called <tt><b>id</b></tt>, then the MixedCollection
  * will be able to <i>derive</i> the key for the new item. In this case just pass the new item in
  * this parameter.</p>
@@ -125,7 +125,7 @@ mc.add(otherEl);
 /**
  * Replaces an item in the collection. Fires the {@link #replace} event when complete.
  * @param {String} key <p>The key associated with the item to replace, or the replacement item.</p>
- * <p>If you supplied a {@link #getKey) implementation for this MixedCollection, or if the key
+ * <p>If you supplied a {@link #getKey} implementation for this MixedCollection, or if the key
  * of your stored items is in a property called <tt><b>id</b></tt>, then the MixedCollection
  * will be able to <i>derive</i> the key of the replacement item. If you want to replace an item
  * with one having the same key value, then just pass the replacement item in this parameter.</p>
