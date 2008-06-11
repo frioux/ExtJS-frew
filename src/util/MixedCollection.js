@@ -243,7 +243,7 @@ mc.add(otherEl);
     },
 
 /**
- * Removed an item from the collection.
+ * Remove an item from the collection.
  * @param {Object} o The item to remove.
  * @return {Object} The item removed or false if no item was removed.
  */
