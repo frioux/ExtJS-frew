@@ -140,8 +140,8 @@
     font-size:1px;
     -moz-outline:0 none;
     outline:0 none;
-    -moz-user-select: normal;
-    -khtml-user-select: normal;  
+    -moz-user-select: text;
+    -khtml-user-select: text;
 }
 
 /* header styles */
