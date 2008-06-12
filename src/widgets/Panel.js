@@ -91,13 +91,13 @@ new Ext.Panel({
      */
     /**
      * @cfg {Object/Array} tbar
-     * The top toolbar of the panel.  This can be either an {@link Ext.Toolbar} object or an array of
+     * The top toolbar of the panel. This can be a {@link Ext.Toolbar} object, a toolbar config, or an array of
      * buttons/button configs to be added to the toolbar.  Note that this is not available as a property after render.
      * To access the top toolbar after render, use {@link #getTopToolbar}.
      */
     /**
      * @cfg {Object/Array} bbar
-     * The bottom toolbar of the panel.  This can be a {@link Ext.Toolbar} object, a toolbar config, or an array of
+     * The bottom toolbar of the panel. This can be a {@link Ext.Toolbar} object, a toolbar config, or an array of
      * buttons/button configs to be added to the toolbar.  Note that this is not available as a property after render.
      * To access the bottom toolbar after render, use {@link #getBottomToolbar}.
      */
@@ -916,7 +916,7 @@ new Ext.Panel({
         Ext.Panel.superclass.afterRender.call(this); // do sizing calcs last
         this.initEvents();
     },
-    
+
     // private
     setAutoScroll : function(){
         if(this.rendered && this.autoScroll){
@@ -1273,7 +1273,7 @@ panel.load({
         return this;
     },
 
-     // private
+    // private
     beforeDestroy : function(){
         Ext.Element.uncache(
             this.header,
