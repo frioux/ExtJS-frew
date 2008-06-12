@@ -1914,11 +1914,8 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
     },
 
     /**
-     * Direct access to the Updater {@link Ext.Updater#update} method (takes the same parameters).
-     * @param {String/Function} url The url for this request or a function to call to get the url
-     * @param {String/Object} params (optional) The parameters to pass as either a url encoded string "param1=1&amp;param2=2" or an object {param1: 1, param2: 2}
-     * @param {Function} callback (optional) Callback when transaction is complete - called with signature (oElement, bSuccess)
-     * @param {Boolean} discardUrl (optional) By default when you execute an update the defaultUrl is changed to the last used url. If true, it will not store the url.
+     * Direct access to the Updater {@link Ext.Updater#update} method. The method takes the same object
+     * parameter as {@link Ext.Updater#update}
      * @return {Ext.Element} this
      */
     load : function(){
