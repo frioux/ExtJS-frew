@@ -63,6 +63,14 @@ Ext.extend(Ext.tree.TreeDragZone, Ext.dd.DragZone, {
         var sm = this.tree.getSelectionModel();
         sm.clearSelections();
         sm.select(this.dragData.node);
+    },
+    
+    // private
+    afterRepair : function(){
+        if (Ext.enableFx && this.tree.hlDrop) {
+            Ext.Element.fly(this.dragData.ddel).highlight(this.hlColor || "c3daf9");
+        }
+        this.dragging = false;
     }
 });
 }

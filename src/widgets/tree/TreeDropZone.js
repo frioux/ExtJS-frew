@@ -241,7 +241,7 @@ Ext.extend(Ext.tree.TreeDropZone, Ext.dd.DropZone, {
             }
         }
         n.ui.focus();
-        if(this.tree.hlDrop){
+        if(Ext.enableFx && this.tree.hlDrop){
             n.ui.highlight();
         }
         t.ui.endDrop();
@@ -250,7 +250,7 @@ Ext.extend(Ext.tree.TreeDropZone, Ext.dd.DropZone, {
 
     // private
     afterNodeMoved : function(dd, data, e, targetNode, dropNode){
-        if(this.tree.hlDrop){
+        if(Ext.enableFx && this.tree.hlDrop){
             dropNode.ui.focus();
             dropNode.ui.highlight();
         }
