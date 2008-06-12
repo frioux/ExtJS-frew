@@ -48,7 +48,7 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
     // private
     onResize : function(){
         Ext.form.Checkbox.superclass.onResize.apply(this, arguments);
-        if(!this.boxLabel){
+        if (!this.boxLabel && !this.fieldLabel) {
             this.el.alignTo(this.wrap, 'c-c');
         }
     },
