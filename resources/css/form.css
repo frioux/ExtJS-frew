@@ -166,6 +166,7 @@ textarea {
     margin:0;
 }
 .x-form-check-wrap {
+    height: 22px;
     line-height:18px;
 }
 .ext-ie .x-form-check-wrap input {
