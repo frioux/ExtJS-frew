@@ -274,6 +274,6 @@ Ext.data.Record.prototype = {
      * @return {Boolean}
      */
     isModified : function(fieldName){
-        return this.modified && this.modified.hasOwnProperty(fieldName);
+        return !!(this.modified && this.modified.hasOwnProperty(fieldName));
     }
 };
