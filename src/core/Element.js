@@ -2164,7 +2164,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
      */
     createShim : function(){
         var el = document.createElement('iframe');
-        el.frameBorder = 'no';
+        el.frameBorder = '0';
         el.className = 'ext-shim';
         if(Ext.isIE && Ext.isSecure){
             el.src = Ext.SSL_SECURE_URL;
