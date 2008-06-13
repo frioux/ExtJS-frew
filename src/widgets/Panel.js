@@ -920,7 +920,10 @@ new Ext.Panel({
     // private
     setAutoScroll : function(){
         if(this.rendered && this.autoScroll){
-            this.body.setOverflow('auto');
+            var el = this.body || this.el;
+            if(el){
+                el.setOverflow('auto');
+            }
         }
     },
 
