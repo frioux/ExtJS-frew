@@ -142,6 +142,7 @@
 .x-panel-bwrap {
     overflow:hidden;
     zoom:1;
+    left:0;top:0;
 }
 .x-panel-body {
     overflow:hidden;
