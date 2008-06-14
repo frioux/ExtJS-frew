@@ -73,8 +73,14 @@ Ext.QuickTips = function(){
          * Initialize the global QuickTips instance and prepare any quick tips.
          * @param {Boolean} autoRender True to render the QuickTips container immediately to preload images. (Defaults to true) 
          */
-        init : function(){
+        init : function(autoRender){
             if(!tip){
+                if(!Ext.isReady){
+                    Ext.onReady(function(){
+                        Ext.QuickTips.init(autoRender);
+                    });
+                    return;
+                }
                 tip = new Ext.QuickTip({elements:'header,body'});
                 if(autoRender !== false){
                     tip.render(Ext.getBody());
