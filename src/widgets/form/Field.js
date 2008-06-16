@@ -235,7 +235,7 @@ side          Add an error icon to the right of the field with a popup on hover
     initValue : function(){
         if(this.value !== undefined){
             this.setValue(this.value);
-        }else if(this.el.dom.value.length > 0){
+        }else if(this.el.dom.value.length > 0 && this.el.dom.value != this.emptyText){
             this.setValue(this.el.dom.value);
         }
     },
