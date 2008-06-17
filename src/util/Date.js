@@ -444,7 +444,8 @@ Ext.apply(Date, {
 
         var code = "Date." + funcName + " = function(input){\n"
             + "var y, m, d, h = 0, i = 0, s = 0, ms = 0, o, z, u, v;\n"
-            + "input = String(input);var d = new Date();\n"
+            + "input = String(input);\n"
+            + "d = new Date();\n"
             + "y = d.getFullYear();\n"
             + "m = d.getMonth();\n"
             + "d = d.getDate();\n"
