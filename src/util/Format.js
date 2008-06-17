@@ -150,7 +150,7 @@ Ext.util.Format = function(){
 
         /**
          * Parse a value into a formatted date using the specified format pattern.
-         * @param {Mixed} value The value to format
+         * @param {String/Date} value The value to format (Strings must conform to the format expected by the javascript Date object's <a href="http://www.w3schools.com/jsref/jsref_parse.asp">parse()</a> method)
          * @param {String} format (optional) Any valid date format string (defaults to 'm/d/Y')
          * @return {String} The formatted date string
          */
