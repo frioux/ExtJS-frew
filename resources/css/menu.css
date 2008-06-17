@@ -50,6 +50,8 @@
 	width:0;
 	height:0;
     line-height:1px;
+    -moz-outline: 0 none;
+    outline:0 none;
 }
 .x-menu a.x-menu-item {
 	display:block;
