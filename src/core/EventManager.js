@@ -427,7 +427,7 @@ Ext.onReady = Ext.EventManager.onDocumentReady;
         if(!bd){ return false; }
         var cls = [' ',
                 Ext.isIE ? "ext-ie " + (Ext.isIE6 ? 'ext-ie6' : 'ext-ie7')
-                : Ext.isGecko ? "ext-gecko"
+                : Ext.isGecko ? "ext-gecko " + (Ext.isGecko2 ? 'ext-gecko2' : 'ext-gecko3')
                 : Ext.isOpera ? "ext-opera"
                 : Ext.isSafari ? "ext-safari" : ""];
 

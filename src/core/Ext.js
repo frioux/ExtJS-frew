@@ -42,6 +42,7 @@ Ext.apply = function(o, c, defaults){
         isIE = !isOpera && ua.indexOf("msie") > -1,
         isIE7 = !isOpera && ua.indexOf("msie 7") > -1,
         isGecko = !isSafari && ua.indexOf("gecko") > -1,
+        isGecko3 = !isSafari && ua.indexOf("rv:1.9") > -1,
         isBorderBox = isIE && !isStrict,
         isWindows = (ua.indexOf("windows") != -1 || ua.indexOf("win32") != -1),
         isMac = (ua.indexOf("macintosh") != -1 || ua.indexOf("mac os x") != -1),
@@ -623,6 +624,10 @@ Company.data.CustomStore = function(config) { ... }
         /** @type Boolean */
         isGecko : isGecko,
         /** @type Boolean */
+        isGecko2 : isGecko && !isGecko3,
+        /** @type Boolean */
+        isGecko3 : isGecko3,
+        /** @type Boolean */
         isBorderBox : isBorderBox,
         /** @type Boolean */
         isLinux : isLinux,
@@ -638,7 +643,7 @@ Company.data.CustomStore = function(config) { ... }
 	     * you may want to set this to true.
 	     * @type Boolean
 	     */
-        useShims : ((isIE && !isIE7) || (isGecko && isMac))
+        useShims : ((isIE && !isIE7) || (isMac && isGecko && !isGecko3))
     });
 
     // in intellij using keyword "namespace" causes parsing errors
