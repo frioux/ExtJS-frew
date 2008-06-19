@@ -762,7 +762,7 @@ Ext.override(Date, {
         return (this.getTimezoneOffset() > 0 ? "-" : "+")
             + String.leftPad(Math.abs(Math.floor(this.getTimezoneOffset() / 60)), 2, "0")
             + (colon ? ":" : "")
-            + String.leftPad(this.getTimezoneOffset() % 60, 2, "0");
+            + String.leftPad(Math.abs(this.getTimezoneOffset() % 60), 2, "0");
     },
 
     /**
