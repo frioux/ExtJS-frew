@@ -6,7 +6,7 @@
  * @param {Object/String} attributes The attributes/config for the node or just a string with the text for the node 
  */
  Ext.tree.AsyncTreeNode = function(config){
-    this.loaded = false;
+    this.loaded = config && config.loaded === true;
     this.loading = false;
     Ext.tree.AsyncTreeNode.superclass.constructor.apply(this, arguments);
     /**
