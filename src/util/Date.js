@@ -492,7 +492,7 @@ Ext.apply(Date, {
             + "v = new Date(y);\n"
             + "}\n}\nreturn (v && (z || o))?" // favour UTC offset over GMT offset
             +     " (Ext.type(z) == 'number' ? v.add(Date.SECOND, (v.getTimezoneOffset() * 60) + z) :" // reset to UTC, then add offset
-            +         " v.add(Date.HOUR, (v.getGMTOffset() / 100) + (o / -100))) : v;\n" // reset to GMT, then add offset
+            +         "v.add(Date.HOUR, hr - v.getGMTOffset().substring(1, 3)).add(Date.MINUTE, mn - v.getGMTOffset().substring(3, 5)) : v;\n" // reset to GMT, then add offset
             + "}";
 
         Date.parseRegexes[regexNum] = new RegExp("^" + regex + "$", "i");
