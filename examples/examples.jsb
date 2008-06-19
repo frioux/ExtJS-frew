@@ -766,6 +766,16 @@
   <file name="info-bg.gif" path="" />
   <file name="lib.css" path="" />
   <file name="README.txt" path="" />
+  <file name="form\check-radio.html" path="form" />
+  <file name="form\file-upload.css" path="form" />
+  <file name="form\file-upload.html" path="form" />
+  <file name="form\file-upload.php" path="form" />
+  <file name="grid\images\panel-handle.gif" path="grid\images" />
+  <file name="grid\sliding-pager.html" path="grid" />
+  <file name="shared\icons\fam\book.png" path="shared\icons\fam" />
+  <file name="tree\xml-tree-data.xml" path="tree" />
+  <file name="tree\xml-tree-loader.css" path="tree" />
+  <file name="tree\xml-tree-loader.html" path="tree" />
   <file name="button\buttons.js" path="button" />
   <file name="chart\charts.js" path="chart" />
   <file name="core\spotlight-example.js" path="core" />
@@ -787,15 +797,11 @@
   <file name="form\absform.js" path="form" />
   <file name="form\adv-vtypes.js" path="form" />
   <file name="form\anchoring.js" path="form" />
-  <file name="form\check-radio.html" path="form" />
   <file name="form\check-radio.js" path="form" />
   <file name="form\combos.js" path="form" />
   <file name="form\custom.js" path="form" />
   <file name="form\dynamic.js" path="form" />
-  <file name="form\file-upload.css" path="form" />
-  <file name="form\file-upload.html" path="form" />
   <file name="form\file-upload.js" path="form" />
-  <file name="form\file-upload.php" path="form" />
   <file name="form\FileUploadField.js" path="form" />
   <file name="form\form-grid.js" path="form" />
   <file name="form\forum-search.js" path="form" />
@@ -804,7 +810,6 @@
   <file name="form\states.js" path="form" />
   <file name="form\xml-form.js" path="form" />
   <file name="forum\forum.js" path="forum" />
-  <file name="grid\images\panel-handle.gif" path="grid\images" />
   <file name="grid\array-grid.js" path="grid" />
   <file name="grid\binding-with-classes.js" path="grid" />
   <file name="grid\binding.js" path="grid" />
@@ -819,7 +824,6 @@
   <file name="grid\paging.js" path="grid" />
   <file name="grid\PanelResizer.js" path="grid" />
   <file name="grid\RowExpander.js" path="grid" />
-  <file name="grid\sliding-pager.html" path="grid" />
   <file name="grid\sliding-pager.js" path="grid" />
   <file name="grid\SlidingPager.js" path="grid" />
   <file name="grid\totals.js" path="grid" />
@@ -844,7 +848,7 @@
   <file name="portal\sample-grid.js" path="portal" />
   <file name="portal\sample.js" path="portal" />
   <file name="resizable\basic.js" path="resizable" />
-  <file name="shared\icons\fam\book.png" path="shared\icons\fam" />
+  <file name="shared\icons\fam\image_add.png" path="shared\icons\fam" />
   <file name="simple-widgets\progress-bar.js" path="simple-widgets" />
   <file name="simple-widgets\qtips.js" path="simple-widgets" />
   <file name="slider\slider.js" path="slider" />
@@ -864,9 +868,6 @@
   <file name="tree\ColumnNodeUI.js" path="tree" />
   <file name="tree\reorder.js" path="tree" />
   <file name="tree\two-trees.js" path="tree" />
-  <file name="tree\xml-tree-data.xml" path="tree" />
-  <file name="tree\xml-tree-loader.css" path="tree" />
-  <file name="tree\xml-tree-loader.html" path="tree" />
   <file name="tree\xml-tree-loader.js" path="tree" />
   <file name="tree\XmlTreeLoader.js" path="tree" />
   <file name="view\chooser-example.js" path="view" />
