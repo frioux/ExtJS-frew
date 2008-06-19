@@ -370,20 +370,13 @@
   <file name="button\images\add24.gif" path="button\images" />
   <file name="button\buttons.css" path="button" />
   <file name="button\buttons.html" path="button" />
-  <file name="button\buttons.js" path="button" />
   <file name="chart\bar.gif" path="chart" />
   <file name="chart\chart.gif" path="chart" />
   <file name="chart\charts.html" path="chart" />
-  <file name="chart\charts.js" path="chart" />
-  <file name="core\spotlight-example.js" path="core" />
   <file name="core\spotlight.html" path="core" />
-  <file name="core\Spotlight.js" path="core" />
   <file name="core\templates.html" path="core" />
-  <file name="core\templates.js" path="core" />
   <file name="dd\dragdropzones.html" path="dd" />
-  <file name="dd\dragdropzones.js" path="dd" />
   <file name="dd\field-to-grid-dd.html" path="dd" />
-  <file name="dd\field-to-grid-dd.js" path="dd" />
   <file name="debug\debug-console.html" path="debug" />
   <file name="debug\inspector.gif" path="debug" />
   <file name="desktop\css\desktop.css" path="desktop\css" />
@@ -432,11 +425,6 @@
   <file name="desktop\images\winbar-bg.gif" path="desktop\images" />
   <file name="desktop\images\winbar-btn.gif" path="desktop\images" />
   <file name="desktop\images\windows-bg.gif" path="desktop\images" />
-  <file name="desktop\js\App.js" path="desktop\js" />
-  <file name="desktop\js\Desktop.js" path="desktop\js" />
-  <file name="desktop\js\Module.js" path="desktop\js" />
-  <file name="desktop\js\StartMenu.js" path="desktop\js" />
-  <file name="desktop\js\TaskBar.js" path="desktop\js" />
   <file name="desktop\wallpapers\blue.jpg" path="desktop\wallpapers" />
   <file name="desktop\wallpapers\desk.jpg" path="desktop\wallpapers" />
   <file name="desktop\wallpapers\desktop.jpg" path="desktop\wallpapers" />
@@ -446,7 +434,6 @@
   <file name="desktop\wallpapers\sky.jpg" path="desktop\wallpapers" />
   <file name="desktop\credits.txt" path="desktop" />
   <file name="desktop\desktop.html" path="desktop" />
-  <file name="desktop\sample.js" path="desktop" />
   <file name="feed-viewer\images\article.gif" path="feed-viewer\images" />
   <file name="feed-viewer\images\bg.gif" path="feed-viewer\images" />
   <file name="feed-viewer\images\bullet.gif" path="feed-viewer\images" />
@@ -489,36 +476,19 @@
   <file name="feed-viewer\feed-proxy.ashx.vb" path="feed-viewer" />
   <file name="feed-viewer\feed-proxy.php" path="feed-viewer" />
   <file name="feed-viewer\feed-viewer.css" path="feed-viewer" />
-  <file name="feed-viewer\FeedGrid.js" path="feed-viewer" />
-  <file name="feed-viewer\FeedPanel.js" path="feed-viewer" />
-  <file name="feed-viewer\FeedViewer.js" path="feed-viewer" />
-  <file name="feed-viewer\FeedWindow.js" path="feed-viewer" />
-  <file name="feed-viewer\MainPanel.js" path="feed-viewer" />
   <file name="feed-viewer\view.html" path="feed-viewer" />
   <file name="form\absform.html" path="form" />
-  <file name="form\absform.js" path="form" />
   <file name="form\adv-vtypes.html" path="form" />
-  <file name="form\adv-vtypes.js" path="form" />
   <file name="form\anchoring.html" path="form" />
-  <file name="form\anchoring.js" path="form" />
   <file name="form\combos.css" path="form" />
   <file name="form\combos.html" path="form" />
-  <file name="form\combos.js" path="form" />
   <file name="form\custom.html" path="form" />
-  <file name="form\custom.js" path="form" />
   <file name="form\dynamic.html" path="form" />
-  <file name="form\dynamic.js" path="form" />
   <file name="form\form-grid.html" path="form" />
-  <file name="form\form-grid.js" path="form" />
   <file name="form\forms.css" path="form" />
   <file name="form\forum-search.html" path="form" />
-  <file name="form\forum-search.js" path="form" />
-  <file name="form\SearchField.js" path="form" />
-  <file name="form\SelectBox.js" path="form" />
-  <file name="form\states.js" path="form" />
   <file name="form\xml-errors.xml" path="form" />
   <file name="form\xml-form.html" path="form" />
-  <file name="form\xml-form.js" path="form" />
   <file name="form\xml-form.xml" path="form" />
   <file name="forum\bg.gif" path="forum" />
   <file name="forum\cmp-bg.gif" path="forum" />
@@ -526,7 +496,6 @@
   <file name="forum\forum.css" path="forum" />
   <file name="forum\forum.gif" path="forum" />
   <file name="forum\forum.html" path="forum" />
-  <file name="forum\forum.js" path="forum" />
   <file name="forum\message.png" path="forum" />
   <file name="forum\messages.png" path="forum" />
   <file name="forum\message_edit.png" path="forum" />
@@ -534,39 +503,24 @@
   <file name="grid\images\summary-bg.gif" path="grid\images" />
   <file name="grid\images\summary-group-bg.gif" path="grid\images" />
   <file name="grid\array-grid.html" path="grid" />
-  <file name="grid\array-grid.js" path="grid" />
   <file name="grid\binding-with-classes.html" path="grid" />
-  <file name="grid\binding-with-classes.js" path="grid" />
   <file name="grid\binding.html" path="grid" />
-  <file name="grid\binding.js" path="grid" />
-  <file name="grid\CallBroker.js" path="grid" />
   <file name="grid\custom-grid.html" path="grid" />
-  <file name="grid\custom-grid.js" path="grid" />
   <file name="grid\details.gif" path="grid" />
   <file name="grid\edit-grid.html" path="grid" />
-  <file name="grid\edit-grid.js" path="grid" />
   <file name="grid\from-markup.html" path="grid" />
-  <file name="grid\from-markup.js" path="grid" />
   <file name="grid\grid-examples.css" path="grid" />
   <file name="grid\grid3.html" path="grid" />
-  <file name="grid\grid3.js" path="grid" />
   <file name="grid\grouping.css" path="grid" />
   <file name="grid\grouping.html" path="grid" />
-  <file name="grid\grouping.js" path="grid" />
-  <file name="grid\GroupSummary.js" path="grid" />
-  <file name="grid\hybrid-totals.js" path="grid" />
   <file name="grid\paging.html" path="grid" />
-  <file name="grid\paging.js" path="grid" />
   <file name="grid\plants.xml" path="grid" />
-  <file name="grid\RowExpander.js" path="grid" />
   <file name="grid\sheldon.xml" path="grid" />
   <file name="grid\summary.css" path="grid" />
   <file name="grid\summary.json" path="grid" />
   <file name="grid\topic.gif" path="grid" />
   <file name="grid\totals.html" path="grid" />
-  <file name="grid\totals.js" path="grid" />
   <file name="grid\xml-grid.html" path="grid" />
-  <file name="grid\xml-grid.js" path="grid" />
   <file name="layout\images\add-feed.gif" path="layout\images" />
   <file name="layout\images\article.gif" path="layout\images" />
   <file name="layout\images\bullet.gif" path="layout\images" />
@@ -603,55 +557,35 @@
   <file name="layout-browser\images\page_attach.png" path="layout-browser\images" />
   <file name="layout-browser\images\printer.png" path="layout-browser\images" />
   <file name="layout-browser\images\spellcheck.png" path="layout-browser\images" />
-  <file name="layout-browser\layouts\basic.js" path="layout-browser\layouts" />
-  <file name="layout-browser\layouts\combination.js" path="layout-browser\layouts" />
-  <file name="layout-browser\layouts\custom.js" path="layout-browser\layouts" />
   <file name="layout-browser\layout-browser.css" path="layout-browser" />
   <file name="layout-browser\layout-browser.html" path="layout-browser" />
-  <file name="layout-browser\layout-browser.js" path="layout-browser" />
   <file name="layout-browser\tree-data.json" path="layout-browser" />
   <file name="locale\create_languages_js.py" path="locale" />
   <file name="locale\dutch-form.html" path="locale" />
-  <file name="locale\dutch-form.js" path="locale" />
-  <file name="locale\dutch-provinces.js" path="locale" />
-  <file name="locale\languages.js" path="locale" />
   <file name="locale\multi-lang.html" path="locale" />
-  <file name="locale\multi-lang.js" path="locale" />
-  <file name="locale\PagingMemoryProxy.js" path="locale" />
   <file name="menu\images\delete.gif" path="menu\images" />
   <file name="menu\images\edit.gif" path="menu\images" />
   <file name="menu\images\find.gif" path="menu\images" />
   <file name="menu\images\group.gif" path="menu\images" />
   <file name="menu\images\view.gif" path="menu\images" />
   <file name="menu\actions.html" path="menu" />
-  <file name="menu\actions.js" path="menu" />
   <file name="menu\list-items.gif" path="menu" />
   <file name="menu\menu-show.gif" path="menu" />
   <file name="menu\menus.css" path="menu" />
   <file name="menu\menus.html" path="menu" />
-  <file name="menu\menus.js" path="menu" />
   <file name="message-box\images\comment-bg.gif" path="message-box\images" />
   <file name="message-box\images\comment.gif" path="message-box\images" />
   <file name="message-box\images\download.gif" path="message-box\images" />
   <file name="message-box\images\warning.gif" path="message-box\images" />
   <file name="message-box\msg-box.html" path="message-box" />
-  <file name="message-box\msg-box.js" path="message-box" />
   <file name="organizer\organizer.css" path="organizer" />
   <file name="organizer\organizer.html" path="organizer" />
-  <file name="organizer\organizer.js" path="organizer" />
   <file name="panel\panels.html" path="panel" />
-  <file name="panel\panels.js" path="panel" />
   <file name="portal\portal.css" path="portal" />
   <file name="portal\portal.html" path="portal" />
-  <file name="portal\Portal.js" path="portal" />
-  <file name="portal\PortalColumn.js" path="portal" />
-  <file name="portal\Portlet.js" path="portal" />
-  <file name="portal\sample-grid.js" path="portal" />
   <file name="portal\sample.css" path="portal" />
-  <file name="portal\sample.js" path="portal" />
   <file name="resizable\basic.css" path="resizable" />
   <file name="resizable\basic.html" path="resizable" />
-  <file name="resizable\basic.js" path="resizable" />
   <file name="resizable\sara.jpg" path="resizable" />
   <file name="resizable\sara_and_zack.jpg" path="resizable" />
   <file name="resizable\zack.jpg" path="resizable" />
@@ -740,31 +674,21 @@
   <file name="simple-widgets\ajax-tip.html" path="simple-widgets" />
   <file name="simple-widgets\progress-bar.css" path="simple-widgets" />
   <file name="simple-widgets\progress-bar.html" path="simple-widgets" />
-  <file name="simple-widgets\progress-bar.js" path="simple-widgets" />
   <file name="simple-widgets\qtips.css" path="simple-widgets" />
   <file name="simple-widgets\qtips.html" path="simple-widgets" />
-  <file name="simple-widgets\qtips.js" path="simple-widgets" />
   <file name="slider\images\slider-bg.png" path="slider\images" />
   <file name="slider\images\slider-thumb.png" path="slider\images" />
   <file name="slider\images\ticks.gif" path="slider\images" />
   <file name="slider\slider.css" path="slider" />
   <file name="slider\slider.html" path="slider" />
-  <file name="slider\slider.js" path="slider" />
   <file name="state\get-state.php" path="state" />
   <file name="state\README.txt" path="state" />
   <file name="state\save-state.php" path="state" />
-  <file name="state\SessionProvider.js" path="state" />
   <file name="tabs\ajax1.htm" path="tabs" />
   <file name="tabs\ajax2.htm" path="tabs" />
-  <file name="tabs\TabCloseMenu.js" path="tabs" />
   <file name="tabs\tabs-adv.html" path="tabs" />
-  <file name="tabs\tabs-adv.js" path="tabs" />
   <file name="tabs\tabs-example.css" path="tabs" />
-  <file name="tabs\tabs-example.js" path="tabs" />
   <file name="tabs\tabs.html" path="tabs" />
-  <file name="tasks\db\ext-air-db.js" path="tasks\db" />
-  <file name="tasks\db\ext-db.js" path="tasks\db" />
-  <file name="tasks\db\ext-gears-db.js" path="tasks\db" />
   <file name="tasks\images\check.gif" path="tasks\images" />
   <file name="tasks\images\delete.gif" path="tasks\images" />
   <file name="tasks\images\edit.gif" path="tasks\images" />
@@ -780,19 +704,14 @@
   <file name="tasks\images\icon-show-all.gif" path="tasks\images" />
   <file name="tasks\images\icon-show-complete.gif" path="tasks\images" />
   <file name="tasks\images\s.gif" path="tasks\images" />
-  <file name="tasks\classes.js" path="tasks" />
-  <file name="tasks\gears.js" path="tasks" />
   <file name="tasks\tasks.css" path="tasks" />
   <file name="tasks\tasks.html" path="tasks" />
-  <file name="tasks\tasks.js" path="tasks" />
   <file name="toolbar\images\add.gif" path="toolbar\images" />
   <file name="toolbar\images\add16.gif" path="toolbar\images" />
   <file name="toolbar\images\add24.gif" path="toolbar\images" />
   <file name="toolbar\overflow.html" path="toolbar" />
-  <file name="toolbar\overflow.js" path="toolbar" />
   <file name="toolbar\toolbars.css" path="toolbar" />
   <file name="toolbar\toolbars.html" path="toolbar" />
-  <file name="toolbar\toolbars.js" path="toolbar" />
   <file name="tree\images\thumbs\dance_fever.jpg" path="tree\images\thumbs" />
   <file name="tree\images\thumbs\gangster_zack.jpg" path="tree\images\thumbs" />
   <file name="tree\images\thumbs\kids_hug.jpg" path="tree\images\thumbs" />
@@ -812,14 +731,10 @@
   <file name="tree\column-data.json" path="tree" />
   <file name="tree\column-tree.css" path="tree" />
   <file name="tree\column-tree.html" path="tree" />
-  <file name="tree\column-tree.js" path="tree" />
-  <file name="tree\ColumnNodeUI.js" path="tree" />
   <file name="tree\get-nodes.php" path="tree" />
   <file name="tree\reorder.html" path="tree" />
-  <file name="tree\reorder.js" path="tree" />
   <file name="tree\save-dep.php" path="tree" />
   <file name="tree\two-trees.html" path="tree" />
-  <file name="tree\two-trees.js" path="tree" />
   <file name="view\images\thumbs\dance_fever.jpg" path="view\images\thumbs" />
   <file name="view\images\thumbs\gangster_zack.jpg" path="view\images\thumbs" />
   <file name="view\images\thumbs\kids_hug.jpg" path="view\images\thumbs" />
@@ -834,25 +749,16 @@
   <file name="view\images\thumbs\zack_hat.jpg" path="view\images\thumbs" />
   <file name="view\images\thumbs\zack_sink.jpg" path="view\images\thumbs" />
   <file name="view\images\selected.gif" path="view\images" />
-  <file name="view\chooser-example.js" path="view" />
   <file name="view\chooser.css" path="view" />
   <file name="view\chooser.html" path="view" />
-  <file name="view\chooser.js" path="view" />
-  <file name="view\data-view-plugins.js" path="view" />
   <file name="view\data-view.css" path="view" />
   <file name="view\data-view.html" path="view" />
-  <file name="view\data-view.js" path="view" />
   <file name="view\get-images.php" path="view" />
   <file name="view\list-view.css" path="view" />
   <file name="view\list-view.html" path="view" />
-  <file name="view\list-view.js" path="view" />
   <file name="window\hello.html" path="window" />
-  <file name="window\hello.js" path="window" />
   <file name="window\layout.html" path="window" />
-  <file name="window\layout.js" path="window" />
-  <file name="code-display.js" path="" />
   <file name="examples.css" path="" />
-  <file name="examples.js" path="" />
   <file name="examples.jsb" path="" />
   <file name="extjs.css" path="" />
   <file name="extjs2.css" path="" />
@@ -860,5 +766,117 @@
   <file name="info-bg.gif" path="" />
   <file name="lib.css" path="" />
   <file name="README.txt" path="" />
+  <file name="button\buttons.js" path="button" />
+  <file name="chart\charts.js" path="chart" />
+  <file name="core\spotlight-example.js" path="core" />
+  <file name="core\Spotlight.js" path="core" />
+  <file name="core\templates.js" path="core" />
+  <file name="dd\dragdropzones.js" path="dd" />
+  <file name="dd\field-to-grid-dd.js" path="dd" />
+  <file name="desktop\js\App.js" path="desktop\js" />
+  <file name="desktop\js\Desktop.js" path="desktop\js" />
+  <file name="desktop\js\Module.js" path="desktop\js" />
+  <file name="desktop\js\StartMenu.js" path="desktop\js" />
+  <file name="desktop\js\TaskBar.js" path="desktop\js" />
+  <file name="desktop\sample.js" path="desktop" />
+  <file name="feed-viewer\FeedGrid.js" path="feed-viewer" />
+  <file name="feed-viewer\FeedPanel.js" path="feed-viewer" />
+  <file name="feed-viewer\FeedViewer.js" path="feed-viewer" />
+  <file name="feed-viewer\FeedWindow.js" path="feed-viewer" />
+  <file name="feed-viewer\MainPanel.js" path="feed-viewer" />
+  <file name="form\absform.js" path="form" />
+  <file name="form\adv-vtypes.js" path="form" />
+  <file name="form\anchoring.js" path="form" />
+  <file name="form\check-radio.html" path="form" />
+  <file name="form\check-radio.js" path="form" />
+  <file name="form\combos.js" path="form" />
+  <file name="form\custom.js" path="form" />
+  <file name="form\dynamic.js" path="form" />
+  <file name="form\file-upload.css" path="form" />
+  <file name="form\file-upload.html" path="form" />
+  <file name="form\file-upload.js" path="form" />
+  <file name="form\file-upload.php" path="form" />
+  <file name="form\FileUploadField.js" path="form" />
+  <file name="form\form-grid.js" path="form" />
+  <file name="form\forum-search.js" path="form" />
+  <file name="form\SearchField.js" path="form" />
+  <file name="form\SelectBox.js" path="form" />
+  <file name="form\states.js" path="form" />
+  <file name="form\xml-form.js" path="form" />
+  <file name="forum\forum.js" path="forum" />
+  <file name="grid\images\panel-handle.gif" path="grid\images" />
+  <file name="grid\array-grid.js" path="grid" />
+  <file name="grid\binding-with-classes.js" path="grid" />
+  <file name="grid\binding.js" path="grid" />
+  <file name="grid\CallBroker.js" path="grid" />
+  <file name="grid\custom-grid.js" path="grid" />
+  <file name="grid\edit-grid.js" path="grid" />
+  <file name="grid\from-markup.js" path="grid" />
+  <file name="grid\grid3.js" path="grid" />
+  <file name="grid\grouping.js" path="grid" />
+  <file name="grid\GroupSummary.js" path="grid" />
+  <file name="grid\hybrid-totals.js" path="grid" />
+  <file name="grid\paging.js" path="grid" />
+  <file name="grid\PanelResizer.js" path="grid" />
+  <file name="grid\RowExpander.js" path="grid" />
+  <file name="grid\sliding-pager.html" path="grid" />
+  <file name="grid\sliding-pager.js" path="grid" />
+  <file name="grid\SlidingPager.js" path="grid" />
+  <file name="grid\totals.js" path="grid" />
+  <file name="grid\xml-grid.js" path="grid" />
+  <file name="layout-browser\layouts\basic.js" path="layout-browser\layouts" />
+  <file name="layout-browser\layouts\combination.js" path="layout-browser\layouts" />
+  <file name="layout-browser\layouts\custom.js" path="layout-browser\layouts" />
+  <file name="layout-browser\layout-browser.js" path="layout-browser" />
+  <file name="locale\dutch-form.js" path="locale" />
+  <file name="locale\dutch-provinces.js" path="locale" />
+  <file name="locale\languages.js" path="locale" />
+  <file name="locale\multi-lang.js" path="locale" />
+  <file name="locale\PagingMemoryProxy.js" path="locale" />
+  <file name="menu\actions.js" path="menu" />
+  <file name="menu\menus.js" path="menu" />
+  <file name="message-box\msg-box.js" path="message-box" />
+  <file name="organizer\organizer.js" path="organizer" />
+  <file name="panel\panels.js" path="panel" />
+  <file name="portal\Portal.js" path="portal" />
+  <file name="portal\PortalColumn.js" path="portal" />
+  <file name="portal\Portlet.js" path="portal" />
+  <file name="portal\sample-grid.js" path="portal" />
+  <file name="portal\sample.js" path="portal" />
+  <file name="resizable\basic.js" path="resizable" />
+  <file name="shared\icons\fam\book.png" path="shared\icons\fam" />
+  <file name="simple-widgets\progress-bar.js" path="simple-widgets" />
+  <file name="simple-widgets\qtips.js" path="simple-widgets" />
+  <file name="slider\slider.js" path="slider" />
+  <file name="state\SessionProvider.js" path="state" />
+  <file name="tabs\TabCloseMenu.js" path="tabs" />
+  <file name="tabs\tabs-adv.js" path="tabs" />
+  <file name="tabs\tabs-example.js" path="tabs" />
+  <file name="tasks\db\ext-air-db.js" path="tasks\db" />
+  <file name="tasks\db\ext-db.js" path="tasks\db" />
+  <file name="tasks\db\ext-gears-db.js" path="tasks\db" />
+  <file name="tasks\classes.js" path="tasks" />
+  <file name="tasks\gears.js" path="tasks" />
+  <file name="tasks\tasks.js" path="tasks" />
+  <file name="toolbar\overflow.js" path="toolbar" />
+  <file name="toolbar\toolbars.js" path="toolbar" />
+  <file name="tree\column-tree.js" path="tree" />
+  <file name="tree\ColumnNodeUI.js" path="tree" />
+  <file name="tree\reorder.js" path="tree" />
+  <file name="tree\two-trees.js" path="tree" />
+  <file name="tree\xml-tree-data.xml" path="tree" />
+  <file name="tree\xml-tree-loader.css" path="tree" />
+  <file name="tree\xml-tree-loader.html" path="tree" />
+  <file name="tree\xml-tree-loader.js" path="tree" />
+  <file name="tree\XmlTreeLoader.js" path="tree" />
+  <file name="view\chooser-example.js" path="view" />
+  <file name="view\chooser.js" path="view" />
+  <file name="view\data-view-plugins.js" path="view" />
+  <file name="view\data-view.js" path="view" />
+  <file name="view\list-view.js" path="view" />
+  <file name="window\hello.js" path="window" />
+  <file name="window\layout.js" path="window" />
+  <file name="code-display.js" path="" />
+  <file name="examples.js" path="" />
   <file name="samples.js" path="" />
 </project>

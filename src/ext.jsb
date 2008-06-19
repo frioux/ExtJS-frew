@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project path="" name="Ext - JS Lib" author="Ext JS, LLC" version="3.0 Pre-alpha" copyright="Ext JS Library $version&#xD;&#xA;Copyright(c) 2006-2008, $author.&#xD;&#xA;licensing@extjs.com&#xD;&#xA;&#xD;&#xA;http://extjs.com/license" output="C:\apps\www\deploy\ext-3.0-dev\" source="True" source-dir="$output\source" minify="True" min-dir="$output\build" doc="False" doc-dir="$output\docs" min-dair="$output\build">
+<project path="" name="Ext - JS Lib" author="Ext JS, LLC" version="3.0 Pre-alpha" copyright="Ext JS Library $version&#xD;&#xA;Copyright(c) 2006-2008, $author.&#xD;&#xA;licensing@extjs.com&#xD;&#xA;&#xD;&#xA;http://extjs.com/license" output="C:\apps\www\deploy\ext-3.0-dev\" source="True" source-dir="$output\source" minify="False" min-dir="$output\build" doc="False" doc-dir="$output\docs" min-dair="$output\build">
   <directory name="" />
   <target name="Core" file="$output\ext-core.js" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="core\DomHelper.js" />
@@ -143,7 +143,9 @@
     <include name="widgets\form\DateField.js" />
     <include name="widgets\form\Combo.js" />
     <include name="widgets\form\Checkbox.js" />
+    <include name="widgets\form\CheckboxGroup.js" />
     <include name="widgets\form\Radio.js" />
+    <include name="widgets\form\RadioGroup.js" />
     <include name="widgets\form\Hidden.js" />
     <include name="widgets\form\BasicForm.js" />
     <include name="widgets\form\Form.js" />
@@ -543,6 +545,7 @@
   <file name="ext.jsb" path="" />
   <file name="license.txt" path="" />
   <file name="widgets\ListView.js" path="widgets" />
+  <file name="util\Cookies.js" path="util" />
   <file name="adapter\ext-base.js" path="adapter" />
   <file name="adapter\jquery-bridge.js" path="adapter" />
   <file name="adapter\prototype-bridge.js" path="adapter" />
@@ -562,6 +565,8 @@
   <file name="data\DataProxy.js" path="data" />
   <file name="data\DataReader.js" path="data" />
   <file name="data\Direct.js" path="data" />
+  <file name="data\DirectProxy.js" path="data" />
+  <file name="data\DirectStore.js" path="data" />
   <file name="data\GroupingStore.js" path="data" />
   <file name="data\HttpProxy.js" path="data" />
   <file name="data\JsonReader.js" path="data" />
@@ -631,7 +636,6 @@
   <file name="state\Provider.js" path="state" />
   <file name="state\StateManager.js" path="state" />
   <file name="util\ClickRepeater.js" path="util" />
-  <file name="util\Cookies.js" path="util" />
   <file name="util\CSS.js" path="util" />
   <file name="util\Date.js" path="util" />
   <file name="util\DelayedTask.js" path="util" />
@@ -652,6 +656,7 @@
   <file name="widgets\form\Action.js" path="widgets\form" />
   <file name="widgets\form\BasicForm.js" path="widgets\form" />
   <file name="widgets\form\Checkbox.js" path="widgets\form" />
+  <file name="widgets\form\CheckboxGroup.js" path="widgets\form" />
   <file name="widgets\form\Combo.js" path="widgets\form" />
   <file name="widgets\form\DateField.js" path="widgets\form" />
   <file name="widgets\form\Field.js" path="widgets\form" />
@@ -662,6 +667,7 @@
   <file name="widgets\form\Label.js" path="widgets\form" />
   <file name="widgets\form\NumberField.js" path="widgets\form" />
   <file name="widgets\form\Radio.js" path="widgets\form" />
+  <file name="widgets\form\RadioGroup.js" path="widgets\form" />
   <file name="widgets\form\TextArea.js" path="widgets\form" />
   <file name="widgets\form\TextField.js" path="widgets\form" />
   <file name="widgets\form\TimeField.js" path="widgets\form" />
@@ -753,6 +759,4 @@
   <file name="widgets\Window.js" path="widgets" />
   <file name="widgets\WindowManager.js" path="widgets" />
   <file name="debug.js" path="" />
-  <file name="data\DirectProxy.js" path="data" />
-  <file name="data\DirectStore.js" path="data" />
 </project>
