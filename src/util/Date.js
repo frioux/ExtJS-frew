@@ -491,8 +491,8 @@ Ext.apply(Date, {
             + "}else if (y >= 0){\n"
             + "v = new Date(y);\n"
             + "}\n}\nreturn (v && (z || o))?" // favour UTC offset over GMT offset
-            +     " (Ext.type(z) == 'number' ? v.add(Date.SECOND, (v.getTimezoneOffset() * 60) + z) :" // reset to UTC, then add offset
-            +         "v.add(Date.MINUTE, (sn == '-'? -1 : 1) * (hr * 60 + mn) + v.getTimezoneOffset())) : v;\n" // reset to GMT, then add offset
+            +     " (Ext.type(z) == 'number' ? v.add(Date.SECOND, -v.getTimezoneOffset() * 60 - z) :" // reset to UTC, then add offset
+            +         " v.add(Date.MINUTE, -v.getTimezoneOffset() + (sn == '+'? -1 : 1) * (hr * 60 + mn))) : v;\n" // reset to GMT, then add offset
             + "}";
 
         Date.parseRegexes[regexNum] = new RegExp("^" + regex + "$", "i");
