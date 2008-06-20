@@ -59,7 +59,7 @@ Ext.apply = function(o, c, defaults){
 
     Ext.apply(Ext, {
         /**
-         * True if the browser is in strict mode
+         * True if the browser is in strict (standards-compliant) mode, as opposed to quirks mode
          * @type Boolean
          */
         isStrict : isStrict,
