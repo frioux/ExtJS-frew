@@ -943,7 +943,7 @@ Ext.dd.DragDrop.prototype = {
         valid = valid && !this.invalidHandleIds[node.id];
 
         for (var i=0, len=this.invalidHandleClasses.length; valid && i<len; ++i) {
-            valid = !Dom.hasClass(node, this.invalidHandleClasses[i]);
+            valid = !Ext.fly(node).hasClass(this.invalidHandleClasses[i]);
         }
 
 
