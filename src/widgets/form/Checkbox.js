@@ -38,10 +38,9 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
     checked: false,
     /**
      * @cfg {String/Object} autoCreate A DomHelper element spec, or true for a default element spec (defaults to
-     * {tag: "input", type: "checkbox", autocomplete: "off", cls: 'x-hidden'}).  Note that the 'x-hidden' class
-     * is required for the checkbox CSS styles to render correctly.
+     * {tag: "input", type: "checkbox", autocomplete: "off"}).
      */
-    defaultAutoCreate: {tag: 'input', type: 'checkbox', autocomplete: 'off', cls: 'x-hidden'},
+    defaultAutoCreate: {tag: 'input', type: 'checkbox', autocomplete: 'off'},
     /**
      * @cfg {String} boxLabel The text that appears beside the checkbox (defaults to '')
      */
@@ -88,6 +87,7 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
         if(this.inputValue !== undefined){
             this.el.dom.value = this.inputValue;
         }
+        this.el.addClass('x-hidden');
         
         this.innerWrap = this.el.wrap({
             tabIndex: this.tabIndex, 
