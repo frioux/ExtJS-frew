@@ -1227,7 +1227,7 @@ new Ext.Panel({
     /**
      * Sets the title text for the panel and optionally the icon class.
      * @param {String} title The title text to set
-     * @param {String} (optional) iconCls A custon, user-defined CSS class that provides the icon image for this panel
+     * @param {String} iconCls (optional) iconCls A custon, user-defined CSS class that provides the icon image for this panel
      */
     setTitle : function(title, iconCls){
         this.title = title;
