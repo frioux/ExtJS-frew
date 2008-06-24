@@ -64,7 +64,7 @@ Ext.util.Format = function(){
          * @return {String} The decoded text
          */
         htmlDecode : function(value){
-            return !value ? value : String(value).replace(/&amp;/g, "&").replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&quot;/g, '"');
+            return !value ? value : String(value).replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&quot;/g, '"').replace(/&amp;/g, "&");
         },
 
         /**
