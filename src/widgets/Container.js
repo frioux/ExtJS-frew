@@ -108,8 +108,10 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
      * border settings (defaults to false).
      */
     /** @cfg {String} defaultType
-     * The default type of container represented by this object as registered in {@link Ext.ComponentMgr}
-     * (defaults to 'panel').
+     * <p>The default {@link xtype Ext.Component} of child Components to create in this Container when
+     * a child item is specified as a raw configuration object, rather than as an instantiated Component.</p>
+     * <p>This usually defaults to 'panel', but for {@link Ext.form.FormPanel} and {@link Ext.form.FieldSet},
+     * the defaultType is 'textfield'.</p>
      */
     defaultType: 'panel',
 
