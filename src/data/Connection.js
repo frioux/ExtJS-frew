@@ -141,7 +141,7 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
      * Defaults to the browser window.</div></li>
      * <li><b>form</b> : Object/String (Optional)<div class="sub-desc">A form
      * object or id to pull parameters from.</div></li>
-     * <a id="request-option-isUpload"></a><li><b>isUpload</b> : Boolean (Optional)<div class="sub-dec">True if the form object is a
+     * <a id="request-option-isUpload"></a><li><b>isUpload</b> : Boolean (Optional)<div class="sub-desc">True if the form object is a
      * file upload (will usually be automatically detected).
      * <p>File uploads are not performed using normal "Ajax" techniques, that is they are <b>not</b>
      * performed using XMLHttpRequests. Instead the form is submitted in the standard manner with the
