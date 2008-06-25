@@ -21,7 +21,7 @@
  * Create a new button
  * @param {Object} config The config object
  */
-Ext.Button = Ext.extend(Ext.Component, {
+Ext.Button = Ext.extend(Ext.BoxComponent, {
     /**
      * Read-only. True if this button is hidden
      * @type Boolean
@@ -50,7 +50,7 @@ Ext.Button = Ext.extend(Ext.Component, {
 
     /**
      * @cfg {Boolean} allowDepress
-     * True to allow a pressed Button to be depressed (defaults to false). Only valid when {@link #enableToggle} is true.
+     * False to not allow a pressed Button to be depressed (defaults to undefined). Only valid when {@link #enableToggle} is true.
      */
 
     /**
@@ -290,9 +290,9 @@ Ext.Button = Ext.extend(Ext.Component, {
     afterRender : function(){
         Ext.Button.superclass.afterRender.call(this);
         if(Ext.isIE6){
-            this.autoWidth.defer(1, this);
+            this.doAutoWidth.defer(1, this);
         }else{
-            this.autoWidth();
+            this.doAutoWidth();
         }
     },
 
@@ -329,7 +329,7 @@ Ext.Button = Ext.extend(Ext.Component, {
     },
 
     // private
-    autoWidth : function(){
+    doAutoWidth : function(){
         if(this.el && this.text){
             this.el.setWidth("auto");
             if(Ext.isIE7 && Ext.isStrict){
@@ -366,7 +366,7 @@ Ext.Button = Ext.extend(Ext.Component, {
         if(this.el){
             this.el.child("td.x-btn-mc " + this.buttonSelector).update(text);
         }
-        this.autoWidth();
+        this.doAutoWidth();
     },
 
     /**

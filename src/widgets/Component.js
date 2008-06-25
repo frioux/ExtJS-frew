@@ -411,6 +411,13 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
     },
 
     initPlugin : function(p){
+        if(p.ptype && typeof p.init != 'function'){
+            p = Ext.ComponentMgr.createPlugin(p);
+        }else if(typeof p == 'string'){
+            p = Ext.ComponentMgr.createPlugin({
+                ptype: p
+            });
+        }
         p.init(this);
         return p;
     },

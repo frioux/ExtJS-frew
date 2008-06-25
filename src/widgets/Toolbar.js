@@ -5,15 +5,18 @@
 Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
     monitorResize: true,
     triggerWidth: 16,
+    lastOverflow: false,
+
     noItemsMenuText: '<div class="x-toolbar-no-items">(None)</div>',
     // private
     onLayout : function(ct, target){
         if(!this.leftTr){
             target.addClass('x-toolbar-layout-ct');
             target.insertHtml('beforeEnd',
-                 '<table cellspacing="0" class="x-toolbar-ct"><tbody><tr><td class="x-toolbar-left" align="left"><table cellspacing="0"><tbody><tr class="x-toolbar-left-row"></tr></tbody></table></td><td class="x-toolbar-right" align="right"><table cellspacing="0"><tbody><tr class="x-toolbar-right-row"></tr></tbody></table></td></tr></tbody></table>');
+                 '<table cellspacing="0" class="x-toolbar-ct"><tbody><tr><td class="x-toolbar-left" align="left"><table cellspacing="0"><tbody><tr class="x-toolbar-left-row"></tr></tbody></table></td><td class="x-toolbar-right" align="right"><table cellspacing="0" class="x-toolbar-right-ct"><tbody><tr><td><table cellspacing="0"><tbody><tr class="x-toolbar-right-row"></tr></tbody></table></td><td><table cellspacing="0"><tbody><tr class="x-toolbar-extras-row"></tr></tbody></table></td></tr></tbody></td></tr></tbody></table>');
             this.leftTr = target.child('tr.x-toolbar-left-row', true);
             this.rightTr = target.child('tr.x-toolbar-right-row', true);
+            this.extrasTr = target.child('tr.x-toolbar-extras-row', true);
         }
         var side = this.leftTr;
         var pos = 0;
@@ -35,10 +38,19 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
             }
         }
         //strip extra empty cells
-        Ext.fly(this.leftTr).select('tr.x-toolbar-left-row > td:empty()').remove();
-        Ext.fly(this.rightTr).select('tr.x-toolbar-right-row > td:empty()').remove();
-
+        this.cleanup(this.leftTr);
+        this.cleanup(this.rightTr);
+        this.cleanup(this.extrasTr);
         this.fitToSize(target);
+    },
+
+    cleanup : function(row){
+        var cn = row.childNodes;
+        for(var i = cn.length-1, c; i >= 0 && (c = cn[i]); i--){
+            if(!c.firstChild){
+                row.removeChild(c);
+            }
+        }
     },
 
     insertCell : function(c, side, pos){
@@ -99,9 +111,17 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
         }
         if(this.hiddens){
             this.initMore();
+            if(!this.lastOverflow){
+                this.container.fireEvent('overflowchange', this.container, true);
+                this.lastOverflow = true;
+            }
         }else if(this.more){
             this.more.destroy();
             delete this.more;
+            if(this.lastOverflow){
+                this.container.fireEvent('overflowchange', this.container, false);
+                this.lastOverflow = false;
+            }
         }
     },
 
@@ -160,7 +180,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
                 cls: 'x-toolbar-more',
                 menu: this.moreMenu
             });
-            var td = this.insertCell(this.more, this.rightTr, 100);
+            var td = this.insertCell(this.more, this.extrasTr, 100);
             this.more.render(td);
         }
     }
@@ -209,6 +229,12 @@ Ext.extend(T, Ext.Container, {
     // private
     autoCreate: {
         cls:'x-toolbar x-small-editor'
+    },
+
+    initComponent : function(){
+        T.superclass.initComponent.call(this);
+
+        this.addEvents('overflowchange');
     },
 
     // private

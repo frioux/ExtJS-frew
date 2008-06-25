@@ -49,6 +49,8 @@ Ext.onReady(function(){
                     minWidth: 150,
                     maxWidth: 700,
                     height: 250,
+                    pinned:true,
+                    transparent:true,
                     resizeElement: function() {
                         var box = this.proxy.getBox();
                         p.updateBox(box);

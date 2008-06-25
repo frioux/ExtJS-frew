@@ -261,3 +261,21 @@
 .ext-ie input.x-abs-layout-item, .ext-ie textarea.x-abs-layout-item {
     margin:0;
 }
+
+
+.x-box-layout-ct {
+    overflow:hidden;
+    zoom:1;
+}
+.x-box-inner {
+    overflow:hidden;
+    zoom:1;
+    position:relative;
+    left:0;
+    top:0;
+}
+.x-box-item {
+    position:absolute;
+    left:0;
+    top:0;
+}

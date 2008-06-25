@@ -143,7 +143,33 @@ Ext.BoxComponent = Ext.extend(Ext.Component, {
      * @return {Object} An object containing the element's size {width: (element width), height: (element height)}
      */
     getSize : function(){
-        return this.el.getSize();
+        return this.getResizeEl().getSize();
+    },
+
+    /**
+     * Gets the current width of the component's underlying element.
+     * @return {Number}
+     */
+    getWidth : function(){
+        return this.getResizeEl().getWidth();
+    },
+
+    /**
+     * Gets the current height of the component's underlying element.
+     * @return {Number}
+     */
+    getHeight : function(){
+        return this.getResizeEl().getHeight();
+    },
+
+    /**
+     * Gets the current size of the component's underlying element, including space taken by its margins.
+     * @return {Object} An object containing the element's size {width: (element width + left/right margins), height: (element height + top/bottom margins)}
+     */
+    getOuterSize : function(){
+        var el = this.getResizeEl();
+        return {width: el.getWidth() + el.getMargins('lr'),
+                height: el.getHeight() + el.getMargins('tb')};
     },
 
     /**
@@ -152,10 +178,11 @@ Ext.BoxComponent = Ext.extend(Ext.Component, {
      * @return {Array} The XY position of the element (e.g., [100, 200])
      */
     getPosition : function(local){
+        var el = this.getPositionEl();
         if(local === true){
-            return [this.el.getLeft(true), this.el.getTop(true)];
+            return [el.getLeft(true), el.getTop(true)];
         }
-        return this.xy || this.el.getXY();
+        return this.xy || el.getXY();
     },
 
     /**
@@ -164,15 +191,10 @@ Ext.BoxComponent = Ext.extend(Ext.Component, {
      * @return {Object} box An object in the format {x, y, width, height}
      */
     getBox : function(local){
-        var s = this.el.getSize();
-        if(local === true){
-            s.x = this.el.getLeft(true);
-            s.y = this.el.getTop(true);
-        }else{
-            var xy = this.xy || this.el.getXY();
-            s.x = xy[0];
-            s.y = xy[1];
-        }
+        var pos = this.getPosition(local);
+        var s = this.getSize();
+        s.x = pos[0];
+        s.y = pos[1];
         return s;
     },
 
@@ -252,7 +274,7 @@ Ext.BoxComponent = Ext.extend(Ext.Component, {
         if(x === undefined || y === undefined){ // cannot translate undefined points
             return;
         }
-        var p = this.el.translatePoints(x, y);
+        var p = this.getPositionEl().translatePoints(x, y);
         this.setPosition(p.left, p.top);
         return this;
     },
@@ -286,7 +308,7 @@ Ext.BoxComponent = Ext.extend(Ext.Component, {
      */
     syncSize : function(){
         delete this.lastSize;
-        this.setSize(this.autoWidth ? undefined : this.el.getWidth(), this.autoHeight ? undefined : this.el.getHeight());
+        this.setSize(this.autoWidth ? undefined : this.getResizeEl().getWidth(), this.autoHeight ? undefined : this.getResizeEl().getHeight());
         return this;
     },
 
@@ -329,3 +351,8 @@ Ext.BoxComponent = Ext.extend(Ext.Component, {
     }
 });
 Ext.reg('box', Ext.BoxComponent);
+
+Ext.Spacer = Ext.extend(Ext.BoxComponent, {
+    autoEl:'div'
+});
+Ext.reg('spacer', Ext.Spacer);

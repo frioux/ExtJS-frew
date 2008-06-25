@@ -120,6 +120,9 @@ Ext.layout.ContainerLayout.prototype = {
 
     // private
     parseMargins : function(v){
+        if(typeof v == 'number'){
+            v = v.toString();
+        }
         var ms = v.split(' ');
         var len = ms.length;
         if(len == 1){
@@ -129,6 +132,9 @@ Ext.layout.ContainerLayout.prototype = {
         }
         if(len == 2){
             ms[2] = ms[0];
+            ms[3] = ms[1];
+        }
+        if(len == 3){
             ms[3] = ms[1];
         }
         return {

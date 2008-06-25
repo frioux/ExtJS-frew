@@ -199,6 +199,10 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
     render : function(){
         Ext.Container.superclass.render.apply(this, arguments);
         if(this.layout){
+            if(typeof this.layout == 'object' && !this.layout.layout){
+                this.layoutConfig = this.layout;
+                this.layout = this.layoutConfig.type;
+            }
             if(typeof this.layout == 'string'){
                 this.layout = new Ext.Container.LAYOUTS[this.layout.toLowerCase()](this.layoutConfig);
             }

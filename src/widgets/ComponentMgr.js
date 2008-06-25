@@ -17,6 +17,7 @@
 Ext.ComponentMgr = function(){
     var all = new Ext.util.MixedCollection();
     var types = {};
+    var ptypes = {};
 
     return {
         /**
@@ -90,6 +91,15 @@ Ext.ComponentMgr = function(){
          */
         create : function(config, defaultType){
             return new types[config.xtype || defaultType](config);
+        },
+
+        registerPlugin : function(ptype, cls){
+            ptypes[ptype] = cls;
+            cls.ptype = ptype;
+        },
+
+        createPlugin : function(config, defaultType){
+            return new ptypes[config.ptype || defaultType](config);
         }
     };
 }();
@@ -103,3 +113,4 @@ Ext.ComponentMgr = function(){
  * @method reg
  */
 Ext.reg = Ext.ComponentMgr.registerType; // this will be called a lot internally, shorthand to keep the bytes down
+Ext.preg = Ext.ComponentMgr.registerPlugin;

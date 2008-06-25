@@ -182,7 +182,7 @@
 }
 
 .x-btn-mc{
-	background:url(../images/default/button/btn.gif) repeat-x 0 -96px;
+	background:url(../images/default/button/btn.gif) repeat-x 0 -1096px;
     vertical-align: middle;
 	text-align:center;
 	padding:0 5px;
@@ -223,7 +223,7 @@
 }
 
 .x-btn-over .x-btn-mc{
-	background-position: 0 -168px;
+	background-position: 0 -2168px;
 }
 .x-btn-over .x-btn-bl{
 	background-position: -6px -3px;
@@ -254,7 +254,7 @@
 }
 
 .x-btn-click .x-btn-mc, .x-btn-menu-active .x-btn-mc, .x-btn-pressed .x-btn-mc{
-	background-position: 0 -240px;
+	background-position: 0 -3240px;
 }
 .x-btn-click .x-btn-bl, .x-btn-menu-active .x-btn-bl, .x-btn-pressed .x-btn-bl{
 	background-position: -12px -3px;
