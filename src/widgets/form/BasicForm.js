@@ -482,8 +482,8 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     },
 
     /**
-     * Looks at the fields in this form, checks them for an id attribute,
-     * and calls applyTo on the existing dom element with that id.
+     * Iterates through the {@link Field Ext.form.Field}s which have been {@link add #add}ed to this BasicForm,
+     * checks them for an id attribute, and calls {@link Ext.form.Field#applyToMarkup} on the existing dom element with that id.
      * @return {BasicForm} this
      */
     render : function(){
