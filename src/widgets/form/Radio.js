@@ -52,7 +52,7 @@ Ext.form.Radio = Ext.extend(Ext.form.Checkbox, {
         }else{
             var r = this.getParent().child('input[name='+this.el.dom.name+'][value='+v+']', true);
             if(r && !r.checked){
-                r.toggleValue();
+                Ext.getCmp(r.id).toggleValue();
             };
         }
     },
