@@ -3,6 +3,10 @@
  * @extends Ext.Panel
  * Standard form container.
  * <p><b>Although they are not listed, this class also accepts all the config options required to configure its internal {@link Ext.form.BasicForm}</b></p>
+ * <p>The BasicForm is configured using the {@link #initialConfig} of the FormPanel - that is the configuration object passed to the constructor.
+ * This means that if you subclass FormPanel, and you wish to configure the BasicForm, you will need to insert any configuration options
+ * for the BasicForm into the <tt><b>initialConfig</b></tt> property. Applying BasicForm configuration settings to <b><tt>this</tt></b> will
+ * not affect the BasicForm's configuration.</p>
  * <br><br>
  * FormPanel uses a {@link Ext.layout.FormLayout} internally, and that is required for fields and labels to work correctly
  * within the FormPanel's layout.  To nest additional layout styles within a FormPanel, you should nest additional Panels
