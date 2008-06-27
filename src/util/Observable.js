@@ -158,9 +158,9 @@ foo.on({
     },
 
     /**
-     * Relays selected events from this Observable to a different Observable
-     * @param {Object} o The Observable to relay events to
-     * @param {Array} events Array of event names to relay
+     * Relays selected events from the specified Observable as if the events were fired by <tt><b>this</b></tt>.
+     * @param {Object} o The Observable who's events this object is to relay.
+     * @param {Array} events Array of event names to relay.
      */
     relayEvents : function(o, events){
         var createHandler = function(ename){
