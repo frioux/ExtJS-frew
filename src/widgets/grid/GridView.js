@@ -98,6 +98,14 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
      * @cfg {String} emptyText Default text to display in the grid body when no rows are available (defaults to '').
      */
     /**
+     * @property dragZone
+     * @type Ext.grid.GridDragZone
+     * <p><b>This will only be present if the owning GridPanel was configured with {@link enableDragDrop Ext.grid.GridPanel#enableDragDrop}<b> <tt>true</tt></b>.</p>
+     * <p><b>This will only be present after the owning GridPanel has been rendered</b>.</p>
+     * <p>A customized implementation of a {@link DragZone Ext.dd.DragZone} which provides default implementations of the
+     * template methods of DragZone to enable dragging of the selected rows of a GridPanel. See {@link Ext.grid.GridDragZone} for details.</p>
+     */
+    /**
      * @cfg {Boolean} deferEmptyText True to defer emptyText being applied until the store's first load
      */
     deferEmptyText: true,
@@ -473,7 +481,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         var w = this.getColumnWidth(col);
         var tw = this.getTotalWidth();
 
-        this.innerHd.firstChild.firstChild.style.width = tw;
+//        this.innerHd.firstChild.firstChild.style.width = tw;
         var hd = this.getHeaderCell(col);
         hd.style.width = w;
 

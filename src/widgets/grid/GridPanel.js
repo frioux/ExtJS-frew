@@ -25,15 +25,15 @@
     title:'Framed with Checkbox Selection and Horizontal Scrolling',
     iconCls:'icon-grid'
 });</code></pre>
- * <b>Notes:</b> <br/>
- * - Although this class inherits many configuration options from base classes, some of them
- * (such as autoScroll, layout, items, etc) won't function as they do with the base Panel class.<br>
- * <br>
- * - A grid <b>requires</b> a width of some kind in order to calculate columns. That width can either be a normal width
- * set via the width: X config option or a width automatically set by using the grid in an Ext Layout.<br>
- * <br>
- * - To access the data in a Grid, it is necessary to use the data model encapsulated
- * by the {@link #store Store}. See the {@link #cellclick} event.
+ * <b>Notes:</b><ul>
+ * <li>Although this class inherits many configuration options from base classes, some of them
+ * (such as autoScroll, layout, items, etc) are not used by this class, and will have no effect.</li>
+ * <li>A grid <b>requires</b> a width in which to scroll its columns, and a height in which to scroll its rows. The dimensions can either
+ * be set through the {@link #height} and {@link #width} configuration options or automatically set by using the grid in a {@link Container Ext.Container}
+ * who's {@link layout Ext.Container#layout} provides sizing of its child items.</li>
+ * <li>To access the data in a Grid, it is necessary to use the data model encapsulated
+ * by the {@link #store Store}. See the {@link #cellclick} event.</li>
+ * </ul>
  * @constructor
  * @param {Object} config The config object
  */
@@ -92,7 +92,14 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
      */
     trackMouseOver : true,
     /**
-     * @cfg {Boolean} enableDragDrop True to enable drag and drop of rows.
+     * @cfg {Boolean} <p>enableDragDrop True to enable dragging of the selected rows of the GridPanel.</p>
+     * <p>Setting this to <b><tt>true</tt></b> causes this GridPanel's {@link GridView #getView} to create an instance of 
+     * {@link Ext.grid.GridDragZone}. This is available <b>(only after the Grid has been rendered)</b> as the
+     * GridView's {@link dragZone Ext.grid.GridView#dragZone} property.</p>
+     * <p>A cooperating {@link DropZone Ext.dd.DropZone} must be created who's implementations of
+     * {@link onNodeEnter Ext.dd.DropZone#onNodeEnter}, {@link onNodeOver Ext.dd.DropZone#onNodeOver},
+     * {@link onNodeOut Ext.dd.DropZone#onNodeOut} and {@link onNodeDrop Ext.dd.DropZone#onNodeDrop}</p> are able
+     * to process the {@link data Ext.grid.GridDragZone#getDragData} which is provided. 
      */
     enableDragDrop : false,
     /**
@@ -273,11 +280,11 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
              * for this row. To access the data in the listener function use the
              * following technique:
              * <pre><code>
-    function(grid, rowIndex, columnIndex, e) {
-        var record = grid.getStore().getAt(rowIndex);  // Get the Record
-        var fieldName = grid.getColumnModel().getDataIndex(columnIndex); // Get field name
-        var data = record.get(fieldName);
-    }
+function(grid, rowIndex, columnIndex, e) {
+    var record = grid.getStore().getAt(rowIndex);  // Get the Record
+    var fieldName = grid.getColumnModel().getDataIndex(columnIndex); // Get field name
+    var data = record.get(fieldName);
+}
 </code></pre>
              * @param {Grid} this
              * @param {Number} rowIndex

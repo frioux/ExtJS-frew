@@ -1,5 +1,13 @@
-// private
-// This is a support class used internally by the Grid components
+/**
+ * @class Ext.grid.GridDragZone
+ * @extends Ext.dd.DragZone
+ * <p>A customized implementation of a {@link DragZone Ext.dd.DragZone} which provides default implementations of two of the
+ * template methods of DragZone to enable dragging of the selected rows of a GridPanel.</p>
+ * <p>A cooperating {@link DropZone Ext.dd.DropZone} must be created who's template method implementations of
+ * {@link onNodeEnter Ext.dd.DropZone#onNodeEnter}, {@link onNodeOver Ext.dd.DropZone#onNodeOver},
+ * {@link onNodeOut Ext.dd.DropZone#onNodeOut} and {@link onNodeDrop Ext.dd.DropZone#onNodeDrop}</p> are able
+ * to process the {@link data #getDragData} which is provided.
+ */
 Ext.grid.GridDragZone = function(grid, config){
     this.view = grid.getView();
     Ext.grid.GridDragZone.superclass.constructor.call(this, this.view.mainBody.dom, config);
@@ -16,6 +24,17 @@ Ext.grid.GridDragZone = function(grid, config){
 Ext.extend(Ext.grid.GridDragZone, Ext.dd.DragZone, {
     ddGroup : "GridDD",
 
+    /**
+     * <p>The provided implementation of the getDragData method which collects the data to be dragged from the GridPanel on mousedown.</p>
+     * <p>This data is available for processing in the {@link onNodeEnter Ext.dd.DropZone#onNodeEnter}, {@link onNodeOver Ext.dd.DropZone#onNodeOver},
+     * {@link onNodeOut Ext.dd.DropZone#onNodeOut} and {@link onNodeDrop Ext.dd.DropZone#onNodeDrop} methods of a cooperating {@link DropZone Ext.dd.DropZone}.</p>
+     * <p>The data object contains the following properties:<ul>
+     * <li><b>grid</b> : Ext.Grid.GridPanel<div class="sub-desc">The GridPanel from which the data is being dragged.</div></li>
+     * <li><b>ddel</b> : htmlElement<div class="sub-desc">An htmlElement which provides the "picture" of the data being dragged.</div></li>
+     * <li><b>rowIndex</b> : Number<div class="sub-desc">The index of the row which receieved the mousedown gesture which triggered the drag.</div></li>
+     * <li><b>selections</b> : Array<div class="sub-desc">An Array of the selected Records which are being dragged from the GridPanel.</div></li>
+     * </ul></p>
+     */
     getDragData : function(e){
         var t = Ext.lib.Event.getTarget(e);
         var rowIndex = this.view.findRowIndex(t);
@@ -29,6 +48,11 @@ Ext.extend(Ext.grid.GridDragZone, Ext.dd.DragZone, {
         return false;
     },
 
+    /**
+     * <p>The provided implementation of the onInitDrag method. Sets the <tt>innerHTML</tt> of the drag proxy which provides the "picture"
+     * of the data being dragged.</p>
+     * <p>The <tt>innerHTML</tt> data is found by calling the owning GridPanel's {@link getDragDropText Ext.grid.GridPanel#getDragDropText}.</p>
+     */
     onInitDrag : function(e){
         var data = this.dragData;
         this.ddel.innerHTML = this.grid.getDragDropText();
@@ -36,10 +60,20 @@ Ext.extend(Ext.grid.GridDragZone, Ext.dd.DragZone, {
         // fire start drag?
     },
 
+    /**
+     * An empty immplementation. Implement this to provide behaviour after a repair of an invalid drop. An implementation might highlight
+     * the selected rows to show that they have not been dragged.
+     */
     afterRepair : function(){
         this.dragging = false;
     },
 
+    /**
+     * <p>An empty implementation. Implement this to provide coordinates for the drag proxy to slide back to after an invalid drop.</p>
+     * <p>Called before a repair of an invalid drop to get the XY to animate to.</p>
+     * @param {EventObject} e The mouse up event
+     * @return {Array} The xy location (e.g. [100, 200])
+     */
     getRepairXY : function(e, data){
         return false;
     },
