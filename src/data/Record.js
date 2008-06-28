@@ -28,7 +28,7 @@ Ext.data.Record = function(data, id){
  * data types, and a mapping for an {@link Ext.data.Reader} to extract the field's value from a data object.
  * Each field definition object may contain the following properties: <ul>
  * <li><b>name</b> : String<div class="sub-desc">The name by which the field is referenced within the Record. This is referenced by,
- * for example the <em>dataIndex</em> property in column definition objects passed to {@link Ext.grid.ColumnModel}</div></li>
+ * for example, the <em>dataIndex</em> property in column definition objects passed to {@link Ext.grid.ColumnModel}</div></li>
  * <li><b>mapping</b> : String<div class="sub-desc">(Optional) A path specification for use by the {@link Ext.data.Reader} implementation
  * that is creating the Record to access the data value from the data object. If an {@link Ext.data.JsonReader}
  * is being used, then this is a string containing the javascript expression to reference the data relative to
