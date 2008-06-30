@@ -397,6 +397,7 @@ new Ext.Panel({
     toolTarget : 'header',
     collapseEl : 'bwrap',
     slideAnchor : 't',
+    disabledClass: '',
 
     // private, notify box this class will handle heights
     deferHeight: true,
@@ -1122,6 +1123,10 @@ new Ext.Panel({
                     if(this.bottomToolbar){
                         this.bottomToolbar.setSize(w);
                     }
+                }
+                
+                if(this.disabled && this.el._mask){
+                    this.el._mask.setSize(this.el.dom.clientWidth, this.el.getHeight());
                 }
             }else{
                 this.queuedBodySize = {width: w, height: h};
