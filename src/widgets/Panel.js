@@ -323,7 +323,27 @@ new Ext.Panel({
        * Adds a tooltip when mousing over the tab of a Ext.Panel which is an item of a Ext.TabPanel. Ext.QuickTips.init()
        * must be called in order for the tips to render.
      */
-
+    /**
+     * @cfg {Boolean} disabled
+     * Render this panel disabled (default is false). An important note when using the disabled config on panels is
+     * that IE will often fail to initialize the disabled mask element correectly if the panel's layout has not yet 
+     * completed by the time the Panel is disabled during the render process. If you experience this issue, you may 
+     * need to instead use the {@link afterlayout} event to initialize the disabled state:
+     * <pre><code>
+new Ext.Panel({
+    ...
+    listeners: {
+        'afterlayout': {
+            fn: function(p){
+                p.disable();
+            },
+            single: true // important, as many layouts can occur
+        }
+    }
+});
+</code></pre>
+     */
+    
 
     /**
     * @cfg {String} baseCls
