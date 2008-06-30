@@ -273,12 +273,12 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
      * useful for adding customized styles to the container or any of its children using standard CSS rules.
      */
     /**
-     * @cfg {Boolean} disabled.
-     * Render this component disabled. Default is false.
+     * @cfg {Boolean} disabled
+     * Render this component disabled (default is false).
      */
     /**
-     * @cfg {Boolean} hidden.
-     * Render this component hidden. Default is false.
+     * @cfg {Boolean} hidden
+     * Render this component hidden (default is false).
      */
     /**
      * @cfg {Object/Array} plugins
