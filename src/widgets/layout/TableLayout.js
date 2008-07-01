@@ -60,12 +60,30 @@ var table = new Ext.Panel({
 Ext.layout.TableLayout = Ext.extend(Ext.layout.ContainerLayout, {
     /**
      * @cfg {Number} columns
-     * The total number of columns to create in the table for this layout.  If not specified, all panels added to
-     * this layout will be rendered into a single row using a column per panel.
+     * The total number of columns to create in the table for this layout.  If not specified, all Components added to
+     * this layout will be rendered into a single row using one column per Component.
      */
 
     // private
     monitorResize:false,
+
+    /**
+     * @cfg {Object} tableAttrs
+     * <p>An object containing properties which are added to the {@link DomHelper Ext.DomHelper} specification
+     * used to create the layout's <tt>&lt;table&gt;</tt> element. Example:</p><pre><code>
+{
+    xtype: 'panel',
+    layout: 'table',
+    layoutConfig: {
+        tableAttrs: {
+        	style: {
+        		width: '100%'
+        	}
+        },
+        columns: 3
+    }
+}</code></pre>
+     */
     tableAttrs:null,
     
     // private
@@ -102,49 +120,49 @@ Ext.layout.TableLayout = Ext.extend(Ext.layout.ContainerLayout, {
     },
 
     // private
-	getNextCell : function(c){
-		var cell = this.getNextNonSpan(this.currentColumn, this.currentRow);
-		var curCol = this.currentColumn = cell[0], curRow = this.currentRow = cell[1];
-		for(var rowIndex = curRow; rowIndex < curRow + (c.rowspan || 1); rowIndex++){
-			if(!this.cells[rowIndex]){
-				this.cells[rowIndex] = [];
-			}
-			for(var colIndex = curCol; colIndex < curCol + (c.colspan || 1); colIndex++){
-				this.cells[rowIndex][colIndex] = true;
-			}
-		}
-		var td = document.createElement('td');
-		if(c.cellId){
-			td.id = c.cellId;
-		}
-		var cls = 'x-table-layout-cell';
-		if(c.cellCls){
-			cls += ' ' + c.cellCls;
-		}
-		td.className = cls;
-		if(c.colspan){
-			td.colSpan = c.colspan;
-		}
-		if(c.rowspan){
-			td.rowSpan = c.rowspan;
-		}
-		this.getRow(curRow).appendChild(td);
-		return td;
-	},
+    getNextCell : function(c){
+        var cell = this.getNextNonSpan(this.currentColumn, this.currentRow);
+        var curCol = this.currentColumn = cell[0], curRow = this.currentRow = cell[1];
+        for(var rowIndex = curRow; rowIndex < curRow + (c.rowspan || 1); rowIndex++){
+            if(!this.cells[rowIndex]){
+                this.cells[rowIndex] = [];
+            }
+            for(var colIndex = curCol; colIndex < curCol + (c.colspan || 1); colIndex++){
+                this.cells[rowIndex][colIndex] = true;
+            }
+        }
+        var td = document.createElement('td');
+        if(c.cellId){
+            td.id = c.cellId;
+        }
+        var cls = 'x-table-layout-cell';
+        if(c.cellCls){
+            cls += ' ' + c.cellCls;
+        }
+        td.className = cls;
+        if(c.colspan){
+            td.colSpan = c.colspan;
+        }
+        if(c.rowspan){
+            td.rowSpan = c.rowspan;
+        }
+        this.getRow(curRow).appendChild(td);
+        return td;
+    },
     
     // private
-	getNextNonSpan: function(colIndex, rowIndex){
-		var cols = this.columns;
-		while((cols && colIndex >= cols) || (this.cells[rowIndex] && this.cells[rowIndex][colIndex])) {
-			if(cols && colIndex >= cols){
-				rowIndex++;
-				colIndex = 0;
-			}else{
-				colIndex++;
-			}
-		}
-		return [colIndex, rowIndex];
-	},
+    getNextNonSpan: function(colIndex, rowIndex){
+        var cols = this.columns;
+        while((cols && colIndex >= cols) || (this.cells[rowIndex] && this.cells[rowIndex][colIndex])) {
+            if(cols && colIndex >= cols){
+                rowIndex++;
+                colIndex = 0;
+            }else{
+                colIndex++;
+            }
+        }
+        return [colIndex, rowIndex];
+    },
 
     // private
     renderItem : function(c, position, target){
