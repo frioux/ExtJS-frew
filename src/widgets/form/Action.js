@@ -307,7 +307,7 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
  * an {@link Ext.form.BasicForm}.
  * <br><br>
  * Instances of this class are only created by a {@link Ext.form.BasicForm Form} when
- * submitting.
+ * loading.
  * <br><br>
  * A response packet <b>must</b> contain a boolean <tt style="font-weight:bold">success</tt> property, and
  * a <tt style="font-weight:bold">data</tt> property. The <tt style="font-weight:bold">data</tt> property contains the
