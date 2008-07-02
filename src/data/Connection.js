@@ -139,8 +139,8 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
      * which to execute the callbacks: The "this" object for the callback function. If the <tt>url</tt>, or <tt>params</tt> options were
      * specified as functions from which to draw values, then this also serves as the scope for those function calls.
      * Defaults to the browser window.</div></li>
-     * <li><b>form</b> : Object/String (Optional)<div class="sub-desc">A form
-     * object or id to pull parameters from.</div></li>
+     * <li><b>form</b> : Element/HTMLElement/String (Optional)<div class="sub-desc">The <tt>&lt;form&gt;</tt>
+     * Element or the id of the <tt>&lt;form&gt;</tt> to pull parameters from.</div></li>
      * <a id="request-option-isUpload"></a><li><b>isUpload</b> : Boolean (Optional)<div class="sub-desc">True if the form object is a
      * file upload (will usually be automatically detected).
      * <p>File uploads are not performed using normal "Ajax" techniques, that is they are <b>not</b>
