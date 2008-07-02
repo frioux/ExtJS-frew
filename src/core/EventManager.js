@@ -280,6 +280,11 @@ Ext.EventManager = function(){
             return removeListener(element, eventName, fn, scope);
         },
 
+        /**
+         * Removes all event handers from an element.  Typically you will use {@link Ext.Element#removeAllListeners}
+         * directly on an Element in favor of calling this version.
+         * @param {String/HTMLElement} el The id or html element from which to remove the event
+         */
         removeAll : function(element){
             return removeAll(element);
         },
