@@ -1444,7 +1444,7 @@ el.un('click', this.handlerFn);
 
     /**
      * Move this element relative to its current position.
-     * @param {String} direction Possible values are: "l","left" - "r","right" - "t","top","up" - "b","bottom","down".
+     * @param {String} direction Possible values are: "l" (or "left"), "r" (or "right"), "t" (or "top", or "up"), "b" (or "bottom", or "down").
      * @param {Number} distance How far to move the element in pixels
      * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
      * @return {Ext.Element} this
@@ -2603,7 +2603,7 @@ el.alignTo("other-el", "c-bl", [-6, 0]);
     /**
      * Scrolls this element the specified direction. Does bounds checking to make sure the scroll is
      * within this element's scrollable range.
-     * @param {String} direction Possible values are: "l","left" - "r","right" - "t","top","up" - "b","bottom","down".
+     * @param {String} direction Possible values are: "l" (or "left"), "r" (or "right"), "t" (or "top", or "up"), "b" (or "bottom", or "down").
      * @param {Number} distance How far to scroll the element in pixels
      * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
      * @return {Boolean} Returns true if a scroll was triggered or false if the element
