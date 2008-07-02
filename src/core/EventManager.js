@@ -89,53 +89,62 @@ Ext.EventManager = function(){
         }
     }
 
-
-    var fireDocReady = function(){
+     var fireDocReady = function(){
         if(!docReadyState){
-            docReadyState = true;
-            Ext.isReady = true;
-            if(docReadyProcId){
-                clearInterval(docReadyProcId);
-            }
+            docReadyState = Ext.isReady = true;
             if(Ext.isGecko || Ext.isOpera) {
                 document.removeEventListener("DOMContentLoaded", fireDocReady, false);
             }
-            if(Ext.isIE){
-                var defer = document.getElementById("ie-deferred-loader");
-                if(defer){
-                    defer.onreadystatechange = null;
-                    defer.parentNode.removeChild(defer);
-                }
-            }
-            if(docReadyEvent){
-                docReadyEvent.fire();
-                docReadyEvent.clearListeners();
-            }
         }
+        if(docReadyProcId){
+            clearInterval(docReadyProcId);
+            docReadyProcId = null;
+        }
+        if(docReadyEvent){
+            docReadyEvent.fire();
+            docReadyEvent.clearListeners();
+       }
     };
-
+    
     var initDocReady = function(){
         docReadyEvent = new Ext.util.Event();
+
+        if(Ext.isReady){
+            return;
+        }
+        
+        // no matter what, make sure it fires on load
+        E.on(window, 'load', fireDocReady);
+
         if(Ext.isGecko || Ext.isOpera) {
-            document.addEventListener("DOMContentLoaded", fireDocReady, false);
-        }else if(Ext.isIE){
-            document.write("<s"+'cript id="ie-deferred-loader" defer="defer" src="/'+'/:"></s'+"cript>");
-            var defer = document.getElementById("ie-deferred-loader");
-            defer.onreadystatechange = function(){
-                if(this.readyState == "complete"){
+            document.addEventListener('DOMContentLoaded', fireDocReady, false);
+        }
+        else if(Ext.isIE){
+            docReadyProcId = setInterval(function(){
+                try{
+                    // throws errors until DOM is ready
+                    Ext.isReady || (document.documentElement.doScroll('left'));
+                }catch(e){
+                    return;
+                }
+                fireDocReady();  // no errors, fire
+            }, 5);
+
+            document.onreadystatechange = function(){
+                if(document.readyState == 'complete'){
+                    document.onreadystatechange = null;
                     fireDocReady();
                 }
             };
-        }else if(Ext.isSafari){
+        }
+        else if(Ext.isSafari){
             docReadyProcId = setInterval(function(){
                 var rs = document.readyState;
-                if(rs == "complete") {
+                if(rs == 'complete') {
                     fireDocReady();
                  }
             }, 10);
         }
-        // no matter what, make sure it fires on load
-        E.on(window, "load", fireDocReady);
     };
 
     var createBuffered = function(h, o){
@@ -296,17 +305,16 @@ Ext.EventManager = function(){
          * @param {Object} scope (optional) An object that becomes the scope of the handler
          * @param {boolean} options (optional) An object containing standard {@link #addListener} options
          */
-        onDocumentReady : function(fn, scope, options){
-            if(docReadyState){ // if it already fired
-                docReadyEvent.addListener(fn, scope, options);
-                docReadyEvent.fire();
-                docReadyEvent.clearListeners();
-                return;
-            }
+         onDocumentReady : function(fn, scope, options){
             if(!docReadyEvent){
                 initDocReady();
             }
-            docReadyEvent.addListener(fn, scope, options);
+            if(docReadyState || Ext.isReady){ // if it already fired
+                options || (options = {});
+                fn.defer(options.delay||0, scope);
+            }else{
+                docReadyEvent.addListener(fn, scope, options);
+            }
         },
 
         /**
