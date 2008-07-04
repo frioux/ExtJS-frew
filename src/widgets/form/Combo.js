@@ -25,11 +25,11 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
      * {tag: "input", type: "text", size: "24", autocomplete: "off"})
      */
     /**
-     * @cfg {Ext.data.Store/Array} store The data source to which this combo is bound (defaults to undefined).  This can be 
+     * @cfg {Ext.data.Store/Array} store The data source to which this combo is bound (defaults to undefined).  This can be
      * any {@link Ext.data.Store} subclass, a 1-dimensional array (e.g., ['Foo','Bar']) or a 2-dimensional array (e.g.,
      * [['f','Foo'],['b','Bar']]).  Arrays will be converted to a {@link Ext.data.SimpleStore} internally.
-     * 1-dimensional arrays will automatically be expanded (each array item will be the combo value and text) and 
-     * for multi-dimensional arrays, the value in index 0 of each item will be assumed to be the combo value, while 
+     * 1-dimensional arrays will automatically be expanded (each array item will be the combo value and text) and
+     * for multi-dimensional arrays, the value in index 0 of each item will be assumed to be the combo value, while
      * the value at index 1 is assumed to be the combo text.
      */
     /**
@@ -284,7 +284,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
 			this.displayField = 'text';
 			this.mode = 'local';
 		}
-		
+
         this.selectedIndex = -1;
         if(this.mode == 'local'){
             if(this.initialConfig.queryDelay === undefined){
@@ -379,7 +379,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
                  * @cfg {String} itemSelector
                  * <b>This setting is required if a custom XTemplate has been specified in {@link #tpl}
                  * which assigns a class other than <pre>'x-combo-list-item'</pre> to dropdown list items</b>.
-                 * A simple CSS selector (e.g. div.some-class or span:first-child) that will be 
+                 * A simple CSS selector (e.g. div.some-class or span:first-child) that will be
                  * used to determine what nodes the DataView which handles the dropdown display will
                  * be working with.
                  */
@@ -737,7 +737,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
         var hb = Ext.lib.Dom.getViewHeight()-ha-this.getSize().height;
         var space = Math.max(ha, hb, this.minHeight || 0)-this.list.shadowOffset-pad-5;
         h = Math.min(h, space, this.maxHeight);
-        
+
         this.innerList.setHeight(h);
         this.list.beginUpdate();
         this.list.setHeight(h+pad);
@@ -939,6 +939,10 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
         this.fireEvent('expand', this);
     },
 
+    /**
+     * @method onTriggerClick
+     * @hide
+     */
     // private
     // Implements the default empty TriggerField.onTriggerClick function
     onTriggerClick : function(){
