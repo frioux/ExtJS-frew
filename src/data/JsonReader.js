@@ -7,21 +7,24 @@
  * Example code:
  * <pre><code>
 var Employee = Ext.data.Record.create([
-    {name: 'name', mapping: 'name'},     // "mapping" property not needed if it's the same as "name"
-    {name: 'occupation'}                 // This field will use "occupation" as the mapping.
+    {name: 'firstname'},                  // Map the Record's "firstname" field to the row object's key of the same name
+    {name: 'job', mapping: 'occupation'}  // Map the "job" field to the row object's "occupation" key
 ]);
 var myReader = new Ext.data.JsonReader({
-    totalProperty: "results",    // The property which contains the total dataset size (optional)
-    root: "rows",                // The property which contains an Array of row objects
-    id: "id"                     // The property within each row object that provides an ID for the record (optional)
+    totalProperty: "results",             // The property which contains the total dataset size (optional)
+    root: "rows",                         // The property which contains an Array of row objects
+    id: "id"                              // The property within each row object that provides an ID for the record (optional)
 }, Employee);
 </code></pre>
  * <p>
  * This would consume a JSON file like this:
  * <pre><code>
-{ 'results': 2, 'rows': [
-    { 'id': 1, 'name': 'Bill', occupation: 'Gardener' },
-    { 'id': 2, 'name': 'Ben', occupation: 'Horticulturalist' } ]
+{
+    'results': 2,
+    'rows': [
+        { 'id': 1, 'firstname': 'Bill', occupation: 'Gardener' },         // a row object
+        { 'id': 2, 'firstname': 'Ben' , occupation: 'Horticulturalist' }  // another row object
+    ]
 }
 </code></pre>
  * <p>It is possible to change a JsonReader's metadata at any time by including a
