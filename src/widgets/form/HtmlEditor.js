@@ -663,7 +663,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
     // private
     onDestroy : function(){
         if(this.monitorTask){
-            Ext.TaskManager.stop(this.monitorTask);
+            Ext.TaskMgr.stop(this.monitorTask);
         }
         if(this.rendered){
             this.tb.items.each(function(item){
