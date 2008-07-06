@@ -143,6 +143,8 @@ Ext.layout.ContainerLayout.prototype = {
             bottom:parseInt(ms[2], 10) || 0,
             left:parseInt(ms[3], 10) || 0
         };
-    }
+    },
+
+    destroy : Ext.emptyFn
 };
 Ext.Container.LAYOUTS['auto'] = Ext.layout.ContainerLayout;

@@ -1006,4 +1006,4 @@ Ext.Fx.resize = Ext.Fx.scale;
 
 //When included, Ext.Fx is automatically applied to Element so that all basic
 //effects are available directly via the Element API
-Ext.apply(Ext.Element.prototype, Ext.Fx);
+Ext.Element.addMethods(Ext.Fx);

@@ -147,6 +147,17 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
         if(Ext.isIE && Ext.isStrict){ // workaround IE strict repainting issue
             target.repaint();
         }
+    },
+
+    destroy: function() {
+        var r = ['north', 'south', 'east', 'west'];
+        for (var i = 0; i < r.length; i++) {
+            var region = this[r[i]];
+            if (region && region.split) {
+                region.split.destroy(true);
+            }
+        }
+        Ext.layout.BorderLayout.superclass.destroy.call(this);
     }
     
     /**

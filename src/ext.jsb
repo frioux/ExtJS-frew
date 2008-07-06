@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project path="" name="Ext - JS Lib" author="Ext JS, LLC" version="3.0 Pre-alpha" copyright="Ext JS Library $version&#xD;&#xA;Copyright(c) 2006-2008, $author.&#xD;&#xA;licensing@extjs.com&#xD;&#xA;&#xD;&#xA;http://extjs.com/license" output="C:\apps\www\deploy\ext-3.0-dev\" source="True" source-dir="$output\source" minify="False" min-dir="$output\build" doc="False" doc-dir="$output\docs" min-dair="$output\build">
+<project path="" name="Ext - JS Lib" author="Ext JS, LLC" version="3.0 Pre-alpha" copyright="Ext JS Library $version&#xD;&#xA;Copyright(c) 2006-2008, $author.&#xD;&#xA;licensing@extjs.com&#xD;&#xA;&#xD;&#xA;http://extjs.com/license" output="C:\apps\www\deploy\ext-3.0-dev\" source="True" source-dir="$output\source" minify="True" min-dir="$output\build" doc="False" doc-dir="$output\docs" min-dair="$output\build">
   <directory name="" />
   <target name="Core" file="$output\ext-core.js" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="core\DomHelper.js" />
@@ -21,6 +21,11 @@
     <include name="util\Observable.js" />
     <include name="core\EventManager.js" />
     <include name="core\Element.js" />
+    <include name="core\Element.scroll.js" />
+    <include name="core\Element.keys.js" />
+    <include name="core\Element.insertion.js" />
+    <include name="core\Element.dd.js" />
+    <include name="core\Element.alignment.js" />
     <include name="core\Fx.js" />
     <include name="core\CompositeElement.js" />
     <include name="data\Connection.js" />
@@ -545,7 +550,6 @@
   <file name="ext.jsb" path="" />
   <file name="license.txt" path="" />
   <file name="widgets\ListView.js" path="widgets" />
-  <file name="util\Cookies.js" path="util" />
   <file name="adapter\ext-base.js" path="adapter" />
   <file name="adapter\jquery-bridge.js" path="adapter" />
   <file name="adapter\prototype-bridge.js" path="adapter" />
@@ -553,7 +557,13 @@
   <file name="core\CompositeElement.js" path="core" />
   <file name="core\DomHelper.js" path="core" />
   <file name="core\DomQuery.js" path="core" />
+  <file name="core\Element.alignment.js" path="core" />
+  <file name="core\Element.dd.js" path="core" />
+  <file name="core\Element.insertion.js" path="core" />
   <file name="core\Element.js" path="core" />
+  <file name="core\Element.keys.js" path="core" />
+  <file name="core\Element.legacy.js" path="core" />
+  <file name="core\Element.scroll.js" path="core" />
   <file name="core\EventManager.js" path="core" />
   <file name="core\Ext.js" path="core" />
   <file name="core\Fx.js" path="core" />
@@ -636,6 +646,7 @@
   <file name="state\Provider.js" path="state" />
   <file name="state\StateManager.js" path="state" />
   <file name="util\ClickRepeater.js" path="util" />
+  <file name="util\Cookies.js" path="util" />
   <file name="util\CSS.js" path="util" />
   <file name="util\Date.js" path="util" />
   <file name="util\DelayedTask.js" path="util" />

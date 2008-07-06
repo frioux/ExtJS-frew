@@ -939,6 +939,26 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
             item: item, ename: ename, fn: fn, scope: scope
         });
         item.on(ename, fn, scope, opt);
+    },
+
+    nextSibling : function(){
+        if(this.ownerCt){
+            var index = this.ownerCt.items.indexOf(this);
+            if(index != -1 && index+1 < this.ownerCt.items.getCount()){
+                return this.ownerCt.items.itemAt(index+1);
+            }
+        }
+        return null;
+    },
+
+    previousSibling : function(){
+        if(this.ownerCt){
+            var index = this.ownerCt.items.indexOf(this);
+            if(index > 0){
+                return this.ownerCt.items.itemAt(index-1);
+            }
+        }
+        return null;
     }
 });
 

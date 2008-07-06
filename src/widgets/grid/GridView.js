@@ -481,7 +481,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         var w = this.getColumnWidth(col);
         var tw = this.getTotalWidth();
 
-//        this.innerHd.firstChild.firstChild.style.width = tw;
+        this.innerHd.firstChild.firstChild.style.width = tw;
         var hd = this.getHeaderCell(col);
         hd.style.width = w;
 
@@ -673,7 +673,6 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         if(vw < 20 || csize.height < 20){ // display: none?
             return;
         }
-
         if(g.autoHeight){
             this.scroller.dom.style.overflow = 'visible';
         }else{

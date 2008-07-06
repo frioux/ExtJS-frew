@@ -77,37 +77,39 @@ Ext.Updater = function(el, forceNew){
          */
         "failure"
     );
-    var d = Ext.Updater.defaults;
+
+    Ext.apply(this, Ext.Updater.defaults);
     /**
      * Blank page URL to use with SSL file uploads (defaults to {@link Ext.Updater.defaults#sslBlankUrl}).
+     * @property sslBlankUrl
      * @type String
      */
-    this.sslBlankUrl = d.sslBlankUrl;
     /**
      * Whether to append unique parameter on get request to disable caching (defaults to {@link Ext.Updater.defaults#disableCaching}).
+     * @property disableCaching
      * @type Boolean
      */
-    this.disableCaching = d.disableCaching;
     /**
      * Text for loading indicator (defaults to {@link Ext.Updater.defaults#indicatorText}).
+     * @property indicatorText
      * @type String
      */
-    this.indicatorText = d.indicatorText;
     /**
      * Whether to show indicatorText when loading (defaults to {@link Ext.Updater.defaults#showLoadIndicator}).
+     * @property showLoadIndicator
      * @type String
      */
-    this.showLoadIndicator = d.showLoadIndicator;
     /**
      * Timeout for requests or form posts in seconds (defaults to {@link Ext.Updater.defaults#timeout}).
+     * @property timeout
      * @type Number
      */
-    this.timeout = d.timeout;
     /**
      * True to process scripts in the output (defaults to {@link Ext.Updater.defaults#loadScripts}).
+     * @property loadScripts
      * @type Boolean
      */
-    this.loadScripts = d.loadScripts;
+
     /**
      * Transaction object of the current executing transaction, or null if there is no active transaction.
      */

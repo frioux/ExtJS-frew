@@ -280,7 +280,7 @@ Ext.DatePicker = Ext.extend(Ext.Component, {
         });
 
         this.mbtn.on('click', this.showMonthPicker, this);
-        this.mbtn.el.child(this.mbtn.menuClassTarget).addClass("x-btn-with-menu");
+        this.mbtn.el.child('em').addClass("x-btn-arrow");
 
 
         var today = (new Date()).dateFormat(this.format);

@@ -86,7 +86,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     type : 'button',
 
     // private
-    menuClassTarget: 'tr',
+    menuClassTarget: 'tr:nth(2)',
 
     /**
      * @cfg {String} clickEvent
@@ -330,7 +330,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
 
     // private
     doAutoWidth : function(){
-        if(this.el && this.text){
+        if(this.el && this.text && typeof this.width == 'undefined'){
             this.el.setWidth("auto");
             if(Ext.isIE7 && Ext.isStrict){
                 var ib = this.el.child(this.buttonSelector);

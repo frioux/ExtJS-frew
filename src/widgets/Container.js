@@ -431,6 +431,9 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
         if(this.monitorResize){
             Ext.EventManager.removeResizeListener(this.doLayout, this);
         }
+        if (this.layout && this.layout.destroy) {
+            this.layout.destroy();
+        }
         Ext.Container.superclass.beforeDestroy.call(this);
     },
 

@@ -18,14 +18,16 @@
 	overflow:hidden;
 }
 
-.x-date-middle .x-btn-left,.x-date-middle .x-btn-center,.x-date-middle .x-btn-right{
+.x-date-middle .x-btn-tc,.x-date-middle .x-btn-tl,.x-date-middle .x-btn-tr,
+.x-date-middle .x-btn-mc,.x-date-middle .x-btn-ml,.x-date-middle .x-btn-mr,
+.x-date-middle .x-btn-bc,.x-date-middle .x-btn-bl,.x-date-middle .x-btn-br{
 	background:transparent !important;
     vertical-align:middle;
 }
 .x-date-middle .x-btn .x-btn-text {
     color:#fff;
 }
-.x-date-middle .x-btn-with-menu  .x-btn-center em {
+.x-date-middle .x-btn-mc em.x-btn-arrow {
     background:transparent url(../images/default/toolbar/btn-arrow-light.gif) no-repeat right 0;
 }
 .x-date-right, .x-date-left {
