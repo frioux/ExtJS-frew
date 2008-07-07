@@ -1308,7 +1308,7 @@ el.un('click', this.handlerFn);
 
     // private
 	setOverflow : function(v){
-    	if(v=='auto' && Ext.isMac && Ext.isGecko){ // work around stupid FF 2.0/Mac scroll bar bug
+    	if(v=='auto' && Ext.isMac && Ext.isGecko2){ // work around stupid FF 2.0/Mac scroll bar bug
     		this.dom.style.overflow = 'hidden';
         	(function(){this.dom.style.overflow = 'auto';}).defer(1, this);
     	}else{
