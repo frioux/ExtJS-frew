@@ -151,7 +151,7 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
     // private
     triggerBlur : function(){
         this.mimicing = false;
-        Ext.get(Ext.isIE ? document.body : document).un("mousedown", this.mimicBlur);
+        Ext.get(Ext.isIE ? document.body : document).un("mousedown", this.mimicBlur, this);
         if(this.monitorTab){
             this.el.un("keydown", this.checkTab, this);
         }
