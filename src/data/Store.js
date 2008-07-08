@@ -241,8 +241,8 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     },
 
     /**
-     * (Local sort only) Inserts the passed the record in the Store at the index where it
-     * should go based on the current sort information
+     * (Local sort only) Inserts the passed Record into the Store at the index where it
+     * should go based on the current sort information.
      * @param {Ext.data.Record} record
      */
     addSorted : function(record){
@@ -281,7 +281,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     },
 
     /**
-     * Inserts Records to the Store at the given index and fires the add event.
+     * Inserts Records into the Store at the given index and fires the add event.
      * @param {Number} index The start index at which to insert the passed Records.
      * @param {Ext.data.Record[]} records An Array of Ext.data.Record objects to add to the cache.
      */
