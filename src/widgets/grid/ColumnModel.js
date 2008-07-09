@@ -19,7 +19,7 @@
  ]);
  </code></pre>
  * <p>
- * The config options listed for this class are options which may appear in each
+ * The config options <b>defined by</b< this class are options which may appear in each
  * individual column definition.
  * @constructor
  * @param {Object} config An Array of column config objects. See this class's
@@ -241,7 +241,11 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
         return -1;
     },
 
-    // private
+    /**
+     * Moves a column from one position to another.
+     * @param {Number} oldIndex The index of the column to move.
+     * @param {Number} newIndex The position at which to reinsert the coolumn.
+     */
     moveColumn : function(oldIndex, newIndex){
         var c = this.config[oldIndex];
         this.config.splice(oldIndex, 1);
