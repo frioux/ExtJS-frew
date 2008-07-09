@@ -320,6 +320,19 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
 	// private
     onResize : function(w, h){
         this.innerEl.setWidth(w - (this.el.getPadding('l') + this.endEl.getPadding('r')));
+        this.syncThumb();
+    },
+    
+    /**
+     * Synchronizes the thumb position to the proper proportion of the total componet width based
+     * on the current slider {@link #value}.  This will be called automatically when the Slider
+     * is resized by a layout, but if it is rendered auto width, this method can be called from
+     * another resize handler to sync the Slider if necessary.
+     */
+    syncThumb : function(){
+        if(this.rendered){
+            this.moveThumb(this.translateValue(this.value));
+        }
     },
 
 	/**
@@ -336,6 +349,7 @@ Ext.reg('slider', Ext.Slider);
 Ext.Slider.Vertical = {
     onResize : function(w, h){
         this.innerEl.setHeight(h - (this.el.getPadding('t') + this.endEl.getPadding('b')));
+        this.syncThumb();
     },
 
     getRatio : function(){
