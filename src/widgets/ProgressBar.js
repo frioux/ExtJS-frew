@@ -109,11 +109,13 @@ Ext.ProgressBar = Ext.extend(Ext.BoxComponent, {
         if(text){
             this.updateText(text);
         }
-        var w = Math.floor(value*this.el.dom.firstChild.offsetWidth);
-        this.progressBar.setWidth(w);
-        if(this.textTopEl){
-            //textTopEl should be the same width as the bar so overflow will clip as the bar moves
-            this.textTopEl.removeClass('x-hidden').setWidth(w);
+        if(this.rendered){
+	        var w = Math.floor(value*this.el.dom.firstChild.offsetWidth);
+	        this.progressBar.setWidth(w);
+	        if(this.textTopEl){
+	            //textTopEl should be the same width as the bar so overflow will clip as the bar moves
+	            this.textTopEl.removeClass('x-hidden').setWidth(w);
+	        }
         }
         this.fireEvent('update', this, value, text);
         return this;
@@ -214,7 +216,22 @@ myAction.on('complete', function(){
      */
     updateText : function(text){
         this.text = text || '&#160;';
-        this.textEl.update(this.text);
+        if(this.rendered){
+            this.textEl.update(this.text);
+        }
+        return this;
+    },
+
+    /**
+     * Synchronizes the inner bar width to the proper proportion of the total componet width based
+     * on the current progress {@link #value}.  This will be called automatically when the ProgressBar
+     * is resized by a layout, but if it is rendered auto width, this method can be called from
+     * another resize handler to sync the ProgressBar if necessary.
+     */
+    syncProgressBar : function(){
+        if(this.value){
+            this.updateProgress(this.value, this.text);
+        }
         return this;
     },
 
@@ -230,6 +247,7 @@ myAction.on('complete', function(){
             var inner = this.el.dom.firstChild;
             this.textEl.setSize(inner.offsetWidth, inner.offsetHeight);
         }
+        this.syncProgressBar();
         return this;
     },
 
