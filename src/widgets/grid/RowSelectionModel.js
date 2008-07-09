@@ -396,7 +396,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
      * @param {Boolean} keepExisting (optional) True to keep existing selections
      */
     selectRow : function(index, keepExisting, preventViewNotify){
-        if(this.locked || (index < 0 || index >= this.grid.store.getCount())) return;
+        if(this.locked || (index < 0 || index >= this.grid.store.getCount()) || this.isSelected(index)) return;
         var r = this.grid.store.getAt(index);
         if(r && this.fireEvent("beforerowselect", this, index, keepExisting, r) !== false){
             if(!keepExisting || this.singleSelect){
