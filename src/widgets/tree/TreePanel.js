@@ -228,7 +228,48 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
             "dblclick",
             /**
             * @event contextmenu
-            * Fires when a node is right clicked
+            * Fires when a node is right clicked. To display a context menu in response to this
+            * event, first create a Menu object (see {@link Ext.menu.Menu} for details), then add
+            * a handler for this event:<code><pre>
+new Ext.tree.TreePanel({
+    title: 'My TreePanel',
+    root: new Ext.tree.AsyncTreeNode({
+        text: 'The Root',
+        children: [
+            { text: 'Child node 1', leaf: true },
+            { text: 'Child node 2', leaf: true }
+        ]
+    }),
+    contextMenu: new Ext.menu.Menu({
+        items: [{
+            id: 'delete-node',
+            text: 'Delete Node'
+        }],
+        listeners: {
+            itemclick: function(item) {
+                switch (item.id) {
+                    case 'delete-node':
+                        var n = item.parentMenu.contextNode;
+                        if (n.parentNode) {
+                            n.remove();
+                        }
+                        break;
+                }
+            }
+        }
+    }),
+    listeners: {
+        contextmenu: function(node, e) {
+//          Register the context node with the menu so that a Menu Item's handler function can access
+//          it via its {@link parentMenu Ext.menu.BaseItem#parentMenu} property.
+            node.select();
+            var c = node.getOwnerTree().contextMenu;
+            c.contextNode = node;
+            c.showAt(e.getXY());
+        }
+    }
+});
+</pre></code>
             * @param {Node} node The node
             * @param {Ext.EventObject} e The event object
             */
@@ -355,8 +396,8 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
         node.isRoot = true;
         this.registerNode(node);
         if(!this.rootVisible){
-        	var uiP = node.attributes.uiProvider;
-        	node.ui = uiP ? new uiP(node) : new Ext.tree.RootTreeNodeUI(node); 
+            var uiP = node.attributes.uiProvider;
+            node.ui = uiP ? new uiP(node) : new Ext.tree.RootTreeNodeUI(node); 
         }
         return node;
     },
