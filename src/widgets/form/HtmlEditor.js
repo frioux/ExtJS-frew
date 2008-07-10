@@ -397,7 +397,8 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         }
 
         if(!this.width){
-            this.setSize(this.el.getSize());
+            var sz = this.el.getSize();
+            this.setSize(sz.width, this.height || sz.height);
         }
     },
 
