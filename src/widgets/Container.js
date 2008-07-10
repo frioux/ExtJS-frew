@@ -245,14 +245,14 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
      * <p>If the Container is already rendered when add is called, you may need to call
      * {@link #doLayout} to refresh the view which causes any unrendered child Components
      * to be rendered. This is required so that you can add multiple child components if needed
-     * while only refreshing the layout once.<p>
-     * When creating complex UIs, it is important to remember that sizing and positioning
+     * while only refreshing the layout once.</p>
+     * <p>When creating complex UIs, it is important to remember that sizing and positioning
      * of child items is the responsibility of the Container's {@link #layout} manager. If
      * you expect child items to be sized in response to user interactions, you must
-     * specify a layout manager which creates and manages the type of layout you have in mind.<p>
+     * specify a layout manager which creates and manages the type of layout you have in mind.</p>
      * <p><b>Omitting the {@link #layout} config means that a basic layout manager is
      * used which does nothnig but render child components sequentially into the Container.
-     * No sizing or positioning will be performed in this situation.</b>
+     * No sizing or positioning will be performed in this situation.</b></p>
      * @param {Ext.Component/Object} component The Component to add.<br><br>
      * Ext uses lazy rendering, and will only render the added Component should
      * it become necessary, that is: when the Container is layed out either on first render

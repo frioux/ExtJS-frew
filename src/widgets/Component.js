@@ -454,9 +454,28 @@ Ext.Foo = Ext.extend(Ext.Bar, {
     initComponent : Ext.emptyFn,
 
     /**
-     * If this is a lazy rendering component, render it to its container element.
-     * @param {Mixed} container (optional) The element this component should be rendered into. If it is being
-     * applied to existing markup, this should be left off.
+     * <p>Render this Components into the passed HTML element.</p>
+     * <p><b>If you are using a {@link Container Ext.Container} object to house this Component, then
+     * do not use the render method.</b></p>
+     * <p>A Container's child Components are rendered by that Container's
+     * {@link layout Ext.Container#layout} manager when the Container is first rendered.</p>
+     * <p>Certain layout managers allow dynamic addition of child components. Those that do
+     * include {@link Ext.layout.CardLayout}, {@link Ext.layout.AnchorLayout},
+     * {@link Ext.layout.FormLayout}, {@link Ext.layout.TableLayout}.</p>
+     * <p>If the Container is already rendered when a new child Component is added, you may need to call
+     * the Container's {@link doLayout Ext.Container#doLayout} to refresh the view which causes any
+     * unrendered child Components to be rendered. This is required so that you can add multiple
+     * child components if needed while only refreshing the layout once.</p>
+     * <p>When creating complex UIs, it is important to remember that sizing and positioning
+     * of child items is the responsibility of the Container's {@link layout Ext.Container#layout} manager.
+     * If you expect child items to be sized in response to user interactions, you must
+     * configure the Container with a layout manager which creates and manages the type of layout you
+     * have in mind.</p>
+     * <p><b>Omitting the Container's {@link layout Ext.Container#layout} config means that a basic
+     * layout manager is used which does nothnig but render child components sequentially into the
+     * Container. No sizing or positioning will be performed in this situation.</b></p>
+     * @param {Element/HTMLElement/String} container (optional) The element this Component should be
+     * rendered into. If it is being created from existing markup, this should be omitted.
      * @param {String/Number} position (optional) The element ID or DOM node index within the container <b>before</b>
      * which this component will be inserted (defaults to appending to the end of the container)
      */
