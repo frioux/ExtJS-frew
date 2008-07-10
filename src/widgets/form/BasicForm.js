@@ -482,7 +482,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     },
 
     /**
-     * Iterates through the {@link Field Ext.form.Field}s which have been {@link add #add}ed to this BasicForm,
+     * Iterates through the {@link Ext.form.Field Field}s which have been {@link #add add}ed to this BasicForm,
      * checks them for an id attribute, and calls {@link Ext.form.Field#applyToMarkup} on the existing dom element with that id.
      * @return {BasicForm} this
      */

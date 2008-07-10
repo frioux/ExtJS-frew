@@ -261,7 +261,7 @@ new Ext.tree.TreePanel({
     listeners: {
         contextmenu: function(node, e) {
 //          Register the context node with the menu so that a Menu Item's handler function can access
-//          it via its {@link parentMenu Ext.menu.BaseItem#parentMenu} property.
+//          it via its {@link Ext.menu.BaseItem#parentMenu parentMenu} property.
             node.select();
             var c = node.getOwnerTree().contextMenu;
             c.contextNode = node;

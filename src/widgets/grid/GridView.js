@@ -100,9 +100,9 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
     /**
      * @property dragZone
      * @type Ext.grid.GridDragZone
-     * <p><b>This will only be present if the owning GridPanel was configured with {@link enableDragDrop Ext.grid.GridPanel#enableDragDrop}<b> <tt>true</tt></b>.</p>
+     * <p><b>This will only be present if the owning GridPanel was configured with {@link Ext.grid.GridPanel#enableDragDrop enableDragDrop}<b> <tt>true</tt></b>.</p>
      * <p><b>This will only be present after the owning GridPanel has been rendered</b>.</p>
-     * <p>A customized implementation of a {@link DragZone Ext.dd.DragZone} which provides default implementations of the
+     * <p>A customized implementation of a {@link Ext.dd.DragZone DragZone} which provides default implementations of the
      * template methods of DragZone to enable dragging of the selected rows of a GridPanel. See {@link Ext.grid.GridDragZone} for details.</p>
      */
     /**

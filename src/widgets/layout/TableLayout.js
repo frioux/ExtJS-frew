@@ -69,7 +69,7 @@ Ext.layout.TableLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
     /**
      * @cfg {Object} tableAttrs
-     * <p>An object containing properties which are added to the {@link DomHelper Ext.DomHelper} specification
+     * <p>An object containing properties which are added to the {@link Ext.DomHelper DomHelper} specification
      * used to create the layout's <tt>&lt;table&gt;</tt> element. Example:</p><pre><code>
 {
     xtype: 'panel',

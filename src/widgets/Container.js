@@ -108,7 +108,7 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
      * border settings (defaults to false).
      */
     /** @cfg {String} defaultType
-     * <p>The default {@link xtype Ext.Component} of child Components to create in this Container when
+     * <p>The default {@link Ext.Component xtype} of child Components to create in this Container when
      * a child item is specified as a raw configuration object, rather than as an instantiated Component.</p>
      * <p>This usually defaults to 'panel', but for {@link Ext.form.FormPanel} and {@link Ext.form.FieldSet},
      * the defaultType is 'textfield'.</p>
@@ -234,7 +234,7 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
     },
 
     /**
-     * <p>Adds a {@link Component Ext.Component} to this Container. Fires the beforeadd event before
+     * <p>Adds a {@link Ext.Component Component} to this Container. Fires the beforeadd event before
      * adding, then fires the add event after the component has been added.</p>
      * <p>You will never call the render method of a child Component when using a Container.
      * Child Components are rendered by this Container's {@link #layout} manager when
@@ -258,7 +258,7 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
      * it become necessary, that is: when the Container is layed out either on first render
      * or in response to a {@link #doLayout} call.<br><br>
      * A Component config object may be passed instead of an instantiated Component object.
-     * The type of Component created from a config object is determined by the {@link xtype Ext.Component#xtype}
+     * The type of Component created from a config object is determined by the {@link Ext.Component#xtype xtype}
      * config property. If no xtype is configured, the Container's {@link #defaultType}
      * is used.<br><br>
      * For a list of all available xtypes, see {@link Ext.Component}.

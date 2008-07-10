@@ -455,23 +455,23 @@ Ext.Foo = Ext.extend(Ext.Bar, {
 
     /**
      * <p>Render this Components into the passed HTML element.</p>
-     * <p><b>If you are using a {@link Container Ext.Container} object to house this Component, then
+     * <p><b>If you are using a {@link Ext.Container Container} object to house this Component, then
      * do not use the render method.</b></p>
      * <p>A Container's child Components are rendered by that Container's
-     * {@link layout Ext.Container#layout} manager when the Container is first rendered.</p>
+     * {@link Ext.Container#layout layout} manager when the Container is first rendered.</p>
      * <p>Certain layout managers allow dynamic addition of child components. Those that do
      * include {@link Ext.layout.CardLayout}, {@link Ext.layout.AnchorLayout},
      * {@link Ext.layout.FormLayout}, {@link Ext.layout.TableLayout}.</p>
      * <p>If the Container is already rendered when a new child Component is added, you may need to call
-     * the Container's {@link doLayout Ext.Container#doLayout} to refresh the view which causes any
+     * the Container's {@link Ext.Container#doLayout doLayout} to refresh the view which causes any
      * unrendered child Components to be rendered. This is required so that you can add multiple
      * child components if needed while only refreshing the layout once.</p>
      * <p>When creating complex UIs, it is important to remember that sizing and positioning
-     * of child items is the responsibility of the Container's {@link layout Ext.Container#layout} manager.
+     * of child items is the responsibility of the Container's {@link Ext.Container#layout layout} manager.
      * If you expect child items to be sized in response to user interactions, you must
      * configure the Container with a layout manager which creates and manages the type of layout you
      * have in mind.</p>
-     * <p><b>Omitting the Container's {@link layout Ext.Container#layout} config means that a basic
+     * <p><b>Omitting the Container's {@link Ext.Container#layout layout} config means that a basic
      * layout manager is used which does nothnig but render child components sequentially into the
      * Container. No sizing or positioning will be performed in this situation.</b></p>
      * @param {Element/HTMLElement/String} container (optional) The element this Component should be
@@ -870,18 +870,21 @@ alert(t.getXType());  // alerts 'textfield'
     },
 
     /**
-     * Tests whether or not this component is of a specific xtype. This can test whether this component is descended
-     * from the xtype (default) or whether it is directly of the xtype specified (shallow = true). For a list of all
-     * available xtypes, see the {@link Ext.Component} header. Example usage:
+     * <p>Tests whether or not this Component is of a specific xtype. This can test whether this Component is descended
+     * from the xtype (default) or whether it is directly of the xtype specified (shallow = true).</p>
+     * <p><b>If using your own subclasses, be aware that a Component must register its own xtype
+     * to participate in determination of inherited xtypes.</b></p>
+     * <p>For a list of all available xtypes, see the {@link Ext.Component} header.</p>
+     * <p>Example usage:</p>
      * <pre><code>
 var t = new Ext.form.TextField();
 var isText = t.isXType('textfield');        // true
 var isBoxSubclass = t.isXType('box');       // true, descended from BoxComponent
 var isBoxInstance = t.isXType('box', true); // false, not a direct BoxComponent instance
 </code></pre>
-     * @param {String} xtype The xtype to check for this component
-     * @param {Boolean} shallow (optional) False to check whether this component is descended from the xtype (this is
-     * the default), or true to check whether this component is directly of the specified xtype.
+     * @param {String} xtype The xtype to check for this Component
+     * @param {Boolean} shallow (optional) False to check whether this Component is descended from the xtype (this is
+     * the default), or true to check whether this Component is directly of the specified xtype.
      */
     isXType : function(xtype, shallow){
         return !shallow ?
@@ -890,8 +893,11 @@ var isBoxInstance = t.isXType('box', true); // false, not a direct BoxComponent 
     },
 
     /**
-     * Returns this component's xtype hierarchy as a slash-delimited string. For a list of all
-     * available xtypes, see the {@link Ext.Component} header. Example usage:
+     * <p>Returns this Component's xtype hierarchy as a slash-delimited string. For a list of all
+     * available xtypes, see the {@link Ext.Component} header.</p>
+     * <p><b>If using your own subclasses, be aware that a Component must register its own xtype
+     * to participate in determination of inherited xtypes.</b></p>
+     * <p>Example usage:</p>
      * <pre><code>
 var t = new Ext.form.TextField();
 alert(t.getXTypes());  // alerts 'component/box/field/textfield'

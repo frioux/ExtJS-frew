@@ -269,11 +269,11 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
 
     /**
      * Function which can be overridden to provide custom formatting for each Record that is used by this
-     * DataView's {@link template #tpl} to render each node.
+     * DataView's {@link #tpl template} to render each node.
      * @param {Array/Object} data The raw data object that was used to create the Record.
      * @param {Number} recordIndex the index number of the Record being prepared for rendering.
      * @param {Record} record The Record being prepared for rendering.
-     * @return {Array/Object} The formatted data in a format expected by the internal {@link template #tpl}'s overwrite() method.
+     * @return {Array/Object} The formatted data in a format expected by the internal {@link #tpl template}'s overwrite() method.
      * (either an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'}))
      */
     prepareData : function(data){
@@ -282,9 +282,9 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
 
     /**
      * <p>Function which can be overridden which returns the data object passed to this
-     * DataView's {@link template #tpl} to render the whole DataView.</p>
+     * DataView's {@link #tpl template} to render the whole DataView.</p>
      * <p>This is usually an Array of data objects, each element of which is processed by an
-     * {@link XTemplate Ext.XTemplate) which uses <tt>'&lt;tpl for="."&gt;'</tt> to iterate over its supplied
+     * {@link Ext.XTemplate XTemplate} which uses <tt>'&lt;tpl for="."&gt;'</tt> to iterate over its supplied
      * data object as an Array. However, <i>named</i> properties may be placed into the data object to
      * provide non-repeating data such as headings, totals etc.</p>
      * @param records {Array} An Array of {@link Ext.data.Record}s to be rendered into the DataView.

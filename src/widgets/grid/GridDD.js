@@ -1,12 +1,12 @@
 /**
  * @class Ext.grid.GridDragZone
  * @extends Ext.dd.DragZone
- * <p>A customized implementation of a {@link DragZone Ext.dd.DragZone} which provides default implementations of two of the
+ * <p>A customized implementation of a {@link Ext.dd.DragZone DragZone} which provides default implementations of two of the
  * template methods of DragZone to enable dragging of the selected rows of a GridPanel.</p>
- * <p>A cooperating {@link DropZone Ext.dd.DropZone} must be created who's template method implementations of
- * {@link onNodeEnter Ext.dd.DropZone#onNodeEnter}, {@link onNodeOver Ext.dd.DropZone#onNodeOver},
- * {@link onNodeOut Ext.dd.DropZone#onNodeOut} and {@link onNodeDrop Ext.dd.DropZone#onNodeDrop}</p> are able
- * to process the {@link data #getDragData} which is provided.
+ * <p>A cooperating {@link Ext.dd.DropZone DropZone} must be created who's template method implementations of
+ * {@link Ext.dd.DropZone#onNodeEnter onNodeEnter}, {@link Ext.dd.DropZone#onNodeOver onNodeOver},
+ * {@link Ext.dd.DropZone#onNodeOut onNodeOut} and {@link Ext.dd.DropZone#onNodeDrop onNodeDrop}</p> are able
+ * to process the {@link #getDragData data} which is provided.
  */
 Ext.grid.GridDragZone = function(grid, config){
     this.view = grid.getView();
@@ -26,8 +26,8 @@ Ext.extend(Ext.grid.GridDragZone, Ext.dd.DragZone, {
 
     /**
      * <p>The provided implementation of the getDragData method which collects the data to be dragged from the GridPanel on mousedown.</p>
-     * <p>This data is available for processing in the {@link onNodeEnter Ext.dd.DropZone#onNodeEnter}, {@link onNodeOver Ext.dd.DropZone#onNodeOver},
-     * {@link onNodeOut Ext.dd.DropZone#onNodeOut} and {@link onNodeDrop Ext.dd.DropZone#onNodeDrop} methods of a cooperating {@link DropZone Ext.dd.DropZone}.</p>
+     * <p>This data is available for processing in the {@link Ext.dd.DropZone#onNodeEnter onNodeEnter}, {@link Ext.dd.DropZone#onNodeOver onNodeOver},
+     * {@link Ext.dd.DropZone#onNodeOut onNodeOut} and {@link Ext.dd.DropZone#onNodeDrop onNodeDrop} methods of a cooperating {@link Ext.dd.DropZone DropZone}.</p>
      * <p>The data object contains the following properties:<ul>
      * <li><b>grid</b> : Ext.Grid.GridPanel<div class="sub-desc">The GridPanel from which the data is being dragged.</div></li>
      * <li><b>ddel</b> : htmlElement<div class="sub-desc">An htmlElement which provides the "picture" of the data being dragged.</div></li>
@@ -51,7 +51,7 @@ Ext.extend(Ext.grid.GridDragZone, Ext.dd.DragZone, {
     /**
      * <p>The provided implementation of the onInitDrag method. Sets the <tt>innerHTML</tt> of the drag proxy which provides the "picture"
      * of the data being dragged.</p>
-     * <p>The <tt>innerHTML</tt> data is found by calling the owning GridPanel's {@link getDragDropText Ext.grid.GridPanel#getDragDropText}.</p>
+     * <p>The <tt>innerHTML</tt> data is found by calling the owning GridPanel's {@link Ext.grid.GridPanel#getDragDropText getDragDropText}.</p>
      */
     onInitDrag : function(e){
         var data = this.dragData;
