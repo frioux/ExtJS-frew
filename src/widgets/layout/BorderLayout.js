@@ -7,7 +7,10 @@
  * and should generally not need to be created directly via the new keyword.</p>
  * <p>BorderLayout does not have any direct config options (other than inherited ones).  All configs available
  * for customizing the BorderLayout are at the {@link Ext.layout.BorderLayout.Region} and
- * {@link Ext.layout.BorderLayout.SplitRegion} levels.  Example usage:</p>
+ * {@link Ext.layout.BorderLayout.SplitRegion} levels.</p>
+ * <p><b>The regions of a BorderLayout are fixed at render time and thereafter, no regions may be removed or
+ * added.</b></p>
+ * <p>Example usage:</p>
  * <pre><code>
 var border = new Ext.Panel({
     title: 'Border Layout',
