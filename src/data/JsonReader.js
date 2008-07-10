@@ -17,7 +17,7 @@ var myReader = new Ext.data.JsonReader({
 }, Employee);
 </code></pre>
  * <p>
- * This would consume a JSON file like this:
+ * This would consume a JSON object of the form:
  * <pre><code>
 {
     'results': 2,
