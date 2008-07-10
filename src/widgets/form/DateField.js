@@ -20,47 +20,15 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
      */
     altFormats : "m/d/Y|n/j/Y|n/j/y|m/j/y|n/d/y|m/j/Y|n/d/Y|m-d-y|m-d-Y|m/d|m-d|md|mdy|mdY|d|Y-m-d",
     /**
-     * @cfg {Array} disabledDays
-     * An array of days to disable, 0 based. For example, [0, 6] disables Sunday and Saturday (defaults to null).
-     */
-    disabledDays : null,
-    /**
      * @cfg {String} disabledDaysText
      * The tooltip to display when the date falls on a disabled day (defaults to 'Disabled')
      */
     disabledDaysText : "Disabled",
     /**
-     * @cfg {Array} disabledDates
-     * An array of "dates" to disable, as strings. These strings will be used to build a dynamic regular
-     * expression so they are very powerful. Some examples:
-     * <ul>
-     * <li>["03/08/2003", "09/16/2003"] would disable those exact dates</li>
-     * <li>["03/08", "09/16"] would disable those days for every year</li>
-     * <li>["^03/08"] would only match the beginning (useful if you are using short years)</li>
-     * <li>["03/../2006"] would disable every day in March 2006</li>
-     * <li>["^03"] would disable every day in every March</li>
-     * </ul>
-     * In order to support regular expressions, if you are using a date format that has "." in it, you will have to
-     * escape the dot when restricting dates. For example: ["03\\.08\\.03"].
-     */
-    disabledDates : null,
-    /**
      * @cfg {String} disabledDatesText
      * The tooltip text to display when the date falls on a disabled date (defaults to 'Disabled')
      */
     disabledDatesText : "Disabled",
-    /**
-     * @cfg {Date/String} minValue
-     * The minimum allowed date. Can be either a Javascript date object or a string date in a
-     * valid format (defaults to null).
-     */
-    minValue : null,
-    /**
-     * @cfg {Date/String} maxValue
-     * The maximum allowed date. Can be either a Javascript date object or a string date in a
-     * valid format (defaults to null).
-     */
-    maxValue : null,
     /**
      * @cfg {String} minText
      * The error text to display when the date in the cell is before minValue (defaults to
@@ -87,6 +55,41 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
      */
     triggerClass : 'x-form-date-trigger',
     /**
+     * @cfg {Boolean} showToday
+     * False to hide the footer area of the DatePicker containing the Today button and disable the keyboard 
+     * handler for spacebar that selects the current date (defaults to true).
+     */
+    showToday : true,
+    /**
+     * @cfg {Date/String} minValue
+     * The minimum allowed date. Can be either a Javascript date object or a string date in a
+     * valid format (defaults to null).
+     */
+    /**
+     * @cfg {Date/String} maxValue
+     * The maximum allowed date. Can be either a Javascript date object or a string date in a
+     * valid format (defaults to null).
+     */
+    /**
+     * @cfg {Array} disabledDays
+     * An array of days to disable, 0 based. For example, [0, 6] disables Sunday and Saturday (defaults to null).
+     */
+    /**
+     * @cfg {Array} disabledDates
+     * An array of "dates" to disable, as strings. These strings will be used to build a dynamic regular
+     * expression so they are very powerful. Some examples:
+     * <ul>
+     * <li>["03/08/2003", "09/16/2003"] would disable those exact dates</li>
+     * <li>["03/08", "09/16"] would disable those days for every year</li>
+     * <li>["^03/08"] would only match the beginning (useful if you are using short years)</li>
+     * <li>["03/../2006"] would disable every day in March 2006</li>
+     * <li>["^03"] would disable every day in every March</li>
+     * </ul>
+     * Note that the format of the dates included in the array should exactly match the {@link #format} config.
+     * In order to support regular expressions, if you are using a date format that has "." in it, you will have to
+     * escape the dot when restricting dates. For example: ["03\\.08\\.03"].
+     */
+    /**
      * @cfg {String/Object} autoCreate
      * A DomHelper element spec, or true for a default element spec (defaults to
      * {tag: "input", type: "text", size: "10", autocomplete: "off"})
@@ -104,6 +107,11 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
             this.maxValue = this.parseDate(this.maxValue);
         }
         this.ddMatch = null;
+        this.initDisabledDays();
+    },
+    
+    // private
+    initDisabledDays : function(){
         if(this.disabledDates){
             var dd = this.disabledDates;
             var re = "(?:";
@@ -111,7 +119,54 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
                 re += dd[i];
                 if(i != dd.length-1) re += "|";
             }
-            this.ddMatch = new RegExp(re + ")");
+            this.disabledDatesRE = new RegExp(re + ")");
+        }
+    },
+    
+    /**
+     * Replaces any existing disabled dates with new values and refreshes the DatePicker.
+     * @param {Array} disabledDates An array of date strings (see the {@link #disabledDates} config
+     * for details on supported values) used to disable a pattern of dates.
+     */
+    setDisabledDates : function(dd){
+        this.disabledDates = dd;
+        this.initDisabledDays();
+        if(this.menu){
+            this.menu.picker.setDisabledDates(this.disabledDatesRE);
+        }
+    },
+    
+    /**
+     * Replaces any existing disabled days (by index, 0-6) with new values and refreshes the DatePicker.
+     * @param {Array} disabledDays An array of disabled day indexes. See the {@link #disabledDays} config
+     * for details on supported values.
+     */
+    setDisabledDays : function(dd){
+        this.disabledDays = dd;
+        if(this.menu){
+            this.menu.picker.setDisabledDays(dd);
+        }
+    },
+    
+    /**
+     * Replaces any existing {@link #minValue} with the new value and refreshes the DatePicker.
+     * @param {Date} value The minimum date that can be selected
+     */
+    setMinValue : function(dt){
+        this.minValue = (typeof dt == "string" ? this.parseDate(dt) : dt);
+        if(this.menu){
+            this.menu.picker.setMinDate(this.minValue);
+        }
+    },
+    
+    /**
+     * Replaces any existing {@link #maxValue} with the new value and refreshes the DatePicker.
+     * @param {Date} value The maximum date that can be selected
+     */
+    setMaxValue : function(dt){
+        this.maxValue = (typeof dt == "string" ? this.parseDate(dt) : dt);
+        if(this.menu){
+            this.menu.picker.setMaxDate(this.maxValue);
         }
     },
 
@@ -142,10 +197,10 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
         if(this.disabledDays){
             var day = value.getDay();
             for(var i = 0; i < this.disabledDays.length; i++) {
-            	if(day === this.disabledDays[i]){
-            	    this.markInvalid(this.disabledDaysText);
+                if(day === this.disabledDays[i]){
+                    this.markInvalid(this.disabledDaysText);
                     return false;
-            	}
+                }
             }
         }
         var fvalue = this.formatDate(value);
@@ -262,6 +317,7 @@ dateField.setValue('2006-5-4');
             disabledDays : this.disabledDays,
             disabledDaysText : this.disabledDaysText,
             format : this.format,
+            showToday : this.showToday,
             minText : String.format(this.minText, this.formatDate(this.minValue)),
             maxText : String.format(this.maxText, this.formatDate(this.maxValue))
         });
@@ -272,6 +328,7 @@ dateField.setValue('2006-5-4');
         this.menu.show(this.el, "tl-bl?");
     },
 
+    // private
     beforeBlur : function(){
         var v = this.parseDate(this.getRawValue());
         if(v){
