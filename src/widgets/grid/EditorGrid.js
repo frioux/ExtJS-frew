@@ -224,6 +224,18 @@ Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
             this.activeEditor[cancel === true ? 'cancelEdit' : 'completeEdit']();
         }
         this.activeEditor = null;
+    },
+    
+    // private
+    onDestroy: function() {
+        if(this.rendered){
+	        var cols = this.colModel.config;
+	        for(var i = 0, len = cols.length; i < len; i++){
+	            var c = cols[i];
+	            Ext.destroy(c.editor);
+	        }
+        }
+        Ext.grid.EditorGridPanel.superclass.onDestroy.call(this);
     }
 });
 Ext.reg('editorgrid', Ext.grid.EditorGridPanel);
