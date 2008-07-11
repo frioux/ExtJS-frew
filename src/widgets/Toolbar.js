@@ -420,7 +420,7 @@ Ext.extend(T, Ext.Container, {
      * Adds a dynamically rendered Ext.form field (TextField, ComboBox, etc). Note: the field should not have
      * been rendered yet. For a field that has already been rendered, use {@link #addElement}.
      * @param {Ext.form.Field} field
-     * @return {Ext.ToolbarItem}
+     * @return {Ext.Toolbar.Item}
      */
     addField : function(field){
     	this.addItem(field);
