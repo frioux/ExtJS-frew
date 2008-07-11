@@ -120,7 +120,7 @@ tpl.overwrite(panel.body, data);
 * <pre><code>
 var tpl = new Ext.XTemplate(
     '&lt;p>Name: {name}&lt;/p>',
-    '&lt;p>Company: {[values.company.toUpperCase() + ', ' + values.title]}&lt;/p>',
+    '&lt;p>Company: {[values.company.toUpperCase() + ", " + values.title]}&lt;/p>',
     '&lt;p>Kids: ',
     '&lt;tpl for="kids">',
        '&lt;div class="{[xindex % 2 === 0 ? "even" : "odd"]}">',
