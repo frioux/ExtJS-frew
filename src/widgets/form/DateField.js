@@ -242,7 +242,7 @@ dateField.setValue('5/4/06');
 
 //Pass a date string (custom format):
 dateField.format = 'Y-m-d';
-dateField.setValue('2006-5-4');
+dateField.setValue('2006-05-04');
 </code></pre>
      * @param {String/Date} date The date or valid date string
      */
