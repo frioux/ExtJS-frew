@@ -186,6 +186,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
      */
     lazyInit : true,
 
+    // private
     initComponent : function(){
         Ext.form.ComboBox.superclass.initComponent.call(this);
         this.addEvents(
@@ -300,11 +301,8 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
     onRender : function(ct, position){
         Ext.form.ComboBox.superclass.onRender.call(this, ct, position);
         if(this.hiddenName){
-            this.hiddenField = this.el.insertSibling({tag:'input', type:'hidden', name: this.hiddenName, id: (this.hiddenId||this.hiddenName)},
-                    'before', true);
-            this.hiddenField.value =
-                this.hiddenValue !== undefined ? this.hiddenValue :
-                this.value !== undefined ? this.value : '';
+            this.hiddenField = this.el.insertSibling({tag:'input', type:'hidden', name: this.hiddenName, 
+                    id: (this.hiddenId||this.hiddenName)}, 'before', true);
 
             // prevent input submission
             this.el.dom.removeAttribute('name');
@@ -324,7 +322,18 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
             this.setEditable(false);
         }
     },
-
+    
+    // private
+    initValue : function(){
+        Ext.form.ComboBox.superclass.initValue.call(this);
+        if(this.hiddenField){
+            this.hiddenField.value =
+                this.hiddenValue !== undefined ? this.hiddenValue :
+                this.value !== undefined ? this.value : '';
+        }
+    },
+    
+    // private
     initList : function(){
         if(!this.list){
             var cls = 'x-combo-list';
@@ -416,7 +425,6 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
         }
     },
 
-
     // private
     bindStore : function(store, initial){
         if(this.store && !initial){
@@ -502,6 +510,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
         }
     },
 
+    // private
     onDestroy : function(){
         if(this.view){
             this.view.el.removeAllListeners();
@@ -515,9 +524,11 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
         Ext.form.ComboBox.superclass.onDestroy.call(this);
     },
 
+    // private
     unsetDelayCheck : function(){
         delete this.delayedCheck;
     },
+    
     // private
     fireKey : function(e){
         if(e.isNavKeyPress() && !this.isExpanded() && !this.delayedCheck){

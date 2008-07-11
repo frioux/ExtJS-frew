@@ -141,7 +141,7 @@ side          Add an error icon to the right of the field with a popup on hover
     // private
     hasFocus : false,
 
-	// private ??
+	// private
 	initComponent : function(){
         Ext.form.Field.superclass.initComponent.call(this);
         this.addEvents(
@@ -225,9 +225,9 @@ side          Add an error icon to the right of the field with a popup on hover
         }
 
         this.el.addClass([this.fieldClass, this.cls]);
-        this.initValue();
     },
 
+    // private
     getItemCt : function(){
         return this.el.up('.x-form-item', 4);
     },
@@ -255,6 +255,7 @@ side          Add an error icon to the right of the field with a popup on hover
     afterRender : function(){
         Ext.form.Field.superclass.afterRender.call(this);
         this.initEvents();
+        this.initValue();
     },
 
     // private
@@ -294,6 +295,7 @@ side          Add an error icon to the right of the field with a popup on hover
         }
     },
 
+    // private
     beforeBlur : Ext.emptyFn,
 
     // private
@@ -399,6 +401,7 @@ side          Add an error icon to the right of the field with a popup on hover
         this.fireEvent('valid', this);
     },
 
+    // private
     getMessageHandler : function(){
         return Ext.form.MessageTargets[this.msgTarget];
     },
@@ -462,6 +465,7 @@ side          Add an error icon to the right of the field with a popup on hover
         }
     },
 
+    // private
     adjustSize : function(w, h){
         var s = Ext.form.Field.superclass.adjustSize.call(this, w, h);
         s.width = this.adjustWidth(this.el.dom.tagName, s.width);
@@ -473,6 +477,7 @@ side          Add an error icon to the right of the field with a popup on hover
         return s;
     },
 
+    // private
     adjustWidth : function(tag, w){
         tag = tag.toLowerCase();
         if(typeof w == 'number' && !Ext.isSafari){
