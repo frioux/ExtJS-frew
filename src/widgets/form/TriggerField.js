@@ -70,7 +70,9 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
 
     // private
     alignErrorIcon : function(){
-        this.errorIcon.alignTo(this.wrap, 'tl-tr', [2, 0]);
+        if(this.wrap){
+            this.errorIcon.alignTo(this.wrap, 'tl-tr', [2, 0]);
+        }
     },
 
     // private
@@ -95,6 +97,10 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
             this.el.position();
             this.el.setY(y);
         }
+        // During initial render, if invalid, the error marking may not work since
+        // the wrap element was not available. Revalidate here to make sure error
+        // elements are createed and positioned correctly if needed.
+        this.validate();
     },
 
     // private
