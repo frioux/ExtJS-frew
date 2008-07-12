@@ -57,6 +57,12 @@ Ext.form.Action.prototype = {
  * @cfg {String} url The URL that the Action is to invoke.
  */
 /**
+ * @cfg {Boolean} reset When set to <tt><b>true</b></tt>, causes the Form to be
+ * {@link Ext.form.BasicForm.reset reset} on Action success. If specified, this happens
+ * <b>before</b> the {@link #success} callback is called and before the Form's
+ * {@link Ext.form.BasicForm.actioncomplete actioncomplete} event fires.
+ */
+/**
  * @cfg {String} method The HTTP method to use to access the requested URL. Defaults to the
  * {@link Ext.form.BasicForm}'s method, or if that is not specified, the underlying DOM form's method.
  */
