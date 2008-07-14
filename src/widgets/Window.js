@@ -365,6 +365,9 @@ Ext.Window = Ext.extend(Ext.Panel, {
         this.focus();
         this.updateHandles();
         this.saveState();
+        if(this.layout){
+            this.doLayout();
+        }
         this.fireEvent("resize", this, box.width, box.height);
     },
 
