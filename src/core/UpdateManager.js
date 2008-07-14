@@ -229,7 +229,7 @@ um.update({
                 url = url.call(this);
             }
 
-            var o = Ext.apply(cfg ||{}, {
+            var o = Ext.apply({}, {
                 url : url,
                 params: (typeof params == "function" && callerScope) ? params.createDelegate(callerScope) : params,
                 success: this.processSuccess,
@@ -246,7 +246,7 @@ um.update({
                     "scope": callerScope || window,
                     "params": params
                 }
-            });
+            }, cfg);
 
             this.transaction = Ext.Ajax.request(o);
         }
