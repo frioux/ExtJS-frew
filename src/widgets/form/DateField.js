@@ -56,7 +56,7 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
     triggerClass : 'x-form-date-trigger',
     /**
      * @cfg {Boolean} showToday
-     * False to hide the footer area of the DatePicker containing the Today button and disable the keyboard 
+     * False to hide the footer area of the DatePicker containing the Today button and disable the keyboard
      * handler for spacebar that selects the current date (defaults to true).
      */
     showToday : true,
@@ -109,7 +109,7 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
         this.ddMatch = null;
         this.initDisabledDays();
     },
-    
+
     // private
     initDisabledDays : function(){
         if(this.disabledDates){
@@ -122,7 +122,7 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
             this.disabledDatesRE = new RegExp(re + ")");
         }
     },
-    
+
     /**
      * Replaces any existing disabled dates with new values and refreshes the DatePicker.
      * @param {Array} disabledDates An array of date strings (see the {@link #disabledDates} config
@@ -135,7 +135,7 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
             this.menu.picker.setDisabledDates(this.disabledDatesRE);
         }
     },
-    
+
     /**
      * Replaces any existing disabled days (by index, 0-6) with new values and refreshes the DatePicker.
      * @param {Array} disabledDays An array of disabled day indexes. See the {@link #disabledDays} config
@@ -147,7 +147,7 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
             this.menu.picker.setDisabledDays(dd);
         }
     },
-    
+
     /**
      * Replaces any existing {@link #minValue} with the new value and refreshes the DatePicker.
      * @param {Date} value The minimum date that can be selected
@@ -158,7 +158,7 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
             this.menu.picker.setMinDate(this.minValue);
         }
     },
-    
+
     /**
      * Replaces any existing {@link #maxValue} with the new value and refreshes the DatePicker.
      * @param {Date} value The maximum date that can be selected
@@ -228,17 +228,17 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
     /**
      * Sets the value of the date field.  You can pass a date object or any string that can be parsed into a valid
      * date, using DateField.format as the date format, according to the same rules as {@link Date#parseDate}
-     * (the default format used is "m/d/y").
+     * (the default format used is "m/d/Y").
      * <br />Usage:
      * <pre><code>
 //All of these calls set the same date value (May 4, 2006)
 
 //Pass a date object:
-var dt = new Date('5/4/06');
+var dt = new Date('5/4/2006');
 dateField.setValue(dt);
 
 //Pass a date string (default format):
-dateField.setValue('5/4/06');
+dateField.setValue('05/04/2006');
 
 //Pass a date string (custom format):
 dateField.format = 'Y-m-d';
@@ -336,7 +336,7 @@ dateField.setValue('2006-05-04');
         }
     }
 
-    /** 
+    /**
      * @cfg {Boolean} grow @hide
      */
     /**
