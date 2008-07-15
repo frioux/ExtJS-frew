@@ -84,7 +84,7 @@ Ext.grid.ColumnModel = function(config){
         // deprecated - to be removed
         "columnlockchange",
         /**
-         * @event configchanged
+         * @event configchange
          * Fires when the configuration is changed
          * @param {ColumnModel} this
          */
