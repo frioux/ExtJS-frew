@@ -140,7 +140,7 @@ ul.x-tab-strip li.x-tab-edge {
 	color:#15428b;
 }
 
-.x-tab-strip-active {
+.x-tab-strip-active, .x-tab-strip-active a.x-tab-right {
     cursor:default;
 }
 
