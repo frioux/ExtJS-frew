@@ -157,7 +157,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
     /**
      * @cfg {Number} cellSelectorDepth The number of levels to search for rows in event delegation (defaults to 10)
      */
-    rowSelectorDepth: 3,
+    rowSelectorDepth: 10,
 
     /**
      * @cfg {String} cellSelector The selector used to find cells internally
