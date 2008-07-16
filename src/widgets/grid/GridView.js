@@ -147,6 +147,26 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
 
     // private
     borderWidth: 2,
+    tdClass: 'x-grid3-cell',
+    hdCls: 'x-grid3-hd',
+
+    /**
+     * @cfg {Number} cellSelectorDepth The number of levels to search for cells in event delegation (defaults to 4)
+     */
+    cellSelectorDepth: 4,
+    /**
+     * @cfg {Number} cellSelectorDepth The number of levels to search for rows in event delegation (defaults to 10)
+     */
+    rowSelectorDepth: 3,
+
+    /**
+     * @cfg {String} cellSelector The selector used to find cells internally
+     */
+    cellSelector: 'td.x-grid3-cell',
+    /**
+     * @cfg {String} cellSelector The selector used to find cells internally
+     */
+    rowSelector: 'div.x-grid3-row',
 
     /* -------------------------------- UI Specific ----------------------------- */
 
@@ -212,21 +232,6 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         }
 
         this.templates = ts;
-
-        this.tdClass = 'x-grid3-cell';
-    /**
-     * A {@link Ext.DomQuery DomQuery} selector used to select the GridView's cell elements.
-     * @type String
-     * @property cellSelector
-     */
-        this.cellSelector = 'td.x-grid3-cell';
-        this.hdCls = 'x-grid3-hd';
-    /**
-     * A {@link Ext.DomQuery DomQuery} selector used to select the GridView's row elements.
-     * @type String
-     * @property rowSelector
-     */
-        this.rowSelector = 'div.x-grid3-row';
         this.colRe = new RegExp("x-grid3-td-([^\\s]+)", "");
     },
 
@@ -286,7 +291,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         if(!el){
             return false;
         }
-        return this.fly(el).findParent(this.cellSelector, 3);
+        return this.fly(el).findParent(this.cellSelector, this.cellSelectorDepth);
     },
 
     // private
@@ -329,7 +334,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         if(!el){
             return false;
         }
-        return this.fly(el).findParent(this.rowSelector, 10);
+        return this.fly(el).findParent(this.rowSelector, this.rowSelectorDepth);
     },
 
 /**
