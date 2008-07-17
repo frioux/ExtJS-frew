@@ -207,10 +207,13 @@ Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
         }
     },
     
-	preEditValue : function(r, field){
-		return this.autoEncode && typeof value == 'string' ? Ext.util.Format.htmlDecode(r.data[field]) : r.data[field];
-	},
-	
+    // private
+    preEditValue : function(r, field){
+        var value = r.data[field];
+        return this.autoEncode && typeof value == 'string' ? Ext.util.Format.htmlDecode(value) : value;
+    },
+    
+    // private
 	postEditValue : function(value, originalValue, r, field){
 		return this.autoEncode && typeof value == 'string' ? Ext.util.Format.htmlEncode(value) : value;
 	},
