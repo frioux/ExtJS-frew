@@ -164,7 +164,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
      */
     cellSelector: 'td.x-grid3-cell',
     /**
-     * @cfg {String} cellSelector The selector used to find cells internally
+     * @cfg {String} cellSelector The selector used to find rows internally
      */
     rowSelector: 'div.x-grid3-row',
 
