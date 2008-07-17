@@ -18,6 +18,13 @@ Ext.ux.Portal = Ext.extend(Ext.Panel, {
     initEvents : function(){
         Ext.ux.Portal.superclass.initEvents.call(this);
         this.dd = new Ext.ux.Portal.DropZone(this, this.dropConfig);
+    },
+    
+    beforeDestroy: function() {
+        if(this.dd){
+            this.dd.unreg();
+        }
+        Ext.ux.Portal.superclass.beforeDestroy.call(this);
     }
 });
 Ext.reg('portal', Ext.ux.Portal);
@@ -174,5 +181,11 @@ Ext.extend(Ext.ux.Portal.DropZone, Ext.dd.DropTarget, {
              box.columnX.push({x: c.el.getX(), w: c.el.getWidth()});
         });
         return box;
+    },
+
+    // unregister the dropzone from ScrollManager
+    unreg: function() {
+        Ext.dd.ScrollManager.unregister(this.portal.body);
+        Ext.ux.Portal.DropZone.superclass.unreg.call(this);
     }
 });
