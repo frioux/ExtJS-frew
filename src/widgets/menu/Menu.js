@@ -356,7 +356,7 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
      * Adds one or more items of any type supported by the Menu class, or that can be converted into menu items.
      * Any of the following are valid:
      * <ul>
-     * <li>Any menu item object based on {@link Ext.menu.Item}</li>
+     * <li>Any menu item object based on {@link Ext.menu.BaseItem}</li>
      * <li>An HTMLElement object which will be converted to a menu item</li>
      * <li>A menu item config object that will be created as a new menu item</li>
      * <li>A string, which can either be '-' or 'separator' to add a menu separator, otherwise
@@ -433,7 +433,7 @@ var item = menu.add(
     },
 
     /**
-     * Adds an existing object based on {@link Ext.menu.Item} to the menu
+     * Adds an existing object based on {@link Ext.menu.BaseItem} to the menu
      * @param {Ext.menu.Item} item The menu item to add
      * @return {Ext.menu.Item} The menu item that was added
      */
@@ -475,7 +475,7 @@ var item = menu.add(
     },
 
     /**
-     * Inserts an existing object based on {@link Ext.menu.Item} to the menu at a specified index
+     * Inserts an existing object based on {@link Ext.menu.BaseItem} to the menu at a specified index
      * @param {Number} index The index in the menu's list of current items where the new item should be inserted
      * @param {Ext.menu.Item} item The menu item to add
      * @return {Ext.menu.Item} The menu item that was added
