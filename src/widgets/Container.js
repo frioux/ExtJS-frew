@@ -280,7 +280,7 @@ myTabPanel.setActiveTab(myNewGrid);
         var a = arguments, len = a.length;
         if(len > 1){
             for(var i = 0; i < len; i++) {
-                this.add(a[i]);
+                Ext.Container.prototype.add.call(this, a[i]);
             }
             return;
         }
@@ -365,8 +365,9 @@ myTabPanel.setActiveTab(myNewGrid);
     /**
      * Removes a component from this container.  Fires the beforeremove event before removing, then fires
      * the remove event after the component has been removed.
-     * @param {Component/String} component The component reference or id to remove
-     * @param {Boolean} autoDestroy (optional) True to automatically invoke the component's {@link Ext.Component#destroy} function
+     * @param {Component/String} component The component reference or id to remove.
+     * @param {Boolean} autoDestroy (optional) True to automatically invoke the removed Component's {@link Ext.Component#destroy} function.
+     * Defaults to the value of this Container's {@link #autoDestroy} config.
      */
     remove : function(comp, autoDestroy){
         var c = this.getComponent(comp);
