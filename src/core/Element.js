@@ -995,7 +995,7 @@ El.prototype = {
     },
 
     /**
-     * Sets the element's position and size the the specified region. If animation is true then width, height, x and y will be animated concurrently.
+     * Sets the element's position and size the specified region. If animation is true then width, height, x and y will be animated concurrently.
      * @param {Ext.lib.Region} region The region to fill
      * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
      * @return {Ext.Element} this
@@ -1013,7 +1013,7 @@ El.prototype = {
      * <li>evt : EventObject<div class="sub-desc">The {@link Ext.EventObject EventObject} describing the event.</div></li>
      * <li>t : Element<div class="sub-desc">The {@link Ext.Element Element} which was the target of the event.
      * Note that this may be filtered by using the <tt>delegate</tt> option.</div></li>
-     * <li>o : Object<div class="sub-desc">The the options object from the addListener call.</div></li>
+     * <li>o : Object<div class="sub-desc">The options object from the addListener call.</div></li>
      * </ul>
      * @param {Object} scope (optional) The scope (The <tt>this</tt> reference) of the handler function. Defaults
      * to this Element.
@@ -1315,7 +1315,7 @@ el.un('click', this.handlerFn);
     		this.dom.style.overflow = v;
     	}
 	},
-	
+
     /**
      * Quick set left and top adding default units
      * @param {String} left The left CSS property value

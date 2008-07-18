@@ -33,7 +33,7 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
      */
     tabIndex: 0,
     /**
-     * @cfg {Boolean} checked True if the the checkbox should render already checked (defaults to false)
+     * @cfg {Boolean} checked True if the checkbox should render already checked (defaults to false)
      */
     checked: false,
     /**
@@ -48,7 +48,7 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
      * @cfg {String} inputValue The value that should go into the generated input element's value attribute
      * (defaults to undefined, with no value attribute)
      */
-    
+
     // private
     baseCls: 'x-form-check',
 
@@ -65,13 +65,13 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
             'check'
         );
     },
-    
+
     // private
     initEvents : function(){
         Ext.form.Checkbox.superclass.initEvents.call(this);
         this.initCheckEvents();
     },
-    
+
     // private
     initCheckEvents : function(){
         this.innerWrap.removeAllListeners();
@@ -80,7 +80,7 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
         this.innerWrap.on('click', this.onClick, this);
         this.innerWrap.on('keyup', this.onKeyUp, this);
     },
-    
+
     // private
     onRender : function(ct, position){
         Ext.form.Checkbox.superclass.onRender.call(this, ct, position);
@@ -88,35 +88,35 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
             this.el.dom.value = this.inputValue;
         }
         this.el.addClass('x-hidden');
-        
+
         this.innerWrap = this.el.wrap({
-            tabIndex: this.tabIndex, 
+            tabIndex: this.tabIndex,
             cls: this.baseCls+'-wrap-inner'
         });
         this.wrap = this.innerWrap.wrap({cls: this.baseCls+'-wrap'});
-        
+
         if(this.boxLabel){
             this.labelEl = this.innerWrap.createChild({
-                tag: 'label', 
-                htmlFor: this.el.id, 
-                cls: 'x-form-cb-label', 
+                tag: 'label',
+                htmlFor: this.el.id,
+                cls: 'x-form-cb-label',
                 html: this.boxLabel
             });
         }
-        
+
         this.imageEl = this.innerWrap.createChild({
-            tag: 'img', 
-            src: Ext.BLANK_IMAGE_URL, 
+            tag: 'img',
+            src: Ext.BLANK_IMAGE_URL,
             cls: this.baseCls
         }, this.el);
-        
+
         if(this.checked){
             this.setValue(true);
         }else{
             this.checked = this.el.dom.checked;
         }
     },
-    
+
     // private
     onDestroy : function(){
         if(this.rendered){
@@ -136,7 +136,7 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
         Ext.form.Checkbox.superclass.onBlur.call(this, e);
         this.el.removeClass(this.focusCls);
     },
-    
+
     // private
     onResize : function(){
         Ext.form.Checkbox.superclass.onResize.apply(this, arguments);
@@ -144,14 +144,14 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
             this.el.alignTo(this.wrap, 'c-c');
         }
     },
-    
+
     // private
     onKeyUp : function(e){
         if(e.getKey() == Ext.EventObject.SPACE){
             this.onClick(e);
         }
     },
-    
+
     // private
     onClick : function(e){
         if (!this.disabled && !this.readOnly) {
@@ -159,19 +159,19 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
         }
         e.stopEvent();
     },
-    
+
     // private
     onEnable : function(){
         Ext.form.Checkbox.superclass.onEnable.call(this);
         this.initCheckEvents();
     },
-    
+
     // private
     onDisable : function(){
         Ext.form.Checkbox.superclass.onDisable.call(this);
         this.innerWrap.removeAllListeners();
     },
-    
+
     toggleValue : function(){
         this.setValue(!this.checked);
     },
@@ -188,7 +188,7 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
     getPositionEl : function(){
         return this.wrap;
     },
-    
+
     // private
     getActionEl : function(){
         return this.wrap;
@@ -232,12 +232,12 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
         this.wrap[this.checked ? 'addClass' : 'removeClass'](this.checkedCls);
         //this.innerWrap[this.disabled ? 'addClass' : 'removeClass'](this.disabledClass);
         this.fireEvent("check", this, this.checked);
-        
+
         if(this.handler){
             this.handler.call(this.scope || this, this, this.checked);
         }
     }
-    
+
     /**
      * @cfg {String} disabledClass
      * @hide

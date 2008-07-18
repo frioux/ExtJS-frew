@@ -42,7 +42,7 @@ Ext.form.BasicForm = function(el, config){
          */
         'actioncomplete'
     );
-    
+
     if(el){
         this.initEl(el);
     }
@@ -116,7 +116,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      * @type Mixed
      * @property waitMsgTarget
      */
-    
+
     // private
     initEl : function(el){
         this.el = Ext.get(el);
@@ -139,7 +139,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     onSubmit : function(e){
         e.stopEvent();
     },
-    
+
     // private
 	destroy: function() {
         this.items.each(function(f){
@@ -417,7 +417,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     /**
      * Returns the fields in this form as an object with key/value pairs as they would be submitted using a standard form submit.
      * If multiple fields exist with the same name they are returned as an array.
-     * @param {Boolean} asString (optional) false to return the the values as an object (defaults to returning as a string)
+     * @param {Boolean} asString (optional) false to return the values as an object (defaults to returning as a string)
      * @return {String/Object}
      */
     getValues : function(asString){

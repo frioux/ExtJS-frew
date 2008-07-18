@@ -25,7 +25,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
      */
     /**
      * @cfg {Boolean} ignoreNoChange
-     * True to skip the the edit completion process (no save, no events fired) if the user completes an edit and
+     * True to skip the edit completion process (no save, no events fired) if the user completes an edit and
      * the value has not changed (defaults to false).  Applies only to string values - edits for other data types
      * will never be ignored.
      */

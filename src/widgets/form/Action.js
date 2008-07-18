@@ -356,7 +356,7 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
     }
 }</code></pre>
  * <br><br>
- * Other data may be placed into the response for processing the the {@link Ext.form.BasicForm Form}'s callback
+ * Other data may be placed into the response for processing the {@link Ext.form.BasicForm Form}'s callback
  * or event handler methods. The object decoded from this JSON is available in the {@link #result} property.
  */
 Ext.form.Action.Load = function(form, options){

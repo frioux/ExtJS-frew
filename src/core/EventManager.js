@@ -11,7 +11,7 @@ Ext.EventManager = function(){
     var E = Ext.lib.Event;
     var D = Ext.lib.Dom;
     // fix parser confusion
-    var xname = 'Ex' + 't';    
+    var xname = 'Ex' + 't';
 
     var elHash = {};
 
@@ -105,14 +105,14 @@ Ext.EventManager = function(){
             docReadyEvent.clearListeners();
        }
     };
-    
+
     var initDocReady = function(){
         docReadyEvent = new Ext.util.Event();
 
         if(Ext.isReady){
             return;
         }
-        
+
         // no matter what, make sure it fires on load
         E.on(window, 'load', fireDocReady);
 
@@ -238,7 +238,7 @@ Ext.EventManager = function(){
      * <li>evt : EventObject<div class="sub-desc">The {@link Ext.EventObject EventObject} describing the event.</div></li>
      * <li>t : Element<div class="sub-desc">The {@link Ext.Element Element} which was the target of the event.
      * Note that this may be filtered by using the <tt>delegate</tt> option.</div></li>
-     * <li>o : Object<div class="sub-desc">The the options object from the addListener call.</div></li>
+     * <li>o : Object<div class="sub-desc">The options object from the addListener call.</div></li>
      * </ul>
      * @param {Object} scope (optional) The scope in which to execute the handler
      * function (the handler function's "this" context)
