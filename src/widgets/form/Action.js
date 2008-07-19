@@ -236,7 +236,7 @@ Ext.form.Action.prototype = {
         ]
     )
 </code></pre>
- * <p>then the results make be sent back in XML format:</p><pre><code>
+ * <p>then the results may be sent back in XML format:</p><pre><code>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;message success="false"&gt;
 &lt;errors&gt;
