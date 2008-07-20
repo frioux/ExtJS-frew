@@ -115,6 +115,7 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
         }else{
             this.checked = this.el.dom.checked;
         }
+        this.originalValue = this.checked;
     },
 
     // private
