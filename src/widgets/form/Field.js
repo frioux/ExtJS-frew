@@ -239,6 +239,8 @@ side          Add an error icon to the right of the field with a popup on hover
         }else if(this.el.dom.value.length > 0 && this.el.dom.value != this.emptyText){
             this.setValue(this.el.dom.value);
         }
+        // reference to original value for reset
+        this.originalValue = this.getValue();
     },
 
     /**
@@ -278,9 +280,6 @@ side          Add an error icon to the right of the field with a popup on hover
         this.el.on(Ext.isIE || Ext.isSafari3 ? "keydown" : "keypress", this.fireKey,  this);
         this.el.on("focus", this.onFocus,  this);
         this.el.on("blur", this.onBlur,  this);
-
-        // reference to original value for reset
-        this.originalValue = this.getValue();
     },
 
     // private
