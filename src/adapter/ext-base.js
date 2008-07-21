@@ -776,7 +776,7 @@
 
         useDefaultHeader:true,
 
-        defaultPostHeader:'application/x-www-form-urlencoded',
+        defaultPostHeader:'application/x-www-form-urlencoded; charset=UTF-8',
 
         useDefaultXhrHeader:true,
 
