@@ -502,10 +502,12 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
     },
 
     destroy : function(){
-        for(var i = 0,l = this.childNodes.length; i < l; i++){
-            this.childNodes[i].destroy();
+        if(this.childNodes){
+            for(var i = 0,l = this.childNodes.length; i < l; i++){
+                this.childNodes[i].destroy();
+            }
+            this.childNodes = null;
         }
-        this.childNodes = null;
         if(this.ui.destroy){
             this.ui.destroy();
         }
