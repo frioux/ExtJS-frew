@@ -48,6 +48,10 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
      * @cfg {String} inputValue The value that should go into the generated input element's value attribute
      * (defaults to undefined, with no value attribute)
      */
+    /**
+     * @cfg {Function} handler A function called when the {@link #checked} value changes (can be used instead of 
+     * handling the check event)
+     */
 
     // private
     baseCls: 'x-form-check',
@@ -224,18 +228,21 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
      * Sets the checked state of the checkbox.
      * @param {Boolean/String} checked True, 'true', '1', or 'on' to check the checkbox, any other value will uncheck it.
      */
-    setValue : function(v){
+    setValue : function(v) {
+        var checked = this.checked;
         this.checked = (v === true || v === 'true' || v == '1' || String(v).toLowerCase() == 'on');
-        if(this.el && this.el.dom){
-            this.el.dom.checked = this.checked;
-            this.el.dom.defaultChecked = this.checked;
-        }
-        this.wrap[this.checked ? 'addClass' : 'removeClass'](this.checkedCls);
-        //this.innerWrap[this.disabled ? 'addClass' : 'removeClass'](this.disabledClass);
-        this.fireEvent("check", this, this.checked);
-
-        if(this.handler){
-            this.handler.call(this.scope || this, this, this.checked);
+        
+        if(checked != this.checked){
+	        if(this.el && this.el.dom){
+	            this.el.dom.checked = this.checked;
+	            this.el.dom.defaultChecked = this.checked;
+	        }
+	        this.wrap[this.checked? 'addClass' : 'removeClass'](this.checkedCls);
+        
+            this.fireEvent("check", this, this.checked);
+            if(this.handler){
+                this.handler.call(this.scope || this, this, this.checked);
+            }
         }
     }
 
