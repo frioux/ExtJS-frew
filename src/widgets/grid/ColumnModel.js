@@ -113,8 +113,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * specified, the column's index is used as an index into the Record's data Array.
      */
     /**
-     * @cfg {Number} width (optional) The initial width in pixels of the column. Using this
-     * instead of {@link Ext.grid.GridPanel#autoSizeColumns} is more efficient.
+     * @cfg {Number} width (optional) The initial width in pixels of the column.
      */
     /**
      * @cfg {Boolean} sortable (optional) True if sorting is to be allowed on this column.
@@ -150,8 +149,8 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * @cfg {String} css (optional) Set custom CSS for all table cells in the column (excluding headers).  Defaults to undefined.
      */
     /**
-     * @cfg {Boolean} hideable (optional) Specify as <tt>false</tt> to prevent the user from hiding this column 
-     * (defaults to true).  To disallow column hiding globally for all columns in the grid, use 
+     * @cfg {Boolean} hideable (optional) Specify as <tt>false</tt> to prevent the user from hiding this column
+     * (defaults to true).  To disallow column hiding globally for all columns in the grid, use
      * {@link Ext.grid.GridPanel#enableColumnHide} instead.
      */
     /**
