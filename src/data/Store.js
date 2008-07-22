@@ -221,7 +221,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     },
 
     /**
-     * Add Records to the Store and fires the add event.
+     * Add Records to the Store and fires the {@link #add} event.
      * @param {Ext.data.Record[]} records An Array of Ext.data.Record objects to add to the cache.
      */
     add : function(records){
@@ -251,7 +251,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     },
 
     /**
-     * Remove a Record from the Store and fires the remove event.
+     * Remove a Record from the Store and fires the {@link #remove} event.
      * @param {Ext.data.Record} record Th Ext.data.Record object to remove from the cache.
      */
     remove : function(record){
@@ -267,7 +267,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     },
 
     /**
-     * Remove all Records from the Store and fires the clear event.
+     * Remove all Records from the Store and fires the {@link #clear} event.
      */
     removeAll : function(){
         this.data.clear();
@@ -281,7 +281,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     },
 
     /**
-     * Inserts Records into the Store at the given index and fires the add event.
+     * Inserts Records into the Store at the given index and fires the {@link #add} event.
      * @param {Number} index The start index at which to insert the passed Records.
      * @param {Ext.data.Record[]} records An Array of Ext.data.Record objects to add to the cache.
      */

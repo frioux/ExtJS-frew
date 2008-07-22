@@ -4,7 +4,7 @@
  * <p>Base class for any {@link Ext.BoxComponent} that can contain other components. This class is intended
  * to be extended and should generally not need to be created directly via the new keyword. {@link Ext.Panel},
  * {@link Ext.Window} and {@link Ext.TabPanel} are the most commonly used Container classes.</p>
- * Containers handle the basic behavior of containing items, namely adding, inserting and removing them. 
+ * Containers handle the basic behavior of containing items, namely adding, inserting and removing them.
  * The specific layout logic required to visually render contained items is delegated to any one of the different
  * {@link #layout} classes available.</p>
  * <p>When either specifying child {@link #items} of a Container, or dynamically adding components to a Container,
@@ -207,7 +207,7 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
                 this.layout = new Ext.Container.LAYOUTS[this.layout.toLowerCase()](this.layoutConfig);
             }
             this.setLayout(this.layout);
-            
+
             if(this.activeItem !== undefined){
                 var item = this.activeItem;
                 delete this.activeItem;
@@ -234,8 +234,8 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
     },
 
     /**
-     * <p>Adds a {@link Ext.Component Component} to this Container. Fires the beforeadd event before
-     * adding, then fires the add event after the component has been added.</p>
+     * <p>Adds a {@link Ext.Component Component} to this Container. Fires the {@link #beforeadd} event before
+     * adding, then fires the {@link #add} event after the component has been added.</p>
      * <p>You will never call the render method of a child Component when using a Container.
      * Child Components are rendered by this Container's {@link #layout} manager when
      * this Container is first rendered.</p>
@@ -296,7 +296,7 @@ myTabPanel.setActiveTab(myNewGrid);
 
     /**
      * Inserts a Component into this Container at a specified index. Fires the
-     * beforeadd event before inserting, then fires the add event after the
+     * {@link #beforeadd} event before inserting, then fires the {@link #add} event after the
      * Component has been inserted.
      * @param {Number} index The index at which the Component will be inserted
      * into the Container's items collection
@@ -363,8 +363,8 @@ myTabPanel.setActiveTab(myNewGrid);
     },
 
     /**
-     * Removes a component from this container.  Fires the beforeremove event before removing, then fires
-     * the remove event after the component has been removed.
+     * Removes a component from this container.  Fires the {@link #beforeremove} event before removing, then fires
+     * the {@link #remove} event after the component has been removed.
      * @param {Component/String} component The component reference or id to remove.
      * @param {Boolean} autoDestroy (optional) True to automatically invoke the removed Component's {@link Ext.Component#destroy} function.
      * Defaults to the value of this Container's {@link #autoDestroy} config.

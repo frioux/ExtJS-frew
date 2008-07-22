@@ -301,7 +301,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
     onRender : function(ct, position){
         Ext.form.ComboBox.superclass.onRender.call(this, ct, position);
         if(this.hiddenName){
-            this.hiddenField = this.el.insertSibling({tag:'input', type:'hidden', name: this.hiddenName, 
+            this.hiddenField = this.el.insertSibling({tag:'input', type:'hidden', name: this.hiddenName,
                     id: (this.hiddenId||this.hiddenName)}, 'before', true);
 
             // prevent input submission
@@ -322,7 +322,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
             this.setEditable(false);
         }
     },
-    
+
     // private
     initValue : function(){
         Ext.form.ComboBox.superclass.initValue.call(this);
@@ -332,7 +332,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
                 this.value !== undefined ? this.value : '';
         }
     },
-    
+
     // private
     initList : function(){
         if(!this.list){
@@ -528,7 +528,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
     unsetDelayCheck : function(){
         delete this.delayedCheck;
     },
-    
+
     // private
     fireKey : function(e){
         if(e.isNavKeyPress() && !this.isExpanded() && !this.delayedCheck){
@@ -857,7 +857,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
     },
 
     /**
-     * Execute a query to filter the dropdown list.  Fires the beforequery event prior to performing the
+     * Execute a query to filter the dropdown list.  Fires the {@link #beforequery} event prior to performing the
      * query allowing the query action to be canceled if needed.
      * @param {String} query The SQL query to execute
      * @param {Boolean} forceAll True to force the query to execute even if there are currently fewer characters
@@ -916,7 +916,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
     },
 
     /**
-     * Hides the dropdown list if it is currently expanded. Fires the 'collapse' event on completion.
+     * Hides the dropdown list if it is currently expanded. Fires the {@link #collapse} event on completion.
      */
     collapse : function(){
         if(!this.isExpanded()){
@@ -936,7 +936,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
     },
 
     /**
-     * Expands the dropdown list if it is currently hidden. Fires the 'expand' event on completion.
+     * Expands the dropdown list if it is currently hidden. Fires the {@link #expand} event on completion.
      */
     expand : function(){
         if(this.isExpanded() || !this.hasFocus){

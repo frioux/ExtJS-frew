@@ -44,7 +44,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
     * @cfg {Function} onEsc
     * Allows override of the built-in processing for the escape key. Default action
     * is to close the Window (performing whatever action is specified in {@link #closeAction}.
-    * To prevent the Window closing when the escape key is pressed, specify this as 
+    * To prevent the Window closing when the escape key is pressed, specify this as
     * Ext.emptyFn (See {@link Ext#emptyFn}).
     */
     /**
@@ -276,12 +276,12 @@ Ext.Window = Ext.extend(Ext.Panel, {
          * @type Ext.dd.DD
          * @property dd
          */
-        this.dd = new Ext.Window.DD(this);  
+        this.dd = new Ext.Window.DD(this);
     },
 
    // private
     onEsc : function(){
-        this[this.closeAction]();  
+        this[this.closeAction]();
     },
 
     // private
@@ -294,7 +294,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
         );
         Ext.Window.superclass.beforeDestroy.call(this);
     },
-    
+
     // private
     onDestroy : function(){
         if(this.manager){
@@ -623,7 +623,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
     },
 
     /**
-     * Placeholder method for minimizing the window.  By default, this method simply fires the minimize event
+     * Placeholder method for minimizing the window.  By default, this method simply fires the {@link #minimize} event
      * since the behavior of minimizing a window is application-specific.  To implement custom minimize behavior,
      * either the minimize event can be handled or this method can be overridden.
      */
@@ -784,7 +784,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
 
     /**
      * Makes this the active window by showing its shadow, or deactivates it by hiding its shadow.  This method also
-     * fires the activate or deactivate event depending on which action occurred.
+     * fires the {@link #activate} or {@link #deactivate} event depending on which action occurred.
      * @param {Boolean} active True to activate the window, false to deactivate it (defaults to false)
      */
     setActive : function(active){
@@ -819,7 +819,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
     }
 
     /**
-     * @cfg {Boolean} autoWidth @hide 
+     * @cfg {Boolean} autoWidth @hide
      **/
 });
 Ext.reg('window', Ext.Window);

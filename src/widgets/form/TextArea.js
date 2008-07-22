@@ -75,7 +75,7 @@ Ext.form.TextArea = Ext.extend(Ext.form.TextField,  {
 
     /**
      * Automatically grows the field to accomodate the height of the text up to the maximum field height allowed.
-     * This only takes effect if grow = true, and fires the autosize event if the height changes.
+     * This only takes effect if grow = true, and fires the {@link #autosize} event if the height changes.
      */
     autoSize : function(){
         if(!this.grow || !this.textSizeEl){
