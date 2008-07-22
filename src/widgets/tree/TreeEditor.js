@@ -87,6 +87,11 @@ Ext.extend(Ext.tree.TreeEditor, Ext.Editor, {
     triggerEdit : function(node, defer){
         this.completeEdit();
 		if(node.attributes.editable !== false){
+           /**
+            * The tree node this editor is bound to. Read-only.
+            * @type Ext.tree.TreeNode
+            * @property editNode
+            */
 			this.editNode = node;
             this.autoEditTimer = this.startEdit.defer(this.editDelay, this, [node.ui.textNode, node.text]);
             return false;
