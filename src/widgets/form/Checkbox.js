@@ -232,13 +232,13 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
         var checked = this.checked;
         this.checked = (v === true || v === 'true' || v == '1' || String(v).toLowerCase() == 'on');
         
-        if(checked != this.checked){
-	        if(this.el && this.el.dom){
-	            this.el.dom.checked = this.checked;
-	            this.el.dom.defaultChecked = this.checked;
-	        }
-	        this.wrap[this.checked? 'addClass' : 'removeClass'](this.checkedCls);
+        if(this.el && this.el.dom){
+            this.el.dom.checked = this.checked;
+            this.el.dom.defaultChecked = this.checked;
+        }
+        this.wrap[this.checked? 'addClass' : 'removeClass'](this.checkedCls);
         
+        if(checked != this.checked){
             this.fireEvent("check", this, this.checked);
             if(this.handler){
                 this.handler.call(this.scope || this, this, this.checked);
