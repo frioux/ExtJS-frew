@@ -5,6 +5,7 @@ Ext.onReady(function(){
         rootVisible:false,
         autoScroll:true,
         title: 'Example Tasks',
+        renderTo: Ext.getBody(),
         
         columns:[{
             header:'Task',
@@ -29,7 +30,6 @@ Ext.onReady(function(){
 
         root: new Ext.tree.AsyncTreeNode({
             text:'Tasks'
-        }),
-        renderTo: document.body
+        })
     });
 });
