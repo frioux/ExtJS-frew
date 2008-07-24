@@ -300,6 +300,10 @@ dateField.setValue('2006-05-04');
         }
     },
 
+    /**
+     * @method onTriggerClick
+     * @hide
+     */
     // private
     // Implements the default empty TriggerField.onTriggerClick function to display the DatePicker
     onTriggerClick : function(){
