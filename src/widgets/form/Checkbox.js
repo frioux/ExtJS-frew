@@ -247,6 +247,10 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
     }
 
     /**
+     * @cfg {Mixed} value
+     * @hide
+     */
+    /**
      * @cfg {String} disabledClass
      * @hide
      */
