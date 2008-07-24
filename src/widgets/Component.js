@@ -519,7 +519,9 @@ Ext.Foo = Ext.extend(Ext.Bar, {
                 this.disable();
             }
 
-            this.initStateEvents();
+            if(this.stateful !== false){
+                this.initStateEvents();
+            }
         }
         return this;
     },
