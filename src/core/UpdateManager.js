@@ -37,109 +37,109 @@
  * @param {Boolean} forceNew (optional) By default the constructor checks to see if the passed element already 
  * has an Updater and if it does it returns the same instance. This will skip that check (useful for extending this class).
  */
-Ext.Updater = function(el, forceNew){
-    el = Ext.get(el);
-    if(!forceNew && el.updateManager){
-        return el.updateManager;
-    }
-    /**
-     * The Element object
-     * @type Ext.Element
-     */
-    this.el = el;
-    /**
-     * Cached url to use for refreshes. Overwritten every time update() is called unless "discardUrl" param is set to true.
-     * @type String
-     */
-    this.defaultUrl = null;
-
-    this.addEvents(
+Ext.Updater = Ext.extend(Ext.Updater, Ext.util.Observable, {
+    constructor: function(el, forceNew){
+        el = Ext.get(el);
+        if(!forceNew && el.updateManager){
+            return el.updateManager;
+        }
         /**
-         * @event beforeupdate
-         * Fired before an update is made, return false from your handler and the update is cancelled.
-         * @param {Ext.Element} el
-         * @param {String/Object/Function} url
-         * @param {String/Object} params
+         * The Element object
+         * @type Ext.Element
          */
-        "beforeupdate",
+        this.el = el;
         /**
-         * @event update
-         * Fired after successful update is made.
-         * @param {Ext.Element} el
-         * @param {Object} oResponseObject The response Object
+         * Cached url to use for refreshes. Overwritten every time update() is called unless "discardUrl" param is set to true.
+         * @type String
          */
-        "update",
+        this.defaultUrl = null;
+    
+        this.addEvents(
+            /**
+             * @event beforeupdate
+             * Fired before an update is made, return false from your handler and the update is cancelled.
+             * @param {Ext.Element} el
+             * @param {String/Object/Function} url
+             * @param {String/Object} params
+             */
+            "beforeupdate",
+            /**
+             * @event update
+             * Fired after successful update is made.
+             * @param {Ext.Element} el
+             * @param {Object} oResponseObject The response Object
+             */
+            "update",
+            /**
+             * @event failure
+             * Fired on update failure.
+             * @param {Ext.Element} el
+             * @param {Object} oResponseObject The response Object
+             */
+            "failure"
+        );
+    
+        Ext.apply(this, Ext.Updater.defaults);
         /**
-         * @event failure
-         * Fired on update failure.
-         * @param {Ext.Element} el
-         * @param {Object} oResponseObject The response Object
+         * Blank page URL to use with SSL file uploads (defaults to {@link Ext.Updater.defaults#sslBlankUrl}).
+         * @property sslBlankUrl
+         * @type String
          */
-        "failure"
-    );
-
-    Ext.apply(this, Ext.Updater.defaults);
-    /**
-     * Blank page URL to use with SSL file uploads (defaults to {@link Ext.Updater.defaults#sslBlankUrl}).
-     * @property sslBlankUrl
-     * @type String
-     */
-    /**
-     * Whether to append unique parameter on get request to disable caching (defaults to {@link Ext.Updater.defaults#disableCaching}).
-     * @property disableCaching
-     * @type Boolean
-     */
-    /**
-     * Text for loading indicator (defaults to {@link Ext.Updater.defaults#indicatorText}).
-     * @property indicatorText
-     * @type String
-     */
-    /**
-     * Whether to show indicatorText when loading (defaults to {@link Ext.Updater.defaults#showLoadIndicator}).
-     * @property showLoadIndicator
-     * @type String
-     */
-    /**
-     * Timeout for requests or form posts in seconds (defaults to {@link Ext.Updater.defaults#timeout}).
-     * @property timeout
-     * @type Number
-     */
-    /**
-     * True to process scripts in the output (defaults to {@link Ext.Updater.defaults#loadScripts}).
-     * @property loadScripts
-     * @type Boolean
-     */
-
-    /**
-     * Transaction object of the current executing transaction, or null if there is no active transaction.
-     */
-    this.transaction = null;
-    /**
-     * Delegate for refresh() prebound to "this", use myUpdater.refreshDelegate.createCallback(arg1, arg2) to bind arguments
-     * @type Function
-     */
-    this.refreshDelegate = this.refresh.createDelegate(this);
-    /**
-     * Delegate for update() prebound to "this", use myUpdater.updateDelegate.createCallback(arg1, arg2) to bind arguments
-     * @type Function
-     */
-    this.updateDelegate = this.update.createDelegate(this);
-    /**
-     * Delegate for formUpdate() prebound to "this", use myUpdater.formUpdateDelegate.createCallback(arg1, arg2) to bind arguments
-     * @type Function
-     */
-    this.formUpdateDelegate = this.formUpdate.createDelegate(this);
-
-    if(!this.renderer){
-     /**
-      * The renderer for this Updater (defaults to {@link Ext.Updater.BasicRenderer}).
-      */
-    this.renderer = new Ext.Updater.BasicRenderer();
-    }
-    Ext.Updater.superclass.constructor.call(this);
-};
-
-Ext.extend(Ext.Updater, Ext.util.Observable, {
+        /**
+         * Whether to append unique parameter on get request to disable caching (defaults to {@link Ext.Updater.defaults#disableCaching}).
+         * @property disableCaching
+         * @type Boolean
+         */
+        /**
+         * Text for loading indicator (defaults to {@link Ext.Updater.defaults#indicatorText}).
+         * @property indicatorText
+         * @type String
+         */
+        /**
+         * Whether to show indicatorText when loading (defaults to {@link Ext.Updater.defaults#showLoadIndicator}).
+         * @property showLoadIndicator
+         * @type String
+         */
+        /**
+         * Timeout for requests or form posts in seconds (defaults to {@link Ext.Updater.defaults#timeout}).
+         * @property timeout
+         * @type Number
+         */
+        /**
+         * True to process scripts in the output (defaults to {@link Ext.Updater.defaults#loadScripts}).
+         * @property loadScripts
+         * @type Boolean
+         */
+    
+        /**
+         * Transaction object of the current executing transaction, or null if there is no active transaction.
+         */
+        this.transaction = null;
+        /**
+         * Delegate for refresh() prebound to "this", use myUpdater.refreshDelegate.createCallback(arg1, arg2) to bind arguments
+         * @type Function
+         */
+        this.refreshDelegate = this.refresh.createDelegate(this);
+        /**
+         * Delegate for update() prebound to "this", use myUpdater.updateDelegate.createCallback(arg1, arg2) to bind arguments
+         * @type Function
+         */
+        this.updateDelegate = this.update.createDelegate(this);
+        /**
+         * Delegate for formUpdate() prebound to "this", use myUpdater.formUpdateDelegate.createCallback(arg1, arg2) to bind arguments
+         * @type Function
+         */
+        this.formUpdateDelegate = this.formUpdate.createDelegate(this);
+    
+        if(!this.renderer){
+         /**
+          * The renderer for this Updater (defaults to {@link Ext.Updater.BasicRenderer}).
+          */
+        this.renderer = new this.DefaultRenderer();
+        }
+        Ext.Updater.superclass.constructor.call(this);
+    },
+    DefaultRenderer: Ext.Updater.BasicRenderer,
     /**
      * Get the Element this Updater is bound to
      * @return {Ext.Element} The element
