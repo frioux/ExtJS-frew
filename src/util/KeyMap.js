@@ -109,6 +109,10 @@ map.addBinding({
             fn = config.fn || config.handler,
             scope = config.scope;
 
+	if (config.stopEvent) {
+	    this.stopEvent = config.stopEvent;    
+	}	
+
         if(typeof keyCode == "string"){
             var ks = [];
             var keyString = keyCode.toUpperCase();
