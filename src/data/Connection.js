@@ -94,6 +94,13 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
      * @type Boolean
      */
     disableCaching: true,
+    
+    /**
+     * @cfg {String} disableCachingParam (Optional) Change the parameter which is sent went disabling caching
+     * through a cache buster. Defaults to '_dc'
+     * @type String
+     */
+    disableCachingParam: '_dc',    
 
     /**
      * <p>Sends an HTTP request to a remote server.</p>
@@ -227,7 +234,8 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
             var method = o.method||this.method||((p || o.xmlData || o.jsonData) ? "POST" : "GET");
 
             if(method == 'GET' && (this.disableCaching && o.disableCaching !== false) || o.disableCaching === true){
-                url += (url.indexOf('?') != -1 ? '&' : '?') + '_dc=' + (new Date().getTime());
+                var dcp = o.disableCachingParam || this.disableCachingParam;
+                url += (url.indexOf('?') != -1 ? '&' : '?') + dcp + '=' + (new Date().getTime());
             }
 
             if(typeof o.autoAbort == 'boolean'){ // options gets top priority
