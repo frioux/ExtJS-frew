@@ -135,11 +135,18 @@ Ext.Updater = Ext.extend(Ext.Updater, Ext.util.Observable, {
          /**
           * The renderer for this Updater (defaults to {@link Ext.Updater.BasicRenderer}).
           */
-        this.renderer = new this.defaultRenderer();
+        this.renderer = new this.getDefaultRenderer();
         }
         Ext.Updater.superclass.constructor.call(this);
     },
-    defaultRenderer: Ext.Updater.BasicRenderer,
+    /**
+     * This is an overrideable method which returns a reference to a default
+     * renderer class if none is specified when creating the Ext.Updater.
+     * Defaults to {@link Ext.Updater.BasicRenderer}
+     */
+    getDefaultRenderer: function() {
+        return Ext.Updater.BasicRenderer;
+    },
     /**
      * Get the Element this Updater is bound to
      * @return {Ext.Element} The element
