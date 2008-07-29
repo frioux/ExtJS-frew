@@ -9,7 +9,7 @@
  * var el = Ext.get("foo");
  * var mgr = el.getUpdater();
  * mgr.update({
-        url: "http://myserver.com/index.php", 
+        url: "http://myserver.com/index.php",
         params: {
             param1: "foo",
             param2: "bar"
@@ -34,7 +34,7 @@
  * @constructor
  * Create new Updater directly.
  * @param {Mixed} el The element to update
- * @param {Boolean} forceNew (optional) By default the constructor checks to see if the passed element already 
+ * @param {Boolean} forceNew (optional) By default the constructor checks to see if the passed element already
  * has an Updater and if it does it returns the same instance. This will skip that check (useful for extending this class).
  */
 Ext.Updater = Ext.extend(Ext.Updater, Ext.util.Observable, {
@@ -53,7 +53,7 @@ Ext.Updater = Ext.extend(Ext.Updater, Ext.util.Observable, {
          * @type String
          */
         this.defaultUrl = null;
-    
+
         this.addEvents(
             /**
              * @event beforeupdate
@@ -78,7 +78,7 @@ Ext.Updater = Ext.extend(Ext.Updater, Ext.util.Observable, {
              */
             "failure"
         );
-    
+
         Ext.apply(this, Ext.Updater.defaults);
         /**
          * Blank page URL to use with SSL file uploads (defaults to {@link Ext.Updater.defaults#sslBlankUrl}).
@@ -110,7 +110,7 @@ Ext.Updater = Ext.extend(Ext.Updater, Ext.util.Observable, {
          * @property loadScripts
          * @type Boolean
          */
-    
+
         /**
          * Transaction object of the current executing transaction, or null if there is no active transaction.
          */
@@ -130,7 +130,7 @@ Ext.Updater = Ext.extend(Ext.Updater, Ext.util.Observable, {
          * @type Function
          */
         this.formUpdateDelegate = this.formUpdate.createDelegate(this);
-    
+
         if(!this.renderer){
          /**
           * The renderer for this Updater (defaults to {@link Ext.Updater.BasicRenderer}).
@@ -154,7 +154,7 @@ Ext.Updater = Ext.extend(Ext.Updater, Ext.util.Observable, {
     getEl : function(){
         return this.el;
     },
-    
+
     /**
      * Performs an <b>asynchronous</b> request, updating this element with the response.
      * If params are specified it uses POST, otherwise it uses GET.<br><br>
@@ -172,7 +172,7 @@ Ext.Updater = Ext.extend(Ext.Updater, Ext.util.Observable, {
      * or as a function, which returns such an object.</p></li>
      * <li>scripts : <b>Boolean</b><p class="sub-desc">If <tt>true</tt>
      * any &lt;script&gt; tags embedded in the response text will be extracted
-     * and executed (defaults to {@link Ext.Updater.defaults#loadScripts}). If this option is specified, 
+     * and executed (defaults to {@link Ext.Updater.defaults#loadScripts}). If this option is specified,
      * the callback will be called <i>after</i> the execution of the scripts.</p></li>
      * <li>callback : <b>Function</b><p class="sub-desc">A function to
      * be called when the response from the server arrives. The following
@@ -185,12 +185,12 @@ Ext.Updater = Ext.extend(Ext.Updater, Ext.util.Observable, {
      * <li>scope : <b>Object</b><p class="sub-desc">The scope in which
      * to execute the callback (The callback's <tt>this</tt> reference.) If the
      * <tt>params</tt> argument is a function, this scope is used for that function also.</p></li>
-     * <li>discardUrl : <b>Boolean</b><p class="sub-desc">By default, the URL of this request becomes 
+     * <li>discardUrl : <b>Boolean</b><p class="sub-desc">By default, the URL of this request becomes
      * the default URL for this Updater object, and will be subsequently used in {@link #refresh}
      * calls.  To bypass this behavior, pass <tt>discardUrl:true</tt> (defaults to false).</p></li>
      * <li>timeout : <b>Number</b><p class="sub-desc">The number of seconds to wait for a response before
      * timing out (defaults to {@link Ext.Updater.defaults#timeout}).</p></li>
-     * <li>text : <b>String</b><p class="sub-desc">The text to use as the innerHTML of the 
+     * <li>text : <b>String</b><p class="sub-desc">The text to use as the innerHTML of the
      * {@link Ext.Updater.defaults#indicatorText} div (defaults to 'Loading...').  To replace the entire div, not
      * just the text, override {@link Ext.Updater.defaults#indicatorText} directly.</p></li>
      * <li>nocache : <b>Boolean</b><p class="sub-desc">Only needed for GET
@@ -203,7 +203,7 @@ um.update({
     url: "your-url.php",
     params: {param1: "foo", param2: "bar"}, // or a URL encoded string
     callback: yourFunction,
-    scope: yourObject, //(optional scope)  
+    scope: yourObject, //(optional scope)
     discardUrl: true,
     nocache: true,
     text: "Loading...",
@@ -260,7 +260,7 @@ um.update({
     },
 
     /**
-     * Performs an async form post, updating this element with the response. If the form has the attribute 
+     * Performs an async form post, updating this element with the response. If the form has the attribute
      * enctype="multipart/form-data", it assumes it's a file upload.
      * Uses this.sslBlankUrl for SSL file uploads to prevent IE security warning.
      * @param {String/HTMLElement} form The form Id or form element
@@ -310,11 +310,11 @@ um.update({
     /**
      * Set this element to auto refresh.  Can be canceled by calling {@link #stopAutoRefresh}.
      * @param {Number} interval How often to update (in seconds).
-     * @param {String/Object/Function} url (optional) The url for this request, a config object in the same format 
+     * @param {String/Object/Function} url (optional) The url for this request, a config object in the same format
      * supported by {@link #load}, or a function to call to get the url (defaults to the last used url).  Note that while
-     * the url used in a load call can be reused by this method, other load config options will not be reused and must be 
+     * the url used in a load call can be reused by this method, other load config options will not be reused and must be
      * sepcified as part of a config object passed as this paramter if needed.
-     * @param {String/Object} params (optional) The parameters to pass as either a url encoded string 
+     * @param {String/Object} params (optional) The parameters to pass as either a url encoded string
      * "&param1=1&param2=2" or as an object {param1: 1, param2: 2}
      * @param {Function} callback (optional) Callback when transaction is complete - called with signature (oElement, bSuccess)
      * @param {Boolean} refreshNow (optional) Whether to execute the refresh now, or wait the interval
@@ -345,9 +345,9 @@ um.update({
     isAutoRefreshing : function(){
        return this.autoRefreshProcId ? true : false;
     },
-    
+
     /**
-     * Display the element's "loading" state. By default, the element is updated with {@link #indicatorText}. This 
+     * Display the element's "loading" state. By default, the element is updated with {@link #indicatorText}. This
      * method may be overridden to perform a custom action while this Updater is actively updating its contents.
      */
     showLoading : function(){
@@ -400,6 +400,7 @@ um.update({
 
     /**
      * Returns the current content renderer for this Updater. See {@link Ext.Updater.BasicRenderer#render} for more details.
+     * @return {Object}
      */
     getRenderer : function(){
        return this.renderer;
@@ -478,7 +479,7 @@ um.update({
  * @param {Mixed} el The element to update
  * @param {String} url The url
  * @param {String/Object} params (optional) Url encoded param string or an object of name/value pairs
- * @param {Object} options (optional) A config object with any of the Updater properties you want to set - for 
+ * @param {Object} options (optional) A config object with any of the Updater properties you want to set - for
  * example: {disableCaching:true, indicatorText: "Loading data..."}
  * @static
  * @deprecated
