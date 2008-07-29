@@ -135,11 +135,11 @@ Ext.Updater = Ext.extend(Ext.Updater, Ext.util.Observable, {
          /**
           * The renderer for this Updater (defaults to {@link Ext.Updater.BasicRenderer}).
           */
-        this.renderer = new this.DefaultRenderer();
+        this.renderer = new this.defaultRenderer();
         }
         Ext.Updater.superclass.constructor.call(this);
     },
-    DefaultRenderer: Ext.Updater.BasicRenderer,
+    defaultRenderer: Ext.Updater.BasicRenderer,
     /**
      * Get the Element this Updater is bound to
      * @return {Ext.Element} The element
