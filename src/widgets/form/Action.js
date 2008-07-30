@@ -212,7 +212,7 @@ Ext.form.Action.prototype = {
  * <p>A class which handles submission of data from {@link Ext.form.BasicForm Form}s
  * and processes the returned response.</p>
  * <p>Instances of this class are only created by a {@link Ext.form.BasicForm Form} when
- * submitting.</p>
+ * {@link Ext.form.BasicForm#submit submit}ting.</p>
  * <p>A response packet must contain a boolean <tt style="font-weight:bold">success</tt> property, and, optionally
  * an <tt style="font-weight:bold">errors</tt> property. The <tt style="font-weight:bold">errors</tt> property contains error
  * messages for invalid fields.</p>
@@ -333,20 +333,15 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
 /**
  * @class Ext.form.Action.Load
  * @extends Ext.form.Action
- * A class which handles loading of data from a server into the Fields of
- * an {@link Ext.form.BasicForm}.
- * <br><br>
- * Instances of this class are only created by a {@link Ext.form.BasicForm Form} when
- * loading.
- * <br><br>
- * A response packet <b>must</b> contain a boolean <tt style="font-weight:bold">success</tt> property, and
- * a <tt style="font-weight:bold">data</tt> property. The <tt style="font-weight:bold">data</tt> property contains the
- * values of Fields to load. The individual value object for each Field
- * is passed to the Field's {@link Ext.form.Field#setValue setValue} method.
- * <br><br>
- * By default, response packets are assumed to be JSON, so a typical response
- * packet may look like this:
- * <br><br><pre><code>
+ * <p>A class which handles loading of data from a server into the Fields of an {@link Ext.form.BasicForm}.</p>
+ * <p>Instances of this class are only created by a {@link Ext.form.BasicForm Form} when
+ * {@link Ext.form.BasicForm#load load}ing.</p>
+ * <p>A response packet <b>must</b> contain a boolean <tt style="font-weight:bold">success</tt> property, and
+ * a <tt style="font-weight:bold">data</tt> property. The <tt style="font-weight:bold">data</tt> property
+ * contains the values of Fields to load. The individual value object for each Field
+ * is passed to the Field's {@link Ext.form.Field#setValue setValue} method.</p>
+ * <p>By default, response packets are assumed to be JSON, so a typical response
+ * packet may look like this:</p><pre><code>
 {
     success: true,
     data: {
@@ -355,9 +350,8 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
         portOfDischarge: "OSL"
     }
 }</code></pre>
- * <br><br>
- * Other data may be placed into the response for processing the {@link Ext.form.BasicForm Form}'s callback
- * or event handler methods. The object decoded from this JSON is available in the {@link #result} property.
+ * <p>Other data may be placed into the response for processing the {@link Ext.form.BasicForm Form}'s callback
+ * or event handler methods. The object decoded from this JSON is available in the {@link #result} property.</p>
  */
 Ext.form.Action.Load = function(form, options){
     Ext.form.Action.Load.superclass.constructor.call(this, form, options);
