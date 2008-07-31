@@ -248,8 +248,9 @@ Ext.layout.BorderLayout.Region.prototype = {
     /**
      * @cfg {Boolean} split
      * True to display a {@link Ext.SplitBar} between this region and its neighbor, allowing the user to resize
-     * the regions dynamically (defaults to false).  When split = true, it is common to specify a {@link #minSize}
-     * and {@link #maxSize} for the region.
+     * the regions dynamically (defaults to false).  When split == true, it is common to specify a minSize
+     * and maxSize for the BoxComponent representing the region. These are not native configs of BoxComponent, and
+     * are used only by this class.
      */
     split:false,
     /**
