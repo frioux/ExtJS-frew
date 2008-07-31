@@ -155,7 +155,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
      */
     cellSelectorDepth: 4,
     /**
-     * @cfg {Number} cellSelectorDepth The number of levels to search for rows in event delegation (defaults to 10)
+     * @cfg {Number} rowSelectorDepth The number of levels to search for rows in event delegation (defaults to 10)
      */
     rowSelectorDepth: 10,
 
@@ -164,7 +164,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
      */
     cellSelector: 'td.x-grid3-cell',
     /**
-     * @cfg {String} cellSelector The selector used to find rows internally
+     * @cfg {String} rowSelector The selector used to find rows internally
      */
     rowSelector: 'div.x-grid3-row',
 
