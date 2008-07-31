@@ -122,7 +122,7 @@ new Ext.Panel({
      */
     /**
      * @cfg {Array} buttons
-     * An array of {@link Ext.Button} <b>configs</b> used to add buttons to the footer of this panel.
+     * An array of {@link Ext.Button}s or {@link Ext.Button} configs used to add buttons to the footer of this panel.
      */
     /**
      * @cfg {Object/String/Function} autoLoad
