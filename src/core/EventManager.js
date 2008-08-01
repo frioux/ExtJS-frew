@@ -48,7 +48,6 @@ Ext.EventManager = function(){
 
     var removeListener = function(el, ename, fn, scope){
         el = Ext.getDom(el);
-
         var id = Ext.id(el), es = elHash[id], wrap;
         if(es){
             var ls = es[ename], l;
@@ -73,13 +72,14 @@ Ext.EventManager = function(){
     }
 
     var removeAll = function(el){
+        el = Ext.getDom(el);
         var id = Ext.id(el), es = elHash[id], ls;
         if(es){
             for(var ename in es){
                 if(es.hasOwnProperty(ename)){
                     ls = es[ename];
                     for(var i = 0, len = ls.length; i < len; i++){
-                        E.un(id, ename, ls[i].wrap);
+                        E.un(el, ename, ls[i].wrap);
                         ls[i] = null;
                     }
                 }
