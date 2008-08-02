@@ -250,17 +250,17 @@ Ext.form.TextField = Ext.extend(Ext.form.Field,  {
     // private
     filterKeys : function(e){
         var k = e.getKey();
-        if(!Ext.isIE && (e.isNavKeyPress() || k == e.BACKSPACE || (k == e.DELETE && e.button == -1))){
+        if(Ext.isGecko && (e.isNavKeyPress() || k == e.BACKSPACE || (k == e.DELETE && e.button == -1))){
             return;
         }
         var c = e.getCharCode(), cc = String.fromCharCode(c);
-        if(Ext.isIE && (e.isSpecialKey() || !cc)){
+        if(!Ext.isGecko && e.isSpecialKey() && !cc){
             return;
         }
         if(!this.maskRe.test(cc)){
             e.stopEvent();
         }
-    },
+    }
 
     setValue : function(v){
         if(this.emptyText && this.el && v !== undefined && v !== null && v !== ''){
