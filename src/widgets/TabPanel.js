@@ -375,7 +375,6 @@ var tabs = new Ext.TabPanel({
         this.on('remove', this.onRemove, this);
 
         this.strip.on('mousedown', this.onStripMouseDown, this);
-        this.strip.on('click', this.onStripClick, this);
         this.strip.on('contextmenu', this.onStripContextMenu, this);
         if(this.enableTabScroll){
             this.strip.on('mousewheel', this.onWheel, this);
@@ -405,10 +404,10 @@ var tabs = new Ext.TabPanel({
 
     // private
     onStripMouseDown : function(e){
-        e.preventDefault();
         if(e.button != 0){
             return;
         }
+        e.preventDefault();
         var t = this.findTargets(e);
         if(t.close){
             if (t.item.fireEvent('close', t.item) !== false) {
@@ -417,14 +416,6 @@ var tabs = new Ext.TabPanel({
             return;
         }
         if(t.item && t.item != this.activeTab){
-            this.setActiveTab(t.item);
-        }
-    },
-
-    // private
-    onStripClick : function(e){
-        var t = this.findTargets(e);
-        if(!t.close && t.item && t.item != this.activeTab){
             this.setActiveTab(t.item);
         }
     },
