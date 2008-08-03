@@ -249,6 +249,9 @@ Ext.form.TextField = Ext.extend(Ext.form.Field,  {
 
     // private
     filterKeys : function(e){
+        if(e.ctrlKey){
+            return;
+        }
         var k = e.getKey();
         if(Ext.isGecko && (e.isNavKeyPress() || k == e.BACKSPACE || (k == e.DELETE && e.button == -1))){
             return;
