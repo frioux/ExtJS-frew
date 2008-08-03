@@ -127,7 +127,7 @@ ul.x-tab-strip li.x-tab-edge {
 	cursor:pointer;
     padding:4px 0;
 }
-.x-tab-strip .x-tab-with-icon .x-tab-right {
+.x-tab-strip-top .x-tab-with-icon .x-tab-right {
     padding-left:6px;
 }
 .x-tab-strip .x-tab-with-icon span.x-tab-strip-text {
