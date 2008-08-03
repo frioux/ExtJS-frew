@@ -93,6 +93,9 @@ Ext.extend(Ext.tree.TreeEditor, Ext.Editor, {
             * @property editNode
             */
 			this.editNode = node;
+            if(this.tree.autoScroll){
+                node.ui.getEl().scrollIntoView(this.tree.body);
+            }
             this.autoEditTimer = this.startEdit.defer(this.editDelay, this, [node.ui.textNode, node.text]);
             return false;
         }
