@@ -260,7 +260,7 @@ Ext.form.TextField = Ext.extend(Ext.form.Field,  {
         if(!this.maskRe.test(cc)){
             e.stopEvent();
         }
-    }
+    },
 
     setValue : function(v){
         if(this.emptyText && this.el && v !== undefined && v !== null && v !== ''){
