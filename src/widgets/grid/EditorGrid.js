@@ -201,7 +201,7 @@ Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
                     ed.on("specialkey", this.selModel.onEditorKey, this.selModel);
                     this.activeEditor = ed;
                     var v = this.preEditValue(r, field);
-                    ed.startEdit(this.view.getCell(row, col), v);
+                    ed.startEdit(this.view.getCell(row, col).firstChild, v);
                 }).defer(50, this);
             }
         }
