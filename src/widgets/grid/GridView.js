@@ -398,14 +398,16 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
     // private
     removeRow : function(row){
         Ext.removeNode(this.getRow(row));
+        this.focusRow(row);
     },
-
+    
     // private
     removeRows : function(firstRow, lastRow){
         var bd = this.mainBody.dom;
         for(var rowIndex = firstRow; rowIndex <= lastRow; rowIndex++){
             Ext.removeNode(bd.childNodes[firstRow]);
         }
+        this.focusRow(firstRow);
     },
 
     // scrolling stuff
@@ -803,8 +805,10 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
      * @param {Number} col The column index
      */
     focusCell : function(row, col, hscroll){
+        row = Math.min(row, Math.max(0, this.getRows().length-1));
         var xy = this.ensureVisible(row, col, hscroll);
-        this.focusEl.setXY(xy);
+        this.focusEl.setXY(xy||this.scroller.getXY());
+        
         if(Ext.isGecko){
             this.focusEl.focus();
         }else{
@@ -893,6 +897,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
                 this.processRows(firstRow);
             }
         }
+        this.focusRow(firstRow);
     },
 
     // private
