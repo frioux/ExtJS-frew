@@ -138,7 +138,8 @@
 
 /* IE6 strict won't drag w/out a color */
 .ext-strict .ext-ie6 .x-layout-split{
-    background-color: #dfe8f6 !important;
+    background-color: #fff !important;
+    filter: alpha(opacity=1);
 }
 
 .x-layout-split-h{
