@@ -233,7 +233,8 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         var k = e.getKey(), d = this.getPageData(), pageNum;
         if (k == e.RETURN) {
             e.stopEvent();
-            if(pageNum = this.readPage(d)){
+            pageNum = this.readPage(d);
+            if(pageNum !== false){
                 pageNum = Math.min(Math.max(1, pageNum), d.pages) - 1;
                 this.doLoad(pageNum * this.pageSize);
             }
