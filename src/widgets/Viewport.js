@@ -12,9 +12,6 @@
  * Example showing a classic application border layout :<pre><code>
 new Ext.Viewport({
     layout: 'border',
-    defaults: {
-        activeItem: 0
-    },
     items: [{
         region: 'north',
         html: '&lt;h1 class="x-panel-header">Page Title&lt;/h1>',
