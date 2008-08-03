@@ -879,7 +879,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
 
     // private
     insertRows : function(dm, firstRow, lastRow, isUpdate){
-        if(!isUpdate && firstRow === 0 && lastRow == dm.getCount()-1){
+        if(!isUpdate && firstRow === 0 && lastRow >= dm.getCount()-1){
             this.refresh();
         }else{
             if(!isUpdate){
