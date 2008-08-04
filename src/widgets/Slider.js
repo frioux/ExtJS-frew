@@ -324,7 +324,7 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
     },
     
     /**
-     * Synchronizes the thumb position to the proper proportion of the total componet width based
+     * Synchronizes the thumb position to the proper proportion of the total component width based
      * on the current slider {@link #value}.  This will be called automatically when the Slider
      * is resized by a layout, but if it is rendered auto width, this method can be called from
      * another resize handler to sync the Slider if necessary.
