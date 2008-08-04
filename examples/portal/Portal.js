@@ -185,7 +185,7 @@ Ext.extend(Ext.ux.Portal.DropZone, Ext.dd.DropTarget, {
 
     // unregister the dropzone from ScrollManager
     unreg: function() {
-        Ext.dd.ScrollManager.unregister(this.portal.body);
+        //Ext.dd.ScrollManager.unregister(this.portal.body);
         Ext.ux.Portal.DropZone.superclass.unreg.call(this);
     }
 });
