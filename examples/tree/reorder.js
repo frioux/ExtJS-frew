@@ -8,21 +8,20 @@ Ext.onReady(function(){
         autoScroll:true,
         animate:true,
         enableDD:true,
-        containerScroll: true, 
-        loader: new Tree.TreeLoader({
-            dataUrl:'get-nodes.php'
-        })
-    });
+        containerScroll: true,
 
-    // set the root node
-    var root = new Tree.AsyncTreeNode({
-        text: 'Ext JS',
-        draggable:false,
-        id:'source'
+        // auto create TreeLoader
+        dataUrl: 'get-nodes.php',
+
+        root: {
+            nodeType: 'async',
+            text: 'Ext JS',
+            draggable:false,
+            id:'source'
+        }
     });
-    tree.setRootNode(root);
 
     // render the tree
     tree.render();
-    root.expand();
+    tree.getRootNode().expand();
 });
