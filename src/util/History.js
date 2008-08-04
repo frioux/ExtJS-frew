@@ -104,7 +104,7 @@ Ext.History = (function () {
         events:{},
 
         init: function (onReady, scope) {
-            if(ready || Ext.isOpera) {
+            if(ready) {
                 Ext.callback(onReady, scope, [this]);
                 return;
             }
