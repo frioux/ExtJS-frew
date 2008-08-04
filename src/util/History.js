@@ -1,12 +1,12 @@
 /**
  * @class Ext.History
  * @extends Ext.util.Observable
- *
- * History management component.
- *
+ * History management component that allows you to register arbitrary tokens that signify application
+ * history state on navigation actions.  You can then handle the history {@link #change} event in order
+ * to reset your application UI to the appropriate state when the user navigates forward or backward through
+ * the browser history stack.
  * @singleton
  */
-
 Ext.History = (function () {
     var iframe, hiddenField;
     var ready = false;
@@ -99,10 +99,27 @@ Ext.History = (function () {
     }
 
     return {
+        /**
+         * The id of the hidden field required for storing the current history token.
+         * @type String
+         * @property
+         */
         fieldId: 'x-history-field',
+        /**
+         * The id of the iframe required by IE to manage the history stack.
+         * @type String
+         * @property
+         */
         iframeId: 'x-history-frame',
+        
         events:{},
 
+        /**
+         * Initialize the global History instance.
+         * @param {Boolean} onReady (optional) A callback function that will be called once the history
+         * component is fully initialized.
+         * @param {Object} scope (optional) The callback scope
+         */
         init: function (onReady, scope) {
             if(ready) {
                 Ext.callback(onReady, scope, [this]);
@@ -115,7 +132,7 @@ Ext.History = (function () {
                 return;
             }
             hiddenField = Ext.getDom(Ext.History.fieldId);
-			if (Ext.isIE) {
+            if (Ext.isIE) {
                 iframe = Ext.getDom(Ext.History.iframeId);
             }
             this.addEvents('ready', 'change');
@@ -125,6 +142,21 @@ Ext.History = (function () {
             startUp();
         },
 
+        /**
+         * Add a new token to the history stack. This can be any arbitrary value, although it would
+         * commonly be the concatenation of a component id and another id marking the specifc history
+         * state of that component.  Example usage:
+         * <pre><code>
+// Handle tab changes on a TabPanel
+tabPanel.on('tabchange', function(tabPanel, tab){
+    Ext.History.add(tabPanel.id + ':' + tab.id);
+});
+</code></pre>
+         * @param {String} token The value that defines a particular application-specific history state
+         * @param {Boolean} preventDuplicates When true, if the passed token matches the current token
+         * it will not save a new history step. Set to false if the same state can be saved more than once
+         * at the same history stack location (defaults to true).
+         */
         add: function (token, preventDup) {
             if(preventDup !== false){
                 if(this.getToken() == token){
@@ -139,14 +171,24 @@ Ext.History = (function () {
             }
         },
 
+        /**
+         * Programmatically steps back one step in browser history (equivalent to the user pressing the Back button).
+         */
         back: function(){
             history.go(-1);
         },
 
+        /**
+         * Programmatically steps forward one step in browser history (equivalent to the user pressing the Forward button).
+         */
         forward: function(){
-            history.go(1);  
+            history.go(1);
         },
 
+        /**
+         * Retrieves the currently-active history token.
+         * @return {String} The token
+         */
         getToken: function() {
             return ready ? currentToken : getHash();
         }
