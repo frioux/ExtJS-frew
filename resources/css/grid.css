@@ -54,10 +54,6 @@
     white-space: nowrap;
 }
 
-.x-grid3 td.x-grid3-cell {
-    vertical-align: middle;
-}
-
 .x-grid3-hd-inner {
     position:relative;
 	 cursor:inherit;
