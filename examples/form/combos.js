@@ -11,6 +11,7 @@ Ext.onReady(function(){
         displayField:'state',
         typeAhead: true,
         mode: 'local',
+        forceSelection: true,
         triggerAction: 'all',
         emptyText:'Select a state...',
         selectOnFocus:true,
@@ -23,20 +24,22 @@ Ext.onReady(function(){
     //to be the value, while the value at index 1 is assumed to be the text.  For example,
     //[['AL', 'Alabama'],['AK', 'Alaska'], etc.]. Any other values beyond index 1 within
     //each item will be ignored using this approach.
-	var comboFromArray = new Ext.form.ComboBox({
-	    store: Ext.exampledata.states,
-	    typeAhead: true,
-	    triggerAction: 'all',
-	    emptyText:'Select a state...',
-	    selectOnFocus:true,
-	    applyTo: 'array-states'
-	});
+    var comboFromArray = new Ext.form.ComboBox({
+        store: Ext.exampledata.states,
+        typeAhead: true,
+        forceSelection: true,
+        triggerAction: 'all',
+        emptyText:'Select a state...',
+        selectOnFocus:true,
+        applyTo: 'array-states'
+    });
 
     var comboWithTooltip = new Ext.form.ComboBox({
         tpl: '<tpl for="."><div ext:qtip="{state}. {nick}" class="x-combo-list-item">{state}</div></tpl>',
         store: store,
         displayField:'state',
         typeAhead: true,
+        forceSelection: true,
         mode: 'local',
         triggerAction: 'all',
         emptyText:'Select a state...',
