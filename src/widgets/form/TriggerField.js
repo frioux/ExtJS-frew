@@ -93,7 +93,7 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
     afterRender : function(){
         Ext.form.TriggerField.superclass.afterRender.call(this);
         var y;
-        if(Ext.isIE && this.el.getY() != (y = this.trigger.getY())){
+        if(Ext.isIE && !this.hideTrigger && this.el.getY() != (y = this.trigger.getY())){
             this.el.position();
             this.el.setY(y);
         }
