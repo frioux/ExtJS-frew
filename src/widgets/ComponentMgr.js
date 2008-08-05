@@ -2,7 +2,7 @@
  * @class Ext.ComponentMgr
  * <p>Provides a registry of all Components (specifically subclasses of
  * {@link Ext.Component}) on a page so that they can be easily accessed by
- * component id (see {@link #get}).</p>
+ * component id (see {@link #getCmp}).</p>
  * <p>This object also provides a registry of available Component <i>classes</i>
  * indexed by a mnemonic code known as the Component's {@link Ext.Component#xtype}.
  * The <tt>xtype</tt> provides a way to avoid instantiating child Components

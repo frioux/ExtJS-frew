@@ -329,7 +329,7 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
      * <p>The resulting object is passed to <b><tt>applyState</tt></b>. The default implementation of applyState
      * simply copies properties into the object, but a developer may override this to support more behaviour.</p>
      * <p>You can perform extra processing on state save and restore by attaching handlers to the
-     * {@link #beforestaterestore}, {@link #staterestore}, {@link beforestatesave} and {@link #statesave} events</p>
+     * {@link #beforestaterestore}, {@link #staterestore}, {@link #beforestatesave} and {@link #statesave} events</p>
      */
     /**
      * @cfg {String} stateId
