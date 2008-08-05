@@ -146,6 +146,10 @@ if(Ext.form.VTypes){
    });
 }
 
+if(Ext.form.BasicForm){
+  Ext.form.BasicForm.prototype.waitTitle = "Please wait...";
+}
+
 if(Ext.grid.GridView){
    Ext.apply(Ext.grid.GridView.prototype, {
       sortAscText  : "Sort Ascending",

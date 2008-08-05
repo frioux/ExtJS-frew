@@ -46,22 +46,22 @@ Date.getShortMonthName = function(month) {
 };
 
 Date.monthNumbers = {
-  Jan : 0,
-  Feb : 1,
-  Mar : 2,
-  Apr : 3,
-  May : 4,
-  Jun : 5,
-  Jul : 6,
-  Aug : 7,
-  Sep : 8,
-  Oct : 9,
-  Nov : 10,
-  Dec : 11
+  "Janvier" : 0,
+  "Février" : 1,
+  "Mars" : 2,
+  "Avril" : 3,
+  "Mai" : 4,
+  "Juin" : 5,
+  "Juillet" : 6,
+  "Août" : 7,
+  "Septembre" : 8,
+  "Octobre" : 9,
+  "Novembre" : 10,
+  "Décembre" : 11
 };
 
 Date.getMonthNumber = function(name) {
-  return Date.monthNumbers[name.substring(0, 1).toUpperCase() + name.substring(1, 3).toLowerCase()];
+  return Date.monthNumbers[Ext.util.Format.capitalize(name)];
 };
 
 Date.dayNames = [
