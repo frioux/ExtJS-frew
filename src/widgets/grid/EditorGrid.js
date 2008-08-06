@@ -9,7 +9,9 @@
 Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
     /**
      * @cfg {Number} clicksToEdit
-     * The number of clicks on a cell required to display the cell's editor (defaults to 2)
+     * <p>The number of clicks on a cell required to display the cell's editor (defaults to 2).</p>
+     * <p>Setting this option to 'auto' means that mousedown <i>on the selected cell</i> starts
+     * editing that cell.</p>
      */
     clicksToEdit: 2,
 
