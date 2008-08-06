@@ -1231,11 +1231,13 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
     onDataChange : function(){
         this.refresh();
         this.updateHeaderSortState();
+        this.focusRow(0);
     },
 
     // private
     onClear : function(){
         this.refresh();
+        this.focusRow(0);
     },
 
     // private
