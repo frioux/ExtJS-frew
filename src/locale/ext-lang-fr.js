@@ -263,6 +263,22 @@ if(Ext.form.TimeField){
    });
 }
 
+if(Ext.form.CheckboxGroup){
+   Ext.apply(Ext.form.TextField.prototype, {
+      blankText : "Vous devez sélectionner au moins un item du groupe"
+   });
+}
+
+if(Ext.form.RadioGroup){
+   Ext.apply(Ext.form.RadioGroup.prototype, {
+      blankText : "Vous devez sélectionner un choix"
+   });
+}
+
+if(Ext.form.BasicForm){
+   Ext.form.BasicForm.prototype.waitTitle = "Veuillez patienter...";
+}
+
 if(Ext.grid.GridView){
    Ext.apply(Ext.grid.GridView.prototype, {
       sortAscText  : "Tri croissant",
