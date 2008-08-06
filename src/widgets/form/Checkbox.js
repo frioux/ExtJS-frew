@@ -221,7 +221,7 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
         if(this.rendered){
             return this.el.dom.checked;
         }
-        return false;
+        return this.checked;
     },
 
     /**
@@ -232,11 +232,11 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
         var checked = this.checked;
         this.checked = (v === true || v === 'true' || v == '1' || String(v).toLowerCase() == 'on');
         
-        if(this.el && this.el.dom){
+        if(this.rendered){
             this.el.dom.checked = this.checked;
             this.el.dom.defaultChecked = this.checked;
+            this.wrap[this.checked? 'addClass' : 'removeClass'](this.checkedCls);
         }
-        this.wrap[this.checked? 'addClass' : 'removeClass'](this.checkedCls);
         
         if(checked != this.checked){
             this.fireEvent("check", this, this.checked);
