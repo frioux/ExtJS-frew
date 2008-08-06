@@ -1,14 +1,13 @@
 /**
  * @class Ext.ComponentMgr
- * <p>Provides a registry of all Components (specifically subclasses of
- * {@link Ext.Component}) on a page so that they can be easily accessed by
- * component id (see {@link #getCmp}).</p>
+ * <p>Provides a registry of all Components (instances of {@link Ext.Component} or any subclass
+ * thereof) on a page so that they can be easily accessed by component id (see {@link #get}, or
+ * the convenience method {@link Ext#getCmp Ext.getCmp}).</p>
  * <p>This object also provides a registry of available Component <i>classes</i>
- * indexed by a mnemonic code known as the Component's {@link Ext.Component#xtype}.
+ * indexed by a mnemonic code known as the Component's {@link Ext.Component#xtype xtype}.
  * The <tt>xtype</tt> provides a way to avoid instantiating child Components
  * when creating a full, nested config object for a complete Ext page.</p>
- * <p>
- * A child Component may be specified simply as a <i>config object</i>
+ * <p>A child Component may be specified simply as a <i>config object</i>
  * as long as the correct xtype is specified so that if and when the Component
  * needs rendering, the correct type can be looked up for lazy instantiation.</p>
  * <p>For a list of all available xtypes, see {@link Ext.Component}.</p>
