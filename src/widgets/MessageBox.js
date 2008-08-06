@@ -192,7 +192,8 @@ Ext.MessageBox = function(){
 
         /**
          * Updates a progress-style message box's text and progress bar.  Only relevant on message boxes
-         * initiated via {@link Ext.MessageBox#progress} or by calling {@link Ext.MessageBox#show} with progress: true.
+         * initiated via {@link Ext.MessageBox#progress} or {@link Ext.MessageBox#wait},
+         * or by calling {@link Ext.MessageBox#show} with progress: true.
          * @param {Number} value Any number between 0 and 1 (e.g., .5, defaults to 0)
          * @param {String} progressText The progress text to display inside the progress bar (defaults to '')
          * @param {String} msg The message box's body text is replaced with the specified string (defaults to undefined
