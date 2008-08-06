@@ -5,9 +5,11 @@
  * either to a configured URL, or to a URL specified at request time.</p>
  * <p>Requests made by this class are asynchronous, and will return immediately. No data from
  * the server will be available to the statement immediately following the {@link #request} call.
- * To process returned data, use a {@link #request-option-success callback} in the request options object,
+ * To process returned data, use a
+ * <a href="#request-option-success" ext:member="request-option-success" ext:cls="Ext.data.Connection">success callback</a>
+ * in the request options object,
  * or an {@link #requestcomplete event listener}.</p>
- * <p>{@link #request-option-isUpload File uploads} are not performed using normal "Ajax" techniques, that
+ * <p><a href="#request-option-isUpload" ext:member="request-option-isUpload" ext:cls="Ext.data.Connection">File uploads</a> are not performed using normal "Ajax" techniques, that
  * is they are <b>not</b> performed using XMLHttpRequests. Instead the form is submitted in the standard
  * manner with the DOM <tt>&lt;form></tt> element temporarily modified to have its
  * <a href="http://www.w3.org/TR/REC-html40/present/frames.html#adef-target">target</a> set to refer
@@ -130,7 +132,7 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
      * See <a href="http://www.w3.org/TR/XMLHttpRequest/">http://www.w3.org/TR/XMLHttpRequest/</a> for details about 
      * accessing elements of the response.</div></li>
      * </ul></div></li>
-     * <a id="request-option-success"></a><li><b>success</b> : Function (Optional)<div class="sub-desc">The function
+     * <li><a id="request-option-success"></a><b>success</b> : Function (Optional)<div class="sub-desc">The function
      * to be called upon success of the request. The callback is passed the following
      * parameters:<ul>
      * <li><b>response</b> : Object<div class="sub-desc">The XMLHttpRequest object containing the response data.</div></li>
@@ -148,7 +150,7 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
      * Defaults to the browser window.</div></li>
      * <li><b>form</b> : Element/HTMLElement/String (Optional)<div class="sub-desc">The <tt>&lt;form&gt;</tt>
      * Element or the id of the <tt>&lt;form&gt;</tt> to pull parameters from.</div></li>
-     * <a id="request-option-isUpload"></a><li><b>isUpload</b> : Boolean (Optional)<div class="sub-desc">True if the form object is a
+     * <li><a id="request-option-isUpload"></a><b>isUpload</b> : Boolean (Optional)<div class="sub-desc">True if the form object is a
      * file upload (will usually be automatically detected).
      * <p>File uploads are not performed using normal "Ajax" techniques, that is they are <b>not</b>
      * performed using XMLHttpRequests. Instead the form is submitted in the standard manner with the
