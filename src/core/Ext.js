@@ -492,6 +492,12 @@ Company.data.CustomStore = function(config) { ... }
             }
         },
 
+         /**
+         * Attempts to destroy and then remove a set of named properties of the passed object.
+         * @param {Object} o The object (most likely a Component) who's properties you wish to destroy.
+         * @param {Mixed} arg1 The name of the property to destroy and remove from the object.
+         * @param {Mixed} etc... More property names to destroy and remove.
+         */
         destroyMembers : function(o, arg1, arg2, etc){
             for(var i = 1, a = arguments, len = a.length; i < len; i++) {
                 Ext.destroy(o[a[i]]);
