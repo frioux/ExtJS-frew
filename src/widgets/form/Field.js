@@ -283,9 +283,6 @@ side          Add an error icon to the right of the field with a popup on hover
         // fix weird FF/Win editor issue when changing OS window focus
         var o = this.inEditor && Ext.isWindows && Ext.isGecko ? {buffer:10} : null;
         this.el.on("blur", this.onBlur,  this, o);
-
-        // reference to original value for reset
-        this.originalValue = this.getValue();
     },
 
     // private
