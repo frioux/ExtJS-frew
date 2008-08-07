@@ -102,7 +102,7 @@ Ext.SplitBar = function(dragElement, resizingElement, orientation, placement, ex
     this.addEvents(
         /**
          * @event resize
-         * Fires when the splitter is moved (alias for {@link #event-moved})
+         * Fires when the splitter is moved (alias for {@link #moved})
          * @param {Ext.SplitBar} this
          * @param {Number} newSize the new width or height
          */
