@@ -291,6 +291,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
 
     /**
      * Returns the number of columns.
+     * @param {Boolean} visibleOnly Optional. Pass as true to only include visible columns.
      * @return {Number}
      */
     getColumnCount : function(visibleOnly){
