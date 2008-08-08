@@ -223,6 +223,63 @@ Ext.Component = function(config){
 Ext.Component.AUTO_ID = 1000;
 
 Ext.extend(Ext.Component, Ext.util.Observable, {
+	// Configs below are used for all Components when rendered by FormLayout.
+    /**
+     * @cfg {String} fieldLabel The label text to display next to this Component (defaults to '')
+     * <p><b>This config is only used when this Component is rendered by a Container which has been
+     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager</b></p>
+     */
+    /**
+     * @cfg {String} labelStyle A CSS style specification to apply directly to this field's label (defaults to the
+     * container's labelStyle value if set, or ''). For example, <code>labelStyle: 'font-weight:bold;'</code>.
+     * <p><b>This config is only used when this Component is rendered by a Container which has been
+     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager</b></p>
+     */
+    /**
+     * @cfg {String} labelSeparator The standard separator to display after the text of each form label (defaults
+     * to the value of {@link Ext.layout.FormLayout#labelSeparator}, which is a colon ':' by default).  To display
+     * no separator for this field's label specify empty string ''.
+     * <p><b>This config is only used when this Component is rendered by a Container which has been
+     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager</b></p>
+     */
+    /**
+     * @cfg {Boolean} hideLabel True to completely hide the label element (defaults to false)
+     * <p><b>This config is only used when this Component is rendered by a Container which has been
+     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager</b></p>
+     */
+    /**
+     * @cfg {String} clearCls The CSS class used to provide field clearing (defaults to 'x-form-clear-left')
+     * <p><b>This config is only used when this Component is rendered by a Container which has been
+     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager</b></p>
+     */
+    /**
+     * @cfg {String} itemCls An additional CSS class to apply to the wrapper's form item element of this field (defaults 
+     * to the container's itemCls value if set, or '').  Since it is applied to the item wrapper, it allows you to write 
+     * standard CSS rules that can apply to the field, the label (if specified) or any other element within the markup for 
+     * the field.
+     * <p><b>This config is only used when this Component is rendered by a Container which has been
+     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager</b></p>
+     * Example use:<pre><code>
+// Apply a style to the field's label:
+&lt;style>
+    .required .x-form-item-label {font-weight:bold;color:red;}
+&lt;/style>
+
+new Ext.FormPanel({
+	height: 100,
+	renderTo: document.body,
+	items: [{
+		xtype: 'textfield',
+		fieldLabel: 'Name',
+		itemCls: 'required' //this label will be styled
+	},{
+		xtype: 'textfield',
+		fieldLabel: 'Favorite Color'
+	}]
+});
+</code></pre>
+     */
+
     /**
      * @cfg {String} id
      * The unique id of this component (defaults to an auto-assigned id).

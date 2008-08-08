@@ -8,49 +8,6 @@
  */
 Ext.form.Field = Ext.extend(Ext.BoxComponent,  {
     /**
-     * @cfg {String} fieldLabel The label text to display next to this field (defaults to '')
-     */
-    /**
-     * @cfg {String} labelStyle A CSS style specification to apply directly to this field's label (defaults to the
-     * container's labelStyle value if set, or ''). For example, <code>labelStyle: 'font-weight:bold;'</code>.
-     */
-    /**
-     * @cfg {String} labelSeparator The standard separator to display after the text of each form label (defaults
-     * to the value of {@link Ext.layout.FormLayout#labelSeparator}, which is a colon ':' by default).  To display
-     * no separator for this field's label specify empty string ''.
-     */
-    /**
-     * @cfg {Boolean} hideLabel True to completely hide the label element (defaults to false)
-     */
-    /**
-     * @cfg {String} clearCls The CSS class used to provide field clearing (defaults to 'x-form-clear-left')
-     */
-    /**
-     * @cfg {String} itemCls An additional CSS class to apply to the wrapper's form item element of this field (defaults 
-     * to the container's itemCls value if set, or '').  Since it is applied to the item wrapper, it allows you to write 
-     * standard CSS rules that can apply to the field, the label (if specified) or any other element within the markup for 
-     * the field. NOTE: this will not have any effect on fields that are not part of a form. Example use:
-     * <pre><code>
-// Apply a style to the field's label:
-&lt;style>
-    .required .x-form-item-label {font-weight:bold;color:red;}
-&lt;/style>
-
-new Ext.FormPanel({
-	height: 100,
-	renderTo: document.body,
-	items: [{
-		xtype: 'textfield',
-		fieldLabel: 'Name',
-		itemCls: 'required' //this label will be styled
-	},{
-		xtype: 'textfield',
-		fieldLabel: 'Favorite Color'
-	}]
-});
-</code></pre>
-     */
-    /**
      * @cfg {String} inputType The type attribute for input fields -- e.g. radio, text, password, file (defaults 
      * to "text"). The types "file" and "password" must be used to render those field types currently -- there are 
      * no separate Ext components for those. Note that if you use <tt>inputType:'file'</tt>, {@link #emptyText} 
