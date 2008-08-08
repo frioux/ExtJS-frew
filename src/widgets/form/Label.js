@@ -29,7 +29,7 @@ Ext.form.Label = Ext.extend(Ext.BoxComponent, {
             this.el.id = this.getId();
             this.el.innerHTML = this.text ? Ext.util.Format.htmlEncode(this.text) : (this.html || '');
             if(this.forId){
-                this.el.setAttribute('htmlFor', this.forId);
+                this.el.setAttribute('for', this.forId);
             }
         }
         Ext.form.Label.superclass.onRender.call(this, ct, position);
