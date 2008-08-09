@@ -551,7 +551,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
      * Protected method that will not generally be called directly. If you need/want
      * custom HTML cleanup, this is the method you should override.
      * @param {String} html The HTML to be cleaned
-     * return {String} The cleaned HTML
+     * @return {String} The cleaned HTML
      */
     cleanHtml : function(html){
         html = String(html);
