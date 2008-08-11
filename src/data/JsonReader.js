@@ -20,10 +20,10 @@ var myReader = new Ext.data.JsonReader({
  * This would consume a JSON object of the form:
  * <pre><code>
 {
-    'results': 2,
-    'rows': [
-        { 'id': 1, 'firstname': 'Bill', occupation: 'Gardener' },         // a row object
-        { 'id': 2, 'firstname': 'Ben' , occupation: 'Horticulturalist' }  // another row object
+    results: 2,
+    rows: [
+        { id: 1, firstname: 'Bill', occupation: 'Gardener' },         // a row object
+        { id: 2, firstname: 'Ben' , occupation: 'Horticulturalist' }  // another row object
     ]
 }
 </code></pre>
@@ -48,17 +48,20 @@ var myReader = new Ext.data.JsonReader();
  * <p>The first data packet from the server would configure the reader by
  * containing a metaData property as well as the data:</p><pre><code>
 {
-  'metaData': {
-    totalProperty: 'results',
-    root: 'rows',
-    id: 'id',
-    fields: [
-      {name: 'name'},
-      {name: 'occupation'} ]
-   },
-  'results': 2, 'rows': [
-    { 'id': 1, 'name': 'Bill', occupation: 'Gardener' },
-    { 'id': 2, 'name': 'Ben', occupation: 'Horticulturalist' } ]
+    metaData: {
+        totalProperty: 'results',
+        root: 'rows',
+        id: 'id',
+        fields: [
+            {name: 'name'},
+            {name: 'occupation'}
+        ]
+    },
+    results: 2,
+    rows: [
+        { 'id': 1, 'name': 'Bill', occupation: 'Gardener' },
+        { 'id': 2, 'name': 'Ben', occupation: 'Horticulturalist' }
+    ]
 }
 </code></pre>
  * @cfg {String} totalProperty Name of the property from which to retrieve the total number of records

@@ -14,7 +14,7 @@ Ext.form.Label = Ext.extend(Ext.BoxComponent, {
      * tags within the label's innerHTML, use the {@link #html} config instead.
      */
     /**
-     * @cfg {String} forId The id of the input element to which this label will be bound via the standard 'htmlFor'
+     * @cfg {String} forId The id of the input element to which this label will be bound via the standard HTML 'for'
      * attribute. If not specified, the attribute will not be added to the label.
      */
     /**
