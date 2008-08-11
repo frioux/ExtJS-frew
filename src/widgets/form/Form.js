@@ -7,20 +7,16 @@
  * This means that if you subclass FormPanel, and you wish to configure the BasicForm, you will need to insert any configuration options
  * for the BasicForm into the <tt><b>initialConfig</b></tt> property. Applying BasicForm configuration settings to <b><tt>this</tt></b> will
  * not affect the BasicForm's configuration.</p>
- * <br><br>
- * FormPanel uses a {@link Ext.layout.FormLayout} internally, and that is required for fields and labels to work correctly
- * within the FormPanel's layout.  To nest additional layout styles within a FormPanel, you should nest additional Panels
- * or other containers that can provide additional layout functionality. <b>You should not override FormPanel's layout.</b>
- * <br><br>
- * By default, Ext Forms are submitted through Ajax, using {@link Ext.form.Action}.
+ * <p>By default, FormPanel uses an {@link Ext.layout.FormLayout} layout manager, which styles and renders fields and labels correctly.
+ * When nesting additional Containers within a FormPanel, you should ensure that any descendant Containers which
+ * host input Fields use the {@link Ext.layout.FormLayout} layout manager.</p>
+ * <p>By default, Ext Forms are submitted through Ajax, using {@link Ext.form.Action}.
  * To enable normal browser submission of the Ext Form contained in this FormPanel,
- * override the Form's onSubmit, and submit methods:<br><br><pre><code>
-    var myForm = new Ext.form.FormPanel({
-        onSubmit: Ext.emptyFn,
-        submit: function() {
-            this.getForm().getEl().dom.submit();
-        }
-    });</code></pre><br>
+ * use the {@link Ext.form.BasicForm#standardSubmit standardSubmit) option:</p><pre><code>
+var myForm = new Ext.form.FormPanel({
+    standardSubmit: true,
+    items: myFieldset
+});</code></pre>
  * @constructor
  * @param {Object} config Configuration options
  */
@@ -63,11 +59,6 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
      * @cfg {Number} monitorPoll The milliseconds to poll valid state, ignored if monitorValid is not true (defaults to 200)
      */
     monitorPoll : 200,
-
-    /**
-     * @cfg {String} layout @hide
-     */
-    layout: 'form',
 
     // private
     initComponent :function(){
