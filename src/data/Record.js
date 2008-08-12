@@ -51,7 +51,9 @@ Ext.data.Record = function(data, id){
  * <li><b>rec</b> : Mixed<div class="sub-desc">The data object containing the row as read by the Reader.
  * Depending on Reader type, this could be an Array, an object, or an XML element.</div></li>
  * </ul></div></li>
- * <li><b>dateFormat</b> : String<div class="sub-desc">(Optional) A format String for the Date.parseDate function.</div></li>
+ * <li><b>dateFormat</b> : String<div class="sub-desc">(Optional) A format string for the {@link Date#parseDate Date.parseDate} function,
+ * or "timestamp" if the value provided by the Reader is a UNIX timestamp, or "time" if the value provided by the Reader is a 
+ * javascript millisecond timestamp.</div></li>
  * <li><b>defaultValue</b> : Mixed<div class="sub-desc">(Optional) The default value passed to the Reader when the field does
  * not exist in the data object (i.e. undefined). (defaults to "")</div></li>
  * </ul>
