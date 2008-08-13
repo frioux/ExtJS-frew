@@ -235,6 +235,10 @@ var grid = new Ext.grid.PropertyGrid({
  */
 Ext.grid.PropertyGrid = Ext.extend(Ext.grid.EditorGridPanel, {
     /**
+    * @cfg {Object} propertyNames An object containing property name/display name pairs.
+    * If specified, the display name will be shown in the name column instead of the property name.
+    */
+    /**
     * @cfg {Object} source A data object to use as the data source of the grid (see {@link #setSource} for details).
     */
     /**
