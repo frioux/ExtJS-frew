@@ -19,7 +19,7 @@
  ]);
  </code></pre>
  * <p>
- * The config options <b>defined by</b< this class are options which may appear in each
+ * The config options <b>defined by</b> this class are options which may appear in each
  * individual column definition.
  * @constructor
  * @param {Object} config An Array of column config objects. See this class's
