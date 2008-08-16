@@ -437,12 +437,12 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
 
     /**
      * Loads data from a passed data block and fires the {@link #load} event. A Reader which understands the format of the data
-     * must have been configured in the constructor. <b>Remember that Records in a Store are keyed by their {@link Ext.data.Record#id id},
-     * so new Records with ids which are already present in the Store will <i>replace</i> existing records. Records with new, unique
-     * ids will be added.</b>
+     * must have been configured in the constructor.
      * @param {Object} data The data block from which to read the Records.  The format of the data expected
      * is dependent on the type of Reader that is configured and should correspond to that Reader's readRecords parameter.
-     * @param {Boolean} append (Optional) True to append the new Records rather than replace the existing cache.
+     * @param {Boolean} add (Optional) True to add the new Records rather than replace the existing cache. <b>Remember that
+     * Records in a Store are keyed by their {@link Ext.data.Record#id id}, so added Records with ids which are already present in
+     * the Store will <i>replace</i> existing Records. Records with new, unique ids will be added.</b>
      */
     loadData : function(o, append){
         var r = this.reader.readRecords(o);
