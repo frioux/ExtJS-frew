@@ -266,7 +266,8 @@ ul.x-tab-strip-bottom{
     border-color: #d0d0d0;
 }
 
-.x-tab-panel-header-plain .x-tab-strip-spacer {
+.x-tab-panel-header-plain .x-tab-strip-spacer,
+.x-tab-panel-footer-plain .x-tab-strip-spacer {
     border-color:#d0d0d0;
     background: #eaeaea;
 }
