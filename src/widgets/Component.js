@@ -419,7 +419,7 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
     autoShow : false,
     /**
      * @cfg {String} hideMode
-     * How this component should hidden. Supported values are "visibility" (css visibility), "offsets" (negative
+     * How this component should be hidden. Supported values are "visibility" (css visibility), "offsets" (negative
      * offset position) and "display" (css display) - defaults to "display".
      */
     hideMode: 'display',
