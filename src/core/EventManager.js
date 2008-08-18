@@ -48,6 +48,7 @@ Ext.EventManager = function(){
 
     var removeListener = function(el, ename, fn, scope){
         el = Ext.getDom(el);
+
         var id = Ext.id(el), es = elHash[id], wrap;
         if(es){
             var ls = es[ename], l;
@@ -89,62 +90,53 @@ Ext.EventManager = function(){
         }
     }
 
-     var fireDocReady = function(){
+
+    var fireDocReady = function(){
         if(!docReadyState){
-            docReadyState = Ext.isReady = true;
+            docReadyState = true;
+            Ext.isReady = true;
+            if(docReadyProcId){
+                clearInterval(docReadyProcId);
+            }
             if(Ext.isGecko || Ext.isOpera) {
                 document.removeEventListener("DOMContentLoaded", fireDocReady, false);
             }
+            if(Ext.isIE){
+                var defer = document.getElementById("ie-deferred-loader");
+                if(defer){
+                    defer.onreadystatechange = null;
+                    defer.parentNode.removeChild(defer);
+                }
+            }
+            if(docReadyEvent){
+                docReadyEvent.fire();
+                docReadyEvent.clearListeners();
+            }
         }
-        if(docReadyProcId){
-            clearInterval(docReadyProcId);
-            docReadyProcId = null;
-        }
-        if(docReadyEvent){
-            docReadyEvent.fire();
-            docReadyEvent.clearListeners();
-       }
     };
 
     var initDocReady = function(){
         docReadyEvent = new Ext.util.Event();
-
-        if(Ext.isReady){
-            return;
-        }
-
-        // no matter what, make sure it fires on load
-        E.on(window, 'load', fireDocReady);
-
         if(Ext.isGecko || Ext.isOpera) {
-            document.addEventListener('DOMContentLoaded', fireDocReady, false);
-        }
-        else if(Ext.isIE){
-            docReadyProcId = setInterval(function(){
-                try{
-                    // throws errors until DOM is ready
-                    Ext.isReady || (document.documentElement.doScroll('left'));
-                }catch(e){
-                    return;
-                }
-                fireDocReady();  // no errors, fire
-            }, 5);
-
-            document.onreadystatechange = function(){
-                if(document.readyState == 'complete'){
-                    document.onreadystatechange = null;
+            document.addEventListener("DOMContentLoaded", fireDocReady, false);
+        }else if(Ext.isIE){
+            document.write("<s"+'cript id="ie-deferred-loader" defer="defer" src="/'+'/:"></s'+"cript>");
+            var defer = document.getElementById("ie-deferred-loader");
+            defer.onreadystatechange = function(){
+                if(this.readyState == "complete"){
                     fireDocReady();
                 }
             };
-        }
-        else if(Ext.isSafari){
+        }else if(Ext.isSafari){
             docReadyProcId = setInterval(function(){
                 var rs = document.readyState;
-                if(rs == 'complete') {
+                if(rs == "complete") {
                     fireDocReady();
                  }
             }, 10);
         }
+        // no matter what, make sure it fires on load
+        E.on(window, "load", fireDocReady);
     };
 
     var createBuffered = function(h, o){
@@ -185,7 +177,7 @@ Ext.EventManager = function(){
             if(!window[xname]){
                 return;
             }
-            e = Ext.EventObject.setEvent(Ext.lib.Event.getEvent(e));
+            e = Ext.EventObject.setEvent(e);
             var t;
             if(o.delegate){
                 t = e.getTarget(o.delegate, el);
@@ -305,16 +297,21 @@ Ext.EventManager = function(){
          * @param {Object} scope (optional) An object that becomes the scope of the handler
          * @param {boolean} options (optional) An object containing standard {@link #addListener} options
          */
-         onDocumentReady : function(fn, scope, options){
+        onDocumentReady : function(fn, scope, options){
+            if(docReadyState){ // if it already fired
+                docReadyEvent.addListener(fn, scope, options);
+                docReadyEvent.fire();
+                docReadyEvent.clearListeners();
+                return;
+            }
             if(!docReadyEvent){
                 initDocReady();
             }
-            if(docReadyState || Ext.isReady){ // if it already fired
-                options || (options = {});
-                fn.defer(options.delay||0, scope);
-            }else{
-                docReadyEvent.addListener(fn, scope, options);
+            options = options || {};
+            if(!options.delay){
+                options.delay = 1;
             }
+            docReadyEvent.addListener(fn, scope, options);
         },
 
         /**
