@@ -257,7 +257,8 @@ Ext.MessageBox = function(){
          * </ul></div></div></li>
          * <li><b>text</b> : String<div class="sub-desc">Value of the input field if either <tt><a href="#show-option-prompt" ext:member="show-option-prompt" ext:cls="Ext.MessageBox">prompt</a></tt>
          * or <tt><a href="#show-option-multiline" ext:member="show-option-multiline" ext:cls="Ext.MessageBox">multiline</a></tt> is true</div></li>
-         * </p></div></li>
+         * <li><b>opt</b> : Object<div class="sub-desc">The config object passed to show.</div></li>
+         * </ul></p></div></li>
          * <li><b>scope</b> : Object<div class="sub-desc">The scope of the callback function</div></li>
          * <li><b>icon</b> : String<div class="sub-desc">A CSS class that provides a background image to be used as the body icon for the
          * dialog (e.g. Ext.MessageBox.WARNING or 'custom-class') (defaults to '')</div></li>
