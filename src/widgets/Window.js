@@ -4,7 +4,7 @@
  * A specialized panel intended for use as an application window.  Windows are floated and draggable by default, and
  * also provide specific behavior like the ability to maximize and restore (with an event for minimizing, since the
  * minimize behavior is application-specific).  Windows can also be linked to a {@link Ext.WindowGroup} or managed
- * by the {@link Ext.WindowManager} to provide grouping, activation, to front/back and other application-specific behavior.
+ * by the {@link Ext.WindowMgr} to provide grouping, activation, to front/back and other application-specific behavior.
  * @constructor
  * @param {Object} config The config object
  */
