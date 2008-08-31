@@ -37,7 +37,7 @@
  * @param {Boolean} forceNew (optional) By default the constructor checks to see if the passed element already
  * has an Updater and if it does it returns the same instance. This will skip that check (useful for extending this class).
  */
-Ext.Updater = Ext.extend(Ext.Updater, Ext.util.Observable, {
+Ext.Updater = Ext.extend(Ext.util.Observable, {
     constructor: function(el, forceNew){
         el = Ext.get(el);
         if(!forceNew && el.updateManager){
