@@ -26,6 +26,25 @@ if(Ext.LoadMask){
     Ext.LoadMask.prototype.msg = "En cours de chargement...";
 }
 
+Date.shortMonthNames = [
+   "Janv",
+   "Févr",
+   "Mars",
+   "Avr",
+   "Mai",
+   "Juin",
+   "Juil",
+   "Août",
+   "Sept",
+   "Oct",
+   "Nov",
+   "Déc"
+];
+
+Date.getShortMonthName = function(month) {
+  return Date.shortMonthNames[month];
+};
+
 Date.monthNames = [
    "Janvier",
    "Février",
@@ -40,10 +59,6 @@ Date.monthNames = [
    "Novembre",
    "Décembre"
 ];
-
-Date.getShortMonthName = function(month) {
-  return Date.monthNames[month].substring(0, 3);
-};
 
 Date.monthNumbers = {
   "Janvier" : 0,
