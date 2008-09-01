@@ -663,7 +663,7 @@ Ext.DatePicker = Ext.extend(Ext.Component, {
             setCellClass(this, cells[i]);
         }
         for(; i < days; i++){
-            intDay = i - startingPos + 1;
+            var intDay = i - startingPos + 1;
             textEls[i].innerHTML = (intDay);
             d.setDate(d.getDate()+1);
             cells[i].className = "x-date-active";
