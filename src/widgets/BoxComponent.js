@@ -35,11 +35,15 @@ Ext.BoxComponent = Ext.extend(Ext.Component, {
      */
     /**
      * @cfg {Boolean} autoHeight
-     * True to use height:'auto', false to use fixed height. Note: although many components inherit this config option, not all will function as expected with a height of 'auto'. (defaults to false).
+     * True to use height:'auto', false to use fixed height (defaults to false). <b>Note</b>: Although many components 
+     * inherit this config option, not all will function as expected with a height of 'auto'. Setting autoHeight:true 
+     * means that the browser will manage height based on the element's contents, and that Ext will not manage it at all.
      */
     /**
      * @cfg {Boolean} autoWidth
-     * True to use width:'auto', false to use fixed width. Note: although many components inherit this config option, not all will function as expected with a width of 'auto'. (defaults to false).
+     * True to use width:'auto', false to use fixed width (defaults to false). <b>Note</b>: Although many components 
+     * inherit this config option, not all will function as expected with a width of 'auto'. Setting autoWidth:true 
+     * means that the browser will manage width based on the element's contents, and that Ext will not manage it at all.
      */
 
     /* // private internal config

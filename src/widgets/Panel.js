@@ -343,8 +343,16 @@ new Ext.Panel({
 });
 </code></pre>
      */
-    
+    /**
+     * @cfg {Boolean} autoHeight
+     * True to use height:'auto', false to use fixed height (defaults to false). <b>Note</b>: Setting autoHeight:true 
+     * means that the browser will manage the panel's height based on its contents, and that Ext will not manage it at 
+     * all. If the panel is within a layout that manages dimensions (fit, border, etc.) then setting autoHeight:true
+     * can cause issues with scrolling and will not generally work as expected since the panel will take on the height
+     * of its contents rather than the height required by the Ext layout.
+     */
 
+    
     /**
     * @cfg {String} baseCls
     * The base CSS class to apply to this panel's element (defaults to 'x-panel').
