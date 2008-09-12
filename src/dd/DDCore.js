@@ -1645,8 +1645,13 @@ Ext.dd.DragDropMgr = function() {
             if(Ext.QuickTips){
                 Ext.QuickTips.disable();
             }
+            if(this.dragCurrent){
+                // the original browser mouseup wasn't handled (e.g. outside FF browser window)
+                // so clean up first to avoid breaking the next drag
+                this.handleMouseUp(e);
+            }
+            
             this.currentTarget = e.getTarget();
-
             this.dragCurrent = oDD;
 
             var el = oDD.getEl();
