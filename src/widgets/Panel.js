@@ -260,11 +260,17 @@ tools:[{
     /**
      * @cfg {String/Object} html
      * An HTML fragment, or a {@link Ext.DomHelper DomHelper} specification to use
-     * as the panel's body content (defaults to '').
+     * as the panel's body content (defaults to ''). The HTML content is added by the Panel's
+     * afterRender method, and so the document will not contain this HTML at the time the render
+     * event is fired. This content is inserted into the body <i>before</i> any configured
+     * {@link #contentEl} is appended.
      */
     /**
      * @cfg {String} contentEl
-     * The id of an existing HTML node to use as the panel's body content (defaults to '').
+     * The id of an existing HTML node to use as the panel's body content (defaults to ''). The
+     * specified Element is appended to the Panel's body Element by the Panel's afterRender method
+     * <i>after any configured {@link #html HTML} has been inserted</i>, and so the document will
+     * not contain this HTML at the time the render event is fired.
      */
     /**
      * @cfg {Object/Array} keys
