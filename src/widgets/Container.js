@@ -43,8 +43,17 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
     /**
      * @cfg {String} layout
      * The layout type to be used in this container.  If not specified, a default {@link Ext.layout.ContainerLayout}
-     * will be created and used.  Valid values are: absolute, accordion, anchor, border, card, column, fit, form and table.
-     * Specific config values for the chosen layout type can be specified using {@link #layoutConfig}.
+     * will be created and used. Specific config values for the chosen layout type can be specified using 
+     * {@link #layoutConfig}. Valid values are:<ul class="mdetail-params">
+     * <li>absolute</li>
+     * <li>accordion</li>
+     * <li>anchor</li>
+     * <li>border</li>
+     * <li>card</li>
+     * <li>column</li>
+     * <li>fit</li>
+     * <li>form</li>
+     * <li>table</li></ul>
      */
     /**
      * @cfg {Object} layoutConfig
