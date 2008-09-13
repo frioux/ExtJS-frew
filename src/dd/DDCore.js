@@ -176,6 +176,14 @@ Ext.dd.DragDrop.prototype = {
     lock: function() { this.locked = true; },
 
     /**
+     * When set to true, other DD objects in cooperating DDGroups do not receive
+     * notification events when this DD object is dragged over them. Defaults to false.
+     * @property moveOnly
+     * @type boolean
+     */
+    moveOnly: false,
+
+    /**
      * Unlock this instace
      * @method unlock
      */
