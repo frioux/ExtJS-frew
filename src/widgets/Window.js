@@ -286,7 +286,9 @@ Ext.Window = Ext.extend(Ext.Panel, {
 
     // private
     beforeDestroy : function(){
+        this.hide();
         Ext.destroy(
+            this.focusEl,
             this.resizer,
             this.dd,
             this.proxy,
