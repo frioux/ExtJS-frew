@@ -119,7 +119,7 @@ Ext.Element.addMethods({
             this.dom.parentNode.insertBefore(el, this.dom);
         }
         El.uncache(this.id);
-        this.dom.parentNode.removeChild(this.dom);
+        Ext.removeNode(this.dom);
         this.dom = el;
         this.id = Ext.id(el);
         El.cache[this.id] = this;
