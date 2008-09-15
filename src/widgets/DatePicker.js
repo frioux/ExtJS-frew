@@ -699,7 +699,14 @@ Ext.DatePicker = Ext.extend(Ext.Component, {
     // private
     beforeDestroy : function() {
         if(this.rendered){
-            Ext.destroy(this.mbtn, this.todayBtn);
+            Ext.destroy(
+                this.leftClickRpt,
+                this.rightClickRpt,
+                this.monthPicker,
+                this.eventEl,
+                this.mbtn,
+                this.todayBtn
+            );
         }
     }
 
