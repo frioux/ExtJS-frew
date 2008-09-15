@@ -350,9 +350,9 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
     // getter methods for fetching elements dynamically in the grid
 
 /**
- * Return the HtmlElement which represents a Grid row for the specified index.
+ * Return the &lt;TR> HtmlElement which represents a Grid row for the specified index.
  * @param {Number} index The row index
- * @return {HtmlElement} The element.
+ * @return {HtmlElement} The &lt;TR> element.
  */
     getRow : function(row){
         return this.getRows()[row];
@@ -398,7 +398,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
     // private
     removeRow : function(row){
         Ext.removeNode(this.getRow(row));
-        this.focusRow(row);
+        this.syncFocusEl(row);
     },
     
     // private
@@ -407,7 +407,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         for(var rowIndex = firstRow; rowIndex <= lastRow; rowIndex++){
             Ext.removeNode(bd.childNodes[firstRow]);
         }
-        this.focusRow(firstRow);
+        this.syncFocusEl(firstRow);
     },
 
     // scrolling stuff
@@ -680,6 +680,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         if(vw < 20 || csize.height < 20){ // display: none?
             return;
         }
+        
         if(g.autoHeight){
             this.scroller.dom.style.overflow = 'visible';
         }else{
@@ -805,15 +806,19 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
      * @param {Number} col The column index
      */
     focusCell : function(row, col, hscroll){
-        row = Math.min(row, Math.max(0, this.getRows().length-1));
-        var xy = this.ensureVisible(row, col, hscroll);
-        this.focusEl.setXY(xy||this.scroller.getXY());
-        
+        this.syncFocusEl(row, col, hscroll);
         if(Ext.isGecko){
             this.focusEl.focus();
         }else{
             this.focusEl.focus.defer(1, this.focusEl);
         }
+    },
+    
+    // private
+    syncFocusEl : function(row, col, hscroll){
+        row = Math.min(row, Math.max(0, this.getRows().length-1));
+        var xy = this.ensureVisible(row, col, hscroll);
+        this.focusEl.setXY(xy||this.scroller.getXY());
     },
 
     // private
@@ -897,7 +902,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
                 this.processRows(firstRow);
             }
         }
-        this.focusRow(firstRow);
+        this.syncFocusEl(firstRow);
     },
 
     // private
@@ -1125,15 +1130,13 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
     // private
     destroy : function(){
         if(this.colMenu){
-            this.colMenu.removeAll();
             Ext.menu.MenuMgr.unregister(this.colMenu);
-            this.colMenu.getEl().remove();
+            this.colMenu.destroy();
             delete this.colMenu;
         }
         if(this.hmenu){
-            this.hmenu.removeAll();
             Ext.menu.MenuMgr.unregister(this.hmenu);
-            this.hmenu.getEl().remove();
+            this.hmenu.destroy();
             delete this.hmenu;
         }
         if(this.grid.enableColumnMove){
@@ -1157,11 +1160,16 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
             }
         }
 
-        Ext.destroy(this.resizeMarker, this.resizeProxy);
-
         if(this.dragZone){
             this.dragZone.unreg();
         }
+        
+        Ext.fly(this.innerHd).removeAllListeners();
+        Ext.removeNode(this.innerHd);
+        
+        Ext.destroy(this.resizeMarker, this.resizeProxy, this.focusEl, this.mainBody, 
+                    this.scroller, this.mainHd, this.mainWrap, this.dragZone, 
+                    this.splitone, this.columnDrag, this.columnDrop);
 
         this.initData(null, null);
         Ext.EventManager.removeResizeListener(this.onWindowResize, this);
@@ -1231,13 +1239,13 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
     onDataChange : function(){
         this.refresh();
         this.updateHeaderSortState();
-        this.focusRow(0);
+        this.syncFocusEl(0);
     },
 
     // private
     onClear : function(){
         this.refresh();
-        this.focusRow(0);
+        this.syncFocusEl(0);
     },
 
     // private
