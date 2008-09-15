@@ -83,6 +83,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
      */
     paramNames : {start: 'start', limit: 'limit'},
 
+    // private
     constructor: function(config) {
 	    var pagingItems = [this.first = new T.Button({
 	        tooltip: this.firstText,
@@ -148,6 +149,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         this.on('afterlayout', this.onFirstLayout, this, {single: true});
 	},
 
+    // private
 	onFirstLayout: function(ii) {
     	this.inputItem.el.on({
 	    	keydown: {fn: this.onPagingKeydown, scope: this},
@@ -219,6 +221,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         this.refresh.enable();
     },
 
+    // private
     readPage : function(d){
         var v = this.field.value, pageNum;
         if (!v || isNaN(pageNum = parseInt(v, 10))) {
@@ -264,6 +267,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         }
     },
 
+    // private
     doLoad : function(start){
         var o = {}, pn = this.paramNames;
         o[pn.start] = start;
@@ -322,6 +326,14 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         this.store = store;
         this.paramNames.start = store.paramNames.start;
         this.paramNames.limit = store.paramNames.limit;
+    },
+    
+    // private
+    onDestroy : function(){
+        if(this.store){
+            this.unbind(this.store);
+        }
+        Ext.PagingToolbar.superclass.onDestroy.call(this);
     }
 });
 
