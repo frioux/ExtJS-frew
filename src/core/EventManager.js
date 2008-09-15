@@ -314,6 +314,11 @@ Ext.EventManager = function(){
             docReadyEvent.addListener(fn, scope, options);
         },
 
+        // private
+        doResizeEvent: function(){
+            resizeEvent.fire(D.getViewWidth(), D.getViewHeight());
+        },
+        
         /**
          * Fires when the window is resized and provides resize event buffering (50 milliseconds), passes new viewport width and height to handlers.
          * @param {Function} fn        The method the event invokes
@@ -323,9 +328,7 @@ Ext.EventManager = function(){
         onWindowResize : function(fn, scope, options){
             if(!resizeEvent){
                 resizeEvent = new Ext.util.Event();
-                resizeTask = new Ext.util.DelayedTask(function(){
-                    resizeEvent.fire(D.getViewWidth(), D.getViewHeight());
-                });
+                resizeTask = new Ext.util.DelayedTask(this.doResizeEvent);
                 E.on(window, "resize", this.fireWindowResize, this);
             }
             resizeEvent.addListener(fn, scope, options);
