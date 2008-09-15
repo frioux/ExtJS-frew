@@ -76,6 +76,14 @@ Ext.form.FieldSet = Ext.extend(Ext.Panel, {
      */
     onCheckClick : function(){
         this[this.checkbox.dom.checked ? 'expand' : 'collapse']();
+    },
+    
+    // private
+    beforeDestroy : function(){
+        if(this.checkbox){
+            this.checkbox.un('click', this.onCheckClick, this);
+        }
+        Ext.form.FieldSet.superclass.beforeDestroy.call(this);
     }
 
     /**
