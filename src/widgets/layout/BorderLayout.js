@@ -156,8 +156,12 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
         var r = ['north', 'south', 'east', 'west'];
         for (var i = 0; i < r.length; i++) {
             var region = this[r[i]];
-            if (region && region.split) {
-                region.split.destroy(true);
+            if(region){
+                if(region.destroy){
+                    region.destroy();
+                }else if (region.split){
+                    region.split.destroy(true);
+                }
             }
         }
         Ext.layout.BorderLayout.superclass.destroy.call(this);
@@ -956,6 +960,15 @@ Ext.extend(Ext.layout.BorderLayout.SplitRegion, Ext.layout.BorderLayout.Region, 
      */
     getSplitBar : function(){
         return this.split;
+    },
+    
+    // inherit docs
+    destroy : function() {
+        Ext.destroy(
+            this.miniSplitEl, 
+            this.split, 
+            this.splitEl
+        );
     }
 });
 
