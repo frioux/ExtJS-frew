@@ -244,6 +244,9 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     initButtonEl : function(btn, btnEl){
         this.el = btn;
 
+        if(this.id){
+            this.el.dom.id = this.el.id = this.id;
+        }
         if(this.icon){
             btnEl.setStyle('background-image', 'url(' +this.icon +')');
         }
@@ -270,10 +273,6 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         if(this.menu){
             this.menu.on("show", this.onMenuShow, this);
             this.menu.on("hide", this.onMenuHide, this);
-        }
-
-        if(this.id){
-            this.el.dom.id = this.el.id = this.id;
         }
 
         if(this.repeat){
@@ -311,9 +310,12 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     // private
     beforeDestroy: function(){
     	if(this.rendered){
-	        var btn = this.el.child(this.buttonSelector);
-	        if(btn){
-	            btn.removeAllListeners();
+	        var btnEl = this.el.child(this.buttonSelector);
+	        if(btnEl){
+                if(this.tooltip){
+                    Ext.QuickTips.unregister(btnEl);
+                }
+	            btnEl.removeAllListeners();
 	        }
 	    }
         if(this.menu){
