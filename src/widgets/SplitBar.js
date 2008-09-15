@@ -167,7 +167,7 @@ Ext.extend(Ext.SplitBar, Ext.util.Observable, {
         Ext.get(this.proxy).setDisplayed(false);
         var endPoint = Ext.lib.Event.getXY(e);
         if(this.overlay){
-            this.overlay.remove();
+            Ext.destroy(this.overlay);
             delete this.overlay;
         }
         var newSize;
@@ -263,7 +263,7 @@ Ext.extend(Ext.SplitBar, Ext.util.Observable, {
             this.shim.remove();
         }
         this.dd.unreg();
-        Ext.removeNode(this.proxy);
+        Ext.destroy(Ext.get(this.proxy));
         if(removeEl){
             this.el.remove();
         }
