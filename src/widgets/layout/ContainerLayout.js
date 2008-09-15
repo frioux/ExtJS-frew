@@ -145,6 +145,11 @@ Ext.layout.ContainerLayout.prototype = {
         };
     },
 
+    /*
+     * Destroys this layout. This is a template method that is empty by default, but should be implemented
+     * by subclasses that require explicit destruction to purge event handlers or remove DOM nodes.
+     * @protected
+     */
     destroy : Ext.emptyFn
 };
 Ext.Container.LAYOUTS['auto'] = Ext.layout.ContainerLayout;
