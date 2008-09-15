@@ -598,6 +598,7 @@ new Ext.Panel({
      * @param {Boolean} removeEl (optional) true to remove the element from the DOM
      */
     destroy : function(removeEl){
+        this.proxy.removeAllListeners();
         this.proxy.remove();
         if(this.overlay){
             this.overlay.removeAllListeners();
