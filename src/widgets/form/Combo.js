@@ -513,11 +513,13 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
     // private
     onDestroy : function(){
         if(this.view){
-            this.view.el.removeAllListeners();
-            this.view.el.remove();
-            this.view.purgeListeners();
+            Ext.destroy(this.view);
         }
         if(this.list){
+            if(this.innerList){
+                this.innerList.un('mouseover', this.onViewOver, this);
+                this.innerList.un('mousemove', this.onViewMove, this);
+            }
             this.list.destroy();
         }
         this.bindStore(null);
