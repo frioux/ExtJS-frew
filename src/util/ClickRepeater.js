@@ -83,6 +83,12 @@ Ext.extend(Ext.util.ClickRepeater, Ext.util.Observable, {
     timer : 0,
 
     // private
+    destroy : function() {
+        Ext.destroy(this.el);
+        this.purgeListeners();
+    },
+    
+    // private
     handleMouseDown : function(){
         clearTimeout(this.timer);
         this.el.blur();
