@@ -480,6 +480,8 @@ var tabs = new Ext.TabPanel({
         if(item.tabTip){
             Ext.fly(el).child('span.x-tab-strip-text', true).qtip = item.tabTip;
         }
+        item.tabEl = el;
+        
         item.on('disable', this.onItemDisabled, this);
         item.on('enable', this.onItemEnabled, this);
         item.on('titlechange', this.onItemTitleChanged, this);
@@ -510,7 +512,7 @@ var tabs = new Ext.TabPanel({
 
     // private
     onRemove : function(tp, item){
-        Ext.removeNode(this.getTabEl(item));
+        Ext.destroy(Ext.get(this.getTabEl(item)));
         this.stack.remove(item);
         item.un('disable', this.onItemDisabled, this);
         item.un('enable', this.onItemEnabled, this);
@@ -901,6 +903,22 @@ var tabs = new Ext.TabPanel({
         var pos = this.getScrollPos();
         this.scrollLeft[pos == 0 ? 'addClass' : 'removeClass']('x-tab-scroller-left-disabled');
         this.scrollRight[pos >= (this.getScrollWidth()-this.getScrollArea()) ? 'addClass' : 'removeClass']('x-tab-scroller-right-disabled');
+    },
+    
+    // private
+    beforeDestroy : function() {
+        if(this.items){
+            this.items.each(function(item){
+                if(item && item.tabEl){
+                    Ext.get(item.tabEl).removeAllListeners();
+                    item.tabEl = null;
+                }
+            }, this);
+        }
+        if(this.strip){
+            this.strip.removeAllListeners();
+        }
+        Ext.TabPanel.superclass.beforeDestroy.apply(this);
     }
 
     /**
