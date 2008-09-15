@@ -871,27 +871,30 @@ new Ext.Panel({
             Ext.Panel.prototype.toolTemplate = tt;
         }
         for(var i = 0, a = arguments, len = a.length; i < len; i++) {
-            var tc = a[i], overCls = 'x-tool-'+tc.id+'-over';
-            var t = this.toolTemplate.insertFirst((tc.align !== 'left') ? this[this.toolTarget] : this[this.toolTarget].child('span'), tc, true);
-            this.tools[tc.id] = t;
-            t.enableDisplayMode('block');
-            t.on('click', this.createToolHandler(t, tc, overCls, this));
-            if(tc.on){
-                t.on(tc.on);
-            }
-            if(tc.hidden){
-                t.hide();
-            }
-            if(tc.qtip){
-                if(typeof tc.qtip == 'object'){
-                    Ext.QuickTips.register(Ext.apply({
-                          target: t.id
-                    }, tc.qtip));
-                } else {
-                    t.dom.qtip = tc.qtip;
+            var tc = a[i];
+            if(!this.tools[tc.id]){
+                var overCls = 'x-tool-'+tc.id+'-over';
+                var t = this.toolTemplate.insertFirst((tc.align !== 'left') ? this[this.toolTarget] : this[this.toolTarget].child('span'), tc, true);
+                this.tools[tc.id] = t;
+                t.enableDisplayMode('block');
+                t.on('click', this.createToolHandler(t, tc, overCls, this));
+                if(tc.on){
+                    t.on(tc.on);
                 }
+                if(tc.hidden){
+                    t.hide();
+                }
+                if(tc.qtip){
+                    if(typeof tc.qtip == 'object'){
+                        Ext.QuickTips.register(Ext.apply({
+                              target: t.id
+                        }, tc.qtip));
+                    } else {
+                        t.dom.qtip = tc.qtip;
+                    }
+                }
+                t.addClassOnOver(overCls);
             }
-            t.addClassOnOver(overCls);
         }
     },
 
@@ -1318,12 +1321,19 @@ panel.load({
 
     // private
     beforeDestroy : function(){
+        if(this.header){
+            this.header.removeAllListeners();
+            if(this.headerAsText){
+                Ext.Element.uncache(this.header.child('span'));
+            }
+        }
         Ext.Element.uncache(
             this.header,
             this.tbar,
             this.bbar,
             this.footer,
-            this.body
+            this.body,
+            this.bwrap
         );
         if(this.tools){
             for(var k in this.tools){
