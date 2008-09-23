@@ -777,9 +777,11 @@ Ext.Window = Ext.extend(Ext.Panel, {
      * Brings this window to the front of any other visible windows
      * @return {Ext.Window} this
      */
-    toFront : function(){
+    toFront : function(e){
         if(this.manager.bringToFront(this)){
-            this.focus();
+            if(!e || !e.getTarget().focus){
+                this.focus();
+            }
         }
         return this;
     },
