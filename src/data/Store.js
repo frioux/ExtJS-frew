@@ -61,8 +61,8 @@ Ext.data.Store = function(config){
     this.addEvents(
         /**
          * @event datachanged
-         * Fires when the data cache has changed, and a widget which is using this Store
-         * as a Record cache should refresh its view.
+         * Fires when the data cache has changed in a bulk manner (e.g., it has been sorted, filtered, etc.) and a 
+         * widget that is using this Store as a Record cache should refresh its view.
          * @param {Store} this
          */
         'datachanged',
