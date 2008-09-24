@@ -1697,7 +1697,7 @@ el.un('click', this.handlerFn);
      */
     mask : function(msg, msgCls){
         if(this.getStyle("position") == "static"){
-            this.setStyle("position", "relative");
+            this.addClass("x-masked-relative");
         }
         if(this._maskMsg){
             this._maskMsg.remove();
@@ -1736,7 +1736,7 @@ el.un('click', this.handlerFn);
             this._mask.remove();
             delete this._mask;
         }
-        this.removeClass("x-masked");
+        this.removeClass(["x-masked", "x-masked-relative"]);
     },
 
     /**
