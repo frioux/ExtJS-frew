@@ -439,10 +439,11 @@ Ext.onReady = Ext.EventManager.onDocumentReady;
         var bd = document.body || document.getElementsByTagName('body')[0];
         if(!bd){ return false; }
         var cls = [' ',
-                Ext.isIE ? "ext-ie " + (Ext.isIE6 ? 'ext-ie6' : 'ext-ie7')
+                Ext.isIE ? "ext-ie " + (Ext.isIE6 ? 'ext-ie6' : (Ext.isIE7 ? 'ext-ie7' : 'ext-ie8'))
                 : Ext.isGecko ? "ext-gecko " + (Ext.isGecko2 ? 'ext-gecko2' : 'ext-gecko3')
                 : Ext.isOpera ? "ext-opera"
-                : Ext.isSafari ? "ext-safari" : ""];
+                : Ext.isSafari ? "ext-safari"
+                : Ext.isChrome ? "ext-chrome" : ""];
 
         if(Ext.isMac){
             cls.push("ext-mac");

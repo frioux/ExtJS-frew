@@ -37,12 +37,14 @@ Ext.apply = function(o, c, defaults){
 
     var isStrict = document.compatMode == "CSS1Compat",
         isOpera = ua.indexOf("opera") > -1,
-        isSafari = (/webkit|khtml/).test(ua),
+        isChrome = ua.indexOf("chrome") > -1,
+        isSafari = !isChrome && (/webkit|khtml/).test(ua),
         isSafari3 = isSafari && ua.indexOf('webkit/5') != -1,
         isIE = !isOpera && ua.indexOf("msie") > -1,
         isIE7 = !isOpera && ua.indexOf("msie 7") > -1,
-        isGecko = !isSafari && ua.indexOf("gecko") > -1,
-        isGecko3 = !isSafari && ua.indexOf("rv:1.9") > -1,
+        isIE8 = !isOpera && ua.indexOf("msie 8") > -1,
+        isGecko = !isSafari && !isChrome && ua.indexOf("gecko") > -1,
+        isGecko3 = isGecko && ua.indexOf("rv:1.9") > -1,
         isBorderBox = isIE && !isStrict,
         isWindows = (ua.indexOf("windows") != -1 || ua.indexOf("win32") != -1),
         isMac = (ua.indexOf("macintosh") != -1 || ua.indexOf("mac os x") != -1),
@@ -619,6 +621,11 @@ Company.data.CustomStore = function(config) { ... }
          */
         isOpera : isOpera,
         /**
+         * True if the detected browser is Chrome.
+         * @type Boolean
+         */
+        isChrome : isChrome,
+        /**
          * True if the detected browser is Safari.
          * @type Boolean
          */
@@ -642,12 +649,17 @@ Company.data.CustomStore = function(config) { ... }
          * True if the detected browser is Internet Explorer 6.x.
          * @type Boolean
          */
-        isIE6 : isIE && !isIE7,
+        isIE6 : isIE && !isIE7 && !isIE8,
         /**
          * True if the detected browser is Internet Explorer 7.x.
          * @type Boolean
          */
         isIE7 : isIE7,
+        /**
+         * True if the detected browser is Internet Explorer 8.x.
+         * @type Boolean
+         */
+        isIE8 : isIE8,
         /**
          * True if the detected browser uses the Gecko layout engine (e.g. Mozilla, Firefox).
          * @type Boolean
