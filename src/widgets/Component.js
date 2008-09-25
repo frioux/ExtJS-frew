@@ -529,7 +529,7 @@ Ext.Foo = Ext.extend(Ext.Bar, {
      * configure the Container with a layout manager which creates and manages the type of layout you
      * have in mind.</p>
      * <p><b>Omitting the Container's {@link Ext.Container#layout layout} config means that a basic
-     * layout manager is used which does nothnig but render child components sequentially into the
+     * layout manager is used which does nothing but render child components sequentially into the
      * Container. No sizing or positioning will be performed in this situation.</b></p>
      * @param {Element/HTMLElement/String} container (optional) The element this Component should be
      * rendered into. If it is being created from existing markup, this should be omitted.
