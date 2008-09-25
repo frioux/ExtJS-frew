@@ -48,6 +48,13 @@ Ext.Window = Ext.extend(Ext.Panel, {
     * Ext.emptyFn (See {@link Ext#emptyFn}).
     */
     /**
+     * @cfg {Boolean} collapsed
+     * True to render the window collapsed, false to render it expanded (defaults to false). Note that if 
+     * {@link #expandOnShow} is true (the default) it will override the <tt>collapsed</tt> config and the window 
+     * will always be expanded when shown.
+     */
+    
+    /**
     * @cfg {String} baseCls
     * The base CSS class to apply to this panel's element (defaults to 'x-window').
     */
@@ -124,7 +131,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
     /**
      * @cfg {Boolean} expandOnShow
      * True to always expand the window when it is displayed, false to keep it in its current state (which may be
-     * collapsed) when displayed (defaults to true).
+     * {@link #collapsed}) when displayed (defaults to true).
      */
     expandOnShow: true,
     /**
