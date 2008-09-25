@@ -287,6 +287,10 @@ Ext.Window = Ext.extend(Ext.Panel, {
     // private
     beforeDestroy : function(){
         this.hide();
+		if(this.doAnchor){
+		    Ext.EventManager.removeResizeListener(this.doAnchor, this);
+		    Ext.EventManager.un(window, 'scroll', this.doAnchor, this);
+        }
         Ext.destroy(
             this.focusEl,
             this.resizer,
@@ -758,19 +762,23 @@ Ext.Window = Ext.extend(Ext.Panel, {
      * is a number, it is used as the buffer delay (defaults to 50ms).
      * @return {Ext.Window} this
      */
-    anchorTo : function(el, alignment, offsets, monitorScroll, _pname){
-        var action = function(){
-            this.alignTo(el, alignment, offsets);
-        };
-        Ext.EventManager.onWindowResize(action, this);
-        var tm = typeof monitorScroll;
-        if(tm != 'undefined'){
-            Ext.EventManager.on(window, 'scroll', action, this,
-                {buffer: tm == 'number' ? monitorScroll : 50});
-        }
-        action.call(this);
-        this[_pname] = action;
-        return this;
+    anchorTo : function(el, alignment, offsets, monitorScroll){
+      if(this.doAnchor){
+          Ext.EventManager.removeResizeListener(this.doAnchor, this);
+          Ext.EventManager.un(window, 'scroll', this.doAnchor, this);
+      }
+      this.doAnchor = function(){
+          this.alignTo(el, alignment, offsets);
+      };
+      Ext.EventManager.onWindowResize(this.doAnchor, this);
+      
+      var tm = typeof monitorScroll;
+      if(tm != 'undefined'){
+          Ext.EventManager.on(window, 'scroll', this.doAnchor, this,
+              {buffer: tm == 'number' ? monitorScroll : 50});
+      }
+      this.doAnchor();
+      return this;
     },
 
     /**
