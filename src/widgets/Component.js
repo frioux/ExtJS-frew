@@ -364,7 +364,9 @@ new Ext.FormPanel({
     /**
      * @cfg {Boolean} stateful
      * <p>A flag which causes the Component to attempt to restore the state of internal properties
-     * from a saved state on startup.</p>
+     * from a saved state on startup. The component must have either a {@link #stateId} or {@link #id}
+     * assigned for state to be managed.  Auto-generated ids are not guaranteed to be stable across page
+     * loads and cannot be relied upon to save and restore the same state for a component.<p>
      * <p>For state saving to work, the state manager's provider must have been set to an implementation
      * of {@link Ext.state.Provider} which overrides the {@link Ext.state.Provider#set set}
      * and {@link Ext.state.Provider#get get} methods to save and recall name/value pairs.
@@ -390,7 +392,8 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
      */
     /**
      * @cfg {String} stateId
-     * The unique id for this component to use for state management purposes (defaults to the component id).
+     * The unique id for this component to use for state management purposes (defaults to the component id if one was
+     * set, otherwise null if the component is using a generated id).
      * <p>See {@link #stateful} for an explanation of saving and restoring Component state.</p>
      */
     /* //internal - to be set by subclasses
@@ -586,16 +589,24 @@ Ext.Foo = Ext.extend(Ext.Bar, {
     // private
     initState : function(config){
         if(Ext.state.Manager){
-            var state = Ext.state.Manager.get(this.stateId || this.id);
-            if(state){
-                if(this.fireEvent('beforestaterestore', this, state) !== false){
-                    this.applyState(state);
-                    this.fireEvent('staterestore', this, state);
+            var id = this.getStateId();
+            if(id){
+                var state = Ext.state.Manager.get(id);
+                if(state){
+                    if(this.fireEvent('beforestaterestore', this, state) !== false){
+                        this.applyState(state);
+                        this.fireEvent('staterestore', this, state);
+                    }
                 }
             }
         }
     },
 
+    // private
+    getStateId : function(){
+        return this.stateId || ((this.id.indexOf('ext-comp-') == 0 || this.id.indexOf('ext-gen') == 0) ? null : this.id);
+    },
+    
     // private
     initStateEvents : function(){
         if(this.stateEvents){
@@ -620,10 +631,13 @@ Ext.Foo = Ext.extend(Ext.Bar, {
     // private
     saveState : function(){
         if(Ext.state.Manager){
-            var state = this.getState();
-            if(this.fireEvent('beforestatesave', this, state) !== false){
-                Ext.state.Manager.set(this.stateId || this.id, state);
-                this.fireEvent('statesave', this, state);
+            var id = this.getStateId();
+            if(id){
+                var state = this.getState();
+                if(this.fireEvent('beforestatesave', this, state) !== false){
+                    Ext.state.Manager.set(id, state);
+                    this.fireEvent('statesave', this, state);
+                }
             }
         }
     },
