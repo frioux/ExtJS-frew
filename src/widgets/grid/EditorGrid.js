@@ -39,7 +39,9 @@ Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
         if(!this.selModel){
             /**
              * @cfg {Object} selModel Any subclass of AbstractSelectionModel that will provide the selection model for
-             * the grid (defaults to {@link Ext.grid.CellSelectionModel} if not specified).
+             * the grid (defaults to {@link Ext.grid.CellSelectionModel} if not specified). Note that the SelectionModel
+             * must be compatible with the model of selecting cells individually, and should support a method named
+             * <tt>getSelectedCell</tt> (for these reasons, {@link Ext.grid.RowSelectionModel} is not compatible).
              */
             this.selModel = new Ext.grid.CellSelectionModel();
         }
