@@ -227,30 +227,74 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
     /**
      * @cfg {String} fieldLabel The label text to display next to this Component (defaults to '')
      * <p><b>This config is only used when this Component is rendered by a Container which has been
-     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager</b></p>
+     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager.</b></p>
+     * Example use:<pre><code>
+new Ext.FormPanel({
+    height: 100,
+    renderTo: Ext.getBody(),
+    items: [{
+        xtype: 'textfield',
+        fieldLabel: 'Name'
+    }]
+});
+</code></pre>
      */
     /**
      * @cfg {String} labelStyle A CSS style specification to apply directly to this field's label (defaults to the
-     * container's labelStyle value if set, or ''). For example, <code>labelStyle: 'font-weight:bold;'</code>.
+     * container's labelStyle value if set, or '').<code></code>.
      * <p><b>This config is only used when this Component is rendered by a Container which has been
-     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager</b></p>
+     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager.</b></p>
+     * Example use:<pre><code>
+new Ext.FormPanel({
+    height: 100,
+    renderTo: Ext.getBody(),
+    items: [{
+        xtype: 'textfield',
+        fieldLabel: 'Name',
+        labelStyle: 'font-weight:bold;'
+    }]
+});
+</code></pre>
      */
     /**
      * @cfg {String} labelSeparator The standard separator to display after the text of each form label (defaults
      * to the value of {@link Ext.layout.FormLayout#labelSeparator}, which is a colon ':' by default).  To display
      * no separator for this field's label specify empty string ''.
      * <p><b>This config is only used when this Component is rendered by a Container which has been
-     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager</b></p>
+     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager.</b></p>
+     * Example use:<pre><code>
+new Ext.FormPanel({
+    height: 100,
+    renderTo: Ext.getBody(),
+    items: [{
+        xtype: 'textfield',
+        fieldLabel: 'Name',
+        labelSeparator: '...'
+    }]
+});
+</code></pre>
      */
     /**
-     * @cfg {Boolean} hideLabel True to completely hide the label element (defaults to false)
+     * @cfg {Boolean} hideLabel True to completely hide the label element (defaults to false).  By default, even if
+     * you do not specify a {@link fieldLabel} the space will still be reserved so that the field will line up with
+     * other fields that do have labels. Setting this to true will cause the field to not reserve that space.
      * <p><b>This config is only used when this Component is rendered by a Container which has been
-     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager</b></p>
+     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager.</b></p>
+     * Example use:<pre><code>
+new Ext.FormPanel({
+    height: 100,
+    renderTo: Ext.getBody(),
+    items: [{
+        xtype: 'textfield'
+        hideLabel: true
+    }]
+});
+</code></pre>
      */
     /**
-     * @cfg {String} clearCls The CSS class used to provide field clearing (defaults to 'x-form-clear-left')
+     * @cfg {String} clearCls The CSS class used to provide field clearing (defaults to 'x-form-clear-left').
      * <p><b>This config is only used when this Component is rendered by a Container which has been
-     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager</b></p>
+     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager.</b></p>
      */
     /**
      * @cfg {String} itemCls An additional CSS class to apply to the wrapper's form item element of this field (defaults 
@@ -258,7 +302,7 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
      * standard CSS rules that can apply to the field, the label (if specified) or any other element within the markup for 
      * the field.
      * <p><b>This config is only used when this Component is rendered by a Container which has been
-     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager</b></p>
+     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager.</b></p>
      * Example use:<pre><code>
 // Apply a style to the field's label:
 &lt;style>
@@ -267,7 +311,7 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
 
 new Ext.FormPanel({
 	height: 100,
-	renderTo: document.body,
+	renderTo: Ext.getBody(),
 	items: [{
 		xtype: 'textfield',
 		fieldLabel: 'Name',
@@ -282,7 +326,12 @@ new Ext.FormPanel({
 
     /**
      * @cfg {String} id
-     * The unique id of this component (defaults to an auto-assigned id).
+     * The unique id of this component (defaults to an auto-assigned id). You should assign an id if you need to
+     * be able to access the component later and you do not have an object reference available (e.g., using 
+     * {@link Ext.ComponentMgr#getCmp}). Note that this id will also be used as the element id for the containing
+     * HTML element that is rendered to the page for this component. This allows you to write id-based CSS rules to
+     * style the specific instance of this component uniquely, and also to select sub-elements using this
+     * component's id as the parent.
      */
     /**
      * @cfg {String/Object} autoEl
@@ -514,7 +563,7 @@ Ext.Foo = Ext.extend(Ext.Bar, {
     initComponent : Ext.emptyFn,
 
     /**
-     * <p>Render this Components into the passed HTML element.</p>
+     * <p>Render this Component into the passed HTML element.</p>
      * <p><b>If you are using a {@link Ext.Container Container} object to house this Component, then
      * do not use the render method.</b></p>
      * <p>A Container's child Components are rendered by that Container's
