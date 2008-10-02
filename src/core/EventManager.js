@@ -258,6 +258,8 @@ Ext.EventManager = function(){
      * <li>buffer {Number} : Causes the handler to be scheduled to run in an {@link Ext.util.DelayedTask} delayed
      * by the specified number of milliseconds. If the event fires again within that time, the original
      * handler is <em>not</em> invoked, but the new handler is scheduled in its place.</li>
+     * <li>target {Element} : Only call the handler if the event was fired on the target Element, <i>not</i>
+     * if the event was bubbled up from a child node.</li>
      * </ul><br>
      * <p>See {@link Ext.Element#addListener} for examples of how to use these options.</p>
      */

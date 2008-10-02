@@ -28,7 +28,10 @@ Ext.util.Observable = function(){
 Ext.util.Observable.prototype = {
     /**
      * Fires the specified event with the passed parameters (minus the event name).
-     * @param {String} eventName
+     * @param {String} eventName The name of the event to fire. If the event is to bubble
+     * up an Observable parent hierarchy (See {@link Ext.Component#getBubbleTarget}) then
+     * the first argument must be passed as <tt>true</tt>, and the event name is passed
+     * as the second argument.
      * @param {Object...} args Variable number of parameters are passed to handlers
      * @return {Boolean} returns false if any of the handlers return false otherwise it returns true
      */
@@ -78,6 +81,8 @@ Ext.util.Observable.prototype = {
      * <li><b>buffer</b> : Number<p class="sub-desc">Causes the handler to be scheduled to run in an {@link Ext.util.DelayedTask} delayed
      * by the specified number of milliseconds. If the event fires again within that time, the original
      * handler is <em>not</em> invoked, but the new handler is scheduled in its place.</p></li>
+     * <li>target {Observable} : Only call the handler if the event was fired on the target Observable, <i>not</i>
+     * if the event was bubbled up from a child Observable.</li>
      * </ul><br>
      * <p>
      * <b>Combining Options</b><br>
