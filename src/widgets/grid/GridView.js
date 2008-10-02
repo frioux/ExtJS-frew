@@ -1390,6 +1390,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
             this.updateAllColumnWidths();
         }else{
             this.updateColumnWidth(i, w);
+            this.syncHeaderScroll();
         }
 
         this.grid.fireEvent("columnresize", i, w);
