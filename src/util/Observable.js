@@ -33,14 +33,29 @@ Ext.util.Observable.prototype = {
      * @return {Boolean} returns false if any of the handlers return false otherwise it returns true
      */
     fireEvent : function(){
+        var a = Array.prototype.slice.call(arguments, 0);
+        var ename = a[0];
+        if(ename === true){
+            a.shift();
+            var c = this;
+            while(c){
+                if(c.fireEvent.apply(c, a) === false){
+                    return false;
+                }
+                c = c.getBubbleTarget();
+            }
+            return true;
+        }
         if(this.eventsSuspended === true){
-            if (this.suspendedEventsQueue) {
-                this.suspendedEventsQueue.push(arguments);
+            var q = this.suspendedEventsQueue;
+            if (q) {
+                q[q.length] = a;
             }
         } else {
-            var ce = this.events[arguments[0].toLowerCase()];
+            var ce = this.events[ename.toLowerCase()];
             if(typeof ce == "object"){
-                return ce.fire.apply(ce, Array.prototype.slice.call(arguments, 1));
+                a.shift();
+                return ce.fire.apply(ce, a);
             }
         }
         return true;

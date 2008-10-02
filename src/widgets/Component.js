@@ -1088,6 +1088,10 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
         item.on(ename, fn, scope, opt);
     },
 
+    /**
+     * Returns the next component in the owning container
+     * @return Ext.Component
+     */
     nextSibling : function(){
         if(this.ownerCt){
             var index = this.ownerCt.items.indexOf(this);
@@ -1098,6 +1102,10 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
         return null;
     },
 
+    /**
+     * Returns the previous component in the owning container
+     * @return Ext.Component
+     */
     previousSibling : function(){
         if(this.ownerCt){
             var index = this.ownerCt.items.indexOf(this);
@@ -1106,6 +1114,10 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
             }
         }
         return null;
+    },
+
+    getBubbleTarget : function(){
+        return this.ownerCt;
     }
 });
 

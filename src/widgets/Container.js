@@ -155,6 +155,7 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
             'beforeremove',
             /**
              * @event add
+             * @bubbles
              * Fires after any {@link Ext.Component} is added or inserted into the container.
              * @param {Ext.Container} this
              * @param {Ext.Component} component The component that was added
@@ -163,6 +164,7 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
             'add',
             /**
              * @event remove
+             * @bubbles
              * Fires after any {@link Ext.Component} is removed from the container.
              * @param {Ext.Container} this
              * @param {Ext.Component} component The component that was removed
@@ -271,6 +273,8 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
      * config property. If no xtype is configured, the Container's {@link #defaultType}
      * is used.<br><br>
      * For a list of all available xtypes, see {@link Ext.Component}.
+     * @param {Ext.Component/Object} component2
+     * @param {Ext.Component/Object} etc
      * @return {Ext.Component} component The Component (or config object) that was
      * added with the Container's default config values applied.
      * <p>example:</p><pre><code>
@@ -298,7 +302,7 @@ myTabPanel.setActiveTab(myNewGrid);
         if(this.fireEvent('beforeadd', this, c, pos) !== false && this.onBeforeAdd(c) !== false){
             this.items.add(c);
             c.ownerCt = this;
-            this.fireEvent('add', this, c, pos);
+            this.fireEvent(true, 'add', this, c, pos);
         }
         return c;
     },
@@ -341,7 +345,7 @@ myTabPanel.setActiveTab(myNewGrid);
         if(this.fireEvent('beforeadd', this, c, index) !== false && this.onBeforeAdd(c) !== false){
             this.items.insert(index, c);
             c.ownerCt = this;
-            this.fireEvent('add', this, c, index);
+            this.fireEvent(true, 'add', this, c, index);
         }
         return c;
     },
@@ -389,7 +393,7 @@ myTabPanel.setActiveTab(myNewGrid);
             if(this.layout && this.layout.activeItem == c){
                 delete this.layout.activeItem;
             }
-            this.fireEvent('remove', this, c);
+            this.fireEvent(true, 'remove', this, c);
         }
         return c;
     },
