@@ -379,7 +379,7 @@ Ext.DomQuery = function(){
         compile : function(path, type){
             type = type || "select";
 
-            var fn = ["var f = function(root){\n var mode; ++batch; var n = root || document;\n"];
+            var fn = ["(function(root){\n var mode; ++batch; var n = root || document;\n"];
             var q = path, mode, lq;
             var tk = Ext.DomQuery.matchers;
             var tklen = tk.length;
@@ -444,9 +444,8 @@ Ext.DomQuery = function(){
                     q = q.replace(mm[1], "");
                 }
             }
-            fn[fn.length] = "return nodup(n);\n}";
-            eval(fn.join(""));
-            return f;
+            fn[fn.length] = "return nodup(n);\n})";
+            return eval(fn.join(""));
         },
 
         /**
