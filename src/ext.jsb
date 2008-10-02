@@ -30,6 +30,7 @@
     <include name="core\CompositeElement.js" />
     <include name="data\Connection.js" />
     <include name="data\Direct.js" />
+    <include name="data\DirectProvider.js" />
     <include name="core\UpdateManager.js" />
     <include name="util\Date.js" />
     <include name="util\DelayedTask.js" />
@@ -90,6 +91,7 @@
     <include name="widgets\layout\TableLayout.js" />
     <include name="widgets\layout\AbsoluteLayout.js" />
     <include name="widgets\Viewport.js" />
+    <include name="widgets\layout\BoxLayout.js" />
     <include name="widgets\Panel.js" />
     <include name="widgets\Window.js" />
     <include name="widgets\WindowManager.js" />
@@ -547,9 +549,9 @@
   <file name="legacy\MasterTemplate.js" path="legacy" />
   <file name="legacy\View.js" path="legacy" />
   <file name="widgets\chart\FlashPanel.js" path="widgets\chart" />
+  <file name="widgets\ListView.js" path="widgets" />
   <file name="ext.jsb" path="" />
   <file name="license.txt" path="" />
-  <file name="widgets\ListView.js" path="widgets" />
   <file name="adapter\ext-base.js" path="adapter" />
   <file name="adapter\jquery-bridge.js" path="adapter" />
   <file name="adapter\prototype-bridge.js" path="adapter" />
@@ -575,6 +577,7 @@
   <file name="data\DataProxy.js" path="data" />
   <file name="data\DataReader.js" path="data" />
   <file name="data\Direct.js" path="data" />
+  <file name="data\DirectProvider.js" path="data" />
   <file name="data\DirectProxy.js" path="data" />
   <file name="data\DirectStore.js" path="data" />
   <file name="data\GroupingStore.js" path="data" />
@@ -607,7 +610,7 @@
   <file name="locale\ext-lang-de.js" path="locale" />
   <file name="locale\ext-lang-el_GR.js" path="locale" />
   <file name="locale\ext-lang-en.js" path="locale" />
-  <file name="locale\ext-lang-en_UK.js" path="locale" />
+  <file name="locale\ext-lang-en_GB.js" path="locale" />
   <file name="locale\ext-lang-es.js" path="locale" />
   <file name="locale\ext-lang-fa.js" path="locale" />
   <file name="locale\ext-lang-fr.js" path="locale" />
@@ -704,6 +707,7 @@
   <file name="widgets\layout\AccordionLayout.js" path="widgets\layout" />
   <file name="widgets\layout\AnchorLayout.js" path="widgets\layout" />
   <file name="widgets\layout\BorderLayout.js" path="widgets\layout" />
+  <file name="widgets\layout\BoxLayout.js" path="widgets\layout" />
   <file name="widgets\layout\CardLayout.js" path="widgets\layout" />
   <file name="widgets\layout\ColumnLayout.js" path="widgets\layout" />
   <file name="widgets\layout\ContainerLayout.js" path="widgets\layout" />

@@ -407,6 +407,14 @@ Ext.util.Observable.releaseCapture = function(o){
         };
     };
 
+    var createTargeted = function(h, o, scope){
+        return function(){
+            if(o.target == arguments[0]){
+                h.apply(scope, Array.prototype.slice.call(arguments, 0));
+            }
+        };
+    };
+
     Ext.util.Event = function(obj, name){
         this.name = name;
         this.obj = obj;
@@ -432,6 +440,9 @@ Ext.util.Observable.releaseCapture = function(o){
             scope = scope || this.obj;
             var l = {fn: fn, scope: scope, options: o};
             var h = fn;
+            if(o.target){
+                h = createTargeted(h, o, scope);
+            }
             if(o.delay){
                 h = createDelayed(h, o, scope);
             }

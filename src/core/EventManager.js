@@ -165,6 +165,14 @@ Ext.EventManager = function(){
         };
     };
 
+    var createTargeted = function(h, o){
+        return function(){
+            if(o.target == Ext.EventObject.setEvent(arguments[0]).target){
+                h.apply(this, Array.prototype.slice.call(arguments, 0));
+            }
+        };
+    };
+
     var listen = function(element, ename, opt, fn, scope){
         var o = (!opt || typeof opt == "boolean") ? {} : opt;
         fn = fn || o.fn; scope = scope || o.scope;
@@ -203,6 +211,9 @@ Ext.EventManager = function(){
 
             fn.call(scope || el, e, t, o);
         };
+        if(o.target){
+            h = createTargeted(h, o);
+        }
         if(o.delay){
             h = createDelayed(h, o);
         }

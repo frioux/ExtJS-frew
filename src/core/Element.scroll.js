@@ -63,7 +63,7 @@ Ext.Element.addMethods({
      */
     scrollTo : function(side, value, animate){
         var prop = side.toLowerCase() == "left" ? "scrollLeft" : "scrollTop";
-        if(!animate || !A){
+        if(!animate){
             this.dom[prop] = value;
         }else{
             var to = prop == "scrollLeft" ? [value, this.dom.scrollTop] : [this.dom.scrollLeft, value];

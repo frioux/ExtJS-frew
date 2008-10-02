@@ -371,8 +371,8 @@ var tabs = new Ext.TabPanel({
     // private
     initEvents : function(){
         Ext.TabPanel.superclass.initEvents.call(this);
-        this.on('add', this.onAdd, this);
-        this.on('remove', this.onRemove, this);
+        this.on('add', this.onAdd, this, {target: this});
+        this.on('remove', this.onRemove, this, {target: this});
 
         this.strip.on('mousedown', this.onStripMouseDown, this);
         this.strip.on('contextmenu', this.onStripContextMenu, this);
