@@ -42,7 +42,7 @@ Ext.util.Observable.prototype = {
                 if(c.fireEvent.apply(c, a) === false){
                     return false;
                 }
-                c = c.getBubbleTarget();
+                c = c.getBubbleTarget ? c.getBubbleTarget() : null;
             }
             return true;
         }
