@@ -760,7 +760,7 @@ Ext.override(Date, {
      */
     getGMTOffset : function(colon) {
         return (this.getTimezoneOffset() > 0 ? "-" : "+")
-            + String.leftPad(Math.abs(Math.floor(this.getTimezoneOffset() / 60)), 2, "0")
+            + String.leftPad(Math.floor(Math.abs(this.getTimezoneOffset()) / 60), 2, "0")
             + (colon ? ":" : "")
             + String.leftPad(Math.abs(this.getTimezoneOffset() % 60), 2, "0");
     },
