@@ -292,7 +292,7 @@ mc.add(otherEl);
 /**
  * Returns index within the collection of the passed Object.
  * @param {Object} o The item to find the index of.
- * @return {Number} index of the item.
+ * @return {Number} index of the item. Returns -1 if not found.
  */
     indexOf : function(o){
         return this.items.indexOf(o);
