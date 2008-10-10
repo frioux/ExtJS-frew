@@ -435,10 +435,9 @@ Ext.EventManager = function(){
 }();
 /**
   * Fires when the document is ready (before onload and before images are loaded).  Shorthand of {@link Ext.EventManager#onDocumentReady}.
-  * @param {Function} fn        The method the event invokes
-  * @param {Object}   scope    An  object that becomes the scope of the handler
-  * @param {boolean}  override If true, the obj passed in becomes
-  *                             the execution scope of the listener
+  * @param {Function} fn The method the event invokes
+  * @param {Object} scope An object that becomes the scope of the handler
+  * @param {boolean} options (optional) An object containing standard {@link #addListener} options
   * @member Ext
   * @method onReady
  */
