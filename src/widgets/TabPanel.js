@@ -134,6 +134,11 @@ Ext.TabPanel = Ext.extend(Ext.Panel,  {
      * @cfg {Boolean} layoutOnTabChange Set to true to do a layout of tab items as tabs are changed.
      */
     /**
+     * @cfg {String} tabCls <b>This config option is used on <u>child Components</u> of ths TabPanel.</b> A CSS
+     * class name applied to the tab strip item representing the child Component, allowing special
+     * styling to be applied.
+     */
+    /**
      * @cfg {Boolean} monitorResize True to automatically monitor window resize events and rerender the layout on
      * browser resize (defaults to true).
      */
