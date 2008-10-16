@@ -42,7 +42,7 @@ Ext.Ajax.request({
  * <p>The server script would need to return an executable Javascript statement which, when processed
  * using <tt>eval()</tt> will return either a config object with an {@link Ext.Component#xtype xtype},
  * or an instantiated Component. For example:</p><pre><code>
-{function() {
+(function() {
     function formatDate(value){
         return value ? value.dateFormat('M d, Y') : '';
     };
