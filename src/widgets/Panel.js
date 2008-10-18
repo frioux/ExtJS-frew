@@ -591,6 +591,12 @@ new Ext.Panel({
                 el.className = this[name+'Cls'];
                 this[name] = Ext.get(pnode.appendChild(el));
             }
+            if(this[name+'CssClass']){
+                this[name].addClass(this[name+'CssClass']);
+            }
+            if(this[name+'Style']){
+                this[name].applyStyles(this[name+'Style']);
+            }
         }
     },
 
@@ -669,6 +675,10 @@ new Ext.Panel({
             }
         }
 
+        if(this.padding !== undefined) {
+            this.body.setStyle('padding', this.body.addUnits(this.padding));
+        }
+
         if(this.border === false){
             this.el.addClass(this.baseCls + '-noborder');
             this.body.addClass(this.bodyCls + '-noborder');
@@ -688,10 +698,6 @@ new Ext.Panel({
 
         if(this.bodyBorder === false){
            this.body.addClass(this.bodyCls + '-noborder');
-        }
-
-        if(this.bodyStyle){
-           this.body.applyStyles(this.bodyStyle);
         }
 
         this.bwrap.enableDisplayMode('block');
