@@ -1,9 +1,41 @@
 /**
  * @class Ext.Container
  * @extends Ext.BoxComponent
- * <p>Base class for any {@link Ext.BoxComponent} that can contain other components. This class is intended
- * to be extended and should generally not need to be created directly via the new keyword. {@link Ext.Panel},
- * {@link Ext.Window} and {@link Ext.TabPanel} are the most commonly used Container classes.</p>
+ * <p>Base class for any {@link Ext.BoxComponent} that can contain other components. The most commonly
+ * used Container classes are {@link Ext.Panel}, {@link Ext.Window} and {@link Ext.TabPanel}, but you can
+ * create a lightweight Container to encapsulate an HTML element that is created to your
+ * specifications at render time by using the {@link Ext.Component#autoEl autoEl} config option
+ * which takes the form of a {@link Ext.DomHelper DomHelper} specification. If you do not need
+ * the capabilities offered by the above mentioned classes, for instance embedded
+ * {@link Ext.layout.ColumnLayout column} layouts inside FormPanels, then this is a useful technique.</p>
+ * <p>The code below illustrates both how to explicitly <i>create</i> a Container, and how to implicitly
+ * create one using the <b><tt>'container'</tt></b> xtype:<pre><code>
+var embeddedColumns = new Ext.Container({
+    autoEl: {},
+    layout: 'column',
+    defaults: {
+        xtype: 'container',
+        autoEl: {},
+        layout: 'form',
+        columnWidth: 0.5,
+        style: {
+            padding: '10px'
+        },
+    }
+    items: [{
+        items: {
+            xtype: 'datefield',
+            name: 'startDate',
+            fieldLabel: 'Start date'
+        }
+    }, {
+        items: {
+            xtype: 'datefield',
+            name: 'endDate',
+            fieldLabel: 'End date'
+        }
+    }]
+});</code></pre></p>
  * Containers handle the basic behavior of containing items, namely adding, inserting and removing them.
  * The specific layout logic required to visually render contained items is delegated to any one of the different
  * {@link #layout} classes available.</p>
