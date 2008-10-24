@@ -20,8 +20,8 @@ var embeddedColumns = new Ext.Container({
         columnWidth: 0.5,
         style: {
             padding: '10px'
-        },
-    }
+        }
+    },
     items: [{
         items: {
             xtype: 'datefield',
