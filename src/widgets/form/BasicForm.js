@@ -81,6 +81,8 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      * server is using JSON to send the return object, then the
      * <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> header
      * must be set to "text/html" in order to tell the browser to insert the text unchanged into the document body.</p>
+     * <p>Characters which are significant to an HTML parser must be sent as HTML entities, so encode
+     * "&lt;" as "&amp;lt;", "&amp;" as "&amp;amp;" etc.</p>
      * <p>The response text is retrieved from the document, and a fake XMLHttpRequest object
      * is created containing a <tt>responseText</tt> property in order to conform to the
      * requirements of event handlers and callbacks.</p>
