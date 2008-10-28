@@ -36,18 +36,18 @@ Format  Description                                                             
   H     24-hour format of an hour with leading zeros                              00 to 23
   i     Minutes, with leading zeros                                               00 to 59
   s     Seconds, with leading zeros                                               00 to 59
-  u     Milliseconds, with leading zeroes (arbitrary number of digits allowed)    Examples:
-                                                                                  001 (i.e. 1ms) or
-                                                                                  100 (i.e. 100ms) or
-                                                                                  999 (i.e. 999ms) or
-                                                                                  999876543210 (i.e. 999.876543210ms)
+  u     Decimal fraction of a second                                              Examples:
+        (minimum 1 digit, arbitrary number of digits allowed)                     001 (i.e. 0.001s) or
+                                                                                  100 (i.e. 0.100s) or
+                                                                                  999 (i.e. 0.999s) or
+                                                                                  999876543210 (i.e. 0.999876543210s)
   O     Difference to Greenwich time (GMT) in hours and minutes                   Example: +1030
   P     Difference to Greenwich time (GMT) with colon between hours and minutes   Example: -08:00
   T     Timezone abbreviation of the machine running the code                     Examples: EST, MDT, PDT ...
   Z     Timezone offset in seconds (negative if west of UTC, positive if east)    -43200 to 50400
-  c     ISO 8601 date (note: milliseconds, if present, must be specified with     Examples:
-        at least 1 digit. There is no limit to how many digits the millisecond    2007-04-17T15:19:21+08:00 or
-        value may contain. see http://www.w3.org/TR/NOTE-datetime for more info)  2008-03-16T16:18:22Z or
+  c     ISO 8601 date (note: the decimal fraction of a second, if specified,      Examples:
+        must contain at least 1 digit. There is no limit on the maximum number    2007-04-17T15:19:21+08:00 or
+        of digits allowed. see http://www.w3.org/TR/NOTE-datetime for more info)  2008-03-16T16:18:22Z or
                                                                                   2009-02-15T17:17:23.9+01:00 or
                                                                                   2010-01-14T18:16:24,999876543-07:00
   U     Seconds since the Unix Epoch (January 1 1970 00:00:00 GMT)                1193432466 or -2138434463
@@ -414,11 +414,13 @@ Ext.apply(Date, {
 
     // private
     createNewFormat : function(format) {
-        var funcName = "format" + Date.formatFunctions.count++;
+        var funcName = "format" + Date.formatFunctions.count++,
+            code = "Date.prototype." + funcName + " = function(){return ",
+            special = false,
+            ch = '';
+
         Date.formatFunctions[format] = funcName;
-        var code = "Date.prototype." + funcName + " = function(){return ";
-        var special = false;
-        var ch = '';
+
         for (var i = 0; i < format.length; ++i) {
             ch = format.charAt(i);
             if (!special && ch == "\\") {
@@ -437,24 +439,26 @@ Ext.apply(Date, {
 
     // private
     createParser : function(format) {
-        var funcName = "parse" + Date.parseFunctions.count++;
-        var regexNum = Date.parseRegexes.length;
-        var currentGroup = 1;
+        var funcName = "parse" + Date.parseFunctions.count++,
+            regexNum = Date.parseRegexes.length,
+            currentGroup = 1,
+            code = [
+                "Date." + funcName + " = function(input){",
+                    "var y, m, d, h = 0, i = 0, s = 0, ms = 0, o, z, u, v;",
+                    "input = String(input);",
+                    "d = new Date();",
+                    "y = d.getFullYear();",
+                    "m = d.getMonth();",
+                    "d = d.getDate();",
+                    "var results = input.match(Date.parseRegexes[" + regexNum + "]);",
+                    "if (results && results.length > 0) {\n"
+            ].join('\n'),
+            regex = "",
+            special = false,
+            ch = '';
+
         Date.parseFunctions[format] = funcName;
 
-        var code = "Date." + funcName + " = function(input){\n"
-            + "var y, m, d, h = 0, i = 0, s = 0, ms = 0, o, z, u, v;\n"
-            + "input = String(input);\n"
-            + "d = new Date();\n"
-            + "y = d.getFullYear();\n"
-            + "m = d.getMonth();\n"
-            + "d = d.getDate();\n"
-            + "var results = input.match(Date.parseRegexes[" + regexNum + "]);\n"
-            + "if (results && results.length > 0) {";
-        var regex = "";
-
-        var special = false;
-        var ch = '';
         for (var i = 0; i < format.length; ++i) {
             ch = format.charAt(i);
             if (!special && ch == "\\") {
@@ -474,26 +478,30 @@ Ext.apply(Date, {
             }
         }
 
-        code += "if (u){\n"
-            + "v = new Date(u * 1000);\n" // give top priority to UNIX time
-            + "}else if (y >= 0 && m >= 0 && d > 0 && h >= 0 && i >= 0 && s >= 0 && ms >= 0){\n"
-            + "v = new Date(y, m, d, h, i, s, ms);\n"
-            + "}else if (y >= 0 && m >= 0 && d > 0 && h >= 0 && i >= 0 && s >= 0){\n"
-            + "v = new Date(y, m, d, h, i, s);\n"
-            + "}else if (y >= 0 && m >= 0 && d > 0 && h >= 0 && i >= 0){\n"
-            + "v = new Date(y, m, d, h, i);\n"
-            + "}else if (y >= 0 && m >= 0 && d > 0 && h >= 0){\n"
-            + "v = new Date(y, m, d, h);\n"
-            + "}else if (y >= 0 && m >= 0 && d > 0){\n"
-            + "v = new Date(y, m, d);\n"
-            + "}else if (y >= 0 && m >= 0){\n"
-            + "v = new Date(y, m);\n"
-            + "}else if (y >= 0){\n"
-            + "v = new Date(y);\n"
-            + "}\n}\nreturn (v && (z || o))?" // favour UTC offset over GMT offset
-            +     " (Ext.type(z) == 'number' ? v.add(Date.SECOND, -v.getTimezoneOffset() * 60 - z) :" // reset to UTC, then add offset
-            +         " v.add(Date.MINUTE, -v.getTimezoneOffset() + (sn == '+'? -1 : 1) * (hr * 60 + mn))) : v;\n" // reset to GMT, then add offset
-            + "}";
+        code += [
+                    "if (u){",
+                        "v = new Date(u * 1000);", // give top priority to UNIX time
+                    "}else if (y >= 0 && m >= 0 && d > 0 && h >= 0 && i >= 0 && s >= 0 && ms >= 0){",
+                        "v = new Date(y, m, d, h, i, s, ms);",
+                    "}else if (y >= 0 && m >= 0 && d > 0 && h >= 0 && i >= 0 && s >= 0){",
+                        "v = new Date(y, m, d, h, i, s);",
+                    "}else if (y >= 0 && m >= 0 && d > 0 && h >= 0 && i >= 0){",
+                        "v = new Date(y, m, d, h, i);",
+                    "}else if (y >= 0 && m >= 0 && d > 0 && h >= 0){",
+                        "v = new Date(y, m, d, h);",
+                    "}else if (y >= 0 && m >= 0 && d > 0){",
+                        "v = new Date(y, m, d);",
+                    "}else if (y >= 0 && m >= 0){",
+                        "v = new Date(y, m);",
+                    "}else if (y >= 0){",
+                        "v = new Date(y);",
+                    "}",
+                "}",
+                "return (v && (z != null || o != null))?" // favour UTC offset over GMT offset
+                    + " (Ext.type(z) == 'number' ? v.add(Date.SECOND, -v.getTimezoneOffset() * 60 - z) :" // reset to UTC, then add offset
+                    + " v.add(Date.MINUTE, -v.getTimezoneOffset() + (sn == '+'? -1 : 1) * (hr * 60 + mn))) : v;", // reset to GMT, then add offset
+            "}"
+        ].join('\n');
 
         Date.parseRegexes[regexNum] = new RegExp("^" + regex + "$", "i");
         eval(code);
@@ -683,17 +691,24 @@ Ext.apply(Date, {
             s:"([+\-]?\\d{1,5})" // leading '+' sign is optional for UTC offset
         },
         c: function() {
-            var calc = [];
-            var arr = [
-                $f("Y", 1), // year
-                $f("m", 2), // month
-                $f("d", 3), // day
-                $f("h", 4), // hour
-                $f("i", 5), // minute
-                $f("s", 6), // second
-                {c:"ms = (results[7] || '.0').substring(1); ms = parseInt(ms, 10)/Math.pow(10, ms.length - 3);\n"}, // millisecond decimal fraction (with leading zeroes + arbitrary no. of digits)
-                {c:"if(results[9] == 'Z'){\no = 0;\n}else{\n" + $f("P", 9).c + "\n}"} // allow both "Z" (i.e. UTC) and "+08:00" (i.e. GMT) time zone delimiters
-            ];
+            var calc = [],
+                arr = [
+                    $f("Y", 1), // year
+                    $f("m", 2), // month
+                    $f("d", 3), // day
+                    $f("h", 4), // hour
+                    $f("i", 5), // minute
+                    $f("s", 6), // second
+                    $f("u", 7), // millisecond decimal fraction (with leading zeroes. minimum = 3 digits, maximum = unlimited)
+                    {c:[ // allow both "Z" (i.e. UTC) and "+08:00" (i.e. GMT) time zone delimiters
+                        "if(results[9] == 'Z'){",
+                            "z = 0;",
+                        "}else{",
+                            $f("P", 9).c,
+                        "}"
+                    ].join('\n')}
+                ];
+
             for (var i = 0, l = arr.length; i < l; ++i) {
                 calc.push(arr[i].c);
             }
@@ -702,8 +717,8 @@ Ext.apply(Date, {
                 g:1,
                 c:calc.join(""),
                 s:arr[0].s + "-" + arr[1].s + "-" + arr[2].s + "T" + arr[3].s + ":" + arr[4].s + ":" + arr[5].s
-                      + "((\.|,)\\d+)?" // ",998465" or ".998465" millisecond decimal fraction
-                      + "(" + $f("P", null).s + "|Z)" // "Z" (UTC) or "GMT+08:00" (GMT offset)
+                      + "((\.|,)\\d+)?" // decimal fraction of a second (e.g. ",998465" or ".998465")
+                      + "(Z|([+\-]\\d{2}:\\d{2}))" // "Z" (UTC) or "+08:00" (GMT offset)
             }
         },
         U: {
@@ -785,11 +800,12 @@ Ext.override(Date, {
      */
     getWeekOfYear : function() {
         // adapted from http://www.merlyn.demon.co.uk/weekcalc.htm
-        var ms1d = 864e5; // milliseconds in a day
-        var ms7d = 7 * ms1d; // milliseconds in a week
-        var DC3 = Date.UTC(this.getFullYear(), this.getMonth(), this.getDate() + 3) / ms1d; // an Absolute Day Number
-        var AWN = Math.floor(DC3 / 7); // an Absolute Week Number
-        var Wyr = new Date(AWN * ms7d).getUTCFullYear();
+        var ms1d = 864e5, // milliseconds in a day
+            ms7d = 7 * ms1d, // milliseconds in a week
+            DC3 = Date.UTC(this.getFullYear(), this.getMonth(), this.getDate() + 3) / ms1d, // an Absolute Day Number
+            AWN = Math.floor(DC3 / 7), // an Absolute Week Number
+            Wyr = new Date(AWN * ms7d).getUTCFullYear();
+
         return AWN - Math.floor(Date.UTC(Wyr, 0, 7) / ms7d) + 1;
     },
 
