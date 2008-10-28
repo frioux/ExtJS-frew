@@ -29,3 +29,4 @@ Ext.extend(Ext.data.SimpleStore, Ext.data.Store, {
         Ext.data.SimpleStore.superclass.loadData.call(this, data, append);
     }
 });
+Ext.reg('simplestore', Ext.data.SimpleStore);

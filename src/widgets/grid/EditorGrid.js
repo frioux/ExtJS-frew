@@ -194,6 +194,9 @@ Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
             if(this.fireEvent("beforeedit", e) !== false && !e.cancel){
                 this.editing = true;
                 var ed = this.colModel.getCellEditor(col, row);
+                if(!ed){
+                    return;
+                }
                 if(!ed.rendered){
                     ed.render(this.view.getEditorParent(ed));
                 }
@@ -205,7 +208,7 @@ Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
                     ed.on("specialkey", this.selModel.onEditorKey, this.selModel);
                     this.activeEditor = ed;
                     var v = this.preEditValue(r, field);
-                    ed.startEdit(this.view.getCell(row, col).firstChild, v);
+                    ed.startEdit(this.view.getCell(row, col).firstChild, v === undefined ? '' : v);
                 }).defer(50, this);
             }
         }

@@ -89,7 +89,7 @@ Ext.ComponentMgr = function(){
          * the config object does not contain an xtype. (Optional if the config contains an xtype).
          */
         create : function(config, defaultType){
-            return new types[config.xtype || defaultType](config);
+            return config.render ? config : new types[config.xtype || defaultType](config);
         },
 
         registerPlugin : function(ptype, cls){
@@ -113,3 +113,4 @@ Ext.ComponentMgr = function(){
  */
 Ext.reg = Ext.ComponentMgr.registerType; // this will be called a lot internally, shorthand to keep the bytes down
 Ext.preg = Ext.ComponentMgr.registerPlugin;
+Ext.create = Ext.ComponentMgr.create;

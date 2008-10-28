@@ -153,7 +153,7 @@
     line-height:16px;
     display:block;
 }
-.x-toolbar .ytb-sep {
+.x-toolbar .xtb-sep {
 	background-image: url(../images/default/grid/grid-blue-split.gif);
 	background-position: center;
 	background-repeat: no-repeat;
@@ -166,7 +166,7 @@
 	margin: 0 2px 0;
 	border:0;
 }
-.x-toolbar .ytb-spacer {
+.x-toolbar .xtb-spacer {
     width:2px;
 }
 
@@ -224,7 +224,7 @@
 }
 
 .x-toolbar-right td {
-    text-align:left;
+    text-align: center;
 }
 
 .x-panel-tbar, .x-panel-bbar, .x-window-tbar, .x-window-bbar, .x-tab-panel-tbar, .x-tab-panel-bbar, .x-plain-tbar, .x-plain-bbar {
@@ -262,4 +262,26 @@ div.x-toolbar-no-items {
 }
 .ext-ie .x-toolbar-cell .x-form-field-wrap {
     height:21px;
+}
+
+
+
+/* StatusBar */
+
+.x-statusbar .x-status-text {
+    height: 21px;
+    line-height: 21px;
+    padding: 0 4px;
+    cursor: default;
+}
+.x-statusbar .x-status-busy {
+    padding-left: 25px;
+    background: transparent url(../images/default/grid/loading.gif) no-repeat 3px 3px;
+}
+.x-statusbar .x-status-text-panel {
+    border-top: 1px solid #99BBE8;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    border-left: 1px solid #99BBE8;
+    padding: 2px 8px 2px 5px;
 }

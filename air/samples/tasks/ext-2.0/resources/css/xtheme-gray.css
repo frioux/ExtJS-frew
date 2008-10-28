@@ -182,7 +182,7 @@
 .x-toolbar .x-btn-click .x-btn-center, .x-toolbar .x-btn-pressed .x-btn-center, .x-toolbar .x-btn-menu-active .x-btn-center{
 	background-image:url(../images/gray/toolbar/tb-btn-sprite.gif);
 }
-.x-toolbar .ytb-sep {
+.x-toolbar .xtb-sep {
 	background-image: url(../images/default/grid/grid-split.gif);
 }
 

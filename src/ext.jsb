@@ -36,6 +36,7 @@
     <include name="util\DelayedTask.js" />
     <include name="util\TaskMgr.js" />
     <include name="util\MixedCollection.js" />
+    <include name="widgets\ComponentMgr.js" />
     <include name="util\JSON.js" />
     <include name="util\Format.js" />
     <include name="util\XTemplate.js" />
@@ -59,6 +60,7 @@
     <include name="data\Store.js" />
     <include name="data\SimpleStore.js" />
     <include name="data\JsonStore.js" />
+    <include name="data\XmlStore.js" />
     <include name="data\DirectStore.js" />
     <include name="data\DataField.js" />
     <include name="data\DataReader.js" />
@@ -72,7 +74,6 @@
     <include name="data\ArrayReader.js" />
     <include name="data\Tree.js" />
     <include name="data\GroupingStore.js" />
-    <include name="widgets\ComponentMgr.js" />
     <include name="widgets\Component.js" />
     <include name="widgets\Action.js" />
     <include name="widgets\Layer.js" />
@@ -593,6 +594,7 @@
   <file name="data\StoreMgr.js" path="data" />
   <file name="data\Tree.js" path="data" />
   <file name="data\XmlReader.js" path="data" />
+  <file name="data\XmlStore.js" path="data" />
   <file name="dd\DDCore.js" path="dd" />
   <file name="dd\DragSource.js" path="dd" />
   <file name="dd\DragTracker.js" path="dd" />
@@ -613,6 +615,7 @@
   <file name="locale\ext-lang-en_GB.js" path="locale" />
   <file name="locale\ext-lang-es.js" path="locale" />
   <file name="locale\ext-lang-fa.js" path="locale" />
+  <file name="locale\ext-lang-fi.js" path="locale" />
   <file name="locale\ext-lang-fr.js" path="locale" />
   <file name="locale\ext-lang-fr_CA.js" path="locale" />
   <file name="locale\ext-lang-gr.js" path="locale" />

@@ -354,62 +354,56 @@
 }
 /* Buttons */
 
-.x-panel-btns-ct {
+.x-panel-btns {
     padding:5px;
+    overflow:hidden;
 }
 
-.x-panel-btns-ct .x-btn{
+.x-panel-btns-right .x-panel-fbar {
 	float:right;
 	clear:none;
 }
-.x-panel-btns-ct .x-panel-btns td {
-	border:0;
-	padding:0;
-}
-.x-panel-btns-ct .x-panel-btns-right table{
-	float:right;
+.x-panel-btns-left .x-panel-fbar {
 	clear:none;
 }
-.x-panel-btns-ct .x-panel-btns-left table{
-	float:left;
-	clear:none;
-}
-.x-panel-btns-ct .x-panel-btns-center{
+.x-panel-btns-center{
 	text-align:center; /*ie*/
 }
-.x-panel-btns-ct .x-panel-btns-center table{
+.x-panel-btns-center .x-toolbar-ct {
 	margin:0 auto; /*everyone else*/
+    text-align:left;
+    width:auto;
 }
-.x-panel-btns-ct table td.x-panel-btn-td{
+.x-panel-btns td.x-toolbar-cell{
 	padding:3px;
 }
 
-.x-panel-btns-ct .x-btn-focus .x-btn-left{
+.x-panel-btns .x-btn-focus .x-btn-left{
 	background-position:0 -147px;
 }
-.x-panel-btns-ct .x-btn-focus .x-btn-right{
+.x-panel-btns .x-btn-focus .x-btn-right{
 	background-position:0 -168px;
 }
-.x-panel-btns-ct .x-btn-focus .x-btn-center{
+.x-panel-btns .x-btn-focus .x-btn-center{
 	background-position:0 -189px;
 }
 
-.x-panel-btns-ct .x-btn-over .x-btn-left{
+.x-panel-btns .x-btn-over .x-btn-left{
 	background-position:0 -63px;
 }
-.x-panel-btns-ct .x-btn-over .x-btn-right{
+.x-panel-btns .x-btn-over .x-btn-right{
 	background-position:0 -84px;
 }
-.x-panel-btns-ct .x-btn-over .x-btn-center{
+.x-panel-btns .x-btn-over .x-btn-center{
 	background-position:0 -105px;
 }
 
-.x-panel-btns-ct .x-btn-click .x-btn-center{
+.x-panel-btns .x-btn-click .x-btn-center{
 	background-position:0 -126px;
 }
-.x-panel-btns-ct .x-btn-click  .x-btn-right{
+.x-panel-btns .x-btn-click  .x-btn-right{
 	background-position:0 -84px;
 }
-.x-panel-btns-ct .x-btn-click .x-btn-left{
+.x-panel-btns .x-btn-click .x-btn-left{
 	background-position:0 -63px;
 }

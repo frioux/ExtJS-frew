@@ -356,15 +356,19 @@
   <file name="menu\xl-toolbar.css" path="menu" />
   <file name="menu\xl-toolbar.html" path="menu" />
   <file name="menu\xl-toolbar.js" path="menu" />
-  <file name="direct\classes\config.php" path="direct\classes" />
   <file name="direct\classes\Echo.php" path="direct\classes" />
   <file name="direct\.tmp_direct.html~" path="direct" />
-  <file name="direct\api.php" path="direct" />
   <file name="direct\direct.html" path="direct" />
-  <file name="direct\direct.js" path="direct" />
-  <file name="direct\router.php" path="direct" />
-  <file name="direct\direct.php" path="direct" />
-  <file name="direct\classes\EchoAction.php" path="direct\classes" />
+  <file name="toolbar\images\add.gif" path="toolbar\images" />
+  <file name="toolbar\images\add16.gif" path="toolbar\images" />
+  <file name="toolbar\images\add24.gif" path="toolbar\images" />
+  <file name="toolbar\images\customize.gif" path="toolbar\images" />
+  <file name="toolbar\images\insert-marker.gif" path="toolbar\images" />
+  <file name="toolbar\customizable.css" path="toolbar" />
+  <file name="toolbar\customizable.html" path="toolbar" />
+  <file name="toolbar\overflow.html" path="toolbar" />
+  <file name="toolbar\toolbars.css" path="toolbar" />
+  <file name="toolbar\toolbars.html" path="toolbar" />
   <file name="button\images\add.gif" path="button\images" />
   <file name="button\images\add16.gif" path="button\images" />
   <file name="button\images\add24.gif" path="button\images" />
@@ -434,6 +438,13 @@
   <file name="desktop\wallpapers\sky.jpg" path="desktop\wallpapers" />
   <file name="desktop\credits.txt" path="desktop" />
   <file name="desktop\desktop.html" path="desktop" />
+  <file name="direct\classes\config.php" path="direct\classes" />
+  <file name="direct\classes\EchoAction.php" path="direct\classes" />
+  <file name="direct\api.php" path="direct" />
+  <file name="direct\direct.php" path="direct" />
+  <file name="direct\poll.html" path="direct" />
+  <file name="direct\poll.php" path="direct" />
+  <file name="direct\router.php" path="direct" />
   <file name="feed-viewer\images\article.gif" path="feed-viewer\images" />
   <file name="feed-viewer\images\bg.gif" path="feed-viewer\images" />
   <file name="feed-viewer\images\bullet.gif" path="feed-viewer\images" />
@@ -480,10 +491,14 @@
   <file name="form\absform.html" path="form" />
   <file name="form\adv-vtypes.html" path="form" />
   <file name="form\anchoring.html" path="form" />
+  <file name="form\check-radio.html" path="form" />
   <file name="form\combos.css" path="form" />
   <file name="form\combos.html" path="form" />
   <file name="form\custom.html" path="form" />
   <file name="form\dynamic.html" path="form" />
+  <file name="form\file-upload.css" path="form" />
+  <file name="form\file-upload.html" path="form" />
+  <file name="form\file-upload.php" path="form" />
   <file name="form\form-grid.html" path="form" />
   <file name="form\forms.css" path="form" />
   <file name="form\forum-search.html" path="form" />
@@ -500,6 +515,7 @@
   <file name="forum\messages.png" path="forum" />
   <file name="forum\message_edit.png" path="forum" />
   <file name="forum\preview.png" path="forum" />
+  <file name="grid\images\panel-handle.gif" path="grid\images" />
   <file name="grid\images\summary-bg.gif" path="grid\images" />
   <file name="grid\images\summary-group-bg.gif" path="grid\images" />
   <file name="grid\array-grid.html" path="grid" />
@@ -516,11 +532,13 @@
   <file name="grid\paging.html" path="grid" />
   <file name="grid\plants.xml" path="grid" />
   <file name="grid\sheldon.xml" path="grid" />
+  <file name="grid\sliding-pager.html" path="grid" />
   <file name="grid\summary.css" path="grid" />
   <file name="grid\summary.json" path="grid" />
   <file name="grid\topic.gif" path="grid" />
   <file name="grid\totals.html" path="grid" />
   <file name="grid\xml-grid.html" path="grid" />
+  <file name="history\history.html" path="history" />
   <file name="layout\images\add-feed.gif" path="layout\images" />
   <file name="layout\images\article.gif" path="layout\images" />
   <file name="layout\images\bullet.gif" path="layout\images" />
@@ -549,7 +567,9 @@
   <file name="layout\anchor.html" path="layout" />
   <file name="layout\column.html" path="layout" />
   <file name="layout\complex.html" path="layout" />
+  <file name="layout\hbox.html" path="layout" />
   <file name="layout\table.html" path="layout" />
+  <file name="layout\vbox.html" path="layout" />
   <file name="layout-browser\images\disk.png" path="layout-browser\images" />
   <file name="layout-browser\images\email_go.png" path="layout-browser\images" />
   <file name="layout-browser\images\layout-browser-hd-bg.gif" path="layout-browser\images" />
@@ -595,6 +615,7 @@
   <file name="shared\icons\fam\add.gif" path="shared\icons\fam" />
   <file name="shared\icons\fam\application_go.png" path="shared\icons\fam" />
   <file name="shared\icons\fam\application_view_list.png" path="shared\icons\fam" />
+  <file name="shared\icons\fam\book.png" path="shared\icons\fam" />
   <file name="shared\icons\fam\cog.png" path="shared\icons\fam" />
   <file name="shared\icons\fam\cog_edit.png" path="shared\icons\fam" />
   <file name="shared\icons\fam\connect.gif" path="shared\icons\fam" />
@@ -607,6 +628,7 @@
   <file name="shared\icons\fam\folder_go.png" path="shared\icons\fam" />
   <file name="shared\icons\fam\folder_wrench.png" path="shared\icons\fam" />
   <file name="shared\icons\fam\grid.png" path="shared\icons\fam" />
+  <file name="shared\icons\fam\image_add.png" path="shared\icons\fam" />
   <file name="shared\icons\fam\plugin.gif" path="shared\icons\fam" />
   <file name="shared\icons\fam\plugin_add.gif" path="shared\icons\fam" />
   <file name="shared\icons\fam\rss_go.png" path="shared\icons\fam" />
@@ -644,6 +666,7 @@
   <file name="shared\screens\form-custom.gif" path="shared\screens" />
   <file name="shared\screens\form-dynamic.gif" path="shared\screens" />
   <file name="shared\screens\form-xml.gif" path="shared\screens" />
+  <file name="shared\screens\gmap-panel.gif" path="shared\screens" />
   <file name="shared\screens\grid-array.gif" path="shared\screens" />
   <file name="shared\screens\grid-edit.gif" path="shared\screens" />
   <file name="shared\screens\grid-grouping.gif" path="shared\screens" />
@@ -651,6 +674,7 @@
   <file name="shared\screens\grid-plugins.gif" path="shared\screens" />
   <file name="shared\screens\grid-summary.gif" path="shared\screens" />
   <file name="shared\screens\grid-xml.gif" path="shared\screens" />
+  <file name="shared\screens\history.gif" path="shared\screens" />
   <file name="shared\screens\msg-box.gif" path="shared\screens" />
   <file name="shared\screens\organizer.gif" path="shared\screens" />
   <file name="shared\screens\panel.gif" path="shared\screens" />
@@ -706,12 +730,6 @@
   <file name="tasks\images\s.gif" path="tasks\images" />
   <file name="tasks\tasks.css" path="tasks" />
   <file name="tasks\tasks.html" path="tasks" />
-  <file name="toolbar\images\add.gif" path="toolbar\images" />
-  <file name="toolbar\images\add16.gif" path="toolbar\images" />
-  <file name="toolbar\images\add24.gif" path="toolbar\images" />
-  <file name="toolbar\overflow.html" path="toolbar" />
-  <file name="toolbar\toolbars.css" path="toolbar" />
-  <file name="toolbar\toolbars.html" path="toolbar" />
   <file name="tree\images\thumbs\dance_fever.jpg" path="tree\images\thumbs" />
   <file name="tree\images\thumbs\gangster_zack.jpg" path="tree\images\thumbs" />
   <file name="tree\images\thumbs\kids_hug.jpg" path="tree\images\thumbs" />
@@ -735,6 +753,9 @@
   <file name="tree\reorder.html" path="tree" />
   <file name="tree\save-dep.php" path="tree" />
   <file name="tree\two-trees.html" path="tree" />
+  <file name="tree\xml-tree-data.xml" path="tree" />
+  <file name="tree\xml-tree-loader.css" path="tree" />
+  <file name="tree\xml-tree-loader.html" path="tree" />
   <file name="view\images\thumbs\dance_fever.jpg" path="view\images\thumbs" />
   <file name="view\images\thumbs\gangster_zack.jpg" path="view\images\thumbs" />
   <file name="view\images\thumbs\kids_hug.jpg" path="view\images\thumbs" />
@@ -756,6 +777,7 @@
   <file name="view\get-images.php" path="view" />
   <file name="view\list-view.css" path="view" />
   <file name="view\list-view.html" path="view" />
+  <file name="window\gmap.html" path="window" />
   <file name="window\hello.html" path="window" />
   <file name="window\layout.html" path="window" />
   <file name="examples.css" path="" />
@@ -766,16 +788,6 @@
   <file name="info-bg.gif" path="" />
   <file name="lib.css" path="" />
   <file name="README.txt" path="" />
-  <file name="form\check-radio.html" path="form" />
-  <file name="form\file-upload.css" path="form" />
-  <file name="form\file-upload.html" path="form" />
-  <file name="form\file-upload.php" path="form" />
-  <file name="grid\images\panel-handle.gif" path="grid\images" />
-  <file name="grid\sliding-pager.html" path="grid" />
-  <file name="shared\icons\fam\book.png" path="shared\icons\fam" />
-  <file name="tree\xml-tree-data.xml" path="tree" />
-  <file name="tree\xml-tree-loader.css" path="tree" />
-  <file name="tree\xml-tree-loader.html" path="tree" />
   <file name="button\buttons.js" path="button" />
   <file name="chart\charts.js" path="chart" />
   <file name="core\spotlight-example.js" path="core" />
@@ -789,6 +801,8 @@
   <file name="desktop\js\StartMenu.js" path="desktop\js" />
   <file name="desktop\js\TaskBar.js" path="desktop\js" />
   <file name="desktop\sample.js" path="desktop" />
+  <file name="direct\direct.js" path="direct" />
+  <file name="direct\poll.js" path="direct" />
   <file name="feed-viewer\FeedGrid.js" path="feed-viewer" />
   <file name="feed-viewer\FeedPanel.js" path="feed-viewer" />
   <file name="feed-viewer\FeedViewer.js" path="feed-viewer" />
@@ -828,6 +842,7 @@
   <file name="grid\SlidingPager.js" path="grid" />
   <file name="grid\totals.js" path="grid" />
   <file name="grid\xml-grid.js" path="grid" />
+  <file name="history\history.js" path="history" />
   <file name="layout-browser\layouts\basic.js" path="layout-browser\layouts" />
   <file name="layout-browser\layouts\combination.js" path="layout-browser\layouts" />
   <file name="layout-browser\layouts\custom.js" path="layout-browser\layouts" />
@@ -848,7 +863,6 @@
   <file name="portal\sample-grid.js" path="portal" />
   <file name="portal\sample.js" path="portal" />
   <file name="resizable\basic.js" path="resizable" />
-  <file name="shared\icons\fam\image_add.png" path="shared\icons\fam" />
   <file name="simple-widgets\progress-bar.js" path="simple-widgets" />
   <file name="simple-widgets\qtips.js" path="simple-widgets" />
   <file name="slider\slider.js" path="slider" />
@@ -862,8 +876,12 @@
   <file name="tasks\classes.js" path="tasks" />
   <file name="tasks\gears.js" path="tasks" />
   <file name="tasks\tasks.js" path="tasks" />
+  <file name="toolbar\customizable.js" path="toolbar" />
   <file name="toolbar\overflow.js" path="toolbar" />
   <file name="toolbar\toolbars.js" path="toolbar" />
+  <file name="tree\check-nodes.json" path="tree" />
+  <file name="tree\check-tree.html" path="tree" />
+  <file name="tree\check-tree.js" path="tree" />
   <file name="tree\column-tree.js" path="tree" />
   <file name="tree\ColumnNodeUI.js" path="tree" />
   <file name="tree\reorder.js" path="tree" />
@@ -875,6 +893,8 @@
   <file name="view\data-view-plugins.js" path="view" />
   <file name="view\data-view.js" path="view" />
   <file name="view\list-view.js" path="view" />
+  <file name="window\Ext.ux.GMapPanel.js" path="window" />
+  <file name="window\gmap.js" path="window" />
   <file name="window\hello.js" path="window" />
   <file name="window\layout.js" path="window" />
   <file name="code-display.js" path="" />

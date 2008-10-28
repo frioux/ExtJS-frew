@@ -378,6 +378,15 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         });
         this.tb.doLayout();
 
+        this.createIFrame();
+
+        if(!this.width){
+            var sz = this.el.getSize();
+            this.setSize(sz.width, this.height || sz.height);
+        }
+    },
+
+    createIFrame: function(){
         var iframe = document.createElement('iframe');
         iframe.name = Ext.id();
         iframe.frameBorder = '0';
@@ -387,18 +396,13 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         this.iframe = iframe;
 
         this.initFrame();
-        
+
         if(this.autoMonitorDesignMode !== false){
             this.monitorTask = Ext.TaskMgr.start({
                 run: this.checkDesignMode,
                 scope: this,
                 interval:100
             });
-        }
-
-        if(!this.width){
-            var sz = this.el.getSize();
-            this.setSize(sz.width, this.height || sz.height);
         }
     },
 

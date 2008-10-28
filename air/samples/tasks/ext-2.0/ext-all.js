@@ -20063,7 +20063,7 @@ Ext.reg('tbitem', T.Item);
 
 T.Separator = function(){
     var s = document.createElement("span");
-    s.className = "ytb-sep";
+    s.className = "xtb-sep";
     T.Separator.superclass.constructor.call(this, s);
 };
 Ext.extend(T.Separator, T.Item, {
@@ -20076,7 +20076,7 @@ Ext.reg('tbseparator', T.Separator);
 
 T.Spacer = function(){
     var s = document.createElement("div");
-    s.className = "ytb-spacer";
+    s.className = "xtb-spacer";
     T.Spacer.superclass.constructor.call(this, s);
 };
 Ext.extend(T.Spacer, T.Item, {
@@ -20100,7 +20100,7 @@ Ext.reg('tbfill', T.Fill);
 
 T.TextItem = function(t){
     var s = document.createElement("span");
-    s.className = "ytb-text";
+    s.className = "xtb-text";
     s.innerHTML = t.text ? t.text : t;
     T.TextItem.superclass.constructor.call(this, s);
 };

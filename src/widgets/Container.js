@@ -453,7 +453,7 @@ myTabPanel.setActiveTab(myNewGrid);
 
     // private
     createComponent : function(config){
-        return Ext.ComponentMgr.create(config, this.defaultType);
+        return Ext.create(config, this.defaultType);
     },
 
     /**

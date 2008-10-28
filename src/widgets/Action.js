@@ -46,6 +46,7 @@ action.setText('Something else');
  */
 Ext.Action = function(config){
     this.initialConfig = config;
+    this.itemId = config.itemId = (config.itemId || config.id || Ext.id());
     this.items = [];
 }
 

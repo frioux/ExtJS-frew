@@ -137,7 +137,9 @@ Ext.data.Store = function(config){
     }
 
     this.sortToggle = {};
-	if(this.sortInfo){
+    if(this.sortField){
+        this.setDefaultSort(this.sortField, this.sortDir);
+    }else if(this.sortInfo){
 		this.setDefaultSort(this.sortInfo.field, this.sortInfo.direction);
 	}
 
@@ -809,3 +811,5 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
         this.baseParams[name] = value;
     }
 });
+
+Ext.reg('store', Ext.data.Store);

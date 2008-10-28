@@ -223,19 +223,19 @@ Ext.util.Format = function(){
             }
         }(),
 
+
         /**
-         * Formats the number according to the format string; adheres to the american number standard
-         * where a comma is inserted after every 3 digits. note: there should be only 1 contiguous number
-         * in the format, where a number consists of digits, period, and commas
-         * any other characters can be wrapped around this number, including ?$?, ?%?, or text
+         * Formats the number according to the format string.
          * <div style="margin-left:40px">examples (123456.789):
          * <div style="margin-left:10px">
-         * ?0? - (123456) show only digits, no precision<br>
-         * ?0.00? - (123456.78) show only digits, 2 precision<br>
-         * ?0.0000? - (123456.7890) show only digits, 4 precision<br>
-         * ?0,000? - (123,456) show comma and digits, no precision<br>
-         * ?0,000.00? - (123,456.78) show comma and digits, 2 precision<br>
-         * ?0,0.00? - (123,456.78) shortcut method, show comma and digits, 2 precision<br>
+         * 0 - (123456) show only digits, no precision<br>
+         * 0.00 - (123456.78) show only digits, 2 precision<br>
+         * 0.0000 - (123456.7890) show only digits, 4 precision<br>
+         * 0,000 - (123,456) show comma and digits, no precision<br>
+         * 0,000.00 - (123,456.78) show comma and digits, 2 precision<br>
+         * 0,0.00 - (123,456.78) shortcut method, show comma and digits, 2 precision<br>
+         * To reverse the grouping (,) and decimal (.) for international numbers, add /i to the end.
+          * For example: 0.000,00/i
          * </div</div>
          *
          * @method format
@@ -252,52 +252,52 @@ Ext.util.Format = function(){
             if(typeof v != 'number' || isNaN(v)){
                 return '';
             }
-            var hasComma = -1 < format.indexOf(','),
-                psplit = format.replace(/[^\d\.]/g,'').split('.');
+            var comma = ',';
+            var dec = '.';
+            var i18n = false;
+            
+            if(format.substr(format.length - 2) == '/i'){
+                format = format.substr(0, format.length-2);
+                i18n = true;
+                comma = '.';
+                dec = ',';
+            }
 
-            // compute precision
+            var hasComma = format.indexOf(comma) != -1,
+                psplit = (i18n ? format.replace(/[^\d\,]/g,'') : format.replace(/[^\d\.]/g,'')).split(dec);
+
             if (1 < psplit.length) {
-                // fix number precision
                 v = v.toFixed(psplit[1].length);
             }
-            // error: too many periods
             else if (2 < psplit.length) {
                 throw('NumberFormatException: invalid format, formats should have no more than 1 period: ' + format);
             }
-            // remove precision
             else {
                 v = v.toFixed(0);
             }
 
-            // get the string now that precision is correct
             var fnum = v.toString();
 
-            // format has comma, then compute commas
             if (hasComma) {
-                // remove precision for computation
                 psplit = fnum.split('.');
 
                 var cnum = psplit[0],
                     parr = [],
                     j = cnum.length,
                     m = Math.floor(j / 3),
-                    n = cnum.length % 3 || 3; // n cannot be ZERO or causes infinite loop
+                    n = cnum.length % 3 || 3;
 
-                // break the number into chunks of 3 digits; first chunk may be less than 3
                 for (var i = 0; i < j; i += n) {
                     if (i != 0) {n = 3;}
                     parr[parr.length] = cnum.substr(i, n);
                     m -= 1;
                 }
-
-                // put chunks back together, separated by comma
-                fnum = parr.join(',');
-
-                // add the precision back in
-                if (psplit[1]) {fnum += '.' + psplit[1];}
+                fnum = parr.join(comma);
+                if (psplit[1]) {
+                    fnum += dec + psplit[1];
+                }
             }
 
-            // replace the number portion of the format with fnum
             return format.replace(/[\d,?\.?]+/, fnum);
         },
 

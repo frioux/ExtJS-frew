@@ -79,7 +79,7 @@ Ext.menu.Menu = function(config){
      * @type Ext.util.MixedCollection
      */
 
-    this.items = new Ext.util.MixedCollection();
+    this.items = new Ext.util.MixedCollection(false, Ext.Container.prototype.getComponentId);
     if(mis){
         this.add.apply(this, mis);
     }
@@ -136,7 +136,7 @@ Ext.extend(Ext.menu.Menu, Ext.util.Observable, {
             shadow:this.shadow,
             constrain: false,
             parentEl: this.parentEl || document.body,
-            zindex:15000
+            zindex: this.zIndex || 15000
         });
     },
 
@@ -497,7 +497,7 @@ var item = menu.add(
      * @param {Ext.menu.Item} item The menu item to remove
      */
     remove : function(item){
-        this.items.removeKey(item.id);
+        this.items.remove(item);
         item.destroy();
     },
 

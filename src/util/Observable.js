@@ -24,6 +24,9 @@ Ext.util.Observable = function(){
         this.on(this.listeners);
         delete this.listeners;
     }
+    if(!this.events){
+        this.events = {};
+    }
 };
 Ext.util.Observable.prototype = {
     /**

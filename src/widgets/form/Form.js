@@ -60,21 +60,26 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
      */
     monitorPoll : 200,
 
+    layout:'form',
+
     // private
     initComponent :function(){
         this.form = this.createForm();
-        this.bodyCfg = {
-            tag: 'form',
-            cls: this.baseCls + '-body',
-            method : this.method || 'POST',
-            id : this.formId || Ext.id()
-        };
         if(this.fileUpload) {
             this.bodyCfg.enctype = 'multipart/form-data';
         }
 
         Ext.FormPanel.superclass.initComponent.call(this);
 
+        this.bodyCfg = {
+            tag: 'form',
+            cls: this.baseCls + '-body',
+            method : this.method || 'POST',
+            id : this.formId || Ext.id()
+        };
+        
+        this.initItems();
+        
         this.addEvents(
             /**
              * @event clientvalidation

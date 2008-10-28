@@ -45,6 +45,8 @@ Ext.Tip = Ext.extend(Ext.Panel, {
     floating:{shadow:true,shim:true,useDisplay:true,constrain:false},
     autoHeight:true,
 
+    closeAction: 'hide',
+
     // private
     initComponent : function(){
         Ext.Tip.superclass.initComponent.call(this);
@@ -59,7 +61,7 @@ Ext.Tip = Ext.extend(Ext.Panel, {
         if(this.closable){
             this.addTool({
                 id: 'close',
-                handler: this.hide,
+                handler: this[this.closeAction],
                 scope: this
             });
         }

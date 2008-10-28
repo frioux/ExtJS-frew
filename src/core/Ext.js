@@ -244,12 +244,19 @@ Ext.addBehaviors({
                 sb.override = function(o){
                     Ext.override(sb, o);
                 };
+                sbp.superclass = sbp.supr = (function(){
+                    return spp;
+                });
                 sbp.override = io;
                 Ext.override(sb, overrides);
                 sb.extend = function(o){Ext.extend(sb, o);};
                 return sb;
             };
         }(),
+
+        extendX : function(supr, fn){
+            return Ext.extend(supr, fn(supr.prototype));
+        },
 
         /**
          * Adds a list of functions to the prototype of an existing class, overwriting any existing methods with the same name.
@@ -613,6 +620,10 @@ Company.data.CustomStore = function(config) { ... }
                 }
             }
             return dest;
+        },
+
+        intercept : function(o, name, fn, scope){
+            o[name] = o[name].createInterceptor(fn, scope);
         },
 
         /**

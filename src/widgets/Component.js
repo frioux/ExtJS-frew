@@ -631,8 +631,24 @@ Ext.Foo = Ext.extend(Ext.Bar, {
             if(this.stateful !== false){
                 this.initStateEvents();
             }
+            this.initRef();
         }
         return this;
+    },
+
+    initRef : function(){
+        if(this.ref){
+            var levels = this.ref.split('/');
+            var last = levels.length, i = 0;
+            var t = this;
+            while(i < last){
+                if(t.ownerCt){
+                    t = t.ownerCt;
+                }
+                i++;
+            }
+            t[levels[--i]] = this;
+        }
     },
 
     // private

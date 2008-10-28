@@ -106,7 +106,7 @@ Ext.layout.Accordion = Ext.extend(Ext.layout.FitLayout, {
         }
         if(!this.activeItem && !c.collapsed){
             this.activeItem = c;
-        }else if(this.activeItem){
+        }else if(this.activeItem && this.activeItem != c){
             c.collapsed = true;
         }
         Ext.layout.Accordion.superclass.renderItem.apply(this, arguments);
@@ -150,6 +150,18 @@ Ext.layout.Accordion = Ext.extend(Ext.layout.FitLayout, {
             }
             size.height -= hh;
             item.setSize(size);
+        }
+    },
+
+    /**
+     * Sets the active (expanded) item in the layout.
+     * @param {String/Number} item The string component id or numeric index of the item to activate
+     */
+    setActiveItem : function(item){
+        item = this.container.getComponent(item);
+        this.activeItem = item;
+        if(item){
+            item.expand();
         }
     }
 });

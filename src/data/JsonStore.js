@@ -45,3 +45,5 @@ Ext.data.JsonStore = function(c){
     }));
 };
 Ext.extend(Ext.data.JsonStore, Ext.data.Store);
+
+Ext.reg('jsonstore', Ext.data.JsonStore);

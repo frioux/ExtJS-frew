@@ -444,7 +444,7 @@ function(grid, rowIndex, columnIndex, e) {
                 }
             }
         }
-        if(state.sort){
+        if(state.sort && this.store){
             this.store[this.store.remoteSort ? 'setDefaultSort' : 'sort'](state.sort.field, state.sort.direction);
         }
     },
@@ -460,9 +460,11 @@ function(grid, rowIndex, columnIndex, e) {
                 o.columns[i].hidden = true;
             }
         }
-        var ss = this.store.getSortState();
-        if(ss){
-            o.sort = ss;
+        if(this.store){
+            var ss = this.store.getSortState();
+            if(ss){
+                o.sort = ss;
+            }
         }
         return o;
     },

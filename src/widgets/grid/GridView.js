@@ -594,6 +594,9 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
     },
 
     afterRender: function(){
+        if(!this.ds || !this.cm){
+            return;
+        }
         this.mainBody.dom.innerHTML = this.renderRows();
         this.processRows(0, true);
 
@@ -816,6 +819,9 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
     
     // private
     syncFocusEl : function(row, col, hscroll){
+        if(this.cm.getColumnCount() < 1){
+            return;
+        }
         row = Math.min(row, Math.max(0, this.getRows().length-1));
         var xy = this.ensureVisible(row, col, hscroll);
         this.focusEl.setXY(xy||this.scroller.getXY());

@@ -855,13 +855,13 @@ El.prototype = {
         var w, h, d = this.dom, s = d.style;
         if(s.width && s.width != 'auto'){
             w = parseInt(s.width, 10);
-            if(Ext.isBorderBox){
+            if(this.isBorderBox()){
                w -= this.getFrameWidth('lr');
             }
         }
         if(s.height && s.height != 'auto'){
             h = parseInt(s.height, 10);
-            if(Ext.isBorderBox){
+            if(this.isBorderBox()){
                h -= this.getFrameWidth('tb');
             }
         }
@@ -1600,7 +1600,7 @@ el.un('click', this.handlerFn);
      * @return {Number}
      */
     getFrameWidth : function(sides, onlyContentBox){
-        return onlyContentBox && Ext.isBorderBox ? 0 : (this.getPadding(sides) + this.getBorderWidth(sides));
+        return onlyContentBox && this.isBorderBox() ? 0 : (this.getPadding(sides) + this.getBorderWidth(sides));
     },
 
     /**

@@ -40,7 +40,7 @@ Ext.StoreMgr = Ext.apply(new Ext.util.MixedCollection(), {
      * @return {Ext.data.Store}
      */
     lookup : function(id){
-        return typeof id == "object" ? id : this.get(id);
+        return typeof id == "object" ? (id.events ? id : Ext.create(id, 'store')) : this.get(id);
     },
 
     // getKey implementation for MixedCollection

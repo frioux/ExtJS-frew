@@ -27,18 +27,6 @@
 */
 Ext.grid.ColumnModel = function(config){
 	/**
-     * The width of columns which have no width specified (defaults to 100)
-     * @type Number
-     */
-    this.defaultWidth = 100;
-
-    /**
-     * Default sortable of columns which have no sortable specified (defaults to false)
-     * @type Boolean
-     */
-    this.defaultSortable = false;
-
-    /**
      * The config passed into the constructor
      * @property {Array} config
      */
@@ -93,6 +81,16 @@ Ext.grid.ColumnModel = function(config){
     Ext.grid.ColumnModel.superclass.constructor.call(this);
 };
 Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
+    /**
+     * The width of columns which have no width specified (defaults to 100)
+     * @type Number
+     */
+    defaultWidth: 100,
+    /**
+     * Default sortable of columns which have no sortable specified (defaults to false)
+     * @type Boolean
+     */
+    defaultSortable: false,
     /**
      * @cfg {String} id (optional) Defaults to the column's initial ordinal position.
      * A name which identifies this column. The id is used to create a CSS class name which
@@ -201,14 +199,10 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
         // if no id, create one
         for(var i = 0, len = config.length; i < len; i++){
             var c = config[i];
-            if(typeof c.renderer == "string"){
-                c.renderer = Ext.util.Format[c.renderer];
-            }
-            if(typeof c.id == "undefined"){
-                c.id = 'xgc'+i;
-            }
-            if(c.editor && c.editor.isFormField){
-                c.editor = new Ext.grid.GridEditor(c.editor);
+            if(!c.isColumn){
+                var cls = Ext.grid.Column.types[c.xtype || 'gridcolumn'];
+                c = new cls(c);
+                config[i] = c;
             }
             this.lookup[c.id] = c;
         }

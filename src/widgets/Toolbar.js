@@ -225,11 +225,7 @@ Ext.extend(T, Ext.Container, {
 
     trackMenus : true,
     internalDefaults: {removeMode: 'container', hideParent: true},
-
-    // private
-    autoCreate: {
-        cls:'x-toolbar x-small-editor'
-    },
+    toolbarCls: 'x-toolbar',
 
     initComponent : function(){
         T.superclass.initComponent.call(this);
@@ -239,7 +235,14 @@ Ext.extend(T, Ext.Container, {
 
     // private
     onRender : function(ct, position){
-        this.el = ct.createChild(Ext.apply({ id: this.id },this.autoCreate), position);
+        if(!this.el){
+            if(!this.autoCreate){
+                this.autoCreate = {
+                    cls: this.toolbarCls + ' x-small-editor'
+                }
+            }
+            this.el = ct.createChild(Ext.apply({ id: this.id },this.autoCreate), position);
+        }
     },
     
     /**
@@ -284,7 +287,7 @@ Ext.extend(T, Ext.Container, {
                 this.addElement(el);
             }else if(typeof el == "object"){ // must be button config?
                 if(el.xtype){
-                    this.addItem(Ext.ComponentMgr.create(el, 'button'));
+                    this.addItem(Ext.create(el, 'button'));
                 }else{
                     this.addButton(el);
                 }
@@ -512,7 +515,7 @@ new Ext.Panel({
  */
 T.Separator = Ext.extend(T.Item, {
     onRender : function(ct, position){
-        this.el = ct.createChild({tag:'span', cls:'ytb-sep'}, position);
+        this.el = ct.createChild({tag:'span', cls:'xtb-sep'}, position);
     }
 });
 Ext.reg('tbseparator', T.Separator);
@@ -535,7 +538,7 @@ new Ext.Panel({
  */
 T.Spacer = Ext.extend(T.Item, {
     onRender : function(ct, position){
-        this.el = ct.createChild({tag:'div', cls:'ytb-spacer'}, position);
+        this.el = ct.createChild({tag:'div', cls:'xtb-spacer', style: this.width?'width:'+this.width+'px':''}, position);
     }
 });
 Ext.reg('tbspacer', T.Spacer);

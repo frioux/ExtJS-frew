@@ -409,6 +409,10 @@ new Ext.Panel({
      */
     minButtonWidth:75,
     /**
+     * @cfg {Boolean} unstyled
+     * Renders the panel unstyled
+     */
+    /**
      * @cfg {String} elements
      * A comma-delimited list of panel elements to initialize when the panel is rendered.  Normally, this list will be
      * generated automatically based on the items added to the panel at config time, but sometimes it might be useful to
@@ -525,6 +529,10 @@ new Ext.Panel({
             'deactivate'
         );
 
+        if(this.unstyled){
+            this.baseCls = 'x-plain';
+        }
+
         // shortcuts
         if(this.tbar){
             this.elements += ',tbar';
@@ -554,6 +562,7 @@ new Ext.Panel({
         }
 
         if(this.buttons){
+            this.elements += ',footer';
             var btns = this.buttons;
             /**
              * This Panel's Array of buttons as created from the <tt>buttons</tt>
@@ -564,11 +573,19 @@ new Ext.Panel({
             this.buttons = [];
             for(var i = 0, len = btns.length; i < len; i++) {
                 if(btns[i].render){ // button instance
-                    btns[i].ownerCt = this;
                     this.buttons.push(btns[i]);
+                }else if(btns[i].xtype){
+                    this.buttons.push(Ext.create(btns[i], 'button'));
                 }else{
                     this.addButton(btns[i]);
                 }
+            }
+        }
+        if(this.fbar){
+            this.elements += ',footer';
+            // if default button align and using fbar, align left by default
+            if(this.buttonAlign == 'right' && this.initialConfig.buttonAlign === undefined){
+                this.buttonAlign = 'left';
             }
         }
         if(this.autoLoad){
@@ -605,7 +622,6 @@ new Ext.Panel({
         Ext.Panel.superclass.onRender.call(this, ct, position);
 
         this.createClasses();
-
         if(this.el){ // existing markup
             this.el.addClass(this.baseCls);
             this.header = this.el.down('.'+this.headerCls);
@@ -743,37 +759,42 @@ new Ext.Panel({
         }
 
         if(this.buttons && this.buttons.length > 0){
-            // tables are required to maintain order and for correct IE layout
-            var tb = this.footer.createChild({cls:'x-panel-btns-ct', cn: {
-                cls:"x-panel-btns x-panel-btns-"+this.buttonAlign,
-                html:'<table cellspacing="0"><tbody><tr></tr></tbody></table><div class="x-clear"></div>'
-            }}, null, true);
-            var tr = tb.getElementsByTagName('tr')[0];
-            for(var i = 0, len = this.buttons.length; i < len; i++) {
-                var b = this.buttons[i];
-                var td = document.createElement('td');
-                td.className = 'x-panel-btn-td';
-                b.render(tr.appendChild(td));
+            this.fbar = new Ext.Toolbar({
+                items: this.buttons,
+                toolbarCls: 'x-panel-fbar'
+            });
+        }
+        if(this.fbar){
+            this.fbar = Ext.create(this.fbar, 'toolbar');
+            if(this.fbar.items){
+                this.fbar.items.each(function(c){
+                    c.minWidth = this.minButtonWidth;
+                }, this);
             }
+            this.fbar.toolbarCls = 'x-panel-fbar';
+
+            var bct = this.footer.createChild({cls: 'x-panel-btns x-panel-btns-'+this.buttonAlign});
+            this.fbar.render(bct);
+            bct.createChild({cls:'x-clear'});
         }
 
         if(this.tbar && this.topToolbar){
             if(Ext.isArray(this.topToolbar)){
                 this.topToolbar = new Ext.Toolbar(this.topToolbar);
             }else if(!this.topToolbar.events){
-                this.topToolbar = Ext.ComponentMgr.create(this.topToolbar, 'toolbar');
+                this.topToolbar = Ext.create(this.topToolbar, 'toolbar');
             }
-            this.topToolbar.render(this.tbar);
             this.topToolbar.ownerCt = this;
+            this.topToolbar.render(this.tbar);
         }
         if(this.bbar && this.bottomToolbar){
             if(Ext.isArray(this.bottomToolbar)){
                 this.bottomToolbar = new Ext.Toolbar(this.bottomToolbar);
             }else if(!this.bottomToolbar.events){
-                this.bottomToolbar = Ext.ComponentMgr.create(this.bottomToolbar, 'toolbar');
+                this.bottomToolbar = Ext.create(this.bottomToolbar, 'toolbar');
             }
-            this.bottomToolbar.render(this.bbar);
             this.bottomToolbar.ownerCt = this;
+            this.bottomToolbar.render(this.bbar);
         }
     },
 
@@ -854,7 +875,6 @@ new Ext.Panel({
             Ext.apply(bc, config);
         }
         var btn = new Ext.Button(bc);
-        btn.ownerCt = this;
         if(!this.buttons){
             this.buttons = [];
         }
@@ -933,9 +953,6 @@ new Ext.Panel({
 
     // private
     afterRender : function(){
-        if(this.fromMarkup && this.height === undefined && !this.autoHeight){
-            this.height = this.el.getHeight();
-        }
         if(this.floating && !this.hidden && !this.initHidden){
             this.el.show();
         }
@@ -1353,7 +1370,8 @@ panel.load({
         }
         Ext.destroy(
             this.topToolbar,
-            this.bottomToolbar
+            this.bottomToolbar,
+            this.fbar
         );
         Ext.Panel.superclass.beforeDestroy.call(this);
     },

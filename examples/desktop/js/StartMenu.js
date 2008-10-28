@@ -159,7 +159,7 @@ Ext.extend(Ext.ux.StartMenu, Ext.menu.Menu, {
 	        }, this);
 
         this.ul = ul;
-        this.autoWidth();
+        this.doAutoSize();
 
         toolsUl.on(ulListeners);
         
@@ -172,7 +172,7 @@ Ext.extend(Ext.ux.StartMenu, Ext.menu.Menu, {
 	        }, this);
 	        
         this.toolsUl = toolsUl;
-        this.autoWidth();
+        this.doAutoSize();
              
         this.menuBWrap.setStyle('position', 'relative');  
         this.menuBWrap.setHeight(this.height);

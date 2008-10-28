@@ -84,14 +84,6 @@ var form = new Ext.form.FormPanel({
  */
 Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
     /**
-     * @cfg {String} labelStyle
-     * A CSS style specification string to add to each field label in this layout (defaults to '').
-     */
-    /**
-     * @cfg {String} elementStyle
-     * A CSS style specification string to add to each field element in this layout (defaults to '').
-     */
-    /**
      * @cfg {String} labelSeparator
      * The standard separator to display after the text of each form label (defaults to a colon ':').  To turn off
      * separators for all fields in this layout by default specify empty string '' (if the labelSeparator value is

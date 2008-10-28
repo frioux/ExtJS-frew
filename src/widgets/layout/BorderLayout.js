@@ -86,7 +86,7 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
         var centerW = w, centerH = h, centerY = 0, centerX = 0;
 
         var n = this.north, s = this.south, west = this.west, e = this.east, c = this.center;
-        if(!c){
+        if(!c && Ext.layout.BorderLayout.WARN !== false){
             throw 'No center region defined in BorderLayout ' + ct.id;
         }
 
@@ -131,22 +131,21 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
             centerW -= totalWidth;
             e.applyLayout(b);
         }
-
-        var m = c.getMargins();
-        var centerBox = {
-            x: centerX + m.left,
-            y: centerY + m.top,
-            width: centerW - (m.left+m.right),
-            height: centerH - (m.top+m.bottom)
-        };
-        c.applyLayout(centerBox);
-
+        if(c){
+            var m = c.getMargins();
+            var centerBox = {
+                x: centerX + m.left,
+                y: centerY + m.top,
+                width: centerW - (m.left+m.right),
+                height: centerH - (m.top+m.bottom)
+            };
+            c.applyLayout(centerBox);
+        }
         if(collapsed){
             for(var i = 0, len = collapsed.length; i < len; i++){
                 collapsed[i].collapse(false);
             }
         }
-
         if(Ext.isIE && Ext.isStrict){ // workaround IE strict repainting issue
             target.repaint();
         }
