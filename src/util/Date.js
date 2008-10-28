@@ -699,8 +699,8 @@ Ext.apply(Date, {
                     $f("h", 4), // hour
                     $f("i", 5), // minute
                     $f("s", 6), // second
-                    $f("u", 7), // millisecond decimal fraction (with leading zeroes. minimum = 3 digits, maximum = unlimited)
-                    {c:[ // allow both "Z" (i.e. UTC) and "+08:00" (i.e. GMT) time zone delimiters
+                    {c:"ms = (results[7] || '.0').substring(1); ms = parseInt(ms, 10)/Math.pow(10, ms.length - 3);\n"}, // millisecond decimal fraction (with leading zeroes. minimum = 3 digits, maximum = unlimited)
+                    {c:[ // allow both "Z" (i.e. UTC) and "+08:00" (i.e. UTC offset) time zone delimiters
                         "if(results[9] == 'Z'){",
                             "z = 0;",
                         "}else{",
@@ -718,7 +718,7 @@ Ext.apply(Date, {
                 c:calc.join(""),
                 s:arr[0].s + "-" + arr[1].s + "-" + arr[2].s + "T" + arr[3].s + ":" + arr[4].s + ":" + arr[5].s
                       + "((\.|,)\\d+)?" // decimal fraction of a second (e.g. ",998465" or ".998465")
-                      + "(Z|([+\-]\\d{2}:\\d{2}))" // "Z" (UTC) or "+08:00" (GMT offset)
+                      + "(Z|([+\-]\\d{2}:\\d{2}))" // "Z" (UTC) or "+08:00" (UTC offset)
             }
         },
         U: {
