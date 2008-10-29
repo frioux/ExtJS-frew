@@ -53,7 +53,7 @@ Ext.apply = function(o, c, defaults){
         isSecure = window.location.href.toLowerCase().indexOf("https") === 0;
 
     // remove css image flicker
-	if(isIE && !isIE7){
+    if(isIE && !isIE7){
         try{
             document.execCommand("BackgroundImageCache", false, true);
         }catch(e){}
@@ -201,7 +201,7 @@ Ext.addBehaviors({
     MyGridPanel = Ext.extend(Ext.grid.GridPanel, {
         constructor: function(config) {
             // Your preprocessing here
-        	MyGridPanel.superclass.constructor.apply(this, arguments);
+            MyGridPanel.superclass.constructor.apply(this, arguments);
             // Your postprocessing here
         },
 
@@ -328,12 +328,12 @@ Company.data.CustomStore = function(config) { ... }
                     buf.push(k, "=", encodeURIComponent(ov), "&");
                 }else if(Ext.isArray(ov)){
                     if (ov.length) {
-	                    for(var i = 0, len = ov.length; i < len; i++) {
-	                        buf.push(k, "=", encodeURIComponent(ov[i] === undefined ? '' : ov[i]), "&");
-	                    }
-	                } else {
-	                    buf.push(k, "=&");
-	                }
+                        for(var i = 0, len = ov.length; i < len; i++) {
+                            buf.push(k, "=", encodeURIComponent(ov[i] === undefined ? '' : ov[i]), "&");
+                        }
+                    } else {
+                        buf.push(k, "=&");
+                    }
                 }
             }
             buf.pop();
@@ -490,13 +490,13 @@ Company.data.CustomStore = function(config) { ... }
             for(var i = 0, a = arguments, len = a.length; i < len; i++) {
                 var as = a[i];
                 if(as){
-		            if(typeof as.destroy == 'function'){
-		                as.destroy();
-		            }
-		            else if(as.dom){
-		                as.removeAllListeners();
-		                as.remove();
-		            }
+                    if(typeof as.destroy == 'function'){
+                        as.destroy();
+                    }
+                    else if(as.dom){
+                        as.removeAllListeners();
+                        as.remove();
+                    }
                 }
             }
         },
@@ -596,19 +596,36 @@ Company.data.CustomStore = function(config) { ... }
          * @param {Object} The object to test
          * @return {Boolean}
          */
-		isArray : function(v){
-			return v && typeof v.length == 'number' && typeof v.splice == 'function';
-		},
+        isArray : function(v){
+            return v && typeof v.length == 'number' && typeof v.splice == 'function';
+        },
 
-		/**
+        /**
          * Returns true if the passed object is a JavaScript date object, otherwise false.
          * @param {Object} The object to test
          * @return {Boolean}
          */
-		isDate : function(v){
-			return v && typeof v.getFullYear == 'function';
-		},
+        isDate : function(v){
+            return v && typeof v.getFullYear == 'function';
+        },
 
+        /**
+         * Copies a set of named properties fom the source object to the destination object.
+         * @param {Object} The destination object.
+         * @param {Object} The source object.
+         * @param {Array/String} Either an Array of property names, or a comma-delimited list
+         * of property names to copy.
+         * @return {Object} The modified object.
+         * <p>example:<pre><code>
+ImageComponent = Ext.extend(Ext.BoxComponent, {
+    initComponent: function() {
+        this.autoEl = { tag: 'img' };
+        MyComponent.superclass.initComponent.apply(this, arguments);
+        this.initialBox = Ext.copyTo({}, this.initialConfig, 'x,y,width,height');
+    }
+});
+</code></pre>
+         */
         copyTo: function(dest, source, names){
             if(typeof names == 'string'){
                 names = names.split(/[,;\s]/);
@@ -712,11 +729,11 @@ Company.data.CustomStore = function(config) { ... }
          */
         isAir : isAir,
 
-	    /**
-	     * By default, Ext intelligently decides whether floating elements should be shimmed. If you are using flash,
-	     * you may want to set this to true.
-	     * @type Boolean
-	     */
+        /**
+         * By default, Ext intelligently decides whether floating elements should be shimmed. If you are using flash,
+         * you may want to set this to true.
+         * @type Boolean
+         */
         useShims : ((isIE && !isIE7) || (isMac && isGecko && !isGecko3))
     });
 
@@ -1042,9 +1059,9 @@ Ext.applyIf(Array.prototype, {
      */
     indexOf : function(o){
        for (var i = 0, len = this.length; i < len; i++){
- 	      if(this[i] == o) return i;
+           if(this[i] == o) return i;
        }
- 	   return -1;
+        return -1;
     },
 
     /**
@@ -1069,5 +1086,5 @@ Ext.applyIf(Array.prototype, {
  @member Date getElapsed
  */
 Date.prototype.getElapsed = function(date) {
-	return Math.abs((date || new Date()).getTime()-this.getTime());
+    return Math.abs((date || new Date()).getTime()-this.getTime());
 };
