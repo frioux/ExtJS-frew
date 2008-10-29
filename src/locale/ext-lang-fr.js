@@ -2,24 +2,17 @@
  * France (France) translation
  * By Thylia
  * 09-11-2007, 02:22 PM
+ * updated to 2.2 by disizben (22 Sep 2008)
  */
 
 Ext.UpdateManager.defaults.indicatorText = '<div class="loading-indicator">En cours de chargement...</div>';
 
-if(Ext.View){
-   Ext.View.prototype.emptyText = "";
+if(Ext.DataView){
+   Ext.DataView.prototype.emptyText = "";
 }
 
 if(Ext.grid.GridPanel){
-   Ext.grid.GridPanel.prototype.ddText = "{0} ligne(s) sélectionnée(s)";
-}
-
-if(Ext.TabPanelItem){
-   Ext.TabPanelItem.prototype.closeText = "Fermer cet onglet";
-}
-
-if(Ext.form.Field){
-   Ext.form.Field.prototype.invalidText = "La valeur de ce champ est invalide";
+   Ext.grid.GridPanel.prototype.ddText = "{0} ligne{1} sélectionnée{1}";
 }
 
 if(Ext.LoadMask){
@@ -93,6 +86,14 @@ Date.getShortDayName = function(day) {
   return Date.dayNames[day].substring(0, 3);
 };
 
+Date.parseCodes.S.s = "(?:er)";
+
+Ext.override(Date, {
+	getSuffix : function() {
+		return (this.getDate() == 1) ? "er" : "";
+	}
+});
+
 if(Ext.MessageBox){
    Ext.MessageBox.buttonText = {
       ok     : "OK",
@@ -144,6 +145,10 @@ if(Ext.PagingToolbar){
    });
 }
 
+if(Ext.form.Field){
+   Ext.form.Field.prototype.invalidText = "La valeur de ce champ est invalide";
+}
+
 if(Ext.form.TextField){
    Ext.apply(Ext.form.TextField.prototype, {
       minLengthText : "La longueur minimum de ce champ est de {0} caractères",
@@ -156,6 +161,8 @@ if(Ext.form.TextField){
 
 if(Ext.form.NumberField){
    Ext.apply(Ext.form.NumberField.prototype, {
+      decimalSeparator : ",",
+      decimalPrecision : 2,
       minText : "La valeur minimum de ce champ doit être de {0}",
       maxText : "La valeur maximum de ce champ doit être de {0}",
       nanText : "{0} n'est pas un nombre valide"
@@ -268,38 +275,10 @@ if(Ext.form.HtmlEditor){
    });
 }
 
-if(Ext.form.TimeField){
-   Ext.apply(Ext.form.TimeField.prototype, {
-      minText     : "L'heure de ce champ ne peut être antérieure au {0}",
-      maxText     : "L'heure de ce champ ne peut être postérieure au {0}",
-      invalidText : "{0} n'est pas une heure valide",
-      format      : "H:i",
-      altFormats  : "g:ia|g:iA|g:i a|g:i A|h:i|g:i|H:i|ga|h a|g a|g A|gi|hi|Hi|gia|hia|g|H"
-   });
-}
-
-if(Ext.form.CheckboxGroup){
-   Ext.apply(Ext.form.TextField.prototype, {
-      blankText : "Vous devez sélectionner au moins un item du groupe"
-   });
-}
-
-if(Ext.form.RadioGroup){
-   Ext.apply(Ext.form.RadioGroup.prototype, {
-      blankText : "Vous devez sélectionner un choix"
-   });
-}
-
-if(Ext.form.BasicForm){
-   Ext.form.BasicForm.prototype.waitTitle = "Veuillez patienter...";
-}
-
 if(Ext.grid.GridView){
    Ext.apply(Ext.grid.GridView.prototype, {
       sortAscText  : "Tri croissant",
       sortDescText : "Tri décroissant",
-      lockText     : "Verrouiller la colonne",
-      unlockText   : "Déverrouiller la colonne",
       columnsText  : "Colonnes"
    });
 }
@@ -325,4 +304,26 @@ if(Ext.layout.BorderLayout && Ext.layout.BorderLayout.SplitRegion){
       splitTip            : "Cliquer et glisser pour redimensionner le panneau.",
       collapsibleSplitTip : "Cliquer et glisser pour redimensionner le panneau. Double-cliquer pour le cacher."
    });
+}
+
+if(Ext.form.TimeField){
+   Ext.apply(Ext.form.TimeField.prototype, {
+      minText     : "L'heure de ce champ ne peut être antérieure à {0}",
+      maxText     : "L'heure de ce champ ne peut être postérieure à {0}",
+      invalidText : "{0} n'est pas une heure valide",
+      format      : "H:i",
+      altFormats  : "g:ia|g:iA|g:i a|g:i A|h:i|g:i|H:i|ga|h a|g a|g A|gi|hi|Hi|gia|hia|g|H"
+   });
+}
+
+if(Ext.form.CheckboxGroup){
+  Ext.apply(Ext.form.CheckboxGroup.prototype, {
+    blankText : "Vous devez sélectionner au moins un élément dans ce groupe"
+  });
+}
+
+if(Ext.form.RadioGroup){
+  Ext.apply(Ext.form.RadioGroup.prototype, {
+    blankText : "Vous devez sélectionner au moins un élément dans ce groupe"
+  });
 }
