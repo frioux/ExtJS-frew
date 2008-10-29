@@ -461,7 +461,13 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     },
 
     /**
-     * Add Ext.form components to this form.
+     * Add Ext.form Components to this form's Collection. This does not result in rendering of
+     * the passed Component, it just enables the form to validate Fields, and distribute values to
+     * Fields.
+     * <p><b>You will not usually call this function. In order to be rendered, a Field must be added
+     * to a {@link Ext.Container Container}, usually an {@link Ext.form.FormPanel FormPanel}.
+     * The FormPanel to which the field is added takes care of adding the Field to the BasicForm's
+     * collection.</b></p>
      * @param {Field} field1
      * @param {Field} field2 (optional)
      * @param {Field} etc (optional)
