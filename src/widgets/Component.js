@@ -297,9 +297,9 @@ new Ext.FormPanel({
      * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager.</b></p>
      */
     /**
-     * @cfg {String} itemCls An additional CSS class to apply to the wrapper's form item element of this field (defaults 
-     * to the container's itemCls value if set, or '').  Since it is applied to the item wrapper, it allows you to write 
-     * standard CSS rules that can apply to the field, the label (if specified) or any other element within the markup for 
+     * @cfg {String} itemCls An additional CSS class to apply to the wrapper's form item element of this field (defaults
+     * to the container's itemCls value if set, or '').  Since it is applied to the item wrapper, it allows you to write
+     * standard CSS rules that can apply to the field, the label (if specified) or any other element within the markup for
      * the field.
      * <p><b>This config is only used when this Component is rendered by a Container which has been
      * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager.</b></p>
@@ -327,7 +327,7 @@ new Ext.FormPanel({
     /**
      * @cfg {String} id
      * The unique id of this component (defaults to an auto-assigned id). You should assign an id if you need to
-     * be able to access the component later and you do not have an object reference available (e.g., using 
+     * be able to access the component later and you do not have an object reference available (e.g., using
      * {@link Ext.ComponentMgr#getCmp}). Note that this id will also be used as the element id for the containing
      * HTML element that is rendered to the page for this component. This allows you to write id-based CSS rules to
      * style the specific instance of this component uniquely, and also to select sub-elements using this
@@ -398,7 +398,7 @@ new Ext.FormPanel({
      * @cfg {Mixed} applyTo
      * The id of the node, a DOM node or an existing Element corresponding to a DIV that is already present in
      * the document that specifies some structural markup for this component. Not all components support applyTo. Use of
-     * applyTo assumes all markup and elements are in the spots where they should be and the component can be rendered immediately (turns off deferred rendering). It should be used SPARINGLY. 
+     * applyTo assumes all markup and elements are in the spots where they should be and the component can be rendered immediately (turns off deferred rendering). It should be used SPARINGLY.
      * For standard rendering using existing markup, use the "el" config. When applyTo is used, constituent parts of the component can also be specified by id or CSS class name within
      * the main element, and the component being created may attempt to create its subcomponents from that markup if applicable. Using this config, a call to render() is
      * not required.  If applyTo is specified, any value passed for {@link #renderTo} will be ignored and the target
@@ -420,7 +420,7 @@ new Ext.FormPanel({
      * of {@link Ext.state.Provider} which overrides the {@link Ext.state.Provider#set set}
      * and {@link Ext.state.Provider#get get} methods to save and recall name/value pairs.
      * A built-in implementation, {@link Ext.state.CookieProvider} is available.</p>
-     * <p>To set the state provider for the current page:</p>    
+     * <p>To set the state provider for the current page:</p>
      * <pre><code>
 Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 </code></pre>
@@ -671,7 +671,7 @@ Ext.Foo = Ext.extend(Ext.Bar, {
     getStateId : function(){
         return this.stateId || ((this.id.indexOf('ext-comp-') == 0 || this.id.indexOf('ext-gen') == 0) ? null : this.id);
     },
-    
+
     // private
     initStateEvents : function(){
         if(this.stateEvents){
@@ -709,7 +709,7 @@ Ext.Foo = Ext.extend(Ext.Bar, {
 
     /**
      * Apply this component to existing markup that is valid. With this function, no call to render() is required.
-     * @param {String/HTMLElement} el 
+     * @param {String/HTMLElement} el
      */
     applyToMarkup : function(el){
         this.allowDomMove = false;
@@ -763,7 +763,7 @@ Ext.Foo = Ext.extend(Ext.Bar, {
             }
             if(this.overCls) {
                 this.el.addClassOnOver(this.overCls);
-            }            
+            }
         }
     },
 
@@ -1061,7 +1061,7 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
      * true, the container will be returned. The passed function is called with the arguments (container, this component).
      * @param {Function} fcn
      * @param {Object} scope (optional)
-     * @return {Array} Array of Ext.Components
+     * @return {Ext.Container} The first Container for which the custom function returns true
      */
     findParentBy: function(fn) {
         for (var p = this.ownerCt; (p != null) && !fn(p, this); p = p.ownerCt);
@@ -1071,7 +1071,7 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
     /**
      * Find a container above this component at any level by xtype or class
      * @param {String/Class} xtype The xtype string for a component, or the class of the component directly
-     * @return {Container} The found container
+     * @return {Ext.Container} The first Container which matches the given xtype or class
      */
     findParentByType: function(xtype) {
         return typeof xtype == 'function' ?
