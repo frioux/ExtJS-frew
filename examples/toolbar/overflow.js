@@ -4,13 +4,13 @@ Ext.onReady(function(){
         Ext.example.msg('<b>Action</b>', 'You clicked "'+action+'"');
     };
     
-    var p = new Ext.Panel({
+    var p = new Ext.Window({
         title: 'Standard',
+        closable: false,
         height:250,
         width: 500,
         bodyStyle: 'padding:10px',
-        renderTo: 'ct',
-        html: Ext.example.shortBogusMarkup,
+        contentEl: 'content',
         autoScroll: true,
         tbar: [{
             xtype:'splitbutton',
@@ -40,28 +40,8 @@ Ext.onReady(function(){
             text: 'Right',
             iconCls: 'add16',
             handler: handleAction.createCallback('Right')
-        }],
-        listeners: {
-            render: function(p) {
-                new Ext.Resizable(p.getResizeEl(), {
-                    handles: 'e',
-                    width: 300,
-                    minWidth: 150,
-                    maxWidth: 700,
-                    height: 250,
-                    pinned:true,
-                    transparent:true,
-                    resizeElement: function() {
-                        var box = this.proxy.getBox();
-                        p.updateBox(box);
-                        if (p.layout) {
-                            p.doLayout();
-                        }
-                        return box;
-                    }
-               });
-           }
-        }
+        }]
     });
+    p.show();
 
 });
