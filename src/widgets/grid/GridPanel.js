@@ -116,6 +116,10 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
     enableHdMenu : true,
     /**
      * @cfg {Boolean} stripeRows True to stripe the rows. Default is false.
+     * <p>This causes the CSS class <tt><b>x-grid3-row-alt</b></tt> to be added to alternate rows of
+     * the grid. A default CSS rule is provided which sets a background colour, but you can override this
+     * with a rule which either overrides the <b>background-color</b> style using the "!important"
+     * modifier, or which uses a CSS selector of higher specificity.
      */
     stripeRows : false,
     /**
