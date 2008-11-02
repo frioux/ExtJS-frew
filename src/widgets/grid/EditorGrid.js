@@ -1,8 +1,21 @@
 /**
  * @class Ext.grid.EditorGridPanel
  * @extends Ext.grid.GridPanel
- * Class for creating and editable grid.
- 
+ * <p>This class extends the GridPanel to provide cell editing on selected columns.</p>
+ * The editable columns are specified by providing an {@link Ext.grid.ColumnModel#editor editor}
+ * in the column configuration.</p>
+ * <p>Editablity of columns may be controlled programatically by inserting an implementation
+ * of {@link Ext.grid.ColumnModel#isCellEditable isCellEditable} into your ColumnModel.</p>
+ * <p>Editing is performed on the value of the <i>field</i> specified by the column's
+ * {@link Ext.grid.ColumnModel#dataIndex dataIndex} in the backing {@link Ext.data.Store Store}.
+ * So if you are using a {@link Ext.grid.ColumnModel#setRenderer renderer} in order to display
+ * transformed data, this must be accounted for.</p>
+ * <p>If a value to description mapping is used to render a column, then a {Ext.form.Field#ComboBox ComboBox}
+ * which uses the same {@link Ext.form.Field#valueField value} to {@link Ext.form.Field#displayFieldField description}
+ * mapping would be an appropriate editor.</p>
+ * If there is a more complex mismatch between the visible data in the grid, and the editable data in
+ * the {@link Edt.data.Store Store}, then code to transform the data both before and after editing can be
+ * injected using the {@link #beforeedit} and {@link #afteredit} events.
  * @constructor
  * @param {Object} config The config object
  */
