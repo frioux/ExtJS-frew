@@ -147,6 +147,10 @@ Ext.TabPanel = Ext.extend(Ext.Panel,  {
      * @cfg {Boolean} deferredRender Internally, the TabPanel uses a {@link Ext.layout.CardLayout} to manage its tabs.
      * This property will be passed on to the layout as its {@link Ext.layout.CardLayout#deferredRender} config value,
      * determining whether or not each tab is rendered only when first accessed (defaults to true).
+     * <p>Be aware that leaving deferredRender as <b><tt>true</tt></b> means that if the TabPanel is within
+     * a {@link Ext.form.FormPanel form}, then until a tab is activated, any Fields within that tab are not
+     * rendered, and will therefore not be submitted and will not be available to either
+     * {@link Ext.form.BasicForm#getValues getValues} or {@link Ext.form.BasicForm#getValues setValues}.</p>
      */
     deferredRender : true,
     /**
