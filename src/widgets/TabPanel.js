@@ -319,6 +319,9 @@ var tabs = new Ext.TabPanel({
             this.stack = Ext.TabPanel.AccessStack();
         }
         this.initItems();
+        if(this.activeTab !== undefined && typeof this.activeTab != 'object'){
+           this.activeTab = this.items.get(this.activeTab);            
+        }
     },
 
     // private

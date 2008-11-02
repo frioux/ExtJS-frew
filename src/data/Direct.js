@@ -1,6 +1,6 @@
 (function(){
     var transactions = {}, TID = 0, impl, d, pollStartTimer = 0,
-            callBuffer = [], callTask;
+            callBuffer = [], callTask, providers = {};
 
     var get = function(id){
         return transactions[id] || {};
@@ -98,16 +98,17 @@
     }
 
     var cb = function(opt, success, xhr){
-        if(opt && opt.poll){
-            Ext.Direct.fireEvent('poll', xhr, success);
-        }
         if(success){
             var data = null;
             if(!Ext.isEmpty(xhr.responseText)){
-                try{
-                    data = Ext.decode(xhr.responseText);
-                } catch(e){
-                    return handleException(opt, xhr, d.exceptions.PARSE);
+                if(typeof xhr.responseText == 'object'){
+                    data = xhr.responseText;
+                }else{
+                    try{
+                        data = Ext.decode(xhr.responseText);
+                    } catch(e){
+                        return handleException(opt, xhr, d.exceptions.PARSE);
+                    }
                 }
                 if(Ext.isArray(data)){
                     for(var i = 0, len = data.length; i < len; i++){
@@ -244,6 +245,20 @@
         return f;        
     }
 
+    var onProviderData = function(p, e){
+        switch(e.format){
+            case 'string':
+                cb({}, true, {responseText: e.data});
+                break;
+            default:
+                cb({}, true, e.data);
+        }
+    }
+
+    var onProviderException = function(p, e){
+        handleException({}, e.data, e.type);
+    }
+
     impl = Ext.extend(Ext.util.Observable, {
         exceptions: {
             TRANSPORT: 'xhr',
@@ -254,7 +269,7 @@
 
         constructor: function(){
             impl.superclass.constructor.call(this);
-            this.addEvents('beforecall', 'call', 'beforeevent', 'event', 'exception', 'connect', 'disconnect', 'pollstart', 'pollstop');
+            this.addEvents('beforecall', 'call', 'beforeevent', 'event', 'exception');
         },
 
         defineAPI : function(data){
@@ -270,6 +285,7 @@
             }
         },
 
+        /*
         startPoll : function(){
             clearTimeout(pollStartTimer);
             if(!this.poller){
@@ -297,10 +313,14 @@
                 delete this.poller;
                 Ext.Direct.fireEvent('stoppolling');
             }
-        },
+        },*/
 
         inject : function(stringData, opt){
             cb(opt || {}, true, {responseText: stringData});
+        },
+
+        injectRaw : function(opt, success, xhr){
+            cb(opt, success, xhr);
         },
 
         injectTransaction : function(callback){
@@ -314,6 +334,7 @@
             return t;
         },
 
+        /*
         startStreaming : function(startKeepAlive){
             pollStartTimer = this.startPoll.defer(10000, this);
             if(startKeepAlive === true){
@@ -338,17 +359,47 @@
                 scope: this
             });
             }).defer(100, this);
+        },*/
+
+        //autoReconnect: true,
+        //pollInterval: 3000,
+        //keepAliveInterval: 60000,
+        //pollUrlFragment: '/poll',
+        //pingUrlFragment: '/ping',
+
+        addProvider : function(provider){
+            if(!provider.events){
+                provider = new d.PROVIDERS[provider.type](provider);
+            }
+            if(!provider.isConnected()){
+                provider.connect();
+            }
+            provider.id = provider.id || Ext.id;
+            providers[provider.id] = provider;
+
+            provider.on('data', onProviderData);
+            provider.on('exception', onProviderException);
+
+            return provider;
         },
 
-        autoReconnect: true,
-        pollInterval: 3000,
-        keepAliveInterval: 60000,
-        pollUrlFragment: '/poll',
-        pingUrlFragment: '/ping',
+        getProvider : function(id){
+            return providers[id];
+        },
+
+        removeProvider : function(id){
+            var provider = id.id ? id : providers[id.id];
+            provider.un('data', onProviderData);
+            provider.un('exception', onProviderException);
+            delete providers[provider.id];
+            return provider;
+        },
+
         enableBuffer: 10
     });
     Ext.Direct = d = new impl();
 
+    d.PROVIDERS = {};
 
     var reconnId = 0;
     var retryId = 0;

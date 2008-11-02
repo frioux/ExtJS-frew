@@ -222,11 +222,6 @@
                     return true;
                 }
 
-                // prevent unload errors with simple check
-                //var wrappedFn = function(e) {
-                //    return typeof Ext != 'undefined' ? fn(Ext.lib.Event.getEvent(e)) : false;
-                //};
-
                 var li = [el, eventName, fn, fn];
 
                 var index = listeners.length;

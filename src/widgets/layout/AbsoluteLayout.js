@@ -16,7 +16,15 @@ Ext.layout.AbsoluteLayout = Ext.extend(Ext.layout.AnchorLayout, {
     },
 
     onLayout : function(ct, target){
-        if(this.isForm){ ct.body.position(); } else { target.position(); }
+        if(this.isForm){
+            ct.body.position();
+            this.paddingLeft = ct.body.getPadding('r');
+            this.paddingTop = ct.body.getPadding('t');
+        } else {
+            target.position();
+            this.paddingLeft = target.getPadding('r');
+            this.paddingTop = target.getPadding('t');
+        }
         Ext.layout.AbsoluteLayout.superclass.onLayout.call(this, ct, target);
     },
 
@@ -32,12 +40,12 @@ Ext.layout.AbsoluteLayout = Ext.extend(Ext.layout.AnchorLayout, {
 
     // private
     adjustWidthAnchor : function(value, comp){
-        return value ? value - comp.getPosition(true)[0] : value;
+        return value ? value - comp.getPosition(true)[0] + this.paddingLeft : value;
     },
 
     // private
     adjustHeightAnchor : function(value, comp){
-        return  value ? value - comp.getPosition(true)[1] : value;
+        return  value ? value - comp.getPosition(true)[1] + this.paddingTop : value;
     }
     /**
      * @property activeItem

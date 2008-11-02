@@ -1785,7 +1785,6 @@ Ext.dd.DragDropMgr = function() {
             if (! this.dragCurrent) {
                 return true;
             }
-
             // var button = e.which || e.button;
 
             // check for IE mouseup outside of page boundary

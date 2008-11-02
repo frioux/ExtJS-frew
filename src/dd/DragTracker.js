@@ -35,7 +35,9 @@ Ext.extend(Ext.dd.DragTracker, Ext.util.Observable,  {
         if(this.fireEvent('mousedown', this, e) !== false && this.onBeforeStart(e) !== false){
             this.startXY = this.lastXY = e.getXY();
             this.dragTarget = this.delegate ? target : this.el.dom;
-            e.preventDefault();
+            if(this.preventDefault !== false){
+                e.preventDefault();
+            }
             var doc = Ext.getDoc();
             doc.on('mouseup', this.onMouseUp, this);
             doc.on('mousemove', this.onMouseMove, this);

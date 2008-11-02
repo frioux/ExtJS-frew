@@ -643,6 +643,10 @@ ImageComponent = Ext.extend(Ext.BoxComponent, {
             o[name] = o[name].createInterceptor(fn, scope);
         },
 
+        sequence : function(o, name, fn, scope){
+            o[name] = o[name].createSequence(fn, scope);
+        },
+
         /**
          * True if the detected browser is Opera.
          * @type Boolean
