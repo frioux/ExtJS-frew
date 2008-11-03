@@ -153,7 +153,7 @@ Ext.extend(Ext.data.Connection, Ext.util.Observable, {
      * <li><b>form</b> : Element/HTMLElement/String (Optional)<div class="sub-desc">The <tt>&lt;form&gt;</tt>
      * Element or the id of the <tt>&lt;form&gt;</tt> to pull parameters from.</div></li>
      * <li><a id="request-option-isUpload"></a><b>isUpload</b> : Boolean (Optional)<div class="sub-desc"><b>Only meaningful when used 
-     * with the <tt>form</tt> option.
+     * with the <tt>form</tt> option</b>.
      * <p>True if the form object is a file upload (will be set automatically if the form was
      * configured with <b><tt>enctype</tt></b> "multipart/form-data").</p>
      * <p>File uploads are not performed using normal "Ajax" techniques, that is they are <b>not</b>
