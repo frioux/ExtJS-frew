@@ -147,10 +147,10 @@ Ext.TabPanel = Ext.extend(Ext.Panel,  {
      * @cfg {Boolean} deferredRender Internally, the TabPanel uses a {@link Ext.layout.CardLayout} to manage its tabs.
      * This property will be passed on to the layout as its {@link Ext.layout.CardLayout#deferredRender} config value,
      * determining whether or not each tab is rendered only when first accessed (defaults to true).
-     * <p>Be aware that leaving deferredRender as <b><tt>true</tt></b> means that if the TabPanel is within
-     * a {@link Ext.form.FormPanel form}, then until a tab is activated, any Fields within that tab are not
-     * rendered, and will therefore not be submitted and will not be available to either
-     * {@link Ext.form.BasicForm#getValues getValues} or {@link Ext.form.BasicForm#getValues setValues}.</p>
+     * <p>Be aware that leaving deferredRender as <b><tt>true</tt></b> means that, if the TabPanel is within
+     * a {@link Ext.form.FormPanel form}, then until a tab is activated, any Fields within that tab will not
+     * be rendered, and will therefore not be submitted and will not be available to either
+     * {@link Ext.form.BasicForm#getValues getValues} or {@link Ext.form.BasicForm#setValues setValues}.</p>
      */
     deferredRender : true,
     /**
@@ -320,7 +320,7 @@ var tabs = new Ext.TabPanel({
         }
         this.initItems();
         if(this.activeTab !== undefined && typeof this.activeTab != 'object'){
-           this.activeTab = this.items.get(this.activeTab);            
+           this.activeTab = this.items.get(this.activeTab);
         }
     },
 
@@ -351,7 +351,7 @@ var tabs = new Ext.TabPanel({
         var beforeEl = (this.tabPosition=='bottom' ? this.stripWrap : null);
         this.stripSpacer = st.createChild({cls:'x-tab-strip-spacer'}, beforeEl);
         this.strip = new Ext.Element(this.stripWrap.dom.firstChild);
-        
+
         this.edge = this.strip.createChild({tag:'li', cls:'x-tab-edge'});
         this.strip.createChild({cls:'x-clear'});
 
@@ -476,7 +476,7 @@ var tabs = new Ext.TabPanel({
         if(item.tabCls){
             cls += ' ' + item.tabCls;
         }
-        
+
         var p = {
             id: this.id + this.idDelimiter + item.getItemId(),
             text: item.title,
@@ -493,7 +493,7 @@ var tabs = new Ext.TabPanel({
             Ext.fly(el).child('span.x-tab-strip-text', true).qtip = item.tabTip;
         }
         item.tabEl = el;
-        
+
         item.on('disable', this.onItemDisabled, this);
         item.on('enable', this.onItemEnabled, this);
         item.on('titlechange', this.onItemTitleChanged, this);
@@ -916,7 +916,7 @@ var tabs = new Ext.TabPanel({
         this.scrollLeft[pos == 0 ? 'addClass' : 'removeClass']('x-tab-scroller-left-disabled');
         this.scrollRight[pos >= (this.getScrollWidth()-this.getScrollArea()) ? 'addClass' : 'removeClass']('x-tab-scroller-right-disabled');
     },
-    
+
     // private
     beforeDestroy : function() {
         if(this.items){

@@ -4,14 +4,14 @@
  * <p>This class extends the GridPanel to provide cell editing on selected columns.</p>
  * The editable columns are specified by providing an {@link Ext.grid.ColumnModel#editor editor}
  * in the column configuration.</p>
- * <p>Editablity of columns may be controlled programatically by inserting an implementation
+ * <p>Editability of columns may be controlled programatically by inserting an implementation
  * of {@link Ext.grid.ColumnModel#isCellEditable isCellEditable} into your ColumnModel.</p>
  * <p>Editing is performed on the value of the <i>field</i> specified by the column's
- * {@link Ext.grid.ColumnModel#dataIndex dataIndex} in the backing {@link Ext.data.Store Store}.
- * So if you are using a {@link Ext.grid.ColumnModel#setRenderer renderer} in order to display
- * transformed data, this must be accounted for.</p>
- * <p>If a value to description mapping is used to render a column, then a {Ext.form.Field#ComboBox ComboBox}
- * which uses the same {@link Ext.form.Field#valueField value} to {@link Ext.form.Field#displayFieldField description}
+ * {@link Ext.grid.ColumnModel#dataIndex dataIndex} in the backing {@link Ext.data.Store Store}
+ * (so if you are using a {@link Ext.grid.ColumnModel#setRenderer renderer} in order to display
+ * transformed data, this must be accounted for).</p>
+ * <p>If a value-to-description mapping is used to render a column, then a {Ext.form.Field#ComboBox ComboBox}
+ * which uses the same {@link Ext.form.Field#valueField value}-to-{@link Ext.form.Field#displayFieldField description}
  * mapping would be an appropriate editor.</p>
  * If there is a more complex mismatch between the visible data in the grid, and the editable data in
  * the {@link Edt.data.Store Store}, then code to transform the data both before and after editing can be
@@ -44,7 +44,7 @@ Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
 	 */
     // private
     trackMouseOver: false, // causes very odd FF errors
-    
+
     // private
     initComponent : function(){
         Ext.grid.EditorGridPanel.superclass.initComponent.call(this);
@@ -115,7 +115,7 @@ Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
     // private
     initEvents : function(){
         Ext.grid.EditorGridPanel.superclass.initEvents.call(this);
-        
+
         this.on("bodyscroll", this.stopEditing, this, [true]);
 
         if(this.clicksToEdit == 1){
@@ -226,18 +226,18 @@ Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
             }
         }
     },
-    
+
     // private
     preEditValue : function(r, field){
         var value = r.data[field];
         return this.autoEncode && typeof value == 'string' ? Ext.util.Format.htmlDecode(value) : value;
     },
-    
+
     // private
 	postEditValue : function(value, originalValue, r, field){
 		return this.autoEncode && typeof value == 'string' ? Ext.util.Format.htmlEncode(value) : value;
 	},
-	    
+
     /**
      * Stops any active editing
      * @param {Boolean} cancel (optional) True to cancel any changes
@@ -248,7 +248,7 @@ Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
         }
         this.activeEditor = null;
     },
-    
+
     // private
     onDestroy: function() {
         if(this.rendered){
