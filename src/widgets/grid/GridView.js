@@ -809,34 +809,23 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
      * @param {Number} col The column index
      */
     focusCell : function(row, col, hscroll){
-        this.syncFocusEl(row, col, hscroll);
+		this.syncFocusEl(this.ensureVisible(row, col, hscroll));
         if(Ext.isGecko){
             this.focusEl.focus();
         }else{
             this.focusEl.focus.defer(1, this.focusEl);
         }
     },
-    
-    // private
-    syncFocusEl : function(row, col, hscroll){
-        if(this.cm.getColumnCount() < 1){
-            return;
-        }
-        row = Math.min(row, Math.max(0, this.getRows().length-1));
-        var xy = this.ensureVisible(row, col, hscroll);
-        this.focusEl.setXY(xy||this.scroller.getXY());
-    },
 
-    // private
-    ensureVisible : function(row, col, hscroll){
-        if(typeof row != "number"){
+	resolveCell : function(row, col, hscroll){
+		if(typeof row != "number"){
             row = row.rowIndex;
         }
         if(!this.ds){
-            return;
+            return null;
         }
         if(row < 0 || row >= this.ds.getCount()){
-            return;
+            return null;
         }
         col = (col !== undefined ? col : 0);
 
@@ -847,11 +836,36 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
             }
             cellEl = this.getCell(row, col);
         }
-        if(!rowEl){
-            return;
-        }
 
-        var c = this.scroller.dom;
+		return {row: rowEl, cell: cellEl};
+	},
+
+	getResolvedXY : function(resolved){
+		if(!resolved){
+			return null;
+		}
+		var s = this.scroller.dom, c = resolved.cell, r = resolved.row;
+		return c ? Ext.fly(c).getXY() : [s.scrollLeft+this.el.getX(), Ext.fly(r).getY()];
+	},
+
+	syncFocusEl : function(row, col, hscroll){
+		var xy = row;
+		if(!Ext.isArray(xy)){
+			row = Math.min(row, Math.max(0, this.getRows().length-1));
+        	xy = this.getResolvedXY(this.resolveCell(row, col, hscroll));
+		}
+        this.focusEl.setXY(xy||this.scroller.getXY());
+    },
+
+	ensureVisible : function(row, col, hscroll){
+        var resolved = this.resolveCell(row, col, hscroll);
+		if(!resolved || !resolved.row){
+			return;
+		}
+
+		var rowEl = resolved.row, cellEl = resolved.cell;
+
+		var c = this.scroller.dom;
 
         var ctop = 0;
         var p = rowEl, stop = this.el.dom;
@@ -867,7 +881,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         var stop = parseInt(c.scrollTop, 10);
         var sbot = stop + ch;
 
-        if(ctop < stop){
+		if(ctop < stop){
           c.scrollTop = ctop;
         }else if(cbot > sbot){
             c.scrollTop = cbot-ch;
@@ -885,7 +899,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
                 c.scrollLeft = cright-c.clientWidth;
             }
         }
-        return cellEl ? Ext.fly(cellEl).getXY() : [c.scrollLeft+this.el.getX(), Ext.fly(rowEl).getY()];
+        return this.getResolvedXY(resolved);
     },
 
     // private
