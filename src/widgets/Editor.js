@@ -4,18 +4,27 @@
  * A base editor field that handles displaying/hiding on demand and has some built-in sizing and event handling logic.
  * @constructor
  * Create a new Editor
- * @param {Ext.form.Field} field The Field object (or descendant)
  * @param {Object} config The config object
  */
 Ext.Editor = function(field, config){
-    this.field = field;
+    if(field.field){
+        this.field = Ext.create(field.field, 'textfield');
+        config = Ext.apply({}, field); // copy so we don't disturb original config
+        delete config.field;
+    }else{
+        this.field = field;
+    }
     Ext.Editor.superclass.constructor.call(this, config);
 };
 
 Ext.extend(Ext.Editor, Ext.Component, {
     /**
+    * @cfg {Ext.form.Field} field
+    * The Field object (or descendant) or config object for field
+    */
+    /**
      * @cfg {Boolean/String} autoSize
-     * True for the editor to automatically adopt the size of the underlying field, "width" to adopt the width only,
+     * True for the editor to automatically adopt the size of the element being edited, "width" to adopt the width only,
      * or "height" to adopt the height only (defaults to false)
      */
     /**
@@ -133,10 +142,13 @@ Ext.extend(Ext.Editor, Ext.Component, {
             cls: "x-editor",
             parentEl : ct,
             shim : this.shim,
-            shadowOffset:4,
+            shadowOffset: this.shadowOffset || 4,
             id: this.id,
             constrain: this.constrain
         });
+        if(this.zIndex){
+            this.el.setZIndex(this.zIndex);
+        }
         this.el.setStyle("overflow", Ext.isGecko ? "auto" : "hidden");
         if(this.field.msgTarget != 'title'){
             this.field.msgTarget = 'qtip';

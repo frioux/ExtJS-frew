@@ -165,7 +165,7 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
 
     // private
     adjustWidthAnchor : function(value, comp){
-        return value - (comp.isFormField  ? (comp.hideLabel ? 0 : this.labelAdjust) : 0);
+        return value - (comp.isFormField || comp.fieldLabel  ? (comp.hideLabel ? 0 : this.labelAdjust) : 0);
     },
 
     // private

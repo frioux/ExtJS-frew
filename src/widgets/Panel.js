@@ -1160,7 +1160,19 @@ new Ext.Panel({
         if(w !== undefined || h !== undefined){
             if(!this.collapsed){
                 if(typeof w == 'number'){
-                    w = this.adjustBodyWidth(w - this.getFrameWidth());
+					w = this.adjustBodyWidth(w - this.getFrameWidth());
+                    if(this.tbar){
+	                    this.tbar.setWidth(w);
+	                    if(this.topToolbar){
+	                        this.topToolbar.setSize(w);
+	                    }
+	                }
+					if(this.bbar){
+	                    this.bbar.setWidth(w);
+	                    if(this.bottomToolbar){
+	                        this.bottomToolbar.setSize(w);
+	                    }
+	                }
                     this.body.setWidth(w);
                 }else if(w == 'auto'){
                     this.body.setWidth(w);
@@ -1168,24 +1180,11 @@ new Ext.Panel({
 
                 if(typeof h == 'number'){
                     h = this.adjustBodyHeight(h - this.getFrameHeight());
-                    this.body.setHeight(h);
+				    this.body.setHeight(h);
                 }else if(h == 'auto'){
                     this.body.setHeight(h);
                 }
 
-                if(this.tbar){
-                    this.tbar.setWidth(w);
-                    if(this.topToolbar){
-                        this.topToolbar.setSize(w);
-                    }
-                }
-                if(this.bbar){
-                    this.bbar.setWidth(w);
-                    if(this.bottomToolbar){
-                        this.bottomToolbar.setSize(w);
-                    }
-                }
-                
                 if(this.disabled && this.el._mask){
                     this.el._mask.setSize(this.el.dom.clientWidth, this.el.getHeight());
                 }

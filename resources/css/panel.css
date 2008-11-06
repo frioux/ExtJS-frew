@@ -407,3 +407,9 @@
 .x-panel-btns .x-btn-click .x-btn-left{
 	background-position:0 -63px;
 }
+
+
+.x-panel-fbar td,.x-panel-fbar span,.x-panel-fbar input,.x-panel-fbar div,.x-panel-fbar select,.x-panel-fbar label{
+	white-space: nowrap;
+    font:normal 11px arial,tahoma, helvetica, sans-serif;
+}
