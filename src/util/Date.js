@@ -100,6 +100,18 @@ document.write(dt.format(Date.patterns.ShortDate));
  */
 
 (function() {
+
+// create private copy of Ext's String.format() method
+// - to remove unnecessary dependency
+// - to resolve namespace conflict with M$-Ajax's implementation
+function xf(format) {
+    var args = Array.prototype.slice.call(arguments, 1);
+    return format.replace(/\{(\d+)\}/g, function(m, i) {
+        return args[i];
+    });
+}
+
+
 // private
 Date.formatCodeToRegex = function(character, currentGroup) {
     // Note: currentGroup - position in regex result array (see notes for Date.parseCodes below)
@@ -111,7 +123,7 @@ Date.formatCodeToRegex = function(character, currentGroup) {
     }
 
     return p? Ext.applyIf({
-      c: p.c? String.format(p.c, currentGroup || "{0}") : p.c
+      c: p.c? xf(p.c, currentGroup || "{0}") : p.c
     }, p) : {
         g:0,
         c:null,
@@ -438,48 +450,19 @@ Ext.apply(Date, {
     },
 
     // private
-    createParser : function(format) {
-        var funcName = "parse" + Date.parseFunctions.count++,
-            regexNum = Date.parseRegexes.length,
-            currentGroup = 1,
-            code = [
-                "Date." + funcName + " = function(input){",
-                    "var y, m, d, h = 0, i = 0, s = 0, ms = 0, o, z, u, v;",
-                    "input = String(input);",
-                    "d = new Date();",
-                    "y = d.getFullYear();",
-                    "m = d.getMonth();",
-                    "d = d.getDate();",
-                    "var results = input.match(Date.parseRegexes[" + regexNum + "]);",
-                    "if (results && results.length > 0) {\n"
-            ].join('\n'),
-            regex = "",
-            special = false,
-            ch = '';
-
-        Date.parseFunctions[format] = funcName;
-
-        for (var i = 0; i < format.length; ++i) {
-            ch = format.charAt(i);
-            if (!special && ch == "\\") {
-                special = true;
-            }
-            else if (special) {
-                special = false;
-                regex += String.escape(ch);
-            }
-            else {
-                var obj = Date.formatCodeToRegex(ch, currentGroup);
-                currentGroup += obj.g;
-                regex += obj.s;
-                if (obj.g && obj.c) {
-                    code += obj.c;
-                }
-            }
-        }
-
-        code += [
-                    "if (u){",
+    createParser : function() {
+        var code = [
+            "Date.{0} = function(input){",
+                "var y, m, d, h = 0, i = 0, s = 0, ms = 0, o, z, u, v;",
+                "input = String(input);",
+                "d = new Date();",
+                "y = d.getFullYear();",
+                "m = d.getMonth();",
+                "d = d.getDate();",
+                "var results = input.match(Date.parseRegexes[{1}]);",
+                "if(results && results.length > 0){",
+                    "{2}",
+                    "if(u){",
                         "v = new Date(u * 1000);", // give top priority to UNIX time
                     "}else if (y >= 0 && m >= 0 && d > 0 && h >= 0 && i >= 0 && s >= 0 && ms >= 0){",
                         "v = new Date(y, m, d, h, i, s, ms);",
@@ -503,9 +486,40 @@ Ext.apply(Date, {
             "}"
         ].join('\n');
 
-        Date.parseRegexes[regexNum] = new RegExp("^" + regex + "$", "i");
-        eval(code);
-    },
+        return function(format) {
+            var funcName = "parse" + Date.parseFunctions.count++,
+                regexNum = Date.parseRegexes.length,
+                currentGroup = 1,
+                calc = "",
+                regex = "",
+                special = false,
+                ch = "";
+
+            Date.parseFunctions[format] = funcName;
+
+            for (var i = 0; i < format.length; ++i) {
+                ch = format.charAt(i);
+                if (!special && ch == "\\") {
+                    special = true;
+                }
+                else if (special) {
+                    special = false;
+                    regex += String.escape(ch);
+                }
+                else {
+                    var obj = $f(ch, currentGroup);
+                    currentGroup += obj.g;
+                    regex += obj.s;
+                    if (obj.g && obj.c) {
+                        calc += obj.c;
+                    }
+                }
+            }
+
+            Date.parseRegexes[regexNum] = new RegExp("^" + regex + "$", "i");
+            eval(xf(code, funcName, regexNum, calc));
+        }
+    }(),
 
     // private
     parseCodes : {
@@ -802,7 +816,7 @@ Ext.override(Date, {
         // adapted from http://www.merlyn.demon.co.uk/weekcalc.htm
         var ms1d = 864e5, // milliseconds in a day
             ms7d = 7 * ms1d; // milliseconds in a week
-            
+
         return function() { // return a closure so constants get calculated only once
             var DC3 = Date.UTC(this.getFullYear(), this.getMonth(), this.getDate() + 3) / ms1d, // an Absolute Day Number
                 AWN = Math.floor(DC3 / 7), // an Absolute Week Number
