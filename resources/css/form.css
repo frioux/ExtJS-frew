@@ -386,7 +386,7 @@ textarea {
 }
 
 .x-form-cb-label {
-    width:'auto' !important;
+    width:auto !important;
     float:none !important;
     clear:none !important;
     display:inline !important;
