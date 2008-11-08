@@ -774,6 +774,7 @@ new Ext.Panel({
             this.fbar.toolbarCls = 'x-panel-fbar';
 
             var bct = this.footer.createChild({cls: 'x-panel-btns x-panel-btns-'+this.buttonAlign});
+            this.fbar.ownerCt = this;
             this.fbar.render(bct);
             bct.createChild({cls:'x-clear'});
         }
@@ -921,6 +922,19 @@ new Ext.Panel({
                 }
                 t.addClassOnOver(overCls);
             }
+        }
+    },
+
+    doLayout : function(shallow){
+        Ext.Panel.superclass.doLayout.call(this, shallow);
+        if(this.topToolbar){
+            this.topToolbar.doLayout();
+        }
+        if(this.bottomToolbar){
+            this.bottomToolbar.doLayout();
+        }
+        if(this.fbar){
+            this.fbar.doLayout();
         }
     },
 
