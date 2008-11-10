@@ -79,7 +79,7 @@ Ext.History = (function () {
     }
 
     function startUp() {
-        currentToken = hiddenField.value;
+        currentToken = hiddenField.value ? hiddenField.value : getHash();
 
         if (Ext.isIE) {
             checkIFrame();
