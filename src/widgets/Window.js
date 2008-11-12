@@ -234,6 +234,9 @@ Ext.Window = Ext.extend(Ext.Panel, {
             this.mask = this.container.createChild({cls:"ext-el-mask"}, this.el.dom);
             this.mask.enableDisplayMode("block");
             this.mask.hide();
+            if(this.modal) {
+                this.mask.on('click', this.focus, this);
+            }
         }
     },
 
@@ -391,14 +394,15 @@ Ext.Window = Ext.extend(Ext.Panel, {
     focus : function(){
         var f = this.focusEl, db = this.defaultButton, t = typeof db;
         if(t != 'undefined'){
-            if(t == 'number'){
-                f = this.buttons[db];
+            if(t == 'number' && this.fbar){
+                f = this.fbar.items.get(db);
             }else if(t == 'string'){
                 f = Ext.getCmp(db);
             }else{
                 f = db;
             }
         }
+        f = f || this.focusEl;
         f.focus.defer(10, f);
     },
 

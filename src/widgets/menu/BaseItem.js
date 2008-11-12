@@ -59,9 +59,9 @@ Ext.extend(Ext.menu.BaseItem, Ext.Component, {
      */
     hideOnClick : true,
     /**
-     * @cfg {Number} hideDelay Length of time in milliseconds to wait before hiding after a click (defaults to 100)
+     * @cfg {Number} clickHideDelay Length of time in milliseconds to wait before hiding after a click (defaults to 100)
      */
-    hideDelay : 100,
+    clickHideDelay : 1,
 
     // private
     ctype: "Ext.menu.BaseItem",
@@ -136,7 +136,7 @@ Ext.extend(Ext.menu.BaseItem, Ext.Component, {
     // private
     handleClick : function(e){
         if(this.hideOnClick){
-            this.parentMenu.hide.defer(this.hideDelay, this.parentMenu, [true]);
+            this.parentMenu.hide.defer(this.clickHideDelay, this.parentMenu, [true]);
         }
     },
 

@@ -29,8 +29,6 @@
     <include name="core\Fx.js" />
     <include name="core\CompositeElement.js" />
     <include name="data\Connection.js" />
-    <include name="data\Direct.js" />
-    <include name="data\DirectProvider.js" />
     <include name="core\UpdateManager.js" />
     <include name="util\Date.js" />
     <include name="util\DelayedTask.js" />
@@ -61,17 +59,24 @@
     <include name="data\SimpleStore.js" />
     <include name="data\JsonStore.js" />
     <include name="data\XmlStore.js" />
-    <include name="data\DirectStore.js" />
     <include name="data\DataField.js" />
     <include name="data\DataReader.js" />
     <include name="data\DataProxy.js" />
     <include name="data\MemoryProxy.js" />
     <include name="data\HttpProxy.js" />
     <include name="data\ScriptTagProxy.js" />
-    <include name="data\DirectProxy.js" />
     <include name="data\JsonReader.js" />
     <include name="data\XmlReader.js" />
     <include name="data\ArrayReader.js" />
+    <include name="direct\Direct.js" />
+    <include name="direct\Transaction.js" />
+    <include name="direct\Event.js" />
+    <include name="direct\Provider.js" />
+    <include name="direct\JsonProvider.js" />
+    <include name="direct\PollingProvider.js" />
+    <include name="direct\RemotingProvider.js" />
+    <include name="data\DirectProxy.js" />
+    <include name="data\DirectStore.js" />
     <include name="data\Tree.js" />
     <include name="data\GroupingStore.js" />
     <include name="widgets\Component.js" />
@@ -149,6 +154,7 @@
     <include name="widgets\form\TextArea.js" />
     <include name="widgets\form\NumberField.js" />
     <include name="widgets\form\DateField.js" />
+    <include name="widgets\form\DisplayField.js" />
     <include name="widgets\form\Combo.js" />
     <include name="widgets\form\Checkbox.js" />
     <include name="widgets\form\CheckboxGroup.js" />
@@ -553,6 +559,8 @@
   <file name="widgets\ListView.js" path="widgets" />
   <file name="ext.jsb" path="" />
   <file name="license.txt" path="" />
+  <file name="data\Direct.js" path="data" />
+  <file name="data\DirectProvider.js" path="data" />
   <file name="adapter\ext-base.js" path="adapter" />
   <file name="adapter\jquery-bridge.js" path="adapter" />
   <file name="adapter\prototype-bridge.js" path="adapter" />
@@ -577,8 +585,6 @@
   <file name="data\DataField.js" path="data" />
   <file name="data\DataProxy.js" path="data" />
   <file name="data\DataReader.js" path="data" />
-  <file name="data\Direct.js" path="data" />
-  <file name="data\DirectProvider.js" path="data" />
   <file name="data\DirectProxy.js" path="data" />
   <file name="data\DirectStore.js" path="data" />
   <file name="data\GroupingStore.js" path="data" />
@@ -604,6 +610,13 @@
   <file name="dd\Registry.js" path="dd" />
   <file name="dd\ScrollManager.js" path="dd" />
   <file name="dd\StatusProxy.js" path="dd" />
+  <file name="direct\Direct.js" path="direct" />
+  <file name="direct\Event.js" path="direct" />
+  <file name="direct\JsonProvider.js" path="direct" />
+  <file name="direct\PollingProvider.js" path="direct" />
+  <file name="direct\Provider.js" path="direct" />
+  <file name="direct\RemotingProvider.js" path="direct" />
+  <file name="direct\Transaction.js" path="direct" />
   <file name="locale\ext-lang-af.js" path="locale" />
   <file name="locale\ext-lang-bg.js" path="locale" />
   <file name="locale\ext-lang-ca.js" path="locale" />
@@ -676,6 +689,7 @@
   <file name="widgets\form\CheckboxGroup.js" path="widgets\form" />
   <file name="widgets\form\Combo.js" path="widgets\form" />
   <file name="widgets\form\DateField.js" path="widgets\form" />
+  <file name="widgets\form\DisplayField.js" path="widgets\form" />
   <file name="widgets\form\Field.js" path="widgets\form" />
   <file name="widgets\form\FieldSet.js" path="widgets\form" />
   <file name="widgets\form\Form.js" path="widgets\form" />

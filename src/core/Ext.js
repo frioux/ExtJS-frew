@@ -470,7 +470,7 @@ Company.data.CustomStore = function(config) { ... }
          * @return {Number} Value, if numeric, else defaultValue
          */
         num : function(v, defaultValue){
-            if(typeof v != 'number'){
+            if(typeof v != 'number' || isNaN(v)){
                 return defaultValue;
             }
             return v;
@@ -746,7 +746,7 @@ ImageComponent = Ext.extend(Ext.BoxComponent, {
 })();
 
 Ext.ns("Ext", "Ext.util", "Ext.grid", "Ext.dd", "Ext.tree", "Ext.data",
-                "Ext.form", "Ext.menu", "Ext.state", "Ext.lib", "Ext.layout", "Ext.app", "Ext.ux", "Ext.chart");
+                "Ext.form", "Ext.menu", "Ext.state", "Ext.lib", "Ext.layout", "Ext.app", "Ext.ux", "Ext.chart", "Ext.direct");
 
 
 /**

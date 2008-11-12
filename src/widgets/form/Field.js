@@ -199,7 +199,7 @@ side          Add an error icon to the right of the field with a popup on hover
     initValue : function(){
         if(this.value !== undefined){
             this.setValue(this.value);
-        }else if(this.el.dom.value.length > 0 && this.el.dom.value != this.emptyText){
+        }else if(!Ext.isEmpty(this.el.dom.value) && this.el.dom.value != this.emptyText){
             this.setValue(this.el.dom.value);
         }
         // reference to original value for reset
@@ -428,6 +428,11 @@ side          Add an error icon to the right of the field with a popup on hover
             this.el.dom.value = (v === null || v === undefined ? '' : v);
             this.validate();
         }
+    },
+
+    // private, does not work for all fields
+    append :function(v){
+         this.setValue([this.getValue(), v].join(''));
     },
 
     // private

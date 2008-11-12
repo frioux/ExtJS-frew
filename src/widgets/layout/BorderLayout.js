@@ -280,6 +280,7 @@ Ext.layout.BorderLayout.Region.prototype = {
     defaultNSCMargins : {left:5,top:5,right:5,bottom:5},
     // private
     defaultEWCMargins : {left:5,top:0,right:5,bottom:0},
+    floatingZIndex: 100,
 
     /**
      * True if this region is collapsed. Read-only.
@@ -429,7 +430,7 @@ Ext.layout.BorderLayout.Region.prototype = {
         }
         c.hide();
         c.dom.style.visibility = 'hidden';
-        this.panel.el.setStyle('z-index', 100);
+        this.panel.el.setStyle('z-index', this.floatingZIndex);
     },
 
     // private
@@ -604,7 +605,7 @@ Ext.layout.BorderLayout.Region.prototype = {
         }
         this.restoreLT = [this.el.dom.style.left, this.el.dom.style.top];
         this.el.alignTo(this.collapsedEl, this.getCollapseAnchor());
-        this.el.setStyle("z-index", 102);
+        this.el.setStyle("z-index", this.floatingZIndex+2);
         if(this.animFloat !== false){
             this.beforeSlide();
             this.el.slideIn(this.getSlideAnchor(), {
