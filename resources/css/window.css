@@ -180,7 +180,7 @@ body.ext-ie6.x-body-masked .x-window select {
 }
 
 .x-window-plain .x-window-mc {
-    background: #CAD9EC;
+    background: #ccd9e8;
     border-right:1px solid #DFE8F6;
     border-bottom:1px solid #DFE8F6;
     border-top:1px solid #a3bae9;
@@ -196,5 +196,5 @@ body.ext-ie6.x-body-masked .x-window select {
 }
 
 body.x-body-masked .x-window-plain .x-window-mc {
-    background: #C7D6E9;
+    background: #ccd9e8;
 }
