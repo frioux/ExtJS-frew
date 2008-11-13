@@ -11,7 +11,7 @@ Ext.extend(Ext.data.DirectProxy, Ext.data.DataProxy, {
 	paramOrder: undefined,
 	paramsAsHash: true,
 	directFn: undefined,
-    
+
     load: function(params, reader, cb, scope, arg){
 		if(this.fireEvent("beforeload", this, params) !== false) {
 			var args = [];
@@ -24,7 +24,7 @@ Ext.extend(Ext.data.DirectProxy, Ext.data.DataProxy, {
 			}
 			args.push({
 				callback: function(result, e){
-					if(!e.success){
+					if(!e.status){
 						this.fireEvent("loadexception", this, e, result);
             			cb.call(scope, null, arg, false);
             			return;
