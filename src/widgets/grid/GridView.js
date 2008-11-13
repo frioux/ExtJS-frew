@@ -470,13 +470,16 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
             hd.style.width = ws[i];
         }
 
-        var ns = this.getRows();
+        var ns = this.getRows(), row, trow;
         for(var i = 0, len = ns.length; i < len; i++){
-            ns[i].style.width = tw;
-            ns[i].firstChild.style.width = tw;
-            var row = ns[i].firstChild.rows[0];
-            for(var j = 0; j < clen; j++){
-                row.childNodes[j].style.width = ws[j];
+            row = ns[i];
+            row.style.width = tw;
+            if(row.firstChild){
+                row.firstChild.style.width = tw;
+                trow = row.firstChild.rows[0];
+                for (var j = 0; j < clen; j++) {
+                   trow.childNodes[j].style.width = ws[j];
+                }
             }
         }
 
@@ -492,11 +495,14 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         var hd = this.getHeaderCell(col);
         hd.style.width = w;
 
-        var ns = this.getRows();
+        var ns = this.getRows(), row;
         for(var i = 0, len = ns.length; i < len; i++){
-            ns[i].style.width = tw;
-            ns[i].firstChild.style.width = tw;
-            ns[i].firstChild.rows[0].childNodes[col].style.width = w;
+            row = ns[i];
+            row.style.width = tw;
+            if(row.firstChild){
+                row.firstChild.style.width = tw;
+                row.firstChild.rows[0].childNodes[col].style.width = w;
+            }
         }
 
         this.onColumnWidthUpdated(col, w, tw);
@@ -513,11 +519,14 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         var hd = this.getHeaderCell(col);
         hd.style.display = display;
 
-        var ns = this.getRows();
+        var ns = this.getRows(), row;
         for(var i = 0, len = ns.length; i < len; i++){
-            ns[i].style.width = tw;
-            ns[i].firstChild.style.width = tw;
-            ns[i].firstChild.rows[0].childNodes[col].style.display = display;
+            row = ns[i];
+            row.style.width = tw;
+            if(row.firstChild){
+                row.firstChild.style.width = tw;
+                row.firstChild.rows[0].childNodes[col].style.display = display;
+            }
         }
 
         this.onColumnHiddenUpdated(col, hidden, tw);

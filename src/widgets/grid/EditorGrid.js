@@ -219,6 +219,10 @@ Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
                     ed.record = r;
                     ed.on("complete", this.onEditComplete, this, {single: true});
                     ed.on("specialkey", this.selModel.onEditorKey, this.selModel);
+                    /**
+                     * The currently active editor or null
+                      * @type Ext.Editor
+                     */
                     this.activeEditor = ed;
                     var v = this.preEditValue(r, field);
                     ed.startEdit(this.view.getCell(row, col).firstChild, v === undefined ? '' : v);
