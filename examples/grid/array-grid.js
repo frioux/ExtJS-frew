@@ -87,6 +87,4 @@ Ext.onReady(function(){
         title:'Array Grid'
     });
     grid.render('grid-example');
-    
-    grid.getSelectionModel().selectFirstRow();
 });
