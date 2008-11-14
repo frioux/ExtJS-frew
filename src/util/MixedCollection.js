@@ -546,7 +546,7 @@ mc.add(otherEl);
     },
 
     /**
-     * Creates a duplicate of this collection
+     * Creates a shallow copy of this collection
      * @return {MixedCollection}
      */
     clone : function(){
