@@ -23,7 +23,7 @@ h2 {
 	border:1px solid #c3daf9;
 	border-top:1px solid #DCEAFB;
 	border-left:1px solid #DCEAFB;
-	background:#ecf5fe url(info-bg.gif) repeat-x;
+	background:#ecf5fe url( info-bg.gif ) repeat-x;
 	font-size:10px;
 	padding:8px;
 }
@@ -49,9 +49,4 @@ pre.code{
 }
 .x-grid3-row-body p {
     margin:5px 5px 10px 5px !important;
-}
-
-.x-panel-header-text i {
-    font-weight:normal !important;
-    font-style:normal;
 }

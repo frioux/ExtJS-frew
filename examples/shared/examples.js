@@ -22,6 +22,7 @@ Ext.example = function(){
         },
 
         init : function(){
+            /*
             var t = Ext.get('exttheme');
             if(!t){ // run locally?
                 return;
@@ -36,7 +37,7 @@ Ext.example = function(){
                 setTimeout(function(){
                     window.location.reload();
                 }, 250);
-            });
+            });*/
 
             var lb = Ext.get('lib-bar');
             if(lb){
@@ -52,7 +53,7 @@ Ext.example.bogusMarkup = '<p>Lorem ipsum dolor sit amet, consectetuer adipiscin
 Ext.onReady(Ext.example.init, Ext.example);
 
 
-// old school cookie functions grabbed off the web
+// old school cookie functions
 var Cookies = {};
 Cookies.set = function(name, value){
      var argv = arguments;

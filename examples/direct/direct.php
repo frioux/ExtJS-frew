@@ -37,7 +37,7 @@
     </style>
 </head>
 <body>
-<script type="text/javascript" src="../examples.js"></script><!-- EXAMPLES -->
+<script type="text/javascript" src="../shared/examples.js"></script><!-- EXAMPLES -->
 
 <h1>Ext.Direct Generic Remoting</h1>
 
