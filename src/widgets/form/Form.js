@@ -65,10 +65,6 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
     // private
     initComponent :function(){
         this.form = this.createForm();
-        if(this.fileUpload) {
-            this.bodyCfg.enctype = 'multipart/form-data';
-        }
-
         Ext.FormPanel.superclass.initComponent.call(this);
 
         this.bodyCfg = {
@@ -77,7 +73,9 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
             method : this.method || 'POST',
             id : this.formId || Ext.id()
         };
-        
+        if(this.fileUpload) {
+            this.bodyCfg.enctype = 'multipart/form-data';
+        }
         this.initItems();
         
         this.addEvents(
