@@ -234,9 +234,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
             this.mask = this.container.createChild({cls:"ext-el-mask"}, this.el.dom);
             this.mask.enableDisplayMode("block");
             this.mask.hide();
-            if(this.modal) {
-                this.mask.on('click', this.focus, this);
-            }
+            this.mask.on('click', this.focus, this);
         }
     },
 

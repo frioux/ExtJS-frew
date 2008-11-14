@@ -1187,6 +1187,9 @@ new Ext.Panel({
 	                        this.bottomToolbar.setSize(w);
 	                    }
 	                }
+					if(this.fbar){
+	                    this.fbar.setSize(w - this.fbar.container.getFrameWidth('lr'));
+	                }
                     this.body.setWidth(w);
                 }else if(w == 'auto'){
                     this.body.setWidth(w);
