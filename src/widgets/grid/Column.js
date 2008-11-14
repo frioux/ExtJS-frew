@@ -2,7 +2,7 @@ Ext.grid.Column = function(config){
     Ext.apply(this, config);
 
     if(typeof this.renderer == "string"){
-        this.renderer = Ext.util.Format[c.renderer];
+        this.renderer = Ext.util.Format[this.renderer];
     }
     if(typeof this.id == "undefined"){
         this.id = ++Ext.grid.Column.AUTO_ID;
