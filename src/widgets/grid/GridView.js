@@ -669,6 +669,11 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
             //g.on("headercontextmenu", this.handleHdCtx, this);
         }
 
+        if(g.trackMouseOver){
+             this.mainBody.on("mouseover", this.onRowOver, this);
+             this.mainBody.on("mouseout", this.onRowOut, this);
+        }
+
         if(g.enableDragDrop || g.enableDrag){
             this.dragZone = new Ext.grid.GridDragZone(g, {
                 ddGroup : g.ddGroup || 'GridDD'
@@ -764,7 +769,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         var cm = this.cm, ts = this.templates;
         var ct = ts.hcell;
 
-        var cb = [], sb = [], p = {};
+        var cb = [], p = {};
 
         for(var i = 0, len = cm.getColumnCount(); i < len; i++){
             p.id = cm.getColumnId(i);
@@ -978,7 +983,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
 
     // private
     fitColumns : function(preventRefresh, onlyExpand, omitColumn){
-        var cm = this.cm, leftOver, dist, i;
+        var cm = this.cm, i;
         var tw = cm.getTotalWidth(false);
         var aw = this.grid.getGridEl().getWidth(true)-this.scrollOffset;
 
@@ -1104,7 +1109,6 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         }else{
             index = ds.indexOf(record);
         }
-        var cls = [];
         this.insertRows(ds, index, index, true);
         this.getRow(index).rowIndex = index;
         this.onRemove(ds, record, index+1, true);
@@ -1340,16 +1344,10 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
     // private
     initUI : function(grid){
         grid.on("headerclick", this.onHeaderClick, this);
-
-        if(grid.trackMouseOver){
-            grid.on("mouseover", this.onRowOver, this);
-          grid.on("mouseout", this.onRowOut, this);
-      }
     },
 
     // private
     initEvents : function(){
-
     },
 
     // private
@@ -1372,7 +1370,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
     // private
     onRowOut : function(e, t){
         var row;
-        if((row = this.findRowIndex(t)) !== false && row !== this.findRowIndex(e.getRelatedTarget())){
+        if((row = this.findRowIndex(t)) !== false && !e.within(this.getRow(row), true)){
             this.removeRowClass(row, "x-grid3-row-over");
         }
     },
@@ -1586,7 +1584,7 @@ Ext.extend(Ext.grid.GridView.SplitDragZone, Ext.dd.DDProxy, {
         var t = this.view.findHeaderCell(e.getTarget());
         if(t){
             var xy = this.view.fly(t).getXY(), x = xy[0], y = xy[1];
-            var exy = e.getXY(), ex = exy[0], ey = exy[1];
+            var exy = e.getXY(), ex = exy[0];
             var w = t.offsetWidth, adjust = false;
             if((ex - x) <= this.hw){
                 adjust = -1;

@@ -180,6 +180,10 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
         return this.config[index].id;
     },
 
+    getColumnAt : function(index){
+        return this.config[index];
+    },
+
     /**
      * Reconfigures this column model
      * @param {Array} config Array of Column configs
@@ -497,7 +501,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * @return {Object}
      */
     getCellEditor : function(colIndex, rowIndex){
-        return this.config[colIndex].editor;
+        return this.config[colIndex].getCellEditor(rowIndex);
     },
 
     /**

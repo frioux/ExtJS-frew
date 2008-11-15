@@ -8,10 +8,8 @@ Ext.grid.Column = function(config){
         this.id = ++Ext.grid.Column.AUTO_ID;
     }
     if(this.editor){
-        if(this.editor.isFormField){
-            this.editor = new Ext.grid.GridEditor(this.editor);
-        }else if(this.editor.xtype && !this.editor.events){
-            this.editor = new Ext.grid.GridEditor(Ext.create(this.editor, 'textfield'));
+        if(this.editor.xtype && !this.editor.events){
+            this.editor = Ext.create(this.editor, 'textfield');
         }
     }
 }
@@ -25,6 +23,25 @@ Ext.grid.Column.prototype = {
             return "&#160;";
         }
         return value;
+    },
+
+    getEditor: function(rowIndex){
+        return this.editable !== false ? this.editor : null;
+    },
+
+    getCellEditor: function(rowIndex){
+        var editor = this.getEditor(rowIndex);
+        if(editor){
+            if(!editor.startEdit){
+                if(!editor.gridEditor){
+                    editor.gridEditor = new Ext.grid.GridEditor(editor);
+                }
+                return editor.gridEditor;
+            }else if(editor.startEdit){
+                return editor;
+            }
+        }
+        return null;
     }
 };
 
