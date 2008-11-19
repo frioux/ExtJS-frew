@@ -486,8 +486,13 @@ function(grid, rowIndex, columnIndex, e) {
     },
 
     /**
-     * Reconfigures the grid to use a different Store and Column Model.
-     * The View will be bound to the new objects and refreshed.
+     * <p>Reconfigures the grid to use a different Store and Column Model.
+     * The View will be bound to the new objects and refreshed.</p>
+     * <p>Be aware that upon reconfiguring a GridPanel, certain existing settings <i>may</i> become
+     * invalidated. For example the configured {@link #autoExpandColumn} may no longer exist in the
+     * new ColumnModel. Also, an existing {@link Ext.PagingToolbar PagingToolbar} will still be bound
+     * to the old Store, and will need rebinding. Any {@link #plugins} might also need reconfiguring
+     * with the new data.</p>
      * @param {Ext.data.Store} store The new {@link Ext.data.Store} object
      * @param {Ext.grid.ColumnModel} colModel The new {@link Ext.grid.ColumnModel} object
      */
