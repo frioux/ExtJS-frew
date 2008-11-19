@@ -87,6 +87,7 @@ Ext.ComponentMgr = function(){
          * @param config {Object} A configuration object for the Component you wish to create.
          * @param defaultType {Constructor} The constructor to provide the default Component type if
          * the config object does not contain an xtype. (Optional if the config contains an xtype).
+         * @return {Ext.Component} The newly instantiated Component.
          */
         create : function(config, defaultType){
             return config.render ? config : new types[config.xtype || defaultType](config);
