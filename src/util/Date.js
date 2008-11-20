@@ -572,7 +572,7 @@ Ext.apply(Date, {
         z: {
             g:0,
             c:null,
-            s:"(?:\\d{1,3}" // day of the year (0 - 364 (365 in leap years))
+            s:"(?:\\d{1,3})" // day of the year (0 - 364 (365 in leap years))
         },
         W: {
             g:0,
