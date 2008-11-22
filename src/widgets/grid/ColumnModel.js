@@ -127,7 +127,8 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * specified, the column's index is used as an index into the Record's data Array.
      */
     /**
-     * @cfg {Number} width (optional) The initial width in pixels of the column.
+     * @cfg {Number} width (optional) The initial width in pixels of the column. This is ignored if the
+     * Grid's {@link Ext.grid.GridView view} is configured with {@link Ext.grid.GridView#forceFit forceFit} true.
      */
     /**
      * @cfg {Boolean} sortable (optional) True if sorting is to be allowed on this column.

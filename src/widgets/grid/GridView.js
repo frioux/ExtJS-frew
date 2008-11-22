@@ -120,6 +120,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
     autoFill: false,
     /**
      * @cfg {Boolean} forceFit True to auto expand/contract the size of the columns to fit the grid width and prevent horizontal scrolling.
+     * This option overrides any (@link Ext.grid.ColumnModel#width width} settings in the ColumnModel.
      */
     forceFit: false,
     /**

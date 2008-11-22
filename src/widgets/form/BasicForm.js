@@ -110,7 +110,10 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
 
     /**
      * @cfg {Boolean} standardSubmit If set to true, standard HTML form submits are used instead of XHR (Ajax) style
-     * form submissions. (defaults to false)
+     * form submissions. (defaults to false)<br>
+     * <p><b>Note:</b> When using standardSubmit, any the options to {@link #submit} are
+     * ignored because Ext's Ajax infrastracture is bypassed. To pass extra parameters, you will need to create
+     * hidden fields within the form.</p>
      */
     /**
      * By default wait messages are displayed with Ext.MessageBox.wait. You can target a specific
@@ -238,7 +241,8 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
 
     /**
      * Shortcut to do a submit action.
-     * @param {Object} options The options to pass to the action (see {@link #doAction} for details)
+     * @param {Object} options The options to pass to the action (see {@link #doAction} for details).<br>
+     * <p><b>Note: this is ignored when using the {@link #standardSubmit} option</p>
      * @return {BasicForm} this
      */
     submit : function(options){

@@ -32,6 +32,13 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
      * @cfg {String} itemCls A css class to apply to the x-form-item of fields. This property cascades to child containers.
      */
     /**
+     * @cfg {Array} buttons
+     * An array of {@link Ext.Button}s or {@link Ext.Button} configs used to add buttons to the footer of this FormPanel.<br>
+     * <p>Buttons in the footer of a FormPanel may be configured with the option <tt>formBind: true</tt>. This causes
+     * the form's {@link #monitorValid valid state monitor task} to enable/disable those fields depending on
+     * the form's valid/invalid state.</p>
+     */
+    /**
      * @cfg {String} buttonAlign Valid values are "left," "center" and "right" (defaults to "center")
      */
     buttonAlign:'center',
@@ -49,9 +56,11 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
     labelAlign:'left',
 
     /**
-     * @cfg {Boolean} monitorValid If true the form monitors its valid state <b>client-side</b> and
-     * fires a looping event with that state. This is required to bind buttons to the valid
-     * state using the config value formBind:true on the button.
+     * @cfg {Boolean} monitorValid If true, the form monitors its valid state <b>client-side</b> and
+     * regularly fires the {@link #clientvalidation} event passing that state.<br>
+     * <p>When monitoring valid state, the FormPanel enables/disables any of its configured
+     * {@link #button}s which have been configured with <tt>formBind: true<tt> depending
+     * on whether the form is valid or not.</p>
      */
     monitorValid : false,
 
