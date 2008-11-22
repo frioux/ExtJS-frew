@@ -207,7 +207,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      * <li><b>success</b> : Function<p style="margin-left:1em">The callback that will
      * be invoked after a successful response. The function is passed the following parameters:<ul>
      * <li><code>form</code> : Ext.form.BasicForm<div class="sub-desc">The form that requested the action</div></li>
-     * <li><code>action</code> : Ext.form.Action<div class="sub-desc">The Action class. The {@link Ext.form.Action#result result}
+     * <li><code>action</code> : Ext.form.Action<div class="sub-desc">The {@link Ext.form.Action Action} object which performed the operation. The {@link Ext.form.Action#result result}
      * property of this object may be examined to perform custom postprocessing.</div></li>
      * </ul></p></li>
      * <li><b>failure</b> : Function<p style="margin-left:1em">The callback that will
@@ -216,7 +216,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      * Which type of failure is indicated in the Action's {@link Ext.form.Action#failureType failureType}.
      * The function is passed the following parameters:<ul>
      * <li><code>form</code> : Ext.form.BasicForm<div class="sub-desc">The form that requested the action</div></li>
-     * <li><code>action</code> : Ext.form.Action<div class="sub-desc">The Action class. The failure type
+     * <li><code>action</code> : Ext.form.Action<div class="sub-desc">The {@link Ext.form.Action Action} object which performed the operation. The failure type
      * will be in {@link Ext.form.Action#failureType failureType}. The {@link Ext.form.Action#result result}
      * property of this object may be examined to perform custom postprocessing.</div></li>
      * </ul></p></li>
