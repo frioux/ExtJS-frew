@@ -8,6 +8,10 @@
  */
 Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
     /**
+     * @cfg {Array} items An Array of {@link Ext.form.Checkbox Checkbox}es or Checkbox config objects
+     * to arrange in the group.
+     */
+    /**
      * @cfg {String/Number/Array} columns Specifies the number of columns to use when displaying grouped
      * checkbox/radio controls using automatic layout.  This config can take several types of values:
      * <ul><li><b>'auto'</b> : <p class="sub-desc">The controls will be rendered one per column on one row and the width

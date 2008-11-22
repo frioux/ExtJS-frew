@@ -3,8 +3,8 @@
  * @extends Ext.data.Store
  * Small helper class to make creating Stores from Array data easier.
  * @cfg {Number} id The array index of the record id. Leave blank to auto generate ids.
- * @cfg {Array} fields An array of field definition objects, or field name strings.
- * @cfg {Array} data The multi-dimensional array of data
+ * @cfg {Array} fields An array of field definition objects, or field name string as specified to {@link Ext.data.Record#create}
+ * @cfg {Array} data The multi-dimensional array of data.
  * @constructor
  * @param {Object} config
  */

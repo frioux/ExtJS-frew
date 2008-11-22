@@ -13,6 +13,9 @@ Ext.form.TextField = Ext.extend(Ext.form.Field,  {
      * for the {@link #vtype} currently set for this field (defaults to '').  Only applies if vtype is set, else ignored.
      */
     /**
+     * @cfg {RegExp} stripCharsRe A JavaScript RegExp object used to strip unwanted content from the value before validation (defaults to null).
+     */
+    /**
      * @cfg {Boolean} grow True if this field should automatically grow and shrink to its content
      */
     grow : false,
@@ -70,8 +73,9 @@ Ext.form.TextField = Ext.extend(Ext.form.Field,  {
     blankText : "This field is required",
     /**
      * @cfg {Function} validator A custom validation function to be called during field validation (defaults to null).
-     * If available, this function will be called only after the basic validators all return true, and will be passed the
-     * current field value and expected to return boolean true if the value is valid or a string error message if invalid.
+     * If specified, this function will be called only after the built-in validations ({@link #allowBlank}, {@link #minLength},
+     * {@link #maxLength}) and any configured {@link #vtype} all return true. This function will be passed the current field
+     * value and expected to return boolean true if the value is valid or a string error message if invalid.
      */
     validator : null,
     /**
@@ -86,7 +90,8 @@ Ext.form.TextField = Ext.extend(Ext.form.Field,  {
      */
     regexText : "",
     /**
-     * @cfg {String} emptyText The default text to display in an empty field (defaults to null).
+     * @cfg {String} emptyText The default text to place into an empty field (defaults to null). Note that this
+     * value will be submitted to the server if this field is enabled and configured with a {@link #name}.
      */
     emptyText : null,
     /**

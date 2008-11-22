@@ -8,6 +8,9 @@
  */
 Ext.form.NumberField = Ext.extend(Ext.form.TextField,  {
     /**
+     * @cfg {RegExp} stripCharsRe @hide
+     */
+    /**
      * @cfg {String} fieldClass The default CSS class for the field (defaults to "x-form-field x-form-num-field")
      */
     fieldClass: "x-form-field x-form-num-field",

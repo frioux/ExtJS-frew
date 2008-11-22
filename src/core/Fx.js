@@ -469,7 +469,7 @@ el.frame("ff0000", 3, { duration: 3 });
 
 // common config options shown with default values
 el.frame("C3DAF9", 1, {
-    duration: 1 //duration of entire animation (not each individual ripple)
+    duration: 1 //duration of each individual ripple.
     // Note: Easing is not configurable and will be ignored if included
 });
 </code></pre>

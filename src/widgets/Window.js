@@ -53,6 +53,10 @@ Ext.Window = Ext.extend(Ext.Panel, {
      * {@link #expandOnShow} is true (the default) it will override the <tt>collapsed</tt> config and the window 
      * will always be expanded when shown.
      */
+    /**
+     * @cfg {Boolean} maximized
+     * True to initially display the window in a maximized state. (Defaults to false).
+     */
     
     /**
     * @cfg {String} baseCls

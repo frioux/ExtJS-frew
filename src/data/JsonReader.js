@@ -29,8 +29,13 @@ var myReader = new Ext.data.JsonReader({
 </code></pre>
  * <p>It is possible to change a JsonReader's metadata at any time by including a
  * <b><tt>metaData</tt></b> property in the data object. If this is detected in the
- * object, a {@link Ext.data.Store Store} object using this Reader will fire its
- * {@link Ext.data.Store#metachange metachange} event.</p>
+ * object, a {@link Ext.data.Store Store} object using this Reader will reconfigure
+ * itself to use the newly provided field definition and fire its
+ * {@link Ext.data.Store#metachange metachange} event. In
+ * undergoing this change, the Store sets its {@link Ext.data.Store#sortInfo sortInfo} property
+ * from the <tt>sortInfo</tt> property in the new metadata. Note that reconfiguring a Store
+ * potentially invalidates objects which may refer to Fields or Records which no longer exist.</p>
+ *
  * <p>The <b><tt>metaData</tt></b> property may contain any of the configuration
  * options for this class. Additionally, it may contain a <b><tt>fields</tt></b>
  * property which the JsonReader will use as an argument to {@link Ext.data.Record#create}
@@ -40,6 +45,7 @@ var myReader = new Ext.data.JsonReader({
  * event handler may interrogate the <b><tt>metaData</tt></b> property (which
  * may contain any user-defined properties needed) and the <b><tt>metaData.fields</tt></b>
  * property to perform any configuration required.</p>
+ *
  * <p>To use this facility to send the same data as the above example without
  * having to code the creation of the Record constructor, you would create the
  * JsonReader like this:</p><pre><code>

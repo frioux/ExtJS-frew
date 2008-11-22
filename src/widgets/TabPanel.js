@@ -35,7 +35,7 @@ Ext.Ajax.request({
         myTabPanel.setActiveTab(newComponent);
     },
     failure: function() {
-    	Ext.Msg.alert("Grid create failed", "Server communication failure");
+        Ext.Msg.alert("Grid create failed", "Server communication failure");
     }
 });
 </code></pre>
@@ -52,7 +52,7 @@ Ext.Ajax.request({
         baseParams: {
             startDate: '01/01/2008',
             endDate: '01/31/2008'
-        }
+        },
         reader: new Ext.data.JsonReader({
             record: 'transaction',
             id: 'id',

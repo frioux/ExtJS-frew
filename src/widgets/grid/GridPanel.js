@@ -16,7 +16,17 @@
         {header: "Last Updated", width: 135, sortable: true, renderer: Ext.util.Format.dateRenderer('m/d/Y'), dataIndex: 'lastChange'}
     ],
     viewConfig: {
-        forceFit: true
+        forceFit: true,
+
+//      Return CSS class to apply to rows depending upon data values
+        getRowClass: function(record, index) {
+            var c = record.get('change');
+            if (c < 0) {
+                return 'price-fall';
+            } else if (c > 0) {
+                return 'price-rise';
+            }
+        }
     },
     sm: new Ext.grid.RowSelectionModel({singleSelect:true}),
     width:600,
@@ -71,7 +81,8 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
      */
     /**
      * @cfg {Object} viewConfig A config object that will be applied to the grid's UI view.  Any of
-     * the config options available for {@link Ext.grid.GridView} can be specified here.
+     * the config options available for {@link Ext.grid.GridView} can be specified here. This option
+     * is ignored if {@link #view} is xpecified.
      */
     /**
      * @cfg {Boolean} hideHeaders True to hide the grid's header (defaults to false).
@@ -158,7 +169,13 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
     rendered : false,
     // private
     viewReady: false,
-    // private
+    /**
+     * @cfg {Array} stateEvents
+     * An array of events that, when fired, should trigger this component to save its state (defaults to ["columnmove", "columnresize", "sortchange"]).
+     * These can be any types of events supported by this component, including browser or custom events (e.g.,
+     * ['click', 'customerchange']).
+     * <p>See {@link #stateful} for an explanation of saving and restoring Component state.</p>
+     */
     stateEvents: ["columnmove", "columnresize", "sortchange"],
 
     // private

@@ -41,7 +41,7 @@ Ext.apply(Ext.QuickTips.getQuickTip(), {
 });
 
 // Manually register a quick tip for a specific element
-q.register({
+Ext.QuickTips.register({
     target: 'my-div',
     title: 'My Tooltip',
     text: 'This tooltip was added in code',

@@ -9,24 +9,40 @@
  * data formatting, and the ability to apply a CSS class to all cells in a column through its
  * {@link #id} config option.<br>
  * <br>Usage:<br>
- <pre><code>
+<pre><code>
  var colModel = new Ext.grid.ColumnModel([
-	{header: "Ticker", width: 60, sortable: true},
-	{header: "Company Name", width: 150, sortable: true},
-	{header: "Market Cap.", width: 100, sortable: true},
-	{header: "$ Sales", width: 100, sortable: true, renderer: money},
-	{header: "Employees", width: 100, sortable: true, resizable: false}
+    { header: "Ticker", width: 60, sortable: true},
+    { header: "Company Name", width: 150, sortable: true},
+    { header: "Market Cap.", width: 100, sortable: true},
+    { header: "$ Sales", width: 100, sortable: true, renderer: money},
+    { header: "Employees", width: 100, sortable: true, resizable: false}
  ]);
  </code></pre>
  * <p>
  * The config options <b>defined by</b> this class are options which may appear in each
- * individual column definition.
+ * individual column definition. In order to use configuration options from the superclass,
+ * specify the column configuration Array in the <tt><b>columns<b><tt> config property. eg:<pre><code>
+ var colModel = new Ext.grid.ColumnModel({
+    listeners: {
+        widthchange: function(cm, colIndex, width) {
+            saveConfig(colIndex, width);
+        }
+    },
+    columns: [
+        { header: "Ticker", width: 60, sortable: true},
+        { header: "Company Name", width: 150, sortable: true},
+        { header: "Market Cap.", width: 100, sortable: true},
+        { header: "$ Sales", width: 100, sortable: true, renderer: money},
+        { header: "Employees", width: 100, sortable: true, resizable: false}
+     ]
+});
+ </code></pre>
  * @constructor
  * @param {Object} config An Array of column config objects. See this class's
  * config objects for details.
 */
 Ext.grid.ColumnModel = function(config){
-	/**
+    /**
      * The config passed into the constructor
      * @property {Array} config
      */
@@ -38,30 +54,30 @@ Ext.grid.ColumnModel = function(config){
     }
     this.addEvents(
         /**
-	     * @event widthchange
-	     * Fires when the width of a column changes.
-	     * @param {ColumnModel} this
-	     * @param {Number} columnIndex The column index
-	     * @param {Number} newWidth The new width
-	     */
-	    "widthchange",
+         * @event widthchange
+         * Fires when the width of a column changes.
+         * @param {ColumnModel} this
+         * @param {Number} columnIndex The column index
+         * @param {Number} newWidth The new width
+         */
+        "widthchange",
         /**
-	     * @event headerchange
-	     * Fires when the text of a header changes.
-	     * @param {ColumnModel} this
-	     * @param {Number} columnIndex The column index
-	     * @param {String} newText The new header text
-	     */
-	    "headerchange",
+         * @event headerchange
+         * Fires when the text of a header changes.
+         * @param {ColumnModel} this
+         * @param {Number} columnIndex The column index
+         * @param {String} newText The new header text
+         */
+        "headerchange",
         /**
-	     * @event hiddenchange
-	     * Fires when a column is hidden or "unhidden".
-	     * @param {ColumnModel} this
-	     * @param {Number} columnIndex The column index
-	     * @param {Boolean} hidden true if hidden, false otherwise
-	     */
-	    "hiddenchange",
-	    /**
+         * @event hiddenchange
+         * Fires when a column is hidden or "unhidden".
+         * @param {ColumnModel} this
+         * @param {Number} columnIndex The column index
+         * @param {Boolean} hidden true if hidden, false otherwise
+         */
+        "hiddenchange",
+        /**
          * @event columnmoved
          * Fires when a column is moved.
          * @param {ColumnModel} this
@@ -564,9 +580,8 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
 
 // private
 Ext.grid.ColumnModel.defaultRenderer = function(value){
-	if(typeof value == "string" && value.length < 1){
-	    return "&#160;";
-	}
-	return value;
+    if(typeof value == "string" && value.length < 1){
+        return "&#160;";
+    }
+    return value;
 };
-

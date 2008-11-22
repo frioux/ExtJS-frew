@@ -385,6 +385,7 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
     /**
      * Ensures all parent nodes are expanded, and if necessary, scrolls
      * the node into view.
+     * @param {Function} callback (optional) A function to call when the node has been made visible.
      */
     ensureVisible : function(callback){
         var tree = this.getOwnerTree();

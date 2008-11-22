@@ -42,7 +42,8 @@ Ext.data.Record = function(data, id){
  * <li>float</li>
  * <li>boolean</li>
  * <li>date</li></ul></div></li>
- * <li><b>sortType</b> : Mixed<div class="sub-desc">(Optional) A member of {@link Ext.data.SortTypes}.</div></li>
+ * <li><b>sortType</b> : Function<div class="sub-desc">(Optional) A function which converts a Field's value to a comparable value
+ * in order to ensure correct sort ordering. Predefined functions are provided in {@link Ext.data.SortTypes}.</div></li>
  * <li><b>sortDir</b> : String<div class="sub-desc">(Optional) Initial direction to sort. "ASC" or "DESC"</div></li>
  * <li><b>convert</b> : Function<div class="sub-desc">(Optional) A function which converts the value provided
  * by the Reader into an object that will be stored in the Record. It is passed the

@@ -50,7 +50,15 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
      */
     /**
      * @cfg {Function} handler A function called when the {@link #checked} value changes (can be used instead of 
-     * handling the check event)
+     * handling the check event). The handler is passed the following parameters:
+     * <div class="mdetail-params"><ul>
+     * <li><b>checkbox</b> : Ext.form.Checkbox<div class="sub-desc">The Checkbox being toggled.</div></li>
+     * <li><b>checked</b> : Boolean<div class="sub-desc">The new checked state of the checkbox.</div></li>
+     * </ul></div>
+     */
+    /**
+     * @cfg {Object} scope An object to use as the scope ("this" reference) of the {@link #handler} function
+     * (defaults to this Checkbox).
      */
 
     // private

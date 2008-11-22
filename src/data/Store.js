@@ -182,8 +182,9 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     * on any HTTP request
     */
     /**
-    * @cfg {Object} sortInfo A config object in the format: {field: "fieldName", direction: "ASC|DESC"}.  The direction
-    * property is case-sensitive.
+    * @cfg {Object} sortInfo A config object in the format: {field: "fieldName", direction: "ASC|DESC"} to 
+    * specify the sort order in the request of a remote Store's {@link #load} operation.  Note that for
+    * local sorting, the direction property is case-sensitive.
     */
     /**
     * @cfg {boolean} remoteSort True if sorting is to be handled by requesting the
