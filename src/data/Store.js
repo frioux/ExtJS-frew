@@ -25,7 +25,24 @@ Ext.data.Store = function(config){
      * @property
      */
     this.baseParams = {};
-    // private
+    /**
+     * <p>An object containing properties which specify the names of the paging and
+     * sorting parameters passed to remote servers when loading blocks of data. By default, this
+     * object takes the following form:</p><pre><code>
+{
+    start : "start",    // The parameter name which specifies the start row
+    limit : "limit",    // The parameter name which specifies number of rows to return
+    sort : "sort",      // The parameter name which specifies the column to sort on
+    dir : "dir"         // The parameter name which specifies the sort direction
+}
+</code></pre>
+     * <p>The server must produce the requested data block upon receipt of these parameter names.
+     * If different parameter names are required, this property can be overriden using a configuration
+     * property.</p>
+     * <p>A {@link Ext.PagingToolbar PagingToolbar} bound to this grid uses this property to determine
+     * the parameter names to use in its requests.
+     * @property
+     */
     this.paramNames = {
         "start" : "start",
         "limit" : "limit",

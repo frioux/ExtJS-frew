@@ -1,7 +1,9 @@
 /**
  * @class Ext.PagingToolbar
  * @extends Ext.Toolbar
- * A specialized toolbar that is bound to a {@link Ext.data.Store} and provides automatic paging controls.
+ * <p>A specialized toolbar that is bound to a {@link Ext.data.Store} and provides automatic paging control. This
+ * Component {@link Ext.data.Store#load load}s blocks of data into the Store passing parameters who's names are
+ * specified by the store's {@link Ext.data.Store#paramNames paramNames} property.</p>
  * @constructor
  * Create a new PagingToolbar
  * @param {Object} config The config object
