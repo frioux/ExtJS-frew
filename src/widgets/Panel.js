@@ -1307,7 +1307,10 @@ new Ext.Panel({
     },
 
     /**
-     * Sets the title text for the panel and optionally the icon class.
+     * <p>Sets the title text for the panel and optionally the icon class.</p>
+     * <p>In order to be able to set the title, a header element must have been created
+     * for the Panel. This is triggered either by configuring the Panel with a non-blank title,
+     * or configuring it with <tt><b>{@link #header}: true</b></tt>.</p>
      * @param {String} title The title text to set
      * @param {String} iconCls (optional) iconCls A user-defined CSS class that provides the icon image for this panel
      */
