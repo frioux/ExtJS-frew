@@ -1,10 +1,28 @@
 /**
  * @class Ext.form.BasicForm
  * @extends Ext.util.Observable
- * Supplies the functionality to do "actions" on forms and initialize Ext.form.Field types on existing markup.
- * <br><br>
- * By default, Ext Forms are submitted through Ajax, using {@link Ext.form.Action}.
- * To enable normal browser submission of an Ext Form, use the {@link #standardSubmit} config option.
+ * <p>Encapsulates the DOM &lt;form> element at the heart of the {@link Ext.form.FormPanel FormPanel} class, and provides
+ * input field management, validation, submission, and form loading services.</p>
+ * <p>By default, Ext Forms are submitted through Ajax, using an instance of {@link Ext.form.Action.Submit}.
+ * To enable normal browser submission of an Ext Form, use the {@link #standardSubmit} config option.</p>
+ * <p><h3>File Uploads</h3>{@link #fileUpload File uploads} are not performed using Ajax submission, that
+ * is they are <b>not</b> performed using XMLHttpRequests. Instead the form is submitted in the standard
+ * manner with the DOM <tt>&lt;form></tt> element temporarily modified to have its
+ * <a href="http://www.w3.org/TR/REC-html40/present/frames.html#adef-target">target</a> set to refer
+ * to a dynamically generated, hidden <tt>&lt;iframe></tt> which is inserted into the document
+ * but removed after the return data has been gathered.</p>
+ * <p>The server response is parsed by the browser to create the document for the IFRAME. If the
+ * server is using JSON to send the return object, then the
+ * <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.17">Content-Type</a> header
+ * must be set to "text/html" in order to tell the browser to insert the text unchanged into the document body.</p>
+ * <p>Characters which are significant to an HTML parser must be sent as HTML entities, so encode
+ * "&lt;" as "&amp;lt;", "&amp;" as "&amp;amp;" etc.</p>
+ * <p>The response text is retrieved from the document, and a fake XMLHttpRequest object
+ * is created containing a <tt>responseText</tt> property in order to conform to the
+ * requirements of event handlers and callbacks.</p>
+ * <p>Be aware that file upload packets are sent with the content type <a href="http://www.faqs.org/rfcs/rfc2388.html">multipart/form</a>
+ * and some server technologies (notably JEE) may require some custom processing in order to
+ * retrieve parameter names and parameter values from the packet content.</p>
  * @constructor
  * @param {Mixed} el The form element or its id
  * @param {Object} config Configuration options
@@ -146,16 +164,16 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     },
 
     // private
-	destroy: function() {
+    destroy: function() {
         this.items.each(function(f){
             Ext.destroy(f);
         });
         if(this.el){
-			this.el.removeAllListeners();
-			this.el.remove();
+            this.el.removeAllListeners();
+            this.el.remove();
         }
-		this.purgeListeners();
-	},
+        this.purgeListeners();
+    },
 
     /**
      * Returns true if client-side validation on the form is successful.
@@ -207,7 +225,8 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      * <li><b>success</b> : Function<p style="margin-left:1em">The callback that will
      * be invoked after a successful response. The function is passed the following parameters:<ul>
      * <li><code>form</code> : Ext.form.BasicForm<div class="sub-desc">The form that requested the action</div></li>
-     * <li><code>action</code> : Ext.form.Action<div class="sub-desc">The {@link Ext.form.Action Action} object which performed the operation. The {@link Ext.form.Action#result result}
+     * <li><code>action</code> : Ext.form.Action<div class="sub-desc">The {@link Ext.form.Action Action} object which
+     * performed the operation. The {@link Ext.form.Action#result result}
      * property of this object may be examined to perform custom postprocessing.</div></li>
      * </ul></p></li>
      * <li><b>failure</b> : Function<p style="margin-left:1em">The callback that will
@@ -216,7 +235,8 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      * Which type of failure is indicated in the Action's {@link Ext.form.Action#failureType failureType}.
      * The function is passed the following parameters:<ul>
      * <li><code>form</code> : Ext.form.BasicForm<div class="sub-desc">The form that requested the action</div></li>
-     * <li><code>action</code> : Ext.form.Action<div class="sub-desc">The {@link Ext.form.Action Action} object which performed the operation. The failure type
+     * <li><code>action</code> : Ext.form.Action<div class="sub-desc">The {@link Ext.form.Action Action} object which
+     * performed the operation. The failure type
      * will be in {@link Ext.form.Action#failureType failureType}. The {@link Ext.form.Action#result result}
      * property of this object may be examined to perform custom postprocessing.</div></li>
      * </ul></p></li>
@@ -242,7 +262,43 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     /**
      * Shortcut to do a submit action.
      * @param {Object} options The options to pass to the action (see {@link #doAction} for details).<br>
-     * <p><b>Note: this is ignored when using the {@link #standardSubmit} option</p>
+     * <p><b>Note:</b> this is ignored when using the {@link #standardSubmit} option.</p>
+     * <p>The following code:</p><pre><code>
+myFormPanel.getForm().submit({
+    clientValidation: true,
+    url: 'updateConsignment.php',
+    params: {
+        newStatus: 'delivered'
+    },
+    success: function(form, action) {
+       Ext.Msg.alert("Success", action.result.msg);
+    },
+    failure: function(form, action) {
+        switch (action.failureType) {
+            case Ext.form.Action.CLIENT_INVALID:
+                Ext.Msg.alert("Failure", "Form fields may not be submitted with invalid values");
+                break;
+            case Ext.form.Action.CONNECT_FAILURE:
+                Ext.Msg.alert("Failure", "Ajax communication failed");
+                break;
+            case Ext.form.Action.SERVER_INVALID:
+               Ext.Msg.alert("Failure", action.result.msg);
+       }
+    }
+});
+</code></pre>
+     * would process the following server response for a successful submission:<pre><code>
+{
+    success: true,
+    msg: 'Consignment updated'
+}
+</code></pre>
+     * and the following server response for a failed submission:<pre><code>
+{
+    success: false,
+    msg: 'You do not have permission to perform this operation'
+}
+</code></pre>
      * @return {BasicForm} this
      */
     submit : function(options){
