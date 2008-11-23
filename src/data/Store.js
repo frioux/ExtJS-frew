@@ -389,9 +389,12 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     },
 
     /**
-     * Reloads the Record cache from the configured Proxy using the configured Reader and
-     * the options from the last load operation performed.
-     * @param {Object} options (optional) An object containing properties which may override the options
+     * <p>Reloads the Record cache from the configured Proxy using the configured Reader and
+     * the options from the last load operation performed.</p>
+     * <p><b>It is important to note that for remote data sources, loading is asynchronous,
+     * and this call will return before the new data has been loaded. Perform any post-processing
+     * in a callback function, or in a "load" event handler.</b></p>
+     * @param {Object} options (optional) An object containing loading options which may override the options
      * used in the last load operation. See {@link #load} for details (defaults to null, in which case
      * the most recently used options are reused).
      */
