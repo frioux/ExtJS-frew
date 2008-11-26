@@ -579,15 +579,23 @@ Company.data.CustomStore = function(config) { ... }
         },
 
         /**
-         * Returns true if the passed value is null, undefined or an empty string (optional).
+         * Returns true if the passed value is null, undefined or an empty string.
          * @param {Mixed} value The value to test
-         * @param {Boolean} allowBlank (optional) Pass true if an empty string is not considered empty
+         * @param {Boolean} allowBlank (optional) true to allow empty strings (defaults to false)
          * @return {Boolean}
          */
         isEmpty : function(v, allowBlank){
             return v === null || v === undefined || (!allowBlank ? v === '' : false);
         },
 
+        /**
+         * Utility method for validating that a value is non-empty (i.e. i) not null, ii) not undefined, and iii) not an empty string), 
+         * returning the specified default value if it is.
+         * @param {Mixed} value The value to test
+         * @param {Mixed} defaultValue The value to return if the original value is empty
+         * @param {Boolean} allowBlank (optional) true to allow empty strings (defaults to false)
+         * @return {Mixed} value, if non-empty, else defaultValue
+         */
         value : function(v, defaultValue, allowBlank){
             return Ext.isEmpty(v, allowBlank) ? defaultValue : v;
         },
