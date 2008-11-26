@@ -202,8 +202,11 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     },
 
     /**
-     * Reconfigures this column model
-     * @param {Array} config Array of Column configs
+     * <p>Reconfigures this column model according to the passed Array of column definition objects. For a description of
+     * the individual properties of a column definition object, see the <a href="#Ext.grid.ColumnModel-configs">Config Options</a>.</p>
+     * <p>Causes the {@link #configchange} to be fired. A {@link Ext.grid.GridPanel GridPanel} using
+     * this ColumnModel will listen for this event and refresh its UI automatically.</p>
+     * @param {Array} config Array of Column definition objects.
      */
     setConfig : function(config, initial){
         if(!initial){ // cleanup
