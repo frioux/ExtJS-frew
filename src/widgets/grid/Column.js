@@ -46,14 +46,22 @@ Ext.grid.Column.prototype = {
 };
 
 Ext.grid.BooleanColumn = Ext.extend(Ext.grid.Column, {
-     renderer : function(value){
-            if(value === undefined){
-                return "&#160;";
+    trueText: 'true',
+    falseText: 'false',
+    undefinedText: '&#160;',
+
+    constructor: function(cfg){
+        this.supr().constructor.apply(this, arguments);
+        var t = this.trueText, f = this.falseText, u = this.undefinedText;
+        this.renderer = function(v){
+            if(v === undefined){
+                return u;
             }
-            if(!value || value === 'false'){
-                return "false";
+            if(!v || v === 'false'){
+                return f;
             }
-            return 'true';
+            return t;
+        };
     }
 });
 

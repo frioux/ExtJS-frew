@@ -56,9 +56,9 @@
     <include name="data\Record.js" />
     <include name="data\StoreMgr.js" />
     <include name="data\Store.js" />
-    <include name="data\SimpleStore.js" />
     <include name="data\JsonStore.js" />
     <include name="data\XmlStore.js" />
+    <include name="data\ArrayStore.js" />
     <include name="data\DataField.js" />
     <include name="data\DataReader.js" />
     <include name="data\DataProxy.js" />
@@ -561,6 +561,7 @@
   <file name="license.txt" path="" />
   <file name="data\Direct.js" path="data" />
   <file name="data\DirectProvider.js" path="data" />
+  <file name="data\SimpleStore.js" path="data" />
   <file name="adapter\ext-base.js" path="adapter" />
   <file name="adapter\jquery-bridge.js" path="adapter" />
   <file name="adapter\prototype-bridge.js" path="adapter" />
@@ -581,6 +582,7 @@
   <file name="core\Template.js" path="core" />
   <file name="core\UpdateManager.js" path="core" />
   <file name="data\ArrayReader.js" path="data" />
+  <file name="data\ArrayStore.js" path="data" />
   <file name="data\Connection.js" path="data" />
   <file name="data\DataField.js" path="data" />
   <file name="data\DataProxy.js" path="data" />
@@ -594,7 +596,6 @@
   <file name="data\MemoryProxy.js" path="data" />
   <file name="data\Record.js" path="data" />
   <file name="data\ScriptTagProxy.js" path="data" />
-  <file name="data\SimpleStore.js" path="data" />
   <file name="data\SortTypes.js" path="data" />
   <file name="data\Store.js" path="data" />
   <file name="data\StoreMgr.js" path="data" />
@@ -648,6 +649,7 @@
   <file name="locale\ext-lang-pl.js" path="locale" />
   <file name="locale\ext-lang-pt.js" path="locale" />
   <file name="locale\ext-lang-pt_BR.js" path="locale" />
+  <file name="locale\ext-lang-pt_PT.js" path="locale" />
   <file name="locale\ext-lang-ro.js" path="locale" />
   <file name="locale\ext-lang-ru.js" path="locale" />
   <file name="locale\ext-lang-sk.js" path="locale" />

@@ -21,7 +21,7 @@ FeedWindow = function() {
                 '<em>{url}</em><strong>{text}</strong>',
                 '<div class="x-clear"></div>',
                 '</div></tpl>'),
-        store: new Ext.data.SimpleStore({
+        store: new Ext.data.ArrayStore({
             fields: ['url', 'text'],
             data : this.defaultFeeds
         })

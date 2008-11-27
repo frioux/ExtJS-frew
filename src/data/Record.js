@@ -179,7 +179,7 @@ Ext.data.Record.prototype = {
      */
     beginEdit : function(){
         this.editing = true;
-        this.modified = {};
+        this.modified = this.modified || {};
     },
 
     /**

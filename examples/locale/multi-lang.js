@@ -4,7 +4,7 @@ Ext.onReady(function(){
     Ext.form.Field.prototype.msgTarget = 'side';
     
     /* Language chooser combobox  */
-    var store = new Ext.data.SimpleStore({
+    var store = new Ext.data.ArrayStore({
         fields: ['code', 'language', 'charset'],
         data : Ext.exampledata.languages // from languages.js
     });

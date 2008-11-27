@@ -82,6 +82,9 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
     },
 
     fitToSize :function(t){
+        if(this.container.enableOverflow === false){
+            return;
+        }
         var w = t.dom.clientWidth;
         var lw = this.lastWidth || 0;
         this.lastWidth = w;

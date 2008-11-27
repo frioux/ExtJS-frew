@@ -37,7 +37,7 @@ Ext.onReady(function(){
             },  new Ext.form.ComboBox({
             fieldLabel: 'Provincie',
             hiddenName: 'state',
-            store: new Ext.data.SimpleStore({
+            store: new Ext.data.ArrayStore({
                 fields: ['provincie'],
                 data : Ext.exampledata.dutch_provinces // from dutch-provinces.js
             }),

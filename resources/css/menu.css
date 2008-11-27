@@ -58,16 +58,19 @@
     overflow:hidden;
     display:block;
 }
+
+
 .x-menu a.x-menu-item {
 	display:block;
 	line-height:16px;
-    padding:3px 21px 3px 3px;
+	padding:3px 21px 3px 27px;
 	white-space: nowrap;
 	text-decoration:none;
 	color:#222;
 	-moz-outline: 0 none;
 	outline: 0 none;
 	cursor:pointer;
+    position: relative;
 }
 .x-menu-item-active {
 	background: #dbecf4;
@@ -90,9 +93,14 @@
 	padding: 0;
 	vertical-align: top;
 	width: 16px;
-	margin: 0 8px 0 0;
-   background-position:center;
+	position: absolute;
+    left: 3px;
+    top: 3px;
+    margin: 0;
+    background-position:center;
 }
+
+
 .ext-ie .x-menu-item-icon {
     vertical-align: middle;
 }

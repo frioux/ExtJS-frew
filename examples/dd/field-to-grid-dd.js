@@ -218,7 +218,7 @@ Ext.onReady(function(){
     }
 
     // create the data store
-    var store = new Ext.data.SimpleStore({
+    var store = new Ext.data.ArrayStore({
         fields: [
            {name: 'company'},
            {name: 'price', type: 'float'},

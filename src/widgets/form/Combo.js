@@ -27,7 +27,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
     /**
      * @cfg {Ext.data.Store/Array} store The data source to which this combo is bound (defaults to undefined).  This can be
      * any {@link Ext.data.Store} subclass, a 1-dimensional array (e.g., ['Foo','Bar']) or a 2-dimensional array (e.g.,
-     * [['f','Foo'],['b','Bar']]).  Arrays will be converted to a {@link Ext.data.SimpleStore} internally.
+     * [['f','Foo'],['b','Bar']]).  Arrays will be converted to a {@link Ext.data.ArrayStore} internally.
      * 1-dimensional arrays will automatically be expanded (each array item will be the combo value and text) and
      * for multi-dimensional arrays, the value in index 0 of each item will be assumed to be the combo value, while
      * the value at index 1 is assumed to be the combo text.
@@ -248,7 +248,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
                     }
                     d.push([value, o.text]);
                 }
-                this.store = new Ext.data.SimpleStore({
+                this.store = new Ext.data.ArrayStore({
                     'id': 0,
                     fields: ['value', 'text'],
                     data : d
@@ -269,13 +269,13 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
         //auto-configure store from local array data
         else if(Ext.isArray(this.store)){
 			if (Ext.isArray(this.store[0])){
-				this.store = new Ext.data.SimpleStore({
+				this.store = new Ext.data.ArrayStore({
 				    fields: ['value','text'],
 				    data: this.store
 				});
 		        this.valueField = 'value';
 			}else{
-				this.store = new Ext.data.SimpleStore({
+				this.store = new Ext.data.ArrayStore({
 				    fields: ['text'],
 				    data: this.store,
 				    expandData: true
@@ -346,7 +346,9 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
             this.list.setWidth(lw);
             this.list.swallowEvent('mousewheel');
             this.assetHeight = 0;
-
+            if(this.syncFont !== false){
+                this.list.setStyle('font-size', this.el.getStyle('font-size'));
+            }
             if(this.title){
                 this.header = this.list.createChild({cls:cls+'-hd', html: this.title});
                 this.assetHeight += this.header.getHeight();

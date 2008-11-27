@@ -50,3 +50,4 @@ Ext.ux.PanelResizer = Ext.extend(Ext.util.Observable, {
         this.fireEvent('dragend', this, e);
     }
 });
+Ext.preg('panelresizer', Ext.ux.PanelResizer);

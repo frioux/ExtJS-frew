@@ -2,7 +2,7 @@ Ext.onReady(function(){
     Ext.QuickTips.init();
 
     // simple array store
-    var store = new Ext.data.SimpleStore({
+    var store = new Ext.data.ArrayStore({
         fields: ['abbr', 'state', 'nick'],
         data : Ext.exampledata.states // from states.js
     });

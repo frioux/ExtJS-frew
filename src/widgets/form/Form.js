@@ -248,9 +248,10 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
                 return false;
             }
         });
-        if(this.buttons){
-            for(var i = 0, len = this.buttons.length; i < len; i++){
-                var btn = this.buttons[i];
+        if(this.fbar){
+            var fitems = this.fbar.items.items;
+            for(var i = 0, len = fitems.length; i < len; i++){
+                var btn = fitems[i];
                 if(btn.formBind === true && btn.disabled === valid){
                     btn.setDisabled(!valid);
                 }

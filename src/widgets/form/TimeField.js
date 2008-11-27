@@ -100,7 +100,7 @@ Ext.form.TimeField = Ext.extend(Ext.form.ComboBox, {
                 times.push([min.dateFormat(this.format)]);
                 min = min.add('mi', this.increment);
             }
-            this.store = new Ext.data.SimpleStore({
+            this.store = new Ext.data.ArrayStore({
                 fields: ['text'],
                 data : times
             });

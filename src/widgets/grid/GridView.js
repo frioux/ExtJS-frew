@@ -150,6 +150,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
     borderWidth: 2,
     tdClass: 'x-grid3-cell',
     hdCls: 'x-grid3-hd',
+    markDirty: true,
 
     /**
      * @cfg {Number} cellSelectorDepth The number of levels to search for cells in event delegation (defaults to 4)
@@ -553,7 +554,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
                 p.value = c.renderer(r.data[c.name], p, r, rowIndex, i, ds);
                 p.style = c.style;
                 if(p.value == undefined || p.value === "") p.value = "&#160;";
-                if(r.dirty && typeof r.modified[c.name] !== 'undefined'){
+                if(this.markDirty && r.dirty && typeof r.modified[c.name] !== 'undefined'){
                     p.css += ' x-grid3-dirty-cell';
                 }
                 cb[cb.length] = ct.apply(p);
@@ -701,6 +702,9 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         
         if(g.autoHeight){
             this.scroller.dom.style.overflow = 'visible';
+            if(Ext.isSafari){
+                this.scroller.dom.style.position = 'static';
+            }
         }else{
             this.el.setSize(csize.width, csize.height);
 

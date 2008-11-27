@@ -79,7 +79,8 @@ Ext.layout.ContainerLayout.prototype = {
             }
         }else if(c && !this.isValidParent(c, target)){
             if(this.extraCls){
-                c.addClass(this.extraCls);
+                var t = c.getPositionEl ? c.getPositionEl() : c;
+            	t.addClass(this.extraCls);
             }
             if(typeof position == 'number'){
                 position = target.dom.childNodes[position];

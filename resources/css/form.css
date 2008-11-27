@@ -54,7 +54,7 @@ textarea {
 
 /* --- TODO --- */
 
-/* checkboxes / radios */
+/* checkboxes / radios
 .x-form-check-group, .x-form-radio-group {
     margin-bottom: 0;
 }
@@ -119,6 +119,25 @@ textarea {
 .x-form-check-checked .x-form-radio {
 	background-position:0 -13px;
 }
+*/
+/* 2.0.2 style */
+
+.x-form-check-wrap {
+    line-height:18px;
+}
+.ext-ie .x-form-check-wrap input {
+    width:15px;
+    height:15px;
+}
+.x-editor .x-form-check-wrap {
+    padding:3px;
+}
+.x-editor .x-form-checkbox {
+    height:13px;
+}
+
+/* - */
+
 .x-form-check-group-label {
     border-bottom: 1px solid #99BBE8;
     color: #15428B;
@@ -159,7 +178,7 @@ textarea {
     background-image: url(../images/default/form/search-trigger.gif);
     cursor:pointer;
 }
-.ext-safari .x-form-field-wrap .x-form-trigger{
+.ext-safari .x-form-field-wrap .x-form-trigger,.ext-gecko .x-form-field-wrap .x-form-trigger{
     right:0;
 }
 

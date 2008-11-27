@@ -450,7 +450,7 @@ side          Add an error icon to the right of the field with a popup on hover
     // private
     adjustWidth : function(tag, w){
         tag = tag.toLowerCase();
-        if(typeof w == 'number' && !Ext.isSafari){
+        if(typeof w == 'number' && !Ext.isSafari && !this.normalWidth){
             if(Ext.isIE && (tag == 'input' || tag == 'textarea')){
                 if(tag == 'input' && !Ext.isStrict){
                     return this.inEditor ? w : w - 3;

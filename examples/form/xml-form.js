@@ -54,7 +54,7 @@ Ext.onReady(function(){
                     new Ext.form.ComboBox({
                         fieldLabel: 'State',
                         hiddenName:'state',
-                        store: new Ext.data.SimpleStore({
+                        store: new Ext.data.ArrayStore({
                             fields: ['abbr', 'state'],
                             data : Ext.exampledata.states // from states.js
                         }),

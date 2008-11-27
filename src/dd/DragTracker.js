@@ -71,11 +71,14 @@ Ext.extend(Ext.dd.DragTracker, Ext.util.Observable,  {
         doc.un('selectstart', this.stopSelect, this);
         e.preventDefault();
         this.clearStart();
+        var wasActive = this.active;
         this.active = false;
         delete this.elRegion;
         this.fireEvent('mouseup', this, e);
-        this.onEnd(e);
-        this.fireEvent('dragend', this, e);
+        if(wasActive){
+            this.onEnd(e);
+            this.fireEvent('dragend', this, e);
+        }
     },
 
     triggerStart: function(isTimer){

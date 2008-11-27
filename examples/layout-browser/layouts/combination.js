@@ -108,7 +108,7 @@ var tabsNestedLayouts = {
 						title: 'Nested Grid',
 						xtype: 'grid',
 						layout: 'fit',
-				        store: new Ext.data.SimpleStore({
+				        store: new Ext.data.ArrayStore({
 					        fields: [
 					           {name: 'company'},
 					           {name: 'price', type: 'float'},

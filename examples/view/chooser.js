@@ -108,7 +108,7 @@ ImageChooser.prototype = {
 				        valueField: 'name',
 				        lazyInit: false,
 				        value: 'name',
-				        store: new Ext.data.SimpleStore({
+				        store: new Ext.data.ArrayStore({
 					        fields: ['name', 'desc'],
 					        data : [['name', 'Name'],['size', 'File Size'],['lastmod', 'Last Modified']]
 					    }),

@@ -723,4 +723,7 @@
   <file name="images\gray\button\group-cs.gif" path="images\gray\button" />
   <file name="images\default\form\checkbox.gif" path="images\default\form" />
   <file name="images\default\form\radio.gif" path="images\default\form" />
+  <file name="images\gray\button\btn.gif" path="images\gray\button" />
+  <file name="images\gray\button\group-lr.gif" path="images\gray\button" />
+  <file name="images\gray\button\group-tb.gif" path="images\gray\button" />
 </project>

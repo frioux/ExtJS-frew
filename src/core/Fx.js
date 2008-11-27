@@ -48,7 +48,7 @@ br     The bottom right corner
  * a function which returns such a specification that will be applied to the Element after the effect finishes
  * @cfg {Boolean} block Whether the effect should block other effects from queueing while it runs
  * @cfg {Boolean} concurrent Whether to allow subsequently-queued effects to run at the same time as the current effect, or to ensure that they run in sequence
- * @cfg {Boolean} stopFx Whether subsequent effects should be stopped and removed after the current effect finishes
+ * @cfg {Boolean} stopFx Whether preceding effects should be stopped and removed before running current effect (only applies to non blocking effects)
  */
 Ext.Fx = {
 	/**

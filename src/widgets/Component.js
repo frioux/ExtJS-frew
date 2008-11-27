@@ -130,10 +130,16 @@ Ext.Component = function(config){
         'beforerender',
         /**
          * @event render
-         * Fires after the component is rendered.
+         * Fires after the component markup is rendered.
          * @param {Ext.Component} this
          */
         'render',
+        /**
+         * @event afterrender
+         * Fires after the component rendering is finished.
+         * @param {Ext.Component} this
+         */
+        'afterrender',
         /**
          * @event beforedestroy
          * Fires before the component is destroyed. Return false to stop the destroy.
@@ -632,6 +638,7 @@ Ext.Foo = Ext.extend(Ext.Bar, {
                 this.initStateEvents();
             }
             this.initRef();
+            this.fireEvent("afterrender", this);
         }
         return this;
     },

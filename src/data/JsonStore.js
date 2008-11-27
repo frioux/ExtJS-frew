@@ -34,18 +34,17 @@ var store = new Ext.data.JsonStore({
  * @constructor
  * @param {Object} config
  */
-Ext.data.JsonStore = function(c){
+Ext.data.JsonStore = Ext.extend(Ext.data.Store, {
+    constructor: function(config){
+        Ext.data.JsonStore.superclass.constructor.call(this, Ext.apply(config, {
+            reader: new Ext.data.JsonReader(config)
+        }));
+    }
     /**
      * @cfg {Ext.data.DataReader} reader @hide
      */
     /**
      * @cfg {Ext.data.DataProxy} proxy @hide
      */
-    Ext.data.JsonStore.superclass.constructor.call(this, Ext.apply(c, {
-        proxy: c.proxy || (!c.data ? new Ext.data.HttpProxy({url: c.url}) : undefined),
-        reader: new Ext.data.JsonReader(c, c.fields)
-    }));
-};
-Ext.extend(Ext.data.JsonStore, Ext.data.Store);
-
+});
 Ext.reg('jsonstore', Ext.data.JsonStore);

@@ -89,7 +89,7 @@ CategoryStore = function(){
     });
 }
 
-Ext.extend(CategoryStore, Ext.data.SimpleStore, {
+Ext.extend(CategoryStore, Ext.data.ArrayStore, {
     init : function(store){
         var cats = store.collect('category', false, true);
         this.loadData(cats);

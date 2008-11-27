@@ -21,16 +21,6 @@ Ext.onReady(function(){
                 text: 'I like Ext',
                 checked: true,       // when checked has a boolean value, it is assumed to be a CheckItem
                 checkHandler: onItemCheck
-            },
-            {
-                text: 'Ext for jQuery',
-                checked: true,
-                checkHandler: onItemCheck
-            },
-            {
-                text: 'I donated!',
-                checked:false,
-                checkHandler: onItemCheck
             }, '-', {
                 text: 'Radio Options',
                 menu: {        // <-- submenu by nested config object
@@ -132,7 +122,7 @@ Ext.onReady(function(){
     }, '-');
 
     // add a combobox to the toolbar
-    var store = new Ext.data.SimpleStore({
+    var store = new Ext.data.ArrayStore({
         fields: ['abbr', 'state'],
         data : Ext.exampledata.states // from states.js
     });
@@ -147,6 +137,8 @@ Ext.onReady(function(){
         width:135
     });
     tb.addField(combo);
+
+    tb.doLayout();
 
     // functions to display feedback
     function onButtonClick(btn){

@@ -766,6 +766,7 @@ new Ext.Panel({
         }
         if(this.fbar){
             this.fbar = Ext.create(this.fbar, 'toolbar');
+            this.fbar.enableOverflow = false;
             if(this.fbar.items){
                 this.fbar.items.each(function(c){
                     c.minWidth = this.minButtonWidth;
@@ -1187,7 +1188,7 @@ new Ext.Panel({
 	                        this.bottomToolbar.setSize(w);
 	                    }
 	                }
-					if(this.fbar){
+					if(this.fbar && this.buttonAlign != 'center'){
 	                    this.fbar.setSize(w - this.fbar.container.getFrameWidth('lr'));
 	                }
                     this.body.setWidth(w);
@@ -1242,7 +1243,7 @@ new Ext.Panel({
      * @return {Number} The frame width
      */
     getFrameWidth : function(){
-        var w = this.el.getFrameWidth('lr');
+        var w = this.el.getFrameWidth('lr')+this.bwrap.getFrameWidth('lr');
 
         if(this.frame){
             var l = this.bwrap.dom.firstChild;
@@ -1259,7 +1260,7 @@ new Ext.Panel({
      * @return {Number} The frame height
      */
     getFrameHeight : function(){
-        var h  = this.el.getFrameWidth('tb');
+        var h  = this.el.getFrameWidth('tb')+this.bwrap.getFrameWidth('tb');
         h += (this.tbar ? this.tbar.getHeight() : 0) +
              (this.bbar ? this.bbar.getHeight() : 0);
 
