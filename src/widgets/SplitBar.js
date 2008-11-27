@@ -136,8 +136,8 @@ Ext.extend(Ext.SplitBar, Ext.util.Observable, {
         this.overlay.show();
         Ext.get(this.proxy).setDisplayed("block");
         var size = this.adapter.getElementSize(this);
-        this.activeMinSize = this.getMinimumSize();;
-        this.activeMaxSize = this.getMaximumSize();;
+        this.activeMinSize = this.getMinimumSize();
+        this.activeMaxSize = this.getMaximumSize();
         var c1 = size - this.activeMinSize;
         var c2 = Math.max(this.activeMaxSize - size, 0);
         if(this.orientation == Ext.SplitBar.HORIZONTAL){
