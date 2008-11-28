@@ -1,6 +1,15 @@
 /**
  * @class Ext.form.VTypes
- * Overridable validation definitions. The validations provided are basic and intended to be easily customizable and extended.
+ * This is a singleton object which contains a set of commonly used field validation functions.
+ * The validations provided are basic and intended to be easily customizable and extended. To add
+ * your own custom VType:<pre><code>
+Ext.apply(Ext.form.VTypes, {
+    IPAddress:  function(v) {
+        return /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(v);
+    },
+    IPAddressText: 'Must be a numeric IP address'
+});
+</code></pre>
  * @singleton
  */
 Ext.form.VTypes = function(){
