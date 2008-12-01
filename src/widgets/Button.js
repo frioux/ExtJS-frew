@@ -13,8 +13,7 @@
  * @cfg {Boolean} hidden True to start hidden (defaults to false)
  * @cfg {Boolean} disabled True to start disabled (defaults to false)
  * @cfg {Boolean} pressed True to start pressed (only if enableToggle = true)
- * @cfg {String} toggleGroup The group this toggle button is a member of (only 1 per group can be pressed, only
- * applies if enableToggle = true)
+ * @cfg {String} toggleGroup The group this toggle button is a member of (only 1 per group can be pressed)
  * @cfg {Boolean/Object} repeat True to repeat fire the click event while the mouse is down. This can also be
   an {@link Ext.util.ClickRepeater} config object (defaults to false).
  * @constructor
