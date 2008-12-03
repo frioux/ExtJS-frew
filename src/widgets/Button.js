@@ -105,7 +105,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      */
     tooltipType : 'qtip',
 
-    buttonSelector : "button:first",
+    buttonSelector : "button:first-child",
 
     scale: 'small',
     iconAlign : 'left',
