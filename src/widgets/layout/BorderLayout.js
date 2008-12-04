@@ -606,6 +606,7 @@ Ext.layout.BorderLayout.Region.prototype = {
         this.restoreLT = [this.el.dom.style.left, this.el.dom.style.top];
         this.el.alignTo(this.collapsedEl, this.getCollapseAnchor());
         this.el.setStyle("z-index", this.floatingZIndex+2);
+        this.panel.el.replaceClass('x-panel-collapsed', 'x-panel-floating');
         if(this.animFloat !== false){
             this.beforeSlide();
             this.el.slideIn(this.getSlideAnchor(), {
@@ -629,6 +630,7 @@ Ext.layout.BorderLayout.Region.prototype = {
         this.isSlid = false;
         this.clearMonitor();
         this.el.setStyle("z-index", "");
+        this.panel.el.replaceClass('x-panel-floating', 'x-panel-collapsed');
         this.el.dom.style.left = this.restoreLT[0];
         this.el.dom.style.top = this.restoreLT[1];
 
