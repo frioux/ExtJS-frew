@@ -904,7 +904,7 @@ Ext.EventObject = function(){
         },
 
         /**
-         * Returns true if the target of this event is a child of el.  If the target is el, it returns false.
+         * Returns true if the target of this event is a child of el.  Unless the allowEl parameter is set, it will return false if if the target is el.
          * Example usage:<pre><code>
 // Handle click on any child of an element
 Ext.getBody().on('click', function(e){
@@ -922,11 +922,12 @@ Ext.getBody().on('click', function(e,t){
 </code></pre>
          * @param {Mixed} el The id, DOM element or Ext.Element to check
          * @param {Boolean} related (optional) true to test if the related target is within el instead of the target
+         * @param {Boolean} allowEl {optional} true to also check if the passed element is the target or related target
          * @return {Boolean}
          */
         within : function(el, related){
             var t = this[related ? "getRelatedTarget" : "getTarget"]();
-            return t && Ext.fly(el).contains(t);
+            return t && ((allowEl ? (t === Ext.getDom(el)) : false) || Ext.fly(el).contains(t));
         },
 
         getPoint : function(){

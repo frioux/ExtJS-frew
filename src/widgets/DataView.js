@@ -448,7 +448,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
     // private
     onMouseOut : function(e){
         if(this.lastItem){
-            if(!e.within(this.lastItem, true)){
+            if(!e.within(this.lastItem, true, true)){
                 Ext.fly(this.lastItem).removeClass(this.overClass);
                 this.fireEvent("mouseleave", this, this.indexOf(this.lastItem), this.lastItem, e);
                 delete this.lastItem;
