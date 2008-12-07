@@ -79,8 +79,16 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      */
     /**
      * @cfg {DataReader} errorReader
-     * An Ext.data.DataReader (e.g. {@link Ext.data.XmlReader}) to be used to read data when reading validation errors on "submit" actions.
-     * This is completely optional as there is built-in support for processing JSON.
+     * <p>An Ext.data.DataReader (e.g. {@link Ext.data.XmlReader}) to be used to read field error messages returned from "submit" actions.
+     * This is completely optional as there is built-in support for processing JSON.</p>
+     * <p>The Records which provide messages for the invalid Fields must use the Field name (or id) as the Record ID,
+     * and must contain a field called "msg" which contains the error message.</p>
+     * <p>The errorReader does not have to be a full-blown implementation of a DataReader. It simply needs to implement a 
+     * <tt>read(xhr)</tt> function which returns an Array of Records in an object with the following structure:<pre><code>
+{
+    records: recordArray
+}
+</code></pre>
      */
     /**
      * @cfg {String} url
