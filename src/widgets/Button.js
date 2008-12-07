@@ -105,11 +105,53 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      */
     tooltipType : 'qtip',
 
+    /**
+     * @cfg {String} buttonSelector
+     * <p>(Optional) A {@link Ext.DomQuery DomQuery} selector which is used to extract the active, clickable element from the
+     * DOM structure created.</p>
+     * <p>When a custom {@link #template} is used, you  must ensure that this selector results in the selection of
+     * a focussable element.</p>
+     * <p>Defaults to <b><tt>"button:first-child"</tt></b>.</p>
+     */
     buttonSelector : "button:first-child",
 
+    /**
+     * @cfg {String} scale
+     * <p>(Optional) The size of the Button. Three values are allowed:</p>
+     * <ul class="mdetail-params">
+     * <li>"small"<div class="sub-desc">Results in the button element being 16px high.</div></li>
+     * <li>"medium"<div class="sub-desc">Results in the button element being 24px high.</div></li>
+     * <li>"large"<div class="sub-desc">Results in the button element being 32px high.</div></li>
+     * </ul>
+     * <p>Defaults to <b><tt>"small"</tt></b>.</p>
+     */
     scale: 'small',
+
+    /**
+     * @cfg {String} iconAlign
+     * <p>(Optional) The side of the Button box to render the icon. Four values are allowed:</p>
+     * <ul class="mdetail-params">
+     * <li>"top"<div class="sub-desc"></div></li>
+     * <li>"right"<div class="sub-desc"></div></li>
+     * <li>"bottom"<div class="sub-desc"></div></li>
+     * <li>"left"<div class="sub-desc"></div></li>
+     * </ul>
+     * <p>Defaults to <b><tt>"left"</tt></b>.</p>
+     */
     iconAlign : 'left',
+
+    /**
+     * @cfg {String} arrowAlign
+     * <p>(Optional) The side of the Button box to render the arrow if the button has an associated {@link #menu}.
+     * Two values are allowed:</p>
+     * <ul class="mdetail-params">
+     * <li>"right"<div class="sub-desc"></div></li>
+     * <li>"bottom"<div class="sub-desc"></div></li>
+     * </ul>
+     * <p>Defaults to <b><tt>"right"</tt></b>.</p>
+     */
     arrowAlign : 'right',
+
     /**
      * @cfg {Ext.Template} template (Optional)
      * An {@link Ext.Template} with which to create the Button's main element. This Template must
