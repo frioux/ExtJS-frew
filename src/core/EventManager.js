@@ -925,7 +925,7 @@ Ext.getBody().on('click', function(e,t){
          * @param {Boolean} allowEl {optional} true to also check if the passed element is the target or related target
          * @return {Boolean}
          */
-        within : function(el, related){
+        within : function(el, related, allowEl){
             var t = this[related ? "getRelatedTarget" : "getTarget"]();
             return t && ((allowEl ? (t === Ext.getDom(el)) : false) || Ext.fly(el).contains(t));
         },
