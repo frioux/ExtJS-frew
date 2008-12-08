@@ -629,6 +629,9 @@ Ext.Foo = Ext.extend(Ext.Bar, {
                 this.el.applyStyles(this.style);
                 delete this.style;
             }
+            if(this.overCls){
+                this.el.addClassOnOver(this.overCls);
+            }
             this.fireEvent("render", this);
             this.afterRender(this.container);
             if(this.hidden){
@@ -771,9 +774,6 @@ Ext.Foo = Ext.extend(Ext.Bar, {
             this.el = Ext.get(this.el);
             if(this.allowDomMove !== false){
                 ct.dom.insertBefore(this.el.dom, position);
-            }
-            if(this.overCls) {
-                this.el.addClassOnOver(this.overCls);
             }
         }
     },
