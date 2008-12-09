@@ -23,4 +23,9 @@ Ext.menu.ColorMenu = function(config){
      */
     this.relayEvents(ci, ["select"]);
 };
-Ext.extend(Ext.menu.ColorMenu, Ext.menu.Menu);
+Ext.extend(Ext.menu.ColorMenu, Ext.menu.Menu, {
+    //private
+    beforeDestroy: function(){
+        this.palette.destroy();
+    }
+});
