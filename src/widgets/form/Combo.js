@@ -524,6 +524,10 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
             }
             this.list.destroy();
         }
+        if (this.dqTask){
+            this.dqTask.cancel();
+            this.dqTask = null;
+        }
         this.bindStore(null);
         Ext.form.ComboBox.superclass.onDestroy.call(this);
     },
