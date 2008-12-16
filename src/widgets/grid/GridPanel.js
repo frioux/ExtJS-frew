@@ -61,8 +61,8 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
      * @cfg {Object} sm Shorthand for {@link #selModel}.
      */
     /**
-     * @cfg {Object} selModel Any subclass of AbstractSelectionModel that will provide the selection model for
-     * the grid (defaults to {@link Ext.grid.RowSelectionModel} if not specified).
+     * @cfg {Object} selModel Any subclass of {@link Ext.grid.AbstractSelectionModel} that will provide
+     * the selection model for the grid (defaults to {@link Ext.grid.RowSelectionModel} if not specified).
      */
     /**
      * @cfg {Array} columns An array of columns to auto create a ColumnModel
@@ -657,7 +657,9 @@ function(grid, rowIndex, columnIndex, e) {
 
     /**
      * Returns the grid's SelectionModel.
-     * @return {SelectionModel} The selection model
+     * @return {Ext.grid.AbstractSelectionModel SelectionModel} The selection model configured by the
+     * @link (#selModel} configuration option. This will be a subclass of {Ext.grid.AbstractSelectionModel}
+     * which provides either cell or row selectability.
      */
     getSelectionModel : function(){
         if(!this.selModel){
@@ -669,7 +671,7 @@ function(grid, rowIndex, columnIndex, e) {
 
     /**
      * Returns the grid's data store.
-     * @return {DataSource} The store
+     * @return {Ext.data.Store} The store
      */
     getStore : function(){
         return this.store;
@@ -677,7 +679,7 @@ function(grid, rowIndex, columnIndex, e) {
 
     /**
      * Returns the grid's ColumnModel.
-     * @return {ColumnModel} The column model
+     * @return {Ext.grid.ColumnModel} The column model
      */
     getColumnModel : function(){
         return this.colModel;
@@ -685,7 +687,7 @@ function(grid, rowIndex, columnIndex, e) {
 
     /**
      * Returns the grid's GridView object.
-     * @return {GridView} The grid view
+     * @return {Ext.grid.GridView} The grid view
      */
     getView : function(){
         if(!this.view){
