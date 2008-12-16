@@ -653,7 +653,7 @@ function(grid, rowIndex, columnIndex, e) {
     },
 
     // private for compatibility, overridden by editor grid
-    stopEditing : function(){},
+    stopEditing : Ext.emptyFn,
 
     /**
      * Returns the grid's SelectionModel.

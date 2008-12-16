@@ -13,7 +13,7 @@ Ext.form.DisplayField = Ext.extend(Ext.form.Field,  {
     htmlEncode: false,
 
     // private
-    initEvents : function(){},
+    initEvents : Ext.emptyFn,
 
     isValid : function(){
         return true;
