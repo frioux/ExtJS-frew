@@ -494,7 +494,7 @@ Ext.Updater.updateElement = function(el, url, params, options){
  * @class Ext.Updater.BasicRenderer
  * Default Content renderer. Updates the elements innerHTML with the responseText.
  */
-Ext.Updater.BasicRenderer = Ext.emptyFn;
+Ext.Updater.BasicRenderer = function(){};
 
 Ext.Updater.BasicRenderer.prototype = {
     /**
