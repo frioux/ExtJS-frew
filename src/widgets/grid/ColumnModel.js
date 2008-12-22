@@ -518,7 +518,8 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * Returns the editor defined for the cell/column.
      * @param {Number} colIndex The column index
      * @param {Number} rowIndex The row index
-     * @return {Object}
+     * @return {Ext.Editor} The {@link Ext.Editor Editor} that was created to wrap 
+     * the {@link Ext.form.Field Field} used to edit the cell.
      */
     getCellEditor : function(colIndex, rowIndex){
         return this.config[colIndex].getCellEditor(rowIndex);
