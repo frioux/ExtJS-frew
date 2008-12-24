@@ -529,8 +529,9 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
      * @return {Node} The replaced node
      */
     replaceChild : function(newChild, oldChild){
-        this.insertBefore(newChild, oldChild);
+        var s = oldChild ? oldChild.nextSibling : null;
         this.removeChild(oldChild);
+        this.insertBefore(newChild, s);
         return oldChild;
     },
 
