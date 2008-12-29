@@ -35,7 +35,7 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
      * @cfg {Array} buttons
      * An array of {@link Ext.Button}s or {@link Ext.Button} configs used to add buttons to the footer of this FormPanel.<br>
      * <p>Buttons in the footer of a FormPanel may be configured with the option <tt>formBind: true</tt>. This causes
-     * the form's {@link #monitorValid valid state monitor task} to enable/disable those fields depending on
+     * the form's {@link #monitorValid valid state monitor task} to enable/disable those Buttons depending on
      * the form's valid/invalid state.</p>
      */
     /**
