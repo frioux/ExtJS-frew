@@ -195,6 +195,22 @@ Ext.form.TextField = Ext.extend(Ext.form.Field,  {
             this.validationTask.delay(this.validationDelay);
         }
     },
+    
+    //private
+    onDisable: function(){
+        Ext.form.TextField.superclass.onDisable.call(this);
+        if(Ext.isIE){
+            this.el.dom.unselectable = 'on';
+        }
+    },
+    
+    //private
+    onEnable: function(){
+        Ext.form.TextField.superclass.onEnable.call(this);
+        if(Ext.isIE){
+            this.el.dom.unselectable = '';
+        }
+    },
 
     // private
     onKeyUpBuffered : function(e){
