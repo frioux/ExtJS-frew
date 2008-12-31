@@ -100,6 +100,17 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
 
     initComponent : function(){
         Ext.form.DateField.superclass.initComponent.call(this);
+        
+        this.addEvents(
+            /**
+             * @event select
+             * Fires when a date is selected via the date picker.
+             * @param {Ext.form.DateField} this
+             * @param {Date} date The date that was selected
+             */
+            'select'
+        );
+        
         if(typeof this.minValue == "string"){
             this.minValue = this.parseDate(this.minValue);
         }
@@ -287,6 +298,7 @@ dateField.setValue('2006-05-04');
     menuListeners : {
         select: function(m, d){
             this.setValue(d);
+            this.fireEvent('select', this, d);
         },
         show : function(){ // retain focus styling
             this.onFocus();
