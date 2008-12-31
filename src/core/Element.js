@@ -1847,8 +1847,8 @@ el.un('click', this.handlerFn);
     },
 
     /**
-     * Stops the specified event from bubbling and optionally prevents the default action
-     * @param {String} eventName
+     * Stops the specified event(s) from bubbling and optionally prevents the default action
+     * @param {String/Array} eventName an event / array of events to stop from bubbling
      * @param {Boolean} preventDefault (optional) true to prevent the default action too
      * @return {Ext.Element} this
      */
