@@ -570,6 +570,7 @@ Company.data.CustomStore = function(config) { ... }
                 switch(o.constructor) {
                     case Array: return 'array';
                     case RegExp: return 'regexp';
+                    case Date: return 'date';
                 }
                 if(typeof o.length == 'number' && typeof o.item == 'function') {
                     return 'nodelist';
