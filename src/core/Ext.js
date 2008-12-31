@@ -541,6 +541,7 @@ Company.data.CustomStore = function(config) { ... }
          * <li><b>string</b>: If the object passed is a string</li>
          * <li><b>number</b>: If the object passed is a number</li>
          * <li><b>boolean</b>: If the object passed is a boolean value</li>
+         * <li><b>date</b>: If the object passed is a Date object</li>
          * <li><b>function</b>: If the object passed is a function reference</li>
          * <li><b>object</b>: If the object passed is an object</li>
          * <li><b>array</b>: If the object passed is an array</li>
