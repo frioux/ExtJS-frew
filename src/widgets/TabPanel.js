@@ -298,7 +298,7 @@ var tabs = new Ext.TabPanel({
             'tabchange',
             /**
              * @event contextmenu
-             * Fires when the original browser contextmenu event originated from a tab element.
+             * Relays the contextmenu event from a tab selector element in the tab strip.
              * @param {TabPanel} this
              * @param {Panel} tab The target tab
              * @param {EventObject} e
