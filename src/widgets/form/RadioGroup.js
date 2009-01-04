@@ -3,7 +3,7 @@
  * @extends Ext.form.CheckboxGroup
  * A grouping container for {@link Ext.form.Radio} controls.
  * @constructor
- * Creates a new CheckboxGroup
+ * Creates a new RadioGroup
  * @param {Object} config Configuration options
  */
 Ext.form.RadioGroup = Ext.extend(Ext.form.CheckboxGroup, {
