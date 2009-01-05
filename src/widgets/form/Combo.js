@@ -426,6 +426,14 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
             }
         }
     },
+    
+    /**
+     * Returns the store associated with this combo.
+     * @return {Ext.data.Store} The store
+     */
+    getStore : function(){
+        return this.store;
+    },
 
     // private
     bindStore : function(store, initial){
