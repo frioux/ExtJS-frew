@@ -761,7 +761,7 @@ var tabs = new Ext.TabPanel({
                 this.header.removeClass('x-tab-scrolling');
                 this.scrollLeft.hide();
                 this.scrollRight.hide();
-                if(Ext.isAir){
+                if(Ext.isAir || Ext.isSafar){
                     wd.style.marginLeft = '';
                     wd.style.marginRight = '';
                 }
@@ -769,7 +769,7 @@ var tabs = new Ext.TabPanel({
         }else{
             if(!this.scrolling){
                 this.header.addClass('x-tab-scrolling');
-                if(Ext.isAir){
+                if(Ext.isAir || Ext.isSafar){
                     wd.style.marginLeft = '18px';
                     wd.style.marginRight = '18px';
                 }
