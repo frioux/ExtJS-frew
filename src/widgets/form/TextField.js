@@ -347,6 +347,7 @@ Ext.form.TextField = Ext.extend(Ext.form.Field,  {
      */
     selectText : function(start, end){
         var v = this.getRawValue();
+        var doFocus = false;
         if(v.length > 0){
             start = start === undefined ? 0 : start;
             end = end === undefined ? v.length : end;
@@ -359,6 +360,12 @@ Ext.form.TextField = Ext.extend(Ext.form.Field,  {
                 range.moveEnd("character", end-v.length);
                 range.select();
             }
+            doFocus = Ext.isGecko || Ext.isOpera;
+        }else{
+            doFocus = true;
+        }
+        if(doFocus){
+            this.focus();
         }
     },
 
