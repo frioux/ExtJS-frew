@@ -190,7 +190,7 @@ Ext.dd.DragDrop.prototype = {
     unlock: function() { this.locked = false; },
 
     /**
-     * By default, all insances can be a drop target.  This can be disabled by
+     * By default, all instances can be a drop target.  This can be disabled by
      * setting isTarget to false.
      * @property isTarget
      * @type boolean
