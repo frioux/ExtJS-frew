@@ -14,9 +14,9 @@ Ext.form.Field = Ext.extend(Ext.BoxComponent,  {
      * of the {@link Ext.form.Container Container} to which the Field is added.</b></p>
      */
     /**
-     * @cfg {String} inputType The type attribute for input fields -- e.g. radio, text, password, file (defaults 
-     * to "text"). The types "file" and "password" must be used to render those field types currently -- there are 
-     * no separate Ext components for those. Note that if you use <tt>inputType:'file'</tt>, {@link #emptyText} 
+     * @cfg {String} inputType The type attribute for input fields -- e.g. radio, text, password, file (defaults
+     * to "text"). The types "file" and "password" must be used to render those field types currently -- there are
+     * no separate Ext components for those. Note that if you use <tt>inputType:'file'</tt>, {@link #emptyText}
      * is not supported and should be avoided.
      */
     /**
@@ -32,7 +32,7 @@ Ext.form.Field = Ext.extend(Ext.BoxComponent,  {
     /**
      * @cfg {String} cls A custom CSS class to apply to the field's underlying element (defaults to "").
      */
-    
+
     /**
      * @cfg {String} invalidClass The CSS class to use when marking a field invalid (defaults to "x-form-invalid")
      */
@@ -242,7 +242,7 @@ side          Add an error icon to the right of the field with a popup on hover
     initEvents : function(){
         this.el.on(Ext.isIE || Ext.isSafari3 ? "keydown" : "keypress", this.fireKey,  this);
         this.el.on("focus", this.onFocus,  this);
-        
+
         // fix weird FF/Win editor issue when changing OS window focus
         var o = this.inEditor && Ext.isWindows && Ext.isGecko ? {buffer:10} : null;
         this.el.on("blur", this.onBlur,  this, o);
@@ -250,7 +250,7 @@ side          Add an error icon to the right of the field with a popup on hover
 
     // private
     onFocus : function(){
-        if(this.focusClass){ // don't touch in Opera
+        if(this.focusClass){
             this.el.addClass(this.focusClass);
         }
         if(!this.hasFocus){
@@ -266,7 +266,7 @@ side          Add an error icon to the right of the field with a popup on hover
     // private
     onBlur : function(){
         this.beforeBlur();
-        if(this.focusClass){ // don't touch in Opera
+        if(this.focusClass){
             this.el.removeClass(this.focusClass);
         }
         this.hasFocus = false;
