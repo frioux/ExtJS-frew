@@ -362,6 +362,14 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
             ns[i].viewIndex = i;
         }
     },
+    
+    /**
+     * Returns the store associated with this DataView.
+     * @return {Ext.data.Store} The store
+     */
+    getStore : function(){
+        return this.store;
+    },
 
     /**
      * Changes the data store bound to this view and refreshes it.
