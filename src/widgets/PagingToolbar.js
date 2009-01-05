@@ -155,6 +155,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
 	onFirstLayout: function(ii) {
     	this.inputItem.el.on({
 	    	keydown: {fn: this.onPagingKeydown, scope: this},
+            blur: {fn: this.onPagingBlur, scope: this},
 	    	focus: function(){this.select();}
 	    });
         this.field = this.inputItem.el.dom;
@@ -231,6 +232,11 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
             return false;
         }
         return pageNum;
+    },
+    
+    //private
+    onPagingBlur: function(e){
+        this.field.value = this.getPageData().activePage;
     },
 
     // private
