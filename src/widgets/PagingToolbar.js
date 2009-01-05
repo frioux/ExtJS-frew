@@ -49,7 +49,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
     beforePageText : "Page",
     /**
      * Customizable piece of the default paging text (defaults to "of {0}"). Note that this string is
-     * formatted using {0} as a token that is replaced by the number of total pages. This token should be 
+     * formatted using {0} as a token that is replaced by the number of total pages. This token should be
      * preserved when overriding this string if showing the total page count is desired.
      * @type String
      */
@@ -150,11 +150,11 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
              * Fires after the active page has been changed.
              * @param {Ext.PagingToolbar} this
              * @param {Object} changeEvent An object that has these properties:<ul>
-             * <li><code>total</code> : Number <div class="sub-desc">The total number of records in the dataset as 
+             * <li><code>total</code> : Number <div class="sub-desc">The total number of records in the dataset as
              * returned by the server</div></li>
              * <li><code>activePage</code> : Number <div class="sub-desc">The current page number</div></li>
-             * <li><code>pages</code> : Number <div class="sub-desc">The total number of pages which will be returned from the 
-             * server, based on the current {@link #pageSize}</div></li>
+             * <li><code>pages</code> : Number <div class="sub-desc">The total number of pages (calculated from
+             * the total number of records in the dataset as returned by the server and the current {@link #pageSize})</div></li>
              * </ul>
              */
             'change',
@@ -164,16 +164,16 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
              * Return false to prevent the active page from being changed.
              * @param {Ext.PagingToolbar} this
              * @param {Object} beforeChangeEvent An object that has these properties:<ul>
-             * <li><code>start</code> : Number <div class="sub-desc">The starting row number for the next page of records to 
+             * <li><code>start</code> : Number <div class="sub-desc">The starting row number for the next page of records to
              * be retrieved from the server</div></li>
              * <li><code>limit</code> : Number <div class="sub-desc">The number of records to be retrieved from the server</div></li>
              * </ul>
-             * (note: the names of the <b>start</b> and <b>limit</b> properties are determined 
+             * (note: the names of the <b>start</b> and <b>limit</b> properties are determined
              * by the store's {@link Ext.data.Store#paramNames paramNames} property.)
              */
             'beforechange'
         );
-               
+
         this.cursor = 0;
         this.bind(this.store);
         this.on('afterlayout', this.onFirstLayout, this, {single: true});
@@ -261,7 +261,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         }
         return pageNum;
     },
-    
+
     //private
     onPagingBlur: function(e){
         this.field.value = this.getPageData().activePage;
@@ -363,7 +363,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         this.paramNames.start = store.paramNames.start;
         this.paramNames.limit = store.paramNames.limit;
     },
-    
+
     // private
     onDestroy : function(){
         if(this.store){
