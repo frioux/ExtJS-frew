@@ -267,7 +267,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
      * Clears all selections.
      */
     clearSelections : function(fast){
-        if(this.locked) return;
+        if(this.isLocked()) return;
         if(fast !== true){
             var ds = this.grid.store;
             var s = this.selections;
@@ -286,7 +286,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
      * Selects all rows.
      */
     selectAll : function(){
-        if(this.locked) return;
+        if(this.isLocked()) return;
         this.selections.clear();
         for(var i = 0, len = this.grid.store.getCount(); i < len; i++){
             this.selectRow(i, true);
@@ -363,7 +363,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
      * @param {Boolean} keepExisting (optional) True to retain existing selections
      */
     selectRange : function(startRow, endRow, keepExisting){
-        if(this.locked) return;
+        if(this.isLocked()) return;
         if(!keepExisting){
             this.clearSelections();
         }
@@ -384,7 +384,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
      * @param {Number} endRow The index of the last row in the range
      */
     deselectRange : function(startRow, endRow, preventViewNotify){
-        if(this.locked) return;
+        if(this.isLocked()) return;
         for(var i = startRow; i <= endRow; i++){
             this.deselectRow(i, preventViewNotify);
         }
@@ -396,7 +396,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
      * @param {Boolean} keepExisting (optional) True to keep existing selections
      */
     selectRow : function(index, keepExisting, preventViewNotify){
-        if(this.locked || (index < 0 || index >= this.grid.store.getCount()) || this.isSelected(index)) return;
+        if(this.isLocked() || (index < 0 || index >= this.grid.store.getCount()) || this.isSelected(index)) return;
         var r = this.grid.store.getAt(index);
         if(r && this.fireEvent("beforerowselect", this, index, keepExisting, r) !== false){
             if(!keepExisting || this.singleSelect){
@@ -417,7 +417,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
      * @param {Number} row The index of the row to deselect
      */
     deselectRow : function(index, preventViewNotify){
-        if(this.locked) return;
+        if(this.isLocked()) return;
         if(this.last == index){
             this.last = false;
         }
