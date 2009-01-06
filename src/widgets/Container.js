@@ -265,7 +265,13 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
         }
     },
 
-    // protected - should only be called by layouts
+    /**
+     * <p>Returns the Element to be used to contain the child Components of this Container.</p>
+     * <p>An implementation is provided which returns the Container's {@link #getEl Element}, but
+     * if there is a more complex structure to a Container, this may be overridden to return
+     * the element into which the {@link #layout layout} renders child Components.</p>
+     * @return {Ext.Element} The Element to render child Components into.
+     */
     getLayoutTarget : function(){
         return this.el;
     },
