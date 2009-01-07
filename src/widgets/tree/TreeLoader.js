@@ -193,7 +193,27 @@ Ext.extend(Ext.tree.TreeLoader, Ext.util.Observable, {
     },
 
     /**
-    * Override this function for custom TreeNode node implementation
+    * <p>Override this function for custom TreeNode node implementation, or to
+    * modify the attributes at creation time.</p>
+    * Example:<code><pre>
+new Ext.tree.TreePanel({
+    ...
+    new Ext.tree.TreeLoader({
+        url: 'dataUrl',
+        createNode: function(attr) {
+//          Allow consolidation consignments to have
+//          consignments dropped into them.
+            if (attr.isConsolidation) {
+                attr.iconCls = 'x-consol',
+                attr.allowDrop = true;
+            }
+            return Ext.tree.TreeLoader.prototype.call(this, attr);
+        }
+    }),
+    ...
+});
+</pre></code>
+    * @param attr {Object} The attributes from which to create the new node.
     */
     createNode : function(attr){
         // apply baseAttrs, nice idea Corey!
