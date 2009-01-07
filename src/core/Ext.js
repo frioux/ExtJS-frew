@@ -281,6 +281,9 @@ Ext.override(MyClass, {
                 for(var method in overrides){
                     p[method] = overrides[method];
                 }
+                if(Ext.isIE && overrides.toString != origclass.toString){
+                    p.toString = overrides.toString;
+                }
             }
         },
 
