@@ -117,6 +117,7 @@ Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
         Ext.grid.EditorGridPanel.superclass.initEvents.call(this);
 
         this.on("bodyscroll", this.stopEditing, this, [true]);
+        this.on("columnresize", this.stopEditing, this, [true]);
 
         if(this.clicksToEdit == 1){
             this.on("cellclick", this.onCellDblClick, this);
@@ -126,7 +127,6 @@ Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
             }
             this.on("celldblclick", this.onCellDblClick, this);
         }
-        this.getGridEl().addClass("xedit-grid");
     },
 
     // private
