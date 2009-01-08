@@ -534,8 +534,10 @@ var tabs = new Ext.TabPanel({
             var next = this.stack.next();
             if(next){
                 this.setActiveTab(next);
-            }else{
+            }else if(this.items.getCount() > 0){
                 this.setActiveTab(0);
+            }else{
+                this.activeTab = null;
             }
         }
         this.delegateUpdates();
