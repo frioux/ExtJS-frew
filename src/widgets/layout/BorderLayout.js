@@ -292,12 +292,12 @@ Ext.layout.BorderLayout.Region.prototype = {
     /**
      * This region's panel.  Read-only.
      * @type Ext.Panel
-     * @propery panel
+     * @property panel
      */
     /**
      * This region's layout.  Read-only.
      * @type Layout
-     * @propery layout
+     * @property layout
      */
     /**
      * This region's layout position (north, south, east, west or center).  Read-only.

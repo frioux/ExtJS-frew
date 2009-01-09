@@ -115,6 +115,12 @@ Ext.data.Record.COMMIT = 'commit';
 
 Ext.data.Record.prototype = {
     /**
+     * <p><b>This property is stored in the Record definition's <u>prototype</u></b></p>
+     * A MixedCollection containing the defined {@link Ext.data.Field Field}s for this Record.  Read-only.
+     * @property fields
+     * @type Ext.util.MixedCollection
+     */
+    /**
      * An object hash representing the data for this Record. Every field name in the Record definition
      * is represented by a property of that name in this object. Note that unless you specified a field
      * with name "id" in the Record definition, this will <b>not</b> contain an <tt>id</tt> property.
