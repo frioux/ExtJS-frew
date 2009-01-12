@@ -186,6 +186,9 @@ Ext.MessageBox = function(){
             if(opt.progress === true || opt.wait === true){
                 progressBar.setSize(w-iw-fw-bw);
             }
+            if(Ext.isIE && w == bwidth){
+                w += 4; //Add offset when the content width is smaller than the buttons.    
+            }
             dlg.setSize(w, 'auto').center();
             return this;
         },
@@ -221,7 +224,7 @@ Ext.MessageBox = function(){
          * @return {Ext.MessageBox} this
          */
         hide : function(){
-            if(this.isVisible()){
+            if(this.isVisible() || dlg.activeGhost){
                 dlg.hide();
                 handleHide();
             }
