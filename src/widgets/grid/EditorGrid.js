@@ -79,7 +79,7 @@ Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
             "beforeedit",
             /**
              * @event afteredit
-             * Fires after a cell is edited. <br />
+             * Fires after a cell is edited. The edit event object has the following properties <br />
              * <ul style="padding:5px;padding-left:16px;">
              * <li>grid - This grid</li>
              * <li>record - The record being edited</li>
