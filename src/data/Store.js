@@ -272,7 +272,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
 
     /**
      * Remove a Record from the Store and fires the {@link #remove} event.
-     * @param {Ext.data.Record} record Th Ext.data.Record object to remove from the cache.
+     * @param {Ext.data.Record} record The Ext.data.Record object to remove from the cache.
      */
     remove : function(record){
         var index = this.data.indexOf(record);
@@ -284,6 +284,14 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
             this.snapshot.remove(record);
         }
         this.fireEvent("remove", this, record, index);
+    },
+    
+    /**
+     * Remove a Record from the Store at the specified index. Fires the {@link #remove} event.
+     * @param {Number} index The index of the record to remove.
+     */
+    removeAt : function(index){
+        this.remove(this.getAt(index));    
     },
 
     /**
