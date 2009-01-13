@@ -186,6 +186,12 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
      */
     lazyInit : true,
 
+    /**
+     * The value of the match string used to filter the store. Delete this property to force a requery.
+     * @property lastQuery
+     * @type String
+     */
+
     // private
     initComponent : function(){
         Ext.form.ComboBox.superclass.initComponent.call(this);
@@ -268,23 +274,23 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
         }
         //auto-configure store from local array data
         else if(Ext.isArray(this.store)){
-			if (Ext.isArray(this.store[0])){
-				this.store = new Ext.data.ArrayStore({
-				    fields: ['value','text'],
-				    data: this.store
-				});
-		        this.valueField = 'value';
-			}else{
-				this.store = new Ext.data.ArrayStore({
-				    fields: ['text'],
-				    data: this.store,
-				    expandData: true
-				});
-		        this.valueField = 'text';
-			}
-			this.displayField = 'text';
-			this.mode = 'local';
-		}
+            if (Ext.isArray(this.store[0])){
+                this.store = new Ext.data.ArrayStore({
+                    fields: ['value','text'],
+                    data: this.store
+                });
+                this.valueField = 'value';
+            }else{
+                this.store = new Ext.data.ArrayStore({
+                    fields: ['text'],
+                    data: this.store,
+                    expandData: true
+                });
+                this.valueField = 'text';
+            }
+            this.displayField = 'text';
+            this.mode = 'local';
+        }
 
         this.selectedIndex = -1;
         if(this.mode == 'local'){
