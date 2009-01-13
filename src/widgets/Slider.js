@@ -369,14 +369,14 @@ Ext.Slider.Vertical = {
     onDrag: function(e){
         var pos = this.innerEl.translatePoints(this.tracker.getXY());
         var bottom = this.innerEl.getHeight()-pos.top;
-        this.setValue(Math.round(bottom/this.getRatio()), false);
+        this.setValue(this.minValue + Math.round(bottom/this.getRatio()), false);
         this.fireEvent('drag', this, e);
     },
 
     onClickChange : function(local){
         if(local.left > this.clickRange[0] && local.left < this.clickRange[1]){
             var bottom = this.innerEl.getHeight()-local.top;
-            this.setValue(Math.round(bottom/this.getRatio()), undefined, true);
+            this.setValue(this.minValue + Math.round(bottom/this.getRatio()), undefined, true);
         }
     }
 };
