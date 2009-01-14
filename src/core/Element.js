@@ -2150,6 +2150,8 @@ ep.getUpdateManager = ep.getUpdater;
  * Removes an event handler from this element (shorthand for {@link #removeListener}).
  * @param {String} eventName the type of event to remove
  * @param {Function} fn the method the event invokes
+ * @param {Object} scope (optional) The scope (The <tt>this</tt> reference) of the handler function. Defaults
+ * to this Element.
  * @return {Ext.Element} this
  * @member Ext.Element
  * @method un
