@@ -101,7 +101,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
      */
     minHeight: 90,
     /**
-     * @cfg {String} triggerAction The action to execute when the trigger field is activated.  Use 'all' to run the
+     * @cfg {String} triggerAction The action to execute when the trigger is clicked.  Use 'all' to run the
      * query specified by the allQuery config option (defaults to 'query')
      */
     triggerAction: 'query',
