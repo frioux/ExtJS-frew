@@ -1211,6 +1211,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
 
         this.initData(null, null);
         Ext.EventManager.removeResizeListener(this.onWindowResize, this);
+        this.purgeListeners();
     },
 
     // private
