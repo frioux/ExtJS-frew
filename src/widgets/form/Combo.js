@@ -349,7 +349,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
             });
 
             var lw = this.listWidth || Math.max(this.wrap.getWidth(), this.minListWidth);
-            this.list.setWidth(lw);
+            this.list.setSize(lw, 0);
             this.list.swallowEvent('mousewheel');
             this.assetHeight = 0;
             if(this.syncFont !== false){

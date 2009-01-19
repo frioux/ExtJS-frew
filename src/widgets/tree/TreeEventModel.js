@@ -8,8 +8,8 @@ Ext.tree.TreeEventModel.prototype = {
         var el = this.tree.getTreeEl();
         el.on('click', this.delegateClick, this);
         if(this.tree.trackMouseOver !== false){
-            el.on('mouseover', this.delegateOver, this);
-            el.on('mouseout', this.delegateOut, this);
+            this.tree.innerCt.on('mouseover', this.delegateOver, this);
+            this.tree.innerCt.on('mouseout', this.delegateOut, this);
         }
         el.on('dblclick', this.delegateDblClick, this);
         el.on('contextmenu', this.delegateContextMenu, this);

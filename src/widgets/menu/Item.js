@@ -66,7 +66,7 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
         el.className = this.itemCls + (this.menu ?  " x-menu-item-arrow" : "") + (this.cls ?  " " + this.cls : "");
         el.innerHTML = String.format(
                 '<img src="{0}" class="x-menu-item-icon {2}" />{1}',
-                this.icon || Ext.BLANK_IMAGE_URL, this.itemText||this.text, this.iconCls || '');
+                this.icon || Ext.BLANK_IMAGE_URL, this.itemText||this.text||'&#160;', this.iconCls || '');
         this.el = el;
         Ext.menu.Item.superclass.onRender.call(this, container, position);
     },
@@ -76,7 +76,7 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
      * @param {String} text The text to display
      */
     setText : function(text){
-        this.text = text;
+        this.text = text||'&#160;';
         if(this.rendered){
             this.el.update(String.format(
                 '<img src="{0}" class="x-menu-item-icon {2}">{1}',
