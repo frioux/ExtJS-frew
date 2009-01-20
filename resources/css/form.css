@@ -509,7 +509,15 @@ textarea {
 }
 fieldset.x-panel-collapsed {
     padding-bottom:0 !important;
+    border-width: 1px 1px 0 1px !important;
+    border-left-color: transparent;
+    border-right-color: transparent;
+}        
+.ext-ie6 fieldset.x-panel-collapsed{
+    padding-bottom:0 !important;
     border-width: 1px 0 0 0 !important;
+    margin-left: 1px;
+    margin-right: 1px;
 }
 fieldset.x-panel-collapsed .x-fieldset-bwrap {
     visibility:hidden;
