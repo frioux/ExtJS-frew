@@ -63,9 +63,6 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
         if(this.hrefTarget){
             el.target = this.hrefTarget;
         }
-        if(this.id){
-            el.id = this.id;
-        }
         el.className = this.itemCls + (this.menu ?  " x-menu-item-arrow" : "") + (this.cls ?  " " + this.cls : "");
         el.innerHTML = String.format(
                 '<img src="{0}" class="x-menu-item-icon {2}" />{1}',

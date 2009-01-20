@@ -84,6 +84,9 @@ Ext.extend(Ext.menu.BaseItem, Ext.Component, {
     // private
     onRender : function(container, position){
         this.el = Ext.get(this.el);
+        if(this.id){
+            this.el.id = this.id;
+        }
         container.dom.appendChild(this.el.dom);
     },
 
