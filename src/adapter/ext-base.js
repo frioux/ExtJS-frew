@@ -945,7 +945,7 @@
                 httpStatus = 13030;
             }
 
-            if (httpStatus >= 200 && httpStatus < 300) {
+            if ((httpStatus >= 200 && httpStatus < 300) || (Ext.isIE && httpStatus == 1223)) {
                 responseObject = this.createResponseObject(o, callback.argument);
                 if (callback.success) {
                     if (!callback.scope) {
