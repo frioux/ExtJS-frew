@@ -537,7 +537,7 @@ fieldset.x-panel-collapsed .x-fieldset-bwrap {
 }
 .ext-ie .x-fieldset-noborder legend span {
     position: absolute;
-    left:-5px;
+    left:16px;
 }
         
 .ext-gecko .x-window-body .x-form-item {
