@@ -592,6 +592,12 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             }
         }
     },
+    
+    //docs inherit from Field
+    getValue : function() {
+        this.syncValue();
+        return Ext.form.HtmlEditor.superclass.getValue.call(this);
+    },
 
     /**
      * Protected method that will not generally be called directly. Pushes the value of the textarea
