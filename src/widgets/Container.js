@@ -418,6 +418,7 @@ myTabPanel.setActiveTab(myNewGrid);
      * @param {Component/String} component The component reference or id to remove.
      * @param {Boolean} autoDestroy (optional) True to automatically invoke the removed Component's {@link Ext.Component#destroy} function.
      * Defaults to the value of this Container's {@link #autoDestroy} config.
+     * @return {Ext.Component} component The Component that was removed.
      */
     remove : function(comp, autoDestroy){
         var c = this.getComponent(comp);
@@ -433,6 +434,20 @@ myTabPanel.setActiveTab(myNewGrid);
             this.fireEvent(true, 'remove', this, c);
         }
         return c;
+    },
+    
+    /**
+     * Removes all components from this container.
+     * @param {Boolean} autoDestroy (optional) True to automatically invoke the removed Component's {@link Ext.Component#destroy} function.
+     * Defaults to the value of this Container's {@link #autoDestroy} config.
+     * @return {Array} Array of the destroyed components
+     */
+    removeAll: function(autoDestroy){
+        var item, items = [];
+        while((item = this.items.last())){
+            items.unshift(this.remove(item, autoDestroy));
+        }
+        return items;
     },
 
     /**
