@@ -573,16 +573,14 @@ myTabPanel.setActiveTab(myNewGrid);
     /**
      * Find a component under this container at any level by xtype or class
      * @param {String/Class} xtype The xtype string for a component, or the class of the component directly
+     * @param {Boolean} shallow (optional) False to check whether this Component is descended from the xtype (this is
+     * the default), or true to check whether this Component is directly of the specified xtype.
      * @return {Array} Array of Ext.Components
      */
-    findByType : function(xtype){
-        return typeof xtype == 'function' ?
-            this.findBy(function(c){
-                return c.constructor === xtype;
-            }) :
-            this.findBy(function(c){
-                return c.constructor.xtype === xtype;
-            });
+    findByType : function(xtype, shallow){
+        return this.findBy(function(c){
+            return c.isXType(xtype, shallow);
+        });
     },
 
     /**

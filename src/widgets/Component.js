@@ -1036,9 +1036,14 @@ var isBoxInstance = t.isXType('box', true); // false, not a direct BoxComponent 
      * the default), or true to check whether this Component is directly of the specified xtype.
      */
     isXType : function(xtype, shallow){
-        return !shallow ?
-               ('/' + this.getXTypes() + '/').indexOf('/' + xtype + '/') != -1 :
-                this.constructor.xtype == xtype;
+        //assume a string by default
+        if (typeof xtype == 'function'){
+            xtype = xtype.xtype; //handle being passed the class, eg. Ext.Component
+        }else if (typeof xtype == 'object'){
+            xtype = xtype.constructor.xtype; //handle being passed an instance
+        }
+            
+        return !shallow ? ('/' + this.getXTypes() + '/').indexOf('/' + xtype + '/') != -1 : this.constructor.xtype == xtype;
     },
 
     /**
