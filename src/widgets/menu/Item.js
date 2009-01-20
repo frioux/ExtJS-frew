@@ -96,6 +96,14 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
             this.el.child('img.x-menu-item-icon').replaceClass(oldCls, this.iconCls);
         }
     },
+    
+    //private
+    beforeDestroy: function(){
+        if (this.menu){
+            this.menu.destroy();
+        }
+        Ext.menu.Item.superclass.beforeDestroy.call(this);
+    }
 
     // private
     handleClick : function(e){
