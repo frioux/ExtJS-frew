@@ -586,6 +586,8 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         startRow = startRow || 0;
         var rows = this.getRows();
         var cls = ' x-grid3-row-alt ';
+        rows[0].className += ' x-grid3-row-first';
+        rows[rows.length - 1].className += ' x-grid3-row-last';
         for(var i = startRow, len = rows.length; i < len; i++){
             var row = rows[i];
             row.rowIndex = i;
@@ -775,12 +777,14 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         var ct = ts.hcell;
 
         var cb = [], p = {};
-
-        for(var i = 0, len = cm.getColumnCount(); i < len; i++){
+        var len = cm.getColumnCount();
+        var last = len - 1;
+        for(var i = 0; i < len; i++){
             p.id = cm.getColumnId(i);
             p.value = cm.getColumnHeader(i) || "";
             p.style = this.getColumnStyle(i, true);
             p.tooltip = this.getColumnTooltip(i);
+            p.css = i == 0 ? 'x-grid3-cell-first ' : (i == last ? 'x-grid3-cell-last ' : '');
             if(cm.config[i].align == 'right'){
                 p.istyle = 'padding-right:16px';
             } else {
