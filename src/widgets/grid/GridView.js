@@ -737,15 +737,18 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
     },
 
     onColumnWidthUpdated : function(col, w, tw){
-        // template method
+        //template method
+        this.focusEl.setWidth(tw);
     },
 
     onAllColumnWidthsUpdated : function(ws, tw){
-        // template method
+        //template method
+        this.focusEl.setWidth(tw);
     },
 
     onColumnHiddenUpdated : function(col, hidden, tw){
         // template method
+        this.focusEl.setWidth(tw);
     },
 
     updateColumnText : function(col, text){
