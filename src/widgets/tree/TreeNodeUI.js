@@ -585,7 +585,15 @@ Ext.tree.TreeNodeUI.prototype = {
         delete this.checkbox;
         delete this.anchor;
         delete this.textNode;
-        Ext.removeNode(this.ctNode);
+        
+        if (this.holder){
+             delete this.wrap;
+             Ext.removeNode(this.holder);
+             delete this.holder;
+        }else{
+            Ext.removeNode(this.wrap);
+            delete this.wrap;
+        }
     }
 };
 

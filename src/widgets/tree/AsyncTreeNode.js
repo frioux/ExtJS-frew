@@ -93,7 +93,7 @@ Ext.extend(Ext.tree.AsyncTreeNode, Ext.tree.TreeNode, {
     reload : function(callback){
         this.collapse(false, false);
         while(this.firstChild){
-            this.removeChild(this.firstChild);
+            this.removeChild(this.firstChild).destroy();
         }
         this.childrenRendered = false;
         this.loaded = false;
