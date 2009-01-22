@@ -325,6 +325,10 @@ ul.x-tab-strip li.x-tab-edge {
     cursor:default;
 }
 
+.x-tab-scrolling-bottom .x-tab-scroller-left, .x-tab-scrolling-bottom .x-tab-scroller-right{
+    margin-top: 1px;
+}
+
 .x-tab-scrolling .x-tab-strip-wrap {
     margin-left:18px;
     margin-right:18px;

@@ -742,9 +742,10 @@ var tabs = new Ext.TabPanel({
 
     // private
     autoScrollTabs : function(){
+        this.pos = this.tabPosition=='bottom' ? this.footer : this.header;
         var count = this.items.length;
-        var ow = this.header.dom.offsetWidth;
-        var tw = this.header.dom.clientWidth;
+        var ow = this.pos.dom.offsetWidth;
+        var tw = this.pos.dom.clientWidth;
 
         var wrap = this.stripWrap;
         var wd = wrap.dom;
@@ -760,7 +761,7 @@ var tabs = new Ext.TabPanel({
             wrap.setWidth(tw);
             if(this.scrolling){
                 this.scrolling = false;
-                this.header.removeClass('x-tab-scrolling');
+                this.pos.removeClass('x-tab-scrolling');
                 this.scrollLeft.hide();
                 this.scrollRight.hide();
                 if(Ext.isAir || Ext.isSafari){
@@ -770,7 +771,7 @@ var tabs = new Ext.TabPanel({
             }
         }else{
             if(!this.scrolling){
-                this.header.addClass('x-tab-scrolling');
+                this.pos.addClass('x-tab-scrolling');
                 if(Ext.isAir || Ext.isSafari){
                     wd.style.marginLeft = '18px';
                     wd.style.marginRight = '18px';
@@ -798,10 +799,11 @@ var tabs = new Ext.TabPanel({
 
     // private
     createScrollers : function(){
+        this.pos.addClass('x-tab-scrolling-' + this.tabPosition);
         var h = this.stripWrap.dom.offsetHeight;
 
         // left
-        var sl = this.header.insertFirst({
+        var sl = this.pos.insertFirst({
             cls:'x-tab-scroller-left'
         });
         sl.setHeight(h);
@@ -814,7 +816,7 @@ var tabs = new Ext.TabPanel({
         this.scrollLeft = sl;
 
         // right
-        var sr = this.header.insertFirst({
+        var sr = this.pos.insertFirst({
             cls:'x-tab-scroller-right'
         });
         sr.setHeight(h);
