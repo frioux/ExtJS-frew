@@ -81,8 +81,8 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
 
         this.rowNav = new Ext.KeyNav(this.grid.getGridEl(), {
             "up" : function(e){
-                if(!e.shiftKey){
-                    this.selectPrevious(e.shiftKey);
+                if(!e.shiftKey || this.singleSelect){
+                    this.selectPrevious(false);
                 }else if(this.last !== false && this.lastActive !== false){
                     var last = this.last;
                     this.selectRange(this.last,  this.lastActive-1);
@@ -95,8 +95,8 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
                 }
             },
             "down" : function(e){
-                if(!e.shiftKey){
-                    this.selectNext(e.shiftKey);
+                if(!e.shiftKey || this.singleSelect){
+                    this.selectNext(false);
                 }else if(this.last !== false && this.lastActive !== false){
                     var last = this.last;
                     this.selectRange(this.last,  this.lastActive+1);
@@ -326,7 +326,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
             return;
         };
         var view = this.grid.getView();
-        if(e.shiftKey && this.last !== false){
+        if(e.shiftKey && !this.singleSelect && this.last !== false){
             var last = this.last;
             this.selectRange(last, rowIndex, e.ctrlKey);
             this.last = last; // reset the last
