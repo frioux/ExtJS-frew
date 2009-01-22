@@ -469,6 +469,14 @@ new Ext.Panel({
              */
             'titlechange',
             /**
+             * @event iconchange
+             * Fires after the Panel icon class has been set or changed.
+             * @param {Ext.Panel} p the Panel which has had its icon class changed.
+             * @param {String} The new icon class.
+             * @param {String} The old icon class.
+             */
+            'iconchange',
+            /**
              * @event collapse
              * Fires after the Panel has been collapsed.
              * @param {Ext.Panel} p the Panel that has been collapsed.
@@ -824,6 +832,7 @@ new Ext.Panel({
                  }
             }
         }
+        this.fireEvent('iconchange', this, cls, old);
     },
 
     // private

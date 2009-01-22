@@ -497,6 +497,7 @@ var tabs = new Ext.TabPanel({
         item.on('disable', this.onItemDisabled, this);
         item.on('enable', this.onItemEnabled, this);
         item.on('titlechange', this.onItemTitleChanged, this);
+        item.on('iconchange', this.onItemIconChanged, this);
         item.on('beforeshow', this.onBeforeShowItem, this);
     },
 
@@ -529,6 +530,7 @@ var tabs = new Ext.TabPanel({
         item.un('disable', this.onItemDisabled, this);
         item.un('enable', this.onItemEnabled, this);
         item.un('titlechange', this.onItemTitleChanged, this);
+        item.un('iconchange', this.onItemIconChanged, this);
         item.un('beforeshow', this.onBeforeShowItem, this);
         if(item == this.activeTab){
             var next = this.stack.next();
@@ -573,6 +575,14 @@ var tabs = new Ext.TabPanel({
         var el = this.getTabEl(item);
         if(el){
             Ext.fly(el).child('span.x-tab-strip-text', true).innerHTML = item.title;
+        }
+    },
+    
+    //private
+    onItemIconChanged: function(item, iconCls, oldCls){
+        var el = this.getTabEl(item);
+        if(el){
+            Ext.fly(el).child('span.x-tab-strip-text').replaceClass(oldCls, iconCls);
         }
     },
 
