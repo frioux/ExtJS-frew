@@ -77,7 +77,7 @@ Ext.form.NumberField = Ext.extend(Ext.form.TextField,  {
                 e.stopEvent();
             }
         };
-        this.el.on("keypress", keyPress, this);
+        this.mon(this.el, 'keypress', keyPress, this);
     },
 
     // private

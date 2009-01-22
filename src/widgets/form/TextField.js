@@ -146,36 +146,38 @@ Ext.form.TextField = Ext.extend(Ext.form.Field,  {
         Ext.form.TextField.superclass.initEvents.call(this);
         if(this.validationEvent == 'keyup'){
             this.validationTask = new Ext.util.DelayedTask(this.validate, this);
-            this.el.on('keyup', this.filterValidation, this);
+            this.mon(this.el, 'keyup', this.filterValidation, this);
         }
         else if(this.validationEvent !== false){
-            this.el.on(this.validationEvent, this.validate, this, {buffer: this.validationDelay});
+        	this.mon(this.el, this.validationEvent, this.validate, this, {buffer: this.validationDelay});
         }
         if(this.selectOnFocus || this.emptyText){
             this.on("focus", this.preFocus, this);
-            this.el.on('mousedown', function(){
+            
+            this.mon(this.el, 'mousedown', function(){
                 if(!this.hasFocus){
                     this.el.on('mouseup', function(e){
                         e.preventDefault();
                     }, this, {single:true});
                 }
             }, this);
+            
             if(this.emptyText){
                 this.on('blur', this.postBlur, this);
                 this.applyEmptyText();
             }
         }
         if(this.maskRe || (this.vtype && this.disableKeyFilter !== true && (this.maskRe = Ext.form.VTypes[this.vtype+'Mask']))){
-            this.el.on("keypress", this.filterKeys, this);
+        	this.mon(this.el, 'keypress', this.filterKeys, this);
         }
         if(this.grow){
-            this.el.on("keyup", this.onKeyUpBuffered,  this, {buffer:50});
-            this.el.on("click", this.autoSize,  this);
+        	this.mon(this.el, 'keyup', this.onKeyUpBuffered, this, {buffer: 50});
+			this.mon(this.el, 'click', this.autoSize, this);
         }
         if(this.enableKeyEvents){
-            this.el.on("keyup", this.onKeyUp, this);
-            this.el.on("keydown", this.onKeyDown, this);
-            this.el.on("keypress", this.onKeyPress, this);
+        	this.mon(this.el, 'keyup', this.onKeyUp, this);
+        	this.mon(this.el, 'keydown', this.onKeyDown, this);
+        	this.mon(this.el, 'keypress', this.onKeyPress, this);
         }
     },
 

@@ -209,7 +209,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         });
 
         // stop form submits
-        tb.el.on('click', function(e){
+        this.mon(tb.el, 'click', function(e){
             e.preventDefault();
         });
 
@@ -219,11 +219,12 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                 cls:'x-font-select',
                 html: this.createFontOptions()
             });
-            this.fontSelect.on('change', function(){
+            this.mon(this.fontSelect, 'change', function(){
                 var font = this.fontSelect.dom.value;
                 this.relayCmd('fontname', font);
                 this.deferFocus();
             }, this);
+
             tb.add(
                 this.fontSelect.dom,
                 '-'

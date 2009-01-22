@@ -305,7 +305,7 @@ var grid = new Ext.grid.PropertyGrid({
         this.ds = store.store;
         Ext.grid.PropertyGrid.superclass.initComponent.call(this);
 
-        this.selModel.on('beforecellselect', function(sm, rowIndex, colIndex){
+		this.mon(this.selModel, 'beforecellselect', function(sm, rowIndex, colIndex){
             if(colIndex === 0){
                 this.startEditing.defer(200, this, [rowIndex, 1]);
                 return false;

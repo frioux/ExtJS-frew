@@ -53,7 +53,7 @@ Ext.form.FieldSet = Ext.extend(Ext.Panel, {
                     {tag: 'input', type: 'checkbox', name: this.checkboxName || this.id+'-checkbox'};
             this.checkbox = this.header.insertFirst(o);
             this.checkbox.dom.checked = !this.collapsed;
-            this.checkbox.on('click', this.onCheckClick, this);
+            this.mon(this.checkbox, 'click', this.onCheckClick, this);
         }
     },
 
@@ -85,9 +85,6 @@ Ext.form.FieldSet = Ext.extend(Ext.Panel, {
     
     // private
     beforeDestroy : function(){
-        if(this.checkbox){
-            this.checkbox.un('click', this.onCheckClick, this);
-        }
         Ext.form.FieldSet.superclass.beforeDestroy.call(this);
     }
 

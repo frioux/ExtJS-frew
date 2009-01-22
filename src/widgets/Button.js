@@ -273,8 +273,8 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
             btn = this.template.append(ct, targs, true);
         }
         var btnEl = btn.child(this.buttonSelector);
-        btnEl.on('focus', this.onFocus, this);
-        btnEl.on('blur', this.onBlur, this);
+        this.mon(btnEl, 'focus', this.onFocus, this);
+        this.mon(btnEl, 'blur', this.onBlur, this);
 
         this.initButtonEl(btn, btnEl);
 
@@ -305,25 +305,26 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         }
 
         if(this.handleMouseEvents){
-            btn.on("mouseover", this.onMouseOver, this);
+        	this.mon(btn, 'mouseover', this.onMouseOver, this);
+        	this.mon(btn, 'mousedown', this.onMouseDown, this);
+        	
             // new functionality for monitoring on the document level
-            //btn.on("mouseout", this.onMouseOut, this);
-            btn.on("mousedown", this.onMouseDown, this);
+            //this.mon(btn, "mouseout", this.onMouseOut, this);
         }
 
         if(this.menu){
-            this.menu.on("show", this.onMenuShow, this);
-            this.menu.on("hide", this.onMenuHide, this);
+        	this.mon(this.menu, 'show', this.onMenuShow, this);
+        	this.mon(this.menu, 'hide', this.onMenuHide, this);
         }
 
         if(this.repeat){
             var repeater = new Ext.util.ClickRepeater(btn,
                 typeof this.repeat == "object" ? this.repeat : {}
             );
-            repeater.on("click", this.onClick,  this);
+            this.mon(repeater, 'click', this.onClick, this);
         }
-
-        btn.on(this.clickEvent, this.onClick, this);
+		
+        this.mon(btn, this.clickEvent, this.onClick, this);
     },
 
     // private
@@ -356,7 +357,8 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
                 if(this.tooltip){
                     Ext.QuickTips.unregister(btnEl);
                 }
-	            btnEl.removeAllListeners();
+	            // Lets remove the following line since we are now using .mon() and hope no outside code is depending on this
+                //btnEl.removeAllListeners();
 	        }
 	    }
         if(this.menu){

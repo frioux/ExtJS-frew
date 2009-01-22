@@ -222,7 +222,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
     afterRender : function(){
         Ext.DataView.superclass.afterRender.call(this);
 
-        this.getTemplateTarget().on({
+		this.mon(this.getTemplateTarget(), {
             "click": this.onClick,
             "dblclick": this.onDblClick,
             "contextmenu": this.onContextMenu,
@@ -230,7 +230,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
         });
 
         if(this.overClass || this.trackOver){
-            this.getTemplateTarget().on({
+            this.mon(this.getTemplateTarget(), {
                 "mouseover": this.onMouseOver,
                 "mouseout": this.onMouseOut,
                 scope:this

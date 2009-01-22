@@ -369,7 +369,7 @@ Ext.extend(T, Ext.Container, {
     // private
     initMenuTracking : function(item){
         if(this.trackMenus && item.menu){
-            item.on({
+        	this.mon(item, {
                 'menutriggerover' : this.onButtonTriggerOver,
                 'menushow' : this.onButtonMenuShow,
                 'menuhide' : this.onButtonMenuHide,

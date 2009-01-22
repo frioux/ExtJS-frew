@@ -754,7 +754,7 @@ new Ext.Panel({
                 });
             }
             if(this.titleCollapse && this.header){
-                this.header.on('click', this.toggleCollapse, this);
+            	this.mon(this.header, 'click', this.toggleCollapse, this);
                 this.header.setStyle('cursor', 'pointer');
             }
         }
@@ -914,9 +914,9 @@ new Ext.Panel({
                 var t = this.toolTemplate.insertFirst((tc.align !== 'left') ? this[this.toolTarget] : this[this.toolTarget].child('span'), tc, true);
                 this.tools[tc.id] = t;
                 t.enableDisplayMode('block');
-                t.on('click', this.createToolHandler(t, tc, overCls, this));
+                this.mon(t, 'click',  this.createToolHandler(t, tc, overCls, this));
                 if(tc.on){
-                    t.on(tc.on);
+                    this.mon(t, tc.on);
                 }
                 if(tc.hidden){
                     t.hide();

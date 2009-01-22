@@ -158,14 +158,14 @@ Ext.extend(Ext.Editor, Ext.Component, {
         if(Ext.isGecko){
             this.field.el.dom.setAttribute('autocomplete', 'off');
         }
-        this.field.on("specialkey", this.onSpecialKey, this);
+        this.mon(this.field, "specialkey", this.onSpecialKey, this);
         if(this.swallowKeys){
             this.field.el.swallowEvent(['keydown','keypress']);
         }
         this.field.show();
-        this.field.on("blur", this.onBlur, this);
+        this.mon(this.field, "blur", this.onBlur, this);
         if(this.field.grow){
-            this.field.on("autosize", this.el.sync,  this.el, {delay:1});
+        	this.mon(this.field, "autosize", this.el.sync,  this.el, {delay:1});
         }
     },
 

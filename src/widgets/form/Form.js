@@ -164,8 +164,8 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
     // private
     initEvents : function(){
         Ext.FormPanel.superclass.initEvents.call(this);
-		this.items.on('remove', this.onRemove, this);
-		this.items.on('add', this.onAdd, this);
+        this.mon(this.items, 'remove', this.onRemove, this);
+        this.mon(this.items, 'add', this.onAdd, this);
         if(this.monitorValid){ // initialize after render
             this.startMonitoring();
         }

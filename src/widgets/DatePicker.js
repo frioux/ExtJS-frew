@@ -284,7 +284,7 @@ Ext.DatePicker = Ext.extend(Ext.Component, {
             stopDefault:true
         });
 
-        this.eventEl.on("mousewheel", this.handleMouseWheel,  this);
+        this.mon(this.eventEl, "mousewheel", this.handleMouseWheel, this);
 
         this.monthPicker = this.el.down('div.x-date-mp');
         this.monthPicker.enableDisplayMode('block');
@@ -330,7 +330,7 @@ Ext.DatePicker = Ext.extend(Ext.Component, {
             scope : this
         });
 
-        this.eventEl.on("click", this.handleDateClick,  this, {delegate: "a.x-date-date"});
+        this.mon(this.eventEl, "click", this.handleDateClick,  this, {delegate: "a.x-date-date"});
 
         this.el.unselectable();
         
@@ -343,7 +343,7 @@ Ext.DatePicker = Ext.extend(Ext.Component, {
             renderTo: this.el.child("td.x-date-middle", true)
         });
 
-        this.mbtn.on('click', this.showMonthPicker, this);
+		this.mon(this.mbtn, 'click', this.showMonthPicker, this);
         this.mbtn.el.child('em').addClass("x-btn-arrow");
 
         if(this.showToday){
@@ -386,8 +386,9 @@ Ext.DatePicker = Ext.extend(Ext.Component, {
                 '</table>'
             );
             this.monthPicker.update(buf.join(''));
-            this.monthPicker.on('click', this.onMonthClick, this);
-            this.monthPicker.on('dblclick', this.onMonthDblClick, this);
+            
+            this.mon(this.monthPicker, 'click', this.onMonthClick, this);
+            this.mon(this.dblclick, 'click', this.onMonthDblClick, this);
 
             this.mpMonths = this.monthPicker.select('td.x-date-mp-month');
             this.mpYears = this.monthPicker.select('td.x-date-mp-year');

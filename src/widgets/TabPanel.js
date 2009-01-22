@@ -386,10 +386,10 @@ var tabs = new Ext.TabPanel({
         this.on('add', this.onAdd, this, {target: this});
         this.on('remove', this.onRemove, this, {target: this});
 
-        this.strip.on('mousedown', this.onStripMouseDown, this);
-        this.strip.on('contextmenu', this.onStripContextMenu, this);
+		this.mon(this.strip, 'mousedown', this.onStripMouseDown, this);
+		this.mon(this.strip, 'contextmenu', this.onStripContextMenu, this);
         if(this.enableTabScroll){
-            this.strip.on('mousewheel', this.onWheel, this);
+        	this.mon(this.strip, 'mousewheel', this.onStripContextMenu, this);
         }
     },
 

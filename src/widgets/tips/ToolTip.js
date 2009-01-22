@@ -51,9 +51,12 @@ Ext.ToolTip = Ext.extend(Ext.Tip, {
     initTarget : function(){
         if(this.target){
             this.target = Ext.get(this.target);
-            this.target.on('mouseover', this.onTargetOver, this);
-            this.target.on('mouseout', this.onTargetOut, this);
-            this.target.on('mousemove', this.onMouseMove, this);
+            this.mon(this.target, {
+            	mouseover: this.onTargetOver,
+            	mouseout: this.onTargetOut,
+            	mousemove: this.onMouseMove,
+            	scope: this
+            })
         }
     },
 
@@ -190,10 +193,5 @@ Ext.ToolTip = Ext.extend(Ext.Tip, {
     // private
     onDestroy : function(){
         Ext.ToolTip.superclass.onDestroy.call(this);
-        if(this.target){
-            this.target.un('mouseover', this.onTargetOver, this);
-            this.target.un('mouseout', this.onTargetOut, this);
-            this.target.un('mousemove', this.onMouseMove, this);
-        }
     }
 });

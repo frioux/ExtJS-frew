@@ -1112,11 +1112,38 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
                     var m = this.mons[i];
                     m.item.un(m.ename, m.fn, m.scope);
                 }
-            }, this);
+            }, this, {single: true});
         }
+		
+        if(typeof ename == "object"){
+        	var propRe = /^(?:scope|delay|buffer|single|stopEvent|preventDefault|stopPropagation|normalized|args|delegate)$/;
+        	
+            var o = ename;
+            for(var e in o){
+                if(propRe.test(e)){
+                    continue;
+                }
+                if(typeof o[e] == "function"){
+                    // shared options
+			        this.mons.push({
+			            item: item, ename: e, fn: o[e], scope: o.scope
+			        });
+			        item.on(e, o[e], o.scope, o);
+                }else{
+                    // individual options
+			        this.mons.push({
+			            item: item, ename: e, fn: o[e], scope: o.scope
+			        });
+			        item.on(e, o[e]);
+                }
+            }
+            return;
+        }
+
+            
         this.mons.push({
             item: item, ename: ename, fn: fn, scope: scope
-        });
+        });        
         item.on(ename, fn, scope, opt);
     },
 

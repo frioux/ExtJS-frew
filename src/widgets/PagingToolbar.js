@@ -181,11 +181,10 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
 
     // private
 	onFirstLayout: function(ii) {
-    	this.inputItem.el.on({
-	    	keydown: {fn: this.onPagingKeydown, scope: this},
-            blur: {fn: this.onPagingBlur, scope: this},
-	    	focus: function(){this.select();}
-	    });
+		this.mon(this.inputItem.el, "keydown", this.onPagingKeyDown, this);
+		this.mon(this.inputItem.el, "blur", this.onPagingBlur, this);
+		this.mon(this.inputItem.el, "focus", function(){this.select();});
+
         this.field = this.inputItem.el.dom;
         if(this.dsLoaded){
             this.onLoad.apply(this, this.dsLoaded);

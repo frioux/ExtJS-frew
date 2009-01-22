@@ -92,9 +92,9 @@ cp.colors = ["000000", "993300", "333300"];
         t.overwrite(el, this.colors);
         container.dom.insertBefore(el, position);
         this.el = Ext.get(el);
-        this.el.on(this.clickEvent, this.handleClick,  this, {delegate: "a"});
+        this.mon(this.el, this.clickEvent, this.handleClick, this, {delegate: 'a'});
         if(this.clickEvent != 'click'){
-            this.el.on('click', Ext.emptyFn,  this, {delegate: "a", preventDefault:true});
+        	this.mon(this.el, 'click', Ext.emptyFn, this, {delegate: 'a', preventDefault: true});
         }
     },
 

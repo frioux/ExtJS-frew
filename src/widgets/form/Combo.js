@@ -361,8 +361,8 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
             }
 
             this.innerList = this.list.createChild({cls:cls+'-inner'});
-            this.innerList.on('mouseover', this.onViewOver, this);
-            this.innerList.on('mousemove', this.onViewMove, this);
+            this.mon(this.innerList, 'mouseover', this.onViewOver, this);
+            this.mon(this.innerList, 'mousemove', this.onViewMove, this);
             this.innerList.setWidth(lw - this.list.getFrameWidth('lr'));
 
             if(this.pageSize){
@@ -413,8 +413,8 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
                 selectedClass: this.selectedClass,
                 itemSelector: this.itemSelector || '.' + cls + '-item'
             });
-
-            this.view.on('click', this.onViewClick, this);
+			
+            this.mon(this.view, 'click', this.onViewClick, this);
 
             this.bindStore(this.store, true);
 
@@ -422,12 +422,13 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
                 this.resizer = new Ext.Resizable(this.list,  {
                    pinned:true, handles:'se'
                 });
-                this.resizer.on('resize', function(r, w, h){
+                this.mon(this.resizer, 'resize', function(r, w, h){
                     this.maxHeight = h-this.handleHeight-this.list.getFrameWidth('tb')-this.assetHeight;
                     this.listWidth = w;
                     this.innerList.setWidth(w - this.list.getFrameWidth('lr'));
                     this.restrictHeight();
                 }, this);
+
                 this[this.pageSize?'footer':'innerList'].setStyle('margin-bottom', this.handleHeight+'px');
             }
         }
@@ -519,7 +520,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
             this.taTask = new Ext.util.DelayedTask(this.onTypeAhead, this);
         }
         if(this.editable !== false){
-            this.el.on("keyup", this.onKeyUp, this);
+        	this.mon(this.el, 'keyup', this.onKeyUp, this);
         }
         if(this.forceSelection){
             this.on('blur', this.doForce, this);
@@ -532,10 +533,6 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
             Ext.destroy(this.view);
         }
         if(this.list){
-            if(this.innerList){
-                this.innerList.un('mouseover', this.onViewOver, this);
-                this.innerList.un('mousemove', this.onViewMove, this);
-            }
             this.list.destroy();
         }
         if (this.dqTask){

@@ -103,7 +103,7 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
             this.menu.destroy();
         }
         Ext.menu.Item.superclass.beforeDestroy.call(this);
-    }
+    },
 
     // private
     handleClick : function(e){

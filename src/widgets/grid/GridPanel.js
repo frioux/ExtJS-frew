@@ -421,11 +421,14 @@ function(grid, rowIndex, columnIndex, e) {
         var view = this.getView();
         view.init(this);
 
-        c.on("mousedown", this.onMouseDown, this);
-        c.on("click", this.onClick, this);
-        c.on("dblclick", this.onDblClick, this);
-        c.on("contextmenu", this.onContextMenu, this);
-        c.on("keydown", this.onKeyDown, this);
+		this.mon(c, {
+			mousedown: this.onMouseDown,
+			click: this.onClick,
+			dblclick: this.onDblClick,
+			contextmenu: this.onContextMenu,
+			keydown: this.onKeyDown,
+			scope: this
+		})
 
         this.relayEvents(c, ["mousedown","mouseup","mouseover","mouseout","keypress"]);
 
@@ -445,7 +448,7 @@ function(grid, rowIndex, columnIndex, e) {
 
     initStateEvents : function(){
         Ext.grid.GridPanel.superclass.initStateEvents.call(this);
-        this.colModel.on('hiddenchange', this.saveState, this, {delay: 100});
+        this.mon(this.colModel, 'hiddenchange', this.saveState, this, {delay: 100});
     },
 
     applyState : function(state){

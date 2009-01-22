@@ -238,7 +238,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
             this.mask = this.container.createChild({cls:"ext-el-mask"}, this.el.dom);
             this.mask.enableDisplayMode("block");
             this.mask.hide();
-            this.mask.on('click', this.focus, this);
+            this.mon(this.mask, 'click', this.focus, this);
         }
     },
 
@@ -258,15 +258,14 @@ Ext.Window = Ext.extend(Ext.Panel, {
                 resizeElement : this.resizerAction
             });
             this.resizer.window = this;
-            this.resizer.on("beforeresize", this.beforeResize, this);
+            this.mon(this.resizer, 'beforeresize', this.beforeResize, this);
         }
 
         if(this.draggable){
             this.header.addClass("x-window-draggable");
         }
         this.initTools();
-
-        this.el.on("mousedown", this.toFront, this);
+		this.mon(this.el, 'mousedown', this.toFront, this);
         this.manager = this.manager || Ext.WindowMgr;
         this.manager.register(this);
         this.hidden = true;
@@ -276,7 +275,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
         }
         if(this.closable){
             var km = this.getKeyMap();
-            km.on(27, this.onEsc, this);
+            this.mon(km, 27, this.onEsc, this);
             km.disable();
         }
     },
@@ -339,7 +338,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
                 handler: this.restore.createDelegate(this, []),
                 hidden:true
             });
-            this.header.on('dblclick', this.toggleMaximize, this);
+            this.mon(this.header, 'dblclick', this.toggleMaximize, this);
         }
         if(this.closable){
             this.addTool({

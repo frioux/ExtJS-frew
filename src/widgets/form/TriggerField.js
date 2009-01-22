@@ -101,7 +101,7 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
 
     // private
     initTrigger : function(){
-        this.trigger.on("click", this.onTriggerClick, this, {preventDefault:true});
+    	this.mon(this.trigger, 'click', this.onTriggerClick, this, {preventDefault:true});
         this.trigger.addClassOnOver('x-form-trigger-over');
         this.trigger.addClassOnClick('x-form-trigger-click');
     },
@@ -126,7 +126,7 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
             this.mimicing = true;
             Ext.get(Ext.isIE ? document.body : document).on("mousedown", this.mimicBlur, this, {delay: 10});
             if(this.monitorTab){
-                this.el.on("keydown", this.checkTab, this);
+            	this.el.on('keydown', this.checkTab, this);
             }
         }
     },
@@ -259,7 +259,7 @@ Ext.form.TwinTriggerField = Ext.extend(Ext.form.TriggerField, {
             if(this['hide'+triggerIndex]){
                 t.dom.style.display = 'none';
             }
-            t.on("click", this['on'+triggerIndex+'Click'], this, {preventDefault:true});
+            this.mon(t, 'click', this['on'+triggerIndex+'Click'], this, {preventDefault:true});
             t.addClassOnOver('x-form-trigger-over');
             t.addClassOnClick('x-form-trigger-click');
         }, this);
