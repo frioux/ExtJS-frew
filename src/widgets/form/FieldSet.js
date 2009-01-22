@@ -29,6 +29,11 @@ Ext.form.FieldSet = Ext.extend(Ext.Panel, {
      * @cfg {String} layout The {@link Ext.Container#layout} to use inside the fieldset (defaults to 'form').
      */
     layout: 'form',
+    /**
+     * @cfg {Boolean} animCollapse
+     * True to animate the transition when the panel is collapsed, false to skip the animation (defaults to false).
+     */
+    animCollapse: false,
 
     // private
     onRender : function(ct, position){
@@ -57,7 +62,7 @@ Ext.form.FieldSet = Ext.extend(Ext.Panel, {
         if(this.checkbox){
             this.checkbox.dom.checked = false;
         }
-        this.afterCollapse();
+        Ext.form.FieldSet.superclass.onCollapse.call(this, doAnim, animArg);
 
     },
 
@@ -66,7 +71,7 @@ Ext.form.FieldSet = Ext.extend(Ext.Panel, {
         if(this.checkbox){
             this.checkbox.dom.checked = true;
         }
-        this.afterExpand();
+        Ext.form.FieldSet.superclass.onExpand.call(this, doAnim, animArg);
     },
 
     /* //protected
