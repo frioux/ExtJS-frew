@@ -1228,9 +1228,16 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
 
     // private
     render : function(){
-
         if(this.autoFill){
-            this.fitColumns(true, true);
+            var ct = this.grid.ownerCt;
+            if (ct && ct.getLayout()){
+                ct.on('afterlayout', function(){ 
+                    this.fitColumns(true, true);
+                    this.updateHeaders(); 
+                }, this, {single: true}); 
+            }else{ 
+                this.fitColumns(true, true); 
+            }
         }else if(this.forceFit){
             this.fitColumns(true, false);
         }else if(this.grid.autoExpandColumn){
