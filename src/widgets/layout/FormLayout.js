@@ -138,12 +138,26 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
         }
     },
 
+    //private
+    getLabelStyle: function(s){
+        var ls = '', items = [this.labelStyle, s];
+        for (var i = 0, len = items.length; i < len; ++i){
+            if (items[i]){
+                ls += items[i];
+                if (ls.substr(-1, 1) != ';'){
+                    ls += ';'
+                }
+            }
+        }
+        return ls;
+    },
+
     // private
     renderItem : function(c, position, target){
-        if(c && !c.rendered && (c.isFormField||c.fieldLabel) && c.inputType != 'hidden'){
+        if(c && !c.rendered && c.isFormField && c.inputType != 'hidden'){
             var args = [
                    c.id, c.fieldLabel,
-                   c.labelStyle||this.labelStyle||'',
+                   this.getLabelStyle(c.labelStyle),
                    this.elementStyle||'',
                    typeof c.labelSeparator == 'undefined' ? this.labelSeparator : c.labelSeparator,
                    (c.itemCls||this.container.itemCls||'') + (c.hideLabel ? ' x-hide-label' : ''),
