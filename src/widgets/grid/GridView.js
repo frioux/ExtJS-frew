@@ -871,7 +871,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
 			return null;
 		}
 		var s = this.scroller.dom, c = resolved.cell, r = resolved.row;
-		return c ? Ext.fly(c).getXY() : [s.scrollLeft+this.el.getX(), Ext.fly(r).getY()];
+		return c ? Ext.fly(c).getXY() : [this.el.getX(), Ext.fly(r).getY()];
 	},
 
 	syncFocusEl : function(row, col, hscroll){
