@@ -644,7 +644,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
 
         this.scroller.on('scroll', this.syncScroll,  this);
         if(g.enableColumnResize !== false){
-            this.splitone = new Ext.grid.GridView.SplitDragZone(g, this.mainHd.dom);
+            this.splitZone = new Ext.grid.GridView.SplitDragZone(g, this.mainHd.dom);
         }
 
         if(g.enableColumnMove){
@@ -1214,7 +1214,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         
         Ext.destroy(this.resizeMarker, this.resizeProxy, this.focusEl, this.mainBody, 
                     this.scroller, this.mainHd, this.mainWrap, this.dragZone, 
-                    this.splitone, this.columnDrag, this.columnDrop);
+                    this.splitZone, this.columnDrag, this.columnDrop);
 
         this.initData(null, null);
         Ext.EventManager.removeResizeListener(this.onWindowResize, this);
