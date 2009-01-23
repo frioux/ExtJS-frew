@@ -1,3 +1,7 @@
+/**
+ * @class Ext.direct.JsonProvider
+ * @extends Ext.direct.Provider
+ */
 Ext.direct.JsonProvider = Ext.extend(Ext.direct.Provider, {
     parseResponse: function(xhr){
         if(!Ext.isEmpty(xhr.responseText)){

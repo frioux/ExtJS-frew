@@ -1,6 +1,59 @@
+/**
+ * @class Ext.direct.RemotingProvider
+ * @extends Ext.direct.JsonProvider
+ * When adding a provider via Ext.Direct.add the Ext.direct.RemotingProvider will
+ * be invoked to create a client-side stub of the provider. This class will never
+ * need to be invoked directly.
+ *
+ * Configurations for this class should be outputted by the server-side Ext.Direct
+ * stack when the API description is built.
+ */
 Ext.direct.RemotingProvider = Ext.extend(Ext.direct.JsonProvider, {
-    priority: 1,
+    /**
+     * @event beforecall
+     * Fires immediately before the client-side sends off the RPC call.
+     * By returning false from an event handler you can prevent the call from
+     * executing.
+     * @param {Ext.direct.RemotingProvider} provider
+     * @param {Ext.Direct.Transaction} transaction
+     */
+    
+    /**
+     * @event call
+     * Fires immediately after the request to the server-side is sent. This does
+     * NOT fire after the response has come back from the call.
+     * @param {Ext.direct.RemotingProvider} provider
+     * @param {Ext.Direct.Transaction} transaction
+     */
+    
+    /**
+     * @cfg {String} namespace
+     * Namespace to create the Remoting Provider in. Defaults to the browser global scope of window.
+     */
+    
+    /**
+     * @cfg {String} url
+     * Url to connect to the Ext.Direct server-side router.
+     */
+    
+    /**
+     * @cfg {String} enableUrlEncode
+     * Specify which param will hold the arguments for the method.
+     * Defaults to 'data'
+     */
+    
+    /**
+     * @cfg {Number/Boolean} enableBuffer
+     * True or false to enable or disable combining of method calls.
+     * If a number is specified this is the amount of time in milliseconds to wait
+     * before sending a batched request.
+     */
     enableBuffer: 10,
+    
+    /**
+     * @cfg {Number} maxRetries
+     * Number of times to re-attempt delivery on failure of a call.
+     */
     maxRetries: 1,
 
     constructor : function(config){
@@ -11,6 +64,7 @@ Ext.direct.RemotingProvider = Ext.extend(Ext.direct.JsonProvider, {
         this.callBuffer = [];
     },
 
+    // private
     initAPI : function(){
         var o = this.actions;
         for(var c in o){
@@ -23,6 +77,7 @@ Ext.direct.RemotingProvider = Ext.extend(Ext.direct.JsonProvider, {
         }
     },
 
+    // inherited
     isConnected: function(){
         return !!this.connected;
     },

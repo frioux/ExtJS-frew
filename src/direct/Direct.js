@@ -1,17 +1,37 @@
+/**
+ * @class Ext.Direct
+ * @extends Ext.util.Observable
+ * @singleton
+ */
 Ext.Direct = Ext.extend(Ext.util.Observable, {
+    /**
+     * @property exceptions
+     * @type Object
+     * Four types of possible Exceptions which can occurr.
+     * Ext.Direct.exceptions.TRANSPORT
+     * Ext.Direct.exceptions.PARSE
+     * Ext.Direct.exceptions.LOGIN
+     * Ext.Direct.exceptions.SERVER
+     */
     exceptions: {
         TRANSPORT: 'xhr',
         PARSE: 'parse',
         LOGIN: 'login',
         SERVER: 'exception'
     },
-
+    
+    // private
     constructor: function(){
         this.addEvents('event', 'exception');
         this.transactions = {};
         this.providers = {};
     },
 
+    /**
+     * Adds an Ext.Direct provider and creates the proxy or stub methods
+     * to execute server-side methods.
+     * @param {Object/Array} provider A provider description or an array of provider descriptions which instructs Ext.Direct how to create client-side stub methods
+     */
     addProvider : function(provider){
         var a = arguments;
         if(a.length > 1){
@@ -22,9 +42,8 @@ Ext.Direct = Ext.extend(Ext.util.Observable, {
         }
         if(!provider.events){
             provider = new Ext.Direct.PROVIDERS[provider.type](provider);
-            //provider = new Ext.Direct.PROVIDERS[provider.type](provider);
         }
-        provider.id = provider.id || Ext.id;
+        provider.id = provider.id || Ext.id();
         this.providers[provider.id] = provider;
 
         provider.on('data', this.onProviderData, this);
@@ -37,6 +56,10 @@ Ext.Direct = Ext.extend(Ext.util.Observable, {
         return provider;
     },
 
+    /**
+     * Retrieve a provider by the id specified when the provider is added.
+     * @param {String} id Unique identifier assigned to the provider when calling addProvider
+     */
     getProvider : function(id){
         return this.providers[id];
     },
