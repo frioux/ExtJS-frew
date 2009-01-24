@@ -644,7 +644,7 @@ new Ext.Panel({
         	this.el.set({
                 id: this.id,
                 cls: this.baseCls
-        	})
+        	});
         }
         var el = this.el, d = el.dom;
 
