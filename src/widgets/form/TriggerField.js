@@ -78,6 +78,7 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
     // private
     onRender : function(ct, position){
         Ext.form.TriggerField.superclass.onRender.call(this, ct, position);
+
         this.wrap = this.el.wrap({cls: "x-form-field-wrap"});
         this.trigger = this.wrap.createChild(this.triggerConfig ||
                 {tag: "img", src: Ext.BLANK_IMAGE_URL, cls: "x-form-trigger " + this.triggerClass});

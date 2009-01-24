@@ -630,7 +630,7 @@ new Ext.Panel({
         Ext.Panel.superclass.onRender.call(this, ct, position);
 
         this.createClasses();
-        if(this.el){ // existing markup
+        if(this.el.dom.firstChild){ // existing markup
             this.el.addClass(this.baseCls);
             this.header = this.el.down('.'+this.headerCls);
             this.bwrap = this.el.down('.'+this.bwrapCls);
@@ -641,10 +641,10 @@ new Ext.Panel({
             this.footer = cp.down('.'+this.footerCls);
             this.fromMarkup = true;
         }else{
-            this.el = ct.createChild({
+        	this.el.set({
                 id: this.id,
                 cls: this.baseCls
-            }, position);
+        	})
         }
         var el = this.el, d = el.dom;
 

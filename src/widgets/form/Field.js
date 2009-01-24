@@ -165,15 +165,16 @@ side          Add an error icon to the right of the field with a popup on hover
     // private
     onRender : function(ct, position){
         Ext.form.Field.superclass.onRender.call(this, ct, position);
-        if(!this.el){
+        if(!this.el.dom.firstChild){
             var cfg = this.getAutoCreate();
+
             if(!cfg.name){
                 cfg.name = this.name || this.id;
             }
             if(this.inputType){
                 cfg.type = this.inputType;
             }
-            this.el = ct.createChild(cfg, position);
+            this.el.replaceWith(cfg);
         }
         var type = this.el.dom.type;
         if(type){

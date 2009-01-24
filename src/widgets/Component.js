@@ -460,6 +460,11 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
      */
 
     /**
+     * @cfg {String} autoEl
+     */
+    autoEl : 'div',
+    
+    /**
      * @cfg {String} disabledClass
      * CSS class added to the component when it is disabled (defaults to "x-item-disabled").
      */
@@ -758,7 +763,7 @@ Ext.Foo = Ext.extend(Ext.Bar, {
     // private
     // default function is not really useful
     onRender : function(ct, position){
-        if(this.autoEl){
+        if(!this.el && this.autoEl){
             if(typeof this.autoEl == 'string'){
                 this.el = document.createElement(this.autoEl);
             }else{

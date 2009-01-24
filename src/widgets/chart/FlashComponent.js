@@ -7,7 +7,6 @@ Ext.FlashComponent = Ext.extend(Ext.BoxComponent, {
     swfWidth: '100%',
     swfHeight: '100%',
     expressInstall: false,
-    autoEl: 'div',
     
     initComponent : function(){
         Ext.FlashComponent.superclass.initComponent.call(this);

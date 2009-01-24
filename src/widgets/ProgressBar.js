@@ -65,11 +65,8 @@ Ext.ProgressBar = Ext.extend(Ext.BoxComponent, {
             '</div>'
         );
 
-        if(position){
-            this.el = tpl.insertBefore(position, {cls: this.baseCls}, true);
-        }else{
-            this.el = tpl.append(ct, {cls: this.baseCls}, true);
-        }
+        this.el.replaceWith(tpl.append(ct, {cls: this.baseCls}));
+
         if(this.id){
             this.el.dom.id = this.id;
         }
