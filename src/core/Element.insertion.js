@@ -113,16 +113,16 @@ Ext.Element.addMethods({
      */
     replaceWith: function(el){
         if(typeof el == 'object' && !el.nodeType && !el.dom){ // dh config
-            el = this.insertSibling(el, 'before');
+            el = this.insertSibling(el, 'before', true);
         }else{
             el = Ext.getDom(el);
             this.dom.parentNode.insertBefore(el, this.dom);
         }
-        El.uncache(this.id);
+        Ext.Element.uncache(this.id);
         Ext.removeNode(this.dom);
         this.dom = el;
         this.id = Ext.id(el);
-        El.cache[this.id] = this;
+        Ext.Element.cache[this.id] = this;
         return this;
     }
 });
