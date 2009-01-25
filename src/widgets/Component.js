@@ -340,16 +340,6 @@ new Ext.FormPanel({
      * component's id as the parent.
      */
     /**
-     * @cfg {String/Object} autoEl
-     * A tag name or DomHelper spec to create an element with. This is intended to create shorthand
-     * utility components inline via JSON. It should not be used for higher level components which already create
-     * their own elements. Example usage:
-     * <pre><code>
-{xtype:'box', autoEl: 'div', cls:'my-class'}
-{xtype:'box', autoEl: {tag:'blockquote', html:'autoEl is cool!'}} // with DomHelper
-</code></pre>
-     */
-    /**
      * @cfg {String} xtype
      * The registered xtype to create. This config option is not used when passing
      * a config object into a constructor. This config option is used only when
@@ -461,6 +451,36 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 
     /**
      * @cfg {String} autoEl
+     * <p>A tag name or {@link Ext.DomHelper DomHelper} spec used to create the {@link #getEl Element} which will
+     * encapsulate this Component.</p>
+     * <p>You do not normally need to specify this. For Component, BoxComponent, and Container, this defaults
+     * to <b><tt>'div'</tt></b>. The more complex Ext classes use a more complex DOM structure created by their own
+     * onRender methods.</p>
+     * <p>This is intended to allow the developer to create application-specific utility Components encapsulated by
+     * different DOM elements. Example usage:</p><pre><code>
+{
+    xtype: 'box',
+    autoEl: {
+        tag: 'img',
+        src: 'http://www.example.com/example.jpg'
+    }
+}, {
+    xtype: 'box',
+    autoEl: {
+        tag: 'blockquote',
+        html: 'autoEl is cool!'
+    }
+}, {
+    xtype: 'container',
+    autoEl: 'ul',
+    cls: 'ux-unordered-list',
+    items: {
+        xtype: 'box',
+        autoEl: 'li',
+        html: 'First list item'
+    }
+}
+</code></pre>
      */
     autoEl : 'div',
     
@@ -826,8 +846,22 @@ Ext.Foo = Ext.extend(Ext.Bar, {
     onDestroy  : Ext.emptyFn,
 
     /**
-     * Returns the underlying {@link Ext.Element}.
-     * @return {Ext.Element} The element
+     * <p>Returns the {@link Ext.Element} which encapsulates this Component. This will <i>usually</i> be
+     * a &lt;DIV> element created by the class's onRender method, but that may be overridden using the {@link #autoEl} config.</p>
+     * <p><b>The Element will not be available until this Component has been rendered.</b></p>
+     * <p>To add listeners for <b>DOM events</b> to this Component (as opposed to listeners for this Component's
+     * own Observable events), perform the adding of the listener in a render event listener:</p><pre><code>
+new Ext.Panel({
+    title: 'The Clickable Panel',
+    listeners: {
+        render: function(p) {
+//          Append the Panel to the click handler's argument list.
+            p.getEl().on('click', handlePanelClick.createDelegate(null, [p], true));
+        }
+    }
+});
+</code></pre>
+     * @return {Ext.Element} The Element which encapsulates this Component.
      */
     getEl : function(){
         return this.el;

@@ -1,27 +1,28 @@
 /**
  * @class Ext.Container
  * @extends Ext.BoxComponent
- * <p>Base class for any {@link Ext.BoxComponent} that can contain other components. The most commonly
+ * <p>Base class for any {@link Ext.BoxComponent} that can contain other Components. The most commonly
  * used Container classes are {@link Ext.Panel}, {@link Ext.Window} and {@link Ext.TabPanel}, but you can
- * create a lightweight Container to encapsulate an HTML element that is created to your
+ * create a lightweight Container to be encapsulated by an HTML element that is created to your
  * specifications at render time by using the {@link Ext.Component#autoEl autoEl} config option
- * which takes the form of a {@link Ext.DomHelper DomHelper} specification. If you do not need
- * the capabilities offered by the above mentioned classes, for instance embedded
+ * which takes the form of a {@link Ext.DomHelper DomHelper} specification, or tag name. If you do not need
+ * the capabilities offered by the above mentioned classes, for instance when creating embedded
  * {@link Ext.layout.ColumnLayout column} layouts inside FormPanels, then this is a useful technique.</p>
  * <p>The code below illustrates both how to explicitly <i>create</i> a Container, and how to implicitly
  * create one using the <b><tt>'container'</tt></b> xtype:<pre><code>
 var embeddedColumns = new Ext.Container({
-    autoEl: {},
+    autoEl: 'div',  // This is the default
     layout: 'column',
     defaults: {
         xtype: 'container',
-        autoEl: {},
+        autoEl: 'div', // This is the default.
         layout: 'form',
         columnWidth: 0.5,
         style: {
             padding: '10px'
         }
     },
+//  The two items below will be Ext.Containers, each encapsulated by a &lt;DIV> element.
     items: [{
         items: {
             xtype: 'datefield',
