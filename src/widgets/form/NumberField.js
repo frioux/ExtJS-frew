@@ -132,7 +132,7 @@ Ext.form.NumberField = Ext.extend(Ext.form.TextField,  {
 
     beforeBlur : function(){
         var v = this.parseValue(this.getRawValue());
-        if(v){
+        if(v || v === 0){
             this.setValue(this.fixPrecision(v));
         }
     }
