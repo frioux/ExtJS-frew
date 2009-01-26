@@ -421,7 +421,8 @@ mc.add(otherEl);
      */
     keySort : function(dir, fn){
         this._sort("key", dir, fn || function(a, b){
-            return String(a).toUpperCase()-String(b).toUpperCase();
+            var v1 = String(a).toUpperCase(), v2 = String(b).toUpperCase();
+            return v1 > v2 ? 1 : (v1 < v2 ? -1 : 0);
         });
     },
 
