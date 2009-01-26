@@ -628,25 +628,20 @@ new Ext.Panel({
     // private
     onRender : function(ct, position){
         Ext.Panel.superclass.onRender.call(this, ct, position);
-
         this.createClasses();
-        if(this.el.dom.firstChild){ // existing markup
+        
+        var el = this.el, d = el.dom;
+        if(d.firstChild){ // existing markup
             this.el.addClass(this.baseCls);
-            this.header = this.el.down('.'+this.headerCls);
-            this.bwrap = this.el.down('.'+this.bwrapCls);
-            var cp = this.bwrap ? this.bwrap : this.el;
+            this.header = el.down('.'+this.headerCls);
+            this.bwrap = el.down('.'+this.bwrapCls);
+            var cp = this.bwrap ? this.bwrap : el;
             this.tbar = cp.down('.'+this.tbarCls);
             this.body = cp.down('.'+this.bodyCls);
             this.bbar = cp.down('.'+this.bbarCls);
             this.footer = cp.down('.'+this.footerCls);
             this.fromMarkup = true;
-        }else{
-        	this.el.set({
-                id: this.id,
-                cls: this.baseCls
-        	});
         }
-        var el = this.el, d = el.dom;
 
         if(this.cls){
             this.el.addClass(this.cls);
