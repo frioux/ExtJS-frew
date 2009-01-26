@@ -161,30 +161,45 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
         Ext.destroy(this.form);
     },
 
+	// Determine if a Component is usable as a form Field.
+    isField: function(c) {
+        return !!c.setValue && !!c.getValue && !!c.markInvalid && !!c.clearInvalid;
+    },
+
     // private
     initEvents : function(){
         Ext.FormPanel.superclass.initEvents.call(this);
-        this.mon(this.items, 'remove', this.onRemove, this);
-        this.mon(this.items, 'add', this.onAdd, this);
+        this.on('remove', this.onRemove, this);
+        this.on('add', this.onAdd, this);
         if(this.monitorValid){ // initialize after render
             this.startMonitoring();
         }
     },
     
     // private
-	onAdd : function(ct, c) {
-		if (c.isFormField) {
-			this.form.add(c);
-		}
-	},
+    onAdd : function(ct, c) {
+		// If a single form Field, add it
+        if (this.isField(c)) {
+            this.form.add(c);
+
+		// If a Container, add any Fields it might contain
+        } else if (c.findBy) {
+            this.form.add.apply(this.form, c.findBy(this.isField));
+        }
+    },
 	
-	// private
-	onRemove : function(c) {
-		if (c.isFormField) {
-			Ext.destroy(c.container.up('.x-form-item'));
-			this.form.remove(c);
-		}
-	},
+    // private
+    onRemove : function(c) {
+		// If a single form Field, remove it
+        if (this.isField(c)) {
+            Ext.destroy(c.container.up('.x-form-item'));
+            this.form.remove(c);
+
+		// If a Container, remove any Fields it might contain
+        } else if (c.findByType) {
+            Ext.each(c.findBy(this.isField), this.form.remove, this.form);
+        }
+    },
 
     /**
      * Starts monitoring of the valid state of this form. Usually this is done by passing the config
