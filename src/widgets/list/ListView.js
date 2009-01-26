@@ -76,13 +76,10 @@ Ext.ListView = Ext.extend(Ext.DataView, {
     },
 
     onRender : function(){
-        if(!this.el){
-            this.el = document.createElement('div');
-            this.el.id = this.id;
-            this.internalTpl.overwrite(this.el, {columns: this.columns});
-        }
-        Ext.DataView.superclass.onRender.apply(this, arguments);
+        Ext.ListView.superclass.onRender.apply(this, arguments);
 
+        this.internalTpl.overwrite(this.el, {columns: this.columns});
+        
         this.innerBody = Ext.get(this.el.dom.childNodes[1].firstChild);
         this.innerHd = Ext.get(this.el.dom.firstChild.firstChild);
 

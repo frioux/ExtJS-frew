@@ -48,8 +48,6 @@ Ext.ProgressBar = Ext.extend(Ext.BoxComponent, {
 
     // private
     onRender : function(ct, position){
-        Ext.ProgressBar.superclass.onRender.call(this, ct, position);
-
         var tpl = new Ext.Template(
             '<div class="{cls}-wrap">',
                 '<div class="{cls}-inner">',
@@ -65,8 +63,10 @@ Ext.ProgressBar = Ext.extend(Ext.BoxComponent, {
             '</div>'
         );
 
-        this.el.replaceWith(tpl.append(ct, {cls: this.baseCls}));
-
+        this.el = position 
+        	? tpl.insertBefore(position, {cls: this.baseCls})
+        	: tpl.append(ct, {cls: this.baseCls});
+		        
         if(this.id){
             this.el.dom.id = this.id;
         }

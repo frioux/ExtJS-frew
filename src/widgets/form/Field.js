@@ -164,8 +164,7 @@ side          Add an error icon to the right of the field with a popup on hover
 
     // private
     onRender : function(ct, position){
-        Ext.form.Field.superclass.onRender.call(this, ct, position);
-        if(!this.el.dom.firstChild){
+        if(!this.el){
             var cfg = this.getAutoCreate();
 
             if(!cfg.name){
@@ -174,8 +173,10 @@ side          Add an error icon to the right of the field with a popup on hover
             if(this.inputType){
                 cfg.type = this.inputType;
             }
-            this.el.replaceWith(cfg);
+            this.autoEl = cfg;
         }
+        Ext.form.Field.superclass.onRender.call(this, ct, position);
+        
         var type = this.el.dom.type;
         if(type){
             if(type == 'password'){

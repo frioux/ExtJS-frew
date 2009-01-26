@@ -210,15 +210,6 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
     },
 
     // private
-    onRender : function(){
-        if(!this.el){
-            this.el = document.createElement('div');
-            this.el.id = this.id;
-        }
-        Ext.DataView.superclass.onRender.apply(this, arguments);
-    },
-
-    // private
     afterRender : function(){
         Ext.DataView.superclass.afterRender.call(this);
 
