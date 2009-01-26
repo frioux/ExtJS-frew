@@ -533,6 +533,10 @@ Ext.Window = Ext.extend(Ext.Panel, {
         if(animateTarget !== undefined){
             this.setAnimateTarget(animateTarget);
         }
+        if(this.modal){
+            this.mask.hide();
+            Ext.getBody().removeClass("x-body-masked");
+        }
         if(this.animateTarget){
             this.animHide();
         }else{
@@ -546,10 +550,6 @@ Ext.Window = Ext.extend(Ext.Panel, {
         this.proxy.hide();
         if(this.monitorResize || this.modal || this.constrain || this.constrainHeader){
             Ext.EventManager.removeResizeListener(this.onWindowResize, this);
-        }
-        if(this.modal){
-            this.mask.hide();
-            Ext.getBody().removeClass("x-body-masked");
         }
         if(this.keyMap){
             this.keyMap.disable();
