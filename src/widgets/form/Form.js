@@ -181,7 +181,6 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
 		// If a single form Field, add it
         if (this.isField(c)) {
             this.form.add(c);
-
 		// If a Container, add any Fields it might contain
         } else if (c.findBy) {
             this.form.add.apply(this.form, c.findBy(this.isField));
@@ -189,12 +188,11 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
     },
 	
     // private
-    onRemove : function(c) {
+    onRemove : function(ct, c) {
 		// If a single form Field, remove it
         if (this.isField(c)) {
             Ext.destroy(c.container.up('.x-form-item'));
-            this.form.remove(c);
-
+        	this.form.remove(c);
 		// If a Container, remove any Fields it might contain
         } else if (c.findByType) {
             Ext.each(c.findBy(this.isField), this.form.remove, this.form);
