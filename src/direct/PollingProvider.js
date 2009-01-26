@@ -30,15 +30,32 @@ Ext.direct.PollingProvider = Ext.extend(Ext.direct.JsonProvider, {
      */
     interval: 3000,
 
+    /**
+     * @cfg {Object} baseParams An object containing properties which are to be sent as parameters
+     * on every polling request
+     */
+    
+    /**
+     * @cfg {String/Function} url
+     * The url which the PollingProvider should contact with each request. This can also be
+     * an imported Ext.Direct method which will accept the baseParams as its only argument.
+     */
+
+    // private
     constructor : function(config){
         Ext.direct.PollingProvider.superclass.constructor.call(this, config);
         this.addEvents('beforepoll', 'poll');
     },
 
+    // inherited
     isConnected: function(){
         return !!this.pollTask;
     },
 
+    /**
+     * Connect to the server-side and begin the polling process. To handle each
+     * response subscribe to the data event.
+     */
     connect: function(){
         if(this.url && !this.pollTask){
             this.pollTask = Ext.TaskMgr.start({
@@ -65,6 +82,10 @@ Ext.direct.PollingProvider = Ext.extend(Ext.direct.JsonProvider, {
         }
     },
 
+    /**
+     * Disconnect from the server-side and stop the polling process. The disconnect
+     * event will be fired on a successful disconnect.
+     */
     disconnect: function(){
         if(this.pollTask){
             Ext.TaskMgr.stop(this.pollTask);
@@ -73,6 +94,7 @@ Ext.direct.PollingProvider = Ext.extend(Ext.direct.JsonProvider, {
         }
     },
 
+    // private
     onData: function(opt, success, xhr){
         if(success){
             var events = this.getEvents(xhr);

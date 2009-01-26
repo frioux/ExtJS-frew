@@ -29,10 +29,11 @@ Ext.Direct = Ext.extend(Ext.util.Observable, {
 
     /**
      * Adds an Ext.Direct provider and creates the proxy or stub methods
-     * to execute server-side methods.
+     * to execute server-side methods. If the provider is not already connected,
+     * it will auto-connect.
      * @param {Object/Array} provider A provider description or an array of provider descriptions which instructs Ext.Direct how to create client-side stub methods
      */
-    addProvider : function(provider){
+    addProvider : function(provider){        
         var a = arguments;
         if(a.length > 1){
             for(var i = 0, len = a.length; i < len; i++){
@@ -40,6 +41,8 @@ Ext.Direct = Ext.extend(Ext.util.Observable, {
             }
             return;
         }
+        
+        // if provider has not already been instantiated
         if(!provider.events){
             provider = new Ext.Direct.PROVIDERS[provider.type](provider);
         }
@@ -48,6 +51,7 @@ Ext.Direct = Ext.extend(Ext.util.Observable, {
 
         provider.on('data', this.onProviderData, this);
         provider.on('exception', this.onProviderException, this);
+
 
         if(!provider.isConnected()){
             provider.connect();
@@ -105,6 +109,7 @@ Ext.Direct = Ext.extend(Ext.util.Observable, {
         return new Ext.Direct.eventTypes[response.type](Ext.apply(response, extraProps));
     }
 });
+// overwrite impl. with static instance
 Ext.Direct = new Ext.Direct();
 
 Ext.Direct.TID = 1;

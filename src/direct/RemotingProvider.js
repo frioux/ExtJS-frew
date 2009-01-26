@@ -8,24 +8,7 @@
  * Configurations for this class should be outputted by the server-side Ext.Direct
  * stack when the API description is built.
  */
-Ext.direct.RemotingProvider = Ext.extend(Ext.direct.JsonProvider, {
-    /**
-     * @event beforecall
-     * Fires immediately before the client-side sends off the RPC call.
-     * By returning false from an event handler you can prevent the call from
-     * executing.
-     * @param {Ext.direct.RemotingProvider} provider
-     * @param {Ext.Direct.Transaction} transaction
-     */
-    
-    /**
-     * @event call
-     * Fires immediately after the request to the server-side is sent. This does
-     * NOT fire after the response has come back from the call.
-     * @param {Ext.direct.RemotingProvider} provider
-     * @param {Ext.Direct.Transaction} transaction
-     */
-    
+Ext.direct.RemotingProvider = Ext.extend(Ext.direct.JsonProvider, {       
     /**
      * @cfg {String} namespace
      * Namespace to create the Remoting Provider in. Defaults to the browser global scope of window.
@@ -33,7 +16,7 @@ Ext.direct.RemotingProvider = Ext.extend(Ext.direct.JsonProvider, {
     
     /**
      * @cfg {String} url
-     * Url to connect to the Ext.Direct server-side router.
+     * (Required) Url to connect to the Ext.Direct server-side router. 
      */
     
     /**
@@ -58,7 +41,25 @@ Ext.direct.RemotingProvider = Ext.extend(Ext.direct.JsonProvider, {
 
     constructor : function(config){
         Ext.direct.RemotingProvider.superclass.constructor.call(this, config);
-        this.addEvents('beforecall', 'call');
+        this.addEvents(
+            /**
+             * @event beforecall
+             * Fires immediately before the client-side sends off the RPC call.
+             * By returning false from an event handler you can prevent the call from
+             * executing.
+             * @param {Ext.direct.RemotingProvider} provider
+             * @param {Ext.Direct.Transaction} transaction
+             */            
+            'beforecall',
+            /**
+             * @event call
+             * Fires immediately after the request to the server-side is sent. This does
+             * NOT fire after the response has come back from the call.
+             * @param {Ext.direct.RemotingProvider} provider
+             * @param {Ext.Direct.Transaction} transaction
+             */            
+            'call'
+        );
         this.namespace = this.namespace || window;
         this.transactions = {};
         this.callBuffer = [];
