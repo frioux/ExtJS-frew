@@ -111,7 +111,7 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
         var f = this.form;
         var formPanel = this;
         var fn = function(c){
-            if(c.isFormField){
+            if(this.isField(c)){
                 f.add(c);
             }if(c.isFieldWrap){
                 Ext.applyIf(c, {
