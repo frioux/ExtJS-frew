@@ -631,8 +631,8 @@ new Ext.Panel({
         this.createClasses();
         
         var el = this.el, d = el.dom;
+        el.addClass(this.baseCls);
         if(d.firstChild){ // existing markup
-            this.el.addClass(this.baseCls);
             this.header = el.down('.'+this.headerCls);
             this.bwrap = el.down('.'+this.bwrapCls);
             var cp = this.bwrap ? this.bwrap : el;
@@ -644,7 +644,7 @@ new Ext.Panel({
         }
 
         if(this.cls){
-            this.el.addClass(this.cls);
+            el.addClass(this.cls);
         }
 
         if(this.buttons){
