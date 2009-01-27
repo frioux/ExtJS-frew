@@ -10,7 +10,7 @@
  */
 Ext.menu.Adapter = function(component, config){
     Ext.menu.Adapter.superclass.constructor.call(this, config);
-    this.component = component;
+    this.component = Ext.ComponentMgr.create(component, 'textfield');
 };
 Ext.extend(Ext.menu.Adapter, Ext.menu.BaseItem, {
     // private
