@@ -92,11 +92,6 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
     labelSeparator : ':',
 
     // private
-    getAnchorViewSize : function(ct, target){
-        return (ct.body||ct.el).getStyleSize();
-    },
-
-    // private
     setContainer : function(ct){
         Ext.layout.FormLayout.superclass.setContainer.call(this, ct);
         if(ct.labelAlign){

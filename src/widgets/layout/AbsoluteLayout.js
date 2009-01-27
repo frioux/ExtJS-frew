@@ -11,36 +11,13 @@ Ext.layout.AbsoluteLayout = Ext.extend(Ext.layout.AnchorLayout, {
      * adding customized styles to the container or any of its children using standard CSS rules.
      */
     extraCls: '',
-    isForm: false,
-    // private
-    setContainer : function(ct){
-        Ext.layout.AbsoluteLayout.superclass.setContainer.call(this, ct);
-        if(ct.isXType('form')){
-            this.isForm = true;
-        }
-    },
 
     onLayout : function(ct, target){
-        if(this.isForm){
-            ct.body.position();
-            this.paddingLeft = ct.body.getPadding('r');
-            this.paddingTop = ct.body.getPadding('t');
-        } else {
-            target.position();
-            this.paddingLeft = target.getPadding('r');
-            this.paddingTop = target.getPadding('t');
-        }
+        target.position();
+        this.paddingLeft = target.getPadding('r');
+        this.paddingTop = target.getPadding('t');
+
         Ext.layout.AbsoluteLayout.superclass.onLayout.call(this, ct, target);
-    },
-
-    // private
-    getAnchorViewSize : function(ct, target){
-        return this.isForm ? ct.body.getStyleSize() : Ext.layout.AbsoluteLayout.superclass.getAnchorViewSize.call(this, ct, target);
-    },
-
-    // private
-    isValidParent : function(c, target){
-        return this.isForm ? true : Ext.layout.AbsoluteLayout.superclass.isValidParent.call(this, c, target);
     },
 
     // private
