@@ -183,6 +183,11 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
             this.form.add(c);
 		// If a Container, add any Fields it might contain
         } else if (c.findBy) {
+            Ext.applyIf(c, {
+                labelAlign: c.ownerCt.labelAlign,
+                labelWidth: c.ownerCt.labelWidth,
+                itemCls: c.ownerCt.itemCls
+            });
             this.form.add.apply(this.form, c.findBy(this.isField));
         }
     },
