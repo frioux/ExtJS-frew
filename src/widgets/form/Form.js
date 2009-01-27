@@ -127,11 +127,11 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
                     itemCls: c.ownerCt.itemCls
                 });
                 if(c.items){
-                    c.items.each(fn);
+                    c.items.each(fn, this);
                 }
             }
         }
-        this.items.each(fn);
+        this.items.each(fn, this);
     },
 
     // private
