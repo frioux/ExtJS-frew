@@ -310,6 +310,7 @@ Company.data.CustomStore = function(config) { ... }
                     o=o[d[j]];
                 }
             }
+            return o;
         },
 
         /**
