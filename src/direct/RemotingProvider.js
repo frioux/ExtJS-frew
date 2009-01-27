@@ -10,7 +10,7 @@
  */
 Ext.direct.RemotingProvider = Ext.extend(Ext.direct.JsonProvider, {       
     /**
-     * @cfg {String} namespace
+     * @cfg {String/Object} namespace
      * Namespace to create the Remoting Provider in. Defaults to the browser global scope of window.
      */
     
@@ -60,7 +60,7 @@ Ext.direct.RemotingProvider = Ext.extend(Ext.direct.JsonProvider, {
              */            
             'call'
         );
-        this.namespace = this.namespace || window;
+        this.namespace = (typeof this.namespace === 'string') ? Ext.ns(this.namespace) : this.namespace || window;
         this.transactions = {};
         this.callBuffer = [];
     },
