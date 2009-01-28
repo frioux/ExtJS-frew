@@ -388,6 +388,7 @@ Ext.form.TextField = Ext.extend(Ext.form.Field,  {
         d.appendChild(document.createTextNode(v));
         v = d.innerHTML;
         d = null;
+        Ext.removeNode(d);
         v += "&#160;";
         var w = Math.min(this.growMax, Math.max(this.metrics.getWidth(v) + /* add extra padding */ 10, this.growMin));
         this.el.setWidth(w);
