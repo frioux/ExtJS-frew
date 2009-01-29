@@ -450,14 +450,14 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             if(typeof w == 'number'){
                 var aw = w - this.wrap.getFrameWidth('lr');
                 this.el.setWidth(this.adjustWidth('textarea', aw));
-                this.iframe.style.width = aw + 'px';
+                this.iframe.style.width = Math.max(aw, 0) + 'px';
             }
             if(typeof h == 'number'){
                 var ah = h - this.wrap.getFrameWidth('tb') - this.tb.el.getHeight();
                 this.el.setHeight(this.adjustWidth('textarea', ah));
-                this.iframe.style.height = ah + 'px';
+                this.iframe.style.height = Math.max(ah, 0) + 'px';
                 if(this.doc){
-                    this.getEditorBody().style.height = (ah - (this.iframePad*2)) + 'px';
+                    this.getEditorBody().style.height = Math.max((ah - (this.iframePad*2)), 0) + 'px';
                 }
             }
         }
