@@ -1439,6 +1439,15 @@ panel.load({
         this.body.load(
             typeof this.autoLoad == 'object' ?
                 this.autoLoad : {url: this.autoLoad});
+    },
+    
+    /**
+     * Retrieve a tool by id.
+     * @param {String} id
+     * @return {Object} tool
+     */
+    getTool: function(id) {
+        return this.tools[id];
     }
 
 /**
