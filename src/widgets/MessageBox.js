@@ -224,9 +224,13 @@ Ext.MessageBox = function(){
          * @return {Ext.MessageBox} this
          */
         hide : function(){
-            if(this.isVisible() || dlg.activeGhost){
+            var proxy = dlg.activeGhost;
+            if(this.isVisible() || proxy) {
                 dlg.hide();
                 handleHide();
+                if (proxy) {
+                    proxy.hide();
+                } 
             }
             return this;
         },
