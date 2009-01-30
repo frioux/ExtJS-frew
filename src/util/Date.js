@@ -745,7 +745,7 @@ Ext.apply(Date, {
 
 }());
 
-Ext.override(Date, {
+Ext.apply(Date.prototype, {
     // private
     dateFormat : function(format) {
         if (Date.formatFunctions[format] == null) {
