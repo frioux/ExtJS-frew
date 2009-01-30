@@ -233,13 +233,43 @@ Ext.layout.BorderLayout.Region.prototype = {
      */
     /**
      * @cfg {Object} margins
-     * An object containing margins to apply to the region in the format {left: (left margin), top: (top margin),
-     * right: (right margin), bottom: (bottom margin)}
+     * An object containing margins to apply to the region when in the expanded state in the format:<pre><code>
+{
+    top: (top margin),
+    right: (right margin),
+    bottom: (bottom margin)
+    left: (left margin),
+}</code></pre>
+     * <p>May also be a string containing space-separated, numeric margin values. The order of the sides associated
+     * with each value matches the way CSS processes margin values:</p>
+     * <p><ul>
+     * <li>If there is only one value, it applies to all sides.</li>
+     * <li>If there are two values, the top and bottom borders are set to the first value and the right
+     * and left are set to the second.</li>
+     * <li>If there are three values, the top is set to the first value, the left and right are set to the second, and the bottom
+     * is set to the third.</li>
+     * <li>If there are four values, they apply to the top, right, bottom, and left, respectively.</li>
+     * </ul></p>
      */
     /**
      * @cfg {Object} cmargins
-     * An object containing margins to apply to the region's collapsed element in the format {left: (left margin),
-     * top: (top margin), right: (right margin), bottom: (bottom margin)}
+     * An object containing margins to apply to the region when in the collapsed state in the format:<pre><code>
+{
+    top: (top margin),
+    right: (right margin),
+    bottom: (bottom margin)
+    left: (left margin),
+}</code></pre>
+     * <p>May also be a string containing space-separated, numeric margin values. The order of the sides associated
+     * with each value matches the way CSS processes margin values.</p>
+     * <p><ul>
+     * <li>If there is only one value, it applies to all sides.</li>
+     * <li>If there are two values, the top and bottom borders are set to the first value and the right
+     * and left are set to the second.</li>
+     * <li>If there are three values, the top is set to the first value, the left and right are set to the second, and the bottom
+     * is set to the third.</li>
+     * <li>If there are four values, they apply to the top, right, bottom, and left, respectively.</li>
+     * </ul></p>
      */
     /**
      * @cfg {Boolean} collapsible
