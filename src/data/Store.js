@@ -70,7 +70,20 @@ Ext.data.Store = function(config){
         }
     }
 
+    /**
+     * The {@link Ext.data.Record Record} constructor as supplied to (or created by) the {@link Ext.data.Reader#Reader Reader}.  Read-only.
+     * <p>If the Reader was constructed by passing in an Array of field definition objects, instead of an created
+     * Record constructor it will have {@link Ext.data.Record#create created a constructor} from that Array.</p>
+     * <p>This property may be used to create new Records of the type held in this Store.</p>
+     * @property recordType
+     * @type Function
+     */
     if(this.recordType){
+        /**
+         * A MixedCollection containing the defined {@link Ext.data.Field Field}s for the Records stored in this Store.  Read-only.
+         * @property fields
+         * @type Ext.util.MixedCollection
+         */
         this.fields = this.recordType.prototype.fields;
     }
     this.modified = [];
@@ -157,8 +170,8 @@ Ext.data.Store = function(config){
     if(this.sortField){
         this.setDefaultSort(this.sortField, this.sortDir);
     }else if(this.sortInfo){
-		this.setDefaultSort(this.sortInfo.field, this.sortInfo.direction);
-	}
+        this.setDefaultSort(this.sortInfo.field, this.sortInfo.direction);
+    }
 
     Ext.data.Store.superclass.constructor.call(this);
 
