@@ -272,6 +272,12 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
         if(this.forceFit){
             this.scroller.setStyle('overflow-x', 'hidden');
         }
+        /**
+         * The GridView's body Element which encapsulates all rows in the Grid. {@link Ext.Element Element}. Read-only.
+         * <p>This Element is only available after the GridPanel has been rendered.</p>
+         * @type Ext.Element
+         * @property mainBody
+         */
         this.mainBody = new E(this.scroller.dom.firstChild);
 
         this.focusEl = new E(this.scroller.dom.childNodes[1]);
