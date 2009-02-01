@@ -425,21 +425,18 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     /**
      * If a state it passed, it becomes the pressed state otherwise the current state is toggled.
      * @param {Boolean} state (optional) Force a particular state
+     * @param {Boolean} supressEvent (optional) True to ttop events being fired when calling this method.
      */
-    toggle : function(state){
-        state = state === undefined ? !this.pressed : state;
+    toggle : function(state, suppressEvent){
+        state = state === undefined ? !this.pressed : !!state;
         if(state != this.pressed){
-            if(state){
-                this.el.addClass("x-btn-pressed");
-                this.pressed = true;
-                this.fireEvent("toggle", this, true);
-            }else{
-                this.el.removeClass("x-btn-pressed");
-                this.pressed = false;
-                this.fireEvent("toggle", this, false);
-            }
-            if(this.toggleHandler){
-                this.toggleHandler.call(this.scope || this, this, state);
+            this.el[state ? 'addClass' : 'removeClass']("x-btn-pressed");
+            this.pressed = state;
+            if(!suppressEvent){
+                this.fireEvent("toggle", this, state);
+                if(this.toggleHandler){
+                    this.toggleHandler.call(this.scope || this, this, state);
+                }
             }
         }
     },
