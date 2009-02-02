@@ -1873,7 +1873,7 @@ Ext.dd.DragDropMgr = function() {
                         continue;
                     }
 
-                    if (oDD.isTarget && !oDD.isLocked() && oDD != dc) {
+                    if (oDD.isTarget && !oDD.isLocked() && ((oDD != dc) || (dc.ignoreSelf === false))) {
                         if (this.isOverTarget(pt, oDD, this.mode)) {
                             // look for drop interactions
                             if (isDrop) {
