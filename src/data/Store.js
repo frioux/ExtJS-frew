@@ -71,8 +71,8 @@ Ext.data.Store = function(config){
     }
 
     /**
-     * The {@link Ext.data.Record Record} constructor as supplied to (or created by) the {@link Ext.data.Reader#Reader Reader}.  Read-only.
-     * <p>If the Reader was constructed by passing in an Array of field definition objects, instead of an created
+     * The {@link Ext.data.Record Record} constructor as supplied to (or created by) the {@link Ext.data.Reader#Reader Reader}. Read-only.
+     * <p>If the Reader was constructed by passing in an Array of field definition objects, instead of a created
      * Record constructor it will have {@link Ext.data.Record#create created a constructor} from that Array.</p>
      * <p>This property may be used to create new Records of the type held in this Store.</p>
      * @property recordType
@@ -80,7 +80,7 @@ Ext.data.Store = function(config){
      */
     if(this.recordType){
         /**
-         * A MixedCollection containing the defined {@link Ext.data.Field Field}s for the Records stored in this Store.  Read-only.
+         * A MixedCollection containing the defined {@link Ext.data.Field Field}s for the Records stored in this Store. Read-only.
          * @property fields
          * @type Ext.util.MixedCollection
          */
