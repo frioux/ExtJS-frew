@@ -166,7 +166,7 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
         }
         Ext.layout.BorderLayout.superclass.destroy.call(this);
     }
-    
+
     /**
      * @property activeItem
      * @hide
@@ -237,8 +237,8 @@ Ext.layout.BorderLayout.Region.prototype = {
 {
     top: (top margin),
     right: (right margin),
-    bottom: (bottom margin)
-    left: (left margin),
+    bottom: (bottom margin),
+    left: (left margin)
 }</code></pre>
      * <p>May also be a string containing space-separated, numeric margin values. The order of the sides associated
      * with each value matches the way CSS processes margin values:</p>
@@ -257,8 +257,8 @@ Ext.layout.BorderLayout.Region.prototype = {
 {
     top: (top margin),
     right: (right margin),
-    bottom: (bottom margin)
-    left: (left margin),
+    bottom: (bottom margin),
+    left: (left margin)
 }</code></pre>
      * <p>May also be a string containing space-separated, numeric margin values. The order of the sides associated
      * with each value matches the way CSS processes margin values.</p>
@@ -401,7 +401,7 @@ Ext.layout.BorderLayout.Region.prototype = {
                         {id:'expand-'+this.position}, true);
                 t.addClassOnOver('x-tool-expand-'+this.position+'-over');
                 t.on('click', this.onExpandClick, this, {stopEvent:true});
-                
+
                 if(this.floatable !== false){
                    this.collapsedEl.addClassOnOver("x-layout-collapsed-over");
                    this.collapsedEl.on("click", this.collapseClick, this);
@@ -526,7 +526,7 @@ Ext.layout.BorderLayout.Region.prototype = {
     /**
      * Returns the current size of this region.  If the region is collapsed, the size of the collapsedEl will
      * be returned, otherwise the size of the region's panel will be returned.
-     * @return {Object} An object containing the element's size: {width: (element width), height: (element height)}  
+     * @return {Object} An object containing the element's size: {width: (element width), height: (element height)}
      */
     getSize : function(){
         return this.isCollapsed ? this.getCollapsedEl().getSize() : this.panel.getSize();
@@ -994,12 +994,12 @@ Ext.extend(Ext.layout.BorderLayout.SplitRegion, Ext.layout.BorderLayout.Region, 
     getSplitBar : function(){
         return this.split;
     },
-    
+
     // inherit docs
     destroy : function() {
         Ext.destroy(
-            this.miniSplitEl, 
-            this.split, 
+            this.miniSplitEl,
+            this.split,
             this.splitEl
         );
     }
