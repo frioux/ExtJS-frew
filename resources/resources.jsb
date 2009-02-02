@@ -2,31 +2,55 @@
 <project path="" name="Ext - Resources" author="Ext JS, LLC" version="3.0 Pre-alpha" copyright="Ext JS Library $version&#xD;&#xA;Copyright(c) 2006-2008, $author.&#xD;&#xA;licensing@extjs.com&#xD;&#xA;&#xD;&#xA;http://extjs.com/license" output="C:\apps\www\deploy\ext-3.0-dev\resources" source="true" source-dir="$output" minify="False" min-dir="$output\build" doc="False" doc-dir="$output\docs" master="true" master-file="$output\yui-ext.js" zip="true" zip-file="$output\yuo-ext.$version.zip">
   <directory name="" />
   <target name="All css" file="$output\css\ext-all.css" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
-    <include name="css\reset.css" />
-    <include name="css\core.css" />
-    <include name="css\tabs.css" />
-    <include name="css\form.css" />
-    <include name="css\button.css" />
-    <include name="css\toolbar.css" />
-    <include name="css\resizable.css" />
-    <include name="css\grid.css" />
-    <include name="css\dd.css" />
-    <include name="css\tree.css" />
-    <include name="css\date-picker.css" />
-    <include name="css\qtips.css" />
-    <include name="css\menu.css" />
-    <include name="css\box.css" />
-    <include name="css\debug.css" />
-    <include name="css\combo.css" />
-    <include name="css\panel.css" />
-    <include name="css\window.css" />
-    <include name="css\editor.css" />
-    <include name="css\borders.css" />
-    <include name="css\layout.css" />
-    <include name="css\progress.css" />
-    <include name="css\list-view.css" />
-    <include name="css\slider.css" />
-    <include name="css\dialog.css" />
+    <include name="css\structure\reset.css" />
+    <include name="css\structure\core.css" />
+    <include name="css\structure\tabs.css" />
+    <include name="css\structure\form.css" />
+    <include name="css\structure\button.css" />
+    <include name="css\structure\toolbar.css" />
+    <include name="css\structure\resizable.css" />
+    <include name="css\structure\grid.css" />
+    <include name="css\structure\dd.css" />
+    <include name="css\structure\tree.css" />
+    <include name="css\structure\date-picker.css" />
+    <include name="css\structure\qtips.css" />
+    <include name="css\structure\menu.css" />
+    <include name="css\structure\box.css" />
+    <include name="css\structure\debug.css" />
+    <include name="css\structure\combo.css" />
+    <include name="css\structure\panel.css" />
+    <include name="css\structure\window.css" />
+    <include name="css\structure\editor.css" />
+    <include name="css\structure\borders.css" />
+    <include name="css\structure\layout.css" />
+    <include name="css\structure\progress.css" />
+    <include name="css\structure\list-view.css" />
+    <include name="css\structure\slider.css" />
+    <include name="css\structure\dialog.css" />
+    <include name="css\visual\core.css" />
+    <include name="css\visual\tabs.css" />
+    <include name="css\visual\form.css" />
+    <include name="css\visual\button.css" />
+    <include name="css\visual\toolbar.css" />
+    <include name="css\visual\resizable.css" />
+    <include name="css\visual\grid.css" />
+    <include name="css\visual\dd.css" />
+    <include name="css\visual\tree.css" />
+    <include name="css\visual\date-picker.css" />
+    <include name="css\visual\qtips.css" />
+    <include name="css\visual\menu.css" />
+    <include name="css\visual\box.css" />
+    <include name="css\visual\debug.css" />
+    <include name="css\visual\combo.css" />
+    <include name="css\visual\panel.css" />
+    <include name="css\visual\window.css" />
+    <include name="css\visual\editor.css" />
+    <include name="css\visual\borders.css" />
+    <include name="css\visual\layout.css" />
+    <include name="css\visual\progress.css" />
+    <include name="css\visual\list-view.css" />
+    <include name="css\visual\slider.css" />
+    <include name="css\visual\dialog.css" />
   </target>
   <file name="images\basic-dialog\gray\close.gif" path="images\basic-dialog\gray" />
   <file name="images\basic-dialog\gray\dlg-bg.gif" path="images\basic-dialog\gray" />
@@ -382,34 +406,58 @@
   <file name="images\default\button\btn-split-arrow.gif" path="images\default\button" />
   <file name="images\default\button\btn-split-arrow-over.gif" path="images\default\button" />
   <file name="images\default\button\btn-split-arrow-pressed.gif" path="images\default\button" />
-  <file name="css\borders.css" path="css" />
-  <file name="css\box.css" path="css" />
-  <file name="css\button.css" path="css" />
-  <file name="css\combo.css" path="css" />
-  <file name="css\core.css" path="css" />
-  <file name="css\date-picker.css" path="css" />
-  <file name="css\dd.css" path="css" />
-  <file name="css\debug.css" path="css" />
-  <file name="css\dialog.css" path="css" />
-  <file name="css\editor.css" path="css" />
-  <file name="css\form.css" path="css" />
-  <file name="css\grid.css" path="css" />
-  <file name="css\layout.css" path="css" />
-  <file name="css\list-view.css" path="css" />
-  <file name="css\menu.css" path="css" />
-  <file name="css\panel.css" path="css" />
-  <file name="css\progress.css" path="css" />
-  <file name="css\qtips.css" path="css" />
+  <file name="css\xtheme-gray.css" path="css" />
   <file name="css\README.txt" path="css" />
   <file name="css\reset-min.css" path="css" />
-  <file name="css\reset.css" path="css" />
-  <file name="css\resizable.css" path="css" />
-  <file name="css\slider.css" path="css" />
-  <file name="css\tabs.css" path="css" />
-  <file name="css\toolbar.css" path="css" />
-  <file name="css\tree.css" path="css" />
-  <file name="css\window.css" path="css" />
-  <file name="css\xtheme-gray.css" path="css" />
+  <file name="css\structure\borders.css" path="css\structure\" />
+  <file name="css\structure\box.css" path="css\structure\" />
+  <file name="css\structure\button.css" path="css\structure\" />
+  <file name="css\structure\combo.css" path="css\structure\" />
+  <file name="css\structure\core.css" path="css\structure\" />
+  <file name="css\structure\date-picker.css" path="css\structure\" />
+  <file name="css\structure\dd.css" path="css\structure\" />
+  <file name="css\structure\debug.css" path="css\structure\" />
+  <file name="css\structure\dialog.css" path="css\structure\" />
+  <file name="css\structure\editor.css" path="css\structure\" />
+  <file name="css\structure\form.css" path="css\structure\" />
+  <file name="css\structure\grid.css" path="css\structure\" />
+  <file name="css\structure\layout.css" path="css\structure\" />
+  <file name="css\structure\list-view.css" path="css\structure\" />
+  <file name="css\structure\menu.css" path="css\structure\" />
+  <file name="css\structure\panel.css" path="css\structure\" />
+  <file name="css\structure\progress.css" path="css\structure\" />
+  <file name="css\structure\qtips.css" path="css\structure\" />
+  <file name="css\structure\reset.css" path="css\structure\" />
+  <file name="css\structure\resizable.css" path="css\structure\" />
+  <file name="css\structure\slider.css" path="css\structure\" />
+  <file name="css\structure\tabs.css" path="css\structure\" />
+  <file name="css\structure\toolbar.css" path="css\structure\" />
+  <file name="css\structure\tree.css" path="css\structure\" />
+  <file name="css\structure\window.css" path="css\structure\" />
+  <file name="css\visual\borders.css" path="css\visual\" />
+  <file name="css\visual\box.css" path="css\visual\" />
+  <file name="css\visual\button.css" path="css\visual\" />
+  <file name="css\visual\combo.css" path="css\visual\" />
+  <file name="css\visual\core.css" path="css\visual\" />
+  <file name="css\visual\date-picker.css" path="css\visual\" />
+  <file name="css\visual\dd.css" path="css\visual\" />
+  <file name="css\visual\debug.css" path="css\visual\" />
+  <file name="css\visual\dialog.css" path="css\visual\" />
+  <file name="css\visual\editor.css" path="css\visual\" />
+  <file name="css\visual\form.css" path="css\visual\" />
+  <file name="css\visual\grid.css" path="css\visual\" />
+  <file name="css\visual\layout.css" path="css\visual\" />
+  <file name="css\visual\list-view.css" path="css\visual\" />
+  <file name="css\visual\menu.css" path="css\visual\" />
+  <file name="css\visual\panel.css" path="css\visual\" />
+  <file name="css\visual\progress.css" path="css\visual\" />
+  <file name="css\visual\qtips.css" path="css\visual\" />
+  <file name="css\visual\resizable.css" path="css\visual\" />
+  <file name="css\visual\slider.css" path="css\visual\" />
+  <file name="css\visual\tabs.css" path="css\visual\" />
+  <file name="css\visual\toolbar.css" path="css\visual\" />
+  <file name="css\visual\tree.css" path="css\visual\" />
+  <file name="css\visual\window.css" path="css\visual\" />
   <file name="images\default\box\corners-blue.gif" path="images\default\box" />
   <file name="images\default\box\corners.gif" path="images\default\box" />
   <file name="images\default\box\l-blue.gif" path="images\default\box" />
@@ -726,4 +774,31 @@
   <file name="images\gray\button\btn.gif" path="images\gray\button" />
   <file name="images\gray\button\group-lr.gif" path="images\gray\button" />
   <file name="images\gray\button\group-tb.gif" path="images\gray\button" />
+  <target name="All css no theme" file="$output\css\ext-all-notheme.css" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
+    <include name="css\structure\reset.css" />
+    <include name="css\structure\core.css" />
+    <include name="css\structure\tabs.css" />
+    <include name="css\structure\form.css" />
+    <include name="css\structure\button.css" />
+    <include name="css\structure\toolbar.css" />
+    <include name="css\structure\resizable.css" />
+    <include name="css\structure\grid.css" />
+    <include name="css\structure\dd.css" />
+    <include name="css\structure\tree.css" />
+    <include name="css\structure\date-picker.css" />
+    <include name="css\structure\qtips.css" />
+    <include name="css\structure\menu.css" />
+    <include name="css\structure\box.css" />
+    <include name="css\structure\debug.css" />
+    <include name="css\structure\combo.css" />
+    <include name="css\structure\panel.css" />
+    <include name="css\structure\window.css" />
+    <include name="css\structure\editor.css" />
+    <include name="css\structure\borders.css" />
+    <include name="css\structure\layout.css" />
+    <include name="css\structure\progress.css" />
+    <include name="css\structure\list-view.css" />
+    <include name="css\structure\slider.css" />
+    <include name="css\structure\dialog.css" />
+  </target>
 </project>
