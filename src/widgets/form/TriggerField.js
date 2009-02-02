@@ -116,6 +116,9 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
         if(this.wrap){
             this.wrap.remove();
         }
+        if (this.mimicing){
+            Ext.get(Ext.isIE ? document.body : document).un("mousedown", this.mimicBlur, this);
+        }
         Ext.form.TriggerField.superclass.onDestroy.call(this);
     },
 
