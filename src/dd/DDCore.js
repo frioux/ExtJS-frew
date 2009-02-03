@@ -64,6 +64,14 @@ Ext.dd.DragDrop = function(id, sGroup, config) {
 Ext.dd.DragDrop.prototype = {
 
     /**
+     * Set to false to enable a DragDrop object to fire drag events while dragging
+     * over its own Element. Defaults to true - DragDrop objects do not by default
+     * fire drag events to themselves.
+     * @property ignoreSelf
+     * @type Boolean
+     */
+
+    /**
      * The id of the element associated with this object.  This is what we
      * refer to as the "linked element" because the size and position of
      * this element is used to determine when the drag and drop objects have
