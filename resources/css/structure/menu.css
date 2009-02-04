@@ -104,7 +104,14 @@
     background-position:center;
 }
 
-.ext-border-box .x-menu-item-icon{
+.ext-ie .x-menu-item-icon {
+    left: -24px;
+}
+.ext-strict .x-menu-item-icon {
+    left: 3px;
+}
+
+.ext-ie6 .x-menu-item-icon {
     left: -24px;
 }
 
