@@ -2209,15 +2209,18 @@ El.cache = {};
 var docEl;
 
 /**
- * Static method to retrieve Ext.Element objects.
+ * Retrieves Ext.Element objects.
  * <p><b>This method does not retrieve {@link Ext.Component Component}s.</b> This method
  * retrieves Ext.Element objects which encapsulate DOM elements. To retrieve a Component by
  * its ID, use {@link Ext.ComponentMgr#get}.</p>
- * <p>Uses simple caching to consistently return the same object.
- * Automatically fixes if an object was recreated with the same id via AJAX or DOM.</p>
+ * <p>Uses simple caching to consistently return the same object. Automatically fixes if an
+ * object was recreated with the same id via AJAX or DOM.</p>
+ * Shorthand of {@link Ext.Element#Element.get}
  * @param {Mixed} el The id of the node, a DOM Node or an existing Element.
- * @return {Element} The {@link Ext.Element Element} object (or null if no matching element was found)
+ * @return {Element} The Element object (or null if no matching element was found)
  * @static
+ * @member Ext.Element
+ * @method get
  */
 El.get = function(el){
     var ex, elm, id;
@@ -2326,13 +2329,18 @@ El.Flyweight.prototype.isFlyweight = true;
 
 El._flyweights = {};
 /**
- * Gets the globally shared flyweight Element, with the passed node as the active element. Do not store a reference to this element -
- * the dom node can be overwritten by other code.
+ * <p>Gets the globally shared flyweight Element, with the passed node as the active element. Do not store a reference to this element -
+ * the dom node can be overwritten by other code. Shorthand of {@link Ext.Element#fly}</p>
+ * <p>Use this to make one-time references to DOM elements which are not going to be accessed again either by
+ * application code, or by Ext's classes. If accessing an element which will be processed regularly, then {@link Ext#get}
+ * will be more appropriate to take advantage of the caching provided by the Ext.Element class.</p>
  * @param {String/HTMLElement} el The dom node or id
- * @param {String} named (optional) Allows for creation of named reusable flyweights to
- *                                  prevent conflicts (e.g. internally Ext uses "_internal")
- * @static
+ * @param {String} named (optional) Allows for creation of named reusable flyweights to prevent conflicts
+ * (e.g. internally Ext uses "_global")
  * @return {Element} The shared Element object (or null if no matching element was found)
+ * @static
+ * @member Ext.Element
+ * @method fly
  */
 El.fly = function(el, named){
     named = named || '_global';
@@ -2352,24 +2360,25 @@ El.fly = function(el, named){
  * <p><b>This method does not retrieve {@link Ext.Component Component}s.</b> This method
  * retrieves Ext.Element objects which encapsulate DOM elements. To retrieve a Component by
  * its ID, use {@link Ext.ComponentMgr#get}.</p>
- * <p>Uses simple caching to consistently return the same object.
- * Automatically fixes if an object was recreated with the same id via AJAX or DOM.</p>
+ * <p>Uses simple caching to consistently return the same object. Automatically fixes if an
+ * object was recreated with the same id via AJAX or DOM.</p>
  * Shorthand of {@link Ext.Element#Element.get}
  * @param {Mixed} el The id of the node, a DOM Node or an existing Element.
- * @return {Element} The Element object
+ * @return {Element} The Element object (or null if no matching element was found)
  * @member Ext
  * @method get
  */
 Ext.get = El.get;
 /**
- * Gets the globally shared flyweight Element, with the passed node as the active element. Do not store a reference to this element -
- * the dom node can be overwritten by other code.
- * Shorthand of {@link Ext.Element#fly}
+ * <p>Gets the globally shared flyweight Element, with the passed node as the active element. Do not store a reference to this element -
+ * the dom node can be overwritten by other code. Shorthand of {@link Ext.Element#fly}</p>
+ * <p>Use this to make one-time references to DOM elements which are not going to be accessed again either by
+ * application code, or by Ext's classes. If accessing an element which will be processed regularly, then {@link Ext#get}
+ * will be more appropriate to take advantage of the caching provided by the Ext.Element class.</p>
  * @param {String/HTMLElement} el The dom node or id
- * @param {String} named (optional) Allows for creation of named reusable flyweights to
- *                                  prevent conflicts (e.g. internally Ext uses "_internal")
- * @static
- * @return {Element} The shared Element object
+ * @param {String} named (optional) Allows for creation of named reusable flyweights to prevent conflicts
+ * (e.g. internally Ext uses "_global")
+ * @return {Element} The shared Element object (or null if no matching element was found)
  * @member Ext
  * @method fly
  */
