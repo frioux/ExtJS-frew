@@ -361,6 +361,9 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         this.store = store;
         this.paramNames.start = store.paramNames.start;
         this.paramNames.limit = store.paramNames.limit;
+        if (store.getCount() > 0){
+            this.onLoad(store, null, {});
+        }
     },
 
     // private
