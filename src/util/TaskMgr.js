@@ -138,9 +138,9 @@ Ext.util.TaskRunner = function(interval){
 
 /**
  * @class Ext.TaskMgr
- * A static {@link Ext.util.TaskRunner} instance that can be used to start and stop arbitrary tasks.  See
- * {@link Ext.util.TaskRunner} for supported methods and task config properties.
- * <pre><code>
+ * @extends Ext.util.TaskRunner
+ * A static {@link Ext.util.TaskRunner} instance that can be used to start and stop arbitrary tasks.
+ * Example usage:<pre><code>
 // Start a simple clock task that updates a div once per second
 var task = {
     run: function(){
