@@ -85,8 +85,6 @@ Ext.grid.ColumnModel = function(config){
          * @param {Number} newIndex
          */
         "columnmoved",
-        // deprecated - to be removed
-        "columnlockchange",
         /**
          * @event configchange
          * Fires when the configuration is changed
@@ -269,42 +267,6 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
         this.config.splice(newIndex, 0, c);
         this.dataMap = null;
         this.fireEvent("columnmoved", this, oldIndex, newIndex);
-    },
-
-    // deprecated - to be removed
-    isLocked : function(colIndex){
-        return this.config[colIndex].locked === true;
-    },
-
-    // deprecated - to be removed
-    setLocked : function(colIndex, value, suppressEvent){
-        if(this.isLocked(colIndex) == value){
-            return;
-        }
-        this.config[colIndex].locked = value;
-        if(!suppressEvent){
-            this.fireEvent("columnlockchange", this, colIndex, value);
-        }
-    },
-
-    // deprecated - to be removed
-    getTotalLockedWidth : function(){
-        var totalWidth = 0;
-        for(var i = 0; i < this.config.length; i++){
-            if(this.isLocked(i) && !this.isHidden(i)){
-                this.totalWidth += this.getColumnWidth(i);
-            }
-        }
-        return totalWidth;
-    },
-
-    // deprecated - to be removed
-    getLockedCount : function(){
-        for(var i = 0, len = this.config.length; i < len; i++){
-            if(!this.isLocked(i)){
-                return i;
-            }
-        }
     },
 
     /**
