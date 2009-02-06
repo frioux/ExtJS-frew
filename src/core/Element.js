@@ -1,6 +1,6 @@
 /**
  * @class Ext.Element
- * Represents an Element in the DOM.<br><br>
+ * Encapsulates a DOM element, adding simple DOM manipulation facilities, normalizing for browser differences.<br><br>
  * Usage:<br>
 <pre><code>
 // by id
@@ -2215,7 +2215,6 @@ var docEl;
  * its ID, use {@link Ext.ComponentMgr#get}.</p>
  * <p>Uses simple caching to consistently return the same object. Automatically fixes if an
  * object was recreated with the same id via AJAX or DOM.</p>
- * Shorthand of {@link Ext.Element#Element.get}
  * @param {Mixed} el The id of the node, a DOM Node or an existing Element.
  * @return {Element} The Element object (or null if no matching element was found)
  * @static
@@ -2362,7 +2361,7 @@ El.fly = function(el, named){
  * its ID, use {@link Ext.ComponentMgr#get}.</p>
  * <p>Uses simple caching to consistently return the same object. Automatically fixes if an
  * object was recreated with the same id via AJAX or DOM.</p>
- * Shorthand of {@link Ext.Element#Element.get}
+ * Shorthand of {@link Ext.Element#get}
  * @param {Mixed} el The id of the node, a DOM Node or an existing Element.
  * @return {Element} The Element object (or null if no matching element was found)
  * @member Ext
