@@ -54,11 +54,6 @@ Ext.DatePicker = Ext.extend(Ext.Component, {
      */
     disabledDatesText : "Disabled",
     /**
-     * @cfg {Boolean} constrainToViewport
-     * <b>Deprecated</b> (not currently used). True to constrain the date picker to the viewport (defaults to true)
-     */
-    constrainToViewport : true,
-    /**
      * @cfg {Array} monthNames
      * An array of textual month names which can be overriden for localization support (defaults to Date.monthNames)
      */
