@@ -683,7 +683,7 @@ Ext.dd.DragDrop.prototype = {
 
     /**
      * Stores the initial placement of the linked element.
-     * @method setInitialPosition
+     * @method setInitPosition
      * @param {int} diffX   the X offset, default 0
      * @param {int} diffY   the Y offset, default 0
      */
