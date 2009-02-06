@@ -5,7 +5,7 @@
  * input field management, validation, submission, and form loading services.</p>
  * <p>By default, Ext Forms are submitted through Ajax, using an instance of {@link Ext.form.Action.Submit}.
  * To enable normal browser submission of an Ext Form, use the {@link #standardSubmit} config option.</p>
- * <p><h3>File Uploads</h3>{@link #fileUpload File uploads} are not performed using Ajax submission, that
+ * <p><h2>File Uploads</h2>{@link #fileUpload File uploads} are not performed using Ajax submission, that
  * is they are <b>not</b> performed using XMLHttpRequests. Instead the form is submitted in the standard
  * manner with the DOM <tt>&lt;form></tt> element temporarily modified to have its
  * <a href="http://www.w3.org/TR/REC-html40/present/frames.html#adef-target">target</a> set to refer
@@ -30,8 +30,8 @@
 Ext.form.BasicForm = function(el, config){
     Ext.apply(this, config);
     /*
-     * @property
-     * The Ext.form.Field items in this form.
+     * @property items
+     * A {@link Ext.util.MixedCollection MixedCollection) containing all the Ext.form.Fields in this form.
      * @type MixedCollection
      */
     this.items = new Ext.util.MixedCollection(false, function(o){
