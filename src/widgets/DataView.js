@@ -245,13 +245,13 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
             if(!this.deferEmptyText || this.hasSkippedEmptyText){
                 el.update(this.emptyText);
             }
-            this.hasSkippedEmptyText = true;
             this.all.clear();
             return;
         }
         this.tpl.overwrite(el, this.collectData(records, 0));
         this.all.fill(Ext.query(this.itemSelector, el.dom));
         this.updateIndexes(0);
+        this.hasSkippedEmptyText = true;
     },
 
     getTemplateTarget: function(){
@@ -334,6 +334,9 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
         this.deselect(index);
         this.all.removeElement(index, true);
         this.updateIndexes(index);
+        if (this.store.getCount() == 0){
+            this.refresh();
+        }
     },
 
     /**
