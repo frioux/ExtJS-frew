@@ -1436,9 +1436,11 @@ panel.load({
 
     // private
     doAutoLoad : function(){
-        this.body.load(
-            typeof this.autoLoad == 'object' ?
-                this.autoLoad : {url: this.autoLoad});
+        var u = this.body.getUpdater();
+        if(this.renderer){
+            u.setRenderer(this.renderer);
+        }
+        u.update(typeof this.autoLoad == 'object' ? this.autoLoad : {url: this.autoLoad});
     },
     
     /**
