@@ -96,7 +96,11 @@ Ext.extend(Ext.tree.TreeEditor, Ext.Editor, {
             if(this.tree.autoScroll){
                 node.ui.getEl().scrollIntoView(this.tree.body);
             }
-            this.autoEditTimer = this.startEdit.defer(this.editDelay, this, [node.ui.textNode, node.text]);
+            var value = node.text || '';
+            if (!Ext.isGecko && Ext.isEmpty(node.text)){
+                node.setText('&nbsp;');
+            }
+            this.autoEditTimer = this.startEdit.defer(this.editDelay, this, [node.ui.textNode, value]);
             return false;
         }
     },
