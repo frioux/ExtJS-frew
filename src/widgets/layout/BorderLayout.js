@@ -359,7 +359,7 @@ Ext.layout.BorderLayout.Region.prototype = {
                 show: this.onShow,
                 scope: this
             });
-            if(this.collapsible){
+            if(this.collapsible || this.floatable){
                 p.collapseEl = 'el';
                 p.slideAnchor = this.getSlideAnchor();
             }
@@ -396,12 +396,13 @@ Ext.layout.BorderLayout.Region.prototype = {
                 this.collapsedEl.addClassOnOver("x-layout-collapsed-over");
                 this.collapsedEl.on('click', this.onExpandClick, this, {stopEvent:true});
             }else {
-                var t = this.toolTemplate.append(
-                        this.collapsedEl.dom,
-                        {id:'expand-'+this.position}, true);
-                t.addClassOnOver('x-tool-expand-'+this.position+'-over');
-                t.on('click', this.onExpandClick, this, {stopEvent:true});
-
+                if(this.collapsible !== false) {
+                    var t = this.toolTemplate.append(
+                            this.collapsedEl.dom,
+                            {id:'expand-'+this.position}, true);
+                    t.addClassOnOver('x-tool-expand-'+this.position+'-over');
+                    t.on('click', this.onExpandClick, this, {stopEvent:true});
+                }
                 if(this.floatable !== false){
                    this.collapsedEl.addClassOnOver("x-layout-collapsed-over");
                    this.collapsedEl.on("click", this.collapseClick, this);
