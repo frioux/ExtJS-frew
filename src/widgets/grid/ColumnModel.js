@@ -21,7 +21,7 @@
  * <p>
  * The config options <b>defined by</b> this class are options which may appear in each
  * individual column definition. In order to use configuration options from the superclass,
- * specify the column configuration Array in the <tt><b>columns<b><tt> config property. eg:<pre><code>
+ * specify the column configuration Array in the <tt><b>columns</b></tt> config property. eg:<pre><code>
  var colModel = new Ext.grid.ColumnModel({
     listeners: {
         widthchange: function(cm, colIndex, width) {
