@@ -275,7 +275,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
         }
         if(this.closable){
             var km = this.getKeyMap();
-            this.mon(km, 27, this.onEsc, this);
+            km.on(27, this.onEsc, this);
             km.disable();
         }
     },
