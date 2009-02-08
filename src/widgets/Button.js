@@ -272,7 +272,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         }else{
             btn = this.template.append(ct, targs, true);
         }
-        var btnEl = btn.child(this.buttonSelector);
+        var btnEl = this.btnEl = btn.child(this.buttonSelector);
         this.mon(btnEl, 'focus', this.onFocus, this);
         this.mon(btnEl, 'blur', this.onBlur, this);
 
@@ -344,7 +344,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      */
     setIconClass : function(cls){
         if(this.el){
-            this.el.child(this.buttonSelector).replaceClass(this.iconCls, cls);
+            this.btnEl.replaceClass(this.iconCls, cls);
         }
         this.iconCls = cls;
     },
@@ -352,10 +352,9 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     // private
     beforeDestroy: function(){
     	if(this.rendered){
-	        var btnEl = this.el.child(this.buttonSelector);
-	        if(btnEl){
+	        if(this.btnEl){
                 if(typeof this.tooltip == 'object'){
-                    Ext.QuickTips.unregister(btnEl);
+                    Ext.QuickTips.unregister(this.btnEl);
                 }
 	        }
 	    }
@@ -374,7 +373,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         if(this.el && this.text && typeof this.width == 'undefined'){
             this.el.setWidth("auto");
             if(Ext.isIE7 && Ext.isStrict){
-                var ib = this.el.child(this.buttonSelector);
+                var ib = this.btnEl;
                 if(ib && ib.getWidth() > 20){
                     ib.clip();
                     ib.setWidth(Ext.util.TextMetrics.measure(ib, this.text).width+ib.getFrameWidth('lr'));
@@ -441,7 +440,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      * Focus the button
      */
     focus : function(){
-        this.el.child(this.buttonSelector).focus();
+        this.btnEl.focus();
     },
 
     // private
