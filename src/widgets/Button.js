@@ -154,9 +154,11 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
 
     /**
      * @cfg {Ext.Template} template (Optional)
-     * An {@link Ext.Template} with which to create the Button's main element. This Template must
-     * contain numeric substitution parameter 0 if it is to display the text property. Changing the template could
-     * require code modifications if required elements (e.g. a button) aren't present.
+     * <p>A {@link Ext.Template Template} used to create the Button's DOM structure.</p>
+     * Instances, or subclasses which need a different DOM structure may provide a different
+     * template layout in conjunction with an implementation of {@link #getTemplateArgs}.
+     * @type Ext.Template
+     * @property template
      */
     /**
      * @cfg {String} cls
@@ -234,7 +236,22 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         }
     },
 
-    // protected
+/**
+  * <p>This method returns an object which provides substitution parameters for the {@link #template Template} used
+  * to create this Button's DOM structure.</p>
+  * <p>Instances or subclasses which use a different Template to create a different DOM structure may need to provide their
+  * own implementation of this method.</p>
+  * <p>The default implementation which provides data for the default {@link #template} returns an Array containing the
+  * following items:</p><div class="sub-desc"><ul>
+  * <li>The Button's {@link #text}</li>
+  * <li>The &lt;button&gt;'s {@link #type}</li>
+  * <li>The {@link iconCls} applied to the &lt;button&gt; {@link #btnEl element}</li>
+  * <li>The {@link #cls} applied to the Button's main {@link #getEl Element}</li>
+  * <li>A CSS class name controlling the Button's {@link #scale} and {@link #iconAlign icon alignment}</li>
+  * <li>A CSS class name which applies an arrow to the Button if configured with a {@link #menu}</li>
+  * </ul></div>
+  * @return {Object} Substitution data for a Template.
+ */
     getTemplateArgs : function(){
         var cls = (this.cls || '');
         cls += this.iconCls ? (this.text ? ' x-btn-text-icon' : ' x-btn-icon') : ' x-btn-noicon';
@@ -272,6 +289,12 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         }else{
             btn = this.template.append(ct, targs, true);
         }
+        /**
+         * An {@link Ext.Element Element} encapsulating the Button's clickable element. By default,
+         * this references a <tt>&lt;button&gt;</tt> element. Read only.
+         * @type Ext.Element
+         * @property btnEl
+         */
         var btnEl = this.btnEl = btn.child(this.buttonSelector);
         this.mon(btnEl, 'focus', this.onFocus, this);
         this.mon(btnEl, 'blur', this.onBlur, this);
