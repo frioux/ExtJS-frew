@@ -354,16 +354,12 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     	if(this.rendered){
 	        var btnEl = this.el.child(this.buttonSelector);
 	        if(btnEl){
-                if(this.tooltip){
+                if(typeof this.tooltip == 'object'){
                     Ext.QuickTips.unregister(btnEl);
                 }
-	            // Lets remove the following line since we are now using .mon() and hope no outside code is depending on this
-                //btnEl.removeAllListeners();
 	        }
 	    }
-        if(this.menu){
-            Ext.destroy(this.menu);
-        }
+        Ext.destroy(this.menu);
     },
 
     // private
