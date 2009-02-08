@@ -110,7 +110,7 @@ El.prototype = {
     /**
      * Sets the element's visibility mode. When setVisible() is called it
      * will use this to determine whether to set the visibility or the display property.
-     * @param visMode Element.VISIBILITY or Element.DISPLAY
+     * @param visMode Ext.Element.VISIBILITY or Element.DISPLAY
      * @return {Ext.Element} this
      */
     setVisibilityMode : function(visMode){
@@ -2183,13 +2183,17 @@ El.addUnits = function(v, defaultUnit){
 // special markup used throughout Ext when box wrapping elements
 El.boxMarkup = '<div class="{0}-tl"><div class="{0}-tr"><div class="{0}-tc"></div></div></div><div class="{0}-ml"><div class="{0}-mr"><div class="{0}-mc"></div></div></div><div class="{0}-bl"><div class="{0}-br"><div class="{0}-bc"></div></div></div>';
 /**
- * Visibility mode constant - Use visibility to hide element
+ * Visibility mode constant for use with {@link #setVisibilityMode}. Use visibility to hide element
+ * @property VISIBILITY
+ * @member Ext.Element
  * @static
  * @type Number
  */
 El.VISIBILITY = 1;
 /**
- * Visibility mode constant - Use display to hide element
+ * Visibility mode constant for use with {@link #setVisibilityMode}. Use display to hide element
+ * @property DISPLAY
+ * @member Ext.Element
  * @static
  * @type Number
  */

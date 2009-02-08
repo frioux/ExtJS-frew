@@ -599,6 +599,7 @@ new Ext.tree.TreePanel({
         if((this.enableDD || this.enableDrop) && !this.dropZone){
            /**
             * The dropZone used by this tree if drop is enabled
+            * @property dropZone
             * @type Ext.tree.TreeDropZone
             */
              this.dropZone = new Ext.tree.TreeDropZone(this, this.dropConfig || {
@@ -608,6 +609,7 @@ new Ext.tree.TreePanel({
         if((this.enableDD || this.enableDrag) && !this.dragZone){
            /**
             * The dragZone used by this tree if drag is enabled
+            * @property dragZone
             * @type Ext.tree.TreeDragZone
             */
             this.dragZone = new Ext.tree.TreeDragZone(this, this.dragConfig || {
