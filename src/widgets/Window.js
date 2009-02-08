@@ -240,6 +240,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
             this.mask.hide();
             this.mon(this.mask, 'click', this.focus, this);
         }
+        this.initTools();
     },
 
     // private
@@ -264,7 +265,6 @@ Ext.Window = Ext.extend(Ext.Panel, {
         if(this.draggable){
             this.header.addClass("x-window-draggable");
         }
-        this.initTools();
 		this.mon(this.el, 'mousedown', this.toFront, this);
         this.manager = this.manager || Ext.WindowMgr;
         this.manager.register(this);
