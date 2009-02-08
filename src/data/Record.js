@@ -17,7 +17,7 @@
  * @constructor
  * This constructor should not be used to create Record objects. Instead, use {@link #create} to
  * generate a subclass of Ext.data.Record configured with information about its consituent fields. 
- * @param {Array} data An object, the properties of which provide values for the new Record's fields.
+ * @param {Object} data An object, the properties of which provide values for the new Record's fields.
  * @param {Object} id (Optional) The id of the Record. This id should be unique, and is used by the
  * {@link Ext.data.Store} object which owns the Record to index its collection of Records. If
  * not specified an integer id is generated.
@@ -33,13 +33,16 @@ Ext.data.Record = function(data, id){
  * data types, and a mapping for an {@link Ext.data.Reader} to extract the field's value from a data object.
  * Each field definition object may contain the following properties: <ul>
  * <li><b>name</b> : String<div class="sub-desc">The name by which the field is referenced within the Record. This is referenced by,
- * for example, the <em>dataIndex</em> property in column definition objects passed to {@link Ext.grid.ColumnModel}</div></li>
- * <li><b>mapping</b> : String<div class="sub-desc">(Optional) A path specification for use by the {@link Ext.data.Reader} implementation
- * that is creating the Record to access the data value from the data object. If an {@link Ext.data.JsonReader}
- * is being used, then this is a string containing the javascript expression to reference the data relative to
- * the Record item's root. If an {@link Ext.data.XmlReader} is being used, this is an {@link Ext.DomQuery} path
- * to the data item relative to the Record element. If the mapping expression is the same as the field name,
- * this may be omitted.</div></li>
+ * for example, the <tt>dataIndex</tt> property in column definition objects passed to {@link Ext.grid.ColumnModel}</div></li>
+ * <li><b>mapping</b> : String/Number<div class="sub-desc">(Optional) A path specification for use by the {@link Ext.data.Reader}
+ * implementation that is creating the Record to select the field value from the data object.<ul>
+ * <li>If an {@link Ext.data.JsonReader} is being used, then this is a string containing the javascript expression to
+ * reference the data relative to the Record item's root. Defaults to the field name.</li>
+ * <li>If an {@link Ext.data.XmlReader} is being used, this is an {@link Ext.DomQuery} path to the data item relative to the
+ * DOM element that represents the Record. Defaults to the field name.</li>
+ * <li>If an {@link Ext.data.ArrayReader} is being used, this may be a number indicating the Array index of the field's value.
+ * Defaults to the field specification's Array position.</li>
+ * </ul></div></li>
  * <li><b>type</b> : String<div class="sub-desc">(Optional) The data type for conversion to displayable value. Possible values are
  * <ul><li>auto (Default, implies no conversion)</li>
  * <li>string</li>
