@@ -43,6 +43,10 @@
     width:44px; /* 3px IE margin issue */
 }
 
+.x-window-dlg .x-dlg-icon .ext-mb-content{
+    zoom: 1; margin-left: 47px;
+}
+
 .x-window-dlg .ext-mb-info, .x-window-dlg .ext-mb-warning, .x-window-dlg .ext-mb-question, .x-window-dlg .ext-mb-error {
     background:transparent no-repeat top left;
 }
