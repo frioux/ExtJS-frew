@@ -396,16 +396,16 @@ Ext.layout.BorderLayout.Region.prototype = {
                 this.collapsedEl.addClassOnOver("x-layout-collapsed-over");
                 this.collapsedEl.on('click', this.onExpandClick, this, {stopEvent:true});
             }else {
-                if(this.collapsible !== false) {
+                if(this.collapsible !== false && !this.hideCollapseTool) {
                     var t = this.toolTemplate.append(
                             this.collapsedEl.dom,
                             {id:'expand-'+this.position}, true);
                     t.addClassOnOver('x-tool-expand-'+this.position+'-over');
                     t.on('click', this.onExpandClick, this, {stopEvent:true});
                 }
-                if(this.floatable !== false){
+                if(this.floatable !== false || this.titleCollapse){
                    this.collapsedEl.addClassOnOver("x-layout-collapsed-over");
-                   this.collapsedEl.on("click", this.collapseClick, this);
+                   this.collapsedEl.on("click", this[this.floatable ? 'collapseClick' : 'onExpandClick'], this);
                 }
             }
         }
