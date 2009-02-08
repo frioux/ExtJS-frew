@@ -520,7 +520,7 @@ function(grid, rowIndex, columnIndex, e) {
         if(this.loadMask){
             this.loadMask.destroy();
             this.loadMask = new Ext.LoadMask(this.bwrap,
-                    Ext.apply({store:store}, this.initialConfig.loadMask));
+                    Ext.apply({}, {store:store}, this.initialConfig.loadMask));
         }
         this.view.bind(store, colModel);
         this.store = store;
