@@ -183,7 +183,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
 	onFirstLayout: function(ii) {
 		this.mon(this.inputItem.el, "keydown", this.onPagingKeyDown, this);
 		this.mon(this.inputItem.el, "blur", this.onPagingBlur, this);
-		this.mon(this.inputItem.el, "focus", function(){this.select();});
+		this.mon(this.inputItem.el, "focus", this.onPagingFocus, this);
 
         this.field = this.inputItem.el.dom;
         if(this.dsLoaded){
@@ -260,6 +260,10 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         }
         return pageNum;
     },
+    
+    onPagingFocus: function(){
+        this.field.select();
+    },
 
     //private
     onPagingBlur: function(e){
@@ -267,7 +271,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
     },
 
     // private
-    onPagingKeydown : function(e){
+    onPagingKeyDown : function(e){
         var k = e.getKey(), d = this.getPageData(), pageNum;
         if (k == e.RETURN) {
             e.stopEvent();
