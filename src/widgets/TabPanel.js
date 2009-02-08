@@ -331,19 +331,6 @@ var tabs = new Ext.TabPanel({
             this.stack = Ext.TabPanel.AccessStack();
         }
         this.initItems();
-        if(this.activeTab !== undefined && typeof this.activeTab != 'object'){
-           this.activeTab = this.items.get(this.activeTab);
-        }
-    },
-
-    // private
-    render : function(){
-        Ext.TabPanel.superclass.render.apply(this, arguments);
-        if(this.activeTab !== undefined){
-            var item = this.activeTab;
-            delete this.activeTab;
-            this.setActiveTab(item);
-        }
     },
 
     // private
@@ -389,6 +376,11 @@ var tabs = new Ext.TabPanel({
         Ext.TabPanel.superclass.afterRender.call(this);
         if(this.autoTabs){
             this.readTabs(false);
+        }
+        if(this.activeTab !== undefined){
+            var item = (typeof this.activeTab == 'object') ? this.activeTab : this.items.get(this.activeTab);
+            delete this.activeTab;
+            this.setActiveTab(item);
         }
     },
 
@@ -470,7 +462,7 @@ var tabs = new Ext.TabPanel({
             tab.removeAttribute('title');
             this.add({
                 title: title,
-                el: tab
+                contentEl: tab
             });
         }
     },
