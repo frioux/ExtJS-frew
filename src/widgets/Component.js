@@ -392,18 +392,20 @@ new Ext.FormPanel({
      */
     /**
      * @cfg {Mixed} applyTo
-     * The id of the node, a DOM node or an existing Element corresponding to a DIV that is already present in
-     * the document that specifies some structural markup for this component. Not all components support applyTo. Use of
-     * applyTo assumes all markup and elements are in the spots where they should be and the component can be rendered immediately (turns off deferred rendering). It should be used SPARINGLY.
-     * For standard rendering using existing markup, use the "el" config. When applyTo is used, constituent parts of the component can also be specified by id or CSS class name within
-     * the main element, and the component being created may attempt to create its subcomponents from that markup if applicable. Using this config, a call to render() is
+     * The id of the element, a DOM element or an existing Element corresponding to a DIV that is already present in
+     * the document that specifies some structural markup for this component.  When applyTo is used, constituent parts of
+     * the component can also be specified by id or CSS class name within the main element, and the component being created
+     * may attempt to create its subcomponents from that markup if applicable. Using this config, a call to render() is
      * not required.  If applyTo is specified, any value passed for {@link #renderTo} will be ignored and the target
      * element's parent node will automatically be used as the component's container.
      */
     /**
      * @cfg {Mixed} renderTo
-     * The id of the node, a DOM node or an existing Element that will be the container to render this component into.
-     * Using this config, a call to render() is not required.
+     * <p>The id of the element, a DOM element or an existing Element that this component will be rendered into.
+     * When using this config, a call to render() is not required.<p>
+     * <p>If this Component needs to be managed by a {@link Ext.Container Container}'s
+     * {@link Ext.Component#layout layout manager}, do not use this option. It is the responsiblity
+     * of the Container's layout manager to perform rendering. See {@link #render}.</p>
      */
 
     /**
