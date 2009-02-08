@@ -30,10 +30,5 @@ Ext.menu.DateMenu = function(config){
     }, this);
 };
 Ext.extend(Ext.menu.DateMenu, Ext.menu.Menu, {
-    cls:'x-date-menu',
-
-    // private
-    beforeDestroy : function() {
-        this.picker.destroy();
-    }
+    cls:'x-date-menu'
 });

@@ -47,5 +47,11 @@ Ext.extend(Ext.menu.Adapter, Ext.menu.BaseItem, {
     enable : function(){
         this.component.enable();
         Ext.menu.Adapter.superclass.enable.call(this);
+    },
+    
+    //private
+    onDestroy: function(){
+        Ext.destroy(this.component);
+        Ext.menu.Adapter.superclass.onDestroy.call(this);
     }
 });
