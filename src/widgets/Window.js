@@ -297,18 +297,20 @@ Ext.Window = Ext.extend(Ext.Panel, {
 
     // private
     beforeDestroy : function(){
-        this.hide();
-		if(this.doAnchor){
-		    Ext.EventManager.removeResizeListener(this.doAnchor, this);
-		    Ext.EventManager.un(window, 'scroll', this.doAnchor, this);
+        if (this.rendered){
+            this.hide();
+		  if(this.doAnchor){
+		        Ext.EventManager.removeResizeListener(this.doAnchor, this);
+		      Ext.EventManager.un(window, 'scroll', this.doAnchor, this);
+            }
+            Ext.destroy(
+                this.focusEl,
+                this.resizer,
+                this.dd,
+                this.proxy,
+                this.mask
+            );
         }
-        Ext.destroy(
-            this.focusEl,
-            this.resizer,
-            this.dd,
-            this.proxy,
-            this.mask
-        );
         Ext.Window.superclass.beforeDestroy.call(this);
     },
 
