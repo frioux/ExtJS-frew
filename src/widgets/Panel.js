@@ -220,6 +220,33 @@ tools:[{
      * necessary behavior.
      */
     /**
+     * @cfg toolTemplate
+     * @type {Ext.Template/Ext.XTemplate}
+     * <p>A Template used to create tools in the {@link #header} Element. Defaults to:</p><pre><code>
+new Ext.Template('&lt;div class="x-tool x-tool-{id}">&amp;#160;&lt;/div>')</code></pre>
+     * <p>This may may be overridden to provide a custom DOM structure for tools based upon a more
+     * complex XTemplate. The template's data is a single tool configuration object (Not the entire Array)
+     * as specified in {@link #tools} Example:</p><pre><code>
+var win = new Ext.Window({
+    tools: [{
+        id: 'download',
+        href: '/MyPdfDoc.pdf'
+    }],
+    toolTemplate: new Ext.XTemplate(
+        '&lt;tpl if="id==\'download\'">',
+            '&lt;a class="x-tool x-tool-pdf" href="{href}">&lt;/a>',
+        '&lt;/tpl>',
+        '&lt;tpl if="id!=\'download\'">',
+            '&lt;div class="x-tool x-tool-{id}">&amp;#160;&lt;/div>',
+        '&lt;/tpl>'
+    ),
+    width:500,
+    height:300,
+    closeAction:'hide'
+});</code></pre>
+     * <p>Note that the CSS class "x-tool-pdf" should have an associated style rule which provides an appropriate background image.</p>
+     */
+    /**
      * @cfg {Boolean} hideCollapseTool
      * True to hide the expand/collapse toggle button when {@link #collapsible} = true, false to display it (defaults to false).
      */
