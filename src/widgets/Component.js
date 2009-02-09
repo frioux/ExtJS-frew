@@ -452,12 +452,12 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
      */
 
     /**
-     * @cfg {String} autoEl
+     * @cfg {Mixed} autoEl
      * <p>A tag name or {@link Ext.DomHelper DomHelper} spec used to create the {@link #getEl Element} which will
      * encapsulate this Component.</p>
-     * <p>You do not normally need to specify this. For Component, BoxComponent, and Container, this defaults
-     * to <b><tt>'div'</tt></b>. The more complex Ext classes use a more complex DOM structure created by their own
-     * onRender methods.</p>
+     * <p>You do not normally need to specify this. For the base classes {@link Ext.Component}, {@link Ext.BoxComponent},
+     * and {@link Ext.Container}, this defaults to <b><tt>'div'</tt></b>. The more complex Ext classes use a more complex
+     * DOM structure created by their own onRender methods.</p>
      * <p>This is intended to allow the developer to create application-specific utility Components encapsulated by
      * different DOM elements. Example usage:</p><pre><code>
 {
