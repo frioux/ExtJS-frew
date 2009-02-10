@@ -8,7 +8,14 @@
  */
 Ext.ToolTip = Ext.extend(Ext.Tip, {
     /**
-     * @cfg {Mixed} target The target HTMLElement, Ext.Element or id to associate with this tooltip.
+     * When a Tooltip is configured with the {@link #delegate} option to cause selected child elements of the {@link #target}
+     * Element to each trigger a seperate show event, this property is set to the DOM element which triggered the show.
+     * @type DOMElement
+     * @property triggerElement
+     */
+    /**
+     * @cfg {Mixed} target The target HTMLElement, Ext.Element or id to monitor for mouseover events to trigger
+     * showing this ToolTip.
      */
     /**
      * @cfg {Boolean} autoHide True to automatically hide the tooltip after the mouse exits the target element
@@ -38,6 +45,32 @@ Ext.ToolTip = Ext.extend(Ext.Tip, {
      * @cfg {Boolean} trackMouse True to have the tooltip follow the mouse as it moves over the target element (defaults to false).
      */
     trackMouse : false,
+    /**
+     * @cfg {String} delegate <p>Optional. A {@link Ext.DomQuery DomQuery} selector which allows selection of individual elements
+     * within the {@link #target} element to trigger showing and hiding the ToolTip as the mouse moves within the target.</p>
+     * <p>When specified, the child element of the target which caused a show event is placed into the {@link #triggerElement} property.
+     * before the ToolTip is shown.</p>
+     * This may be useful when a Component has regular, repeating elements in it, each of which need a Tooltip which contains
+     * information specific to that element. For example:<code><pre>
+var myGrid = new Ext.grid.gridPanel(gridConfig);
+myGrid.on('render', function(grid) {
+    var store = grid.getStore();  // Capture the Store.
+    var view = grid.getView();    // Capture the GridView.
+    myGrid.tip = new Ext.ToolTip({
+        target: view.mainBody,    // The overall target element.
+        delegate: '.x-grid3-row', // Each grid row causes its own seperate show and hide.
+        trackMouse: true,         // Moving within the row should not hide the tip.
+        renderTo: document.body,  // Render immediately so that tip.body can be referenced prior to the first show.
+        listeners: {              // Change content dynamically depending on which element triggered the show.
+            beforeshow: function updateTipBody(tip) {
+                var rowIndex = view.findRowIndex(tip.triggerElement);
+                tip.body.dom.innerHTML = "Over Record ID " + store.getAt(rowIndex).id;
+            }
+        }
+    });
+});</pre></code>
+     */
+
     constrainPosition: true,
 
     // private
