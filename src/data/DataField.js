@@ -103,12 +103,12 @@ Ext.data.Field.prototype = {
     /**
      * @cfg {String} type
      * (Optional) The data type for conversion to displayable value. Possible values are
-     * <ul><li>auto (Default, implies no conversion)</li>
+     * <div class="mdetail-params"><ul><li>auto (Default, implies no conversion)</li>
      * <li>string</li>
      * <li>int</li>
      * <li>float</li>
      * <li>boolean</li>
-     * <li>date</li></ul>
+     * <li>date</li></ul></div>
      */
     /**
      * @cfg {Function} convert
