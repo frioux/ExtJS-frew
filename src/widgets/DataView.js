@@ -246,11 +246,11 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
                 el.update(this.emptyText);
             }
             this.all.clear();
-            return;
+        }else{
+            this.tpl.overwrite(el, this.collectData(records, 0));
+            this.all.fill(Ext.query(this.itemSelector, el.dom));
+            this.updateIndexes(0);
         }
-        this.tpl.overwrite(el, this.collectData(records, 0));
-        this.all.fill(Ext.query(this.itemSelector, el.dom));
-        this.updateIndexes(0);
         this.hasSkippedEmptyText = true;
     },
 
