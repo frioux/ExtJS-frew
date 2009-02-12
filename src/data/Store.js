@@ -484,7 +484,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
      * must have been configured in the constructor.
      * @param {Object} data The data block from which to read the Records.  The format of the data expected
      * is dependent on the type of Reader that is configured and should correspond to that Reader's readRecords parameter.
-     * @param {Boolean} add (Optional) True to add the new Records rather than replace the existing cache. <b>Remember that
+     * @param {Boolean} append (Optional) True to append the new Records rather than replace the existing cache. <b>Remember that
      * Records in a Store are keyed by their {@link Ext.data.Record#id id}, so added Records with ids which are already present in
      * the Store will <i>replace</i> existing Records. Records with new, unique ids will be added.</b>
      */
