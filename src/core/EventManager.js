@@ -483,8 +483,7 @@ Ext.onReady = Ext.EventManager.onDocumentReady;
 
 /**
  * @class Ext.EventObject
- * EventObject exposes the Yahoo! UI Event functionality directly on the object
- * passed to your event handler. It exists mostly for convenience. It also fixes the annoying null checks automatically to cleanup your code
+ * EventObject encapsulates a DOM event adjusting for browser differences.
  * Example:
  * <pre><code>
  function handleClick(e){ // e is not a standard event object, it is a Ext.EventObject
@@ -529,7 +528,7 @@ Ext.EventObject = function(){
     };
 
     Ext.EventObjectImpl.prototype = {
-        /** The normal browser event */
+        /** The encapsulated browser event */
         browserEvent : null,
         /** The button pressed in a mouse event */
         button : -1,

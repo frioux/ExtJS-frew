@@ -1,7 +1,10 @@
 /**
  * @class Ext.Element
- * Encapsulates a DOM element, adding simple DOM manipulation facilities, normalizing for browser differences.<br><br>
- * Usage:<br>
+ * <p>Encapsulates a DOM element, adding simple DOM manipulation facilities, normalizing for browser differences.</p>
+ * <p>Note that the events documented in this class are not Ext events, they encapsulate browser events. To
+ * access the underlying browser event, see {@link Ext.EventObject#browserEvent}. Some older
+ * browsers may not support the full range of events. Which events are supported is beyond the control of ExtJs.</p>
+ * <p>Usage:</p>
 <pre><code>
 // by id
 var el = Ext.get("my-div");
@@ -95,6 +98,179 @@ Ext.Element = function(element, forceNew){
 var El = Ext.Element;
 
 El.prototype = {
+//  Mouse events
+    /**
+     * @event click
+     * Fires when a mouse click is detected with the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event dblclick
+     * Fires when a mouse double click is detected with the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event mousedown
+     * Fires when a mousedown is detected with the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event mouseup
+     * Fires when a mouseup is detected with the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event mouseover
+     * Fires when a mouseover is detected with the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event mousemove
+     * Fires when a mousemove is detected with the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event mouseout
+     * Fires when a mouseout is detected with the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+
+//  Keyboard events
+    /**
+     * @event keypress
+     * Fires when a keypress is detected with the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event keydown
+     * Fires when a keydown is detected with the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event keyup
+     * Fires when a keyup is detected with the element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+
+
+//  HTML frame/object events
+    /**
+     * @event load
+     * Fires when the user agent finishes loading all content within the element. Only supported by window, frames, objects and images.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event unload
+     * Fires when the user agent removes all content from a window or frame. For elements, it fires when the target element or any of its content has been removed.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event abort
+     * Fires when an object/image is stopped from loading before completely loaded.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event error
+     * Fires when an object/image/frame cannot be loaded properly.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event resize
+     * Fires when a document view is resized.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event scroll
+     * Fires when a document view is scrolled.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+
+//  Form events
+    /**
+     * @event select
+     * Fires when a user selects some text in a text field, including input and textarea.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event change
+     * Fires when a control loses the input focus and its value has been modified since gaining focus.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event submit
+     * Fires when a form is submitted.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event reset
+     * Fires when a form is reset.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event focus
+     * Fires when an element receives focus either via the pointing device or by tab navigation.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event blur
+     * Fires when an element loses focus either via the pointing device or by tabbing navigation.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+
+//  User Interface events
+    /**
+     * @event DOMFocusIn
+     * Where supported. Similar to HTML focus event, but can be applied to any focusable element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event.
+     */
+    /**
+     * @event DOMFocusOut
+     * Where supported. Similar to HTML blur event, but can be applied to any focusable element.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event DOMActivate
+     * Where supported. Fires when an element is activated, for instance, through a mouse click or a keypress.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+
+//  DOM Mutation events
+    /**
+     * @event DOMSubtreeModified
+     * Where supported. Fires when the subtree is modified.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event DOMNodeInserted
+     * Where supported. Fires when a node has been added as a child of another node.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event DOMNodeRemoved
+     * Where supported. Fires when a descendant node of the element is removed.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event DOMNodeRemovedFromDocument
+     * Where supported. Fires when a node is being removed from a document.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event DOMNodeInsertedIntoDocument
+     * Where supported. Fires when a node is being inserted into a document.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event DOMAttrModified
+     * Where supported. Fires when an attribute has been modified.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+    /**
+     * @event DOMCharacterDataModified
+     * Where supported. Fires when the character data has been modified.
+     * @param {Ext.EventObject} e The {@link Ext.EventObject} encapsulating the DOM event
+     */
+
     /**
      * The element's default display mode  (defaults to "")
      * @type String
