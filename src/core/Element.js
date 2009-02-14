@@ -2517,7 +2517,6 @@ El._flyweights = {};
  * @param {String} named (optional) Allows for creation of named reusable flyweights to prevent conflicts
  * (e.g. internally Ext uses "_global")
  * @return {Element} The shared Element object (or null if no matching element was found)
- * @static
  * @member Ext.Element
  * @method fly
  */
