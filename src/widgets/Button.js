@@ -242,7 +242,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
   * <p>Instances or subclasses which use a different Template to create a different DOM structure may need to provide their
   * own implementation of this method.</p>
   * <p>The default implementation which provides data for the default {@link #template} returns an Array containing the
-  * following items:</p><div class="sub-desc"><ul>
+  * following items:</p><div class="mdetail-params"><ul>
   * <li>The Button's {@link #text}</li>
   * <li>The &lt;button&gt;'s {@link #type}</li>
   * <li>The {@link iconCls} applied to the &lt;button&gt; {@link #btnEl element}</li>
