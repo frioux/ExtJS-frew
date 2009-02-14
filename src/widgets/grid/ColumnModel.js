@@ -43,8 +43,10 @@
 */
 Ext.grid.ColumnModel = function(config){
     /**
-     * The config passed into the constructor
-     * @property {Array} config
+     * An Array of {@link Ext.Ext.grid.Column Column definition} objects representing the configuration
+     * of this ColumnModel.
+     * @property config
+     * @type Array
      */
     if(config.columns){
         Ext.apply(this, config);
@@ -151,9 +153,10 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * Defaults to ''.
      */
     /**
-     * @cfg {Function} renderer (optional) A function used to generate HTML markup for a cell
-     * given the cell's data value. See {@link #setRenderer}. If not specified, the
-     * default renderer uses the raw data value.
+     * @cfg {Function/String} renderer (optional) This may be one of two types:<div class="mdetail-params"><ul>
+     * <li>A function used to generate HTML markup for a cell given the cell's data value. See {@link #setRenderer}.</li>
+     * <li>A string which references a property name of the {@link Ext.util.Format} class which provides a rendering function.</li>
+     * </ul></div> If not specified, the default renderer uses the raw data value.
      */
     /**
      * @cfg {String} align (optional) Set the CSS text-align property of the column.  Defaults to undefined.
@@ -184,6 +187,10 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * <li><b>colIndex</b> : Number<p class="sub-desc">The column index of the group field.</p></li>
      * <li><b>ds</b> : Ext.data.Store<p class="sub-desc">The Store which is providing the data Model.</p></li>
      * </ul></div></p>
+     */
+    /**
+     * @cfg {String} xtype (optional) A String which references a defined property of {@link Ext.grid.Column#types}. This
+     * allows predefined column types containing custom renderers to be easily configured into a ColumnModel.
      */
 
     /**

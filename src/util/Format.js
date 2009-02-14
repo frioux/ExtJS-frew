@@ -223,7 +223,6 @@ Ext.util.Format = function(){
             }
         }(),
 
-
         /**
          * Formats the number according to the format string.
          * <div style="margin-left:40px">examples (123456.789):
@@ -238,11 +237,9 @@ Ext.util.Format = function(){
           * For example: 0.000,00/i
          * </div</div>
          *
-         * @method format
          * @param v {Number} The number to format.
          * @param format {String} The way you would like to format this text.
          * @return {String} The formatted number.
-         * @public
          */
         number: function(v, format) {
             if(!format){
