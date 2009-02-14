@@ -7,14 +7,14 @@
  * <p><b>Note:</b> TabPanels use their {@link Ext.Panel#header header} or {@link Ext.Panel#footer footer} element
  * (depending on the {@link #tabPosition} configuration) to accommodate the tab selector buttons. This means that a TabPanel
  * will not display any configured title, and will not display any configured header {@link Ext.Panel#tools tools}.
- * To display a header, embed the TabPanel in a {@link Ext.Container Container} which uses
+ * To display a header, embed the TabPanel in a {@link Ext.Panel Panel} which uses
  * <b><tt>{@link Ext.Container#layout layout: 'fit'}</tt></b>.
  * </p>
  * <p><b>Note:</b> It is advisable to configure all child items of a TabPanel (and any Container which uses a CardLayout) with
  * <b><tt>{@link Ext.Component#hideMode hideMode: 'offsets'}</tt></b> to avoid rendering errors in child components hidden
  * using the CSS <tt>display</tt> style.
  * </p>
- * <p>There is no actual tab class &mdash; each tab is simply an {@link Ext.BoxComponent Component} such
+ * <p>There is no actual tab class &mdash; each tab is simply a {@link Ext.BoxComponent Component} such
  * as a {@link Ext.Panel Panel}. However, when rendered in a TabPanel, each child Component can fire
  * additional events that only exist for tabs and are not available from other Component. These are:
  * </p>

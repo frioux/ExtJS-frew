@@ -109,8 +109,8 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
      * GridView's {@link Ext.grid.GridView#dragZone dragZone} property.</p>
      * <p>A cooperating {@link Ext.dd.DropZone DropZone} must be created who's implementations of
      * {@link Ext.dd.DropZone#onNodeEnter onNodeEnter}, {@link Ext.dd.DropZone#onNodeOver onNodeOver},
-     * {@link Ext.dd.DropZone#onNodeOut onNodeOut} and {@link Ext.dd.DropZone#onNodeDrop onNodeDrop}</p> are able
-     * to process the {@link Ext.grid.GridDragZone#getDragData data} which is provided. 
+     * {@link Ext.dd.DropZone#onNodeOut onNodeOut} and {@link Ext.dd.DropZone#onNodeDrop onNodeDrop} are able
+     * to process the {@link Ext.grid.GridDragZone#getDragData data} which is provided.</p>
      */
     enableDragDrop : false,
     /**
@@ -130,7 +130,7 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
      * <p>This causes the CSS class <tt><b>x-grid3-row-alt</b></tt> to be added to alternate rows of
      * the grid. A default CSS rule is provided which sets a background colour, but you can override this
      * with a rule which either overrides the <b>background-color</b> style using the "!important"
-     * modifier, or which uses a CSS selector of higher specificity.
+     * modifier, or which uses a CSS selector of higher specificity.</p>
      */
     stripeRows : false,
     /**

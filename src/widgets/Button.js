@@ -1,7 +1,7 @@
 
 /**
  * @class Ext.Button
- * @extends Ext.Component
+ * @extends Ext.BoxComponent
  * Simple Button class
  * @cfg {String} text The button text
  * @cfg {String} icon The path to an image to display in the button (the image will be set as the background-image
