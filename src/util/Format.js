@@ -234,11 +234,10 @@ Ext.util.Format = function(){
          * 0,000.00 - (123,456.78) show comma and digits, 2 precision<br>
          * 0,0.00 - (123,456.78) shortcut method, show comma and digits, 2 precision<br>
          * To reverse the grouping (,) and decimal (.) for international numbers, add /i to the end.
-          * For example: 0.000,00/i
-         * </div</div>
-         *
-         * @param v {Number} The number to format.
-         * @param format {String} The way you would like to format this text.
+         * For example: 0.000,00/i
+         * </div></div>
+         * @param {Number} v The number to format.
+         * @param {String} format The way you would like to format this text.
          * @return {String} The formatted number.
          */
         number: function(v, format) {
