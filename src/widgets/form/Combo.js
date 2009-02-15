@@ -529,17 +529,19 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
 
     // private
     onDestroy : function(){
-        if(this.view){
-            Ext.destroy(this.view);
-        }
-        if(this.list){
-            this.list.destroy();
-        }
         if (this.dqTask){
             this.dqTask.cancel();
             this.dqTask = null;
         }
         this.bindStore(null);
+        if(this.resizable){
+            this.resizer.destroy(true);
+        }
+        Ext.destroy(
+            this.view,
+            this.pageTb,
+            this.list
+        );
         Ext.form.ComboBox.superclass.onDestroy.call(this);
     },
 
