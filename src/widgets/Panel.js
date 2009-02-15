@@ -220,7 +220,7 @@ tools:[{
      * necessary behavior.
      */
     /**
-     * @cfg toolTemplate
+     * @cfg {Ext.Template/Ext.XTemplate} toolTemplate
      * @type {Ext.Template/Ext.XTemplate}
      * <p>A Template used to create tools in the {@link #header} Element. Defaults to:</p><pre><code>
 new Ext.Template('&lt;div class="x-tool x-tool-{id}">&amp;#160;&lt;/div>')</code></pre>
@@ -262,12 +262,15 @@ var win = new Ext.Window({
      */
     /**
      * @cfg {Boolean} floating
-     * True to float the panel (absolute position it with automatic shimming and shadow), false to display it
-     * inline where it is rendered (defaults to false).  Note that by default, setting floating to true will cause the
-     * panel to display at negative offsets so that it is hidden -- because the panel is absolute positioned, the
-     * position must be set explicitly after render (e.g., myPanel.setPosition(100,100);).  Also, when floating a
-     * panel you should always assign a fixed width, otherwise it will be auto width and will expand to fill to the
-     * right edge of the viewport.
+     * <p>True to float this Panel (absolute position it with automatic shimming and shadow), false to display it inline
+     * where it is rendered (defaults to false).</p>
+     * <p>Setting floating to true will create an {@link Ext.Layer} encapsulating this Panel's Element and
+     * display the Panel at negative offsets so that it is hidden. The position must be set explicitly after render
+     * (e.g., myPanel.setPosition(100,100);).</p>
+     * <p>When floating a panel you should always assign a fixed width, otherwise it will be auto width and will expand
+     * to fill to the right edge of the viewport.</p>
+     * <p>This property may also be specified as an object to be used as the configuration object for
+     * the {@link Ext.Layer} that will be created.
      */
     /**
      * @cfg {Boolean/String} shadow
