@@ -59,14 +59,15 @@ Ext.util.TaskRunner = function(interval){
                 return;
             }
         }
-        var now = new Date().getTime();
+        var c, now = new Date().getTime();
         for(var i = 0, len = tasks.length; i < len; ++i){
             var t = tasks[i];
             var itime = now - t.taskRunTime;
             if(t.interval <= itime){
-                var rt = t.run.apply(t.scope || t, t.args || [++t.taskRunCount]);
+                var c = ++t.taskRunCount;
+                var rt = t.run.apply(t.scope || t, t.args || [c]);
                 t.taskRunTime = now;
-                if(rt === false || t.taskRunCount === t.repeat){
+                if(rt === false || c === t.repeat){
                     removeTask(t);
                     return;
                 }
