@@ -74,6 +74,7 @@ alt         Boolean          True to handle key only when alt is pressed (defaul
 handler     Function         The function to call when KeyMap finds the expected key combination
 fn          Function         Alias of handler (for backwards-compatibility)
 scope       Object           The scope of the callback function
+stopEvent   Boolean          True to stop the event from bubbling and prevent the default browser action if the key was handled by the KeyMap (defaults to false)
 </pre>
      *
      * Usage:
