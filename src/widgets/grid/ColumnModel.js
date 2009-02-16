@@ -21,19 +21,26 @@
  * <p>
  * The config options <b>defined by</b> this class are options which may appear in each
  * individual column definition. In order to use configuration options from the superclass,
- * specify the column configuration Array in the <tt><b>columns</b></tt> config property. eg:<pre><code>
+ * specify the column configuration Array in the <tt><b>columns</b></tt> config property. 
+ * The <tt><b>defaults</b></tt> config property can be used to apply defaults for all columns
+ * eg:<pre><code>
  var colModel = new Ext.grid.ColumnModel({
+    defaults: {
+        sortable: true,
+        menuDisabled: true,
+        width: 100
+    },
     listeners: {
         widthchange: function(cm, colIndex, width) {
             saveConfig(colIndex, width);
         }
     },
     columns: [
-        { header: "Ticker", width: 60, sortable: true},
-        { header: "Company Name", width: 150, sortable: true},
-        { header: "Market Cap.", width: 100, sortable: true},
-        { header: "$ Sales", width: 100, sortable: true, renderer: money},
-        { header: "Employees", width: 100, sortable: true, resizable: false}
+        { header: "Ticker", width: 60, menuDisabled: false},
+        { header: "Company Name", width: 150},
+        { header: "Market Cap."},
+        { header: "$ Sales", renderer: money},
+        { header: "Employees", resizable: false}
      ]
 });
  </code></pre>
@@ -223,6 +230,13 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
                 }
             }
         }
+        
+        // backward compatibility
+        Ext.applyIf(this.defaults, {
+            width: this.defaultWidth,
+            sortable: this.defaultSortable
+        });
+        
         this.config = config;
         this.lookup = {};
         // if no id, create one
@@ -317,9 +331,6 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * @return {Boolean}
      */
     isSortable : function(col){
-        if(typeof this.config[col].sortable == "undefined"){
-            return this.defaultSortable;
-        }
         return this.config[col].sortable;
     },
 
@@ -371,7 +382,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * @return {Number}
      */
     getColumnWidth : function(col){
-        return this.config[col].width || this.defaultWidth;
+        return this.config[col].width;
     },
 
     /**
