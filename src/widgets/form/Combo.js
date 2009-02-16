@@ -371,7 +371,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
             if(this.pageSize){
                 this.footer = this.list.createChild({cls:cls+'-ft'});
                 this.pageTb = new Ext.PagingToolbar({
-                    store:this.store,
+                    store: this.store,
                     pageSize: this.pageSize,
                     renderTo:this.footer
                 });
@@ -490,8 +490,15 @@ var menu = new Ext.menu.Menu({
             }
         }
         if(store){
+			if(!initial) {
+				this.lastQuery = null;
+				if(this.pageTb) {
+					this.pageTb.unbind(this.store);
+					this.pageTb.bind(store);
+				}				
+			}
+					
             this.store = Ext.StoreMgr.lookup(store);
-
             this.store.on('beforeload', this.onBeforeLoad, this);
             this.store.on('load', this.onLoad, this);
             this.store.on('loadexception', this.collapse, this);
