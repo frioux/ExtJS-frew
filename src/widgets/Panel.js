@@ -995,9 +995,11 @@ new Ext.Panel({
     createToolHandler : function(t, tc, overCls, panel){
         return function(e){
             t.removeClass(overCls);
-            e.stopEvent();
+			if(tc.stopEvent !== false){
+				e.stopEvent();
+			}            
             if(tc.handler){
-                tc.handler.call(tc.scope || t, e, t, panel);
+                tc.handler.call(tc.scope || t, e, t, panel, tc);
             }
         };
     },
