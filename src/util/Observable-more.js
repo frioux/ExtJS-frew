@@ -113,14 +113,18 @@ Ext.applyIf(Ext.util.Observable.prototype, function(){
 		 * @param {Object} events
 		 */
 		enableBubble : function(events) {
-			events = Ext.isArray(events) ? events : Array.prototype.slice.call(arguments, 0);
-			for(var i = 0, len = events.length; i < len; i++) {
-				var eventName = events[i].toLowerCase();
-	
-				var ce = this.events[eventName] || true;
+			var me = this,
+				i,
+				len,
+				ce,
+				eventName;
+			events = Ext.isArray(events) ? events : Ext.toArray(events);
+			for(i = 0, len = events.length; i < len; i++) {
+				eventName = events[i].toLowerCase();	
+				ce = me.events[eventName] || true;
 				if(typeof ce == "boolean") {
-					ce = new Ext.util.Event(this, eventName);
-					this.events[eventName] = ce;
+					ce = new Ext.util.Event(me, eventName);
+					me.events[eventName] = ce;
 				}
 				ce.bubble = true;
 			}
