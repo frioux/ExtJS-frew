@@ -117,20 +117,6 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
                 this.elementStyle = "padding-left:0;";
             }
         }
-
-        if(!this.fieldTpl){
-            // the default field template used by all form layouts
-            var t = new Ext.Template(
-                '<div class="x-form-item {5}" tabIndex="-1">',
-                    '<label for="{0}" style="{2}" class="x-form-item-label">{1}{4}</label>',
-                    '<div class="x-form-element" id="x-form-el-{0}" style="{3}">',
-                    '</div><div class="{6}"></div>',
-                '</div>'
-            );
-            t.disableFormats = true;
-            t.compile();
-            Ext.layout.FormLayout.prototype.fieldTpl = t;
-        }
     },
 
     //private
@@ -150,14 +136,7 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
     // private
     renderItem : function(c, position, target){
         if(c && !c.rendered && (c.isFormField || c.fieldLabel) && c.inputType != 'hidden'){
-            var args = [
-                   c.id, c.fieldLabel,
-                   this.getLabelStyle(c.labelStyle),
-                   this.elementStyle||'',
-                   typeof c.labelSeparator == 'undefined' ? this.labelSeparator : c.labelSeparator,
-                   (c.itemCls||this.container.itemCls||'') + (c.hideLabel ? ' x-hide-label' : ''),
-                   c.clearCls || 'x-form-clear-left' 
-            ];
+            var args = this.getTemplateArgs(c);
             if(typeof position == 'number'){
                 position = target.dom.childNodes[position] || null;
             }
@@ -172,6 +151,35 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
         }
     },
 
+    /**
+     * <p>Provides template arguments for rendering the fully wrapped, labeled and styled formField.</p>
+     * <p>This method returns an object hash containing properties used by the layout's {@link #fieldTpl}
+     * to create a correctly wrapped, labeled and styled form Field. This may be overriden to
+     * create custom layouts. The properties which must be returned are:</p><ul>
+     * <li><b>id</b> : String<div class="sub-desc">The id of the Field</li>
+     * <li><b>label</b> : String<div class="sub-desc">The label text for the Field</li>
+     * <li><b>labelStyle</b> : String<div class="sub-desc">The style text for the Field's label</li>
+     * <li><b>elementStyle</b> : String<div class="sub-desc">The styles text for the input element's wrapper.</li>
+     * <li><b>labelSeparator</b> : String<div class="sub-desc">The label separator.</li>
+     * <li><b>itemCls</b> : String<div class="sub-desc">The class applied to the outermost wrapper</li>
+     * <li><b>clearCls</b> : String<div class="sub-desc">The class applied to the field "clear" element.</li>
+     * </ul>
+     * @param field The {@link Field Ext.form.Field} being rendered.
+     * @return An object hash containing the properties required to render the Field.
+     */
+    getTemplateArgs: function(field) {
+        var noLabelSep = !field.fieldLabel || field.hideLabel;
+        return {
+            id: field.id,
+            label: field.fieldLabel,
+            labelStyle: field.labelStyle||this.labelStyle||'',
+            elementStyle: this.elementStyle||'',
+            labelSeparator: noLabelSep ? '' : (typeof field.labelSeparator == 'undefined' ? this.labelSeparator : field.labelSeparator),
+            itemCls: (field.itemCls||this.container.itemCls||'') + (field.hideLabel ? ' x-hide-label' : ''),
+            clearCls: field.clearCls || 'x-form-clear-left' 
+        };
+    },
+	
     // private
     adjustWidthAnchor : function(value, comp){
         return value - (comp.isFormField || comp.fieldLabel  ? (comp.hideLabel ? 0 : this.labelAdjust) : 0);

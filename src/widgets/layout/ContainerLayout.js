@@ -149,6 +149,26 @@ Ext.layout.ContainerLayout.prototype = {
         };
     },
 
+    /**
+     * @cfg {Ext.Template} fieldTpl
+     * A {@link Template Ext.Template} used by Field rendering layout classes (such as
+     * {@link Ext.layout.FormLayout}) to create the DOM structure of a fully wrapped,
+     * labeled and styled form Field. A default Template is supplied, but this may be
+     * overriden to create custom field structures. The template processes values returned from
+     * {@link Ext.form.FormLayout#getTemplateArgs}.
+     */
+    fieldTpl: (function() {
+        var t = new Ext.Template(
+            '<div class="x-form-item {itemCls}" tabIndex="-1">',
+                '<label for="{id}" style="{labelStyle}" class="x-form-item-label">{label}{labelSeparator}</label>',
+                '<div class="x-form-element" id="x-form-el-{id}" style="{elementStyle}">',
+                '</div><div class="{clearCls}"></div>',
+            '</div>'
+        );
+        t.disableFormats = true;
+        return t.compile();
+    })(),
+	
     /*
      * Destroys this layout. This is a template method that is empty by default, but should be implemented
      * by subclasses that require explicit destruction to purge event handlers or remove DOM nodes.
