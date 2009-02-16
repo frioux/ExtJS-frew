@@ -345,7 +345,10 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
             var cls = 'x-combo-list';
 
             this.list = new Ext.Layer({
-                shadow: this.shadow, cls: [cls, this.listClass].join(' '), constrain:false
+				parentEl: this.getListParent(),
+                shadow: this.shadow, 
+				cls: [cls, this.listClass].join(' '), 
+				constrain:false
             });
 
             var lw = this.listWidth || Math.max(this.wrap.getWidth(), this.minListWidth);
@@ -432,6 +435,13 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
                 this[this.pageSize?'footer':'innerList'].setStyle('margin-bottom', this.handleHeight+'px');
             }
         }
+    },
+	
+    /**
+     * Returns the element used to house this ComboBox's  pop-up list. Defaults to the document body
+     */
+    getListParent: function() {
+        return document.body;
     },
     
     /**
