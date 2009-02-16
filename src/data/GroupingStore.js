@@ -28,6 +28,8 @@ Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
      */
     groupOnSort:false,
 
+	groupDir : 'ASC',
+	
     /**
      * Clears any existing grouping and refreshes the data using the default sort.
      */
@@ -50,29 +52,32 @@ Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
      * @param {Boolean} forceRegroup (optional) True to force the group to be refreshed even if the field passed
      * in is the same as the current grouping field, false to skip grouping on the same field (defaults to false)
      */
-    groupBy : function(field, forceRegroup){
-        if(this.groupField == field && !forceRegroup){
+    groupBy : function(field, forceRegroup, direction){
+		direction = direction ? (String(direction).toUpperCase() == 'DESC' ? 'DESC' : 'ASC') : this.groupDir;
+        if(this.groupField == field && this.groupDir == direction && !forceRegroup){
             return; // already grouped by this field
         }
         this.groupField = field;
+		this.groupDir = direction;
         if(this.remoteGroup){
             if(!this.baseParams){
                 this.baseParams = {};
             }
             this.baseParams['groupBy'] = field;
+			this.baseParams['groupDir'] = direction;
         }
         if(this.groupOnSort){
-            this.sort(field);
+            this.sort(field, direction);
             return;
         }
         if(this.remoteGroup){
             this.reload();
         }else{
             var si = this.sortInfo || {};
-            if(si.field != field){
+            if(si.field != field || si.direction != direction){
                 this.applySort();
             }else{
-                this.sortData(field);
+                this.sortData(field, direction);
             }
             this.fireEvent('datachanged', this);
         }
@@ -83,8 +88,8 @@ Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
         Ext.data.GroupingStore.superclass.applySort.call(this);
         if(!this.groupOnSort && !this.remoteGroup){
             var gs = this.getGroupState();
-            if(gs && gs != this.sortInfo.field){
-                this.sortData(this.groupField);
+            if(gs && (gs != this.sortInfo.field || this.groupDir != this.sortInfo.direction)){
+                this.sortData(this.groupField, this.groupDir);
             }
         }
     },
@@ -92,7 +97,7 @@ Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
     // private
     applyGrouping : function(alwaysFireChange){
         if(this.groupField !== false){
-            this.groupBy(this.groupField, true);
+            this.groupBy(this.groupField, true, this.groupDir);
             return true;
         }else{
             if(alwaysFireChange === true){
