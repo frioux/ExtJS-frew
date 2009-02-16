@@ -436,9 +436,33 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
             }
         }
     },
-	
+
     /**
-     * Returns the element used to house this ComboBox's  pop-up list. Defaults to the document body
+     * <p>Returns the element used to house this ComboBox's pop-up list. Defaults to the document body.</p>
+     * A custom implementation my be provided as a configuration option if the floating list needs to be rendered
+     * to a different Element. An example might be rendering the list inside a Menu so that clicking
+     * the list does not hide the Menu:<pre><code>
+var menu = new Ext.menu.Menu({
+    id: 'mainMenu',
+    items: [
+        new Ext.menu.Adapter(new Ext.form.ComboBox({
+            store: store,
+            displayField:'state',
+            typeAhead: true,
+            mode: 'local',
+            triggerAction: 'all',
+            emptyText:'Select a state...',
+            selectOnFocus:true,
+            width:135,
+            getListParent: function() {
+                return this.el.up('.x-menu');
+            }
+        }), {
+            hideOnClick: false
+        })
+    ]
+});
+</code></pre>
      */
     getListParent: function() {
         return document.body;
