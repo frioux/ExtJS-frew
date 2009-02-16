@@ -227,7 +227,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
         this.lookup = {};
         // if no id, create one
         for(var i = 0, len = config.length; i < len; i++){
-            var c = config[i];
+            var c = Ext.applyIf(config[i], this.defaults);
             if(!c.isColumn){
                 var cls = Ext.grid.Column.types[c.xtype || 'gridcolumn'];
                 c = new cls(c);
