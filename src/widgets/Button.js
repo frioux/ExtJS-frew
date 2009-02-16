@@ -318,13 +318,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
             btnEl.dom.tabIndex = this.tabIndex;
         }
         if(this.tooltip){
-            if(typeof this.tooltip == 'object'){
-                Ext.QuickTips.register(Ext.apply({
-                      target: btnEl.id
-                }, this.tooltip));
-            } else {
-                btnEl.dom[this.tooltipType] = this.tooltip;
-            }
+            this.setTooltip(this.tooltip);
         }
 
         if(this.handleMouseEvents){
@@ -372,6 +366,29 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         this.iconCls = cls;
     },
 
+    /**
+     * Sets the CSS class that provides a background image to use as the button's icon.  This method also changes
+     * the value of the {@link iconCls} config internally.
+     * @param {String} cls The CSS class providing the icon image
+     */
+    setIconClass : function(cls){
+        if(this.el){
+            this.btnEl.replaceClass(this.iconCls, cls);
+        }
+        this.iconCls = cls;
+    },
+
+    setTooltip : function(tooltip){
+		var btnEl = this.getEl().child(this.buttonSelector);
+		if(Ext.isObject(tooltip)){
+            Ext.QuickTips.register(Ext.apply({
+                  target: btnEl.id
+            }, tooltip));
+        } else {
+            btnEl.dom[this.tooltipType] = tooltip;
+        }
+    },
+	
     // private
     beforeDestroy: function(){
     	if(this.rendered){
