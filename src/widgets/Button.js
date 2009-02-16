@@ -366,18 +366,6 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         this.iconCls = cls;
     },
 
-    /**
-     * Sets the CSS class that provides a background image to use as the button's icon.  This method also changes
-     * the value of the {@link iconCls} config internally.
-     * @param {String} cls The CSS class providing the icon image
-     */
-    setIconClass : function(cls){
-        if(this.el){
-            this.btnEl.replaceClass(this.iconCls, cls);
-        }
-        this.iconCls = cls;
-    },
-
     setTooltip : function(tooltip){
 		var btnEl = this.getEl().child(this.buttonSelector);
 		if(Ext.isObject(tooltip)){
