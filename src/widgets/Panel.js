@@ -196,8 +196,10 @@ new Ext.Panel({
      * call when clicked. Arguments passed are:<ul>
      * <li><b>event</b> : Ext.EventObject<div class="sub-desc">The click event.</div></li>
      * <li><b>toolEl</b> : Ext.Element<div class="sub-desc">The tool Element.</div></li>
-     * <li><b>Panel</b> : Ext.Panel<div class="sub-desc">The host Panel</div></li>
+     * <li><b>panel</b> : Ext.Panel<div class="sub-desc">The host Panel</div></li>
+     * <li><b>tc</b> : Ext.Panel<div class="sub-desc">The tool configuration object</div></li>
      * </ul></div></li>
+     * <li><b>stopEvent</b> : Boolean<div class="sub-desc">Defaults to true. Specify as false to allow click event to propagate.</div></li>
      * <li><b>scope</b> : Object<div class="sub-desc">The scope in which to call the handler.</div></li>
      * <li><b>qtip</b> : String/Object<div class="sub-desc">A tip string, or
      * a config argument to {@link Ext.QuickTip#register}</div></li>
