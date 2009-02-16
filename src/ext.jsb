@@ -68,12 +68,11 @@
     <include name="core\UpdateManager-full.js" />
     <include name="util\Date.js" />
     <include name="util\core\DelayedTask.js" />
-    <include name="util\core\TaskMgr.js" />
     <include name="util\MixedCollection.js" />
     <include name="widgets\ComponentMgr.js" />
     <include name="util\JSON.js" />
     <include name="util\Format.js" />
-    <include name="util\XTemplate.js" />
+    <include name="util\core\XTemplate.js" />
     <include name="util\CSS.js" />
     <include name="util\ClickRepeater.js" />
     <include name="util\KeyNav.js" />
@@ -558,6 +557,7 @@
   <target name="Ext Base" file="$output\adapter\ext\ext-base.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="core\core\Ext.js" />
     <include name="core\Ext-full.js" />
+    <include name="util\core\TaskMgr.js" />
     <include name="adapter\core\ext-base-begin.js" />
     <include name="adapter\core\ext-base-dom.js" />
     <include name="adapter\ext-base-dom-full.js" />
