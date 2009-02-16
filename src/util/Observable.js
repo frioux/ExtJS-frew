@@ -40,17 +40,18 @@ Ext.util.Observable.prototype = {
      */
     fireEvent : function(){
         var a = Array.prototype.slice.call(arguments, 0);
-        var ename = a[0];
-        if(ename === true){
-            a.shift();
-            var c = this;
-            while(c){
-                if(c.fireEvent.apply(c, a) === false){
-                    return false;
-                }
-                c = c.getBubbleTarget ? c.getBubbleTarget() : null;
-            }
-            return true;
+        var ename = a[0].toLowerCase();
+		var ce = this.events[ename];
+        if(typeof ce == 'object' && ce.bubble){
+			if(ce.fire.apply(ce, a.slice(1)) === false) {
+				return false;
+			}			
+			var c = this.getBubbleTarget ? this.getBubbleTarget() : null;
+			if(c) {
+				c.enableBubble(ename);
+				return c.fireEvent.apply(c, a);
+			}
+			return true;
         }
         if(this.eventsSuspended === true){
             var q = this.suspendedEventsQueue;
@@ -58,7 +59,6 @@ Ext.util.Observable.prototype = {
                 q[q.length] = a;
             }
         } else {
-            var ce = this.events[ename.toLowerCase()];
             if(typeof ce == "object"){
                 a.shift();
                 return ce.fire.apply(ce, a);
@@ -216,6 +216,24 @@ foo.on({
             Ext.applyIf(this.events, o);
         }
     },
+	
+	/**
+	 * Used to enable bubbling of events
+	 * @param {Object} events
+	 */
+	enableBubble : function(events) {
+		events = Ext.isArray(events) ? events : Array.prototype.slice.call(arguments, 0);
+		for(var i = 0, len = events.length; i < len; i++) {
+			var eventName = events[i].toLowerCase();
+
+			var ce = this.events[eventName] || true;
+			if(typeof ce == "boolean") {
+				ce = new Ext.util.Event(this, eventName);
+				this.events[eventName] = ce;
+			}
+			ce.bubble = true;
+		}
+	},
 
     /**
      * Checks to see if this object has any listeners for a specified event

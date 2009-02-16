@@ -203,6 +203,8 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
              */
             'remove'
         );
+		
+		this.enableBubble('add', 'remove');
 
         /**
          * The collection of components in this container as a {@link Ext.util.MixedCollection}
@@ -340,7 +342,7 @@ myTabPanel.setActiveTab(myNewGrid);
         if(this.fireEvent('beforeadd', this, c, pos) !== false && this.onBeforeAdd(c) !== false){
             this.items.add(c);
             c.ownerCt = this;
-            this.fireEvent(true, 'add', this, c, pos);
+            this.fireEvent('add', this, c, pos);
         }
         return c;
     },
@@ -383,7 +385,7 @@ myTabPanel.setActiveTab(myNewGrid);
         if(this.fireEvent('beforeadd', this, c, index) !== false && this.onBeforeAdd(c) !== false){
             this.items.insert(index, c);
             c.ownerCt = this;
-            this.fireEvent(true, 'add', this, c, index);
+            this.fireEvent('add', this, c, index);
         }
         return c;
     },
@@ -432,7 +434,7 @@ myTabPanel.setActiveTab(myNewGrid);
             if(this.layout && this.layout.activeItem == c){
                 delete this.layout.activeItem;
             }
-            this.fireEvent(true, 'remove', this, c);
+            this.fireEvent('remove', this, c);
         }
         return c;
     },
