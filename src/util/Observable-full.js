@@ -106,7 +106,29 @@ Ext.applyIf(Ext.util.Observable.prototype, function(){
 	            me.events[ename] = !me.events[ename];
 	            o.on(ename, createHandler(ename), me);
 	        });
-	    }
+	    },
+		
+		/**
+		 * Used to enable bubbling of events
+		 * @param {Array} events
+		 */
+		enableBubble : function(events) {
+			var me = this,
+				eventName,
+				i,
+				len,
+				ce;
+			events = Ext.isArray(events) ? events : Ext.toArray(arguments);
+			for(i = 0, len = events.length; i < len; i++) {
+				eventName = events[i].toLowerCase();	
+				ce = me.events[eventName] || true;
+				if(typeof ce == "boolean") {
+					ce = new Ext.util.Event(me, eventName);
+					me.events[eventName] = ce;
+				}
+				ce.bubble = true;
+			}
+		}
 	}
 }());
 
