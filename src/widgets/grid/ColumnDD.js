@@ -114,24 +114,11 @@ Ext.extend(Ext.grid.HeaderDropZone, Ext.dd.DropZone, {
             px = r.left;
             pt = "before";
         }
-        var oldIndex = this.view.getCellIndex(h);
-        var newIndex = this.view.getCellIndex(n);
 
-        if(this.grid.colModel.isFixed(newIndex)){
+        if(this.grid.colModel.isFixed(this.view.getCellIndex(n))){
             return false;
         }
 
-        var locked = this.grid.colModel.isLocked(newIndex);
-
-        if(pt == "after"){
-            newIndex++;
-        }
-        if(oldIndex < newIndex){
-            newIndex--;
-        }
-        if(oldIndex == newIndex && (locked == this.grid.colModel.isLocked(oldIndex))){
-            return false;
-        }
         px +=  this.proxyOffsets[0];
         this.proxyTop.setLeftTop(px, py);
         this.proxyTop.show();
@@ -175,17 +162,12 @@ Ext.extend(Ext.grid.HeaderDropZone, Ext.dd.DropZone, {
             var pt = (r.right - x) <= ((r.right-r.left)/2) ? "after" : "before";
             var oldIndex = this.view.getCellIndex(h);
             var newIndex = this.view.getCellIndex(n);
-            var locked = cm.isLocked(newIndex);
             if(pt == "after"){
                 newIndex++;
             }
             if(oldIndex < newIndex){
                 newIndex--;
             }
-            if(oldIndex == newIndex && (locked == cm.isLocked(oldIndex))){
-                return false;
-            }
-            cm.setLocked(oldIndex, locked, true);
             cm.moveColumn(oldIndex, newIndex);
             this.grid.fireEvent("columnmove", oldIndex, newIndex);
             return true;
