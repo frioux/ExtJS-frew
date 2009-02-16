@@ -176,8 +176,12 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
 
         this.cursor = 0;
         this.bind(this.store);
-        this.on('afterlayout', this.onFirstLayout, this, {single: true});
 	},
+    
+    initComponent: function(){
+        Ext.PagingToolbar.superclass.initComponent.call(this);
+        this.on('afterlayout', this.onFirstLayout, this, {single: true});
+    },
 
     // private
 	onFirstLayout: function(ii) {
