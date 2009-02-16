@@ -169,7 +169,9 @@ new Ext.Panel({
      * <p>Each tool config may contain the following properties:
      * <div class="mdetail-params"><ul>
      * <li><b>id</b> : String<div class="sub-desc"><b>Required.</b> The type
-     * of tool to create. Values may be<ul>
+     * of tool to create. By default, this assigns a CSS class of the form <tt>x-tool-<i>&lt;tool-type&gt;</i></tt> to the
+     * resulting tool Element. Ext provides CSS rules, and an icon sprite containing images for the tool types listed below.
+     * The developer may implement custom tools by supplying alternate CSS rules and background images:<ul>
      * <li><tt>toggle</tt> (Created by default when {@link #collapsible} is <tt>true</tt>)</li>
      * <li><tt>close</tt></li>
      * <li><tt>minimize</tt></li>
