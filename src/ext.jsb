@@ -34,38 +34,38 @@
   </target>
   <target name="Everything" file="$output\ext-all.js" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="core\core\DomHelper.js" />
-    <include name="core\DomHelper-full.js" />
+    <include name="core\DomHelper-more.js" />
     <include name="core\core\Template.js" />
-    <include name="core\Template-full.js" />
+    <include name="core\Template-more.js" />
     <include name="core\core\DomQuery.js" />
     <include name="util\core\Observable.js" />
-    <include name="util\Observable-full.js" />
+    <include name="util\Observable-more.js" />
     <include name="core\core\EventManager.js" />
-    <include name="core\EventManager-full.js" />
+    <include name="core\EventManager-more.js" />
     <include name="core\core\Element.js" />
-    <include name="core\Element-full.js" />
+    <include name="core\Element-more.js" />
     <include name="core\Element.alignment.js" />
     <include name="core\core\Element.traversal.js" />
     <include name="core\core\Element.insertion.js" />
-    <include name="core\Element.insertion-full.js" />
+    <include name="core\Element.insertion-more.js" />
     <include name="core\core\Element.style.js" />
-    <include name="core\Element.style-full.js" />
+    <include name="core\Element.style-more.js" />
     <include name="core\core\Element.position.js" />
-    <include name="core\Element.position-full.js" />
+    <include name="core\Element.position-more.js" />
     <include name="core\core\Element.scroll.js" />
-    <include name="core\Element.scroll-full.js" />
+    <include name="core\Element.scroll-more.js" />
     <include name="core\core\Element.fx.js" />
-    <include name="core\Element.fx-full.js" />
+    <include name="core\Element.fx-more.js" />
     <include name="core\Element.dd.js" />
     <include name="core\Element.legacy.js" />
     <include name="core\Element.keys.js" />
     <include name="core\core\Fx.js" />
     <include name="core\core\CompositeElement.js" />
-    <include name="core\CompositeElement-full.js" />
+    <include name="core\CompositeElement-more.js" />
     <include name="data\core\Connection.js" />
-    <include name="data\Connection-full.js" />
+    <include name="data\Connection-more.js" />
     <include name="core\core\UpdateManager.js" />
-    <include name="core\UpdateManager-full.js" />
+    <include name="core\UpdateManager-more.js" />
     <include name="util\Date.js" />
     <include name="util\core\DelayedTask.js" />
     <include name="util\MixedCollection.js" />
@@ -347,7 +347,7 @@
   <file name="yui-overrides.js" path="" />
   <target name="YUI" file="$output\adapter\yui\ext-yui-adapter.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="core\core\Ext.js" />
-    <include name="core\Ext-full.js" />
+    <include name="core\Ext-more.js" />
     <include name="adapter\yui-bridge.js" />
   </target>
   <target name="Menus" file="$output\package\menu\menus.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
@@ -423,7 +423,7 @@
   </target>
   <target name="JQUERY" file="$output\adapter\jquery\ext-jquery-adapter.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="core\core\Ext.js" />
-    <include name="core\Ext-full.js" />
+    <include name="core\Ext-more.js" />
     <include name="adapter\jquery-bridge.js" />
   </target>
   <target name="Utilities" file="$output\package\util.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
@@ -454,7 +454,7 @@
     <include name="data\Store.js" />
     <include name="data\SimpleStore.js" />
     <include name="data\core\Connection.js" />
-    <include name="data\Connection-full.js" />
+    <include name="data\Connection-more.js" />
     <include name="data\DataField.js" />
     <include name="data\DataReader.js" />
     <include name="data\DataProxy.js" />
@@ -504,7 +504,7 @@
   <file name="widgets\Combo.js" path="widgets" />
   <target name="Prototype" file="$output\adapter\prototype\ext-prototype-adapter.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="core\core\Ext.js" />
-    <include name="core\Ext-full.js" />
+    <include name="core\Ext-more.js" />
     <include name="adapter\prototype-bridge.js" />
   </target>
   <file name="widgets\form\Validators.js" path="widgets\form" />
@@ -556,11 +556,11 @@
   <file name="widgets\layout\SplitLayoutRegion.js" path="widgets\layout" />
   <target name="Ext Base" file="$output\adapter\ext\ext-base.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="core\core\Ext.js" />
-    <include name="core\Ext-full.js" />
+    <include name="core\Ext-more.js" />
     <include name="util\core\TaskMgr.js" />
     <include name="adapter\core\ext-base-begin.js" />
     <include name="adapter\core\ext-base-dom.js" />
-    <include name="adapter\ext-base-dom-full.js" />
+    <include name="adapter\ext-base-dom-more.js" />
     <include name="adapter\core\ext-base-event.js" />
     <include name="adapter\core\ext-base-ajax.js" />
     <include name="adapter\core\ext-base-region.js" />
@@ -614,7 +614,7 @@
   <file name="data\SimpleStore.js" path="data" />
   <file name="adapter\core\ext-base-begin.js" path="adapter\core" />
   <file name="adapter\core\ext-base-dom.js" path="adapter\core" />
-  <file name="adapter\ext-base-dom-full.js" path="adapter" />
+  <file name="adapter\ext-base-dom-more.js" path="adapter" />
   <file name="adapter\core\ext-base-event.js" path="adapter\core" />
   <file name="adapter\core\ext-base-ajax.js" path="adapter\core" />
   <file name="adapter\core\ext-base-region.js" path="adapter\core" />
@@ -626,40 +626,40 @@
   <file name="adapter\prototype-bridge.js" path="adapter" />
   <file name="adapter\yui-bridge.js" path="adapter" />
   <file name="core\core\CompositeElement.js" path="core\core" />
-  <file name="core\CompositeElement-full.js" path="core\" />
+  <file name="core\CompositeElement-more.js" path="core\" />
   <file name="core\core\DomHelper.js" path="core\core" />
-  <file name="core\DomHelper-full.js" path="core" />
+  <file name="core\DomHelper-more.js" path="core" />
   <file name="core\core\DomQuery.js" path="core" />
   <file name="core\core\Element.js" path="core\core" />
-  <file name="core\Element-full.js" path="core" />
+  <file name="core\Element-more.js" path="core" />
   <file name="core\Element.alignment.js" path="core" />
   <file name="core\core\Element.traversal.js" path="core\core" />
   <file name="core\core\Element.insertion.js" path="core\core" />
-  <file name="core\Element.insertion-full.js" path="core" />
+  <file name="core\Element.insertion-more.js" path="core" />
   <file name="core\core\Element.style.js" path="core\core" />
-  <file name="core\Element.style-full.js" path="core" />
+  <file name="core\Element.style-more.js" path="core" />
   <file name="core\core\Element.position.js" path="core\core" />
-  <file name="core\Element.position-full.js" path="core" />
+  <file name="core\Element.position-more.js" path="core" />
   <file name="core\core\Element.scroll.js" path="core\core" />
-  <file name="core\Element.scroll-full.js" path="core" />
+  <file name="core\Element.scroll-more.js" path="core" />
   <file name="core\core\Element.fx.js" path="core\core" />
-  <file name="core\Element.fx-full.js" path="core" />
+  <file name="core\Element.fx-more.js" path="core" />
   <file name="core\Element.dd.js" path="core" />
   <file name="core\Element.legacy.js" path="core" />
   <file name="core\Element.keys.js" path="core" />
   <file name="core\core\EventManager.js" path="core\core" />
-  <file name="core\EventManager-full.js" path="core" />
+  <file name="core\EventManager-more.js" path="core" />
   <file name="core\core\Ext.js" path="core\core" />
-  <file name="core\Ext-full.js" path="core" />
+  <file name="core\Ext-more.js" path="core" />
   <file name="core\core\Fx.js" path="core" />
   <file name="core\core\Template.js" path="core\core" />
-  <file name="core\Template-full.js" path="core" />
+  <file name="core\Template-more.js" path="core" />
   <file name="core\core\UpdateManager.js" path="core\core" />
-  <file name="core\UpdateManager-full.js" path="core" />
+  <file name="core\UpdateManager-more.js" path="core" />
   <file name="data\ArrayReader.js" path="data" />
   <file name="data\ArrayStore.js" path="data" />
   <file name="data\core\Connection.js" path="data\core" />
-  <file name="data\Connection-full.js" path="data" />
+  <file name="data\Connection-more.js" path="data" />
   <file name="data\DataField.js" path="data" />
   <file name="data\DataProxy.js" path="data" />
   <file name="data\DataReader.js" path="data" />
@@ -754,9 +754,9 @@
   <file name="util\KeyNav.js" path="util" />
   <file name="util\MixedCollection.js" path="util" />
   <file name="util\core\Observable.js" path="util\core" />
-  <file name="util\Observable-full.js" path="util" />
+  <file name="util\Observable-more.js" path="util" />
   <file name="util\core\TaskMgr.js" path="util\core" />
-  <file name="util\TaskMgr-full.js" path="util" />
+  <file name="util\TaskMgr-more.js" path="util" />
   <file name="util\TextMetrics.js" path="util" />
   <file name="util\core\XTemplate.js" path="util\core" />
   <file name="widgets\chart\Chart.js" path="widgets\chart" />
