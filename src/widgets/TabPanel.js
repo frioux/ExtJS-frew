@@ -470,23 +470,7 @@ var tabs = new Ext.TabPanel({
     // private
     initTab : function(item, index){
         var before = this.strip.dom.childNodes[index];
-        var cls = item.closable ? 'x-tab-strip-closable' : '';
-        if(item.disabled){
-            cls += ' x-item-disabled';
-        }
-        if(item.iconCls){
-            cls += ' x-tab-with-icon';
-        }
-        if(item.tabCls){
-            cls += ' ' + item.tabCls;
-        }
-
-        var p = {
-            id: this.id + this.idDelimiter + item.getItemId(),
-            text: item.title,
-            cls: cls,
-            iconCls: item.iconCls || ''
-        };
+        var p = this.getTemplateArgs(item);
         var el = before ?
                  this.itemTpl.insertBefore(before, p) :
                  this.itemTpl.append(this.strip, p);
@@ -505,6 +489,38 @@ var tabs = new Ext.TabPanel({
         item.on('beforeshow', this.onBeforeShowItem, this);
     },
 
+    /**
+     * <p>Provides template arguments for rendering a tab selector item in the tab strip.</p>
+     * <p>This method returns an object hash containing properties used by the TabPanel's {@link #itemTpl}
+     * to create a formatted, clickable tab selector. The properties which must be returned are:</p><div class="mdetail-params"><ul>
+     * <li><b>id</b> : String<div class="sub-desc">A unique identifier which links to the item</li>
+     * <li><b>text</b> : String<div class="sub-desc">The text to disdplay</li>
+     * <li><b>cls</b> : String<div class="sub-desc">The CSS class name</li>
+     * <li><b>iconCls</b> : String<div class="sub-desc">A CSS class to provide appearance for an icon.</li>
+     * </ul></div>
+     * @param itemThe {@link BoxComponent Ext.BoxComponent} for which to create a selector.
+     * @return An object hash containing the properties required to render the selector.
+     */
+    getTemplateArgs: function(item) {
+        var cls = item.closable ? 'x-tab-strip-closable' : '';
+        if(item.disabled){
+            cls += ' x-item-disabled';
+        }
+        if(item.iconCls){
+            cls += ' x-tab-with-icon';
+        }
+        if(item.tabCls){
+            cls += ' ' + item.tabCls;
+        }
+		
+        return {
+            id: this.id + this.idDelimiter + item.getItemId(),
+            text: item.title,
+            cls: cls,
+            iconCls: item.iconCls || ''
+        };
+    },
+	
     // private
     onAdd : function(tp, item, index){
         this.initTab(item, index);
