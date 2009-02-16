@@ -692,10 +692,10 @@ var tabs = new Ext.TabPanel({
 
         var each = Math.max(Math.min(Math.floor((aw-4) / count) - this.tabMargin, this.tabWidth), this.minTabWidth); // -4 for float errors in IE
         this.lastTabWidth = each;
-        var lis = this.stripWrap.dom.getElementsByTagName('li');
-        for(var i = 0, len = lis.length-1; i < len; i++) { // -1 for the "edge" li
+        var lis = this.strip.query("li:not([className^=x-tab-edge])");
+        for(var i = 0, len = lis.length; i < len; i++) {
             var li = lis[i];
-            var inner = li.childNodes[1].firstChild.firstChild;
+            var inner = Ext.fly(li).child('.x-tab-strip-inner', true);
             var tw = li.offsetWidth;
             var iw = inner.offsetWidth;
             inner.style.width = (each - (tw-iw)) + 'px';
