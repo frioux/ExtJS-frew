@@ -114,6 +114,13 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * @type Boolean
      */
     defaultSortable: false,
+
+    /**
+     * @cfg {Object} defaults Object literal which will be used to apply default config 
+     * options <b>defined by</b> this class.  Config options specified with individual
+     * column configs will supersede these defaults.    
+     */
+
     /**
      * @cfg {String} id (optional) Defaults to the column's initial ordinal position.
      * A name which identifies this column. The id is used to create a CSS class name which
