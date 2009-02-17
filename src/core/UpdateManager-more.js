@@ -211,16 +211,6 @@ Ext.apply(Ext.Updater.prototype, function() {
 	     */
 	    setDefaultUrl : function(defaultUrl){
 	        this.defaultUrl = defaultUrl;
-	    },
-	    
-	    /**
-	     * Refresh the element with the last used url or defaultUrl. If there is no url, it returns immediately
-	     * @param {Function} callback (optional) Callback when transaction is complete - called with signature (oElement, bSuccess)
-	     */
-	    refresh : function(callback){
-	        if(this.defaultUrl){
-	        	this.update(this.defaultUrl, null, callback, true);
-	    	}
 	    }
 	}
 }());
