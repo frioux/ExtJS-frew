@@ -366,6 +366,13 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         this.iconCls = cls;
     },
 
+    /**
+     * Sets the tooltip for this Button.
+     * @param {String/Object} tooltip. This may be:<div class="mdesc-details"><ul>
+     * <li><b>String</b> : The textual value to show in a tooltip.</li>
+     * <li><b>Object</b> : A configuration object for {@link Ext.QuickTips#register}.</li>
+     * </ul></div>
+     */
     setTooltip : function(tooltip){
 		var btnEl = this.getEl().child(this.buttonSelector);
 		if(Ext.isObject(tooltip)){
@@ -416,7 +423,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     },
 
     /**
-     * Assigns this button's click handler
+     * Assigns this Button's click handler
      * @param {Function} handler The function to call when the button is clicked
      * @param {Object} scope (optional) Scope for the function passed in
      */
@@ -426,7 +433,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     },
 
     /**
-     * Sets this button's text
+     * Sets this Button's text
      * @param {String} text The button text
      */
     setText : function(text){
@@ -438,7 +445,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     },
 
     /**
-     * Gets the text for this button
+     * Gets the text for this Button
      * @return {String} The button text
      */
     getText : function(){
