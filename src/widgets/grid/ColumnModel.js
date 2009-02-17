@@ -239,10 +239,10 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
         }
         
         // backward compatibility
-        Ext.applyIf(this.defaults, {
+        this.defaults = Ext.apply({
             width: this.defaultWidth,
             sortable: this.defaultSortable
-        });
+        }, this.defaults);
         
         this.config = config;
         this.lookup = {};
