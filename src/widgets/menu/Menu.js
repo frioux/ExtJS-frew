@@ -54,7 +54,7 @@ Ext.Container.LAYOUTS['menu'] = Ext.layout.MenuLayout;
 
 /**
  * @class Ext.menu.Menu
- * @extends Ext.util.Observable
+ * @extends Ext.Container
  * A menu object.  This is the container to which you add all other menu items.  Menu can also serve as a base class
  * when you want a specialized menu based off of another component (like {@link Ext.menu.DateMenu} for example).
  */
