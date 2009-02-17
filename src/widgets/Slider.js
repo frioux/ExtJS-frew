@@ -202,11 +202,12 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
         }
         var newValue = value, inc = this.increment;
         var m = value % inc;
-        if(m > 0){
-            if(m > (inc/2)){
-                newValue = value + (inc-m);
-            }else{
-                newValue = value - m;
+        if(m != 0){
+            newValue -= m;
+            if(m * 2 > inc){
+                newValue += inc;
+            }else if(m * 2 < -inc){
+                newValue -= inc;
             }
         }
         return newValue.constrain(this.minValue,  this.maxValue);
