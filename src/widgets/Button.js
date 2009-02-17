@@ -374,13 +374,12 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      * </ul></div>
      */
     setTooltip : function(tooltip){
-		var btnEl = this.getEl().child(this.buttonSelector);
 		if(Ext.isObject(tooltip)){
             Ext.QuickTips.register(Ext.apply({
-                  target: btnEl.id
+                  target: this.btnEl.id
             }, tooltip));
         } else {
-            btnEl.dom[this.tooltipType] = tooltip;
+            this.btnEl.dom[this.tooltipType] = tooltip;
         }
     },
 	
