@@ -761,6 +761,7 @@ Ext.Foo = Ext.extend(Ext.Bar, {
     /**
      * Adds a CSS class to the component's underlying element.
      * @param {string} cls The CSS class name to add
+     * @return {Ext.Component} this
      */
     addClass : function(cls){
         if(this.el){
@@ -768,11 +769,13 @@ Ext.Foo = Ext.extend(Ext.Bar, {
         }else{
             this.cls = this.cls ? this.cls + ' ' + cls : cls;
         }
+        return this;
     },
 
     /**
      * Removes a CSS class from the component's underlying element.
      * @param {string} cls The CSS class name to remove
+     * @return {Ext.Component} this
      */
     removeClass : function(cls){
         if(this.el){
@@ -780,6 +783,7 @@ Ext.Foo = Ext.extend(Ext.Bar, {
         }else if(this.cls){
             this.cls = this.cls.split(' ').remove(cls).join(' ');
         }
+        return this;
     },
 
     // private
@@ -954,9 +958,10 @@ new Ext.Panel({
     /**
      * Convenience function for setting disabled/enabled by boolean.
      * @param {Boolean} disabled
+     * @return {Ext.Component} this
      */
     setDisabled : function(disabled){
-        this[disabled ? "disable" : "enable"]();
+        return this[disabled ? "disable" : "enable"]();
     },
 
     /**
@@ -1017,12 +1022,7 @@ new Ext.Panel({
      * @return {Ext.Component} this
      */
     setVisible: function(visible){
-        if(visible) {
-            this.show();
-        }else{
-            this.hide();
-        }
-        return this;
+        return this[visible ? "show" : "hide"]();
     },
 
     /**

@@ -975,6 +975,7 @@ new Ext.Panel({
         if(this.fbar){
             this.fbar.doLayout();
         }
+        return this;
     },
 
     // private

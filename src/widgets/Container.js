@@ -485,6 +485,7 @@ myTabPanel.setActiveTab(myNewGrid);
      * to an already rendered container, or possibly after changing sizing/position properties of child components.
      * @param {Boolean} shallow (optional) True to only calc the layout of this component, and let child components auto
      * calc layouts as required (defaults to false, which calls doLayout recursively for each subcontainer)
+     * @return {Ext.Container} this
      */
     doLayout : function(shallow){
         if(this.rendered && this.layout){
@@ -499,6 +500,7 @@ myTabPanel.setActiveTab(myNewGrid);
                 }
             }
         }
+        return this;
     },
 
     /**
@@ -536,6 +538,7 @@ myTabPanel.setActiveTab(myNewGrid);
      * @param {Function} fn The function to call
      * @param {Object} scope (optional) The scope of the function (defaults to current node)
      * @param {Array} args (optional) The args to call the function with (default to passing the current component)
+     * @return {Ext.Container} this
      */
     bubble : function(fn, scope, args){
         var p = this;
@@ -545,6 +548,7 @@ myTabPanel.setActiveTab(myNewGrid);
             }
             p = p.ownerCt;
         }
+        return this;
     },
 
     /**
@@ -556,6 +560,7 @@ myTabPanel.setActiveTab(myNewGrid);
      * @param {Function} fn The function to call
      * @param {Object} scope (optional) The scope of the function (defaults to current component)
      * @param {Array} args (optional) The args to call the function with (defaults to passing the current component)
+     * @return {Ext.Container} this
      */
     cascade : function(fn, scope, args){
         if(fn.apply(scope || this, args || [this]) !== false){
@@ -570,6 +575,7 @@ myTabPanel.setActiveTab(myNewGrid);
                 }
             }
         }
+        return this;
     },
 
     /**
