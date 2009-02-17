@@ -295,6 +295,7 @@ Ext.form.TextField = Ext.extend(Ext.form.Field,  {
         Ext.form.TextField.superclass.setValue.apply(this, arguments);
         this.applyEmptyText();
         this.autoSize();
+        return this;
     },
 
     /**

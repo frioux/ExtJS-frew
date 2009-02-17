@@ -116,7 +116,7 @@ Ext.form.TimeField = Ext.extend(Ext.form.ComboBox, {
 
     // inherited docs
     setValue : function(value){
-        Ext.form.TimeField.superclass.setValue.call(this, this.formatDate(this.parseDate(value)));
+        return Ext.form.TimeField.superclass.setValue.call(this, this.formatDate(this.parseDate(value)));
     },
 
     // private overrides

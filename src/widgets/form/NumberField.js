@@ -112,7 +112,7 @@ Ext.form.NumberField = Ext.extend(Ext.form.TextField,  {
     setValue : function(v){
     	v = typeof v == 'number' ? v : parseFloat(String(v).replace(this.decimalSeparator, "."));
         v = isNaN(v) ? '' : String(v).replace(".", this.decimalSeparator);
-        Ext.form.NumberField.superclass.setValue.call(this, v);
+        return Ext.form.NumberField.superclass.setValue.call(this, v);
     },
 
     // private

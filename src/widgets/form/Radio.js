@@ -50,6 +50,7 @@ Ext.form.Radio = Ext.extend(Ext.form.Checkbox, {
      * Sets either the checked/unchecked status of this Radio, or, if a string value
      * is passed, checks a sibling Radio of the same name whose value is the value specified.
      * @param value {String/Boolean} Checked value, or the value of the sibling radio button to check.
+     * @return {Ext.form.Field} this
      */
     setValue : function(v){
     	if (typeof v == 'boolean') {
@@ -60,6 +61,7 @@ Ext.form.Radio = Ext.extend(Ext.form.Checkbox, {
                 r.checked = true;
             };
         }
+        return this;
     }
 });
 Ext.reg('radio', Ext.form.Radio);

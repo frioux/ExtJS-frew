@@ -130,6 +130,7 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
     /**
      * Sets the checked state of the checkbox.
      * @param {Boolean/String} checked True, 'true', '1', or 'on' to check the checkbox, any other value will uncheck it.
+     * @return {Ext.form.Field} this
      */
     setValue : function(v){
         this.checked = (v === true || v === 'true' || v == '1' || String(v).toLowerCase() == 'on');
@@ -138,6 +139,7 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
             this.el.dom.defaultChecked = this.checked;
         }
         this.fireEvent("check", this, this.checked);
+        return this;
     }
 });
 Ext.reg('checkbox', Ext.form.Checkbox);

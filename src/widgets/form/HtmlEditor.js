@@ -550,6 +550,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
     setValue : function(v){
         Ext.form.HtmlEditor.superclass.setValue.call(this, v);
         this.pushValue();
+        return this;
     },
 
     /**

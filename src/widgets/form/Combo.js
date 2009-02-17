@@ -738,6 +738,7 @@ var menu = new Ext.menu.Menu({
      * and the valueNotFoundText config option is defined, it will be displayed as the default field text.
      * Otherwise the field will be blank (although the value will still be set).
      * @param {String} value The value to match
+     * @return {Ext.form.Field} this
      */
     setValue : function(v){
         var text = v;
@@ -755,6 +756,7 @@ var menu = new Ext.menu.Menu({
         }
         Ext.form.ComboBox.superclass.setValue.call(this, text);
         this.value = v;
+        return this;
     },
 
     // private

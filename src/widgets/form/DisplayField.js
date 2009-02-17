@@ -47,6 +47,7 @@ Ext.form.DisplayField = Ext.extend(Ext.form.Field,  {
 
     setValue : function(v){
         this.setRawValue(v);
+        return this;
     }
 });
 

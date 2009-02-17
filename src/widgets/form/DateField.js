@@ -256,9 +256,10 @@ dateField.format = 'Y-m-d';
 dateField.setValue('2006-05-04');
 </code></pre>
      * @param {String/Date} date The date or valid date string
+     * @return {Ext.form.Field} this
      */
     setValue : function(date){
-        Ext.form.DateField.superclass.setValue.call(this, this.formatDate(this.parseDate(date)));
+        return Ext.form.DateField.superclass.setValue.call(this, this.formatDate(this.parseDate(date)));
     },
 
     // private

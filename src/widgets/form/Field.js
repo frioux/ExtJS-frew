@@ -425,6 +425,7 @@ side          Add an error icon to the right of the field with a popup on hover
     /**
      * Sets a data value into the field and validates it.  To set the value directly without validation see {@link #setRawValue}.
      * @param {Mixed} value The value to set
+     * @return {Ext.form.Field} this
      */
     setValue : function(v){
         this.value = v;
@@ -432,6 +433,7 @@ side          Add an error icon to the right of the field with a popup on hover
             this.el.dom.value = (v === null || v === undefined ? '' : v);
             this.validate();
         }
+        return this;
     },
 
     // private, does not work for all fields

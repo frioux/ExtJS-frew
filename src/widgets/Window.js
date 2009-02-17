@@ -447,6 +447,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
      * animate while opening (defaults to null with no animation)
      * @param {Function} callback (optional) A callback function to call after the window is displayed
      * @param {Object} scope (optional) The scope in which to execute the callback
+     * @return {Ext.Window} this
      */
     show : function(animateTarget, cb, scope){
         if(!this.rendered){
@@ -454,10 +455,10 @@ Ext.Window = Ext.extend(Ext.Panel, {
         }
         if(this.hidden === false){
             this.toFront();
-            return;
+            return this;
         }
         if(this.fireEvent("beforeshow", this) === false){
-            return;
+            return this;
         }
         if(cb){
             this.on('show', cb, scope, {single:true});
@@ -472,6 +473,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
         }else{
             this.afterShow();
         }
+        return this;
     },
 
     // private
@@ -523,10 +525,11 @@ Ext.Window = Ext.extend(Ext.Panel, {
      * animate while hiding (defaults to null with no animation)
      * @param {Function} callback (optional) A callback function to call after the window is hidden
      * @param {Object} scope (optional) The scope in which to execute the callback
+     * @return {Ext.Window} this
      */
     hide : function(animateTarget, cb, scope){
         if(this.hidden || this.fireEvent("beforehide", this) === false){
-            return;
+            return this;
         }
         if(cb){
             this.on('hide', cb, scope, {single:true});
@@ -545,6 +548,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
             this.el.hide();
             this.afterHide();
         }
+        return this;
     },
 
     // private
@@ -646,9 +650,11 @@ Ext.Window = Ext.extend(Ext.Panel, {
      * Placeholder method for minimizing the window.  By default, this method simply fires the {@link #minimize} event
      * since the behavior of minimizing a window is application-specific.  To implement custom minimize behavior,
      * either the minimize event can be handled or this method can be overridden.
+     * @return {Ext.Window} this
      */
     minimize : function(){
         this.fireEvent('minimize', this);
+        return this;
     },
 
     /**
@@ -667,6 +673,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
     /**
      * Fits the window within its current container and automatically replaces the 'maximize' tool button with
      * the 'restore' tool button.
+     * @return {Ext.Window} this
      */
     maximize : function(){
         if(!this.maximized){
@@ -693,11 +700,13 @@ Ext.Window = Ext.extend(Ext.Panel, {
             this.fitContainer();
             this.fireEvent('maximize', this);
         }
+        return this;
     },
 
     /**
      * Restores a maximized window back to its original size and position prior to being maximized and also replaces
      * the 'restore' tool button with the 'maximize' tool button.
+     * @return {Ext.Window} this
      */
     restore : function(){
         if(this.maximized){
@@ -722,14 +731,16 @@ Ext.Window = Ext.extend(Ext.Panel, {
             this.doConstrain();
             this.fireEvent('restore', this);
         }
+        return this;
     },
 
     /**
      * A shortcut method for toggling between {@link #maximize} and {@link #restore} based on the current maximized
      * state of the window.
+     * @return {Ext.Window} this
      */
     toggleMaximize : function(){
-        this[this.maximized ? 'restore' : 'maximize']();
+        return this[this.maximized ? 'restore' : 'maximize']();
     },
 
     // private
