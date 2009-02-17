@@ -3,7 +3,6 @@
 	z-index: 15000;
 	zoom: 1;
 	background: repeat-y;
-	padding: 2px;
 }
 
 .x-menu a {
@@ -16,8 +15,15 @@
 }
 
 .x-menu-list{
+    padding: 2px;
 	background:transparent;
 	border:0 none;
+    overflow:hidden;
+    overflow-y: hidden;
+}
+
+.ext-strict .ext-ie .x-menu-list{
+    position: relative;
 }
 
 .x-menu li{
@@ -131,6 +137,10 @@
     background: transparent no-repeat center;
 }
 
+.x-date-menu .x-menu-list{
+    padding: 0;
+}
+
 .x-menu-date-item{
 	padding:0;
 }
@@ -158,4 +168,20 @@
 .x-cycle-menu .x-menu-item-checked {
     border:1px dotted !important;
 	padding:0;
+}
+
+.x-menu .x-menu-scroller {
+    width: 100%;
+	background-repeat:no-repeat;
+	background-position:center;
+	height:8px;
+    line-height: 8px;
+	cursor:pointer;
+    margin: 0;
+    padding: 0;
+}
+
+.x-menu .x-menu-scroller-active{
+    height: 6px;
+    line-height: 6px;
 }

@@ -4,6 +4,10 @@
 	background-image:url(../images/default/menu/menu.gif);
 }
 
+.x-menu-nosep {
+	background-image:none;
+}
+
 .x-menu-list-item{
 	font:normal 11px tahoma,arial, sans-serif;
 }
@@ -42,6 +46,10 @@
     background-image:url(../images/default/menu/group-checked.gif);
 }
 
+.x-menu-group-item .x-menu-item-icon{
+    background-image:none;
+}
+
 .x-menu-plain {
 	background-color:#fff !important;
 }
@@ -53,4 +61,12 @@
 .x-cycle-menu .x-menu-item-checked {
     border-color:#a3bae9 !important;
     background-color:#def8f6;
+}
+
+.x-menu-scroller-top {
+    background-image:url(../../resources/images/default/layout/mini-top.gif);
+}
+
+.x-menu-scroller-bottom {
+    background-image:url(../../resources/images/default/layout/mini-bottom.gif);
 }
