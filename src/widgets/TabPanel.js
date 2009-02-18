@@ -356,14 +356,63 @@ var tabs = new Ext.TabPanel({
 
         this.body.addClass('x-tab-panel-body-'+this.tabPosition);
 
-	    /**
-	     * @cfg {Template/XTemplate} itemTpl <p>(Optional) A {@link Ext.Template Template} or {@link Ext.XTemplate XTemplate} which 
-	     * may be provided to process the data object returned from {@link #getTemplateArgs} to produce a clickable item in the tab strip.</p>
-	     * <p>The main element created should be a <tt>&lt;li></tt> element.</p>
-	     * <p>The child element which contains the title text must be marked by the CSS class <tt>x-tab-strip-inner</tt>.</p>
-	     * <p>To enable closability, the created element should contain an element marked by the CSS class <tt>x-tab-strip-close</tt></p>
-	     * <p>If a custom itemTpl is supplied, it is the developers responsibility to create CSS style rules to create the desired appearance.</p>
-	     */
+        /**
+         * @cfg {Template/XTemplate} itemTpl <p>(Optional) A {@link Ext.Template Template} or {@link Ext.XTemplate XTemplate} which 
+         * may be provided to process the data object returned from {@link #getTemplateArgs} to produce a clickable selector element in the tab strip.</p>
+         * <p>The main element created should be a <tt>&lt;li></tt> element. In order for a click event on a selector element to be
+         * connected to its item, it must take its <i>id</i> from the TabPanel's native {@link #getTemplateArgs}.</p>
+         * <p>The child element which contains the title text must be marked by the CSS class <tt>x-tab-strip-inner</tt>.</p>
+         * <p>To enable closability, the created element should contain an element marked by the CSS class <tt>x-tab-strip-close</tt></p>
+         * <p>If a custom itemTpl is supplied, it is the developers responsibility to create CSS style rules to create the desired appearance.</p>
+         * Below is an example of how to create customized tab selector items:<code><pre>
+new Ext.TabPanel({
+    renderTo: document.body,
+    minTabWidth: 115,
+    tabWidth:135,
+    enableTabScroll:true,
+    width:600,
+    height:250,
+    defaults: {autoScroll:true},
+    itemTpl: new Ext.XTemplate(
+    '<li class="{cls}" id="{id}" style="overflow:hidden">',
+         '<tpl if="closable">',
+            '<a class="x-tab-strip-close" onclick="return false;"></a>',
+         '</tpl>',
+         '<a class="x-tab-right" href="#" onclick="return false;" style="padding-left:6px">',
+            '<em class="x-tab-left">',
+                '<span class="x-tab-strip-inner">',
+                    '<img src="{src}" style="float:left;margin:3px 3px 0 0">',
+                    '<span style="margin-left:20px" class="x-tab-strip-text {iconCls}">{text} {extra}</span>',
+                '</span>',
+            '</em>',
+        '</a>',
+    '</li>'
+    ),
+    getTemplateArgs: function(item) {
+//      Call the native method to collect the base data. Like the ID!
+        var result = Ext.TabPanel.prototype.getTemplateArgs.call(this, item);
+
+//      Add stuff used in our template
+        return Ext.apply(result, {
+            closable: item.closable,
+            src: item.iconSrc,
+            extra: item.extraText || ''
+        });
+    },
+    items: [{
+        title: 'New Tab 1',
+        iconSrc: '../shared/icons/fam/grid.png',
+        html: 'Tab Body 1',
+        closable: true
+    }, {
+        title: 'New Tab 2',
+        iconSrc: '../shared/icons/fam/grid.png',
+        html: 'Tab Body 2',
+        extraText: 'Extra stuff in the tab button'
+    }]
+});
+</pre></code>
+         */
         if(!this.itemTpl){
             var tt = new Ext.Template(
                  '<li class="{cls}" id="{id}"><a class="x-tab-strip-close" onclick="return false;"></a>',
@@ -398,10 +447,10 @@ var tabs = new Ext.TabPanel({
         this.on('add', this.onAdd, this, {target: this});
         this.on('remove', this.onRemove, this, {target: this});
 
-		this.mon(this.strip, 'mousedown', this.onStripMouseDown, this);
-		this.mon(this.strip, 'contextmenu', this.onStripContextMenu, this);
+        this.mon(this.strip, 'mousedown', this.onStripMouseDown, this);
+        this.mon(this.strip, 'contextmenu', this.onStripContextMenu, this);
         if(this.enableTabScroll){
-        	this.mon(this.strip, 'mousewheel', this.onStripContextMenu, this);
+            this.mon(this.strip, 'mousewheel', this.onStripContextMenu, this);
         }
     },
 
@@ -435,8 +484,8 @@ var tabs = new Ext.TabPanel({
         var t = this.findTargets(e);
         if(t.close){
             if (t.item.fireEvent('close', t.item) !== false) {
-	            this.remove(t.item);
-	        }
+                this.remove(t.item);
+            }
             return;
         }
         if(t.item && t.item != this.activeTab){
@@ -520,7 +569,7 @@ var tabs = new Ext.TabPanel({
         if(item.tabCls){
             cls += ' ' + item.tabCls;
         }
-		
+        
         return {
             id: this.id + this.idDelimiter + item.getItemId(),
             text: item.title,
@@ -528,7 +577,7 @@ var tabs = new Ext.TabPanel({
             iconCls: item.iconCls || ''
         };
     },
-	
+    
     // private
     onAdd : function(tp, item, index){
         this.initTab(item, index);
