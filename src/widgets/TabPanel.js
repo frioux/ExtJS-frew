@@ -356,6 +356,14 @@ var tabs = new Ext.TabPanel({
 
         this.body.addClass('x-tab-panel-body-'+this.tabPosition);
 
+	    /**
+	     * @cfg {Template/XTemplate} itemTpl <p>(Optional) A {@link Ext.Template Template} or {@link Ext.XTemplate XTemplate} which 
+	     * may be provided to process the data object returned from {@link #getTemplateArgs} to produce a clickable item in the tab strip.</p>
+	     * <p>The main element created should be a <tt>&lt;li></tt> element.</p>
+	     * <p>The child element which contains the title text must be marked by the CSS class <tt>x-tab-strip-inner</tt>.</p>
+	     * <p>To enable closability, the created element should contain an element marked by the CSS class <tt>x-tab-strip-close</tt></p>
+	     * <p>If a custom itemTpl is supplied, it is the developers responsibility to create CSS style rules to create the desired appearance.</p>
+	     */
         if(!this.itemTpl){
             var tt = new Ext.Template(
                  '<li class="{cls}" id="{id}"><a class="x-tab-strip-close" onclick="return false;"></a>',
