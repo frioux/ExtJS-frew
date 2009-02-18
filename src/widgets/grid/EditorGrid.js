@@ -27,6 +27,12 @@ Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
      * editing that cell.</p>
      */
     clicksToEdit: 2,
+    
+    /**
+    * @cfg {Boolean} forceValidation
+    * True to force validation even if the value is unmodified (defaults to false)
+    */
+    forceValidation: false,
 
     // private
     isEditor : true,
@@ -164,7 +170,7 @@ Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
 		var r = ed.record;
         var field = this.colModel.getDataIndex(ed.col);
         value = this.postEditValue(value, startValue, r, field);
-        if(String(value) !== String(startValue)){
+        if(this.forceValidation === true || String(value) !== String(startValue)){
             var e = {
                 grid: this,
                 record: r,
