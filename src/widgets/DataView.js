@@ -189,7 +189,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
             "contextmenu",
             /**
              * @event containercontextmenu
-             * Fires when a right click occurs that is note on a template node.
+             * Fires when a right click occurs that is not on a template node.
              * @param {Ext.DataView} this
              * @param {Ext.EventObject} e The raw event object
              */

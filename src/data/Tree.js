@@ -170,7 +170,7 @@ Ext.data.Node = function(attributes){
      */
     this.id = this.attributes.id;
     if(!this.id){
-        this.id = Ext.id(null, "extnode-");
+        this.id = Ext.id(null, "xnode-");
         this.attributes.id = this.id;
     }
     /**
