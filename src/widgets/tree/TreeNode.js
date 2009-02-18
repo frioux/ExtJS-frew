@@ -512,6 +512,11 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
         if(this.ui.destroy){
             this.ui.destroy();
         }
+    },
+    
+    // private
+    onIdChange: function(id){
+        this.ui.onIdChange(id);
     }
 });
 

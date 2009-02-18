@@ -170,7 +170,7 @@ Ext.data.Node = function(attributes){
      */
     this.id = this.attributes.id;
     if(!this.id){
-        this.id = Ext.id(null, "ynode-");
+        this.id = Ext.id(null, "extnode-");
         this.attributes.id = this.id;
     }
     /**
@@ -594,6 +594,27 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
             }
         }
     },
+    
+    /**
+     * Changes the id of this node.
+     * @param {String} id The new id for the node.
+     */
+    setId: function(id){
+        if(id !== this.id){
+            var t = this.ownerTree;
+            if(t){
+                t.unregisterNode(this);
+            }
+            this.id = id;
+            if(t){
+                t.registerNode(this);
+            }
+            this.onIdChange(id);
+        }
+    },
+    
+    // private
+    onIdChange: Ext.emptyFn,
 
     /**
      * Returns the path for this node. The path can be used to expand or select this node programmatically.

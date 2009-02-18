@@ -536,6 +536,13 @@ Ext.tree.TreeNodeUI.prototype = {
             }
         }
     },
+    
+    // private
+    onIdChange: function(id){
+        if(this.rendered){
+            this.elNode.setAttribute('ext:tree-node-id', id);
+        }
+    },
 
     // private
     getChildIndent : function(){
