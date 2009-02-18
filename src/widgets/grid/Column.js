@@ -11,10 +11,10 @@ Ext.grid.Column = function(config){
     if(typeof this.renderer == "string"){
         this.renderer = Ext.util.Format[this.renderer];
     } else if(typeof this.renderer == 'object'){
-        var scope = this.renderer.scope;
+        this.rendererScope = this.renderer.scope;
         this.renderer = this.renderer.fn;
     }
-    this.renderer = this.renderer.createDelegate(this.rendererScope || scope || config);
+    this.renderer = this.renderer.createDelegate(this.rendererScope || config);
 
     if(typeof this.id == "undefined"){
         this.id = ++Ext.grid.Column.AUTO_ID;
