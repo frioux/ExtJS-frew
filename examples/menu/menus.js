@@ -120,6 +120,20 @@ Ext.onReady(function(){
         cls: 'x-btn-icon',
         tooltip: '<b>Quick Tips</b><br/>Icon only button with tooltip'
     }, '-');
+    
+    var scrollMenu = new Ext.menu.Menu();
+    for (var i = 0; i < 50; ++i){
+        scrollMenu.add({
+            text: 'Item ' + (i + 1)
+        });
+    }
+    // scrollable menu
+    tb.add({
+        icon: 'preview.png',
+        cls: 'x-btn-text-icon',
+        text: 'Scrolling Menu',
+        menu: scrollMenu
+    });
 
     // add a combobox to the toolbar
     var store = new Ext.data.ArrayStore({
