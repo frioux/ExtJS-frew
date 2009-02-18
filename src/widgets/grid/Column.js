@@ -77,7 +77,7 @@ Ext.grid.Column.prototype = {
      * @cfg {Mixed} renderer <p>(optional) This may be specified in either of three ways:<div class="mdetail-params"><ul>
      * <li>A renderer function used to return HTML markup for a cell given the cell's data value.</li>
      * <li>A string which references a property name of the {@link Ext.util.Format} class which provides a renderer function.</li>
-     * <li>An object specifying both the renderer function, and its execution scope (<tt><b>this</b></tt> reference) eg:<code><pre>
+     * <li>An object specifying both the renderer function, and its execution scope (<tt><b>this</b></tt> reference) eg:<code><pre style="margin-left:1.2em">
 {
     fn: this.gridRenderer,
     scope: this
@@ -126,7 +126,8 @@ Ext.grid.Column.prototype = {
     /**
      * @property renderer
      * @type Function
-     * A function which returns displayable data when passed the following parameters:<div class="mdetail-params"><ul>
+     * A function which returns displayable data when passed the following parameters:
+     * <div class="mdetail-params"><ul>
      * <li><b>value</b> : Object<p class="sub-desc">The data value for the cell.</p></li>
      * <li><b>metadata</b> : Object<p class="sub-desc">An object in which you may set the following attributes:<ul>
      * <li><b>css</b> : String<p class="sub-desc">A CSS class name to add to the cell's TD element.</p></li>
@@ -218,7 +219,7 @@ Ext.grid.BooleanColumn = Ext.extend(Ext.grid.Column, {
 Ext.grid.NumberColumn = Ext.extend(Ext.grid.Column, {
     /**
      * @cfg {String} format
-     * A formatting string as used by (@link Ext.util.Format#number} to format a numeric value for this Column.
+     * A formatting string as used by {@link Ext.util.Format#number} to format a numeric value for this Column.
      */
     format : '0,000.00',
     constructor: function(cfg){
@@ -236,7 +237,7 @@ Ext.grid.NumberColumn = Ext.extend(Ext.grid.Column, {
 Ext.grid.DateColumn = Ext.extend(Ext.grid.Column, {
     /**
      * @cfg {String} format
-     * A formatting string as used by (@link Date.format} to format a Date for this Column.
+     * A formatting string as used by {@link Date.format} to format a Date for this Column.
      */
     format : 'm/d/Y',
     constructor: function(cfg){
@@ -255,7 +256,7 @@ Ext.grid.DateColumn = Ext.extend(Ext.grid.Column, {
 Ext.grid.TemplateColumn = Ext.extend(Ext.grid.Column, {
     /**
      * @cfg {String/XTemplate} tpl
-     * A {@link Ext.XTemplate XTemplate}, or an XTemplate definition string to use to process a {@link Ext.data.Record Record}'s
+     * An {@link Ext.XTemplate XTemplate}, or an XTemplate <i>definition string</i> to use to process a {@link Ext.data.Record Record}'s
      * {@link Ext.data.Record#data data} to produce a colunm's rendered value.
      */
     constructor: function(cfg){

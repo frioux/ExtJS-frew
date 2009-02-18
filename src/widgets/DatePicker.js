@@ -6,7 +6,7 @@
  * Create a new DatePicker
  * @param {Object} config The config object
  */
-Ext.DatePicker = Ext.extend(Ext.Component, {
+Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
     /**
      * @cfg {String} todayText
      * The text to display on the button that selects the current date (defaults to "Today")

@@ -167,10 +167,11 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * Defaults to ''.
      */
     /**
-     * @cfg {Mixed} renderer <p>(optional) This may be specified in either of three ways:<div class="mdetail-params"><ul>
+     * @cfg {Mixed} renderer <p>(optional) This may be specified in either of three ways:
+     * <div class="mdetail-params"><ul>
      * <li>A renderer function used to return HTML markup for a cell given the cell's data value.</li>
      * <li>A string which references a property name of the {@link Ext.util.Format} class which provides a renderer function.</li>
-     * <li>An object specifying both the renderer function, and its execution scope (<tt><b>this</b></tt> reference) eg:<code><pre>
+     * <li>An object specifying both the renderer function, and its execution scope (<tt><b>this</b></tt> reference) eg:<code><pre style="margin-left:1.2em">
 {
     fn: this.gridRenderer,
     scope: this

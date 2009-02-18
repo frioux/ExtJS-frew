@@ -235,7 +235,6 @@ tools:[{
      */
     /**
      * @cfg {Ext.Template/Ext.XTemplate} toolTemplate
-     * @type {Ext.Template/Ext.XTemplate}
      * <p>A Template used to create tools in the {@link #header} Element. Defaults to:</p><pre><code>
 new Ext.Template('&lt;div class="x-tool x-tool-{id}">&amp;#160;&lt;/div>')</code></pre>
      * <p>This may may be overridden to provide a custom DOM structure for tools based upon a more
