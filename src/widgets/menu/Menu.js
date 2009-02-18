@@ -231,7 +231,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         this.mon(this.ul, 'click', this.onClick, this);
         this.mon(this.ul, 'mouseover', this.onMouseOver, this);
         this.mon(this.ul, 'mouseout', this.onMouseOut, this);
-        if(this.enableScroll){
+        if(this.enableScrolling){
             this.mon(this.el, 'click', this.onScroll, this, {delegate: '.x-menu-scroller'});
             this.mon(this.el, 'mouseover', this.deactivateActive, this, {delegate: '.x-menu-scroller'});
         }
@@ -366,7 +366,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         }
         Ext.menu.Menu.superclass.onShow.call(this);
         this.el.setXY(xy);
-        if(this.enableScroll){
+        if(this.enableScrolling){
             this.constrainScroll(xy[1]);
         }
         this.el.show();
