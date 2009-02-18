@@ -67,6 +67,16 @@ new Ext.Panel({
 });</pre></code>
      */
     /**
+     * @cfg {Object} headerCfg
+     * <p>A {@link Ext.DomHelper DomHelper} configuration object specifying the element structure
+     * of this Panel's {@link #header} Element.</p>
+     */
+    /**
+     * @cfg {Object} footerCfg
+     * <p>A {@link Ext.DomHelper DomHelper} configuration object specifying the element structure
+     * of this Panel's {@link #footer} Element.</p>
+     */
+    /**
      * The Panel's footer {@link Ext.Element Element}. Read-only.
      * <p>This Element is used to house the Panel's {@link #buttons}.</p>
      * @type Ext.Element
