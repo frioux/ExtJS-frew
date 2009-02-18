@@ -471,6 +471,9 @@ function(grid, rowIndex, columnIndex, e) {
         if(state.sort && this.store){
             this.store[this.store.remoteSort ? 'setDefaultSort' : 'sort'](state.sort.field, state.sort.direction);
         }
+        delete state.columns;
+        delete state.sort;
+        Ext.grid.GridPanel.superclass.applyState(state);
     },
 
     getState : function(){
