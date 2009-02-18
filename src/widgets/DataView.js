@@ -188,6 +188,13 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
              */
             "contextmenu",
             /**
+             * @event containercontextmenu
+             * Fires when a right click occurs that is note on a template node.
+             * @param {Ext.DataView} this
+             * @param {Ext.EventObject} e The raw event object
+             */
+            "containercontextmenu",
+            /**
              * @event selectionchange
              * Fires when the selected nodes change.
              * @param {Ext.DataView} this
@@ -426,6 +433,8 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
         var item = e.getTarget(this.itemSelector, this.getTemplateTarget());
         if(item){
             this.fireEvent("contextmenu", this, this.indexOf(item), item, e);
+        }else{
+            this.fireEvent("containercontextmenu", this, e)
         }
     },
 
