@@ -29,6 +29,98 @@ Ext.grid.Column = function(config){
 Ext.grid.Column.AUTO_ID = 0;
 
 Ext.grid.Column.prototype = {
+    /**
+     * @cfg {String} id (optional) Defaults to the column's initial ordinal position.
+     * A name which identifies this column. The id is used to create a CSS class name which
+     * is applied to all table cells (including headers) in that column. The class name
+     * takes the form of <pre>x-grid3-td-<b>id</b></pre>
+     * <br><br>
+     * Header cells will also recieve this class name, but will also have the class <pr>x-grid3-hd</pre>,
+     * so to target header cells, use CSS selectors such as:<pre>.x-grid3-hd.x-grid3-td-<b>id</b></pre>
+     * The {@link Ext.grid.GridPanel#autoExpandColumn} grid config option references the column
+     * via this identifier.
+     */
+    /**
+     * @cfg {String} header The header text to display in the Grid view.
+     */
+    /**
+     * @cfg {String} dataIndex (optional) The name of the field in the grid's {@link Ext.data.Store}'s
+     * {@link Ext.data.Record} definition from which to draw the column's value. If not
+     * specified, the column's index is used as an index into the Record's data Array.
+     */
+    /**
+     * @cfg {Number} width (optional) The initial width in pixels of the column. This is ignored if the
+     * Grid's {@link Ext.grid.GridView view} is configured with {@link Ext.grid.GridView#forceFit forceFit} true.
+     */
+    /**
+     * @cfg {Boolean} sortable (optional) True if sorting is to be allowed on this column.
+     * Whether local/remote sorting is used is specified in {@link Ext.data.Store#remoteSort}.
+     */
+    /**
+     * @cfg {Boolean} fixed (optional) True if the column width cannot be changed.  Defaults to false.
+     */
+    /**
+     * @cfg {Boolean} resizable (optional) False to disable column resizing. Defaults to true.
+     */
+    /**
+     * @cfg {Boolean} menuDisabled (optional) True to disable the column menu. Defaults to false.
+     */
+    /**
+     * @cfg {Boolean} hidden (optional) True to hide the column. Defaults to false.
+     */
+    /**
+     * @cfg {String} tooltip (optional) A text string to use as the column header's tooltip.  If Quicktips are enabled, this
+     * value will be used as the text of the quick tip, otherwise it will be set as the header's HTML title attribute.
+     * Defaults to ''.
+     */
+    /**
+     * @cfg {Mixed} renderer <p>(optional) This may be specified in either of three ways:<div class="mdetail-params"><ul>
+     * <li>A renderer function used to return HTML markup for a cell given the cell's data value.</li>
+     * <li>A string which references a property name of the {@link Ext.util.Format} class which provides a renderer function.</li>
+     * <li>An object specifying both the renderer function, and its execution scope (<tt><b>this</b></tt> reference) eg:<code><pre>
+{
+    fn: this.gridRenderer,
+    scope: this
+}
+</pre></code></li></ul></div>
+     * If not specified, the default renderer uses the raw data value.</p>
+     * <p>For information about the renderer function, see {@link Ext.grid.ColumnModel#setRenderer}</p>
+     */
+    /**
+     * @cfg {Object} rendererScope (optional) The scope (<tt><b>this</b></tt> reference) in which to execute the renderer.  Defaults to the Column
+     * configuration object.
+     */
+    /**
+     * @cfg {String} align (optional) Set the CSS text-align property of the column.  Defaults to undefined.
+     */
+    /**
+     * @cfg {String} css (optional) Set custom CSS for all table cells in the column (excluding headers).  Defaults to undefined.
+     */
+    /**
+     * @cfg {Boolean} hideable (optional) Specify as <tt>false</tt> to prevent the user from hiding this column
+     * (defaults to true).  To disallow column hiding globally for all columns in the grid, use
+     * {@link Ext.grid.GridPanel#enableColumnHide} instead.
+     */
+    /**
+     * @cfg {Ext.form.Field} editor (optional) The {@link Ext.form.Field} to use when editing values in this column if
+     * editing is supported by the grid.
+     */
+    /**
+     * @cfg {Function} groupRenderer If the grid is being rendered by an {@link Ext.grid.GroupingView}, this
+     * option may be used to specify the function used to format the grouping field value for
+     * display in the group header. Should return a string value.
+     * <p>This takes the following parameters:
+     * <div class="mdetail-params"><ul>
+     * <li><b>v</b> : Object<p class="sub-desc">The new value of the group field.</p></li>
+     * <li><b>unused</b> : undefined<p class="sub-desc">Unused parameter.</p></li>
+     * <li><b>r</b> : Ext.data.Record<p class="sub-desc">The Record providing the data
+     * for the row which caused group change.</p></li>
+     * <li><b>rowIndex</b> : Number<p class="sub-desc">The row index of the Record which caused group change.</p></li>
+     * <li><b>colIndex</b> : Number<p class="sub-desc">The column index of the group field.</p></li>
+     * <li><b>ds</b> : Ext.data.Store<p class="sub-desc">The Store which is providing the data Model.</p></li>
+     * </ul></div></p>
+     */
+
     // private. Used by ColumnModel to avoid reprocessing
     isColumn : true,
     /**
