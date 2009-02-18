@@ -98,8 +98,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
      * @cfg {String} emptyText Default text to display in the grid body when no rows are available (defaults to '').
      */
     /**
-     * @property dragZone
-     * @type Ext.grid.GridDragZone
+     * @property {Ext.grid.GridDragZone} dragZone
      * <p><b>This will only be present if the owning GridPanel was configured with {@link Ext.grid.GridPanel#enableDragDrop enableDragDrop} <tt>true</tt>.</b></p>
      * <p><b>This will only be present after the owning GridPanel has been rendered</b>.</p>
      * <p>A customized implementation of a {@link Ext.dd.DragZone DragZone} which provides default implementations of the
