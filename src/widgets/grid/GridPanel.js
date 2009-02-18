@@ -473,7 +473,7 @@ function(grid, rowIndex, columnIndex, e) {
         }
         delete state.columns;
         delete state.sort;
-        Ext.grid.GridPanel.superclass.applyState(state);
+        Ext.grid.GridPanel.superclass.applyState.call(this, state);
     },
 
     getState : function(){
