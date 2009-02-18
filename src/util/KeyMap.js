@@ -68,9 +68,9 @@ Ext.KeyMap.prototype = {
 Property    Type             Description
 ----------  ---------------  ----------------------------------------------------------------------
 key         String/Array     A single keycode or an array of keycodes to handle
-shift       Boolean          True to handle key only when shift is pressed (defaults to false)
-ctrl        Boolean          True to handle key only when ctrl is pressed (defaults to false)
-alt         Boolean          True to handle key only when alt is pressed (defaults to false)
+shift       Boolean          True to handle key only when shift is pressed, False to handle the key only when shift is not pressed (defaults to undefined)
+ctrl        Boolean          True to handle key only when ctrl is pressed, False to handle the key only when ctrl is not pressed (defaults to undefined)
+alt         Boolean          True to handle key only when alt is pressed, False to handle the key only when alt is not pressed (defaults to undefined)
 handler     Function         The function to call when KeyMap finds the expected key combination
 fn          Function         Alias of handler (for backwards-compatibility)
 scope       Object           The scope of the callback function
@@ -104,9 +104,6 @@ map.addBinding({
             return;
         }
         var keyCode = config.key,
-            shift = config.shift,
-            ctrl = config.ctrl,
-            alt = config.alt,
             fn = config.fn || config.handler,
             scope = config.scope;
 
@@ -125,7 +122,7 @@ map.addBinding({
         var keyArray = Ext.isArray(keyCode);
         
         var handler = function(e){
-            if((!shift || e.shiftKey) && (!ctrl || e.ctrlKey) &&  (!alt || e.altKey)){
+            if(this.checkModifiers(config, e)){
                 var k = e.getKey();
                 if(keyArray){
                     for(var i = 0, len = keyCode.length; i < len; i++){
@@ -149,6 +146,18 @@ map.addBinding({
         };
         this.bindings.push(handler);
 	},
+    
+    // private
+    checkModifiers: function(config, e){
+        var val, key, keys = ['shift', 'ctrl', 'alt'];
+        for (var i = 0, len = keys.length; i < len; ++i){
+            key = keys[i], val = config[key];
+            if(!(val === undefined || (val === e[key + 'Key']))){
+                return false;
+            }
+        }
+        return true;
+    },
 
     /**
      * Shorthand for adding a single key listener
