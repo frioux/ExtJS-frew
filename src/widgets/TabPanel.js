@@ -362,31 +362,31 @@ var tabs = new Ext.TabPanel({
          * <p>The main element created should be a <tt>&lt;li></tt> element. In order for a click event on a selector element to be
          * connected to its item, it must take its <i>id</i> from the TabPanel's native {@link #getTemplateArgs}.</p>
          * <p>The child element which contains the title text must be marked by the CSS class <tt>x-tab-strip-inner</tt>.</p>
-         * <p>To enable closability, the created element should contain an element marked by the CSS class <tt>x-tab-strip-close</tt></p>
-         * <p>If a custom itemTpl is supplied, it is the developers responsibility to create CSS style rules to create the desired appearance.</p>
+         * <p>To enable closability, the created element should contain an element marked by the CSS class <tt>x-tab-strip-close</tt>.</p>
+         * <p>If a custom itemTpl is supplied, it is the developer's responsibility to create CSS style rules to create the desired appearance.</p>
          * Below is an example of how to create customized tab selector items:<code><pre>
 new Ext.TabPanel({
     renderTo: document.body,
     minTabWidth: 115,
-    tabWidth:135,
-    enableTabScroll:true,
-    width:600,
-    height:250,
+    tabWidth: 135,
+    enableTabScroll: true,
+    width: 600,
+    height: 250,
     defaults: {autoScroll:true},
     itemTpl: new Ext.XTemplate(
-    '<li class="{cls}" id="{id}" style="overflow:hidden">',
-         '<tpl if="closable">',
-            '<a class="x-tab-strip-close" onclick="return false;"></a>',
-         '</tpl>',
-         '<a class="x-tab-right" href="#" onclick="return false;" style="padding-left:6px">',
-            '<em class="x-tab-left">',
-                '<span class="x-tab-strip-inner">',
-                    '<img src="{src}" style="float:left;margin:3px 3px 0 0">',
-                    '<span style="margin-left:20px" class="x-tab-strip-text {iconCls}">{text} {extra}</span>',
-                '</span>',
-            '</em>',
-        '</a>',
-    '</li>'
+    '&lt;li class="{cls}" id="{id}" style="overflow:hidden">',
+         '&lt;tpl if="closable">',
+            '&lt;a class="x-tab-strip-close" onclick="return false;">&lt;/a>',
+         '&lt;/tpl>',
+         '&lt;a class="x-tab-right" href="#" onclick="return false;" style="padding-left:6px">',
+            '&lt;em class="x-tab-left">',
+                '&lt;span class="x-tab-strip-inner">',
+                    '&lt;img src="{src}" style="float:left;margin:3px 3px 0 0">',
+                    '&lt;span style="margin-left:20px" class="x-tab-strip-text {iconCls}">{text} {extra}&lt;/span>',
+                '&lt;/span>',
+            '&lt;/em>',
+        '&lt;/a>',
+    '&lt;/li>'
     ),
     getTemplateArgs: function(item) {
 //      Call the native method to collect the base data. Like the ID!
