@@ -14,7 +14,7 @@
  </code></pre>
  * @constructor
  * @param {Object} config The configuration options
-*/
+ */
 Ext.grid.RowNumberer = function(config){
     Ext.apply(this, config);
     if(this.rowspan){

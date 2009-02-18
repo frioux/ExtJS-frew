@@ -21,7 +21,7 @@
  * <p>
  * The config options <b>defined by</b> this class are options which may appear in each
  * individual column definition. In order to use configuration options from the superclass,
- * specify the column configuration Array in the <tt><b>columns</b></tt> config property. 
+ * specify the column configuration Array in the <tt><b>columns</b></tt> config property.
  * The <tt><b>defaults</b></tt> config property can be used to apply defaults for all columns
  * eg:<pre><code>
  var colModel = new Ext.grid.ColumnModel({
@@ -47,7 +47,7 @@
  * @constructor
  * @param {Object} config An Array of column config objects. See this class's
  * config objects for details.
-*/
+ */
 Ext.grid.ColumnModel = function(config){
     /**
      * An Array of {@link Ext.Ext.grid.Column Column definition} objects representing the configuration
@@ -116,9 +116,9 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     defaultSortable: false,
 
     /**
-     * @cfg {Object} defaults Object literal which will be used to apply default config 
+     * @cfg {Object} defaults Object literal which will be used to apply default config
      * options <b>defined by</b> this class.  Config options specified with individual
-     * column configs will supersede these defaults.    
+     * column configs will supersede these defaults.
      */
 
     /**
@@ -237,13 +237,13 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
                 }
             }
         }
-        
+
         // backward compatibility
         this.defaults = Ext.apply({
             width: this.defaultWidth,
             sortable: this.defaultSortable
         }, this.defaults);
-        
+
         this.config = config;
         this.lookup = {};
         // if no id, create one
@@ -505,7 +505,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * Returns the editor defined for the cell/column.
      * @param {Number} colIndex The column index
      * @param {Number} rowIndex The row index
-     * @return {Ext.Editor} The {@link Ext.Editor Editor} that was created to wrap 
+     * @return {Ext.Editor} The {@link Ext.Editor Editor} that was created to wrap
      * the {@link Ext.form.Field Field} used to edit the cell.
      */
     getCellEditor : function(colIndex, rowIndex){

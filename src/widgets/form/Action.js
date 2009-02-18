@@ -90,7 +90,7 @@ Ext.form.Action.prototype = {
  * error ocurred, the failure type will be in {@link #failureType}. The {@link #result}
  * property of this object may be examined to perform custom postprocessing.</div></li>
  * </ul>
-*/
+ */
 /**
  * @cfg {Object} scope The scope in which to call the callback functions (The <tt>this</tt> reference
  * for the callback functions).

@@ -4,23 +4,23 @@
  * passed to {@link Ext.data.Record#create}.</p>
  * <p>Developers do not need to instantiate this class. Instances are created by {@link Ext.data.Record.create}
  * and cached in the {@link Ext.data.Record#fields fields} property of the created Record constructor's <b>prototype.</b></p>
-*/
+ */
 Ext.data.Field = function(config){
     if(typeof config == "string"){
         config = {name: config};
     }
     Ext.apply(this, config);
-    
+
     if(!this.type){
         this.type = "auto";
     }
-    
+
     var st = Ext.data.SortTypes;
     // named sortTypes are supported, here we look them up
     if(typeof this.sortType == "string"){
         this.sortType = st[this.sortType];
     }
-    
+
     // set default sortType for strings and dates
     if(!this.sortType){
         switch(this.type){
@@ -60,7 +60,7 @@ Ext.data.Field = function(config){
             case "float":
                 cv = function(v){
                     return v !== undefined && v !== null && v !== '' ?
-                           parseFloat(String(v).replace(stripRe, ""), 10) : ''; 
+                           parseFloat(String(v).replace(stripRe, ""), 10) : '';
                     };
                 break;
             case "bool":
@@ -88,7 +88,7 @@ Ext.data.Field = function(config){
                     return parsed ? new Date(parsed) : null;
                 };
              break;
-            
+
         }
         this.convert = cv;
     }
@@ -122,7 +122,7 @@ Ext.data.Field.prototype = {
     /**
      * @cfg {String} dateFormat
      * (Optional) A format string for the {@link Date#parseDate Date.parseDate} function, or "timestamp" if the
-     * value provided by the Reader is a UNIX timestamp, or "time" if the value provided by the Reader is a 
+     * value provided by the Reader is a UNIX timestamp, or "time" if the value provided by the Reader is a
      * javascript millisecond timestamp.
      */
     dateFormat: null,

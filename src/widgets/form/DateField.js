@@ -2,9 +2,9 @@
  * @class Ext.form.DateField
  * @extends Ext.form.TriggerField
  * Provides a date input field with a {@link Ext.DatePicker} dropdown and automatic date validation.
-* @constructor
-* Create a new DateField
-* @param {Object} config
+ * @constructor
+ * Create a new DateField
+ * @param {Object} config
  */
 Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
     /**
@@ -100,7 +100,7 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
 
     initComponent : function(){
         Ext.form.DateField.superclass.initComponent.call(this);
-        
+
         this.addEvents(
             /**
              * @event select
@@ -110,7 +110,7 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
              */
             'select'
         );
-        
+
         if(typeof this.minValue == "string"){
             this.minValue = this.parseDate(this.minValue);
         }
