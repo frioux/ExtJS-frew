@@ -119,6 +119,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
                 this.lastOverflow = true;
             }
         }else if(this.more){
+            this.clearMenu();
             this.more.destroy();
             delete this.more;
             if(this.lastOverflow){
@@ -129,9 +130,18 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
     },
 
     createMenuConfig: function(c, hideOnClick){
-        var cfg = Ext.apply({}, c.initialConfig);
+        var cfg = {
+            text: c.text,
+            iconCls: c.iconCls,
+            icon: c.icon,
+            disabled: c.disabled,
+            handler: c.handler,
+            scope: c.scope,
+            menu: c.menu
+        };
         cfg.hideOnClick = hideOnClick;
         delete cfg.xtype;
+        delete cfg.id;
         return cfg;
     },
 
@@ -153,9 +163,19 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
             }
         }
     },
+    
+    clearMenu: function(){
+        var m = this.moreMenu;
+        if(m && m.items){
+            this.moreMenu.items.each(function(item){
+                delete item.menu;
+            });
+        }
+    },
 
     // private
     beforeMoreShow : function(m){
+        this.clearMenu();
         m.removeAll();
         for(var i = 0, h = this.container.items.items, len = h.length, c; i < len; i++){
             c = h[i];
