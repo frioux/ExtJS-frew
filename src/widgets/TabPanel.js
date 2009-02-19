@@ -551,7 +551,7 @@ new Ext.TabPanel({
      * <p>This method returns an object hash containing properties used by the TabPanel's {@link #itemTpl}
      * to create a formatted, clickable tab selector element. The properties which must be returned are:</p><div class="mdetail-params"><ul>
      * <li><b>id</b> : String<div class="sub-desc">A unique identifier which links to the item</div></li>
-     * <li><b>text</b> : String<div class="sub-desc">The text to disdplay</div></li>
+     * <li><b>text</b> : String<div class="sub-desc">The text to display</div></li>
      * <li><b>cls</b> : String<div class="sub-desc">The CSS class name</div></li>
      * <li><b>iconCls</b> : String<div class="sub-desc">A CSS class to provide appearance for an icon.</div></li>
      * </ul></div>
