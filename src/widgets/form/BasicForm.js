@@ -489,8 +489,8 @@ myFormPanel.getForm().submit({
      * If multiple fields exist with the same name they are returned as an array.</p>
      *
      * <p><b>Note:</b> The values are collected from all enabled HTML input elements within the form, <u>not</u> from
-     * the Ext Field objects. This means that all returned values are Strings (or Arrays of Strings) and that the the
-     * value can potentionally be the emptyText of a field.</p>
+     * the Ext Field objects. This means that all returned values are Strings (or Arrays of Strings) and that the
+     * value can potentially be the emptyText of a field.</p>
      * @param {Boolean} asString (optional) false to return the values as an object (defaults to returning as a string)
      * @return {String/Object}
      */
