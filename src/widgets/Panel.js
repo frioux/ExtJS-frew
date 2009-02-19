@@ -125,10 +125,11 @@ new Ext.Panel({
      */
     /**
      * @cfg {String} title
-     * The title text to display in the panel header (defaults to '').  When a title is specified the header
-     * element will automatically be created and displayed unless {@link #header} is explicitly set to false.  If
-     * you don't want to specify a title at config time, but you may want one later, you must either specify a
-     * non-empty title (a blank space ' ' will do) or header:true so that the container element will get created.
+     * The title text to be used as innerHTML (html tags are accepted) to display in the panel header (defaults to '').
+     * When a title is specified the header element will automatically be created and displayed unless {@link #header}
+     * is explicitly set to false.  If you do not want to specify a title at config time, but you may want one later, 
+     * you must either specify a non-empty title (a blank space ' ' will do) or header:true so that the container
+     * element will get created.
      */
     /**
      * @cfg {Array} buttons
@@ -368,9 +369,10 @@ new Ext.Panel({
 </code></pre>
      */
     /**
-       * @cfg {String} tabTip
-       * Adds a tooltip when mousing over the tab of a Ext.Panel which is an item of a Ext.TabPanel. Ext.QuickTips.init()
-       * must be called in order for the tips to render.
+     * @cfg {String} tabTip
+     * A string to be used as innerHTML (html tags are accepted) to show in a tooltip when mousing over the tab of
+     * a Ext.Panel which is an item of a Ext.TabPanel. Ext.QuickTips.init() must be called in order for the tips to 
+     * render.
      */
     /**
      * @cfg {Boolean} disabled

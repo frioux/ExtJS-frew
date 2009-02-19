@@ -4,9 +4,9 @@
  * This is the default implementation of a ColumnModel used by the Grid. This class is initialized
  * with an Array of column config objects.
  * <br><br>
- * An individual column's config object defines the header string, the {@link Ext.data.Record}
+ * An individual column's config object defines the {@link #header} string, the {@link Ext.data.Record}
  * field the column draws its data from, an optional rendering function to provide customized
- * data formatting, and the ability to apply a CSS class to all cells in a column through its
+ * data formatting, and the ability to apply a CSS class to all cells in a column through it's
  * {@link #id} config option.<br>
  * <br>Usage:<br>
 <pre><code>
@@ -19,12 +19,18 @@
  ]);
  </code></pre>
  * <p>
- * The config options <b>defined by</b> this class are options which may appear in each
- * individual column definition. In order to use configuration options from the superclass,
- * specify the column configuration Array in the <tt><b>columns</b></tt> config property.
- * The <tt><b>defaults</b></tt> config property can be used to apply defaults for all columns
- * eg:<pre><code>
+ * In order to use configuration options from the superclass, specify the column configuration Array
+ * in the <tt><b>columns</b></tt> config property. The config options <b>defined by</b> this class are 
+ * options which may appear in each individual column definition. The <tt><b>defaults</b></tt> config
+ * property can be used to apply defaults for all columns, eg:</p><pre><code>
  var colModel = new Ext.grid.ColumnModel({
+    columns: [
+        { header: "Ticker", width: 60, menuDisabled: false},
+        { header: "Company Name", width: 150},
+        { header: "Market Cap."},
+        { header: "$ Sales", renderer: money},
+        { header: "Employees", resizable: false}
+    ],
     defaults: {
         sortable: true,
         menuDisabled: true,
@@ -34,14 +40,7 @@
         widthchange: function(cm, colIndex, width) {
             saveConfig(colIndex, width);
         }
-    },
-    columns: [
-        { header: "Ticker", width: 60, menuDisabled: false},
-        { header: "Company Name", width: 150},
-        { header: "Market Cap."},
-        { header: "$ Sales", renderer: money},
-        { header: "Employees", resizable: false}
-     ]
+    }
 });
  </code></pre>
  * @constructor
@@ -133,7 +132,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * via this identifier.
      */
     /**
-     * @cfg {String} header The header text to display in the Grid view.
+     * @cfg {String} header The header text to be used as innerHTML (html tags are accepted) to display in the Grid view. 
      */
     /**
      * @cfg {String} dataIndex (optional) The name of the field in the grid's {@link Ext.data.Store}'s

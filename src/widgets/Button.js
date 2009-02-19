@@ -3,13 +3,13 @@
  * @class Ext.Button
  * @extends Ext.BoxComponent
  * Simple Button class
- * @cfg {String} text The button text
+ * @cfg {String} text The button text to be used as innerHTML (html tags are accepted)
  * @cfg {String} icon The path to an image to display in the button (the image will be set as the background-image
  * CSS property of the button by default, so if you want a mixed icon/text button, set cls:"x-btn-text-icon")
  * @cfg {Function} handler A function called when the button is clicked (can be used instead of click event)
  * @cfg {Object} scope The scope of the handler
  * @cfg {Number} minWidth The minimum width for this button (used to give a set of buttons a common width)
- * @cfg {String/Object} tooltip The tooltip for the button - can be a string or QuickTips config object
+ * @cfg {String/Object} tooltip The tooltip for the button - can be a string to be used as innerHTML (html tags are accepted) or QuickTips config object
  * @cfg {Boolean} hidden True to start hidden (defaults to false)
  * @cfg {Boolean} disabled True to start disabled (defaults to false)
  * @cfg {Boolean} pressed True to start pressed (only if enableToggle = true)
@@ -371,7 +371,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     /**
      * Sets the tooltip for this Button.
      * @param {String/Object} tooltip. This may be:<div class="mdesc-details"><ul>
-     * <li><b>String</b> : The textual value to show in a tooltip.</li>
+     * <li><b>String</b> : A string to be used as innerHTML (html tags are accepted) to show in a tooltip</li>
      * <li><b>Object</b> : A configuration object for {@link Ext.QuickTips#register}.</li>
      * </ul></div>
      * @return {Ext.Button} this
