@@ -187,6 +187,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         if(this.autoLayout){
             this.on('add', this.onAdd, this);
         }
+        Ext.EventManager.onWindowResize(this.hide, this);
     },
     
     //private
@@ -443,10 +444,12 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
      * @param {Boolean} deep (optional) True to hide all parent menus recursively, if any (defaults to false)
      */
     hide : function(deep){
-        Ext.menu.Menu.superclass.hide.call(this);
-        this.el.hide();
-        if(deep === true && this.parentMenu){
-            this.parentMenu.hide(true);
+        if(this.el){
+            Ext.menu.Menu.superclass.hide.call(this);
+            this.el.hide();
+            if(deep === true && this.parentMenu){
+                this.parentMenu.hide(true);
+            }
         }
     },
     
@@ -543,6 +546,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
     onDestroy : function(){
         Ext.menu.Menu.superclass.onDestroy.call(this);
         Ext.menu.MenuMgr.unregister(this);
+        Ext.EventManager.removeResizeListener(this.hide, this);
         if(this.keyNav) {
         	this.keyNav.disable();
         }
