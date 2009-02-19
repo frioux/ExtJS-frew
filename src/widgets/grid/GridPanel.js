@@ -103,7 +103,7 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
      */
     trackMouseOver : true,
     /**
-     * @cfg {Boolean} <p>enableDragDrop True to enable dragging of the selected rows of the GridPanel.</p>
+     * @cfg {Boolean} enableDragDrop <p>True to enable dragging of the selected rows of the GridPanel.</p>
      * <p>Setting this to <b><tt>true</tt></b> causes this GridPanel's {@link #getView GridView} to create an instance of 
      * {@link Ext.grid.GridDragZone}. This is available <b>(only after the Grid has been rendered)</b> as the
      * GridView's {@link Ext.grid.GridView#dragZone dragZone} property.</p>
