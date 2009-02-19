@@ -4,6 +4,19 @@
  * A menu containing a {@link Ext.menu.DateItem} component (which provides a date picker).
  */
  Ext.menu.DateMenu = Ext.extend(Ext.menu.Menu, {
+    /** 
+     * @cfg {Boolean} enableScrolling
+     * @hide 
+     */
+    enableScrolling: false,
+    /** 
+     * @cfg {Number} maxHeight
+     * @hide 
+     */
+    /** 
+     * @cfg {Number} scrollIncrement
+     * @hide 
+     */
     cls:'x-date-menu',
     
     initComponent: function(){

@@ -4,6 +4,20 @@
  * A menu containing a {@link Ext.menu.ColorItem} component (which provides a basic color picker).
  */
  Ext.menu.ColorMenu = Ext.extend(Ext.menu.Menu, {
+    /** 
+     * @cfg {Boolean} enableScrolling
+     * @hide 
+     */
+    enableScrolling: false,
+    /** 
+     * @cfg {Number} maxHeight
+     * @hide 
+     */
+    /** 
+     * @cfg {Number} scrollIncrement
+     * @hide 
+     */
+    
     initComponent: function(){
         this.ci = new Ext.menu.ColorItem(this.initialConfig);
         this.relayEvents(this.ci, ['select']);
