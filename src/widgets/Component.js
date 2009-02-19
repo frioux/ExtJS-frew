@@ -1027,6 +1027,7 @@ new Ext.Panel({
 
     /**
      * Returns true if this component is visible.
+     * @return {Boolean} True if this component is visible, false otherwise.
      */
     isVisible : function(){
         return this.rendered && this.getActionEl().isVisible();
@@ -1075,6 +1076,7 @@ var isBoxInstance = t.isXType('box', true); // false, not a direct BoxComponent 
      * @param {String} xtype The xtype to check for this Component
      * @param {Boolean} shallow (optional) False to check whether this Component is descended from the xtype (this is
      * the default), or true to check whether this Component is directly of the specified xtype.
+     * @return {Boolean} True if this component descends from the specified xtype, false otherwise.
      */
     isXType : function(xtype, shallow){
         //assume a string by default

@@ -212,6 +212,7 @@ side          Add an error icon to the right of the field with a popup on hover
 
     /**
      * Returns true if this field has been changed since it was originally loaded and is not disabled.
+     * @return {Boolean} True if this field has been changed since it was originally loaded (and is not disabled), false otherwise.
      */
     isDirty : function() {
         if(this.disabled) {
