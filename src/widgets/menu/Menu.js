@@ -7,7 +7,7 @@
         if(c && !c.rendered){
             var li = document.createElement('li');
             li.className = 'x-menu-list-item';
-            c.render(li, this.container);
+            c.render(li, position);
 
             if(typeof position == 'number'){
                 position = target.dom.childNodes[position];
