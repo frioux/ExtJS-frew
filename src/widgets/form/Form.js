@@ -59,7 +59,7 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
      * @cfg {Boolean} monitorValid If true, the form monitors its valid state <b>client-side</b> and
      * regularly fires the {@link #clientvalidation} event passing that state.<br>
      * <p>When monitoring valid state, the FormPanel enables/disables any of its configured
-     * {@link #button}s which have been configured with <tt>formBind: true<tt> depending
+     * {@link #button}s which have been configured with <tt>formBind: true</tt> depending
      * on whether the form is valid or not.</p>
      */
     monitorValid : false,

@@ -188,6 +188,20 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
 
     /**
      * The value of the match string used to filter the store. Delete this property to force a requery.
+     * Example use:<pre><code>
+var combo = new Ext.form.ComboBox({
+    ...
+    mode: 'remote',
+    ...
+    listeners: {
+        // delete the previous query in the beforequery event or set 
+        // combo.lastQuery = null (this will reload the store the next time it expands)
+        beforequery: function(qe){
+            delete qe.combo.lastQuery;
+        }
+    }
+});
+</code></pre>
      * @property lastQuery
      * @type String
      */
