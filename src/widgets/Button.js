@@ -358,12 +358,14 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      * Sets the CSS class that provides a background image to use as the button's icon.  This method also changes
      * the value of the {@link iconCls} config internally.
      * @param {String} cls The CSS class providing the icon image
+     * @return {Ext.Button} this
      */
     setIconClass : function(cls){
         if(this.el){
             this.btnEl.replaceClass(this.iconCls, cls);
         }
         this.iconCls = cls;
+        return this;
     },
 
     /**
@@ -372,6 +374,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      * <li><b>String</b> : The textual value to show in a tooltip.</li>
      * <li><b>Object</b> : A configuration object for {@link Ext.QuickTips#register}.</li>
      * </ul></div>
+     * @return {Ext.Button} this
      */
     setTooltip : function(tooltip){
 		if(Ext.isObject(tooltip)){
@@ -381,6 +384,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         } else {
             this.btnEl.dom[this.tooltipType] = tooltip;
         }
+        return this;
     },
 	
     // private
@@ -425,15 +429,18 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      * Assigns this Button's click handler
      * @param {Function} handler The function to call when the button is clicked
      * @param {Object} scope (optional) Scope for the function passed in
+     * @return {Ext.Button} this
      */
     setHandler : function(handler, scope){
         this.handler = handler;
         this.scope = scope;
+        return this;
     },
 
     /**
      * Sets this Button's text
      * @param {String} text The button text
+     * @return {Ext.Button} this
      */
     setText : function(text){
         this.text = text;
@@ -441,6 +448,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
             this.el.child("td.x-btn-mc " + this.buttonSelector).update(text);
         }
         this.doAutoWidth();
+        return this;
     },
 
     /**
@@ -481,24 +489,22 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
 
     // private
     onDisable : function(){
-        if(this.el){
-            if(!Ext.isIE6 || !this.text){
-                this.el.addClass(this.disabledClass);
-            }
-            this.el.dom.disabled = true;
-        }
-        this.disabled = true;
+        this.onDisableChange(true);
     },
 
     // private
     onEnable : function(){
+        this.onDisableChange(false);
+    },
+    
+    onDisableChange : function(disabled){
         if(this.el){
             if(!Ext.isIE6 || !this.text){
-                this.el.removeClass(this.disabledClass);
+                this.el[disabled ? 'addClass' : 'removeClass'](this.disabledClass);
             }
-            this.el.dom.disabled = false;
+            this.el.dom.disabled = disabled;
         }
-        this.disabled = false;
+        this.disabled = disabled;
     },
 
     /**
