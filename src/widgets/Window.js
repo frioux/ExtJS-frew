@@ -1,22 +1,25 @@
 /**
  * @class Ext.Window
  * @extends Ext.Panel
- * A specialized panel intended for use as an application window.  Windows are floated and draggable by default, and
- * also provide specific behavior like the ability to maximize and restore (with an event for minimizing, since the
- * minimize behavior is application-specific).  Windows can also be linked to a {@link Ext.WindowGroup} or managed
- * by the {@link Ext.WindowMgr} to provide grouping, activation, to front/back and other application-specific behavior.
+ * <p>A specialized panel intended for use as an application window.  Windows are floated, {@link #resizable}, and
+ * {@link #draggable} by default.  Windows can be maximized to fill the viewport, restored to their prior size, and
+ * can be {@link #minimize}d.</p>
+ * <p>Windows can also be linked to a {@link Ext.WindowGroup} or managed by the {@link Ext.WindowMgr} to provide 
+ * grouping, activation, to front, to back and other application-specific behavior.</p>
+ * <p>By default, Windows will be rendered to document.body. To {@link #constrain} a Window to another element
+ * specify {@link Ext.Component#renderTo renderTo}.</p>
  * @constructor
  * @param {Object} config The config object
  */
 Ext.Window = Ext.extend(Ext.Panel, {
     /**
      * @cfg {Number} x
-     * The X position of the left edge of the Window on initial showing. Defaults to centering the Window within
+     * The X position of the left edge of the window on initial showing. Defaults to centering the Window within
      * the width of the Window's container {@link Ext.Element Element) (The Element that the Window is rendered to).
      */
     /**
      * @cfg {Number} y
-     * The Y position of the top edge of the Window on initial showing. Defaults to centering the Window within
+     * The Y position of the top edge of the window on initial showing. Defaults to centering the Window within
      * the height of the Window's container {@link Ext.Element Element) (The Element that the Window is rendered to).
      */
     /**
@@ -67,14 +70,14 @@ Ext.Window = Ext.extend(Ext.Panel, {
      * @cfg {Boolean} resizable
      * True to allow user resizing at each edge and corner of the window, false to disable resizing (defaults to true).
      */
-    resizable:true,
+    resizable : true,
     /**
      * @cfg {Boolean} draggable
      * True to allow the window to be dragged by the header bar, false to disable dragging (defaults to true).  Note
      * that by default the window will be centered in the viewport, so if dragging is disabled the window may need
      * to be positioned programmatically after render (e.g., myWindow.setPosition(100, 100);).
      */
-    draggable:true,
+    draggable : true,
     /**
      * @cfg {Boolean} closable
      * <p>True to display the 'close' tool button and allow the user to close the window, false to
@@ -88,24 +91,26 @@ Ext.Window = Ext.extend(Ext.Panel, {
     closable : true,
     /**
      * @cfg {Boolean} constrain
-     * True to constrain the window to the viewport, false to allow it to fall outside of the viewport
+     * True to constrain the window within it's containing element, false to allow it to fall outside of it's
+     * containing element. By default the window will be rendered to document.body.  To render and constrain the 
+     * window within another element specify {@link #renderTo}.
      * (defaults to false).  Optionally the header only can be constrained using {@link #constrainHeader}.
      */
-    constrain:false,
+    constrain : false,
     /**
      * @cfg {Boolean} constrainHeader
-     * True to constrain the window header to the viewport, allowing the window body to fall outside of the viewport,
-     * false to allow the header to fall outside the viewport (defaults to false).  Optionally the entire window
-     * can be constrained using {@link #constrain}.
+     * True to constrain the window header within it's containing element (allowing the window body to fall outside 
+     * of it's containing element) or false to allow the header to fall outside it's containing element (defaults to 
+     * false). Optionally the entire window can be constrained using {@link #constrain}.
      */
-    constrainHeader:false,
+    constrainHeader : false,
     /**
      * @cfg {Boolean} plain
      * True to render the window body with a transparent background so that it will blend into the framing
      * elements, false to add a lighter background color to visually highlight the body element and separate it
      * more distinctly from the surrounding frame (defaults to false).
      */
-    plain:false,
+    plain : false,
     /**
      * @cfg {Boolean} minimizable
      * True to display the 'minimize' tool button and allow the user to minimize the window, false to hide the button
@@ -126,18 +131,18 @@ Ext.Window = Ext.extend(Ext.Panel, {
      * @cfg {Number} minHeight
      * The minimum height in pixels allowed for this window (defaults to 100).  Only applies when resizable = true.
      */
-    minHeight: 100,
+    minHeight : 100,
     /**
      * @cfg {Number} minWidth
      * The minimum width in pixels allowed for this window (defaults to 200).  Only applies when resizable = true.
      */
-    minWidth: 200,
+    minWidth : 200,
     /**
      * @cfg {Boolean} expandOnShow
      * True to always expand the window when it is displayed, false to keep it in its current state (which may be
      * {@link #collapsed}) when displayed (defaults to true).
      */
-    expandOnShow: true,
+    expandOnShow : true,
     /**
      * @cfg {String} closeAction
      * The action to take when the close button is clicked.  The default action is 'close' which will actually remove
@@ -145,10 +150,10 @@ Ext.Window = Ext.extend(Ext.Panel, {
      * by setting visibility to hidden and applying negative offsets, keeping the window available to be redisplayed
      * via the {@link #show} method.
      */
-    closeAction: 'close',
+    closeAction : 'close',
 
     // inherited docs, same default
-    collapsible:false,
+    collapsible : false,
 
     // private
     initHidden : true,
@@ -163,11 +168,11 @@ Ext.Window = Ext.extend(Ext.Panel, {
     // usually only be done in subclasses that can provide custom behavior.  Changing them
     // may have unexpected or undesirable results.
     /** @cfg {String} elements @hide */
-    elements: 'header,body',
+    elements : 'header,body',
     /** @cfg {Boolean} frame @hide */
-    frame:true,
+    frame : true,
     /** @cfg {Boolean} floating @hide */
-    floating:true,
+    floating : true,
 
     // private
     initComponent : function(){
