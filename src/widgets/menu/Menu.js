@@ -7,7 +7,7 @@
         if(c && !c.rendered){
             var li = document.createElement('li');
             li.className = 'x-menu-list-item';
-            c.render(li, position);
+            c.render(li, c.shouldDeactivate ? this.container : position); //minor fix until refactor for this layout
 
             if(typeof position == 'number'){
                 position = target.dom.childNodes[position];
@@ -395,6 +395,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
             this.ul.setHeight(full);
             this.el.select('.x-menu-scroller').setDisplayed('none');
         }
+        this.ul.dom.scrollTop = 0;
     },
     
     createScrollers: function(){
