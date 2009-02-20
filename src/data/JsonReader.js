@@ -13,7 +13,7 @@ var Employee = Ext.data.Record.create([
 var myReader = new Ext.data.JsonReader({
     totalProperty: "results",             // The property which contains the total dataset size (optional)
     root: "rows",                         // The property which contains an Array of row objects
-    id: "id"                              // The property within each row object that provides an ID for the record (optional)
+    idProperty: "id"                      // The property within each row object that provides an ID for the record (optional)
 }, Employee);
 </code></pre>
  * <p>
@@ -57,7 +57,7 @@ var myReader = new Ext.data.JsonReader();
     metaData: {
         totalProperty: 'results',
         root: 'rows',
-        id: 'id',
+        idProperty: 'id',
         fields: [
             {name: 'name'},
             {name: 'occupation'}
@@ -75,7 +75,7 @@ var myReader = new Ext.data.JsonReader();
  * paged from the remote server.
  * @cfg {String} successProperty Name of the property from which to retrieve the success attribute used by forms.
  * @cfg {String} root name of the property which contains the Array of row objects.
- * @cfg {String} id Name of the property within a row object that contains a record identifier value.
+ * @cfg {String} idProperty Name of the property within a row object that contains a record identifier value.
  * @constructor
  * Create a new JsonReader
  * @param {Object} meta Metadata configuration options.
@@ -114,15 +114,15 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
     },
 
     /**
-	 * @ignore
-	 */
+     * @ignore
+     */
     simpleAccess: function(obj, subsc) {
-    	return obj[subsc];
+        return obj[subsc];
     },
 
-	/**
-	 * @ignore
-	 */
+    /**
+     * @ignore
+     */
     getJsonAccessor: function(){
         var re = /[\[\.]/;
         return function(expr) {
@@ -164,21 +164,21 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
 //      Generate extraction functions for the totalProperty, the root, the id, and for each field
         if (!this.ef) {
             if(s.totalProperty) {
-	            this.getTotal = this.getJsonAccessor(s.totalProperty);
-	        }
-	        if(s.successProperty) {
-	            this.getSuccess = this.getJsonAccessor(s.successProperty);
-	        }
-	        this.getRoot = s.root ? this.getJsonAccessor(s.root) : function(p){return p;};
-	        if (s.id || s.idProperty) {
-	        	var g = this.getJsonAccessor(s.id || s.idProperty);
-	        	this.getId = function(rec) {
-	        		var r = g(rec);
-		        	return (r === undefined || r === "") ? null : r;
-	        	};
-	        } else {
-	        	this.getId = function(){return null;};
-	        }
+                this.getTotal = this.getJsonAccessor(s.totalProperty);
+            }
+            if(s.successProperty) {
+                this.getSuccess = this.getJsonAccessor(s.successProperty);
+            }
+            this.getRoot = s.root ? this.getJsonAccessor(s.root) : function(p){return p;};
+            if (s.id || s.idProperty) {
+                var g = this.getJsonAccessor(s.id || s.idProperty);
+                this.getId = function(rec) {
+                    var r = g(rec);
+                    return (r === undefined || r === "") ? null : r;
+                };
+            } else {
+                this.getId = function(){return null;};
+            }
             this.ef = [];
             for(var i = 0; i < fl; i++){
                 f = fi[i];
@@ -187,8 +187,8 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             }
         }
 
-    	var root = this.getRoot(o), c = root.length, totalRecords = c, success = true;
-    	if(s.totalProperty){
+        var root = this.getRoot(o), c = root.length, totalRecords = c, success = true;
+        if(s.totalProperty){
             var v = parseInt(this.getTotal(o), 10);
             if(!isNaN(v)){
                 totalRecords = v;
@@ -201,23 +201,23 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             }
         }
         var records = [];
-	    for(var i = 0; i < c; i++){
-		    var n = root[i];
-	        var values = {};
-	        var id = this.getId(n);
-	        for(var j = 0; j < fl; j++){
-	            f = fi[j];
+        for(var i = 0; i < c; i++){
+            var n = root[i];
+            var values = {};
+            var id = this.getId(n);
+            for(var j = 0; j < fl; j++){
+                f = fi[j];
                 var v = this.ef[j](n);
                 values[f.name] = f.convert((v !== undefined) ? v : f.defaultValue, n);
-	        }
-	        var record = new Record(values, id);
-	        record.json = n;
-	        records[i] = record;
-	    }
-	    return {
-	        success : success,
-	        records : records,
-	        totalRecords : totalRecords
-	    };
+            }
+            var record = new Record(values, id);
+            record.json = n;
+            records[i] = record;
+        }
+        return {
+            success : success,
+            records : records,
+            totalRecords : totalRecords
+        };
     }
 });
