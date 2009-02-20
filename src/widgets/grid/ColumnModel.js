@@ -573,6 +573,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * @param {Object} editor The editor object
      */
     setEditor : function(col, editor){
+        Ext.destroy(this.config[col].editor);
         this.config[col].editor = editor;
     }
 });
