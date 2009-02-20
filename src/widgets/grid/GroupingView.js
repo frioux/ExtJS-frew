@@ -294,6 +294,14 @@ Ext.grid.GroupingView = Ext.extend(Ext.grid.GridView, {
     getGroupField : function(){
         return this.grid.store.getGroupState();
     },
+    
+    // private
+    afterRender: function(){
+        Ext.grid.GroupingView.superclass.afterRender.call(this);
+        if(this.grid.deferRowRender){
+            this.updateGroupWidths();
+        }
+    },
 
     // private
     renderRows : function(){
