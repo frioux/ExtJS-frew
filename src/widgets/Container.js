@@ -327,9 +327,7 @@ myTabPanel.setActiveTab(myNewGrid);
 </code></pre>
      */
     add : function(comp){
-        if(!this.items){
-            this.initItems();
-        }
+        this.initItems();
         var a = arguments, len = a.length;
         if(len > 1){
             for(var i = 0; i < len; i++) {
@@ -366,9 +364,7 @@ myTabPanel.setActiveTab(myNewGrid);
      * inserted with the Container's default config values applied.
      */
     insert : function(index, comp){
-        if(!this.items){
-            this.initItems();
-        }
+        this.initItems();
         var a = arguments, len = a.length;
         if(len > 2){
             for(var i = len-1; i >= 1; --i) {
@@ -424,6 +420,7 @@ myTabPanel.setActiveTab(myNewGrid);
      * @return {Ext.Component} component The Component that was removed.
      */
     remove : function(comp, autoDestroy){
+        this.initItems();
         var c = this.getComponent(comp);
         if(c && this.fireEvent('beforeremove', this, c) !== false){
             this.items.remove(c);
@@ -446,6 +443,7 @@ myTabPanel.setActiveTab(myNewGrid);
      * @return {Array} Array of the destroyed components
      */
     removeAll: function(autoDestroy){
+        this.initItems();
         var item, items = [];
         while((item = this.items.last())){
             items.unshift(this.remove(item, autoDestroy));
