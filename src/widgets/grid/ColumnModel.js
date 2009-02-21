@@ -170,12 +170,12 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * <div class="mdetail-params"><ul>
      * <li>A renderer function used to return HTML markup for a cell given the cell's data value.</li>
      * <li>A string which references a property name of the {@link Ext.util.Format} class which provides a renderer function.</li>
-     * <li>An object specifying both the renderer function, and its execution scope (<tt><b>this</b></tt> reference) eg:<code><pre style="margin-left:1.2em">
+     * <li>An object specifying both the renderer function, and its execution scope (<tt><b>this</b></tt> reference) eg:<pre style="margin-left:1.2em"><code>
 {
     fn: this.gridRenderer,
     scope: this
 }
-</pre></code></li></ul></div>
+</code></pre></li></ul></div>
      * If not specified, the default renderer uses the raw data value.</p>
      * <p>For information about the renderer function, see {@link #setRenderer}</p>
      */
