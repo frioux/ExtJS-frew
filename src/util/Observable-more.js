@@ -142,3 +142,26 @@ Ext.applyIf(Ext.util.Observable.prototype, function(){
 Ext.util.Observable.capture = function(o, fn, scope){
     o.fireEvent = o.fireEvent.createInterceptor(fn, scope);
 };
+
+
+/**
+ * Sets observability on the passed class constructor.<p>
+ * <p>This makes any event fired on any instance of the passed class also fire a single event through
+ * the <i>class</i> allowing for central handling of events on many instances at once.</p>
+ * <p>Usage:</p><pre><code>
+Ext.util.Observable.observeClass(Ext.data.Connection);
+Ext.data.Connection.on('beforerequest', function(con, options) {
+    console.log("Ajax request made to " + options.url);
+});</code></pre>
+ * @param {Function} c The class constructor to make observable.
+ * @member Ext.util.Observable
+ * @method observeClass
+ * @static
+ */
+Ext.util.Observable.observeClass = function(c) {
+    Ext.apply(c, new Ext.util.Observable());
+    c.prototype.fireEvent = function() {
+        return (c.fireEvent.apply(c, arguments) !== false) &&
+            (Ext.util.Observable.prototype.fireEvent.apply(this, arguments) !== false);
+    };
+};
