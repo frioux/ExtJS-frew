@@ -505,7 +505,7 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
     },
 
     /**
-     * Removes this node from it's parent
+     * Removes this node from its parent
      * @return {Node} this
      */
     remove : function(){
@@ -579,7 +579,7 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
 
     // private
     setOwnerTree : function(tree){
-        // if it's move, we need to update everyone
+        // if it is a move, we need to update everyone
         if(tree != this.ownerTree){
             if(this.ownerTree){
                 this.ownerTree.unregisterNode(this);

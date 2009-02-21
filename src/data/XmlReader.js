@@ -10,7 +10,7 @@
  * Example code:
  * <pre><code>
 var Employee = Ext.data.Record.create([
-   {name: 'name', mapping: 'name'},     // "mapping" property not needed if it's the same as "name"
+   {name: 'name', mapping: 'name'},     // "mapping" property not needed if it is the same as "name"
    {name: 'occupation'}                 // This field will use "occupation" as the mapping.
 ]);
 var myReader = new Ext.data.XmlReader({

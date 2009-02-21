@@ -91,7 +91,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
     closable : true,
     /**
      * @cfg {Boolean} constrain
-     * True to constrain the window within it's containing element, false to allow it to fall outside of it's
+     * True to constrain the window within its containing element, false to allow it to fall outside of its
      * containing element. By default the window will be rendered to document.body.  To render and constrain the 
      * window within another element specify {@link #renderTo}.
      * (defaults to false).  Optionally the header only can be constrained using {@link #constrainHeader}.
@@ -99,8 +99,8 @@ Ext.Window = Ext.extend(Ext.Panel, {
     constrain : false,
     /**
      * @cfg {Boolean} constrainHeader
-     * True to constrain the window header within it's containing element (allowing the window body to fall outside 
-     * of it's containing element) or false to allow the header to fall outside it's containing element (defaults to 
+     * True to constrain the window header within its containing element (allowing the window body to fall outside 
+     * of its containing element) or false to allow the header to fall outside its containing element (defaults to 
      * false). Optionally the entire window can be constrained using {@link #constrain}.
      */
     constrainHeader : false,

@@ -874,7 +874,7 @@ air.Introspector.extend(air.Introspector, {
 						try{
 							air.Introspector.cleanup();
 							if(!isAppSandbox){
-								//our debugger can NOT live without it's parent
+								//our debugger can NOT live without its parent
 								air.Introspector.debugWindow.window.close();
 							}
 						}catch(e){  }

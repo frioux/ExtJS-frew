@@ -6,7 +6,7 @@
  * <br><br>
  * An individual column's config object defines the {@link #header} string, the {@link Ext.data.Record}
  * field the column draws its data from, an optional rendering function to provide customized
- * data formatting, and the ability to apply a CSS class to all cells in a column through it's
+ * data formatting, and the ability to apply a CSS class to all cells in a column through its
  * {@link #id} config option.<br>
  * <br>Usage:<br>
 <pre><code>

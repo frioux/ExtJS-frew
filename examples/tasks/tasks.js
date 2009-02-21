@@ -62,7 +62,7 @@ Ext.onReady(function(){
 
     var selections = new Ext.grid.RowSelectionModel();
 
-    // The main grid in all it's configuration option glory
+    // The main grid in all its configuration option glory
     var grid = new xg.EditorGridPanel({
         id:'tasks-grid',
         store: taskStore,

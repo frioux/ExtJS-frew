@@ -155,8 +155,8 @@ var border = {
 /*
  * ================  CardLayout config (TabPanel)  =======================
  */
-// Note that the TabPanel component uses an internal CardLayout -- it's not
-// something you have to explicitly configure.  However, it's still a perfect
+// Note that the TabPanel component uses an internal CardLayout -- it is not
+// something you have to explicitly configure.  However, it is still a perfect
 // example of how this layout style can be used in a complex component.
 var cardTabs = {
 	xtype: 'tabpanel',
