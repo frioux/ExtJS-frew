@@ -165,8 +165,16 @@ new Ext.Panel({
      */
     /**
      * @cfg {String} iconCls
-     * A CSS class that will provide a background image to be used as the header icon (defaults to '').  An example
-     * custom icon class would be something like: .my-icon { background: url(../images/my-icon.gif) 0 6px no-repeat !important;}
+     * The CSS class selector that specifies a background image to be used as the header icon (defaults to '').
+     * <p>An example of specifying a custom icon class would be something like:
+     * </p><code><pre>
+// specify the property in the config for the class:
+     ...
+     iconCls: 'my-icon'
+
+// css class that specifies background image to be used as the icon image:
+.my-icon { background-image: url(../images/my-icon.gif) 0 6px no-repeat !important; }
+</pre></code>
      */
     /**
      * @cfg {Boolean} collapsible

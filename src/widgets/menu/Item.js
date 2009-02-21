@@ -24,8 +24,18 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
      * icon is specified {@link #iconCls} should not be.
      */
     /**
-     * @cfg {String} iconCls A CSS class that specifies a background image that will be used as the icon for
-     * this item (defaults to '').  If iconCls is specified {@link #icon} should not be.
+     * @cfg {String} iconCls
+     * The CSS class selector that specifies a background image to be used as the icon for this item (defaults to '').
+     * If iconCls is specified {@link #icon} should not be.
+     * <p>An example of specifying a custom icon class would be something like:
+     * </p><code><pre>
+// specify the property in the config for the class:
+     ...
+     iconCls: 'my-icon'
+
+// css class that specifies background image to be used as the icon image:
+.my-icon { background-image: url(../images/my-icon.gif) 0 6px no-repeat !important; }
+</pre></code>
      */
     /**
      * @cfg {String} text The text to display in this item (defaults to '').
