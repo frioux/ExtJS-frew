@@ -1,6 +1,6 @@
 /**
  * @class Ext.data.Field
- * <p>This class encpasulates the field definition information specified in the field definition objects
+ * <p>This class encapsulates the field definition information specified in the field definition objects
  * passed to {@link Ext.data.Record#create}.</p>
  * <p>Developers do not need to instantiate this class. Instances are created by {@link Ext.data.Record.create}
  * and cached in the {@link Ext.data.Record#fields fields} property of the created Record constructor's <b>prototype.</b></p>
@@ -97,13 +97,16 @@ Ext.data.Field = function(config){
 Ext.data.Field.prototype = {
     /**
      * @cfg {String} name
-     * The name by which the field is referenced within the Record. This is referenced by,
-     * for example, the <em>dataIndex</em> property in column definition objects passed to {@link Ext.grid.ColumnModel}
+     * The name by which the field is referenced within the Record. This is referenced by, for example, 
+     * the <tt>dataIndex</tt> property in column definition objects passed to {@link Ext.grid.ColumnModel}.
+     * <p>Note: In the simplest case, if no properties other than <tt>name</tt> are required, a field
+     * definition may consist of just a String for the field name.</p>
      */
     /**
      * @cfg {String} type
      * (Optional) The data type for conversion to displayable value. Possible values are
-     * <div class="mdetail-params"><ul><li>auto (Default, implies no conversion)</li>
+     * <div class="mdetail-params"><ul>
+     * <li>auto (Default, implies no conversion)</li>
      * <li>string</li>
      * <li>int</li>
      * <li>float</li>
@@ -116,7 +119,7 @@ Ext.data.Field.prototype = {
      * in the Record. It is passed the following parameters:<ul>
      * <li><b>v</b> : Mixed<div class="sub-desc">The data value as read by the Reader.</div></li>
      * <li><b>rec</b> : Mixed<div class="sub-desc">The data object containing the row as read by the Reader.
-     * Depending on Reader type, this could be an Array, an object, or an XML element.</div></li>
+     * Depending on the Reader type, this could be an Array, an object, or an XML element.</div></li>
      * </ul>
      */
     /**
@@ -128,19 +131,23 @@ Ext.data.Field.prototype = {
     dateFormat: null,
     /**
      * @cfg {Mixed} defaultValue
-     * (Optional) The default value used <b>when a Record is being created by a
-     * {@link Ext.data.Reader Reader}</b> when the item referenced by the <b><tt>mapping</tt></b> does not exist in the data object
+     * (Optional) The default value used <b>when a Record is being created by a {@link Ext.data.Reader Reader}</b> 
+     * when the item referenced by the <b><tt>mapping</tt></b> does not exist in the data object
      * (i.e. undefined). (defaults to "")
      */
     defaultValue: "",
     /**
-     * @cfg {String} mapping
+     * @cfg {String/Number} mapping
      * (Optional) A path specification for use by the {@link Ext.data.Reader} implementation
-     * that is creating the Record to access the data value from the data object. If an {@link Ext.data.JsonReader}
-     * is being used, then this is a string containing the javascript expression to reference the data relative to
-     * the Record item's root. If an {@link Ext.data.XmlReader} is being used, this is an {@link Ext.DomQuery} path
-     * to the data item relative to the Record element. If the mapping expression is the same as the field name,
-     * this may be omitted.
+     * that is creating the Record to access the data value from the data object. If the mapping expression
+     * is the same as the field name, the mapping may be omitted. If an:<ul>
+     * <li>{@link Ext.data.JsonReader} is being used, then this is a string containing the javascript
+     * expression to reference the data relative to the Record item's root.</li>
+     * <li>{@link Ext.data.XmlReader} is being used, this is an {@link Ext.DomQuery} path to the data
+     * item relative to the DOM element that represents the Record. Defaults to the field name.</li>
+     * <li>{@link Ext.data.ArrayReader} is being used, this may be a number indicating the Array index 
+     * of the field's value. Defaults to the field specification's Array position.</li>
+     * </ul>
      */
     mapping: null,
     /**

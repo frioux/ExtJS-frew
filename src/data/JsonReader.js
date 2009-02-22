@@ -10,41 +10,47 @@ var Employee = Ext.data.Record.create([
     {name: 'firstname'},                  // Map the Record's "firstname" field to the row object's key of the same name
     {name: 'job', mapping: 'occupation'}  // Map the "job" field to the row object's "occupation" key
 ]);
-var myReader = new Ext.data.JsonReader({
-    totalProperty: "results",             // The property which contains the total dataset size (optional)
-    root: "rows",                         // The property which contains an Array of row objects
-    idProperty: "id"                      // The property within each row object that provides an ID for the record (optional)
-}, Employee);
+var myReader = new Ext.data.JsonReader(
+    {                             // The metadata property, with configuration options:
+        totalProperty: "results", //   the property which contains the total dataset size (optional)
+        root: "rows",             //   the property which contains an Array of row objects
+        idProperty: "id"          //   the property within each row object that provides an ID for the record (optional)
+    },
+    Employee  // {@link Ext.data.Record} constructor that provides mapping for JSON object
+);
 </code></pre>
  * <p>
  * This would consume a JSON object of the form:
  * <pre><code>
 {
-    results: 2,
-    rows: [
+    results: 2,  // Reader's configured totalProperty
+    rows: [      // Reader's configured root
         { id: 1, firstname: 'Bill', occupation: 'Gardener' },         // a row object
         { id: 2, firstname: 'Ben' , occupation: 'Horticulturalist' }  // another row object
     ]
 }
 </code></pre>
  * <p>It is possible to change a JsonReader's metadata at any time by including a
- * <b><tt>metaData</tt></b> property in the data object. If this is detected in the
- * object, a {@link Ext.data.Store Store} object using this Reader will reconfigure
- * itself to use the newly provided field definition and fire its
- * {@link Ext.data.Store#metachange metachange} event. In
- * undergoing this change, the Store sets its {@link Ext.data.Store#sortInfo sortInfo} property
- * from the <tt>sortInfo</tt> property in the new metadata. Note that reconfiguring a Store
- * potentially invalidates objects which may refer to Fields or Records which no longer exist.</p>
+ * <b><tt>metaData</tt></b> property in the data object. If the data object has a
+ * <b><tt>metaData</tt></b> property, a {@link Ext.data.Store Store} object using
+ * this Reader will reconfigure itself to use the newly provided field definition
+ * and fire its {@link Ext.data.Store#metachange metachange} event. In undergoing
+ * this change, the Store sets its {@link Ext.data.Store#sortInfo sortInfo} property
+ * from the <tt>sortInfo</tt> property in the new metadata. Note that reconfiguring
+ * a Store potentially invalidates objects which may refer to Fields or Records 
+ * which no longer exist.</p>
  *
  * <p>The <b><tt>metaData</tt></b> property may contain any of the configuration
  * options for this class. Additionally, it may contain a <b><tt>fields</tt></b>
  * property which the JsonReader will use as an argument to {@link Ext.data.Record#create}
- * to configure the layout of the Records which it will produce.<p>
- * Using the <b><tt>metaData</tt></b> property, and the Store's {@link Ext.data.Store#metachange metachange} event,
- * it is possible to have a Store-driven control initialize itself. The metachange
- * event handler may interrogate the <b><tt>metaData</tt></b> property (which
- * may contain any user-defined properties needed) and the <b><tt>metaData.fields</tt></b>
- * property to perform any configuration required.</p>
+ * in order to configure the layout of the Records it will produce.</p>
+ * 
+ * <p>Using the <b><tt>metaData</tt></b> property, and the Store's
+ * {@link Ext.data.Store#metachange metachange} event, it is possible to have a 
+ * Store-driven control initialize itself. The metachange event handler may interrogate
+ * the <b><tt>metaData</tt></b> property (which may also contain any user-defined properties
+ * needed) and the <b><tt>metaData.fields</tt></b> property to perform any configuration
+ * required.</p>
  *
  * <p>To use this facility to send the same data as the above example without
  * having to code the creation of the Record constructor, you would create the
@@ -58,6 +64,7 @@ var myReader = new Ext.data.JsonReader();
         totalProperty: 'results',
         root: 'rows',
         idProperty: 'id',
+        sortInfo: {field: 'name', direction:'ASC'}, // used by store to set its sortInfo
         fields: [
             {name: 'name'},
             {name: 'occupation'}
