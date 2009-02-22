@@ -116,11 +116,11 @@ Ext.data.Field.prototype = {
     /**
      * @cfg {Function} convert
      * (Optional) A function which converts the value provided by the Reader into an object that will be stored
-     * in the Record. It is passed the following parameters:<ul>
+     * in the Record. It is passed the following parameters:<div class="mdetail-params"><ul>
      * <li><b>v</b> : Mixed<div class="sub-desc">The data value as read by the Reader.</div></li>
      * <li><b>rec</b> : Mixed<div class="sub-desc">The data object containing the row as read by the Reader.
      * Depending on the Reader type, this could be an Array, an object, or an XML element.</div></li>
-     * </ul>
+     * </ul></div>
      */
     /**
      * @cfg {String} dateFormat
@@ -140,14 +140,14 @@ Ext.data.Field.prototype = {
      * @cfg {String/Number} mapping
      * (Optional) A path specification for use by the {@link Ext.data.Reader} implementation
      * that is creating the Record to access the data value from the data object. If the mapping expression
-     * is the same as the field name, the mapping may be omitted. If an:<ul>
+     * is the same as the field name, the mapping may be omitted. If an:<div class="mdetail-params"><ul>
      * <li>{@link Ext.data.JsonReader} is being used, then this is a string containing the javascript
      * expression to reference the data relative to the Record item's root.</li>
      * <li>{@link Ext.data.XmlReader} is being used, this is an {@link Ext.DomQuery} path to the data
      * item relative to the DOM element that represents the Record. Defaults to the field name.</li>
      * <li>{@link Ext.data.ArrayReader} is being used, this may be a number indicating the Array index 
      * of the field's value. Defaults to the field specification's Array position.</li>
-     * </ul>
+     * </ul></div>
      */
     mapping: null,
     /**
