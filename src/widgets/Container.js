@@ -302,7 +302,7 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
      * you expect child items to be sized in response to user interactions, you must
      * specify a layout manager which creates and manages the type of layout you have in mind.</p>
      * <p><b>Omitting the {@link #layout} config means that a basic layout manager is
-     * used which does nothnig but render child components sequentially into the Container.
+     * used which does nothing but render child components sequentially into the Container.
      * No sizing or positioning will be performed in this situation.</b></p>
      * @param {Ext.Component/Object} component The Component to add.<br><br>
      * Ext uses lazy rendering, and will only render the added Component should
