@@ -2,20 +2,21 @@ Ext.ux.SlidingPager = Ext.extend(Ext.util.Observable, {
     init : function(pbar){
         this.pagingBar = pbar;
 
-        pbar.on('render', this.onRender, this);
+        pbar.on('afterlayout', this.onLayout, this, {single: true});
         pbar.on('beforedestroy', this.onDestroy, this);
     },
 
-    onRender : function(pbar){
+    onLayout : function(pbar){
         Ext.each(pbar.items.getRange(2,6), function(c){
             c.hide();
         });
-        var td = document.createElement("td");
-        pbar.tr.insertBefore(td, pbar.tr.childNodes[5]);
-
-        td.style.padding = '0 5px';
+        var el = Ext.getBody().createChild({tag: 'div', style: 'padding-top: 2px;'});
+        var item = new Ext.Toolbar.Item({el: el});
+        pbar.insert(5, item);
+        pbar.doLayout();
 
         this.slider = new Ext.Slider({
+            renderTo: el,
             width: 114,
             minValue: 1,
             maxValue: 1,
@@ -26,7 +27,6 @@ Ext.ux.SlidingPager = Ext.extend(Ext.util.Observable, {
                 }
             })
         });
-        this.slider.render(td);
 
         this.slider.on('changecomplete', function(s, v){
             pbar.changePage(v);
