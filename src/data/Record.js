@@ -145,8 +145,29 @@ Ext.data.Record.prototype = {
             this.modified[name] = this.data[name];
         }
         this.data[name] = value;
-        if(!this.editing && this.store){
+        if(!this.editing){
+            this.afterEdit();
+        }
+    },
+    
+    // private
+    afterEdit: function(){
+        if(this.store){
             this.store.afterEdit(this);
+        }
+    },
+    
+    // private
+    afterReject: function(){
+        if(this.store){
+            this.store.afterReject(this);    
+        }
+    },
+    
+    // private
+    afterCommit: function(){
+        if(this.store){
+            this.store.afterCommit(this);
         }
     },
 
@@ -180,8 +201,8 @@ Ext.data.Record.prototype = {
      */
     endEdit : function(){
         this.editing = false;
-        if(this.dirty && this.store){
-            this.store.afterEdit(this);
+        if(this.dirty){
+            this.afterEdit();
         }
     },
 
@@ -204,8 +225,8 @@ Ext.data.Record.prototype = {
         this.dirty = false;
         delete this.modified;
         this.editing = false;
-        if(this.store && silent !== true){
-            this.store.afterReject(this);
+        if(silent !== true){
+            this.afterReject();
         }
     },
 
@@ -221,8 +242,8 @@ Ext.data.Record.prototype = {
         this.dirty = false;
         delete this.modified;
         this.editing = false;
-        if(this.store && silent !== true){
-            this.store.afterCommit(this);
+        if(silent !== true){
+            this.afterCommit();
         }
     },
 
