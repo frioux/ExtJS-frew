@@ -77,18 +77,21 @@ myGrid.on('render', function(grid) {
     initComponent: function(){
         Ext.ToolTip.superclass.initComponent.call(this);
         this.lastActive = new Date();
-        this.initTarget();
+        this.initTarget(this.target);
     },
 
-    // private
-    initTarget : function(){
-        if(this.target){
-            this.target = Ext.get(this.target);
-            this.mon(this.target, {
-            	mouseover: this.onTargetOver,
-            	mouseout: this.onTargetOut,
-            	mousemove: this.onMouseMove,
-            	scope: this
+    /**
+     * Binds this ToolTip to the specified element. The tooltip will be displayed when the mouse moves over the element.
+     * @param {Mixed} t The Element, HtmlElement, or ID of an element to bind to
+     */
+    initTarget : function(target){
+        var t;
+        if((t = Ext.get(target))){
+            this.mon(t, {
+                mouseover: this.onTargetOver,
+                mouseout: this.onTargetOut,
+                mousemove: this.onMouseMove,
+                scope: this
             })
         }
     },
