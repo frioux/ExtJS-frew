@@ -220,7 +220,7 @@ myGrid.on('render', function(grid) {
 
     // private
     onDocMouseDown : function(e){
-        if(this.autoHide !== false && !e.within(this.el.dom)){
+        if(this.autoHide !== true && !e.within(this.el.dom)){
             this.disable();
             this.enable.defer(100, this);
         }
@@ -244,6 +244,7 @@ myGrid.on('render', function(grid) {
 
     // private
     onDestroy : function(){
+        Ext.getDoc().un('mousedown', this.onDocMouseDown, this);
         Ext.ToolTip.superclass.onDestroy.call(this);
     }
 });
