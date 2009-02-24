@@ -261,12 +261,9 @@ Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
 
     // private
     onDestroy: function() {
-        if(this.rendered){
-	        var cols = this.colModel.config;
-	        for(var i = 0, len = cols.length; i < len; i++){
-	            var c = cols[i];
-	            Ext.destroy(c.editor);
-	        }
+	    var cols = this.colModel.config;
+	    for(var i = 0, len = cols.length; i < len; i++){
+	        Ext.destroy(cols[i].editor);
         }
         Ext.grid.EditorGridPanel.superclass.onDestroy.call(this);
     }
