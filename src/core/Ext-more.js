@@ -69,7 +69,7 @@ Ext.apply(Ext, function(){
 	     * @return {Boolean}
 	     */
 	    isDate : function(v){
-	        return v && typeof v.getFullYear == 'function';
+	        return Object.prototype.toString.apply(obj) === '[object Date]';
 	    },  
 	    
 	    /**
