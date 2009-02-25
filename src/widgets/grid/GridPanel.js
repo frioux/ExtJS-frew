@@ -82,7 +82,7 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
     /**
      * @cfg {Object} viewConfig A config object that will be applied to the grid's UI view.  Any of
      * the config options available for {@link Ext.grid.GridView} can be specified here. This option
-     * is ignored if {@link #view} is xpecified.
+     * is ignored if {@link #view} is specified.
      */
     /**
      * @cfg {Boolean} hideHeaders True to hide the grid's header (defaults to false).
