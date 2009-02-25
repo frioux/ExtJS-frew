@@ -69,7 +69,7 @@ Ext.apply(Ext, function(){
          * @return {Boolean}
          */
         isDate : function(v){
-            return Object.prototype.toString.apply(obj) === '[object Date]';
+            return Object.prototype.toString.apply(v) === '[object Date]';
         },
 
         /**
