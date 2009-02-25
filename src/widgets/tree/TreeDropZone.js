@@ -18,13 +18,14 @@ Ext.tree.TreeDropZone = function(tree, config){
      * @cfg {String} allowContainerDrop
      * True if drops on the tree container (outside of a specific tree node) are allowed (defaults to false)
      */
-    this.allowContainerDrop = false;
+    this.allowContainerDrop = config.allowContainerDrop;
     /**
      * @cfg {String} appendOnly
      * True if the tree should only allow append drops (use for trees which are sorted, defaults to false)
      */
     this.appendOnly = false;
-    Ext.tree.TreeDropZone.superclass.constructor.call(this, tree.innerCt, config);
+    var treeEl = this.allowContainerDrop ? tree.getTreeEl() : tree.innerCt;
+    Ext.tree.TreeDropZone.superclass.constructor.call(this, treeEl, config);
     /**
     * The TreePanel for this drop zone
     * @type Ext.tree.TreePanel
