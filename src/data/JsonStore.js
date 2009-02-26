@@ -8,7 +8,7 @@
 <pre><code>
 var store = new Ext.data.JsonStore({
     url: 'get-images.php',
-    root: 'images',
+    root: 'images', // *see Note  
     fields: ['name', 'url', {name:'size', type: 'float'}, {name:'lastmod', type:'date'}]
 });
 </code></pre>
@@ -22,8 +22,9 @@ var store = new Ext.data.JsonStore({
 }
 </code></pre>
  * An object literal of this form could also be used as the {@link #data} config option.
- * <b>Note: Although they are not listed, this class inherits all of the config options of Store,
- * JsonReader.</b>
+ * <p><b>*Note:</b> Although they are not listed, this class inherits all of the config options of 
+ * <b>{@link Ext.data.Store Store}</b> and <b>{@link Ext.data.JsonReader JsonReader}</b>
+ * (eg. <tt>root</tt>, <tt>idProperty</tt>, <tt>totalProperty</tt>).</p>
  * @cfg {String} url  The URL from which to load data through an HttpProxy. Either this
  * option, or the {@link #data} option must be specified.
  * @cfg {Object} data  A data object readable by this object's JsonReader. Either this
