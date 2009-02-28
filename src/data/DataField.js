@@ -104,7 +104,8 @@ Ext.data.Field.prototype = {
      */
     /**
      * @cfg {String} type
-     * (Optional) The data type for conversion to displayable value. Possible values are
+     * (Optional) The data type for conversion to displayable value if <tt>{@link Ext.data.Field#convert convert}</tt>
+     * has not been specified. Possible values are
      * <div class="mdetail-params"><ul>
      * <li>auto (Default, implies no conversion)</li>
      * <li>string</li>
@@ -117,9 +118,11 @@ Ext.data.Field.prototype = {
      * @cfg {Function} convert
      * (Optional) A function which converts the value provided by the Reader into an object that will be stored
      * in the Record. It is passed the following parameters:<div class="mdetail-params"><ul>
-     * <li><b>v</b> : Mixed<div class="sub-desc">The data value as read by the Reader.</div></li>
+     * <li><b>v</b> : Mixed<div class="sub-desc">The data value as read by the Reader, if undefined will use
+     * the configured <tt>{@link Ext.data.Field#defaultValue defaultValue}</tt>.</div></li>
      * <li><b>rec</b> : Mixed<div class="sub-desc">The data object containing the row as read by the Reader.
-     * Depending on the Reader type, this could be an Array, an object, or an XML element.</div></li>
+     * Depending on the Reader type, this could be an Array ({@link Ext.data.ArrayReader ArrayReader}), an object
+     *  ({@link Ext.data.JsonReader JsonReader}), or an XML element ({@link Ext.data.XMLReader XMLReader}).</div></li>
      * </ul></div>
      */
     /**
@@ -132,15 +135,15 @@ Ext.data.Field.prototype = {
     /**
      * @cfg {Mixed} defaultValue
      * (Optional) The default value used <b>when a Record is being created by a {@link Ext.data.Reader Reader}</b> 
-     * when the item referenced by the <b><tt>mapping</tt></b> does not exist in the data object
-     * (i.e. undefined). (defaults to "")
+     * when the item referenced by the <tt>{@link Ext.data.Field#mapping mapping}</tt> does not exist in the data
+     * object (i.e. undefined). (defaults to "")
      */
     defaultValue: "",
     /**
      * @cfg {String/Number} mapping
-     * (Optional) A path specification for use by the {@link Ext.data.Reader} implementation
-     * that is creating the Record to access the data value from the data object. If the mapping expression
-     * is the same as the field name, the mapping may be omitted. If an:<div class="mdetail-params"><ul>
+     * (Optional) A path specification for use by the {@link Ext.data.DataReader} implementation
+     * that is creating the {@link Ext.data.Record Record} to access the data value from the data object.
+     * If the mapping expression is the same as the field name, the mapping may be omitted. If an:<div class="mdetail-params"><ul>
      * <li>{@link Ext.data.JsonReader} is being used, then this is a string containing the javascript
      * expression to reference the data relative to the Record item's root.</li>
      * <li>{@link Ext.data.XmlReader} is being used, this is an {@link Ext.DomQuery} path to the data
@@ -153,7 +156,23 @@ Ext.data.Field.prototype = {
     /**
      * @cfg {Function} sortType
      * (Optional) A function which converts a Field's value to a comparable value in order to ensure correct
-     * sort ordering. Predefined functions are provided in {@link Ext.data.SortTypes}
+     * sort ordering. Predefined functions are provided in {@link Ext.data.SortTypes}. A custom sort example:<pre><code>
+// current sort     after sort we want
+// +-+------+          +-+------+
+// |1|First |          |1|First |
+// |2|Last  |          |3|Second|
+// |3|Second|          |2|Last  |
+// +-+------+          +-+------+
+
+sortType: function(value) {
+   switch (value.toLowerCase()) // native toLowerCase(): 
+   {
+      case 'first': return 1;
+      case 'second': return 2;
+      default: return 3;
+   }
+}
+     * </code></pre>
      */
     sortType : null,
     /**
