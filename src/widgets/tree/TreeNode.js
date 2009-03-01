@@ -12,6 +12,7 @@
  * @cfg {String} iconCls A css class to be added to the nodes icon element for applying css background images
  * @cfg {String} href URL of the link used for the node (defaults to #)
  * @cfg {String} hrefTarget target frame for the link
+ * @cfg {Boolean} hidden True to render hidden. (Defaults to false).
  * @cfg {String} qtip An Ext QuickTip for the node
  * @cfg {Boolean} expandable If set to true, the node will always show a plus/minus icon, even when empty
  * @cfg {String} qtipCfg An Ext QuickTip config for the node (used instead of qtip)
