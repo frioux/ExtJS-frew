@@ -7,7 +7,7 @@
  */
 if(Ext.dd.DragZone){
 Ext.tree.TreeDragZone = function(tree, config){
-    Ext.tree.TreeDragZone.superclass.constructor.call(this, tree.innerCt, config);
+    Ext.tree.TreeDragZone.superclass.constructor.call(this, tree.getTreeEl(), config);
     /**
     * The TreePanel for this drag zone
     * @type Ext.tree.TreePanel
