@@ -219,7 +219,8 @@ Ext.grid.BooleanColumn = Ext.extend(Ext.grid.Column, {
 Ext.grid.NumberColumn = Ext.extend(Ext.grid.Column, {
     /**
      * @cfg {String} format
-     * A formatting string as used by {@link Ext.util.Format#number} to format a numeric value for this Column.
+     * A formatting string as used by {@link Ext.util.Format#number} to format a numeric value for this Column
+     * (defaults to '0,000.00').
      */
     format : '0,000.00',
     constructor: function(cfg){
@@ -237,7 +238,8 @@ Ext.grid.NumberColumn = Ext.extend(Ext.grid.Column, {
 Ext.grid.DateColumn = Ext.extend(Ext.grid.Column, {
     /**
      * @cfg {String} format
-     * A formatting string as used by {@link Date.format} to format a Date for this Column.
+     * A formatting string as used by {@link Date.format} to format a Date for this Column
+     * (defaults to 'm/d/Y').
      */
     format : 'm/d/Y',
     constructor: function(cfg){
