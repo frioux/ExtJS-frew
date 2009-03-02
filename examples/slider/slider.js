@@ -81,6 +81,6 @@ Ext.ux.SliderTip = Ext.extend(Ext.Tip, {
     },
 
     getText : function(slider){
-        return slider.getValue();
+        return String(slider.getValue());
     }
 });
