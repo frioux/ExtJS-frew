@@ -3,24 +3,55 @@ Ext.onReady(function(){
 
     // Menus can be prebuilt and passed by reference
     var dateMenu = new Ext.menu.DateMenu({
-        handler : function(dp, date){
+        handler: function(dp, date){
             Ext.example.msg('Date Selected', 'You chose {0}.', date.format('M j, Y'));
         }
     });
 
     var colorMenu = new Ext.menu.ColorMenu({
-        handler : function(cm, color){
+        handler: function(cm, color){
             Ext.example.msg('Color Selected', 'You chose {0}.', color);
         }
+    });
+    
+    var store = new Ext.data.ArrayStore({
+        fields: ['abbr', 'state'],
+        data : Ext.exampledata.states // from states.js
+    });
+
+    var combo = new Ext.form.ComboBox({
+        store: store,
+        typeAhead: true,
+        mode: 'local',
+        triggerAction: 'all',
+        emptyText: 'Select a state...',
+        selectOnFocus: true,
+        width: 135,
+        getListParent: function() {
+            return this.el.up('.x-menu');
+        },
+        iconCls: 'no-icon'
     });
 
     var menu = new Ext.menu.Menu({
         id: 'mainMenu',
+        style: {
+            overflow: 'visible'     // For the Combo popup
+        },
         items: [
+            combo,                  // A Field in a Menu
             {
                 text: 'I like Ext',
                 checked: true,       // when checked has a boolean value, it is assumed to be a CheckItem
-                checkHandler: onItemCheck
+                checkHandler: onItemCheck,
+                listeners: {
+                    aactivate: function() {
+                        console.log("activated");
+                    },
+                    adeactivate: function() {
+                        console.log("deactivated");
+                    }
+                }
             }, '-', {
                 text: 'Radio Options',
                 menu: {        // <-- submenu by nested config object
@@ -75,20 +106,36 @@ Ext.onReady(function(){
             tooltip: {text:'This is a an example QuickTip for a toolbar item', title:'Tip Title'},
             iconCls: 'blist',
             // Menus can be built/referenced by using nested menu config objects
-            menu : {items: [
-                        {text: '<b>Bold</b>', handler: onItemClick},
-                        {text: '<i>Italic</i>', handler: onItemClick},
-                        {text: '<u>Underline</u>', handler: onItemClick}, '-',{
-                        text: 'Pick a Color', handler: onItemClick, menu: {
+            menu : {
+                items: [{
+                    text: '<b>Bold</b>', handler: onItemClick
+                }, {
+                    text: '<i>Italic</i>', handler: onItemClick
+                }, {
+                    text: '<u>Underline</u>', handler: onItemClick
+                }, '-', {
+                    text: 'Pick a Color',
+                    handler: onItemClick,
+                    menu: {
                         items: [
-                                new Ext.menu.ColorItem({selectHandler:function(cp, color){
-                                    Ext.example.msg('Color Selected', 'You chose {0}.', color);
-                                }}), '-',
-                                {text:'More Colors...', handler:onItemClick}
+                            new Ext.ColorPalette({
+                                listeners: {
+                                    select: function(cp, color){
+                                        Ext.example.msg('Color Selected', 'You chose {0}.', color);
+                                    }
+                                }
+                            }), '-',
+                            {
+                                text: 'More Colors...',
+                                handler: onItemClick
+                            }
                         ]
-                    }},
-                    {text: 'Extellent!', handler: onItemClick}
-                ]}
+                    }
+                }, {
+                    text: 'Extellent!',
+                    handler: onItemClick
+                }]
+            }
         }), '-', {
         text: 'Toggle Me',
         enableToggle: true,
@@ -136,13 +183,8 @@ Ext.onReady(function(){
     });
 
     // add a combobox to the toolbar
-    var store = new Ext.data.ArrayStore({
-        fields: ['abbr', 'state'],
-        data : Ext.exampledata.states // from states.js
-    });
     var combo = new Ext.form.ComboBox({
         store: store,
-        displayField:'state',
         typeAhead: true,
         mode: 'local',
         triggerAction: 'all',
@@ -153,6 +195,17 @@ Ext.onReady(function(){
     tb.addField(combo);
 
     tb.doLayout();
+
+    new Ext.Container({
+        renderTo: document.body,
+        items: new Ext.menu.Item({
+            text: 'Menu Item Not in a Menu',
+            iconCls: 'calendar',
+            handler: function() {
+                Ext.example.msg("Menu Click", "Clicked the Menu Item that is not in a Menu");
+            }
+        })
+    });
 
     // functions to display feedback
     function onButtonClick(btn){

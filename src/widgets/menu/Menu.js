@@ -31,7 +31,7 @@
 //          If rendering a regular Component, and it needs an icon,
 //          move the Component rightwards.
             if (!a.isMenuItem && a.needsIcon) {
-                c.addClass('x-menu-list-item-indent');
+                c.positionEl.addClass('x-menu-list-item-indent');
             }
         }else if(c && !this.isValidParent(c, target)){
             if(typeof position == 'number'){
