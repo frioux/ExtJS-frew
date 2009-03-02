@@ -121,3 +121,23 @@
     padding-left:24px;
     background:transparent no-repeat 2px 2px;
 }
+
+.x-tip-anchor {
+    position: absolute;
+    width: 9px;
+    height: 10px;
+    overflow:hidden;
+    background: transparent no-repeat 0 0;
+    zoom:1;
+}
+.x-tip-anchor-bottom {
+    background-position: -9px 0;
+}
+.x-tip-anchor-right {
+    background-position: -18px 0;
+    width: 10px;
+}
+.x-tip-anchor-left {
+    background-position: -28px 0;
+    width: 10px;
+}
