@@ -10,6 +10,13 @@
  * and read the data into Records.
  */
 Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
+    
+    //inherit docs
+    constructor: function(config){
+        Ext.data.GroupingStore.superclass.constructor.call(this, config);
+        this.applyGroupField();
+    },
+    
     /**
      * @cfg {String} groupField
      * The field name by which to sort the store's data (defaults to '').
@@ -59,13 +66,7 @@ Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
         }
         this.groupField = field;
 		this.groupDir = direction;
-        if(this.remoteGroup){
-            if(!this.baseParams){
-                this.baseParams = {};
-            }
-            this.baseParams['groupBy'] = field;
-			this.baseParams['groupDir'] = direction;
-        }
+        this.applyGroupField();
         if(this.groupOnSort){
             this.sort(field, direction);
             return;
@@ -80,6 +81,17 @@ Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
                 this.sortData(field, direction);
             }
             this.fireEvent('datachanged', this);
+        }
+    },
+    
+    // private
+    applyGroupField: function(){
+        if(this.remoteGroup){
+            if(!this.baseParams){
+                this.baseParams = {};
+            }
+            this.baseParams['groupBy'] = this.groupField;
+            this.baseParams['groupDir'] = this.groupDir;
         }
     },
 
