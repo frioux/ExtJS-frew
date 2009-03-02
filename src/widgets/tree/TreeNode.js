@@ -49,6 +49,11 @@ Ext.tree.TreeNode = function(attributes){
      * @type Boolean
      */
     this.disabled = attributes.disabled === true;
+    /**
+     * True if this node is hidden.
+     * @type Boolean
+     */
+    this.hidden = attributes.hidden === true;
 
     this.addEvents(
         /**
