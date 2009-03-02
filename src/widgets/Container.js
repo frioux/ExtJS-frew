@@ -204,7 +204,7 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
             'remove'
         );
 		
-		this.enableBubble('add', 'remove');
+		this.enableBubble(['add', 'remove']);
 
         /**
          * The collection of components in this container as a {@link Ext.util.MixedCollection}

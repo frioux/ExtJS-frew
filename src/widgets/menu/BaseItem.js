@@ -39,6 +39,11 @@ Ext.menu.BaseItem = function(config){
 
 Ext.extend(Ext.menu.BaseItem, Ext.Component, {
     /**
+     * @property parentMenu
+     * @type Ext.menu.Menu
+     * The parent Menu of this Item.
+     */
+    /**
      * @cfg {Function} handler
      * A function that will handle the click event of this menu item (defaults to undefined)
      */
@@ -70,24 +75,16 @@ Ext.extend(Ext.menu.BaseItem, Ext.Component, {
     actionMode : "container",
 
     // private
-    render : function(container, parentMenu){
-        /**
-         * The parent Menu of this Item.
-         * @property parentMenu
-         * @type Ext.menu.Menu
-         */
-        this.parentMenu = parentMenu;
-        Ext.menu.BaseItem.superclass.render.call(this, container);
-        this.container.menuItemId = this.itemId || this.id;
-    },
-
-    // private
     onRender : function(container, position){
-        this.el = Ext.get(this.el);
-        if(this.id){
-            this.el.id = this.id;
+        Ext.menu.BaseItem.superclass.onRender.apply(this, arguments);
+        if(this.ownerCt && this.ownerCt.isXType(Ext.menu.Menu)){
+            this.parentMenu = this.ownerCt;
+        }else{
+            this.container.addClass('x-menu-list-item');
+            this.mon(this.el, 'click', this.onClick, this);
+            this.mon(this.el, 'mouseenter', this.activate, this);
+            this.mon(this.el, 'mouseleave', this.deactivate, this);
         }
-        container.dom.appendChild(this.el.dom);
     },
 
     /**
@@ -106,7 +103,7 @@ Ext.extend(Ext.menu.BaseItem, Ext.Component, {
     // private
     onClick : function(e){
         if(!this.disabled && this.fireEvent("click", this, e) !== false
-                && this.parentMenu.fireEvent("itemclick", this, e) !== false){
+                && (this.parentMenu && this.parentMenu.fireEvent("itemclick", this, e) !== false)){
             this.handleClick(e);
         }else{
             e.stopEvent();
@@ -143,13 +140,10 @@ Ext.extend(Ext.menu.BaseItem, Ext.Component, {
         }
     },
 
-    // private
-    expandMenu : function(autoActivate){
-        // do nothing
-    },
+    // private. Do nothing
+    expandMenu : Ext.emptyFn,
 
-    // private
-    hideMenu : function(){
-        // do nothing
-    }
+    // private. Do nothing
+    hideMenu : Ext.emptyFn
 });
+Ext.reg('menubaseitem', Ext.menu.BaseItem);

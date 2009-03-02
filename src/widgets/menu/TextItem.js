@@ -36,3 +36,4 @@ Ext.extend(Ext.menu.TextItem, Ext.menu.BaseItem, {
         Ext.menu.TextItem.superclass.onRender.apply(this, arguments);
     }
 });
+Ext.reg('menutextitem', Ext.menu.TextItem);

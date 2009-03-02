@@ -1,7 +1,7 @@
 /**
  * @class Ext.menu.ColorMenu
  * @extends Ext.menu.Menu
- * A menu containing a {@link Ext.menu.ColorItem} component (which provides a basic color picker).
+ * A menu containing a {@link Ext.ColorPalette} Component.
  */
  Ext.menu.ColorMenu = Ext.extend(Ext.menu.Menu, {
     /** 
@@ -17,20 +17,23 @@
      * @cfg {Number} scrollIncrement
      * @hide 
      */
-    
+    /**
+     * @property palette
+     * @type ColorPalette
+     * The {@link Ext.ColorPalette} instance for this ColorMenu
+     */
     initComponent: function(){
-        this.ci = new Ext.menu.ColorItem(this.initialConfig);
-        this.relayEvents(this.ci, ['select']);
-        /**
-         * The {@link Ext.ColorPalette} instance for this ColorMenu
-         * @type ColorPalette
-         */
-        this.palette = this.ci.palette;
         Ext.apply(this, {
             plain: true,
             showSeparator: false,
-            items: this.ci
+            items: this.palette = new Ext.ColorPalette(this.initialConfig)
         });
         Ext.menu.ColorMenu.superclass.initComponent.call(this);
+        this.relayEvents(this.palette, ['select']);
+    },
+
+    onClick: function() {
+        this.hide(true);
     }
- });
+});
+Ext.reg('colormenu', Ext.menu.ColorMenu);

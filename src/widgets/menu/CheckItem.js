@@ -104,3 +104,4 @@ Ext.extend(Ext.menu.CheckItem, Ext.menu.Item, {
        Ext.menu.CheckItem.superclass.handleClick.apply(this, arguments);
     }
 });
+Ext.reg('menucheckitem', Ext.menu.CheckItem);

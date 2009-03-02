@@ -30,3 +30,4 @@ Ext.extend(Ext.menu.Separator, Ext.menu.BaseItem, {
         Ext.menu.Separator.superclass.onRender.apply(this, arguments);
     }
 });
+Ext.reg('menuseparator', Ext.menu.Separator);

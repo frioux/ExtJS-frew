@@ -24,18 +24,8 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
      * icon is specified {@link #iconCls} should not be.
      */
     /**
-     * @cfg {String} iconCls
-     * The CSS class selector that specifies a background image to be used as the icon for this item (defaults to '').
-     * If iconCls is specified {@link #icon} should not be.
-     * <p>An example of specifying a custom icon class would be something like:
-     * </p><code><pre>
-// specify the property in the config for the class:
-     ...
-     iconCls: 'my-icon'
-
-// css class that specifies background image to be used as the icon image:
-.my-icon { background-image: url(../images/my-icon.gif) 0 6px no-repeat !important; }
-</pre></code>
+     * @cfg {String} iconCls A CSS class that specifies a background image that will be used as the icon for
+     * this item (defaults to '').  If iconCls is specified {@link #icon} should not be.
      */
     /**
      * @cfg {String} text The text to display in this item (defaults to '').
@@ -49,7 +39,7 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
     /**
      * @cfg {String} itemCls The default CSS class to use for menu items (defaults to 'x-menu-item')
      */
-    itemCls : "x-menu-item",
+    itemCls : 'x-menu-item',
     /**
      * @cfg {Boolean} canActivate True if this item can be visually activated (defaults to true)
      */
@@ -62,23 +52,39 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
     hideDelay: 200,
 
     // private
-    ctype: "Ext.menu.Item",
+    ctype: 'Ext.menu.Item',
 
     // private
     onRender : function(container, position){
-        var el = document.createElement("a");
-        el.hideFocus = true;
-        el.unselectable = "on";
-        el.href = this.href || "#";
-        if(this.hrefTarget){
-            el.target = this.hrefTarget;
+        if (!this.itemTpl) {
+            this.itemTpl = Ext.menu.Item.prototype.itemTpl = new Ext.XTemplate(
+                '<a id="{id}" class="{cls}" hidefocus="true" unselectable="on" href="{href}"',
+                    '<tpl if="hrefTarget">',
+                        ' target="{hrefTarget}"',
+                    '</tpl>',
+                 '>',
+                     '<img src="{icon}" class="x-menu-item-icon {iconCls}">',
+                     '<span class="x-menu-item-text">{text}</span>',
+                 '</a>'
+             );
         }
-        el.className = this.itemCls + (this.menu ?  " x-menu-item-arrow" : "") + (this.cls ?  " " + this.cls : "");
-        el.innerHTML = String.format(
-                '<img src="{0}" class="x-menu-item-icon {2}" />{1}',
-                this.icon || Ext.BLANK_IMAGE_URL, this.itemText||this.text||'&#160;', this.iconCls || '');
-        this.el = el;
+        var a = this.getTemplateArgs();
+        this.el = position ? this.itemTpl.insertBefore(position, a, true) : this.itemTpl.append(container, a, true);
+        this.iconEl = this.el.child('img.x-menu-item-icon');
+        this.textEl = this.el.child('.x-menu-item-text');
         Ext.menu.Item.superclass.onRender.call(this, container, position);
+    },
+
+    getTemplateArgs: function() {
+        return {
+            id: this.id,
+            cls: this.itemCls + (this.menu ?  ' x-menu-item-arrow' : '') + (this.cls ?  ' ' + this.cls : ''),
+            href: this.href || '#',
+            hrefTarget: this.hrefTarget,
+            icon: this.icon || Ext.BLANK_IMAGE_URL,
+            iconCls: this.iconCls || '',
+            text: this.itemText||this.text||'&#160;'
+        };
     },
 
     /**
@@ -88,9 +94,7 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
     setText : function(text){
         this.text = text||'&#160;';
         if(this.rendered){
-            this.el.update(String.format(
-                '<img src="{0}" class="x-menu-item-icon {2}">{1}',
-                this.icon || Ext.BLANK_IMAGE_URL, this.text, this.iconCls || ''));
+            this.textEl.update(this.text);
             this.parentMenu.doAutoSize();
         }
     },
@@ -103,7 +107,7 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
         var oldCls = this.iconCls;
         this.iconCls = cls;
         if(this.rendered){
-            this.el.child('img.x-menu-item-icon').replaceClass(oldCls, this.iconCls);
+            this.iconEl.replaceClass(oldCls, this.iconCls);
         }
     },
     
@@ -167,7 +171,7 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
     // private
     deferExpand : function(autoActivate){
         delete this.showTimer;
-        this.menu.show(this.container, this.parentMenu.subMenuAlign || "tl-tr?", this.parentMenu);
+        this.menu.show(this.container, this.parentMenu.subMenuAlign || 'tl-tr?', this.parentMenu);
         if(autoActivate){
             this.menu.tryActivate(0, 1);
         }
@@ -192,3 +196,4 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
         }
     }
 });
+Ext.reg('menuitem', Ext.menu.Item);

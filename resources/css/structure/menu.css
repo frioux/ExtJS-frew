@@ -72,16 +72,17 @@
     display:block;
 }
 
-.x-menu a.x-menu-item {
-	display:block;
-	line-height:16px;
-	padding:3px 21px 3px 27px;
-	white-space: nowrap;
-	text-decoration:none;
-	-moz-outline: 0 none;
-	outline: 0 none;
-	cursor:pointer;
+a.x-menu-item {
+    cursor: pointer;
+    display: block;
+    line-height: 16px;
+    outline-color: -moz-use-text-color;
+    outline-style: none;
+    outline-width: 0;
+    padding: 3px 21px 3px 27px;
     position: relative;
+    text-decoration: none;
+    white-space: nowrap;
 }
 
 .x-menu-item-active {
@@ -184,4 +185,8 @@
 .x-menu .x-menu-scroller-active{
     height: 6px;
     line-height: 6px;
+}
+
+.x-menu-list-item-indent{
+    padding-left: 27px;
 }
