@@ -178,7 +178,7 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
             ts.master = new Ext.Template(
                     '<div class="x-grid3" hidefocus="true">',
                         '<div class="x-grid3-viewport">',
-                            '<div class="x-grid3-header"><div class="x-grid3-header-inner" style="{ostyle}"><div class="x-grid3-header-offset">{header}</div></div><div class="x-clear"></div></div>',
+                            '<div class="x-grid3-header"><div class="x-grid3-header-inner"><div class="x-grid3-header-offset" style="{ostyle}">{header}</div></div><div class="x-clear"></div></div>',
                             '<div class="x-grid3-scroller"><div class="x-grid3-body" style="{bstyle}">{body}</div><a href="#" class="x-grid3-focus" tabIndex="-1"></a></div>',
                         '</div>',
                         '<div class="x-grid3-resize-marker">&#160;</div>',
@@ -832,6 +832,8 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
     // private
     updateHeaders : function(){
         this.innerHd.firstChild.innerHTML = this.renderHeaders();
+        this.innerHd.firstChild.style.width = this.getOffsetWidth();
+        this.innerHd.firstChild.firstChild.style.width = this.getTotalWidth();
     },
 
     /**
