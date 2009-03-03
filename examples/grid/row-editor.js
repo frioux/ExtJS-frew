@@ -147,6 +147,7 @@ Ext.onReady(function(){
             xtype: 'booleancolumn',
             header: 'Active',
             dataIndex: 'active',
+            align: 'center',
             width: 50,
             trueText: 'Yes',
             falseText: 'No',
