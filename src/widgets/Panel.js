@@ -113,7 +113,7 @@ new Ext.Panel({
      */
     /**
      * @cfg {Boolean} header
-     * True to create the header element explicitly, false to skip creating it.  By default, when header is not
+     * True to create the Panel's header element explicitly, false to skip creating it.  By default, when header is not
      * specified, if a {@link #title} is set the header will be created automatically, otherwise it will not.  If
      * a title is set but header is explicitly set to false, the header will not be rendered.
      */
