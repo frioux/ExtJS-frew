@@ -6,8 +6,12 @@
  * @cfg {String} text The button text to be used as innerHTML (html tags are accepted)
  * @cfg {String} icon The path to an image to display in the button (the image will be set as the background-image
  * CSS property of the button by default, so if you want a mixed icon/text button, set cls:"x-btn-text-icon")
- * @cfg {Function} handler A function called when the button is clicked (can be used instead of click event)
- * @cfg {Object} scope The scope of the handler
+ * @cfg {Function} handler A function called when the button is clicked (can be used instead of click event).
+ * The handler is passed the following parameters:<div class="mdetail-params"><ul>
+ * <li><code>b</code> : Button<div class="sub-desc">This Button.</div></li>
+ * <li><code>e</code> : EventObject<div class="sub-desc">The click event.</div></li>
+ * </ul></div>
+ * @cfg {Object} scope The scope (<tt><b>this</b></tt> reference) in which the handler is executed. Defaults to this Button.
  * @cfg {Number} minWidth The minimum width for this button (used to give a set of buttons a common width)
  * @cfg {String/Object} tooltip The tooltip for the button - can be a string to be used as innerHTML (html tags are accepted) or QuickTips config object
  * @cfg {Boolean} hidden True to start hidden (defaults to false)
@@ -15,7 +19,7 @@
  * @cfg {Boolean} pressed True to start pressed (only if enableToggle = true)
  * @cfg {String} toggleGroup The group this toggle button is a member of (only 1 per group can be pressed)
  * @cfg {Boolean/Object} repeat True to repeat fire the click event while the mouse is down. This can also be
-  an {@link Ext.util.ClickRepeater} config object (defaults to false).
+ * a {@link Ext.util.ClickRepeater ClickRepeater} config object (defaults to false).
  * @constructor
  * Create a new button
  * @param {Object} config The config object
