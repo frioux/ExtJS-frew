@@ -44,9 +44,10 @@ Ext.apply(Ext.EventManager, function(){
 
     function createDelayed(h, o){
         return function(e){
-            // create new event object impl so new events don't wipe out properties            
+            // create new event object impl so new events don't wipe out properties   
+            e = new Ext.EventObjectImpl(e);
             setTimeout(function(){
-                h(new Ext.EventObjectImpl(e));
+                h(e);
             }, o.delay || 10);
         };
     };
