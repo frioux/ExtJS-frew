@@ -31,6 +31,7 @@
     <include name="core\core\UpdateManager.js" />
     <include name="util\core\DelayedTask.js" />
     <include name="util\core\XTemplate.js" />
+    <include name="util\core\JSON.js" />
   </target>
   <target name="Everything" file="$output\ext-all.js" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="core\core\DomHelper.js" />
@@ -70,7 +71,7 @@
     <include name="util\core\DelayedTask.js" />
     <include name="util\MixedCollection.js" />
     <include name="widgets\ComponentMgr.js" />
-    <include name="util\JSON.js" />
+    <include name="util\core\JSON.js" />
     <include name="util\Format.js" />
     <include name="util\core\XTemplate.js" />
     <include name="util\CSS.js" />
@@ -429,7 +430,7 @@
   <target name="Utilities" file="$output\package\util.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="util\core\DelayedTask.js" />
     <include name="util\MixedCollection.js" />
-    <include name="util\JSON.js" />
+    <include name="util\core\JSON.js" />
     <include name="util\Format.js" />
     <include name="util\CSS.js" />
     <include name="util\ClickRepeater.js" />
@@ -749,7 +750,7 @@
   <file name="util\core\DelayedTask.js" path="util\core" />
   <file name="util\Format.js" path="util" />
   <file name="util\History.js" path="util" />
-  <file name="util\JSON.js" path="util" />
+  <file name="util\core\JSON.js" path="util" />
   <file name="util\KeyMap.js" path="util" />
   <file name="util\KeyNav.js" path="util" />
   <file name="util\MixedCollection.js" path="util" />
