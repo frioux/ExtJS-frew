@@ -45,11 +45,15 @@ Ext.extend(Ext.menu.BaseItem, Ext.Component, {
      */
     /**
      * @cfg {Function} handler
-     * A function that will handle the click event of this menu item (defaults to undefined)
+     * A function that will handle the click event of this menu item (optional).
+     * The handler is passed the following parameters:<div class="mdetail-params"><ul>
+     * <li><code>b</code> : Item<div class="sub-desc">This menu Item.</div></li>
+     * <li><code>e</code> : EventObject<div class="sub-desc">The click event.</div></li>
+     * </ul></div>
      */
     /**
      * @cfg {Object} scope
-     * The scope in which the handler function will be called.
+     * The scope (<tt><b>this</b></tt> reference) in which the handler function will be called.
      */
     /**
      * @cfg {Boolean} canActivate True if this item can be visually activated (defaults to false)
