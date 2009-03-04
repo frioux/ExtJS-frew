@@ -948,4 +948,23 @@
   <file name="tree\get-nodes.php" path="tree" />
   <file name="tree\save-dep.php" path="tree" />
   <file name="view\get-images.php" path="view" />
+  <file name="grouptabs\GroupTab.js" path="grouptabs" />
+  <file name="grouptabs\GroupTabPanel.js" path="grouptabs" />
+  <file name="grouptabs\sample.js" path="grouptabs" />
+  <file name="grouptabs\index.html" path="grouptabs" />
+  <file name="grouptabs\elbow-minus-nl.gif" path="grouptabs" />
+  <file name="grouptabs\elbow-plus-nl.gif" path="grouptabs" />
+  <file name="grouptabs\x-grouptabs-corners.gif" path="grouptabs" />
+  <file name="grouptabs\grouptabs.css" path="grouptabs" />
+  <file name="grouptabs\group.png" path="grouptabs" />
+  <file name="grouptabs\subscriptions.png" path="grouptabs" />
+  <file name="grouptabs\templates.png" path="grouptabs" />
+  <file name="grouptabs\tickets.png" path="grouptabs" />
+  <file name="grouptabs\images\elbow-minus-nl.gif" path="grouptabs\images" />
+  <file name="grouptabs\images\elbow-plus-nl.gif" path="grouptabs\images" />
+  <file name="grouptabs\images\x-grouptabs-corners.gif" path="grouptabs\images" />
+  <file name="grouptabs\images\group.png" path="grouptabs\images" />
+  <file name="grouptabs\images\subscriptions.png" path="grouptabs\images" />
+  <file name="grouptabs\images\templates.png" path="grouptabs\images" />
+  <file name="grouptabs\images\tickets.png" path="grouptabs\images" />
 </project>
