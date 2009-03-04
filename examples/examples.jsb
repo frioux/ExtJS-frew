@@ -967,4 +967,11 @@
   <file name="grouptabs\images\subscriptions.png" path="grouptabs\images" />
   <file name="grouptabs\images\templates.png" path="grouptabs\images" />
   <file name="grouptabs\images\tickets.png" path="grouptabs\images" />
+  <file name="spinner\images\spinner-split.gif" path="spinner\images" />
+  <file name="spinner\images\spinner.gif" path="spinner\images" />
+  <file name="spinner\sample.js" path="spinner" />
+  <file name="spinner\SpinnerField.js" path="spinner" />
+  <file name="spinner\SpinnerPlugin.js" path="spinner" />
+  <file name="spinner\index.html" path="spinner" />
+  <file name="spinner\spinner.css" path="spinner" />
 </project>
