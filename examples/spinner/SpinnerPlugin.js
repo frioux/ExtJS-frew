@@ -9,6 +9,7 @@ Ext.form.Spinner = Ext.extend(Ext.util.Observable, {
     
     constructor: function(config){
         Ext.form.Spinner.superclass.constructor.call(this, config);
+        Ext.apply(this, config)
         this.mimicing = false;
     },
     
