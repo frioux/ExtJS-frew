@@ -26,7 +26,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
             c = items[i];
             if(c.isFill){
                 side = this.rightTr;
-                pos = 0;
+                pos = -1;
             }else if(!c.rendered){
                 c.render(this.insertCell(c, side, pos));
             }else{
