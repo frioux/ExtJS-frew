@@ -244,43 +244,6 @@ Ext.apply(Ext.EventManager, function(){
 
 Ext.EventManager.on = Ext.EventManager.addListener;
 
-//Initialize doc classes
-(function(){
-    var initExtCss = function(){
-        // find the body element
-        var bd = document.body || document.getElementsByTagName('body')[0];
-        if(!bd){ return false; }
-        var cls = [' ',
-                Ext.isIE ? "ext-ie " + (Ext.isIE6 ? 'ext-ie6' : (Ext.isIE7 ? 'ext-ie7' : 'ext-ie8'))
-                : Ext.isGecko ? "ext-gecko " + (Ext.isGecko2 ? 'ext-gecko2' : 'ext-gecko3')
-                : Ext.isOpera ? "ext-opera"
-                : Ext.isSafari ? "ext-safari"
-                : Ext.isChrome ? "ext-chrome" : ""];
-
-        if(Ext.isMac){
-            cls.push("ext-mac");
-        }
-        if(Ext.isLinux){
-            cls.push("ext-linux");
-        }
-        if(Ext.isBorderBox){
-            cls.push('ext-border-box');
-        }
-        if(Ext.isStrict){ // add to the parent to allow for selectors like ".ext-strict .ext-ie"
-            var p = bd.parentNode;
-            if(p){
-                p.className += ' ext-strict';
-            }
-        }
-        bd.className += cls.join(' ');
-        return true;
-    }
-
-    if(!initExtCss()){
-        Ext.onReady(initExtCss);
-    }
-})();
-
 
 Ext.apply(Ext.EventObjectImpl.prototype, {
     /** Key constant @type Number */
