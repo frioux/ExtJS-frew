@@ -213,6 +213,16 @@ Ext.Element.addMethods(function(){
 	    
 	    /**
 	     * Returns the width and height of the viewport.
+        * <pre><code>
+        var vpSize = Ext.getBody().getViewSize();
+
+        // all Windows created afterwards will have a default value of 90% height and 95% width
+        Ext.Window.override({
+            width: vpSize.width * 0.9,
+            height: vpSize.height * 0.95
+        });
+        // To handle window resizing you would have to hook onto onWindowResize. 
+        </pre></code>
 	     * @return {Object} An object containing the viewport's size {width: (viewport width), height: (viewport height)}
 	     */
 	    getViewSize : function(){
