@@ -1,17 +1,4 @@
 Ext.apply(Ext.CompositeElement.prototype, {	
-	/**
-    * Calls the passed function passing (el, this, index) for each element in this composite.
-    * @param {Function} fn The function to call
-    * @param {Object} scope (optional) The <i>this</i> object (defaults to the element)
-    * @return {CompositeElement} this
-    */
-    each : function(fn, scope){        
-        Ext.each(this.elements, function(e,i) {
-	        return fn.call(scope || e, e, this, i)
-        }, this);
-        return this;
-    },
-
 	addElements : function(els, root){
         if(!els) return this;
         if(typeof els == "string"){
