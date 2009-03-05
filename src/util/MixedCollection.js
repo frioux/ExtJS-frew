@@ -66,26 +66,22 @@ Ext.extend(Ext.util.MixedCollection, Ext.util.Observable, {
  * @param {Object} o The item to add.
  * @return {Object} The item added.
  */
-    add : function(key, o){
+    add: function(key, o){
         if(arguments.length == 1){
             o = arguments[0];
             key = this.getKey(o);
         }
-        if(typeof key == "undefined" || key === null){
-            this.length++;
-            this.items.push(o);
-            this.keys.push(null);
-        }else{
+        if(typeof key != 'undefined' && key !== null){
             var old = this.map[key];
-            if(old){
+            if(typeof old != 'undefined'){
                 return this.replace(key, o);
             }
-            this.length++;
-            this.items.push(o);
             this.map[key] = o;
-            this.keys.push(key);
         }
-        this.fireEvent("add", this.length-1, o, key);
+        this.length++;
+        this.items.push(o);
+        this.keys.push(key);
+        this.fireEvent('add', this.length-1, o, key);
         return o;
     },
 
@@ -138,7 +134,7 @@ mc.add(otherEl);
             o = arguments[0];
             key = this.getKey(o);
         }
-        var old = this.item(key);
+        var old = this.map[key];
         if(typeof key == "undefined" || key === null || typeof old == "undefined"){
              return this.add(key, o);
         }
@@ -228,6 +224,11 @@ mc.add(otherEl);
         if(arguments.length == 2){
             o = arguments[1];
             key = this.getKey(o);
+        }
+        if(this.containsKey(key)){
+            this.suspendEvents();
+            this.removeKey(key);
+            this.resumeEvents();
         }
         if(index >= this.length){
             return this.add(key, o);
@@ -442,11 +443,11 @@ mc.add(otherEl);
         var r = [];
         if(start <= end){
             for(var i = start; i <= end; i++) {
-        	    r[r.length] = items[i];
+                r[r.length] = items[i];
             }
         }else{
             for(var i = start; i >= end; i--) {
-        	    r[r.length] = items[i];
+                r[r.length] = items[i];
             }
         }
         return r;
@@ -470,7 +471,7 @@ mc.add(otherEl);
         return this.filterBy(function(o){
             return o && value.test(o[property]);
         });
-	},
+    },
 
     /**
      * Filter by a function. Returns a <i>new</i> collection that has been filtered.
@@ -486,8 +487,8 @@ mc.add(otherEl);
         var k = this.keys, it = this.items;
         for(var i = 0, len = it.length; i < len; i++){
             if(fn.call(scope||this, it[i], k[i])){
-				r.add(k[i], it[i]);
-			}
+                r.add(k[i], it[i]);
+            }
         }
         return r;
     },
@@ -510,7 +511,7 @@ mc.add(otherEl);
         return this.findIndexBy(function(o){
             return o && value.test(o[property]);
         }, null, start);
-	},
+    },
 
     /**
      * Find the index of the first matching object in this collection by a function.
@@ -524,7 +525,7 @@ mc.add(otherEl);
         var k = this.keys, it = this.items;
         for(var i = (start||0), len = it.length; i < len; i++){
             if(fn.call(scope||this, it[i], k[i])){
-				return i;
+                return i;
             }
         }
         if(typeof start == 'number' && start > 0){
