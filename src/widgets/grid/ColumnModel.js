@@ -133,7 +133,7 @@ Ext.grid.ColumnModel = function(config){
 };
 Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     /**
-     * The width of columns which have no width specified (defaults to 100)
+     * The width of columns which have no <tt>{@link width}</tt> specified (defaults to 100)
      * @type Number
      */
     defaultWidth: 100,

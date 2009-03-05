@@ -75,7 +75,21 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
      * parameters to the row template for the current row to customize how it is rendered using the <b>rowParams</b>
      * parameter.  This function should return the CSS class name (or empty string '' for none) that will be added
      * to the row's wrapping div.  To apply multiple class names, simply return them space-delimited within the string
-     * (e.g., 'my-class another-class').
+     * (e.g., 'my-class another-class'). Example usage:
+    <pre><code>
+viewConfig: {
+    forceFit: true,
+    showPreview: true, // custom property
+    enableRowBody: true, // required to enable the getRowClass method
+    getRowClass: function(record, rowIndex, p, ds){ // p = rowParams
+        if(this.showPreview){
+            p.body = '&lt;p>'+record.data.excerpt+'&lt;/p>';
+            return 'x-grid3-row-expanded';
+        }
+        return 'x-grid3-row-collapsed';
+    }
+},     
+    </code></pre>
      * @param {Record} record The {@link Ext.data.Record} corresponding to the current row
      * @param {Number} index The row index
      * @param {Object} rowParams A config object that is passed to the row template during rendering that allows
@@ -95,22 +109,39 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
      * that spans beneath the data row.  Use the {@link #getRowClass} method's rowParams config to customize the row body.
      */
     /**
-     * @cfg {String} emptyText Default text to display in the grid body when no rows are available (defaults to '').
+     * @cfg {String} emptyText Default text (html tags are accepted) to display in the grid body when no rows
+     * are available (defaults to ''). This value will be used to update the <tt>{@link #mainBody}</tt>:
+    <pre><code>
+    this.mainBody.update('&lt;div class="x-grid-empty">' + this.emptyText + '&lt;/div>');
+    </code></pre>
      */
     /**
-     * @property {Ext.grid.GridDragZone} dragZone
-     * <p><b>This will only be present if the owning GridPanel was configured with {@link Ext.grid.GridPanel#enableDragDrop enableDragDrop} <tt>true</tt>.</b></p>
-     * <p><b>This will only be present after the owning GridPanel has been rendered</b>.</p>
-     * <p>A customized implementation of a {@link Ext.dd.DragZone DragZone} which provides default implementations of the
-     * template methods of DragZone to enable dragging of the selected rows of a GridPanel. See {@link Ext.grid.GridDragZone} for details.</p>
+     * @cfg {Boolean} headersDisabled True to disable the grid column headers (defaults to <tt>false</tt>). 
+     * Use the {@link Ext.grid.ColumnModel ColumnModel} <tt>{@link Ext.grid.ColumnModel#menuDisabled menuDisabled}</tt>
+     * config to disable the <i>menu</i> for individual columns.  While this config is true the
+     * following will be disabled:<div class="mdetail-params"><ul>
+     * <li>clicking on header to sort</li>
+     * <li>the trigger to reveal the menu.</li>
+     * </ul></div>
      */
     /**
-     * @cfg {Boolean} deferEmptyText True to defer emptyText being applied until the store's first load
+     * <p>A customized implementation of a {@link Ext.dd.DragZone DragZone} which provides default implementations
+     * of the template methods of DragZone to enable dragging of the selected rows of a GridPanel.
+     * See {@link Ext.grid.GridDragZone} for details.</p>
+     * <p>This will <b>only</b> be present:<div class="mdetail-params"><ul>
+     * <li><i>if</i> the owning GridPanel was configured with {@link Ext.grid.GridPanel#enableDragDrop enableDragDrop}: <tt>true</tt>.</li>
+     * <li><i>after</i> the owning GridPanel has been rendered.</li>
+     * </ul></div>
+     * @property dragZone
+     * @type {Ext.grid.GridDragZone}
+     */
+    /**
+     * @cfg {Boolean} deferEmptyText True to defer <tt>{@link #emptyText}</tt> being applied until the store's
+     * first load (defaults to <tt>true</tt>).
      */
     deferEmptyText: true,
     /**
-     * The amount of space to reserve for the scrollbar (defaults to 19 pixels)
-     * @type Number
+     * @cfg {Number} scrollOffset The amount of space to reserve for the scrollbar (defaults to <tt>19</tt> pixels)
      */
     scrollOffset: 19,
     /**
@@ -118,31 +149,43 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
      */
     autoFill: false,
     /**
-     * @cfg {Boolean} forceFit True to auto expand/contract the size of the columns to fit the grid width and prevent horizontal scrolling.
-     * This option overrides any (@link Ext.grid.ColumnModel#width width} settings in the ColumnModel.
+     * @cfg {Boolean} forceFit True to auto expand/contract the size of the columns to fit the grid width and
+     * prevent horizontal scrolling (defaults to <tt>false</tt>). This option overrides any {@link Ext.grid.ColumnModel ColumnModel} 
+     * <tt>{@link Ext.grid.ColumnModel#width width}</tt> settings.
      */
     forceFit: false,
     /**
-     * The CSS classes applied to a header when it is sorted. (defaults to ["sort-asc", "sort-desc"])
-     * @type Array
+     * @cfg {Array} sortClasses The CSS classes applied to a header when it is sorted. (defaults to <tt>["sort-asc", "sort-desc"]</tt>)
      */
     sortClasses : ["sort-asc", "sort-desc"],
     /**
-     * The text displayed in the "Sort Ascending" menu item
-     * @type String
+     * @cfg {String} sortAscText The text displayed in the "Sort Ascending" menu item (defaults to <tt>"Sort Ascending"</tt>)
      */
     sortAscText : "Sort Ascending",
     /**
-     * The text displayed in the "Sort Descending" menu item
-     * @type String
+     * @cfg {String} sortDescText The text displayed in the "Sort Descending" menu item (defaults to <tt>"Sort Descending"</tt>)
      */
     sortDescText : "Sort Descending",
     /**
-     * The text displayed in the "Columns" menu item
-     * @type String
+     * @cfg {String} columnsText The text displayed in the "Columns" menu item (defaults to <tt>"Columns"</tt>)
      */
     columnsText : "Columns",
 
+    /**
+     * @cfg {String} selectedRowClass The CSS class applied to a selected row (defaults to <tt>"x-grid3-row-selected"</tt>). An
+     * example overriding the default styling:
+    <pre><code>
+    .x-grid3-row-selected {background-color: yellow;}
+    </code></pre>
+     * Note that this only controls the row, and will not do anything for the text inside it.  To style inner
+     * facets (like text) use something like:
+    <pre><code>
+    .x-grid3-row-selected .x-grid3-cell-inner {
+    	color: #FFCC00;
+    }
+    </code></pre>
+     * @type String
+     */
     selectedRowClass: "x-grid3-row-selected",
 
     // private
@@ -152,20 +195,20 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
     markDirty: true,
 
     /**
-     * @cfg {Number} cellSelectorDepth The number of levels to search for cells in event delegation (defaults to 4)
+     * @cfg {Number} cellSelectorDepth The number of levels to search for cells in event delegation (defaults to <tt>4</tt>)
      */
     cellSelectorDepth: 4,
     /**
-     * @cfg {Number} rowSelectorDepth The number of levels to search for rows in event delegation (defaults to 10)
+     * @cfg {Number} rowSelectorDepth The number of levels to search for rows in event delegation (defaults to <tt>10</tt>)
      */
     rowSelectorDepth: 10,
 
     /**
-     * @cfg {String} cellSelector The selector used to find cells internally
+     * @cfg {String} cellSelector The selector used to find cells internally (defaults to <tt>'td.x-grid3-cell'</tt>)
      */
     cellSelector: 'td.x-grid3-cell',
     /**
-     * @cfg {String} rowSelector The selector used to find rows internally
+     * @cfg {String} rowSelector The selector used to find rows internally (defaults to <tt>'div.x-grid3-row'</tt>)
      */
     rowSelector: 'div.x-grid3-row',
 
@@ -272,8 +315,8 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
             this.scroller.setStyle('overflow-x', 'hidden');
         }
         /**
-         * The GridView's body Element which encapsulates all rows in the Grid. {@link Ext.Element Element}. Read-only.
-         * <p>This Element is only available after the GridPanel has been rendered.</p>
+         * <i>Read-only</i>. The GridView's body Element which encapsulates all rows in the Grid.
+         * This {@link Ext.Element Element} is only available after the GridPanel has been rendered.
          * @type Ext.Element
          * @property mainBody
          */
