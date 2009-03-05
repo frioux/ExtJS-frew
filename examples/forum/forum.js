@@ -330,6 +330,7 @@ Ext.onReady(function(){
 
     var search = new Ext.form.ComboBox({
         store: searchStore,
+        applyTo: 'search',
         displayField:'title',
         typeAhead: false,
         loadingText: 'Searching...',
@@ -346,7 +347,7 @@ Ext.onReady(function(){
         }
     });
     // apply it to the exsting input element
-    search.applyTo('search');
+    //search.applyTo('search');
 
 
 
