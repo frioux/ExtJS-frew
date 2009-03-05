@@ -181,7 +181,7 @@ Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
                 column: ed.col,
                 cancel:false
             };
-            if(this.fireEvent("validateedit", e) !== false && !e.cancel){
+            if(this.fireEvent("validateedit", e) !== false && !e.cancel && String(value) !== String(startValue)){
                 r.set(field, e.value);
                 delete e.cancel;
                 this.fireEvent("afteredit", e);
@@ -257,15 +257,6 @@ Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
             this.activeEditor[cancel === true ? 'cancelEdit' : 'completeEdit']();
         }
         this.activeEditor = null;
-    },
-
-    // private
-    onDestroy: function() {
-	    var cols = this.colModel.config;
-	    for(var i = 0, len = cols.length; i < len; i++){
-	        Ext.destroy(cols[i].editor);
-        }
-        Ext.grid.EditorGridPanel.superclass.onDestroy.call(this);
     }
 });
 Ext.reg('editorgrid', Ext.grid.EditorGridPanel);

@@ -671,6 +671,17 @@ myGrid.getColumnModel().setHidden(0, true); // hide column 0 (0 = the first colu
     setEditor : function(col, editor){
         Ext.destroy(this.config[col].editor);
         this.config[col].editor = editor;
+    },
+    
+    /**
+     * Destroys this the column model by purging any event listeners, and removing any editors.
+     */
+    destroy : function(){
+        var c = this.config;
+        for(var i = 0, c = this.config, len = c.length; i < len; i++){
+            Ext.destroy(c[i].editor);
+        }
+        this.purgeListeners();
     }
 });
 

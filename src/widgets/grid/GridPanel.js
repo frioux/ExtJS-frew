@@ -541,15 +541,11 @@ function(grid, rowIndex, columnIndex, e) {
     // private
     onDestroy : function(){
         if(this.rendered){
-            if(this.loadMask){
-                this.loadMask.destroy();
-            }
             var c = this.body;
             c.removeAllListeners();
-            this.view.destroy();
             c.update("");
         }
-        this.colModel.purgeListeners();
+        Ext.destroy(this.colModel, this.view, this.loadMask);
         Ext.grid.GridPanel.superclass.onDestroy.call(this);
     },
 
