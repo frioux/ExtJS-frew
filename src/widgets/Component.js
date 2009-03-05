@@ -736,7 +736,7 @@ Ext.Foo = Ext.extend(Ext.Bar, {
 
     // private
     saveState : function(){
-        if(Ext.state.Manager){
+        if(Ext.state.Manager && this.stateful !== false){
             var id = this.getStateId();
             if(id){
                 var state = this.getState();
