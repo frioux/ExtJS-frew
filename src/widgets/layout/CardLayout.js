@@ -72,6 +72,12 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
      * true might improve performance.
      */
     deferredRender : false,
+    
+    /**
+     * @cfg {Boolean} layoutOnCardChange
+     * True to force a layout of the active item when the active card is changed.
+     */
+    layoutOnCardChange : false,
 
     // private
     renderHidden : true,
@@ -89,6 +95,9 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
             this.activeItem = item;
             item.show();
             this.container.doLayout();
+            if(this.layoutOnCardChange && item.doLayout){
+                item.doLayout();
+            }
         }
     },
 

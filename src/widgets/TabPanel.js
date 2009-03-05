@@ -317,9 +317,11 @@ var tabs = new Ext.TabPanel({
              */
             'contextmenu'
         );
-        this.setLayout(new Ext.layout.CardLayout({
+        this.setLayout(new Ext.layout.CardLayout(Ext.apply({
+            layoutOnCardChange: this.layoutOnTabChange,
             deferredRender: this.deferredRender
-        }));
+        }, this.layoutConfig)));
+
         if(this.tabPosition == 'top'){
             this.elements += ',header';
             this.stripTarget = 'header';
@@ -798,9 +800,6 @@ new Ext.TabPanel({
             this.stack.add(item);
 
             this.layout.setActiveItem(item);
-            if(this.layoutOnTabChange && item.doLayout){
-                item.doLayout();
-            }
             if(this.scrolling){
                 this.scrollToTab(item, this.animScroll);
             }
