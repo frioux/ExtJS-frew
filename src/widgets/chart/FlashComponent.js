@@ -66,6 +66,21 @@ Ext.FlashComponent = Ext.extend(Ext.BoxComponent, {
         this.isInitialized = true;
         this.fireEvent('initialize', this);
     },
+    
+    beforeDestroy: function(){
+        if(Ext.isIE && this.rendered){
+            var el = this.el.child('object');
+            if(el){
+                el = el.dom;
+                for (var prop in el){
+                    if(Ext.isFunction(el[prop])){
+                        el[prop] = Ext.emptyFn;
+                    }
+                }
+            }
+        }
+        Ext.FlashComponent.superclass.beforeDestroy.call(this);
+    }
 
     onSwfReady : Ext.emptyFn
 });
