@@ -231,7 +231,10 @@ new Ext.Panel({
      * <li><b>on</b> : Object<div class="sub-desc">A listener config object specifiying
      * event listeners in the format of an argument to {@link #addListener}</div></li>
      * </ul></div>
-     * Example usage:
+     * <p>Note that, apart from the toggle tool which is provided when a panel is collapsible, these
+     * tools only provide the visual button. Any required functionality must be provided by adding
+     * handlers that implement the necessary behavior.</p>
+     * <p>Example usage:</p>
      * <pre><code>
 tools:[{
     id:'refresh',
@@ -240,20 +243,33 @@ tools:[{
     handler: function(event, toolEl, panel){
         // refresh logic
     }
+},
+{
+    id:'help',
+    qtip: 'Get Help',
+    handler: function(event, toolEl, panel){
+        // whatever
+    }
 }]
 </code></pre>
-     * Note that apart from the toggle tool which is provided when a panel is
-     * collapsible, these tools only provide the visual button. Any required
-     * functionality must be provided by adding handlers that implement the
-     * necessary behavior.
-     */
+     * <p>For the custom id of <tt>'help'</tt> define two relevant css classes with a link to
+     * a 15x15 image:</p>
+     * <pre><code>
+.x-tool-help {background-image: url(images/help.png);}
+.x-tool-help-over {background-image: url(images/help_over.png);}
+// if using an image sprite:
+.x-tool-help {background-image: url(images/help.png) no-repeat 0 0;}
+.x-tool-help-over {background-position:-15px 0;}
+</code></pre>
+     */ 
     /**
      * @cfg {Ext.Template/Ext.XTemplate} toolTemplate
-     * <p>A Template used to create tools in the {@link #header} Element. Defaults to:</p><pre><code>
+     * <p>A Template used to create {@link #tools} in the {@link #header} Element. Defaults to:</p><pre><code>
 new Ext.Template('&lt;div class="x-tool x-tool-{id}">&amp;#160;&lt;/div>')</code></pre>
      * <p>This may may be overridden to provide a custom DOM structure for tools based upon a more
      * complex XTemplate. The template's data is a single tool configuration object (Not the entire Array)
-     * as specified in {@link #tools} Example:</p><pre><code>
+     * as specified in {@link #tools}.  In the following example an &lt;a> tag is used to provide a
+     * visual indication when hovering over the tool:</p><pre><code>
 var win = new Ext.Window({
     tools: [{
         id: 'download',
@@ -271,7 +287,11 @@ var win = new Ext.Window({
     height:300,
     closeAction:'hide'
 });</code></pre>
-     * <p>Note that the CSS class "x-tool-pdf" should have an associated style rule which provides an appropriate background image.</p>
+     * <p>Note that the CSS class "x-tool-pdf" should have an associated style rule which provides an
+     * appropriate background image, something like:</p>
+    <pre><code>
+    a.x-tool-pdf {background-image: url(../shared/extjs/images/pdf.gif)!important;}
+    </code></pre>     
      */
     /**
      * @cfg {Boolean} hideCollapseTool
@@ -279,13 +299,15 @@ var win = new Ext.Window({
      */
     /**
      * @cfg {Boolean} titleCollapse
-     * True to allow expanding and collapsing the panel (when {@link #collapsible} = true) by clicking anywhere in the
-     * header bar, false to allow it only by clicking to tool button (defaults to false).
+     * True to allow expanding and collapsing the panel (when <tt>{@link #collapsible} = true</tt>) by clicking anywhere
+     * in the header bar, false to allow it only by clicking to tool button (defaults to false). If this panel
+     * a child item of a border layout also see the {@link Ext.layout.BorderLayout.Region BorderLayout.Region}
+     * <tt>{@link Ext.layout.BorderLayout.Region#floatable floatable}</tt> config option.
      */
     /**
      * @cfg {Boolean} autoScroll
      * True to use overflow:'auto' on the panel's body element and show scroll bars automatically when necessary,
-     * false to clip any overflowing content (defaults to false).
+     * false to clip any overflowing content (defaults to <tt>false</tt>).
      */
     /**
      * @cfg {Boolean} floating
