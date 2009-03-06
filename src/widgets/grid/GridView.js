@@ -80,25 +80,30 @@ Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
 viewConfig: {
     forceFit: true,
     showPreview: true, // custom property
-    enableRowBody: true, // required to enable the getRowClass method
-    getRowClass: function(record, rowIndex, p, ds){ // p = rowParams
+    enableRowBody: true, // required to create a second, full-width row to show expanded Record data
+    getRowClass: function(record, rowIndex, rp, ds){ // rp = rowParams
         if(this.showPreview){
-            p.body = '&lt;p>'+record.data.excerpt+'&lt;/p>';
+            rp.body = '&lt;p>'+record.data.excerpt+'&lt;/p>';
             return 'x-grid3-row-expanded';
         }
         return 'x-grid3-row-collapsed';
     }
 },     
     </code></pre>
-     * @param {Record} record The {@link Ext.data.Record} corresponding to the current row
-     * @param {Number} index The row index
+     * @param {Record} record The {@link Ext.data.Record} corresponding to the current row.
+     * @param {Number} index The row index.
      * @param {Object} rowParams A config object that is passed to the row template during rendering that allows
-     * customization of various aspects of a body row, if applicable.  Note that this object will only be applied if
-     * {@link #enableRowBody} = true, otherwise it will be ignored. The object may contain any of these properties:<ul>
-     * <li><code>body</code> : String <div class="sub-desc">An HTML fragment to be rendered as the cell's body content (defaults to '').</div></li>
-     * <li><code>bodyStyle</code> : String <div class="sub-desc">A CSS style string that will be applied to the row's TR style attribute (defaults to '').</div></li>
-     * <li><code>cols</code> : Number <div class="sub-desc">The column count to apply to the body row's TD colspan attribute (defaults to the current
-     * column count of the grid).</div></li>
+     * customization of various aspects of a grid row.
+     * <p>If {@link #enableRowBody} is configured <b><tt></tt>true</b>, then the following properties may be set
+     * by this function, and will be used to render a full-width expansion row below each grid row:</p>
+     * <ul>
+     * <li><code>body</code> : String <div class="sub-desc">An HTML fragment to be used as the expansion row's body content (defaults to '').</div></li>
+     * <li><code>bodyStyle</code> : String <div class="sub-desc">A CSS style specification that will be applied to the expansion row's &lt;tr> element. (defaults to '').</div></li>
+     * </ul>
+     * The following property will be passed in, and may be appended to:
+     * <ul>
+     * <li><code>tstyle</code> : String <div class="sub-desc">A CSS style specification that willl be applied to the &lt;table> element which encapsulates
+     * both the standard grid row, and any expansion row.</div></li>
      * </ul>
      * @param {Store} store The {@link Ext.data.Store} this grid is bound to
      * @method getRowClass
