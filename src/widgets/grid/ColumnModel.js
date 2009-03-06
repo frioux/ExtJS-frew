@@ -35,7 +35,7 @@
  * <p>
  * In order to use configuration options from the superclass, specify the column configuration
  * Array in the <tt><b>columns</b></tt> config property. The config options <b>defined by</b> this
- * class are options which may appear in each individual column definition. The <tt><b>defaults</b></tt>
+ * class are options which may appear in each individual column definition. The <tt><b>{@link #defaults}</b></tt>
  * config property can be used to apply defaults for all columns, eg:</p><pre><code>
  var colModel = new Ext.grid.ColumnModel({
     columns: [
@@ -133,13 +133,15 @@ Ext.grid.ColumnModel = function(config){
 };
 Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     /**
-     * The width of columns which have no <tt>{@link #width}</tt> specified (defaults to 100)
-     * @type Number
+     * @cfg {Number} defaultWidth (optional) The width of columns which have no <tt>{@link #width}</tt>
+     * specified (defaults to <tt>100</tt>).  This property shall preferably be configured through the
+     * <tt><b>{@link #defaults}</b></tt> config property.
      */
     defaultWidth: 100,
     /**
-     * Default sortable of columns which have no sortable specified (defaults to false)
-     * @type Boolean
+     * @cfg {Boolean} defaultSortable (optional) Default sortable of columns which have no
+     * sortable specified (defaults to <tt>false</tt>).  This property shall preferably be configured
+     * through the <tt><b>{@link #defaults}</b></tt> config property.
      */
     defaultSortable: false,
     /**
@@ -185,16 +187,16 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * Whether local/remote sorting is used is specified in {@link Ext.data.Store#remoteSort}.
      */
     /**
-     * @cfg {Boolean} fixed (optional) True if the column width cannot be changed.  Defaults to false.
+     * @cfg {Boolean} fixed (optional) True if the column width cannot be changed.  Defaults to <tt>false</tt>.
      */
     /**
-     * @cfg {Boolean} resizable (optional) False to disable column resizing. Defaults to true.
+     * @cfg {Boolean} resizable (optional) False to disable column resizing. Defaults to <tt>true</tt>.
      */
     /**
-     * @cfg {Boolean} menuDisabled (optional) True to disable the column menu. Defaults to false.
+     * @cfg {Boolean} menuDisabled (optional) True to disable the column menu. Defaults to <tt>false</tt>.
      */
     /**
-     * @cfg {Boolean} hidden (optional) True to hide the column. Defaults to false.
+     * @cfg {Boolean} hidden (optional) True to hide the column. Defaults to <tt>false</tt>.
      */
     /**
      * @cfg {String} tooltip (optional) A text string to use as the column header's tooltip.  If Quicktips are enabled, this
@@ -236,10 +238,11 @@ var companyColumn = {
 </code></pre>     
      */
     /**
-     * @cfg {String} align (optional) Set the CSS text-align property of the column.  Defaults to undefined.
+     * @cfg {String} align (optional) Set the CSS text-align property of the column.  Defaults to <tt>undefined</tt>.
      */
     /**
-     * @cfg {String} css (optional) Set custom CSS for all table cells in the column (excluding headers).  Defaults to undefined.
+     * @cfg {String} css (optional) Set custom CSS for all table cells in the column (excluding headers).
+     * Defaults to <tt>undefined</tt>.
      */
     /**
      * @cfg {Boolean} hideable (optional) Specify as <tt>false</tt> to prevent the user from hiding this column
@@ -247,8 +250,8 @@ var companyColumn = {
      * {@link Ext.grid.GridPanel#enableColumnHide} instead.
      */
     /**
-     * @cfg {Ext.form.Field} editor (optional) The {@link Ext.form.Field} to use when editing values in this column if
-     * editing is supported by the grid.
+     * @cfg {Ext.form.Field} editor (optional) The {@link Ext.form.Field} to use when editing values in this
+     * column if editing is supported by the grid.
      */
     /**
      * @cfg {Function} groupRenderer If the grid is being rendered by an {@link Ext.grid.GroupingView}, this
