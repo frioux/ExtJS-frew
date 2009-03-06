@@ -219,10 +219,10 @@ Ext.Container.LAYOUTS['toolbar'] = Ext.layout.ToolbarLayout;
  * @class Ext.Toolbar
  * @extends Ext.Container
  * Basic Toolbar class. Toolbar elements can be created explicitly via their constructors, or implicitly
- * via their xtypes.  Some items also have shortcut strings for creation.
+ * via their xtypes.  Some items also have shortcut strings for creation (see <tt>{@link #add}</tt>).
  * @constructor
  * Creates a new Toolbar
- * @param {Object/Array} config A config object or an array of buttons to add
+ * @param {Object/Array} config A config object or an array of buttons to <tt>{@link #add}</tt>
  */
  Ext.Toolbar = function(config){
     if(Ext.isArray(config)){
@@ -320,7 +320,7 @@ Ext.extend(T, Ext.Container, {
 
     /**
      * Adds a separator
-     * @return {Ext.Toolbar.Item} The separator item
+     * @return {Ext.Toolbar.Item} The separator {@link Ext.Toolbar.Item item}
      */
     addSeparator : function(){
         return this.addItem(new T.Separator());
