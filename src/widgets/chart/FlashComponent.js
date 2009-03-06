@@ -80,7 +80,7 @@ Ext.FlashComponent = Ext.extend(Ext.BoxComponent, {
             }
         }
         Ext.FlashComponent.superclass.beforeDestroy.call(this);
-    }
+    },
 
     onSwfReady : Ext.emptyFn
 });
