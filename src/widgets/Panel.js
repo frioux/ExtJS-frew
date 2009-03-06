@@ -299,9 +299,9 @@ var win = new Ext.Window({
      */
     /**
      * @cfg {Boolean} titleCollapse
-     * True to allow expanding and collapsing the panel (when <tt>{@link #collapsible} = true</tt>) by clicking anywhere
-     * in the header bar, false to allow it only by clicking to tool button (defaults to false). If this panel
-     * a child item of a border layout also see the {@link Ext.layout.BorderLayout.Region BorderLayout.Region}
+     * True to allow expanding and collapsing the panel (when <tt>{@link #collapsible} = true</tt>) by clicking
+     * anywhere in the header bar, false to allow it only by clicking to tool button (defaults to false). If this
+     * panel a child item of a border layout also see the {@link Ext.layout.BorderLayout.Region BorderLayout.Region}
      * <tt>{@link Ext.layout.BorderLayout.Region#floatable floatable}</tt> config option.
      */
     /**
@@ -310,16 +310,22 @@ var win = new Ext.Window({
      * false to clip any overflowing content (defaults to <tt>false</tt>).
      */
     /**
-     * @cfg {Boolean} floating
-     * <p>True to float this Panel (absolute position it with automatic shimming and shadow), false to display it inline
-     * where it is rendered (defaults to false).</p>
-     * <p>Setting floating to true will create an {@link Ext.Layer} encapsulating this Panel's Element and
-     * display the Panel at negative offsets so that it is hidden. The position must be set explicitly after render
-     * (e.g., myPanel.setPosition(100,100);).</p>
-     * <p>When floating a panel you should always assign a fixed width, otherwise it will be auto width and will expand
-     * to fill to the right edge of the viewport.</p>
-     * <p>This property may also be specified as an object to be used as the configuration object for
-     * the {@link Ext.Layer} that will be created.
+     * @cfg {Mixed} floating
+     * <p>Acceptable values for this configuration property are:</p><div class="mdetail-params"><ul>
+     * <li><b><tt>false</tt></b> : <b>Default.</b><div class="sub-desc">Display the panel inline where it is
+     * rendered.</div></li>
+     * <li><b><tt>true</tt></b> : <div class="sub-desc">Float the panel (absolute position it with automatic
+     * shimming and shadow).<ul>
+     * <div class="sub-desc">Setting floating to true will create an Ext.Layer for this panel and display the
+     * panel at negative offsets so that it is hidden.</div>
+     * <div class="sub-desc">Since the panel will be absolute positioned, the position must be set explicitly
+     * <i>after</i> render (e.g., <tt>myPanel.setPosition(100,100);</tt>).</div>
+     * <div class="sub-desc"><b>Note</b>: when floating a panel you should always assign a fixed width,
+     * otherwise it will be auto width and will expand to fill to the right edge of the viewport.</div>
+     * </ul></div></li>
+     * <li><b><tt>{@link Ext.Layer object}</tt></b> : <div class="sub-desc">The specified object will be used
+     * as the configuration object for the {@link Ext.Layer} that will be created.</div></li>
+     * </ul></div>
      */
     /**
      * @cfg {Boolean/String} shadow
@@ -498,14 +504,14 @@ new Ext.Panel({
      * generated automatically based on the items added to the panel at config time, but sometimes it might be useful to
      * make sure a structural element is rendered even if not specified at config time (for example, you may want
      * to add a button or toolbar dynamically after the panel has been rendered).  Adding those elements to this
-     * list will allocate the required placeholders in the panel when it is rendered.  Valid values are<ul>
-     * <li><b>header</b></li>
-     * <li><b>tbar</b> (top bar)</li>
-     * <li><b>body</b></li>
-     * <li><b>bbar</b> (bottom bar)</li>
-     * <li><b>footer</b><li>
-     * </ul>
-     * Defaults to 'body'.
+     * list will allocate the required placeholders in the panel when it is rendered.  Valid values are<div class="mdetail-params"><ul>
+     * <li><tt>header</tt></li>
+     * <li><tt>tbar</tt> (top bar)</li>
+     * <li><tt>body</tt></li>
+     * <li><tt>bbar</tt> (bottom bar)</li>
+     * <li><tt>footer</tt></li>
+     * </ul></div>
+     * Defaults to '<tt>body</tt>'.
      */
     elements : 'body',
 
