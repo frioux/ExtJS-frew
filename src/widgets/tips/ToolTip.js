@@ -61,10 +61,10 @@ Ext.ToolTip = Ext.extend(Ext.Tip, {
     /**
      * @cfg {String} delegate <p>Optional. A {@link Ext.DomQuery DomQuery} selector which allows selection of individual elements
      * within the {@link #target} element to trigger showing and hiding the ToolTip as the mouse moves within the target.</p>
-     * <p>When specified, the child element of the target which caused a show event is placed into the {@link #triggerElement} property.
+     * <p>When specified, the child element of the target which caused a show event is placed into the {@link #triggerElement} property
      * before the ToolTip is shown.</p>
-     * This may be useful when a Component has regular, repeating elements in it, each of which need a Tooltip which contains
-     * information specific to that element. For example:<code><pre>
+     * <p>This may be useful when a Component has regular, repeating elements in it, each of which need a Tooltip which contains
+     * information specific to that element. For example:</p><code><pre>
 var myGrid = new Ext.grid.gridPanel(gridConfig);
 myGrid.on('render', function(grid) {
     var store = grid.getStore();  // Capture the Store.

@@ -213,7 +213,7 @@ Ext.grid.BooleanColumn = Ext.extend(Ext.grid.Column, {
 /**
  * @class Ext.grid.NumberColumn
  * @extends Ext.grid.Column
- * <p>This class encapsulates column configuration data stored in an {@link Ext.grid.ColumnModel ColumnModel}.</p>
+ * <p>This class encapsulates column configuration data stored in a {@link Ext.grid.ColumnModel ColumnModel}.</p>
  * <p>This class renders a numeric data field according to a {@link #format} string.</p>
  */
 Ext.grid.NumberColumn = Ext.extend(Ext.grid.Column, {
@@ -232,7 +232,7 @@ Ext.grid.NumberColumn = Ext.extend(Ext.grid.Column, {
 /**
  * @class Ext.grid.DateColumn
  * @extends Ext.grid.Column
- * <p>This class encapsulates column configuration data stored in an {@link Ext.grid.ColumnModel ColumnModel}.</p>
+ * <p>This class encapsulates column configuration data stored in a {@link Ext.grid.ColumnModel ColumnModel}.</p>
  * <p>This class renders a passed date according to the default locale, or a configured {@link #format}.</p>
  */
 Ext.grid.DateColumn = Ext.extend(Ext.grid.Column, {
@@ -251,7 +251,7 @@ Ext.grid.DateColumn = Ext.extend(Ext.grid.Column, {
 /**
  * @class Ext.grid.TemplateColumn
  * @extends Ext.grid.Column
- * <p>This class encapsulates column configuration data stored in an {@link Ext.grid.ColumnModel ColumnModel}.</p>
+ * <p>This class encapsulates column configuration data stored in a {@link Ext.grid.ColumnModel ColumnModel}.</p>
  * <p>This class renders a value by processing a {@link Ext.data.Record Record}'s {@link Ext.data.Record#data data}
  * using a {@link #tpl configured} {@link Ext.XTemplate XTemplate}.</p>
  */
