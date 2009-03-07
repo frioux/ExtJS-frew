@@ -544,8 +544,9 @@ function(grid, rowIndex, columnIndex, e) {
             var c = this.body;
             c.removeAllListeners();
             c.update("");
+            Ext.destroy(this.view, this.loadMask);
         }
-        Ext.destroy(this.colModel, this.view, this.loadMask);
+        Ext.destroy(this.colModel);
         Ext.grid.GridPanel.superclass.onDestroy.call(this);
     },
 
