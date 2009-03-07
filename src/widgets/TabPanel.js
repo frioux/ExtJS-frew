@@ -2,7 +2,7 @@
  * @class Ext.TabPanel
  * <p>A basic tab container. TabPanels can be used exactly like a standard {@link Ext.Panel} for layout
  * purposes, but also have special support for containing child Components that are managed using a CardLayout
- * layout manager, and displayed as seperate tabs.
+ * layout manager, and displayed as separate tabs.
  * </p>
  * <p><b>Note:</b> TabPanels use their {@link Ext.Panel#header header} or {@link Ext.Panel#footer footer} element
  * (depending on the {@link #tabPosition} configuration) to accommodate the tab selector buttons. This means that a TabPanel
@@ -185,49 +185,53 @@ Ext.TabPanel = Ext.extend(Ext.Panel,  {
      */
     enableTabScroll: false,
     /**
-     * @cfg {Number} scrollIncrement The number of pixels to scroll each time a tab scroll button is pressed (defaults
-     * to 100, or if {@link #resizeTabs} = true, the calculated tab width).  Only applies when {@link #enableTabScroll} = true.
+     * @cfg {Number} scrollIncrement The number of pixels to scroll each time a tab scroll button is pressed
+     * (defaults to <tt>100</tt>, or if <tt>{@link #resizeTabs} = true</tt>, the calculated tab width).  Only
+     * applies when <tt>{@link #enableTabScroll} = true</tt>.
      */
     scrollIncrement : 0,
     /**
      * @cfg {Number} scrollRepeatInterval Number of milliseconds between each scroll while a tab scroll button is
-     * continuously pressed (defaults to 400).
+     * continuously pressed (defaults to <tt>400</tt>).
      */
     scrollRepeatInterval : 400,
     /**
-     * @cfg {Float} scrollDuration The number of milliseconds that each scroll animation should last (defaults to .35).
-     * Only applies when {@link #animScroll} = true.
+     * @cfg {Float} scrollDuration The number of milliseconds that each scroll animation should last (defaults
+     * to <tt>.35</tt>). Only applies when <tt>{@link #animScroll} = true</tt>.
      */
     scrollDuration : .35,
     /**
      * @cfg {Boolean} animScroll True to animate tab scrolling so that hidden tabs slide smoothly into view (defaults
-     * to true).  Only applies when {@link #enableTabScroll} = true.
+     * to <tt>true</tt>).  Only applies when <tt>{@link #enableTabScroll} = true</tt>.
      */
     animScroll : true,
     /**
-     * @cfg {String} tabPosition The position where the tab strip should be rendered (defaults to 'top').  The only
-     * other supported value is 'bottom'.  Note that tab scrolling is only supported for position 'top'.
+     * @cfg {String} tabPosition The position where the tab strip should be rendered (defaults to <tt>'top'</tt>).
+     * The only other supported value is <tt>'bottom'</tt>.  <b>Note</b>: tab scrolling is only supported for
+     * <tt>tabPosition: 'top'</tt>.
      */
     tabPosition: 'top',
     /**
-     * @cfg {String} baseCls The base CSS class applied to the panel (defaults to 'x-tab-panel').
+     * @cfg {String} baseCls The base CSS class applied to the panel (defaults to <tt>'x-tab-panel'</tt>).
      */
     baseCls: 'x-tab-panel',
     /**
      * @cfg {Boolean} autoTabs
-     * <p>True to query the DOM for any divs with a class of 'x-tab' to be automatically converted
-     * to tabs and added to this panel (defaults to false).  Note that the query will be executed within the scope of
-     * the container element only (so that multiple tab panels from markup can be supported via this method).</p>
-     * <p>This method is only possible when the markup is structured correctly as a container with nested
-     * divs containing the class 'x-tab'. To create TabPanels without these limitations, or to pull tab content from
-     * other elements on the page, see the example at the top of the class for generating tabs from markup.</p>
+     * <p><tt>true</tt> to query the DOM for any divs with a class of 'x-tab' to be automatically converted
+     * to tabs and added to this panel (defaults to <tt>false</tt>).  Note that the query will be executed within
+     * the scope of the container element only (so that multiple tab panels from markup can be supported via this
+     * method).</p>
+     * <p>This method is only possible when the markup is structured correctly as a container with nested divs
+     * containing the class <tt>'x-tab'</tt>. To create TabPanels without these limitations, or to pull tab content
+     * from other elements on the page, see the example at the top of the class for generating tabs from markup.</p>
      * <p>There are a couple of things to note when using this method:<ul>
-     * <li>When using the autoTabs config (as opposed to passing individual tab configs in the TabPanel's
-     * {@link #items} collection), you must use {@link #applyTo} to correctly use the specified id as the tab container.
-     * The autoTabs method <em>replaces</em> existing content with the TabPanel components.</li>
-     * <li>Make sure that you set {@link #deferredRender} to false so that the content elements for each tab will be
-     * rendered into the TabPanel immediately upon page load, otherwise they will not be transformed until each tab
-     * is activated and will be visible outside the TabPanel.</li>
+     * <li>When using the <tt>autoTabs</tt> config (as opposed to passing individual tab configs in the TabPanel's
+     * {@link #items} collection), you must use <tt>{@link #applyTo}</tt> to correctly use the specified <tt>id</tt>
+     * as the tab container. The <tt>autoTabs</tt> method <em>replaces</em> existing content with the TabPanel
+     * components.</li>
+     * <li>Make sure that you set <tt>{@link #deferredRender}: false</tt> so that the content elements for each
+     * tab will be rendered into the TabPanel immediately upon page load, otherwise they will not be transformed
+     * until each tab is activated and will be visible outside the TabPanel.</li>
      * </ul>Example usage:</p>
      * <pre><code>
 var tabs = new Ext.TabPanel({
@@ -246,10 +250,10 @@ var tabs = new Ext.TabPanel({
      */
     autoTabs : false,
     /**
-     * @cfg {String} autoTabSelector The CSS selector used to search for tabs in existing markup when {@link #autoTabs}
-     * = true (defaults to 'div.x-tab').  This can be any valid selector supported by {@link Ext.DomQuery#select}.
-     * Note that the query will be executed within the scope of this tab panel only (so that multiple tab panels from
-     * markup can be supported on a page).
+     * @cfg {String} autoTabSelector The CSS selector used to search for tabs in existing markup when
+     * <tt>{@link #autoTabs} = true</tt> (defaults to <tt>'div.x-tab'</tt>).  This can be any valid selector
+     * supported by {@link Ext.DomQuery#select}. Note that the query will be executed within the scope of this
+     * tab panel only (so that multiple tab panels from markup can be supported on a page).
      */
     autoTabSelector:'div.x-tab',
     /**
@@ -258,17 +262,19 @@ var tabs = new Ext.TabPanel({
      */
     activeTab : null,
     /**
-     * @cfg {Number} tabMargin The number of pixels of space to calculate into the sizing and scrolling of tabs. If you
-     * change the margin in CSS, you will need to update this value so calculations are correct with either resizeTabs
-     * or scrolling tabs. (defaults to 2)
+     * @cfg {Number} tabMargin The number of pixels of space to calculate into the sizing and scrolling of
+     * tabs. If you change the margin in CSS, you will need to update this value so calculations are correct
+     * with either <tt>{@link #resizeTabs}</tt> or scrolling tabs. (defaults to <tt>2</tt>)
      */
     tabMargin : 2,
     /**
-     * @cfg {Boolean} plain True to render the tab strip without a background container image (defaults to false).
+     * @cfg {Boolean} plain </tt>true</tt> to render the tab strip without a background container image
+     * (defaults to <tt>false</tt>).
      */
     plain: false,
     /**
-     * @cfg {Number} wheelIncrement For scrolling tabs, the number of pixels to increment on mouse wheel scrolling (defaults to 20).
+     * @cfg {Number} wheelIncrement For scrolling tabs, the number of pixels to increment on mouse wheel
+     * scrolling (defaults to <tt>20</tt>).
      */
     wheelIncrement : 20,
 
@@ -295,7 +301,7 @@ var tabs = new Ext.TabPanel({
         this.addEvents(
             /**
              * @event beforetabchange
-             * Fires before the active tab changes. Handlers can return false to cancel the tab change.
+             * Fires before the active tab changes. Handlers can <tt>return false</tt> to cancel the tab change.
              * @param {TabPanel} this
              * @param {Panel} newTab The tab being activated
              * @param {Panel} currentTab The current active tab
@@ -359,13 +365,18 @@ var tabs = new Ext.TabPanel({
         this.body.addClass('x-tab-panel-body-'+this.tabPosition);
 
         /**
-         * @cfg {Template/XTemplate} itemTpl <p>(Optional) A {@link Ext.Template Template} or {@link Ext.XTemplate XTemplate} which 
-         * may be provided to process the data object returned from {@link #getTemplateArgs} to produce a clickable selector element in the tab strip.</p>
-         * <p>The main element created should be a <tt>&lt;li></tt> element. In order for a click event on a selector element to be
-         * connected to its item, it must take its <i>id</i> from the TabPanel's native {@link #getTemplateArgs}.</p>
-         * <p>The child element which contains the title text must be marked by the CSS class <tt>x-tab-strip-inner</tt>.</p>
-         * <p>To enable closability, the created element should contain an element marked by the CSS class <tt>x-tab-strip-close</tt>.</p>
-         * <p>If a custom itemTpl is supplied, it is the developer's responsibility to create CSS style rules to create the desired appearance.</p>
+         * @cfg {Template/XTemplate} itemTpl <p>(Optional) A {@link Ext.Template Template} or
+         * {@link Ext.XTemplate XTemplate} which may be provided to process the data object returned from
+         * <tt>{@link #getTemplateArgs}</tt> to produce a clickable selector element in the tab strip.</p>
+         * <p>The main element created should be a <tt>&lt;li></tt> element. In order for a click event on
+         * a selector element to be connected to its item, it must take its <i>id</i> from the TabPanel's
+         * native <tt>{@link #getTemplateArgs}</tt>.</p>
+         * <p>The child element which contains the title text must be marked by the CSS class
+         * <tt>x-tab-strip-inner</tt>.</p>
+         * <p>To enable closability, the created element should contain an element marked by the CSS class
+         * <tt>x-tab-strip-close</tt>.</p>
+         * <p>If a custom <tt>itemTpl</tt> is supplied, it is the developer's responsibility to create CSS
+         * style rules to create the desired appearance.</p>
          * Below is an example of how to create customized tab selector items:<code><pre>
 new Ext.TabPanel({
     renderTo: document.body,
@@ -505,7 +516,8 @@ new Ext.TabPanel({
     },
 
     /**
-     * True to scan the markup in this tab panel for autoTabs using the autoTabSelector
+     * True to scan the markup in this tab panel for <tt>{@link #autoTabs}</tt> using the
+     * <tt>{@link #autoTabSelector}</tt>
      * @param {Boolean} removeExisting True to remove existing tabs
      */
     readTabs : function(removeExisting){
@@ -550,8 +562,9 @@ new Ext.TabPanel({
 
     /**
      * <p>Provides template arguments for rendering a tab selector item in the tab strip.</p>
-     * <p>This method returns an object hash containing properties used by the TabPanel's {@link #itemTpl}
-     * to create a formatted, clickable tab selector element. The properties which must be returned are:</p><div class="mdetail-params"><ul>
+     * <p>This method returns an object hash containing properties used by the TabPanel's <tt>{@link #itemTpl}</tt>
+     * to create a formatted, clickable tab selector element. The properties which must be returned
+     * are:</p><div class="mdetail-params"><ul>
      * <li><b>id</b> : String<div class="sub-desc">A unique identifier which links to the item</div></li>
      * <li><b>text</b> : String<div class="sub-desc">The text to display</div></li>
      * <li><b>cls</b> : String<div class="sub-desc">The CSS class name</div></li>
@@ -666,9 +679,8 @@ new Ext.TabPanel({
     },
 
     /**
-     * Gets the DOM element for tab strip item which activates the
-     * child panel with the specified ID. Access this to change the visual treatment of the
-     * item, for example by changing the CSS class name.
+     * Gets the DOM element for the tab strip item which activates the child panel with the specified
+     * ID. Access this to change the visual treatment of the item, for example by changing the CSS class name.
      * @param {Panel/Number} tab The tab component, or the tab's index
      * @return {HTMLElement} The DOM node
      */
@@ -774,7 +786,7 @@ new Ext.TabPanel({
 
     /**
      * Sets the specified tab as the active tab. This method fires the {@link #beforetabchange} event which
-     * can return false to cancel the tab change.
+     * can <tt>return false</tt> to cancel the tab change.
      * @param {String/Panel} tab The id or tab Panel to activate
      */
     setActiveTab : function(item){
@@ -1108,4 +1120,3 @@ Ext.TabPanel.AccessStack = function(){
         }
     };
 };
-
