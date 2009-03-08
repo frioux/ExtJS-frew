@@ -1,6 +1,10 @@
 Ext.Element.addMethods(
 function(){
-	var XMASKED = "x-masked",
+    var VISIBILITY = "visibility",
+        DISPLAY = "display",
+        HIDDEN = "hidden",
+        NONE = "none",
+	    XMASKED = "x-masked",
 		XMASKEDRELATIVE = "x-masked-relative";
 		
 	return {
