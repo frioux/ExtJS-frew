@@ -25,7 +25,7 @@ Ext.apply(Ext.EventManager, function(){
         if(ename == "mousedown" && el == document){ // fix stopped mousedowns on the document
             Ext.EventManager.stoppedMouseDownEvent.addListener(wrap);
         }
-    }
+    };
     
     function createBuffered(h, o){
         var task = new Ext.util.DelayedTask(h);
@@ -53,7 +53,7 @@ Ext.apply(Ext.EventManager, function(){
     };
     
     /// this is here because the private addListerner needs to rebind (There is some jquery work around stuff there that isn't needed in Ext Core).	
-	function listen(element, ename, opt, fn, scope){
+    function listen(element, ename, opt, fn, scope){
         var o = !Ext.isObject(opt) ? {} : opt,
         	el = Ext.getDom(element);
         	
