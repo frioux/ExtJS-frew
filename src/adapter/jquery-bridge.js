@@ -379,11 +379,6 @@ Ext.lib.Anim = function(){
             var anim = createAnim(cb, scope), e = Ext.fly(el, '_animrun');
             var o = {};
             for(var k in args){
-                if(args[k].from){
-                    if(k != 'points'){
-                        e.setStyle(k, args[k].from);
-                    }
-                }
                 switch(k){   // jquery doesn't support, so convert
                     case 'points':
                         var by, pts;
@@ -408,21 +403,33 @@ Ext.lib.Anim = function(){
                     break;
                     case 'width':
                         o.width = args.width.to;
+                        if (args.width.from)
+                            e.setWidth(args.width.from);
                     break;
                     case 'height':
                         o.height = args.height.to;
+                        if (args.height.from)
+                            e.setHeight(args.height.from);
                     break;
                     case 'opacity':
                         o.opacity = args.opacity.to;
+                        if (args.opacity.from)
+                            e.setOpacity(args.opacity.from);
                     break;
                     case 'left':
-                   	    o.left = args.left.to;
+                        o.left = args.left.to;
+                        if (args.left.from)
+                            e.setLeft(args.left.from);
                     break;
                     case 'top':
-                   	    o.top = args.top.to;
+                        o.top = args.top.to;
+                        if (args.top.from)
+                            e.setTop(args.top.from);
                     break;
                     default:
                         o[k] = args[k].to;
+                        if (args[k].from)
+                            e.setStyle(k, args[k].from);
                     break;
                 }
             }
