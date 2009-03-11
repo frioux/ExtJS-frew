@@ -318,6 +318,15 @@ Ext.util.Format = function(){
          */
         plural : function(v, s, p){
             return v +' ' + (v == 1 ? s : (p ? p : s+'s'));
+        },
+        
+        /**
+         * Converts newline characters to the HTML tag &lt;br/>
+         * @param {String} The string value to format.
+         * @return {String} The string with embedded &lt;br/> tags in place of newlines.
+         */
+        nl2br : function(v){
+            return v === undefined || v === null ? '' : v.replace(/\n/g, '<br/>');
         }
     }
 }();
