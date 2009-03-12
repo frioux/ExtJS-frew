@@ -383,7 +383,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
             this.monthPicker.update(buf.join(''));
             
             this.mon(this.monthPicker, 'click', this.onMonthClick, this);
-            this.mon(this.dblclick, 'click', this.onMonthDblClick, this);
+            this.mon(this.monthPicker, 'click', this.onMonthDblClick, this);
 
             this.mpMonths = this.monthPicker.select('td.x-date-mp-month');
             this.mpYears = this.monthPicker.select('td.x-date-mp-year');
