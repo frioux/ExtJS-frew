@@ -143,12 +143,12 @@ table.x-date-inner {
 	cursor:default;
 }
 
-.x-date-mmenu .x-menu-item {
+.x-date-menu .x-menu-item {
 	padding:1px 24px 1px 4px;
 	white-space: nowrap;
 }
 
-.x-date-mmenu .x-menu-item .x-menu-item-icon {
+.x-date-menu .x-menu-item .x-menu-item-icon {
     width:10px;
     height:10px;
     margin-right:5px;
