@@ -1,32 +1,4 @@
-Ext.Element.addMethods({	
-	/**
-     * Sets the passed attributes as attributes of this element (a style attribute can be a string, object or function)
-     * @param {Object} o The object with the attributes
-     * @param {Boolean} useSet (optional) false to override the default setAttribute to use expandos.
-     * @return {Ext.Element} this
-     */
-    set : function(o, useSet){
-        var el = this.dom,
-        	attr,
-        	val;       	
-       
-        for(attr in o){
-	        val = o[attr];
-            if (attr != "style" && !Ext.isFunction(val)) {
-	            if (attr == "cls" ) {
-	                el.className = val;
-	            } else if (o.hasOwnProperty(attr)) {
-	                if (useSet || !!el.setAttribute) el.setAttribute(attr, val);
-	                else el[attr] = val;
-	            }
-            }
-        }
-        if(o.style){
-            Ext.DomHelper.applyStyles(el, o.style);
-        }
-        return this;
-    },    
-    
+Ext.Element.addMethods({    
 	/**
      * Stops the specified event(s) from bubbling and optionally prevents the default action
      * @param {String/Array} eventName an event / array of events to stop from bubbling
