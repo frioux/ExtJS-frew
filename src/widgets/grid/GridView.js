@@ -1320,6 +1320,9 @@ viewConfig: {
             this.ds.un("remove", this.onRemove, this);
             this.ds.un("update", this.onUpdate, this);
             this.ds.un("clear", this.onClear, this);
+            if(this.ds !== ds && this.ds.autoDestroy){
+                this.ds.destroy();
+            }
         }
         if(ds){
             ds.on("load", this.onLoad, this);

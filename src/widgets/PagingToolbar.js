@@ -354,6 +354,9 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         store.un("beforeload", this.beforeLoad, this);
         store.un("load", this.onLoad, this);
         store.un("loadexception", this.onLoadError, this);
+        if(store.autoDestroy){
+            store.destroy();
+        }
         this.store = undefined;
     },
 

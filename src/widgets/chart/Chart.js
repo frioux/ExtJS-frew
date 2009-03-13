@@ -105,6 +105,9 @@ Ext.chart.Chart = Ext.extend(Ext.FlashComponent, {
             this.store.un("remove", this.delayRefresh, this);
             this.store.un("update", this.delayRefresh, this);
             this.store.un("clear", this.refresh, this);
+            if(store !== this.store && this.store.autoDestroy){
+                this.store.destroy();
+            }
         }
         if(store){
             store = Ext.StoreMgr.lookup(store);

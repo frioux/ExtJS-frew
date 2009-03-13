@@ -271,7 +271,8 @@ var combo = new Ext.form.ComboBox({
                 this.store = new Ext.data.ArrayStore({
                     'id': 0,
                     fields: ['value', 'text'],
-                    data : d
+                    data : d,
+                    autoDestroy: true
                 });
                 this.valueField = 'value';
                 this.displayField = 'text';
@@ -291,14 +292,16 @@ var combo = new Ext.form.ComboBox({
             if (Ext.isArray(this.store[0])){
                 this.store = new Ext.data.ArrayStore({
                     fields: ['value','text'],
-                    data: this.store
+                    data: this.store,
+                    autoDestroy: true
                 });
                 this.valueField = 'value';
             }else{
                 this.store = new Ext.data.ArrayStore({
                     fields: ['text'],
                     data: this.store,
-                    expandData: true
+                    expandData: true,
+                    autoDestroy: true
                 });
                 this.valueField = 'text';
             }
@@ -496,6 +499,9 @@ var menu = new Ext.menu.Menu({
             this.store.un('beforeload', this.onBeforeLoad, this);
             this.store.un('load', this.onLoad, this);
             this.store.un('loadexception', this.collapse, this);
+            if(this.store !== store && this.store.autoDestroy){
+                this.store.destroy();
+            }
             if(!store){
                 this.store = null;
                 if(this.view){

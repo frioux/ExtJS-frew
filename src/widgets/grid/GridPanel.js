@@ -545,8 +545,11 @@ function(grid, rowIndex, columnIndex, e) {
             c.removeAllListeners();
             c.update("");
             Ext.destroy(this.view, this.loadMask);
+        }else if(this.store && this.store.autoDestroy){
+            this.store.destroy();
         }
         Ext.destroy(this.colModel);
+        this.store = this.colModel = this.view = this.loadMask = null;
         Ext.grid.GridPanel.superclass.onDestroy.call(this);
     },
 

@@ -384,6 +384,9 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
             this.store.un("remove", this.onRemove, this);
             this.store.un("update", this.onUpdate, this);
             this.store.un("clear", this.refresh, this);
+            if(store !== this.store && this.store.autoDestroy){
+                this.store.destroy();
+            }
         }
         if(store){
             store = Ext.StoreMgr.lookup(store);

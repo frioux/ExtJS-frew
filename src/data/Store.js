@@ -230,9 +230,15 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     * </ul></div></p>
     */
     remoteSort : false,
+    
+    /**
+    * @cfg {Boolean} autoDestroy True to destroy the store when the component it is bound to is destroyed.<br />
+     * <b>This should be set to true when using stores for only 1 component.</b>
+    */
+    autoDestroy : false,
 
     /**
-    * @cfg {boolean} pruneModifiedRecords True to clear all modified record information each time the store is
+    * @cfg {Boolean} pruneModifiedRecords True to clear all modified record information each time the store is
      * loaded or when a record is removed. (defaults to false).
     */
     pruneModifiedRecords : false,
@@ -245,6 +251,9 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
      */
    lastOptions : null,
 
+    /**
+     * Destroys the store.
+     */
     destroy : function(){
         if(this.id){
             Ext.StoreMgr.unregister(this);
