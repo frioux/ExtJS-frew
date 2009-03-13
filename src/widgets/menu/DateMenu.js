@@ -33,7 +33,6 @@
             plain: true,
             showSeparator: false,
             items: this.picker = new Ext.DatePicker(Ext.apply({
-                stopClick: false,
                 internalRender: this.strict || !Ext.isIE,
                 ctCls: 'x-menu-date-item'
             }, this.initialConfig))
@@ -43,7 +42,9 @@
     },
 
     onClick: function() {
-        this.hide(true);
+        if(this.hideOnClick){
+            this.hide(true);
+        }
     },
 
     onBeforeShow: function(){

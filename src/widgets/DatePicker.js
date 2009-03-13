@@ -337,7 +337,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
             tooltip: this.monthYearText,
             renderTo: this.el.child("td.x-date-middle", true)
         });
-
+        
 		this.mon(this.mbtn, 'click', this.showMonthPicker, this);
         this.mbtn.el.child('em').addClass("x-btn-arrow");
 
@@ -383,7 +383,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
             this.monthPicker.update(buf.join(''));
             
             this.mon(this.monthPicker, 'click', this.onMonthClick, this);
-            this.mon(this.monthPicker, 'click', this.onMonthDblClick, this);
+            this.mon(this.monthPicker, 'dblclick', this.onMonthDblClick, this);
 
             this.mpMonths = this.monthPicker.select('td.x-date-mp-month');
             this.mpYears = this.monthPicker.select('td.x-date-mp-year');

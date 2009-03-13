@@ -295,24 +295,6 @@ dateField.setValue('2006-05-04');
         return Ext.isDate(date) ? date.dateFormat(this.format) : date;
     },
 
-    // private
-    menuListeners : {
-        select: function(m, d){
-            this.setValue(d);
-            this.fireEvent('select', this, d);
-        },
-        show : function(){ // retain focus styling
-            this.onFocus();
-        },
-        hide : function(){
-            this.focus.defer(10, this);
-            var ml = this.menuListeners;
-            this.menu.un("select", ml.select,  this);
-            this.menu.un("show", ml.show,  this);
-            this.menu.un("hide", ml.hide,  this);
-        }
-    },
-
     /**
      * @method onTriggerClick
      * @hide
@@ -324,7 +306,9 @@ dateField.setValue('2006-05-04');
             return;
         }
         if(this.menu == null){
-            this.menu = new Ext.menu.DateMenu();
+            this.menu = new Ext.menu.DateMenu({
+                hideOnClick: false
+            });
         }
         Ext.apply(this.menu.picker,  {
             minDate : this.minValue,
@@ -338,11 +322,31 @@ dateField.setValue('2006-05-04');
             minText : String.format(this.minText, this.formatDate(this.minValue)),
             maxText : String.format(this.maxText, this.formatDate(this.maxValue))
         });
-        this.menu.on(Ext.apply({}, this.menuListeners, {
-            scope:this
-        }));
+        this.menuEvents('on');
+        this.menu.on('select', this.onSelect, this);
         this.menu.picker.setValue(this.getValue() || new Date());
         this.menu.show(this.el, "tl-bl?");
+    },
+    
+    //private
+    menuEvents: function(method){
+        this.menu[method]('select', this.onSelect, this);
+        this.menu[method]('hide', this.onMenuHide, this);
+        this.menu[method]('show', this.onFocus, this);
+    },
+    
+    onSelect: function(m, d){
+        this.setValue(d);
+        this.fireEvent('select', this, d);
+        this.menu.hide();
+    },
+    
+    onMenuHide: function(){
+        if(this.afterInitial){
+            this.afterInitial = true;
+            this.focus.defer(10, this);
+            this.menuEvents('un');
+        }
     },
 
     // private
