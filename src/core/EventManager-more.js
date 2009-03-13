@@ -452,33 +452,6 @@ Ext.apply(Ext.EventObjectImpl.prototype, {
 	    return new Ext.lib.Point(this.xy[0], this.xy[1]);
 	},
 
-	/**
-	 * Returns true if the target of this event is a child of el.  Unless the allowEl parameter is set, it will return false if if the target is el.
-	 * Example usage:<pre><code>
-	// Handle click on any child of an element
-	Ext.getBody().on('click', function(e){
-	    if(e.within('some-el')){
-	        alert('Clicked on a child of some-el!');
-	    }
-	});
-	
-	// Handle click directly on an element, ignoring clicks on child nodes
-	Ext.getBody().on('click', function(e,t){
-	    if((t.id == 'some-el') && !e.within(t, true)){
-	        alert('Clicked directly on some-el!');
-	    }
-	});
-	</code></pre>
-	 * @param {Mixed} el The id, DOM element or Ext.Element to check
-	 * @param {Boolean} related (optional) true to test if the related target is within el instead of the target
-	 * @param {Boolean} allowEl {optional} true to also check if the passed element is the target or related target
-	 * @return {Boolean}
-	 */
-	within : function(el, related, allowEl){
-	    var t = this[related ? "getRelatedTarget" : "getTarget"]();
-	    return t && ((allowEl ? (t == Ext.getDom(el)) : false) || Ext.fly(el).contains(t));
-	},	
-
     /**
      * Returns true if the control, meta, shift or alt key was pressed during this event.
      * @return {Boolean}

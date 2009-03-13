@@ -59,16 +59,7 @@ Ext.Element.addMethods({
  	    }
  	    me.isCleaned = true;
  	    return me;
- 	},    
- 	
-	/**
-     * Returns true if this element is an ancestor of the passed element
-     * @param {HTMLElement/String} el The element to check
-     * @return {Boolean} True if this element is an ancestor of el, else false
-     */
-    contains : function(el){        
-        return !el ? false : Ext.lib.Dom.isAncestor(this.dom, el.dom ? el.dom : el);
-    },
+ 	},   
     
 	/**
     * Update the innerHTML of this element, optionally searching for and processing scripts
