@@ -149,7 +149,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
              * @event change
              * Fires after the active page has been changed.
              * @param {Ext.PagingToolbar} this
-             * @param {Object} changeEvent An object that has these properties:<ul>
+             * @param {Object} pageData An object that has these properties:<ul>
              * <li><code>total</code> : Number <div class="sub-desc">The total number of records in the dataset as
              * returned by the server</div></li>
              * <li><code>activePage</code> : Number <div class="sub-desc">The current page number</div></li>
@@ -163,13 +163,15 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
              * Fires just before the active page is changed.
              * Return false to prevent the active page from being changed.
              * @param {Ext.PagingToolbar} this
-             * @param {Object} beforeChangeEvent An object that has these properties:<ul>
+             * @param {Object} params An object hash of the parameters which the PagingToolbar will send when
+             * loading the required page. This will contain:<ul>
              * <li><code>start</code> : Number <div class="sub-desc">The starting row number for the next page of records to
              * be retrieved from the server</div></li>
              * <li><code>limit</code> : Number <div class="sub-desc">The number of records to be retrieved from the server</div></li>
              * </ul>
-             * (note: the names of the <b>start</b> and <b>limit</b> properties are determined
-             * by the store's {@link Ext.data.Store#paramNames paramNames} property.)
+             * <p>(note: the names of the <b>start</b> and <b>limit</b> properties are determined
+             * by the store's {@link Ext.data.Store#paramNames paramNames} property.)</p>
+             * <p>Parameters may be added as required in the event handler.</p>
              */
             'beforechange'
         );
