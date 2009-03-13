@@ -7,6 +7,7 @@
  * {@link Ext.data.Store} configured as needed.<br/>
 <pre><code>
 var store = new Ext.data.JsonStore({
+    autoDestroy: true,
     url: 'get-images.php',
     root: 'images', // *see Note  
     fields: ['name', 'url', {name:'size', type: 'float'}, {name:'lastmod', type:'date'}]

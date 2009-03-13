@@ -5,6 +5,7 @@
  * <br><br>Usage:
  * <pre><code>var grid = new Ext.grid.GridPanel({
     store: new Ext.data.Store({
+        autoDestroy: true,
         reader: reader,
         data: xg.dummyData
     }),
