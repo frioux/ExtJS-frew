@@ -30,10 +30,10 @@ Ext.data.Store = function(config){
      * sorting parameters passed to remote servers when loading blocks of data. By default, this
      * object takes the following form:</p><pre><code>
 {
-    start : "start",    // The parameter name which specifies the start row
-    limit : "limit",    // The parameter name which specifies number of rows to return
-    sort : "sort",      // The parameter name which specifies the column to sort on
-    dir : "dir"         // The parameter name which specifies the sort direction
+    start : "start",  // The parameter name which specifies the start row
+    limit : "limit",  // The parameter name which specifies number of rows to return
+    sort : "sort",    // The parameter name which specifies the column to sort on
+    dir : "dir"       // The parameter name which specifies the sort direction
 }
 </code></pre>
      * <p>The server must produce the requested data block upon receipt of these parameter names.
@@ -74,9 +74,63 @@ Ext.data.Store = function(config){
      * The {@link Ext.data.Record Record} constructor as supplied to (or created by) the
      * {@link Ext.data.DataReader Reader}. Read-only.
      * <p>If the Reader was constructed by passing in an Array of {@link Ext.data.Field} definition objects,
-     * instead of a {@link Ext.data.Record#create created Record constructor} it will implicitly
-     * {@link Ext.data.Record#create create a constructor} from that Array.</p>
-     * <p>This property may be used to create new Records of the type held in this Store.</p>
+     * instead of a created Record constructor it will implicitly create a constructor from that Array, see
+     * {@link Ext.data.Record}.{@link Ext.data.Record#create create} for additional details.</p>
+     * <p>This property may be used to create new Records of the type held in this Store, for example:</p><pre><code>
+// create the data store
+var store = new Ext.data.ArrayStore({
+    autoDestroy: true,
+    fields: [
+       {name: 'company'},
+       {name: 'price', type: 'float'},
+       {name: 'change', type: 'float'},
+       {name: 'pctChange', type: 'float'},
+       {name: 'lastChange', type: 'date', dateFormat: 'n/j h:ia'}
+    ]
+});
+store.loadData(myData);
+
+// create the Grid
+var grid = new Ext.grid.EditorGridPanel({
+    store: store,
+    colModel: new Ext.grid.ColumnModel({
+        columns: [
+            {id:'company', header: "Company", width: 160, dataIndex: 'company'},
+            {header: "Price", renderer: 'usMoney', dataIndex: 'price'},
+            {header: "Change", renderer: change, dataIndex: 'change'},
+            {header: "% Change", renderer: pctChange, dataIndex: 'pctChange'},
+            {header: "Last Updated", width: 85, 
+                renderer: Ext.util.Format.dateRenderer('m/d/Y'),
+                dataIndex: 'lastChange'}
+        ],
+        defaults: {
+            sortable: true,
+            width: 75
+        }
+    }),
+    autoExpandColumn: 'company', // match the id specified in the column model
+    height:350,
+    width:600,
+    title:'Array Grid',
+    tbar: [{
+        text: 'Add Record',
+        handler : function(){
+            var defaultData = {
+                change: 0,
+                company: 'New Company',
+                lastChange: (new Date()).clearTime(),
+                pctChange: 0,
+                price: 10
+            };
+            var recId = 3; // provide unique id
+            var p = new store.recordType(defaultData, recId); // create new record
+            grid.stopEditing();
+            store.insert(0, p); // add new record to the store
+            grid.startEditing(0, 0);
+        }
+    }]
+});
+     * </code></pre>
      * @property recordType
      * @type Function
      */
@@ -854,7 +908,7 @@ sortInfo: {
     },
 
     /**
-     * Cancel outstanding changes on all changed records.
+     * {@link Ext.data.Record#reject Reject} outstanding changes on all {@link #getModifiedRecords modified records}.
      */
     rejectChanges : function(){
         var m = this.modified.slice(0);
@@ -886,6 +940,13 @@ sortInfo: {
         return index;
     },
 
+    /**
+     * Set the value for a property name in this store's {@link #baseParams}.  Usage:</p><pre><code>
+myStore.setBaseParam('foo', {bar:3});
+</code></pre>
+     * @param {String} name Name of the property to assign
+     * @param {Mixed} value Value to assign the <tt>name</tt>d property
+     **/
     setBaseParam : function (name, value){
         this.baseParams = this.baseParams || {};
         this.baseParams[name] = value;
