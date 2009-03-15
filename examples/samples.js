@@ -400,10 +400,28 @@ Ext.EventManager.on(window, 'load', function(){
 
     setTimeout(function(){
         Ext.get('loading').remove();
-        Ext.get('loading-mask').fadeOut({remove:true});
-    }, 250);
+        Ext.fly('loading-mask').fadeOut({
+			remove:true,
+			callback : function() {
+				var cp = new Ext.state.CookieProvider();
 
-    if(window.console && window.console.firebug){
-        Ext.Msg.alert('Warning', 'Firebug is known to cause performance issues with Ext JS.');
-    }
+				if(window.console && window.console.firebug && ! cp.get('hideFBWarning')){
+					var tpl = new Ext.Template(
+						'<div style="border: 1px solid #FF0000; background-color:#FFAAAA; display:none; padding:15px; color:#000000;"><b>Warning: </b> Firebug is known to cause performance issues with Ext JS. <a href="#" id="hideWarning">[ Hide ]</a></div>'			   
+					);
+					var newEl = tpl.insertFirst('all-demos');
+					
+					Ext.fly('hideWarning').on('click', function() {
+						Ext.fly(newEl).slideOut('t',{remove:true});
+						cp.set('hideFBWarning', true);	
+					});
+					Ext.fly(newEl).slideIn();
+				}
+				
+				
+			}
+		
+		
+		});
+    }, 250);
 });
