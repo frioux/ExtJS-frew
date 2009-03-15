@@ -81,9 +81,9 @@ Ext.Container.LAYOUTS['menu'] = Ext.layout.MenuLayout;
  * @extends Ext.Container
  * <p>A menu object.  This is the container to which you may add menu items.  Menu can also serve as a base class
  * when you want a specialized menu based off of another component (like {@link Ext.menu.DateMenu} for example).</p>
- * <p>Menus may contain either {@link Ext.menu.Item menu items}, or general {@link Ext.Component Components}s.</p>
+ * <p>Menus may contain either {@link Ext.menu.Item menu items}, or general {@link Ext.Component Component}s.</p>
  * <p>By default, Menus are absolutely positioned, floating Components. By configuring a Menu with
- * <b><tt>{@link #floating}: false</tt></b>, a Menu may be used as child of a Container.</p>
+ * <b><tt>{@link #floating}:false</tt></b>, a Menu may be used as child of a Container.</p>
  */
 Ext.menu.Menu = Ext.extend(Ext.Container, {
     /**
