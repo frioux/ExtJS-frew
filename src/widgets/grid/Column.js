@@ -30,18 +30,22 @@ Ext.grid.Column.AUTO_ID = 0;
 
 Ext.grid.Column.prototype = {
     /**
-     * @cfg {String} id (optional) Defaults to the column's initial ordinal position.
-     * A name which identifies this column. The id is used to create a CSS class name which
-     * is applied to all table cells (including headers) in that column. The class name
-     * takes the form of <pre>x-grid3-td-<b>id</b></pre>
-     * <br><br>
-     * Header cells will also recieve this class name, but will also have the class <pr>x-grid3-hd</pre>,
-     * so to target header cells, use CSS selectors such as:<pre>.x-grid3-hd.x-grid3-td-<b>id</b></pre>
-     * The {@link Ext.grid.GridPanel#autoExpandColumn} grid config option references the column
-     * via this identifier.
+     * @cfg {String} id (optional) A name which identifies this column (defaults to the column's initial
+     * ordinal position. The <tt>id</tt> is used to create a CSS <b>class</b> name which is applied to all
+     * table cells (including headers) in that column (in this context the <tt>id</tt> does not need to be
+     * unique). The class name takes the form of <pre>.x-grid3-td-<b>id</b></pre>
+     * Header cells will also receive this class name, but will also have the class <pre>.x-grid3-hd</pre>
+     * So, to target header cells, use CSS selectors such as:<pre>.x-grid3-hd.x-grid3-td-<b>id</b></pre>
+     * The {@link Ext.grid.GridPanel#autoExpandColumn} grid config option references the column via this
+     * unique identifier.
      */
     /**
-     * @cfg {String} header The header text to display in the Grid view.
+     * @cfg {String} header The header text to display in the Grid view. 
+     */
+    /**
+     * @cfg {String} groupName If the grid is being rendered by an {@link Ext.grid.GroupingView}, this option
+     * may be used to specify the text with which to prefix the group field value in the group header line.
+     * See also {@link #groupRenderer} and {@link Ext.grid.GroupingView}.{@link Ext.grid.GroupingView#showGroupName showGroupName}.
      */
     /**
      * @cfg {String} dataIndex (optional) The name of the field in the grid's {@link Ext.data.Store}'s
@@ -87,8 +91,8 @@ Ext.grid.Column.prototype = {
      * <p>For information about the renderer function, see {@link Ext.grid.ColumnModel#setRenderer}</p>
      */
     /**
-     * @cfg {Object} rendererScope (optional) The scope (<tt><b>this</b></tt> reference) in which to execute the renderer.  Defaults to the Column
-     * configuration object.
+     * @cfg {Object} rendererScope (optional) The scope (<tt><b>this</b></tt> reference) in which to execute the
+     * renderer.  Defaults to the Column configuration object.
      */
     /**
      * @cfg {String} align (optional) Set the CSS text-align property of the column.  Defaults to undefined.
@@ -106,9 +110,10 @@ Ext.grid.Column.prototype = {
      * editing is supported by the grid.
      */
     /**
-     * @cfg {Function} groupRenderer If the grid is being rendered by an {@link Ext.grid.GroupingView}, this
-     * option may be used to specify the function used to format the grouping field value for
-     * display in the group header. Should return a string value.
+     * @cfg {Function} groupRenderer If the grid is being rendered by an {@link Ext.grid.GroupingView}, this option
+     * may be used to specify the function used to format the grouping field value for display in the group 
+     * {@link #groupName header}.
+     * Should return a string value.
      * <p>This takes the following parameters:
      * <div class="mdetail-params"><ul>
      * <li><b>v</b> : Object<p class="sub-desc">The new value of the group field.</p></li>

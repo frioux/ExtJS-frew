@@ -39,40 +39,41 @@
  */
 Ext.grid.GroupingView = Ext.extend(Ext.grid.GridView, {
     /**
-     * @cfg {Boolean} hideGroupedColumn True to hide the column that is currently grouped
+     * @cfg {Boolean} hideGroupedColumn <tt>true</tt> to hide the column that is currently grouped (defaults to <tt>false</tt>)
      */
     hideGroupedColumn:false,
     /**
-     * @cfg {Boolean} showGroupName True to display the name for each set of grouped rows (defaults to true)
+     * @cfg {Boolean} showGroupName <tt>true</tt> to display the <tt>groupName</tt> (or <tt>header</tt> if
+     * not provided) configured in the {@link Ext.grid.Column} for each set of grouped rows (defaults to <tt>true</tt>).
      */
     showGroupName:true,
     /**
-     * @cfg {Boolean} startCollapsed True to start all groups collapsed
+     * @cfg {Boolean} startCollapsed <tt>true</tt> to start all groups collapsed (defaults to <tt>false</tt>)
      */
     startCollapsed:false,
     /**
-     * @cfg {Boolean} enableGrouping False to disable grouping functionality (defaults to true)
+     * @cfg {Boolean} enableGrouping <tt>false</tt> to disable grouping functionality (defaults to <tt>true</tt>)
      */
     enableGrouping:true,
     /**
-     * @cfg {Boolean} enableGroupingMenu True to enable the grouping control in the column menu
+     * @cfg {Boolean} enableGroupingMenu <tt>true</tt> to enable the grouping control in the column menu (defaults to <tt>true</tt>)
      */
     enableGroupingMenu:true,
     /**
-     * @cfg {Boolean} enableNoGroups True to allow the user to turn off grouping
+     * @cfg {Boolean} enableNoGroups <tt>true</tt> to allow the user to turn off grouping (defaults to <tt>true</tt>)
      */
     enableNoGroups:true,
     /**
-     * @cfg {String} emptyGroupText The text to display when there is an empty group value
+     * @cfg {String} emptyGroupText The text to display when there is an empty group value (defaults to <tt>'(None)'</tt>)
      */
     emptyGroupText : '(None)',
     /**
-     * @cfg {Boolean} ignoreAdd True to skip refreshing the view when new rows are added (defaults to false)
+     * @cfg {Boolean} ignoreAdd <tt>true</tt> to skip refreshing the view when new rows are added (defaults to <tt>false</tt>)
      */
     ignoreAdd: false,
     /**
-     * @cfg {String} groupTextTpl The template used to render the group header. This is used to
-     * format an object which contains the following properties:
+     * @cfg {String} groupTextTpl The template used to render the group header (defaults to <tt>'{text}'</tt>).
+     * This is used to format an object which contains the following properties:
      * <div class="mdetail-params"><ul>
      * <li><b>group</b> : String<p class="sub-desc">The <i>rendered</i> value of the group field.
      * By default this is the unchanged value of the group field. If a {@link #groupRenderer}
@@ -83,32 +84,24 @@ Ext.grid.GroupingView = Ext.extend(Ext.grid.GridView, {
      * <li><b>groupId</b> : String<p class="sub-desc">A unique, generated ID which is applied to the
      * View Element which contains the group.</p></li>
      * <li><b>startRow</b> : Number<p class="sub-desc">The row index of the Record which caused group change.</p></li>
-     * <li><b>rs</b> : Array<p class="sub-desc">.Contains a single element: The Record providing the data
+     * <li><b>rs</b> : Array<p class="sub-desc">Contains a single element: The Record providing the data
      * for the row which caused group change.</p></li>
      * <li><b>cls</b> : String<p class="sub-desc">The generated class name string to apply to the group header Element.</p></li>
      * <li><b>style</b> : String<p class="sub-desc">The inline style rules to apply to the group header Element.</p></li>
      * </ul></div></p>
-     * See {@link Ext.XTemplate} for information on how to format data using a template.
+     * See {@link Ext.XTemplate} for information on how to format data using a template. Possible usage:<pre><code>
+var grid = new Ext.grid.GridPanel({
+    ...
+    view: new Ext.grid.GroupingView({
+        groupTextTpl: '{text} ({[values.rs.length]} {[values.rs.length > 1 ? "Items" : "Item"]})'
+    }),
+});
+     * </code></pre>
      */
     groupTextTpl : '{text}',
     /**
-     * @cfg {Function} groupRenderer The function used to format the grouping field value for
-     * display in the group header. Should return a string value. <b>This configuration object
-     * is in fact a configuration option of the column definition in the grid's
-     * {@link Ext.grid.ColumnModel#groupRenderer ColumnModel}, it is included here for ease of reference.</b>
-     * <p>This takes the following parameters:
-     * <div class="mdetail-params"><ul>
-     * <li><b>v</b> : Object<p class="sub-desc">The new value of the group field.</p></li>
-     * <li><b>unused</b> : undefined<p class="sub-desc">Unused parameter.</p></li>
-     * <li><b>r</b> : Ext.data.Record<p class="sub-desc">The Record providing the data
-     * for the row which caused group change.</p></li>
-     * <li><b>rowIndex</b> : Number<p class="sub-desc">The row index of the Record which caused group change.</p></li>
-     * <li><b>colIndex</b> : Number<p class="sub-desc">The column index of the group field.</p></li>
-     * <li><b>ds</b> : Ext.data.Store<p class="sub-desc">The Store which is providing the data Model.</p></li>
-     * </ul></div></p>
-     */
-    /**
-     * @cfg {String} header The text with which to prefix the group field value in the group header line.
+     * @cfg {Function} groupRenderer This property must be configured in the {@link Ext.grid.Column} for
+     * each column.
      */
 
     // private
