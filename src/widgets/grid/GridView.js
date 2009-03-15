@@ -632,7 +632,7 @@ viewConfig: {
 
     // private
     processRows : function(startRow, skipStripe){
-        if(this.ds.getCount() < 1){
+        if(!this.ds || this.ds.getCount() < 1){
             return;
         }
         skipStripe = skipStripe || !this.grid.stripeRows;
