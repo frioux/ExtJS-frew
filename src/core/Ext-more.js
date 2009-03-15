@@ -79,7 +79,7 @@ Ext.apply(Ext, function(){
          * @return {Number} Value, if numeric, else defaultValue
          */
         num : function(v, defaultValue){
-            v = Number(v);
+            v = Number(v == null? NaN : v);
             return isNaN(v)? defaultValue : v;
         },
 
