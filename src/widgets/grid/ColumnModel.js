@@ -3,26 +3,13 @@
  * @extends Ext.util.Observable
  * <p>Once data has been read into the client side cache (<b>{@link Ext.data.Store Store}</b>), we
  * decide how and what parts of that data will be displayed in the GridPanel using the ColumnModel.
- * The Ext.grid.ColumnModel Class is the default implementation of a ColumnModel used by
- * implentations of GridPanel.</p>
- * <p>This class is initialized with an Array of {@link Ext.grid.Column column config objects} to
- * define the initial layout / display of the columns in the Grid. The order of each
- * {@link Ext.grid.Column column configuration} specified here defines the initial order of the
- * column display. Column's may be initially hidden using the <tt>{@link #hidden}</tt></b> config
- * property (and then shown using the column header menu).  Field's that are not included in the
- * ColumnModel will not be displayable at all.</p>
- * <p>How each column in the grid correlates (maps) to the {@link Ext.data.Record} field in the
- * {@link Ext.data.Store Store} the column draws its data from is configured through the
- * <b><tt>{@link #dataIndex}</tt></b> (if not explicitly defined it will use the column
- * configuration's index in this Array as an index. The data flow:</p>
+ * The data flow typically follows this form:</p>
 <pre><code>
-{data source} == mapping ==> {data store} == <b><tt>{@link #dataIndex}</tt></b> ==> {ColumnModel}
+{data source} == mapping ==> {data store} == <b><tt>{@link Ext.grid.Column#dataIndex dataIndex}</tt></b> ==> {ColumnModel}
  </code></pre>
- * An {@link Ext.grid.Column individual column's configuration object} also defines the
- * <b><tt>{@link #header}</tt></b> string, an optional <b><tt>{@link #renderer}</tt></b> to
- * provide customized data formatting, and the ability to apply a CSS class to all cells in a
- * column (including the header) through its <b><tt>{@link #id}</tt></b> config option. Example
- * usage:</p>
+ * The Ext.grid.ColumnModel Class is the default implementation of a ColumnModel used by
+ * implentations of {@link Ext.grid.GridPanel GridPanel}. There are two ways to initialize this class.</p>
+ * <p><u>Initialization Method 1: an Array</u></p>
 <pre><code>
  var colModel = new Ext.grid.ColumnModel([
     { header: "Ticker", width: 60, sortable: true},
@@ -32,11 +19,22 @@
     { header: "Employees", width: 100, sortable: true, resizable: false}
  ]);
  </code></pre>
- * <p>
- * In order to use configuration options from the superclass, specify the column configuration
- * Array in the <tt><b>columns</b></tt> config property. The config options <b>defined by</b> this
- * class are options which may appear in each individual column definition. The <tt><b>{@link #defaults}</b></tt>
- * config property can be used to apply defaults for all columns, eg:</p><pre><code>
+ * <p>An Array of {@link Ext.grid.Column} column configuration objects defines the initial layout / display
+ * of the columns in the Grid. The order of each {@link Ext.grid.Column} column configuration object within
+ * the specified Array defines the initial order of the column display.  A Column's display may be initially
+ * hidden using the <tt>{@link Ext.grid.Column#hidden hidden}</tt></b> config property (and then shown using
+ * the column header menu).  Field's that are not included in the ColumnModel will not be displayable at all.</p>
+ * <p>How each column in the grid correlates (maps) to the {@link Ext.data.Record} field in the
+ * {@link Ext.data.Store Store} the column draws its data from is configured through the
+ * <b><tt>{@link Ext.grid.Column#dataIndex dataIndex}</tt></b>.  If the
+ * <b><tt>{@link Ext.grid.Column#dataIndex dataIndex}</tt></b> is not explicitly defined (as shown in the
+ * example above) it will use the column configuration's index in the Array as the index.</p>
+ * <p>See <b><tt>{@link Ext.grid.Column}</tt></b> for additional configuration options for each column.</p>
+ * <p><u>Initialization Method 2: an Object</u></p>
+ * <p>In order to use configuration options from <tt>Ext.grid.ColumnModel</tt>, an Object may be used to
+ * initialize the ColumnModel.  The column configuration Array will be specified in the <tt><b>{@link #columns}</b></tt>
+ * config property. The <tt><b>{@link #defaults}</b></tt> config property can be used to apply defaults
+ * for all columns, eg:</p><pre><code>
  var colModel = new Ext.grid.ColumnModel({
     columns: [
         { header: "Ticker", width: 60, menuDisabled: false},
@@ -57,9 +55,9 @@
     }
 });
  </code></pre>
- * <p>
- * In both examples above, the "Company Name" column could be styled by including the following
- * css:</p><pre><code>
+ * <p>In both examples above, the ability to apply a CSS class to all cells in a column (including the
+ * header) is demonstrated through the use of the <b><tt>{@link Ext.grid.Column#id id}</tt></b> config
+ * option. This column could be styled by including the following css:</p><pre><code>
  //add this css *after* the core css is loaded
 .x-grid3-td-company {
     color: red; // entire column will have red font
@@ -72,14 +70,17 @@
         padding-left:20px;
 }
  </code></pre>
+ * Note that the "Company Name" column could be specified as the
+ * <b><tt>{@link Ext.grid.GridPanel}.{@link Ext.grid.GridPanel#autoExpandColumn autoExpandColumn}</tt></b>.
  * @constructor
- * @param {Object} config An Array of column config objects. See this class's
- * config objects for details.
+ * @param {Mixed} config Specify either an Array of {@link Ext.grid.Column} configuration objects or specify
+ * a configuration Object (see introductory section discussion utilizing Initialization Method 2 above).
  */
 Ext.grid.ColumnModel = function(config){
     /**
      * An Array of {@link Ext.grid.Column Column definition} objects representing the configuration
-     * of this ColumnModel.
+     * of this ColumnModel.  See {@link Ext.grid.Column} for the configuration properties that may
+     * be specified.
      * @property config
      * @type Array
      */
@@ -145,138 +146,25 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      */
     defaultSortable: false,
     /**
-     * @cfg {Object} columns Object literal which will be used to configure options from the
-     * superclass. The config options <b>defined by</b> this class are options which may appear
-     * in each individual column definition.
+     * @cfg {Array} columns An Array of object literals.  The config options defined by
+     * <b>{@link Ext.grid.Column}</b> are the options which may appear in the object literal for each
+     * individual column definition.
      */
     /**
-     * @cfg {Object} defaults Object literal which will be used to apply default config
-     * options <b>defined by</b> this class.  Config options specified with individual
-     * column configs will supersede these defaults.
+     * @cfg {Object} defaults Object literal which will be used to apply {@link Ext.grid.Column}
+     * configuration options to all <tt><b>{@link #columns}</b></tt>.  Configuration options specified with
+     * individual {@link Ext.grid.Column column} configs will supersede these <tt><b>{@link #defaults}</b></tt>.
      */
     /**
-     * @cfg {String} id (optional) Defaults to the column's initial ordinal position.
-     * Optionally specify a String name to identify this column. The <tt>id</tt> can be used to
-     * create a CSS class name which will be applied to all table cells (including headers) in
-     * that column. The class name takes the form of
-     * <pre>x-grid3-td-<b>id</b></pre>
-     * Header cells will also receive this class name, but the class name takes the form of 
-     * <pre>x-grid3-hd</pre>
-     * To target header cells, use CSS selectors such as:
-     * <pre>.x-grid3-hd.x-grid3-td-<b>id</b></pre>
-     * The Grid's {@link Ext.grid.GridPanel#autoExpandColumn} config option references the
-     * column to be automatically expanded via this identifier.
-     */
-    /**
-     * @cfg {String} header The header text to be used as innerHTML (html tags are accepted)
-     * to display in the Grid view. 
-     */
-    /**
-     * @cfg {String} dataIndex (optional) The name of the field in the grid's {@link Ext.data.Store}'s
-     * {@link Ext.data.Record} definition from which to draw the column's value. If not
-     * specified, the column's index is used as an index into the Record's data Array.
-     */
-    /**
-     * @cfg {Number} width (optional) The initial width in pixels of the column. This is ignored
-     * if the Grid's {@link Ext.grid.GridView view} is configured with
-     * {@link Ext.grid.GridView#forceFit forceFit} true.
-     */
-    /**
-     * @cfg {Boolean} sortable (optional) True if sorting is to be allowed on this column.
-     * Defaults to the value of the {@link #defaultSortable} property.
-     * Whether local/remote sorting is used is specified in {@link Ext.data.Store#remoteSort}.
-     */
-    /**
-     * @cfg {Boolean} fixed (optional) True if the column width cannot be changed.  Defaults to <tt>false</tt>.
-     */
-    /**
-     * @cfg {Boolean} resizable (optional) False to disable column resizing. Defaults to <tt>true</tt>.
-     */
-    /**
-     * @cfg {Boolean} menuDisabled (optional) True to disable the column menu. Defaults to <tt>false</tt>.
-     */
-    /**
-     * @cfg {Boolean} hidden (optional) True to hide the column. Defaults to <tt>false</tt>.
-     */
-    /**
-     * @cfg {String} tooltip (optional) A text string to use as the column header's tooltip.  If Quicktips are enabled, this
-     * value will be used as the text of the quick tip, otherwise it will be set as the header's HTML title attribute.
-     * Defaults to ''.
-     */
-    /**
-     * @cfg {Mixed} renderer <p>(optional) An "interceptor" method which can be used transform data 
-     * (value, appearance, etc.) before it is rendered). This may be specified in either of three ways:
+     * @cfg {String} xtype (optional) A String which references a predefined {@link Ext.grid.Column} subclass
+     * type which is preconfigured with an appropriate {@link Ext.grid.Column#renderer renderer} to be easily
+     * configured into a ColumnModel. The predefined {@link Ext.grid.Column} subclass types are:
      * <div class="mdetail-params"><ul>
-     * <li>A renderer function used to return HTML markup for a cell given the cell's data value.</li>
-     * <li>A string which references a property name of the {@link Ext.util.Format} class which provides a renderer function.</li>
-     * <li>An object specifying both the renderer function, and its execution scope (<tt><b>this</b></tt> reference) eg:<pre style="margin-left:1.2em"><code>
-{
-    fn: this.gridRenderer,
-    scope: this
-}
-</code></pre></li></ul></div>
-     * If not specified, the default renderer uses the raw data value.</p>
-     * <p>For information about the renderer function (passed parameters, etc.), see {@link #setRenderer}.
-     * An example of specifying renderer function inline:</p><pre><code>     
-var companyColumn = {
-   header: "Company Name",
-   dataIndex: "company",
-   renderer: function(value, metaData, record, rowIndex, colIndex, store) {
-      // provide the logic depending on business rules 
-      // name of your own choosing to manipulate the cell depending upon
-      // the data in the underlying Record object.
-      if (value == 'whatever') {
-          //metaData.css : String : A CSS class name to add to the TD element of the cell.
-          //metaData.attr : String : An html attribute definition string to apply to
-          //                         the data container element within the table
-          //                         cell (e.g. 'style="color:red;"').      
-          metaData.css = 'name-of-css-class-you-will-define';
-      }
-      return value;
-   }
-}     
-</code></pre>     
-     */
-    /**
-     * @cfg {String} align (optional) Set the CSS text-align property of the column.  Defaults to <tt>undefined</tt>.
-     */
-    /**
-     * @cfg {String} css (optional) Set custom CSS for all table cells in the column (excluding headers).
-     * Defaults to <tt>undefined</tt>.
-     */
-    /**
-     * @cfg {Boolean} hideable (optional) Specify as <tt>false</tt> to prevent the user from hiding this column
-     * (defaults to true).  To disallow column hiding globally for all columns in the grid, use
-     * {@link Ext.grid.GridPanel#enableColumnHide} instead.
-     */
-    /**
-     * @cfg {Ext.form.Field} editor (optional) The {@link Ext.form.Field} to use when editing values in this
-     * column if editing is supported by the grid.
-     */
-    /**
-     * @cfg {Function} groupRenderer If the grid is being rendered by an {@link Ext.grid.GroupingView}, this
-     * option may be used to specify the function used to format the grouping field value for
-     * display in the group header. Should return a string value.
-     * <p>This takes the following parameters:
-     * <div class="mdetail-params"><ul>
-     * <li><b>v</b> : Object<p class="sub-desc">The new value of the group field.</p></li>
-     * <li><b>unused</b> : undefined<p class="sub-desc">Unused parameter.</p></li>
-     * <li><b>r</b> : Ext.data.Record<p class="sub-desc">The Record providing the data
-     * for the row which caused group change.</p></li>
-     * <li><b>rowIndex</b> : Number<p class="sub-desc">The row index of the Record which caused group change.</p></li>
-     * <li><b>colIndex</b> : Number<p class="sub-desc">The column index of the group field.</p></li>
-     * <li><b>ds</b> : Ext.data.Store<p class="sub-desc">The Store which is providing the data Model.</p></li>
-     * </ul></div></p>
-     */
-    /**
-     * @cfg {String} xtype (optional) A String which references a predefined column type containing custom 
-     * renderers to be easily configured into a ColumnModel. The predefined column types are:
-     * <div class="mdetail-params"><ul>
-     * <li><b>gridcolumn</b> : {@link Ext.grid.Column}<p class="sub-desc">The default.</p></li>
-     * <li><b>booleancolumn</b> : {@link Ext.grid.BooleanColumn}<p class="sub-desc"></p></li>
-     * <li><b>numbercolumn</b> : {@link Ext.grid.NumberColumn}<p class="sub-desc"></p></li>
-     * <li><b>datecolumn</b> : {@link Ext.grid.DateColumn}<p class="sub-desc"></p></li>
-     * <li><b>templatecolumn</b> : {@link Ext.grid.TemplateColumn}<p class="sub-desc"></p></li>
+     * <li><b><tt>gridcolumn</tt></b> : {@link Ext.grid.Column} (<b>Default</b>)<p class="sub-desc"></p></li>
+     * <li><b><tt>booleancolumn</tt></b> : {@link Ext.grid.BooleanColumn}<p class="sub-desc"></p></li>
+     * <li><b><tt>numbercolumn</tt></b> : {@link Ext.grid.NumberColumn}<p class="sub-desc"></p></li>
+     * <li><b><tt>datecolumn</tt></b> : {@link Ext.grid.DateColumn}<p class="sub-desc"></p></li>
+     * <li><b><tt>templatecolumn</tt></b> : {@link Ext.grid.TemplateColumn}<p class="sub-desc"></p></li>
      * </ul></div>
      */
 
@@ -300,6 +188,8 @@ var companyColumn = {
      * <p>Causes the {@link #configchange} event to be fired. A {@link Ext.grid.GridPanel GridPanel} 
      * using this ColumnModel will listen for this event and refresh its UI automatically.</p>
      * @param {Array} config Array of Column definition objects.
+     * @param {Boolean} initial Specify <tt>true</tt> to bypass cleanup which deletes the <tt>totalWidth</tt>
+     * and destroys existing editors.
      */
     setConfig : function(config, initial){
         if(!initial){ // cleanup
@@ -667,7 +557,7 @@ myGrid.getColumnModel().setHidden(0, true); // hide column 0 (0 = the first colu
     },
 
     /**
-     * Sets the editor for a column.
+     * Sets the editor for a column and destroys the prior editor.
      * @param {Number} col The column index
      * @param {Object} editor The editor object
      */

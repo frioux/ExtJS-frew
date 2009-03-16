@@ -10,11 +10,12 @@
         data: xg.dummyData
     }),
     columns: [
-        {id:'company', header: "Company", width: 200, sortable: true, dataIndex: 'company'},
-        {header: "Price", width: 120, sortable: true, renderer: Ext.util.Format.usMoney, dataIndex: 'price'},
-        {header: "Change", width: 120, sortable: true, dataIndex: 'change'},
-        {header: "% Change", width: 120, sortable: true, dataIndex: 'pctChange'},
-        {header: "Last Updated", width: 135, sortable: true, renderer: Ext.util.Format.dateRenderer('m/d/Y'), dataIndex: 'lastChange'}
+        {id:'company', header: 'Company', width: 200, sortable: true, dataIndex: 'company'},
+        {header: 'Price', width: 120, sortable: true, renderer: Ext.util.Format.usMoney, dataIndex: 'price'},
+        {header: 'Change', width: 120, sortable: true, dataIndex: 'change'},
+        {header: '% Change', width: 120, sortable: true, dataIndex: 'pctChange'},
+        // instead of specifying renderer: Ext.util.Format.dateRenderer('m/d/Y') use xtype
+        {header: 'Last Updated', width: 135, sortable: true, dataIndex: 'lastChange', xtype: 'datecolumn', format: 'M d, Y'}
     ],
     viewConfig: {
         forceFit: true,
@@ -33,15 +34,16 @@
     width:600,
     height:300,
     frame:true,
-    title:'Framed with Checkbox Selection and Horizontal Scrolling',
+    title:'Framed with Row Selection and Horizontal Scrolling',
     iconCls:'icon-grid'
 });</code></pre>
  * <b>Notes:</b><ul>
  * <li>Although this class inherits many configuration options from base classes, some of them
  * (such as autoScroll, layout, items, etc) are not used by this class, and will have no effect.</li>
- * <li>A grid <b>requires</b> a width in which to scroll its columns, and a height in which to scroll its rows. The dimensions can either
- * be set through the {@link #height} and {@link #width} configuration options or automatically set by using the grid in a {@link Ext.Container Container}
- * who's {@link Ext.Container#layout layout} provides sizing of its child items.</li>
+ * <li>A grid <b>requires</b> a width in which to scroll its columns, and a height in which to scroll its rows.
+ * The dimensions can either be set through the {@link #height} and {@link #width} configuration options or 
+ * automatically set by using the grid in a {@link Ext.Container Container} who's {@link Ext.Container#layout layout}
+ * provides sizing of its child items.</li>
  * <li>To access the data in a Grid, it is necessary to use the data model encapsulated
  * by the {@link #store Store}. See the {@link #cellclick} event.</li>
  * </ul>
