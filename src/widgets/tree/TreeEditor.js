@@ -83,12 +83,15 @@ Ext.extend(Ext.tree.TreeEditor, Ext.Editor, {
         this.setSize(w, '');
     },
 
-    // private
+    /**
+     * Edit the text of the passed {@link Ext.tree.TreeNode TreeNode}.
+     * @param node {Ext.tree.TreeNode} The TreeNode to edit. The TreeNode must be {@link Ext.tree.TreeNode#editable editable}.
+     */
     triggerEdit : function(node, defer){
         this.completeEdit();
 		if(node.attributes.editable !== false){
            /**
-            * The tree node this editor is bound to. Read-only.
+            * The {@link Ext.tree.TreeNode TreeNode} this editor is bound to. Read-only.
             * @type Ext.tree.TreeNode
             * @property editNode
             */
