@@ -37,6 +37,10 @@ Ext.form.DisplayField = Ext.extend(Ext.form.Field,  {
     getValue : function(){
         return this.getRawValue();
     },
+    
+    getName: function() {
+        return this.name;
+    },
 
     setRawValue : function(v){
         if(this.htmlEncode){
