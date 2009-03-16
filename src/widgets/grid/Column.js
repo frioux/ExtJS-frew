@@ -138,11 +138,13 @@ var companyColumn = {
      * if editing is supported by the grid.
      */
     /**
-     * @cfg {Function} groupRenderer If the grid is being rendered by an {@link Ext.grid.GroupingView}, this option
+     * @cfg {Function} groupRenderer <p>If the grid is being rendered by an {@link Ext.grid.GroupingView}, this option
      * may be used to specify the function used to format the grouping field value for display in the group 
-     * {@link #groupName header}.
-     * Should return a string value.
-     * <p>This takes the following parameters:
+     * {@link #groupName header}.  If a <tt><b>groupRenderer</b></tt> is not specified, the configured
+     * <tt><b>{@link #renderer}</b></tt> will be called; if a <tt><b>{@link #renderer}</b></tt> is also not specified
+     * the new value of the group field will be used.</p>
+     * <p>The called function (either the <tt><b>groupRenderer</b></tt> or <tt><b>{@link #renderer}</b></tt>) will be
+     * passed the following parameters:
      * <div class="mdetail-params"><ul>
      * <li><b>v</b> : Object<p class="sub-desc">The new value of the group field.</p></li>
      * <li><b>unused</b> : undefined<p class="sub-desc">Unused parameter.</p></li>
@@ -152,6 +154,7 @@ var companyColumn = {
      * <li><b>colIndex</b> : Number<p class="sub-desc">The column index of the group field.</p></li>
      * <li><b>ds</b> : Ext.data.Store<p class="sub-desc">The Store which is providing the data Model.</p></li>
      * </ul></div></p>
+     * <p>The function should return a string value.</p>
      */
 
     // private. Used by ColumnModel to avoid reprocessing

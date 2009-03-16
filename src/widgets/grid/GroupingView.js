@@ -43,8 +43,10 @@ Ext.grid.GroupingView = Ext.extend(Ext.grid.GridView, {
      */
     hideGroupedColumn:false,
     /**
-     * @cfg {Boolean} showGroupName <tt>true</tt> to display the <tt>groupName</tt> (or <tt>header</tt> if
-     * not provided) configured in the {@link Ext.grid.Column} for each set of grouped rows (defaults to <tt>true</tt>).
+     * @cfg {Boolean} showGroupName If <tt>true</tt> will display a prefix plus a ': ' before the group field value
+     * in the group header line.  The prefix will consist of the <tt><b>{@link Ext.grid.Column#groupName groupName}</b></tt>
+     * (or the configured <tt><b>{@link Ext.grid.Column#header header}</b></tt> if not provided) configured in the
+     * {@link Ext.grid.Column} for each set of grouped rows (defaults to <tt>true</tt>).
      */
     showGroupName:true,
     /**
@@ -76,11 +78,11 @@ Ext.grid.GroupingView = Ext.extend(Ext.grid.GridView, {
      * This is used to format an object which contains the following properties:
      * <div class="mdetail-params"><ul>
      * <li><b>group</b> : String<p class="sub-desc">The <i>rendered</i> value of the group field.
-     * By default this is the unchanged value of the group field. If a {@link #groupRenderer}
-     * is specified, it is the result of a call to that.</p></li>
+     * By default this is the unchanged value of the group field. If a <tt><b>{@link Ext.grid.Column#groupRenderer groupRenderer}</b></tt>
+     * is specified, it is the result of a call to that function.</p></li>
      * <li><b>gvalue</b> : Object<p class="sub-desc">The <i>raw</i> value of the group field.</p></li>
-     * <li><b>text</b> : String<p class="sub-desc">The configured {@link #header} (If
-     * {@link #showGroupName} is true) plus the <i>rendered</i>group field value.</p></li>
+     * <li><b>text</b> : String<p class="sub-desc">The configured header (as described in <tt>{@link #showGroupName})</tt>
+     * if <tt>{@link #showGroupName}</tt> is <tt>true</tt>) plus the <i>rendered</i> group field value.</p></li>
      * <li><b>groupId</b> : String<p class="sub-desc">A unique, generated ID which is applied to the
      * View Element which contains the group.</p></li>
      * <li><b>startRow</b> : Number<p class="sub-desc">The row index of the Record which caused group change.</p></li>
