@@ -59,7 +59,7 @@ Ext.grid.Column.prototype = {
      * Grid's {@link Ext.grid.GridView view} is configured with {@link Ext.grid.GridView#forceFit forceFit} true.
      */
     /**
-     * @cfg {Boolean} sortable (optional) True if sorting is to be allowed on this column.
+     * @cfg {Boolean} sortable (optional) <tt>true</tt> if sorting is to be allowed on this column.
      * Defaults to the value of the {@link #defaultSortable} property.
      * Whether local/remote sorting is used is specified in {@link Ext.data.Store#remoteSort}.
      */
