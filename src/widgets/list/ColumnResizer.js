@@ -34,18 +34,10 @@ Ext.ListView.ColumnResizer = Ext.extend(Ext.util.Observable, {
 
             if(x - r.left <= hw && pn != pn.parentNode.firstChild){
                 this.activeHd = Ext.get(pn.previousSibling.firstChild);
-                if(Ext.isSafari){
-                    ss.cursor = 'e-resize';// col-resize not always supported
-                } else{
-                    ss.cursor = 'col-resize';
-                }
+				ss.cursor = Ext.isSafari ? 'e-resize' : 'col-resize';
             } else if(r.right - x <= hw && pn != pn.parentNode.lastChild.previousSibling){
                 this.activeHd = hd;
-                if(Ext.isSafari){
-                    ss.cursor = 'w-resize'; // col-resize not always supported
-                } else{
-                    ss.cursor = 'col-resize';
-                }
+				ss.cursor = Ext.isSafari ? 'w-resize' : 'col-resize';
             } else{
                 delete this.activeHd;
                 ss.cursor = '';
