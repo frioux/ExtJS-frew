@@ -1,7 +1,7 @@
 /**
  * @class Ext.form.DisplayField
  * @extends Ext.form.Field
- * Text field that bypasses validation.
+ * A display-only text field which is not validated and not submitted.
  * @constructor
  * Creates a new DisplayField.
  * @param {Object} config Configuration options
@@ -62,6 +62,18 @@ Ext.form.DisplayField = Ext.extend(Ext.form.Field,  {
         this.setRawValue(v);
         return this;
     }
+    /** 
+     * @cfg {String} inputType 
+     * @hide
+     */
+    /** 
+     * @cfg {Boolean} disabled 
+     * @hide
+     */
+    /** 
+     * @cfg {Boolean} readOnly 
+     * @hide
+     */
     /** 
      * @cfg {Boolean} validateOnBlur 
      * @hide
