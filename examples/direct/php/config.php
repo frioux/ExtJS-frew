@@ -1,4 +1,4 @@
-<?
+<?php
 $API = array(
 	'TestAction'=>array(
 	    'methods'=>array(

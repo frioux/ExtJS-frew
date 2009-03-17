@@ -12,12 +12,11 @@
     <script type="text/javascript" src="../../ext-all.js"></script>
 
     <script language="javascript" src="direct.js"></script>
-	<script language="javascript" src="DirectProvider.js"></script>
 
 	<script type="text/javascript" src="php/api.php"></script>
 	
     <!-- Common Styles for the examples -->
-    <link rel="stylesheet" type="text/css" href="../examples.css" />
+    <link rel="stylesheet" type="text/css" href="../shared/examples.css" />
     <style>
         #out {
             padding: 5px;
