@@ -26,7 +26,7 @@
     <include name="core\core\Element.scroll.js" />
     <include name="core\core\Element.fx.js" />
     <include name="core\core\Fx.js" />
-    <include name="core\core\CompositeElement.js" />
+    <include name="core\core\CompositeElementLite.js" />
     <include name="data\core\Connection.js" />
     <include name="util\core\DelayedTask.js" />
     <include name="util\core\JSON.js" />
@@ -59,8 +59,9 @@
     <include name="core\Element.legacy.js" />
     <include name="core\Element.keys.js" />
     <include name="core\core\Fx.js" />
-    <include name="core\core\CompositeElement.js" />
-    <include name="core\CompositeElement-more.js" />
+    <include name="core\core\CompositeElementLite.js" />
+    <include name="core\CompositeElementLite-more.js" />
+    <include name="core\CompositeElement.js" />
     <include name="data\core\Connection.js" />
     <include name="data\Connection-more.js" />
     <include name="util\UpdateManager.js" />
@@ -623,8 +624,9 @@
   <file name="adapter\jquery-bridge.js" path="adapter" />
   <file name="adapter\prototype-bridge.js" path="adapter" />
   <file name="adapter\yui-bridge.js" path="adapter" />
-  <file name="core\core\CompositeElement.js" path="core\core" />
-  <file name="core\CompositeElement-more.js" path="core\" />
+  <file name="core\core\CompositeElementLite.js" path="core\core" />
+  <file name="core\CompositeElementLite-more.js" path="core\" />
+  <file name="core\CompositeElement.js" path="core\" />
   <file name="core\core\DomHelper.js" path="core\core" />
   <file name="core\DomHelper-more.js" path="core" />
   <file name="core\core\DomQuery.js" path="core" />
@@ -652,8 +654,6 @@
   <file name="core\core\Fx.js" path="core" />
   <file name="core\core\Template.js" path="core\core" />
   <file name="core\Template-more.js" path="core" />
-  <file name="core\core\UpdateManager.js" path="core\core" />
-  <file name="core\UpdateManager-more.js" path="core" />
   <file name="data\ArrayReader.js" path="data" />
   <file name="data\ArrayStore.js" path="data" />
   <file name="data\core\Connection.js" path="data\core" />
@@ -756,7 +756,8 @@
   <file name="util\core\TaskMgr.js" path="util\core" />
   <file name="util\TaskMgr-more.js" path="util" />
   <file name="util\TextMetrics.js" path="util" />
-  <file name="util\core\XTemplate.js" path="util\core" />
+  <file name="util\XTemplate.js" path="util" />
+  <file name="util\UpdateManager.js" path="util" />
   <file name="widgets\chart\Chart.js" path="widgets\chart" />
   <file name="widgets\chart\EventProxy.js" path="widgets\chart" />
   <file name="widgets\chart\FlashComponent.js" path="widgets\chart" />
@@ -869,6 +870,4 @@
   <file name="widgets\Window.js" path="widgets" />
   <file name="widgets\WindowManager.js" path="widgets" />
   <file name="debug.js" path="" />
-  <file name="util\UpdateManager.js" path="util" />
-  <file name="util\XTemplate.js" path="util" />
 </project>
