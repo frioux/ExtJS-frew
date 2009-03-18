@@ -1,3 +1,6 @@
+/**
+ * @class Ext.Element
+ */
 Ext.Element.addMethods(
 function(){
     var VISIBILITY = "visibility",

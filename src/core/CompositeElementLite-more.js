@@ -1,3 +1,6 @@
+/**
+ * @class Ext.CompositeElementLite
+ */
 Ext.apply(Ext.CompositeElementLite.prototype, {	
 	addElements : function(els, root){
         if(!els) return this;

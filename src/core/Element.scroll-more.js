@@ -1,5 +1,8 @@
+/**
+ * @class Ext.Element
+ */
 Ext.Element.addMethods({
-	/**
+    /**
      * Scrolls this element the specified scroll point. It does NOT do bounds checking so if you scroll to a weird value it will try to do it. For auto bounds checking, use scroll().
      * @param {String} side Either "left" for scrollLeft values or "top" for scrollTop values.
      * @param {Number} value The new scroll value
@@ -20,7 +23,7 @@ Ext.Element.addMethods({
         return me;
     },
     
-	/**
+    /**
      * Scrolls this element into view within the passed container.
      * @param {Mixed} container (optional) The container element to scroll (defaults to document.body).  Should be a
      * string (id), dom node, or Ext.Element.

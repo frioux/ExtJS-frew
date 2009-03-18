@@ -1,5 +1,8 @@
+/**
+ * @class Ext.Element
+ */
 Ext.Element.addMethods({    
-	/**
+    /**
      * Stops the specified event(s) from bubbling and optionally prevents the default action
      * @param {String/Array} eventName an event / array of events to stop from bubbling
      * @param {Boolean} preventDefault (optional) true to prevent the default action too

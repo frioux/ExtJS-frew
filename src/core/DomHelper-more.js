@@ -1,3 +1,6 @@
+/**
+ * @class Ext.DomHelper
+ */
 Ext.apply(Ext.DomHelper, 
 function(){
 	var pub,

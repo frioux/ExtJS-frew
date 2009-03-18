@@ -1,3 +1,6 @@
+/**
+ * @class Ext.Element
+ */
 Ext.apply(Ext.Element.prototype, function() {
 	var GETDOM = Ext.getDom,
 		GET = Ext.get,

@@ -1,3 +1,6 @@
+/**
+ * @class Ext.EventManager
+ */
 Ext.apply(Ext.EventManager, function(){
 	var resizeEvent, 
     	resizeTask, 

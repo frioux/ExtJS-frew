@@ -1,3 +1,6 @@
+/**
+ * @class Ext.Element
+ */
 Ext.Element.addMethods({
     /**
      * Measures the element's content height and updates height to match. Note: this function uses setTimeout so

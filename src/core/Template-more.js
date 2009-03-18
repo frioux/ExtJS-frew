@@ -1,5 +1,8 @@
+/**
+ * @class Ext.Template
+ */
 Ext.apply(Ext.Template.prototype, {
-	/**
+    /**
      * Returns an HTML fragment of this template with the specified values applied.
      * @param {Object/Array} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
      * @return {String} The HTML fragment
@@ -40,17 +43,17 @@ Ext.apply(Ext.Template.prototype, {
         return me.html.replace(me.re, fn);
     },
 		
-	/**
+    /**
      * True to disable format functions (defaults to false)
      * @type Boolean
      */
     disableFormats : false,				
 	
-	/**
-    * The regular expression used to match template variables
-    * @type RegExp
-    * @property
-    */
+    /**
+     * The regular expression used to match template variables
+     * @type RegExp
+     * @property
+     */
     re : /\{([\w-]+)(?:\:([\w\.]*)(?:\((.*?)?\))?)?\}/g,
     
     /**

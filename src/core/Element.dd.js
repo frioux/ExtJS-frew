@@ -1,3 +1,6 @@
+/**
+ * @class Ext.Element
+ */
 Ext.Element.addMethods({
     /**
      * Initializes a {@link Ext.dd.DD} drag drop object for this element.

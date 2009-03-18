@@ -1,3 +1,6 @@
+/**
+ * @class Ext.Element
+ */
 Ext.Element.addMethods({
     /**
      * Gets the x,y coordinates specified by the anchor position on the element.

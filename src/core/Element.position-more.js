@@ -1,5 +1,8 @@
+/**
+ * @class Ext.Element
+ */
 Ext.Element.addMethods({
-	/**
+    /**
      * Sets the element's box. Use getBox() on another element to get a box obj. If animate is true then width, height, x and y will be animated concurrently.
      * @param {Object} box The box to fill {x, y, width, height}
      * @param {Boolean} adjust (optional) Whether to adjust for box-model issues automatically
@@ -18,7 +21,7 @@ Ext.Element.addMethods({
         return me;
     },
     
-	/**
+    /**
      * Return a box {x, y, width, height} that can be used to set another elements
      * size/location to match this element.
      * @param {Boolean} contentBox (optional) If true a box for the content of the element is returned.
@@ -58,7 +61,7 @@ Ext.Element.addMethods({
         return bx;
 	},
 	
-	    /**
+    /**
      * Move this element relative to its current position.
      * @param {String} direction Possible values are: "l" (or "left"), "r" (or "right"), "t" (or "top", or "up"), "b" (or "bottom", or "down").
      * @param {Number} distance How far to move the element in pixels

@@ -1,3 +1,6 @@
+/**
+ * @class Ext.Element
+ */
 Ext.Element.addMethods({
     /**
      * Convenience method for constructing a KeyMap

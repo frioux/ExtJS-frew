@@ -1,3 +1,7 @@
+/**
+ * @class Ext.Element
+ */
+
 // special markup used throughout Ext when box wrapping elements
 Ext.Element.boxMarkup = '<div class="{0}-tl"><div class="{0}-tr"><div class="{0}-tc"></div></div></div><div class="{0}-ml"><div class="{0}-mr"><div class="{0}-mc"></div></div></div><div class="{0}-bl"><div class="{0}-br"><div class="{0}-bc"></div></div></div>';
 
