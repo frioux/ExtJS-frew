@@ -22,6 +22,7 @@ dataview         Ext.DataView
 datepicker       Ext.DatePicker
 editor           Ext.Editor
 editorgrid       Ext.grid.EditorGridPanel
+flash            Ext.FlashComponent
 grid             Ext.grid.GridPanel
 paging           Ext.PagingToolbar
 panel            Ext.Panel
@@ -44,12 +45,25 @@ tbspacer         Ext.Toolbar.Spacer
 tbsplit          Ext.Toolbar.SplitButton
 tbtext           Ext.Toolbar.TextItem
 
+Menu components
+---------------------------------------
+menu             Ext.menu.Menu
+colormenu        Ext.menu.ColorMenu
+datemenu         Ext.menu.DateMenu
+menubaseitem     Ext.menu.BaseItem
+menucheckitem    Ext.menu.CheckItem
+menuitem         Ext.menu.Item
+menuseparator    Ext.menu.Separator
+menutextitem     Ext.menu.TextItem
+
 Form components
 ---------------------------------------
 form             Ext.FormPanel
 checkbox         Ext.form.Checkbox
+checkboxgroup    Ext.form.CheckboxGroup
 combo            Ext.form.ComboBox
 datefield        Ext.form.DateField
+displayfield     Ext.form.DisplayField
 field            Ext.form.Field
 fieldset         Ext.form.FieldSet
 hidden           Ext.form.Hidden
@@ -57,10 +71,20 @@ htmleditor       Ext.form.HtmlEditor
 label            Ext.form.Label
 numberfield      Ext.form.NumberField
 radio            Ext.form.Radio
+radiogroup       Ext.form.RadioGroup
 textarea         Ext.form.TextArea
 textfield        Ext.form.TextField
 timefield        Ext.form.TimeField
 trigger          Ext.form.TriggerField
+
+Chart components
+---------------------------------------
+chart             Ext.chart.Chart
+barchart          Ext.chart.BarChart
+cartesianchart    Ext.chart.CartesianChart
+columnchart       Ext.chart.ColumnChart
+linechart         Ext.chart.LineChart
+piechart          Ext.chart.PieChart
 </pre>
  * @constructor
  * @param {Ext.Element/String/Object} config The configuration options.  If an element is passed, it is set as the internal
