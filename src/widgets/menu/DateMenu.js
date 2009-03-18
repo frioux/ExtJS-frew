@@ -2,6 +2,7 @@
  * @class Ext.menu.DateMenu
  * @extends Ext.menu.Menu
  * A menu containing a {@link Ext.DatePicker} Component.
+ * @xtype datemenu
  */
  Ext.menu.DateMenu = Ext.extend(Ext.menu.Menu, {
     /** 

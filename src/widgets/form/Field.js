@@ -5,6 +5,7 @@
  * @constructor
  * Creates a new Field
  * @param {Object} config Configuration options
+ * @xtype field
  */
 Ext.form.Field = Ext.extend(Ext.BoxComponent,  {
     /**

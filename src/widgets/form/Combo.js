@@ -9,6 +9,7 @@
  * @constructor
  * Create a new ComboBox.
  * @param {Object} config Configuration options
+ * @xtype combo
  */
 Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
     /**

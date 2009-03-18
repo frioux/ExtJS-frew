@@ -19,6 +19,7 @@ trigger.applyToMarkup('my-field');
  * Create a new TriggerField.
  * @param {Object} config Configuration options (valid {@Ext.form.TextField} config options will also be applied
  * to the base TextField)
+ * @xtype trigger
  */
 Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
     /**

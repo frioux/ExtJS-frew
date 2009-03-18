@@ -7,6 +7,7 @@
  * @constructor
  * Creates a new Item
  * @param {Object} config Configuration options
+ * @xtype menuitem
  */
 Ext.menu.Item = function(config){
     Ext.menu.Item.superclass.constructor.call(this, config);

@@ -5,6 +5,7 @@
  * @constructor
  * Creates a new DisplayField.
  * @param {Object} config Configuration options
+ * @xtype displayfield
  */
 Ext.form.DisplayField = Ext.extend(Ext.form.Field,  {
     validationEvent : false,

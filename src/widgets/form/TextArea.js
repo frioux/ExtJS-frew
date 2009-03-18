@@ -6,6 +6,7 @@
  * @constructor
  * Creates a new TextArea
  * @param {Object} config Configuration options
+ * @xtype textarea
  */
 Ext.form.TextArea = Ext.extend(Ext.form.TextField,  {
     /**

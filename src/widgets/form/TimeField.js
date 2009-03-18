@@ -12,6 +12,7 @@ new Ext.form.TimeField({
  * @constructor
  * Create a new TimeField
  * @param {Object} config
+ * @xtype timefield
  */
 Ext.form.TimeField = Ext.extend(Ext.form.ComboBox, {
     /**

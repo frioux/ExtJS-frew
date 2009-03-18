@@ -5,6 +5,7 @@
  * @constructor
  * Creates a new CheckItem
  * @param {Object} config Configuration options
+ * @xtype menucheckitem
  */
 Ext.menu.CheckItem = function(config){
     Ext.menu.CheckItem.superclass.constructor.call(this, config);

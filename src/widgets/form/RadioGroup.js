@@ -5,6 +5,7 @@
  * @constructor
  * Creates a new RadioGroup
  * @param {Object} config Configuration options
+ * @xtype radiogroup
  */
 Ext.form.RadioGroup = Ext.extend(Ext.form.CheckboxGroup, {
     /**

@@ -6,6 +6,7 @@
  * @constructor
  * Creates a new TextField
  * @param {Object} config Configuration options
+ * @xtype textfield
  */
 Ext.form.TextField = Ext.extend(Ext.form.Field,  {
     /**

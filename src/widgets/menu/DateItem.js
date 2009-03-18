@@ -4,5 +4,6 @@
  * @constructor
  * Creates a new DatePicker
  * @param {Object} config Configuration options
+ * @xtype datepicker
  */
 Ext.menu.DateItem = Ext.DatePicker;

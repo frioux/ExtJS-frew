@@ -19,6 +19,7 @@ var myForm = new Ext.form.FormPanel({
 });</code></pre>
  * @constructor
  * @param {Object} config Configuration options
+ * @xtype form
  */
 Ext.FormPanel = Ext.extend(Ext.Panel, {
 	/**

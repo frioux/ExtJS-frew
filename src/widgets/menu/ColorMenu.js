@@ -2,6 +2,7 @@
  * @class Ext.menu.ColorMenu
  * @extends Ext.menu.Menu
  * A menu containing a {@link Ext.ColorPalette} Component.
+ * @xtype colormenu
  */
  Ext.menu.ColorMenu = Ext.extend(Ext.menu.Menu, {
     /** 

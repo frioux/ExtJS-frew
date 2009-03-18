@@ -5,6 +5,7 @@
  * @constructor
  * Creates a new CheckboxGroup
  * @param {Object} config Configuration options
+ * @xtype checkboxgroup
  */
 Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
     /**

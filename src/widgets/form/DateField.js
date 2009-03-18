@@ -5,6 +5,7 @@
  * @constructor
  * Create a new DateField
  * @param {Object} config
+ * @xtype datefield
  */
 Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
     /**

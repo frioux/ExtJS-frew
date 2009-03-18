@@ -38,6 +38,7 @@ new Ext.Panel({
  * @constructor
  * Create a new HtmlEditor
  * @param {Object} config
+ * @xtype htmleditor
  */
 
 Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {

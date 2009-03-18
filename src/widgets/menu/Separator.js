@@ -5,6 +5,7 @@
  * add one of these by using "-" in you call to add() or in your items config rather than creating one directly.
  * @constructor
  * @param {Object} config Configuration options
+ * @xtype menuseparator
  */
 Ext.menu.Separator = function(config){
     Ext.menu.Separator.superclass.constructor.call(this, config);

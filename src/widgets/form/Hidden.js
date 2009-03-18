@@ -5,6 +5,7 @@
  * @constructor
  * Create a new Hidden field.
  * @param {Object} config Configuration options
+ * @xtype hidden
  */
 Ext.form.Hidden = Ext.extend(Ext.form.Field, {
     // private

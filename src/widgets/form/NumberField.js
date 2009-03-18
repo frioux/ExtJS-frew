@@ -5,6 +5,7 @@
  * @constructor
  * Creates a new NumberField
  * @param {Object} config Configuration options
+ * @xtype numberfield
  */
 Ext.form.NumberField = Ext.extend(Ext.form.TextField,  {
     /**

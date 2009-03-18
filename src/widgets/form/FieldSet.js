@@ -4,6 +4,7 @@
  * Standard container used for grouping form fields.
  * @constructor
  * @param {Object} config Configuration options
+ * @xtype fieldset
  */
 Ext.form.FieldSet = Ext.extend(Ext.Panel, {
     /**

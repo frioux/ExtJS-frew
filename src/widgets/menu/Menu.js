@@ -84,6 +84,7 @@ Ext.Container.LAYOUTS['menu'] = Ext.layout.MenuLayout;
  * <p>Menus may contain either {@link Ext.menu.Item menu items}, or general {@link Ext.Component Component}s.</p>
  * <p>By default, Menus are absolutely positioned, floating Components. By configuring a Menu with
  * <b><tt>{@link #floating}:false</tt></b>, a Menu may be used as child of a Container.</p>
+ * @xtype menu
  */
 Ext.menu.Menu = Ext.extend(Ext.Container, {
     /**

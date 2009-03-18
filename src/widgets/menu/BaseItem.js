@@ -6,6 +6,7 @@
  * @constructor
  * Creates a new BaseItem
  * @param {Object} config Configuration options
+ * @xtype menubaseitem
  */
 Ext.menu.BaseItem = function(config){
     Ext.menu.BaseItem.superclass.constructor.call(this, config);

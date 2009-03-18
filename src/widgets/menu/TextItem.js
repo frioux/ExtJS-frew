@@ -6,6 +6,7 @@
  * Creates a new TextItem
  * @param {Object/String} config If config is a string, it is used as the text to display, otherwise it
  * is applied as a config object (and should contain a <tt>text</tt> property).
+ * @xtype menutextitem
  */
 Ext.menu.TextItem = function(cfg){
     if(typeof cfg == 'string'){

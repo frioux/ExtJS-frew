@@ -6,6 +6,7 @@
  * @constructor
  * Creates a new Radio
  * @param {Object} config Configuration options
+ * @xtype radio
  */
 Ext.form.Radio = Ext.extend(Ext.form.Checkbox, {
     inputType: 'radio',

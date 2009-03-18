@@ -4,5 +4,6 @@
  * @constructor
  * Creates a new ColorPalette
  * @param {Object} config Configuration options
+ * @xtype colorpalette
  */
 Ext.menu.ColorItem = Ext.ColorPalette;
