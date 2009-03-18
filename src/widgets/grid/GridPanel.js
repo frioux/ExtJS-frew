@@ -49,6 +49,7 @@
  * </ul>
  * @constructor
  * @param {Object} config The config object
+ * @xtype grid
  */
 Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
     /**

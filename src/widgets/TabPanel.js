@@ -140,6 +140,7 @@ var tabs = new Ext.TabPanel({
  * @extends Ext.Panel
  * @constructor
  * @param {Object} config The configuration options
+ * @xtype tabpanel
  */
 Ext.TabPanel = Ext.extend(Ext.Panel,  {
     /**

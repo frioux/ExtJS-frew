@@ -7,6 +7,7 @@
  * @constructor
  * Create a new PagingToolbar
  * @param {Object} config The config object
+ * @xtype paging
  */
 (function() {
 

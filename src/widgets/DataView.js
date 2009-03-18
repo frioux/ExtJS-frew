@@ -54,6 +54,7 @@ panel.render(document.body);
  * @constructor
  * Create a new DataView
  * @param {Object} config The config object
+ * @xtype dataview
  */
 Ext.DataView = Ext.extend(Ext.BoxComponent, {
     /**

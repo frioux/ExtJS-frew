@@ -10,6 +10,7 @@
  * {@link Ext.Container#add completely managed by the framework}.
  * @constructor
  * @param {Object} config The config object
+ * @xtype panel
  */
 Ext.Panel = Ext.extend(Ext.Container, {
     /**

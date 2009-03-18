@@ -1,3 +1,9 @@
+/**
+ * @class Ext.FlashComponent
+ * @extends Ext.BoxComponent
+ * @constructor
+ * @xtype flash
+ */
 Ext.FlashComponent = Ext.extend(Ext.BoxComponent, {
     flashVersion : '9.0.45',
     backgroundColor: '#ffffff',

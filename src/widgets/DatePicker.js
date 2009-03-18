@@ -5,6 +5,7 @@
  * @constructor
  * Create a new DatePicker
  * @param {Object} config The config object
+ * @xtype datepicker
  */
 Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
     /**

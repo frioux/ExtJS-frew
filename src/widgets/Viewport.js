@@ -67,6 +67,7 @@ new Ext.Viewport({
  * @constructor
  * Create a new Viewport
  * @param {Object} config The config object
+ * @xtype viewport
  */
 Ext.Viewport = Ext.extend(Ext.Container, {
 	/*

@@ -14,6 +14,7 @@ cp.on('select', function(palette, selColor){
  * @constructor
  * Create a new ColorPalette
  * @param {Object} config The config object
+ * @xtype colorpalette
  */
 Ext.ColorPalette = function(config){
     Ext.ColorPalette.superclass.constructor.call(this, config);

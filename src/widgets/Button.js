@@ -23,6 +23,7 @@
  * @constructor
  * Create a new button
  * @param {Object} config The config object
+ * @xtype button
  */
 Ext.Button = Ext.extend(Ext.BoxComponent, {
     /**

@@ -25,6 +25,7 @@ var btn = new Ext.CycleButton({
  * @constructor
  * Create a new split button
  * @param {Object} config The config object
+ * @xtype cycle
  */
 Ext.CycleButton = Ext.extend(Ext.SplitButton, {
     /**

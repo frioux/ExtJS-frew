@@ -5,6 +5,7 @@
  * @constructor
  * Create a new Editor
  * @param {Object} config The config object
+ * @xtype editor
  */
 Ext.Editor = function(field, config){
     if(field.field){

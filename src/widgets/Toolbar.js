@@ -223,6 +223,7 @@ Ext.Container.LAYOUTS['toolbar'] = Ext.layout.ToolbarLayout;
  * @constructor
  * Creates a new Toolbar
  * @param {Object/Array} config A config object or an array of buttons to <tt>{@link #add}</tt>
+ * @xtype toolbar
  */
  Ext.Toolbar = function(config){
     if(Ext.isArray(config)){
@@ -511,6 +512,7 @@ Ext.reg('toolbar', Ext.Toolbar);
  * @constructor
  * Creates a new Item
  * @param {HTMLElement} el
+ * @xtype tbitem
  */
 T.Item = Ext.extend(Ext.BoxComponent, {
     hideParent: true, //  Hiding a Toolbar.Item hides its containing TD
@@ -535,6 +537,7 @@ new Ext.Panel({
 </code></pre>
  * @constructor
  * Creates a new Separator
+ * @xtype tbseparator
  */
 T.Separator = Ext.extend(T.Item, {
     onRender : function(ct, position){
@@ -558,6 +561,7 @@ new Ext.Panel({
 </code></pre>
  * @constructor
  * Creates a new Spacer
+ * @xtype tbspacer
  */
 T.Spacer = Ext.extend(T.Item, {
     onRender : function(ct, position){
@@ -582,6 +586,7 @@ new Ext.Panel({
 </code></pre>
  * @constructor
  * Creates a new Fill
+ * @xtype tbfill
  */
 T.Fill = Ext.extend(T.Item, {
     // private
@@ -604,6 +609,7 @@ new Ext.Panel({
  * @constructor
  * Creates a new TextItem
  * @param {String/Object} text A text string, or a config object containing a <tt>text</tt> property
+ * @xtype tbtext
  */
 T.TextItem = Ext.extend(T.Item, {
 	constructor: function(config){
@@ -632,6 +638,11 @@ Ext.reg('tbsplit', T.SplitButton);
 
 })();
 
+/**
+ * @class Ext.ButtonGroup
+ * @extends Ext.Panel
+ * @xtype buttongroup
+ */
 Ext.ButtonGroup = Ext.extend(Ext.Panel, {
     baseCls: 'x-btn-group',
     layout:'table',

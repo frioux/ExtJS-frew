@@ -10,6 +10,7 @@
  * specify {@link Ext.Component#renderTo renderTo}.</p>
  * @constructor
  * @param {Object} config The config object
+ * @xtype window
  */
 Ext.Window = Ext.extend(Ext.Panel, {
     /**

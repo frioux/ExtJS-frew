@@ -14,6 +14,7 @@
  * @cfg {Mixed} textEl The element to render the progress text to (defaults to the progress
  * bar's internal text element)
  * @cfg {String} id The progress bar element's id (defaults to an auto-generated id)
+ * @xtype progress
  */
 Ext.ProgressBar = Ext.extend(Ext.BoxComponent, {
    /**

@@ -25,6 +25,7 @@ var myImage = new Ext.BoxComponent({
 });</code></pre></p>
  * @constructor
  * @param {Ext.Element/String/Object} config The configuration options.
+ * @xtype box
  */
 Ext.BoxComponent = Ext.extend(Ext.Component, {
     /**

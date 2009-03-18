@@ -67,6 +67,7 @@ myGrid = new Ext.grid.GridPanel({
 myTabPanel.add(myGrid);
 myTabPanel.setActiveTab(myGrid);
 </code></pre>
+ * @xtype container
  */
 Ext.Container = Ext.extend(Ext.BoxComponent, {
     /** @cfg {Boolean} monitorResize

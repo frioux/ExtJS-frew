@@ -77,6 +77,7 @@ listView.on('selectionchange', function(view, nodes){
  * </code></pre>
  * @constructor
  * @param {Object} config
+ * @xtype listview
  */
 Ext.ListView = Ext.extend(Ext.DataView, {
     /**

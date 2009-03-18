@@ -1,3 +1,7 @@
+/**
+ * @class Ext.FlashProxy
+ * @singleton
+ */
 Ext.FlashEventProxy = {
     onEvent : function(id, e){
         var fp = Ext.getCmp(id);

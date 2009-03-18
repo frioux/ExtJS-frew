@@ -18,6 +18,7 @@
  * injected using the {@link #beforeedit} and {@link #afteredit} events.
  * @constructor
  * @param {Object} config The config object
+ * @xtype editorgrid
  */
 Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
     /**

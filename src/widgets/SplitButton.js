@@ -33,6 +33,7 @@ new Ext.SplitButton({
  * @constructor
  * Create a new menu button
  * @param {Object} config The config object
+ * @xtype splitbutton
  */
 Ext.SplitButton = Ext.extend(Ext.Button, {
 	// private

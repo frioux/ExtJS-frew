@@ -1,3 +1,9 @@
+/**
+ * @class Ext.chart.Chart
+ * @extends Ext.FlashComponent
+ * @constructor
+ * @xtype chart
+ */
 Ext.chart.Chart = Ext.extend(Ext.FlashComponent, {
     url: "http:/"+"/yui.yahooapis.com/2.5.1/build/charts/assets/charts.swf",
     refreshBuffer: 100,
@@ -44,37 +50,37 @@ Ext.chart.Chart = Ext.extend(Ext.FlashComponent, {
     },
 
     /**
-	 * Sets a single style value on the Chart instance.
-	 *
-	 * @param name {String} Name of the Chart style value to change.
-	 * @param value {Object} New value to pass to the Chart style.
-	 */
-	setStyle: function(name, value){
-		value = Ext.encode(value);
-		this.swf.setStyle(name, value);
-	},
+     * Sets a single style value on the Chart instance.
+     *
+     * @param name {String} Name of the Chart style value to change.
+     * @param value {Object} New value to pass to the Chart style.
+     */
+     setStyle: function(name, value){
+             value = Ext.encode(value);
+             this.swf.setStyle(name, value);
+     },
 
-	/**
-	 * Resets all styles on the Chart instance.
-	 *
-	 * @param styles {Object} Initializer for all Chart styles.
-	 */
-	setStyles: function(styles){
-		styles = Ext.encode(styles);
-		this.swf.setStyles(styles);
-	},
+    /**
+     * Resets all styles on the Chart instance.
+     *
+     * @param styles {Object} Initializer for all Chart styles.
+     */
+    setStyles: function(styles){
+            styles = Ext.encode(styles);
+            this.swf.setStyles(styles);
+    },
 
-	/**
-	 * Sets the styles on all series in the Chart.
-	 *
-	 * @param styles {Array} Initializer for all Chart series styles.
-	 */
-	setSeriesStyles: function(styles){
-		for(var i = 0; i < styles.length; i++){
-			styles[i] = Ext.encode(styles[i]);
-		}
-		this.swf.setSeriesStyles(styles);
-	},
+    /**
+     * Sets the styles on all series in the Chart.
+     *
+     * @param styles {Array} Initializer for all Chart series styles.
+     */
+    setSeriesStyles: function(styles){
+            for(var i = 0; i < styles.length; i++){
+                    styles[i] = Ext.encode(styles[i]);
+            }
+            this.swf.setSeriesStyles(styles);
+    },
 
     setCategoryNames : function(names){
         this.swf.setCategoryNames(names);
@@ -212,6 +218,12 @@ Ext.chart.Chart = Ext.extend(Ext.FlashComponent, {
 Ext.reg('chart', Ext.chart.Chart);
 Ext.chart.Chart.PROXY_FN_ID = 0;
 
+/**
+ * @class Ext.chart.PieChart
+ * @extends Ext.chart.Chart
+ * @constructor
+ * @xtype piechart
+ */
 Ext.chart.PieChart = Ext.extend(Ext.chart.Chart, {
     type: 'pie',
 
@@ -234,6 +246,12 @@ Ext.chart.PieChart = Ext.extend(Ext.chart.Chart, {
 });
 Ext.reg('piechart', Ext.chart.PieChart);
 
+/**
+ * @class Ext.chart.CartesianChart
+ * @extends Ext.chart.Chart
+ * @constructor
+ * @xtype cartesianchart
+ */
 Ext.chart.CartesianChart = Ext.extend(Ext.chart.Chart, {
     onSwfReady : function(isReset){
         Ext.chart.CartesianChart.superclass.onSwfReady.call(this, isReset);
@@ -289,16 +307,34 @@ Ext.chart.CartesianChart = Ext.extend(Ext.chart.Chart, {
 });
 Ext.reg('cartesianchart', Ext.chart.CartesianChart);
 
+/**
+ * @class Ext.chart.LineChart
+ * @extends Ext.chart.CartesianChart
+ * @constructor
+ * @xtype linechart
+ */
 Ext.chart.LineChart = Ext.extend(Ext.chart.CartesianChart, {
     type: 'line'
 });
 Ext.reg('linechart', Ext.chart.LineChart);
 
+/**
+ * @class Ext.chart.ColumnChart
+ * @extends Ext.chart.CartesianChart
+ * @constructor
+ * @xtype columnchart
+ */
 Ext.chart.ColumnChart = Ext.extend(Ext.chart.CartesianChart, {
     type: 'column'
 });
 Ext.reg('columnchart', Ext.chart.ColumnChart);
 
+/**
+ * @class Ext.chart.BarChart
+ * @extends Ext.chart.CartesianChart
+ * @constructor
+ * @xtype barchart
+ */
 Ext.chart.BarChart = Ext.extend(Ext.chart.CartesianChart, {
     type: 'bar'
 });
@@ -307,8 +343,8 @@ Ext.reg('barchart', Ext.chart.BarChart);
 
 
 /**
+ * @class Ext.chart.Axis
  * Defines a CartesianChart's vertical or horizontal axis.
- *
  * @constructor
  */
 Ext.chart.Axis = function(config){
@@ -360,9 +396,9 @@ Ext.chart.Axis.prototype =
 };
 
 /**
+ * @class Ext.chart.NumericAxis
+ * @extends Ext.chart.Axis
  * A type of axis whose units are measured in numeric values.
- *
- * @class NumericAxis
  * @constructor
  */
 Ext.chart.NumericAxis = Ext.extend(Ext.chart.Axis, {
@@ -431,9 +467,9 @@ Ext.chart.NumericAxis = Ext.extend(Ext.chart.Axis, {
 });
 
 /**
+ * @class Ext.chart.TimeAxis
+ * @extends Ext.chart.Axis
  * A type of axis whose units are measured in time-based values.
- *
- * @class TimeAxis
  * @constructor
  */
 Ext.chart.TimeAxis = Ext.extend(Ext.chart.Axis, {
@@ -501,9 +537,9 @@ Ext.chart.TimeAxis = Ext.extend(Ext.chart.Axis, {
 });
 
 /**
+ * @class Ext.chart.CategoryAxis
+ * @extends Ext.chart.Axis
  * A type of axis that displays items in categories.
- *
- * @class CategoryAxis
  * @constructor
  */
 Ext.chart.CategoryAxis = Ext.extend(Ext.chart.Axis, {
@@ -519,9 +555,8 @@ Ext.chart.CategoryAxis = Ext.extend(Ext.chart.Axis, {
 });
 
 /**
+ * @class Ext.chart.Series
  * Series class for the charts widget.
- *
- * @class Series
  * @constructor
  */
 Ext.chart.Series = function(config) { Ext.apply(this, config); };
@@ -546,10 +581,9 @@ Ext.chart.Series.prototype =
 };
 
 /**
+ * @class Ext.chart.CartesianSeries
+ * @extends Ext.chart.Series
  * CartesianSeries class for the charts widget.
- *
- * @namespace Ext.chart
- * @class CartesianSeries
  * @constructor
  */
 Ext.chart.CartesianSeries = Ext.extend(Ext.chart.Series, {
@@ -571,10 +605,9 @@ Ext.chart.CartesianSeries = Ext.extend(Ext.chart.Series, {
 });
 
 /**
+ * @class Ext.chart.ColumnSeries
+ * @extends Ext.chart.CartesianSeries
  * ColumnSeries class for the charts widget.
- *
- * @namespace Ext.chart
- * @class ColumnSeries
  * @constructor
  */
 Ext.chart.ColumnSeries = Ext.extend(Ext.chart.CartesianSeries, {
@@ -582,10 +615,9 @@ Ext.chart.ColumnSeries = Ext.extend(Ext.chart.CartesianSeries, {
 });
 
 /**
+ * @class Ext.chart.LineSeries
+ * @extends Ext.chart.CartesianSeries
  * LineSeries class for the charts widget.
- *
- * @namespace Ext.chart
- * @class LineSeries
  * @constructor
  */
 Ext.chart.LineSeries = Ext.extend(Ext.chart.CartesianSeries, {
@@ -593,10 +625,9 @@ Ext.chart.LineSeries = Ext.extend(Ext.chart.CartesianSeries, {
 });
 
 /**
+ * @class Ext.chart.BarSeries
+ * @extends Ext.chart.CartesianSeries
  * BarSeries class for the charts widget.
- *
- * @namespace Ext.chart
- * @class BarSeries
  * @constructor
  */
 Ext.chart.BarSeries = Ext.extend(Ext.chart.CartesianSeries, {
@@ -605,9 +636,9 @@ Ext.chart.BarSeries = Ext.extend(Ext.chart.CartesianSeries, {
 
 
 /**
+ * @class Ext.chart.PieSeries
+ * @extends Ext.chart.Series
  * PieSeries class for the charts widget.
- *
- * @class PieSeries
  * @constructor
  */
 Ext.chart.PieSeries = Ext.extend(Ext.chart.Series, {
@@ -615,4 +646,3 @@ Ext.chart.PieSeries = Ext.extend(Ext.chart.Series, {
 	dataField: null,
 	categoryField: null
 });
-
