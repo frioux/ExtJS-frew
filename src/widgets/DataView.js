@@ -67,8 +67,9 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
      */
     /**
      * @cfg {String} itemSelector
-     * <b>This is a required setting</b>. A simple CSS selector (e.g. div.some-class or span:first-child) that will be 
-     * used to determine what nodes this DataView will be working with.
+     * <b>This is a required setting</b>. A simple CSS selector (e.g. <tt>div.some-class</tt> or 
+     * <tt>span:first-child</tt>) that will be used to determine what nodes this DataView will be
+     * working with.
      */
     /**
      * @cfg {Boolean} multiSelect
@@ -285,7 +286,8 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
      * {@link Ext.XTemplate XTemplate} which uses <tt>'&lt;tpl for="."&gt;'</tt> to iterate over its supplied
      * data object as an Array. However, <i>named</i> properties may be placed into the data object to
      * provide non-repeating data such as headings, totals etc.</p>
-     * @param records {Array} An Array of {@link Ext.data.Record}s to be rendered into the DataView.
+     * @param {Array} records An Array of {@link Ext.data.Record}s to be rendered into the DataView.
+     * @param {Number} startIndex the index number of the Record being prepared for rendering.
      * @return {Array} An Array of data objects to be processed by a repeating XTemplate. May also
      * contain <i>named</i> properties.
      */
