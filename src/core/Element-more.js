@@ -21,7 +21,7 @@ Ext.Element.addMethods({
         }
         me.on(eventName, fn);
         return me;
-    },  
+    },
     
     /**
      * Create an event handler on this element such that when the event fires and is handled by this element,
@@ -59,7 +59,26 @@ Ext.Element.addMethods({
  	    }
  	    me.isCleaned = true;
  	    return me;
- 	},   
+ 	},
+    
+    /**
+     * Direct access to the Updater {@link Ext.Updater#update} method. The method takes the same object
+     * parameter as {@link Ext.Updater#update}
+     * @return {Ext.Element} this
+     */
+    load : function(){
+        var um = this.getUpdater();
+        um.update.apply(um, arguments);
+        return this;
+    },
+
+    /**
+    * Gets this element's Updater
+    * @return {Ext.Updater} The Updater
+    */
+    getUpdater : function(){
+        return this.updateManager || (this.updateManager = new Ext.Updater(this));
+    },
     
 	/**
     * Update the innerHTML of this element, optionally searching for and processing scripts
