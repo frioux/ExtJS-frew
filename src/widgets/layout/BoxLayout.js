@@ -1,3 +1,8 @@
+/**
+ * @class Ext.layout.Box
+ * @extends Ext.layout.ContainerLayout
+ * <p>Base Class for HBox and VBox Classes. Generally it should not need to be used directly.</p>
+ */
 Ext.layout.Box = Ext.extend(Ext.layout.ContainerLayout, {
     // private
     monitorResize:true,
@@ -6,7 +11,18 @@ Ext.layout.Box = Ext.extend(Ext.layout.ContainerLayout, {
     ctCls: 'x-box-layout-ct',
     innerCls: 'x-box-inner',
 
+    /**
+     * @cfg {Object} defaultMargins
+     * If the individual contained items do not have a <tt>margins</tt> property specified, the margins
+     * from this object literal representing the default margins will be applied to each item. Defaults
+     * to <tt>{left:0,top:0,right:0,bottom:0}</tt>.
+     */
     defaultMargins : {left:0,top:0,right:0,bottom:0},
+    /**
+     * @cfg {String} padding
+     * Defaults to <tt>'0'</tt>. Sets the padding to be applied to all child items managed by this
+     * container's layout. 
+     */
     padding:'0',
     pack: 'start',
 
@@ -50,10 +66,49 @@ Ext.layout.Box = Ext.extend(Ext.layout.ContainerLayout, {
      */
 });
 
+/**
+ * @class Ext.layout.VBox
+ * @extends Ext.layout.Box
+ * A layout that arranges items vertically
+ */
 Ext.layout.VBox = Ext.extend(Ext.layout.Box, {
-    // private
+    /**
+     * @cfg {String} align
+     * Controls how the child items of the container are packed together. Acceptable configuration values
+     * for this property are:
+     * <div class="mdetail-params"><ul>
+     * <li><b><tt>left</tt></b> : <b>Default</b><div class="sub-desc">child items are aligned horizontally
+     * at the <b>left</b> side of the container</div></li>
+     * <li><b><tt>center</tt></b> : <div class="sub-desc">child items are aligned horizontally at the
+     * <b>mid-width</b> of the container</div></li>
+     * <li><b><tt>stretch</tt></b> : <div class="sub-desc">child items are stretched horizontally to fill
+     * the width of the container</div></li>
+     * <li><b><tt>strechmax</tt></b> : <div class="sub-desc"> </div></li>
+     * </ul></div>
+     */
     align: 'left', // left, center, stretch, strechmax
+    /**
+     * @cfg {String} pack
+     * Controls how the child items of the container are packed together. Acceptable configuration values
+     * for this property are:
+     * <div class="mdetail-params"><ul>
+     * <li><b><tt>start</tt></b> : <b>Default</b><div class="sub-desc">child items are packed together at
+     * <b>top</b> side of container</div></li>
+     * <li><b><tt>center</tt></b> : <div class="sub-desc">child items are packed together at
+     * <b>mid-height</b> of container</div></li>
+     * <li><b><tt>end</tt></b> : <div class="sub-desc">child items are packed together at <b>bottom</b>
+     * side of container</div></li>
+     * </ul></div>
+     */
     pack: 'start',
+    /**
+     * @cfg {Number} flex
+     * This configuation option is to be applied to <b>child <tt>items</tt></b> of the container managed
+     * by this layout. Each child item with a <tt>flex</tt> property will be flexed <b>vertically</b>
+     * according to each item's <b>relative</b> <tt>flex</tt> value compared to the sum of all items with
+     * a <tt>flex</tt> value specified.  Any child items that have either a <tt>flex = 0</tt> or
+     * <tt>flex = undefined</tt> will not be 'flexed' (the initial size will not be changed).
+     */
 
     // private
     onLayout : function(ct, target){
@@ -153,10 +208,49 @@ Ext.layout.VBox = Ext.extend(Ext.layout.Box, {
 
 Ext.Container.LAYOUTS['vbox'] = Ext.layout.VBox;
 
+/**
+ * @class Ext.layout.HBox
+ * @extends Ext.layout.Box
+ * A layout that arranges items horizontally
+ */
 Ext.layout.HBox = Ext.extend(Ext.layout.Box, {
-    // private
+    /**
+     * @cfg {String} align
+     * Controls how the child items of the container are packed together. Acceptable configuration values
+     * for this property are:
+     * <div class="mdetail-params"><ul>
+     * <li><b><tt>top</tt></b> : <b>Default</b><div class="sub-desc">child items are aligned vertically
+     * at the <b>left</b> side of the container</div></li>
+     * <li><b><tt>middle</tt></b> : <div class="sub-desc">child items are aligned vertically at the
+     * <b>mid-height</b> of the container</div></li>
+     * <li><b><tt>stretch</tt></b> : <div class="sub-desc">child items are stretched vertically to fill
+     * the height of the container</div></li>
+     * <li><b><tt>strechmax</tt></b> : <div class="sub-desc"> </div></li>
+     * </ul></div>
+     */
     align: 'top', // top, middle, stretch, strechmax
+    /**
+     * @cfg {String} pack
+     * Controls how the child items of the container are packed together. Acceptable configuration values
+     * for this property are:
+     * <div class="mdetail-params"><ul>
+     * <li><b><tt>start</tt></b> : <b>Default</b><div class="sub-desc">child items are packed together at
+     * <b>left</b> side of container</div></li>
+     * <li><b><tt>center</tt></b> : <div class="sub-desc">child items are packed together at
+     * <b>mid-width</b> of container</div></li>
+     * <li><b><tt>end</tt></b> : <div class="sub-desc">child items are packed together at <b>right</b>
+     * side of container</div></li>
+     * </ul></div>
+     */
     pack: 'start',
+    /**
+     * @cfg {Number} flex
+     * This configuation option is to be applied to <b>child <tt>items</tt></b> of the container managed
+     * by this layout. Each child item with a <tt>flex</tt> property will be flexed <b>horizontally</b>
+     * according to each item's <b>relative</b> <tt>flex</tt> value compared to the sum of all items with
+     * a <tt>flex</tt> value specified.  Any child items that have either a <tt>flex = 0</tt> or
+     * <tt>flex = undefined</tt> will not be 'flexed' (the initial size will not be changed).
+     */
 
     // private
     onLayout : function(ct, target){
