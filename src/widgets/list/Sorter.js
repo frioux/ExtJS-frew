@@ -1,7 +1,14 @@
+/**
+ * @class Ext.ListView.Sorter
+ * @extends Ext.util.Observable
+ * <p>Supporting Class for Ext.ListView.</p>
+ * @constructor
+ * @param {Object} config
+ */
 Ext.ListView.Sorter = Ext.extend(Ext.util.Observable, {
     /**
-     * The CSS classes applied to a header when it is sorted. (defaults to ["sort-asc", "sort-desc"])
-     * @type Array
+     * @cfg {Array} sortClasses
+     * The CSS classes applied to a header when it is sorted. (defaults to <tt>["sort-asc", "sort-desc"]</tt>)
      */
     sortClasses : ["sort-asc", "sort-desc"],
 

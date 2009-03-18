@@ -1,5 +1,16 @@
+/**
+ * @class Ext.ListView.ColumnResizer
+ * @extends Ext.util.Observable
+ * <p>Supporting Class for Ext.ListView.</p>
+ * @constructor
+ * @param {Object} config
+ */
 Ext.ListView.ColumnResizer = Ext.extend(Ext.util.Observable, {
+    /**
+     * @cfg {Number} minPct The minimum percentage to allot for any column (defaults to <tt>.05</tt>)
+     */
     minPct: .05,
+
     constructor: function(config){
         Ext.apply(this, config);
         Ext.ListView.ColumnResizer.superclass.constructor.call(this);

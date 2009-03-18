@@ -80,6 +80,12 @@ listView.on('selectionchange', function(view, nodes){
  */
 Ext.ListView = Ext.extend(Ext.DataView, {
     /**
+     * Set this property to <tt>true</tt> to disable the header click handler disabling sort
+     * (defaults to <tt>false</tt>.
+     * @type Boolean
+     * @property disableHeaders
+     */
+    /**
      * @cfg {Boolean} hideHeaders
      * <tt>true</tt> to hide the {@link #internalTpl header row} (defaults to <tt>false</tt> so
      * the {@link #internalTpl header row} will be shown).
@@ -121,9 +127,9 @@ Ext.ListView = Ext.extend(Ext.DataView, {
      */
     scrollOffset : 19,
     /**
-     * @cfg {Object} columnResize
-     * If columns are to be resizable specify a configuration object for
-     * {@link Ext.ListView.ColumnResizer}.
+     * @cfg {Boolean/Object} columnResize
+     * Specify <tt>true</tt> or specify a configuration object for {@link Ext.ListView.ColumnResizer}
+     * to enable the columns to be resizable (defaults to <tt>true</tt>).
      */
     columnResize: true,
     /**
@@ -150,13 +156,16 @@ Ext.ListView = Ext.extend(Ext.DataView, {
      * will be implicitly created using the <tt>dataIndex</tt>.</div></li>
      * <li><b><tt>width</tt></b> : Number<div class="sub-desc">Percentage of the container width
      * this column should be allocated.  Columns that have no width specified will be
-     * allocated with an equal percentage to fill 100% of the container width.</div></li>
+     * allocated with an equal percentage to fill 100% of the container width.  To easily take
+     * advantage of the full container width, leave the width of at least one column undefined.
+     * Note that if you do not want to take up the full width of the container, the width of
+     * every column needs to be explicitly defined.</div></li>
      * </ul></div>
      */
     /**
-     * @cfg {Object} columnSort
-     * If columns are to be sortable specify a configuration object for
-     * {@link Ext.ListView.Sorter}.
+     * @cfg {Boolean/Object} columnSort
+     * Specify <tt>true</tt> or specify a configuration object for {@link Ext.ListView.Sorter}
+     * to enable the columns to be sortable (defaults to <tt>true</tt>).
      */
     columnSort: true,
     /**

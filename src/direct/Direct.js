@@ -1,17 +1,20 @@
 /**
  * @class Ext.Direct
  * @extends Ext.util.Observable
+ * <p>Provides a single interface to facilitate data communication between the client and server.</p>
  * @singleton
  */
 Ext.Direct = Ext.extend(Ext.util.Observable, {
     /**
      * @property exceptions
      * @type Object
-     * Four types of possible Exceptions which can occurr.
-     * Ext.Direct.exceptions.TRANSPORT
-     * Ext.Direct.exceptions.PARSE
-     * Ext.Direct.exceptions.LOGIN
-     * Ext.Direct.exceptions.SERVER
+     * Four types of possible exceptions which can occur:
+     * <div class="mdetail-params"><ul>
+     * <li><b><tt>Ext.Direct.exceptions.TRANSPORT</tt></b> : 'xhr'</li>
+     * <li><b><tt>Ext.Direct.exceptions.PARSE</tt></b> : 'parse'</li>
+     * <li><b><tt>Ext.Direct.exceptions.LOGIN</tt></b> : 'login'</li>
+     * <li><b><tt>Ext.Direct.exceptions.SERVER</tt></b> : 'exception'</li>
+     * </ul></div>
      */
     exceptions: {
         TRANSPORT: 'xhr',
@@ -22,7 +25,21 @@ Ext.Direct = Ext.extend(Ext.util.Observable, {
     
     // private
     constructor: function(){
-        this.addEvents('event', 'exception');
+        this.addEvents(
+            /**
+             * @event event
+             * Fires after an event.
+             * @param {event} e The event that occurred.
+             * @param {Ext.direct.Provider} provider The {@link Ext.direct.Provider Provider}.
+             */
+            'event',
+            /**
+             * @event exception
+             * Fires after an event exception.
+             * @param {event} e The event that occurred.
+             */
+            'exception'
+        );
         this.transactions = {};
         this.providers = {};
     },
@@ -31,7 +48,8 @@ Ext.Direct = Ext.extend(Ext.util.Observable, {
      * Adds an Ext.Direct provider and creates the proxy or stub methods
      * to execute server-side methods. If the provider is not already connected,
      * it will auto-connect.
-     * @param {Object/Array} provider A provider description or an array of provider descriptions which instructs Ext.Direct how to create client-side stub methods
+     * @param {Object/Array} provider A provider description or an array of provider
+     * descriptions which instructs Ext.Direct how to create client-side stub methods
      */
     addProvider : function(provider){        
         var a = arguments;
@@ -62,7 +80,7 @@ Ext.Direct = Ext.extend(Ext.util.Observable, {
 
     /**
      * Retrieve a provider by the id specified when the provider is added.
-     * @param {String} id Unique identifier assigned to the provider when calling addProvider
+     * @param {String} id Unique identifier assigned to the provider when calling {@link #addProvider} 
      */
     getProvider : function(id){
         return this.providers[id];
