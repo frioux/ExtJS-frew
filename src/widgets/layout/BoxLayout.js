@@ -74,8 +74,8 @@ Ext.layout.Box = Ext.extend(Ext.layout.ContainerLayout, {
 Ext.layout.VBox = Ext.extend(Ext.layout.Box, {
     /**
      * @cfg {String} align
-     * Controls how the child items of the container are packed together. Acceptable configuration values
-     * for this property are:
+     * Controls how the child items of the container are aligned. Acceptable configuration values for this
+     * property are:
      * <div class="mdetail-params"><ul>
      * <li><b><tt>left</tt></b> : <b>Default</b><div class="sub-desc">child items are aligned horizontally
      * at the <b>left</b> side of the container</div></li>
@@ -216,8 +216,8 @@ Ext.Container.LAYOUTS['vbox'] = Ext.layout.VBox;
 Ext.layout.HBox = Ext.extend(Ext.layout.Box, {
     /**
      * @cfg {String} align
-     * Controls how the child items of the container are packed together. Acceptable configuration values
-     * for this property are:
+     * Controls how the child items of the container are aligned. Acceptable configuration values for this
+     * property are:
      * <div class="mdetail-params"><ul>
      * <li><b><tt>top</tt></b> : <b>Default</b><div class="sub-desc">child items are aligned vertically
      * at the <b>left</b> side of the container</div></li>
