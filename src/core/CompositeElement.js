@@ -1,5 +1,6 @@
 /**
  * @class Ext.CompositeElement
+ * @extends Ext.CompositeElementLite
  * Standard composite class. Creates a Ext.Element for every element in the collection.
  * <br><br>
  * <b>NOTE: Although they are not listed, this class supports all of the set/update methods of Ext.Element. All Ext.Element
