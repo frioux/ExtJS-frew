@@ -295,23 +295,26 @@ var win = new Ext.Window({
      */
     /**
      * @cfg {Boolean} hideCollapseTool
-     * True to hide the expand/collapse toggle button when {@link #collapsible} = true, false to display it (defaults to false).
+     * <tt>true</tt> to hide the expand/collapse toggle button when <tt>{@link #collapsible} = true</tt>,
+     * <tt>false</tt> to display it (defaults to <tt>false</tt>).
      */
     /**
      * @cfg {Boolean} titleCollapse
-     * True to allow expanding and collapsing the panel (when <tt>{@link #collapsible} = true</tt>) by clicking
-     * anywhere in the header bar, false to allow it only by clicking to tool button (defaults to false). If this
-     * panel a child item of a border layout also see the {@link Ext.layout.BorderLayout.Region BorderLayout.Region}
+     * <tt>true</tt> to allow expanding and collapsing the panel (when <tt>{@link #collapsible} = true</tt>)
+     * by clicking anywhere in the header bar, <tt>false</tt>) to allow it only by clicking to tool button
+     * (defaults to <tt>false</tt>)). If this panel is a child item of a border layout also see the
+     * {@link Ext.layout.BorderLayout.Region BorderLayout.Region}
      * <tt>{@link Ext.layout.BorderLayout.Region#floatable floatable}</tt> config option.
      */
     /**
      * @cfg {Boolean} autoScroll
-     * True to use overflow:'auto' on the panel's body element and show scroll bars automatically when necessary,
-     * false to clip any overflowing content (defaults to <tt>false</tt>).
+     * <tt>true</tt> to use overflow:'auto' on the panel's body element and show scroll bars automatically when
+     * necessary, <tt>false</tt> to clip any overflowing content (defaults to <tt>false</tt>).
      */
     /**
      * @cfg {Mixed} floating
-     * <p>Acceptable values for this configuration property are:</p><div class="mdetail-params"><ul>
+     * <p>This property is used to configure the underlying {@link Ext.Layer}. Acceptable values for this
+     * configuration property are:</p><div class="mdetail-params"><ul>
      * <li><b><tt>false</tt></b> : <b>Default.</b><div class="sub-desc">Display the panel inline where it is
      * rendered.</div></li>
      * <li><b><tt>true</tt></b> : <div class="sub-desc">Float the panel (absolute position it with automatic
@@ -329,49 +332,48 @@ var win = new Ext.Window({
      */
     /**
      * @cfg {Boolean/String} shadow
-     * True (or a valid Ext.Shadow {@link Ext.Shadow#mode} value) to display a shadow behind the panel, false to
-     * display no shadow (defaults to 'sides').  Note that this option only applies when floating = true.
+     * <tt>true</tt> (or a valid Ext.Shadow {@link Ext.Shadow#mode} value) to display a shadow behind the
+     * panel, <tt>false</tt> to display no shadow (defaults to <tt>'sides'</tt>).  Note that this option
+     * only applies when <tt>{@link #floating} = true</tt>.
      */
     /**
      * @cfg {Number} shadowOffset
-     * The number of pixels to offset the shadow if displayed (defaults to 4). Note that this option only applies
-     * when floating = true.
+     * The number of pixels to offset the shadow if displayed (defaults to <tt>4</tt>). Note that this
+     * option only applies when <tt>{@link #floating} = true</tt>.
      */
     /**
      * @cfg {Boolean} shim
-     * False to disable the iframe shim in browsers which need one (defaults to true).  Note that this option
-     * only applies when floating = true.
+     * <tt>false</tt> to disable the iframe shim in browsers which need one (defaults to <tt>true</tt>).
+     * Note that this option only applies when <tt>{@link #floating} = true</tt>.
      */
     /**
      * @cfg {String/Object} html
-     * An HTML fragment, or a {@link Ext.DomHelper DomHelper} specification to use
-     * as the panel's body content (defaults to ''). The HTML content is added by the Panel's
-     * afterRender method, and so the document will not contain this HTML at the time the render
-     * event is fired. This content is inserted into the body <i>before</i> any configured
-     * {@link #contentEl} is appended.
+     * An HTML fragment, or a {@link Ext.DomHelper DomHelper} specification to use as the panel's body
+     * content (defaults to ''). The HTML content is added by the Panel's {@link #afterRender} method,
+     * and so the document will not contain this HTML at the time the {@link #render} event is fired.
+     * This content is inserted into the body <i>before</i> any configured {@link #contentEl} is appended.
      */
     /**
      * @cfg {String} contentEl
      * The id of an existing HTML node to use as the panel's body content (defaults to ''). The
-     * specified Element is appended to the Panel's body Element by the Panel's afterRender method
-     * <i>after any configured {@link #html HTML} has been inserted</i>, and so the document will
-     * not contain this HTML at the time the render event is fired.
+     * specified Element is appended to the Panel's body Element by the Panel's {@link #afterRender}
+     * method <i>after any configured {@link #html HTML} has been inserted</i>, and so the document
+     * will not contain this HTML at the time the {@link #render} event is fired.
      */
     /**
      * @cfg {Object/Array} keys
-     * A KeyMap config object (in the format expected by {@link Ext.KeyMap#addBinding} used to assign custom key
-     * handling to this panel (defaults to null).
+     * A {@link Ext.KeyMap} config object (in the format expected by {@link Ext.KeyMap#addBinding}
+     * used to assign custom key handling to this panel (defaults to <tt>null</tt>).
      */
-     /**
-       * @cfg {Boolean} draggable
-       * <p>True to enable dragging of this Panel (defaults to false).</p>
-       * <p>For custom drag/drop implementations, an Ext.Panel.DD
-       * config could also be passed in this config instead of true. Ext.Panel.DD is an internal,
-       * undocumented class which moves a proxy Element around in place of the Panel's element, but
-       * provides no other behaviour during dragging or on drop. It is a subclass of
-       * {@link Ext.dd.DragSource}, so behaviour may be added by implementing the interface methods
-       * of {@link Ext.dd.DragDrop} eg:
-       * <pre><code>
+    /**
+     * @cfg {Boolean/Object} draggable
+     * <p><tt>true</tt> to enable dragging of this Panel (defaults to <tt>false</tt>).</p>
+     * <p>For custom drag/drop implementations, an <b>Ext.Panel.DD</b> config could also be passed
+     * in this config instead of <tt>true</tt>. Ext.Panel.DD is an internal, undocumented class which
+     * moves a proxy Element around in place of the Panel's element, but provides no other behaviour
+     * during dragging or on drop. It is a subclass of {@link Ext.dd.DragSource}, so behaviour may be
+     * added by implementing the interface methods of {@link Ext.dd.DragDrop} eg:
+     * <pre><code>
 new Ext.Panel({
     title: 'Drag me',
     x: 100,
@@ -411,16 +413,17 @@ new Ext.Panel({
      */
     /**
      * @cfg {String} tabTip
-     * A string to be used as innerHTML (html tags are accepted) to show in a tooltip when mousing over the tab of
-     * a Ext.Panel which is an item of a Ext.TabPanel. Ext.QuickTips.init() must be called in order for the tips to 
-     * render.
+     * A string to be used as innerHTML (html tags are accepted) to show in a tooltip when mousing over
+     * the tab of a Ext.Panel which is an item of a {@link Ext.TabPanel}. {@link Ext.QuickTips}.init()
+     * must be called in order for the tips to render.
      */
     /**
      * @cfg {Boolean} disabled
-     * Render this panel disabled (default is false). An important note when using the disabled config on panels is
-     * that IE will often fail to initialize the disabled mask element correectly if the panel's layout has not yet 
-     * completed by the time the Panel is disabled during the render process. If you experience this issue, you may 
-     * need to instead use the {@link #afterlayout} event to initialize the disabled state:
+     * Render this panel disabled (default is <tt>false</tt>). An important note when using the disabled
+     * config on panels is that IE will often fail to initialize the disabled mask element correectly if
+     * the panel's layout has not yet completed by the time the Panel is disabled during the render process.
+     * If you experience this issue, you may need to instead use the {@link #afterlayout} event to initialize
+     * the disabled state:
      * <pre><code>
 new Ext.Panel({
     ...
@@ -437,61 +440,67 @@ new Ext.Panel({
      */
     /**
      * @cfg {Boolean} autoHeight
-     * True to use height:'auto', false to use fixed height (defaults to false). <b>Note</b>: Setting autoHeight:true 
-     * means that the browser will manage the panel's height based on its contents, and that Ext will not manage it at 
-     * all. If the panel is within a layout that manages dimensions (fit, border, etc.) then setting autoHeight:true
-     * can cause issues with scrolling and will not generally work as expected since the panel will take on the height
-     * of its contents rather than the height required by the Ext layout.
+     * <tt>true</tt> to use height:'auto', <tt>false</tt> to use fixed height (defaults to <tt>false</tt>).
+     * <b>Note</b>: Setting <tt>autoHeight:true</tt> means that the browser will manage the panel's height
+     * based on its contents, and that Ext will not manage it at all. If the panel is within a layout that
+     * manages dimensions (<tt>fit</tt>, <tt>border</tt>, etc.) then setting <tt>autoHeight:true</tt>
+     * can cause issues with scrolling and will not generally work as expected since the panel will take
+     * on the height of its contents rather than the height required by the Ext layout.
      */
 
     
     /**
     * @cfg {String} baseCls
-    * The base CSS class to apply to this panel's element (defaults to 'x-panel').
+    * The base CSS class to apply to this panel's element (defaults to <tt>'x-panel'</tt>).
     */
     baseCls : 'x-panel',
     /**
     * @cfg {String} collapsedCls
-    * A CSS class to add to the panel's element after it has been collapsed (defaults to 'x-panel-collapsed').
+    * A CSS class to add to the panel's element after it has been collapsed (defaults to
+    * <tt>'x-panel-collapsed'</tt>).
     */
     collapsedCls : 'x-panel-collapsed',
     /**
     * @cfg {Boolean} maskDisabled
-    * True to mask the panel when it is {@link #disabled}, false to not mask it (defaults to true).  Either way,
-    * the panel will always tell its contained elements to disable themselves when it is disabled, but masking the
-    * panel can provide an additional visual cue that the panel is disabled.
+    * <tt>true</tt> to mask the panel when it is {@link #disabled}, <tt>false</tt> to not mask it (defaults
+    * to <tt>true</tt>).  Either way, the panel will always tell its contained elements to disable themselves
+    * when it is disabled, but masking the panel can provide an additional visual cue that the panel is
+    * disabled.
     */
     maskDisabled: true,
     /**
     * @cfg {Boolean} animCollapse
-    * True to animate the transition when the panel is collapsed, false to skip the animation (defaults to true
-    * if the {@link Ext.Fx} class is available, otherwise false).
+    * <tt>true</tt> to animate the transition when the panel is collapsed, <tt>false</tt> to skip the
+    * animation (defaults to <tt>true</tt> if the {@link Ext.Fx} class is available, otherwise <tt>false</tt>).
     */
     animCollapse: Ext.enableFx,
     /**
     * @cfg {Boolean} headerAsText
-    * True to display the panel <tt>{@link #title}</tt> in the <tt>{@link #header}</tt>, false to hide it (defaults to true).
+    * <tt>true</tt> to display the panel <tt>{@link #title}</tt> in the <tt>{@link #header}</tt>,
+    * <tt>false</tt> to hide it (defaults to <tt>true</tt>).
     */
     headerAsText: true,
     /**
     * @cfg {String} buttonAlign
-    * The alignment of any {@link #buttons} added to this panel.  Valid values are 'right,' 'left' and 'center' (defaults to 'right').
+    * The alignment of any {@link #buttons} added to this panel.  Valid values are <tt>'right'</tt>,
+    * <tt>'left'</tt> and <tt>'center'</tt> (defaults to <tt>'right'</tt>).
     */
     buttonAlign: 'right',
     /**
      * @cfg {Boolean} collapsed
-     * True to render the panel collapsed, false to render it expanded (defaults to false).
+     * <tt>true</tt> to render the panel collapsed, <tt>false</tt> to render it expanded (defaults to
+     * <tt>false</tt>).
      */
     collapsed : false,
     /**
     * @cfg {Boolean} collapseFirst
-    * True to make sure the collapse/expand toggle button always renders first (to the left of) any other tools
-    * in the panel's title bar, false to render it last (defaults to true).
+    * <tt>true</tt> to make sure the collapse/expand toggle button always renders first (to the left of)
+    * any other tools in the panel's title bar, <tt>false</tt> to render it last (defaults to <tt>true</tt>).
     */
     collapseFirst: true,
     /**
      * @cfg {Number} minButtonWidth
-     * Minimum width in pixels of all {@link #buttons} in this panel (defaults to 75)
+     * Minimum width in pixels of all {@link #buttons} in this panel (defaults to <tt>75</tt>)
      */
     minButtonWidth:75,
     /**
