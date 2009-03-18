@@ -28,9 +28,7 @@
     <include name="core\core\Fx.js" />
     <include name="core\core\CompositeElement.js" />
     <include name="data\core\Connection.js" />
-    <include name="core\core\UpdateManager.js" />
     <include name="util\core\DelayedTask.js" />
-    <include name="util\core\XTemplate.js" />
     <include name="util\core\JSON.js" />
   </target>
   <target name="Everything" file="$output\ext-all.js" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
@@ -65,15 +63,14 @@
     <include name="core\CompositeElement-more.js" />
     <include name="data\core\Connection.js" />
     <include name="data\Connection-more.js" />
-    <include name="core\core\UpdateManager.js" />
-    <include name="core\UpdateManager-more.js" />
+    <include name="util\UpdateManager.js" />
     <include name="util\Date.js" />
     <include name="util\core\DelayedTask.js" />
     <include name="util\MixedCollection.js" />
     <include name="widgets\ComponentMgr.js" />
     <include name="util\core\JSON.js" />
     <include name="util\Format.js" />
-    <include name="util\core\XTemplate.js" />
+    <include name="util\XTemplate.js" />
     <include name="util\CSS.js" />
     <include name="util\ClickRepeater.js" />
     <include name="util\KeyNav.js" />
@@ -872,4 +869,6 @@
   <file name="widgets\Window.js" path="widgets" />
   <file name="widgets\WindowManager.js" path="widgets" />
   <file name="debug.js" path="" />
+  <file name="util\UpdateManager.js" path="util" />
+  <file name="util\XTemplate.js" path="util" />
 </project>

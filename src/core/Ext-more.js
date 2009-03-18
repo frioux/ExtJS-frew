@@ -546,45 +546,6 @@ Ext.apply(Ext, function(){
  * These functions are available on every Function object (any JavaScript function).
  */
 Ext.apply(Function.prototype, {
-     /**
-     * Creates an interceptor function. The passed fcn is called before the original one. If it returns false,
-     * the original one is not called. The resulting function returns the results of the original function.
-     * The passed fcn is called with the parameters of the original function. Example usage:
-     * <pre><code>
-var sayHi = function(name){
-    alert('Hi, ' + name);
-}
-
-sayHi('Fred'); // alerts "Hi, Fred"
-
-// create a new function that validates input without
-// directly modifying the original function:
-var sayHiToFriend = sayHi.createInterceptor(function(name){
-    return name == 'Brian';
-});
-
-sayHiToFriend('Fred');  // no alert
-sayHiToFriend('Brian'); // alerts "Hi, Brian"
-</code></pre>
-     * @param {Function} fcn The function to call before the original
-     * @param {Object} scope (optional) The scope of the passed fcn (Defaults to scope of original function or window)
-     * @return {Function} The new function
-     */
-    createInterceptor : function(fcn, scope){
-        var method = this;
-        return !Ext.isFunction(fcn) ?
-                this :
-                function() {
-                    var me = this,
-                        args = arguments;
-                    fcn.target = me;
-                    fcn.method = method;
-                    return (fcn.apply(scope || me || window, args) !== false) ?
-                            method.apply(me || window, args) :
-                            null;
-                };
-    },
-
     /**
      * Create a combined function call sequence of the original function + the passed function.
      * The resulting function returns the results of the original function.
