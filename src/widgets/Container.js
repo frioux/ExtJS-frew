@@ -75,10 +75,21 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
      * of the viewport.  This value is typically managed by the chosen {@link #layout} and should not need to be set manually.
      */
     /**
-     * @cfg {String} layout
-     * The layout type to be used in this container.  If not specified, a default {@link Ext.layout.ContainerLayout}
-     * will be created and used. Specific config values for the chosen layout type can be specified using 
-     * {@link #layoutConfig}. Valid values are:<ul class="mdetail-params">
+     * @cfg {String/Object} layout
+     * <tt>layout</tt> may be specified either as a String or as an Object.
+     * <p><u>Specify as a String</u></p>
+     * <p>Example usage:</p>
+<pre><code>
+layout: 'vbox',
+layoutConfig: {
+    padding: '5',
+    align: 'left'
+} 
+</code></pre>
+     * <p>The layout <tt>type</tt> to be used for this container.  If not specified, a default
+     * {@link Ext.layout.ContainerLayout} will be created and used. Specific config values for the chosen
+     * layout type can be specified using {@link #layoutConfig}.</p>
+     * <p>Valid values are:</p><ul class="mdetail-params">
      * <li>absolute</li>
      * <li>accordion</li>
      * <li>anchor</li>
@@ -87,14 +98,28 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
      * <li>column</li>
      * <li>fit</li>
      * <li>form</li>
-     * <li>table</li></ul>
+     * <li>hbox</li>
+     * <li>table</li>
+     * <li>vbox</li></ul>
+     * <br/><p><u>Specify as an Object</u></p>
+     * Example usage:</p>
+<pre><code>
+layout: {
+    type: 'vbox',
+    padding: '5',
+    align: 'left'
+} 
+</code></pre>
+     * <p>The layout <tt>type</tt> to be used for this container along with appropriate
+     * {@link #layoutConfig layout configuration} options for the chosen layout <tt>type</tt> can be
+     * specified as properties of this object literal.
      */
     /**
      * @cfg {Object} layoutConfig
      * This is a config object containing properties specific to the chosen layout (to be used in conjunction with
      * the {@link #layout} config value).  For complete details regarding the valid config options for each layout
      * type, see the layout class corresponding to the type specified:<ul class="mdetail-params">
-     * <li>{@link Ext.layout.Absolute}</li>
+     * <li>{@link Ext.layout.AbsoluteLayout}</li>
      * <li>{@link Ext.layout.Accordion}</li>
      * <li>{@link Ext.layout.AnchorLayout}</li>
      * <li>{@link Ext.layout.BorderLayout}</li>
@@ -102,8 +127,11 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
      * <li>{@link Ext.layout.ColumnLayout}</li>
      * <li>{@link Ext.layout.FitLayout}</li>
      * <li>{@link Ext.layout.FormLayout}</li>
-     * <li>{@link Ext.layout.TableLayout}</li></ul>
-     */
+     * <li>{@link Ext.layout.HBox}</li> 
+     * <li>{@link Ext.layout.TableLayout}</li>
+     * <li>{@link Ext.layout.VBox}</li> 
+     * </ul>
+     */    
     /**
      * @cfg {Boolean/Number} bufferResize
      * When set to true (100 milliseconds) or a number of milliseconds, the layout assigned for this container will buffer
