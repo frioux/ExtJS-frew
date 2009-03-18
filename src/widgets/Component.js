@@ -26,6 +26,7 @@ grid             Ext.grid.GridPanel
 paging           Ext.PagingToolbar
 panel            Ext.Panel
 progress         Ext.ProgressBar
+spacer           Ext.Spacer
 splitbutton      Ext.SplitButton
 tabpanel         Ext.TabPanel
 treepanel        Ext.tree.TreePanel

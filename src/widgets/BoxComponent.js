@@ -374,6 +374,14 @@ Ext.BoxComponent = Ext.extend(Ext.Component, {
 });
 Ext.reg('box', Ext.BoxComponent);
 
+
+/**
+ * @class Ext.Spacer
+ * @extends Ext.BoxComponent
+ * <p>Used to provide a sizable space in a layout.</p>
+ * @constructor
+ * @param {Object} config
+ */
 Ext.Spacer = Ext.extend(Ext.BoxComponent, {
     autoEl:'div'
 });
