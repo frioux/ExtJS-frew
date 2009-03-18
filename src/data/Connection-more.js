@@ -1,3 +1,6 @@
+/**
+ * @class Ext.data.Connection
+ */
 Ext.apply(Ext.data.Connection, 
 function(){
 	var BEFOREREQUEST = "beforerequest",

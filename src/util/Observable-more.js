@@ -1,3 +1,6 @@
+/**
+ * @class Ext.util.Observable
+ */
 Ext.applyIf(Ext.util.Observable.prototype, function(){
     function createBuffered(h, o, scope){
 	var task = new EXTUTIL.DelayedTask();
