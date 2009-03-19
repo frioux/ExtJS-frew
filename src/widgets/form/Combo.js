@@ -149,11 +149,6 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
      */
     handleHeight : 8,
     /**
-     * @cfg {Boolean} editable False to prevent the user from typing text directly into the field, just like a
-     * traditional select (defaults to true)
-     */
-    editable: true,
-    /**
      * @cfg {String} allQuery The text query to send to the server to return all records for the list with no filtering (defaults to '')
      */
     allQuery: '',
@@ -339,11 +334,6 @@ var combo = new Ext.form.ComboBox({
             this.initList();
         }else{
             this.on('focus', this.initList, this, {single: true});
-        }
-
-        if(!this.editable){
-            this.editable = true;
-            this.setEditable(false);
         }
     },
 
@@ -642,28 +632,6 @@ var menu = new Ext.menu.Menu({
         Ext.form.ComboBox.superclass.onDisable.apply(this, arguments);
         if(this.hiddenField){
             this.hiddenField.disabled = true;
-        }
-    },
-
-    /**
-     * Allow or prevent the user from directly editing the field text.  If false is passed,
-     * the user will only be able to select from the items defined in the dropdown list.  This method
-     * is the runtime equivalent of setting the 'editable' config option at config time.
-     * @param {Boolean} value True to allow the user to directly edit the field text
-     */
-    setEditable : function(value){
-        if(value == this.editable){
-            return;
-        }
-        this.editable = value;
-        if(!value){
-            this.el.dom.setAttribute('readOnly', true);
-            this.el.on('mousedown', this.onTriggerClick,  this);
-            this.el.addClass('x-combo-noedit');
-        }else{
-            this.el.dom.removeAttribute('readOnly');
-            this.el.un('mousedown', this.onTriggerClick,  this);
-            this.el.removeClass('x-combo-noedit');
         }
     },
 

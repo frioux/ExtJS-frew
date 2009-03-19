@@ -34,7 +34,11 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
      * @cfg {Boolean} hideTrigger True to hide the trigger element and display only the base text field (defaults to false)
      */
     hideTrigger:false,
-
+    /**
+     * @cfg {Boolean} editable False to prevent the user from typing text directly into the field, the field
+     * will only respond to a click on the trigger to set the value. (defaults to true)
+     */
+    editable: true,
     /**
      * @hide 
      * @method autoSize
@@ -89,6 +93,10 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
         this.initTrigger();
         if(!this.width){
             this.wrap.setWidth(this.el.getWidth()+this.trigger.getWidth());
+        }
+        if(!this.editable){
+            this.editable = true;
+            this.setEditable(false);
         }
     },
 
@@ -170,6 +178,24 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
     },
 
     beforeBlur : Ext.emptyFn, 
+    
+    /**
+     * Allow or prevent the user from directly editing the field text.  If false is passed,
+     * the user will only be able to modify the field using the trigger.  This method
+     * is the runtime equivalent of setting the 'editable' config option at config time.
+     * @param {Boolean} value True to allow the user to directly edit the field text
+     */
+    setEditable : function(value){
+        if(value == this.editable){
+            return;
+        }
+        this.editable = value;
+        if(!value){
+            this.el.addClass('x-combo-noedit').on('mousedown', this.onTriggerClick, this).dom.setAttribute('readonly', true);
+        }else{
+            this.el.removeClass('x-combo-noedit').un('mousedown', this.onTriggerClick,  this).dom.removeAttribute('readOnly');
+        }
+    },
 
     // private
     // This should be overriden by any subclass that needs to check whether or not the field can be blurred.
