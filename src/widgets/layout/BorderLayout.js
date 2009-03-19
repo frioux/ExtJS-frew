@@ -801,6 +801,10 @@ Ext.layout.BorderLayout.SplitRegion = function(layout, config, pos){
 
 Ext.extend(Ext.layout.BorderLayout.SplitRegion, Ext.layout.BorderLayout.Region, {
     /**
+     * @cfg {Number} tickSize
+     * The increment, in pixels by which to move this Region's SplitBar. When <i>undefined</i>, the SplitBar moves smoothly.
+     */
+    /**
      * @cfg {String} splitTip
      * The tooltip to display when the user hovers over a non-collapsible region's split bar (defaults to "Drag
      * to resize.").  Only applies if {@link #useSplitTips} = true.

@@ -39,6 +39,11 @@ Ext.SplitBar = function(dragElement, resizingElement, orientation, placement, ex
     this.orientation = orientation || Ext.SplitBar.HORIZONTAL;
     
     /**
+     * The increment, in pixels by which to move this SplitBar. When <i>undefined</i>, the SplitBar moves smoothly.
+     * @type Number
+     * @property tickSize
+     */
+    /**
      * The minimum size of the resizing element. (Defaults to 0)
      * @type Number
      */
