@@ -233,7 +233,7 @@ layout: {
             'remove'
         );
 		
-		this.enableBubble(['add', 'remove']);
+		this.enableBubble('add', 'remove');
 
         /**
          * The collection of components in this container as a {@link Ext.util.MixedCollection}

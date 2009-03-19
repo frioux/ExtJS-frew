@@ -529,7 +529,7 @@ function(grid, rowIndex, columnIndex, e) {
             this.loadMask = new Ext.LoadMask(this.bwrap,
                     Ext.apply({}, {store:store}, this.initialConfig.loadMask));
         }
-        this.view.bind(store, colModel);
+        this.view.initData(store, colModel);
         this.store = store;
         this.colModel = colModel;
         if(this.rendered){

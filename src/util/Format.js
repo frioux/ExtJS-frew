@@ -224,6 +224,21 @@ Ext.util.Format = function(){
         }(),
 
         /**
+         * Rounds the passed number to the required decimal precision.
+         * @param {Number/String} value The numeric value to round.
+         * @param {Number} precision The number of decimal places to which to round the first parameter's value.
+         * @return {Number} The rounded value.
+         */
+        round : function(value, precision) {
+            var result = Number(value);
+            if (typeof precision == 'number') {
+                precision = Math.pow(10, d);
+                result = Math.round(value * precision) / precision;
+            }
+            return result;
+        },
+
+        /**
          * Formats the number according to the format string.
          * <div style="margin-left:40px">examples (123456.789):
          * <div style="margin-left:10px">

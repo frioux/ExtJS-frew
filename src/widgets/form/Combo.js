@@ -496,7 +496,7 @@ var menu = new Ext.menu.Menu({
             if(!store){
                 this.store = null;
                 if(this.view){
-                    this.view.setStore(null);
+                    this.view.bindStore(null);
                 }
             }
         }
@@ -504,8 +504,7 @@ var menu = new Ext.menu.Menu({
 			if(!initial) {
 				this.lastQuery = null;
 				if(this.pageTb) {
-					this.pageTb.unbind(this.store);
-					this.pageTb.bind(store);
+					this.pageTb.bindStore(store);
 				}				
 			}
 					
@@ -515,7 +514,7 @@ var menu = new Ext.menu.Menu({
             this.store.on('loadexception', this.collapse, this);
 
             if(this.view){
-                this.view.setStore(store);
+                this.view.bindStore(store);
             }
         }
     },

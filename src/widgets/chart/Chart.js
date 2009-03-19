@@ -104,7 +104,7 @@ Ext.chart.Chart = Ext.extend(Ext.FlashComponent, {
      * Changes the data store bound to this chart and refreshes it.
      * @param {Store} store The store to bind to this chart
      */
-    setStore : function(store, initial){
+    bindStore : function(store, initial){
         if(!initial && this.store){
             this.store.un("datachanged", this.refresh, this);
             this.store.un("add", this.delayRefresh, this);
@@ -146,7 +146,7 @@ Ext.chart.Chart = Ext.extend(Ext.FlashComponent, {
             this.setTipRenderer(this.tipRenderer);
         }
         if(!isReset){
-            this.setStore(this.store, true);
+            this.bindStore(this.store, true);
         }
         this.refresh.defer(10, this);
     },

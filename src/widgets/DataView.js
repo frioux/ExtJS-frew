@@ -238,7 +238,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
         }
 
         if(this.store){
-            this.setStore(this.store, true);
+            this.bindStore(this.store, true);
         }
     },
 
@@ -379,7 +379,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
      * Changes the data store bound to this view and refreshes it.
      * @param {Store} store The store to bind to this view
      */
-    setStore : function(store, initial){
+    bindStore : function(store, initial){
         if(!initial && this.store){
             this.store.un("beforeload", this.onBeforeLoad, this);
             this.store.un("datachanged", this.refresh, this);
@@ -726,8 +726,14 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
 
     onDestroy : function(){
         Ext.DataView.superclass.onDestroy.call(this);
-        this.setStore(null);
+        this.bindStore(null);
     }
 });
+
+/**
+ * Changes the data store bound to this view and refreshes it. (deprecated in favor of bindStore)
+ * @param {Store} store The store to bind to this view
+ */
+Ext.DataView.prototype.setStore = Ext.DataView.prototype.bindStore;
 
 Ext.reg('dataview', Ext.DataView);

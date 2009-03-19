@@ -178,7 +178,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         );
 
         this.cursor = 0;
-        this.bind(this.store);
+        this.bindStore(this.store);
 	},
     
     initComponent: function(){
@@ -349,42 +349,54 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
     },
 
     /**
-     * Unbinds the paging toolbar from the specified {@link Ext.data.Store}
-     * @param {Ext.data.Store} store The data store to unbind
+     * Binds the paging toolbar to the specified {@link Ext.data.Store}
+     * @param {Store} store The store to bind to this view
      */
-    unbind : function(store){
-        store = Ext.StoreMgr.lookup(store);
-        store.un("beforeload", this.beforeLoad, this);
-        store.un("load", this.onLoad, this);
-        store.un("loadexception", this.onLoadError, this);
-        if(store.autoDestroy){
-            store.destroy();
+    bindStore : function(store, initial){
+        if(!initial && this.store){
+            store.un("beforeload", this.beforeLoad, this);
+            store.un("load", this.onLoad, this);
+            store.un("loadexception", this.onLoadError, this);
+            
+            if(store !== this.store && this.store.autoDestroy){
+                this.store.destroy();
+            }
         }
-        this.store = undefined;
+        if(store){
+            store = Ext.StoreMgr.lookup(store);
+            store.on("beforeload", this.beforeLoad, this);
+            store.on("load", this.onLoad, this);
+            store.on("loadexception", this.onLoadError, this);  
+                      
+            this.paramNames.start = store.paramNames.start;
+            this.paramNames.limit = store.paramNames.limit;
+            
+            if (store.getCount() > 0){
+                this.onLoad(store, null, {});
+            }            
+        }
+        this.store = store;
     },
 
     /**
-     * Binds the paging toolbar to the specified {@link Ext.data.Store}
+     * Unbinds the paging toolbar from the specified {@link Ext.data.Store} <b>(deprecated)</b>
+     * @param {Ext.data.Store} store The data store to unbind
+     */
+    unbind : function(store){
+        this.bindStore(null);
+    },
+
+    /**
+     * Binds the paging toolbar to the specified {@link Ext.data.Store} <b>(deprecated)</b>
      * @param {Ext.data.Store} store The data store to bind
      */
     bind : function(store){
-        store = Ext.StoreMgr.lookup(store);
-        store.on("beforeload", this.beforeLoad, this);
-        store.on("load", this.onLoad, this);
-        store.on("loadexception", this.onLoadError, this);
-        this.store = store;
-        this.paramNames.start = store.paramNames.start;
-        this.paramNames.limit = store.paramNames.limit;
-        if (store.getCount() > 0){
-            this.onLoad(store, null, {});
-        }
+        this.bindStore(store);
     },
-
+        
     // private
     onDestroy : function(){
-        if(this.store){
-            this.unbind(this.store);
-        }
+        this.bindStore(null);
         Ext.PagingToolbar.superclass.onDestroy.call(this);
     }
 });

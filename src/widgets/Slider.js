@@ -31,6 +31,12 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
 	 * @cfg {Number} maxValue The maximum value for the Slider. Defaults to 100.
 	 */
     maxValue: 100,
+    /**
+     * @cfg {Number/Boolean} decimalPrecision.
+     * <p>The number of decimal places to which to round the Slider's value. Defaults to 0.</p>
+     * <p>To disable rounding, configure as <tt><b>false</b></tt></p>.
+     */
+    decimalPrecision: 0,
 	/**
 	 * @cfg {Number} keyIncrement How many units to change the Slider when adjusting with keyboard navigation. Defaults to 1. If the increment config is larger, it will be used instead.
 	 */
@@ -236,10 +242,7 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
 
 	// private
     normalizeValue : function(v){
-       if(typeof v != 'number'){
-            v = parseInt(v);
-        }
-        v = Math.round(v);
+        v = Ext.util.Format.round(v, this.decimalPrecision);
         v = this.doSnap(v);
         v = v.constrain(this.minValue, this.maxValue);
         return v;

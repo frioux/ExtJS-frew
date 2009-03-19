@@ -925,6 +925,7 @@ Ext.extend(Ext.layout.BorderLayout.SplitRegion, Ext.layout.BorderLayout.Region, 
         var s = this.splitSettings[ps];
 
         this.split = new Ext.SplitBar(this.splitEl.dom, p.el, s.orientation);
+        this.split.tickSize = this.tickSize;
         this.split.placement = s.placement;
         this.split.getMaximumSize = this[s.maxFn].createDelegate(this);
         this.split.minSize = this.minSize || this[s.minProp];

@@ -151,9 +151,16 @@ function(){
 	     * @param {Boolean} returnElement (optional) true to return a Ext.Element
 	     * @return {HTMLElement/Ext.Element} The new node
 	     */
-	    append : function(el, o, returnElement){
-		    return doInsert(el, o, returnElement, beforeend, "", true);
-	    }		
+	    append: function(el, o, returnElement){
+            return doInsert(el, o, returnElement, beforeend, "", true);
+        },
+
+	    /**
+	     * Creates new DOM element(s) without inserting them to the document.
+	     * @param {Object/String} o The DOM object spec (and children) or raw HTML blob
+	     * @return {HTMLElement/Ext.Element} The new uninserted node
+	     */        
+        createDom: createDom
 	}
 	return pub;	
 }());

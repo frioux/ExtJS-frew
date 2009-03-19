@@ -144,7 +144,8 @@ Ext.extend(Ext.SplitBar, Ext.util.Observable, {
             this.dd.resetConstraints();
             this.dd.setXConstraint(
                 this.placement == Ext.SplitBar.LEFT ? c1 : c2, 
-                this.placement == Ext.SplitBar.LEFT ? c2 : c1
+                this.placement == Ext.SplitBar.LEFT ? c2 : c1,
+                this.tickSize
             );
             this.dd.setYConstraint(0, 0);
         }else{
@@ -152,7 +153,8 @@ Ext.extend(Ext.SplitBar, Ext.util.Observable, {
             this.dd.setXConstraint(0, 0);
             this.dd.setYConstraint(
                 this.placement == Ext.SplitBar.TOP ? c1 : c2, 
-                this.placement == Ext.SplitBar.TOP ? c2 : c1
+                this.placement == Ext.SplitBar.TOP ? c2 : c1,
+                this.tickSize
             );
          }
         this.dragSpecs.startSize = size;
