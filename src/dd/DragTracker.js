@@ -1,11 +1,46 @@
+/**
+ * @class Ext.dd.DragTracker
+ * @extends Ext.util.Observable
+ */
 Ext.dd.DragTracker = function(config){
     Ext.apply(this, config);
     this.addEvents(
+        /**
+         * @event mousedown
+         * Fires before a network request is made to retrieve a data object.
+         * @param {Object} this
+         * @param {Object} e event object
+         */
         'mousedown',
+        /**
+         * @event mouseup
+         * @param {Object} this
+         * @param {Object} e event object
+         */
         'mouseup',
+        /**
+         * @event mousemove
+         * @param {Object} this
+         * @param {Object} e event object
+         */
         'mousemove',
+        /**
+         * @event dragstart
+         * @param {Object} this
+         * @param {Object} startXY the page coordinates of the event
+         */
         'dragstart',
+        /**
+         * @event dragend
+         * @param {Object} this
+         * @param {Object} e event object
+         */
         'dragend',
+        /**
+         * @event drag
+         * @param {Object} this
+         * @param {Object} e event object
+         */
         'drag'
     );
 
@@ -17,8 +52,21 @@ Ext.dd.DragTracker = function(config){
 }
 
 Ext.extend(Ext.dd.DragTracker, Ext.util.Observable,  {
+    /**
+     * @cfg {Boolean} active
+	 * Defaults to <tt>false</tt>.
+	 */	
     active: false,
+    /**
+     * @cfg {Number} tolerance
+	 * Defaults to <tt>5</tt>.
+	 */	
     tolerance: 5,
+    /**
+     * @cfg {Boolean/Number} autoStart
+	 * Defaults to <tt>false</tt>. Specify <tt>true</tt> to defer trigger start by 1000 ms.
+	 * Specify a Number for the number of milliseconds to defer trigger start.
+	 */	
     autoStart: false,
 
     initEl: function(el){
