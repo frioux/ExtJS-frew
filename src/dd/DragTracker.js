@@ -7,7 +7,6 @@ Ext.dd.DragTracker = function(config){
     this.addEvents(
         /**
          * @event mousedown
-         * Fires before a network request is made to retrieve a data object.
          * @param {Object} this
          * @param {Object} e event object
          */
