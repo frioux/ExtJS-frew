@@ -698,10 +698,6 @@ new Ext.tree.TreePanel({
      * @hide 
      */
     /** 
-     * @method add 
-     * @hide 
-     */
-    /** 
      * @method cascade 
      * @hide 
      */
@@ -751,6 +747,10 @@ new Ext.tree.TreePanel({
      */
     /** 
      * @event add 
+     * @hide 
+     */
+    /** 
+     * @method removeAll
      * @hide 
      */
     /** 
