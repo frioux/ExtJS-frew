@@ -103,7 +103,7 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
 	        var id = sid ? q.selectValue(sid, n) : undefined;
 	        for(var j = 0, jlen = fields.length; j < jlen; j++){
 	            var f = fields.items[j];
-                var v = q.selectValue(f.mapping || f.name, n, f.defaultValue);
+                var v = q.selectValue(Ext.value(f.mapping, f.name, true), n, f.defaultValue);
 	            v = f.convert(v, n);
 	            values[f.name] = v;
 	        }
