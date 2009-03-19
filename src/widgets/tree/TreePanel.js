@@ -66,8 +66,11 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
         * @property root
         */
         if(this.root){
-           this.setRootNode(this.root);
+            var r = this.root;
+            delete this.root;
+            this.setRootNode(r);
         }
+
 
         this.addEvents(
 
@@ -388,6 +391,9 @@ new Ext.tree.TreePanel({
      * @return {Node}
      */
     setRootNode : function(node){
+        if (this.root) {
+            this.root.destroy();
+        }        
         if(!node.render){ // attributes passed
             node = this.loader.createNode(node);
         }
@@ -398,7 +404,11 @@ new Ext.tree.TreePanel({
         if(!this.rootVisible){
             var uiP = node.attributes.uiProvider;
             node.ui = uiP ? new uiP(node) : new Ext.tree.RootTreeNodeUI(node); 
-        }
+        }        
+        if (this.innerCt) {
+            this.innerCt.update('');
+            this.afterRender();
+        }        
         return node;
     },
 
