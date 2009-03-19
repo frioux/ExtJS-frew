@@ -32,6 +32,10 @@ var myReader = new Ext.data.ArrayReader({
  */
 Ext.data.ArrayReader = Ext.extend(Ext.data.JsonReader, {
     /**
+     * @cfg {String} successProperty
+     * @hide
+     */
+     /**
      * Create a data block containing Ext.data.Records from an Array.
      * @param {Object} o An Array of row objects which represents the dataset.
      * @return {Object} data A data block which is used by an Ext.data.Store object as
