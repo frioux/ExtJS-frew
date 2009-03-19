@@ -386,7 +386,8 @@ new Ext.tree.TreePanel({
     },
 
     /**
-     * Sets the root node for this tree during initialization. 
+     * Sets the root node for this tree. If the TreePanel has already rendered a root node, the
+     * previous root node (and all of its descendants) are destroyed before the new root node is rendered. 
      * @param {Node} node
      * @return {Node}
      */
