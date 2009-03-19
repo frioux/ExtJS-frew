@@ -210,9 +210,9 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
      * option "monitorValid"
      */
     startMonitoring : function(){
-        if(!this.bound){
-            this.bound = true;
-            Ext.TaskMgr.start({
+        if(!this.validTask){
+            this.validTask = new Ext.util.TaskRunner();
+            this.validTask.start({
                 run : this.bindHandler,
                 interval : this.monitorPoll || 200,
                 scope: this
@@ -224,7 +224,10 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
      * Stops monitoring of the valid state of this form
      */
     stopMonitoring : function(){
-        this.bound = false;
+        if(this.validTask){
+            this.validTask.stopAll();
+            this.validTask = null;
+        }
     },
 
     /**
@@ -257,9 +260,6 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
 
     // private
     bindHandler : function(){
-        if(!this.bound){
-            return false; // stops binding
-        }
         var valid = true;
         this.form.items.each(function(f){
             if(!f.isValid(true)){
