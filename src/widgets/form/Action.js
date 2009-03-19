@@ -70,8 +70,10 @@ Ext.form.Action.prototype = {
  * input fields.
  */
 /**
- * @cfg {Number} timeout The number of milliseconds to wait for a server response before
- * failing with the {@link #failureType} as {@link #Action.CONNECT_FAILURE}.
+ * @cfg {Number} timeout The number of seconds to wait for a server response before
+ * failing with the {@link #failureType} as {@link #Action.CONNECT_FAILURE}. If not specified,
+ * defaults to the configured <tt>{@link Ext.form.BasicForm#timeout timeout}</tt> of the
+ * {@link Ext.form.BasicForm form}.
  */
 /**
  * @cfg {Function} success The function to call when a valid success return packet is recieved.
