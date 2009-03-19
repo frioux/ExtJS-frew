@@ -82,7 +82,7 @@ listView.on('selectionchange', function(view, nodes){
 Ext.ListView = Ext.extend(Ext.DataView, {
     /**
      * Set this property to <tt>true</tt> to disable the header click handler disabling sort
-     * (defaults to <tt>false</tt>.
+     * (defaults to <tt>false</tt>).
      * @type Boolean
      * @property disableHeaders
      */
