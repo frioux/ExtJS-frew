@@ -1,12 +1,12 @@
 /**
  * @class Ext.direct.RemotingProvider
  * @extends Ext.direct.JsonProvider
- * When adding a provider via Ext.Direct.add the Ext.direct.RemotingProvider will
- * be invoked to create a client-side stub of the provider. This class will never
- * need to be invoked directly.
+ * <p>When adding a provider via {@link Ext.Direct}.{@link Ext.Direct#add add} the
+ * Ext.direct.RemotingProvider will be invoked to create a client-side stub of the
+ * provider. This Class will never need to be invoked directly.</p>
  *
- * Configurations for this class should be outputted by the server-side Ext.Direct
- * stack when the API description is built.
+ * <p>Configurations for this Class should be outputted by the server-side Ext.Direct
+ * stack when the API description is built.</p>
  */
 Ext.direct.RemotingProvider = Ext.extend(Ext.direct.JsonProvider, {       
     /**

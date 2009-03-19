@@ -357,12 +357,13 @@ new Ext.FormPanel({
 
     /**
      * @cfg {String} id
-     * The unique id of this component (defaults to an auto-assigned id). You should assign an id if you need to
-     * be able to access the component later and you do not have an object reference available (e.g., using
-     * {@link Ext.ComponentMgr#getCmp}). Note that this id will also be used as the element id for the containing
-     * HTML element that is rendered to the page for this component. This allows you to write id-based CSS rules to
-     * style the specific instance of this component uniquely, and also to select sub-elements using this
-     * component's id as the parent.
+     * The unique id of this component (defaults to an {@link Ext#id auto-assigned id}).
+     * You should assign an id if you need to be able to access the component later and you do
+     * not have an object reference available (e.g., using {@link Ext.ComponentMgr#getCmp}).
+     * Note that this id will also be used as the element id for the containing HTML element
+     * that is rendered to the page for this component. This allows you to write id-based CSS
+     * rules to style the specific instance of this component uniquely, and also to select
+     * sub-elements using this component's id as the parent.
      */
     /**
      * @cfg {String} xtype

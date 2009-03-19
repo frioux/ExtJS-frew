@@ -2,9 +2,30 @@
  * @class Ext.Direct
  * @extends Ext.util.Observable
  * <p>Provides a single interface to facilitate data communication between the client and server.</p>
+ * <p>Custom events from the server may be handled by the client by adding listeners, for example:</p>
+ * <pre><code>
+{"type":"event","name":"message","data":"Successfully polled at: 11:19:30 am"}
+
+// add a handler for a 'message' event sent by the server 
+Ext.Direct.on('message', function(e){
+    out.append(String.format('<p><i>{0}</i></p>', e.data));
+            out.el.scrollTo('t', 100000, true);
+});
+ * </code></pre>
  * @singleton
  */
 Ext.Direct = Ext.extend(Ext.util.Observable, {
+    /**
+     * @property eventTypes
+     * @type Object
+     * Each event type implements a getData() method. The default event types are:
+     * <div class="mdetail-params"><ul>
+     * <li><b><tt>event</tt></b> : Ext.Direct.Event</li>
+     * <li><b><tt>exception</tt></b> : Ext.Direct.ExceptionEvent</li>
+     * <li><b><tt>rpc</tt></b> : Ext.Direct.RemotingEvent</li>
+     * </ul></div>
+     */
+
     /**
      * @property exceptions
      * @type Object
@@ -29,14 +50,14 @@ Ext.Direct = Ext.extend(Ext.util.Observable, {
             /**
              * @event event
              * Fires after an event.
-             * @param {event} e The event that occurred.
+             * @param {event} e The {@link Ext.Direct#eventTypes Ext.Direct.Event type} that occurred.
              * @param {Ext.direct.Provider} provider The {@link Ext.direct.Provider Provider}.
              */
             'event',
             /**
              * @event exception
              * Fires after an event exception.
-             * @param {event} e The event that occurred.
+             * @param {event} e The {@link Ext.Direct#eventTypes Ext.Direct.Event type} that occurred.
              */
             'exception'
         );
@@ -45,11 +66,39 @@ Ext.Direct = Ext.extend(Ext.util.Observable, {
     },
 
     /**
-     * Adds an Ext.Direct provider and creates the proxy or stub methods
-     * to execute server-side methods. If the provider is not already connected,
-     * it will auto-connect.
-     * @param {Object/Array} provider A provider description or an array of provider
-     * descriptions which instructs Ext.Direct how to create client-side stub methods
+     * Adds an Ext.Direct provider and creates the proxy or stub methods to execute server-side methods.
+     * If the provider is not already connected, it will auto-connect.
+     * <pre><code>
+var pollProv = new Ext.direct.PollingProvider({
+    url: 'php/poll2.php'
+}); 
+
+Ext.Direct.addProvider(
+    {
+       "url":"php\/router.php",
+       "type":"remoting", // create a {@link Ext.direct.RemotingProvider} 
+       "actions":{
+          "TestAction":[
+             {
+                "name":"doEcho",
+                "len":1
+             },
+             {
+                "name":"multiply",
+                "len":1
+             }
+          ]
+       }
+    },{
+        type: 'polling', // create a {@link Ext.direct.PollingProvider} 
+        url:  'php/poll.php'
+    },
+    pollProv
+);
+     * </code></pre>
+     * @param {Object/Array} provider Accepts either an Array of provider descriptions
+     * or any number of provider descriptions as arguments.  Each provider description instructs
+     * Ext.Direct how to create client-side stub methods.
      */
     addProvider : function(provider){        
         var a = arguments;
@@ -79,7 +128,9 @@ Ext.Direct = Ext.extend(Ext.util.Observable, {
     },
 
     /**
-     * Retrieve a provider by the id specified when the provider is added.
+     * Retrieve a {@link Ext.direct.Provider provider} by the
+     * <b><tt>{@link Ext.direct.Provider#id id}</tt></b> specified when the provider is
+     * {@link #addProvider added}.
      * @param {String} id Unique identifier assigned to the provider when calling {@link #addProvider} 
      */
     getProvider : function(id){

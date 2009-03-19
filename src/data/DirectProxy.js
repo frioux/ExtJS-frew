@@ -12,19 +12,29 @@ Ext.data.DirectProxy = function(config){
 
 Ext.extend(Ext.data.DirectProxy, Ext.data.DataProxy, {
 	/**
-	 * @cfg paramOrder {Array/String} An array of params and the order which they must be executed on the server-side. Can also be specified as a comma or pipe delimited list. Examples ['arg1','arg2'] or 'arg1|arg2' or 'arg1,arg2'
+	 * @cfg {Array/String} paramOrder Defaults to <tt>undefined</tt>. A list of params to be executed
+	 * server side.  Specify the params in the order in which they must be executed on the server-side
+	 * as either (1) an Array of String values, or (2) a String of params delimited by either whitespace,
+	 * comma, or pipe. For example,
+	 * any of the following would be acceptable:<pre><code>
+paramOrder: ['param1','param2','param3']
+paramOrder: 'param1 param2 param3'
+paramOrder: 'param1,param2,param3'
+paramOrder: 'param1|param2|param'
+	 </code></pre>
 	 */
 	paramOrder: undefined,
 	
 	/**
-	 * @cfg paramsAsHash {Boolean}
-	 * Send parameters as a collection of named arguments. Defaults to true. Providing a paramOrder immediately overrides this configuration.
+	 * @cfg {Boolean} paramsAsHash
+	 * Send parameters as a collection of named arguments (defaults to <tt>true</tt>). Providing a
+	 * <tt>{@link #paramOrder}</tt> nullifies this configuration.
 	 */	
 	paramsAsHash: true,
 	
 	/**
-	 * @cfg directFn {Function}
-	 * The Ext.Direct function which has been imported from the server-side
+	 * @cfg {Function} directFn
+	 * The {@link Ext.Direct} function which has been imported from the server-side
 	 */	
 	directFn: undefined,
 
