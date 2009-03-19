@@ -115,10 +115,10 @@ var companyColumn = {
    }
 }     
      * </code></pre>
-     * See also {@link #rendererScope}.     
+     * See also {@link #scope}.     
      */
     /**
-     * @cfg {Object} rendererScope (optional) The scope (<tt><b>this</b></tt> reference) in which to execute the
+     * @cfg {Object} scope (optional) The scope (<tt><b>this</b></tt> reference) in which to execute the
      * renderer.  Defaults to the Column configuration object.
      */
     /**

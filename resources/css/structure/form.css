@@ -155,6 +155,10 @@ textarea {
     border-bottom: 1px solid;
 }
 
+.x-trigger-noedit{
+    cursor:pointer;
+}
+
 /* field focus style */
 .x-form-focus, textarea.x-form-focus{
 	border: 1px solid;

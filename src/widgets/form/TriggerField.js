@@ -191,9 +191,9 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
         }
         this.editable = value;
         if(!value){
-            this.el.addClass('x-combo-noedit').on('mousedown', this.onTriggerClick, this).dom.setAttribute('readonly', true);
+            this.el.addClass('x-trigger-noedit').on('mousedown', this.onTriggerClick, this).dom.setAttribute('readonly', true);
         }else{
-            this.el.removeClass('x-combo-noedit').un('mousedown', this.onTriggerClick,  this).dom.removeAttribute('readOnly');
+            this.el.removeClass('x-trigger-noedit').un('mousedown', this.onTriggerClick,  this).dom.removeAttribute('readOnly');
         }
     },
 
