@@ -246,7 +246,7 @@ side          Add an error icon to the right of the field with a popup on hover
 
     // private
     initEvents : function(){
-    	this.mon(this.el, Ext.isIE || Ext.isSafari3 ? "keydown" : "keypress", this.fireKey,  this);
+    	this.mon(this.el, Ext.isIE || Ext.isSafari3 || Ext.isChrome ? "keydown" : "keypress", this.fireKey,  this);
 		this.mon(this.el, 'focus', this.onFocus, this);
 
         // fix weird FF/Win editor issue when changing OS window focus
