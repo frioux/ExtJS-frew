@@ -1,23 +1,37 @@
 /**
  * @class Ext.data.DirectStore
  * @extends Ext.data.Store
- * A pre-configured convenience class of Ext.data.Store which makes interacting
- * with an Ext.Direct Server-side Provider easier.
- *
- * Makes the assumption that you will always use an Ext.data.DirectProxy and an
- * Ext.data.JsonReader.
+ * <p>Small helper class to create an {@link Ext.data.Store} configured with an
+ * {@link Ext.data.DirectProxy} and {@link Ext.data.JsonReader} to make interacting
+ * with an {@link Ext.Direct} Server-side {@link Ext.direct.Provider Provider} easier.
+ * To create a different proxy/reader combination create a basic {@link Ext.data.Store}
+ * configured as needed.</p>
+ * 
+ * <p><b>*Note:</b> Although they are not listed, this class inherits all of the config options of:</p>
+ * <div><ul class="mdetail-params">
+ * <li><b>{@link Ext.data.Store Store}</b></li>
+ * <div class="sub-desc"><ul class="mdetail-params">
+ * 
+ * </ul></div>
+ * <li><b>{@link Ext.data.JsonReader JsonReader}</b></li>
+ * <div class="sub-desc"><ul class="mdetail-params">
+ * <li><tt><b>{@link Ext.data.JsonReader#root root}</b></tt></li>
+ * <li><tt><b>{@link Ext.data.JsonReader#idProperty idProperty}</b></tt></li>
+ * <li><tt><b>{@link Ext.data.JsonReader#totalProperty totalProperty}</b></tt></li>
+ * </ul></div>
+ * 
+ * <li><b>{@link Ext.data.DirectProxy DirectProxy}</b></li>
+ * <div class="sub-desc"><ul class="mdetail-params">
+ * <li><tt><b>{@link Ext.data.DirectProxy#directFn directFn}</b></tt></li>
+ * <li><tt><b>{@link Ext.data.DirectProxy#paramOrder paramOrder}</b></tt></li>
+ * <li><tt><b>{@link Ext.data.DirectProxy#paramsAsHash paramsAsHash}</b></tt></li>
+ * </ul></div>
+ * </ul></div>
+ * 
  * @xtype directstore
- */
-/**
- * @cfg paramOrder {Array/String} An array of params and the order which they must be executed on the server-side. Can also be specified as a comma or pipe delimited list. Examples ['arg1','arg2'] or 'arg1|arg2' or 'arg1,arg2'
- */
-/**
- * @cfg paramsAsHash {Boolean}
- * Send parameters as a collection of named arguments. Defaults to true. Providing a paramOrder immediately overrides this configuration.
- */
-/**
- * @cfg directFn {Function}
- * The Ext.Direct function which has been imported from the server-side
+ * 
+ * @constructor
+ * @param {Object} config
  */
 Ext.data.DirectStore = function(c){
 	var pcfg = Ext.copyTo({}, c, 'paramOrder,paramsAsHash,directFn');

@@ -85,6 +85,13 @@ cartesianchart    Ext.chart.CartesianChart
 columnchart       Ext.chart.ColumnChart
 linechart         Ext.chart.LineChart
 piechart          Ext.chart.PieChart
+
+Store xtypes
+---------------------------------------
+arraystore        Ext.data.ArrayStore
+directstore       Ext.data.DirectStore
+jsonstore         Ext.data.JsonStore
+xmlstore          Ext.data.XmlStore
 </pre>
  * @constructor
  * @param {Ext.Element/String/Object} config The configuration options.  If an element is passed, it is set as the internal
