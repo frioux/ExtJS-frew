@@ -66,7 +66,7 @@ Ext.Direct = Ext.extend(Ext.util.Observable, {
     },
 
     /**
-     * Adds an Ext.Direct provider and creates the proxy or stub methods to execute server-side methods.
+     * Adds an Ext.Direct Provider and creates the proxy or stub methods to execute server-side methods.
      * If the provider is not already connected, it will auto-connect.
      * <pre><code>
 var pollProv = new Ext.direct.PollingProvider({
@@ -75,30 +75,33 @@ var pollProv = new Ext.direct.PollingProvider({
 
 Ext.Direct.addProvider(
     {
-       "url":"php\/router.php",
-       "type":"remoting", // create a {@link Ext.direct.RemotingProvider} 
-       "actions":{
-          "TestAction":[
-             {
-                "name":"doEcho",
+        "type":"remoting",       // create a {@link Ext.direct.RemotingProvider} 
+        "url":"php\/router.php", // url to connect to the Ext.Direct server-side router.
+        "actions":{              // each property within the actions object represents a Class 
+            "TestAction":[       // array of methods within each server side Class   
+            {
+                "name":"doEcho", // name of method
                 "len":1
-             },
-             {
+            },{
                 "name":"multiply",
                 "len":1
-             }
-          ]
-       }
+            },{
+                "name":"doForm",
+                "formHandler":true, // handle form on server with Ext.Direct.Transaction 
+                "len":1
+            }]
+        },
+        "namespace":"myApplication",// namespace to create the Remoting Provider in
     },{
         type: 'polling', // create a {@link Ext.direct.PollingProvider} 
         url:  'php/poll.php'
     },
-    pollProv
+    pollProv // reference to previously created instance
 );
      * </code></pre>
-     * @param {Object/Array} provider Accepts either an Array of provider descriptions
-     * or any number of provider descriptions as arguments.  Each provider description instructs
-     * Ext.Direct how to create client-side stub methods.
+     * @param {Object/Array} provider Accepts either an Array of Provider descriptions (an instance
+     * or config object for a Provider) or any number of Provider descriptions as arguments.  Each
+     * Provider description instructs Ext.Direct how to create client-side stub methods.
      */
     addProvider : function(provider){        
         var a = arguments;

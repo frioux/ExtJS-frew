@@ -1,6 +1,10 @@
 /**
  * @class Ext.direct.RemotingProvider
  * @extends Ext.direct.JsonProvider
+ * 
+ * <p>Provides for remote procedure call (RPC) type of connection where the client can initiate
+ * a procedure on the server.</p>
+ * 
  * <p>When adding a provider via {@link Ext.Direct}.{@link Ext.Direct#add add} the
  * Ext.direct.RemotingProvider will be invoked to create a client-side stub of the
  * provider. This Class will never need to be invoked directly.</p>
@@ -10,26 +14,75 @@
  */
 Ext.direct.RemotingProvider = Ext.extend(Ext.direct.JsonProvider, {       
     /**
+     * @cfg {Object} actions
+     * Object literal defining the server side actions and methods. For example, if
+     * the Provider is configured with:
+     * <pre><code>
+"actions":{ // each property within the 'actions' object represents a server side Class 
+    "TestAction":[ // array of methods within each server side Class to be   
+    {              // stubbed out on client
+        "name":"doEcho", 
+        "len":1          
+    },{
+        "name":"multiply",// name of method
+        "len":2           // the number of parameters that will be used to create an
+                          // array of data to send to the server side function 
+    },{
+        "name":"doForm",
+        "formHandler":true, // use specialized form handling method 
+        "len":1
+    }]
+}
+     * </code></pre>
+     * a <b>client side</b> handler to call the server side method "multiply" in the
+     * "TestAction" Class might look like this:
+     * <pre><code>
+TestAction.multiply(
+    2, 4, // pass two arguments to server, so specify len=2
+    // callback function after the server is called
+    // result: the result returned by the server
+    //      e: Ext.Direct.RemotingEvent object
+    function(result, e){
+        var t = e.getTransaction();
+        var action = t.action; // server side Class called
+        var method = t.method; // server side method called
+        if(e.status){
+            var answer = Ext.encode(result); // 8
+    
+        }else{
+            var msg = e.message; // failure message
+        }
+    }
+);
+     * </code></pre>
+     * In the example above, the server side "multiply" function will be passed two
+     * arguments (2 and 4).  The "multiply" method should return the value 8 which will be
+     * available as the <tt>result</tt> in the example above. 
+     */
+    
+    /**
      * @cfg {String/Object} namespace
-     * Namespace to create the Remoting Provider in. Defaults to the browser global scope of window.
+     * Namespace for the Remoting Provider (defaults to the browser global scope of <i>window</i>).
+     * Explicitly specify the namespace Object, or specify a String to have a
+     * {@link Ext#namespace namespace created} implicitly.
      */
     
     /**
      * @cfg {String} url
-     * (Required) Url to connect to the Ext.Direct server-side router. 
+     * <b>Required<b>. The url to connect to the {@link Ext.Direct} server-side router. 
      */
     
     /**
      * @cfg {String} enableUrlEncode
      * Specify which param will hold the arguments for the method.
-     * Defaults to 'data'
+     * Defaults to <tt>'data'</tt>.
      */
     
     /**
      * @cfg {Number/Boolean} enableBuffer
-     * True or false to enable or disable combining of method calls.
+     * <tt>true</tt> or <tt>false</tt> to enable or disable combining of method calls.
      * If a number is specified this is the amount of time in milliseconds to wait
-     * before sending a batched request.
+     * before sending a batched request (defaults to <tt>10</tt>.
      */
     enableBuffer: 10,
     
