@@ -88,7 +88,11 @@ Ext.apply(Ext, function(){
         },
 
         /**
-         * Utility method for validating that a value is non-empty (i.e. i) not null, ii) not undefined, and iii) not an empty string),
+         * Utility method for validating that a value is non-empty i.e.
+         * a) not null,
+         * b) not undefined,
+         * c) not an empty array and
+         * d) not an empty string,
          * returning the specified default value if it is.
          * @param {Mixed} value The value to test
          * @param {Mixed} defaultValue The value to return if the original value is empty
@@ -322,8 +326,8 @@ Ext.apply(Ext, function(){
          * @param {Array|NodeList} The array to filter
          * @param {Function} sorter (optional) a function that will perform the sorting operation.
          * @param {Function} MedianOperator (optional) a function that will perform the median calculation in the
-         *					 event that the length of the list is even. This is optional, but if it is not an array of
-         *					 numbers and the length is even it is needed or an error will be thrown.
+         *                   event that the length of the list is even. This is optional, but if it is not an array of
+         *                   numbers and the length is even it is needed or an error will be thrown.
          * @returns {Number} Returns the median value
          */
         median : function(arr, sorter, medCalc){
@@ -392,7 +396,7 @@ Ext.apply(Ext, function(){
          * Example2: Ext.partition(Ext.query("p"),function(val){ return val.className == "class1" }) => true are those paragraph elements with a className of "class1", false set are those that do not have that className.
          * @param {Array|NodeList} The array to partition
          * @param {Function} truth (optional) a function to determine truth.  If this is omitted the element itself must be able to be
-         *		             evaluated for its truthfulness.
+         *                   evaluated for its truthfulness.
          * @returns {Array} [true<Array>,false<Array>]
          */
         partition : function(arr, truth){
