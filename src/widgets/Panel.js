@@ -601,7 +601,8 @@ new Ext.Panel({
             /**
              * @event beforeclose
              * Fires before the Panel is closed.  Note that Panels do not directly support being closed, but some
-             * Panel subclasses do (like {@link Ext.Window}).  This event only applies to such subclasses.
+             * Panel subclasses do (like {@link Ext.Window}) or a Panel within a Ext.TabPanel.  This event only
+             * applies to such subclasses.
              * A handler can return false to cancel the close.
              * @param {Ext.Panel} p The Panel being closed.
              */

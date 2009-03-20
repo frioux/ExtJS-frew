@@ -497,8 +497,9 @@ new Ext.TabPanel({
         e.preventDefault();
         var t = this.findTargets(e);
         if(t.close){
-            if (t.item.fireEvent('close', t.item) !== false) {
-                this.remove(t.item);
+            if (t.item.fireEvent('beforeclose', t.item) !== false) {
+                t.item.fireEvent('close', t.item);
+                this.remove(t.item);                
             }
             return;
         }
