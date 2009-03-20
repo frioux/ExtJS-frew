@@ -29,6 +29,7 @@ var store = new Ext.data.ArrayStore({
  * @cfg {Array} data The multi-dimensional array of data
  * @constructor
  * @param {Object} config
+ * @xtype arraystore
  */
 Ext.data.ArrayStore = Ext.extend(Ext.data.Store, {
     constructor: function(config){

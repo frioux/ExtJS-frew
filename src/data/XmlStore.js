@@ -1,3 +1,9 @@
+/**
+ * @class Ext.data.XmlStore
+ * @extends Ext.data.Store
+ * Small convenience class which uses an XmlReader and an HttpProxy
+ * @xtype xmlstore
+ */
 Ext.data.XmlStore = Ext.extend(Ext.data.Store, {
     constructor: function(config){
         Ext.data.XmlStore.superclass.constructor.call(this, Ext.apply(config, {

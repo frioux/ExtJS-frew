@@ -36,6 +36,7 @@ var store = new Ext.data.JsonStore({
  * constructor that is implicitly called, and creates the {@link Ext.data.Record Record definition} used by the Store.
  * @constructor
  * @param {Object} config
+ * @xtype jsonstore
  */
 Ext.data.JsonStore = Ext.extend(Ext.data.Store, {
     constructor: function(config){

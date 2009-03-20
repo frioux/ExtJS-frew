@@ -6,6 +6,7 @@
  *
  * Makes the assumption that you will always use an Ext.data.DirectProxy and an
  * Ext.data.JsonReader.
+ * @xtype directstore
  */
 /**
  * @cfg paramOrder {Array/String} An array of params and the order which they must be executed on the server-side. Can also be specified as a comma or pipe delimited list. Examples ['arg1','arg2'] or 'arg1|arg2' or 'arg1,arg2'
@@ -26,3 +27,4 @@ Ext.data.DirectStore = function(c){
 	}));
 };
 Ext.extend(Ext.data.DirectStore, Ext.data.Store);
+Ext.reg('directstore', Ext.data.Store);

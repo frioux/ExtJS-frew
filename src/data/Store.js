@@ -14,6 +14,7 @@
  * Creates a new Store.
  * @param {Object} config A config object containing the objects needed for the Store to access data,
  * and read the data into Records.
+ * @xtype store
  */
 Ext.data.Store = function(config){
     this.data = new Ext.util.MixedCollection(false);
