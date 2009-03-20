@@ -235,6 +235,7 @@ Ext.extend(Ext.Layer, Ext.Element, {
                 this.sync();
             }
         }
+        return this;
     },
 
     isVisible : function(){
@@ -296,6 +297,7 @@ Ext.extend(Ext.Layer, Ext.Element, {
                 this.hideAction();
             }
         }
+        return this;
     },
 
     storeXY : function(xy){
@@ -332,18 +334,21 @@ Ext.extend(Ext.Layer, Ext.Element, {
         this.storeLeftTop(left, this.getTop(true));
         supr.setLeft.apply(this, arguments);
         this.sync();
+        return this;
     },
 
     setTop : function(top){
         this.storeLeftTop(this.getLeft(true), top);
         supr.setTop.apply(this, arguments);
         this.sync();
+        return this;
     },
 
     setLeftTop : function(left, top){
         this.storeLeftTop(left, top);
         supr.setLeftTop.apply(this, arguments);
         this.sync();
+        return this;
     },
 
     setXY : function(xy, a, d, c, e){
@@ -355,6 +360,7 @@ Ext.extend(Ext.Layer, Ext.Element, {
         if(!a){
             cb();
         }
+        return this;
     },
 
     // private
@@ -372,11 +378,13 @@ Ext.extend(Ext.Layer, Ext.Element, {
     // overridden Element method
     setX : function(x, a, d, c, e){
         this.setXY([x, this.getY()], a, d, c, e);
+        return this;
     },
 
     // overridden Element method
     setY : function(y, a, d, c, e){
         this.setXY([this.getX(), y], a, d, c, e);
+        return this;
     },
 
     // overridden Element method
@@ -387,6 +395,7 @@ Ext.extend(Ext.Layer, Ext.Element, {
         if(!a){
             cb();
         }
+        return this;
     },
 
     // overridden Element method
@@ -397,6 +406,7 @@ Ext.extend(Ext.Layer, Ext.Element, {
         if(!a){
             cb();
         }
+        return this;
     },
 
     // overridden Element method
@@ -407,6 +417,7 @@ Ext.extend(Ext.Layer, Ext.Element, {
         if(!a){
             cb();
         }
+        return this;
     },
 
     // overridden Element method
@@ -440,6 +451,7 @@ Ext.extend(Ext.Layer, Ext.Element, {
         if(this.shim){
             this.shim.setStyle("z-index", zindex);
         }
+        return this;
     }
 });
 })();
