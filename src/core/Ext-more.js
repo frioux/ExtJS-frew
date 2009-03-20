@@ -88,15 +88,16 @@ Ext.apply(Ext, function(){
         },
 
         /**
-         * Utility method for validating that a value is non-empty i.e.
-         * a) not null,
-         * b) not undefined,
-         * c) not an empty array and
-         * d) not an empty string,
-         * returning the specified default value if it is.
+         * <p>Utility method for returning a default value if the passed value is empty.</p>
+         * <p>The value is deemed to be empty if it is<div class="mdetail-params"><ul>
+         * <li>null</li>
+         * <li>undefined</li>
+         * <li>an empty array</li>
+         * <li>a zero length string (Unless the <tt>allowBlank</tt> parameter is <tt>true</tt>)</li>
+         * </ul></div>
          * @param {Mixed} value The value to test
          * @param {Mixed} defaultValue The value to return if the original value is empty
-         * @param {Boolean} allowBlank (optional) true to allow empty strings (defaults to false)
+         * @param {Boolean} allowBlank (optional) true to allow zero length strings to qualify as non-empty (defaults to false)
          * @return {Mixed} value, if non-empty, else defaultValue
          */
         value : function(v, defaultValue, allowBlank){
