@@ -254,6 +254,12 @@ Ext.extend(T, Ext.Container, {
     initComponent : function(){
         T.superclass.initComponent.call(this);
 
+        /**
+         * @event overflowchange
+         * Fires after the overflow state has changed.
+         * @param {Object} c The Container
+         * @param {Boolean} lastOverflow overflow state
+         */
         this.addEvents('overflowchange');
     },
 

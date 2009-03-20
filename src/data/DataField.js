@@ -124,6 +124,47 @@ Ext.data.Field.prototype = {
      * Depending on the Reader type, this could be an Array ({@link Ext.data.ArrayReader ArrayReader}), an object
      *  ({@link Ext.data.JsonReader JsonReader}), or an XML element ({@link Ext.data.XMLReader XMLReader}).</div></li>
      * </ul></div>
+     * <pre><code>
+// example of convert function
+function fullName(v, rec){
+    return rec.name.last + ', ' + rec.name.first;
+}
+
+var Dude = Ext.data.Record.create([
+    {name: 'fullname', convert: fullName},
+    {name: 'firstname', mapping: 'name.first'},
+    {name: 'lastname',  mapping: 'name.last'},
+]);
+
+// create the data store
+var store = new Ext.data.Store({
+    reader: new Ext.data.JsonReader(
+        {
+            idProperty: 'key',
+            root: 'daRoot',  
+            totalProperty: 'total'
+        },
+        Dude
+    )
+});
+
+var myData = [
+    {
+        key: 1,
+        name: {
+            first: 'Fat',
+            last:  'Albert'
+        }
+    },
+    {
+        key: 2,
+        name: {
+            first: 'Barney',
+            last:  'Rubble'
+        }
+    }
+];
+     * </code></pre>
      */
     /**
      * @cfg {String} dateFormat

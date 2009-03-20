@@ -1,12 +1,13 @@
 /**
  * @class Ext.layout.ContainerLayout
- * <p>Every {@link Ext.Container Container} delegates the rendering of its child {@link Ext.Component Component}s
- * to a layout manager class which must be {@link Ext.Container#layout configured} into the Container.</p>
- * <p>Some layouts also provide sizing and positioning of child Components.</p>
- * <p>The ContainerLayout class is the default layout manager used when no layout is configured into a Container.
- * It provides the basic foundation for all other layout classes in Ext. It simply renders all child Components
- * into the Container, performing no sizing or positioning services.</p>
- * <p>This class is intended to be extended and should generally not need to be created directly via the new keyword.</p>
+ * <p>The ContainerLayout class is the default layout manager delegated by {@link Ext.Container} to
+ * render any child Components when no <tt>{@link Ext.Container#layout layout}</tt> is configured into
+ * a {@link Ext.Container Container}. ContainerLayout provides the basic foundation for all other layout
+ * classes in Ext. It simply renders all child Components into the Container, performing no sizing or
+ * positioning services. To utilize a layout that provides sizing and positioning of child Components,
+ * specify an appropriate <tt>{@link Ext.Container#layout layout}</tt>.</p>
+ * <p>This class is intended to be extended or created via the <tt><b>{@link Ext.Container#layout layout}</b></tt>
+ * configuration property.  See <tt><b>{@link Ext.Container#layout}</b></tt> for additional details.</p>
  */
 Ext.layout.ContainerLayout = function(config){
     Ext.apply(this, config);

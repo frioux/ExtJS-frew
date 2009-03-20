@@ -1,19 +1,24 @@
 /**
  * @class Ext.Container
  * @extends Ext.BoxComponent
- * <p>Base class for any {@link Ext.BoxComponent} that can contain other Components. The most commonly
- * used Container classes are {@link Ext.Panel}, {@link Ext.Window} and {@link Ext.TabPanel}, but you can
- * create a lightweight Container to be encapsulated by an HTML element that is created to your
- * specifications at render time by using the {@link Ext.Component#autoEl autoEl} config option
- * which takes the form of a {@link Ext.DomHelper DomHelper} specification, or tag name. If you do not need
- * the capabilities offered by the above mentioned classes, for instance when creating embedded
- * {@link Ext.layout.ColumnLayout column} layouts inside FormPanels, then this is a useful technique.</p>
- * <p>The code below illustrates both how to explicitly <i>create</i> a Container, and how to implicitly
+ * <p>Base class for any {@link Ext.BoxComponent} that can contain other Components. Containers handle the
+ * basic behavior of containing items, namely adding, inserting and removing items.</p>
+ * 
+ * <p>The most commonly used Container classes are {@link Ext.Panel}, {@link Ext.Window} and {@link Ext.TabPanel}.
+ * If you do not need the capabilities offered by the aforementioned classes you can create a lightweight
+ * Container to be encapsulated by an HTML element to your specifications by using the
+ * <tt><b>{@link Ext.Component#autoEl autoEl}</b></tt> config option. This is a useful technique when creating
+ * embedded {@link Ext.layout.ColumnLayout column} layouts inside {@link Ext.form.FormPanel FormPanels}
+ * for example.</p>
+ *   
+ * <p>The code below illustrates both how to explicitly create a Container, and how to implicitly
  * create one using the <b><tt>'container'</tt></b> xtype:<pre><code>
+// explicitly create a Container
 var embeddedColumns = new Ext.Container({
     autoEl: 'div',  // This is the default
     layout: 'column',
     defaults: {
+        // implicitly create Container by specifying xtype
         xtype: 'container',
         autoEl: 'div', // This is the default.
         layout: 'form',
@@ -37,31 +42,35 @@ var embeddedColumns = new Ext.Container({
         }
     }]
 });</code></pre></p>
- * Containers handle the basic behavior of containing items, namely adding, inserting and removing them.
- * The specific layout logic required to visually render contained items is delegated to any one of the different
- * {@link #layout} classes available.</p>
- * <p>When either specifying child {@link #items} of a Container, or dynamically adding components to a Container,
- * remember to consider how you wish the Container to arrange those child elements, and whether those child elements
- * need to be sized using one of Ext's built-in layout schemes.</p>
- * <p>By default, Containers use the {@link Ext.layout.ContainerLayout ContainerLayout} scheme. This simply renders
- * child components, appending them one after the other inside the Container, and does not apply any sizing at all.
- * This is a common source of confusion when widgets like GridPanels or TreePanels are added to Containers for
- * which no layout has been specified. If a Container is left to use the ContainerLayout scheme, none of its child
- * components will be resized, or changed in any way when the Container is resized.</p>
- * <p>A very common example of this is where a developer will attempt to add a GridPanel to a TabPanel by wrapping
- * the GridPanel <i>inside</i> a wrapping Panel and add that wrapping Panel to the TabPanel. This misses the point that
- * Ext's inheritance means that a GridPanel <b>is</b> a Component which can be added unadorned into a Container. If
- * that wrapping Panel has no layout configuration, then the GridPanel will not be sized as expected.<p>
- * <p>Below is an example of adding a newly created GridPanel to a TabPanel. A TabPanel uses {@link Ext.layout.CardLayout}
- * as its layout manager which means all its child items are sized to fit exactly into its client area. The following
- * code requires prior knowledge of how to create GridPanels. See {@link Ext.grid.GridPanel}, {@link Ext.data.Store}
- * and {@link Ext.data.JsonReader} as well as the grid examples in the Ext installation's <tt>examples/grid</tt>
- * directory.</p><pre><code>
+ * 
+ * <p><u><b>Layout</b></u></p> 
+ * <p>Every Container delegates the rendering of its child Components to a layout manager class which must be
+ * configured into the Container using the <tt><b>{@link #layout}</b></tt> configuration property.</p>
+ * <p>When either specifying child {@link #items} of a Container, or dynamically {@link #add adding} components
+ * to a Container, remember to consider how you wish the Container to arrange those child elements, and whether
+ * those child elements need to be sized using one of Ext's built-in <tt><b>{@link #layout}</b></tt> schemes. By
+ * default, Containers use the {@link Ext.layout.ContainerLayout ContainerLayout} scheme. This simply renders
+ * child components, appending them one after the other inside the Container, and <b>does not apply any sizing</b>
+ * at all.</p>
+ * <p>A common mistake is when a developer neglects to specify a <tt><b>{@link #layout}</b></tt>.  Widgets like
+ * GridPanels or TreePanels are added to Containers for which no <tt><b>{@link #layout}</b></tt> has been specified.
+ * If a Container is left to use the default {@link Ext.layout.ContainerLayout ContainerLayout} scheme, none of its
+ * child components will be resized, or changed in any way when the Container is resized.</p>
+ * <p>Another variation of this problem is when a developer will attempt to add a GridPanel to a TabPanel by wrapping
+ * the GridPanel <i>inside</i> a wrapping Panel (that has no <tt><b>{@link #layout}</b></tt> specified) and add that
+ * wrapping Panel to the TabPanel. A GridPanel <b>is</b> a Component which can be added unadorned into a Container.
+ * If that wrapping Panel has no <tt><b>{@link #layout}</b></tt> configuration, then the GridPanel will not be sized
+ * as expected.<p>
+ * <p>Below is an example of adding a newly created GridPanel to a TabPanel. Note that a TabPanel uses
+ * {@link Ext.layout.CardLayout} as its layout manager which means all its child items are sized to
+ * {@link Ext.layout.FitLayout fit} exactly into its client area. The following code requires prior knowledge of
+ * how to create GridPanels. See {@link Ext.grid.GridPanel}, {@link Ext.data.Store} and {@link Ext.data.JsonReader}
+ * as well as the grid examples in the Ext installation's <tt>examples/grid</tt> directory.</p><pre><code>
 //  Create the GridPanel.
 myGrid = new Ext.grid.GridPanel({
     store: myStore,
     columns: myColumnModel,
-    title: 'Results',
+    title: 'Results', // the title becomes the title of the tab
 });
 
 myTabPanel.add(myGrid);
@@ -70,39 +79,20 @@ myTabPanel.setActiveTab(myGrid);
  * @xtype container
  */
 Ext.Container = Ext.extend(Ext.BoxComponent, {
-    /** @cfg {Boolean} monitorResize
+    /** 
+     * @cfg {Boolean} monitorResize
      * True to automatically monitor window resize events to handle anything that is sensitive to the current size
-     * of the viewport.  This value is typically managed by the chosen {@link #layout} and should not need to be set manually.
+     * of the viewport.  This value is typically managed by the chosen <tt>{@link #layout}</tt> and should not need
+     * to be set manually.
      */
     /**
      * @cfg {String/Object} layout
-     * <tt>layout</tt> may be specified either as a String or as an Object.
-     * <p><u>Specify as a String</u></p>
-     * <p>Example usage:</p>
-<pre><code>
-layout: 'vbox',
-layoutConfig: {
-    padding: '5',
-    align: 'left'
-} 
-</code></pre>
-     * <p>The layout <tt>type</tt> to be used for this container.  If not specified, a default
-     * {@link Ext.layout.ContainerLayout} will be created and used. Specific config values for the chosen
-     * layout type can be specified using {@link #layoutConfig}.</p>
-     * <p>Valid values are:</p><ul class="mdetail-params">
-     * <li>absolute</li>
-     * <li>accordion</li>
-     * <li>anchor</li>
-     * <li>border</li>
-     * <li>card</li>
-     * <li>column</li>
-     * <li>fit</li>
-     * <li>form</li>
-     * <li>hbox</li>
-     * <li>table</li>
-     * <li>vbox</li></ul>
-     * <br/><p><u>Specify as an Object</u></p>
-     * Example usage:</p>
+     * <tt>layout</tt> may be specified either as an Object or as a String:
+     * <div><ul class="mdetail-params">
+     * 
+     * <li><u>Specify as an Object</u></li>
+     * <div><ul class="mdetail-params">
+     * <li>Example usage:</li>
 <pre><code>
 layout: {
     type: 'vbox',
@@ -110,27 +100,55 @@ layout: {
     align: 'left'
 } 
 </code></pre>
-     * <p>The layout <tt>type</tt> to be used for this container along with appropriate
-     * {@link #layoutConfig layout configuration} options for the chosen layout <tt>type</tt> can be
-     * specified as properties of this object literal.
+     * 
+     * <li><tt><b>type</b></tt></li>
+     * <br/><p>The layout type to be used for this container.  If not specified, a default {@link Ext.layout.ContainerLayout}
+     * will be created and used.</p>
+     * <br/><p>Valid layout <tt>type</tt> values are:</p>
+     * <div class="sub-desc"><ul class="mdetail-params">
+     * <li><tt><b>{@link Ext.layout.AbsoluteLayout absolute}</b></tt></li>
+     * <li><tt><b>{@link Ext.layout.Accordion accordion}</b></tt></li>
+     * <li><tt><b>{@link Ext.layout.AnchorLayout anchor}</b></tt></li>
+     * <li><tt><b>{@link Ext.layout.ContainerLayout auto}</b></tt> &nbsp;&nbsp;&nbsp; <b>Default</b></li>
+     * <li><tt><b>{@link Ext.layout.BorderLayout border}</b></tt></li>
+     * <li><tt><b>{@link Ext.layout.CardLayout card}</b></tt></li>
+     * <li><tt><b>{@link Ext.layout.ColumnLayout column}</b></tt></li>
+     * <li><tt><b>{@link Ext.layout.FitLayout fit}</b></tt></li>
+     * <li><tt><b>{@link Ext.layout.FormLayout form}</b></tt></li>
+     * <li><tt><b>{@link Ext.layout.HBox hbox}</b></tt></li>
+     * <li><tt><b>{@link Ext.layout.MenuLayout menu}</b></tt></li>
+     * <li><tt><b>{@link Ext.layout.TableLayout table}</b></tt></li>
+     * <li><tt><b>{@link Ext.layout.ToolbarLayout toolbar}</b></tt></li>
+     * <li><tt><b>{@link Ext.layout.VBox vbox}</b></tt></li>
+     * </ul></div>
+     * 
+     * <li>Layout specific configuration properties</li>
+     * <br/><p>Additional layout specific configuration properties may also be specified. For complete details regarding
+     * the valid config options for each layout type, see the layout class corresponding to the <tt>type</tt> specified.</p>
+     * 
+     * </ul></div>
+     * 
+     * <li><u>Specify as a String</u></li>
+     * <div><ul class="mdetail-params">
+     * <li>Example usage:</li>
+<pre><code>
+layout: 'vbox',
+layoutConfig: {
+    padding: '5',
+    align: 'left'
+} 
+</code></pre>
+     * <li><tt><b>layout</b></tt></li>
+     * <br/><p>The layout <tt>type</tt> to be used for this container (see list of valid layout type values above).</p><br/>
+     * <li><tt><b>{@link #layoutConfig}</b></tt></li>
+     * <br/><p>Additional layout specific configuration properties. For complete details regarding the valid config
+     * options for each layout type, see the layout class corresponding to the <tt>layout</tt> specified.</p>
+     * </ul></div></ul></div>
      */
     /**
      * @cfg {Object} layoutConfig
-     * This is a config object containing properties specific to the chosen layout (to be used in conjunction with
-     * the {@link #layout} config value).  For complete details regarding the valid config options for each layout
-     * type, see the layout class corresponding to the type specified:<ul class="mdetail-params">
-     * <li>{@link Ext.layout.AbsoluteLayout}</li>
-     * <li>{@link Ext.layout.Accordion}</li>
-     * <li>{@link Ext.layout.AnchorLayout}</li>
-     * <li>{@link Ext.layout.BorderLayout}</li>
-     * <li>{@link Ext.layout.CardLayout}</li>
-     * <li>{@link Ext.layout.ColumnLayout}</li>
-     * <li>{@link Ext.layout.FitLayout}</li>
-     * <li>{@link Ext.layout.FormLayout}</li>
-     * <li>{@link Ext.layout.HBox}</li> 
-     * <li>{@link Ext.layout.TableLayout}</li>
-     * <li>{@link Ext.layout.VBox}</li> 
-     * </ul>
+     * This is a config object containing properties specific to the chosen <tt><b>{@link #layout}</b></tt> if
+     * <tt><b>{@link #layout}</b></tt> has been specified as a <i>string</i>.</p>
      */    
     /**
      * @cfg {Boolean/Number} bufferResize
