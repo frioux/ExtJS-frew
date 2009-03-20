@@ -26,6 +26,13 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
      * @cfg {String} triggerClass A CSS class to apply to the trigger
      */
     /**
+     * @cfg {Mixed} triggerConfig<p>A {@link Ext.DomHelper DomHelper} config object specifying the structure of the
+     * trigger element for this Field. (Optional).</p>
+     * <p>Specify this when you need a customized element to act as the trigger button for a TriggerField.</p>
+     * <p>Note that when using this option, it is the developer's responsibility to ensure correct sizing, positioning
+     * and appearance of the trigger.</p>
+     */
+    /**
      * @cfg {String/Object} autoCreate A DomHelper element spec, or true for a default element spec (defaults to
      * {tag: "input", type: "text", size: "16", autocomplete: "off"})
      */
@@ -256,6 +263,14 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
 // to be extended by an implementing class.  For an example of implementing this class, see the custom
 // SearchField implementation here: http://extjs.com/deploy/ext/examples/form/custom.html
 Ext.form.TwinTriggerField = Ext.extend(Ext.form.TriggerField, {
+    /**
+     * @cfg {Mixed} triggerConfig<p>A {@link Ext.DomHelper DomHelper} config object specifying the structure of the
+     * trigger elements for this Field. (Optional).</p>
+     * <p>Specify this when you need a customized element to contain the two trigger elements for this Field. Each
+     * trigger element must be marked by the CSS class <tt>x-form-trigger</tt>.</p>
+     * <p>Note that when using this option, it is the developer's responsibility to ensure correct sizing, positioning
+     * and appearance of the triggers.</p>
+     */
     initComponent : function(){
         Ext.form.TwinTriggerField.superclass.initComponent.call(this);
 
