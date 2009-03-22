@@ -130,7 +130,8 @@ myGrid.on('render', function(grid) {
                 mouseout: this.onTargetOut,
                 mousemove: this.onMouseMove,
                 scope: this
-            })
+            });
+            this.target = t;
         }
         if(this.anchor){
             this.anchorTarget = this.target;
