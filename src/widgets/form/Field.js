@@ -212,8 +212,10 @@ side          Add an error icon to the right of the field with a popup on hover
     },
 
     /**
-     * Returns true if this field has been changed since it was originally loaded and is not disabled.
-     * @return {Boolean} True if this field has been changed since it was originally loaded (and is not disabled), false otherwise.
+     * <p>Returns true if the value of this Field has been changed from its original value, and is not disabled.</p>
+     * <p>Note that if the owning {@link Ext.form.BasicForm form} was configured with {@link Ext.form.BasicForm#trackResetOnLoad}
+     * then the <i>original value</i> is updated when the values are loaded by {@link Ext.form.BasicForm#setValues}.</p>
+     * @return {Boolean} True if this field has been changed from its original value (and is not disabled), false otherwise.
      */
     isDirty : function() {
         if(this.disabled) {

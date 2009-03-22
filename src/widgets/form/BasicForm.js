@@ -198,7 +198,9 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     },
 
     /**
-     * Returns true if any fields in this form have changed since their original load.
+     * <p>Returns true if any fields in this form have changed from their original values.</p>
+     * <p>Note that if this BasicForm was configured with {@link #trackResetOnLoad}
+     * then the Fields' <i>original values</i> are updated when the values are loaded by {@link #setValues}.</p>
      * @return Boolean
      */
     isDirty : function(){
