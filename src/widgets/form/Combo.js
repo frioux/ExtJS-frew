@@ -258,7 +258,7 @@ var combo = new Ext.form.ComboBox({
                 var d = [], opts = s.options;
                 for(var i = 0, len = opts.length;i < len; i++){
                     var o = opts[i];
-                    var value = (Ext.isIE ? o.getAttributeNode('value').specified : o.hasAttribute('value')) ? o.value : o.text;
+                    var value = (o.hasAttribute ? o.hasAttribute('value') : o.getAttribute('value') !== null) ? o.value : o.text;
                     if(o.selected && !Ext.isEmpty(this.value, true)) {
                         this.value = value;
                     }
