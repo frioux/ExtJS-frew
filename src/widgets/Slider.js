@@ -34,7 +34,7 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
     /**
      * @cfg {Number/Boolean} decimalPrecision.
      * <p>The number of decimal places to which to round the Slider's value. Defaults to 0.</p>
-     * <p>To disable rounding, configure as <tt><b>false</b></tt></p>.
+     * <p>To disable rounding, configure as <tt><b>false</b></tt>.</p>
      */
     decimalPrecision: 0,
 	/**

@@ -158,8 +158,8 @@ function(){
 	    /**
 	     * Creates new DOM element(s) without inserting them to the document.
 	     * @param {Object/String} o The DOM object spec (and children) or raw HTML blob
-	     * @return {HTMLElement/Ext.Element} The new uninserted node
-	     */        
+	     * @return {HTMLElement} The new uninserted node
+	     */
         createDom: createDom
 	}
 	return pub;	
