@@ -1,13 +1,14 @@
 /**
  * @class Ext.Panel
  * @extends Ext.Container
- * Panel is a container that has specific functionality and structural components that make it the perfect building
- * block for application-oriented user interfaces. The Panel contains {@link #bbar bottom} and {@link #tbar top} 
- * toolbars, along with separate header, footer and body sections.  It also provides built-in
- * {@link #collapsible expandable and collapsible behavior}, along with a variety of
+ * <p>Panel is a container that has specific functionality and structural components that make it the perfect building
+ * block for application-oriented user interfaces.</p>
+ * <p>A Panel may contain {@link #bbar bottom} and {@link #tbar top} toolbars, along with separate header, footer and
+ * body sections (see {@link #frame} for additional information).</p>
+ * <p>Panel also provides built-in {@link #collapsible expandable and collapsible behavior}, along with a variety of
  * {@link #tools prebuilt tool buttons} that can be wired up to provide other customized behavior.  Panels can be
- * easily dropped into any Container or layout, and the layout and rendering pipeline is
- * {@link Ext.Container#add completely managed by the framework}.
+ * easily dropped into any {@link Ext.Container Container} or layout, and the layout and rendering pipeline is
+ * {@link Ext.Container#add completely managed by the framework}.</p>
  * @constructor
  * @param {Object} config The config object
  * @xtype panel
@@ -68,6 +69,12 @@ new Ext.Panel({
         })
     ]
 });</pre></code>
+     */
+    /**
+     * @cfg {Boolean} closable
+     * Panels themselves do not directly support being closed, but some Panel subclasses do (like
+     * {@link Ext.Window}) or a Panel Class within an {@link Ext.TabPanel}.  Specify <tt>true</tt>
+     * to enable closing in such situations. Defaults to <tt>false</tt>.
      */
     /**
      * @cfg {Object} headerCfg
@@ -150,7 +157,35 @@ new Ext.Panel({
      */
     /**
      * @cfg {Boolean} frame
-     * True to render the panel with custom rounded borders, false to render with plain 1px square borders (defaults to false).
+     * <tt>false</tt> by default to render with plain 1px square borders. <tt>true</tt> to render with
+     * 9 elements, complete with custom rounded corners. 
+     * <p>The template generated for each condition is depicted below:</p><pre><code>
+     * 
+// frame = false
+&lt;div id="developer-specified-id-goes-here" class="x-panel">
+
+    &lt;div class="x-panel-header">&lt;span class="x-panel-header-text">Title: (frame:false)&lt;/span>&lt;/div>
+    
+    &lt;div class="x-panel-bwrap">
+        &lt;div class="x-panel-body">&lt;p>html value goes here&lt;/p>&lt;/div>
+    &lt;/div>
+&lt;/div>
+
+// frame = true (create 9 elements)
+&lt;div id="developer-specified-id-goes-here" class="x-panel">
+    &lt;div class="x-panel-tl">&lt;div class="x-panel-tr">&lt;div class="x-panel-tc">
+        &lt;div class="x-panel-header">&lt;span class="x-panel-header-text">Title: (frame:true)&lt;/span>&lt;/div>
+    &lt;/div>&lt;/div>&lt;/div>
+    
+    &lt;div class="x-panel-bwrap">
+        &lt;div class="x-panel-ml">&lt;div class="x-panel-mr">&lt;div class="x-panel-mc">
+            &lt;div class="x-panel-body">&lt;p>html value goes here&lt;/p>&lt;/div>
+        &lt;/div>&lt;/div>&lt;/div>
+        
+        &lt;div class="x-panel-bl">&lt;div class="x-panel-br">&lt;div class="x-panel-bc"/>
+        &lt;/div>&lt;/div>&lt;/div>
+&lt;/div>
+     * </code></pre>
      */
     /**
      * @cfg {Boolean} border
@@ -610,7 +645,7 @@ new Ext.Panel({
             /**
              * @event close
              * Fires after the Panel is closed.  Note that Panels do not directly support being closed, but some
-             * Panel subclasses do (like {@link Ext.Window}).
+             * Panel subclasses do (like {@link Ext.Window}) or a Panel within a Ext.TabPanel.
              * @param {Ext.Panel} p The Panel that has been closed.
              */
             'close',

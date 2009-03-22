@@ -13,8 +13,7 @@ trigger.applyToMarkup('my-field');
  *
  * However, in general you will most likely want to use TriggerField as the base class for a reusable component.
  * {@link Ext.form.DateField} and {@link Ext.form.ComboBox} are perfect examples of this.
- * @cfg {String} triggerClass An additional CSS class used to style the trigger button.  The trigger will always get the
- * class 'x-form-trigger' by default and triggerClass will be <b>appended</b> if specified.
+ * 
  * @constructor
  * Create a new TriggerField.
  * @param {Object} config Configuration options (valid {@Ext.form.TextField} config options will also be applied
@@ -23,27 +22,34 @@ trigger.applyToMarkup('my-field');
  */
 Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
     /**
-     * @cfg {String} triggerClass A CSS class to apply to the trigger
+     * @cfg {String} triggerClass
+     * An additional CSS class used to style the trigger button.  The trigger will always get the
+     * class <tt>'x-form-trigger'</tt> by default and <tt>triggerClass</tt> will be <b>appended</b> if specified.
      */
     /**
-     * @cfg {Mixed} triggerConfig<p>A {@link Ext.DomHelper DomHelper} config object specifying the structure of the
+     * @cfg {Mixed} triggerConfig
+     * <p>A {@link Ext.DomHelper DomHelper} config object specifying the structure of the
      * trigger element for this Field. (Optional).</p>
      * <p>Specify this when you need a customized element to act as the trigger button for a TriggerField.</p>
      * <p>Note that when using this option, it is the developer's responsibility to ensure correct sizing, positioning
-     * and appearance of the trigger.</p>
+     * and appearance of the trigger.  Defaults to:</p>
+     * <pre><code>{tag: "img", src: Ext.BLANK_IMAGE_URL, cls: "x-form-trigger " + this.triggerClass}</code></pre>
      */
     /**
-     * @cfg {String/Object} autoCreate A DomHelper element spec, or true for a default element spec (defaults to
-     * {tag: "input", type: "text", size: "16", autocomplete: "off"})
+     * @cfg {String/Object} autoCreate <p>A {@link Ext.DomHelper DomHelper} element spec, or true for a default
+     * element spec. Used to create the {@link Ext.Component#getEl Element} which will encapsulate this Component.
+     * See <tt>{@link Ext.Component#autoEl autoEl}</tt> for details.  Defaults to:</p>
+     * <pre><code>{tag: "input", type: "text", size: "16", autocomplete: "off"}</code></pre>
      */
     defaultAutoCreate : {tag: "input", type: "text", size: "16", autocomplete: "off"},
     /**
-     * @cfg {Boolean} hideTrigger True to hide the trigger element and display only the base text field (defaults to false)
+     * @cfg {Boolean} hideTrigger <tt>true</tt> to hide the trigger element and display only the base
+     * text field (defaults to <tt>false</tt>)
      */
     hideTrigger:false,
     /**
-     * @cfg {Boolean} editable False to prevent the user from typing text directly into the field, the field
-     * will only respond to a click on the trigger to set the value. (defaults to true)
+     * @cfg {Boolean} editable <tt>false</tt> to prevent the user from typing text directly into the field,
+     * the field will only respond to a click on the trigger to set the value. (defaults to <tt>true</tt>)
      */
     editable: true,
     /**
@@ -241,8 +247,9 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
     },
 
     /**
-     * The function that should handle the trigger's click event.  This method does nothing by default until overridden
-     * by an implementing function.
+     * The function that should handle the trigger's click event.  This method does nothing by default
+     * until overridden by an implementing function.  See Ext.form.ComboBox and Ext.form.DateField for
+     * sample implementations.
      * @method
      * @param {EventObject} e
      */
@@ -259,17 +266,33 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
      */
 });
 
-// TwinTriggerField is not a public class to be used directly.  It is meant as an abstract base class
-// to be extended by an implementing class.  For an example of implementing this class, see the custom
-// SearchField implementation here: http://extjs.com/deploy/ext/examples/form/custom.html
+/**
+ * @class Ext.form.TwinTriggerField
+ * @extends Ext.form.TriggerField
+ * TwinTriggerField is not a public class to be used directly.  It is meant as an abstract base class
+ * to be extended by an implementing class.  For an example of implementing this class, see the custom
+ * SearchField implementation here: http://extjs.com/deploy/ext/examples/form/custom.html
+ */
 Ext.form.TwinTriggerField = Ext.extend(Ext.form.TriggerField, {
     /**
-     * @cfg {Mixed} triggerConfig<p>A {@link Ext.DomHelper DomHelper} config object specifying the structure of the
-     * trigger elements for this Field. (Optional).</p>
-     * <p>Specify this when you need a customized element to contain the two trigger elements for this Field. Each
-     * trigger element must be marked by the CSS class <tt>x-form-trigger</tt>.</p>
-     * <p>Note that when using this option, it is the developer's responsibility to ensure correct sizing, positioning
-     * and appearance of the triggers.</p>
+     * @cfg {Mixed} triggerConfig
+     * <p>A {@link Ext.DomHelper DomHelper} config object specifying the structure of the trigger elements
+     * for this Field. (Optional).</p>
+     * <p>Specify this when you need a customized element to contain the two trigger elements for this Field.
+     * Each trigger element must be marked by the CSS class <tt>x-form-trigger</tt> (also see
+     * <tt>{@link #trigger1Class}</tt> and <tt>{@link #trigger2Class}</tt>).</p>
+     * <p>Note that when using this option, it is the developer's responsibility to ensure correct sizing,
+     * positioning and appearance of the triggers.</p>
+     */
+    /**
+     * @cfg {String} trigger1Class
+     * An additional CSS class used to style the trigger button.  The trigger will always get the
+     * class <tt>'x-form-trigger'</tt> by default and <tt>triggerClass</tt> will be <b>appended</b> if specified.
+     */
+    /**
+     * @cfg {String} trigger2Class
+     * An additional CSS class used to style the trigger button.  The trigger will always get the
+     * class <tt>'x-form-trigger'</tt> by default and <tt>triggerClass</tt> will be <b>appended</b> if specified.
      */
     initComponent : function(){
         Ext.form.TwinTriggerField.superclass.initComponent.call(this);
@@ -312,7 +335,21 @@ Ext.form.TwinTriggerField = Ext.extend(Ext.form.TriggerField, {
         this.triggers = ts.elements;
     },
 
+    /**
+     * The function that should handle the trigger's click event.  This method does nothing by default
+     * until overridden by an implementing function. See {@link Ext.form.TriggerField#onTriggerClick}
+     * for additional information.  
+     * @method
+     * @param {EventObject} e
+     */
     onTrigger1Click : Ext.emptyFn,
+    /**
+     * The function that should handle the trigger's click event.  This method does nothing by default
+     * until overridden by an implementing function. See {@link Ext.form.TriggerField#onTriggerClick}
+     * for additional information.  
+     * @method
+     * @param {EventObject} e
+     */
     onTrigger2Click : Ext.emptyFn
 });
 Ext.reg('trigger', Ext.form.TriggerField);

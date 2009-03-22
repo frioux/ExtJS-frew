@@ -22,16 +22,25 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
      * rendering into an Ext.Editor, defaults to false).
      */
     /**
-     * @cfg {Boolean/Object} autoCreate A DomHelper element spec, or true for a default element spec (defaults to:
-     * {tag: "input", type: "text", size: "24", autocomplete: "off"})
+     * @cfg {String/Object} autoCreate <p>A {@link Ext.DomHelper DomHelper} element spec, or true for a default
+     * element spec. Used to create the {@link Ext.Component#getEl Element} which will encapsulate this Component.
+     * See <tt>{@link Ext.Component#autoEl autoEl}</tt> for details.  Defaults to:</p>
+     * <pre><code>{tag: "input", type: "text", size: "24", autocomplete: "off"}</code></pre>
      */
     /**
-     * @cfg {Ext.data.Store/Array} store The data source to which this combo is bound (defaults to undefined).  This can be
-     * any {@link Ext.data.Store} subclass, a 1-dimensional array (e.g., ['Foo','Bar']) or a 2-dimensional array (e.g.,
-     * [['f','Foo'],['b','Bar']]).  Arrays will be converted to a {@link Ext.data.ArrayStore} internally.
-     * 1-dimensional arrays will automatically be expanded (each array item will be the combo value and text) and
-     * for multi-dimensional arrays, the value in index 0 of each item will be assumed to be the combo value, while
-     * the value at index 1 is assumed to be the combo text.
+     * @cfg {Ext.data.Store/Array} store The data source to which this combo is bound (defaults to <tt>undefined</tt>).
+     * Acceptable values for this property are:
+     * <div class="mdetail-params"><ul>
+     * <li><b>any {@link Ext.data.Store Store} subclass</b></li>
+     * <li><b>an Array</b> : Arrays will be converted to a {@link Ext.data.ArrayStore} internally.
+     * <div class="mdetail-params"><ul>
+     * <li><b>1-dimensional array</b> : (e.g., <tt>['Foo','Bar']</tt>)<div class="sub-desc">
+     * A 1-dimensional array will automatically be expanded (each array item will be the combo
+     * {@link #valueField value} and {@link #displayField text})</div></li>
+     * <li><b>2-dimensional array</b> : (e.g., <tt>[['f','Foo'],['b','Bar']]</tt>)<div class="sub-desc">
+     * For a multi-dimensional array, the value in index 0 of each item will be assumed to be the combo
+     * {@link #valueField value}, while the value at index 1 is assumed to be the combo {@link #displayField text}.
+     * </div></li></ul></div></li></ul></div>
      */
     /**
      * @cfg {String} title If supplied, a header element is created containing this text and added into the top of
@@ -89,7 +98,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
     shadow:'sides',
     /**
      * @cfg {String} listAlign A valid anchor position value. See {@link Ext.Element#alignTo} for details on supported
-     * anchor positions (defaults to 'tl-bl')
+     * anchor positions (defaults to 'tl-bl?')
      */
     listAlign: 'tl-bl?',
     /**
@@ -388,28 +397,32 @@ var combo = new Ext.form.ComboBox({
 
             if(!this.tpl){
                 /**
-                * @cfg {String/Ext.XTemplate} tpl The template string, or {@link Ext.XTemplate}
-                * instance to use to display each item in the dropdown list. Use
-                * this to create custom UI layouts for items in the list.
-                * <p>
-                * If you wish to preserve the default visual look of list items, add the CSS
-                * class name <pre>x-combo-list-item</pre> to the template's container element.
-                * <p>
-                * <b>The template must contain one or more substitution parameters using field
-                * names from the Combo's</b> {@link #store Store}. An example of a custom template
-                * would be adding an <pre>ext:qtip</pre> attribute which might display other fields
-                * from the Store.
-                * <p>
-                * The dropdown list is displayed in a DataView. See {@link Ext.DataView} for details.
+                * @cfg {String/Ext.XTemplate} tpl <p>The template string, or {@link Ext.XTemplate} instance to
+                * use to display each item in the dropdown list. The dropdown list is displayed in a
+                * DataView. See {@link #view}.</p>
+                * <p>The default template string is:</p><pre><code>
+                  '&lt;tpl for=".">&lt;div class="x-combo-list-item">{' + this.displayField + '}&lt;/div>&lt;/tpl>'
+                * </code></pre>
+                * <p>Override the default value to create custom UI layouts for items in the list.
+                * For example:</p><pre><code>
+                  '&lt;tpl for=".">&lt;div ext:qtip="{state}. {nick}" class="x-combo-list-item">{state}&lt;/div>&lt;/tpl>'
+                * </code></pre>
+                * <p>The template <b>must</b> contain one or more substitution parameters using field
+                * names from the Combo's</b> {@link #store Store}. In the example above an
+                * <pre>ext:qtip</pre> attribute is added to display other fields from the Store.</p>
+                * <p>To preserve the default visual look of list items, add the CSS class name
+                * <pre>x-combo-list-item</pre> to the template's container element.</p>
+                * <p>Also see {@link #itemSelector} for additional details.</p>
                 */
                 this.tpl = '<tpl for="."><div class="'+cls+'-item">{' + this.displayField + '}</div></tpl>';
                 /**
                  * @cfg {String} itemSelector
-                 * <b>This setting is required if a custom XTemplate has been specified in {@link #tpl}
-                 * which assigns a class other than <pre>'x-combo-list-item'</pre> to dropdown list items</b>.
-                 * A simple CSS selector (e.g. div.some-class or span:first-child) that will be
-                 * used to determine what nodes the DataView which handles the dropdown display will
-                 * be working with.
+                 * <p>A simple CSS selector (e.g. div.some-class or span:first-child) that will be
+                 * used to determine what nodes the {@link #view Ext.DataView} which handles the dropdown
+                 * display will be working with.</p>
+                 * <p><b>Note</b>: this setting is <b>required</b> if a custom XTemplate has been
+                 * specified in {@link #tpl} which assigns a class other than <pre>'x-combo-list-item'</pre>
+                 * to dropdown list items</b>
                  */
             }
 
@@ -447,27 +460,38 @@ var combo = new Ext.form.ComboBox({
 
     /**
      * <p>Returns the element used to house this ComboBox's pop-up list. Defaults to the document body.</p>
-     * A custom implementation my be provided as a configuration option if the floating list needs to be rendered
+     * A custom implementation may be provided as a configuration option if the floating list needs to be rendered
      * to a different Element. An example might be rendering the list inside a Menu so that clicking
      * the list does not hide the Menu:<pre><code>
+var store = new Ext.data.ArrayStore({
+    autoDestroy: true,
+    fields: ['initials', 'fullname'],
+    data : [
+        ['FF', 'Fred Flintstone'],
+        ['BR', 'Barney Rubble']
+    ]
+});
+
+var combo = new Ext.form.ComboBox({
+    store: store,
+    displayField: 'fullname',
+    emptyText: 'Select a name...',
+    forceSelection: true,
+    getListParent: function() {
+        return this.el.up('.x-menu');
+    },
+    iconCls: 'no-icon', //use iconCls if placing within menu to shift to right side of menu
+    mode: 'local',
+    selectOnFocus: true,
+    triggerAction: 'all',
+    typeAhead: true,
+    width: 135
+});
+
 var menu = new Ext.menu.Menu({
     id: 'mainMenu',
     items: [
-        new Ext.menu.Adapter(new Ext.form.ComboBox({
-            store: store,
-            displayField:'state',
-            typeAhead: true,
-            mode: 'local',
-            triggerAction: 'all',
-            emptyText:'Select a state...',
-            selectOnFocus:true,
-            width:135,
-            getListParent: function() {
-                return this.el.up('.x-menu');
-            }
-        }), {
-            hideOnClick: false
-        })
+        combo // A Field in a Menu
     ]
 });
 </code></pre>

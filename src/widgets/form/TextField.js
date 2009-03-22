@@ -60,7 +60,7 @@ Ext.form.TextField = Ext.extend(Ext.form.Field,  {
      * @cfg {Number} maxLength Maximum input field length allowed by validation (defaults to Number.MAX_VALUE).
      * This behavior is intended to provide instant feedback to the user by improving usability to allow pasting
      * and editing or overtyping and back tracking. To restrict the maximum number of characters that can be
-     * entered into the field you can use <tt><b>{@link Ext.form.Field#autoCreate autoCreate}</b></tt> to add
+     * entered into the field use <tt><b>{@link Ext.form.Field#autoCreate autoCreate}</b></tt> to add
      * any attributes you want to a field, for example:<pre><code>
 var myField = new Ext.form.NumberField({
     id: 'mobile',

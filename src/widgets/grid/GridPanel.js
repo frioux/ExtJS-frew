@@ -39,7 +39,7 @@
 });</code></pre>
  * <b>Notes:</b><ul>
  * <li>Although this class inherits many configuration options from base classes, some of them
- * (such as autoScroll, layout, items, etc) are not used by this class, and will have no effect.</li>
+ * (such as autoScroll, autoWidth, layout, items, etc) are not used by this class, and will have no effect.</li>
  * <li>A grid <b>requires</b> a width in which to scroll its columns, and a height in which to scroll its rows.
  * The dimensions can either be set through the {@link #height} and {@link #width} configuration options or 
  * automatically set by using the grid in a {@link Ext.Container Container} who's {@link Ext.Container#layout layout}

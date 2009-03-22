@@ -10,11 +10,13 @@
  */
 Ext.form.TextArea = Ext.extend(Ext.form.TextField,  {
     /**
-     * @cfg {Number} growMin The minimum height to allow when grow = true (defaults to 60)
+     * @cfg {Number} growMin The minimum height to allow when <tt>{@link Ext.form.TextField#grow grow}=true</tt>
+     * (defaults to <tt>60</tt>)
      */
     growMin : 60,
     /**
-     * @cfg {Number} growMax The maximum height to allow when grow = true (defaults to 1000)
+     * @cfg {Number} growMax The maximum height to allow when <tt>{@link Ext.form.TextField#grow grow}=true</tt>
+     * (defaults to <tt>1000</tt>)
      */
     growMax: 1000,
     growAppend : '&#160;\n&#160;',
@@ -23,13 +25,15 @@ Ext.form.TextArea = Ext.extend(Ext.form.TextField,  {
     enterIsSpecial : false,
 
     /**
-     * @cfg {Boolean} preventScrollbars True to prevent scrollbars from appearing regardless of how much text is
-     * in the field (equivalent to setting overflow: hidden, defaults to false)
+     * @cfg {Boolean} preventScrollbars <tt>true</tt> to prevent scrollbars from appearing regardless of how much text is
+     * in the field (equivalent to setting overflow: hidden, defaults to <tt>false</tt>)
      */
     preventScrollbars: false,
     /**
-     * @cfg {String/Object} autoCreate A DomHelper element spec, or true for a default element spec (defaults to
-     * {tag: "textarea", style: "width:100px;height:60px;", autocomplete: "off"})
+     * @cfg {String/Object} autoCreate <p>A {@link Ext.DomHelper DomHelper} element spec, or true for a default
+     * element spec. Used to create the {@link Ext.Component#getEl Element} which will encapsulate this Component.
+     * See <tt>{@link Ext.Component#autoEl autoEl}</tt> for details.  Defaults to:</p>
+     * <pre><code>{tag: "textarea", style: "width:100px;height:60px;", autocomplete: "off"}</code></pre>
      */
 
     // private

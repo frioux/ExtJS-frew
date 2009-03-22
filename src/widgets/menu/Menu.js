@@ -82,8 +82,13 @@ Ext.Container.LAYOUTS['menu'] = Ext.layout.MenuLayout;
  * <p>A menu object.  This is the container to which you may add menu items.  Menu can also serve as a base class
  * when you want a specialized menu based off of another component (like {@link Ext.menu.DateMenu} for example).</p>
  * <p>Menus may contain either {@link Ext.menu.Item menu items}, or general {@link Ext.Component Component}s.</p>
+ * <p>To make a contained general {@link Ext.Component Component} line up with other {@link Ext.menu.Item menu items}
+ * specify <tt>iconCls: 'no-icon'</tt>.  This reserves a space for an icon, and indents the Component in line
+ * with the other menu items.  See {@link Ext.form.ComboBox}.{@link Ext.form.ComboBox#getListParent getListParent}
+ * for an example.</p>
  * <p>By default, Menus are absolutely positioned, floating Components. By configuring a Menu with
  * <b><tt>{@link #floating}:false</tt></b>, a Menu may be used as child of a Container.</p>
+ * 
  * @xtype menu
  */
 Ext.menu.Menu = Ext.extend(Ext.Container, {
@@ -96,7 +101,8 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
      */
     /**
      * @cfg {Mixed} items
-     * An array of items to be added to this menu.  See {@link #add} for a list of valid item types.
+     * An array of items to be added to this menu. Menus may contain either {@link Ext.menu.Item menu items},
+     * or general {@link Ext.Component Component}s.
      */
     /**
      * @cfg {Number} minWidth The minimum width of the menu in pixels (defaults to 120)
@@ -146,7 +152,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
     /**
      * @cfg {Boolean} floating
      * May be specified as false to create a Menu which may be used as a child item of another Container
-     * instead of a free-floating Layer. (defaults to true).
+     * instead of a free-floating {@link Ext.Layer Layer}. (defaults to true).
      */
     floating: true,         // Render as a Layer by default
 
