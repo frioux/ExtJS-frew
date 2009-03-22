@@ -715,12 +715,12 @@ viewConfig: {
             }
             this.hmenu = new Ext.menu.Menu({id: g.id + "-hctx"});
             this.hmenu.add(
-                {id:"asc", text: this.sortAscText, cls: "xg-hmenu-sort-asc"},
-                {id:"desc", text: this.sortDescText, cls: "xg-hmenu-sort-desc"}
+                {itemId:"asc", text: this.sortAscText, cls: "xg-hmenu-sort-asc"},
+                {itemId:"desc", text: this.sortDescText, cls: "xg-hmenu-sort-desc"}
             );
             if(g.enableColumnHide !== false){
                 this.hmenu.add('-', {
-                    id:"columns",
+                    itemId:"columns",
                     hideOnClick: false,
                     text: this.columnsText,
                     menu: this.colMenu,
@@ -1513,7 +1513,7 @@ viewConfig: {
     handleHdMenuClick : function(item){
         var index = this.hdCtxIndex;
         var cm = this.cm, ds = this.ds;
-        switch(item.id){
+        switch(item.itemId){
             case "asc":
                 ds.sort(cm.getDataIndex(index), "ASC");
                 break;
@@ -1521,7 +1521,7 @@ viewConfig: {
                 ds.sort(cm.getDataIndex(index), "DESC");
                 break;
             default:
-                index = cm.getIndexById(item.id.substr(4));
+                index = cm.getIndexById(item.itemId.substr(4));
                 if(index != -1){
                     if(item.checked && cm.getColumnsBy(this.isHideableColumn, this).length <= 1){
                         this.onDenyColumnHide();
@@ -1545,7 +1545,7 @@ viewConfig: {
         for(var i = 0; i < colCount; i++){
             if(cm.config[i].fixed !== true && cm.config[i].hideable !== false){
                 this.colMenu.add(new Ext.menu.CheckItem({
-                    id: "col-"+cm.getColumnId(i),
+                    itemId: "col-"+cm.getColumnId(i),
                     text: cm.getColumnHeader(i),
                     checked: !cm.isHidden(i),
                     hideOnClick:false,

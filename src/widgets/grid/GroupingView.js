@@ -192,7 +192,7 @@ var grid = new Ext.grid.GridPanel({
 
         if(this.enableGroupingMenu && this.hmenu){
             this.hmenu.add('-',{
-                id:'groupBy',
+                itemId:'groupBy',
                 text: this.groupByText,
                 handler: this.onGroupByClick,
                 scope: this,
@@ -200,7 +200,7 @@ var grid = new Ext.grid.GridPanel({
             });
             if(this.enableNoGroups){
                 this.hmenu.add({
-                    id:'showGroups',
+                    itemId:'showGroups',
                     text: this.showGroupsText,
                     checked: true,
                     checkHandler: this.onShowGroupsClick,
