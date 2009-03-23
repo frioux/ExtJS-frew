@@ -708,17 +708,15 @@ viewConfig: {
         }
 
         if(g.enableHdMenu !== false){
-            if(g.enableColumnHide !== false){
-                this.colMenu = new Ext.menu.Menu({id:g.id + "-hcols-menu"});
-                this.colMenu.on("beforeshow", this.beforeColMenuShow, this);
-                this.colMenu.on("itemclick", this.handleHdMenuClick, this);
-            }
             this.hmenu = new Ext.menu.Menu({id: g.id + "-hctx"});
             this.hmenu.add(
                 {itemId:"asc", text: this.sortAscText, cls: "xg-hmenu-sort-asc"},
                 {itemId:"desc", text: this.sortDescText, cls: "xg-hmenu-sort-desc"}
             );
             if(g.enableColumnHide !== false){
+                this.colMenu = new Ext.menu.Menu({id:g.id + "-hcols-menu"});
+                this.colMenu.on("beforeshow", this.beforeColMenuShow, this);
+                this.colMenu.on("itemclick", this.handleHdMenuClick, this);
                 this.hmenu.add('-', {
                     itemId:"columns",
                     hideOnClick: false,
@@ -728,8 +726,6 @@ viewConfig: {
                 });
             }
             this.hmenu.on("itemclick", this.handleHdMenuClick, this);
-
-            //g.on("headercontextmenu", this.handleHdCtx, this);
         }
 
         if(g.trackMouseOver){
