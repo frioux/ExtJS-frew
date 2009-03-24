@@ -60,14 +60,6 @@ Ext.apply(Ext, function(){
         },
 
         /**
-        * Returns the current document body as an {@link Ext.Element}.
-        * @return Ext.Element The document body
-        */
-        getBody : function(){
-            return Ext.get(document.body || document.documentElement);
-        },
-
-        /**
          * Returns true if the passed object is a JavaScript date object, otherwise false.
          * @param {Object} object The object to test
          * @return {Boolean}
