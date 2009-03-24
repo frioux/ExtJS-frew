@@ -223,5 +223,13 @@ map.addBinding({
 		    this.el.removeListener(this.eventName, this.handleKeyDown, this);
 		    this.enabled = false;
 		}
-	}
+	},
+    
+    /**
+     * Convenience function for setting disabled/enabled by boolean.
+     * @param {Boolean} disabled
+     */
+    setDisabled : function(disabled){
+        this[disabled ? "disable" : "enable"]();
+    }
 };

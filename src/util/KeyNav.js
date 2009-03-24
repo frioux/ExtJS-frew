@@ -138,5 +138,13 @@ Ext.KeyNav.prototype = {
             }
 		    this.disabled = true;
 		}
-	}
+	},
+    
+    /**
+     * Convenience function for setting disabled/enabled by boolean.
+     * @param {Boolean} disabled
+     */
+    setDisabled : function(disabled){
+        this[disabled ? "disable" : "enable"]();
+    }
 };
