@@ -272,7 +272,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     * <b><tt>{@link Ext.data.Record#id id}</tt></b> property.
     */
     /**
-    * @cfg {Object} baseParams<p>An object containing properties which are to be sent as parameters
+    * @cfg {Object} baseParams <p>An object containing properties which are to be sent as parameters
     * for <i>every</i> HTTP request.</p>
     * <p>Parameters are encoded as standard HTTP parameters using {@link Ext#urlEncode}.</p>
     */
