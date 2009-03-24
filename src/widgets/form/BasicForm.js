@@ -491,11 +491,10 @@ myFormPanel.getForm().submit({
     /**
      * <p>Returns the fields in this form as an object with key/value pairs as they would be submitted using a standard form submit.
      * If multiple fields exist with the same name they are returned as an array.</p>
-     *
      * <p><b>Note:</b> The values are collected from all enabled HTML input elements within the form, <u>not</u> from
      * the Ext Field objects. This means that all returned values are Strings (or Arrays of Strings) and that the
      * value can potentially be the emptyText of a field.</p>
-     * @param {Boolean} asString (optional) false to return the values as an object (defaults to returning as a string)
+     * @param {Boolean} asString (optional) Pass true to return the values as a string. (defaults to false, returning an Object)
      * @return {String/Object}
      */
     getValues : function(asString){
