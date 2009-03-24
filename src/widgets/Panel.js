@@ -158,7 +158,7 @@ new Ext.Panel({
     /**
      * @cfg {Boolean} frame
      * <tt>false</tt> by default to render with plain 1px square borders. <tt>true</tt> to render with
-     * 9 elements, complete with custom rounded corners. 
+     * 9 elements, complete with custom rounded corners (also see {@link Ext.Element#boxWrap}). 
      * <p>The template generated for each condition is depicted below:</p><pre><code>
      * 
 // frame = false

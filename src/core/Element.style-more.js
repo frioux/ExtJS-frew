@@ -70,20 +70,31 @@ Ext.Element.addMethods(function(){
 		},
 		
 	   /**
-		* Wraps the specified element with a special markup/CSS block that renders by default as a gray container with a
-		* gradient background, rounded corners and a 4-way shadow.  Example usage:
+		* <p>Wraps the specified element with a special 9 element markup/CSS block that renders by default as
+		* a gray container with a gradient background, rounded corners and a 4-way shadow.</p>
+		* <p>This special markup is used throughout Ext when box wrapping elements ({@link Ext.Button},
+		* {@link Ext.Panel} when <tt>{@link Ext.Panel#frame frame=true}</tt>, {@link Ext.Window}).  The markup
+		* is of this form:</p>
 		* <pre><code>
-		// Basic box wrap
-		Ext.get("foo").boxWrap();
-		
-		// You can also add a custom class and use CSS inheritance rules to customize the box look.
-		// 'x-box-blue' is a built-in alternative -- look at the related CSS definitions as an example
-		// for how to create a custom box wrap style.
-		Ext.get("foo").boxWrap().addClass("x-box-blue");
-		</pre></code>
-		* @param {String} class (optional) A base CSS class to apply to the containing wrapper element (defaults to 'x-box').
-		* Note that there are a number of CSS rules that are dependent on this name to make the overall effect work,
-		* so if you supply an alternate base class, make sure you also supply all of the necessary rules.
+Ext.Element.boxMarkup =
+    &#39;&lt;div class="{0}-tl">&lt;div class="{0}-tr">&lt;div class="{0}-tc">&lt;/div>&lt;/div>&lt;/div>
+     &lt;div class="{0}-ml">&lt;div class="{0}-mr">&lt;div class="{0}-mc">&lt;/div>&lt;/div>&lt;/div>
+     &lt;div class="{0}-bl">&lt;div class="{0}-br">&lt;div class="{0}-bc">&lt;/div>&lt;/div>&lt;/div>&#39;;
+		* </pre></code>
+		* <p>Example usage:</p>
+		* <pre><code>
+// Basic box wrap
+Ext.get("foo").boxWrap();
+
+// You can also add a custom class and use CSS inheritance rules to customize the box look.
+// 'x-box-blue' is a built-in alternative -- look at the related CSS definitions as an example
+// for how to create a custom box wrap style.
+Ext.get("foo").boxWrap().addClass("x-box-blue");
+		* </pre></code>
+		* @param {String} class (optional) A base CSS class to apply to the containing wrapper element
+		* (defaults to <tt>'x-box'</tt>). Note that there are a number of CSS rules that are dependent on
+		* this name to make the overall effect work, so if you supply an alternate base class, make sure you
+		* also supply all of the necessary rules.
 		* @return {Ext.Element} this
 		*/
 	    boxWrap : function(cls){
