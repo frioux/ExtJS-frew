@@ -393,8 +393,22 @@ Ext.apply(Ext, function(){
 
         /**
          * Partitions the set into two sets: a true set and a false set.
-         * Example: Ext.partition([true, false, true, true, false]) => [[true, true, true], [false, false]]
-         * Example2: Ext.partition(Ext.query("p"),function(val){ return val.className == "class1" }) => true are those paragraph elements with a className of "class1", false set are those that do not have that className.
+         * Example: 
+         * Example2: 
+         * <pre><code>
+// Example 1:
+Ext.partition([true, false, true, true, false]); // [[true, true, true], [false, false]]
+
+// Example 2:
+Ext.partition(
+    Ext.query("p"),
+    function(val){
+        return val.className == "class1"
+    }
+);
+// true are those paragraph elements with a className of "class1",
+// false set are those that do not have that className.
+         * </code></pre>
          * @param {Array|NodeList} The array to partition
          * @param {Function} truth (optional) a function to determine truth.  If this is omitted the element itself must be able to be
          *                   evaluated for its truthfulness.
@@ -410,7 +424,11 @@ Ext.apply(Ext, function(){
 
         /**
          * Invokes a method on each item in the set.
-         * Example: Ext.invoke(Ext.query("p"), "getAttribute", "id") => [el1.getAttribute("id"),el2.getAttribute("id"),..., elN.getAttribute("id")]
+         * <pre><code>
+// Example:
+Ext.invoke(Ext.query("p"), "getAttribute", "id");
+// [el1.getAttribute("id"), el2.getAttribute("id"), ..., elN.getAttribute("id")]
+         * </code></pre>
          * @param {Array|NodeList(not in IE)} The array of items to invoke the method on.
          * @param {String} The method name to invode
          * @param {Anything} Arguments to send into the method invocation.
@@ -431,7 +449,10 @@ Ext.apply(Ext, function(){
 
         /**
          * Plucks the value of a property from each item in the set
-         * Example: Ext.pluck(Ext.query("p"), "className") => [el1.className,el2.className,..., elN.className]
+         * <pre><code>
+// Example:
+Ext.pluck(Ext.query("p"), "className"); // [el1.className, el2.className, ..., elN.className]
+         * </code></pre>
          * @param {Array|NodeList} The array of items to pluck the value from.
          * @returns {Array} The value from each item in the set.
          */
@@ -444,12 +465,23 @@ Ext.apply(Ext, function(){
         },
 
         /**
-         * Zips N sets together.
-         * Example: Ext.zip([1,2,3],[4,5,6]) => [[1,4],[2,5],[3,6]]
-         * Example2: Ext.zip(["+","-","+"],[12,10,22],[43,15,96],function(a,b,c){ return "$"+a+""+b+"."+c}) => ["$+12.43", "$-10.15", "$+22.96"]
+         * <p>Zips N sets together.</p>
+         * <pre><code>
+// Example 1:
+Ext.zip([1,2,3],[4,5,6]); // [[1,4],[2,5],[3,6]]
+// Example 2:
+Ext.zip(
+    [ "+", "-", "+"],
+    [  12,  10,  22],
+    [  43,  15,  96],
+    function(a, b, c){
+        return "$" + a + "" + b + "." + c
+    }
+); // ["$+12.43", "$-10.15", "$+22.96"]
+         * </code></pre>
          * @param {Arrays|NodeLists} The array to calculate the sum value of.
          * @param {Function} zipper (optional) this will drive how the items are zipped together.
-         * @returns {Array} The zipped set..
+         * @returns {Array} The zipped set.
          */
         zip : function(){
             var parts = Ext.partition(arguments, function( val ){ return typeof val != "function" }),
@@ -490,7 +522,7 @@ Ext.apply(Ext, function(){
         // inpired by a similar function in mootools library
         /**
          * Returns the type of object that is passed in. If the object passed in is null or undefined it
-         * return false otherwise it returns one of the following values:<ul>
+         * return false otherwise it returns one of the following values:<div class="mdetail-params"><ul>
          * <li><b>string</b>: If the object passed is a string</li>
          * <li><b>number</b>: If the object passed is a number</li>
          * <li><b>boolean</b>: If the object passed is a boolean value</li>
@@ -503,6 +535,7 @@ Ext.apply(Ext, function(){
          * <li><b>nodelist</b>: If the object passed is a DOM NodeList</li>
          * <li><b>textnode</b>: If the object passed is a DOM text node and contains something other than whitespace</li>
          * <li><b>whitespace</b>: If the object passed is a DOM text node and contains only whitespace</li>
+         * </ul></div>
          * @param {Mixed} object
          * @return {String}
          */
