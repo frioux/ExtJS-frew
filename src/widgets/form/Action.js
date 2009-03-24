@@ -65,9 +65,10 @@ Ext.form.Action.prototype = {
  * {@link Ext.form.BasicForm}'s method, or if that is not specified, the underlying DOM form's method.
  */
 /**
- * @cfg {Mixed} params Extra parameter values to pass. These are added to the Form's
+ * @cfg {Mixed} params<p>Extra parameter values to pass. These are added to the Form's
  * {@link Ext.form.BasicForm#baseParams} and passed to the specified URL along with the Form's
- * input fields.
+ * input fields.</p>
+ * <p>Parameters are encoded as standard HTTP parameters using {@link Ext#urlEncode}.</p>
  */
 /**
  * @cfg {Number} timeout The number of seconds to wait for a server response before

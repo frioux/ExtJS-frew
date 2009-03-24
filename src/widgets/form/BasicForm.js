@@ -118,7 +118,8 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      */
     /**
      * @cfg {Object} baseParams
-     * Parameters to pass with all requests. e.g. baseParams: {id: '123', foo: 'bar'}.
+     * <p>Parameters to pass with all requests. e.g. baseParams: {id: '123', foo: 'bar'}.</p>
+     * <p>Parameters are encoded as standard HTTP parameters using {@link Ext#urlEncode}.</p>
      */
     /**
      * @cfg {Number} timeout Timeout for form actions in seconds (default is 30 seconds).
@@ -229,7 +230,8 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      * <li><b>method</b> : String<p style="margin-left:1em">The form method to use (defaults
      * to the form's method, or POST if not defined)</p></li>
      * <li><b>params</b> : String/Object<p style="margin-left:1em">The params to pass
-     * (defaults to the form's baseParams, or none if not defined)</p></li>
+     * (defaults to the form's baseParams, or none if not defined)</p>
+     * <p>Parameters are encoded as standard HTTP parameters using {@link Ext#urlEncode}.</p></li>
      * <li><b>headers</b> : Object<p style="margin-left:1em">Request headers to set for the action
      * (defaults to the form's default headers)</p></li>
      * <li><b>success</b> : Function<p style="margin-left:1em">The callback that will

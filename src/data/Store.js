@@ -272,8 +272,9 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     * <b><tt>{@link Ext.data.Record#id id}</tt></b> property.
     */
     /**
-    * @cfg {Object} baseParams An object containing properties which are to be sent as parameters
-    * for <i>every</i> HTTP request
+    * @cfg {Object} baseParams<p>An object containing properties which are to be sent as parameters
+    * for <i>every</i> HTTP request.</p>
+    * <p>Parameters are encoded as standard HTTP parameters using {@link Ext#urlEncode}.</p>
     */
     /**
     * @cfg {Object} sortInfo A config object to specify the sort order in the request of a Store's
@@ -479,7 +480,8 @@ sortInfo: {
      * <tt>callback</tt> function, or {@link Ext.util.Observable#listeners a "load" event handler}.</p>
      * @param {Object} options An object containing properties which control loading options:<ul>
      * <li><b><tt>params</tt></b> :Object<p class="sub-desc">An object containing properties to pass as HTTP parameters to a
-     * remote data source. <b>Note</b>: <tt>{@link #baseParams}</tt> will supersede specified <tt>parameters</tt>.</p></li>
+     * remote data source. <b>Note</b>: <tt>{@link #baseParams}</tt> will supersede specified <tt>parameters</tt>.</p>
+     * <p>Parameters are encoded as standard HTTP parameters using {@link Ext#urlEncode}.</p></li>
      * <li><b><tt>callback</tt></b> : Function<p class="sub-desc">A function to be called after the Records
      * have been loaded. The <tt>callback</tt> is passed the following arguments:<ul>
      * <li><tt>r</tt> : Ext.data.Record[]</li>
