@@ -569,9 +569,7 @@ myTabPanel.setActiveTab(myNewGrid);
         if(this.monitorResize){
             Ext.EventManager.removeResizeListener(this.doLayout, this);
         }
-        if (this.layout && this.layout.destroy) {
-            this.layout.destroy();
-        }
+        Ext.destroy(this.layout);
         Ext.Container.superclass.beforeDestroy.call(this);
     },
 
