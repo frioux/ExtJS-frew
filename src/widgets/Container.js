@@ -533,7 +533,8 @@ myTabPanel.setActiveTab(myNewGrid);
      * @return {Ext.Container} this
      */
     doLayout : function(shallow){
-        if(this.rendered && this.layout){
+        var rendered = this.rendered;
+        if(rendered && this.layout){
             this.layout.layout();
         }
         if(shallow !== false && this.items){
@@ -545,8 +546,14 @@ myTabPanel.setActiveTab(myNewGrid);
                 }
             }
         }
+        if(rendered){
+            this.onLayout(shallow)
+        }
         return this;
     },
+    
+    //private
+    onLayout: Ext.emptyFn,
 
     /**
      * Returns the layout currently in use by the container.  If the container does not currently have a layout

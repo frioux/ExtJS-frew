@@ -1062,8 +1062,7 @@ new Ext.Panel({
         }
     },
 
-    doLayout : function(shallow){
-        Ext.Panel.superclass.doLayout.call(this, shallow);
+    onLayout : function(){
         if(this.topToolbar){
             this.topToolbar.doLayout();
         }
@@ -1073,7 +1072,6 @@ new Ext.Panel({
         if(this.fbar){
             this.fbar.doLayout();
         }
-        return this;
     },
 
     // private
