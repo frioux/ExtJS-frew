@@ -53,7 +53,7 @@ Ext.layout.AbsoluteLayout = Ext.extend(Ext.layout.AnchorLayout, {
      * An optional extra CSS class that will be added to the container (defaults to '').
      * This can be useful for adding customized styles to the container or any of its children using standard CSS rules.
      */
-    extraCls: '',
+    extraCls: 'x-abs-layout-item',
 
     onLayout : function(ct, target){
         target.position();
