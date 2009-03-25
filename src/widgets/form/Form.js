@@ -1,22 +1,27 @@
 /**
  * @class Ext.form.FormPanel
  * @extends Ext.Panel
- * Standard form container.
- * <p><b>Although they are not listed, this class also accepts all the config options required to configure its internal {@link Ext.form.BasicForm}</b></p>
- * <p>The BasicForm is configured using the {@link #initialConfig} of the FormPanel - that is the configuration object passed to the constructor.
- * This means that if you subclass FormPanel, and you wish to configure the BasicForm, you will need to insert any configuration options
- * for the BasicForm into the <tt><b>initialConfig</b></tt> property. Applying BasicForm configuration settings to <b><tt>this</tt></b> will
- * not affect the BasicForm's configuration.</p>
- * <p>By default, FormPanel uses an {@link Ext.layout.FormLayout} layout manager, which styles and renders fields and labels correctly.
- * When nesting additional Containers within a FormPanel, you should ensure that any descendant Containers which
- * host input Fields use the {@link Ext.layout.FormLayout} layout manager.</p>
- * <p>By default, Ext Forms are submitted through Ajax, using {@link Ext.form.Action}.
- * To enable normal browser submission of the Ext Form contained in this FormPanel,
- * use the {@link Ext.form.BasicForm#standardSubmit standardSubmit) option:</p><pre><code>
-var myForm = new Ext.form.FormPanel({
-    standardSubmit: true,
-    items: myFieldset
-});</code></pre>
+ * <p>Standard form container.</p>
+ * 
+ * <p><b><u>Layout</u></b></p>
+ * <p>By default, FormPanel is configured with <tt>layout:'form'</tt> to use an {@link Ext.layout.FormLayout}
+ * layout manager, which styles and renders fields and labels correctly. When nesting additional Containers
+ * within a FormPanel, you should ensure that any descendant Containers which host input Fields use the
+ * {@link Ext.layout.FormLayout} layout manager.</p>
+ * 
+ * <p><b><u>BasicForm</u></b></p>
+ * <p>Although <b>not listed</b> as configuration options of FormPanel, the FormPanel class also accepts all
+ * of the config options required to configure its internal {@link Ext.form.BasicForm} which provides
+ * functionality for {@link Ext.form.BasicForm#doAction loading, validating and submitting} the form.</p>
+ * <p><b>Note</b>: If subclassing FormPanel, any configuration options for the BasicForm must be applied to
+ * the <tt><b>initialConfig</b></tt> property of the FormPanel. Applying {@link Ext.form.BasicForm BasicForm}
+ * configuration settings to <b><tt>this</tt></b> will <b>not</b> affect the BasicForm's configuration.</p>
+ * 
+ * <p><b><u>Form Submission</u></b></p>
+ * <p>By default, Ext Forms are submitted through Ajax, using {@link Ext.form.Action}. To enable normal browser
+ * submission of the {@link Ext.form.BasicForm BasicForm} contained in this FormPanel, see the
+ * <tt><b>{@link Ext.form.BasicForm#standardSubmit standardSubmit}</b></tt> option.</p>
+ * 
  * @constructor
  * @param {Object} config Configuration options
  * @xtype form
@@ -40,12 +45,13 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
      * the form's valid/invalid state.</p>
      */
     /**
-     * @cfg {String} buttonAlign Valid values are "left," "center" and "right" (defaults to "center")
+     * @cfg {String} buttonAlign Valid values are <tt>'left'/tt>, <tt>'center'</tt>, and <tt>'right'</tt> (defaults
+     * to <tt>'center'</tt>).
      */
     buttonAlign:'center',
 
     /**
-     * @cfg {Number} minButtonWidth Minimum width of all buttons in pixels (defaults to 75)
+     * @cfg {Number} minButtonWidth Minimum width of all buttons in pixels (defaults to <tt>75</tt>).
      */
     minButtonWidth:75,
 
@@ -57,11 +63,11 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
     labelAlign:'left',
 
     /**
-     * @cfg {Boolean} monitorValid If true, the form monitors its valid state <b>client-side</b> and
+     * @cfg {Boolean} monitorValid If <tt>true</tt>, the form monitors its valid state <b>client-side</b> and
      * regularly fires the {@link #clientvalidation} event passing that state.<br>
      * <p>When monitoring valid state, the FormPanel enables/disables any of its configured
      * {@link #button}s which have been configured with <tt>formBind: true</tt> depending
-     * on whether the form is valid or not.</p>
+     * on whether the {@link Ext.form.BasicForm#isValid form is valid} or not. Defaults to <tt>false</tt></p>
      */
     monitorValid : false,
 
@@ -70,6 +76,10 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
      */
     monitorPoll : 200,
 
+    /**
+     * @cfg {String} layout Defaults to <tt>'form'</tt>.  Normally this configuration property should not be altered. 
+     * For additional details see {@link Ext.layout.FormLayout} and {@link Ext.Container#layout Ext.Container.layout}.
+     */
     layout:'form',
 
     // private

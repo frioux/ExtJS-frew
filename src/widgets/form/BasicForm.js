@@ -138,9 +138,48 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     /**
      * @cfg {Boolean} standardSubmit If set to true, standard HTML form submits are used instead of XHR (Ajax) style
      * form submissions. (defaults to false)<br>
-     * <p><b>Note:</b> When using standardSubmit, any the options to {@link #submit} are
-     * ignored because Ext's Ajax infrastracture is bypassed. To pass extra parameters, you will need to create
-     * hidden fields within the form.</p>
+     * <p><b>Note:</b> When using standardSubmit, the options to {@link #submit} are ignored because Ext's
+     * Ajax infrastracture is bypassed. To pass extra parameters (baseParams and params), you will need to
+     * create hidden fields within the form.</p>
+     * <p>The url config option is also bypassed, so set the action as well:</p>
+     * <pre><code>
+PANEL.getForm().getEl().dom.action = 'URL'
+     * </code></pre>
+     * An example encapsulating the above:
+     * <pre><code>
+new Ext.FormPanel({
+    standardSubmit: true,
+    baseParams: {
+        foo: 'bar'
+    },
+    url: "myProcess.php",
+    items: [{
+        xtype: "textfield",
+        name: "userName"
+    }],
+    buttons: [{
+        text: "Save",
+        handler: function(){
+            var O = this.ownerCt;
+            if (O.getForm().isValid()) {
+                if (O.url) 
+                    O.getForm().getEl().dom.action = O.url;
+                if (O.baseParams) {
+                    for (i in O.baseParams) {
+                        O.add({
+                            xtype: "hidden",
+                            name: i,
+                            value: O.baseParams[i]
+                        })
+                    }
+                    O.doLayout();
+                }
+                O.getForm().submit();
+            }
+        }
+    }]
+});
+     * </code></pre>
      */
     /**
      * By default wait messages are displayed with Ext.MessageBox.wait. You can target a specific

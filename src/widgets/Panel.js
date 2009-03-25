@@ -488,6 +488,8 @@ new Ext.Panel({
     /**
     * @cfg {String} baseCls
     * The base CSS class to apply to this panel's element (defaults to <tt>'x-panel'</tt>).
+    * <p>Another option available by default is to specify <tt>'x-plain'</tt> which strips all styling
+    * except for required attributes for Ext layouts to function (e.g. overflow:hidden).</p>
     */
     baseCls : 'x-panel',
     /**
