@@ -104,13 +104,20 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 	        return el;
 	    },
 	    
-	    /**
-	     * Set the size of the element. If animation is true, both width an height will be animated concurrently.
-	     * @param {Number} width The new width
-	     * @param {Number} height The new height
-	     * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
-	     * @return {Ext.Element} this
-	     */
+        /**
+         * Set the size of this Element. If animation is true, both width an height will be animated concurrently.
+         * @param {Mixed} width The new width. This may be one of:<div class="mdetail-params"><ul>
+         * <li>A Number specifying the new width in this Element's {@link #defaultUnit}s (by default, pixels).</li>
+         * <li>A String used to set the CSS width style. Animation may <b>not</b> be used.
+         * <li>A size object in the format <code>{width: widthValue, height: heightValue}</code>.</li>
+         * </ul></div>
+         * @param {Mixed} height The new height. This may be one of:<div class="mdetail-params"><ul>
+         * <li>A Number specifying the new height in this Element's {@link #defaultUnit}s (by default, pixels).</li>
+         * <li>A String used to set the CSS height style. Animation may <b>not</b> be used.</li>
+         * </ul></div>
+         * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
+         * @return {Ext.Element} this
+         */
 	    setSize : function(width, height, animate){
 			var me = this;
 			if(typeof width == "object"){ // in case of object from getSize()
