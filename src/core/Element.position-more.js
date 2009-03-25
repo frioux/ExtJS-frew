@@ -121,8 +121,14 @@ Ext.Element.addMethods({
      * Sets the element's position and size in one shot. If animation is true then width, height, x and y will be animated concurrently.
      * @param {Number} x X value for new position (coordinates are page-based)
      * @param {Number} y Y value for new position (coordinates are page-based)
-     * @param {Number} width The new width
-     * @param {Number} height The new height
+     * @param {Mixed} width The new width. This may be one of:<div class="mdetail-params"><ul>
+     * <li>A Number specifying the new width in this Element's {@link #defaultUnit}s (by default, pixels)</li>
+     * <li>A String used to set the CSS width style. Animation may <b>not</b> be used.
+     * </ul></div>
+     * @param {Mixed} height The new height. This may be one of:<div class="mdetail-params"><ul>
+     * <li>A Number specifying the new height in this Element's {@link #defaultUnit}s (by default, pixels)</li>
+     * <li>A String used to set the CSS height style. Animation may <b>not</b> be used.</li>
+     * </ul></div>
      * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
      * @return {Ext.Element} this
      */
