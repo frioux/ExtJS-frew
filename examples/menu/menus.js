@@ -21,6 +21,7 @@ Ext.onReady(function(){
 
     var combo = new Ext.form.ComboBox({
         store: store,
+        displayField: 'state',
         typeAhead: true,
         mode: 'local',
         triggerAction: 'all',
@@ -43,15 +44,7 @@ Ext.onReady(function(){
             {
                 text: 'I like Ext',
                 checked: true,       // when checked has a boolean value, it is assumed to be a CheckItem
-                checkHandler: onItemCheck,
-                listeners: {
-                    aactivate: function() {
-                        console.log("activated");
-                    },
-                    adeactivate: function() {
-                        console.log("deactivated");
-                    }
-                }
+                checkHandler: onItemCheck
             }, '-', {
                 text: 'Radio Options',
                 menu: {        // <-- submenu by nested config object
@@ -185,6 +178,7 @@ Ext.onReady(function(){
     // add a combobox to the toolbar
     var combo = new Ext.form.ComboBox({
         store: store,
+        displayField: 'state',
         typeAhead: true,
         mode: 'local',
         triggerAction: 'all',
@@ -195,17 +189,6 @@ Ext.onReady(function(){
     tb.addField(combo);
 
     tb.doLayout();
-
-    new Ext.Container({
-        renderTo: document.body,
-        items: new Ext.menu.Item({
-            text: 'Menu Item Not in a Menu',
-            iconCls: 'calendar',
-            handler: function() {
-                Ext.example.msg("Menu Click", "Clicked the Menu Item that is not in a Menu");
-            }
-        })
-    });
 
     // functions to display feedback
     function onButtonClick(btn){
