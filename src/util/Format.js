@@ -232,7 +232,7 @@ Ext.util.Format = function(){
         round : function(value, precision) {
             var result = Number(value);
             if (typeof precision == 'number') {
-                precision = Math.pow(10, d);
+                precision = Math.pow(10, precision);
                 result = Math.round(value * precision) / precision;
             }
             return result;
