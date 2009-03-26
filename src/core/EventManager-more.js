@@ -141,8 +141,9 @@ Ext.apply(Ext.EventManager, function(){
          * @param {String} eventName The type of event
          * @param {Function} fn The handler function to remove
          */
-        removeListener : function(element, eventName, fn, scope){            
-	        var id = Ext.id(el = Ext.getDom(element)),
+        removeListener : function(element, eventName, fn, scope){
+                var el = Ext.getDom(element),
+                        id = Ext.id(el),
 	        	wrap;        
 	        
 	        Ext.each((Ext.EventManager.elHash[id] || {})[eventName], function (v,i,a) {
