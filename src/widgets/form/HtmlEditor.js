@@ -261,11 +261,13 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                         focus: Ext.emptyFn,
                         value:'000000',
                         plain:true,
-                        selectHandler: function(cp, color){
-                            this.execCmd('forecolor', Ext.isSafari || Ext.isIE ? '#'+color : color);
-                            this.deferFocus();
+                        listeners: {
+                            scope: this,
+                            select: function(cp, color){
+                                this.execCmd('forecolor', Ext.isSafari || Ext.isIE ? '#'+color : color);
+                                this.deferFocus();
+                            }
                         },
-                        scope: this,
                         clickEvent:'mousedown'
                     })
                 }, {
@@ -279,18 +281,20 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                         value:'FFFFFF',
                         plain:true,
                         allowReselect: true,
-                        selectHandler: function(cp, color){
-                            if(Ext.isGecko){
-                                this.execCmd('useCSS', false);
-                                this.execCmd('hilitecolor', color);
-                                this.execCmd('useCSS', true);
-                                this.deferFocus();
-                            }else{
-                                this.execCmd(Ext.isOpera ? 'hilitecolor' : 'backcolor', Ext.isSafari || Ext.isIE ? '#'+color : color);
-                                this.deferFocus();
+                        listeners: {
+                            scope: this,
+                            select: function(cp, color){
+                                if(Ext.isGecko){
+                                    this.execCmd('useCSS', false);
+                                    this.execCmd('hilitecolor', color);
+                                    this.execCmd('useCSS', true);
+                                    this.deferFocus();
+                                }else{
+                                    this.execCmd(Ext.isOpera ? 'hilitecolor' : 'backcolor', Ext.isSafari || Ext.isIE ? '#'+color : color);
+                                    this.deferFocus();
+                                }
                             }
                         },
-                        scope:this,
                         clickEvent:'mousedown'
                     })
                 }
