@@ -118,7 +118,7 @@ new Ext.Panel({
      * To access the top toolbar after render, use {@link #getTopToolbar}.</p>
      * <p><b>Note:</b> Although a Toolbar may contain Field components, these will <b>not<b> be updated by a load
      * of an ancestor FormPanel. A Panel's toolbars are not part of the standard Container->Component hierarchy, and
-     * so are not scanned to collect form items. Hoverver, the values <b>will</b> be submitted because form
+     * so are not scanned to collect form items. However, the values <b>will</b> be submitted because form
      * submission parameters are collected from the DOM tree.</p>
      */
     /**
@@ -128,7 +128,7 @@ new Ext.Panel({
      * To access the bottom toolbar after render, use {@link #getBottomToolbar}.</p>
      * <p><b>Note:</b> Although a Toolbar may contain Field components, these will <b>not<b> be updated by a load
      * of an ancestor FormPanel. A Panel's toolbars are not part of the standard Container->Component hierarchy, and
-     * so are not scanned to collect form items. Hoverver, the values <b>will</b> be submitted because form
+     * so are not scanned to collect form items. However, the values <b>will</b> be submitted because form
      * submission parameters are collected from the DOM tree.</p>
      */
     /**
