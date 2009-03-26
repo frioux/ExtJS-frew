@@ -251,7 +251,9 @@ var grid = new Ext.grid.EditorGridPanel({
 };
 Ext.extend(Ext.data.Store, Ext.util.Observable, {
     /**
-    * @cfg {String} storeId If passed, the id to use to register with the <b>{@link Ext.StoreMgr StoreMgr}</b>
+    * @cfg {String} storeId If passed, the id to use to register with the <b>{@link Ext.StoreMgr StoreMgr}</b>.
+    * <p><b>Note</b>: if a (deprecated) <tt>{@link #id}</tt> is specified it will supersede the <tt>storeId</tt>
+    * assignment.</p>
     */
     /**
     * @cfg {String} url If a <tt>{@link #proxy}</tt> is not specified the <tt>url</tt> will be used to
