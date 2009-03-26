@@ -974,4 +974,15 @@
   <file name="spinner\SpinnerPlugin.js" path="spinner" />
   <file name="spinner\index.html" path="spinner" />
   <file name="spinner\spinner.css" path="spinner" />
+  <file name="menu\preview.png" path="menu" />
+  <file name="slider\SliderTip.js" path="slider" />
+  <file name="form\xml-errors.xml" path="form" />
+  <file name="form\xml-form.xml" path="form" />
+  <file name="layout-browser\tree-data.json" path="layout-browser" />
+  <file name="simple-widgets\images\house.jpg" path="simple-widgets\images" />
+  <file name="tabs\ajax1.htm" path="tabs" />
+  <file name="tabs\ajax2.htm" path="tabs" />
+  <file name="tree\check-nodes.json" path="tree" />
+  <file name="tree\column-data.json" path="tree" />
+  <file name="tree\xml-tree-data.xml" path="tree" />
 </project>
