@@ -9,7 +9,7 @@ Ext.apply(Ext.Template.prototype, {
      */
     applyTemplate : function(values){
 		var me = this,
-			useF = me.disableFormats !== true
+			useF = me.disableFormats !== true,
         	fm = Ext.util.Format, 
         	tpl = me;	    
 	    
