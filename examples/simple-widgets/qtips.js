@@ -34,7 +34,7 @@ Ext.onReady(function(){
         target: 'leftCallout',
         anchor: 'left',
         html: null,
-        autoWidth: true,
+        width: 415,
         autoHide: false,
         closable: true,
         contentEl: 'content-tip', // load content from the page
