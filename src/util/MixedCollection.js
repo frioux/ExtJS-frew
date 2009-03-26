@@ -528,13 +528,6 @@ mc.add(otherEl);
                 return i;
             }
         }
-        if(typeof start == 'number' && start > 0){
-            for(var i = 0; i < start; i++){
-                if(fn.call(scope||this, it[i], k[i])){
-                    return i;
-                }
-            }
-        }
         return -1;
     },
 
