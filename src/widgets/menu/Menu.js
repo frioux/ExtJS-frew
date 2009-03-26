@@ -49,7 +49,7 @@
             icon: c.icon || Ext.BLANK_IMAGE_URL,
             iconCls: 'x-menu-item-icon ' + (c.iconCls || ''),
             itemId: 'x-menu-el-' + c.id,
-            itemCls: 'x-menu-list-item' + (this.extraCls || '')
+            itemCls: 'x-menu-list-item ' + (this.extraCls || '')
         };
     },
 
