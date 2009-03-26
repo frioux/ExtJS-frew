@@ -644,14 +644,14 @@ Ext.applyIf(String, {
      * @static
      */
     leftPad : function (val, size, ch) {
-        var result = new String(val);
+        var result = String(val);
         if(!ch) {
             ch = " ";
         }
         while (result.length < size) {
             result = ch + result;
         }
-        return result.toString();
+        return result;
     }
 });
 
