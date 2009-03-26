@@ -105,7 +105,7 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 	    },
 	    
         /**
-         * Set the size of this Element. If animation is true, both width an height will be animated concurrently.
+         * Set the size of this Element. If animation is true, both width and height will be animated concurrently.
          * @param {Mixed} width The new width. This may be one of:<div class="mdetail-params"><ul>
          * <li>A Number specifying the new width in this Element's {@link #defaultUnit}s (by default, pixels).</li>
          * <li>A String used to set the CSS width style. Animation may <b>not</b> be used.
