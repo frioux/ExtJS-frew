@@ -45,6 +45,6 @@ Ext.StoreMgr = Ext.apply(new Ext.util.MixedCollection(), {
 
     // getKey implementation for MixedCollection
     getKey : function(o){
-         return o.storeId || o.id;
+         return o.storeId;
     }
 });

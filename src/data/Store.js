@@ -233,7 +233,11 @@ var grid = new Ext.grid.EditorGridPanel({
 
     Ext.data.Store.superclass.constructor.call(this);
 
-    if(this.storeId || this.id){
+    if(this.id){
+        this.storeId = this.id;
+        delete this.id;
+    }
+    if(this.storeId){
         Ext.StoreMgr.register(this);
     }
     if(this.inlineData){
@@ -327,7 +331,7 @@ sortInfo: {
      * Destroys the store.
      */
     destroy : function(){
-        if(this.id){
+        if(this.storeId){
             Ext.StoreMgr.unregister(this);
         }
         this.data = null;
