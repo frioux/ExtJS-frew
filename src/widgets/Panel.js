@@ -678,14 +678,14 @@ new Ext.Panel({
         // shortcuts
         if(this.tbar){
             this.elements += ',tbar';
-            if(typeof this.tbar == 'object'){
+            if(Ext.isObject(this.tbar)){
                 this.topToolbar = this.tbar;
             }
             delete this.tbar;
         }
         if(this.bbar){
             this.elements += ',bbar';
-            if(typeof this.bbar == 'object'){
+            if(Ext.isObject(this.bbar)){
                 this.bottomToolbar = this.bbar;
             }
             delete this.bbar;
@@ -725,10 +725,6 @@ new Ext.Panel({
         }
         if(this.fbar){
             this.elements += ',footer';
-            // if default button align and using fbar, align left by default
-            if(this.buttonAlign == 'right' && this.initialConfig.buttonAlign === undefined){
-                this.buttonAlign = 'left';
-            }
         }
         if(this.autoLoad){
             this.on('render', this.doAutoLoad, this, {delay:10});
@@ -968,7 +964,7 @@ new Ext.Panel({
     makeFloating : function(cfg){
         this.floating = true;
         this.el = new Ext.Layer(
-            typeof cfg == 'object' ? cfg : {
+            Ext.isObject(cfg) ? cfg : {
                 shadow: this.shadow !== undefined ? this.shadow : 'sides',
                 shadowOffset: this.shadowOffset,
                 constrain:false,
@@ -1051,7 +1047,7 @@ new Ext.Panel({
                     t.hide();
                 }
                 if(tc.qtip){
-                    if(typeof tc.qtip == 'object'){
+                    if(Ext.isObject(tc.qtip)){
                         Ext.QuickTips.register(Ext.apply({
                               target: t.id
                         }, tc.qtip));
@@ -1115,7 +1111,7 @@ new Ext.Panel({
         }
         this.setAutoScroll();
         if(this.html){
-            this.body.update(typeof this.html == 'object' ?
+            this.body.update(Ext.isObject(this.html) ?
                              Ext.DomHelper.markup(this.html) :
                              this.html);
             delete this.html;
@@ -1327,8 +1323,24 @@ new Ext.Panel({
 	                        this.bottomToolbar.setSize(w);
 	                    }
 	                }
-					if(this.fbar && this.buttonAlign != 'center'){
-	                    this.fbar.setSize(w - this.fbar.container.getFrameWidth('lr'));
+					if(this.fbar){
+                        var fWidth = 1, f = this.fbar;
+                        if(this.buttonAlign == 'left'){
+	                       fWidth = w - f.container.getFrameWidth('lr');
+                        }else if(Ext.isIE && !Ext.isIE8){
+                            //nasty hackery to get the toolbar to size automatically in IE7 strict mode.
+                            var el = f.getEl();
+                            if(Ext.isIE7 && Ext.isStrict){
+                                (function(){
+                                    f.setWidth(el.child('.x-toolbar-ct').getWidth());
+                                }).defer(1)    
+                            }else{
+                                fWidth = el.getWidth();  
+                            }
+                        }else{
+                            fWidth = 'auto';
+                        }
+                        f.setWidth(fWidth);
 	                }
                     this.body.setWidth(w);
                 }else if(w == 'auto'){
@@ -1575,7 +1587,7 @@ panel.load({
         if(this.renderer){
             u.setRenderer(this.renderer);
         }
-        u.update(typeof this.autoLoad == 'object' ? this.autoLoad : {url: this.autoLoad});
+        u.update(Ext.isObject(this.autoLoad) ? this.autoLoad : {url: this.autoLoad});
     },
     
     /**
