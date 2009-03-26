@@ -60,11 +60,6 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
     // private
     monitorResize:true,
     
-    /**
-     * @cfg {String} extraCls
-     * An optional extra CSS class that will be added to the container (defaults to 'x-column').  This can be useful for
-     * adding customized styles to the container or any of its children using standard CSS rules.
-     */
     extraCls: 'x-column',
 
     scrollOffset : 0,

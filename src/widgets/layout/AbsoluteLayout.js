@@ -48,11 +48,7 @@ var form = new Ext.form.FormPanel({
 </code></pre>
  */
 Ext.layout.AbsoluteLayout = Ext.extend(Ext.layout.AnchorLayout, {
-    /**
-     * @cfg {String} extraCls
-     * An optional extra CSS class that will be added to the container (defaults to '').
-     * This can be useful for adding customized styles to the container or any of its children using standard CSS rules.
-     */
+
     extraCls: 'x-abs-layout-item',
 
     onLayout : function(ct, target){

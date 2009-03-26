@@ -16,8 +16,21 @@ Ext.layout.ContainerLayout = function(config){
 Ext.layout.ContainerLayout.prototype = {
     /**
      * @cfg {String} extraCls
-     * An optional extra CSS class that will be added to the container (defaults to '').  This can be useful for
-     * adding customized styles to the container or any of its children using standard CSS rules.
+     * <p>An optional extra CSS class that will be added to the container.
+     * This can be useful for adding customized styles to the container or any of its children
+     * using standard CSS rules.</p>
+     * <p><b>Note</b>: <tt>extraCls</tt> defaults to <tt>''</tt> except for the following classes
+     * which assign a value by default:
+     * <div class="mdetail-params"><ul>
+     * <li>{@link Ext.layout.AbsoluteLayout Absolute Layout} : <tt>'x-abs-layout-item'</tt></li>
+     * <li>{@link Ext.layout.Box Box Layout} : <tt>'x-box-item'</tt></li>
+     * <li>{@link Ext.layout.ColumnLayout Column Layout} : <tt>'x-column'</tt></li>
+     * </ul></div>
+     * To configure the above Classes with an extra CSS class append to the default.  For example,
+     * for ColumnLayout:<pre><code>
+     * extraCls: 'x-column custom-class'
+     * </code></pre>
+     * </p>
      */
     /**
      * @cfg {Boolean} renderHidden
@@ -25,9 +38,11 @@ Ext.layout.ContainerLayout.prototype = {
      */
 
     /**
-     * A reference to the {@link Ext.Component} that is active.  For example,
-     * if(myPanel.layout.activeItem.id == 'item-1') { ... }.  activeItem only applies to layout styles that can
-     * display items one at a time (like {@link Ext.layout.Accordion}, {@link Ext.layout.CardLayout}
+     * A reference to the {@link Ext.Component} that is active.  For example, <pre><code>
+     * if(myPanel.layout.activeItem.id == 'item-1') { ... }
+     * </code></pre>
+     * <tt>activeItem</tt> only applies to layout styles that can display items one at a time
+     * (like {@link Ext.layout.Accordion}, {@link Ext.layout.CardLayout}
      * and {@link Ext.layout.FitLayout}).  Read-only.  Related to {@link Ext.Container#activeItem}.
      * @type {Ext.Component}
      * @property activeItem
