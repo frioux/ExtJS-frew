@@ -485,18 +485,19 @@ sortInfo: {
      * loaded. To perform any post-processing where information from the load call is required, use the
      * <tt>callback</tt> function, or {@link Ext.util.Observable#listeners a "load" event handler}.</p>
      * @param {Object} options An object containing properties which control loading options:<ul>
-     * <li><b><tt>params</tt></b> :Object<p class="sub-desc">An object containing properties to pass as HTTP parameters to a
-     * remote data source. <b>Note</b>: <tt>{@link #baseParams}</tt> will supersede specified <tt>parameters</tt>.</p>
-     * <p>Parameters are encoded as standard HTTP parameters using {@link Ext#urlEncode}.</p></li>
-     * <li><b><tt>callback</tt></b> : Function<p class="sub-desc">A function to be called after the Records
+     * <li><b><tt>params</tt></b> :Object<div class="sub-desc"><p>An object containing properties to pass as HTTP
+     * parameters to a remote data source. <b>Note</b>: <tt>{@link #baseParams}</tt> will supersede specified
+     * <tt>parameters</tt>.</p>
+     * <p>Parameters are encoded as standard HTTP parameters using {@link Ext#urlEncode}.</p></div></li>
+     * <li><b><tt>callback</tt></b> : Function<div class="sub-desc"><p>A function to be called after the Records
      * have been loaded. The <tt>callback</tt> is passed the following arguments:<ul>
      * <li><tt>r</tt> : Ext.data.Record[]</li>
      * <li><tt>options</tt>: Options object from the load call</li>
-     * <li><tt>success</tt>: Boolean success indicator</li></ul></p></li>
-     * <li><b><tt>scope</tt></b> : Object<p class="sub-desc">Scope with which to call the callback (defaults
-     * to the Store object)</p></li>
-     * <li><b><tt>add</tt></b> : Boolean<p class="sub-desc">Indicator to append loaded records rather than replace
-     * the current cache.  <b>Note</b>: see note for <tt>{@link #loadData}</tt></p></li>
+     * <li><tt>success</tt>: Boolean success indicator</li></ul></p></div></li>
+     * <li><b><tt>scope</tt></b> : Object<div class="sub-desc"><p>Scope with which to call the callback (defaults
+     * to the Store object)</p></div></li>
+     * <li><b><tt>add</tt></b> : Boolean<div class="sub-desc"><p>Indicator to append loaded records rather than
+     * replace the current cache.  <b>Note</b>: see note for <tt>{@link #loadData}</tt></p></div></li>
      * </ul>
      * @return {Boolean} If the <i>developer</i> provided <tt>{@link #beforeload}</tt> event handler returns
      * <tt>false</tt>, the load call will abort and will return <tt>false</tt>; otherwise will return <tt>true</tt>.
@@ -575,7 +576,8 @@ sortInfo: {
      * @param {Object} data The data block from which to read the Records.  The format of the data expected
      * is dependent on the type of {@link Ext.data.Reader Reader} that is configured and should correspond to
      * that {@link Ext.data.Reader Reader}'s <tt>{@link Ext.data.Reader#readRecords}</tt> parameter.
-     * @param {Boolean} append (Optional) True to append the new Records rather than replace the existing cache.
+     * @param {Boolean} append (Optional) <tt>true</tt> to append the new Records rather the default to replace
+     * the existing cache.
      * <b>Note</b>: that Records in a Store are keyed by their {@link Ext.data.Record#id id}, so added Records
      * with ids which are already present in the Store will <i>replace</i> existing Records. Records with new,
      * unique ids will be added.
@@ -648,7 +650,7 @@ sortInfo: {
     /**
      * Sets the default sort column and order to be used by the next {@link #load} operation.
      * @param {String} fieldName The name of the field to sort by.
-     * @param {String} dir (optional) The sort order, "ASC" or "DESC" (case-sensitive, defaults to "ASC")
+     * @param {String} dir (optional) The sort order, "ASC" or "DESC" (case-sensitive, defaults to <tt>"ASC"</tt>)
      */
     setDefaultSort : function(field, dir){
         dir = dir ? dir.toUpperCase() : "ASC";
@@ -661,7 +663,7 @@ sortInfo: {
      * If remote sorting is used, the sort is performed on the server, and the cache is reloaded. If local
      * sorting is used, the cache is sorted internally. See also {@link #remoteSort} and {@link #paramNames}.
      * @param {String} fieldName The name of the field to sort by.
-     * @param {String} dir (optional) The sort order, "ASC" or "DESC" (case-sensitive, defaults to "ASC")
+     * @param {String} dir (optional) The sort order, "ASC" or "DESC" (case-sensitive, defaults to <tt>"ASC"</tt>)
      */
     sort : function(fieldName, dir){
         var f = this.fields.get(fieldName);
@@ -731,8 +733,8 @@ sortInfo: {
      * Sums the value of <tt>property</tt> for each {@link Ext.data.Record record} between <tt>start</tt> 
      * and <tt>end</tt> and returns the result.
      * @param {String} property A field in each record
-     * @param {Number} start The record index to start at (defaults to <tt>0</tt>)
-     * @param {Number} end The last record index to include (defaults to length - 1)
+     * @param {Number} start (optional) The record index to start at (defaults to <tt>0</tt>)
+     * @param {Number} end (optional) The last record index to include (defaults to length - 1)
      * @return {Number} The sum
      */
     sum : function(property, start, end){
