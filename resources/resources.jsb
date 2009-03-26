@@ -583,6 +583,7 @@
   <file name="images\default\qtip\bg.gif" path="images\default\qtip" />
   <file name="images\default\qtip\close.gif" path="images\default\qtip" />
   <file name="images\default\qtip\tip-sprite.gif" path="images\default\qtip" />
+  <file name="images\default\qtip\tip-anchor-sprite.gif" path="images\default\qtip" />
   <file name="images\default\shared\blue-loading.gif" path="images\default\shared" />
   <file name="images\default\shared\calendar.gif" path="images\default\shared" />
   <file name="images\default\shared\glass-bg.gif" path="images\default\shared" />
