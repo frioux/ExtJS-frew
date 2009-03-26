@@ -6,7 +6,7 @@ function(){
 	var pub,
 		afterbegin = "afterbegin",
     	afterend = "afterend",
-    	beforebegin = "beforebegin"
+    	beforebegin = "beforebegin",
     	beforeend = "beforeend";
 	
 	// private
