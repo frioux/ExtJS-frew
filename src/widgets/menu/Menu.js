@@ -453,7 +453,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
             var ct = Ext.get(this.el.dom.parentNode);
             max = Ext.fly(this.el.dom.parentNode).getViewSize().height - y - (this.scrollerHeight * 3);
         }
-        if (full > max){
+        if (full > max && max > 0){
             this.activeMax = max;
             this.ul.setHeight(max);
             this.createScrollers();
