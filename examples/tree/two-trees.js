@@ -12,6 +12,7 @@ var TreeTest = function(){
                 loader: new Tree.TreeLoader({dataUrl:'get-nodes.php'}),
                 enableDD:true,
                 containerScroll: true,
+                border: false,
                 dropConfig: {appendOnly:true}
             });
             
@@ -44,6 +45,7 @@ var TreeTest = function(){
                     baseParams: {lib:'yui'} // custom http params
                 }),
                 containerScroll: true,
+                border: false,
                 enableDD:true,
                 dropConfig: {appendOnly:true}
             });

@@ -9,7 +9,7 @@ Ext.onReady(function(){
         animate:true,
         enableDD:true,
         containerScroll: true,
-
+        border: false,
         // auto create TreeLoader
         dataUrl: 'get-nodes.php',
 

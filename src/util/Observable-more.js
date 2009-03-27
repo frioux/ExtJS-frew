@@ -1,30 +1,7 @@
 /**
  * @class Ext.util.Observable
  */
-Ext.applyIf(Ext.util.Observable.prototype, function(){
-    function createBuffered(h, o, scope){
-        var task = new EXTUTIL.DelayedTask();
-        return function(){
-            task.delay(o.buffer, h, scope, Ext.toArray(arguments));
-        };
-    }
-    
-    function createSingle(h, e, fn, scope){
-        return function(){
-            e.removeListener(fn, scope);
-            return h.apply(scope, arguments);
-        };
-    }
-    
-    function createDelayed(h, o, scope){
-        return function(){
-            var args = Ext.toArray(arguments);
-            setTimeout(function(){
-                h.apply(scope, args);
-            }, o.delay || 10);
-        };
-    }
-    
+Ext.apply(Ext.util.Observable.prototype, function(){    
     // this is considered experimental (along with beforeMethod, afterMethod, removeMethodListener?)
     // allows for easier interceptor and sequences, including cancelling and overwriting the return value of the call
     // private
@@ -83,30 +60,6 @@ Ext.applyIf(Ext.util.Observable.prototype, function(){
     }
     
     return {
-        createListener: function(fn, scope, o){
-            o = o ||
-            {};
-            scope = scope || this.obj;
-            var l = {
-                fn: fn,
-                scope: scope,
-                options: o
-            }, h = fn;
-            if (o.target) {
-                h = createTargeted(h, o, scope);
-            }
-            if (o.delay) {
-                h = createDelayed(h, o, scope);
-            }
-            if (o.single) {
-                h = createSingle(h, this, fn, scope);
-            }
-            if (o.buffer) {
-                h = createBuffered(h, o, scope);
-            }
-            l.fireFn = h;
-            return l;
-        },
         // these are considered experimental
         // allows for easier interceptor and sequences, including cancelling and overwriting the return value of the call
         // adds an "interceptor" called before the original method

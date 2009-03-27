@@ -20,7 +20,8 @@
  </code></pre>
  */
 Ext.CompositeElement = function(els, root){
-	Ext.CompositeElement.superclass.constructor.call(this, els);
+    this.elements = [];
+    this.add(els, root);
 };
 
 Ext.extend(Ext.CompositeElement, Ext.CompositeElementLite, {
@@ -29,31 +30,6 @@ Ext.extend(Ext.CompositeElement, Ext.CompositeElementLite, {
         	Ext.Element.prototype[fn].apply(e, args);
         });
         return this;
-    },
-
-    /**
-     * Selects elements based on the passed CSS selector to enable working on them as 1.
-     * @param {String/Array} selector The CSS selector or an array of elements
-     * @param {Boolean} unique (optional) true to create a unique Ext.Element for each element (defaults to a shared flyweight object)
-     * @param {HTMLElement/String} root (optional) The root element of the query or id of the root
-     * @return {CompositeElementLite/CompositeElement}
-     * @member Ext
-     * @method select
-     */
-    select : function(selector, unique, root){
-        var els;
-        if(typeof selector == "string"){
-            els = Ext.Element.selectorFunction(selector, root);
-        }else if(selector.length !== undefined){
-            els = selector;
-        }else{
-            throw "Invalid selector";
-        }
-        if(unique === true){ 
-            return new Ext.CompositeElement(els); 
-        }else{ 
-            return new Ext.CompositeElementLite(els);
-        }
     },
     
     /**
@@ -81,15 +57,6 @@ Ext.extend(Ext.CompositeElement, Ext.CompositeElementLite, {
     item : function(index){
         return this.elements[index] || null;
     },
-	
-    /**
-     * Find the index of the passed element within the composite collection.
-     * @param el {Mixed} The id of an element, or an Ext.Element, or an HtmlElement to find within the composite collection.
-     * @return Number The index of the passed Ext.Element in the composite collection, or -1 if not found.
-     */
-    indexOf : function(el){
-        return this.elements.indexOf(Ext.get(el));
-    },
 
     /**
     * Removes the specified element(s).
@@ -111,7 +78,11 @@ Ext.extend(Ext.CompositeElement, Ext.CompositeElementLite, {
 	    });
         return this;
     },
-    
+
+    indexOf : function(el){
+        return this.elements.indexOf(Ext.get(el));
+    },
+        
     filter : function(selector){
 		var me = this,
 			out = [];
@@ -138,3 +109,30 @@ Ext.extend(Ext.CompositeElement, Ext.CompositeElementLite, {
         return this;
     }
 });
+
+/**
+ * Selects elements based on the passed CSS selector to enable working on them as 1.
+ * @param {String/Array} selector The CSS selector or an array of elements
+ * @param {Boolean} unique (optional) true to create a unique Ext.Element for each element (defaults to a shared flyweight object)
+ * @param {HTMLElement/String} root (optional) The root element of the query or id of the root
+ * @return {CompositeElementLite/CompositeElement}
+ * @member Ext
+ * @method select
+ */
+Ext.Element.select = function(selector, unique, root){
+    var els;
+    if(typeof selector == "string"){
+        els = Ext.Element.selectorFunction(selector, root);
+    }else if(selector.length !== undefined){
+        els = selector;
+    }else{
+        throw "Invalid selector";
+    }
+    
+    if(unique === true) {
+        return new Ext.CompositeElement(els);
+    } else {
+        return new Ext.CompositeElementLite(els);
+    }
+    
+};

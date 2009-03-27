@@ -521,7 +521,7 @@
   <file name="dd\dragdropzones.html" path="dd" />
   <file name="dd\field-to-grid-dd.html" path="dd" />
   <file name="debug\debug-console.html" path="debug" />
-  <file name="debug\inspector.gif" path="debug" />
+  <file name="debug\debug.png" path="debug" />
   <file name="desktop\images\taskbar\black\item-over.gif" path="desktop\images\taskbar\black" />
   <file name="desktop\images\taskbar\black\scroll-left.gif" path="desktop\images\taskbar\black" />
   <file name="desktop\images\taskbar\black\scroll-right.gif" path="desktop\images\taskbar\black" />

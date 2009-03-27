@@ -63,10 +63,14 @@ function createConsole(){
     });
 
     function handleResize(){
-        cp.setWidth(Ext.getBody().getViewSize().width);
+        var b = Ext.getBody()
+        var size = b.getViewSize();
+        if(size.height < b.dom.scrollHeight) {
+            size.width -= 18;
+        }
+        cp.setWidth(size.width);
     }
     Ext.EventManager.onWindowResize(handleResize);
-
     handleResize();
 }
 

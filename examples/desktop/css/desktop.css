@@ -65,15 +65,11 @@ html, body {
 }
 
 #ux-taskbar .x-btn {
-	float: left;
 	margin: 1px 0 0 1px;
-    position:relative;
 }
 
 #ux-taskbar-start .x-btn {
-	float: left;
 	margin: 0;
-    position:relative;
 }
 
 #ux-taskbar button {

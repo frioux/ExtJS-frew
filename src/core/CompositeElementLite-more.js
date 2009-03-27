@@ -64,26 +64,5 @@ Ext.apply(Ext.CompositeElementLite.prototype, {
         });
         this.fill(els);
         return this;
-    },
-        
-    /**
-    * Replaces the specified element with the passed element.
-    * @param {Mixed} el The id of an element, the Element itself, the index of the element in this composite
-    * to replace.
-    * @param {Mixed} replacement The id of an element or the Element itself.
-    * @param {Boolean} domReplace (Optional) True to remove and replace the element in the document too.
-    * @return {CompositeElement} this
-    */
-    replaceElement : function(el, replacement, domReplace){
-        var me = this,
-        	index = !isNaN(el) ? el : me.indexOf(el);
-        if(index > -1){
-            if(domReplace){
-                me.elements[index].replaceWith(replacement);
-            }else{
-                me.elements.splice(index, 1, Ext.get(replacement))
-            }
-        }
-        return me;
     }	
 });

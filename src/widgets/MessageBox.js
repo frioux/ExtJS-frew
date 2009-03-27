@@ -229,7 +229,9 @@ Ext.MessageBox = function(){
                 dlg.hide();
                 handleHide();
                 if (proxy){
-                    proxy.hide();
+                    // unghost is a private function, but i saw no better solution
+                    // to fix the locking problem when dragging while it closes
+                    dlg.unghost(false, false);
                 } 
             }
             return this;

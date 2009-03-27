@@ -637,6 +637,9 @@ Ext.Window = Ext.extend(Ext.Panel, {
 
     // private
     unghost : function(show, matchPosition){
+        if(!this.activeGhost) {
+            return;
+        }
         if(show !== false){
             this.el.show();
             this.focus();

@@ -29,6 +29,8 @@
     overflow-x:hidden;
     overflow-y:auto;
     zoom:1;
+    float: left;
+    width: 100%;
 }
 
 .x-list-body dl {
