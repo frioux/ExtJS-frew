@@ -16,9 +16,9 @@ Ext.layout.ContainerLayout = function(config){
 Ext.layout.ContainerLayout.prototype = {
     /**
      * @cfg {String} extraCls
-     * <p>An optional extra CSS class that will be added to the container.
-     * This can be useful for adding customized styles to the container or any of its children
-     * using standard CSS rules.</p>
+     * <p>An optional extra CSS class that will be added to the container. This can be useful for adding
+     * customized styles to the container or any of its children using standard CSS rules. See
+     * {@link Ext.Component}.{@link Ext.Component#ctCls ctCls} also.</p>
      * <p><b>Note</b>: <tt>extraCls</tt> defaults to <tt>''</tt> except for the following classes
      * which assign a value by default:
      * <div class="mdetail-params"><ul>

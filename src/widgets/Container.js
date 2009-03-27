@@ -180,11 +180,28 @@ layoutConfig: {
      */
     /**
      * @cfg {Object} defaults
-     * A config object that will be applied to all components added to this container either via the {@link #items}
-     * config or via the {@link #add} or {@link #insert} methods.  The defaults config can contain any number of
-     * name/value property pairs to be added to each item, and should be valid for the types of items
+     * <p>A config object that will be applied to all components added to this container either via the {@link #items}
+     * config or via the {@link #add} or {@link #insert} methods.  The <tt>defaults</tt> config can contain any
+     * number of name/value property pairs to be added to each item, and should be valid for the types of items
      * being added to the container.  For example, to automatically apply padding to the body of each of a set of
-     * contained {@link Ext.Panel} items, you could pass: defaults: {bodyStyle:'padding:15px'}.
+     * contained {@link Ext.Panel} items, you could pass: <tt>defaults: {bodyStyle:'padding:15px'}</tt>.</p><br/>
+     * <p><b>Note</b>: <tt>defaults</tt> will not be applied to config objects if the option is already specified.
+     * For example:</p><pre><code>
+defaults: {               // defaults are applied to items, not the container
+    autoScroll:true
+},
+items: [
+    {
+        xtype: 'panel',   // defaults <b>do not</b> have precedence over 
+        id: 'panel1',     // options in config objects, so the defaults
+        autoScroll: false // will not be applied here, panel1 will be autoScroll:false
+    },
+    new Ext.Panel({       // defaults <b>do</b> have precedence over options
+        id: 'panel2',     // options in components, so the defaults
+        autoScroll: false // will be applied here, panel2 will be autoScroll:true.
+    })
+]
+     * </code></pre>
      */
 
     /** @cfg {Boolean} autoDestroy

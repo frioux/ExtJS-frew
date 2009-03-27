@@ -265,7 +265,7 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
     /**
      * @cfg {String} fieldLabel The label text to display next to this Component (defaults to '')
      * <p><b>This config is only used when this Component is rendered by a Container which has been
-     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager.</b></p>
+     * configured to use the {@link Ext.layout.FormLayout FormLayout} layout manager.</b></p>
      * Example use:<pre><code>
 new Ext.FormPanel({
     height: 100,
@@ -404,8 +404,19 @@ new Ext.FormPanel({
      */
     /**
      * @cfg {String} ctCls
-     * An optional extra CSS class that will be added to this component's container (defaults to '').  This can be
-     * useful for adding customized styles to the container or any of its children using standard CSS rules.
+     * <p>An optional extra CSS class that will be added to this component's container. This can be useful for
+     * adding customized styles to the container or any of its children using standard CSS rules.  See
+     * {@link Ext.layout.ContainerLayout}.{@link Ext.layout.ContainerLayout#extraCls extraCls} also.</p>
+     * <p><b>Note</b>: <tt>ctCls</tt> defaults to <tt>''</tt> except for the following class
+     * which assigns a value by default:
+     * <div class="mdetail-params"><ul>
+     * <li>{@link Ext.layout.Box Box Layout} : <tt>'x-box-layout-ct'</tt></li>
+     * </ul></div>
+     * To configure the above Class with an extra CSS class append to the default.  For example,
+     * for BoxLayout (Hbox and Vbox):<pre><code>
+     * ctCls: 'x-box-layout-ct custom-class'
+     * </code></pre>
+     * </p>
      */
     /**
      * @cfg {Boolean} disabled

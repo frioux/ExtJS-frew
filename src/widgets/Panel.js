@@ -36,23 +36,23 @@ Ext.Panel = Ext.extend(Ext.Container, {
      * @cfg {Object} bodyCfg
      * <p>A {@link Ext.DomHelper DomHelper} configuration object specifying the element structure
      * of this Panel's {@link #body} Element.</p>
-     * <p>This may be used to force the body Element to use a different form of markup than
-     * is created automatically. An example of this might be to create a child Panel containing
-     * custom content, such as a header, or forcing centering of all Panel
+     * <p>This may be used to force the body Element to use a different form of markup than is created
+     * automatically. An example of this might be to {@link Ext.Element#createChild create a child}
+     * Panel containing custom content, such as a header, or forcing centering of all Panel
      * content by having the body be a &lt;center&gt; element:</p><code><pre>
 new Ext.Panel({
     title: 'New Message',
     collapsible: true,
     renderTo: Ext.getBody(),
     width: 400,
-    bodyCfg: {
+    <b>bodyCfg</b>: {
         tag: 'center',
         cls: 'x-panel-body'
     },
     items: [{
         border: false,
         header: false,
-        bodyCfg: {tag: 'h2', html: 'Message'}
+        <b>bodyCfg</b>: {tag: 'h2', html: 'Message'}
     }, {
         xtype: 'textarea',
         style: {
@@ -429,7 +429,7 @@ new Ext.Panel({
     height: 200,
     draggable: {
 //      Config option of Ext.Panel.DD class.
-//      It's a floating Panel, so do not show a placeholder proxy in the original position.
+//      It&#39;s a floating Panel, so do not show a placeholder proxy in the original position.
         insertProxy: false,
 
 //      Called for each mousemove event while dragging the DD object.
@@ -494,43 +494,44 @@ new Ext.Panel({
 
     
     /**
-    * @cfg {String} baseCls
-    * The base CSS class to apply to this panel's element (defaults to <tt>'x-panel'</tt>).
-    * <p>Another option available by default is to specify <tt>'x-plain'</tt> which strips all styling
-    * except for required attributes for Ext layouts to function (e.g. overflow:hidden).</p>
-    */
+     * @cfg {String} baseCls
+     * The base CSS class to apply to this panel's element (defaults to <tt>'x-panel'</tt>).
+     * <p>Another option available by default is to specify <tt>'x-plain'</tt> which strips all styling
+     * except for required attributes for Ext layouts to function (e.g. overflow:hidden).
+     * See <tt>{@link #unstyled}</tt> also.</p>
+     */
     baseCls : 'x-panel',
     /**
-    * @cfg {String} collapsedCls
-    * A CSS class to add to the panel's element after it has been collapsed (defaults to
-    * <tt>'x-panel-collapsed'</tt>).
-    */
+     * @cfg {String} collapsedCls
+     * A CSS class to add to the panel's element after it has been collapsed (defaults to
+     * <tt>'x-panel-collapsed'</tt>).
+     */
     collapsedCls : 'x-panel-collapsed',
     /**
-    * @cfg {Boolean} maskDisabled
-    * <tt>true</tt> to mask the panel when it is {@link #disabled}, <tt>false</tt> to not mask it (defaults
-    * to <tt>true</tt>).  Either way, the panel will always tell its contained elements to disable themselves
-    * when it is disabled, but masking the panel can provide an additional visual cue that the panel is
-    * disabled.
-    */
+     * @cfg {Boolean} maskDisabled
+     * <tt>true</tt> to mask the panel when it is {@link #disabled}, <tt>false</tt> to not mask it (defaults
+     * to <tt>true</tt>).  Either way, the panel will always tell its contained elements to disable themselves
+     * when it is disabled, but masking the panel can provide an additional visual cue that the panel is
+     * disabled.
+     */
     maskDisabled: true,
     /**
-    * @cfg {Boolean} animCollapse
-    * <tt>true</tt> to animate the transition when the panel is collapsed, <tt>false</tt> to skip the
-    * animation (defaults to <tt>true</tt> if the {@link Ext.Fx} class is available, otherwise <tt>false</tt>).
-    */
+     * @cfg {Boolean} animCollapse
+     * <tt>true</tt> to animate the transition when the panel is collapsed, <tt>false</tt> to skip the
+     * animation (defaults to <tt>true</tt> if the {@link Ext.Fx} class is available, otherwise <tt>false</tt>).
+     */
     animCollapse: Ext.enableFx,
     /**
-    * @cfg {Boolean} headerAsText
-    * <tt>true</tt> to display the panel <tt>{@link #title}</tt> in the <tt>{@link #header}</tt>,
-    * <tt>false</tt> to hide it (defaults to <tt>true</tt>).
-    */
+     * @cfg {Boolean} headerAsText
+     * <tt>true</tt> to display the panel <tt>{@link #title}</tt> in the <tt>{@link #header}</tt>,
+     * <tt>false</tt> to hide it (defaults to <tt>true</tt>).
+     */
     headerAsText: true,
     /**
-    * @cfg {String} buttonAlign
-    * The alignment of any {@link #buttons} added to this panel.  Valid values are <tt>'right'</tt>,
-    * <tt>'left'</tt> and <tt>'center'</tt> (defaults to <tt>'right'</tt>).
-    */
+     * @cfg {String} buttonAlign
+     * The alignment of any {@link #buttons} added to this panel.  Valid values are <tt>'right'</tt>,
+     * <tt>'left'</tt> and <tt>'center'</tt> (defaults to <tt>'right'</tt>).
+     */
     buttonAlign: 'right',
     /**
      * @cfg {Boolean} collapsed
@@ -539,10 +540,10 @@ new Ext.Panel({
      */
     collapsed : false,
     /**
-    * @cfg {Boolean} collapseFirst
-    * <tt>true</tt> to make sure the collapse/expand toggle button always renders first (to the left of)
-    * any other tools in the panel's title bar, <tt>false</tt> to render it last (defaults to <tt>true</tt>).
-    */
+     * @cfg {Boolean} collapseFirst
+     * <tt>true</tt> to make sure the collapse/expand toggle button always renders first (to the left of)
+     * any other tools in the panel's title bar, <tt>false</tt> to render it last (defaults to <tt>true</tt>).
+     */
     collapseFirst: true,
     /**
      * @cfg {Number} minButtonWidth
@@ -551,7 +552,8 @@ new Ext.Panel({
     minButtonWidth:75,
     /**
      * @cfg {Boolean} unstyled
-     * Renders the panel unstyled
+     * Overrides the <tt>{@link #baseCls}</tt> setting to <tt>{@link #baseCls} = 'x-plain'</tt> which renders
+     * the panel unstyled except for required attributes for Ext layouts to function (e.g. overflow:hidden).
      */
     /**
      * @cfg {String} elements
