@@ -111,12 +111,14 @@ Ext.extend(Ext.CompositeElement, Ext.CompositeElementLite, {
 });
 
 /**
- * Selects elements based on the passed CSS selector to enable working on them as 1.
+ * Selects elements based on the passed CSS selector to enable {@link Ext.Element Element} methods
+ * to be applied to many related elements in one statement through the returned {@link Ext.CompositeElement CompositeElement} or
+ * {@link Ext.CompositeElementLite CompositeElementLite} object.
  * @param {String/Array} selector The CSS selector or an array of elements
  * @param {Boolean} unique (optional) true to create a unique Ext.Element for each element (defaults to a shared flyweight object)
  * @param {HTMLElement/String} root (optional) The root element of the query or id of the root
  * @return {CompositeElementLite/CompositeElement}
- * @member Ext
+ * @member Ext.Element
  * @method select
  */
 Ext.Element.select = function(selector, unique, root){
@@ -128,11 +130,10 @@ Ext.Element.select = function(selector, unique, root){
     }else{
         throw "Invalid selector";
     }
-    
+
     if(unique === true) {
         return new Ext.CompositeElement(els);
     } else {
         return new Ext.CompositeElementLite(els);
     }
-    
 };
