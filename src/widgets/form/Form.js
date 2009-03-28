@@ -31,8 +31,24 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
 	 * @cfg {String} formId (optional) The id of the FORM tag (defaults to an auto-generated id).
 	 */
     /**
-     * @cfg {Number} labelWidth The width of labels. This property cascades to child containers and can be overridden
-     * on any child container (e.g., a fieldset can specify a different labelWidth for its fields).
+     * @cfg {Boolean} hideLabels
+     * <p><tt>true</tt> to hide field labels by default (sets <tt>display:none</tt>). Defaults to
+     * <tt>false</tt>.</p>
+     * <p>Also see {@link Ext.Component}.<tt>{@link Ext.Component#hideLabel hideLabel}</tt>.
+     */
+    /**
+     * @cfg {Number} labelPad
+     * The default padding in pixels for field labels (defaults to <tt>5</tt>). <tt>labelPad</tt> only
+     * applies if <tt>{@link #labelWidth}</tt> is also specified, otherwise it will be ignored.
+     */
+    /**
+     * @cfg {String} labelSeparator
+     * See {@link Ext.Component}.<tt>{@link Ext.Component#labelSeparator labelSeparator}</tt>
+     */
+    /**
+     * @cfg {Number} labelWidth The width of labels in pixels. This property cascades to child containers
+     * and can be overridden on any child container (e.g., a fieldset can specify a different <tt>labelWidth</tt>
+     * for its fields) (defaults to <tt>100</tt>).
      */
     /**
      * @cfg {String} itemCls A css class to apply to the x-form-item of fields. This property cascades to child containers.
@@ -45,22 +61,24 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
      * the form's valid/invalid state.</p>
      */
     /**
-     * @cfg {String} buttonAlign Valid values are <tt>'left'/tt>, <tt>'center'</tt>, and <tt>'right'</tt> (defaults
-     * to <tt>'center'</tt>).
+     * @cfg {String} buttonAlign Valid values are <tt>'left'</tt>, <tt>'center'</tt>, and <tt>'right'</tt>
+     * (defaults to <tt>'center'</tt>).
      */
-    buttonAlign:'center',
+    buttonAlign : 'center',
 
     /**
      * @cfg {Number} minButtonWidth Minimum width of all buttons in pixels (defaults to <tt>75</tt>).
      */
-    minButtonWidth:75,
+    minButtonWidth : 75,
 
     /**
-     * @cfg {String} labelAlign Valid values are "left," "top" and "right" (defaults to "left").
-     * This property cascades to child containers and can be overridden on any child container 
-     * (e.g., a fieldset can specify a different labelAlign for its fields).
+     * @cfg {String} labelAlign The label alignment value used for the <tt>text-align</tt> specification
+     * for the <b>container</b>. Valid values are <tt>"left</tt>", <tt>"top"</tt> or <tt>"right"</tt>
+     * (defaults to <tt>"left"</tt>). This property cascades to child <b>containers</b> and can be
+     * overridden on any child <b>container</b> (e.g., a fieldset can specify a different <tt>labelAlign</tt>
+     * for its fields).
      */
-    labelAlign:'left',
+    labelAlign : 'left',
 
     /**
      * @cfg {Boolean} monitorValid If <tt>true</tt>, the form monitors its valid state <b>client-side</b> and
@@ -80,10 +98,10 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
      * @cfg {String} layout Defaults to <tt>'form'</tt>.  Normally this configuration property should not be altered. 
      * For additional details see {@link Ext.layout.FormLayout} and {@link Ext.Container#layout Ext.Container.layout}.
      */
-    layout:'form',
+    layout : 'form',
 
     // private
-    initComponent :function(){
+    initComponent : function(){
         this.form = this.createForm();
         Ext.FormPanel.superclass.initComponent.call(this);
 
@@ -112,7 +130,7 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
     },
 
     // private
-    createForm: function(){
+    createForm : function(){
         delete this.initialConfig.listeners;
         return new Ext.form.BasicForm(null, this.initialConfig);
     },
@@ -166,14 +184,14 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
     },
     
     // private
-    beforeDestroy: function(){
+    beforeDestroy : function(){
         Ext.FormPanel.superclass.beforeDestroy.call(this);
         this.stopMonitoring();
         Ext.destroy(this.form);
     },
 
 	// Determine if a Component is usable as a form Field.
-    isField: function(c) {
+    isField : function(c) {
         return !!c.setValue && !!c.getValue && !!c.markInvalid && !!c.clearInvalid;
     },
 

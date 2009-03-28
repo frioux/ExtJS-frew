@@ -263,9 +263,12 @@ Ext.Component.AUTO_ID = 1000;
 Ext.extend(Ext.Component, Ext.util.Observable, {
 	// Configs below are used for all Components when rendered by FormLayout.
     /**
-     * @cfg {String} fieldLabel The label text to display next to this Component (defaults to '')
-     * <p><b>This config is only used when this Component is rendered by a Container which has been
-     * configured to use the {@link Ext.layout.FormLayout FormLayout} layout manager.</b></p>
+     * @cfg {String} fieldLabel <p>The label text to display next to this Component (defaults to '').</p>
+     * <br><p><b>Note</b>: this config is only used when this Component is rendered by a Container which
+     * has been configured to use the <b>{@link Ext.layout.FormLayout FormLayout}</b> layout manager (eg. 
+     * {@link Ext.form.FormPanel} or specifying <tt>layout:'form'</tt>).</p><br>
+     * <p>Also see <tt>{@link #hideLabel}</tt> and
+     * {@link Ext.layout.FormLayout}.{@link Ext.layout.FormLayout#fieldTpl fieldTpl}.</p>
      * Example use:<pre><code>
 new Ext.FormPanel({
     height: 100,
@@ -278,10 +281,12 @@ new Ext.FormPanel({
 </code></pre>
      */
     /**
-     * @cfg {String} labelStyle A CSS style specification to apply directly to this field's label (defaults to the
-     * container's labelStyle value if set, or '').<code></code>.
-     * <p><b>This config is only used when this Component is rendered by a Container which has been
-     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager.</b></p>
+     * @cfg {String} labelStyle <p>A CSS style specification string to apply directly to this field's
+     * label.  Defaults to the container's labelStyle value if set (eg,
+     * <tt>{@link Ext.layout.FormLayout#labelStyle}</tt> , or '').</p>
+     * <br><p><b>Note</b>: see the note for <tt>{@link #clearCls}</tt>.</p><br>
+     * <p>Also see <tt>{@link #hideLabel} and
+     * {@link Ext.layout.FormLayout}.{@link Ext.layout.FormLayout#fieldTpl fieldTpl}.</p>
      * Example use:<pre><code>
 new Ext.FormPanel({
     height: 100,
@@ -295,29 +300,44 @@ new Ext.FormPanel({
 </code></pre>
      */
     /**
-     * @cfg {String} labelSeparator The standard separator to display after the text of each form label (defaults
-     * to the value of {@link Ext.layout.FormLayout#labelSeparator}, which is a colon ':' by default).  To display
-     * no separator for this field's label specify empty string ''.
-     * <p><b>This config is only used when this Component is rendered by a Container which has been
-     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager.</b></p>
+     * @cfg {String} labelSeparator <p>The separator to display after the text of each
+     * <tt>{@link #fieldLabel}</tt>.  This property may be configured at various levels.
+     * The order of precedence is:
+     * <div class="mdetail-params"><ul>
+     * <li>field / component level</li>
+     * <li>container level</li>
+     * <li>{@link Ext.layout.FormLayout#labelSeparator layout level} (defaults to colon <tt>':'</tt>)</li>
+     * </ul></div>
+     * To display no separator for this field's label specify empty string ''.</p>
+     * <br><p><b>Note</b>: see the note for <tt>{@link #clearCls}</tt>.</p><br>
+     * <p>Also see <tt>{@link #hideLabel}</tt> and
+     * {@link Ext.layout.FormLayout}.{@link Ext.layout.FormLayout#fieldTpl fieldTpl}.</p>
      * Example use:<pre><code>
 new Ext.FormPanel({
     height: 100,
     renderTo: Ext.getBody(),
+    layoutConfig: {
+        labelSeparator: '~'   // layout config has lowest priority (defaults to ':')
+    },
+    {@link Ext.layout.FormLayout#labelSeparator labelSeparator}: '>>',     // config at container level 
     items: [{
         xtype: 'textfield',
-        fieldLabel: 'Name',
-        labelSeparator: '...'
+        fieldLabel: 'Field 1',
+        labelSeparator: '...' // field/component level config supersedes others
+    },{
+        xtype: 'textfield',
+        fieldLabel: 'Field 2' // labelSeparator will be '='
     }]
 });
 </code></pre>
      */
     /**
-     * @cfg {Boolean} hideLabel True to completely hide the label element (defaults to false).  By default, even if
-     * you do not specify a {@link fieldLabel} the space will still be reserved so that the field will line up with
-     * other fields that do have labels. Setting this to true will cause the field to not reserve that space.
-     * <p><b>This config is only used when this Component is rendered by a Container which has been
-     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager.</b></p>
+     * @cfg {Boolean} hideLabel <p><tt>true</tt> to completely hide the label element
+     * ({@link #fieldLabel label} and {@link #labelSeparator separator}). Defaults to <tt>false</tt>.
+     * By default, even if you do not specify a <tt>{@link #fieldLabel}</tt> the space will still be
+     * reserved so that the field will line up with other fields that do have labels.
+     * Setting this to <tt>true</tt> will cause the field to not reserve that space.</p>
+     * <br><p><b>Note</b>: see the note for <tt>{@link #clearCls}</tt>.</p><br>
      * Example use:<pre><code>
 new Ext.FormPanel({
     height: 100,
@@ -330,17 +350,25 @@ new Ext.FormPanel({
 </code></pre>
      */
     /**
-     * @cfg {String} clearCls The CSS class used to provide field clearing (defaults to 'x-form-clear-left').
-     * <p><b>This config is only used when this Component is rendered by a Container which has been
-     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager.</b></p>
+     * @cfg {String} clearCls <p>The CSS class used to to apply to the special clearing div rendered
+     * directly after each form field wrapper to provide field clearing (defaults to
+     * <tt>'x-form-clear-left'</tt>).</p>
+     * <br><p><b>Note</b>: this config is only used when this Component is rendered by a Container
+     * which has been configured to use the <b>{@link Ext.layout.FormLayout FormLayout}</b> layout
+     * manager (eg. {@link Ext.form.FormPanel} or specifying <tt>layout:'form'</tt>) and either a 
+     * <tt>{@link #fieldLabel}</tt> is specified or <tt>isFormField=true</tt> is specified.</p><br>
+     * <p>See {@link Ext.layout.FormLayout}.{@link Ext.layout.FormLayout#fieldTpl fieldTpl} also.</p>
      */
     /**
-     * @cfg {String} itemCls An additional CSS class to apply to the wrapper's form item element of this field (defaults
-     * to the container's itemCls value if set, or '').  Since it is applied to the item wrapper, it allows you to write
-     * standard CSS rules that can apply to the field, the label (if specified) or any other element within the markup for
-     * the field.
-     * <p><b>This config is only used when this Component is rendered by a Container which has been
-     * configured to use the {@link Ext.form.FormLayout FormLayout} layout manager.</b></p>
+     * @cfg {String} itemCls <p>An additional CSS class to apply to the div wrapping the form item
+     * element of this field.  If supplied, <tt>itemCls</tt> at the <b>field</b> level will override
+     * the default <tt>itemCls</tt> supplied at the <b>container</b> level. The value specified for 
+     * <tt>itemCls</tt> will be added to the default class (<tt>'x-form-item'</tt>).</p>
+     * <p>Since it is applied to the item wrapper (see
+     * {@link Ext.layout.FormLayout}.{@link Ext.layout.FormLayout#fieldTpl fieldTpl}), it allows
+     * you to write standard CSS rules that can apply to the field, the label (if specified), or
+     * any other element within the markup for the field.</p>
+     * <br><p><b>Note</b>: see the note for <tt>{@link #fieldLabel}</tt>.</p><br>
      * Example use:<pre><code>
 // Apply a style to the field's label:
 &lt;style>
@@ -360,6 +388,14 @@ new Ext.FormPanel({
 	}]
 });
 </code></pre>
+     */
+
+	// Configs below are used for all Components when rendered by AnchorLayout.
+    /**
+     * @cfg {String} anchor <p><b>Note</b>: this config is only used when this Component is rendered
+     * by a Container which has been configured to use the <b>{@link Ext.layout.AnchorLayout AnchorLayout}</b>
+     * layout manager (eg. {@link Ext.form.FormPanel} or specifying <tt>layout:'anchor'</tt>).</p><br>
+     * <p>See {@link Ext.layout.AnchorLayout}.{@link Ext.layout.AnchorLayout#anchor anchor} also.</p>
      */
 
     /**
