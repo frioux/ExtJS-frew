@@ -216,7 +216,7 @@ items: [
     /** @cfg {String} defaultType
      * <p>The default {@link Ext.Component xtype} of child Components to create in this Container when
      * a child item is specified as a raw configuration object, rather than as an instantiated Component.</p>
-     * <p>Defaults to 'panel'.</p>
+     * <p>Defaults to <tt>'panel'</tt>, except {@link Ext.Toolbar} which defaults to <tt>'button'</tt>.</p>
      */
     defaultType: 'panel',
 

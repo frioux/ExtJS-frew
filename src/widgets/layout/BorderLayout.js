@@ -1,43 +1,75 @@
 /**
  * @class Ext.layout.BorderLayout
  * @extends Ext.layout.ContainerLayout
- * <p>This is a multi-pane, application-oriented UI layout style that supports multiple nested panels, automatic
- * split bars between regions and built-in expanding and collapsing of regions.
- * This class is intended to be extended or created via the layout:'border' {@link Ext.Container#layout} config,
- * and should generally not need to be created directly via the new keyword.</p>
- * <p>BorderLayout does not have any direct config options (other than inherited ones).  All configs available
- * for customizing the BorderLayout are at the {@link Ext.layout.BorderLayout.Region} and
- * {@link Ext.layout.BorderLayout.SplitRegion} levels.</p>
- * <p><b>The regions of a BorderLayout are fixed at render time and thereafter, no regions may be removed or
- * added. The BorderLayout must have a center region, which will always fill the remaining space not used by
- * the other regions in the layout.</b></p>
+ * <p>This is a multi-pane, application-oriented UI layout style that supports multiple
+ * nested panels, automatic {@link Ext.layout.BorderLayout.Region#split split} bars between
+ * {@link Ext.layout.BorderLayout.Region#BorderLayout.Region regions} and built-in
+ * {@link Ext.layout.BorderLayout.Region#collapsible expanding and collapsing} of regions.</p>
+ * <p>This class is intended to be extended or created via the <tt>layout:'border'</tt>
+ * {@link Ext.Container#layout} config, and should generally not need to be created directly
+ * via the new keyword.</p>
+ * <p>BorderLayout does not have any direct config options (other than inherited ones).
+ * All configuration options available for customizing the BorderLayout are at the
+ * {@link Ext.layout.BorderLayout.Region} and {@link Ext.layout.BorderLayout.SplitRegion}
+ * levels.</p>
  * <p>Example usage:</p>
  * <pre><code>
-var border = new Ext.Panel({
+var myBorderPanel = new Ext.Panel({
+    renderTo: document.body,
+    width: 700,
+    height: 500,
     title: 'Border Layout',
     layout:'border',
     items: [{
-        title: 'South Panel',
-        region: 'south',
+        title: 'South Region is resizable',
+        {@link Ext.layout.BorderLayout.Region#BorderLayout.Region region}: 'south',     // position for region
         height: 100,
-        minSize: 75,
-        maxSize: 250,
-        margins: '0 5 5 5'
+        {@link Ext.layout.BorderLayout.Region#split split}: true,         // enable resizing
+        {@link Ext.SplitBar#minSize minSize}: 75,         // defaults to {@link Ext.layout.BorderLayout.Region#minHeight 50} 
+        {@link Ext.SplitBar#maxSize maxSize}: 150,
+        {@link Ext.layout.BorderLayout.Region#margins margins}: '0 5 5 5'
     },{
-        title: 'West Panel',
+        title: 'West Region is collapsible',
         region:'west',
-        margins: '5 0 0 5',
-        cmargins: '5 5 0 5',
+        {@link Ext.layout.BorderLayout.Region#margins margins}: '5 0 0 5',
         width: 200,
-        minSize: 100,
-        maxSize: 300
+        {@link Ext.layout.BorderLayout.Region#collapsible collapsible}: true,   // make collapsible
+        {@link Ext.layout.BorderLayout.Region#cmargins cmargins}: '5 5 0 5', // adjust top margin when collapsed
+        id: 'west-region-container',
+        layout: 'fit',
+        {@link Ext.Panel#unstyled unstyled}: true
     },{
-        title: 'Main Content',
-        region:'center',
-        margins: '5 5 0 0'
+        title: 'Center Region',
+        region:'center',     // center region is required
+        {@link Ext.layout.BorderLayout.Region#margins margins}: '5 5 0 0'
     }]
 });
 </code></pre>
+ * <p><b><u>Notes</u></b>:</p><div class="mdetail-params"><ul>
+ * <li>The BorderLayout <b>must have a center region</b>, which will always fill the
+ * remaining space not used by the other regions in the layout.</li>
+ * <li>The regions of a BorderLayout are <b>fixed at render time</b> and thereafter.  Panels
+ * <b>directly</b> managed by BorderLayout may not be removed or added</b>.  To add/remove
+ * Panels within a BorderLayout have them wrapped by an additional Panel which is directly
+ * managed by the BorderLayout.
+ * <pre><code>
+wrc = Ext.getCmp('west-region-container');
+wrc.collapse();
+wrc.add({
+    title: 'Added Panel',
+    html: 'Some content'
+});
+wrc.doLayout();
+wrc.expand();
+ * </code></pre>
+ * </li>
+ * <li> To reference a {@link Ext.layout.BorderLayout.Region Region}:
+ * <pre><code>
+wr = myBorderPanel.layout.west;
+
+ * </code></pre>
+ * </li>
+ * </ul></div>
  */
 Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
     // private
@@ -175,16 +207,19 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
 /**
  * @class Ext.layout.BorderLayout.Region
- * This is a region of a BorderLayout that acts as a subcontainer within the layout.  Each region has its own
- * layout that is independent of other regions and the containing BorderLayout, and can be any of the valid
- * Ext layout types.  Region size is managed automatically and cannot be changed by the user -- for resizable
- * regions, see {@link Ext.layout.BorderLayout.SplitRegion}.
+ * <p>This is a region of a {@link Ext.layout.BorderLayout BorderLayout} that acts as a subcontainer
+ * within the layout.  Each region has its own {@link Ext.layout.ContainerLayout layout} that is
+ * independent of other regions and the containing BorderLayout, and can be any of the
+ * {@link Ext.layout.ContainerLayout valid Ext layout types}.</p>
+ * <p>Region size is managed automatically and cannot be changed by the user -- for
+ * {@link #split resizable regions}, see {@link Ext.layout.BorderLayout.SplitRegion}.</p>
  * @constructor
  * Create a new Region.
- * @param {Layout} layout Any valid Ext layout class
+ * @param {Layout} layout Any valid Ext {@link Ext.layout.ContainerLayout layout} class
  * @param {Object} config The configuration options
- * @param {String} position The region position.  Valid values are: north, south, east, west and center.  Every
- * BorderLayout must have a center region for the primary content -- all other regions are optional.
+ * @param {String} position The region position.  Valid values are: <tt>north</tt>, <tt>south</tt>,
+ * <tt>east</tt>, <tt>west</tt> and <tt>center</tt>.  Every {@link Ext.layout.BorderLayout BorderLayout}
+ * <b>must have a center region</b> for the primary content -- all other regions are optional.
  */
 Ext.layout.BorderLayout.Region = function(layout, config, pos){
     Ext.apply(this, config);
@@ -211,97 +246,127 @@ Ext.layout.BorderLayout.Region = function(layout, config, pos){
 Ext.layout.BorderLayout.Region.prototype = {
     /**
      * @cfg {Boolean} animFloat
-     * When a collapsed region's bar is clicked, the region's panel will be displayed as a floated panel that will
-     * close again once the user mouses out of that panel (or clicks out if autoHide = false).  Setting animFloat
-     * to false will prevent the open and close of these floated panels from being animated (defaults to true).
+     * When a collapsed region's bar is clicked, the region's panel will be displayed as a floated
+     * panel that will close again once the user mouses out of that panel (or clicks out if
+     * <tt>{@link #autoHide} = false</tt>).  Setting <tt>{@link #animFloat} = false</tt> will
+     * prevent the open and close of these floated panels from being animated (defaults to <tt>true</tt>).
      */
     /**
      * @cfg {Boolean} autoHide
-     * When a collapsed region's bar is clicked, the region's panel will be displayed as a floated panel.  If
-     * autoHide is true, the panel will automatically hide after the user mouses out of the panel.  If autoHide
-     * is false, the panel will continue to display until the user clicks outside of the panel (defaults to true).
+     * When a collapsed region's bar is clicked, the region's panel will be displayed as a floated
+     * panel.  If <tt>autoHide = true</tt>, the panel will automatically hide after the user mouses
+     * out of the panel.  If <tt>autoHide = false</tt>, the panel will continue to display until the
+     * user clicks outside of the panel (defaults to <tt>true</tt>).
      */
     /**
      * @cfg {String} collapseMode
-     * By default, collapsible regions are collapsed by clicking the expand/collapse tool button that renders into
-     * the region's title bar.  Optionally, when collapseMode is set to 'mini' the region's split bar will also
-     * display a small collapse button in the center of the bar.  In 'mini' mode the region will collapse to a
-     * thinner bar than in normal mode.  By default collapseMode is undefined, and the only two supported values
-     * are undefined and 'mini'.  Note that if a collapsible region does not have a title bar, then collapseMode
-     * must be set to 'mini' in order for the region to be collapsible by the user as the tool button will not
-     * be rendered.
+     * <tt>collapseMode</tt> supports two configuration values:<div class="mdetail-params"><ul>
+     * <li><b><tt>undefined</tt></b> (default)<div class="sub-desc">By default, {@link #collapsible}
+     * regions are collapsed by clicking the expand/collapse tool button that renders into the region's
+     * title bar.</div></li>
+     * <li><b><tt>'mini'</tt></b><div class="sub-desc">Optionally, when <tt>collapseMode</tt> is set to
+     * <tt>'mini'</tt> the region's split bar will also display a small collapse button in the center of
+     * the bar. In <tt>'mini'</tt> mode the region will collapse to a thinner bar than in normal mode.
+     * </div></li>
+     * </ul></div></p>
+     * <p><b>Note</b>: if a collapsible region does not have a title bar, then <tt>collapseMode</tt>
+     * must be set to <tt>'mini'</tt> in order for the region to be {@link #collapsible} by the user
+     * as the tool button will not be rendered.</p>
+     * <p>See also <tt>{@link #cmargins}</tt>.</p>
      */
     /**
      * @cfg {Object} margins
-     * An object containing margins to apply to the region when in the expanded state in the format:<pre><code>
+     * An object containing margins to apply to the region when in the expanded state in the
+     * format:<pre><code>
 {
     top: (top margin),
     right: (right margin),
     bottom: (bottom margin),
     left: (left margin)
 }</code></pre>
-     * <p>May also be a string containing space-separated, numeric margin values. The order of the sides associated
-     * with each value matches the way CSS processes margin values:</p>
+     * <p>May also be a string containing space-separated, numeric margin values. The order of the
+     * sides associated with each value matches the way CSS processes margin values:</p>
      * <p><ul>
      * <li>If there is only one value, it applies to all sides.</li>
-     * <li>If there are two values, the top and bottom borders are set to the first value and the right
-     * and left are set to the second.</li>
-     * <li>If there are three values, the top is set to the first value, the left and right are set to the second, and the bottom
-     * is set to the third.</li>
+     * <li>If there are two values, the top and bottom borders are set to the first value and the
+     * right and left are set to the second.</li>
+     * <li>If there are three values, the top is set to the first value, the left and right are set
+     * to the second, and the bottom is set to the third.</li>
      * <li>If there are four values, they apply to the top, right, bottom, and left, respectively.</li>
      * </ul></p>
+     * <p>Defaults to:</p><pre><code>
+     * {top:0, right:0, bottom:0, left:0}
+     * </code></pre>
      */
     /**
      * @cfg {Object} cmargins
-     * An object containing margins to apply to the region when in the collapsed state in the format:<pre><code>
+     * An object containing margins to apply to the region when in the collapsed state in the
+     * format:<pre><code>
 {
     top: (top margin),
     right: (right margin),
     bottom: (bottom margin),
     left: (left margin)
 }</code></pre>
-     * <p>May also be a string containing space-separated, numeric margin values. The order of the sides associated
-     * with each value matches the way CSS processes margin values.</p>
+     * <p>May also be a string containing space-separated, numeric margin values. The order of the
+     * sides associated with each value matches the way CSS processes margin values.</p>
      * <p><ul>
      * <li>If there is only one value, it applies to all sides.</li>
-     * <li>If there are two values, the top and bottom borders are set to the first value and the right
-     * and left are set to the second.</li>
-     * <li>If there are three values, the top is set to the first value, the left and right are set to the second, and the bottom
-     * is set to the third.</li>
+     * <li>If there are two values, the top and bottom borders are set to the first value and the
+     * right and left are set to the second.</li>
+     * <li>If there are three values, the top is set to the first value, the left and right are set
+     * to the second, and the bottom is set to the third.</li>
      * <li>If there are four values, they apply to the top, right, bottom, and left, respectively.</li>
      * </ul></p>
      */
     /**
      * @cfg {Boolean} collapsible
-     * True to allow the user to collapse this region (defaults to false).  If true, an expand/collapse tool button
-     * will automatically be rendered into the title bar of the region, otherwise the button will not be shown.
-     * Note that a title bar is required to display the toggle button -- if no region title is specified, the
-     * region will only be collapsible if {@link #collapseMode} is set to 'mini'.
+     * <p><tt>true</tt> to allow the user to collapse this region (defaults to <tt>false</tt>).  If
+     * <tt>true</tt>, an expand/collapse tool button will automatically be rendered into the title
+     * bar of the region, otherwise the button will not be shown.</p>
+     * <p><b>Note</b>: that a title bar is required to display the toggle button -- if no region
+     * title is specified, the region will only be collapsible if {@link #collapseMode} is set to
+     * <tt>'mini'</tt>.
      */
     collapsible : false,
     /**
      * @cfg {Boolean} split
-     * True to display a {@link Ext.SplitBar} between this region and its neighbor, allowing the user to resize
-     * the regions dynamically (defaults to false).  When split == true, it is common to specify a minSize
-     * and maxSize for the BoxComponent representing the region. These are not native configs of BoxComponent, and
-     * are used only by this class.
+     * <p><tt>true</tt> to create a {@link Ext.layout.BorderLayout.SplitRegion SplitRegion} and 
+     * display a {@link Ext.SplitBar} between this region and its neighbor, allowing the user to
+     * resize the regions dynamically.  Defaults to <tt>false</tt> creating a
+     * {@link Ext.layout.BorderLayout.Region Region}.</p><br>
+     * <p><b>Notes</b>:</p><div class="mdetail-params"><ul>
+     * <li>this configuration option is ignored if <tt>region='center'</tt></li> 
+     * <li>when <tt>split == true</tt>, it is common to specify a
+     * <tt>{@link Ext.SplitBar#minSize minSize}</tt> and <tt>{@link Ext.SplitBar#maxSize maxSize}</tt>
+     * for the {@link Ext.BoxComponent BoxComponent} representing the region. These are not native
+     * configs of {@link Ext.BoxComponent BoxComponent}, and are used only by this class.</li>
+     * </ul></div> 
      */
     split:false,
     /**
      * @cfg {Boolean} floatable
-     * True to allow clicking a collapsed region's bar to display the region's panel floated above the layout,
-     * false to force the user to fully expand a collapsed region by clicking the expand button to see it again
-     * (defaults to true).
+     * <tt>true</tt> to allow clicking a collapsed region's bar to display the region's panel floated
+     * above the layout, <tt>false</tt> to force the user to fully expand a collapsed region by
+     * clicking the expand button to see it again (defaults to <tt>true</tt>).
      */
     floatable: true,
     /**
      * @cfg {Number} minWidth
-     * The minimum allowable width in pixels for this region (defaults to 50)
+     * <p>The minimum allowable width in pixels for this region (defaults to <tt>50</tt>).
+     * <tt>maxWidth</tt> may also be specified.</p><br>
+     * <p><b>Note</b>: setting the <tt>{@link Ext.SplitBar#minSize minSize}</tt> / 
+     * <tt>{@link Ext.SplitBar#maxSize maxSize}</tt> supersedes any specified 
+     * <tt>minWidth</tt> / <tt>maxWidth</tt>.</p>
      */
     minWidth:50,
     /**
      * @cfg {Number} minHeight
-     * The minimum allowable height in pixels for this region (defaults to 50)
+     * The minimum allowable height in pixels for this region (defaults to <tt>50</tt>)
+     * <tt>maxHeight</tt> may also be specified.</p><br>
+     * <p><b>Note</b>: setting the <tt>{@link Ext.SplitBar#minSize minSize}</tt> / 
+     * <tt>{@link Ext.SplitBar#maxSize maxSize}</tt> supersedes any specified 
+     * <tt>minHeight</tt> / <tt>maxHeight</tt>.</p>
      */
     minHeight:50,
 
@@ -515,19 +580,21 @@ Ext.layout.BorderLayout.Region.prototype = {
     },
 
     /**
-     * Returns the current margins for this region.  If the region is collapsed, the cmargins (collapsed
-     * margins) value will be returned, otherwise the margins value will be returned.
-     * @return {Object} An object containing the element's margins: {left: (left margin), top: (top margin),
-     * right: (right margin), bottom: (bottom margin)}
+     * Returns the current margins for this region.  If the region is collapsed, the
+     * {@link #cmargins} (collapsed margins) value will be returned, otherwise the
+     * {@link #margins} value will be returned.
+     * @return {Object} An object containing the element's margins: <tt>{left: (left
+     * margin), top: (top margin), right: (right margin), bottom: (bottom margin)}</tt>
      */
     getMargins : function(){
         return this.isCollapsed && this.cmargins ? this.cmargins : this.margins;
     },
 
     /**
-     * Returns the current size of this region.  If the region is collapsed, the size of the collapsedEl will
-     * be returned, otherwise the size of the region's panel will be returned.
-     * @return {Object} An object containing the element's size: {width: (element width), height: (element height)}
+     * Returns the current size of this region.  If the region is collapsed, the size of the
+     * collapsedEl will be returned, otherwise the size of the region's panel will be returned.
+     * @return {Object} An object containing the element's size: <tt>{width: (element width),
+     * height: (element height)}</tt>
      */
     getSize : function(){
         return this.isCollapsed ? this.getCollapsedEl().getSize() : this.panel.getSize();
@@ -785,7 +852,9 @@ Ext.layout.BorderLayout.Region.prototype = {
 /**
  * @class Ext.layout.BorderLayout.SplitRegion
  * @extends Ext.layout.BorderLayout.Region
- * This is a specialized type of BorderLayout region that has a built-in {@link Ext.SplitBar} for user resizing of regions.
+ * <p>This is a specialized type of {@link Ext.layout.BorderLayout.Region BorderLayout region} that
+ * has a built-in {@link Ext.SplitBar} for user resizing of regions.  The movement of the split bar
+ * is configurable to move either {@link #tickSize smooth or incrementally}.</p>
  * @constructor
  * Create a new SplitRegion.
  * @param {Layout} layout Any valid Ext layout class
@@ -802,24 +871,30 @@ Ext.layout.BorderLayout.SplitRegion = function(layout, config, pos){
 Ext.extend(Ext.layout.BorderLayout.SplitRegion, Ext.layout.BorderLayout.Region, {
     /**
      * @cfg {Number} tickSize
-     * The increment, in pixels by which to move this Region's SplitBar. When <i>undefined</i>, the SplitBar moves smoothly.
+     * The increment, in pixels by which to move this Region's {@link Ext.SplitBar SplitBar}.
+     * By default, the {@link Ext.SplitBar SplitBar} moves smoothly.
      */
     /**
      * @cfg {String} splitTip
-     * The tooltip to display when the user hovers over a non-collapsible region's split bar (defaults to "Drag
-     * to resize.").  Only applies if {@link #useSplitTips} = true.
+     * The tooltip to display when the user hovers over a
+     * {@link Ext.layout.BorderLayout.Region#collapsible non-collapsible} region's split bar
+     * (defaults to <tt>"Drag to resize."</tt>).  Only applies if
+     * <tt>{@link #useSplitTips} = true</tt>.
      */
     splitTip : "Drag to resize.",
     /**
      * @cfg {String} collapsibleSplitTip
-     * The tooltip to display when the user hovers over a collapsible region's split bar (defaults to "Drag
-     * to resize. Double click to hide.").  Only applies if {@link #useSplitTips} = true.
+     * The tooltip to display when the user hovers over a
+     * {@link Ext.layout.BorderLayout.Region#collapsible collapsible} region's split bar
+     * (defaults to "Drag to resize. Double click to hide."). Only applies if
+     * <tt>{@link #useSplitTips} = true</tt>.
      */
     collapsibleSplitTip : "Drag to resize. Double click to hide.",
     /**
      * @cfg {Boolean} useSplitTips
-     * True to display a tooltip when the user hovers over a region's split bar (defaults to false).  The tooltip
-     * text will be the value of either {@link #splitTip} or {@link #collapsibleSplitTip} as appropriate.
+     * <tt>true</tt> to display a tooltip when the user hovers over a region's split bar
+     * (defaults to <tt>false</tt>).  The tooltip text will be the value of either
+     * <tt>{@link #splitTip}</tt> or <tt>{@link #collapsibleSplitTip}</tt> as appropriate.
      */
     useSplitTips : false,
 

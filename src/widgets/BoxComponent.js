@@ -28,6 +28,15 @@ var myImage = new Ext.BoxComponent({
  * @xtype box
  */
 Ext.BoxComponent = Ext.extend(Ext.Component, {
+
+	// Configs below are used for all Components when rendered by BorderLayout.
+    /**
+     * @cfg {String} region <p><b>Note</b>: this config is only used when this BoxComponent is rendered
+     * by a Container which has been configured to use the <b>{@link Ext.layout.BorderLayout BorderLayout}</b>
+     * layout manager (eg. specifying <tt>layout:'border'</tt>).</p><br>
+     * <p>See {@link Ext.layout.BorderLayout} also.</p>
+     */
+
     /**
      * @cfg {Number} x
      * The local x (left) coordinate for this component if contained within a positioning container.

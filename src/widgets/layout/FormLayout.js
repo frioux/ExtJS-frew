@@ -15,7 +15,7 @@
  * 
  * <p>A {@link Ext.Container Container} <i>using</i> the FormLayout layout manager (eg.
  * {@link Ext.form.FormPanel} or specifying <tt>layout:'form'</tt>) can also accept the following
- * layout-specific config properties:</p><div class="mdetail-params"><ul>
+ * layout-specific config properties:<div class="mdetail-params"><ul>
  * <li><b><tt>{@link Ext.form.FormPanel#hideLabels hideLabels}</tt></b></li>
  * <li><b><tt>{@link Ext.form.FormPanel#labelAlign labelAlign}</tt></b></li>
  * <li><b><tt>{@link Ext.form.FormPanel#labelPad labelPad}</tt></b></li>
@@ -61,8 +61,8 @@ var form = new Ext.form.FormPanel({
     items: [{
             fieldLabel: 'First Name',
             name: 'first',
-            allowBlank: false
-            {@link Ext.Component#labelSeparator labelSeparator}: ':', // override labelSeparator layout config
+            allowBlank: false,
+            {@link Ext.Component#labelSeparator labelSeparator}: ':' // override labelSeparator layout config
         },{
             fieldLabel: 'Last Name',
             name: 'last'
@@ -82,7 +82,7 @@ var form = new Ext.form.FormPanel({
         {text: 'Cancel'}
     ],
     layoutConfig: {
-        {@link #labelSeparator}: '~', // superseded by assignment below 
+        {@link #labelSeparator}: '~' // superseded by assignment below 
     },
     // config options applicable to container when layout='form':
     hideLabels: false,
@@ -166,19 +166,19 @@ var t = new Ext.Template(
      * <li><b><tt>itemCls</tt></b> : String<div class="sub-desc">The CSS class applied to the outermost div wrapper
      * that contains this field label and field element (the default class is <tt>'x-form-item'</tt> and <tt>itemCls</tt>
      * will be added to that). If supplied, <tt>itemCls</tt> at the field level will override the default <tt>itemCls</tt>
-     * supplied at the container level.</li>
-     * <li><b><tt>id</tt></b> : String<div class="sub-desc">The id of the Field</li>
+     * supplied at the container level.</div></li>
+     * <li><b><tt>id</tt></b> : String<div class="sub-desc">The id of the Field</div></li>
      * <li><b><tt>{@link #labelStyle}</tt></b> : String<div class="sub-desc">
      * A CSS style specification string to add to the field label for this field (defaults to <tt>''</tt> or the
-     * {@link #labelStyle layout's value for <tt>labelStyle</tt>}).</li>
+     * {@link #labelStyle layout's value for <tt>labelStyle</tt>}).</div></li>
      * <li><b><tt>label</tt></b> : String<div class="sub-desc">The text to display as the label for this
-     * field (defaults to <tt>''</tt>)</li>
+     * field (defaults to <tt>''</tt>)</div></li>
      * <li><b><tt>{@link #labelSeparator}</tt></b> : String<div class="sub-desc">The separator to display after
      * the text of the label for this field (defaults to a colon <tt>':'</tt> or the
-     * {@link #labelSeparator layout's value for labelSeparator}). To hide the separator use empty string ''.</li>
-     * <li><b><tt>elementStyle</tt></b> : String<div class="sub-desc">The styles text for the input element's wrapper.</li>
+     * {@link #labelSeparator layout's value for labelSeparator}). To hide the separator use empty string ''.</div></li>
+     * <li><b><tt>elementStyle</tt></b> : String<div class="sub-desc">The styles text for the input element's wrapper.</div></li>
      * <li><b><tt>clearCls</tt></b> : String<div class="sub-desc">The CSS class to apply to the special clearing div
-     * rendered directly after each form field wrapper (defaults to <tt>'x-form-clear-left'</tt>)</li>
+     * rendered directly after each form field wrapper (defaults to <tt>'x-form-clear-left'</tt>)</div></li>
      * </ul></div>
      * <p>Also see <tt>{@link #getTemplateArgs}</tt></p>
      * @type Ext.Template
@@ -211,19 +211,19 @@ var t = new Ext.Template(
      * <li><b><tt>itemCls</tt></b> : String<div class="sub-desc">The CSS class applied to the outermost div wrapper
      * that contains this field label and field element (the default class is <tt>'x-form-item'</tt> and <tt>itemCls</tt>
      * will be added to that). If supplied, <tt>itemCls</tt> at the field level will override the default <tt>itemCls</tt>
-     * supplied at the container level.</li>
-     * <li><b><tt>id</tt></b> : String<div class="sub-desc">The id of the Field</li>
+     * supplied at the container level.</div></li>
+     * <li><b><tt>id</tt></b> : String<div class="sub-desc">The id of the Field</div></li>
      * <li><b><tt>{@link #labelStyle}</tt></b> : String<div class="sub-desc">
      * A CSS style specification string to add to the field label for this field (defaults to <tt>''</tt> or the
-     * {@link #labelStyle layout's value for <tt>labelStyle</tt>}).</li>
+     * {@link #labelStyle layout's value for <tt>labelStyle</tt>}).</div></li>
      * <li><b><tt>label</tt></b> : String<div class="sub-desc">The text to display as the label for this
-     * field (defaults to <tt>''</tt>)</li>
+     * field (defaults to <tt>''</tt>)</div></li>
      * <li><b><tt>{@link #labelSeparator}</tt></b> : String<div class="sub-desc">The separator to display after
      * the text of the label for this field (defaults to a colon <tt>':'</tt> or the
-     * {@link #labelSeparator layout's value for labelSeparator}). To hide the separator use empty string ''.</li>
-     * <li><b><tt>elementStyle</tt></b> : String<div class="sub-desc">The styles text for the input element's wrapper.</li>
+     * {@link #labelSeparator layout's value for labelSeparator}). To hide the separator use empty string ''.</div></li>
+     * <li><b><tt>elementStyle</tt></b> : String<div class="sub-desc">The styles text for the input element's wrapper.</div></li>
      * <li><b><tt>clearCls</tt></b> : String<div class="sub-desc">The CSS class to apply to the special clearing div
-     * rendered directly after each form field wrapper (defaults to <tt>'x-form-clear-left'</tt>)</li>
+     * rendered directly after each form field wrapper (defaults to <tt>'x-form-clear-left'</tt>)</div></li>
      * </ul></div>
      * @param field The {@link Field Ext.form.Field} being rendered.
      * @return An object hash containing the properties required to render the Field.
