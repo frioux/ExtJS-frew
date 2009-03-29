@@ -23,7 +23,8 @@
  * not specified an integer id is automatically generated.
  */
 Ext.data.Record = function(data, id){
-    this.id = (id || id === 0) ? id : ++Ext.data.Record.AUTO_ID;
+	// if no id, call the auto id method
+	this.id = (id || id === 0) ? id : Ext.data.Record.id(this);
     this.data = data;
 };
 
@@ -41,9 +42,9 @@ var TopicRecord = Ext.data.Record.create([ // creates a subclass of Ext.data.Rec
     {name: 'lastPost', mapping: 'post_time', type: 'date'},
     {name: 'lastPoster', mapping: 'user2'},
     {name: 'excerpt', mapping: 'post_text'},
-    // In the simplest case, if no properties other than <tt>name</tt> are required, 
+    // In the simplest case, if no properties other than <tt>name</tt> are required,
     // a field definition may consist of just a String for the field name.
-    'signature' 
+    'signature'
 ]);
 
 // create Record instance
@@ -80,10 +81,25 @@ Ext.data.Record.create = function(o){
     return f;
 };
 
-Ext.data.Record.AUTO_ID = 1000;
+Ext.data.Record.PREFIX = 'ext-record';
+Ext.data.Record.AUTO_ID = 1;
 Ext.data.Record.EDIT = 'edit';
 Ext.data.Record.REJECT = 'reject';
 Ext.data.Record.COMMIT = 'commit';
+
+
+/**
+ * id
+ * auto-generates a sequential id, prefixed with the Const Ext.data.Record.PREFIX appended to auto incremented class var
+ * Ext.data.Record.AUTO_ID.
+ * @param {Record} rec The record being auto-id'ed.  The record does not exist, it's a phantom.
+ * @return {String} auto-generated string id, "ext-record-i++';
+ * @author Chris Scott <chris.scott@extjs.com>
+ */
+Ext.data.Record.id = function(rec) {
+	rec.phantom = true;
+	return [Ext.data.Record.PREFIX, '-', Ext.data.Record.AUTO_ID].join('');
+}
 
 Ext.data.Record.prototype = {
     /**
@@ -117,6 +133,13 @@ Ext.data.Record.prototype = {
      * @type {Object}
      */
     modified: null,
+	/**
+	 * False when the record does not yet exist in a server-side database.  Any record which has a real database pk set
+	 * as its id property is NOT a phantom -- it's real.
+	 * @property phantom
+	 * @type {Boolean}
+	 */
+	phantom : false,
 
     // private
     join : function(store){
@@ -149,21 +172,21 @@ Ext.data.Record.prototype = {
             this.afterEdit();
         }
     },
-    
+
     // private
     afterEdit: function(){
         if(this.store){
             this.store.afterEdit(this);
         }
     },
-    
+
     // private
     afterReject: function(){
         if(this.store){
-            this.store.afterReject(this);    
+            this.store.afterReject(this);
         }
     },
-    
+
     // private
     afterCommit: function(){
         if(this.store){
@@ -287,5 +310,32 @@ Ext.data.Record.prototype = {
      */
     isModified : function(fieldName){
         return !!(this.modified && this.modified.hasOwnProperty(fieldName));
+    },
+
+	/**
+	 * isValid
+	 * return false if any field is configured allowBlank false and Ext.isEmpty (for now)
+	 * @return {Boolean}
+	 */
+	isValid : function() {
+		return this.fields.find(function(f) {
+			return (f.allowBlank == false && Ext.isEmpty(this.data[f.name])) ? true : false;
+		},this) ? false : true;
+	},
+
+	/**
+     * markDirty
+     * Marks all fields as dirty.  Useful for when adding phantom records to a grid which have not yet been inserted
+     * on the serverside.  Marking a new record dirty causes the phantom to be returned by Store#getModifiedRecords where
+     * it will have a create action composed for it.
+     */
+    markDirty : function(){
+        this.dirty = true;
+        if(!this.modified){
+            this.modified = {};
+        }
+        this.fields.each(function(f) {
+			this.modified[f.name] = this.data[f.name];
+		},this);
     }
 };

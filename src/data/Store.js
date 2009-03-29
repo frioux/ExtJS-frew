@@ -69,6 +69,10 @@ Ext.data.Store = function(config){
         if(this.reader.onMetaChange){
             this.reader.onMetaChange = this.onMetaChange.createDelegate(this);
         }
+		if (this.writer) { // writer passed
+			this.writer.meta = this.reader.meta;
+			this.pruneModifiedRecords = true;
+		}
     }
 
     /**
@@ -100,7 +104,7 @@ var grid = new Ext.grid.EditorGridPanel({
             {header: "Price", renderer: 'usMoney', dataIndex: 'price'},
             {header: "Change", renderer: change, dataIndex: 'change'},
             {header: "% Change", renderer: pctChange, dataIndex: 'pctChange'},
-            {header: "Last Updated", width: 85, 
+            {header: "Last Updated", width: 85,
                 renderer: Ext.util.Format.dateRenderer('m/d/Y'),
                 dataIndex: 'lastChange'}
         ],
@@ -149,7 +153,7 @@ var grid = new Ext.grid.EditorGridPanel({
     this.addEvents(
         /**
          * @event datachanged
-         * Fires when the data cache has changed in a bulk manner (e.g., it has been sorted, filtered, etc.) and a 
+         * Fires when the data cache has changed in a bulk manner (e.g., it has been sorted, filtered, etc.) and a
          * widget that is using this Store as a Record cache should refresh its view.
          * @param {Store} this
          */
@@ -217,12 +221,88 @@ var grid = new Ext.grid.EditorGridPanel({
          * Fires if an exception occurs in the Proxy during loading.
          * Called with the signature of the Proxy's "loadexception" event.
          */
-        'loadexception'
+        'loadexception',
+		/**
+		 * @event beforesave
+		 * Fires before a network save request fires.  If the handler returns false, the action will be cancelled.
+		 * @param {Store} this
+		 * @param {Record/Record[]} The record or Array of records being saved
+		 */
+		'beforesave',
+		/**
+		 * @event save
+		 * Fires after a network request has completed.
+		 * @param {Store} this
+		 * @param {Object} result data
+		 * @param {Ext.Direct.Transaction} response
+		 */
+		'save',
+		/**
+		 * @event saveexception
+		 * Fires when a network exception occurs.
+		 * @param {DirectProxy} proxy
+		 * @param {Object} result
+		 * @param {Ext.Direct.ExceptionEvent}
+		 */
+		'saveexception',
+		/**
+		 * @event beforedestroy
+		 * Fires before a record will be destroyed
+		 * @param {Store} this
+		 * @param {Record/Record[]} rs, record(s) to be destroyed
+		 */
+		'beforedestroy',
+		/**
+		 * @event destroy
+		 * Fires after a record has been destroy
+		 * @param {Store} this
+		 * @param {Object} result
+		 * @param {Ext.Direct.Event} response
+		 */
+		'destroy',
+		/**
+		 * @event destroyexception
+		 * Fires when a destroy exception ocurred
+		 * @param {Store} this
+		 * @param {Ext.data.Record[]} rs
+		 * @param {Ext.Direct.Event} response
+		 */
+		'destroyexception',
+		/**
+		 * @event beforecreate
+		 * Fires before a network create request occurs
+		 * @param {Store} this
+		 * @param {Record/Record[]}
+		 */
+		'beforecreate',
+		/**
+		 * @event create
+		 * Fires after network create request occurs
+		 * @param {Store} this
+		 * @param {Object} result
+		 * @param {Ext.Direct.ExceptionEvent} response
+		 */
+		'create',
+		/**
+		 * @event createexception
+		 * Fires after network exception occurs
+		 * @param {DirectProxy} this
+		 * @param {Record} record
+		 * @param {Ext.Direct.ExceptionEvent}
+		 */
+		'createexception'
     );
 
     if(this.proxy){
         this.relayEvents(this.proxy,  ["loadexception"]);
     }
+	// With a writer installed into the Store, we want to listen to add/remove events to remotely create/destroy records.
+	if (this.writer) {
+		this.relayEvents(this.proxy, ["saveexception", "createexception", "destroyexception"]);
+		this.on('add', this.createRecords.createDelegate(this));
+		this.on('remove', this.destroyRecord.createDelegate(this));
+		this.on('update', this.updateRecord.createDelegate(this));
+	}
 
     this.sortToggle = {};
     if(this.sortField){
@@ -257,7 +337,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     */
     /**
     * @cfg {String} url If a <tt>{@link #proxy}</tt> is not specified the <tt>url</tt> will be used to
-    * implicitly configure a {@link Ext.data.HttpProxy HttpProxy} if an <tt>url</tt> is specified. 
+    * implicitly configure a {@link Ext.data.HttpProxy HttpProxy} if an <tt>url</tt> is specified.
     */
     /**
     * @cfg {Boolean/Object} autoLoad If <tt>{@link #data}</tt> is not specified, and if <tt>autoLoad</tt>
@@ -277,6 +357,11 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     * data object and returns an Array of {@link Ext.data.Record} objects which are cached keyed by their
     * <b><tt>{@link Ext.data.Record#id id}</tt></b> property.
     */
+	/**
+	 * @cfg {Ext.data.DataWriter} writer The {@link Ext.data.DataWriter Writer} object which processes a record
+	 * object for being written to the server-side database.
+	 */
+	writer : undefined,
     /**
     * @cfg {Object} baseParams <p>An object containing properties which are to be sent as parameters
     * for <i>every</i> HTTP request.</p>
@@ -306,7 +391,7 @@ sortInfo: {
     * </ul></div></p>
     */
     remoteSort : false,
-    
+
     /**
     * @cfg {Boolean} autoDestroy <tt>true</tt> to destroy the store when the component the store is bound
     * to is destroyed (defaults to <tt>false</tt>).
@@ -328,6 +413,17 @@ sortInfo: {
      * @property
      */
    lastOptions : null,
+
+   /**
+	 * @cfg {Boolean} batchSave [false]
+	 * batchSave determines if the store will automatically write records to the server when a record changes.
+	 * Set to false to turn this behaviour off.  You'll have to manually call store.save().  Store#save will
+	 * send use send all modifiedRecords to teh server.
+	 */
+	batchSave : false,
+
+	// private destroy temporary cache
+	removed : [],
 
     /**
      * Destroys the store.
@@ -385,13 +481,13 @@ sortInfo: {
         }
         this.fireEvent("remove", this, record, index);
     },
-    
+
     /**
      * Remove a Record from the Store at the specified index. Fires the {@link #remove} event.
      * @param {Number} index The index of the record to remove.
      */
     removeAt : function(index){
-        this.remove(this.getAt(index));    
+        this.remove(this.getAt(index));
     },
 
     /**
@@ -518,6 +614,217 @@ sortInfo: {
           return false;
         }
     },
+	// new load method by chris.  Uses Store#execute instead of this.proxy.load
+	load : function(options) {
+		options = options || {};
+        this.storeOptions(options);
+        if(this.sortInfo && this.remoteSort){
+            var pn = this.paramNames;
+            options.params[pn["sort"]] = this.sortInfo.field;
+            options.params[pn["dir"]] = this.sortInfo.direction;
+        }
+		return this.execute('load', null, options);
+	},
+
+	/**
+	 * updateRecord  Should not be used directly.  This method will be called automatically if a Writer is installed.
+	 * Listens to "update" event.
+	 * @param {Object} store
+	 * @param {Object} record
+	 * @param {Object} action
+	 * @private
+	 */
+	updateRecord : function(store, record, action) {
+		if (action != Ext.data.Record.EDIT || this.batchSave) {
+			return;
+		}
+		if (!record.phantom || (record.phantom && record.isValid)) {
+			this.save(record);
+		}
+	},
+
+	/**
+	 * createRecords.  Should not be used directly.  Store#add will call this automatically if a Writer is installed
+	 * @param {Object} store
+	 * @param {Object} rs
+	 * @param {Object} index
+	 * @private
+	 */
+	createRecords : function(store, rs, index) {
+		if (this.batchSave == false) {
+			for (var i = 0, len = rs.length; i < len; i++) {
+				if (rs[i].phantom && rs[i].isValid()) {
+					rs[i].markDirty();	// <-- Mark new records dirty
+					this.execute('create', rs[i]);
+				}
+			}
+		}
+		else {
+			for (var i = 0, len = rs.length; i < len; i++) {
+				if (rs[i].phantom && rs[i].isValid()) {
+					rs[i].markDirty();	// <-- Mark new records dirty
+					this.modified.push(rs[i]);
+				}
+			}
+		}
+	},
+
+	/**
+	 * destroyRecord
+	 * Destroys a record or records.  Should not be used directly.  It's called by Store#remove if a Writer is installed.
+	 * @param {Store} this
+	 * @param {Ext.data.Record/Ext.data.Record[]}
+	 * @param {Number} index
+	 * @private
+	 */
+	destroyRecord : function(store, record, index) {
+		if (this.modified.indexOf(record) != -1) {	// <-- handled already if @cfg pruneModifiedRecords == true
+			this.modified.remove(record);
+		}
+		if (record.phantom === true) {
+			return;
+		}
+		if (!this.batchSave) {
+			this.execute('destroy', record);
+		}
+		else {
+			this.removed.push(record);
+		}
+	},
+
+	/**
+	 * execute Executes a CRUD action on a proxy if a Writer is installed.  Should not be used directly.  Called automatically
+	 * by Store#add, Store#remove, Store#afterEdit
+	 * @param {String} action
+	 * @param {Record/Record[]} rs
+	 * @param {Object} options
+	 * @private
+	 */
+	execute : function(action, rs, options) {
+		if (action != 'load' && !this.writer) {	// TODO: define actions as CONSTANTS
+			// blow up if trying to execute 'create', 'destroy', 'save' without a Writer installed.
+			throw new Error('Store attempted to execute the remote action "' + action + '" without a DataWriter installed.');
+		}
+		options = options || {};
+		if (this.fireEvent('before'+action, this, rs||options)) {	// <-- if action is load, rs will be null
+			var p = Ext.apply(options.params || {}, this.baseParams, {xaction: action});
+			if (this.writer && typeof(this.writer[action]) == 'function') {
+				this.writer[action](p, rs);// <-- call writer if action-method exists (ie: it won't for load action; will for create, destroy, save)
+			}
+			this.proxy.request(action, rs, p, this.reader, this.writer, this.createCallback(action, rs), this, options);
+			return true;
+		}
+		else {
+			return false;
+		}
+	},
+
+	/**
+	 * save
+	 * @param {Object} options
+	 * @author Chris Scott
+	 */
+	save : function(rs) {
+		rs = rs || this.getModifiedRecords();
+		if (!rs.length && !rs instanceof Ext.data.Record && !this.removed.length) {
+			return false;
+		}
+		var action = 'save';
+		if (this.removed.length) {
+			try {
+				this.execute('destroy', this.removed);
+			}
+			catch (e) {
+				throw e;	// <-- just re-throw it for now...
+			}
+		}
+		try {
+			if (Ext.isArray(rs)) {
+				for (var i = rs.length-1; i >= 0; i--) {
+					if (rs[i].phantom === true) {
+						var rec = rs.splice(i, 1).shift();
+						if (rec.isValid()) {
+							this.execute('create', rec);
+						}
+					}
+				}
+			}
+			else if (rs.phantom) {
+				if (!rs.isValid()) {
+					return false;
+				}
+				action = 'create';
+			}
+			if (Ext.isArray(rs) && rs.length == 1) {
+				rs = rs[0];
+			}
+			if (rs instanceof Ext.data.Record || rs.length > 0) {
+				this.execute(action, rs);
+				return true;
+			}
+			else {
+				// no more actions to execute.  They may have been spliced-out by create actions above.  just return true.
+				return true;
+			}
+		}
+		catch (e) {
+			throw e;
+		}
+		return true;
+	},
+
+	// private callback-handler for remote CRUD actions
+	createCallback : function(action, rs) {
+		return (action == 'load') ? this.loadRecords : function(data, response, success) {
+			if (success === true) {
+				switch (action) {
+					case 'create':
+						this.onCreateRecord(rs, data);
+						break;
+					case 'destroy':
+						this.onDestroyRecords(rs, data);
+						break;
+					case 'save':
+						this.onSaveRecords(rs, data);
+						break;
+				}
+				this.fireEvent(action, this, data, response);
+			}
+		}
+	},
+
+	// private onCreateRecord proxy callback for create action
+	onCreateRecord : function(record, data) {
+		// TODO: raise exception if server didn't send a database pk back?
+		if (record.phantom && data[this.reader.meta.idProperty]) {
+			record.editing = true;	// <-- prevent unwanted afterEdit calls by record.
+			record.phantom = false;
+			record.id = data[this.reader.meta.idProperty];	// <-- Server MUST send id at least!
+			record.fields.each(function(f) {	// <-- update record fields with data from server if was sent
+				if (data[f.name] || data[f.mapping]) {
+					record.set(f.name, (f.mapping) ? data[f.mapping] : data[f.name]);
+				}
+			});
+			record.commit();
+			record.editing = false;
+		}
+	},
+
+	// private, onSaveRecords proxy callback for update action
+	onSaveRecords : function(rs, data) {
+		if (!Ext.isArray(rs)) {
+			rs = [rs];
+		}
+		// maybe just commit row changes?
+		for (var i=rs.length-1;i>=0;i--) {
+			rs[i].commit();
+		}
+	},
+
+	// private onDestroyRecords proxy callback for destroy action
+	onDestroyRecords : function(rs, data) {
+		this.removed = [];
+	},
 
     /**
      * <p>Reloads the Record cache from the configured Proxy using the configured {@link Ext.data.Reader Reader} and
@@ -730,7 +1037,7 @@ sortInfo: {
     },
 
     /**
-     * Sums the value of <tt>property</tt> for each {@link Ext.data.Record record} between <tt>start</tt> 
+     * Sums the value of <tt>property</tt> for each {@link Ext.data.Record record} between <tt>start</tt>
      * and <tt>end</tt> and returns the result.
      * @param {String} property A field in each record
      * @param {Number} start (optional) The record index to start at (defaults to <tt>0</tt>)

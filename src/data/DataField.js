@@ -97,7 +97,7 @@ Ext.data.Field = function(config){
 Ext.data.Field.prototype = {
     /**
      * @cfg {String} name
-     * The name by which the field is referenced within the Record. This is referenced by, for example, 
+     * The name by which the field is referenced within the Record. This is referenced by, for example,
      * the <tt>dataIndex</tt> property in column definition objects passed to {@link Ext.grid.ColumnModel}.
      * <p>Note: In the simplest case, if no properties other than <tt>name</tt> are required, a field
      * definition may consist of just a String for the field name.</p>
@@ -175,7 +175,7 @@ var myData = [
     dateFormat: null,
     /**
      * @cfg {Mixed} defaultValue
-     * (Optional) The default value used <b>when a Record is being created by a {@link Ext.data.Reader Reader}</b> 
+     * (Optional) The default value used <b>when a Record is being created by a {@link Ext.data.Reader Reader}</b>
      * when the item referenced by the <tt>{@link Ext.data.Field#mapping mapping}</tt> does not exist in the data
      * object (i.e. undefined). (defaults to "")
      */
@@ -189,7 +189,7 @@ var myData = [
      * expression to reference the data relative to the Record item's root.</li>
      * <li>{@link Ext.data.XmlReader} is being used, this is an {@link Ext.DomQuery} path to the data
      * item relative to the DOM element that represents the Record. Defaults to the field name.</li>
-     * <li>{@link Ext.data.ArrayReader} is being used, this may be a number indicating the Array index 
+     * <li>{@link Ext.data.ArrayReader} is being used, this may be a number indicating the Array index
      * of the field's value. Defaults to the field specification's Array position.</li>
      * </ul></div>
      */
@@ -206,7 +206,7 @@ var myData = [
 // +-+------+          +-+------+
 
 sortType: function(value) {
-   switch (value.toLowerCase()) // native toLowerCase(): 
+   switch (value.toLowerCase()) // native toLowerCase():
    {
       case 'first': return 1;
       case 'second': return 2;
@@ -220,5 +220,10 @@ sortType: function(value) {
      * @cfg {String} sortDir
      * (Optional) Initial direction to sort. "ASC" or "DESC"
      */
-    sortDir : "ASC"
+    sortDir : "ASC",
+	/**
+	 * @cfg {Boolean} allowBlank [true]
+	 * (Optional) Used for validating a record.  An empty value here will cause Record#isValid to evaluate to false
+	 */
+	allowBlank : true
 };

@@ -6,12 +6,12 @@
  * with an {@link Ext.Direct} Server-side {@link Ext.direct.Provider Provider} easier.
  * To create a different proxy/reader combination create a basic {@link Ext.data.Store}
  * configured as needed.</p>
- * 
+ *
  * <p><b>*Note:</b> Although they are not listed, this class inherits all of the config options of:</p>
  * <div><ul class="mdetail-params">
  * <li><b>{@link Ext.data.Store Store}</b></li>
  * <div class="sub-desc"><ul class="mdetail-params">
- * 
+ *
  * </ul></div>
  * <li><b>{@link Ext.data.JsonReader JsonReader}</b></li>
  * <div class="sub-desc"><ul class="mdetail-params">
@@ -19,7 +19,7 @@
  * <li><tt><b>{@link Ext.data.JsonReader#idProperty idProperty}</b></tt></li>
  * <li><tt><b>{@link Ext.data.JsonReader#totalProperty totalProperty}</b></tt></li>
  * </ul></div>
- * 
+ *
  * <li><b>{@link Ext.data.DirectProxy DirectProxy}</b></li>
  * <div class="sub-desc"><ul class="mdetail-params">
  * <li><tt><b>{@link Ext.data.DirectProxy#directFn directFn}</b></tt></li>
@@ -27,18 +27,17 @@
  * <li><tt><b>{@link Ext.data.DirectProxy#paramsAsHash paramsAsHash}</b></tt></li>
  * </ul></div>
  * </ul></div>
- * 
+ *
  * @xtype directstore
- * 
+ *
  * @constructor
  * @param {Object} config
  */
 Ext.data.DirectStore = function(c){
-	var pcfg = Ext.copyTo({}, c, 'paramOrder,paramsAsHash,directFn');
 	Ext.data.DirectStore.superclass.constructor.call(this, Ext.apply(c, {
-		proxy: new Ext.data.DirectProxy(pcfg),
-		reader: new Ext.data.JsonReader(c, c.fields)
-	}));
+        proxy: (typeof(c.proxy) == 'undefined') ? new Ext.data.DirectProxy(Ext.copyTo({}, c, 'paramOrder,paramsAsHash,directFn,api')) : c.proxy,
+        reader: (typeof(c.reader) == 'undefined' && typeof(c.fields) == 'object') ? new Ext.data.JsonReader(Ext.copyTo({}, c, 'totalProperty,root,idProperty'), c.fields) : c.reader
+    }));
 };
 Ext.extend(Ext.data.DirectStore, Ext.data.Store);
 Ext.reg('directstore', Ext.data.Store);

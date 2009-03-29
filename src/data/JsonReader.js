@@ -33,7 +33,7 @@ var myReader = new Ext.data.JsonReader(
  * property in the JSON data object. If the JSON data object has a <b><tt>metaData</tt></b> property, a
  * {@link Ext.data.Store Store} object using this Reader will reconfigure itself to use the newly provided
  * field definition and fire its {@link Ext.data.Store#metachange metachange} event. The metachange event
- * handler may interrogate the <b><tt>metaData</tt></b> property to perform any configuration required. 
+ * handler may interrogate the <b><tt>metaData</tt></b> property to perform any configuration required.
  * Note that reconfiguring a Store potentially invalidates objects which may refer to Fields or Records
  * which no longer exist.</p>
  * <p>The <b><tt>metaData</tt></b> property in the JSON data object may contain:</p>
@@ -43,7 +43,7 @@ var myReader = new Ext.data.JsonReader(
  * use as an argument to the {@link Ext.data.Record#create data Record create method} in order to
  * configure the layout of the Records it will produce.</li>
  * <li>a <b><tt>{@link Ext.data.Store#sortInfo sortInfo}</tt></b> property which the JsonReader will
- * use to set the {@link Ext.data.Store}'s {@link Ext.data.Store#sortInfo sortInfo} property</li>  
+ * use to set the {@link Ext.data.Store}'s {@link Ext.data.Store#sortInfo sortInfo} property</li>
  * <li>any user-defined properties needed</li>
  * </ul></div>
  * <p>To use this facility to send the same data as the example above (without having to code the creation
@@ -72,7 +72,7 @@ var myReader = new Ext.data.JsonReader();
         { 'id': 2, 'name': 'Ben', occupation: 'Horticulturalist' }
     ]
 }
-</code></pre> 
+</code></pre>
  * @cfg {String} totalProperty Name of the property from which to retrieve the total number of records
  * in the dataset. This is only needed if the whole dataset is not passed in one go, but is being
  * paged from the remote server.
@@ -222,5 +222,19 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             records : records,
             totalRecords : totalRecords
         };
-    }
+    },
+
+	/**
+	 * readResponse
+	 * decodes a json response from server
+	 * @param {Object} response
+	 */
+	readResponse : function(response) {
+		var json = response.responseText;
+        var o = eval("("+json+")");
+        if(!o) {
+            throw {message: "JsonReader.read: Json object not found"};
+        }
+		return o;
+	}
 });

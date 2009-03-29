@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project path="" name="Ext - JS Lib" author="Ext JS, LLC" version="3.0 Pre-alpha" copyright="Ext JS Library $version&#xD;&#xA;Copyright(c) 2006-2008, $author.&#xD;&#xA;licensing@extjs.com&#xD;&#xA;&#xD;&#xA;http://extjs.com/license" output="C:\apps\www\deploy\ext-3.0-dev\" source="True" source-dir="$output\source" minify="True" min-dir="$output\build" doc="False" doc-dir="$output\docs" min-dair="$output\build">
+<project path="" name="Ext - JS Lib" author="Ext JS, LLC" version="3.0 Pre-alpha" copyright="Ext JS Library $version&#xD;&#xA;Copyright(c) 2006-2008, $author.&#xD;&#xA;licensing@extjs.com&#xD;&#xA;&#xD;&#xA;http://extjs.com/license" output="/www/shared/js/ext-3.0-dev/" source="True" source-dir="$output\source" minify="True" min-dir="$output\build" doc="False" doc-dir="$output\docs" min-dair="$output\build">
   <directory name="" />
   <target name="Core" file="$output\ext-core.js" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="core\core\Ext.js" />
@@ -90,15 +90,19 @@
     <include name="data\Record.js" />
     <include name="data\StoreMgr.js" />
     <include name="data\Store.js" />
+	<include name="data\DirectStore.js" />
     <include name="data\JsonStore.js" />
     <include name="data\XmlStore.js" />
     <include name="data\ArrayStore.js" />
     <include name="data\DataField.js" />
     <include name="data\DataReader.js" />
+	<include name="data\DataWriter.js" />
+    <include name="data\JsonWriter.js" />
     <include name="data\DataProxy.js" />
     <include name="data\MemoryProxy.js" />
     <include name="data\HttpProxy.js" />
     <include name="data\ScriptTagProxy.js" />
+	<include name="data\DirectProxy.js" />
     <include name="data\JsonReader.js" />
     <include name="data\XmlReader.js" />
     <include name="data\ArrayReader.js" />
@@ -452,6 +456,7 @@
     <include name="data\StoreMgr.js" />
     <include name="data\Store.js" />
     <include name="data\SimpleStore.js" />
+	<include name="data\DirectStore.js" />
     <include name="data\core\Connection.js" />
     <include name="data\Connection-more.js" />
     <include name="data\DataField.js" />
@@ -460,9 +465,12 @@
     <include name="data\MemoryProxy.js" />
     <include name="data\HttpProxy.js" />
     <include name="data\ScriptTagProxy.js" />
+	<include name="data\DirectProxy.js" />
     <include name="data\JsonReader.js" />
     <include name="data\XmlReader.js" />
     <include name="data\ArrayReader.js" />
+	<include name="data\DataWriter.js" />
+    <include name="data\JsonWriter.js" />
   </target>
   <target name="Widget Core" file="$output\package\widget-core.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="widgets\ComponentMgr.js" />

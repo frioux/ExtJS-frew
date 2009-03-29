@@ -24,20 +24,22 @@ paramOrder: 'param1|param2|param'
 	 </code></pre>
 	 */
 	paramOrder: undefined,
-	
+
 	/**
 	 * @cfg {Boolean} paramsAsHash
 	 * Send parameters as a collection of named arguments (defaults to <tt>true</tt>). Providing a
 	 * <tt>{@link #paramOrder}</tt> nullifies this configuration.
-	 */	
+	 */
 	paramsAsHash: true,
-	
+
 	/**
 	 * @cfg {Function} directFn
 	 * The {@link Ext.Direct} function which has been imported from the server-side
-	 */	
+	 * @deprecated in favour of api object.  @see DataProxy @cfg api
+	 */
 	directFn: undefined,
 
+	// @deprecated in favour of doRequest below
 	load: function(params, reader, cb, scope, arg){
 		if(this.fireEvent("beforeload", this, params) !== false) {
 			var args = [];
@@ -72,6 +74,62 @@ paramOrder: 'param1|param2|param'
 			this.directFn.apply(window, args);
 		} else {
 			cb.call(scope || this, null, arg, false);
+		}
+	},
+
+	// protected
+	doRequest : function(action, rs, params, reader, writer, cb, scope, options) {
+		var args = [];
+		var directFn = this.api[action];
+		switch (action) {
+			case 'save':
+				args.push(params[reader.meta.idProperty]);	// <-- save(Integer/Integer[], Hash/Hash[])
+				args.push(params[writer.dataProperty]);
+				break;
+			case 'destroy':
+				args.push(params[writer.dataProperty]);		// <-- destroy(Int/Int[])
+				break;
+			case 'create':
+				args.push(params[writer.dataProperty]);		// <-- create(Hash)
+				break;
+			case 'load':
+				args.push(params);							// <-- load(Hash)
+				break;
+		}
+		args.push(this.createCallback(action, reader, cb, scope, options));
+		directFn.apply(window, args);
+	},
+
+	// private
+	createCallback : function(action, reader, cb, scope, arg) {
+		return {
+			callback: (action == 'load') ? function(result, e){
+				if (!e.status) {
+					this.fireEvent(action+"exception", this, e, result);
+					cb.call(scope, null, arg, false);
+					return;
+				}
+				var records;
+				try {
+					records = reader.readRecords(result);
+				}
+				catch (ex) {
+					this.fireEvent(action+"exception", this, e, result, ex);
+					cb.call(scope, null, arg, false);
+					return;
+				}
+				this.fireEvent(action, this, e, arg);
+				cb.call(scope, records, arg, true);
+			} : function(result, e){
+				if(!e.status){
+					this.fireEvent(action+"exception", this, e);
+        			cb.call(scope, null, e, false);
+        			return;
+				}
+		        this.fireEvent(action, this, result, e, arg);
+		        cb.call(scope, result, e, true);
+			},
+			scope: this
 		}
 	}
 });

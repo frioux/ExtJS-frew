@@ -22,6 +22,9 @@
  */
 Ext.data.HttpProxy = function(conn){
     Ext.data.HttpProxy.superclass.constructor.call(this);
+
+	Ext.copyTo(this, conn, 'api,prettyUrls,url');
+
     /**
      * The Connection object (Or options parameter to {@link Ext.Ajax#request}) which this HttpProxy uses to make requests to the server.
      * Properties of this object may be changed dynamically to change the way data is requested.
@@ -29,7 +32,7 @@ Ext.data.HttpProxy = function(conn){
      */
     this.conn = conn;
     this.useAjax = !conn || !conn.events;
-    
+
     /**
      * @event loadexception
      * Fires if an exception occurs in the Proxy during data loading.  This event can be fired for one of two reasons:
@@ -37,7 +40,7 @@ Ext.data.HttpProxy = function(conn){
      * status and there is no data to read.  In this case, this event will be raised and the
      * fourth parameter (read error) will be null.</li>
      * <li><b>The load succeeded but the reader could not read the response.</b>  This means the server returned
-     * data, but the configured Reader threw an error while reading the data.  In this case, this event will be 
+     * data, but the configured Reader threw an error while reading the data.  In this case, this event will be
      * raised and the caught error will be passed along as the fourth parameter of this event.</li></ul>
      * Note that this event is also relayed through {@link Ext.data.Store}, so you can listen for it directly
      * on any Store instance.
@@ -50,6 +53,15 @@ Ext.data.HttpProxy = function(conn){
 };
 
 Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
+	/**
+	 * @cfg {Boolean} prettyUrls [false].
+	 * If set to true, CRUD actions on a single record will have the record's id appended to the url.  Some MVC such as
+	 * Ruby on Rails, Merb and Django support this style of urls.
+	 * Eg:  if destroying a record having id: 13, the url would look like "/controller/destroy_action/13"
+	 * Eg:  if updating a single record:  "/controller/update/13"
+	 */
+	prettyUrls : false,
+
     /**
      * Return the {@link Ext.data.Connection} object being used by this Proxy.
      * @return {Connection} The Connection object. This object may be used to subscribe to events on
@@ -122,14 +134,106 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
         this.fireEvent("load", this, o, o.request.arg);
         o.request.callback.call(o.request.scope, result, o.request.arg, true);
     },
-    
-    // private
-    update : function(dataSet){
-        
-    },
-    
-    // private
-    updateResponse : function(dataSet){
-        
-    }
+
+	/**
+	 * doRequest
+	 * HttpProxy implementation of DataProxy#doRequest
+	 * @param {String} action
+	 * @param {Ext.data.Record/Ext.data.Record[]} rs
+	 * @param {Object} params
+	 * @param {Ext.data.DataReader} reader
+	 * @param {Ext.data.DataWriter} writer
+	 * @param {Function} cb
+	 * @param {Object} scope
+	 * @param {Object} arg
+	 * @private
+	 */
+	doRequest : function(action, rs, params, reader, writer, cb, scope, arg) {
+		var  o = {
+            params : params || {},
+            request: {
+                callback : cb,
+                scope : scope,
+                arg : arg
+            },
+			reader: reader,
+            callback : this.createCallback(action),
+            scope: this
+        };
+        if(this.useAjax){
+			this.conn.url = this.buildUrl(action, rs);
+			Ext.applyIf(o, this.conn);
+            if(this.activeRequest){
+                Ext.Ajax.abort(this.activeRequest);
+            }
+            this.activeRequest = Ext.Ajax.request(o);
+        }else{
+            this.conn.request(o);
+        }
+	},
+
+	/**
+	 * buildUrl
+	 * Sets the appropriate url based upon the action being executed.  If prettyUrls is true, and only a single record is being acted upon,
+	 * url will be built Rails-style, as in "/controller/action/32".
+	 * @param {String} action The api action being executed [load|create|update|destroy]
+	 * @param {Ext.data.Record/Ext.data.Record[]} The record or Array of Records being acted upon.
+	 * @return {String} url
+	 * @private
+	 */
+	buildUrl : function(action, record) {
+		record = record || null;
+		var url = (this.api[action]) ? this.api[action] : this.url;
+		if (this.prettyUrls === true && record instanceof Ext.data.Record && !record.phantom) {
+			url += '/' + record.id
+		}
+		return url;
+	},
+
+	/**
+	 * createCallback
+	 * returns a request-callback function.  Note a special case is made for the "load" action vs all the others.
+	 * @param {String} action [create|update|delete|load]
+	 * @param {Record[]/DataReader} A list of records beinged acted upon or a DataReader for the "load" request
+	 * @param {Function} cb callback function
+	 * @param {Object} arg
+	 * @return {Function}
+	 * @private
+	 */
+	createCallback : function(action) {
+		return (action == 'load')
+			// special case for load callback
+			? function(o, success, response){
+				delete this.activeRequest;
+		        if(!success){
+		            this.fireEvent("loadexception", this, o, response);
+		            o.request.callback.call(o.request.scope, null, o.request.arg, false);
+		            return;
+		        }
+		        var result;
+		        try {
+		            result = o.reader.read(response);
+		        }catch(e){
+		            this.fireEvent("loadexception", this, o, response, e);
+		            o.request.callback.call(o.request.scope, null, o.request.arg, false);
+		            return;
+		        }
+		        this.fireEvent("load", this, o, o.request.arg);
+		        o.request.callback.call(o.request.scope, result, o.request.arg, true);
+			}
+			// callbacks for all others:  create, save, destroy
+			: function(o, success, response) {
+				var reader = o.reader;
+				var res = reader.readResponse(response);
+				if(!res[reader.meta.successProperty] === true){
+					this.fireEvent(action+"exception", this, o, res);
+					o.request.callback.call(o.request.scope, null, res, false);
+					return;
+				}
+				// should we read from the Writer config instead of reader.meta.root?
+		        this.fireEvent(action, this, res[reader.meta.root], res, o.request.arg );
+		        o.request.callback.call(o.request.scope, res[reader.meta.root], res, true);
+			}
+
+	}
 });
