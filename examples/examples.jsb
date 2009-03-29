@@ -797,7 +797,7 @@
   <file name="window\gmap.html" path="window" />
   <file name="window\hello.html" path="window" />
   <file name="window\layout.html" path="window" />
-  <file name="samples.html" path="" />
+  <file name="index.html" path="" />
   <file name="button\buttons.css" path="button" />
   <file name="desktop\css\desktop.css" path="desktop\css" />
   <file name="desktop\images\taskbar\black\start-menu-left-corners.png" path="desktop\images\taskbar\black" />
