@@ -28,8 +28,9 @@
  * <li><b><tt>{@link Ext.Component#anchor anchor}</tt></b></li>
  * </ul></div></p>
  * 
- * <p>Items managed by FormLayout that inherit from {@link Ext.form.Field} can also supply the following
- * field-specific config properties:
+ * <p>Any Component managed by FormLayout may be rendered as a form field (with an associated label) by
+ * configuring it with a non-null <b><tt>{@link Ext.Component#fieldLabel fieldLabel}</tt></b>. Components configured
+ * in this way may be configured with the following options which affect the way the FormLayout renders them:
  * <div class="mdetail-params"><ul>
  * <li><b><tt>{@link Ext.Component#clearCls clearCls}</tt></b></li>
  * <li><b><tt>{@link Ext.Component#fieldLabel fieldLabel}</tt></b></li>
