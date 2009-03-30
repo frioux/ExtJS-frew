@@ -98,7 +98,7 @@ Ext.data.Record.COMMIT = 'commit';
  */
 Ext.data.Record.id = function(rec) {
 	rec.phantom = true;
-	return [Ext.data.Record.PREFIX, '-', Ext.data.Record.AUTO_ID].join('');
+	return [Ext.data.Record.PREFIX, '-', Ext.data.Record.AUTO_ID++].join('');
 }
 
 Ext.data.Record.prototype = {
