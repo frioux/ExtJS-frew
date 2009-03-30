@@ -857,7 +857,7 @@ Ext.layout.BorderLayout.Region.prototype = {
  * is configurable to move either {@link #tickSize smooth or incrementally}.</p>
  * @constructor
  * Create a new SplitRegion.
- * @param {Layout} layout Any valid Ext layout class
+ * @param {Layout} layout The {@link Ext.layout.BorderLayout BorderLayout} instance that is managing this Region.
  * @param {Object} config The configuration options
  * @param {String} position The region position.  Valid values are: north, south, east, west and center.  Every
  * BorderLayout must have a center region for the primary content -- all other regions are optional.
