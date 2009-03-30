@@ -231,7 +231,7 @@ var grid = new Ext.grid.EditorGridPanel({
 		'beforesave',
 		/**
 		 * @event save
-		 * Fires after a network request has completed.
+		 * Fires after a network save request has completed.
 		 * @param {Store} this
 		 * @param {Object} result data
 		 * @param {Ext.Direct.Transaction} response
@@ -239,7 +239,7 @@ var grid = new Ext.grid.EditorGridPanel({
 		'save',
 		/**
 		 * @event saveexception
-		 * Fires when a network exception occurs.
+		 * Fires when a network save exception occurs.
 		 * @param {DirectProxy} proxy
 		 * @param {Object} result
 		 * @param {Ext.Direct.ExceptionEvent}
@@ -254,7 +254,7 @@ var grid = new Ext.grid.EditorGridPanel({
 		'beforedestroy',
 		/**
 		 * @event destroy
-		 * Fires after a record has been destroy
+		 * Fires after a record has been destroyed
 		 * @param {Store} this
 		 * @param {Object} result
 		 * @param {Ext.Direct.Event} response
@@ -262,7 +262,7 @@ var grid = new Ext.grid.EditorGridPanel({
 		'destroy',
 		/**
 		 * @event destroyexception
-		 * Fires when a destroy exception ocurred
+		 * Fires when a destroy exception occurred
 		 * @param {Store} this
 		 * @param {Ext.data.Record[]} rs
 		 * @param {Ext.Direct.Event} response
@@ -285,7 +285,7 @@ var grid = new Ext.grid.EditorGridPanel({
 		'create',
 		/**
 		 * @event createexception
-		 * Fires after network exception occurs
+		 * Fires after network create exception occurs
 		 * @param {DirectProxy} this
 		 * @param {Record} record
 		 * @param {Ext.Direct.ExceptionEvent}
@@ -415,10 +415,10 @@ sortInfo: {
    lastOptions : null,
 
    /**
-	 * @cfg {Boolean} batchSave [false]
-	 * batchSave determines if the store will automatically write records to the server when a record changes.
-	 * Set to false to turn this behaviour off.  You'll have to manually call store.save().  Store#save will
-	 * send use send all modifiedRecords to teh server.
+	 * @cfg {Boolean} batchSave
+	 * Defaults to <tt>false</tt>, which requires manually calling {@link #save} to send all
+	 * modifiedRecords to the server. Specify <tt>true</tt> for the store to automatically
+	 * {@link #save} records to the server when a record changes.
 	 */
 	batchSave : false,
 
@@ -720,9 +720,9 @@ sortInfo: {
 	},
 
 	/**
-	 * save
+	 * Send all {@link #getModifiedRecords modifiedRecords} to the server using the
+	 * api's configured save url. 
 	 * @param {Object} options
-	 * @author Chris Scott
 	 */
 	save : function(rs) {
 		rs = rs || this.getModifiedRecords();
@@ -1017,9 +1017,11 @@ sortInfo: {
     /**
      * Gets all {@link Ext.data.Record records} modified since the last commit.  Modified records are
      * persisted across load operations (e.g., during paging). <b>Note</b>: deleted records are not
-     * included.  See also <tt>{@link #pruneModifiedRecords}</tt>.
+     * included.  See also <tt>{@link #pruneModifiedRecords}</tt> and 
+     * {@link Ext.data.Record}<tt>{@link Ext.data.Record#markDirty markDirty}.</tt>.
      * @return {Ext.data.Record[]} An array of {@link Ext.data.Record Records} containing outstanding
-     * modifications.
+     * modifications.  To obtain modified fields within a modified record see
+     *{@link Ext.data.Record}<tt>{@link Ext.data.Record#modified modified}.</tt>.
      */
     getModifiedRecords : function(){
         return this.modified;

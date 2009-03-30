@@ -20,7 +20,7 @@
  * @param {Object} data An object, the properties of which provide values for the new Record's fields.
  * @param {Object} id (Optional) The id of the Record. This id should be unique, and is used by the
  * {@link Ext.data.Store} object which owns the Record to index its collection of Records. If
- * not specified an integer id is automatically generated.
+ * not specified an {@link #Record.id integer id is automatically generated}.
  */
 Ext.data.Record = function(data, id){
 	// if no id, call the auto id method
@@ -36,7 +36,7 @@ Ext.data.Record = function(data, id){
  * <b><tt>{@link Ext.data.Field#name}s</tt></b>.  Example usage:<pre><code>
 // create a Record constructor from a description of the fields
 var TopicRecord = Ext.data.Record.create([ // creates a subclass of Ext.data.Record
-    {name: 'title', mapping: 'topic_title'},
+    {{@link Ext.data.Field#name name}: 'title', {@link Ext.data.Field#mapping mapping}: 'topic_title'},
     {name: 'author', mapping: 'username'},
     {name: 'totalPosts', mapping: 'topic_replies', type: 'int'},
     {name: 'lastPost', mapping: 'post_time', type: 'date'},
@@ -55,11 +55,12 @@ var myNewRecord = new TopicRecord(
         totalPosts: 1,
         lastPost: new Date(),
         lastPoster: 'Animal',
-        excerpt: 'No way dude!'
+        excerpt: 'No way dude!',
+        signature: ''
     },
-    id // optionally specify the id of the record otherwise one is auto-assigned
+    id // optionally specify the id of the record otherwise {@link #Record.id one is auto-assigned} 
 );
-myStore.add(myNewRecord);
+myStore.{@link Ext.data.Store#add add}(myNewRecord);
 </code></pre>
  * @method create
  * @return {function} A constructor which is used to create new Records according
@@ -89,12 +90,17 @@ Ext.data.Record.COMMIT = 'commit';
 
 
 /**
- * id
- * auto-generates a sequential id, prefixed with the Const Ext.data.Record.PREFIX appended to auto incremented class var
- * Ext.data.Record.AUTO_ID.
- * @param {Record} rec The record being auto-id'ed.  The record does not exist, it's a phantom.
- * @return {String} auto-generated string id, "ext-record-i++';
- * @author Chris Scott <chris.scott@extjs.com>
+ * 
+ * Generates a sequential id. This method is typically called when a record is {@link #create}d
+ * and {@link #Record no id has been specified}. The returned id takes the form:
+ * <tt>&#123;PREFIX}-&#123;AUTO_ID}</tt>.<div class="mdetail-params"><ul>
+ * <li><b><tt>PREFIX</tt></b> : String<p class="sub-desc"><tt>Ext.data.Record.PREFIX</tt>
+ * (defaults to <tt>'ext-record'</tt>)</p></li>
+ * <li><b><tt>AUTO_ID</tt></b> : String<p class="sub-desc"><tt>Ext.data.Record.AUTO_ID</tt>
+ * (defaults to <tt>1</tt> initially)</p></li>
+ * </ul></div>
+ * @param {Record} rec The record being created.  The record does not exist, it's a {@link #phantom}.
+ * @return {String} auto-generated string id, <tt>"ext-record-i++'</tt>;
  */
 Ext.data.Record.id = function(rec) {
 	rec.phantom = true;
@@ -116,7 +122,7 @@ Ext.data.Record.prototype = {
      * @type {Object}
      */
     /**
-     * The unique ID of the Record as specified at construction time.
+     * The unique ID of the Record {@link #Record as specified at construction time}.
      * @property id
      * @type {Object}
      */
@@ -128,14 +134,16 @@ Ext.data.Record.prototype = {
     editing : false,
     error: null,
     /**
-     * This object contains a key and value storing the original values of all modified fields or is null if no fields have been modified.
+     * This object contains a key and value storing the original values of all modified 
+     * fields or is null if no fields have been modified.
      * @property modified
      * @type {Object}
      */
     modified: null,
 	/**
-	 * False when the record does not yet exist in a server-side database.  Any record which has a real database pk set
-	 * as its id property is NOT a phantom -- it's real.
+	 * <tt>false</tt> when the record does not yet exist in a server-side database (see
+	 * {@link #markDirty}).  Any record which has a real database pk set as its id property
+	 * is NOT a phantom -- it's real.
 	 * @property phantom
 	 * @type {Boolean}
 	 */
@@ -296,7 +304,7 @@ Ext.data.Record.prototype = {
 
     /**
      * Creates a copy of this Record.
-     * @param {String} id (optional) A new Record id if you don't want to use this Record's id
+     * @param {String} id (optional) A new Record id, defaults to {@link #Record.id autogenerating an id}
      * @return {Record}
      */
     copy : function(newId) {
@@ -304,8 +312,8 @@ Ext.data.Record.prototype = {
     },
 
     /**
-     * Returns true if the field passed has been modified since the load or last commit.
-     * @param {String} fieldName
+     * Returns <tt>true</tt> if the passed field name has been {@link #modified} since the load or last commit.
+     * @param {String} fieldName {@link Ext.data.Field.{@link Ext.data.Field#name}
      * @return {Boolean}
      */
     isModified : function(fieldName){
@@ -314,7 +322,9 @@ Ext.data.Record.prototype = {
 
 	/**
 	 * isValid
-	 * return false if any field is configured allowBlank false and Ext.isEmpty (for now)
+	 * By default returns <tt>false</tt> if any {@link Ext.data.Field field} within the
+	 * record configured with <tt>{@link Ext.data.Field#allowBlank} = false</tt> returns
+	 * <tt>true</tt> from an {@link Ext}.{@link Ext#isEmpty isempty} test.
 	 * @return {Boolean}
 	 */
 	isValid : function() {
@@ -325,9 +335,10 @@ Ext.data.Record.prototype = {
 
 	/**
      * markDirty
-     * Marks all fields as dirty.  Useful for when adding phantom records to a grid which have not yet been inserted
-     * on the serverside.  Marking a new record dirty causes the phantom to be returned by Store#getModifiedRecords where
-     * it will have a create action composed for it.
+     * Marks all fields as dirty.  Useful when adding {@link #phantom} records to a grid which
+     * have not yet been inserted on the serverside.  Marking a new record {@link #dirty}
+     * causes the phantom to be returned by {@link Ext.data.Store#getModifiedRecords}
+     * where it will have a create action composed for it.
      */
     markDirty : function(){
         this.dirty = true;

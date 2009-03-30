@@ -196,8 +196,9 @@ var myData = [
     mapping: null,
     /**
      * @cfg {Function} sortType
-     * (Optional) A function which converts a Field's value to a comparable value in order to ensure correct
-     * sort ordering. Predefined functions are provided in {@link Ext.data.SortTypes}. A custom sort example:<pre><code>
+     * (Optional) A function which converts a Field's value to a comparable value in order to ensure
+     * correct sort ordering. Predefined functions are provided in {@link Ext.data.SortTypes}. A custom
+     * sort example:<pre><code>
 // current sort     after sort we want
 // +-+------+          +-+------+
 // |1|First |          |1|First |
@@ -218,12 +219,15 @@ sortType: function(value) {
     sortType : null,
     /**
      * @cfg {String} sortDir
-     * (Optional) Initial direction to sort. "ASC" or "DESC"
+     * (Optional) Initial direction to sort (<tt>"ASC"</tt> or  <tt>"DESC"</tt>).  Defaults to
+     * <tt>"ASC"</tt>.
      */
     sortDir : "ASC",
 	/**
-	 * @cfg {Boolean} allowBlank [true]
-	 * (Optional) Used for validating a record.  An empty value here will cause Record#isValid to evaluate to false
+	 * @cfg {Boolean} allowBlank 
+	 * (Optional) Used for validating a {@link Ext.data.Record record}, defaults to <tt>true</tt>.
+	 * An empty value here will cause {@link Ext.data.Record}.{@link Ext.data.Record#isValid isValid}
+	 * to evaluate to <tt>false</tt>.
 	 */
 	allowBlank : true
 };

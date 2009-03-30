@@ -34,7 +34,9 @@ paramOrder: 'param1|param2|param'
 
 	/**
 	 * @cfg {Function} directFn
-	 * The {@link Ext.Direct} function which has been imported from the server-side
+	 * The {@link Ext.Direct} function which has been imported from the server-side.
+	 * This property is deprecated, see {@link Ext.data.DataProxy}.{@link Ext.data.DataProxy#api api}
+	 * for the preferred alternative.
 	 * @deprecated in favour of api object.  @see DataProxy @cfg api
 	 */
 	directFn: undefined,

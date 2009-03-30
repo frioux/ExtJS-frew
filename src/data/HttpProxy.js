@@ -54,11 +54,35 @@ Ext.data.HttpProxy = function(conn){
 
 Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
 	/**
-	 * @cfg {Boolean} prettyUrls [false].
-	 * If set to true, CRUD actions on a single record will have the record's id appended to the url.  Some MVC such as
-	 * Ruby on Rails, Merb and Django support this style of urls.
-	 * Eg:  if destroying a record having id: 13, the url would look like "/controller/destroy_action/13"
-	 * Eg:  if updating a single record:  "/controller/update/13"
+	 * @cfg {Boolean} prettyUrls
+	 * <p>If set to <tt>true</tt>, a {@link Ext.data.Record#phantom non-phantom} record's
+	 * {@link Ext.data.Record#id id} will be appended to the url (defaults to <tt>false</tt>).</p><br>
+	 * <p>The url is built based upon the action being executed <tt>[load|create|save|destroy]</tt>
+	 * using the commensurate <tt>{@link #api}</tt> property, or if undefined default to the
+	 * configured {@link Ext.data.Store}.{@link Ext.data.Store#url url}.</p><br>
+	 * <p>Some MVC (eg, Ruby on Rails, Merb and Django) support this style of segment based urls
+	 * where the segments in the URL follow the Model-View-Controller approach.</p><pre><code>
+	 * someSite.com/controller/action/id
+	 * </code></pre>
+	 * Where the segments in the url are typically:<div class="mdetail-params"><ul>
+     * <li>The first segment : represents the controller class that should be invoked.</li>
+     * <li>The second segment : represents the class function, or method, that should be called.</li>
+     * <li>The third segment : represents the ID (a variable typically passed to the method).</li>
+     * </ul></div></p>
+     * <p>For example:</p>
+     * <pre><code>
+api: {
+    load :    '/controller/load',
+    create :  '/controller/new',  // Server MUST return idProperty of new record
+    save :    '/controller/update',
+    destroy : '/controller/destroy_action'
+}
+ 
+// destroying a record having id: 13, the url would look like
+"/controller/destroy_action/13"
+// updating a single record having id: 13, the url would look like
+"/controller/update/13"
+     * </code></pre> 
 	 */
 	prettyUrls : false,
 
@@ -72,9 +96,11 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
     },
 
     /**
-     * Load data from the configured {@link Ext.data.Connection}, read the data object into
+     * <p>This method is deprecated in favor of using {@link #doRequest} as the preferred
+     * alternative.</p>
+     * <p>Load data from the configured {@link Ext.data.Connection}, read the data object into
      * a block of Ext.data.Records using the passed {@link Ext.data.DataReader} implementation, and
-     * process that block using the passed callback.
+     * process that block using the passed callback.</p>
      * @param {Object} params An object containing properties which are to be used as HTTP parameters
      * for the request to the remote server.
      * @param {Ext.data.DataReader} reader The Reader object which converts the data
@@ -136,17 +162,22 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
     },
 
 	/**
-	 * doRequest
 	 * HttpProxy implementation of DataProxy#doRequest
 	 * @param {String} action
-	 * @param {Ext.data.Record/Ext.data.Record[]} rs
-	 * @param {Object} params
-	 * @param {Ext.data.DataReader} reader
+	 * @param {Ext.data.Record/Ext.data.Record[]} rs If action is load, rs will be null
+     * @param {Object} params An object containing properties which are to be used as HTTP parameters
+     * for the request to the remote server.
+     * @param {Ext.data.DataReader} reader The Reader object which converts the data
+     * object into a block of Ext.data.Records.
 	 * @param {Ext.data.DataWriter} writer
-	 * @param {Function} cb
-	 * @param {Object} scope
-	 * @param {Object} arg
-	 * @private
+     * @param {Function} callback The function into which to pass the block of Ext.data.Records.
+     * The function must be passed <ul>
+     * <li>The Record block object</li>
+     * <li>The "arg" argument from the load function</li>
+     * <li>A boolean success indicator</li>
+     * </ul>
+     * @param {Object} scope The scope in which to call the callback
+     * @param {Object} arg An optional argument which is passed to the callback as its second parameter.
 	 */
 	doRequest : function(action, rs, params, reader, writer, cb, scope, arg) {
 		var  o = {
