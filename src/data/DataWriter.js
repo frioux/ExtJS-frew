@@ -9,7 +9,6 @@
  * @param {Object} recordType Either an Array of field definition objects as specified
  * in {@link Ext.data.Record#create}, or an {@link Ext.data.Record} object created
  * using {@link Ext.data.Record#create}.
- * @author Chris Scott
  */
 Ext.data.DataWriter = function(config){
     /**
@@ -25,13 +24,15 @@ Ext.data.DataWriter.prototype = {
 	meta : {},
 
 	/**
-	 * @cfg {String} dataProperty The property-name in request-params where data will be written [data]
+	 * @cfg {String} dataProperty The property-name in request-params where data will be written
+	 * (defaults to <tt>'data'</tt>).
 	 */
 	dataProperty : 'data',
 	/**
-	 * @cfg {Boolean} writeAllFields [false]
-	 * By default, DataWriter will only request modified fields from a record.  Setting this option to true
-	 * will cause writer to return ALL fields of a modified record -- not just those that changed.
+	 * @cfg {Boolean} writeAllFields
+	 * <tt>true</tt> by default to have DataWriter return ALL fields of a modified
+	 * record -- not just those that changed.
+	 * <tt>false</tt> to have DataWriter only request modified fields from a record.
 	 */
 	writeAllFields : true,
 

@@ -1,11 +1,13 @@
 /**
  * @class Ext.data.JsonWriter
- * @extends Ext.data.DataReader
+ * @extends Ext.data.DataWriter
  * Data reader class to create an Array of {@link Ext.data.Record} objects from a JSON response
  */
 Ext.data.JsonWriter = Ext.extend(Ext.data.DataWriter, {
 	/**
-	 * @cfg {Boolean} returnJson [false]
+	 * @cfg {Boolean} returnJson <tt>true</tt> to {@link Ext.util.JSON#encode encode} the
+	 * {@link Ext.data.DataWriter#toHash hashed data}. Defaults to <tt>false</tt>, returning
+	 * the hashed data without encoding.
 	 */
 	returnJson : false,
 
