@@ -215,7 +215,7 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
  * {@link #split resizable regions}, see {@link Ext.layout.BorderLayout.SplitRegion}.</p>
  * @constructor
  * Create a new Region.
- * @param {Layout} layout Any valid Ext {@link Ext.layout.ContainerLayout layout} class
+ * @param {Layout} layout The {@link Ext.layout.BorderLayout BorderLayout} instance that is managing this Region.
  * @param {Object} config The configuration options
  * @param {String} position The region position.  Valid values are: <tt>north</tt>, <tt>south</tt>,
  * <tt>east</tt>, <tt>west</tt> and <tt>center</tt>.  Every {@link Ext.layout.BorderLayout BorderLayout}
