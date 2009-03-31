@@ -94,9 +94,15 @@ jsonstore         Ext.data.JsonStore
 xmlstore          Ext.data.XmlStore
 </pre>
  * @constructor
- * @param {Ext.Element/String/Object} config The configuration options.  If an element is passed, it is set as the internal
- * element and its id used as the component id.  If a string is passed, it is assumed to be the id of an existing element
- * and is used as the component id.  Otherwise, it is assumed to be a standard config object and is applied to the component.
+ * @param {Ext.Element/String/Object} config The configuration options may be specified as either:
+ * <div class="mdetail-params"><ul>
+ * <li><b>an element</b> : 
+ * <p class="sub-desc">it is set as the internal element and its id used as the component id</p></li>
+ * <li><b>a string</b> : 
+ * <p class="sub-desc">it is assumed to be the id of an existing element and is used as the component id</p></li>
+ * <li><b>anything else</b> : 
+ * <p class="sub-desc">it is assumed to be a standard config object and is applied to the component</p></li>
+ * </ul></div>
  */
 Ext.Component = function(config){
     config = config || {};
@@ -400,13 +406,46 @@ new Ext.FormPanel({
 
     /**
      * @cfg {String} id
-     * The unique id of this component (defaults to an {@link Ext#id auto-assigned id}).
+     * <p>The <b>unique</b> id of this component (defaults to an {@link #getId auto-assigned id}).
      * You should assign an id if you need to be able to access the component later and you do
-     * not have an object reference available (e.g., using {@link Ext.ComponentMgr#getCmp}).
-     * Note that this id will also be used as the element id for the containing HTML element
+     * not have an object reference available (e.g., using {@link Ext}.{@link Ext#getCmp getCmp}).</p>
+     * <p>Note that this id will also be used as the element id for the containing HTML element
      * that is rendered to the page for this component. This allows you to write id-based CSS
      * rules to style the specific instance of this component uniquely, and also to select
-     * sub-elements using this component's id as the parent.
+     * sub-elements using this component's id as the parent.</p>
+     * <p><b>Note</b>: to avoid complications imposed by a unique <tt>id</tt> see <tt>{@link #itemId}</tt>.</p>
+     */
+    /**
+     * @cfg {String} itemId
+     * <p>An <tt>itemId</tt> can be used as an alternative way to get a reference to a component
+     * when no object reference is available.  Instead of using an <tt>{@link #id}</tt> with
+     * {@link Ext}.{@link Ext#getCmp getCmp}, use <tt>itemId</tt> with
+     * {@link Ext.Container}.{@link Ext.Container#getComponent getComponent} which will retrieve
+     * <tt>itemId</tt>'s or <tt>{@link #id}</tt>'s. Since <tt>itemId</tt>'s are an index to the
+     * container's internal MixedCollection, the <tt>itemId</tt> is scoped locally to the container -- 
+     * avoiding potential conflicts with {@link Ext.ComponentMgr} which requires a <b>unique</b>
+     * <tt>{@link #id}</tt>.</p>
+     * <pre><code>
+var c = new Ext.Panel({ //
+    {@link Ext.BoxComponent#height height}: 300,
+    {@link #renderTo}: document.body,
+    {@link Ext.Container#layout layout}: 'auto',
+    {@link Ext.Container#items items}: [
+        {
+            itemId: 'p1',
+            {@link Ext.Panel#title title}: 'Panel 1',
+            {@link Ext.BoxComponent#height height}: 150
+        },
+        {
+            itemId: 'p2',
+            {@link Ext.Panel#title title}: 'Panel 2',
+            {@link Ext.BoxComponent#height height}: 150
+        }
+    ]
+})
+p1 = c.{@link Ext.Container#getComponent getComponent}('p1'); // not the same as {@link Ext#getCmp Ext.getCmp()} 
+     * </code></pre>
+     * <p>Also see <tt>{@link #id}</tt>.</p>
      */
     /**
      * @cfg {String} xtype
@@ -954,7 +993,9 @@ new Ext.Panel({
     },
 
     /**
-     * Returns the id of this component.
+     * Returns the id of this component or generates an id:<pre><code>
+     * "ext-comp-" + (++Ext.Component.AUTO_ID)
+     * </code></pre>
      * @return {String}
      */
     getId : function(){

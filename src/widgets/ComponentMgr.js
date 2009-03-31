@@ -1,16 +1,16 @@
 /**
  * @class Ext.ComponentMgr
  * <p>Provides a registry of all Components (instances of {@link Ext.Component} or any subclass
- * thereof) on a page so that they can be easily accessed by component id (see {@link #get}, or
- * the convenience method {@link Ext#getCmp Ext.getCmp}).</p>
+ * thereof) on a page so that they can be easily accessed by {@link Ext.Component component}
+ * {@link Ext.Component#id id} (see {@link #get}, or the convenience method {@link Ext#getCmp Ext.getCmp}).</p>
  * <p>This object also provides a registry of available Component <i>classes</i>
  * indexed by a mnemonic code known as the Component's {@link Ext.Component#xtype xtype}.
- * The <tt>xtype</tt> provides a way to avoid instantiating child Components
+ * The <tt>{@link Ext.Component#xtype xtype}</tt> provides a way to avoid instantiating child Components
  * when creating a full, nested config object for a complete Ext page.</p>
  * <p>A child Component may be specified simply as a <i>config object</i>
- * as long as the correct xtype is specified so that if and when the Component
+ * as long as the correct <tt>{@link Ext.Component#xtype xtype}</tt> is specified so that if and when the Component
  * needs rendering, the correct type can be looked up for lazy instantiation.</p>
- * <p>For a list of all available xtypes, see {@link Ext.Component}.</p>
+ * <p>For a list of all available <tt>{@link Ext.Component#xtype xtypes}</tt>, see {@link Ext.Component}.</p>
  * @singleton
  */
 Ext.ComponentMgr = function(){
@@ -36,8 +36,8 @@ Ext.ComponentMgr = function(){
         },
 
         /**
-         * Returns a component by id
-         * @param {String} id The component id
+         * Returns a component by {@link Ext.Component#id id}
+         * @param {String} id The component {@link Ext.Component#id id}
          * @return Ext.Component
          */
         get : function(id){
@@ -46,7 +46,7 @@ Ext.ComponentMgr = function(){
 
         /**
          * Registers a function that will be called when a specified component is added to ComponentMgr
-         * @param {String} id The component id
+         * @param {String} id The component {@link Ext.Component#id id}
          * @param {Function} fn The callback function
          * @param {Object} scope The scope of the callback
          */
@@ -69,8 +69,9 @@ Ext.ComponentMgr = function(){
         /**
          * <p>Registers a new Component constructor, keyed by a new
          * {@link Ext.Component#xtype}.</p>
-         * <p>Use this method to register new subclasses of {@link Ext.Component} so
-         * that lazy instantiation may be used when specifying child Components.
+         * <p>Use this method (or its alias {@link Ext#reg Ext.reg}) to register new
+         * subclasses of {@link Ext.Component} so that lazy instantiation may be used when specifying
+         * child Components.
          * see {@link Ext.Container#items}</p>
          * @param {String} xtype The mnemonic string by which the Component class
          * may be looked up.
@@ -106,7 +107,7 @@ Ext.ComponentMgr = function(){
 
 /**
  * Shorthand for {@link Ext.ComponentMgr#registerType}
- * @param {String} xtype The mnemonic string by which the Component class
+ * @param {String} xtype The {@link Ext.component#xtype mnemonic string} by which the Component class
  * may be looked up.
  * @param {Constructor} cls The new Component class.
  * @member Ext
