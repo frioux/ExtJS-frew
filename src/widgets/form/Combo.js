@@ -2,10 +2,69 @@
  * @class Ext.form.ComboBox
  * @extends Ext.form.TriggerField
  * <p>A combobox control with support for autocomplete, remote-loading, paging and many other features.</p>
- * A ComboBox works in a similar manner to a traditional HTML &lt;select> field. The difference is that to submit the
+ * <p>A ComboBox works in a similar manner to a traditional HTML &lt;select> field. The difference is that to submit the
  * {@link #valueField}, you must specify a {@link #hiddenName} to create a hidden input field to hold the
  * value of the valueField. The <i>{@link #displayField}</i> is shown in the text field which is named
- * according to the {@link #name}.
+ * according to the {@link #name}.</p>
+ * <p><b><u>Events</u></b></p>
+ * <p>To do something when something in ComboBox is selected, configure the select event:<pre><code> 
+var cb = new Ext.form.ComboBox({
+    // all of your config options
+    listeners:{
+         scope: yourScope,
+         'select': yourFunction
+    }
+});
+
+// Alternatively, you can assign events after the object is created: 
+var cb = new Ext.form.ComboBox(yourOptions);
+cb.on('select', yourFunction, yourScope);
+ * </code></pre></p>
+ * 
+ * <p><b><u>ComboBox in Grid</u></b></p>
+ * <p>If using a ComboBox in an {@link Ext.grid.EditorGridPanel Editor Grid} a {@link Ext.grid.Column#renderer renderer}
+ * will be needed to show the displayField when the editor is not active.  Set up the renderer manually, or implement
+ * a reusable render, for example:<pre><code> 
+// create reusable renderer
+Ext.util.Format.comboRenderer = function(combo){
+	return function(value){
+		var record = combo.findRecord(combo.{@link #valueField}, value);
+		return record ? record.get(combo.{@link #displayField}) : combo.{@link #valueNotFoundText};
+	}
+}
+
+// create the combo instance
+var combo = new Ext.form.ComboBox({
+    {@link #typeAhead}: true,
+    {@link #triggerAction}: 'all',
+    {@link #lazyRender}:true,
+    {@link #mode}: 'local',
+    {@link #store}: new Ext.data.ArrayStore({
+        id: 0,
+        fields: [
+            'myId',
+            'displayText'
+        ],
+        data: [[1, 'item1'], [2, 'item2']]
+    }),
+    {@link #valueField}: 'myId',
+    {@link #displayField}: 'displayText'
+});
+
+// snippet of column model used within grid
+var cm = new Ext.grid.ColumnModel([{
+       ...
+    },{
+       header: "Some Header",
+       dataIndex: 'whatever',
+       width: 130,
+       editor: combo, // specify reference to combo instance
+       renderer: Ext.util.Format.comboRenderer(combo) // pass combo instance to reusable renderer
+    },
+    ...
+]);
+ * </code></pre></p>
+ * 
  * @constructor
  * Create a new ComboBox.
  * @param {Object} config Configuration options
@@ -14,15 +73,16 @@
 Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
     /**
      * @cfg {Mixed} transform The id, DOM node or element of an existing HTML SELECT to convert to a ComboBox.
-     * Note that if you specify this and the combo is going to be in a {@link Ext.form.BasicForm} or
-     * {@link Ext.form.FormPanel}, you must also set {@link #lazyRender} = true.
+     * Note that if you specify this and the combo is going to be in an {@link Ext.form.BasicForm} or
+     * {@link Ext.form.FormPanel}, you must also set <tt>{@link #lazyRender} = true</tt>.
      */
     /**
-     * @cfg {Boolean} lazyRender True to prevent the ComboBox from rendering until requested (should always be used when
-     * rendering into an Ext.Editor, defaults to false).
+     * @cfg {Boolean} lazyRender <tt>true</tt> to prevent the ComboBox from rendering until requested 
+     * (should always be used when rendering into an {@link Ext.Editor} (eg. {@link Ext.grid.EditorGridPanel Grids}),
+     * defaults to <tt>false</tt>).
      */
     /**
-     * @cfg {String/Object} autoCreate <p>A {@link Ext.DomHelper DomHelper} element spec, or true for a default
+     * @cfg {String/Object} autoCreate <p>A {@link Ext.DomHelper DomHelper} element spec, or <tt>true</tt> for a default
      * element spec. Used to create the {@link Ext.Component#getEl Element} which will encapsulate this Component.
      * See <tt>{@link Ext.Component#autoEl autoEl}</tt> for details.  Defaults to:</p>
      * <pre><code>{tag: "input", type: "text", size: "24", autocomplete: "off"}</code></pre>
@@ -41,6 +101,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
      * For a multi-dimensional array, the value in index 0 of each item will be assumed to be the combo
      * {@link #valueField value}, while the value at index 1 is assumed to be the combo {@link #displayField text}.
      * </div></li></ul></div></li></ul></div>
+     * <p>See also <tt>{@link #mode}</tt>.</p>
      */
     /**
      * @cfg {String} title If supplied, a header element is created containing this text and added into the top of
@@ -50,144 +111,203 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
     // private
     defaultAutoCreate : {tag: "input", type: "text", size: "24", autocomplete: "off"},
     /**
-     * @cfg {Number} listWidth The width (used as a parameter to {@link Ext.Element#setWidth}) of the dropdown list (defaults to the width of the ComboBox field)
+     * @cfg {Number} listWidth The width (used as a parameter to {@link Ext.Element#setWidth}) of the dropdown
+     * list (defaults to the width of the ComboBox field)
      */
     /**
-     * @cfg {String} displayField The underlying data field name to bind to this ComboBox (defaults to undefined if
-     * mode = 'remote' or 'text' if transforming a select)
+     * @cfg {String} displayField The underlying {@link Ext.data.Field#name data field name} to bind to this
+     * ComboBox (defaults to undefined if <tt>{@link #mode} = 'remote'</tt> or <tt>'text'</tt> if 
+     * {@link #transform transforming a select} a select).
+     * <p>See also <tt>{@link #valueField}</tt>.</p>
+     * <p><b>Note</b>: if using a ComboBox in an {@link Ext.grid.EditorGridPanel Editor Grid} a
+     * {@link Ext.grid.Column#renderer renderer} will be needed to show the displayField when the editor is not
+     * active.</p>
      */
     /**
-     * @cfg {String} valueField The underlying data value name to bind to this ComboBox (defaults to undefined if
-     * mode = 'remote' or 'value' if transforming a select) Note: use of a valueField requires the user to make a selection
-     * in order for a value to be mapped.
+     * @cfg {String} valueField The underlying {@link Ext.data.Field#name data value name} to bind to this
+     * ComboBox (defaults to undefined if <tt>{@link #mode} = 'remote'</tt> or <tt>'value'</tt> if
+     * {@link #transform transforming a select}).
+     * <p><b>Note</b>: use of a <tt>valueField</tt> requires the user to make a selection in order for a value to be
+     * mapped.  See also <tt>{@link #hiddenName}</tt>, <tt>{@link #hiddenValue}</tt>, and <tt>{@link #displayField}</tt>.</p>
      */
     /**
      * @cfg {String} hiddenName If specified, a hidden form field with this name is dynamically generated to store the
      * field's data value (defaults to the underlying DOM element's name). Required for the combo's value to automatically
-     * post during a form submission.  Note that the hidden field's id will also default to this name if {@link #hiddenId}
-     * is not specified.  The combo's id and the hidden field's ids should be different, since no two DOM nodes should
-     * share the same id, so if the combo and hidden names are the same, you should specify a unique hiddenId.
+     * post during a form submission.  See also {@link #valueField}.
+     * <p><b>Note</b>: the hidden field's id will also default to this name if {@link #hiddenId} is not specified.
+     * The ComboBox {@link Ext.Component#id id} and the <tt>{@link #hiddenId}</tt> <b>should be different</b>, since
+     * no two DOM nodes should share the same id.  So, if the ComboBox <tt>{@link Ext.form.Field#name name}</tt> and
+     * <tt>hiddenName</tt> are the same, you should specify a unique <tt>{@link #hiddenId}</tt>.</p>
      */
     /**
-     * @cfg {String} hiddenId If {@link #hiddenName} is specified, hiddenId can also be provided to give the hidden field
-     * a unique id (defaults to the hiddenName).  The hiddenId and combo {@link #id} should be different, since no two DOM
+     * @cfg {String} hiddenId If <tt>{@link #hiddenName}</tt> is specified, <tt>hiddenId</tt> can also be provided
+     * to give the hidden field a unique id (defaults to the <tt>{@link #hiddenName}</tt>).  The <tt>hiddenId</tt>
+     * and combo {@link Ext.Component#id id} should be different, since no two DOM
      * nodes should share the same id.
      */
     /**
      * @cfg {String} hiddenValue Sets the initial value of the hidden field if {@link #hiddenName} is
-     * specified to contain the selected {@link #valueField}, from the Store. <b>Defaults to the configured
-     * {@link #value}</b>.
+     * specified to contain the selected {@link #valueField}, from the Store. Defaults to the configured
+     * <tt>{@link Ext.form.Field#value value}</tt>.
      */
     /**
-     * @cfg {String} listClass CSS class to apply to the dropdown list element (defaults to '')
+     * @cfg {String} listClass The CSS class to add to the predefined <tt>'x-combo-list'</tt> class
+     * applied the dropdown list element (defaults to ''). 
      */
-    listClass: '',
+    listClass : '',
     /**
-     * @cfg {String} selectedClass CSS class to apply to the selected item in the dropdown list (defaults to 'x-combo-selected')
+     * @cfg {String} selectedClass CSS class to apply to the selected item in the dropdown list
+     * (defaults to <tt>'x-combo-selected'</tt>)
      */
-    selectedClass: 'x-combo-selected',
+    selectedClass : 'x-combo-selected',
     /**
-     * @cfg {String} triggerClass An additional CSS class used to style the trigger button.  The trigger will always get the
-     * class 'x-form-trigger' and triggerClass will be <b>appended</b> if specified (defaults to 'x-form-arrow-trigger'
-     * which displays a downward arrow icon).
+     * @cfg {String} triggerClass An additional CSS class used to style the trigger button.  The trigger will always
+     * get the class <tt>'x-form-trigger'</tt> and <tt>triggerClass</tt> will be <b>appended</b> if specified
+     * (defaults to <tt>'x-form-arrow-trigger'</tt> which displays a downward arrow icon).
      */
     triggerClass : 'x-form-arrow-trigger',
     /**
-     * @cfg {Boolean/String} shadow True or "sides" for the default effect, "frame" for 4-way shadow, and "drop" for bottom-right
+     * @cfg {Boolean/String} shadow <tt>true</tt> or <tt>"sides"</tt> for the default effect, <tt>"frame"</tt> for
+     * 4-way shadow, and <tt>"drop"</tt> for bottom-right
      */
-    shadow:'sides',
+    shadow : 'sides',
     /**
-     * @cfg {String} listAlign A valid anchor position value. See {@link Ext.Element#alignTo} for details on supported
-     * anchor positions (defaults to 'tl-bl?')
+     * @cfg {String} listAlign A valid anchor position value. See <tt>{@link Ext.Element#alignTo}</tt> for details
+     * on supported anchor positions (defaults to <tt>'tl-bl?'</tt>)
      */
-    listAlign: 'tl-bl?',
+    listAlign : 'tl-bl?',
     /**
-     * @cfg {Number} maxHeight The maximum height in pixels of the dropdown list before scrollbars are shown (defaults to 300)
+     * @cfg {Number} maxHeight The maximum height in pixels of the dropdown list before scrollbars are shown
+     * (defaults to <tt>300</tt>)
      */
-    maxHeight: 300,
+    maxHeight : 300,
     /**
      * @cfg {Number} minHeight The minimum height in pixels of the dropdown list when the list is constrained by its
-     * distance to the viewport edges (defaults to 90)
+     * distance to the viewport edges (defaults to <tt>90</tt>)
      */
-    minHeight: 90,
+    minHeight : 90,
     /**
-     * @cfg {String} triggerAction The action to execute when the trigger is clicked.  Use 'all' to run the
-     * query specified by the allQuery config option (defaults to 'query')
+     * @cfg {String} triggerAction The action to execute when the trigger is clicked.
+     * <div class="mdetail-params"><ul>
+     * <li><b><tt>'query'</tt></b> : <b>Default</b>
+     * <p class="sub-desc">{@link #doQuery run the query} using the {Ext.form.Field#getRawValue raw value}</p></li>
+     * <li><b><tt>'all'</tt></b> : 
+     * <p class="sub-desc">{@link #doQuery run the query} specified by the <tt>{@link #allQuery}</tt> config option</p></li>
+     * </ul></div>
      */
-    triggerAction: 'query',
+    triggerAction : 'query',
     /**
-     * @cfg {Number} minChars The minimum number of characters the user must type before autocomplete and typeahead activate
-     * (defaults to 4 if remote or 0 if local, does not apply if editable = false)
+     * @cfg {Number} minChars The minimum number of characters the user must type before autocomplete and
+     * {@link #typeAhead} activate (defaults to <tt>4</tt> if <tt>{@link #mode} = 'remote'</tt> or <tt>0</tt> if
+     * <tt>{@link #mode} = 'local'</tt>, does not apply if 
+     * <tt>{@link Ext.form.TriggerField#editable editable} = false</tt>).
      */
     minChars : 4,
     /**
-     * @cfg {Boolean} typeAhead True to populate and autoselect the remainder of the text being typed after a configurable
-     * delay ({@link #typeAheadDelay}) if it matches a known value (defaults to false)
+     * @cfg {Boolean} typeAhead <tt>true</tt> to populate and autoselect the remainder of the text being
+     * typed after a configurable delay ({@link #typeAheadDelay}) if it matches a known value (defaults
+     * to <tt>false</tt>)
      */
-    typeAhead: false,
+    typeAhead : false,
     /**
-     * @cfg {Number} queryDelay The length of time in milliseconds to delay between the start of typing and sending the
-     * query to filter the dropdown list (defaults to 500 if mode = 'remote' or 10 if mode = 'local')
+     * @cfg {Number} queryDelay The length of time in milliseconds to delay between the start of typing and
+     * sending the query to filter the dropdown list (defaults to <tt>500</tt> if <tt>{@link #mode} = 'remote'</tt>
+     * or <tt>10</tt> if <tt>{@link #mode} = 'local'</tt>)
      */
-    queryDelay: 500,
+    queryDelay : 500,
     /**
-     * @cfg {Number} pageSize If greater than 0, a paging toolbar is displayed in the footer of the dropdown list and the
-     * filter queries will execute with page start and limit parameters.  Only applies when mode = 'remote' (defaults to 0)
+     * @cfg {Number} pageSize If greater than <tt>0</tt>, a {@link Ext.PagingToolbar} is displayed in the
+     * footer of the dropdown list and the {@link #doQuery filter queries} will execute with page start and
+     * {@link Ext.PagingToolbar#pageSize limit} parameters. Only applies when <tt>{@link #mode} = 'remote'</tt>
+     * (defaults to <tt>0</tt>).
      */
-    pageSize: 0,
+    pageSize : 0,
     /**
-     * @cfg {Boolean} selectOnFocus True to select any existing text in the field immediately on focus.  Only applies
-     * when editable = true (defaults to false)
+     * @cfg {Boolean} selectOnFocus <tt>true</tt> to select any existing text in the field immediately on focus.
+     * Only applies when <tt>{@link Ext.form.TriggerField#editable editable} = true</tt> (defaults to
+     * <tt>false</tt>).
      */
-    selectOnFocus:false,
+    selectOnFocus : false,
     /**
-     * @cfg {String} queryParam Name of the query as it will be passed on the querystring (defaults to 'query')
+     * @cfg {String} queryParam Name of the query ({@link Ext.data.Store#baseParam baseParam} name for the store)
+     * as it will be passed on the querystring (defaults to <tt>'query'</tt>)
      */
-    queryParam: 'query',
+    queryParam : 'query',
     /**
      * @cfg {String} loadingText The text to display in the dropdown list while data is loading.  Only applies
-     * when mode = 'remote' (defaults to 'Loading...')
+     * when <tt>{@link #mode} = 'remote'</tt> (defaults to <tt>'Loading...'</tt>)
      */
-    loadingText: 'Loading...',
+    loadingText : 'Loading...',
     /**
-     * @cfg {Boolean} resizable True to add a resize handle to the bottom of the dropdown list (defaults to false)
+     * @cfg {Boolean} resizable <tt>true</tt> to add a resize handle to the bottom of the dropdown list
+     * (creates an {@link Ext.Resizable} with 'se' {@link Ext.Resizable#pinned pinned} handles).
+     * Defaults to <tt>false</tt>.
      */
-    resizable: false,
+    resizable : false,
     /**
-     * @cfg {Number} handleHeight The height in pixels of the dropdown list resize handle if resizable = true (defaults to 8)
+     * @cfg {Number} handleHeight The height in pixels of the dropdown list resize handle if
+     * <tt>{@link #resizable} = true</tt> (defaults to <tt>8</tt>)
      */
     handleHeight : 8,
     /**
-     * @cfg {String} allQuery The text query to send to the server to return all records for the list with no filtering (defaults to '')
+     * @cfg {String} allQuery The text query to send to the server to return all records for the list
+     * with no filtering (defaults to '')
      */
     allQuery: '',
     /**
-     * @cfg {String} mode Set to 'local' if the ComboBox loads local data (defaults to 'remote' which loads from the server)
+     * @cfg {String} mode Acceptable values are:
+     * <div class="mdetail-params"><ul>
+     * <li><b><tt>'remote'</tt></b> : <b>Default</b>
+     * <p class="sub-desc">Automatically loads the <tt>{@link #store}</tt> the <b>first</b> time the trigger
+     * is clicked. If you do not want the store to be automatically loaded the first time the trigger is
+     * clicked, set to <tt>'local'</tt> and manually load the store.  To force a requery of the store
+     * <b>every</b> time the trigger is clicked see <tt>{@link #lastQuery}</tt>.</p></li>
+     * <li><b><tt>'local'</tt></b> : 
+     * <p class="sub-desc">ComboBox loads local data</p>
+     * <pre><code>
+var combo = new Ext.form.ComboBox({
+    renderTo: document.body,
+    mode: 'local',
+    store: new Ext.data.ArrayStore({
+        id: 0,
+        fields: [
+            'myId',  // numeric value is the key
+            'displayText'
+        ],
+        data: [[1, 'item1'], [2, 'item2']]  // data is local
+    }),
+    valueField: 'myId',
+    displayField: 'displayText',
+    triggerAction: 'all'
+});
+     * </code></pre></li>
+     * </ul></div>
      */
     mode: 'remote',
     /**
-     * @cfg {Number} minListWidth The minimum width of the dropdown list in pixels (defaults to 70, will be ignored if
-     * listWidth has a higher value)
+     * @cfg {Number} minListWidth The minimum width of the dropdown list in pixels (defaults to <tt>70</tt>, will
+     * be ignored if <tt>{@link #listWidth}</tt> has a higher value)
      */
     minListWidth : 70,
     /**
-     * @cfg {Boolean} forceSelection True to restrict the selected value to one of the values in the list, false to
-     * allow the user to set arbitrary text into the field (defaults to false)
+     * @cfg {Boolean} forceSelection <tt>true</tt> to restrict the selected value to one of the values in the list,
+     * <tt>false</tt> to allow the user to set arbitrary text into the field (defaults to <tt>false</tt>)
      */
-    forceSelection:false,
+    forceSelection : false,
     /**
      * @cfg {Number} typeAheadDelay The length of time in milliseconds to wait until the typeahead text is displayed
-     * if typeAhead = true (defaults to 250)
+     * if <tt>{@link #typeAhead} = true</tt> (defaults to <tt>250</tt>)
      */
     typeAheadDelay : 250,
     /**
      * @cfg {String} valueNotFoundText When using a name/value combo, if the value passed to setValue is not found in
      * the store, valueNotFoundText will be displayed as the field text if defined (defaults to undefined). If this
-     * defaut text is used, it means there is no value set and no validation will occur on this field.
+     * default text is used, it means there is no value set and no validation will occur on this field.
      */
 
     /**
-     * @cfg {Boolean} lazyInit True to not initialize the list for this combo until the field is focused (defaults to true)
+     * @cfg {Boolean} lazyInit <tt>true</tt> to not initialize the list for this combo until the field is focused
+     * (defaults to <tt>true</tt>)
      */
     lazyInit : true,
 
@@ -496,7 +616,7 @@ var menu = new Ext.menu.Menu({
 });
 </code></pre>
      */
-    getListParent: function() {
+    getListParent : function() {
         return document.body;
     },
     
@@ -633,7 +753,7 @@ var menu = new Ext.menu.Menu({
     },
 
     // private
-    onResize: function(w, h){
+    onResize : function(w, h){
         Ext.form.ComboBox.superclass.onResize.apply(this, arguments);
         if(this.list && this.listWidth === undefined){
             var lw = Math.max(w, this.minListWidth);
@@ -643,7 +763,7 @@ var menu = new Ext.menu.Menu({
     },
 
     // private
-    onEnable: function(){
+    onEnable : function(){
         Ext.form.ComboBox.superclass.onEnable.apply(this, arguments);
         if(this.hiddenField){
             this.hiddenField.disabled = false;
@@ -651,7 +771,7 @@ var menu = new Ext.menu.Menu({
     },
 
     // private
-    onDisable: function(){
+    onDisable : function(){
         Ext.form.ComboBox.superclass.onDisable.apply(this, arguments);
         if(this.hiddenField){
             this.hiddenField.disabled = true;
@@ -936,9 +1056,9 @@ var menu = new Ext.menu.Menu({
      * Execute a query to filter the dropdown list.  Fires the {@link #beforequery} event prior to performing the
      * query allowing the query action to be canceled if needed.
      * @param {String} query The SQL query to execute
-     * @param {Boolean} forceAll True to force the query to execute even if there are currently fewer characters
-     * in the field than the minimum specified by the minChars config option.  It also clears any filter previously
-     * saved in the current store (defaults to false)
+     * @param {Boolean} forceAll <tt>true</tt> to force the query to execute even if there are currently fewer
+     * characters in the field than the minimum specified by the <tt>{@link #minChars}</tt> config option.  It
+     * also clears any filter previously saved in the current store (defaults to <tt>false</tt>)
      */
     doQuery : function(q, forceAll){
         if(q === undefined || q === null){
