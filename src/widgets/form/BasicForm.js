@@ -92,7 +92,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      */
     /**
      * @cfg {String} url
-     * The URL to use for form actions if one isn't supplied in the action options.
+     * The URL to use for form actions if one isn't supplied in the {@link #doAction action} options.
      */
     /**
      * @cfg {Boolean} fileUpload
@@ -130,8 +130,8 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     activeAction : null,
 
     /**
-     * @cfg {Boolean} trackResetOnLoad If set to true, form.reset() resets to the last loaded
-     * or setValues() data instead of when the form was first created.
+     * @cfg {Boolean} trackResetOnLoad If set to <tt>true</tt>, {@link #reset}() resets to the last loaded
+     * or {@link #setValues}() data instead of when the form was first created.  Defaults to <tt>false</tt>.
      */
     trackResetOnLoad : false,
 
@@ -239,8 +239,9 @@ new Ext.FormPanel({
 
     /**
      * <p>Returns true if any fields in this form have changed from their original values.</p>
-     * <p>Note that if this BasicForm was configured with {@link #trackResetOnLoad}
-     * then the Fields' <i>original values</i> are updated when the values are loaded by {@link #setValues}.</p>
+     * <p>Note that if this BasicForm was configured with {@link #trackResetOnLoad} then the
+     * Fields' <i>original values</i> are updated when the values are loaded by {@link #setValues}
+     * or {@link #loadRecord}.</p>
      * @return Boolean
      */
     isDirty : function(){
@@ -265,7 +266,7 @@ new Ext.FormPanel({
      * and load actions unless otherwise noted (custom actions could also accept
      * other config options):<ul>
      * <li><b>url</b> : String<p style="margin-left:1em">The url for the action (defaults
-     * to the form's url.)</p></li>
+     * to the form's {@link #url}.)</p></li>
      * <li><b>method</b> : String<p style="margin-left:1em">The form method to use (defaults
      * to the form's method, or POST if not defined)</p></li>
      * <li><b>params</b> : String/Object<p style="margin-left:1em">The params to pass
@@ -311,7 +312,7 @@ new Ext.FormPanel({
     },
 
     /**
-     * Shortcut to do a submit action.
+     * Shortcut to {@link #doAction do} a {@link Ext.form.Action.Submit submit action}.
      * @param {Object} options The options to pass to the action (see {@link #doAction} for details).<br>
      * <p><b>Note:</b> this is ignored when using the {@link #standardSubmit} option.</p>
      * <p>The following code:</p><pre><code>
@@ -365,7 +366,7 @@ myFormPanel.getForm().submit({
     },
 
     /**
-     * Shortcut to do a load action.
+     * Shortcut to {@link #doAction do} a {@link Ext.form.Action.Load load action}.
      * @param {Object} options The options to pass to the action (see {@link #doAction} for details)
      * @return {BasicForm} this
      */
@@ -375,7 +376,7 @@ myFormPanel.getForm().submit({
     },
 
     /**
-     * Persists the values in this form into the passed Ext.data.Record object in a beginEdit/endEdit block.
+     * Persists the values in this form into the passed {@link Ext.data.Record} object in a beginEdit/endEdit block.
      * @param {Record} record The record to edit
      * @return {BasicForm} this
      */
@@ -393,7 +394,9 @@ myFormPanel.getForm().submit({
     },
 
     /**
-     * Loads an Ext.data.Record into this form.
+     * Loads an {@link Ext.data.Record} into this form by calling {@link #setValues} with the
+     * {@link Ext.data.Record#data record data}.
+     * See also {@link #trackResetOnLoad}.
      * @param {Record} record The record to load
      * @return {BasicForm} this
      */
@@ -444,8 +447,9 @@ myFormPanel.getForm().submit({
     },
 
     /**
-     * Find a Ext.form.Field in this form by id, dataIndex, name or hiddenName.
-     * @param {String} id The value to search for
+     * Find a {@link Ext.form.Field} in this form.
+     * @param {String} id The value to search for (specify either a {@link Ext.Component#id id},
+     * {@link Ext.grid.Column#dataIndex dataIndex}, {@link Ext.form.Field#getName name or hiddenName}).
      * @return Field
      */
     findField : function(id){

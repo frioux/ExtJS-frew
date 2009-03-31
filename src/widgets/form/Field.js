@@ -158,8 +158,9 @@ side          Add an error icon to the right of the field with a popup on hover
     },
 
     /**
-     * Returns the name attribute of the field if available
-     * @return {String} name The field name
+     * Returns the {@link Ext.form.Field#name name} or {@link Ext.form.ComboBox#hiddenName hiddenName}
+     * attribute of the field if available.
+     * @return {String} name The field {@link Ext.form.Field#name name} or {@link Ext.form.ComboBox#hiddenName hiddenName}  
      */
     getName: function(){
          return this.rendered && this.el.dom.name ? this.el.dom.name : (this.hiddenName || '');
@@ -214,10 +215,14 @@ side          Add an error icon to the right of the field with a popup on hover
     },
 
     /**
-     * <p>Returns true if the value of this Field has been changed from its original value, and is not disabled.</p>
-     * <p>Note that if the owning {@link Ext.form.BasicForm form} was configured with {@link Ext.form.BasicForm#trackResetOnLoad}
-     * then the <i>original value</i> is updated when the values are loaded by {@link Ext.form.BasicForm#setValues}.</p>
-     * @return {Boolean} True if this field has been changed from its original value (and is not disabled), false otherwise.
+     * <p>Returns true if the value of this Field has been changed from its original value,
+     * and is not disabled.</p>
+     * <p>Note that if the owning {@link Ext.form.BasicForm form} was configured with
+     * {@link Ext.form.BasicForm}.{@link Ext.form.BasicForm#trackResetOnLoad trackResetOnLoad}
+     * then the <i>original value</i> is updated when the values are loaded by
+     * {@link Ext.form.BasicForm}.{@link Ext.form.BasicForm#setValues setValues}.</p>
+     * @return {Boolean} True if this field has been changed from its original value (and
+     * is not disabled), false otherwise.
      */
     isDirty : function() {
         if(this.disabled) {
@@ -241,7 +246,8 @@ side          Add an error icon to the right of the field with a popup on hover
     },
 
     /**
-     * Resets the current field value to the originally loaded value and clears any validation messages
+     * Resets the current field value to the originally loaded value and clears any validation messages.
+     * See {@link Ext.form.BasicForm}.{@link Ext.form.BasicForm#trackResetOnLoad trackResetOnLoad}
      */
     reset : function(){
         this.setValue(this.originalValue);

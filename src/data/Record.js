@@ -117,7 +117,8 @@ Ext.data.Record.prototype = {
     /**
      * An object hash representing the data for this Record. Every field name in the Record definition
      * is represented by a property of that name in this object. Note that unless you specified a field
-     * with name "id" in the Record definition, this will <b>not</b> contain an <tt>id</tt> property.
+     * with {@link Ext.data.Field#name name} "id" in the Record definition, this will <b>not</b> contain
+     * an <tt>id</tt> property.
      * @property data
      * @type {Object}
      */
