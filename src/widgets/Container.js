@@ -399,7 +399,7 @@ tb.add({text:'Button 1'}); // add multiple items ({@link #defaultType} for {@lin
 tb.add({text:'Button 2'});
 tb.{@link #doLayout}();             // refresh the layout
      * </code></pre></div>
-     * <div class="sub-desc"><i>Warning:<i> Containers directly managed by the BorderLayout layout manager
+     * <div class="sub-desc"><i>Warning:</i> Containers directly managed by the BorderLayout layout manager
      * may not be removed or added.  See the Notes for {@link Ext.layout.BorderLayout BorderLayout}
      * for more details.</div>
      * </ul></li>

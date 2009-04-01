@@ -1,4 +1,4 @@
-/* // Internal developer documentation -- will not show up in API docs
+/**
  * @class Ext.dd.PanelProxy
  * A custom drag proxy implementation specific to {@link Ext.Panel}s. This class is primarily used internally
  * for the Panel's drag drop implementation, and should never need to be created directly.
@@ -15,7 +15,7 @@ Ext.dd.PanelProxy = function(panel, config){
 Ext.dd.PanelProxy.prototype = {
     /**
      * @cfg {Boolean} insertProxy True to insert a placeholder proxy element while dragging the panel,
-      * false to drag with no proxy (defaults to true).
+     * false to drag with no proxy (defaults to true).
      */
     insertProxy : true,
 

@@ -126,14 +126,21 @@ Ext.data.Field.prototype = {
      * </ul></div>
      * <pre><code>
 // example of convert function
-function fullName(v, rec){
-    return rec.name.last + ', ' + rec.name.first;
+function fullName(v, record){
+    return record.name.last + ', ' + record.name.first;
+}
+
+function location(v, record){
+    return !record.city ? '' : (record.city + ', ' + record.state);
 }
 
 var Dude = Ext.data.Record.create([
-    {name: 'fullname', convert: fullName},
+    {name: 'fullname',  convert: fullName},
     {name: 'firstname', mapping: 'name.first'},
     {name: 'lastname',  mapping: 'name.last'},
+    {name: 'city', defaultValue: 'homeless'},
+    'state',
+    {name: 'location',  convert: location}
 ]);
 
 // create the data store
@@ -144,24 +151,22 @@ var store = new Ext.data.Store({
             root: 'daRoot',  
             totalProperty: 'total'
         },
-        Dude
+        Dude  // recordType
     )
 });
 
 var myData = [
-    {
-        key: 1,
-        name: {
-            first: 'Fat',
-            last:  'Albert'
-        }
+    { key: 1,
+      name: { first: 'Fat',    last:  'Albert' }
+      // notice no city, state provided in data object
     },
-    {
-        key: 2,
-        name: {
-            first: 'Barney',
-            last:  'Rubble'
-        }
+    { key: 2,
+      name: { first: 'Barney', last:  'Rubble' },
+      city: 'Bedrock', state: 'Stoneridge'
+    },
+    { key: 3,
+      name: { first: 'Cliff',  last:  'Claven' },
+      city: 'Boston',  state: 'MA'
     }
 ];
      * </code></pre>
