@@ -511,22 +511,35 @@ p1 = c.{@link Ext.Container#getComponent getComponent}('p1'); // not the same as
      */
     /**
      * @cfg {Mixed} applyTo
-     * The id of the element, a DOM element or an existing Element corresponding to a DIV that is already present in
-     * the document that specifies some structural markup for this component.  When applyTo is used, constituent parts of
-     * the component can also be specified by id or CSS class name within the main element, and the component being created
-     * may attempt to create its subcomponents from that markup if applicable. Using this config, a call to render() is
-     * not required.  If applyTo is specified, any value passed for {@link #renderTo} will be ignored and the target
-     * element's parent node will automatically be used as the component's container.
+     * <p>Specify the id of the element, a DOM element or an existing Element corresponding to a DIV
+     * that is already present in the document that specifies some structural markup for this
+     * component.</p><div><ul>
+     * <li><b>Description</b> : <ul>
+     * <div class="sub-desc">When <tt>applyTo</tt> is used, constituent parts of the component can also be specified
+     * by id or CSS class name within the main element, and the component being created may attempt
+     * to create its subcomponents from that markup if applicable.</div>
+     * </ul></li>
+     * <li><b>Notes</b> : <ul>
+     * <div class="sub-desc">When using this config, a call to render() is not required.</div>
+     * <div class="sub-desc">If applyTo is specified, any value passed for {@link #renderTo} will be ignored and the target
+     * element's parent node will automatically be used as the component's container.</div>
+     * </ul></li>
+     * </ul></div>
      */
     /**
      * @cfg {Mixed} renderTo
-     * <p>The id of the element, a DOM element or an existing Element that this component will be rendered into.
-     * When using this config, a call to render() is not required.<p>
-     * <p>If this Component needs to be managed by a {@link Ext.Container Container}'s
-     * {@link Ext.Component#layout layout manager}, do not use this option. It is the responsiblity
-     * of the Container's layout manager to perform rendering. See {@link #render}.</p>
+     * <p>Specify the id of the element, a DOM element or an existing Element that this component
+     * will be rendered into.</p><div><ul>
+     * <li><b>Notes</b> : <ul>
+     * <div class="sub-desc">When using this config, a call to render() is not required.</div>
+     * <div class="sub-desc">Do <u>not</u> use this option if the Component is to be a child item of
+     * a {@link Ext.Container Container}. It is the responsibility of the
+     * {@link Ext.Container Container}'s {@link Ext.Container#layout layout manager}
+     * to render its child items.</div>
+     * </ul></li>
+     * </ul></div>
+     * <p>See <tt>{@link #render}</tt> also.</p>
      */
-
     /**
      * @cfg {Boolean} stateful
      * <p>A flag which causes the Component to attempt to restore the state of internal properties
@@ -638,7 +651,29 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
      * button on a window by setting hide:true on the button when adding it to its parent container.
      */
     hideParent: false,
-
+    /**
+     * <p>Returns the {@link Ext.Element} which encapsulates this Component. This will
+     * <i>usually</i> be a &lt;DIV> element created by the class's onRender method, but
+     * that may be overridden using the {@link #autoEl} config.</p>
+     * <br><p><b>Note</b>: this element will not be available until this Component has been
+     * rendered.</b></p><br>
+     * <p>To add listeners for <b>DOM events</b> to this Component (as opposed to listeners
+     * for this Component's own Observable events), perform the adding of the listener in a
+     * render event listener:</p><pre><code>
+new Ext.Panel({
+    title: 'The Clickable Panel',
+    listeners: {
+        render: function(p) {
+            // Append the Panel to the click handler&#39;s argument list.
+            p.getEl().on('click', handlePanelClick.createDelegate(null, [p], true));
+        }
+    }
+});
+</code></pre>
+     * <p>See also <tt>{@link #getEl getEl}</p>
+     * @type Ext.Element
+     * @property el
+     */
     /**
      * The component's owner {@link Ext.Container} (defaults to undefined, and is set automatically when
      * the component is added to a container).  Read-only.
@@ -980,7 +1015,7 @@ new Ext.Panel({
     title: 'The Clickable Panel',
     listeners: {
         render: function(p) {
-//          Append the Panel to the click handler's argument list.
+            // Append the Panel to the click handler&#39;s argument list.
             p.getEl().on('click', handlePanelClick.createDelegate(null, [p], true));
         }
     }

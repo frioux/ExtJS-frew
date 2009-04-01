@@ -17,6 +17,7 @@ Ext.Panel = Ext.extend(Ext.Container, {
     /**
      * The Panel's header {@link Ext.Element Element}. Read-only.
      * <p>This Element is used to house the {@link #title} and {@link #tools}</p>
+     * <br><p><b>Note</b>: see the Note for <tt>{@link Ext.Component#el el} also.</p>
      * @type Ext.Element
      * @property header
      */
@@ -29,6 +30,7 @@ Ext.Panel = Ext.extend(Ext.Container, {
      * <p>If this Panel is intended to be used as the host of a Layout (See {@link #layout}
      * then the body Element must not be loaded or changed - it is under the control
      * of the Panel's Layout.
+     * <br><p><b>Note</b>: see the Note for <tt>{@link Ext.Component#el el} also.</p>
      * @type Ext.Element
      * @property body
      */
@@ -89,6 +91,7 @@ new Ext.Panel({
     /**
      * The Panel's footer {@link Ext.Element Element}. Read-only.
      * <p>This Element is used to house the Panel's {@link #buttons}.</p>
+     * <br><p><b>Note</b>: see the Note for <tt>{@link Ext.Component#el el} also.</p>
      * @type Ext.Element
      * @property footer
      */
@@ -399,10 +402,25 @@ var win = new Ext.Window({
      */
     /**
      * @cfg {String} contentEl
-     * The id of an existing HTML node to use as the panel's body content (defaults to ''). The
-     * specified Element is appended to the Panel's body Element by the Panel's {@link #afterRender}
-     * method <i>after any configured {@link #html HTML} has been inserted</i>, and so the document
-     * will not contain this HTML at the time the {@link #render} event is fired.
+     * <p>Specify the <tt>id</tt> of an existing HTML node to use as the panel's body content
+     * (defaults to '').</p><div><ul>
+     * <li><b>Description</b> : <ul>
+     * <div class="sub-desc">This config option is used to take an existing HTML element and place it in the body
+     * of a new panel (it simply moves the specified DOM element into the body element of the Panel
+     * <i>when the Panel is rendered</i> to use as the content (it is not going to be the
+     * actual panel itself).</div>
+     * </ul></li>
+     * <li><b>Notes</b> : <ul>
+     * <div class="sub-desc">The specified HTML Element is appended to the Panel's {@link #body} Element by the
+     * Panel's {@link #afterRender} method <i>after any configured {@link #html HTML} has
+     * been inserted</i>, and so the document will not contain this HTML at the time the
+     * {@link #render} event is fired.</div>
+     * <div class="sub-desc">The specified HTML element used will not participate in any layout scheme that the
+     * Panel may use. It's just HTML. Layouts operate on child items.</div>
+     * <div class="sub-desc">Add either the <tt>x-hidden</tt> or the <tt>x-hide-display</tt> CSS class to
+     * prevent a brief flicker of the content before it is rendered to the panel.</div>
+     * </ul></li>
+     * </ul></div>
      */
     /**
      * @cfg {Object/Array} keys

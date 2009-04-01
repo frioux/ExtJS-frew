@@ -49,7 +49,7 @@ var myBorderPanel = new Ext.Panel({
  * <p><b><u>Notes</u></b>:</p><div class="mdetail-params"><ul>
  * <li>The BorderLayout <b>must have a center region</b>, which will always fill the
  * remaining space not used by the other regions in the layout.</li>
- * <li>The regions of a BorderLayout are <b>fixed at render time</b> and thereafter.  Panels
+ * <li>The regions of a BorderLayout are <b>fixed at render time</b> and thereafter.  Containers
  * <b>directly</b> managed by BorderLayout may not be removed or added</b>.  To add/remove
  * Panels within a BorderLayout have them wrapped by an additional Panel which is directly
  * managed by the BorderLayout.
