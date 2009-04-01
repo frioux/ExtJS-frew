@@ -182,16 +182,21 @@ var myData = [
     defaultValue: "",
     /**
      * @cfg {String/Number} mapping
-     * (Optional) A path specification for use by the {@link Ext.data.DataReader} implementation
-     * that is creating the {@link Ext.data.Record Record} to access the data value from the data object.
-     * If the mapping expression is the same as the field name, the mapping may be omitted. If an:<div class="mdetail-params"><ul>
-     * <li>{@link Ext.data.JsonReader} is being used, then this is a string containing the javascript
-     * expression to reference the data relative to the Record item's root.</li>
-     * <li>{@link Ext.data.XmlReader} is being used, this is an {@link Ext.DomQuery} path to the data
-     * item relative to the DOM element that represents the Record. Defaults to the field name.</li>
-     * <li>{@link Ext.data.ArrayReader} is being used, this may be a number indicating the Array index
-     * of the field's value. Defaults to the field specification's Array position.</li>
+     * <p>(Optional) A path expression for use by the {@link Ext.data.DataReader} implementation
+     * that is creating the {@link Ext.data.Record Record} to extract the Field value from the data object.
+     * If the path expression is the same as the field name, the mapping may be omitted.</p>
+     * <p>The form of the mapping expression depends on the Reader being used.</p>
+     * <div class="mdetail-params"><ul>
+     * <li>{@link Ext.data.JsonReader}<div class="sub-desc">The mapping is a string containing the javascript
+     * expression to reference the data from an element of the data item's {@link Ext.data.JsonReader#root root} Array. Defaults to the field name.</div></li>
+     * <li>{@link Ext.data.XmlReader}<div class="sub-desc">The mapping is an {@link Ext.DomQuery} path to the data
+     * item relative to the DOM element that represents the {@link Ext.data.XmlReader#record record}. Defaults to the field name.</div></li>
+     * <li>{@link Ext.data.ArrayReader}<div class="sub-desc">The mapping is a number indicating the Array index
+     * of the field's value. Defaults to the field specification's Array position.</div></li>
      * </ul></div>
+     * <p>If a more complex value extraction strategy is required, then configure the Field with a {@link #convert}
+     * function. This is passed the whole row object, and may interrogate it in whatever way is necessary in order to
+     * return the desired data.</p>
      */
     mapping: null,
     /**
