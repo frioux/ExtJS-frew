@@ -15,32 +15,33 @@
  * <p>Example usage:</p>
  * <pre><code>
 var myBorderPanel = new Ext.Panel({
-    renderTo: document.body,
-    width: 700,
-    height: 500,
-    title: 'Border Layout',
-    layout:'border',
-    items: [{
-        title: 'South Region is resizable',
+    {@link Ext.Component#renderTo renderTo}: document.body,
+    {@link Ext.BoxComponent#width width}: 700,
+    {@link Ext.BoxComponent#height height}: 500,
+    {@link Ext.Panel#title title}: 'Border Layout',
+    {@link Ext.Container#layout layout}: 'border',
+    {@link Ext.Container#items items}: [{
+        {@link Ext.Panel#title title}: 'South Region is resizable',
         {@link Ext.layout.BorderLayout.Region#BorderLayout.Region region}: 'south',     // position for region
-        height: 100,
+        {@link Ext.BoxComponent#height height}: 100,
         {@link Ext.layout.BorderLayout.Region#split split}: true,         // enable resizing
         {@link Ext.SplitBar#minSize minSize}: 75,         // defaults to {@link Ext.layout.BorderLayout.Region#minHeight 50} 
         {@link Ext.SplitBar#maxSize maxSize}: 150,
         {@link Ext.layout.BorderLayout.Region#margins margins}: '0 5 5 5'
     },{
-        title: 'West Region is collapsible',
-        region:'west',
+        // xtype: 'panel' implied by default
+        {@link Ext.Panel#title title}: 'West Region is collapsible',
+        {@link Ext.layout.BorderLayout.Region#BorderLayout.Region region}:'west',
         {@link Ext.layout.BorderLayout.Region#margins margins}: '5 0 0 5',
-        width: 200,
+        {@link Ext.BoxComponent#width width}: 200,
         {@link Ext.layout.BorderLayout.Region#collapsible collapsible}: true,   // make collapsible
         {@link Ext.layout.BorderLayout.Region#cmargins cmargins}: '5 5 0 5', // adjust top margin when collapsed
-        id: 'west-region-container',
-        layout: 'fit',
+        {@link Ext.Component#id id}: 'west-region-container',
+        {@link Ext.Container#layout layout}: 'fit',
         {@link Ext.Panel#unstyled unstyled}: true
     },{
-        title: 'Center Region',
-        region:'center',     // center region is required
+        {@link Ext.Panel#title title}: 'Center Region',
+        {@link Ext.layout.BorderLayout.Region#BorderLayout.Region region}: 'center',     // center region is required
         {@link Ext.layout.BorderLayout.Region#margins margins}: '5 5 0 0'
     }]
 });
@@ -53,14 +54,14 @@ var myBorderPanel = new Ext.Panel({
  * Panels within a BorderLayout have them wrapped by an additional Panel which is directly
  * managed by the BorderLayout.
  * <pre><code>
-wrc = Ext.getCmp('west-region-container');
-wrc.collapse();
-wrc.add({
+wrc = {@link Ext#getCmp Ext.getCmp}('west-region-container');
+wrc.{@link Ext.Panel#collapse collapse}();
+wrc.{@link Ext.Container#add add}({
     title: 'Added Panel',
     html: 'Some content'
 });
-wrc.doLayout();
-wrc.expand();
+wrc.{@link Ext.Container#doLayout doLayout}();
+wrc.{@link Ext.Panel#expand expand}();
  * </code></pre>
  * </li>
  * <li> To reference a {@link Ext.layout.BorderLayout.Region Region}:
@@ -269,9 +270,9 @@ Ext.layout.BorderLayout.Region.prototype = {
      * the bar. In <tt>'mini'</tt> mode the region will collapse to a thinner bar than in normal mode.
      * </div></li>
      * </ul></div></p>
-     * <p><b>Note</b>: if a collapsible region does not have a title bar, then <tt>collapseMode</tt>
-     * must be set to <tt>'mini'</tt> in order for the region to be {@link #collapsible} by the user
-     * as the tool button will not be rendered.</p>
+     * <p><b>Note</b>: if a collapsible region does not have a title bar, then set <tt>collapseMode =
+     * 'mini'</tt> and <tt>{@link #split} = true</tt> in order for the region to be {@link #collapsible}
+     * by the user as the expand/collapse tool button (that would go in the title bar) will not be rendered.</p>
      * <p>See also <tt>{@link #cmargins}</tt>.</p>
      */
     /**
@@ -324,15 +325,15 @@ Ext.layout.BorderLayout.Region.prototype = {
      * <p><tt>true</tt> to allow the user to collapse this region (defaults to <tt>false</tt>).  If
      * <tt>true</tt>, an expand/collapse tool button will automatically be rendered into the title
      * bar of the region, otherwise the button will not be shown.</p>
-     * <p><b>Note</b>: that a title bar is required to display the toggle button -- if no region
-     * title is specified, the region will only be collapsible if {@link #collapseMode} is set to
-     * <tt>'mini'</tt>.
+     * <p><b>Note</b>: that a title bar is required to display the collapse/expand toggle button -- if
+     * no <tt>title</tt> is specified for the region's panel, the region will only be collapsible if
+     * <tt>{@link #collapseMode} = 'mini'</tt> and <tt>{@link #split} = true</tt>.
      */
     collapsible : false,
     /**
      * @cfg {Boolean} split
      * <p><tt>true</tt> to create a {@link Ext.layout.BorderLayout.SplitRegion SplitRegion} and 
-     * display a {@link Ext.SplitBar} between this region and its neighbor, allowing the user to
+     * display a 5px wide {@link Ext.SplitBar} between this region and its neighbor, allowing the user to
      * resize the regions dynamically.  Defaults to <tt>false</tt> creating a
      * {@link Ext.layout.BorderLayout.Region Region}.</p><br>
      * <p><b>Notes</b>:</p><div class="mdetail-params"><ul>
@@ -341,6 +342,8 @@ Ext.layout.BorderLayout.Region.prototype = {
      * <tt>{@link Ext.SplitBar#minSize minSize}</tt> and <tt>{@link Ext.SplitBar#maxSize maxSize}</tt>
      * for the {@link Ext.BoxComponent BoxComponent} representing the region. These are not native
      * configs of {@link Ext.BoxComponent BoxComponent}, and are used only by this class.</li>
+     * <li>if <tt>{@link #collapseMode} = 'mini'</tt> requires <tt>split = true</tt> to reserve space
+     * for the collapse tool</tt></li> 
      * </ul></div> 
      */
     split:false,
