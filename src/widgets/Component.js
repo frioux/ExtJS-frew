@@ -1,12 +1,15 @@
 /**
  * @class Ext.Component
  * @extends Ext.util.Observable
- * <p>Base class for all Ext components.  All subclasses of Component can automatically participate in the standard
- * Ext component lifecycle of creation, rendering and destruction.  They also have automatic support for basic hide/show
- * and enable/disable behavior.  Component allows any subclass to be lazy-rendered into any {@link Ext.Container} and
- * to be automatically registered with the {@link Ext.ComponentMgr} so that it can be referenced at any time via
- * {@link Ext#getCmp}.  All visual widgets that require rendering into a layout should subclass Component (or
- * {@link Ext.BoxComponent} if managed box model handling is required).</p>
+ * <p>Base class for all Ext components.  All subclasses of Component may participate in the automated
+ * Ext component lifecycle of creation, rendering and destruction which is provided by the {@link Ext.Container Container} class.
+ * Components may be added to a Container through the {@link Ext.Container#items items} config option at the time the Container is created,
+ * or they may be added dynamically via the {@link Ext.Container#add add} method.</p>
+ * <p>The Component base class has built-in support for basic hide/show and enable/disable behavior.</p>
+ * <p>All Components are registered with the {@link Ext.ComponentMgr} on construction so that they can be referenced at any time via
+ * {@link Ext#getCmp}, passing the {@link #id}.</p>
+ * <p>All user-developed visual widgets that are required to participate in automated lifecycle and size management should subclass Component (or
+ * {@link Ext.BoxComponent} if managed box model handling is required, ie height and width management).</p>
  * <p>Every component has a specific xtype, which is its Ext-specific type name, along with methods for checking the
  * xtype like {@link #getXType} and {@link #isXType}. This is the list of all valid xtypes:</p>
  * <pre>
@@ -1010,14 +1013,15 @@ Ext.Foo = Ext.extend(Ext.Bar, {
      * a &lt;DIV> element created by the class's onRender method, but that may be overridden using the {@link #autoEl} config.</p>
      * <p><b>The Element will not be available until this Component has been rendered.</b></p>
      * <p>To add listeners for <b>DOM events</b> to this Component (as opposed to listeners for this Component's
-     * own Observable events), perform the adding of the listener in a render event listener:</p><pre><code>
+     * own Observable events), perform the adding of the listener in a one-off render event listener:</p><pre><code>
 new Ext.Panel({
     title: 'The Clickable Panel',
     listeners: {
         render: function(p) {
             // Append the Panel to the click handler&#39;s argument list.
             p.getEl().on('click', handlePanelClick.createDelegate(null, [p], true));
-        }
+        },
+        single: true  // Remove the listener after first invocation
     }
 });
 </code></pre>
