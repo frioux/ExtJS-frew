@@ -76,6 +76,7 @@ Ext.onReady(function(){
                 });
                 editor.stopEditing();
                 store.insert(0, e);
+                grid.getView().refresh();
                 grid.getSelectionModel().selectRow(0);
                 editor.startEditing(0);
             }
