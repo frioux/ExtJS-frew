@@ -505,8 +505,8 @@ dt = Date.parseDate("2006-02-29 03:20:01", "Y-m-d H:i:s", true); // returns null
     // private
     createParser : function() {
         var code = [
-            "var dt, y, m, d, h, i, s, ms, o, z, zz, u, v;",
-            "var results = String(input).match(Date.parseRegexes[{0}]);", // either null, or an array of matched strings
+            "var dt, y, m, d, h, i, s, ms, o, z, zz, u, v,",
+                "results = String(input).match(Date.parseRegexes[{0}]);", // either null, or an array of matched strings
 
             "if(results){",
                 "{1}",
@@ -747,8 +747,8 @@ dt = Date.parseDate("2006-02-29 03:20:01", "Y-m-d H:i:s", true); // returns null
             c:[
                 "o = results[{0}];",
                 "var sn = o.substring(0,1),", // get + / - sign
-                "hr = o.substring(1,3)*1 + Math.floor(o.substring(3,5) / 60),", // get hours (performs minutes-to-hour conversion also, just in case)
-                "mn = o.substring(3,5) % 60;", // get minutes
+                    "hr = o.substring(1,3)*1 + Math.floor(o.substring(3,5) / 60),", // get hours (performs minutes-to-hour conversion also, just in case)
+                    "mn = o.substring(3,5) % 60;", // get minutes
                 "o = ((-12 <= (hr*60 + mn)/60) && ((hr*60 + mn)/60 <= 14))? (sn + String.leftPad(hr, 2, '0') + String.leftPad(mn, 2, '0')) : null;\n" // -12hrs <= GMT offset <= 14hrs
             ].join("\n"),
             s: "([+\-]\\d{4})" // GMT offset in hrs and mins
@@ -758,8 +758,8 @@ dt = Date.parseDate("2006-02-29 03:20:01", "Y-m-d H:i:s", true); // returns null
             c:[
                 "o = results[{0}];",
                 "var sn = o.substring(0,1),", // get + / - sign
-                "hr = o.substring(1,3)*1 + Math.floor(o.substring(4,6) / 60),", // get hours (performs minutes-to-hour conversion also, just in case)
-                "mn = o.substring(4,6) % 60;", // get minutes
+                    "hr = o.substring(1,3)*1 + Math.floor(o.substring(4,6) / 60),", // get hours (performs minutes-to-hour conversion also, just in case)
+                    "mn = o.substring(4,6) % 60;", // get minutes
                 "o = ((-12 <= (hr*60 + mn)/60) && ((hr*60 + mn)/60 <= 14))? (sn + String.leftPad(hr, 2, '0') + String.leftPad(mn, 2, '0')) : null;\n" // -12hrs <= GMT offset <= 14hrs
             ].join("\n"),
             s: "([+\-]\\d{2}:\\d{2})" // GMT offset in hrs and mins (with colon separator)
