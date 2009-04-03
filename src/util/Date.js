@@ -1153,7 +1153,7 @@ Date.prototype.format = Date.prototype.dateFormat;
 
 
 // private
-if (Ext.isSafari && navigator.userAgent.match(/WebKit\/(\d+)/)[1] < 420) {
+if (Ext.isSafari && (navigator.userAgent.match(/WebKit\/(\d+)/)[1] || NaN) < 420) {
     Ext.apply(Date.prototype, {
         _xMonth : Date.prototype.setMonth,
         _xDate  : Date.prototype.setDate,
