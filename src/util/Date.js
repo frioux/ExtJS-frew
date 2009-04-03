@@ -150,7 +150,8 @@ Ext.apply(Date, {
         "M$": function(input, strict) {
             // note: the timezone offset is ignored since the M$ Ajax server sends 
             // a UTC milliseconds-since-Unix-epoch value
-            var r = (input || '').match(/\/Date\((\d+)(?:[+-]\d{4})?\)\(/)/);
+            var re = new RegExp('\/Date\((\d+)(?:[+-]\d{4})?\)\/');
+            var r = (input || '').match(re);
             return r? new Date(r[1] * 1) : null;
         }
     },
