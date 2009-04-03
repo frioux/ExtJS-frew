@@ -57,7 +57,7 @@ function() {
                updateComplete.createDelegate(me, [response]));
         } else {
             me.renderer.render(me.el, response, me);
-            updateComplete(response);
+            updateComplete.call(me, response);
         }
     }
     
