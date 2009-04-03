@@ -169,6 +169,11 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      * @cfg {String} cls
      * A CSS class string to apply to the button's main element.
      */
+    /**
+     * @property menu
+     * @type Menu
+     * The {@link Ext.menu.Menu Menu} object associated with this Button when configured with the {@link #menu} config option.
+     */
 
     initComponent : function(){
         Ext.Button.superclass.initComponent.call(this);
@@ -327,16 +332,16 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         }
 
         if(this.handleMouseEvents){
-        	this.mon(btn, 'mouseover', this.onMouseOver, this);
-        	this.mon(btn, 'mousedown', this.onMouseDown, this);
-        	
+            this.mon(btn, 'mouseover', this.onMouseOver, this);
+            this.mon(btn, 'mousedown', this.onMouseDown, this);
+            
             // new functionality for monitoring on the document level
             //this.mon(btn, "mouseout", this.onMouseOut, this);
         }
 
         if(this.menu){
-        	this.mon(this.menu, 'show', this.onMenuShow, this);
-        	this.mon(this.menu, 'hide', this.onMenuHide, this);
+            this.mon(this.menu, 'show', this.onMenuShow, this);
+            this.mon(this.menu, 'hide', this.onMenuHide, this);
         }
 
         if(this.repeat){
@@ -345,7 +350,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
             );
             this.mon(repeater, 'click', this.onClick, this);
         }
-		
+        
         this.mon(btn, this.clickEvent, this.onClick, this);
     },
 
@@ -382,7 +387,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      * @return {Ext.Button} this
      */
     setTooltip : function(tooltip){
-		if(Ext.isObject(tooltip)){
+        if(Ext.isObject(tooltip)){
             Ext.QuickTips.register(Ext.apply({
                   target: this.btnEl.id
             }, tooltip));
@@ -391,16 +396,16 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         }
         return this;
     },
-	
+    
     // private
     beforeDestroy: function(){
-    	if(this.rendered){
-	        if(this.btnEl){
+        if(this.rendered){
+            if(this.btnEl){
                 if(typeof this.tooltip == 'object'){
                     Ext.QuickTips.unregister(this.btnEl);
                 }
-	        }
-	    }
+            }
+        }
         Ext.destroy(this.menu);
     },
 
