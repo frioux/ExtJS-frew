@@ -370,7 +370,7 @@ new Ext.Window({
 }).show();
      * </code></pre> 
      * Omitting the {@link #layout} config means that the
-     * {@link Ext.layout.ContainerLayout default layout manager} will used which does
+     * {@link Ext.layout.ContainerLayout default layout manager} will be used which does
      * nothing but render child components sequentially into the Container (no sizing or
      * positioning will be performed in this situation).</b></div>
      * <div class="sub-desc">You should never specify {@link Ext.Component#renderTo renderTo}

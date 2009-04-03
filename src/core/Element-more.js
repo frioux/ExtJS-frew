@@ -76,7 +76,7 @@ Ext.Element.addMethods({
     },
 
     /**
-    * Gets this element's Updater
+    * Gets this element's {@link Ext.Updater Updater}
     * @return {Ext.Updater} The Updater
     */
     getUpdater : function(){

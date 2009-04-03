@@ -42,6 +42,8 @@ var myBorderPanel = new Ext.Panel({
     },{
         {@link Ext.Panel#title title}: 'Center Region',
         {@link Ext.layout.BorderLayout.Region#BorderLayout.Region region}: 'center',     // center region is required
+    	{@link Ext.Component#xtype xtype}: 'container',
+    	{@link Ext.Container#layout layout}: 'fit',
         {@link Ext.layout.BorderLayout.Region#margins margins}: '5 5 0 0'
     }]
 });
@@ -51,8 +53,10 @@ var myBorderPanel = new Ext.Panel({
  * remaining space not used by the other regions in the layout.</li>
  * <li>The regions of a BorderLayout are <b>fixed at render time</b> and thereafter.  Containers
  * <b>directly</b> managed by BorderLayout may not be removed or added</b>.  To add/remove
- * Panels within a BorderLayout have them wrapped by an additional Panel which is directly
- * managed by the BorderLayout.
+ * Containers within a BorderLayout have them wrapped by an additional Container which is directly
+ * managed by the BorderLayout.  If the region is to be collapsible, the Container used directly
+ * by the BorderLayout manager should be a Panel.  In the following example a Container (an Ext.Panel)
+ * is added to the west region:
  * <pre><code>
 wrc = {@link Ext#getCmp Ext.getCmp}('west-region-container');
 wrc.{@link Ext.Panel#collapse collapse}();
