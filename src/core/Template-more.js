@@ -1,4 +1,4 @@
-/**
+/*
  * @class Ext.Template
  */
 Ext.apply(Ext.Template.prototype, {

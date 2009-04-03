@@ -1,12 +1,12 @@
 /**
  * @class Ext.Updater
  * @extends Ext.util.Observable
- * Provides AJAX-style update capabilities for Element objects.  Updater can be used to {@link #update} an Element once,
- * or you can use {@link #startAutoRefresh} to set up an auto-updating Element on a specific interval.<br><br>
+ * Provides AJAX-style update capabilities for Element objects.  Updater can be used to {@link #update}
+ * an {@link Ext.Element} once, or you can use {@link #startAutoRefresh} to set up an auto-updating
+ * {@link Ext.Element Element} on a specific interval.<br><br>
  * Usage:<br>
  * <pre><code>
- * // Get it from a Ext.Element object
- * var el = Ext.get("foo");
+ * var el = Ext.get("foo"); // Get Ext.Element object
  * var mgr = el.getUpdater();
  * mgr.update({
         url: "http://myserver.com/index.php",

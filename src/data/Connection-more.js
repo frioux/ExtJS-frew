@@ -1,4 +1,4 @@
-/**
+/*
  * @class Ext.data.Connection
  */
 Ext.apply(Ext.data.Connection, 
@@ -238,10 +238,38 @@ function(){
 }());
 
 
-/**
+/*
  * @class Ext.Ajax
  * @extends Ext.data.Connection
- * Global Ajax request class.  Provides a simple way to make Ajax requests with maximum flexibility.  Example usage:
+ * <p>The global Ajax request class that provides a simple way to make Ajax requests
+ * with maximum flexibility.</p>
+ * <p>Since Ext.Ajax is a singleton, you can set common properties/events for it once
+ * and override them at the request function level only if necessary.</p>
+ * <p>Common <b>Properties</b> you may want to set are:<div class="mdetail-params"><ul>
+ * <li><b><tt>{@link #method}</tt></b><p class="sub-desc"></p></li>
+ * <li><b><tt>{@link #extraParams}</tt></b><p class="sub-desc"></p></li>
+ * <li><b><tt>{@link #url}</tt></b><p class="sub-desc"></p></li>
+ * </ul></div>
+ * <pre><code>
+// Default headers to pass in every request
+Ext.Ajax.defaultHeaders = {
+    'Powered-By': 'Ext'
+};
+ * </code></pre> 
+ * </p>
+ * <p>Common <b>Events</b> you may want to set are:<div class="mdetail-params"><ul>
+ * <li><b><tt>{@link #beforerequest}</tt></b><p class="sub-desc"></p></li>
+ * <li><b><tt>{@link #requestcomplete}</tt></b><p class="sub-desc"></p></li>
+ * <li><b><tt>{@link #requestexception}</tt></b><p class="sub-desc"></p></li>
+ * </ul></div>
+ * <pre><code>
+// Example: show a spinner during all Ajax requests
+Ext.Ajax.on('beforerequest', this.showSpinner, this);
+Ext.Ajax.on('requestcomplete', this.hideSpinner, this);
+Ext.Ajax.on('requestexception', this.hideSpinner, this);
+ * </code></pre> 
+ * </p>
+ * <p>An example request:</p>
  * <pre><code>
 // Basic request
 Ext.Ajax.request({
@@ -259,15 +287,8 @@ Ext.Ajax.request({
     form: 'some-form',
     params: 'foo=bar'
 });
-
-// Default headers to pass in every request
-Ext.Ajax.defaultHeaders = {
-    'Powered-By': 'Ext'
-};
-
-// Global Ajax events can be handled on every request!
-Ext.Ajax.on('beforerequest', this.showSpinner, this);
-</code></pre>
+ * </code></pre> 
+ * </p>
  * @singleton
  */
 Ext.Ajax = new Ext.data.Connection({
@@ -302,23 +323,28 @@ Ext.Ajax = new Ext.data.Connection({
     /**
      * @property  url
      * The default URL to be used for requests to the server. (defaults to undefined)
+     * If the server receives all requests through one URL, setting this once is easier than
+     * entering it on every request.
      * @type String
      */
     /**
      * @property  extraParams
-     * An object containing properties which are used as
-     * extra parameters to each request made by this object. (defaults to undefined)
+     * An object containing properties which are used as extra parameters to each request made
+     * by this object (defaults to undefined). Session information and other data that you need
+     * to pass with each request are commonly put here.
      * @type Object
      */
     /**
      * @property  defaultHeaders
-     * An object containing request headers which are added to each request made by this object. (defaults to undefined)
+     * An object containing request headers which are added to each request made by this object
+     * (defaults to undefined).
      * @type Object
      */
     /**
      * @property  method
-     * The default HTTP method to be used for requests. Note that this is case-sensitive and should be all caps (defaults
-     * to undefined; if not set but parms are present will use "POST," otherwise "GET.")
+     * The default HTTP method to be used for requests. Note that this is case-sensitive and
+     * should be all caps (defaults to undefined; if not set but params are present will use
+     * <tt>"POST"</tt>, otherwise will use <tt>"GET"</tt>.)
      * @type String
      */
     /**

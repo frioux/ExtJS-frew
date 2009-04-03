@@ -140,6 +140,7 @@ Ext.apply(Ext.EventManager, function(){
          * @param {String/HTMLElement} el The id or html element from which to remove the event
          * @param {String} eventName The type of event
          * @param {Function} fn The handler function to remove
+         * @hide
          */
         removeListener : function(element, eventName, fn, scope){
                 var el = Ext.getDom(element),
