@@ -1,0 +1,9 @@
+.x-dd-drag-proxy .multi-proxy .thumb-img{
+    height: auto;
+	width: 40px;
+	margin:1px;
+}
+.x-dd-drag-proxy .thumb-img{
+	height: 60px;
+	width: 80px;
+}
