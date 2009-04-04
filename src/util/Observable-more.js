@@ -110,7 +110,7 @@ Ext.apply(Ext.util.Observable.prototype, function(){
                 };
             };
             Ext.each(events, function(ename){
-                me.events[ename] = !me.events[ename];
+                me.events[ename] = me.events[ename] || true;
                 o.on(ename, createHandler(ename), me);
             });
         },
