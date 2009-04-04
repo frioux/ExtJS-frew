@@ -112,7 +112,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
     defaultAutoCreate : {tag: "input", type: "text", size: "24", autocomplete: "off"},
     /**
      * @cfg {Number} listWidth The width (used as a parameter to {@link Ext.Element#setWidth}) of the dropdown
-     * list (defaults to the width of the ComboBox field)
+     * list (defaults to the width of the ComboBox field).  See also <tt>{@link #minListWidth}
      */
     /**
      * @cfg {String} displayField The underlying {@link Ext.data.Field#name data field name} to bind to this
