@@ -1,4 +1,4 @@
-/*
+/**
  * @class Ext.Template
  */
 Ext.apply(Ext.Template.prototype, {
@@ -6,6 +6,7 @@ Ext.apply(Ext.Template.prototype, {
      * Returns an HTML fragment of this template with the specified values applied.
      * @param {Object/Array} values The template values. Can be an array if your params are numeric (i.e. {0}) or an object (i.e. {foo: 'bar'})
      * @return {String} The HTML fragment
+     * @hide repeat doc
      */
     applyTemplate : function(values){
 		var me = this,
@@ -44,8 +45,9 @@ Ext.apply(Ext.Template.prototype, {
     },
 		
     /**
-     * True to disable format functions (defaults to false)
+     * <tt>true</tt> to disable format functions (defaults to <tt>false</tt>)
      * @type Boolean
+     * @property
      */
     disableFormats : false,				
 	
@@ -53,12 +55,14 @@ Ext.apply(Ext.Template.prototype, {
      * The regular expression used to match template variables
      * @type RegExp
      * @property
+     * @hide repeat doc
      */
     re : /\{([\w-]+)(?:\:([\w\.]*)(?:\((.*?)?\))?)?\}/g,
     
     /**
      * Compiles the template into an internal function, eliminating the RegEx overhead.
      * @return {Ext.Template} this
+     * @hide repeat doc
      */
     compile : function(){
         var me = this,
@@ -101,5 +105,4 @@ Ext.apply(Ext.Template.prototype, {
     call : function(fnName, value, allValues){
         return this[fnName](value, allValues);
     }
-}
-);
+});
