@@ -206,5 +206,9 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
         this.destroyTrans(trans, false);
         this.fireEvent("loadexception", this, null, trans.arg);
         trans.callback.call(trans.scope||window, null, trans.arg, false);
+    },
+    
+    doRequest : function(action, rs, params, reader, writer, cb, scope, arg) {
+        this.load(params, reader, cb, scope, arg);
     }
 });
