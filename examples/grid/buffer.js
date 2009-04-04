@@ -13,7 +13,7 @@ Ext.onReady(function(){
         reader: new Ext.data.JsonReader({
             root: 'topics',
             totalProperty: 'totalCount',
-            id: 'threadid',
+            idProperty: 'threadid',
             fields: [
                 'title', 'forumtitle', 'forumid', 'author',
                 {name: 'replycount', type: 'int'},
