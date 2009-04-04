@@ -24,7 +24,7 @@ Ext.onReady(function(){
     });
 
     var grid = new Ext.grid.GridPanel({
-        el:'topic-grid',
+        renderTo: 'topic-grid',
         width:700,
         height:500,
         frame:true,
@@ -55,20 +55,19 @@ Ext.onReady(function(){
             sortable:true
         }],
 		
-	bbar: new Ext.PagingToolbar({
-		store: store,
-		pageSize:500,
-		displayInfo:true
-	}),
+	    bbar: new Ext.PagingToolbar({
+		    store: store,
+		    pageSize:500,
+		    displayInfo:true
+	    }),
 	
-	view: new Ext.ux.BufferView({
-		// custom row height
-		rowHeight: 34,
-		// render rows as they come into viewable area.
-		scrollDelay: false
-	})
-    });
-    grid.render();
+	    view: new Ext.ux.BufferView({
+		    // custom row height
+		    rowHeight: 34,
+		    // render rows as they come into viewable area.
+		    scrollDelay: false
+	    })
+    });
 
     // render functions
     function renderTopic(value, p, record){
