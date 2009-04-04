@@ -58,26 +58,6 @@ Ext.extend(Ext.CompositeElement, Ext.CompositeElementLite, {
         return this.elements[index] || null;
     },
 
-    /**
-    * Removes the specified element(s).
-    * @param {Mixed} el The id of an element, the Element itself, the index of the element in this composite
-    * or an array of any of those.
-    * @param {Boolean} removeDom (optional) True to also remove the element from the document
-    * @return {CompositeElement} this
-    */
-    removeElement : function(keys, removeDom){
-        var me = this,
-	        els = this.elements,	    
-	    	el;	    	
-	    Ext.each(keys, function(val){
-		    if (el = (els[val] || els[val = me.indexOf(val)])) {
-		    	if(removeDom)
-		    		el.dom ? el.remove() : Ext.removeNode(el);
-		    	els.splice(val, 1);		    	
-			}
-	    });
-        return this;
-    },
 
     indexOf : function(el){
         return this.elements.indexOf(Ext.get(el));
