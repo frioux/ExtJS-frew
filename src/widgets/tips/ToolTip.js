@@ -455,7 +455,7 @@ myGrid.on('render', function(grid) {
 
     // private
     onDocMouseDown : function(e){
-        if(this.autoHide !== true && !e.within(this.el.dom)){
+        if(this.autoHide !== true && !this.closable && !e.within(this.el.dom)){
             this.disable();
             this.enable.defer(100, this);
         }
