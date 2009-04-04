@@ -417,6 +417,7 @@ new Ext.FormPanel({
      * rules to style the specific instance of this component uniquely, and also to select
      * sub-elements using this component's id as the parent.</p>
      * <p><b>Note</b>: to avoid complications imposed by a unique <tt>id</tt> see <tt>{@link #itemId}</tt>.</p>
+     * <p><b>Note</b>: to access the container of an item see <tt>{@link #ownerCt}</tt>.</p>
      */
     /**
      * @cfg {String} itemId
@@ -446,9 +447,11 @@ var c = new Ext.Panel({ //
         }
     ]
 })
-p1 = c.{@link Ext.Container#getComponent getComponent}('p1'); // not the same as {@link Ext#getCmp Ext.getCmp()} 
+p1 = c.{@link Ext.Container#getComponent getComponent}('p1'); // not the same as {@link Ext#getCmp Ext.getCmp()}
+p2 = p1.{@link #ownerCt}.{@link Ext.Container#getComponent getComponent}('p2'); // reference via a sibling 
      * </code></pre>
      * <p>Also see <tt>{@link #id}</tt>.</p>
+     * <p><b>Note</b>: to access the container of an item see <tt>{@link #ownerCt}</tt>.</p>
      */
     /**
      * @cfg {String} xtype
@@ -680,6 +683,7 @@ new Ext.Panel({
     /**
      * The component's owner {@link Ext.Container} (defaults to undefined, and is set automatically when
      * the component is added to a container).  Read-only.
+     * <p><b>Note</b>: to access items within the container see <tt>{@link #itemId}</tt>.</p>
      * @type Ext.Container
      * @property ownerCt
      */
