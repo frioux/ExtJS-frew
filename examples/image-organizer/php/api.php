@@ -1,4 +1,4 @@
-<?
+<?php
 require('config.php');
 header('Content-Type: text/javascript');
 
@@ -11,7 +11,7 @@ foreach($API as $aname=>&$a){
 			'name'=>$mname,
 			'len'=>$m['len']
 		);
-		if($m['formHandler']){
+		if(isset($m['formHandler'])){
 			$md['formHandler'] = true;
 		}
 		$methods[] = $md;

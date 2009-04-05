@@ -1,4 +1,4 @@
-<?
+<?php
 $API = array(
 	'Tags'=>array(
 	    'methods'=>array(

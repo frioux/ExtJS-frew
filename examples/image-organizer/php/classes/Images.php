@@ -1,4 +1,4 @@
-<?
+<?php
 class Images {
     function listall(){
         return 'lots';
