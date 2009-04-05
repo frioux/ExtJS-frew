@@ -379,6 +379,7 @@
   <file name="grid\binding.js" path="grid" />
   <file name="grid\buffer.html" path="grid" />
   <file name="grid\buffer.js" path="grid" />
+  <file name="grid\BufferView.js" path="grid" />
   <file name="grid\CallBroker.js" path="grid" />
   <file name="grid\custom-grid.html" path="grid" />
   <file name="grid\custom-grid.js" path="grid" />
