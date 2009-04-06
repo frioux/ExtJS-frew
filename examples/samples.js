@@ -79,6 +79,11 @@ Ext.EventManager.on(window, 'load', function(){
             icon: 'grid-edit.gif',
             desc: 'An editable grid loaded from XML that shows multiple types of grid editors as well as defining custom data records.'
         },{
+            text: 'Row Editor Grid',
+            url: 'grid/row-editor.html',
+            icon: 'grid-row-edit.gif',
+            desc: 'An editable grid which allows the user to make modifications to an entire record at once. Also demonstrates the Ext.chart package. '
+        },{
             text: 'XML Grid',
             url: 'grid/xml-grid.html',
             icon: 'grid-xml.gif',
@@ -88,6 +93,11 @@ Ext.EventManager.on(window, 'load', function(){
             url: 'grid/paging.html',
             icon: 'grid-paging.gif',
             desc: 'A grid with paging, cross-domain data loading and custom- rendered expandable row bodies.'
+        },{
+            text: 'Sliding Pager',
+            url: 'grid/sliding-pager.html',
+            icon: 'sliding-pager.gif',
+            desc: ''
         },{
             text: 'Grouping',
             url: 'grid/grouping.html',
@@ -123,6 +133,11 @@ Ext.EventManager.on(window, 'load', function(){
             url: 'grid/binding-with-classes.html',
             icon: 'grid-data-binding.gif',
             desc: 'Refactoring the basic data binding example to use a class-based application design model.'
+        },{
+            text: 'Buffered GridView',
+            url: 'grid/buffer.html',
+            icon: 'grid-buffer.gif',
+            desc: 'GridView optimized for performance by rendering only visible rows.'
         }]
     },{
         title: 'Tabs',
@@ -265,6 +280,16 @@ Ext.EventManager.on(window, 'load', function(){
             icon: 'toolbar.gif',
             desc: 'Toolbar and menus that contain various components like date pickers, color pickers, sub-menus and more.'
         },{
+            text: 'Toolbar Overflow',
+            url: 'toolbar/overflow.html',
+            icon: 'toolbar-overflow.gif',
+            desc: 'Dynamic overflow of toolbar buttons into an Ext.menu.'
+        },{
+            text: 'Toolbar Button Groups',
+            url: 'toolbar/toolbars.html',
+            icon: 'toolbar-button-groups.gif',
+            desc: 'Group buttons together in the toolbar.'
+        },{
             text: 'Ext Actions',
             url: 'menu/actions.html',
             icon: 'toolbar-actions.gif',
@@ -287,6 +312,11 @@ Ext.EventManager.on(window, 'load', function(){
             url: 'view/chooser.html',
             icon: 'chooser.gif',
             desc: 'A more customized DataView supporting sorting and filtering with multiple templates.'
+        },{
+            text: 'ListView',
+            url: 'view/list-view.html',
+            icon: 'list-view.gif',
+            desc: 'A high performance tabular DataView to be used as a lightweight grid.'
         }]
     },{
 		title   : 'Drag and Drop',
@@ -358,6 +388,16 @@ Ext.EventManager.on(window, 'load', function(){
             url: 'core/spotlight.html',
             icon: 'spotlight.gif',
             desc: 'A utility for masking everything except a single element on the page to visually highlight it.'
+        },{
+            text: 'Buttons',
+            url: 'button/buttons.html',
+            icon: 'buttons.gif',
+            desc: ''
+        },{
+            text: 'Debugging Console',
+            url: 'debug/debug-console.html',
+            icon: 'debug-console.gif',
+            desc: ''
         },{
             text: 'Localization (static)',
             url: 'locale/dutch-form.html',
