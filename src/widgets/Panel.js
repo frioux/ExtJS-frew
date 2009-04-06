@@ -150,7 +150,7 @@ new Ext.Panel({
      * @cfg {String} title
      * The title text to be used as innerHTML (html tags are accepted) to display in the panel header (defaults to '').
      * When a title is specified the header element will automatically be created and displayed unless {@link #header}
-     * is explicitly set to false.  If you do not want to specify a title at config time, but you may want one later, 
+     * is explicitly set to false.  If you do not want to specify a title at config time, but you may want one later,
      * you must either specify a non-empty title (a blank space ' ' will do) or header:true so that the container
      * element will get created.
      */
@@ -169,14 +169,14 @@ new Ext.Panel({
     /**
      * @cfg {Boolean} frame
      * <tt>false</tt> by default to render with plain 1px square borders. <tt>true</tt> to render with
-     * 9 elements, complete with custom rounded corners (also see {@link Ext.Element#boxWrap}). 
+     * 9 elements, complete with custom rounded corners (also see {@link Ext.Element#boxWrap}).
      * <p>The template generated for each condition is depicted below:</p><pre><code>
-     * 
+     *
 // frame = false
 &lt;div id="developer-specified-id-goes-here" class="x-panel">
 
     &lt;div class="x-panel-header">&lt;span class="x-panel-header-text">Title: (frame:false)&lt;/span>&lt;/div>
-    
+
     &lt;div class="x-panel-bwrap">
         &lt;div class="x-panel-body">&lt;p>html value goes here&lt;/p>&lt;/div>
     &lt;/div>
@@ -187,12 +187,12 @@ new Ext.Panel({
     &lt;div class="x-panel-tl">&lt;div class="x-panel-tr">&lt;div class="x-panel-tc">
         &lt;div class="x-panel-header">&lt;span class="x-panel-header-text">Title: (frame:true)&lt;/span>&lt;/div>
     &lt;/div>&lt;/div>&lt;/div>
-    
+
     &lt;div class="x-panel-bwrap">
         &lt;div class="x-panel-ml">&lt;div class="x-panel-mr">&lt;div class="x-panel-mc">
             &lt;div class="x-panel-body">&lt;p>html value goes here&lt;/p>&lt;/div>
         &lt;/div>&lt;/div>&lt;/div>
-        
+
         &lt;div class="x-panel-bl">&lt;div class="x-panel-br">&lt;div class="x-panel-bc"/>
         &lt;/div>&lt;/div>&lt;/div>
 &lt;/div>
@@ -308,7 +308,7 @@ tools:[{
 .x-tool-help {background-image: url(images/help.png) no-repeat 0 0;}
 .x-tool-help-over {background-position:-15px 0;}
 </code></pre>
-     */ 
+     */
     /**
      * @cfg {Ext.Template/Ext.XTemplate} toolTemplate
      * <p>A Template used to create {@link #tools} in the {@link #header} Element. Defaults to:</p><pre><code>
@@ -338,7 +338,7 @@ var win = new Ext.Window({
      * appropriate background image, something like:</p>
     <pre><code>
     a.x-tool-pdf {background-image: url(../shared/extjs/images/pdf.gif)!important;}
-    </code></pre>     
+    </code></pre>
      */
     /**
      * @cfg {Boolean} hideCollapseTool
@@ -510,7 +510,7 @@ new Ext.Panel({
      * on the height of its contents rather than the height required by the Ext layout.
      */
 
-    
+
     /**
      * @cfg {String} baseCls
      * The base CSS class to apply to this panel's element (defaults to <tt>'x-panel'</tt>).
@@ -589,6 +589,12 @@ new Ext.Panel({
      * Defaults to '<tt>body</tt>'.
      */
     elements : 'body',
+	/**
+	 * @cfg {Boolean} normal
+	 * When set to true, an extra css class "x-panel-normal" will be added the the panel's element which
+	 * will reset any body html to styles suggested by the W3C http://www.w3.org/TR/CSS21/sample.html
+	 */
+	normal: false,
 
     // protected - these could be used to customize the behavior of the window,
     // but changing them would not be useful without further mofifications and
@@ -787,7 +793,7 @@ new Ext.Panel({
     onRender : function(ct, position){
         Ext.Panel.superclass.onRender.call(this, ct, position);
         this.createClasses();
-        
+
         var el = this.el, d = el.dom;
         el.addClass(this.baseCls);
         if(d.firstChild){ // existing markup
@@ -800,7 +806,9 @@ new Ext.Panel({
             this.footer = cp.down('.'+this.footerCls);
             this.fromMarkup = true;
         }
-
+		if (this.normal === true) {
+			el.addClass('x-panel-normal');
+		}
         if(this.cls){
             el.addClass(this.cls);
         }
@@ -1122,7 +1130,7 @@ new Ext.Panel({
             t.removeClass(overCls);
 			if(tc.stopEvent !== false){
 				e.stopEvent();
-			}            
+			}
             if(tc.handler){
                 tc.handler.call(tc.scope || t, e, t, panel, tc);
             }
@@ -1361,9 +1369,9 @@ new Ext.Panel({
                             if(Ext.isIE7 && Ext.isStrict){
                                 (function(){
                                     f.setWidth(el.child('.x-toolbar-ct').getWidth());
-                                }).defer(1)    
+                                }).defer(1)
                             }else{
-                                fWidth = el.getWidth();  
+                                fWidth = el.getWidth();
                             }
                         }else{
                             fWidth = 'auto';
@@ -1617,7 +1625,7 @@ panel.load({
         }
         u.update(Ext.isObject(this.autoLoad) ? this.autoLoad : {url: this.autoLoad});
     },
-    
+
     /**
      * Retrieve a tool by id.
      * @param {String} id
