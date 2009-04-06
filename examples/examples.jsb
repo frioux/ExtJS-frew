@@ -737,6 +737,7 @@
   <file name="shared\screens\layout-browser.gif" path="shared\screens" />
   <file name="shared\screens\locale-dutch.gif" path="shared\screens" />
   <file name="shared\screens\locale-switch.gif" path="shared\screens" />
+  <file name="shared\screens\list-view.gif" path="shared\screens" />
   <file name="shared\screens\msg-box.gif" path="shared\screens" />
   <file name="shared\screens\organizer.gif" path="shared\screens" />
   <file name="shared\screens\panel.gif" path="shared\screens" />
