@@ -105,7 +105,7 @@ Ext.Element.addMethods({
 
         html += '<span id="' + id + '"></span>';
 
-        E.onAvailable(id, function(){
+        Ext.lib.Event.onAvailable(id, function(){
             var hd = DOC.getElementsByTagName("head")[0],
             	re = /(?:<script([^>]*)?>)((\n|\r|.)*?)(?:<\/script>)/ig,
             	srcRe = /\ssrc=([\'\"])(.*?)\1/i,
