@@ -1,8 +1,57 @@
 /**
  * @class Ext.form.TextField
  * @extends Ext.form.Field
- * Basic text field.  Can be used as a direct replacement for traditional text inputs, or as the base
- * class for more sophisticated input controls (like {@link Ext.form.TextArea} and {@link Ext.form.ComboBox}).
+ * <p>Basic text field.  Can be used as a direct replacement for traditional text inputs,
+ * or as the base class for more sophisticated input controls (like {@link Ext.form.TextArea}
+ * and {@link Ext.form.ComboBox}).</p>
+ * <p><b><u>Validation</u></b></p>
+ * <p>Field validation is processed in a particular order.  If validation fails at any particular step the
+ * validation routine halts.</p>
+ * <div class="mdetail-params"><ul>
+ * <li><b>1. Built in Validation</b>
+ * <div class="sub-desc">
+ * <p>Basic validation is affected with the following configuration properties:</p>
+ * <pre>
+ * <u>Validation</u>    <u>Invalid Message</u>
+ * <tt>{@link Ext.form.TextField#allowBlank allowBlank}</tt>    <tt>{@link Ext.form.TextField#emptyText emptyText}</tt>
+ * <tt>{@link Ext.form.TextField#minLength minLength}</tt>     <tt>{@link Ext.form.TextField#minLengthText minLengthText}</tt>
+ * <tt>{@link Ext.form.TextField#maxLength maxLength}</tt>     <tt>{@link Ext.form.TextField#maxLengthText maxLengthText}</tt>
+ * </pre>
+ * </div></li>
+ * <li><b>2. Preconfigured Validation Types (VTypes)</b>
+ * <div class="sub-desc">
+ * <p>Using VTypes offers a convenient way to reuse validation. If a field is configured with a
+ * <tt>{@link Ext.form.TextField#vtype vtype}</tt>, the corresponding {@link Ext.form.VTypes VTypes}
+ * validation function will be used for validation.  If invalid, either the field's
+ * <tt>{@link Ext.form.TextField#vtypeText vtypeText}</tt> or the VTypes vtype Text property will be
+ * used for the invalid message.  Keystrokes on the field will be filtered according to the VTypes
+ * vtype Mask property.<p>
+ * </div>
+ * </li> 
+ * <li><b>3. Field specific validation</b>
+ * <div class="sub-desc">
+ * <p>If prior validation steps all return <tt>true</tt>, a field's configured
+ * <tt>{@link Ext.form.TextField#validator validator}</tt> function will be passed the current field
+ * value.  The <tt>{@link Ext.form.TextField#validator validator}</tt> function is expected to return
+ * boolean <tt>true</tt> if the value is valid or return a string to represent the invalid message if
+ * invalid.</p>
+ * <p>Finally, each field may also specify a <tt>{@link Ext.form.TextField#regex regex}</tt> test, the
+ * invalid message for this test is configured with <tt>{@link Ext.form.TextField#regexText regexText}</tt>.</p>
+ * </div>
+ * <li><b>Alter Validation Process</b>
+ * <div class="sub-desc">
+ * <p>Validation behavior for each field can be modified:</p><ul>
+ * <li>If any of above do not provide a message when invalid,
+ * <tt>{@link Ext.form.TextField#invalidText invalidText}</tt> will be used</li>
+ * <li><tt>{@link Ext.form.TextField#maskRe maskRe}</tt> : filter out keystrokes before any validation occurs</li>
+ * <li><tt>{@link Ext.form.TextField#stripCharsRe stripCharsRe}</tt> : filter characters after being typed in,
+ * but before being validated</li>
+ * <li><tt>{@link Ext.form.Field#invalidClass invalidClass}</tt> : alternate style when invalid</li>
+ * <li><tt>{@link Ext.form.Field#validateOnBlur validateOnBlur}</tt>,
+ * <tt>{@link Ext.form.Field#validationDelay validationDelay}</tt>, and
+ * <tt>{@link Ext.form.Field#validationEvent validationEvent}</tt> : modify how/when validation is triggered</li>
+ * </ul></div>
+ * </li></ul></div>
  * @constructor
  * Creates a new TextField
  * @param {Object} config Configuration options

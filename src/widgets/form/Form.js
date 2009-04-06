@@ -19,6 +19,15 @@
  * the <tt><b>initialConfig</b></tt> property of the FormPanel. Applying {@link Ext.form.BasicForm BasicForm}
  * configuration settings to <b><tt>this</tt></b> will <b>not</b> affect the BasicForm's configuration.</p>
  * 
+ * <p><b><u>Form Validation</u></b></p>
+ * <p>For information on form validation see the following:</p>
+ * <div class="mdetail-params"><ul>
+ * <li>{@link Ext.form.TextField}</li>
+ * <li>{@link Ext.form.VTypes}</li>
+ * <li>{@link Ext.form.BasicForm#doAction BasicForm.doAction <b>clientValidation</b> notes}</li>
+ * <li><tt>{@link Ext.form.FormPanel#monitorValid monitorValid}</tt></li>
+ * </ul></div>
+ * 
  * <p><b><u>Form Submission</u></b></p>
  * <p>By default, Ext Forms are submitted through Ajax, using {@link Ext.form.Action}. To enable normal browser
  * submission of the {@link Ext.form.BasicForm BasicForm} contained in this FormPanel, see the
