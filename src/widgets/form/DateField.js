@@ -11,54 +11,55 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
     /**
      * @cfg {String} format
      * The default date format string which can be overriden for localization support.  The format must be
-     * valid according to {@link Date#parseDate} (defaults to 'm/d/Y').
+     * valid according to {@link Date#parseDate} (defaults to <tt>'m/d/Y'</tt>).
      */
     format : "m/d/Y",
     /**
      * @cfg {String} altFormats
-     * Multiple date formats separated by "|" to try when parsing a user input value and it doesn't match the defined
-     * format (defaults to 'm/d/Y|n/j/Y|n/j/y|m/j/y|n/d/y|m/j/Y|n/d/Y|m-d-y|m-d-Y|m/d|m-d|md|mdy|mdY|d|Y-m-d').
+     * Multiple date formats separated by "<tt>|</tt>" to try when parsing a user input value and it
+     * does not match the defined format (defaults to
+     * <tt>'m/d/Y|n/j/Y|n/j/y|m/j/y|n/d/y|m/j/Y|n/d/Y|m-d-y|m-d-Y|m/d|m-d|md|mdy|mdY|d|Y-m-d'</tt>).
      */
     altFormats : "m/d/Y|n/j/Y|n/j/y|m/j/y|n/d/y|m/j/Y|n/d/Y|m-d-y|m-d-Y|m/d|m-d|md|mdy|mdY|d|Y-m-d",
     /**
      * @cfg {String} disabledDaysText
-     * The tooltip to display when the date falls on a disabled day (defaults to 'Disabled')
+     * The tooltip to display when the date falls on a disabled day (defaults to <tt>'Disabled'</tt>)
      */
     disabledDaysText : "Disabled",
     /**
      * @cfg {String} disabledDatesText
-     * The tooltip text to display when the date falls on a disabled date (defaults to 'Disabled')
+     * The tooltip text to display when the date falls on a disabled date (defaults to <tt>'Disabled'</tt>)
      */
     disabledDatesText : "Disabled",
     /**
      * @cfg {String} minText
-     * The error text to display when the date in the cell is before minValue (defaults to
-     * 'The date in this field must be after {minValue}').
+     * The error text to display when the date in the cell is before <tt>{@link #minValue}</tt> (defaults to
+     * <tt>'The date in this field must be after {minValue}'</tt>).
      */
     minText : "The date in this field must be equal to or after {0}",
     /**
      * @cfg {String} maxText
-     * The error text to display when the date in the cell is after maxValue (defaults to
-     * 'The date in this field must be before {maxValue}').
+     * The error text to display when the date in the cell is after <tt>{@link #maxValue}</tt> (defaults to
+     * <tt>'The date in this field must be before {maxValue}'</tt>).
      */
     maxText : "The date in this field must be equal to or before {0}",
     /**
      * @cfg {String} invalidText
      * The error text to display when the date in the field is invalid (defaults to
-     * '{value} is not a valid date - it must be in the format {format}').
+     * <tt>'{value} is not a valid date - it must be in the format {format}'</tt>).
      */
     invalidText : "{0} is not a valid date - it must be in the format {1}",
     /**
      * @cfg {String} triggerClass
      * An additional CSS class used to style the trigger button.  The trigger will always get the
-     * class 'x-form-trigger' and triggerClass will be <b>appended</b> if specified (defaults to 'x-form-date-trigger'
-     * which displays a calendar icon).
+     * class <tt>'x-form-trigger'</tt> and <tt>triggerClass</tt> will be <b>appended</b> if specified
+     * (defaults to <tt>'x-form-date-trigger'</tt> which displays a calendar icon).
      */
     triggerClass : 'x-form-date-trigger',
     /**
      * @cfg {Boolean} showToday
-     * False to hide the footer area of the DatePicker containing the Today button and disable the keyboard
-     * handler for spacebar that selects the current date (defaults to true).
+     * <tt>false</tt> to hide the footer area of the DatePicker containing the Today button and disable
+     * the keyboard handler for spacebar that selects the current date (defaults to <tt>true</tt>).
      */
     showToday : true,
     /**
@@ -73,27 +74,38 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
      */
     /**
      * @cfg {Array} disabledDays
-     * An array of days to disable, 0 based. For example, [0, 6] disables Sunday and Saturday (defaults to null).
+     * An array of days to disable, 0 based (defaults to null). Some examples:<pre><code>
+// disable Sunday and Saturday:
+disabledDays:  [0, 6]
+// disable weekdays:
+disabledDays: [1,2,3,4,5]
+     * </code></pre>
      */
     /**
      * @cfg {Array} disabledDates
      * An array of "dates" to disable, as strings. These strings will be used to build a dynamic regular
-     * expression so they are very powerful. Some examples:
-     * <ul>
-     * <li>["03/08/2003", "09/16/2003"] would disable those exact dates</li>
-     * <li>["03/08", "09/16"] would disable those days for every year</li>
-     * <li>["^03/08"] would only match the beginning (useful if you are using short years)</li>
-     * <li>["03/../2006"] would disable every day in March 2006</li>
-     * <li>["^03"] would disable every day in every March</li>
-     * </ul>
+     * expression so they are very powerful. Some examples:<pre><code>
+// disable these exact dates:
+disabledDates: ["03/08/2003", "09/16/2003"]
+// disable these days for every year:
+disabledDates: ["03/08", "09/16"]
+// only match the beginning (useful if you are using short years):
+disabledDates: ["^03/08"]
+// disable every day in March 2006:
+disabledDates: ["03/../2006"]
+// disable every day in every March:
+disabledDates: ["^03"]
+     * </code></pre>
      * Note that the format of the dates included in the array should exactly match the {@link #format} config.
-     * In order to support regular expressions, if you are using a date format that has "." in it, you will have to
-     * escape the dot when restricting dates. For example: ["03\\.08\\.03"].
+     * In order to support regular expressions, if you are using a {@link #format date format} that has "." in
+     * it, you will have to escape the dot when restricting dates. For example: <tt>["03\\.08\\.03"]</tt>.
      */
     /**
      * @cfg {String/Object} autoCreate
-     * A DomHelper element spec, or true for a default element spec (defaults to
-     * {tag: "input", type: "text", size: "10", autocomplete: "off"})
+     * A {@link Ext.DomHelper DomHelper element specification object}, or <tt>true</tt> for the default element
+     * specification object:<pre><code>
+     * autoCreate: {tag: "input", type: "text", size: "10", autocomplete: "off"}
+     * </code></pre>
      */
 
     // private
@@ -137,7 +149,7 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
 
     /**
      * Replaces any existing disabled dates with new values and refreshes the DatePicker.
-     * @param {Array} disabledDates An array of date strings (see the {@link #disabledDates} config
+     * @param {Array} disabledDates An array of date strings (see the <tt>{@link #disabledDates}</tt> config
      * for details on supported values) used to disable a pattern of dates.
      */
     setDisabledDates : function(dd){
@@ -150,8 +162,8 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
 
     /**
      * Replaces any existing disabled days (by index, 0-6) with new values and refreshes the DatePicker.
-     * @param {Array} disabledDays An array of disabled day indexes. See the {@link #disabledDays} config
-     * for details on supported values.
+     * @param {Array} disabledDays An array of disabled day indexes. See the <tt>{@link #disabledDays}</tt>
+     * config for details on supported values.
      */
     setDisabledDays : function(dd){
         this.disabledDays = dd;
@@ -161,7 +173,7 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
     },
 
     /**
-     * Replaces any existing {@link #minValue} with the new value and refreshes the DatePicker.
+     * Replaces any existing <tt>{@link #minValue}</tt> with the new value and refreshes the DatePicker.
      * @param {Date} value The minimum date that can be selected
      */
     setMinValue : function(dt){
@@ -172,7 +184,7 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
     },
 
     /**
-     * Replaces any existing {@link #maxValue} with the new value and refreshes the DatePicker.
+     * Replaces any existing <tt>{@link #maxValue}</tt> with the new value and refreshes the DatePicker.
      * @param {Date} value The maximum date that can be selected
      */
     setMaxValue : function(dt){
@@ -238,9 +250,9 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
     },
 
     /**
-     * Sets the value of the date field.  You can pass a date object or any string that can be parsed into a valid
-     * date, using DateField.format as the date format, according to the same rules as {@link Date#parseDate}
-     * (the default format used is "m/d/Y").
+     * Sets the value of the date field.  You can pass a date object or any string that can be
+     * parsed into a valid date, using <tt>{@link #format}</tt> as the date format, according
+     * to the same rules as {@link Date#parseDate} (the default format used is <tt>"m/d/Y"</tt>).
      * <br />Usage:
      * <pre><code>
 //All of these calls set the same date value (May 4, 2006)
