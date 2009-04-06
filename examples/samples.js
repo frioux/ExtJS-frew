@@ -96,7 +96,7 @@ Ext.EventManager.on(window, 'load', function(){
         },{
             text: 'Sliding Pager',
             url: 'grid/sliding-pager.html',
-            icon: 'sliding-pager.gif',
+            icon: 'slider-pager.gif',
             desc: ''
         },{
             text: 'Grouping',

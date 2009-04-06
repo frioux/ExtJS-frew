@@ -723,6 +723,7 @@
   <file name="shared\screens\form-xml.gif" path="shared\screens" />
   <file name="shared\screens\gmap-panel.gif" path="shared\screens" />
   <file name="shared\screens\grid-array.gif" path="shared\screens" />
+  <file name="shared\screens\grid-buffer.gif" path="shared\screens" />
   <file name="shared\screens\grid-data-binding.gif" path="shared\screens" />
   <file name="shared\screens\grid-edit.gif" path="shared\screens" />
   <file name="shared\screens\grid-filter.gif" path="shared\screens" />
@@ -744,6 +745,7 @@
   <file name="shared\screens\qtips.gif" path="shared\screens" />
   <file name="shared\screens\resizable.gif" path="shared\screens" />
   <file name="shared\screens\slider.gif" path="shared\screens" />
+  <file name="shared\screens\slider-pager.gif" path="shared\screens" />
   <file name="shared\screens\spotlight.gif" path="shared\screens" />
   <file name="shared\screens\statusbar-plugin.gif" path="shared\screens" />
   <file name="shared\screens\statusbar.gif" path="shared\screens" />
