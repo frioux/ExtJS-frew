@@ -652,22 +652,22 @@
   <file name="panel\panels.html" path="panel" />
   <file name="portal\portal.html" path="portal" />
   <file name="resizable\basic.html" path="resizable" />
-  <file name="image-organizer\data-view-plugins.js" path="image-organizer"\>
-  <file name="image-organizer\direct.js" path="image-organizer"\>
-  <file name="image-organizer\direct.php" path="image-organizer"\>
-  <file name="image-organizer\img-dv.js" path="image-organizer"\>
-  <file name="image-organizer\img-org.css" path="image-organizer"\>
-  <file name="image-organizer\img-org.js" path="image-organizer"\>
-  <file name="image-organizer\index.html" path="image-organizer"\>
-  <file name="image-organizer\php\api.php" path="image-organizer\php"\>
-  <file name="image-organizer\php\classes" path="image-organizer\php"\>
-  <file name="image-organizer\php\classes\Albums.php" path="image-organizer\php"\>
-  <file name="image-organizer\php\classes\Images.php" path="image-organizer\php"\>
-  <file name="image-organizer\php\classes\Tags.php" path="image-organizer\php"\>
-  <file name="image-organizer\php\config.php" path="image-organizer\php"\>
-  <file name="image-organizer\php\poll.php" path="image-organizer\php"\>
-  <file name="image-organizer\php\router.php" path="image-organizer\php"\>
-  <file name="image-organizer\tag-combo.js" path="image-organizer"\>
+  <file name="image-organizer\data-view-plugins.js" path="image-organizer" />
+  <file name="image-organizer\direct.js" path="image-organizer" />
+  <file name="image-organizer\direct.php" path="image-organizer" />
+  <file name="image-organizer\img-dv.js" path="image-organizer" />
+  <file name="image-organizer\img-org.css" path="image-organizer" />
+  <file name="image-organizer\img-org.js" path="image-organizer" />
+  <file name="image-organizer\index.html" path="image-organizer" />
+  <file name="image-organizer\php\api.php" path="image-organizer\php" />
+  <file name="image-organizer\php\classes" path="image-organizer\php\classes" />
+  <file name="image-organizer\php\classes\Albums.php" path="image-organizer\php\classes" />
+  <file name="image-organizer\php\classes\Images.php" path="image-organizer\php\classes" />
+  <file name="image-organizer\php\classes\Tags.php" path="image-organizer\php\classes" />
+  <file name="image-organizer\php\config.php" path="image-organizer\php" />
+  <file name="image-organizer\php\poll.php" path="image-organizer\php" />
+  <file name="image-organizer\php\router.php" path="image-organizer\php" />
+  <file name="image-organizer\tag-combo.js" path="image-organizer" />
   <file name="shared\extjs\images\bd-bg.gif" path="shared\extjs\images" />
   <file name="shared\extjs\images\c-sep-l.gif" path="shared\extjs\images" />
   <file name="shared\extjs\images\c-sep.gif" path="shared\extjs\images" />
