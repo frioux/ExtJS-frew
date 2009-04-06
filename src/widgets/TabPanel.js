@@ -808,7 +808,8 @@ new Ext.TabPanel({
                 this.pos.removeClass('x-tab-scrolling');
                 this.scrollLeft.hide();
                 this.scrollRight.hide();
-                if(Ext.isAir || Ext.isSafari){
+                // See here: http://extjs.com/forum/showthread.php?t=49308&highlight=isSafari
+                if(Ext.isAir || Ext.isWebKit){
                     wd.style.marginLeft = '';
                     wd.style.marginRight = '';
                 }
@@ -816,7 +817,8 @@ new Ext.TabPanel({
         }else{
             if(!this.scrolling){
                 this.pos.addClass('x-tab-scrolling');
-                if(Ext.isAir || Ext.isSafari){
+                // See here: http://extjs.com/forum/showthread.php?t=49308&highlight=isSafari
+                if(Ext.isAir || Ext.isWebKit){
                     wd.style.marginLeft = '18px';
                     wd.style.marginRight = '18px';
                 }

@@ -759,7 +759,7 @@ viewConfig: {
         
         if(g.autoHeight){
             this.scroller.dom.style.overflow = 'visible';
-            if(Ext.isSafari){
+            if(Ext.isWebKit){
                 this.scroller.dom.style.position = 'static';
             }
         }else{
@@ -1595,9 +1595,9 @@ viewConfig: {
             var x = e.getPageX();
             var ss = this.activeHd.style;
             if(x - r.left <= hw && this.cm.isResizable(this.activeHdIndex-1)){
-                ss.cursor = Ext.isAir ? 'move' : Ext.isSafari ? 'e-resize' : 'col-resize'; // col-resize not always supported
+                ss.cursor = Ext.isAir ? 'move' : Ext.isWebKit ? 'e-resize' : 'col-resize'; // col-resize not always supported
             }else if(r.right - x <= (!this.activeHdBtn ? hw : 2) && this.cm.isResizable(this.activeHdIndex)){
-                ss.cursor = Ext.isAir ? 'move' : Ext.isSafari ? 'w-resize' : 'col-resize';
+                ss.cursor = Ext.isAir ? 'move' : Ext.isWebKit ? 'w-resize' : 'col-resize';
             }else{
                 ss.cursor = '';
             }

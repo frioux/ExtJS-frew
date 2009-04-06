@@ -264,7 +264,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                         listeners: {
                             scope: this,
                             select: function(cp, color){
-                                this.execCmd('forecolor', Ext.isSafari || Ext.isIE ? '#'+color : color);
+                                this.execCmd('forecolor', Ext.isWebKit || Ext.isIE ? '#'+color : color);
                                 this.deferFocus();
                             }
                         },
@@ -290,7 +290,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                                     this.execCmd('useCSS', true);
                                     this.deferFocus();
                                 }else{
-                                    this.execCmd(Ext.isOpera ? 'hilitecolor' : 'backcolor', Ext.isSafari || Ext.isIE ? '#'+color : color);
+                                    this.execCmd(Ext.isOpera ? 'hilitecolor' : 'backcolor', Ext.isWebKit || Ext.isIE ? '#'+color : color);
                                     this.deferFocus();
                                 }
                             }
@@ -567,7 +567,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
     cleanHtml : function(html){
         html = String(html);
         if(html.length > 5){
-            if(Ext.isSafari){ // strip safari nonsense
+            if(Ext.isWebKit){ // strip safari nonsense
                 html = html.replace(/\sclass="(?:Apple-style-span|khtml-block-placeholder)"/gi, '');
             }
         }
@@ -585,7 +585,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         if(this.initialized){
             var bd = this.getEditorBody();
             var html = bd.innerHTML;
-            if(Ext.isSafari){
+            if(Ext.isWebKit){
                 var bs = bd.getAttribute('style'); // Safari puts text-align styles on the body element!
                 var m = bs.match(/text-align:(.*?);/i);
                 if(m && m[1]){
@@ -666,7 +666,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         if(Ext.isGecko){
             Ext.EventManager.on(this.doc, 'keypress', this.applyCommand, this);
         }
-        if(Ext.isIE || Ext.isSafari || Ext.isOpera){
+        if(Ext.isIE || Ext.isWebKit || Ext.isOpera){
             Ext.EventManager.on(this.doc, 'keydown', this.fixKeys, this);
         }
         this.initialized = true;
@@ -726,7 +726,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         var adjust = btn.itemId == 'increasefontsize' ? 1 : -1;
 
         var v = parseInt(this.doc.queryCommandValue('FontSize') || 2, 10);
-        if(Ext.isSafari3 || Ext.isAir){
+        if(Ext.isSafari3 || Ext.isChrome || Ext.isAir){
             // Safari 3 values
             // 1 = 10px, 2 = 13px, 3 = 16px, 4 = 18px, 5 = 24px, 6 = 32px
             if(v <= 10){
@@ -877,7 +877,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             this.win.focus();
             this.execCmd('InsertHTML', text);
             this.deferFocus();
-        }else if(Ext.isSafari){
+        }else if(Ext.isWebKit){
             this.execCmd('InsertText', text);
             this.deferFocus();
         }
@@ -919,7 +919,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                     this.deferFocus();
                 }
             };
-        }else if(Ext.isSafari){
+        }else if(Ext.isWebKit){
             return function(e){
                 var k = e.getKey();
                 if(k == e.TAB){
