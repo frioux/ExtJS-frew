@@ -320,7 +320,7 @@ Ext.EventManager.on(window, 'load', function(){
         }]
     },{
 		title   : 'Drag and Drop',
-		samples :  [/*{
+		samples :  [{
 			text : 'Grid to Grid Drag and Drop',
 			url  : 'dd/dnd_grid_to_grid.html',
 			icon : 'dd-gridtogrid.gif',
@@ -330,7 +330,7 @@ Ext.EventManager.on(window, 'load', function(){
 			url  : 'dd/dnd_grid_to_formpanel.html',
 			icon : 'dd-gridtoformpanel.gif',
 			desc : 'A basic drag and drop from grid to formpanel.'
-    	},*/{
+    	},{
 			text : 'Custom Drag and Drop',
 			url  : 'dd/dragdropzones.html',
 			icon : 'dd-zones.gif',
