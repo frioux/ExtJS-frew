@@ -727,6 +727,7 @@
   <file name="shared\screens\grid-buffer.gif" path="shared\screens" />
   <file name="shared\screens\grid-data-binding.gif" path="shared\screens" />
   <file name="shared\screens\grid-edit.gif" path="shared\screens" />
+  <file name="shared\screens\grid-row-editor.gif" path="shared\screens" />
   <file name="shared\screens\grid-filter.gif" path="shared\screens" />
   <file name="shared\screens\grid-from-markup.gif" path="shared\screens" />
   <file name="shared\screens\grid-grouping.gif" path="shared\screens" />
@@ -734,6 +735,7 @@
   <file name="shared\screens\grid-plugins.gif" path="shared\screens" />
   <file name="shared\screens\grid-summary.gif" path="shared\screens" />
   <file name="shared\screens\grid-xml.gif" path="shared\screens" />
+  <file name="shared\screens\group-tabs.gif" path="shared\screens" />
   <file name="shared\screens\history.gif" path="shared\screens" />
   <file name="shared\screens\layout-browser.gif" path="shared\screens" />
   <file name="shared\screens\locale-dutch.gif" path="shared\screens" />

@@ -81,7 +81,7 @@ Ext.EventManager.on(window, 'load', function(){
         },{
             text: 'Row Editor Grid',
             url: 'grid/row-editor.html',
-            icon: 'grid-edit.gif',
+            icon: 'grid-row-editor.gif',
             desc: 'An editable grid which allows the user to make modifications to an entire record at once. Also demonstrates the Ext.chart package. '
         },{
             text: 'XML Grid',
@@ -408,6 +408,11 @@ Ext.EventManager.on(window, 'load', function(){
             url: 'locale/multi-lang.html',
             icon: 'locale-switch.gif',
             desc: 'Dynamically render various Ext components in different locales by selecting from a locale list.'
+        },{
+            text: 'Group Tabs',
+            url: 'grouptabs/',
+            icon: 'group-tabs.gif',
+            desc: 'A custom example on how to setup tab grouping using vertical tabs.'
         }]
     }];
 
