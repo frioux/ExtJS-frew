@@ -708,6 +708,7 @@
   <file name="shared\screens\combo-custom.gif" path="shared\screens" />
   <file name="shared\screens\combo.gif" path="shared\screens" />
   <file name="shared\screens\data-view.gif" path="shared\screens" />
+  <file name="shared\screens\debug-console.gif" path="shared\screens" />
   <file name="shared\screens\dd-gridtoformpanel.gif" path="shared\screens" />
   <file name="shared\screens\dd-gridtogrid.gif" path="shared\screens" />
   <file name="shared\screens\dd-zones.gif" path="shared\screens" />
@@ -728,6 +729,7 @@
   <file name="shared\screens\grid-filter.gif" path="shared\screens" />
   <file name="shared\screens\grid-from-markup.gif" path="shared\screens" />
   <file name="shared\screens\grid-grouping.gif" path="shared\screens" />
+  <file name="shared\screens\grid-row-edit.gif" path="shared\screens" />
   <file name="shared\screens\grid-paging.gif" path="shared\screens" />
   <file name="shared\screens\grid-plugins.gif" path="shared\screens" />
   <file name="shared\screens\grid-summary.gif" path="shared\screens" />
