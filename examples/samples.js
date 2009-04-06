@@ -81,7 +81,7 @@ Ext.EventManager.on(window, 'load', function(){
         },{
             text: 'Row Editor Grid',
             url: 'grid/row-editor.html',
-            icon: 'grid-row-edit.gif',
+            icon: 'grid-edit.gif',
             desc: 'An editable grid which allows the user to make modifications to an entire record at once. Also demonstrates the Ext.chart package. '
         },{
             text: 'XML Grid',
