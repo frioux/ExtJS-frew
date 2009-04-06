@@ -194,7 +194,8 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         function btn(id, toggle, handler){
             return {
                 itemId : id,
-                cls : 'x-btn-icon x-edit-'+id,
+                cls : 'x-btn-icon',
+                iconCls: 'x-edit-'+id,
                 enableToggle:toggle !== false,
                 scope: editor,
                 handler:handler||editor.relayBtnCmd,
@@ -255,7 +256,8 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             tb.add(
                 '-', {
                     itemId:'forecolor',
-                    cls:'x-btn-icon x-edit-forecolor',
+                    cls:'x-btn-icon',
+                    iconCls: 'x-edit-forecolor',
                     clickEvent:'mousedown',
                     tooltip: tipsEnabled ? editor.buttonTips['forecolor'] || undefined : undefined,
                     tabIndex:-1,
@@ -275,7 +277,8 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                     })
                 }, {
                     itemId:'backcolor',
-                    cls:'x-btn-icon x-edit-backcolor',
+                    cls:'x-btn-icon',
+                    iconCls: 'x-edit-backcolor',
                     clickEvent:'mousedown',
                     tooltip: tipsEnabled ? editor.buttonTips['backcolor'] || undefined : undefined,
                     tabIndex:-1,
