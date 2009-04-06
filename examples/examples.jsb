@@ -12,8 +12,6 @@
   <file name="dialog\post.css" path="dialog" />
   <file name="layout\feed-viewer.css" path="layout" />
   <file name=".project" path="" />
-  <file name="grid\.DS_Store" path="grid" />
-  <file name=".DS_Store" path="" />
   <file name="dialog\test.html" path="dialog" />
   <file name="grid\PropsGrid.js" path="grid" />
   <file name="jquery-bundled.js" path="" />
@@ -30,18 +28,14 @@
   <file name="scriptaculous.js" path="" />
   <file name="layout\feed-proxy.ashx" path="layout" />
   <file name="layout\feed-proxy.ashx.vb" path="layout" />
-  <file name="shared\.DS_Store" path="shared" />
   <file name="form\advanced.html" path="form" />
   <file name="form\advanced.js" path="form" />
   <file name="form\advanced.php" path="form" />
   <file name="form\customers-remote.php" path="form" />
   <file name="form\load-form.php" path="form" />
   <file name="form\save-form.php" path="form" />
-  <file name="shared\icons\.DS_Store" path="shared\icons" />
   <file name="table.html" path="" />
   <file name="grid\grid-perf.html" path="grid" />
-  <file name="panels\images\.DS_Store" path="panels\images" />
-  <file name="panels\images\._.DS_Store" path="panels\images" />
   <file name="panels\images\app-win-btn-sprite.gif" path="panels\images" />
   <file name="panels\images\appbar-bg.gif" path="panels\images" />
   <file name="panels\images\appbar-btn-sprite.gif" path="panels\images" />
@@ -62,17 +56,12 @@
   <file name="panels\images\top-bar-bg.gif" path="panels\images" />
   <file name="panels\images\windows-bg.gif" path="panels\images" />
   <file name="panels\images\xtrack.gif" path="panels\images" />
-  <file name="panels\.DS_Store" path="panels" />
-  <file name="panels\._.DS_Store" path="panels" />
   <file name="panels\app.css" path="panels" />
   <file name="panels\app.html" path="panels" />
   <file name="panels\desktop.css" path="panels" />
   <file name="panels\desktop.html" path="panels" />
   <file name="panels\panels.html" path="panels" />
   <file name="panels\stack.html" path="panels" />
-  <file name="shared\icons\._.DS_Store" path="shared\icons" />
-  <file name="shared\._.DS_Store" path="shared" />
-  <file name="._.DS_Store" path="" />
   <file name="panels\images\desktop2.jpg" path="panels\images" />
   <file name="panels\images\desktop2.gif" path="panels\images" />
   <file name="panels\images\desktop3.gif" path="panels\images" />
@@ -663,6 +652,23 @@
   <file name="panel\panels.html" path="panel" />
   <file name="portal\portal.html" path="portal" />
   <file name="resizable\basic.html" path="resizable" />
+  <file name="image-organizer/data-view-plugins.js" path="image-organizer"/>
+  <file name="image-organizer/direct.js" path="image-organizer"/>
+  <file name="image-organizer/direct.php" path="image-organizer"/>
+  <file name="image-organizer/img-dv.js" path="image-organizer"/>
+  <file name="image-organizer/img-org.css" path="image-organizer"/>
+  <file name="image-organizer/img-org.js" path="image-organizer"/>
+  <file name="image-organizer/index.html" path="image-organizer"/>
+  <file name="image-organizer/php" path="image-organizer"/>
+  <file name="image-organizer/php/api.php" path="image-organizer"/>
+  <file name="image-organizer/php/classes" path="image-organizer"/>
+  <file name="image-organizer/php/classes/Albums.php" path="image-organizer"/>
+  <file name="image-organizer/php/classes/Images.php" path="image-organizer"/>
+  <file name="image-organizer/php/classes/Tags.php" path="image-organizer"/>
+  <file name="image-organizer/php/config.php" path="image-organizer"/>
+  <file name="image-organizer/php/poll.php" path="image-organizer"/>
+  <file name="image-organizer/php/router.php" path="image-organizer"/>
+  <file name="image-organizer/tag-combo.js" path="image-organizer"/>
   <file name="shared\extjs\images\bd-bg.gif" path="shared\extjs\images" />
   <file name="shared\extjs\images\c-sep-l.gif" path="shared\extjs\images" />
   <file name="shared\extjs\images\c-sep.gif" path="shared\extjs\images" />
