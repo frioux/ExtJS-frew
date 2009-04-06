@@ -1,3 +1,7 @@
+.x-border-layout-ct {
+    position: relative;
+}
+
 .x-border-panel {
     position:absolute;
     left:0;

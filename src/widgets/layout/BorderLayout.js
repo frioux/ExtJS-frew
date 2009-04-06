@@ -86,7 +86,6 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
     onLayout : function(ct, target){
         var collapsed;
         if(!this.rendered){
-            target.position();
             target.addClass('x-border-layout-ct');
             var items = ct.items.items;
             collapsed = [];

@@ -52,7 +52,7 @@
 
 /* class for hiding elements without using display:none */
 .x-hidden, .x-hide-offsets {
-    position:absolute;
+    position:absolute !important;
     left:-10000px;
     top:-10000px;
     visibility:hidden;
