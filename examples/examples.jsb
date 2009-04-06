@@ -754,6 +754,8 @@
   <file name="shared\screens\tasks.gif" path="shared\screens" />
   <file name="shared\screens\templates.gif" path="shared\screens" />
   <file name="shared\screens\toolbar-actions.gif" path="shared\screens" />
+  <file name="shared\screens\toolbar-overflow.gif" path="shared\screens" />
+  <file name="shared\screens\toolbar-button-groups.gif" path="shared\screens" />
   <file name="shared\screens\toolbar.gif" path="shared\screens" />
   <file name="shared\screens\tree-columns.gif" path="shared\screens" />
   <file name="shared\screens\tree-reorder.gif" path="shared\screens" />
