@@ -425,6 +425,7 @@
   <file name="css\structure\list-view.css" path="css\structure\" />
   <file name="css\structure\menu.css" path="css\structure\" />
   <file name="css\structure\panel.css" path="css\structure\" />
+  <file name="css\structure\panel-normal.css" path="css\structure\" />
   <file name="css\structure\progress.css" path="css\structure\" />
   <file name="css\structure\qtips.css" path="css\structure\" />
   <file name="css\structure\reset.css" path="css\structure\" />
@@ -793,6 +794,7 @@
     <include name="css\structure\debug.css" />
     <include name="css\structure\combo.css" />
     <include name="css\structure\panel.css" />
+	<include name="css\structure\panel-normal.css" />
     <include name="css\structure\window.css" />
     <include name="css\structure\editor.css" />
     <include name="css\structure\borders.css" />
