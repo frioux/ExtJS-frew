@@ -208,6 +208,9 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         var tb = new Ext.Toolbar({
             renderTo:this.wrap.dom.firstChild
         });
+        tb.on('resize', function() {
+            tb.doLayout();
+        });
 
         // stop form submits
         this.mon(tb.el, 'click', function(e){
