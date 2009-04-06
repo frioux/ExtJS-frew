@@ -702,6 +702,7 @@
   <file name="shared\screens\air.gif" path="shared\screens" />
   <file name="shared\screens\anchor.gif" path="shared\screens" />
   <file name="shared\screens\blank.gif" path="shared\screens" />
+  <file name="shared\screens\buttons.gif" path="shared\screens" />
   <file name="shared\screens\border-layout.gif" path="shared\screens" />
   <file name="shared\screens\chooser.gif" path="shared\screens" />
   <file name="shared\screens\combo-custom.gif" path="shared\screens" />
