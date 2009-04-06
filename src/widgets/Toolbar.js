@@ -134,6 +134,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
             text: c.text,
             iconCls: c.iconCls,
             icon: c.icon,
+            itemId: c.itemId,
             disabled: c.disabled,
             handler: c.handler,
             scope: c.scope,
