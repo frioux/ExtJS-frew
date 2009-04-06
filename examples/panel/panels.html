@@ -21,9 +21,10 @@
     .x-panel-body p {
         margin:10px;
     }
-    #container {
+    .container {
         padding:10px;
     }
+	em { font-style: italic; font-weight: bold;}
     </style>
 </head>
 <body>
@@ -31,8 +32,15 @@
 <h1>Ext.Panel</h1>
 <p>The js is not minified so it is readable. See <a href="panels.js">panels.js</a>.</p>
 
-<div id="container">
-    
+<div id="container" class="container">
+</div>
+
+<div id="container-normal-true" class="container">
+	<p>Setting the Ext.Panel configuration-option <em>normal: true</em> will ensure your Panel's body html is left un-affected by the Ext theme.</p>
+</div>
+
+<div id="container-normal-false" class="container">
+	<p>Compare the same panel rendered with <em>normal: false</em></p>
 </div>
 
 </body>
