@@ -21,7 +21,7 @@
     background-image:url(../images/default/editor/tb-sprite.gif);
 }
 
-.x-html-editor-tb .x-edit-forecolor, .x-menu-item .x-edit-underline {
+.x-html-editor-tb .x-edit-forecolor, .x-menu-item .x-edit-forecolor {
     background-position:-160px 0;
     background-image:url(../images/default/editor/tb-sprite.gif);
 }
