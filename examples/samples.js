@@ -103,12 +103,12 @@ Ext.EventManager.on(window, 'load', function(){
             url: 'grid/grid3.html',
             icon: 'grid-plugins.gif',
             desc: 'Multiple grids customized via plugins: expander rows, checkbox selection and row numbering.'
-        },{
+        }/*,{
             text: 'Grid Filtering',
             url: 'grid-filtering/grid-filter.html',
             icon: 'grid-filter.gif',
             desc: 'Grid plugins providing custom data filtering menus that support various data types.'
-        },{
+        }*/,{
             text: 'Grid From Markup',
             url: 'grid/from-markup.html',
             icon: 'grid-from-markup.gif',
@@ -290,7 +290,7 @@ Ext.EventManager.on(window, 'load', function(){
         }]
     },{
 		title   : 'Drag and Drop',
-		samples :  [{
+		samples :  [/*{
 			text : 'Grid to Grid Drag and Drop',
 			url  : 'dd/dnd_grid_to_grid.html',
 			icon : 'dd-gridtogrid.gif',
@@ -300,7 +300,7 @@ Ext.EventManager.on(window, 'load', function(){
 			url  : 'dd/dnd_grid_to_formpanel.html',
 			icon : 'dd-gridtoformpanel.gif',
 			desc : 'A basic drag and drop from grid to formpanel.'
-    	},{
+    	},*/{
 			text : 'Custom Drag and Drop',
 			url  : 'dd/dragdropzones.html',
 			icon : 'dd-zones.gif',
@@ -318,7 +318,7 @@ Ext.EventManager.on(window, 'load', function(){
             url: 'window/gmap.html',
             icon: 'gmap-panel.gif',
             desc: 'A Google Maps wrapper class that enables easy display of dynamic maps in Ext panels and windows.'
-        },{
+        },/*{
             text: 'StatusBar',
             url: 'statusbar/statusbar-demo.html',
             icon: 'statusbar.gif',
@@ -328,7 +328,7 @@ Ext.EventManager.on(window, 'load', function(){
             url: 'statusbar/statusbar-advanced.html',
             icon: 'statusbar-plugin.gif',
             desc: 'Customizing the StatusBar via a plugin to provide automatic form validation monitoring and error linking.'
-       },{
+       },*/{
             text: 'Slider',
             url: 'slider/slider.html',
             icon: 'slider.gif',
