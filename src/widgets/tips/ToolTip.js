@@ -469,10 +469,11 @@ myGrid.on('render', function(grid) {
 
     // private
     adjustPosition : function(x, y){
-        // keep the position from being under the mouse
-        var ay = this.targetXY[1], h = this.getSize().height;
-        if(this.constrainPosition && y <= ay && (y+h) >= ay){
-            y = ay-h-5;
+        if(this.contstrainPosition){
+            var ay = this.targetXY[1], h = this.getSize().height;
+            if(y <= ay && (y+h) >= ay){
+                y = ay-h-5;
+            }
         }
         return {x : x, y: y};
     },

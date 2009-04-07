@@ -1,3 +1,11 @@
+/*
+ * Ext JS Library 3.0 Pre-alpha
+ * Copyright(c) 2006-2008, Ext JS, LLC.
+ * licensing@extjs.com
+ * 
+ * http://extjs.com/license
+ */
+
 Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
     floating: true,
     shadow: false,
@@ -11,6 +19,7 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
     clicksToEdit: 'auto',
     monitorValid: true,
     focusDelay: 250,
+    errorSummary: true,
 
     defaults: {
         normalWidth: true
@@ -44,6 +53,11 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
     },
 
     startEditing: function(rowIndex, doFocus){
+        if(this.editing){
+            Ext.Msg.alert('Error', 'You need to commit or cancel your changes');
+            return;
+        }
+        this.editing = true;
         if(typeof rowIndex == 'object'){
             rowIndex = this.grid.getStore().indexOf(rowIndex);
         }
@@ -84,6 +98,7 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
     },
 
     stopEditing : function(saveChanges){
+        this.editing = false;
         if(!this.isVisible()){
             return;
         }
@@ -244,13 +259,16 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
     afterRender: function(){
         Ext.ux.RowEditor.superclass.afterRender.apply(this, arguments);
         this.positionButtons();
-    },
-
-    onShow: function(){
-        Ext.ux.RowEditor.superclass.onShow.apply(this, arguments);
         if(this.monitorValid){
             this.startMonitoring();
         }
+    },
+
+    onShow: function(){
+        if(this.monitorValid){
+            this.startMonitoring();
+        }
+        Ext.ux.RowEditor.superclass.onShow.apply(this, arguments);
     },
 
     onHide: function(){
@@ -277,9 +295,9 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
     },
 
     // private
-	postEditValue : function(value, originalValue, r, field){
-		return this.autoEncode && typeof value == 'string' ? Ext.util.Format.htmlEncode(value) : value;
-	},
+    postEditValue : function(value, originalValue, r, field){
+        return this.autoEncode && typeof value == 'string' ? Ext.util.Format.htmlEncode(value) : value;
+    },
 
     doFocus: function(pt){
         if(this.isVisible()){
@@ -298,8 +316,8 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
         }
     },
 
-	getTargetColumnIndex: function(pt){
-		var grid = this.grid, v = grid.view;
+    getTargetColumnIndex: function(pt){
+        var grid = this.grid, v = grid.view;
         var x = pt.left;
         var cms = grid.colModel.config;
         var i = 0, match = false;
@@ -312,7 +330,7 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
             }
         }
         return match;
-	},
+    },
 
     startMonitoring : function(){
         if(!this.bound && this.monitorValid){
@@ -327,6 +345,9 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
 
     stopMonitoring : function(){
         this.bound = false;
+        if(this.tooltip){
+            this.tooltip.hide();
+        }
     },
 
     isValid: function(){
@@ -346,10 +367,81 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
             return false; // stops binding
         }
         var valid = this.isValid();
+        if(!valid && this.errorSummary){
+            var t = this.tooltip;
+            if(!t){
+                t = this.tooltip = new Ext.ToolTip({
+                    maxWidth: 600,
+                    cls: 'errorTip',
+                    width: 300,
+                    title: 'Errors',
+                    autoHide: false,
+                    anchor: 'left',
+                    anchorToTarget: true,
+                    mouseOffset: [40,0]
+                });
+            }
+            t.initTarget(this.items.last().getEl());
+            if(!t.rendered){
+                t.show();
+            }
+            t.body.update(this.getErrorText().join(''));
+            t.doAutoWidth();
+            t.show();
+        }
         this.btns.saveBtn.setDisabled(!valid);
         this.fireEvent('validation', this, valid);
+    },
+
+    getErrorText: function(){
+        var data = ['<ul>'];
+        this.items.each(function(f){
+            if(!f.isValid(true)){
+                data.push('<li>', f.activeError, '</li>');
+            }
+        });
+        data.push('</ul>');
+        return data;
     }
-
-
 });
 Ext.preg('roweditor', Ext.ux.RowEditor);
+
+Ext.override(Ext.form.Field, {
+    markInvalid : function(msg){
+        if(!this.rendered || this.preventMark){ // not rendered
+            return;
+        }
+        msg = msg || this.invalidText;
+
+        var mt = this.getMessageHandler();
+        if(mt){
+            mt.mark(this, msg);
+        }else if(this.msgTarget){
+            this.el.addClass(this.invalidClass);
+            var t = Ext.getDom(this.msgTarget);
+            if(t){
+                t.innerHTML = msg;
+                t.style.display = this.msgDisplay;
+            }
+        }
+        this.activeError = msg;
+        this.fireEvent('invalid', this, msg);
+    }
+});
+
+Ext.override(Ext.ToolTip, {
+    doAutoWidth : function(){
+        var bw = this.body.getTextWidth();
+        if(this.title){
+            bw = Math.max(bw, this.header.child('span').getTextWidth(this.title));
+        }
+        bw += this.getFrameWidth() + (this.closable ? 20 : 0) + this.body.getPadding("lr") + 20;
+        this.setWidth(bw.constrain(this.minWidth, this.maxWidth));
+        
+        // IE7 repaint bug on initial show
+        if(Ext.isIE7 && !this.repainted){
+            this.el.repaint();
+            this.repainted = true;
+        }
+    }
+});
