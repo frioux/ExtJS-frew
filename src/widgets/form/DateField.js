@@ -335,10 +335,9 @@ dateField.setValue('2006-05-04');
             minText : String.format(this.minText, this.formatDate(this.minValue)),
             maxText : String.format(this.maxText, this.formatDate(this.maxValue))
         });
-        this.menuEvents('on');
-        this.menu.on('select', this.onSelect, this);
         this.menu.picker.setValue(this.getValue() || new Date());
         this.menu.show(this.el, "tl-bl?");
+        this.menuEvents('on');
     },
     
     //private
@@ -355,11 +354,8 @@ dateField.setValue('2006-05-04');
     },
     
     onMenuHide: function(){
-        if(this.afterInitial){
-            this.afterInitial = true;
-            this.focus.defer(10, this);
-            this.menuEvents('un');
-        }
+        this.focus.defer(10, this);
+        this.menuEvents('un');
     },
 
     // private
