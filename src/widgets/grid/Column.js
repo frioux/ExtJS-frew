@@ -30,6 +30,12 @@ Ext.grid.Column.AUTO_ID = 0;
 
 Ext.grid.Column.prototype = {
     /**
+     * @cfg {Boolean} editable (optional) Defaults to <tt>true</tt>, enabling the configured
+     * <tt>{@link #editor}</tt>.  Set to <tt>false</tt> to initially disable editing on this column.
+     * The initial configuration may be dynamically altered using
+     * {@link Ext.grid.ColumnModel}.{@link Ext.grid.ColumnModel#setEditable setEditable()}.
+     */
+    /**
      * @cfg {String} id (optional) A name which identifies this column (defaults to the column's initial
      * ordinal position. The <tt>id</tt> is used to create a CSS <b>class</b> name which is applied to all
      * table cells (including headers) in that column (in this context the <tt>id</tt> does not need to be
@@ -135,7 +141,7 @@ var companyColumn = {
      */
     /**
      * @cfg {Ext.form.Field} editor (optional) The {@link Ext.form.Field} to use when editing values in this column
-     * if editing is supported by the grid.
+     * if editing is supported by the grid. See <tt>{@link #editable}</tt> also.
      */
     /**
      * @cfg {Function} groupRenderer <p>If the grid is being rendered by an {@link Ext.grid.GroupingView}, this option
