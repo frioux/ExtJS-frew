@@ -28,18 +28,18 @@ Ext.apply(Ext.Element.prototype, function() {
 	        where = (where || 'before').toLowerCase();
 	        el = el || {};
 	       	
-	        if (Ext.isObject(el) && !el.nodeType && !el.dom) { // dh config
-	            if (where == 'after' && !me.dom.nextSibling) {
-	                rt = DH.append(me.dom.parentNode, el, !returnDom);
-	            } else {		            
-		            rt = DH[where == 'after' ? 'insertAfter' : 'insertBefore'](me.dom, el, !returnDom);
-	            }
-	        } else {
-	            rt = me.dom.parentNode.insertBefore(GETDOM(el), where == 'before' ? me.dom : me.dom.nextSibling);
-	            if (!returnDom) {
-	                rt = GET(rt);
-	            }
-	        }
+            if(el.nodeType || el.dom){
+                rt = me.dom.parentNode.insertBefore(GETDOM(el), where == 'before' ? me.dom : me.dom.nextSibling);
+                if (!returnDom) {
+                    rt = GET(rt);
+                }
+            }else{
+                if (where == 'after' && !me.dom.nextSibling) {
+                    rt = DH.append(me.dom.parentNode, el, !returnDom);
+                } else {                    
+                    rt = DH[where == 'after' ? 'insertAfter' : 'insertBefore'](me.dom, el, !returnDom);
+                }
+            }
 	        return rt;
 	    }
     }
