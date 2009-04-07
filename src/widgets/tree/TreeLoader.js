@@ -238,7 +238,7 @@ new Ext.tree.TreePanel({
     processResponse : function(response, node, callback){
         var json = response.responseText;
         try {
-            var o = eval("("+json+")");
+            var o = Ext.decode(json);
             node.beginUpdate();
             for(var i = 0, len = o.length; i < len; i++){
                 var n = this.createNode(o[i]);

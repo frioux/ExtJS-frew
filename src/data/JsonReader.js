@@ -104,7 +104,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
      */
     read : function(response){
         var json = response.responseText;
-        var o = eval("("+json+")");
+        var o = Ext.decode(json);
         if(!o) {
             throw {message: "JsonReader.read: Json object not found"};
         }
