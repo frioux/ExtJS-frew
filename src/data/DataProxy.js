@@ -103,7 +103,7 @@ api: {
 			if (this.url) {	// <-- if an url was defined, set the appropriate api action to this url
 				this.api[action] = this.url;
 			}
-			else {
+			else if (typeof(this[action]) != 'function') {	// <-- To keep pre3.0 proxies working, look for a method matching the action (ie: 'load')
 				throw new Error('No proxy url defined for api action "' + action + '"');
 			}
 		}
@@ -120,5 +120,9 @@ api: {
      * (eg: {@link Ext.data.HttpProxy#doRequest HttpProxy.doRequest},
      * {@link Ext.data.DirectProxy#doRequest DirectProxy.doRequest}).
      */
-    doRequest : Ext.emptyFn
+    doRequest : function(action, rs, params, reader, writer, cb, scope, options) {
+		// implemented default doRequest implementation for backwards compatibility with 2.0 proxies.  If we're executing here, the action is
+		// probably "load".  Send in the old pre-3.0 method signature.
+		this[action](params, reader, cb, scope, options);
+	}
 });
