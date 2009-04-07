@@ -121,8 +121,9 @@ api: {
      * {@link Ext.data.DirectProxy#doRequest DirectProxy.doRequest}).
      */
     doRequest : function(action, rs, params, reader, writer, cb, scope, options) {
-		// implemented default doRequest implementation for backwards compatibility with 2.0 proxies.  If we're executing here, the action is
-		// probably "load".  Send in the old pre-3.0 method signature.
+		// default implementation of doRequest for backwards compatibility with 2.0 proxies.
+		// If we're executing here, the action is probably "load".
+		// Call with the pre-3.0 method signature.
 		this[action](params, reader, cb, scope, options);
 	}
 });
