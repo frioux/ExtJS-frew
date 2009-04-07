@@ -77,12 +77,12 @@ api: {
     save :    '/controller/update',
     destroy : '/controller/destroy_action'
 }
- 
+
 // destroying a record having id: 13, the url would look like
 "/controller/destroy_action/13"
 // updating a single record having id: 13, the url would look like
 "/controller/update/13"
-     * </code></pre> 
+     * </code></pre>
 	 */
 	prettyUrls : false,
 
@@ -93,72 +93,6 @@ api: {
      */
     getConnection : function(){
         return this.useAjax ? Ext.Ajax : this.conn;
-    },
-
-    /**
-     * <p>This method is deprecated in favor of using {@link #doRequest} as the preferred
-     * alternative.</p>
-     * <p>Load data from the configured {@link Ext.data.Connection}, read the data object into
-     * a block of Ext.data.Records using the passed {@link Ext.data.DataReader} implementation, and
-     * process that block using the passed callback.</p>
-     * @param {Object} params An object containing properties which are to be used as HTTP parameters
-     * for the request to the remote server.
-     * @param {Ext.data.DataReader} reader The Reader object which converts the data
-     * object into a block of Ext.data.Records.
-     * @param {Function} callback The function into which to pass the block of Ext.data.Records.
-     * The function must be passed <ul>
-     * <li>The Record block object</li>
-     * <li>The "arg" argument from the load function</li>
-     * <li>A boolean success indicator</li>
-     * </ul>
-     * @param {Object} scope The scope in which to call the callback
-     * @param {Object} arg An optional argument which is passed to the callback as its second parameter.
-     */
-    load : function(params, reader, callback, scope, arg){
-        if(this.fireEvent("beforeload", this, params) !== false){
-            var  o = {
-                params : params || {},
-                request: {
-                    callback : callback,
-                    scope : scope,
-                    arg : arg
-                },
-                reader: reader,
-                callback : this.loadResponse,
-                scope: this
-            };
-            if(this.useAjax){
-                Ext.applyIf(o, this.conn);
-                if(this.activeRequest){
-                    Ext.Ajax.abort(this.activeRequest);
-                }
-                this.activeRequest = Ext.Ajax.request(o);
-            }else{
-                this.conn.request(o);
-            }
-        }else{
-            callback.call(scope||this, null, arg, false);
-        }
-    },
-
-    // private
-    loadResponse : function(o, success, response){
-        delete this.activeRequest;
-        if(!success){
-            this.fireEvent("loadexception", this, o, response);
-            o.request.callback.call(o.request.scope, null, o.request.arg, false);
-            return;
-        }
-        var result;
-        try {
-            result = o.reader.read(response);
-        }catch(e){
-            this.fireEvent("loadexception", this, o, response, e);
-            o.request.callback.call(o.request.scope, null, o.request.arg, false);
-            return;
-        }
-        this.fireEvent("load", this, o, o.request.arg);
-        o.request.callback.call(o.request.scope, result, o.request.arg, true);
     },
 
 	/**
@@ -194,9 +128,11 @@ api: {
         if(this.useAjax){
 			this.conn.url = this.buildUrl(action, rs);
 			Ext.applyIf(o, this.conn);
-            if(this.activeRequest){
-                Ext.Ajax.abort(this.activeRequest);
-            }
+			// We don't want to abort requests anymore since proxy can do full CRUD, not just load.
+			// Do we want to throw our requests into a buffer and deal with each after they return?
+            //if(this.activeRequest){
+            //    Ext.Ajax.abort(this.activeRequest);
+            //}
             this.activeRequest = Ext.Ajax.request(o);
         }else{
             this.conn.request(o);
@@ -235,7 +171,8 @@ api: {
 		return (action == 'load')
 			// special case for load callback
 			? function(o, success, response){
-				delete this.activeRequest;
+				// removed while implementing Writer.  @see doRequest
+				//delete this.activeRequest;
 		        if(!success){
 		            this.fireEvent("loadexception", this, o, response);
 		            o.request.callback.call(o.request.scope, null, o.request.arg, false);
@@ -265,6 +202,5 @@ api: {
 		        this.fireEvent(action, this, res[reader.meta.root], res, o.request.arg );
 		        o.request.callback.call(o.request.scope, res[reader.meta.root], res, true);
 			}
-
 	}
 });

@@ -705,7 +705,7 @@ sortInfo: {
 
 	/**
 	 * Send all {@link #getModifiedRecords modifiedRecords} to the server using the
-	 * api's configured save url. 
+	 * api's configured save url.
 	 * @param {Object} options
 	 */
 	save : function(rs) {
@@ -1001,7 +1001,7 @@ sortInfo: {
     /**
      * Gets all {@link Ext.data.Record records} modified since the last commit.  Modified records are
      * persisted across load operations (e.g., during paging). <b>Note</b>: deleted records are not
-     * included.  See also <tt>{@link #pruneModifiedRecords}</tt> and 
+     * included.  See also <tt>{@link #pruneModifiedRecords}</tt> and
      * {@link Ext.data.Record}<tt>{@link Ext.data.Record#markDirty markDirty}.</tt>.
      * @return {Ext.data.Record[]} An array of {@link Ext.data.Record Records} containing outstanding
      * modifications.  To obtain modified fields within a modified record see

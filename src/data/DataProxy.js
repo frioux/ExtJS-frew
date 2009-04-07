@@ -99,11 +99,20 @@ api: {
      * @private
      */
     request : function(action, rs, params, reader, writer, cb, scope, options) {
-        if(this.fireEvent("before"+action, this, params) !== false) {
-            this.doRequest.apply(this, arguments);
-        } else {
-            cb.call(scope || this, null, arg, false);
-        }
+		if (!this.api[action]) {
+			if (this.url) {	// <-- if an url was defined, set the appropriate api action to this url
+				this.api[action] = this.url;
+			}
+			else {
+				throw new Error('No proxy url defined for api action "' + action + '"');
+			}
+		}
+		if (this.fireEvent("before" + action, this, params) !== false) {
+			this.doRequest.apply(this, arguments);
+		}
+		else {
+			cb.call(scope || this, null, arg, false);
+		}
     },
 
     /**

@@ -32,53 +32,6 @@ paramOrder: 'param1|param2|param'
 	 */
 	paramsAsHash: true,
 
-	/**
-	 * @cfg {Function} directFn
-	 * The {@link Ext.Direct} function which has been imported from the server-side.
-	 * This property is deprecated, see {@link Ext.data.DataProxy}.{@link Ext.data.DataProxy#api api}
-	 * for the preferred alternative.
-	 * @deprecated in favour of api object.  @see DataProxy @cfg api
-	 */
-	directFn: undefined,
-
-	// @deprecated in favour of doRequest below
-	load: function(params, reader, cb, scope, arg){
-		if(this.fireEvent("beforeload", this, params) !== false) {
-			var args = [];
-			if(this.paramOrder){
-				for(var i = 0, len = this.paramOrder.length; i < len; i++){
-					args.push(params[this.paramOrder[i]]);
-				}
-			}else if(this.paramsAsHash){
-				args.push(params);
-			}
-			args.push({
-				callback: function(result, e){
-					if(!e.status){
-						this.fireEvent("loadexception", this, e, result);
-						cb.call(scope, null, arg, false);
-		            			return;
-					}
-					var rs;
-					try {
-					    rs = reader.readRecords(result);
-					}catch(ex){
-					    this.fireEvent("loadexception", this, e, result, ex);
-					    cb.call(scope, null, arg, false);
-					    return;
-					}
-					this.fireEvent("load", this, e, arg);
-					cb.call(scope, rs, arg, true);
-				},
-				scope: this
-			});
-
-			this.directFn.apply(window, args);
-		} else {
-			cb.call(scope || this, null, arg, false);
-		}
-	},
-
 	// protected
 	doRequest : function(action, rs, params, reader, writer, cb, scope, options) {
 		var args = [];

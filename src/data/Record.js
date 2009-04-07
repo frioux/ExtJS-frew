@@ -58,7 +58,7 @@ var myNewRecord = new TopicRecord(
         excerpt: 'No way dude!',
         signature: ''
     },
-    id // optionally specify the id of the record otherwise {@link #Record.id one is auto-assigned} 
+    id // optionally specify the id of the record otherwise {@link #Record.id one is auto-assigned}
 );
 myStore.{@link Ext.data.Store#add add}(myNewRecord);
 </code></pre>
@@ -90,7 +90,7 @@ Ext.data.Record.COMMIT = 'commit';
 
 
 /**
- * 
+ *
  * Generates a sequential id. This method is typically called when a record is {@link #create}d
  * and {@link #Record no id has been specified}. The returned id takes the form:
  * <tt>&#123;PREFIX}-&#123;AUTO_ID}</tt>.<div class="mdetail-params"><ul>
@@ -135,7 +135,7 @@ Ext.data.Record.prototype = {
     editing : false,
     error: null,
     /**
-     * This object contains a key and value storing the original values of all modified 
+     * This object contains a key and value storing the original values of all modified
      * fields or is null if no fields have been modified.
      * @property modified
      * @type {Object}
