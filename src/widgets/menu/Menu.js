@@ -42,7 +42,7 @@
     },
 
     getItemArgs: function(c) {
-        var isMenuItem = c.isXType(Ext.menu.Item);
+        var isMenuItem = c instanceof Ext.menu.Item;
         return {
             isMenuItem: isMenuItem,
             needsIcon: !isMenuItem && (c.icon || c.iconCls),
