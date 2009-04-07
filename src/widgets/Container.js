@@ -395,7 +395,6 @@ items: [
                 var item = this.activeItem;
                 delete this.activeItem;
                 this.layout.setActiveItem(item);
-                return;
             }
         }
         if(!this.ownerCt){

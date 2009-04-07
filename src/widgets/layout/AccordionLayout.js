@@ -157,10 +157,14 @@ Ext.layout.Accordion = Ext.extend(Ext.layout.FitLayout, {
      */
     setActiveItem : function(item){
         item = this.container.getComponent(item);
-        this.activeItem = item;
-        if(item){
-            item.expand();
+        if(this.activeItem != item){
+            if(item.rendered && item.collapsed){
+                item.expand();
+            }else{
+                this.activeItem = c;
+            }
         }
+
     }
 });
 Ext.Container.LAYOUTS['accordion'] = Ext.layout.Accordion;
