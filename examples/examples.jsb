@@ -685,6 +685,7 @@
   <file name="shared\extjs\images\pdf.gif" path="shared\extjs\images" />
   <file name="shared\extjs\images\sample-over.gif" path="shared\extjs\images" />
   <file name="shared\extjs\images\top-bottom.gif" path="shared\extjs\images" />
+  <file name="shared\icons\icons.css" path="shared\icons" />
   <file name="shared\icons\fam\add.gif" path="shared\icons\fam" />
   <file name="shared\icons\fam\connect.gif" path="shared\icons\fam" />
   <file name="shared\icons\fam\cross.gif" path="shared\icons\fam" />
@@ -1001,4 +1002,13 @@
   <file name="tree\check-nodes.json" path="tree" />
   <file name="tree\column-data.json" path="tree" />
   <file name="tree\xml-tree-data.xml" path="tree" />
+  <file name="writer\writer.html" path="writer" />
+  <file name="writer\writer.css" path="writer" />
+  <file name="writer\writer.js" path="writer" />
+  <file name="writer\UserForm.js" path="writer" />
+  <file name="writer\UserGrid.js" path="writer" />
+  <file name="writer\create.json" path="writer" />
+  <file name="writer\destroy.json" path="writer" />
+  <file name="writer\load.json" path="writer" />
+  <file name="writer\update.json" path="writer" />
 </project>
