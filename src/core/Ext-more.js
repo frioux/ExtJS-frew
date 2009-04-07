@@ -6,24 +6,7 @@ Ext.ns("Ext.grid", "Ext.dd", "Ext.tree", "Ext.form", "Ext.menu",
        "Ext.state", "Ext.layout", "Ext.app", "Ext.ux", "Ext.chart", "Ext.direct");
 
 Ext.apply(Ext, function(){
-    var idSeed = 0,
-        ua = navigator.userAgent.toLowerCase(),
-        isStrict = document.compatMode == "CSS1Compat",
-        isOpera = ua.indexOf("opera") > -1,
-        isChrome = ua.indexOf("chrome") > -1,
-        isSafari = !isChrome && (/webkit|khtml/).test(ua),
-        isSafari3 = isSafari && ua.indexOf('webkit/5') > -1,
-        isIE = !isOpera && ua.indexOf("msie") > -1,
-        isIE7 = !isOpera && ua.indexOf("msie 7") > -1,
-        isIE8 = !isOpera && ua.indexOf("msie 8") > -1,
-        isGecko = !isSafari && !isChrome && ua.indexOf("gecko") > -1,
-        isGecko3 = isGecko && ua.indexOf("rv:1.9") > -1,
-        isBorderBox = isIE && !isStrict,
-        isWindows = (ua.indexOf("windows") > -1 || ua.indexOf("win32") > -1),
-        isMac = (ua.indexOf("macintosh") > -1 || ua.indexOf("mac os x") > -1),
-        isAir = (ua.indexOf("adobeair") > -1),
-        isLinux = (ua.indexOf("linux") > -1),
-        isSecure = /^https/i.test(window.location.href);
+    var E = Ext, idSeed = 0;
 
     return {
         /**
@@ -509,7 +492,7 @@ Ext.zip(
          * you may want to set this to true.
          * @type Boolean
          */
-        useShims : ((isIE && !isIE7) || (isMac && isGecko && !isGecko3)),
+        useShims : ((E.isIE && E.isIE6) || (E.isMac && E.isGecko && !E.isGecko3)),
 
         // inpired by a similar function in mootools library
         /**
