@@ -384,6 +384,24 @@ var myField = new Ext.form.NumberField({
      * @return {Boolean} True if the value is valid, else false
      */
     validateValue : function(value){
+        if(Ext.isFunction(this.validator)){
+            var msg = this.validator(value);
+            if(msg !== true){
+                this.markInvalid(msg);
+                return false;
+            }
+        }
+        if(this.vtype){
+            var vt = Ext.form.VTypes;
+            if(!vt[this.vtype](value, this)){
+                this.markInvalid(this.vtypeText || vt[this.vtype +'Text']);
+                return false;
+            }
+        }
+        if(this.regex && !this.regex.test(value)){
+            this.markInvalid(this.regexText);
+            return false;
+        }
         if(value.length < 1 || value === this.emptyText){ // if it's blank
              if(this.allowBlank){
                  this.clearInvalid();
@@ -401,25 +419,6 @@ var myField = new Ext.form.NumberField({
             this.markInvalid(String.format(this.maxLengthText, this.maxLength));
             return false;
         }
-        if(this.vtype){
-            var vt = Ext.form.VTypes;
-            if(!vt[this.vtype](value, this)){
-                this.markInvalid(this.vtypeText || vt[this.vtype +'Text']);
-                return false;
-            }
-        }
-        if(typeof this.validator == "function"){
-            var msg = this.validator(value);
-            if(msg !== true){
-                this.markInvalid(msg);
-                return false;
-            }
-        }
-        if(this.regex && !this.regex.test(value)){
-            this.markInvalid(this.regexText);
-            return false;
-        }
-        return true;
     },
 
     /**
