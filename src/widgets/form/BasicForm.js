@@ -460,7 +460,7 @@ myFormPanel.getForm().submit({
      */
     findField : function(id){
         var field = this.items.get(id);
-        if(!field){
+        if(!Ext.isObject(field)){
             this.items.each(function(f){
                 if(f.isFormField && (f.dataIndex == id || f.id == id || f.getName() == id)){
                     field = f;
@@ -489,7 +489,7 @@ myFormPanel.getForm().submit({
         }else{
             var field, id;
             for(id in errors){
-                if(typeof errors[id] != 'function' && (field = this.findField(id))){
+                if(!Ext.isFunction(errors[id]) && (field = this.findField(id))){
                     field.markInvalid(errors[id]);
                 }
             }
@@ -526,7 +526,7 @@ myFormPanel.getForm().submit({
         }else{ // object hash
             var field, id;
             for(id in values){
-                if(typeof values[id] != 'function' && (field = this.findField(id))){
+                if(!Ext.isFunction(values[id]) && (field = this.findField(id))){
                     field.setValue(values[id]);
                     if(this.trackResetOnLoad){
                         field.originalValue = field.getValue();
@@ -654,7 +654,7 @@ myFormPanel.getForm().submit({
     callFieldMethod : function(fnName, args){
         args = args || [];
         this.items.each(function(f){
-            if(typeof f[fnName] == 'function'){
+            if(Ext.isFunction(f[fnName])){
                 f[fnName].apply(f, args);
             }
         });
