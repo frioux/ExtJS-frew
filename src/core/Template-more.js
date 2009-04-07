@@ -106,3 +106,4 @@ Ext.apply(Ext.Template.prototype, {
         return this[fnName](value, allValues);
     }
 });
+Ext.Template.prototype.apply = Ext.Template.prototype.applyTemplate; 
