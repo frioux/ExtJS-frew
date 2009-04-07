@@ -42,7 +42,7 @@ Ext.layout.ContainerLayout.prototype = {
      * if(myPanel.layout.activeItem.id == 'item-1') { ... }
      * </code></pre>
      * <tt>activeItem</tt> only applies to layout styles that can display items one at a time
-     * (like {@link Ext.layout.Accordion}, {@link Ext.layout.CardLayout}
+     * (like {@link Ext.layout.AccordionLayout}, {@link Ext.layout.CardLayout}
      * and {@link Ext.layout.FitLayout}).  Read-only.  Related to {@link Ext.Container#activeItem}.
      * @type {Ext.Component}
      * @property activeItem

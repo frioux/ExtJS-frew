@@ -1,5 +1,5 @@
 /**
- * @class Ext.layout.Accordion
+ * @class Ext.layout.AccordionLayout
  * @extends Ext.layout.FitLayout
  * <p>This is a layout that contains multiple panels in an expandable accordion style such that only
  * <b>one panel can be open at any given time</b>.  Each panel has built-in support for expanding and collapsing.

@@ -181,7 +181,7 @@ layout: {
      * <br/><p>Valid layout <tt>type</tt> values are:</p>
      * <div class="sub-desc"><ul class="mdetail-params">
      * <li><tt><b>{@link Ext.layout.AbsoluteLayout absolute}</b></tt></li>
-     * <li><tt><b>{@link Ext.layout.Accordion accordion}</b></tt></li>
+     * <li><tt><b>{@link Ext.layout.AccordionLayout accordion}</b></tt></li>
      * <li><tt><b>{@link Ext.layout.AnchorLayout anchor}</b></tt></li>
      * <li><tt><b>{@link Ext.layout.ContainerLayout auto}</b></tt> &nbsp;&nbsp;&nbsp; <b>Default</b></li>
      * <li><tt><b>{@link Ext.layout.BorderLayout border}</b></tt></li>
@@ -235,7 +235,7 @@ layoutConfig: {
      * A string component id or the numeric index of the component that should be initially activated within the
      * container's layout on render.  For example, activeItem: 'item-1' or activeItem: 0 (index 0 = the first
      * item in the container's collection).  activeItem only applies to layout styles that can display
-     * items one at a time (like {@link Ext.layout.Accordion}, {@link Ext.layout.CardLayout} and
+     * items one at a time (like {@link Ext.layout.AccordionLayout}, {@link Ext.layout.CardLayout} and
      * {@link Ext.layout.FitLayout}).  Related to {@link Ext.layout.ContainerLayout#activeItem}.
      */
     /**
@@ -290,7 +290,8 @@ items: [
     /** @cfg {String} defaultType
      * <p>The default {@link Ext.Component xtype} of child Components to create in this Container when
      * a child item is specified as a raw configuration object, rather than as an instantiated Component.</p>
-     * <p>Defaults to <tt>'panel'</tt>, except {@link Ext.Toolbar} which defaults to <tt>'button'</tt>.</p>
+     * <p>Defaults to <tt>'panel'</tt>, except {@link Ext.Toolbar} and {@link Ext.ButtonGroup} which
+     * default to <tt>'button'</tt>.</p>
      */
     defaultType: 'panel',
 
