@@ -114,9 +114,44 @@ Ext.form.Action.prototype = {
  */
     type : 'default',
 /**
- * The type of failure detected. See {@link link Ext.form.Action#Action.CLIENT_INVALID CLIENT_INVALID},
- * {@link link Ext.form.Action#Action.SERVER_INVALID SERVER_INVALID},
- * {@link #link Ext.form.ActionAction.CONNECT_FAILURE CONNECT_FAILURE}, {@link Ext.form.Action#Action.LOAD_FAILURE LOAD_FAILURE}
+ * The type of failure detected will be one of these: {@link #CLIENT_INVALID},
+ * {@link #SERVER_INVALID}, {@link #CONNECT_FAILURE}, or {@link #LOAD_FAILURE}.  Usage:
+ * <pre><code>
+var fp = new Ext.form.FormPanel({
+...
+buttons: [{
+    text: 'Save',
+    formBind: true,
+    handler: function(){
+        if(fp.getForm().isValid()){
+            fp.getForm().submit({
+                url: 'form-submit.php',
+                waitMsg: 'Submitting your data...',
+                success: function(form, action){
+                    // server responded with success = true
+                    var result = action.{@link #result};
+                },
+                failure: function(form, action){
+                    if (action.{@link #failureType} === Ext.form.Action.{@link #CONNECT_FAILURE}) {
+                        Ext.Msg.alert('Error',
+                            'Status:'+action.{@link #response}.status+': '+
+                            action.{@link #response}.statusText);
+                    }
+                    if (action.failureType === Ext.form.Action.{@link #SERVER_INVALID}){
+                        // server responded with success = false
+                        Ext.Msg.alert('Invalid', action.{@link #result}.errormsg);
+                    }
+                }
+            });
+        }
+    }
+},{
+    text: 'Reset',
+    handler: function(){
+        fp.getForm().reset();
+    }
+}]
+ * </code></pre>
  * @property failureType
  * @type {String}
  */

@@ -266,36 +266,41 @@ new Ext.FormPanel({
      * All of the config options listed below are supported by both the submit
      * and load actions unless otherwise noted (custom actions could also accept
      * other config options):<ul>
-     * <li><b>url</b> : String<p style="margin-left:1em">The url for the action (defaults
+     * <li><b>url</b> : String<p class="sub-desc">The url for the action (defaults
      * to the form's {@link #url}.)</p></li>
-     * <li><b>method</b> : String<p style="margin-left:1em">The form method to use (defaults
+     * <li><b>method</b> : String<p class="sub-desc">The form method to use (defaults
      * to the form's method, or POST if not defined)</p></li>
-     * <li><b>params</b> : String/Object<p style="margin-left:1em">The params to pass
+     * <li><b>params</b> : String/Object<div class="sub-desc"><p>The params to pass
      * (defaults to the form's baseParams, or none if not defined)</p>
-     * <p>Parameters are encoded as standard HTTP parameters using {@link Ext#urlEncode}.</p></li>
-     * <li><b>headers</b> : Object<p style="margin-left:1em">Request headers to set for the action
+     * <p>Parameters are encoded as standard HTTP parameters using {@link Ext#urlEncode}.</p></div></li>
+     * <li><b>headers</b> : Object<p class="sub-desc">Request headers to set for the action
      * (defaults to the form's default headers)</p></li>
-     * <li><b>success</b> : Function<p style="margin-left:1em">The callback that will
+     * <li><b>success</b> : Function<p class="sub-desc">The callback that will
      * be invoked after a successful response. The function is passed the following parameters:<ul>
-     * <li><code>form</code> : Ext.form.BasicForm<div class="sub-desc">The form that requested the action</div></li>
-     * <li><code>action</code> : Ext.form.Action<div class="sub-desc">The {@link Ext.form.Action Action} object which
-     * performed the operation. The {@link Ext.form.Action#result result}
-     * property of this object may be examined to perform custom postprocessing.</div></li>
+     * <li><tt>form</tt> : Ext.form.BasicForm<div class="sub-desc">The form that requested the action</div></li>
+     * <li><tt>action</tt> : The {@link Ext.form.Action Action} object which performed the operation.
+     * <div class="sub-desc">The action object contains these properties of interest:<ul>
+     * <li><tt>{@link Ext.form.Action#response response}</tt></li>
+     * <li><tt>{@link Ext.form.Action#result result}</tt> : interrogate for custom postprocessing</li>
+     * <li><tt>{@link Ext.form.Action#type type}</tt></li>
      * </ul></p></li>
-     * <li><b>failure</b> : Function<p style="margin-left:1em">The callback that will
-     * be invoked after a failed transaction attempt.  This is invoked for field validation failure,
-     * communication failure, and in the case of the server returning a failure response packet.
-     * Which type of failure is indicated in the Action's {@link Ext.form.Action#failureType failureType}.
-     * The function is passed the following parameters:<ul>
-     * <li><code>form</code> : Ext.form.BasicForm<div class="sub-desc">The form that requested the action</div></li>
-     * <li><code>action</code> : Ext.form.Action<div class="sub-desc">The {@link Ext.form.Action Action} object which
-     * performed the operation. The failure type
-     * will be in {@link Ext.form.Action#failureType failureType}. The {@link Ext.form.Action#result result}
-     * property of this object may be examined to perform custom postprocessing.</div></li>
-     * </ul></p></li>
-     * <li><b>scope</b> : Object<p style="margin-left:1em">The scope in which to call the
+     * <li><b>failure</b> : Function
+     * <div class="sub-desc">
+     * <p>The callback that will be invoked after a failed transaction attempt. The function is
+     * passed the following parameters:</p><ul>
+     * <li><tt>form</tt> : The {@link Ext.form.BasicForm} that requested the action. 
+     * <div class="sub-desc"></div></li>
+     * <li><tt>action</tt> : The {@link Ext.form.Action Action} object which performed the operation.
+     * <div class="sub-desc">The action object contains these properties of interest:<ul>
+     * <li><tt>{@link Ext.form.Action#failureType failureType}</tt></li>
+     * <li><tt>{@link Ext.form.Action#response response}</tt></li>
+     * <li><tt>{@link Ext.form.Action#result result}</tt> : interrogate for custom postprocessing</li>
+     * <li><tt>{@link Ext.form.Action#type type}</tt></li>
+     * </ul></div></li></ul>
+     * </div></li>
+     * <li><b>scope</b> : Object<p class="sub-desc">The scope in which to call the
      * callback functions (The <tt>this</tt> reference for the callback functions).</p></li>
-     * <li><b>clientValidation</b> : Boolean<p style="margin-left:1em">Submit Action only.
+     * <li><b>clientValidation</b> : Boolean<p class="sub-desc">Submit Action only.
      * Determines whether a Form's fields are validated in a final call to
      * {@link Ext.form.BasicForm#isValid isValid} prior to submission. Set to <tt>false</tt>
      * to prevent this. If undefined, pre-submission field validation is performed.</p></li></ul>

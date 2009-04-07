@@ -591,8 +591,9 @@ new Ext.Panel({
     elements : 'body',
 	/**
 	 * @cfg {Boolean} normal
-	 * When set to true, an extra css class "x-panel-normal" will be added the the panel's element which
-	 * will reset any body html to styles suggested by the W3C http://www.w3.org/TR/CSS21/sample.html
+	 * Defaults to <tt>false</tt>.  When set to <tt>true</tt>, an extra css class <tt>'x-panel-normal'</tt>
+	 * will be added the the panel's element which will reset any body html to styles suggested by the W3C
+	 * (see http://www.w3.org/TR/CSS21/sample.html).
 	 */
 	normal: false,
 

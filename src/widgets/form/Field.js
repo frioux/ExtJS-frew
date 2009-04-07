@@ -127,8 +127,34 @@ side          Add an error icon to the right of the field with a popup on hover
             'blur',
             /**
              * @event specialkey
-             * Fires when any key related to navigation (arrows, tab, enter, esc, etc.) is pressed.  You can check
-             * {@link Ext.EventObject#getKey} to determine which key was pressed.
+             * Fires when any key related to navigation (arrows, tab, enter, esc, etc.) is pressed.
+             * To handle other keys see {@link Ext.Panel#keys} or {@link Ext.KeyMap}.
+             * You can check {@link Ext.EventObject#getKey} to determine which key was pressed.
+             * For example: <pre><code>
+var form = new Ext.form.FormPanel({
+    ...
+    items: [{
+            fieldLabel: 'Field 1',
+            name: 'field1',
+            allowBlank: false
+        },{
+            fieldLabel: 'Field 2',
+            name: 'field2',
+            listeners: {
+                specialkey: function(field, e){
+                    // e.HOME, e.END, e.PAGE_UP, e.PAGE_DOWN,
+                    // e.TAB, e.ESC, arrow keys: e.LEFT, e.RIGHT, e.UP, e.DOWN
+                    if (e.{@link Ext.EventObject#getKey getKey()} == e.ENTER) {
+                        var form = field.ownerCt.getForm();
+                        form.submit();
+                    }
+                }
+            }
+        }
+    ],
+    ...
+});
+             * </code></pre>
              * @param {Ext.form.Field} this
              * @param {Ext.EventObject} e The event object
              */
