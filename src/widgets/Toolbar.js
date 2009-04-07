@@ -1,6 +1,7 @@
 /**
  * @class Ext.layout.ToolbarLayout
  * @extends Ext.layout.ContainerLayout
+ * Layout manager implicitly used by Ext.Toolbar.
  */
 Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
     monitorResize: true,
@@ -219,14 +220,97 @@ Ext.Container.LAYOUTS['toolbar'] = Ext.layout.ToolbarLayout;
 /**
  * @class Ext.Toolbar
  * @extends Ext.Container
- * Basic Toolbar class. Toolbar elements can be created explicitly via their constructors, or implicitly
- * via their xtypes.  Some items also have shortcut strings for creation (see <tt>{@link #add}</tt>).
+ * <p>Basic Toolbar class. Although the <tt>{@link Ext.Container#defaultType defaultType}</tt> for Toolbar
+ * is <tt>{@link Ext.Button button}</tt>, Toolbar elements (child items for the Toolbar container) may
+ * be virtually any type of Component. Toolbar elements can be created explicitly via their constructors,
+ * or implicitly via their xtypes, and can be <tt>{@link #add}</tt>ed dynamically.</p>
+ * <p>Some items have shortcut strings for creation:</p>
+ * <pre>
+<u>Shortcut</u>  <u>xtype</u>          <u>Class</u>                  <u>Description</u>    
+'->'      'tbfill'       {@link Ext.Toolbar.Fill}       begin using the right-justified button container
+'-'       'tbseparator'  {@link Ext.Toolbar.Separator}  add a vertical separator bar between toolbar items
+' '       'tbspacer'     {@link Ext.Toolbar.Spacer}     add horiztonal space between elements
+ * </pre>
+ * 
+ * Example usage of various elements:
+ * <pre><code>
+var tb = new Ext.Toolbar({
+    renderTo: document.body,
+    width: 600,
+    height: 100,
+    items: [
+        {
+            // xtype: 'button', // default for Toolbars, same as 'tbbutton'
+            text: 'Button'
+        },
+        {
+            xtype: 'splitbutton', // same as 'tbsplitbutton'
+            text: 'Split Button'
+        },
+        // begin using the right-justified button container
+        '->', // same as {xtype: 'tbfill'}, // Ext.Toolbar.Fill
+        {
+            xtype: 'textfield',
+            name: 'field1',
+            emptyText: 'enter search term'
+        },
+        // add a vertical separator bar between toolbar items
+        '-', // same as {xtype: 'tbseparator'} to create Ext.Toolbar.Separator
+        'text 1', // same as {xtype: 'tbtext', text: 'text1'} to create Ext.Toolbar.TextItem
+        {xtype: 'tbspacer'},// same as ' ' to create Ext.Toolbar.Spacer
+        'text 2',
+        {xtype: 'tbspacer', width: 50}, // add a 50px space
+        'text 3'        
+    ]
+});
+ * </code></pre>
+ * Example adding a ComboBox within a menu of a button:
+ * <pre><code>
+// ComboBox creation
+var combo = new Ext.form.ComboBox({
+    store: new Ext.data.ArrayStore({
+        autoDestroy: true,
+        fields: ['initials', 'fullname'],
+        data : [
+            ['FF', 'Fred Flintstone'],
+            ['BR', 'Barney Rubble']
+        ]
+    }),
+    displayField: 'fullname',
+    typeAhead: true,
+    mode: 'local',
+    forceSelection: true,
+    triggerAction: 'all',
+    emptyText: 'Select a name...',
+    selectOnFocus: true,
+    width: 135,
+    getListParent: function() {
+        return this.el.up('.x-menu');
+    },
+    iconCls: 'no-icon' //use iconCls if placing within menu to shift to right side of menu
+});
+
+// put ComboBox in a Menu
+var menu = new Ext.menu.Menu({
+    id: 'mainMenu',
+    items: [
+        combo // A Field in a Menu
+    ]
+});
+
+// add a Button with the menu
+tb.add({
+        text:'Button w/ Menu',
+        menu: menu  // assign menu by instance
+    });
+tb.doLayout();
+ * </code></pre>
  * @constructor
  * Creates a new Toolbar
  * @param {Object/Array} config A config object or an array of buttons to <tt>{@link #add}</tt>
  * @xtype toolbar
  */
- Ext.Toolbar = function(config){
+Ext.Toolbar = function(config){
     if(Ext.isArray(config)){
         config = {items: config, layout: 'toolbar'};
     } else {
@@ -514,7 +598,7 @@ Ext.reg('toolbar', Ext.Toolbar);
 
 /**
  * @class Ext.Toolbar.Item
- * The base class that other non-ineracting Toolbar Item classes should extend in order to
+ * The base class that other non-interacting Toolbar Item classes should extend in order to
  * get some basic common toolbar item functionality.
  * @constructor
  * Creates a new Item
@@ -532,7 +616,8 @@ Ext.reg('tbitem', T.Item);
 /**
  * @class Ext.Toolbar.Separator
  * @extends Ext.Toolbar.Item
- * A simple class that adds a vertical separator bar between toolbar items.  Example usage:
+ * A simple class that adds a vertical separator bar between toolbar items
+ * (css class:<tt>'xtb-sep'</tt>). Example usage:
  * <pre><code>
 new Ext.Panel({
 	tbar : [
@@ -557,12 +642,21 @@ Ext.reg('tbseparator', T.Separator);
  * @class Ext.Toolbar.Spacer
  * @extends Ext.Toolbar.Item
  * A simple element that adds extra horizontal space between items in a toolbar.
+ * By default a 2px wide space is added via css specification:<pre><code>
+.x-toolbar .xtb-spacer {
+    width:2px;
+}
+ * </code></pre>
+ * <p>Example usage:</p>
  * <pre><code>
 new Ext.Panel({
 	tbar : [
 		'Item 1',
 		{xtype: 'tbspacer'}, // or ' '
-		'Item 2'
+		'Item 2',
+		// space width is also configurable via javascript
+		{xtype: 'tbspacer', width: 50}, // add a 50px space
+		'Item 3'        
 	]
 });
 </code></pre>
@@ -571,6 +665,11 @@ new Ext.Panel({
  * @xtype tbspacer
  */
 T.Spacer = Ext.extend(T.Item, {
+    /**
+     * @cfg {Number} width
+     * The width of the spacer in pixels (defaults to 2px via css style <tt>.x-toolbar .xtb-spacer</tt>).
+     */
+    
     onRender : function(ct, position){
         this.el = ct.createChild({tag:'div', cls:'xtb-spacer', style: this.width?'width:'+this.width+'px':''}, position);
     }
@@ -605,7 +704,8 @@ Ext.reg('tbfill', T.Fill);
 /**
  * @class Ext.Toolbar.TextItem
  * @extends Ext.Toolbar.Item
- * A simple class that renders text directly into a toolbar.
+ * A simple class that renders text directly into a toolbar
+ * (css class:<tt>'xtb-text'</tt>). Example usage:
  * <pre><code>
 new Ext.Panel({
 	tbar : [
@@ -648,12 +748,62 @@ Ext.reg('tbsplit', T.SplitButton);
 /**
  * @class Ext.ButtonGroup
  * @extends Ext.Panel
+ * Container for a group of buttons. Example usage:
+ * <pre><code>
+var p = new Ext.Panel({
+    title: 'Panel with Button Group',
+    width: 300,
+    height:200,
+    renderTo: document.body,
+    html: 'whatever',
+    tbar: [{
+        xtype: 'buttongroup',
+        {@link #columns}: 3,
+        title: 'Clipboard',
+        items: [{
+            text: 'Paste',
+            scale: 'large',
+            rowspan: 3, iconCls: 'add',
+            iconAlign: 'top',
+            cls: 'x-btn-as-arrow'
+        },{
+            xtype:'splitbutton',
+            text: 'Hideous',
+            scale: 'large',
+            rowspan: 3,
+            iconCls: 'add',
+            iconAlign: 'top',
+            arrowAlign:'bottom',
+            menu: [{text: 'Ribbons are hideous'}]
+        },{
+            xtype:'splitbutton', text: 'Cut', iconCls: 'add16', menu: [{text: 'Hideousness'}]
+        },{
+            text: 'Copy', iconCls: 'add16'
+        },{
+            text: 'Format', iconCls: 'add16'
+        }]
+    }]
+});
+ * </code></pre>
  * @xtype buttongroup
  */
 Ext.ButtonGroup = Ext.extend(Ext.Panel, {
+    /**
+     * @cfg {Number} columns The <tt>columns</tt> configuration property passed to the
+     * {@link #layout configured layout manager}. See {@link Ext.layout.TableLayout#columns}.
+     */
+    /**
+     * @cfg {String} baseCls  Defaults to <tt>'x-btn-group'</tt>.  See {@link Ext.Panel#baseCls}.
+     */
     baseCls: 'x-btn-group',
+    /**
+     * @cfg {String} layout  Defaults to <tt>'table'</tt>.  See {@link Ext.Container#layout}.
+     */
     layout:'table',
     defaultType: 'button',
+    /**
+     * @cfg {Boolean} frame  Defaults to <tt>true</tt>.  See {@link Ext.Panel#frame}.
+     */
     frame: true,
     internalDefaults: {removeMode: 'container', hideParent: true},
 
@@ -686,6 +836,10 @@ Ext.ButtonGroup = Ext.extend(Ext.Panel, {
         this.body.setWidth(bodyWidth);
         this.el.setWidth(bodyWidth + this.getFrameWidth());
     }
+    /**
+     * @cfg {Array} tools  @hide
+     */
+   
 });
 
 Ext.reg('buttongroup', Ext.ButtonGroup);
