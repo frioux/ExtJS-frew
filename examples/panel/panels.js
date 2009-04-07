@@ -31,7 +31,7 @@ var html = [
 	'<h1>Heading One</h1>',
 	'<h2>Heading Two</h2>',
 	'<p>This is a paragraph with <strong>STRONG</strong>, <em>EMPHASIS</em> and a <a href="#">Link</a></p>',
-	'<table border="1">',
+	'<table>',
 		'<tr>',
 			'<td>Table Column One</td>',
 			'<td>Table Column Two</td>',
