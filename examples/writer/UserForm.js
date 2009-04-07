@@ -94,7 +94,9 @@ App.user.Form = Ext.extend(Ext.form.FormPanel, {
 	 * onUpdate
 	 */
 	onUpdate : function(btn, ev) {
-		console.info('udpate: ', this.record);
+		if (this.record == null) {
+			return;
+		}
 		this.getForm().updateRecord(this.record);
 	},
 
