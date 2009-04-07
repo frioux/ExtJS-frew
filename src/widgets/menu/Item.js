@@ -96,7 +96,7 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
         this.text = text||'&#160;';
         if(this.rendered){
             this.textEl.update(this.text);
-            this.parentMenu.doAutoSize();
+            this.parentMenu.layout.doAutoSize();
         }
     },
 
