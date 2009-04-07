@@ -4,7 +4,7 @@
  */
 Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
     monitorResize: true,
-    triggerWidth: 16,
+    triggerWidth: 18,
     lastOverflow: false,
 
     noItemsMenuText: '<div class="x-toolbar-no-items">(None)</div>',
