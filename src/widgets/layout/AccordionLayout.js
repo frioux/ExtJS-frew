@@ -33,7 +33,7 @@ var accordion = new Ext.Panel({
 });
 </code></pre>
  */
-Ext.layout.Accordion = Ext.extend(Ext.layout.FitLayout, {
+Ext.layout.AccordionLayout = Ext.extend(Ext.layout.FitLayout, {
     /**
      * @cfg {Boolean} fill
      * True to adjust the active item's height to fill the available space in the container, false to use the
@@ -107,7 +107,7 @@ Ext.layout.Accordion = Ext.extend(Ext.layout.FitLayout, {
         }else if(this.activeItem && this.activeItem != c){
             c.collapsed = true;
         }
-        Ext.layout.Accordion.superclass.renderItem.apply(this, arguments);
+        Ext.layout.AccordionLayout.superclass.renderItem.apply(this, arguments);
         c.header.addClass('x-accordion-hd');
         c.on('beforeexpand', this.beforeExpand, this);
     },
@@ -167,4 +167,7 @@ Ext.layout.Accordion = Ext.extend(Ext.layout.FitLayout, {
 
     }
 });
-Ext.Container.LAYOUTS['accordion'] = Ext.layout.Accordion;
+Ext.Container.LAYOUTS['accordion'] = Ext.layout.AccordionLayout;
+
+//backwards compat
+Ext.layout.Accordion = Ext.layout.AccordionLayout;
