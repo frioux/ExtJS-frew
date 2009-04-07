@@ -598,28 +598,12 @@ sortInfo: {
      * @return {Boolean} If the <i>developer</i> provided <tt>{@link #beforeload}</tt> event handler returns
      * <tt>false</tt>, the load call will abort and will return <tt>false</tt>; otherwise will return <tt>true</tt>.
      */
-    load : function(options){
-        options = options || {};
-        if(this.fireEvent("beforeload", this, options) !== false){
-            this.storeOptions(options);
-            var p = Ext.apply(options.params || {}, this.baseParams);
-            if(this.sortInfo && this.remoteSort){
-                var pn = this.paramNames;
-                p[pn["sort"]] = this.sortInfo.field;
-                p[pn["dir"]] = this.sortInfo.direction;
-            }
-            this.proxy.load(p, this.reader, this.loadRecords, this, options);
-            return true;
-        } else {
-          return false;
-        }
-    },
-	// new load method by chris.  Uses Store#execute instead of this.proxy.load
 	load : function(options) {
 		options = options || {};
         this.storeOptions(options);
         if(this.sortInfo && this.remoteSort){
             var pn = this.paramNames;
+            options.params = options.params || {};
             options.params[pn["sort"]] = this.sortInfo.field;
             options.params[pn["dir"]] = this.sortInfo.direction;
         }
