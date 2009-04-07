@@ -209,9 +209,6 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         var tb = new Ext.Toolbar({
             renderTo:this.wrap.dom.firstChild
         });
-        this.on('resize', function() {
-            tb.doLayout();
-        });
 
         // stop form submits
         this.mon(tb.el, 'click', function(e){
@@ -388,7 +385,8 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                 item.disable();
             }
         });
-        this.tb.doLayout();
+        // is this needed?
+        // this.tb.doLayout();
 
         this.createIFrame();
 
@@ -461,6 +459,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             if(typeof w == 'number'){
                 var aw = w - this.wrap.getFrameWidth('lr');
                 this.el.setWidth(this.adjustWidth('textarea', aw));
+                this.tb.setWidth(aw);
                 this.iframe.style.width = Math.max(aw, 0) + 'px';
             }
             if(typeof h == 'number'){
