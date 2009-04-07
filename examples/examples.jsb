@@ -448,7 +448,8 @@
   <file name="layout-browser\layouts\combination.js" path="layout-browser\layouts" />
   <file name="layout-browser\layouts\custom.js" path="layout-browser\layouts" />
   <file name="layout-browser\layout-browser.js" path="layout-browser" />
-  <file name="locale\dutch-form.js" path="locale" />
+  <file name="locale\ContactForm.js" path="locale" />
+  <file name="locale\ContactForm-nl.js" path="locale" />
   <file name="locale\dutch-provinces.js" path="locale" />
   <file name="locale\languages.js" path="locale" />
   <file name="locale\multi-lang.js" path="locale" />
