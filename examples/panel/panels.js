@@ -2,25 +2,25 @@ Ext.onReady(function(){
     var p = new Ext.Panel({
         title: 'My Panel',
         collapsible:true,
-        renderTo: 'container',
+        renderTo: 'panel-basic',
         width:400,
         html: Ext.example.bogusMarkup
     });
 
-	// normal: true
+	// resetBodyCss: true
 	new Ext.Panel({
-		title: 'A Panel with W3C-standard body-html styling',
-		normal: true,
-		renderTo: 'container-normal-true',
+		title: 'A Panel with W3C-suggested body-html styling',
+		resetBodyCss: true,
+		renderTo: 'panel-reset-true',
 		width: 400,
 		html: html.join('')
 	});
 
-	// normal: false
+	// resetBodyCss: false
 	new Ext.Panel({
-		title: 'Same panel as above with normal: false',
+		title: 'Same panel as above with resetBodyCss: false',
 		normal: false,
-		renderTo: 'container-normal-false',
+		renderTo: 'panel-reset-false',
 		width: 400,
 		html: html.join('')
 	});

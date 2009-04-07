@@ -590,12 +590,12 @@ new Ext.Panel({
      */
     elements : 'body',
 	/**
-	 * @cfg {Boolean} normal
+	 * @cfg {Boolean} resetBodyCss
 	 * Defaults to <tt>false</tt>.  When set to <tt>true</tt>, an extra css class <tt>'x-panel-normal'</tt>
 	 * will be added the the panel's element which will reset any body html to styles suggested by the W3C
 	 * (see http://www.w3.org/TR/CSS21/sample.html).
 	 */
-	normal: false,
+	resetBodyCss: false,
 
     // protected - these could be used to customize the behavior of the window,
     // but changing them would not be useful without further mofifications and
@@ -807,8 +807,8 @@ new Ext.Panel({
             this.footer = cp.down('.'+this.footerCls);
             this.fromMarkup = true;
         }
-		if (this.normal === true) {
-			el.addClass('x-panel-normal');
+		if (this.resetBodyCss === true) {
+			el.addClass('x-panel-reset');
 		}
         if(this.cls){
             el.addClass(this.cls);
