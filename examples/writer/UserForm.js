@@ -65,7 +65,7 @@ App.user.Form = Ext.extend(Ext.form.FormPanel, {
 		return [{
 			text: 'Save',
 			iconCls: 'icon-save',
-			handler: this.onSave,
+			handler: this.onUpdate,
 			scope: this
 		}, {
 			text: 'Create',
@@ -94,6 +94,7 @@ App.user.Form = Ext.extend(Ext.form.FormPanel, {
 	 * onUpdate
 	 */
 	onUpdate : function(btn, ev) {
+		console.info('udpate: ', this.record);
 		this.getForm().updateRecord(this.record);
 	},
 

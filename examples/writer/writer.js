@@ -1,11 +1,3 @@
-/*
- * Ext JS Library 3.0 Pre-alpha
- * Copyright(c) 2006-2008, Ext JS, LLC.
- * licensing@extjs.com
- *
- * http://extjs.com/license
- */
-
 // Create HttpProxy instance.  Notice new configuration parameter "api" here instead of load.  However, you can still use
 // the "url" paramater -- All CRUD requests will be directed to your single url instead.
 var proxy = new Ext.data.HttpProxy({
