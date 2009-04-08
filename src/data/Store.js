@@ -23,6 +23,8 @@ Ext.data.Store = function(config){
     };
     /**
      * An object containing properties which are used as parameters for every HTTP request.
+     * <b>Note</b>: <tt>baseParams</tt> will supersede any <tt>params</tt> provided in a
+     * <tt>{@link #load}</tt> request, see <tt>{@link #load}</tt> for more details. 
      * @property
      */
     this.baseParams = {};
@@ -69,10 +71,10 @@ Ext.data.Store = function(config){
         if(this.reader.onMetaChange){
             this.reader.onMetaChange = this.onMetaChange.createDelegate(this);
         }
-		if (this.writer) { // writer passed
-			this.writer.meta = this.reader.meta;
-			this.pruneModifiedRecords = true;
-		}
+        if (this.writer) { // writer passed
+            this.writer.meta = this.reader.meta;
+            this.pruneModifiedRecords = true;
+        }
     }
 
     /**
@@ -222,87 +224,87 @@ var grid = new Ext.grid.EditorGridPanel({
          * Called with the signature of the Proxy's "loadexception" event.
          */
         'loadexception',
-		/**
-		 * @event beforesave
-		 * Fires before a network save request fires.  If the handler returns false, the action will be cancelled.
-		 * @param {Store} this
-		 * @param {Record/Record[]} The record or Array of records being saved
-		 */
-		'beforesave',
-		/**
-		 * @event save
-		 * Fires after a network save request has completed.
-		 * @param {Store} this
-		 * @param {Object} result data
-		 * @param {Ext.Direct.Transaction} response
-		 */
-		'save',
-		/**
-		 * @event saveexception
-		 * Fires when a network save exception occurs.
-		 * @param {DirectProxy} proxy
-		 * @param {Object} result
-		 * @param {Ext.Direct.ExceptionEvent}
-		 */
-		'saveexception',
-		/**
-		 * @event beforedestroy
-		 * Fires before a record will be destroyed
-		 * @param {Store} this
-		 * @param {Record/Record[]} rs, record(s) to be destroyed
-		 */
-		'beforedestroy',
-		/**
-		 * @event destroy
-		 * Fires after a record has been destroyed
-		 * @param {Store} this
-		 * @param {Object} result
-		 * @param {Ext.Direct.Event} response
-		 */
-		'destroy',
-		/**
-		 * @event destroyexception
-		 * Fires when a destroy exception occurred
-		 * @param {Store} this
-		 * @param {Ext.data.Record[]} rs
-		 * @param {Ext.Direct.Event} response
-		 */
-		'destroyexception',
-		/**
-		 * @event beforecreate
-		 * Fires before a network create request occurs
-		 * @param {Store} this
-		 * @param {Record/Record[]}
-		 */
-		'beforecreate',
-		/**
-		 * @event create
-		 * Fires after network create request occurs
-		 * @param {Store} this
-		 * @param {Object} result
-		 * @param {Ext.Direct.ExceptionEvent} response
-		 */
-		'create',
-		/**
-		 * @event createexception
-		 * Fires after network create exception occurs
-		 * @param {DirectProxy} this
-		 * @param {Record} record
-		 * @param {Ext.Direct.ExceptionEvent}
-		 */
-		'createexception'
+        /**
+         * @event beforesave
+         * Fires before a network save request fires.  If the handler returns false, the action will be cancelled.
+         * @param {Store} this
+         * @param {Record/Record[]} The record or Array of records being saved
+         */
+        'beforesave',
+        /**
+         * @event save
+         * Fires after a network save request has completed.
+         * @param {Store} this
+         * @param {Object} result data
+         * @param {Ext.Direct.Transaction} response
+         */
+        'save',
+        /**
+         * @event saveexception
+         * Fires when a network save exception occurs.
+         * @param {DirectProxy} proxy
+         * @param {Object} result
+         * @param {Ext.Direct.ExceptionEvent}
+         */
+        'saveexception',
+        /**
+         * @event beforedestroy
+         * Fires before a record will be destroyed
+         * @param {Store} this
+         * @param {Record/Record[]} rs, record(s) to be destroyed
+         */
+        'beforedestroy',
+        /**
+         * @event destroy
+         * Fires after a record has been destroyed
+         * @param {Store} this
+         * @param {Object} result
+         * @param {Ext.Direct.Event} response
+         */
+        'destroy',
+        /**
+         * @event destroyexception
+         * Fires when a destroy exception occurred
+         * @param {Store} this
+         * @param {Ext.data.Record[]} rs
+         * @param {Ext.Direct.Event} response
+         */
+        'destroyexception',
+        /**
+         * @event beforecreate
+         * Fires before a network create request occurs
+         * @param {Store} this
+         * @param {Record/Record[]}
+         */
+        'beforecreate',
+        /**
+         * @event create
+         * Fires after network create request occurs
+         * @param {Store} this
+         * @param {Object} result
+         * @param {Ext.Direct.ExceptionEvent} response
+         */
+        'create',
+        /**
+         * @event createexception
+         * Fires after network create exception occurs
+         * @param {DirectProxy} this
+         * @param {Record} record
+         * @param {Ext.Direct.ExceptionEvent}
+         */
+        'createexception'
     );
 
     if(this.proxy){
         this.relayEvents(this.proxy,  ["loadexception"]);
     }
-	// With a writer installed into the Store, we want to listen to add/remove events to remotely create/destroy records.
-	if (this.writer) {
-		this.relayEvents(this.proxy, ["saveexception", "createexception", "destroyexception"]);
-		this.on('add', this.createRecords.createDelegate(this));
-		this.on('remove', this.destroyRecord.createDelegate(this));
-		this.on('update', this.updateRecord.createDelegate(this));
-	}
+    // With a writer installed into the Store, we want to listen to add/remove events to remotely create/destroy records.
+    if (this.writer) {
+        this.relayEvents(this.proxy, ["saveexception", "createexception", "destroyexception"]);
+        this.on('add', this.createRecords.createDelegate(this));
+        this.on('remove', this.destroyRecord.createDelegate(this));
+        this.on('update', this.updateRecord.createDelegate(this));
+    }
 
     this.sortToggle = {};
     if(this.sortField){
@@ -331,79 +333,81 @@ var grid = new Ext.grid.EditorGridPanel({
 };
 Ext.extend(Ext.data.Store, Ext.util.Observable, {
     /**
-    * @cfg {String} storeId If passed, the id to use to register with the <b>{@link Ext.StoreMgr StoreMgr}</b>.
-    * <p><b>Note</b>: if a (deprecated) <tt>{@link #id}</tt> is specified it will supersede the <tt>storeId</tt>
-    * assignment.</p>
-    */
+     * @cfg {String} storeId If passed, the id to use to register with the <b>{@link Ext.StoreMgr StoreMgr}</b>.
+     * <p><b>Note</b>: if a (deprecated) <tt>{@link #id}</tt> is specified it will supersede the <tt>storeId</tt>
+     * assignment.</p>
+     */
     /**
-    * @cfg {String} url If a <tt>{@link #proxy}</tt> is not specified the <tt>url</tt> will be used to
-    * implicitly configure a {@link Ext.data.HttpProxy HttpProxy} if an <tt>url</tt> is specified.
-    */
+     * @cfg {String} url If a <tt>{@link #proxy}</tt> is not specified the <tt>url</tt> will be used to
+     * implicitly configure a {@link Ext.data.HttpProxy HttpProxy} if an <tt>url</tt> is specified.
+     */
     /**
-    * @cfg {Boolean/Object} autoLoad If <tt>{@link #data}</tt> is not specified, and if <tt>autoLoad</tt>
-    * is <tt>true</tt> or an <tt>Object</tt>, this store's {@link #load} method is automatically called
-    * after creation. If the value of <tt>autoLoad</tt> is an <tt>Object</tt>, this <tt>Object</tt> will
-    * be passed to the store's {@link #load} method.
-    */
+     * @cfg {Boolean/Object} autoLoad If <tt>{@link #data}</tt> is not specified, and if <tt>autoLoad</tt>
+     * is <tt>true</tt> or an <tt>Object</tt>, this store's {@link #load} method is automatically called
+     * after creation. If the value of <tt>autoLoad</tt> is an <tt>Object</tt>, this <tt>Object</tt> will
+     * be passed to the store's {@link #load} method.
+     */
     /**
-    * @cfg {Ext.data.DataProxy} proxy The {@link Ext.data.DataProxy DataProxy} object which provides
-    * access to a data object.
-    */
+     * @cfg {Ext.data.DataProxy} proxy The {@link Ext.data.DataProxy DataProxy} object which provides
+     * access to a data object.
+     */
     /**
-    * @cfg {Array} data Inline data to be loaded when the store is initialized.
-    */
+     * @cfg {Array} data Inline data to be loaded when the store is initialized.
+     */
     /**
-    * @cfg {Ext.data.DataReader} reader The {@link Ext.data.DataReader Reader} object which processes the
-    * data object and returns an Array of {@link Ext.data.Record} objects which are cached keyed by their
-    * <b><tt>{@link Ext.data.Record#id id}</tt></b> property.
-    */
-	/**
-	 * @cfg {Ext.data.DataWriter} writer The {@link Ext.data.DataWriter Writer} object which processes a record
-	 * object for being written to the server-side database.
-	 */
-	writer : undefined,
+     * @cfg {Ext.data.DataReader} reader The {@link Ext.data.DataReader Reader} object which processes the
+     * data object and returns an Array of {@link Ext.data.Record} objects which are cached keyed by their
+     * <b><tt>{@link Ext.data.Record#id id}</tt></b> property.
+     */
     /**
-    * @cfg {Object} baseParams <p>An object containing properties which are to be sent as parameters
-    * for <i>every</i> HTTP request.</p>
-    * <p>Parameters are encoded as standard HTTP parameters using {@link Ext#urlEncode}.</p>
-    */
+     * @cfg {Ext.data.DataWriter} writer The {@link Ext.data.DataWriter Writer} object which processes a record
+     * object for being written to the server-side database.
+     */
+    writer : undefined,
     /**
-    * @cfg {Object} sortInfo A config object to specify the sort order in the request of a Store's
-    * {@link #load} operation.  Note that for local sorting, the <tt>direction</tt> property is
-    * case-sensitive. See also {@link #remoteSort} and {@link #paramNames}.
-    * For example:<pre><code>
+     * @cfg {Object} baseParams <p>An object containing properties which are to be sent as parameters
+     * for <i>every</i> HTTP request.</p>
+     * <p>Parameters are encoded as standard HTTP parameters using {@link Ext#urlEncode}.</p>
+     * <p><b>Note</b>: <tt>baseParams</tt> will supersede any <tt>params</tt> provided in a
+     * <tt>{@link #load}</tt> request, see <tt>{@link #load}</tt> for more details.</p> 
+     */
+    /**
+     * @cfg {Object} sortInfo A config object to specify the sort order in the request of a Store's
+     * {@link #load} operation.  Note that for local sorting, the <tt>direction</tt> property is
+     * case-sensitive. See also {@link #remoteSort} and {@link #paramNames}.
+     * For example:<pre><code>
 sortInfo: {
     field: "fieldName",
     direction: "ASC" // or "DESC" (case sensitive for local sorting)
 }
 </code></pre>
-    */
+     */
     /**
-    * @cfg {boolean} remoteSort <tt>true</tt> if sorting is to be handled by requesting the <tt>{@link #proxy Proxy}</tt>
-    * to provide a refreshed version of the data object in sorted order, as opposed to sorting the Record cache
-    * in place (defaults to <tt>false</tt>).
-    * <p>If <tt>remoteSort</tt> is <tt>true</tt>, then clicking on a {@link Ext.grid.Column Grid Column}'s
-    * {@link Ext.grid.Column#header header} causes the current page to be requested from the server appending
-    * the following two parameters to the <b><tt>{@link #load params}</tt></b>:<div class="mdetail-params"><ul>
-    * <li><b><tt>sort</tt></b> : String<p class="sub-desc">The <tt>name</tt> (as specified in the Record's
-    * {@link Ext.data.Field Field definition}) of the field to sort on.</p></li>
-    * <li><b><tt>dir</tt></b> : String<p class="sub-desc">The direction of the sort, "ASC" or "DESC" (case-sensitive).</p></li>
-    * </ul></div></p>
-    */
+     * @cfg {boolean} remoteSort <tt>true</tt> if sorting is to be handled by requesting the <tt>{@link #proxy Proxy}</tt>
+     * to provide a refreshed version of the data object in sorted order, as opposed to sorting the Record cache
+     * in place (defaults to <tt>false</tt>).
+     * <p>If <tt>remoteSort</tt> is <tt>true</tt>, then clicking on a {@link Ext.grid.Column Grid Column}'s
+     * {@link Ext.grid.Column#header header} causes the current page to be requested from the server appending
+     * the following two parameters to the <b><tt>{@link #load params}</tt></b>:<div class="mdetail-params"><ul>
+     * <li><b><tt>sort</tt></b> : String<p class="sub-desc">The <tt>name</tt> (as specified in the Record's
+     * {@link Ext.data.Field Field definition}) of the field to sort on.</p></li>
+     * <li><b><tt>dir</tt></b> : String<p class="sub-desc">The direction of the sort, "ASC" or "DESC" (case-sensitive).</p></li>
+     * </ul></div></p>
+     */
     remoteSort : false,
 
     /**
-    * @cfg {Boolean} autoDestroy <tt>true</tt> to destroy the store when the component the store is bound
-    * to is destroyed (defaults to <tt>false</tt>).
-    * <p><b>Note</b>: this should be set to true when using stores that are bound to only 1 component.</p>
-    */
+     * @cfg {Boolean} autoDestroy <tt>true</tt> to destroy the store when the component the store is bound
+     * to is destroyed (defaults to <tt>false</tt>).
+     * <p><b>Note</b>: this should be set to true when using stores that are bound to only 1 component.</p>
+     */
     autoDestroy : false,
 
     /**
-    * @cfg {Boolean} pruneModifiedRecords <tt>true</tt> to clear all modified record information each time
-    * the store is loaded or when a record is removed (defaults to <tt>false</tt>). See {@link #getModifiedRecords}
-    * for the accessor method to retrieve the modified records.
-    */
+     * @cfg {Boolean} pruneModifiedRecords <tt>true</tt> to clear all modified record information each time
+     * the store is loaded or when a record is removed (defaults to <tt>false</tt>). See {@link #getModifiedRecords}
+     * for the accessor method to retrieve the modified records.
+     */
     pruneModifiedRecords : false,
 
     /**
@@ -414,16 +418,16 @@ sortInfo: {
      */
    lastOptions : null,
 
-   /**
-	 * @cfg {Boolean} batchSave
-	 * Defaults to <tt>false</tt>, which requires manually calling {@link #save} to send all
-	 * modifiedRecords to the server. Specify <tt>true</tt> for the store to automatically
-	 * {@link #save} records to the server when a record changes.
-	 */
-	batchSave : false,
+    /**
+     * @cfg {Boolean} batchSave
+     * Defaults to <tt>false</tt>, which requires manually calling {@link #save} to send all
+     * modifiedRecords to the server. Specify <tt>true</tt> for the store to automatically
+     * {@link #save} records to the server when a record changes.
+     */
+    batchSave : false,
 
-	// private destroy temporary cache
-	removed : [],
+    // private destroy temporary cache
+    removed : [],
 
     /**
      * Destroys the store.
@@ -598,8 +602,8 @@ sortInfo: {
      * @return {Boolean} If the <i>developer</i> provided <tt>{@link #beforeload}</tt> event handler returns
      * <tt>false</tt>, the load call will abort and will return <tt>false</tt>; otherwise will return <tt>true</tt>.
      */
-	load : function(options) {
-		options = options || {};
+    load : function(options) {
+        options = options || {};
         this.storeOptions(options);
         if(this.sortInfo && this.remoteSort){
             var pn = this.paramNames;
@@ -607,208 +611,208 @@ sortInfo: {
             options.params[pn["sort"]] = this.sortInfo.field;
             options.params[pn["dir"]] = this.sortInfo.direction;
         }
-		return this.execute('load', null, options);
-	},
+        return this.execute('load', null, options);
+    },
 
-	/**
-	 * updateRecord  Should not be used directly.  This method will be called automatically if a Writer is installed.
-	 * Listens to "update" event.
-	 * @param {Object} store
-	 * @param {Object} record
-	 * @param {Object} action
-	 * @private
-	 */
-	updateRecord : function(store, record, action) {
-		if (action != Ext.data.Record.EDIT || this.batchSave) {
-			return;
-		}
-		if (!record.phantom || (record.phantom && record.isValid)) {
-			this.save(record);
-		}
-	},
+    /**
+     * updateRecord  Should not be used directly.  This method will be called automatically if a Writer is installed.
+     * Listens to "update" event.
+     * @param {Object} store
+     * @param {Object} record
+     * @param {Object} action
+     * @private
+     */
+    updateRecord : function(store, record, action) {
+        if (action != Ext.data.Record.EDIT || this.batchSave) {
+            return;
+        }
+        if (!record.phantom || (record.phantom && record.isValid)) {
+            this.save(record);
+        }
+    },
 
-	/**
-	 * createRecords.  Should not be used directly.  Store#add will call this automatically if a Writer is installed
-	 * @param {Object} store
-	 * @param {Object} rs
-	 * @param {Object} index
-	 * @private
-	 */
-	createRecords : function(store, rs, index) {
-		if (this.batchSave == false) {
-			for (var i = 0, len = rs.length; i < len; i++) {
-				if (rs[i].phantom && rs[i].isValid()) {
-					rs[i].markDirty();	// <-- Mark new records dirty
-					this.execute('create', rs[i]);
-				}
-			}
-		}
-		else {
-			for (var i = 0, len = rs.length; i < len; i++) {
-				if (rs[i].phantom && rs[i].isValid()) {
-					rs[i].markDirty();	// <-- Mark new records dirty
-					this.modified.push(rs[i]);
-				}
-			}
-		}
-	},
+    /**
+     * createRecords.  Should not be used directly.  Store#add will call this automatically if a Writer is installed
+     * @param {Object} store
+     * @param {Object} rs
+     * @param {Object} index
+     * @private
+     */
+    createRecords : function(store, rs, index) {
+        if (this.batchSave == false) {
+            for (var i = 0, len = rs.length; i < len; i++) {
+                if (rs[i].phantom && rs[i].isValid()) {
+                    rs[i].markDirty();	// <-- Mark new records dirty
+                    this.execute('create', rs[i]);
+                }
+            }
+        }
+        else {
+            for (var i = 0, len = rs.length; i < len; i++) {
+                if (rs[i].phantom && rs[i].isValid()) {
+                    rs[i].markDirty();	// <-- Mark new records dirty
+                    this.modified.push(rs[i]);
+                }
+            }
+        }
+    },
 
-	/**
-	 * destroyRecord
-	 * Destroys a record or records.  Should not be used directly.  It's called by Store#remove if a Writer is installed.
-	 * @param {Store} this
-	 * @param {Ext.data.Record/Ext.data.Record[]}
-	 * @param {Number} index
-	 * @private
-	 */
-	destroyRecord : function(store, record, index) {
-		if (this.modified.indexOf(record) != -1) {	// <-- handled already if @cfg pruneModifiedRecords == true
-			this.modified.remove(record);
-		}
-		if (record.phantom === true) {
-			return;
-		}
-		if (!this.batchSave) {
-			this.execute('destroy', record);
-		}
-		else {
-			this.removed.push(record);
-		}
-	},
+    /**
+     * destroyRecord
+     * Destroys a record or records.  Should not be used directly.  It's called by Store#remove if a Writer is installed.
+     * @param {Store} this
+     * @param {Ext.data.Record/Ext.data.Record[]}
+     * @param {Number} index
+     * @private
+     */
+    destroyRecord : function(store, record, index) {
+        if (this.modified.indexOf(record) != -1) {	// <-- handled already if @cfg pruneModifiedRecords == true
+            this.modified.remove(record);
+        }
+        if (record.phantom === true) {
+            return;
+        }
+        if (!this.batchSave) {
+            this.execute('destroy', record);
+        }
+        else {
+            this.removed.push(record);
+        }
+    },
 
-	/**
-	 * execute Executes a CRUD action on a proxy if a Writer is installed.  Should not be used directly.  Called automatically
-	 * by Store#add, Store#remove, Store#afterEdit
-	 * @param {String} action
-	 * @param {Record/Record[]} rs
-	 * @param {Object} options
-	 * @private
-	 */
-	execute : function(action, rs, options) {
-		if (action != 'load' && !this.writer) {	// TODO: define actions as CONSTANTS
-			// blow up if trying to execute 'create', 'destroy', 'save' without a Writer installed.
-			throw new Error('Store attempted to execute the remote action "' + action + '" without a DataWriter installed.');
-		}
-		options = options || {};
-		if (this.fireEvent('before'+action, this, rs||options)) {	// <-- if action is load, rs will be null
-			var p = Ext.apply(options.params || {}, this.baseParams, {xaction: action});
-			if (this.writer && typeof(this.writer[action]) == 'function') {
-				this.writer[action](p, rs);// <-- call writer if action-method exists (ie: it won't for load action; will for create, destroy, save)
-			}
-			this.proxy.request(action, rs, p, this.reader, this.writer, this.createCallback(action, rs), this, options);
-			return true;
-		}
-		else {
-			return false;
-		}
-	},
+    /**
+     * execute Executes a CRUD action on a proxy if a Writer is installed.  Should not be used directly.  Called automatically
+     * by Store#add, Store#remove, Store#afterEdit
+     * @param {String} action
+     * @param {Record/Record[]} rs
+     * @param {Object} options
+     * @private
+     */
+    execute : function(action, rs, options) {
+        if (action != 'load' && !this.writer) {	// TODO: define actions as CONSTANTS
+            // blow up if trying to execute 'create', 'destroy', 'save' without a Writer installed.
+            throw new Error('Store attempted to execute the remote action "' + action + '" without a DataWriter installed.');
+        }
+        options = options || {};
+        if (this.fireEvent('before'+action, this, rs||options)) {	// <-- if action is load, rs will be null
+            var p = Ext.apply(options.params || {}, this.baseParams, {xaction: action});
+            if (this.writer && typeof(this.writer[action]) == 'function') {
+                this.writer[action](p, rs);// <-- call writer if action-method exists (ie: it won't for load action; will for create, destroy, save)
+            }
+            this.proxy.request(action, rs, p, this.reader, this.writer, this.createCallback(action, rs), this, options);
+            return true;
+        }
+        else {
+            return false;
+        }
+    },
 
-	/**
-	 * Send all {@link #getModifiedRecords modifiedRecords} to the server using the
-	 * api's configured save url.
-	 * @param {Object} options
-	 */
-	save : function(rs) {
-		rs = rs || this.getModifiedRecords();
-		if (!rs.length && !rs instanceof Ext.data.Record && !this.removed.length) {
-			return false;
-		}
-		var action = 'save';
-		if (this.removed.length) {
-			try {
-				this.execute('destroy', this.removed);
-			}
-			catch (e) {
-				throw e;	// <-- just re-throw it for now...
-			}
-		}
-		try {
-			if (Ext.isArray(rs)) {
-				for (var i = rs.length-1; i >= 0; i--) {
-					if (rs[i].phantom === true) {
-						var rec = rs.splice(i, 1).shift();
-						if (rec.isValid()) {
-							this.execute('create', rec);
-						}
-					}
-				}
-			}
-			else if (rs.phantom) {
-				if (!rs.isValid()) {
-					return false;
-				}
-				action = 'create';
-			}
-			if (Ext.isArray(rs) && rs.length == 1) {
-				rs = rs[0];
-			}
-			if (rs instanceof Ext.data.Record || rs.length > 0) {
-				this.execute(action, rs);
-				return true;
-			}
-			else {
-				// no more actions to execute.  They may have been spliced-out by create actions above.  just return true.
-				return true;
-			}
-		}
-		catch (e) {
-			throw e;
-		}
-		return true;
-	},
+    /**
+     * Send all {@link #getModifiedRecords modifiedRecords} to the server using the
+     * api's configured save url.
+     * @param {Object} options
+     */
+    save : function(rs) {
+        rs = rs || this.getModifiedRecords();
+        if (!rs.length && !rs instanceof Ext.data.Record && !this.removed.length) {
+            return false;
+        }
+        var action = 'save';
+        if (this.removed.length) {
+            try {
+                this.execute('destroy', this.removed);
+            }
+            catch (e) {
+                throw e;	// <-- just re-throw it for now...
+            }
+        }
+        try {
+            if (Ext.isArray(rs)) {
+                for (var i = rs.length-1; i >= 0; i--) {
+                    if (rs[i].phantom === true) {
+                        var rec = rs.splice(i, 1).shift();
+                        if (rec.isValid()) {
+                            this.execute('create', rec);
+                        }
+                    }
+                }
+            }
+            else if (rs.phantom) {
+                if (!rs.isValid()) {
+                    return false;
+                }
+                action = 'create';
+            }
+            if (Ext.isArray(rs) && rs.length == 1) {
+                rs = rs[0];
+            }
+            if (rs instanceof Ext.data.Record || rs.length > 0) {
+                this.execute(action, rs);
+                return true;
+            }
+            else {
+                // no more actions to execute.  They may have been spliced-out by create actions above.  just return true.
+                return true;
+            }
+        }
+        catch (e) {
+            throw e;
+        }
+        return true;
+    },
 
-	// private callback-handler for remote CRUD actions
-	createCallback : function(action, rs) {
-		return (action == 'load') ? this.loadRecords : function(data, response, success) {
-			if (success === true) {
-				switch (action) {
-					case 'create':
-						this.onCreateRecord(rs, data);
-						break;
-					case 'destroy':
-						this.onDestroyRecords(rs, data);
-						break;
-					case 'save':
-						this.onSaveRecords(rs, data);
-						break;
-				}
-				this.fireEvent(action, this, data, response);
-			}
-		}
-	},
+    // private callback-handler for remote CRUD actions
+    createCallback : function(action, rs) {
+        return (action == 'load') ? this.loadRecords : function(data, response, success) {
+            if (success === true) {
+                switch (action) {
+                    case 'create':
+                        this.onCreateRecord(rs, data);
+                        break;
+                    case 'destroy':
+                        this.onDestroyRecords(rs, data);
+                        break;
+                    case 'save':
+                        this.onSaveRecords(rs, data);
+                        break;
+                }
+                this.fireEvent(action, this, data, response);
+            }
+        }
+    },
 
-	// private onCreateRecord proxy callback for create action
-	onCreateRecord : function(record, data) {
-		// TODO: raise exception if server didn't send a database pk back?
-		if (record.phantom && data[this.reader.meta.idProperty]) {
-			record.editing = true;	// <-- prevent unwanted afterEdit calls by record.
-			record.phantom = false;
-			record.id = data[this.reader.meta.idProperty];	// <-- Server MUST send id at least!
-			record.fields.each(function(f) {	// <-- update record fields with data from server if was sent
-				if (data[f.name] || data[f.mapping]) {
-					record.set(f.name, (f.mapping) ? data[f.mapping] : data[f.name]);
-				}
-			});
-			record.commit();
-			record.editing = false;
-		}
-	},
+    // private onCreateRecord proxy callback for create action
+    onCreateRecord : function(record, data) {
+        // TODO: raise exception if server didn't send a database pk back?
+        if (record.phantom && data[this.reader.meta.idProperty]) {
+            record.editing = true;	// <-- prevent unwanted afterEdit calls by record.
+            record.phantom = false;
+            record.id = data[this.reader.meta.idProperty];	// <-- Server MUST send id at least!
+            record.fields.each(function(f) {	// <-- update record fields with data from server if was sent
+                if (data[f.name] || data[f.mapping]) {
+                    record.set(f.name, (f.mapping) ? data[f.mapping] : data[f.name]);
+                }
+            });
+            record.commit();
+            record.editing = false;
+        }
+    },
 
-	// private, onSaveRecords proxy callback for update action
-	onSaveRecords : function(rs, data) {
-		if (!Ext.isArray(rs)) {
-			rs = [rs];
-		}
-		// maybe just commit row changes?
-		for (var i=rs.length-1;i>=0;i--) {
-			rs[i].commit();
-		}
-	},
+    // private, onSaveRecords proxy callback for update action
+    onSaveRecords : function(rs, data) {
+        if (!Ext.isArray(rs)) {
+            rs = [rs];
+        }
+        // maybe just commit row changes?
+        for (var i=rs.length-1;i>=0;i--) {
+            rs[i].commit();
+        }
+    },
 
-	// private onDestroyRecords proxy callback for destroy action
-	onDestroyRecords : function(rs, data) {
-		this.removed = [];
-	},
+    // private onDestroyRecords proxy callback for destroy action
+    onDestroyRecords : function(rs, data) {
+        this.removed = [];
+    },
 
     /**
      * <p>Reloads the Record cache from the configured Proxy using the configured {@link Ext.data.Reader Reader} and
