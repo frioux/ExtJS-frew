@@ -423,6 +423,7 @@ var myField = new Ext.form.NumberField({
             this.markInvalid(String.format(this.maxLengthText, this.maxLength));
             return false;
         }
+        return true;
     },
 
     /**
