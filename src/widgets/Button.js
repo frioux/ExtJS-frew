@@ -12,7 +12,8 @@
  * <li><code>e</code> : EventObject<div class="sub-desc">The click event.</div></li>
  * </ul></div>
  * @cfg {Object} scope The scope (<tt><b>this</b></tt> reference) in which the handler is executed. Defaults to this Button.
- * @cfg {Number} minWidth The minimum width for this button (used to give a set of buttons a common width)
+ * @cfg {Number} minWidth The minimum width for this button (used to give a set of buttons a common width).
+ * See also {@link Ext.Panel}.<tt>{@link Ext.Panel#minButtonWidth minButtonWidth}</tt>.
  * @cfg {String/Object} tooltip The tooltip for the button - can be a string to be used as innerHTML (html tags are accepted) or QuickTips config object
  * @cfg {Boolean} hidden True to start hidden (defaults to false)
  * @cfg {Boolean} disabled True to start disabled (defaults to false)

@@ -157,6 +157,7 @@ new Ext.Panel({
     /**
      * @cfg {Array} buttons
      * An array of {@link Ext.Button}s or {@link Ext.Button} configs used to add buttons to the footer of this panel.
+     * See also <tt>{@link #minButtonWidth}</tt>.
      */
     /**
      * @cfg {Object/String/Function} autoLoad
