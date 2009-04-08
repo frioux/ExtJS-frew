@@ -99,8 +99,8 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 		*/
 	    boxWrap : function(cls){
 	        cls = cls || 'x-box';
-	        var el = Ext.get(this.insertHtml("beforeBegin", "<div class='" + cls + "'>" + EL.boxMarkup + "</div>"));        //String.format('<div class="{0}">'+Ext.Element.boxMarkup+'</div>', cls)));        
-	        Ext.DomQuery.selectNode('.' + cls + '-mc', this.dom).dom.appendChild(this.dom);
+	        var el = Ext.get(this.insertHtml("beforeBegin", "<div class='" + cls + "'>" + String.format(Ext.Element.boxMarkup, cls) + "</div>"));        //String.format('<div class="{0}">'+Ext.Element.boxMarkup+'</div>', cls)));        
+	        Ext.DomQuery.selectNode('.' + cls + '-mc', el.dom).appendChild(this.dom);
 	        return el;
 	    },
 	    
