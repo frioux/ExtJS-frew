@@ -23,7 +23,15 @@
 Ext.data.HttpProxy = function(conn){
     Ext.data.HttpProxy.superclass.constructor.call(this);
 
-	Ext.copyTo(this, conn, 'api,prettyUrls,url');
+	// I think this code should be moved to DataProxy.  Set default api if not set.
+	Ext.apply(this, conn, {
+		api: {
+			load: undefined,
+			save: undefined,
+			create: undefined,
+			destroy: undefined
+		}
+	});
 
     /**
      * The Connection object (Or options parameter to {@link Ext.Ajax#request}) which this HttpProxy uses to make requests to the server.
