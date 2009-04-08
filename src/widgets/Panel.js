@@ -939,7 +939,7 @@ new Ext.Panel({
             this.fbar.enableOverflow = false;
             if(this.fbar.items){
                 this.fbar.items.each(function(c){
-                    c.minWidth = this.minButtonWidth;
+                    c.minWidth = c.minWidth || this.minButtonWidth;
                 }, this);
             }
             this.fbar.toolbarCls = 'x-panel-fbar';
