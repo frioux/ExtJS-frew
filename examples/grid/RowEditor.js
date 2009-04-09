@@ -65,7 +65,7 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
 
     startEditing: function(rowIndex, doFocus){
         if(this.editing && this.isDirty()){
-            Ext.Msg.alert('Error', 'You need to commit or cancel your changes');
+            this.showTooltip('You need to commit or cancel your changes');
             return;
         }
         this.editing = true;
@@ -383,29 +383,34 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
         }
         var valid = this.isValid();
         if(!valid && this.errorSummary){
-            var t = this.tooltip;
-            if(!t){
-                t = this.tooltip = new Ext.ToolTip({
-                    maxWidth: 600,
-                    cls: 'errorTip',
-                    width: 300,
-                    title: 'Errors',
-                    autoHide: false,
-                    anchor: 'left',
-                    anchorToTarget: true,
-                    mouseOffset: [40,0]
-                });
-            }
-            t.initTarget(this.items.last().getEl());
-            if(!t.rendered){
-                t.show();
-            }
-            t.body.update(this.getErrorText().join(''));
-            t.doAutoWidth();
-            t.show();
+            this.showTooltip(this.getErrorText().join(''));
         }
         this.btns.saveBtn.setDisabled(!valid);
         this.fireEvent('validation', this, valid);
+    },
+    
+    showTooltip: function(msg){
+        var t = this.tooltip;
+        if(!t){
+            t = this.tooltip = new Ext.ToolTip({
+                maxWidth: 600,
+                cls: 'errorTip',
+                width: 300,
+                title: 'Errors',
+                autoHide: false,
+                anchor: 'left',
+                anchorToTarget: true,
+                mouseOffset: [40,0]
+            });
+        }
+        t.initTarget(this.items.last().getEl());
+        if(!t.rendered){
+            t.show();
+            t.hide();
+        }
+        t.body.update(msg);
+        t.doAutoWidth();
+        t.show();
     },
 
     getErrorText: function(){
