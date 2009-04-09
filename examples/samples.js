@@ -12,7 +12,7 @@ SamplePanel = Ext.extend(Ext.DataView, {
             '<dl>',
                 '<tpl for="samples">',
                     '<dd ext:url="{url}"><img src="shared/screens/{icon}"/>',
-                        '<div><h4>{text}<tpl if="values.isNew"><span class="new-sample"> * (New)</span></tpl></h4><p>{desc}</p></div>',
+                        '<div><h4>{text}<tpl if="values.isNew"><span class="new-sample"> (New)</span></tpl></h4><p>{desc}</p></div>',
                     '</dd>',
                 '</tpl>',
             '<div style="clear:left"></div></dl></div>',
