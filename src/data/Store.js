@@ -24,7 +24,7 @@ Ext.data.Store = function(config){
     /**
      * An object containing properties which are used as parameters for every HTTP request.
      * <b>Note</b>: <tt>baseParams</tt> will supersede any <tt>params</tt> provided in a
-     * <tt>{@link #load}</tt> request, see <tt>{@link #load}</tt> for more details. 
+     * <tt>{@link #load}</tt> request, see <tt>{@link #load}</tt> for more details.
      * @property
      */
     this.baseParams = {};
@@ -369,7 +369,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
      * for <i>every</i> HTTP request.</p>
      * <p>Parameters are encoded as standard HTTP parameters using {@link Ext#urlEncode}.</p>
      * <p><b>Note</b>: <tt>baseParams</tt> will supersede any <tt>params</tt> provided in a
-     * <tt>{@link #load}</tt> request, see <tt>{@link #load}</tt> for more details.</p> 
+     * <tt>{@link #load}</tt> request, see <tt>{@link #load}</tt> for more details.</p>
      */
     /**
      * @cfg {Object} sortInfo A config object to specify the sort order in the request of a Store's
@@ -666,6 +666,11 @@ sortInfo: {
      * @private
      */
     destroyRecord : function(store, record, index) {
+		// since the record has already been removed from the store but the server request has not yet been executed,
+		// must keep track of the last known index this record existed.  If a server error occurs, the record can be
+		// put back into the store.  @see Store#createCallback where the record is returned when response status === false
+		record.lastIndex = index;
+
         if (this.modified.indexOf(record) != -1) {	// <-- handled already if @cfg pruneModifiedRecords == true
             this.modified.remove(record);
         }
@@ -762,6 +767,7 @@ sortInfo: {
     },
 
     // private callback-handler for remote CRUD actions
+	// TODO:  refactor.  place destroy fail switch into its own method perhaps.
     createCallback : function(action, rs) {
         return (action == 'load') ? this.loadRecords : function(data, response, success) {
             if (success === true) {
@@ -778,6 +784,19 @@ sortInfo: {
                 }
                 this.fireEvent(action, this, data, response);
             }
+			else {
+				switch (action) {
+					case 'destroy':
+						// put records back into store if remote destroy fails.
+						if (rs instanceof Ext.data.Record) {
+							rs = [rs];
+						}
+						for (var i=0,len=rs.length;i<len;i++) {
+							this.insert(rs[i].lastIndex, rs[i]);
+						}
+						break;
+				}
+			}
         }
     },
 
