@@ -189,11 +189,11 @@ layout: {
      * <li><tt><b>{@link Ext.layout.ColumnLayout column}</b></tt></li>
      * <li><tt><b>{@link Ext.layout.FitLayout fit}</b></tt></li>
      * <li><tt><b>{@link Ext.layout.FormLayout form}</b></tt></li>
-     * <li><tt><b>{@link Ext.layout.HBox hbox}</b></tt></li>
+     * <li><tt><b>{@link Ext.layout.HBoxLayout hbox}</b></tt></li>
      * <li><tt><b>{@link Ext.layout.MenuLayout menu}</b></tt></li>
      * <li><tt><b>{@link Ext.layout.TableLayout table}</b></tt></li>
      * <li><tt><b>{@link Ext.layout.ToolbarLayout toolbar}</b></tt></li>
-     * <li><tt><b>{@link Ext.layout.VBox vbox}</b></tt></li>
+     * <li><tt><b>{@link Ext.layout.VBoxLayout vbox}</b></tt></li>
      * </ul></div>
      * 
      * <li>Layout specific configuration properties</li>

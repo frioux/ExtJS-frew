@@ -1,9 +1,9 @@
 /**
- * @class Ext.layout.Box
+ * @class Ext.layout.BoxLayout
  * @extends Ext.layout.ContainerLayout
- * <p>Base Class for HBox and VBox Classes. Generally it should not need to be used directly.</p>
+ * <p>Base Class for HBoxLayout and VBoxLayout Classes. Generally it should not need to be used directly.</p>
  */
-Ext.layout.Box = Ext.extend(Ext.layout.ContainerLayout, {
+Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
     // private
     monitorResize:true,
     scrollOffset : 0,
@@ -53,7 +53,7 @@ Ext.layout.Box = Ext.extend(Ext.layout.ContainerLayout, {
         }else if(!c.margins){
             c.margins = this.defaultMargins;
         }
-        Ext.layout.Box.superclass.renderItem.apply(this, arguments);
+        Ext.layout.BoxLayout.superclass.renderItem.apply(this, arguments);
     },
 
     getTargetSize : function(target){
@@ -67,11 +67,11 @@ Ext.layout.Box = Ext.extend(Ext.layout.ContainerLayout, {
 });
 
 /**
- * @class Ext.layout.VBox
- * @extends Ext.layout.Box
+ * @class Ext.layout.VBoxLayout
+ * @extends Ext.layout.BoxLayout
  * A layout that arranges items vertically
  */
-Ext.layout.VBox = Ext.extend(Ext.layout.Box, {
+Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
     /**
      * @cfg {String} align
      * Controls how the child items of the container are aligned. Acceptable configuration values for this
@@ -112,7 +112,7 @@ Ext.layout.VBox = Ext.extend(Ext.layout.Box, {
 
     // private
     onLayout : function(ct, target){
-        Ext.layout.VBox.superclass.onLayout.call(this, ct, target);
+        Ext.layout.VBoxLayout.superclass.onLayout.call(this, ct, target);
 
         var cs = ct.items.items, len = cs.length, c, i, last = len-1, cm;
         var size = this.getTargetSize(target);
@@ -206,14 +206,14 @@ Ext.layout.VBox = Ext.extend(Ext.layout.Box, {
      */
 });
 
-Ext.Container.LAYOUTS['vbox'] = Ext.layout.VBox;
+Ext.Container.LAYOUTS['vbox'] = Ext.layout.VBoxLayout;
 
 /**
- * @class Ext.layout.HBox
- * @extends Ext.layout.Box
+ * @class Ext.layout.HBoxLayout
+ * @extends Ext.layout.BoxLayout
  * A layout that arranges items horizontally
  */
-Ext.layout.HBox = Ext.extend(Ext.layout.Box, {
+Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
     /**
      * @cfg {String} align
      * Controls how the child items of the container are aligned. Acceptable configuration values for this
@@ -254,7 +254,7 @@ Ext.layout.HBox = Ext.extend(Ext.layout.Box, {
 
     // private
     onLayout : function(ct, target){
-        Ext.layout.HBox.superclass.onLayout.call(this, ct, target);
+        Ext.layout.HBoxLayout.superclass.onLayout.call(this, ct, target);
 
         var cs = ct.items.items, len = cs.length, c, i, last = len-1, cm;
         var size = this.getTargetSize(target);
@@ -352,4 +352,4 @@ Ext.layout.HBox = Ext.extend(Ext.layout.Box, {
      */
 });
 
-Ext.Container.LAYOUTS['hbox'] = Ext.layout.HBox;
+Ext.Container.LAYOUTS['hbox'] = Ext.layout.HBoxLayout;
