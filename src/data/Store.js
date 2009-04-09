@@ -767,7 +767,9 @@ sortInfo: {
     },
 
     // private callback-handler for remote CRUD actions
-	// TODO:  refactor.  place destroy fail switch into its own method perhaps.
+	// TODO:  refactor.  place destroy fail switch into its own method perhaps?  Maybe remove the if (success === true) check
+	// and let each onAction method check for success?  Notice that both the destroy-fail case and onDestroyRecords each
+	// set this.destroyed = [].
     createCallback : function(action, rs) {
         return (action == 'load') ? this.loadRecords : function(data, response, success) {
             if (success === true) {
@@ -794,6 +796,7 @@ sortInfo: {
 						for (var i=0,len=rs.length;i<len;i++) {
 							this.insert(rs[i].lastIndex, rs[i]);
 						}
+						this.destroyed = [];
 						break;
 				}
 			}
