@@ -12,7 +12,10 @@ SamplePanel = Ext.extend(Ext.DataView, {
             '<dl>',
                 '<tpl for="samples">',
                     '<dd ext:url="{url}"><img src="shared/screens/{icon}"/>',
-                        '<div><h4>{text}<tpl if="values.isNew"><span class="new-sample"> (New)</span></tpl></h4><p>{desc}</p></div>',
+                        '<div><h4>{text}',
+                            '<tpl if="values.isNew"><span class="new-sample"> (New)</span></tpl>',
+                            '<tpl if="values.isUpdated"><span class="updated-sample"> (Updated)</span></tpl>',
+                        '</h4><p>{desc}</p></div>',
                     '</dd>',
                 '</tpl>',
             '<div style="clear:left"></div></dl></div>',
@@ -201,7 +204,8 @@ Ext.EventManager.on(window, 'load', function(){
             text: 'Layout Browser',
             url: 'layout-browser/layout-browser.html',
             icon: 'layout-browser.gif',
-            desc: 'Includes examples for each standard Ext layout, several custom layouts and combination examples.'
+            desc: 'Includes examples for each standard Ext layout, several custom layouts and combination examples.',
+            isUpdated: true
         },{
             text: 'Border Layout',
             url: 'layout/complex.html',
@@ -280,7 +284,8 @@ Ext.EventManager.on(window, 'load', function(){
             text: 'Basic Toolbar',
             url: 'menu/menus.html',
             icon: 'toolbar.gif',
-            desc: 'Toolbar and menus that contain various components like date pickers, color pickers, sub-menus and more.'
+            desc: 'Toolbar and menus that contain various components like date pickers, color pickers, sub-menus and more.',
+            isUpdated: true
         },{
             text: 'Toolbar Overflow',
             url: 'toolbar/overflow.html',
@@ -372,7 +377,8 @@ Ext.EventManager.on(window, 'load', function(){
             text: 'QuickTips',
             url: 'simple-widgets/qtips.html',
             icon: 'qtips.gif',
-            desc: 'Various tooltip and quick tip configuration options including Ajax loading and mouse tracking.'
+            desc: 'Various tooltip and quick tip configuration options including Ajax loading and mouse tracking.',
+            isUpdated: true
         },{
             text: 'Progress Bar',
             url: 'simple-widgets/progress-bar.html',
@@ -382,7 +388,8 @@ Ext.EventManager.on(window, 'load', function(){
             text: 'Panels',
             url: 'panel/panels.html',
             icon: 'panel.gif',
-            desc: 'A basic collapsible panel example.'
+            desc: 'A basic collapsible panel example.',
+            isUpdated: true
         },{
             text: 'Resizable',
             url: 'resizable/basic.html',
@@ -405,7 +412,7 @@ Ext.EventManager.on(window, 'load', function(){
             url: 'debug/debug-console.html',
             icon: 'debug-console.gif',
             desc: '',
-            isNew: true
+            isUpdated: true
         },{
             text: 'Localization (static)',
             url: 'locale/dutch-form.html',
