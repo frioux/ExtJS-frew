@@ -8,3 +8,15 @@
 	height: 60px;
 	width: 80px;
 }
+#images-view .thumb img {
+    height: auto;
+}
+.upload {
+    background-image: url(images/box_upload.png) !important;
+}
+.add {
+    background-image: url(images/folder_add.png) !important;
+}
+.album-node .x-tree-node-icon, .album-btn{
+    background-image:url( ../tree/album.gif ) !important;
+}

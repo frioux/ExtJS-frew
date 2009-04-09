@@ -1,15 +1,16 @@
 <?php
 class Tags {
     function load($data){
+        $db = new SQLiteDatabase('sql/imgorg.db');
         // use $query for type-ahead
-        $query = isset($data->query) ? $data->query : '';
-        $xaction = $data->xaction; // load
-        $json = array('tags' => array(
-            array('name' => 'family', 'quantity' => 10),
-            array('name' => 'friends', 'quantity' => 4),
-            array('name' => 'kids', 'quantity' => 5),
-        ));
-        return $json;
+        $query = $data->query;
+        
+        $qryStr = 'SELECT * FROM Tags';
+        if ($query) {
+            $qryStr .= ' where text like "'.$query.'%"';
+        }
+        $q = $db->query($qryStr);
+        return $q->fetchAll();
     }
 }
 ?>

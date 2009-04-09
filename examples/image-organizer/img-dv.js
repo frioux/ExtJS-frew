@@ -1,9 +1,9 @@
 Imgorg.ImageDv = Ext.extend(Ext.DataView,{
     tpl: new Ext.XTemplate(
         '<tpl for=".">',
-        '<div class="thumb-wrap" id="{name}">',
-        '<div class="thumb"><img src="../view/{url}" class="thumb-img"></div>',
-        '<span class="x-editable">{name:ellipsis(15)}</span></div>',
+        '<div class="thumb-wrap" id="{id}">',
+        '<div class="thumb"><img src="{url}" class="thumb-img"></div>',
+        '<span class="x-editable">{filename:ellipsis(15)}</span></div>',
         '</tpl>'
     ),
     
@@ -17,16 +17,19 @@ Imgorg.ImageDv = Ext.extend(Ext.DataView,{
             plugins: [new Ext.DataView.DragSelector({
                 dragSafe: true
             }), new Ext.DataView.LabelEditor({
-                dataIndex: 'name'
+                allowBlank: false,
+                alignment: 'c-c',
+                dataIndex: 'filename'
             })],
-            store: new Ext.data.JsonStore({
-                url: '../view/get-images.php',
+            store: new Ext.data.DirectStore({
+                api: Images,
                 autoLoad: true,
-                root: 'images',
-                id: 'name',
-                fields: ['name', 'url', 'id']
+                root: '',
+                fields: ['filename', 'url', 'id', 'size']
             })
         });
+        
+        this.addEvents('viewitem');
         Imgorg.ImageDv.superclass.initComponent.call(this);
         this.on({// hacks to force the labeleditor to stop editing when we get a click elsewhere
             click: function() {
@@ -39,6 +42,7 @@ Imgorg.ImageDv = Ext.extend(Ext.DataView,{
             containercontextmenu: this.onContextMenu,
             scope: this
         });
+        this.store.on('update', this.syncRename, this);
     },
     
     afterRender: function() {
@@ -51,21 +55,60 @@ Imgorg.ImageDv = Ext.extend(Ext.DataView,{
         if(!this.contMenu) {
             this.contMenu = new Ext.menu.Menu({
                 items: [{
+                    text: 'View in Tab(s)',
+                    handler: function() {
+                        this.fireEvent('viewitem', this, node);
+                    },
+                    scope: this
+                },{
                     text: 'Add to Album',
-                    handler: this.addToAlbum,
+                    handler: this.selectAlbum,
                     scope: this
                 },{
                     text: 'Tag',
                     handler: this.tag,
                     scope: this
                 },{
-                    text: 'Copy',
-                    handler: this.copy,
+                    text: 'Remove',
+                    handler: this.removeImages,
                     scope: this
                 }]
             });
         }
+        this.currentNode = node;
         this.contMenu.showAt(e.getXY());
+    },
+    
+    selectAlbum: function() {
+        if (!this.albumWin) {
+            this.albumWin = new Imgorg.AlbumWin();
+        }
+        this.albumWin.selectedRecords = this.getSelectedRecords();
+        this.albumWin.show(this.currentNode);
+    },
+    
+    tag: function() {
+        if (!this.tagWin) {
+            this.tagWin = new Imgorg.TagWin();
+        }
+        this.tagWin.selectedRecords = this.getSelectedRecords();
+        this.tagWin.show(this.currentNode);
+    },
+    
+    syncRename: function(store, rec, op) {
+        if (op == 'edit') {
+            Images.rename({image: rec.data.id, name: rec.data.filename, url: rec.data.url});
+        }
+    },
+    
+    removeImages: function() {
+        var recs = this.getSelectedRecords();
+        var imageIds = [];
+        for (var i = 0;i < recs.length;i++) {
+            imageIds.push(recs[i].data.id);
+            this.store.remove(recs[i]);
+        }
+        Images.remove({images: imageIds});
     }
 });
 Ext.reg('img-dv', Imgorg.ImageDv);
