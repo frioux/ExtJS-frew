@@ -21,6 +21,7 @@
 //        )');
 
         // Tags
+//        $db->queryExec('DROP Table Tags');
 //        $db->queryExec('CREATE TABLE Tags (
 //            id INTEGER PRIMARY KEY,
 //            text text

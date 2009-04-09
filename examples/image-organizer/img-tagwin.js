@@ -48,8 +48,10 @@ Imgorg.TagWin = Ext.extend(Ext.Window, {
                 }
                 var fld = af.findField('tag');
                 var tag = fld.getRawValue();
-                debugger;
-                
+                var idx = fld.store.find('text', tag);
+                if (idx != -1) {
+                    tag = idx;
+                }
                 Images.tagImage({
                     images: imageIds,
                     tag: tag

@@ -37,6 +37,12 @@ class Images {
         $images = $data->images;
         $tag = $data->tag;
         $db = new SQLiteDatabase("sql/imgorg.db");
+        // if it is a known tag the id is sent, otherwise a new string is, so we need to insert
+        if (!is_numeric($tag)) {
+            $db->queryExec('INSERT INTO Tags (text) VALUES ("'.$tag.'")');
+            $q = $db->query('SELECT id FROM Tags WHERE text = "'.$tag.'"');
+            $tag = $q->fetchObject()->id;
+        }
         for ($i = 0;$i < sizeof($images);$i++) {
             $db->queryExec('INSERT INTO Images_Tags (image_id, tag_id) VALUES ("'.$images[$i].'","'.$tag.'")');
         }
