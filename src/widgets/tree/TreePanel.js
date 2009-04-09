@@ -392,9 +392,7 @@ new Ext.tree.TreePanel({
      * @return {Node}
      */
     setRootNode : function(node){
-        if (this.root) {
-            this.root.destroy();
-        }        
+        Ext.destroy(this.root);     
         if(!node.render){ // attributes passed
             node = this.loader.createNode(node);
         }
