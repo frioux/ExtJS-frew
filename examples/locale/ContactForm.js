@@ -20,7 +20,7 @@ Ext.app.ContactForm = Ext.extend(Ext.FormPanel, {
             frame:true,
             title: this.formTitle,
             bodyStyle:'padding:5px 5px 0',
-            width: 350,
+            width: 370,
             defaults: {width: 220},
             defaultType: 'textfield',
     
