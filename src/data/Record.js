@@ -182,6 +182,25 @@ Ext.data.Record.prototype = {
         }
     },
 
+	/**
+	 * Used for un-phantoming a record after a successful database insert.  Sets the records pk along with any other new data.
+	 * Will perform a commit as well, un-marking dirty-fields.  Store's "update" event will be suppressed.
+	 * @param {Object} data The new record data to apply.  Must include the primary-key as reported by database.
+	 * @param {String} idProperty The key in the data-object that represents the id-property of this record
+	 */
+	realize : function(data, id) {
+		this.editing = true;	// <-- prevent unwanted afterEdit calls by record.
+		this.phantom = false;	// <-- The purpose of this method is to "un-phantom" a record
+		this.id = id;
+		this.fields.each(function(f) {	// <-- update record fields with data from server if was sent
+            if (data[f.name] || data[f.mapping]) {
+                this.set(f.name, (f.mapping) ? data[f.mapping] : data[f.name]);
+            }
+        },this);
+		this.commit();
+		this.editing = false;
+	},
+
     // private
     afterEdit: function(){
         if(this.store){
