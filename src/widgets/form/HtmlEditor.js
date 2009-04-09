@@ -332,7 +332,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                 tb.add(
                     '-',
                     btn('sourceedit', true, function(btn){
-                        this.toggleSourceEdit(btn.pressed);
+                        this.toggleSourceEdit(!this.sourceEditMode);
                     })
                 );
             }
@@ -380,11 +380,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
 
         this.createToolbar(this);
 
-        this.tb.items.each(function(item){
-           if(item.itemId != 'sourceedit'){
-                item.disable();
-            }
-        });
+        this.disableItems(true);
         // is this needed?
         // this.tb.doLayout();
 
@@ -451,6 +447,17 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             }
         }
     },
+    
+    disableItems: function(disabled){
+        if(this.fontSelect){
+            this.fontSelect.dom.disabled = disabled;
+        }
+        this.tb.items.each(function(item){
+            if(item.itemId != 'sourceedit'){
+                item.setDisabled(disabled);
+            }
+        });
+    },
 
     // private
     onResize : function(w, h){
@@ -485,14 +492,12 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         var btn = this.tb.items.get('sourceedit');
         if(btn.pressed !== this.sourceEditMode){
             btn.toggle(this.sourceEditMode);
-            return;
+            if(!btn.xtbHidden){
+                return;
+            }
         }
         if(this.sourceEditMode){
-            this.tb.items.each(function(item){
-                if(item.itemId != 'sourceedit'){
-                    item.disable();
-                }
-            });
+            this.disableItems(true);
             this.syncValue();
             this.iframe.className = 'x-hidden';
             this.el.removeClass('x-hidden');
@@ -500,9 +505,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             this.el.focus();
         }else{
             if(this.initialized){
-                this.tb.items.each(function(item){
-                    item.enable();
-                });
+                this.disableItems(false);
             }
             this.pushValue();
             this.iframe.className = '';
@@ -706,9 +709,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
     // private
     onFirstFocus : function(){
         this.activated = true;
-        this.tb.items.each(function(item){
-           item.enable();
-        });
+        this.disableItems(false);
         if(Ext.isGecko){ // prevent silly gecko errors
             this.win.focus();
             var s = this.win.getSelection();
