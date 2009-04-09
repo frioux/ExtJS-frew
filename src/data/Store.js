@@ -809,16 +809,7 @@ sortInfo: {
     onCreateRecord : function(record, data) {
         // TODO: raise exception if server didn't send a database pk back?
         if (record.phantom && data[this.reader.meta.idProperty]) {
-            record.editing = true;	// <-- prevent unwanted afterEdit calls by record.
-            record.phantom = false;
-            record.id = data[this.reader.meta.idProperty];	// <-- Server MUST send id at least!
-            record.fields.each(function(f) {	// <-- update record fields with data from server if was sent
-                if (data[f.name] || data[f.mapping]) {
-                    record.set(f.name, (f.mapping) ? data[f.mapping] : data[f.name]);
-                }
-            });
-            record.commit();
-            record.editing = false;
+			record.realize(data, data[this.reader.meta.idProperty]);
         }
     },
 
