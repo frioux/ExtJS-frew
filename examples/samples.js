@@ -12,7 +12,7 @@ SamplePanel = Ext.extend(Ext.DataView, {
             '<dl>',
                 '<tpl for="samples">',
                     '<dd ext:url="{url}"><img src="shared/screens/{icon}"/>',
-                        '<div><h4>{text}</h4><p>{desc}</p></div>',
+                        '<div><h4>{text}<tpl if="values.isNew"><span class="new-sample"> * (New)</span></tpl></h4><p>{desc}</p></div>',
                     '</dd>',
                 '</tpl>',
             '<div style="clear:left"></div></dl></div>',
@@ -82,7 +82,8 @@ Ext.EventManager.on(window, 'load', function(){
             text: 'Row Editor Grid',
             url: 'grid/row-editor.html',
             icon: 'grid-row-editor.gif',
-            desc: 'An editable grid which allows the user to make modifications to an entire record at once. Also demonstrates the Ext.chart package. '
+            desc: 'An editable grid which allows the user to make modifications to an entire record at once. Also demonstrates the Ext.chart package. ',
+            isNew: true
         },{
             text: 'XML Grid',
             url: 'grid/xml-grid.html',
@@ -137,7 +138,8 @@ Ext.EventManager.on(window, 'load', function(){
             text: 'Buffered GridView',
             url: 'grid/buffer.html',
             icon: 'grid-buffer.gif',
-            desc: 'GridView optimized for performance by rendering only visible rows.'
+            desc: 'GridView optimized for performance by rendering only visible rows.',
+            isNew: true
         }]
     },{
         title: 'Tabs',
@@ -283,12 +285,14 @@ Ext.EventManager.on(window, 'load', function(){
             text: 'Toolbar Overflow',
             url: 'toolbar/overflow.html',
             icon: 'toolbar-overflow.gif',
-            desc: 'Dynamic overflow of toolbar buttons into an Ext.menu.'
+            desc: 'Dynamic overflow of toolbar buttons into an Ext.menu.',
+            isNew: true
         },{
             text: 'Toolbar Button Groups',
             url: 'toolbar/toolbars.html',
             icon: 'toolbar-button-groups.gif',
-            desc: 'Group buttons together in the toolbar.'
+            desc: 'Group buttons together in the toolbar.',
+            isNew: true
         },{
             text: 'Ext Actions',
             url: 'menu/actions.html',
@@ -316,7 +320,8 @@ Ext.EventManager.on(window, 'load', function(){
             text: 'ListView',
             url: 'view/list-view.html',
             icon: 'list-view.gif',
-            desc: 'A high performance tabular DataView to be used as a lightweight grid.'
+            desc: 'A high performance tabular DataView to be used as a lightweight grid.',
+            isNew: true
         }]
     },{
 		title   : 'Drag and Drop',
@@ -387,17 +392,20 @@ Ext.EventManager.on(window, 'load', function(){
             text: 'Spotlight',
             url: 'core/spotlight.html',
             icon: 'spotlight.gif',
-            desc: 'A utility for masking everything except a single element on the page to visually highlight it.'
+            desc: 'A utility for masking everything except a single element on the page to visually highlight it.',
+            isNew: true
         },{
             text: 'Buttons',
             url: 'button/buttons.html',
             icon: 'buttons.gif',
-            desc: ''
+            desc: '',
+            isNew: true
         },{
             text: 'Debugging Console',
             url: 'debug/debug-console.html',
             icon: 'debug-console.gif',
-            desc: ''
+            desc: '',
+            isNew: true
         },{
             text: 'Localization (static)',
             url: 'locale/dutch-form.html',
@@ -412,7 +420,8 @@ Ext.EventManager.on(window, 'load', function(){
             text: 'Group Tabs',
             url: 'grouptabs/',
             icon: 'group-tabs.gif',
-            desc: 'A custom example on how to setup tab grouping using vertical tabs.'
+            desc: 'A custom example on how to setup tab grouping using vertical tabs.',
+            isNew: true
         }]
     }];
 
