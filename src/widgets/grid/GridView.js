@@ -1177,8 +1177,14 @@ viewConfig: {
         if(typeof record == 'number'){
             index = record;
             record = ds.getAt(index);
+            if(!record){
+                return;
+            }
         }else{
             index = ds.indexOf(record);
+            if(index < 0){
+                return;
+            }
         }
         this.insertRows(ds, index, index, true);
         this.getRow(index).rowIndex = index;
