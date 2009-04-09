@@ -429,6 +429,11 @@ textarea {
     display:block; /* preserve margins in IE */
 }
 
+/* make top of checkbox/tools visible in webkit */
+.ext-webkit .x-fieldset-header {
+    padding-top: 1px;
+}        
+
 .ext-ie .x-fieldset legend {
     margin-bottom:10px;
 }
@@ -528,3 +533,5 @@ fieldset.x-panel-collapsed .x-fieldset-bwrap {
 .x-fieldset-body {
     overflow:hidden;
 }
+
+
