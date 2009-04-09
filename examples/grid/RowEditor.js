@@ -51,9 +51,20 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
         this.initFields();
         this.verifyLayout();
     },
+    
+    isDirty: function(){
+        var dirty;
+        this.items.each(function(f){
+            if(String(this.values[f.id]) != String(f.getValue())){
+                dirty = true;
+                return false;
+            }
+        }, this);
+        return dirty;
+    },
 
     startEditing: function(rowIndex, doFocus){
-        if(this.editing){
+        if(this.editing && this.isDirty()){
             Ext.Msg.alert('Error', 'You need to commit or cancel your changes');
             return;
         }
@@ -67,6 +78,7 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
             var record = g.store.getAt(rowIndex);
             this.record = record;
             this.rowIndex = rowIndex;
+            this.values = {};
             if(!this.rendered){
                 this.render(view.getEditorParent());
             }
@@ -75,9 +87,12 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
             if(!this.initialized){
                 this.initFields();
             }
-            var cm = g.colModel, fields = this.items.items;
+            var cm = g.colModel, fields = this.items.items, f, val;
             for(var i = 0, len = cm.getColumnCount(); i < len; i++){
-                fields[i].setValue(this.preEditValue(record, cm.getDataIndex(i)));
+                val = this.preEditValue(record, cm.getDataIndex(i));
+                f = fields[i];
+                f.setValue(val);
+                this.values[f.id] = val || '';
             }
             this.verifyLayout(true);
             if(!this.isVisible()){

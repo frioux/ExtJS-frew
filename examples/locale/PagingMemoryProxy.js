@@ -23,7 +23,7 @@ Ext.data.PagingMemoryProxy = function(data) {
 };
 
 Ext.extend(Ext.data.PagingMemoryProxy, Ext.data.MemoryProxy, {
-	load : function(params, reader, callback, scope, arg) {
+	doRequest : function(action, rs, params, reader, writer, cb, scope, arg) {
 		params = params || {};
 		var result;
 		try {
@@ -68,12 +68,11 @@ Ext.extend(Ext.data.PagingMemoryProxy, Ext.data.MemoryProxy, {
 				return v;
 		    });
 		}
-
 		// paging (use undefined cause start can also be 0 (thus false))
 		if (params.start!==undefined && params.limit!==undefined) {
 			result.records = result.records.slice(params.start, params.start+params.limit);
 		}
 		
-		callback.call(scope, result, arg, true);
+		cb.call(scope, result, arg, true);
 	}
 });
