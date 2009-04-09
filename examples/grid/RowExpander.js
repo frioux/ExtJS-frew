@@ -1,27 +1,4 @@
-Ext.grid.RowExpander = function(config){
-    Ext.apply(this, config);
-
-    this.addEvents({
-        beforeexpand : true,
-        expand: true,
-        beforecollapse: true,
-        collapse: true
-    });
-
-    Ext.grid.RowExpander.superclass.constructor.call(this);
-
-    if(this.tpl){
-        if(typeof this.tpl == 'string'){
-            this.tpl = new Ext.Template(this.tpl);
-        }
-        this.tpl.compile();
-    }
-
-    this.state = {};
-    this.bodyContent = {};
-};
-
-Ext.extend(Ext.grid.RowExpander, Ext.util.Observable, {
+Ext.grid.RowExpander = Ext.extend(Ext.util.Observable, {
     header: "",
     width: 20,
     sortable: false,
@@ -31,7 +8,33 @@ Ext.extend(Ext.grid.RowExpander, Ext.util.Observable, {
     id: 'expander',
     lazyRender : true,
     enableCaching: true,
+    
+    expandOnEnter: true,
+    expandOnDblClick: true,
+    
+    constructor: function(config){
+        Ext.apply(this, config);
 
+        this.addEvents({
+            beforeexpand : true,
+            expand: true,
+            beforecollapse: true,
+            collapse: true
+        });
+
+        Ext.grid.RowExpander.superclass.constructor.call(this);
+
+        if(this.tpl){
+            if(typeof this.tpl == 'string'){
+                this.tpl = new Ext.Template(this.tpl);
+            }
+            this.tpl.compile();
+        }
+
+        this.state = {};
+        this.bodyContent = {};
+    },
+    
     getRowClass : function(record, rowIndex, p, ds){
         p.cols = p.cols-1;
         var content = this.bodyContent[record.id];
@@ -52,9 +55,37 @@ Ext.extend(Ext.grid.RowExpander, Ext.util.Observable, {
 
         view.enableRowBody = true;
 
-        grid.on('render', function(){
-            view.mainBody.on('mousedown', this.onMouseDown, this);
-        }, this);
+
+        grid.on('render', this.onRender, this);
+    },
+    
+    onRender: function() {
+        var grid = this.grid;
+        var mainBody = grid.getView().mainBody;
+        mainBody.on('mousedown', this.onMouseDown, this, {delegate: '.x-grid3-row-expander'});
+        if (this.expandOnEnter) {            
+            this.keyNav = new Ext.KeyNav(this.grid.getGridEl(), {
+                "enter" : this.onEnter,
+                scope: this        
+            });    
+        }
+        if (this.expandOnDblClick) {
+            grid.on('rowdblclick', this.onRowDblClick, this);
+        }
+    },
+    
+    onRowDblClick: function(grid, rowIdx, e) {
+        this.toggleRow(rowIdx);
+    },
+    
+    onEnter: function(e) {
+        var g = this.grid;
+        var sm = g.getSelectionModel();
+        var sels = sm.getSelections();
+        for (var i = 0, len = sels.length; i < len; i++) {
+            var rowIdx = g.getStore().indexOf(sels[i]);
+            this.toggleRow(rowIdx);
+        }
     },
 
     getBodyContent : function(record, index){
@@ -70,11 +101,9 @@ Ext.extend(Ext.grid.RowExpander, Ext.util.Observable, {
     },
 
     onMouseDown : function(e, t){
-        if(t.className == 'x-grid3-row-expander'){
-            e.stopEvent();
-            var row = e.getTarget('.x-grid3-row');
-            this.toggleRow(row);
-        }
+        e.stopEvent();
+        var row = e.getTarget('.x-grid3-row');
+        this.toggleRow(row);
     },
 
     renderer : function(v, p, record){
