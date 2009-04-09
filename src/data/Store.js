@@ -666,17 +666,18 @@ sortInfo: {
      * @private
      */
     destroyRecord : function(store, record, index) {
-		// since the record has already been removed from the store but the server request has not yet been executed,
-		// must keep track of the last known index this record existed.  If a server error occurs, the record can be
-		// put back into the store.  @see Store#createCallback where the record is returned when response status === false
-		record.lastIndex = index;
-
         if (this.modified.indexOf(record) != -1) {	// <-- handled already if @cfg pruneModifiedRecords == true
             this.modified.remove(record);
         }
         if (record.phantom === true) {
             return;
         }
+
+		// since the record has already been removed from the store but the server request has not yet been executed,
+		// must keep track of the last known index this record existed.  If a server error occurs, the record can be
+		// put back into the store.  @see Store#createCallback where the record is returned when response status === false
+		record.lastIndex = index;
+
         if (!this.batchSave) {
             this.execute('destroy', record);
         }
@@ -769,7 +770,7 @@ sortInfo: {
     // private callback-handler for remote CRUD actions
 	// TODO:  refactor.  place destroy fail switch into its own method perhaps?  Maybe remove the if (success === true) check
 	// and let each onAction method check for success?  Notice that both the destroy-fail case and onDestroyRecords each
-	// set this.destroyed = [].
+	// set this.removed = [].
     createCallback : function(action, rs) {
         return (action == 'load') ? this.loadRecords : function(data, response, success) {
             if (success === true) {
@@ -796,7 +797,8 @@ sortInfo: {
 						for (var i=0,len=rs.length;i<len;i++) {
 							this.insert(rs[i].lastIndex, rs[i]);
 						}
-						this.destroyed = [];
+						this.removed = [];
+
 						break;
 				}
 			}
