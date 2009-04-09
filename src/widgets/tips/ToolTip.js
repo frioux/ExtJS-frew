@@ -104,7 +104,6 @@ myGrid.on('render', function(grid) {
         this.anchorEl = ct.createChild({
             cls: 'x-tip-anchor ' + this.anchorCls
         });
-        this.anchorEl.setVisibilityMode(Ext.Element.DISPLAY);
     },
     
     // private
