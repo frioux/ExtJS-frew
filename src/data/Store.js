@@ -795,7 +795,7 @@ sortInfo: {
 							rs = [rs];
 						}
 						for (var i=0,len=rs.length;i<len;i++) {
-							this.insert(rs[i].lastIndex, rs[i]);
+							this.insert(rs[i].lastIndex, rs[i]);	// <-- lastIndex set in Store#destroyRecord
 						}
 						this.removed = [];
 
