@@ -189,6 +189,10 @@ Ext.data.Record.prototype = {
 	 * @param {String} idProperty The key in the data-object that represents the id-property of this record
 	 */
 	realize : function(data, id) {
+		if (!id) {
+			// TODO:  Make better exception message
+			throw new Error("Second paramater to Record#realize must be provided");
+		}
 		this.editing = true;	// <-- prevent unwanted afterEdit calls by record.
 		this.phantom = false;	// <-- The purpose of this method is to "un-phantom" a record
 		this.id = id;
