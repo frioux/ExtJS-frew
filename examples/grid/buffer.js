@@ -33,7 +33,7 @@ Ext.onReady(function(){
 		autoExpandColumn: 'topic',
         store: store,
 
-        columns: [new Ext.grid.RowNumberer(),{
+        columns: [new Ext.grid.RowNumberer({width: 30}),{
             id: 'topic',
             header: "Topic",
             dataIndex: 'title',
