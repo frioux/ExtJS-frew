@@ -1,14 +1,19 @@
 /**
  * @class Ext.grid.ColumnModel
  * @extends Ext.util.Observable
- * <p>Once data has been read into the client side cache (<b>{@link Ext.data.Store Store}</b>), we
- * decide how and what parts of that data will be displayed in the GridPanel using the ColumnModel.
- * The data flow typically follows this form:</p>
-<pre><code>
+ * <p>After the data has been read into the client side cache (<b>{@link Ext.data.Store Store}</b>),
+ * the ColumnModel is used to configure how and what parts of that data will be displayed in the
+ * vertical slices (columns) of the grid. The Ext.grid.ColumnModel Class is the default implementation
+ * of a ColumnModel used by implentations of {@link Ext.grid.GridPanel GridPanel}.</p> 
+ * <p>Data is mapped into the store's records and then indexed into the ColumnModel using the
+ * <tt>{@link Ext.grid.Column#dataIndex dataIndex}</tt>:</p>
+ * <pre><code>
 {data source} == mapping ==> {data store} == <b><tt>{@link Ext.grid.Column#dataIndex dataIndex}</tt></b> ==> {ColumnModel}
- </code></pre>
- * The Ext.grid.ColumnModel Class is the default implementation of a ColumnModel used by
- * implentations of {@link Ext.grid.GridPanel GridPanel}. There are two ways to initialize this class.</p>
+ * </code></pre> 
+ * <p>Each {@link Ext.grid.Column Column} in the grid's ColumnModel is configured with a
+ * <tt>{@link Ext.grid.Column#dataIndex dataIndex}</tt> to specify how the data within
+ * each record in the store is indexed into the ColumnModel.</p>
+ * <p>There are two ways to initialize the ColumnModel class:</p>
  * <p><u>Initialization Method 1: an Array</u></p>
 <pre><code>
  var colModel = new Ext.grid.ColumnModel([
@@ -19,11 +24,12 @@
     { header: "Employees", width: 100, sortable: true, resizable: false}
  ]);
  </code></pre>
- * <p>An Array of {@link Ext.grid.Column} column configuration objects defines the initial layout / display
- * of the columns in the Grid. The order of each {@link Ext.grid.Column} column configuration object within
- * the specified Array defines the initial order of the column display.  A Column's display may be initially
- * hidden using the <tt>{@link Ext.grid.Column#hidden hidden}</tt></b> config property (and then shown using
- * the column header menu).  Field's that are not included in the ColumnModel will not be displayable at all.</p>
+ * <p>The ColumnModel may be initialized with an Array of {@link Ext.grid.Column} column configuration
+ * objects to define the initial layout / display of the columns in the Grid. The order of each
+ * {@link Ext.grid.Column} column configuration object within the specified Array defines the initial
+ * order of the column display.  A Column's display may be initially hidden using the
+ * <tt>{@link Ext.grid.Column#hidden hidden}</tt></b> config property (and then shown using the column
+ * header menu).  Field's that are not included in the ColumnModel will not be displayable at all.</p>
  * <p>How each column in the grid correlates (maps) to the {@link Ext.data.Record} field in the
  * {@link Ext.data.Store Store} the column draws its data from is configured through the
  * <b><tt>{@link Ext.grid.Column#dataIndex dataIndex}</tt></b>.  If the

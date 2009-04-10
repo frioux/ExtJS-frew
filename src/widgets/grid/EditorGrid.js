@@ -1,16 +1,17 @@
 /**
  * @class Ext.grid.EditorGridPanel
  * @extends Ext.grid.GridPanel
- * <p>This class extends the GridPanel to provide cell editing on selected columns.</p>
- * The editable columns are specified by providing an {@link Ext.grid.ColumnModel#editor editor}
- * in the column configuration.</p>
+ * <p>This class extends the {@link Ext.grid.GridPanel GridPanel Class} to provide cell editing
+ * on selected {@link Ext.grid.Column columns}. The editable columns are specified by providing
+ * an {@link Ext.grid.ColumnModel#editor editor} in the {@link Ext.grid.Column column configuration}.</p>
  * <p>Editability of columns may be controlled programatically by inserting an implementation
- * of {@link Ext.grid.ColumnModel#isCellEditable isCellEditable} into your ColumnModel.</p>
+ * of {@link Ext.grid.ColumnModel#isCellEditable isCellEditable} into the
+ * {@link Ext.grid.ColumnModel ColumnModel}.</p>
  * <p>Editing is performed on the value of the <i>field</i> specified by the column's
- * {@link Ext.grid.ColumnModel#dataIndex dataIndex} in the backing {@link Ext.data.Store Store}
+ * <tt>{@link Ext.grid.ColumnModel#dataIndex dataIndex}</tt> in the backing {@link Ext.data.Store Store}
  * (so if you are using a {@link Ext.grid.ColumnModel#setRenderer renderer} in order to display
  * transformed data, this must be accounted for).</p>
- * <p>If a value-to-description mapping is used to render a column, then a {Ext.form.Field#ComboBox ComboBox}
+ * <p>If a value-to-description mapping is used to render a column, then a {@link Ext.form.Field#ComboBox ComboBox}
  * which uses the same {@link Ext.form.Field#valueField value}-to-{@link Ext.form.Field#displayFieldField description}
  * mapping would be an appropriate editor.</p>
  * If there is a more complex mismatch between the visible data in the grid, and the editable data in
