@@ -507,7 +507,7 @@ a.x-grid3-hd-btn:hover {
     display:none;
 }
 
-.ext-ie .x-grid3 .x-editor .x-form-text {
+.ext-ie6 .x-grid3 .x-editor .x-form-text, .ext-ie7 .x-grid3 .x-editor .x-form-text {
     position:relative;
     top:-1px;
 }

@@ -287,7 +287,7 @@ textarea {
     vertical-align:middle;
 }
 
-.ext-ie .x-small-editor .x-form-text {
+.ext-ie6 .x-small-editor .x-form-text, .ext-ie7 .x-small-editor .x-form-text {
     margin-top:-1px !important; /* ie bogus margin bug */
     margin-bottom:-1px !important;
     height:20px !important; /* ie quirks */
@@ -298,7 +298,7 @@ textarea {
     height:16px !important;
 }
 
-.ext-ie .x-small-editor .x-form-text {
+.ext-ie6 .x-small-editor .x-form-text, .ext-ie7 .x-small-editor .x-form-text {
     height:20px;
     line-height:16px;
 }
