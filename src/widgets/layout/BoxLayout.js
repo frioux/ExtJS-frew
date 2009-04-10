@@ -278,7 +278,9 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             c = cs[i];
             cm = c.margins;
             totalFlex += c.flex || 0;
-            totalWidth += c.getWidth() + cm.left + cm.right;
+            // IE Calculates width as the full viewport width on initial render,
+            // if width property hasnt been set use 0
+            totalWidth += c.width ? c.getWidth() : 0 + cm.left + cm.right;
             maxHeight = Math.max(maxHeight, c.getHeight() + cm.top + cm.bottom);
         }
 
@@ -311,7 +313,7 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         for(i = 0; i < len; i++){
             c = cs[i];
             cm = c.margins;
-            cw = c.getWidth();
+            cw = c.width ? c.getWidth() : 0;
             ch = c.getHeight();
 
             l += cm.left;
