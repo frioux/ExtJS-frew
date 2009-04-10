@@ -67,7 +67,7 @@
         var ct = this.container, w = ct.width;
         if(w){
             ct.setWidth(w);
-        }else if(Ext.isIE && !Ext.isIE8){
+        }else if(Ext.isIE){
             ct.setWidth(Ext.isIE7 && Ext.isStrict ? 'auto' : ct.minWidth);
             var el = ct.getEl(), t = el.dom.offsetWidth; // force recalc
             ct.setWidth(ct.getLayoutTarget().getWidth() + el.getFrameWidth('lr'));
