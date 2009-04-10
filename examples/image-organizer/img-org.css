@@ -1,4 +1,3 @@
-
 .x-dd-drag-proxy .multi-proxy .thumb-img{
     height: auto;
 	width: 40px;
@@ -9,7 +8,7 @@
 	width: 80px;
 }
 #images-view .thumb img {
-    height: auto;
+    width: auto;
 }
 .upload {
     background-image: url(images/box_upload.png) !important;
@@ -19,4 +18,23 @@
 }
 .album-node .x-tree-node-icon, .album-btn{
     background-image:url( ../tree/album.gif ) !important;
+}
+div.upload-file {
+    border-bottom: 1px solid #99BBE8;
+    padding: 10px;
+}
+div.upload-file-selected {
+    background:#EFF5FB url(../view/images/selected.gif) repeat-x;
+}
+div.upload-name {
+    width: 300px;
+    float: left;
+}
+div.upload-pb {
+    width: 300px;
+    float: left;
+}
+div.upload-info {
+    color: gray;
+    font-size: smaller;
 }

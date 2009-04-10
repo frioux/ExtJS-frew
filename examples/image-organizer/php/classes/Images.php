@@ -18,7 +18,7 @@ class Images {
         $name = $files["Filedata"]["name"];
         $db = new SQLiteDatabase("sql/imgorg.db");
         $db->queryExec('INSERT INTO Images (filename, url) VALUES("'.$name.'","images/'.$name.'")');
-        move_uploaded_file($files["Filedata"]["tmp_name"],"../../images/".$name);
+        move_uploaded_file($files["Filedata"]["tmp_name"],"../images/".$name);
         
         return array(data => $files["Filedata"]);
     }

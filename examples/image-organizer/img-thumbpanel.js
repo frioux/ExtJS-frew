@@ -61,7 +61,7 @@ Imgorg.ImageThumbPanel = Ext.extend(Ext.Panel, {
     },
     
     onChange: function(slider, e) {
-        Ext.util.CSS.updateRule('#images-view .thumb img','width',this.minWidth+slider.getValue()*4);
+        Ext.util.CSS.updateRule('#images-view .thumb img','height',this.minWidth+slider.getValue()*3);
     },
     
     tagFilter: function(rec) {
@@ -88,6 +88,10 @@ Imgorg.ImageThumbPanel = Ext.extend(Ext.Panel, {
             }
         });
         this.setTitle('Album: '+album.text);
+    },
+    
+    reload: function() {
+        this.view.store.reload();
     }
 });
 Ext.reg('img-thumbpanel', Imgorg.ImageThumbPanel);

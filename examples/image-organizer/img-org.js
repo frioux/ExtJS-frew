@@ -12,17 +12,29 @@ Imgorg.App = function() {
         var settings = {
             flash_url: "SWFUpload/Flash/swfupload.swf",
             upload_url: "php/router.php",
-            file_size_limit: "20 MB",
+            file_size_limit: "100 MB",
             file_types: "*.*",
             file_types_description: "Image Files",
-            file_upload_limit: 20,
-            file_queue_limit: 20, 
+            file_upload_limit: 100,
+            file_queue_limit: 100, 
             debug: true,
             button_placeholder_id: "btnUploadHolder",
             button_cursor: SWFUpload.CURSOR.HAND,
             button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
-            file_queued_handler: function() {
-                swfu.startUpload();
+            file_queued_handler: function(file) {
+                Ext.ux.SwfuMgr.fireEvent('filequeued', this, file);
+            },
+            upload_start_handler: function(file) {
+                Ext.ux.SwfuMgr.fireEvent('uploadstart', this, file);
+            },
+            upload_progress_handler: function(file, complete, total) {
+                Ext.ux.SwfuMgr.fireEvent('uploadprogress', this, file, complete, total);
+            },
+            upload_error_handler: function(file, error, message) {
+                Ext.ux.SwfuMgr.fireEvent('uploaderror', this, file, error, message);
+            },
+            upload_success_handler: function(file, data, response) {
+                Ext.ux.SwfuMgr.fireEvent('uploadsuccess', this, file, data);
             },
             minimum_flash_version: "9.0.28",
             post_params: {
@@ -33,12 +45,14 @@ Imgorg.App = function() {
         };
         swfu = new SWFUpload(settings);
     }
-    var view, thumbPanel;
+    var view, thumbPanel, uploadPanel;
     return {
         debugSWF: true,
         init: function() {
             Ext.QuickTips.init();
             Ext.Direct.addProvider(Imgorg.REMOTING_API);
+            
+            Ext.ux.SwfuMgr.on('filequeued', this.onFileQueued, this);
             
             new Ext.Viewport({
                 layout: 'border',
@@ -105,6 +119,10 @@ Imgorg.App = function() {
                         },
                         scope: this
                     }
+                },
+                listeners: {
+                    activate: this.onTpActivate,
+                    scope: this
                 }
             }];
             
@@ -122,6 +140,12 @@ Imgorg.App = function() {
             return tabs;
         },
         
+        onTpActivate: function() {
+            if (thumbPanel) {
+                thumbPanel.reload();
+            }
+        },
+        
         openImage: function(rec) {
             return Ext.getCmp('img-tabpanel').add({
                 xtype: 'img-panel',
@@ -132,6 +156,25 @@ Imgorg.App = function() {
         
         onAlbumClick: function(node, e) {
             thumbPanel.albumFilter(node.attributes);
+            thumbPanel.show();
+        },
+        
+        onFileQueued: function(swfu, file) {
+            if (!uploadPanel) {
+                uploadPanel = Ext.getCmp('img-tabpanel').add({
+                    title: 'Upload Queue',
+                    xtype: 'img-uploadqueue',
+                    swfu: swfu
+                });
+                uploadPanel.show();
+                uploadPanel.addFile(swfu, file);
+            } else {
+                uploadPanel.show();
+            }
+        },
+        
+        getSwf: function() {
+            return swfu;
         }
     }
 }();

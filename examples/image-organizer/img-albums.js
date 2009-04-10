@@ -120,6 +120,7 @@ Ext.ux.tree.DirectTreeLoader = Ext.extend(Ext.tree.TreeLoader,{
             }
         }
     },
+    
     processResponse : function(res, trans, node, callback){
         try {
             node.beginUpdate();
