@@ -41,7 +41,7 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
             // the innerCt prevents wrapping and shuffling while
             // the container is resizing
             this.innerCt = target.createChild({cls:this.innerCls});
-            this.padding = this.parseMargins(this.padding);
+            this.padding = this.parseMargins(this.padding); 
         }
         this.renderAll(ct, this.innerCt);
     },
@@ -57,7 +57,8 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
     },
 
     getTargetSize : function(target){
-        return Ext.isIE && target.dom != Ext.getBody().dom ? target.getStyleSize() : target.getViewSize();
+        return (Ext.isIE6 && Ext.isStrict && target.dom == document.body) ? target.getStyleSize() : target.getViewSize();
+        //return Ext.isIE && target.dom != Ext.getBody().dom ? target.getStyleSize() : target.getViewSize();
     }
 
     /**
@@ -117,13 +118,15 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         var cs = ct.items.items, len = cs.length, c, i, last = len-1, cm;
         var size = this.getTargetSize(target);
 
-        if(size.width < 1 && size.height < 1){ // display none?
-            return;
-        }
-
         var w = size.width - target.getPadding('lr') - this.scrollOffset,
             h = size.height - target.getPadding('tb'),
             l = this.padding.left, t = this.padding.top;
+
+        if ((Ext.isIE && !Ext.isStrict) && (w < 1 || h < 1)) {
+            return;
+        } else if (w < 1 && h < 1) {
+            return;
+        }
 
         var stretchWidth = w - (this.padding.left + this.padding.right);
 
@@ -259,13 +262,15 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         var cs = ct.items.items, len = cs.length, c, i, last = len-1, cm;
         var size = this.getTargetSize(target);
 
-        if(size.width < 1 && size.height < 1){ // display none?
-            return;
-        }
-
         var w = size.width - target.getPadding('lr') - this.scrollOffset,
             h = size.height - target.getPadding('tb'),
             l = this.padding.left, t = this.padding.top;
+
+        if ((Ext.isIE && !Ext.isStrict) && (w < 1 || h < 1)) {
+            return;
+        } else if (w < 1 && h < 1) {
+            return;
+        }
 
         var stretchHeight = h - (this.padding.top + this.padding.bottom);
 
@@ -278,9 +283,7 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             c = cs[i];
             cm = c.margins;
             totalFlex += c.flex || 0;
-            // IE Calculates width as the full viewport width on initial render,
-            // if width property hasnt been set use 0
-            totalWidth += c.width ? c.getWidth() : 0 + cm.left + cm.right;
+            totalWidth += c.getWidth() + cm.left + cm.right;
             maxHeight = Math.max(maxHeight, c.getHeight() + cm.top + cm.bottom);
         }
 
@@ -313,7 +316,7 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         for(i = 0; i < len; i++){
             c = cs[i];
             cm = c.margins;
-            cw = c.width ? c.getWidth() : 0;
+            cw = c.getWidth();
             ch = c.getHeight();
 
             l += cm.left;
