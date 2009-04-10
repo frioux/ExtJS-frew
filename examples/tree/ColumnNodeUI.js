@@ -9,6 +9,7 @@ Ext.tree.ColumnTree = Ext.extend(Ext.tree.TreePanel, {
 
         var cols = this.columns, c;
         var totalWidth = 0;
+        var scrollOffset = 19; // similar to Ext.grid.GridView default
 
         for(var i = 0, len = cols.length; i < len; i++){
              c = cols[i];
@@ -24,7 +25,7 @@ Ext.tree.ColumnTree = Ext.extend(Ext.tree.TreePanel, {
         }
         this.headers.createChild({cls:'x-clear'});
         // prevent floats from wrapping when clipped
-        this.headers.setWidth(totalWidth);
+        this.headers.setWidth(totalWidth+scrollOffset);
         this.innerCt.setWidth(totalWidth);
     }
 });
