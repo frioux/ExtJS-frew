@@ -68,7 +68,7 @@
         if(w){
             ct.setWidth(w);
         }else if(Ext.isIE){
-            ct.setWidth(Ext.isIE7 && Ext.isStrict ? 'auto' : ct.minWidth);
+            ct.setWidth(Ext.isStrict && (Ext.isIE7 || Ext.isIE8) ? 'auto' : ct.minWidth);
             var el = ct.getEl(), t = el.dom.offsetWidth; // force recalc
             ct.setWidth(ct.getLayoutTarget().getWidth() + el.getFrameWidth('lr'));
         }
@@ -233,7 +233,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
                 scope: this
             });
         }
-        Ext.EventManager.onWindowResize(this.hide, this);
+        //Ext.EventManager.onWindowResize(this.hide, this);
     },
 
     //private
