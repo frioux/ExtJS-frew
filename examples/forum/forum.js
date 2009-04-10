@@ -1,3 +1,37 @@
+Ext.override(Ext.data.ScriptTagProxy, {
+    createCallback : function(action, trans) {
+        var conn = this;
+        return (action == 'load')
+            ? function(res) {
+                conn.trans = false;
+                conn.destroyTrans(trans, true);
+                var result;
+                try {
+                    result = trans.reader.readRecords(res);
+                }catch(e){
+                    console.log(e);
+                    conn.fireEvent("loadexception", conn, res, trans.arg, e);
+                    trans.callback.call(trans.scope||window, null, trans.arg, false);
+                    return;
+                }
+                conn.fireEvent("load", conn, res, trans.arg);
+                trans.callback.call(trans.scope||window, result, trans.arg, true);
+            }
+            : function(res) {
+                var reader = trans.reader;
+                if(!res[reader.meta.successProperty] === true){
+                    conn.fireEvent(action+"exception", conn, trans, res);
+                    trans.callback.call(trans.scope, null, res, false);
+                    return;
+                }
+                // should we read from the Writer config instead of reader.meta.root?
+                conn.fireEvent(action, conn, res[reader.meta.root], res, trans.arg );
+                trans.callback.call(trans.scope||window, res[reader.meta.root], res, true);
+            }
+    }
+});
+
+
 var Forum = {};
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -67,7 +101,7 @@ Forum.SearchView = function(search){
     this.store = new Ext.data.Store({
         remoteSort: true,
         proxy: new Ext.data.ScriptTagProxy({
-            url: 'http://extjs.com/forum/topics-remote.php'
+            url: 'http://extjs.com/forum/topics-browse-remote.php'
         }),
         reader: new Ext.data.JsonReader({
             root: 'topics',
@@ -305,7 +339,7 @@ Ext.onReady(function(){
 
      var searchStore = new Ext.data.Store({
         proxy: new Ext.data.ScriptTagProxy({
-            url: 'http://extjs.com/forum/topics-remote.php'
+            url: 'http://extjs.com/forum/topics-browse-remote.php'
         }),
         reader: new Ext.data.JsonReader({
             root: 'topics',
@@ -373,11 +407,11 @@ Forum.TreeLoader = function(){
 Ext.extend(Forum.TreeLoader, Ext.tree.TreeLoader, {
     dataUrl: 'http://extjs.com/forum/forums-remote.php',
     requestData : function(node, cb){
-        this.proxy.load({}, {
+        this.proxy.request('load', null, {}, {
             readRecords : function(o){
                 return o;
             }
-        }, this.addNodes, this, {node:node, cb:cb});
+        }, null, this.addNodes, this, {node:node, cb:cb});
     },
 
     addNodes : function(o, arg){
