@@ -101,7 +101,7 @@ myGrid.on('render', function(grid) {
     onRender : function(ct, position){
         Ext.ToolTip.superclass.onRender.call(this, ct, position);
         this.anchorCls = 'x-tip-anchor-' + this.getAnchorPosition();
-        this.anchorEl = ct.createChild({
+        this.anchorEl = this.el.createChild({
             cls: 'x-tip-anchor ' + this.anchorCls
         });
     },
