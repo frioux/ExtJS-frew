@@ -100,13 +100,15 @@ Ext.Element.addMethods({
             }
             return this;
         }
+        
         var id = Ext.id(),
         	dom = this.dom;
 
         html += '<span id="' + id + '"></span>';
 
         Ext.lib.Event.onAvailable(id, function(){
-            var hd = DOC.getElementsByTagName("head")[0],
+            var DOC = document,
+                hd = DOC.getElementsByTagName("head")[0],
             	re = /(?:<script([^>]*)?>)((\n|\r|.)*?)(?:<\/script>)/ig,
             	srcRe = /\ssrc=([\'\"])(.*?)\1/i,
             	typeRe = /\stype=([\'\"])(.*?)\1/i,
@@ -116,7 +118,7 @@ Ext.Element.addMethods({
             	typeMatch,
             	el,
             	s;
-            	
+
             while(match = re.exec(html)){
                 attrs = match[1];
                 srcMatch = attrs ? attrs.match(srcRe) : false;
@@ -129,10 +131,10 @@ Ext.Element.addMethods({
                    }
                    hd.appendChild(s);
                 }else if(match[2] && match[2].length > 0){
-                    if(execScript) {
-                       execScript(match[2]);
+                    if(window.execScript) {
+                       window.execScript(match[2]);
                     } else {
-                       eval(match[2]);
+                       window.eval(match[2]);
                     }
                 }
             }
