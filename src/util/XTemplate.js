@@ -29,23 +29,34 @@ var data = {
         age:0
     }]
 };
-</code></pre>
- * <p><b>Auto filling of arrays and scope switching</b><br/>Using the <tt>tpl</tt> tag and the <tt>for</tt> operator,
- * you can switch to the scope of the object specified by <tt>for</tt> and access its members to populate the template.
- * If the variable in <tt>for</tt> is an array, it will auto-fill, repeating the template block inside the <tt>tpl</tt>
- * tag for each item in the array:</p>
+ * </code></pre>
+ * <p><b>Auto filling of arrays</b><br/>The <tt>tpl</tt> tag and the <tt>for</tt> operator are used
+ * to process the provided data object. If <tt>for="."</tt> is specified, the data object provided
+ * is examined. If the variable in <tt>for</tt> is an array, it will auto-fill, repeating the template
+ * block inside the <tt>tpl</tt> tag for each item in the array:</p>
+ * <pre><code>
+var tpl = new Ext.XTemplate(
+    '&lt;p>Kids: ',
+    '&lt;tpl for=".">',
+        '&lt;p>{name}&lt;/p>',
+    '&lt;/tpl>&lt;/p>'
+);
+tpl.overwrite(panel.body, data.kids); // pass the kids property of the data object
+ * </code></pre>
+ * <p><b>Scope switching</b><br/>The <tt>for</tt> property can be leveraged to access specified members
+ * of the provided data object to populate the template:</p>
  * <pre><code>
 var tpl = new Ext.XTemplate(
     '&lt;p>Name: {name}&lt;/p>',
     '&lt;p>Title: {title}&lt;/p>',
     '&lt;p>Company: {company}&lt;/p>',
     '&lt;p>Kids: ',
-    '&lt;tpl for="kids">',
+    '&lt;tpl <b>for="kids"</b>>', // interrogate the kids property within the data
         '&lt;p>{name}&lt;/p>',
     '&lt;/tpl>&lt;/p>'
 );
 tpl.overwrite(panel.body, data);
-</code></pre>
+ * </code></pre>
  * <p><b>Access to parent object from within sub-template scope</b><br/>When processing a sub-template, for example while
  * looping through a child array, you can access the parent object's members via the <tt>parent</tt> object:</p>
  * <pre><code>

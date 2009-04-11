@@ -26,10 +26,10 @@ var grid = new Ext.grid.GridPanel({
     ...
     store: myStore,
     bbar: new Ext.PagingToolbar({
-        store: myStore,       // grid and PagingToolbar using same store
-        displayInfo: true,
-        pageSize: myPageSize,
-        prependButtons: true,
+        {@link #store}: myStore,       // grid and PagingToolbar using same store
+        {@link #displayInfo}: true,
+        {@link #pageSize}: myPageSize,
+        {@link #prependButtons}: true,
         items: [
             'text 1'
         ]
@@ -144,6 +144,22 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
      */
     paramNames : {start: 'start', limit: 'limit'},
 
+    /**
+     * The number of records to display per page.  See also <tt>{@link #cursor}</tt>.
+     * @type Number
+     * @property pageSize
+     */
+    
+    /**
+     * Indicator for the record position.  This property might be used to get the active page
+     * number for example:<pre><code>
+     * // t is reference to the paging toolbar instance
+     * var activePage = Math.ceil((t.cursor + t.pageSize) / t.pageSize);
+     * </code></pre>
+     * @type Number
+     * @property cursor
+     */
+    
     // private
     constructor: function(config) {
 	    var pagingItems = [this.first = new T.Button({
