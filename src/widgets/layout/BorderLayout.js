@@ -41,7 +41,7 @@ var myBorderPanel = new Ext.Panel({
         {@link Ext.Panel#unstyled unstyled}: true
     },{
         {@link Ext.Panel#title title}: 'Center Region',
-        {@link Ext.layout.BorderLayout.Region#BorderLayout.Region region}: 'center',     // center region is required
+        {@link Ext.layout.BorderLayout.Region#BorderLayout.Region region}: 'center',     // center region is required, no width/height specified
     	{@link Ext.Component#xtype xtype}: 'container',
     	{@link Ext.Container#layout layout}: 'fit',
         {@link Ext.layout.BorderLayout.Region#margins margins}: '5 5 0 0'
@@ -49,8 +49,12 @@ var myBorderPanel = new Ext.Panel({
 });
 </code></pre>
  * <p><b><u>Notes</u></b>:</p><div class="mdetail-params"><ul>
- * <li>The BorderLayout <b>must have a center region</b>, which will always fill the
- * remaining space not used by the other regions in the layout.</li>
+ * <li>Any container using the BorderLayout <b>must</b> have a child item with <tt>region:'center'</tt>.
+ * The child item in the center region will always be resized to fill the remaining space not used by
+ * the other regions in the layout.</li>
+ * <li>Any child items with a region of <tt>west</tt> or <tt>east</tt> must have <tt>width</tt> defined
+ * (an integer representing the number of pixels that the region should take up).</li>
+ * <li>Any child items with a region of <tt>north</tt> or <tt>south</tt> must have <tt>height</tt> defined.</li>
  * <li>The regions of a BorderLayout are <b>fixed at render time</b> and thereafter.  Containers
  * <b>directly</b> managed by BorderLayout may not be removed or added</b>.  To add/remove
  * Containers within a BorderLayout have them wrapped by an additional Container which is directly

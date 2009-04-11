@@ -101,13 +101,22 @@ Ext.TabPanel = Ext.extend(Ext.Panel,  {
      */
     monitorResize : true,
     /**
-     * @cfg {Boolean} deferredRender Internally, the TabPanel uses a {@link Ext.layout.CardLayout} to manage its tabs.
-     * This property will be passed on to the layout as its {@link Ext.layout.CardLayout#deferredRender} config value,
-     * determining whether or not each tab is rendered only when first accessed (defaults to true).
-     * <p>Be aware that leaving deferredRender as <b><tt>true</tt></b> means that, if the TabPanel is within
-     * a {@link Ext.form.FormPanel form}, then until a tab is activated, any Fields within that tab will not
-     * be rendered, and will therefore not be submitted and will not be available to either
-     * {@link Ext.form.BasicForm#getValues getValues} or {@link Ext.form.BasicForm#setValues setValues}.</p>
+     * @cfg {Boolean} deferredRender
+     * <p><tt>true</tt> by default to defer the rendering of child <tt>{@link Ext.Container#items items}</tt>
+     * to the browsers DOM until a tab is activated. <tt>false</tt> will render all contained
+     * <tt>{@link Ext.Container#items items}</tt> as soon as the {@link Ext.layout.CardLayout layout}
+     * is rendered. If there is a significant amount of content or a lot of heavy controls being
+     * rendered into panels that are not displayed by default, setting this to <tt>true</tt> might
+     * improve performance.</p>
+     * <br><p>The <tt>deferredRender</tt> property is internally passed to the layout manager for
+     * TabPanels ({@link Ext.layout.CardLayout}) as its {@link Ext.layout.CardLayout#deferredRender}
+     * configuration value.</p>
+     * <br><p><b>Note</b>: leaving <tt>deferredRender</tt> as <tt>true</tt> means that the content
+     * within an unactivated tab will not be available. For example, this means that if the TabPanel
+     * is within a {@link Ext.form.FormPanel form}, then until a tab is activated, any Fields within
+     * unactivated tabs will not be rendered, and will therefore not be submitted and will not be
+     * available to either {@link Ext.form.BasicForm#getValues getValues} or
+     * {@link Ext.form.BasicForm#setValues setValues}.</p>    
      */
     deferredRender : true,
     /**
