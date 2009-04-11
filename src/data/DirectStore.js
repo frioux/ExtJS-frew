@@ -40,4 +40,4 @@ Ext.data.DirectStore = function(c){
     }));
 };
 Ext.extend(Ext.data.DirectStore, Ext.data.Store);
-Ext.reg('directstore', Ext.data.Store);
+Ext.reg('directstore', Ext.data.DirectStore);
