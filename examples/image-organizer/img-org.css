@@ -38,3 +38,14 @@ div.upload-info {
     color: gray;
     font-size: smaller;
 }
+
+.image-prop-header {
+    padding-left: 10px;
+    padding-top: 10px;
+    border-bottom: 1px solid #99BBE8;
+}
+
+.image-prop {
+    padding-left: 20px;
+    padding-top: 3px;
+}

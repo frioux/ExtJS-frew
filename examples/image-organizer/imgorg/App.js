@@ -93,7 +93,7 @@ Imgorg.App = function() {
                     id: 'img-tabpanel',
                     margins: '5 5 5 0',
                     activeItem: 0,
-                    tabscroll: true,
+                    enableTabScroll: true,
                     items: this.getTabs()
                 }]
             });
@@ -150,7 +150,8 @@ Imgorg.App = function() {
             return Ext.getCmp('img-tabpanel').add({
                 xtype: 'img-panel',
                 title: rec.data.filename,
-                url: rec.data.url
+                url: rec.data.url,
+                imageData: rec.data
             });
         },
         
