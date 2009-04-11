@@ -15,86 +15,92 @@
  * <pre>
 xtype            Class
 -------------    ------------------
-box              Ext.BoxComponent
-button           Ext.Button
-colorpalette     Ext.ColorPalette
-component        Ext.Component
-container        Ext.Container
-cycle            Ext.CycleButton
-dataview         Ext.DataView
-datepicker       Ext.DatePicker
-editor           Ext.Editor
-editorgrid       Ext.grid.EditorGridPanel
-flash            Ext.FlashComponent
-grid             Ext.grid.GridPanel
-paging           Ext.PagingToolbar
-panel            Ext.Panel
-progress         Ext.ProgressBar
-spacer           Ext.Spacer
-splitbutton      Ext.SplitButton
-tabpanel         Ext.TabPanel
-treepanel        Ext.tree.TreePanel
-viewport         Ext.ViewPort
-window           Ext.Window
+box              {@link Ext.BoxComponent}
+button           {@link Ext.Button}
+buttongroup      {@link Ext.ButtonGroup}
+colorpalette     {@link Ext.ColorPalette}
+component        {@link Ext.Component}
+container        {@link Ext.Container}
+cycle            {@link Ext.CycleButton}
+dataview         {@link Ext.DataView}
+datepicker       {@link Ext.DatePicker}
+editor           {@link Ext.Editor}
+editorgrid       {@link Ext.grid.EditorGridPanel}
+flash            {@link Ext.FlashComponent}
+grid             {@link Ext.grid.GridPanel}
+listview         {@link Ext.ListView}
+panel            {@link Ext.Panel}
+progress         {@link Ext.ProgressBar}
+propertygrid     {@link Ext.grid.PropertyGrid}
+slider           {@link Ext.Slider}
+spacer           {@link Ext.Spacer}
+splitbutton      {@link Ext.SplitButton}
+tabpanel         {@link Ext.TabPanel}
+treepanel        {@link Ext.tree.TreePanel}
+viewport         {@link Ext.ViewPort}
+window           {@link Ext.Window}
 
 Toolbar components
 ---------------------------------------
-toolbar          Ext.Toolbar
-tbbutton         Ext.Toolbar.Button
-tbfill           Ext.Toolbar.Fill
-tbitem           Ext.Toolbar.Item
-tbseparator      Ext.Toolbar.Separator
-tbspacer         Ext.Toolbar.Spacer
-tbsplit          Ext.Toolbar.SplitButton
-tbtext           Ext.Toolbar.TextItem
+paging           {@link Ext.PagingToolbar}
+toolbar          {@link Ext.Toolbar}
+tbbutton         {@link Ext.Toolbar.Button}        (deprecated; use button)
+tbfill           {@link Ext.Toolbar.Fill}
+tbitem           {@link Ext.Toolbar.Item}
+tbseparator      {@link Ext.Toolbar.Separator}
+tbspacer         {@link Ext.Toolbar.Spacer}
+tbsplit          {@link Ext.Toolbar.SplitButton}   (deprecated; use splitbutton)
+tbtext           {@link Ext.Toolbar.TextItem}
 
 Menu components
 ---------------------------------------
-menu             Ext.menu.Menu
-colormenu        Ext.menu.ColorMenu
-datemenu         Ext.menu.DateMenu
-menubaseitem     Ext.menu.BaseItem
-menucheckitem    Ext.menu.CheckItem
-menuitem         Ext.menu.Item
-menuseparator    Ext.menu.Separator
-menutextitem     Ext.menu.TextItem
+menu             {@link Ext.menu.Menu}
+colormenu        {@link Ext.menu.ColorMenu}
+datemenu         {@link Ext.menu.DateMenu}
+menubaseitem     {@link Ext.menu.BaseItem}
+menucheckitem    {@link Ext.menu.CheckItem}
+menuitem         {@link Ext.menu.Item}
+menuseparator    {@link Ext.menu.Separator}
+menutextitem     {@link Ext.menu.TextItem}
 
 Form components
 ---------------------------------------
-form             Ext.FormPanel
-checkbox         Ext.form.Checkbox
-checkboxgroup    Ext.form.CheckboxGroup
-combo            Ext.form.ComboBox
-datefield        Ext.form.DateField
-displayfield     Ext.form.DisplayField
-field            Ext.form.Field
-fieldset         Ext.form.FieldSet
-hidden           Ext.form.Hidden
-htmleditor       Ext.form.HtmlEditor
-label            Ext.form.Label
-numberfield      Ext.form.NumberField
-radio            Ext.form.Radio
-radiogroup       Ext.form.RadioGroup
-textarea         Ext.form.TextArea
-textfield        Ext.form.TextField
-timefield        Ext.form.TimeField
-trigger          Ext.form.TriggerField
+form             {@link Ext.FormPanel}
+checkbox         {@link Ext.form.Checkbox}
+checkboxgroup    {@link Ext.form.CheckboxGroup}
+combo            {@link Ext.form.ComboBox}
+datefield        {@link Ext.form.DateField}
+displayfield     {@link Ext.form.DisplayField}
+field            {@link Ext.form.Field}
+fieldset         {@link Ext.form.FieldSet}
+hidden           {@link Ext.form.Hidden}
+htmleditor       {@link Ext.form.HtmlEditor}
+label            {@link Ext.form.Label}
+numberfield      {@link Ext.form.NumberField}
+radio            {@link Ext.form.Radio}
+radiogroup       {@link Ext.form.RadioGroup}
+textarea         {@link Ext.form.TextArea}
+textfield        {@link Ext.form.TextField}
+timefield        {@link Ext.form.TimeField}
+trigger          {@link Ext.form.TriggerField}
 
 Chart components
 ---------------------------------------
-chart             Ext.chart.Chart
-barchart          Ext.chart.BarChart
-cartesianchart    Ext.chart.CartesianChart
-columnchart       Ext.chart.ColumnChart
-linechart         Ext.chart.LineChart
-piechart          Ext.chart.PieChart
+chart            {@link Ext.chart.Chart}
+barchart         {@link Ext.chart.BarChart}
+cartesianchart   {@link Ext.chart.CartesianChart}
+columnchart      {@link Ext.chart.ColumnChart}
+linechart        {@link Ext.chart.LineChart}
+piechart         {@link Ext.chart.PieChart}
 
 Store xtypes
 ---------------------------------------
-arraystore        Ext.data.ArrayStore
-directstore       Ext.data.DirectStore
-jsonstore         Ext.data.JsonStore
-xmlstore          Ext.data.XmlStore
+arraystore       {@link Ext.data.ArrayStore}
+directstore      {@link Ext.data.DirectStore}
+jsonstore        {@link Ext.data.JsonStore}
+simplestore      {@link Ext.data.SimpleStore}      (deprecated; use arraystore)
+store            {@link Ext.data.Store}
+xmlstore         {@link Ext.data.XmlStore}
 </pre>
  * @constructor
  * @param {Ext.Element/String/Object} config The configuration options may be specified as either:
