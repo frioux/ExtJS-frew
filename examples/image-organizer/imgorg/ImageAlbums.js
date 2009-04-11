@@ -1,4 +1,4 @@
-Imgorg.ImgAlbums = Ext.extend(Ext.tree.TreePanel,{
+Imgorg.ImageAlbums = Ext.extend(Ext.tree.TreePanel,{
     initComponent: function() {
         Ext.apply(this,{
             loader: new Ext.ux.tree.DirectTreeLoader({
@@ -20,7 +20,7 @@ Imgorg.ImgAlbums = Ext.extend(Ext.tree.TreePanel,{
                 notifyDrop: this.onNotifyDrop.createDelegate(this)
             }
         });
-        Imgorg.ImgAlbums.superclass.initComponent.call(this);
+        Imgorg.ImageAlbums.superclass.initComponent.call(this);
         this.loader.load(this.root);
         
         this.editor = new Ext.tree.TreeEditor(this, {
@@ -95,7 +95,7 @@ Imgorg.ImgAlbums = Ext.extend(Ext.tree.TreePanel,{
         Albums.addOrUpdate({node: n.id, text: newVal, id: n.attributes.id});
     }
 });
-Ext.reg('img-albums', Imgorg.ImgAlbums);
+Ext.reg('img-albums', Imgorg.ImageAlbums);
 
 Ext.ns('Ext.ux.tree');
 Ext.ux.tree.DirectTreeLoader = Ext.extend(Ext.tree.TreeLoader,{

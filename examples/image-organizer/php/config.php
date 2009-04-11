@@ -4,6 +4,9 @@ $API = array(
 	    methods=>array(
 	        load=>array(
 	            'len'=>1
+	        ),
+	        getTags=>array(
+	            'len'=>1
 	        )
 	    )
 	),
@@ -19,6 +22,9 @@ $API = array(
                 len => 1
             ),
 	        load=>array(
+	            'len'=>1
+	        ),
+	        getAlbums=>array(
 	            'len'=>1
 	        )
         )

@@ -40,5 +40,13 @@ class Albums {
         $q = $db->query($qryStr);
         return $q->fetchAll();
     }
+    
+    function getAlbums($data) {
+        $db = new SQLiteDatabase('sql/imgorg.db');
+        $image = $data->image;
+        
+        $q = $db->query('SELECT a.text as text, a.id as id FROM Albums a INNER JOIN Albums_Images ai ON a.id = ai.album_id WHERE ai.image_id = "'.$image.'"');
+        return $q->fetchAll();
+    }
 }
 ?>

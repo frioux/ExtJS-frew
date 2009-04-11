@@ -5,11 +5,16 @@ Imgorg.ImagePanel = Ext.extend(Ext.Panel,{
             layout: 'border',
             items: [{
                 region: 'center',
-                html: String.format('<img height="100%" src="{0}" />',this.url)
+                xtype: 'box',
+                autoEl: {
+                    tag: 'img',
+                    src: this.url
+                }
             },{
                 region: 'east',
                 width: 250,
                 title: 'Properties',
+                collapsible: true,
                 html: 'TODO - populate image properties'
             }]
         });
