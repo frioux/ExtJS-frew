@@ -19,7 +19,7 @@
     <include name="css\structure\debug.css" />
     <include name="css\structure\combo.css" />
     <include name="css\structure\panel.css" />
-	<include name="css\structure\panel-reset.css" />
+    <include name="css\structure\panel-reset.css" />
     <include name="css\structure\window.css" />
     <include name="css\structure\editor.css" />
     <include name="css\structure\borders.css" />
@@ -795,7 +795,7 @@
     <include name="css\structure\debug.css" />
     <include name="css\structure\combo.css" />
     <include name="css\structure\panel.css" />
-	<include name="css\structure\panel-reset.css" />
+    <include name="css\structure\panel-reset.css" />
     <include name="css\structure\window.css" />
     <include name="css\structure\editor.css" />
     <include name="css\structure\borders.css" />
