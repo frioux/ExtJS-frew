@@ -26,7 +26,11 @@ Ext.onReady(function(){
             xtype: 'linechart',
             store: store,
             xField: 'name',
-            yField: 'visits'
+            yField: 'visits',
+			itemclick: function(o){
+				var rec = store.getAt(o.index);
+				Ext.example.msg('Item Selected', 'You chose {0}.', rec.get('name'));
+			}
         }
     });
 
