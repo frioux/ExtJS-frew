@@ -48,6 +48,9 @@ $API = array(
             ),
             remove => array(
                 len => 1
+            ),
+            getInfo => array(
+                len => 1
             )
         )
     )

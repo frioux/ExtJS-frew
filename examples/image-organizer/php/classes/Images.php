@@ -76,5 +76,14 @@ class Images {
             $db->queryExec('DELETE FROM Albums_Images WHERE image_id ="'.$images[$i].'"');
         }
     }
+    
+    function getInfo($data) {
+        $db = new SQLiteDatabase("sql/imgorg.db");
+        $image = $data->image;
+        $q = $db->query('SELECT url FROM Images WHERE id = "'.$image.'"');
+        $path = $q->fetchObject()->url;
+        $ret = exif_read_data('../'.$path);
+        return $ret;
+    }
 }
 ?>

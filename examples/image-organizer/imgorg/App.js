@@ -149,7 +149,7 @@ Imgorg.App = function() {
         openImage: function(rec) {
             return Ext.getCmp('img-tabpanel').add({
                 xtype: 'img-panel',
-                title: rec.data.filename,
+                title: Ext.util.Format.ellipsis(rec.data.filename,15),
                 url: rec.data.url,
                 imageData: rec.data
             });
