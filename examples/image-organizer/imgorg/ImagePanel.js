@@ -24,11 +24,7 @@ Imgorg.ImagePanel = Ext.extend(Ext.Panel,{
             layout: 'border',
             items: [{
                 region: 'center',
-                xtype: 'box',
-                autoEl: {
-                    tag: 'img',
-                    src: this.url
-                }
+                html: '<div style="text-align:center;padding-top:20px"><img src="'+this.url+'"/></div>'
             },{
                 region: 'east',
                 itemId: 'image-properties',
@@ -48,7 +44,7 @@ Imgorg.ImagePanel = Ext.extend(Ext.Panel,{
     },
     
     onGetInfo: function(data, resp) {
-        var img = this.body.down('img');
+        var img = this.body.child('img');
         var size = img.getSize();
         if (data.COMPUTED.Height < size.height) {
             img.setHeight(data.COMPUTED.Height);

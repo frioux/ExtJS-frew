@@ -1,4 +1,4 @@
-Imgorg.TagWin = Ext.extend(Ext.Window, {
+Imgorg.TagWindow = Ext.extend(Ext.Window, {
     title: 'Choose Tag',
     layout: 'fit',
     closeAction: 'hide',
@@ -33,7 +33,7 @@ Imgorg.TagWin = Ext.extend(Ext.Window, {
                 scope: this
             }]
         });
-        Imgorg.TagWin.superclass.initComponent.call(this);
+        Imgorg.TagWindow.superclass.initComponent.call(this);
     },
     
         
@@ -44,13 +44,14 @@ Imgorg.TagWin = Ext.extend(Ext.Window, {
                 var imageIds = [];
                 for (var i = 0; i < this.selectedRecords.length; i++) {
                     var r = this.selectedRecords[i];
-                    imageIds.push(r.data.id);
+                    imageIds.push(r.data.dbid || r.data.id);
                 }
                 var fld = af.findField('tag');
                 var tag = fld.getRawValue();
                 var idx = fld.store.find('text', tag);
                 if (idx != -1) {
-                    tag = idx;
+                    rec = fld.store.getAt(idx);
+                    tag = rec.data.id;
                 }
                 Images.tagImage({
                     images: imageIds,
@@ -61,3 +62,4 @@ Imgorg.TagWin = Ext.extend(Ext.Window, {
         }
     }
 });
+

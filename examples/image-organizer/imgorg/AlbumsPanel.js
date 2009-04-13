@@ -5,6 +5,7 @@ Imgorg.AlbumsPanel = Ext.extend(Ext.Panel,{
             defaults: {
                 border: false
             },
+            autoScroll: true,
             defaultType: 'img-album',
             items: [{
                 columnWidth: 0.33,
@@ -57,10 +58,10 @@ Imgorg.Album = Ext.extend(Ext.Panel,{
             '<div class="album-wrap" album_id="{id}" album_name="{text}">',
                 '<div class="album-wrap-inner">',
                     '{url:this.imageFormat}',
-                    '<h3>{text}</h3>',
+                    '<h3>Album: {text}</h3>',
                     '<div class="album-details">',
                         '<p>Date: {date}</p>',
-                        '<p>Size: {size}</p>',
+                        '<p>Size: {size} images</p>',
                     '</div>',
                 '</div>',
             '</div>',

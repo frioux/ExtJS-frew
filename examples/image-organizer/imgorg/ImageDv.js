@@ -87,11 +87,8 @@ Imgorg.ImageDv = Ext.extend(Ext.DataView,{
     },
     
     tag: function() {
-        if (!this.tagWin) {
-            this.tagWin = new Imgorg.TagWin();
-        }
-        this.tagWin.selectedRecords = this.getSelectedRecords();
-        this.tagWin.show(this.currentNode);
+        Imgorg.TagWin.selectedRecords = this.getSelectedRecords();
+        Imgorg.TagWin.show(this.currentNode);
     },
     
     syncRename: function(store, rec, op) {

@@ -51,6 +51,7 @@ Imgorg.App = function() {
         
         init: function() {
             Ext.QuickTips.init();
+            Ext.BLANK_IMAGE_URL = '../../resources/images/default/s.gif';
             Ext.Direct.addProvider(Imgorg.REMOTING_API);
             
             Ext.ux.SwfuMgr.on('filequeued', this.onFileQueued, this);
@@ -101,6 +102,7 @@ Imgorg.App = function() {
             
             tabPanel = Ext.getCmp('img-tabpanel');
             thumbPanel = tabPanel.getComponent('images-view');
+            Imgorg.TagWin = new Imgorg.TagWindow();
         },
         
         getTabs: function() {

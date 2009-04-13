@@ -18,7 +18,7 @@
 .images-view .thumb-wrap {
     float: left;
     margin: 5px 0 5px 5px;
-    background: #DFE8F6;
+    background: #EFF5FB;
     border: 1px solid #99BBE8;
     padding: 15px;
 }
@@ -32,12 +32,6 @@
     background-color: #99BBE8;
 }
 
-.upload {
-    background-image: url(images/box_upload.png) !important;
-}
-.add {
-    background-image: url(images/folder_add.png) !important;
-}
 .album-node .x-tree-node-icon, .album-btn{
     background-image:url( ../tree/album.gif ) !important;
 }
@@ -73,10 +67,30 @@ div.upload-info, div.album-details {
 }
 
 div.album-wrap {
-    background-color: #DFE8F6;
+    background-color: #EFF5FB;
     padding: 1em;
     text-align: center;
     margin:3px;
     border: 1px solid #99BBE8;
     height: 150px;
+}
+
+/* Toolbar Icons */
+.upload {
+    background-image: url(images/icons/box_upload.png) !important;
+}
+.add {
+    background-image: url(images/icons/folder_add.png) !important;
+}
+.start-upload {
+    background-image: url(images/icons/arrow_up.png) !important;
+}
+.cancel {
+    background-image: url(images/icons/cancel.png) !important;
+}
+.album-add {
+    background-image: url(images/icons/folder_add_sm.png) !important;
+}
+.tag {
+    background-image: url(images/icons/tag_blue_add.png) !important;
 }

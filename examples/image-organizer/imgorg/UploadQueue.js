@@ -1,6 +1,7 @@
 Imgorg.UploadQueue = Ext.extend(Ext.Panel,{
     swfu: '',
     autoRemove: false,
+    uploaded: false,
     
     initComponent: function() {
         Ext.apply(this,{
@@ -26,7 +27,7 @@ Imgorg.UploadQueue = Ext.extend(Ext.Panel,{
                     fields: [
                         {name: 'creationdate', type: 'date'},
                         {name: 'modificationdate', type: 'date'},
-                        'filestatus','id','index','name','size','type'
+                        'filestatus','id','index','name','size','type','dbid'
                     ]
                 }),
                 itemSelector: 'div.upload-file',
@@ -36,16 +37,34 @@ Imgorg.UploadQueue = Ext.extend(Ext.Panel,{
             tbar:[{
                 text: 'Start Upload',
                 handler: this.startUpload,
-                scope: this
+                scope: this,
+                iconCls: 'start-upload'
             },{
-                text: 'Cancel All',
+                text: 'Clear',
                 handler: this.cancelUpload,
-                scope: this
+                scope: this,
+                iconCls: 'cancel'
+            },'-',{
+                text: 'Add to Album',
+                handler: this.addAllAlbum,
+                scope: this,
+                iconCls: 'album-add'
             },{
-                text: 'Remove File',
-                handler: this.removeFile,
-                scope: this
-            }]
+                text: 'Tag',
+                handler: this.tagAll,
+                scope: this,
+                iconCls: 'tag'
+            },
+            '->',{
+                xtype: 'checkbox',
+                checked: this.autoRemove,
+                listeners: {
+                    check: function(cb, checked) {
+                        this.autoRemove = checked;
+                    },
+                    scope: this
+                }
+            },'Auto-Remove Uploaded']
         });
         Imgorg.UploadQueue.superclass.initComponent.call(this);
         
@@ -73,23 +92,36 @@ Imgorg.UploadQueue = Ext.extend(Ext.Panel,{
             this.progressBars[pb].destroy();
         }
         this.getDv().store.removeAll();
+        this.uploaded = false;
     },
     
     addFile: function(swfu, file) {
         this.getDv().store.loadData([file], true);
     },
     
-    removeFile: function() {
-        var dv = this.getDv();
-        var recs = dv.getSelectedRecords();
-        for (var i = 0;i < recs.length;i++) {
-            var r = recs[i];
-            this.swfu.cancelUpload(r.data.id);
-            if (this.progressBars[r.data.id]) {
-                this.progressBars[r.data.id].destroy();
-            }
-            dv.store.remove(r);
+    addAllAlbum: function(btn) {
+        if (!this.uploaded) {
+            Ext.Msg.alert('Warning', 'You must upload files before you can add them to an Album');
+            return;
         }
+        var dv = this.getDv();
+        var recs = dv.getRecords(dv.getNodes());
+        if (!this.albumWin) {
+            this.albumWin = new Imgorg.AlbumWin();
+        }
+        this.albumWin.selectedRecords = recs;
+        this.albumWin.show(btn.btnEl.dom);
+    },
+    
+    tagAll: function(btn) {
+        if (!this.uploaded) {
+            Ext.Msg.alert('Warning', 'You must upload files before you can Tag them');
+            return;
+        }
+        var dv = this.getDv();
+        var recs = dv.getRecords(dv.getNodes());
+        Imgorg.TagWin.selectedRecords = recs;
+        Imgorg.TagWin.show(btn.btnEl.dom);
     },
     
     updateProgress: function(swfu, file, complete, total) {
@@ -112,6 +144,9 @@ Imgorg.UploadQueue = Ext.extend(Ext.Panel,{
         if (this.autoRemove) {
             store.remove(rec);
         }
+        var data = Ext.decode(Ext.util.Format.stripTags(data));
+        rec.data.dbid = data.result.res.id;
+        this.uploaded = true;
     }
 });
 Ext.reg('img-uploadqueue', Imgorg.UploadQueue);

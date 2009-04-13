@@ -43,7 +43,7 @@ Imgorg.AlbumWin = Ext.extend(Ext.Window, {
                 var imageIds = [];
                 for (var i = 0; i < this.selectedRecords.length; i++) {
                     var r = this.selectedRecords[i];
-                    imageIds.push(r.data.id);
+                    imageIds.push(r.data.dbid || r.data.id);
                 }
                 var fld = af.findField('album');
                 var album = fld.getValue();

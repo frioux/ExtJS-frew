@@ -18,9 +18,10 @@ class Images {
         $name = $files["Filedata"]["name"];
         $db = new SQLiteDatabase("sql/imgorg.db");
         $db->queryExec('INSERT INTO Images (filename, url) VALUES("'.$name.'","images/'.$name.'")');
+        $q = $db->query('SELECT * FROM Images WHERE filename = "'.$name.'"');
         move_uploaded_file($files["Filedata"]["tmp_name"],"../images/".$name);
         
-        return array(data => $files["Filedata"]);
+        return array(data => $files["Filedata"], res => $q->fetchObject());
     }
     
     function addToAlbum($data) {
@@ -74,7 +75,6 @@ class Images {
             unlink('../'.$url);
             $db->queryExec('DELETE FROM Images WHERE id ="'.$images[$i].'"');
             $db->queryExec('DELETE FROM Images_Tags WHERE image_id ="'.$images[$i].'"');
-            $db->queryExec('DELETE FROM Albums_Images WHERE image_id ="'.$images[$i].'"');
         }
     }
     

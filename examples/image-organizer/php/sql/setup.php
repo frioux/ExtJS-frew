@@ -8,15 +8,15 @@
  */
     if ($db = new SQLiteDatabase('imgorg.db')) {
         // Albums
-        $db->queryExec('DROP TABLE Albums');
-        $db->queryExec('CREATE TABLE Albums (
-            id INTEGER PRIMARY KEY,
-            text STRING,
-            created STRING,
-            description TEXT
-        ); 
-        INSERT INTO Albums (text) VALUES ("Test");
-        INSERT INTO Albums (text) VALUES ("Album2");');
+//        $db->queryExec('DROP TABLE Albums');
+//        $db->queryExec('CREATE TABLE Albums (
+//            id INTEGER PRIMARY KEY,
+//            text STRING,
+//            created STRING,
+//            description TEXT
+//        ); 
+//        INSERT INTO Albums (text) VALUES ("Test");
+//        INSERT INTO Albums (text) VALUES ("Album2");');
 
         // Albums_Images
 //        $db->queryExec('DROP TABLE Albums_Images');
@@ -35,36 +35,34 @@
 //        $db->queryExec('DROP Table Tags');
 //        $db->queryExec('CREATE TABLE Tags (
 //            id INTEGER PRIMARY KEY,
-//            text STRING,
-//            count INTEGER
+//            text STRING
 //        );
 //        INSERT INTO Tags (text) VALUES("Family");
 //        INSERT INTO Tags (text) VALUES("Friends");
 //        INSERT INTO Tags (text) VALUES("Other")');
 
         // Images
-//        $db->queryExec('DROP TABLE Images');
-//        $db->queryExec('CREATE TABLE Images (
-//            id INTEGER PRIMARY KEY,
-//            filename STRING,
-//            url STRING,
-//            size INTEGER,
-//            dimensions STRING,
-//            album_id INTEGER
-//        )');
-//        
-//        $dir = "../../images/thumbs/";
-//        $images = array();
-//        $d = dir($dir);
-//        $i = 0;
-//        while($name = $d->read()){
-//            if(!preg_match('/\.(jpg|gif|png)$/', $name)) continue;
-//            $size = filesize($dir.$name);
-//            $lastmod = filemtime($dir.$name)*1000;
-//            $db->queryExec('INSERT INTO Images (filename, url, size) VALUES 
-//                ("'.$name.'","images/thumbs/'.$name.'","'.$size.'")');
-//        }
-//        $d->close();
+        $db->queryExec('DROP TABLE Images');
+        $db->queryExec('CREATE TABLE Images (
+            id INTEGER PRIMARY KEY,
+            filename STRING,
+            url STRING,
+            album_id INTEGER,
+            description TEXT
+        )');
+        
+        $dir = "../../images/thumbs/";
+        $images = array();
+        $d = dir($dir);
+        $i = 0;
+        while($name = $d->read()){
+            if(!preg_match('/\.(jpg|gif|png)$/', $name)) continue;
+            $size = filesize($dir.$name);
+            $lastmod = filemtime($dir.$name)*1000;
+            $db->queryExec('INSERT INTO Images (filename, url) VALUES 
+                ("'.$name.'","images/thumbs/'.$name.'")');
+        }
+        $d->close();
         
         
         echo json_encode($db->query('select * from Images')->fetchAll());
