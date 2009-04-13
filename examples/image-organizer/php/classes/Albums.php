@@ -25,7 +25,6 @@ class Albums {
     function remove($data) {
         $db = new SQLiteDatabase('sql/imgorg.db');
         $q = $db->queryExec('DELETE FROM Albums where id ="'.$data->album.'"');
-        // also remove all albums_images records with album_id 
         return array(success=>true, album => $data->album);
     }
     
@@ -45,8 +44,26 @@ class Albums {
         $db = new SQLiteDatabase('sql/imgorg.db');
         $image = $data->image;
         
-        $q = $db->query('SELECT a.text as text, a.id as id FROM Albums a INNER JOIN Albums_Images ai ON a.id = ai.album_id WHERE ai.image_id = "'.$image.'"');
+        $q = $db->query('SELECT a.text as text, a.id as id FROM Albums a INNER JOIN Images i ON a.id = i.album_id WHERE i.id = "'.$image.'"');
         return $q->fetchAll();
+    }
+    
+    function getAllInfo($data) {
+        $db = new SQLiteDatabase('sql/imgorg.db');
+        $res = $db->query('select * from Albums');
+        $json = array();
+        while ($o = $res->fetchObject()) {
+            $q = $db->query('SELECT url FROM Images WHERE album_id = "'.$o->id.'"');
+            $qres = $q->fetchObject();
+            if ($qres) {
+                $path = $qres->url;
+                $o->exif = exif_read_data('../'.$path);
+                $o->url = $path;
+            }
+            $o->size = sizeof($q->fetchAll());
+            array_push($json,$o);
+        }
+        return $json;
     }
 }
 ?>

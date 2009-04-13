@@ -8,7 +8,7 @@ class Images {
         if ($tag) {
             $qry .= ' INNER JOIN Images_Tags it ON i.id = it.image_id WHERE it.tag_id ="'.$tag.'"';
         } elseif ($album) {
-            $qry .= ' INNER JOIN Albums_Images ai ON i.id = ai.image_id WHERE ai.album_id ="'.$album.'"';
+            $qry .= ' INNER JOIN Albums a ON i.album_id = a.id WHERE a.id ="'.$album.'"';
         }
         $res = $db->query($qry);
         return $res->fetchAll();
@@ -28,7 +28,8 @@ class Images {
         $album = $data->album;
         $db = new SQLiteDatabase("sql/imgorg.db");
         for ($i = 0;$i < sizeof($images);$i++) {
-            $db->queryExec('INSERT INTO Albums_Images (image_id, album_id) VALUES ("'.$images[$i].'","'.$album.'")');
+//            $db->queryExec('INSERT INTO Albums_Images (image_id, album_id) VALUES ("'.$images[$i].'","'.$album.'")');
+            $db->queryExec('UPDATE Images SET album_id = "'.$album.'" WHERE id ="'.$images[$i].'"');
         }
         return array(success => true, images => $images, album => $album);
     }

@@ -45,9 +45,10 @@ Imgorg.App = function() {
         };
         swfu = new SWFUpload(settings);
     }
-    var view, thumbPanel, uploadPanel;
+    var view, thumbPanel, uploadPanel, tabPanel;
     return {
         debugSWF: true,
+        
         init: function() {
             Ext.QuickTips.init();
             Ext.Direct.addProvider(Imgorg.REMOTING_API);
@@ -57,7 +58,7 @@ Imgorg.App = function() {
             new Ext.Viewport({
                 layout: 'border',
                 items: [{
-                    xtype: 'img-albums',
+                    xtype: 'img-albumtree',
                     id: 'album-tree',
                     region: 'west',
                     width: 180,
@@ -98,33 +99,22 @@ Imgorg.App = function() {
                 }]
             });
             
-            thumbPanel = Ext.getCmp('images-view');
+            tabPanel = Ext.getCmp('img-tabpanel');
+            thumbPanel = tabPanel.getComponent('images-view');
         },
         
         getTabs: function() {
             var tabs = [{
-                xtype: 'img-thumbpanel',
-                id:'images-view',
-                dvConfig: {
-                    listeners: {
-                        dblclick: function(view, idx, node, e) {
-                            var p = this.openImage(view.getStore().getAt(idx));
-                            p.show();
-                        },
-                        viewitem: function(view, node) {
-                            var recs = view.getSelectedRecords();
-                            for (var i = 0;i < recs.length;i++) {
-                                this.openImage(recs[i]);
-                            }
-                        },
-                        scope: this
-                    }
-                },
+                xtype: 'img-albumspanel',
+                title: 'Albums',
                 listeners: {
-                    activate: this.onTpActivate,
+                    openalbum: this.onOpenAlbum,
                     scope: this
                 }
-            }];
+            },Ext.apply({
+                xtype: 'img-thumbpanel',
+                itemId:'images-view'
+            },this.getImageThumbConfig())];
             
             if (this.debugSWF) {
                 tabs.push({
@@ -140,14 +130,38 @@ Imgorg.App = function() {
             return tabs;
         },
         
-        onTpActivate: function() {
-            if (thumbPanel) {
-                thumbPanel.reload();
+        getImageThumbConfig: function() {
+            return {
+                dvConfig: {
+                    listeners: {
+                        dblclick: function(view, idx, node, e) {
+                            var p = this.openImage(view.getStore().getAt(idx));
+                            p.show();
+                        },
+                        viewitem: function(view, node) {
+                            var recs = view.getSelectedRecords();
+                            for (var i = 0; i < recs.length; i++) {
+                                this.openImage(recs[i]);
+                            }
+                        },
+                        scope: this
+                    }
+                },
+                listeners: {
+                    activate: this.onTpActivate,
+                    scope: this
+                }
+            };
+        },
+        
+        onTpActivate: function(panel) {
+            if (panel) {
+                panel.reload();
             }
         },
         
         openImage: function(rec) {
-            return Ext.getCmp('img-tabpanel').add({
+            return tabPanel.add({
                 xtype: 'img-panel',
                 title: Ext.util.Format.ellipsis(rec.data.filename,15),
                 url: rec.data.url,
@@ -155,9 +169,21 @@ Imgorg.App = function() {
             });
         },
         
+        onOpenAlbum: function(ap, album, name) {
+            var tab = tabPanel.add(Ext.apply({
+                xtype: 'img-thumbpanel',
+                closable: true,
+                title: 'Album: '+name
+            },this.getImageThumbConfig()));
+            tab.albumFilter({
+                id: album,
+                text: name
+            });
+            tab.show();
+        },
+        
         onAlbumClick: function(node, e) {
-            thumbPanel.albumFilter(node.attributes);
-            thumbPanel.show();
+            this.onOpenAlbum(null, node.attributes.id, node.attributes.text);
         },
         
         onFileQueued: function(swfu, file) {

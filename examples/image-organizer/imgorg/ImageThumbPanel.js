@@ -1,37 +1,40 @@
 Imgorg.ImageThumbPanel = Ext.extend(Ext.Panel, {
     minWidth: 80,
-    defaultTitle: 'All Photos',
+    title: 'All Photos',
     
     initComponent: function() {
+        this.tfId = 'tag-filter-'+Ext.id();
         Ext.apply(this,{
-            title: this.defaultTitle,
             layout:'fit',
+            cls: 'images-view',
             items:Ext.apply({
                 xtype: 'img-dv',
-                id: 'imgorg-dv'
+                itemId: 'imgorg-dv'
             },this.dvConfig||{}),
-            bbar:[{
-                text: 'clear',
-                id: 'clr-filter-btn',
-                handler: this.clearFilter,
-                disabled: true,
-                scope: this
-            },'-','Tags:',{
-                xtype: 'img-tagcombo',
-                id: 'tag-filter',
-                listeners: {
-                    select: function(combo, record, idx) {
-                        this.tagFilter(record);
-                        Ext.getCmp('clr-filter-btn').enable();
-                    },
-                    change: function(combo, val, oldVal) {
-                        var rec = combo.getStore().getAt(combo.selectedIndex);
-                        this.tagFilter(rec);
-                        Ext.getCmp('clr-filter-btn').enable();
-                    },
-                    scope: this
-                }
-            },'->',{
+            bbar:[
+//            {
+//                text: 'clear',
+//                id: 'clr-filter-btn',
+//                handler: this.clearFilter,
+//                disabled: true,
+//                scope: this
+//            },'-','Tags:',{
+//                xtype: 'img-tagcombo',
+//                id: this.tfId,
+//                listeners: {
+//                    select: function(combo, record, idx) {
+//                        this.tagFilter(record);
+//                        Ext.getCmp('clr-filter-btn').enable();
+//                    },
+//                    change: function(combo, val, oldVal) {
+//                        var rec = combo.getStore().getAt(combo.selectedIndex);
+//                        this.tagFilter(rec);
+//                        Ext.getCmp('clr-filter-btn').enable();
+//                    },
+//                    scope: this
+//                }
+//            },
+            '->',{
                 xtype: 'slider',
                 width: 200,
                 style: 'margin-right:20px;',
@@ -51,17 +54,17 @@ Imgorg.ImageThumbPanel = Ext.extend(Ext.Panel, {
     
     afterRender: function() {
         Imgorg.ImageThumbPanel.superclass.afterRender.call(this);
+        this.view = this.getComponent('imgorg-dv');
         (function() {
-            this.view = this.getComponent('imgorg-dv');
             this.dragZone = new ImageDragZone(this.view, {
                 containerScroll:true,
                 ddGroup: 'organizerDD'
             });
-        }).defer(1, this);
+        }).defer(100, this);
     },
     
     onChange: function(slider, e) {
-        Ext.util.CSS.updateRule('#images-view .thumb img','height',this.minWidth+slider.getValue()*3);
+        Ext.util.CSS.updateRule('.images-view .thumb img','height',this.minWidth+slider.getValue()*3);
     },
     
     tagFilter: function(rec) {
@@ -75,14 +78,14 @@ Imgorg.ImageThumbPanel = Ext.extend(Ext.Panel, {
     
     clearFilter: function() {
         this.view.store.load();
-        Ext.getCmp('clr-filter-btn').disable();
-        Ext.getCmp('tag-filter').reset();
+//        Ext.getCmp('clr-filter-btn').disable();
+        Ext.getCmp(this.tfId).reset();
         this.setTitle(this.defaultTitle);
     },
     
     albumFilter: function(album) {
-        Ext.getCmp('clr-filter-btn').enable();
-        Ext.getCmp('imgorg-dv').store.load({
+//        Ext.getCmp('clr-filter-btn').enable();
+        this.getComponent('imgorg-dv').store.load({
             params: {
                 album: album.id
             }

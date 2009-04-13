@@ -23,7 +23,6 @@ Imgorg.ImageDv = Ext.extend(Ext.DataView,{
             })],
             store: new Ext.data.DirectStore({
                 api: Images,
-                autoLoad: true,
                 root: '',
                 fields: ['filename', 'url', 'id', 'size']
             })

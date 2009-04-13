@@ -7,9 +7,31 @@
 	height: 60px;
 	width: 80px;
 }
-#images-view .thumb img {
+
+.images-view .x-panel-body {
+    font: 11px Arial, Helvetica, sans-serif;
+}
+.images-view .thumb img {
+    height: 60px;
     width: auto;
 }
+.images-view .thumb-wrap {
+    float: left;
+    margin: 5px 0 5px 5px;
+    background: #DFE8F6;
+    border: 1px solid #99BBE8;
+    padding: 15px;
+}
+.images-view .thumb-wrap span {
+    display: block;
+    overflow: hidden;
+    text-align: center;
+}
+
+.images-view div.x-view-selected {
+    background-color: #99BBE8;
+}
+
 .upload {
     background-image: url(images/box_upload.png) !important;
 }
@@ -34,7 +56,7 @@ div.upload-pb {
     width: 300px;
     float: left;
 }
-div.upload-info {
+div.upload-info, div.album-details {
     color: gray;
     font-size: smaller;
 }
@@ -48,4 +70,13 @@ div.upload-info {
 .image-prop {
     padding-left: 20px;
     padding-top: 3px;
+}
+
+div.album-wrap {
+    background-color: #DFE8F6;
+    padding: 1em;
+    text-align: center;
+    margin:3px;
+    border: 1px solid #99BBE8;
+    height: 150px;
 }

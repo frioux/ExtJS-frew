@@ -26,6 +26,9 @@ $API = array(
 	        ),
 	        getAlbums=>array(
 	            'len'=>1
+	        ),
+	        getAllInfo=>array(
+	            'len'=>1
 	        )
         )
     ),
