@@ -17,8 +17,8 @@ function(){
 	     * @return {Boolean} True if the element is currently visible, else false
 	     */
 	    isVisible : function(deep) {
-	        var vis = !(this.isStyle(VISIBILITY,HIDDEN) || this.isStyle(DISPLAY,NONE)),
-	        	p = this.dom.parentNode;;
+	        var vis = !this.isStyle(VISIBILITY,HIDDEN) && !this.isStyle(DISPLAY,NONE),
+	        	p = this.dom.parentNode;
 	        if(deep !== true || !vis){
 	            return vis;
 	        }	        
