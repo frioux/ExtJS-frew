@@ -164,8 +164,8 @@ Ext.EventManager.on(window, 'load', function(){
             desc: 'Advanced tab features including tab scrolling, adding tabs programmatically and a context menu plugin.'
         },{
             text: 'TabPanel Scroller Menu',
-            url: 'tabs/tabpanel-scroller-menu.html',
-            icon: 'tabpanel-scroller-menu.gif',
+            url: 'tabs/tab-scroller-menu.html',
+            icon: 'tab-panel-scroller-menu.gif',
             desc: 'An example of an overflow menu that appears to the right of the TabPanel tab strip',
             isNew: true
         }]

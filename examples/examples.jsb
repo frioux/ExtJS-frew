@@ -479,9 +479,10 @@
   <file name="tabs\tabs-adv.js" path="tabs" />
   <file name="tabs\tabs-example.js" path="tabs" />
   <file name="tabs\TabScrollerMenu.js" path="tabs" />
-  <file name="tabs\tabs-scroller-menu.js" path="tabs" />
-  <file name="tabs\tabs-scroller-menu.css" path="tabs" />
-  <file name="tabs\tabs-scroller-menu.gif" path="tabs" />
+  <file name="tabs\tab-scroller-menu.html" path="tabs" />
+  <file name="tabs\tab-scroller-menu.js" path="tabs" />
+  <file name="tabs\tab-scroller-menu.css" path="tabs" />
+  <file name="tabs\tab-scroller-menu.gif" path="tabs" />
   <file name="tasks\db\ext-air-db.js" path="tasks\db" />
   <file name="tasks\db\ext-db.js" path="tasks\db" />
   <file name="tasks\db\ext-gears-db.js" path="tasks\db" />
@@ -765,7 +766,7 @@
   <file name="shared\screens\statusbar.gif" path="shared\screens" />
   <file name="shared\screens\tabs-adv.gif" path="shared\screens" />
   <file name="shared\screens\tabs.gif" path="shared\screens" />
-  <file name="shared\screens\tabpanel-scroller-menu.gif" path="shared\screens" />
+  <file name="shared\screens\tab-panel-scroller-menu.gif" path="shared\screens" />
   <file name="shared\screens\tasks.gif" path="shared\screens" />
   <file name="shared\screens\templates.gif" path="shared\screens" />
   <file name="shared\screens\toolbar-actions.gif" path="shared\screens" />
