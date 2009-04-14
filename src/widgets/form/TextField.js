@@ -477,6 +477,14 @@ var myField = new Ext.form.NumberField({
         var w = Math.min(this.growMax, Math.max(this.metrics.getWidth(v) + /* add extra padding */ 10, this.growMin));
         this.el.setWidth(w);
         this.fireEvent("autosize", this, w);
-    }
+    },
+	
+	onDestroy: function(){
+		if(this.validationTask){
+			this.validationTask.cancel();
+			this.validationTask = null;
+		}
+		Ext.form.TextField.superclass.onDestroy.call(this);
+	}
 });
 Ext.reg('textfield', Ext.form.TextField);
