@@ -728,7 +728,7 @@ var menu = new Ext.menu.Menu({
             this.dqTask = null;
         }
         this.bindStore(null);
-        if(this.resizable){
+        if(this.resizer){
             this.resizer.destroy(true);
         }
         Ext.destroy(
