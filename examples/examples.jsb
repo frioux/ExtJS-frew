@@ -478,6 +478,10 @@
   <file name="tabs\TabCloseMenu.js" path="tabs" />
   <file name="tabs\tabs-adv.js" path="tabs" />
   <file name="tabs\tabs-example.js" path="tabs" />
+  <file name="tabs\TabScrollerMenu.js" path="tabs" />
+  <file name="tabs\tabs-scroller-menu.js" path="tabs" />
+  <file name="tabs\tabs-scroller-menu.css" path="tabs" />
+  <file name="tabs\tabs-scroller-menu.gif" path="tabs" />
   <file name="tasks\db\ext-air-db.js" path="tasks\db" />
   <file name="tasks\db\ext-db.js" path="tasks\db" />
   <file name="tasks\db\ext-gears-db.js" path="tasks\db" />

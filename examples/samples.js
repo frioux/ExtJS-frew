@@ -101,7 +101,8 @@ Ext.EventManager.on(window, 'load', function(){
             text: 'Progress Bar Pager',
             url: 'grid/progress-bar-pager.html',
             icon: 'progress-bar-pager.gif',
-            desc: 'An example of how to integrate the Progress Bar with the Paging Toolbar using a custom plugin.'
+            desc: 'An example of how to integrate the Progress Bar with the Paging Toolbar using a custom plugin.',
+            isNew: true
         },{
             text: 'Sliding Pager',
             url: 'grid/sliding-pager.html',
@@ -161,6 +162,12 @@ Ext.EventManager.on(window, 'load', function(){
             url: 'tabs/tabs-adv.html',
             icon: 'tabs-adv.gif',
             desc: 'Advanced tab features including tab scrolling, adding tabs programmatically and a context menu plugin.'
+        },{
+            text: 'TabPanel Scroller Menu',
+            url: 'tabs/tabpanel-scroller-menu.html',
+            icon: 'tabpanel-scroller-menu.gif',
+            desc: 'An example of an overflow menu that appears to the right of the TabPanel tab strip',
+            isNew: true
         }]
     },{
         title: 'Windows',
