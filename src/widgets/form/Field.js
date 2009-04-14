@@ -457,7 +457,7 @@ var form = new Ext.form.FormPanel({
      * @return {Mixed} value The field value that is set
      */
     setRawValue : function(v){
-        return this.el.dom.value = (v === null || v === undefined ? '' : v);
+        return this.el.dom.value = (Ext.isEmpty(v) ? '' : v);
     },
 
     /**
@@ -468,7 +468,7 @@ var form = new Ext.form.FormPanel({
     setValue : function(v){
         this.value = v;
         if(this.rendered){
-            this.el.dom.value = (v === null || v === undefined ? '' : v);
+            this.el.dom.value = (Ext.isEmpty(v) ? '' : v);
             this.validate();
         }
         return this;
