@@ -751,6 +751,7 @@
   <file name="shared\screens\panel.gif" path="shared\screens" />
   <file name="shared\screens\portal.gif" path="shared\screens" />
   <file name="shared\screens\progress.gif" path="shared\screens" />
+  <file name="shared\screens\progress-bar-pager.gif" path="shared\screens" />
   <file name="shared\screens\qtips.gif" path="shared\screens" />
   <file name="shared\screens\resizable.gif" path="shared\screens" />
   <file name="shared\screens\slider.gif" path="shared\screens" />
