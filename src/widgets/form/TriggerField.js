@@ -131,13 +131,7 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
 
     // private
     onDestroy : function(){
-        if(this.trigger){
-            this.trigger.removeAllListeners();
-            this.trigger.remove();
-        }
-        if(this.wrap){
-            this.wrap.remove();
-        }
+		Ext.destroy(this.trigger, this.wrap);
         if (this.mimicing){
             Ext.get(Ext.isIE ? document.body : document).un("mousedown", this.mimicBlur, this);
         }
@@ -236,8 +230,9 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
     // private
     onShow : function(){
         if(this.wrap){
-            this.wrap.dom.style.display = '';
-            this.wrap.dom.style.visibility = 'visible';
+			var s = this.wrap.dom.style;
+            s.display = '';
+            s.visibility = 'visible';
         }
     },
 
