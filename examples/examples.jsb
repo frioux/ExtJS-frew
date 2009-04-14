@@ -765,6 +765,7 @@
   <file name="shared\screens\statusbar.gif" path="shared\screens" />
   <file name="shared\screens\tabs-adv.gif" path="shared\screens" />
   <file name="shared\screens\tabs.gif" path="shared\screens" />
+  <file name="shared\screens\tabpanel-scroller-menu.gif" path="shared\screens" />
   <file name="shared\screens\tasks.gif" path="shared\screens" />
   <file name="shared\screens\templates.gif" path="shared\screens" />
   <file name="shared\screens\toolbar-actions.gif" path="shared\screens" />
