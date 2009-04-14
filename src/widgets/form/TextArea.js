@@ -58,9 +58,7 @@ Ext.form.TextArea = Ext.extend(Ext.form.TextField,  {
     },
 
     onDestroy : function(){
-        if(this.textSizeEl){
-            Ext.removeNode(this.textSizeEl);
-        }
+        Ext.destroy(this.textSizeEl);
         Ext.form.TextArea.superclass.onDestroy.call(this);
     },
 
