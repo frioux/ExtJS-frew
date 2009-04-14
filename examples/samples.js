@@ -98,10 +98,15 @@ Ext.EventManager.on(window, 'load', function(){
             icon: 'grid-paging.gif',
             desc: 'A grid with paging, cross-domain data loading and custom- rendered expandable row bodies.'
         },{
+            text: 'Progress Bar Pager',
+            url: 'grid/progress-bar-pager.html',
+            icon: 'progress-bar-pager.gif',
+            desc: 'An example of how to integrate the Progress Bar with the Paging Toolbar using a custom plugin.'
+        },{
             text: 'Sliding Pager',
             url: 'grid/sliding-pager.html',
             icon: 'slider-pager.gif',
-            desc: ''
+            desc: 'A demonstration on the integration of the Slider with the Paging Toolbar using a custom plugin.'
         },{
             text: 'Grouping',
             url: 'grid/grouping.html',

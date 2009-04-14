@@ -396,6 +396,9 @@
   <file name="grid\sliding-pager.html" path="grid" />
   <file name="grid\sliding-pager.js" path="grid" />
   <file name="grid\SlidingPager.js" path="grid" />
+  <file name="grid\progress-bar-pager.html" path="grid" />
+  <file name="grid\progress-bar-pager.js" path="grid" />
+  <file name="grid\ProgressBarPager.js" path="grid" />
   <file name="grid\summary.css" path="grid" />
   <file name="grid\summary.json" path="grid" />
   <file name="grid\topic.gif" path="grid" />
