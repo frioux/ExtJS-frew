@@ -27,9 +27,11 @@ Ext.onReady(function(){
             store: store,
             xField: 'name',
             yField: 'visits',
-			itemclick: function(o){
-				var rec = store.getAt(o.index);
-				Ext.example.msg('Item Selected', 'You chose {0}.', rec.get('name'));
+			listeners: {
+				itemclick: function(o){
+					var rec = store.getAt(o.index);
+					Ext.example.msg('Item Selected', 'You chose {0}.', rec.get('name'));
+				}
 			}
         }
     });
