@@ -56,7 +56,7 @@ Ext.form.DisplayField = Ext.extend(Ext.form.Field,  {
         if(this.htmlEncode){
             v = Ext.util.Format.htmlEncode(v);
         }
-        return this.rendered ? (this.el.dom.innerHTML = (v === null || v === undefined ? '' : v)) : (this.value = v);
+        return this.rendered ? (this.el.dom.innerHTML = (Ext.isEmpty(v) ? '' : v)) : (this.value = v);
     },
 
     setValue : function(v){
