@@ -98,12 +98,13 @@ Ext.extend(Ext.data.DataProxy, Ext.util.Observable, {
 
 	/**
 	 * load
+	 * old-school load method with old method signature.  Simply a proxy-method -> doRequest
+	 * @deprecated
 	 * @param {Object} params
 	 * @param {Object} reader
 	 * @param {Object} callback
 	 * @param {Object} scope
 	 * @param {Object} arg
-	 * @deprecated
 	 */
 	load : function(params, reader, callback, scope, arg) {
         this.doRequest('load', null, params, reader, null, cb, scope, arg);
