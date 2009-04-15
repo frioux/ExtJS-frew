@@ -148,9 +148,6 @@ var $f = Date.formatCodeToRegex;
 
 Ext.apply(Date, {
     /**
-     * @property parseFunctions
-     * @static
-     * @type Object
      * <p>An object hash in which each property is a date parsing function. The property name is the
      * format string which that function parses.</p>
      * <p>This object is automatically populated with date parsing functions as
@@ -168,6 +165,9 @@ Date.parseFunctions['x-date-format'] = myDateParser;
      * </ul></div></p>
      * <p>To enable Dates to also be <i>formatted</i> according to that format, a corresponding
      * formatting function must be placed into the {@link #formatFunctions} property.
+     * @property parseFunctions
+     * @static
+     * @type Object
      */
     parseFunctions: {
         "M$": function(input, strict) {
@@ -181,9 +181,6 @@ Date.parseFunctions['x-date-format'] = myDateParser;
     parseRegexes: [],
 
     /**
-     * @property formatFunctions
-     * @static
-     * @type Object
      * <p>An object hash in which each property is a date formatting function. The property name is the
      * format string which corresponds to the produced formatted date string.</p>
      * <p>This object is automatically populated with date formatting functions as
@@ -197,6 +194,9 @@ Date.formatFunctions['x-date-format'] = myDateFormatter;
      * </ul></div></p>
      * <p>To enable date strings to also be <i>parsed</i> according to that format, a corresponding
      * parsing function must be placed into the {@link #parseFunctions} property.
+     * @property formatFunctions
+     * @static
+     * @type Object
      */
     formatFunctions: {
         "M$": function() {
