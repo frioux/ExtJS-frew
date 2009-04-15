@@ -768,15 +768,15 @@ var p = new Ext.Panel({
             cls: 'x-btn-as-arrow'
         },{
             xtype:'splitbutton',
-            text: 'Hideous',
+            text: 'Menu Button',
             scale: 'large',
             rowspan: 3,
             iconCls: 'add',
             iconAlign: 'top',
             arrowAlign:'bottom',
-            menu: [{text: 'Ribbons are hideous'}]
+            menu: [{text: 'Menu Item 1'}]
         },{
-            xtype:'splitbutton', text: 'Cut', iconCls: 'add16', menu: [{text: 'Hideousness'}]
+            xtype:'splitbutton', text: 'Cut', iconCls: 'add16', menu: [{text: 'Cut Menu Item'}]
         },{
             text: 'Copy', iconCls: 'add16'
         },{
