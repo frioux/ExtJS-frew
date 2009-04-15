@@ -4,6 +4,17 @@
  */
 Ext.data.DirectProxy = function(config){
     Ext.apply(this, config);
+
+	// I think this code should be moved to DataProxy but we must first send
+	// config object into superclass (not sure why it's not).  Set default api if not set.
+	this.api = config.api || {
+		load: undefined,
+		save: undefined,
+		create: undefined,
+		destroy: undefined
+	};
+
+
     if(typeof this.paramOrder == 'string'){
         this.paramOrder = this.paramOrder.split(/[\s,|]/);
     }
