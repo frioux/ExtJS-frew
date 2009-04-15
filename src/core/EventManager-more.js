@@ -280,8 +280,7 @@ Ext.apply(Ext.EventObjectImpl.prototype, {
     /** @private */
     isNavKeyPress : function(){
         var me = this,
-        	k = me.keyCode;
-        k = Ext.isSafari ? (safariKeys[k] || k) : k;
+        	k = this.normalizeKey(me.keyCode);
         return (k >= 33 && k <= 40) || k == me.RETURN || k == me.TAB || k == me.ESC;
     },
 
