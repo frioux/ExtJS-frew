@@ -1141,7 +1141,7 @@ new Ext.Panel({
 
     // private
     afterRender : function(){
-        if(this.floating && !this.hidden && !this.initHidden){
+        if(this.floating && !this.hidden){
             this.el.show();
         }
         if(this.title){
