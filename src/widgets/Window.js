@@ -156,7 +156,10 @@ Ext.Window = Ext.extend(Ext.Panel, {
     // inherited docs, same default
     collapsible : false,
 
-    // private
+    /**
+     * @cfg {Boolean} initHidden
+     * True to hide the window until show() is explicitly called (defaults to true).
+     */
     initHidden : true,
     /**
     * @cfg {Boolean} monitorResize @hide
