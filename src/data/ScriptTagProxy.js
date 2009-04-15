@@ -38,19 +38,7 @@ if (scriptTag) {
  * @param {Object} config A configuration object.
  */
 Ext.data.ScriptTagProxy = function(config){
-    Ext.data.ScriptTagProxy.superclass.constructor.call(this);
-    Ext.apply(this, config);
-
-	// I think this code should be moved to DataProxy but we must first send
-	// config object into superclass (not sure why it's not).  Set default api if not set.
-	// We have to take care setting the api since it's a complex object.  Ext.apply doesn't
-	// do it properly.
-	this.api = config.api || {
-		load: undefined,
-		save: undefined,
-		create: undefined,
-		destroy: undefined
-	};
+    Ext.data.ScriptTagProxy.superclass.constructor.call(this, config);
 
     this.head = document.getElementsByTagName("head")[0];
 

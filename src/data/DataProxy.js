@@ -13,7 +13,19 @@
  * {@link Ext.data.HttpProxy}.{@link Ext.data.HttpProxy#doRequest doRequest} or
  * {@link Ext.data.HttpProxy}.{@link Ext.data.HttpProxy#load load} for additional details.</p>
  */
-Ext.data.DataProxy = function(){
+Ext.data.DataProxy = function(conn){
+	// make sure we have a config object here to support ux proxies.
+	// All proxies should now send config into superclass constructor.
+	conn = conn || {};
+
+	Ext.apply(this, conn);
+
+	this.api = conn.api || {
+		load: undefined,
+		save: undefined,
+		create: undefined,
+		destroy: undefined
+	};
 
     this.addEvents(
         /**
@@ -83,6 +95,20 @@ Ext.data.DataProxy = function(){
 };
 
 Ext.extend(Ext.data.DataProxy, Ext.util.Observable, {
+
+	/**
+	 * load
+	 * @param {Object} params
+	 * @param {Object} reader
+	 * @param {Object} callback
+	 * @param {Object} scope
+	 * @param {Object} arg
+	 * @deprecated
+	 */
+	load : function(params, reader, callback, scope, arg) {
+        this.doRequest('load', null, params, reader, null, cb, scope, arg);
+    },
+
     /**
      * @cfg {Object} api
      * Specific urls to call on CRUD methods "load", "create", "save" and "destroy".  Defaults to:

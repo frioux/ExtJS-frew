@@ -21,7 +21,7 @@
  * <p>If an options parameter is passed, the singleton {@link Ext.Ajax} object will be used to make the request.</p>
  */
 Ext.data.HttpProxy = function(conn){
-    Ext.data.HttpProxy.superclass.constructor.call(this);
+    Ext.data.HttpProxy.superclass.constructor.call(this, conn);
 
     /**
      * The Connection object (Or options parameter to {@link Ext.Ajax#request}) which this HttpProxy uses to make requests to the server.
@@ -30,16 +30,7 @@ Ext.data.HttpProxy = function(conn){
      */
     this.conn = conn;
 
-	// I think this code should be moved to DataProxy but we must first send
-	// config object into superclass (not sure why it's not).  Set default api if not set.
-	// We have to take care setting the api since it's a complex object.  Ext.apply doesn't
-	// do it properly!
-	this.api = conn.api || {
-		load: undefined,
-		save: undefined,
-		create: undefined,
-		destroy: undefined
-	};
+
 	Ext.copyTo(this, conn, 'url,prettyUrls');
 
     this.useAjax = !conn || !conn.events;
