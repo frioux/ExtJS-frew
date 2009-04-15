@@ -41,7 +41,7 @@ Ext.data.ScriptTagProxy = function(config){
     Ext.data.ScriptTagProxy.superclass.constructor.call(this);
     Ext.apply(this, config);
 
-	// have to take care defining api
+	// have to take care defining api.  should be moved to super but me must first send config object to super.
 	this.api = config.api || {
 		load: undefined,
 		save: undefined,
