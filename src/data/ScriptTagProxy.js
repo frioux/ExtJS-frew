@@ -40,6 +40,15 @@ if (scriptTag) {
 Ext.data.ScriptTagProxy = function(config){
     Ext.data.ScriptTagProxy.superclass.constructor.call(this);
     Ext.apply(this, config);
+
+	// have to take care defining api
+	this.api = config.api || {
+		load: undefined,
+		save: undefined,
+		create: undefined,
+		destroy: undefined
+	};
+
     this.head = document.getElementsByTagName("head")[0];
 
     /**
