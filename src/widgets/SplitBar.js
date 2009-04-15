@@ -266,14 +266,12 @@ Ext.extend(Ext.SplitBar, Ext.util.Observable, {
      * @param {Boolean} removeEl True to remove the element
      */
     destroy : function(removeEl){
-        if(this.shim){
-            this.shim.remove();
-        }
+		Ext.destroy(this.shim, Ext.get(this.proxy));
         this.dd.unreg();
-        Ext.destroy(Ext.get(this.proxy));
         if(removeEl){
             this.el.remove();
         }
+		this.purgeListeners();
     }
 });
 
