@@ -14,12 +14,7 @@
  * {@link Ext.data.HttpProxy}.{@link Ext.data.HttpProxy#load load} for additional details.</p>
  */
 Ext.data.DataProxy = function(){
-    this.api = {
-        load : undefined,
-        create : undefined,
-        save : undefined,
-        destroy : undefined
-    };
+
     this.addEvents(
         /**
          * @event beforeload

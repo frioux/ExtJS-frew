@@ -22,7 +22,6 @@ Ext.data.DataWriter = function(config){
 Ext.data.DataWriter.prototype = {
 
 	meta : {},
-
 	/**
 	 * @cfg {String} dataProperty The property-name in request-params where data will be written
 	 * (defaults to <tt>'data'</tt>).
@@ -37,24 +36,10 @@ Ext.data.DataWriter.prototype = {
 	writeAllFields : false,
 
 	/**
-     * This method is only used by a DataProxy when writing to a remote server.
-     * @param {Array/Record} An array of records to save or a single Record
-     * @return {Mixed} The formatted data ready to send to server.
-     */
-    write : function(p, rs) {
-		if (Ext.isArray(rs)) {
-			var data = [];
-			for (var n=0,len=rs.length;n<len;n++) {
-				data.push(this.writeRecord(rs[n]));
-			}
-			return data;
-		}
-		else if (rs instanceof Ext.data.Record) {
-			return this.writeRecord(rs);
-		}
-		return false;
-    },
-
+	 * save
+	 * @param {Object} p Params-hash to apply result to.
+	 * @param {Record/Record[]} rs Record(s) to write
+	 */
 	save : function(p, rs) {
 		if (Ext.isArray(rs)) {
 			var data = [];
@@ -73,13 +58,31 @@ Ext.data.DataWriter.prototype = {
 		return false;
 	},
 
+	/**
+     * @cfg {Function} saveRecord Abstract method that should be implemented in all subclasses
+     * (eg: {@link Ext.data.JsonWriter#saveRecord JsonWriter.saveRecord}
+     */
+	saveRecord : Ext.emptyFn,
+
+	/**
+	 * create
+	 * @param {Object} p Params-hash to apply result to.
+	 * @param {Record/Record[]} rs Record(s) to write
+	 */
 	create : function(p, rec) {
 		return p[this.dataProperty] = this.createRecord(rec);
 	},
 
 	/**
+     * @cfg {Function} createRecord Abstract method that should be implemented in all subclasses
+     * (eg: {@link Ext.data.JsonWriter#createRecord JsonWriter.createRecord}
+     */
+	createRecord : Ext.emptyFn,
+
+	/**
 	 * destroy
-	 * @param {Object} rec
+	 * @param {Object} p Params-hash to apply result to.
+	 * @param {Record/Record[]} rs Record(s) to write
 	 */
 	destroy : function(p, rs) {
 		if (Ext.isArray(rs)) {
@@ -96,9 +99,15 @@ Ext.data.DataWriter.prototype = {
 	},
 
 	/**
+     * @cfg {Function} destroyRecord Abstract method that should be implemented in all subclasses
+     * (eg: {@link Ext.data.JsonWriter#destroyRecord JsonWriter.destroyRecord}
+     */
+	destroyRecord : Ext.emptyFn,
+
+	/**
 	 * toHash
 	 * Converts a Record to a hash
-	 * @param {Object}
+	 * @param {Record}
 	 */
 	toHash : function(rec) {
 		var map = rec.fields.map;

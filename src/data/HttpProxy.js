@@ -23,7 +23,6 @@
 Ext.data.HttpProxy = function(conn){
     Ext.data.HttpProxy.superclass.constructor.call(this);
 
-
     /**
      * The Connection object (Or options parameter to {@link Ext.Ajax#request}) which this HttpProxy uses to make requests to the server.
      * Properties of this object may be changed dynamically to change the way data is requested.
@@ -31,15 +30,16 @@ Ext.data.HttpProxy = function(conn){
      */
     this.conn = conn;
 
-	// I think this code should be moved to DataProxy.  Set default api if not set.  All DataProxy extensions will
-	// have to send the conn object into super though.
+	// I think this code should be moved to DataProxy but we must first send
+	// config object into superclass (not sure why it's not).  Set default api if not set.
+	// We have to take care setting the api since it's a complex object.  Ext.apply doesn't
+	// do it properly!
 	this.api = conn.api || {
 		load: undefined,
 		save: undefined,
 		create: undefined,
 		destroy: undefined
 	};
-
 	Ext.copyTo(this, conn, 'url,prettyUrls');
 
     this.useAjax = !conn || !conn.events;

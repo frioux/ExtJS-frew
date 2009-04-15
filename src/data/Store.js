@@ -292,7 +292,12 @@ var grid = new Ext.grid.EditorGridPanel({
          * @param {Record} record
          * @param {Ext.Direct.ExceptionEvent}
          */
-        'createexception'
+        'createexception',
+		/**
+		 * @event event
+		 * fires on create, load, destroy, save
+		 */
+		'event'
     );
 
     if(this.proxy){
@@ -802,6 +807,8 @@ sortInfo: {
 						break;
 				}
 			}
+			// fire on 'create', 'destroy', 'save'
+			this.fireEvent('event', this, data, response);
         }
     },
 
