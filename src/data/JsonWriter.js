@@ -5,10 +5,10 @@
  */
 Ext.data.JsonWriter = Ext.extend(Ext.data.DataWriter, {
 	/**
-	 * @cfg {Boolean} returnJson <tt>false</tt> to {@link Ext.util.JSON#encode encode} the
-	 * {@link Ext.data.DataWriter#toHash hashed data}. Defaults to <tt>false</tt>, returning
-	 * the hashed data without encoding.  When using {@link Ext.data.DirectProxy}, set this to <tt>true</tt>
-	 * since Ext.Direct will perform its own json-encoding.
+	 * @cfg {Boolean} returnJson <tt>true</tt> to {@link Ext.util.JSON#encode encode} the
+	 * {@link Ext.data.DataWriter#toHash hashed data}. Defaults to <tt>true</tt>.  When using
+	 * {@link Ext.data.DirectProxy}, set this to <tt>false</tt> since Ext.Direct will perform
+	 * its own json-encoding.
 	 */
 	returnJson : true,
 
