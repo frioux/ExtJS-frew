@@ -14,10 +14,10 @@ Ext.onReady(function(){
         autoScroll: true,
         tbar: [{
             xtype:'splitbutton',
-            text: 'Hideous',
+            text: 'Menu Button',
             iconCls: 'add16',
-            handler: handleAction.createCallback('Hideous'),
-            menu: [{text: 'Hideous menu', handler: handleAction.createCallback('Hideous menu')}]
+            handler: handleAction.createCallback('Menu Button'),
+            menu: [{text: 'Menu Item 1', handler: handleAction.createCallback('Menu Item 1')}]
         },'-',{
             xtype:'splitbutton',
             text: 'Cut',

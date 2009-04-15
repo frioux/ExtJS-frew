@@ -15,21 +15,21 @@ Ext.onReady(function(){
         title: 'Standard',
         tbar: [{
             xtype:'splitbutton',
-            text: 'Hideous',
+            text: 'Menu Button',
             iconCls: 'add16',
-            menu: [{text: 'Ribbons are hideous'}]
+            menu: [{text: 'Menu Button 1'}]
         },'-',{
             xtype:'splitbutton',
             text: 'Cut',
             iconCls: 'add16',
-            menu: [{text: 'Hideousness'}]
+            menu: [{text: 'Cut Menu Item'}]
         },{
             text: 'Copy',
             iconCls: 'add16'
         },{
             text: 'Paste',
             iconCls: 'add16',
-            menu: [{text: 'Hideousness'}]
+            menu: [{text: 'Paste Menu Item'}]
         },'-',{
             text: 'Format',
             iconCls: 'add16'
@@ -47,21 +47,21 @@ Ext.onReady(function(){
             },
             items: [{
                 xtype:'splitbutton',
-                text: 'Hideous',
+                text: 'Menu Button',
                 iconCls: 'add16',
-                menu: [{text: 'Ribbons are hideous'}]
+                menu: [{text: 'Menu Item 1'}]
             },{
                 xtype:'splitbutton',
                 text: 'Cut',
                 iconCls: 'add16',
-                menu: [{text: 'Hideousness'}]
+                menu: [{text: 'Cut Menu Item'}]
             },{
                 text: 'Copy',
                 iconCls: 'add16'
             },{
                 text: 'Paste',
                 iconCls: 'add16',
-                menu: [{text: 'Hideousness'}]
+                menu: [{text: 'Paste Menu Item'}]
             },{
                 text: 'Format',
                 iconCls: 'add16'
@@ -75,21 +75,21 @@ Ext.onReady(function(){
             },
             items: [{
                 xtype:'splitbutton',
-                text: 'Hideous',
+                text: 'Menu Button',
                 iconCls: 'add16',
-                menu: [{text: 'Ribbons are hideous'}]
+                menu: [{text: 'Menu Button 1'}]
             },{
                 xtype:'splitbutton',
                 text: 'Cut',
                 iconCls: 'add16',
-                menu: [{text: 'Hideousness'}]
+                menu: [{text: 'Cut Menu Item'}]
             },{
                 text: 'Copy',
                 iconCls: 'add16'
             },{
                 text: 'Paste',
                 iconCls: 'add16',
-                menu: [{text: 'Hideousness'}]
+                menu: [{text: 'Paste Menu Item'}]
             },{
                 text: 'Format',
                 iconCls: 'add16'
@@ -109,21 +109,21 @@ Ext.onReady(function(){
             },
             items: [{
                 xtype:'splitbutton',
-                text: 'Hideous',
+                text: 'Menu Button',
                 iconCls: 'add16',
-                menu: [{text: 'Ribbons are hideous'}]
+                menu: [{text: 'Menu Item 1'}]
             },{
                 xtype:'splitbutton',
                 text: 'Cut',
                 iconCls: 'add16',
-                menu: [{text: 'Hideousness'}]
+                menu: [{text: 'Cut Menu Item'}]
             },{
                 text: 'Copy',
                 iconCls: 'add16'
             },{
                 text: 'Paste',
                 iconCls: 'add16',
-                menu: [{text: 'Hideousness'}]
+                menu: [{text: 'Paste Menu Item'}]
             },{
                 text: 'Format',
                 iconCls: 'add16'
@@ -136,21 +136,21 @@ Ext.onReady(function(){
             },
             items: [{
                 xtype:'splitbutton',
-                text: 'Hideous',
+                text: 'Menu Button',
                 iconCls: 'add16',
-                menu: [{text: 'Ribbons are hideous'}]
+                menu: [{text: 'Menu Item 1'}]
             },{
                 xtype:'splitbutton',
                 text: 'Cut',
                 iconCls: 'add16',
-                menu: [{text: 'Hideousness'}]
+                menu: [{text: 'Cut Menu Item'}]
             },{
                 text: 'Copy',
                 iconCls: 'add16'
             },{
                 text: 'Paste',
                 iconCls: 'add16',
-                menu: [{text: 'Hideousness'}]
+                menu: [{text: 'Paste Menu Item'}]
             },{
                 text: 'Format',
                 iconCls: 'add16'
@@ -172,15 +172,15 @@ Ext.onReady(function(){
                 cls: 'x-btn-as-arrow'
             },{
                 xtype:'splitbutton',
-                text: 'Hideous',
+                text: 'Menu Button',
                 scale: 'large',
                 rowspan: 3,
                 iconCls: 'add',
                 iconAlign: 'top',
                 arrowAlign:'bottom',
-                menu: [{text: 'Ribbons are hideous'}]
+                menu: [{text: 'Menu Item 1'}]
             },{
-                xtype:'splitbutton', text: 'Cut', iconCls: 'add16', menu: [{text: 'Hideousness'}]
+                xtype:'splitbutton', text: 'Cut', iconCls: 'add16', menu: [{text: 'Cut Menu Item'}]
             },{
                 text: 'Copy', iconCls: 'add16'
             },{
@@ -198,15 +198,15 @@ Ext.onReady(function(){
                 cls: 'x-btn-as-arrow'
             },{
                 xtype:'splitbutton',
-                text: 'Hideous',
+                text: 'Menu Button',
                 scale: 'large',
                 rowspan: 3,
                 iconCls: 'add',
                 iconAlign: 'top',
                 arrowAlign:'bottom',
-                menu: [{text: 'Ribbons are hideous'}]
+                menu: [{text: 'Menu Button 1'}]
             },{
-                xtype:'splitbutton', text: 'Cut', iconCls: 'add16', menu: [{text: 'Hideousness'}]
+                xtype:'splitbutton', text: 'Cut', iconCls: 'add16', menu: [{text: 'Cut Menu Item'}]
             },{
                 text: 'Copy', iconCls: 'add16'
             },{
@@ -226,16 +226,16 @@ Ext.onReady(function(){
             },
             items: [{
                 xtype:'splitbutton',
-                text: 'Hideous',
+                text: 'Menu Button',
                 iconCls: 'add24',
                 arrowAlign:'bottom',
-                menu: [{text: 'Ribbons are hideous'}]
+                menu: [{text: 'Menu Item 1'}]
             },{
                 xtype:'splitbutton',
                 text: 'Cut',
                 iconCls: 'add24',
                 arrowAlign:'bottom',
-                menu: [{text: 'Hideousness'}]
+                menu: [{text: 'Cut Menu Item'}]
             },{
                 text: 'Copy',
                 iconCls: 'add24',
@@ -244,7 +244,7 @@ Ext.onReady(function(){
                 text: 'Paste',
                 iconCls: 'add24',
                 arrowAlign:'bottom',
-                menu: [{text: 'Hideousness'}]
+                menu: [{text: 'Paste Menu Item'}]
             },{
                 text: 'Format<br/>Stuff',
                 iconCls: 'add24'
@@ -258,16 +258,16 @@ Ext.onReady(function(){
             },
             items: [{
                 xtype:'splitbutton',
-                text: 'Hideous',
+                text: 'Menu Button',
                 iconCls: 'add24',
                 arrowAlign:'bottom',
-                menu: [{text: 'Ribbons are hideous'}]
+                menu: [{text: 'Menu Item 1'}]
             },{
                 xtype:'splitbutton',
                 text: 'Cut',
                 iconCls: 'add24',
                 arrowAlign:'bottom',
-                menu: [{text: 'Hideousness'}]
+                menu: [{text: 'Cut Menu Item'}]
             },{
                 text: 'Copy',
                 iconCls: 'add24',
@@ -276,7 +276,7 @@ Ext.onReady(function(){
                 text: 'Paste',
                 iconCls: 'add24',
                 arrowAlign:'bottom',
-                menu: [{text: 'Hideousness'}]
+                menu: [{text: 'Paste Menu Item'}]
             },{
                 text: 'Format',
                 iconCls: 'add24',
@@ -302,7 +302,7 @@ Ext.onReady(function(){
                 text: 'Paste',
                 iconCls: 'add24',
                 scale: 'medium',
-                menu: [{text: 'Hideousness'}]
+                menu: [{text: 'Paste Menu Item'}]
             }]
         }, {
             xtype:'buttongroup',
@@ -330,7 +330,7 @@ Ext.onReady(function(){
                 text: 'Paste',
                 iconCls: 'add16',
                 scale: 'small',
-                menu: [{text: 'Hideousness'}]
+                menu: [{text: 'Paste Menu Item'}]
             }]
         }, {
             xtype:'buttongroup',
