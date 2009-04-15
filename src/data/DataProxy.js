@@ -25,7 +25,7 @@ Ext.data.DataProxy = function(){
          * @event beforeload
          * Fires before a network request is made to retrieve a data object.
          * @param {Object} this
-         * @param {Object} params The params object passed to the {@link #load} function
+         * @param {Object} params The params object passed to the {@link #request} function
          */
         'beforeload',
         /**
@@ -33,38 +33,54 @@ Ext.data.DataProxy = function(){
          * Fires before the load method's callback is called.
          * @param {Object} this
          * @param {Object} o The data object
-         * @param {Object} arg The callback's arg object passed to the {@link #load} function
+         * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
         'load',
         /**
-         * @event beforeupdate
+         * @event beforesave
          * Fires before a network request is made to save a data object
          * @param {Object} this
-         * @param {Object} params The params object passed to the {@link #save} function
+         * @param {Object} params The params object passed to the {@link #request} function
          */
         'beforesave',
         /**
-         * @event update
-         * Fires before the load method's callback is called.
+         * @event save
+         * Fires before the request-callback is called
          * @param {Object} this
          * @param {Object} o The data object
-         * @param {Object} arg The callback's arg object passed to the {@link #load} function
+         * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
         'save',
         /**
          * @event beforedestroy
+         * Fires before a network request is made to destroy an object
+         * @param {Object} this
+         * @param {Object} o The data object
+         * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
         'beforedestroy',
         /**
          * @event destroy
+         * Fires before a the request-callback is called
+         * @param {Object} this
+         * @param {Object} o The data object
+         * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
         'destroy',
         /**
          * @event beforecreate
+         * Fires before a network request is made to create an object
+         * @param {Object} this
+         * @param {Object} o The data object
+         * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
         'beforecreate',
         /**
          * @event create
+         * Fires before a the request-callback is called
+         * @param {Object} this
+         * @param {Object} o The data object
+         * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
         'create'
     );
