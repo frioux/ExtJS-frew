@@ -37,11 +37,11 @@ Ext.data.Record = function(data, id){
 // create a Record constructor from a description of the fields
 var TopicRecord = Ext.data.Record.create([ // creates a subclass of Ext.data.Record
     {{@link Ext.data.Field#name name}: 'title', {@link Ext.data.Field#mapping mapping}: 'topic_title'},
-    {name: 'author', mapping: 'username'},
+    {name: 'author', mapping: 'username', allowBlank: false},
     {name: 'totalPosts', mapping: 'topic_replies', type: 'int'},
     {name: 'lastPost', mapping: 'post_time', type: 'date'},
     {name: 'lastPoster', mapping: 'user2'},
-    {name: 'excerpt', mapping: 'post_text'},
+    {name: 'excerpt', mapping: 'post_text', allowBlank: false},
     // In the simplest case, if no properties other than <tt>name</tt> are required,
     // a field definition may consist of just a String for the field name.
     'signature'
