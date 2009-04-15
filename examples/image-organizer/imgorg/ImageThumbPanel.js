@@ -4,6 +4,13 @@ Imgorg.ImageThumbPanel = Ext.extend(Ext.Panel, {
     
     initComponent: function() {
         this.tfId = 'tag-filter-'+Ext.id();
+        
+        var sliderValue = 0;
+        var p = Ext.state.Manager.getProvider();
+        if (p) {
+            sliderValue = p.get('sliderValue');
+        }
+        
         Ext.apply(this,{
             layout:'fit',
             cls: 'images-view',
@@ -11,36 +18,29 @@ Imgorg.ImageThumbPanel = Ext.extend(Ext.Panel, {
                 xtype: 'img-dv',
                 itemId: 'imgorg-dv'
             },this.dvConfig||{}),
-            bbar:[
-//            {
-//                text: 'clear',
-//                id: 'clr-filter-btn',
-//                handler: this.clearFilter,
-//                disabled: true,
-//                scope: this
-//            },'-','Tags:',{
-//                xtype: 'img-tagcombo',
-//                id: this.tfId,
-//                listeners: {
-//                    select: function(combo, record, idx) {
-//                        this.tagFilter(record);
-//                        Ext.getCmp('clr-filter-btn').enable();
-//                    },
-//                    change: function(combo, val, oldVal) {
-//                        var rec = combo.getStore().getAt(combo.selectedIndex);
-//                        this.tagFilter(rec);
-//                        Ext.getCmp('clr-filter-btn').enable();
-//                    },
-//                    scope: this
-//                }
-//            },
-            '->',{
+            bbar:['Tags:',{
+                xtype: 'img-tagmulticombo',
+                id: this.tfId,
+                listeners: {
+                    select: function(combo, record, idx) {
+                        var vals = combo.getValue();
+                        this.tagFilter(vals);
+                        return true;
+                    },
+                    clearall: function(combo) {
+                        this.clearFilter();
+                    },
+                    scope: this
+                }
+            },'->',{
                 xtype: 'slider',
+                itemId: 'size-slider',
                 width: 200,
                 style: 'margin-right:20px;',
+                value: sliderValue,
                 plugins: new Ext.ux.SliderTip({
                     getText: function(slider){
-                        return String.format('<b>{0}%</b>', 100+slider.getValue()*4);
+                        return String.format('<b>{0}%</b>', 100+slider.getValue()*3);
                     }
                 }),
                 listeners: {
@@ -50,6 +50,7 @@ Imgorg.ImageThumbPanel = Ext.extend(Ext.Panel, {
             }]
         });
         Imgorg.ImageThumbPanel.superclass.initComponent.call(this);
+        this.on('activate', this.onActivate, this);
     },
     
     afterRender: function() {
@@ -63,34 +64,52 @@ Imgorg.ImageThumbPanel = Ext.extend(Ext.Panel, {
         }).defer(100, this);
     },
     
+    onActivate: function() {
+        this.reload();
+        var p = Ext.state.Manager.getProvider();
+        if (p) {
+            sliderValue = p.get('sliderValue');
+            var slider = this.getBottomToolbar().getComponent('size-slider');
+            slider.setValue(sliderValue);
+            this.onChange(slider);
+        }
+    },
+    
     onChange: function(slider, e) {
+        var p = Ext.state.Manager.getProvider();
+        if (p) {
+            p.set('sliderValue', slider.getValue());
+        }
         Ext.util.CSS.updateRule('.images-view .thumb img','height',this.minWidth+slider.getValue()*3);
     },
     
-    tagFilter: function(rec) {
+    tagFilter: function(vals) {
+        var album = this.view.store.lastOptions.params.album;
+        
         this.view.store.load({
             params: {
-                tag: rec.data.id
+                tags: vals,
+                album: album
             }
         });
-        this.setTitle('Tag: '+rec.data.text);
     },
     
     clearFilter: function() {
-        this.view.store.load();
-//        Ext.getCmp('clr-filter-btn').disable();
+        var album = this.view.store.lastOptions.params.album;
+        this.view.store.load({
+            params: {
+                album: album
+            }
+        });
         Ext.getCmp(this.tfId).reset();
-        this.setTitle(this.defaultTitle);
     },
     
     albumFilter: function(album) {
-//        Ext.getCmp('clr-filter-btn').enable();
         this.getComponent('imgorg-dv').store.load({
             params: {
                 album: album.id
             }
         });
-        this.setTitle('Album: '+album.text);
     },
     
     reload: function() {

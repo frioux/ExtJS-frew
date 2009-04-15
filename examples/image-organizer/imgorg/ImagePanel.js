@@ -1,5 +1,6 @@
 Imgorg.ImagePanel = Ext.extend(Ext.Panel,{
     closable: true,
+    border: false,
     tagTpl: new Ext.XTemplate(
         '<h3 class="image-prop-header">Tags</h3>',
         '<tpl for=".">',
@@ -7,7 +8,7 @@ Imgorg.ImagePanel = Ext.extend(Ext.Panel,{
         '</tpl>'
     ),
     albumTpl: new Ext.XTemplate(
-        '<h3 class="image-prop-header">Albums</h3>',
+        '<h3 class="image-prop-header">Album</h3>',
         '<tpl for=".">',
             '<div class="image-prop">{text}</div>',
         '</tpl>'
@@ -23,14 +24,18 @@ Imgorg.ImagePanel = Ext.extend(Ext.Panel,{
         Ext.apply(this,{
             layout: 'border',
             items: [{
+                border: false,
                 region: 'center',
-                html: '<div style="text-align:center;padding-top:20px"><img src="'+this.url+'"/></div>'
+                html: '<div style="text-align:center;padding-top:20px"><img src="'+this.url+'"/></div>',
+                autoScroll: true
             },{
+                border: false,
                 region: 'east',
                 itemId: 'image-properties',
                 width: 250,
                 title: 'Properties',
-                collapsible: true
+                collapsible: true,
+                style: 'border-left: 1px solid #99BBE8'
             }]
         });
         Imgorg.ImagePanel.superclass.initComponent.call(this);
@@ -44,14 +49,6 @@ Imgorg.ImagePanel = Ext.extend(Ext.Panel,{
     },
     
     onGetInfo: function(data, resp) {
-        var img = this.body.child('img');
-        var size = img.getSize();
-        if (data.COMPUTED.Height < size.height) {
-            img.setHeight(data.COMPUTED.Height);
-        }
-        if (data.COMPUTED.Width < size.width) {
-            img.setWidth(data.COMPUTED.Width);
-        }
         var prop = this.getComponent('image-properties');
         this.infoTpl.append(prop.body, data)
     },

@@ -29,6 +29,25 @@ Imgorg.TagCombo = Ext.extend(Imgorg.DirectCombo,{
 });
 Ext.reg('img-tagcombo', Imgorg.TagCombo);
 
+Imgorg.TagMultiCombo = Ext.extend(Ext.ux.MultiCombo,{
+    listClass: 'label-combo',
+    displayField: 'text',
+    valueField: 'id',
+    triggerAction: 'all',
+    
+    initComponent: function() {
+        this.store = new Ext.data.DirectStore(Ext.apply({
+            api: Tags,
+            root: '',
+            autoLoad: true,
+            fields: this.fields || ['text', 'id']
+        }, this.storeConfig));
+        this.plugins =new Ext.ux.MultiCombo.Checkable({});
+        Imgorg.DirectCombo.superclass.initComponent.call(this);
+    }
+});
+Ext.reg('img-tagmulticombo', Imgorg.TagMultiCombo);
+
 Imgorg.AlbumCombo = Ext.extend(Imgorg.DirectCombo, {
     storeConfig: {
         id: 'album-store'

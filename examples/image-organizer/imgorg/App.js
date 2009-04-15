@@ -50,6 +50,7 @@ Imgorg.App = function() {
         debugSWF: true,
         
         init: function() {
+            Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
             Ext.QuickTips.init();
             Ext.BLANK_IMAGE_URL = '../../resources/images/default/s.gif';
             Ext.Direct.addProvider(Imgorg.REMOTING_API);
@@ -148,18 +149,8 @@ Imgorg.App = function() {
                         },
                         scope: this
                     }
-                },
-                listeners: {
-                    activate: this.onTpActivate,
-                    scope: this
                 }
             };
-        },
-        
-        onTpActivate: function(panel) {
-            if (panel) {
-                panel.reload();
-            }
         },
         
         openImage: function(rec) {

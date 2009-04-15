@@ -2,16 +2,26 @@
 class Images {
     function load($data){
         $db = new SQLiteDatabase("sql/imgorg.db");
-        $tag = $data->tag;
+        $tags = $data->tags;
         $album = $data->album;
         $qry = 'select i.filename as filename, i.url as url, i.id as id from Images i';
-        if ($tag) {
-            $qry .= ' INNER JOIN Images_Tags it ON i.id = it.image_id WHERE it.tag_id ="'.$tag.'"';
-        } elseif ($album) {
-            $qry .= ' INNER JOIN Albums a ON i.album_id = a.id WHERE a.id ="'.$album.'"';
+        $where = array();
+        if ($tags) {
+            for ($i = 0;$i < sizeof($tags);$i++) {
+                $qry .= ' INNER JOIN Images_Tags it'.$i.' ON i.id = it'.$i.'.image_id';
+                array_push($where,' it'.$i.'.tag_id = "'.$tags[$i].'"');
+            }
+        } 
+        if ($album) {
+            $qry .= ' INNER JOIN Albums a ON i.album_id = a.id';
+            array_push($where, ' a.id ="'.$album.'"');
+        }
+        if ($where) {
+            $qry .= ' WHERE'.join(" AND", $where);
         }
         $res = $db->query($qry);
         return $res->fetchAll();
+//        return $qry;
     }
 
     function upload($data, $files){
@@ -21,7 +31,7 @@ class Images {
         $q = $db->query('SELECT * FROM Images WHERE filename = "'.$name.'"');
         move_uploaded_file($files["Filedata"]["tmp_name"],"../images/".$name);
         
-        return array(data => $files["Filedata"], res => $q->fetchObject());
+        return array(data => $files["Filedata"], res => $q->fetchObject(), test => $phm->getImageQuality());
     }
     
     function addToAlbum($data) {

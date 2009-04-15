@@ -8,23 +8,25 @@ Imgorg.AlbumsPanel = Ext.extend(Ext.Panel,{
             autoScroll: true,
             defaultType: 'img-album',
             items: [{
-                columnWidth: 0.33,
-                html: 'test'
+                columnWidth: 0.33
             },{
-                columnWidth: 0.33,
-                html: 'test'
+                columnWidth: 0.33
             },{
-                columnWidth: 0.34,
-                html: 'test'
+                columnWidth: 0.34
             }]
         });
         Imgorg.AlbumsPanel.superclass.initComponent.call(this);
-        Albums.getAllInfo({}, this.setupAlbums, this);
+        this.loadAlbums();
+        this.on('activate', this.loadAlbums, this);
     },
     
     afterRender: function() {
         Imgorg.AlbumsPanel.superclass.afterRender.call(this);
         this.body.on('click', this.onClick, this, {delegate: 'div.album-wrap'});
+    },
+    
+    loadAlbums: function() {
+        Albums.getAllInfo({}, this.setupAlbums, this);
     },
     
     setupAlbums: function(data, resp) {
@@ -75,9 +77,6 @@ Imgorg.Album = Ext.extend(Ext.Panel,{
             }
         }
     ),
-    initComponent: function() {
-        Imgorg.Album.superclass.initComponent.call(this);
-    },
     generateAlbums: function(albums) {
         for(var i = 0; i < albums.length;i++) {
             if (albums[i].exif) {
