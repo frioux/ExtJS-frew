@@ -30,11 +30,11 @@ Ext.data.DataWriter.prototype = {
 	dataProperty : 'data',
 	/**
 	 * @cfg {Boolean} writeAllFields
-	 * <tt>true</tt> by default to have DataWriter return ALL fields of a modified
+	 * <tt>false</tt> by default.  Set <tt>true</tt> to have DataWriter return ALL fields of a modified
 	 * record -- not just those that changed.
 	 * <tt>false</tt> to have DataWriter only request modified fields from a record.
 	 */
-	writeAllFields : true,
+	writeAllFields : false,
 
 	/**
      * This method is only used by a DataProxy when writing to a remote server.
