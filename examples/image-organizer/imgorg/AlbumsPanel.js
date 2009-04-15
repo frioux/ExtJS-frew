@@ -26,7 +26,7 @@ Imgorg.AlbumsPanel = Ext.extend(Ext.Panel,{
     },
     
     loadAlbums: function() {
-        Albums.getAllInfo({}, this.setupAlbums, this);
+        Imgorg.ss.Albums.getAllInfo({}, this.setupAlbums, this);
     },
     
     setupAlbums: function(data, resp) {
@@ -59,7 +59,7 @@ Imgorg.Album = Ext.extend(Ext.Panel,{
         '<tpl for=".">',
             '<div class="album-wrap" album_id="{id}" album_name="{text}">',
                 '<div class="album-wrap-inner">',
-                    '{url:this.imageFormat}',
+                    '{filename:this.imageFormat}',
                     '<h3>Album: {text}</h3>',
                     '<div class="album-details">',
                         '<p>Date: {date}</p>',
@@ -68,9 +68,9 @@ Imgorg.Album = Ext.extend(Ext.Panel,{
                 '</div>',
             '</div>',
         '</tpl>',{
-            imageFormat: function(url, data) {
-                if (url) {
-                    return String.format('<img src="{0}" height="{1}" width="{2}" />',url, data.height, data.width);
+            imageFormat: function(filename, data) {
+                if (filename) {
+                    return String.format('<img src="images/thumbs/{0}" height="{1}" width="{2}" />',filename, data.height, data.width);
                 } else {
                     return '<p>No Images in Album</p>';
                 }

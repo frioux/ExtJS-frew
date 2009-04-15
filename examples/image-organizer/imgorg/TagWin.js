@@ -53,7 +53,7 @@ Imgorg.TagWindow = Ext.extend(Ext.Window, {
                     rec = fld.store.getAt(idx);
                     tag = rec.data.id;
                 }
-                Images.tagImage({
+                Imgorg.ss.Images.tagImage({
                     images: imageIds,
                     tag: tag
                 });

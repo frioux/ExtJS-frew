@@ -2,7 +2,6 @@
  * Sample Image Organizer utilizing Ext.Direct
  * Tagging/Organizing into galleries
  * Image uploading
- * Title & Descriptions
  */
 
 Ext.ns('Imgorg','Imgorg.App');
@@ -17,7 +16,7 @@ Imgorg.App = function() {
             file_types_description: "Image Files",
             file_upload_limit: 100,
             file_queue_limit: 100, 
-            debug: true,
+            debug: false,
             button_placeholder_id: "btnUploadHolder",
             button_cursor: SWFUpload.CURSOR.HAND,
             button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
@@ -47,7 +46,7 @@ Imgorg.App = function() {
     }
     var view, thumbPanel, uploadPanel, tabPanel;
     return {
-        debugSWF: true,
+        debugSWF: false,
         
         init: function() {
             Ext.state.Manager.setProvider(new Ext.state.CookieProvider());

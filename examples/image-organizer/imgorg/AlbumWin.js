@@ -48,7 +48,7 @@ Imgorg.AlbumWin = Ext.extend(Ext.Window, {
                 var fld = af.findField('album');
                 var album = fld.getValue();
                 
-                Images.addToAlbum({
+                Imgorg.ss.Images.addToAlbum({
                     images: imageIds,
                     album: album
                 });

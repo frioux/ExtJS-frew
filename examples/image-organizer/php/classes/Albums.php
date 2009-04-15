@@ -53,12 +53,12 @@ class Albums {
         $res = $db->query('select * from Albums');
         $json = array();
         while ($o = $res->fetchObject()) {
-            $q = $db->query('SELECT url FROM Images WHERE album_id = "'.$o->id.'"');
+            $q = $db->query('SELECT * FROM Images WHERE album_id = "'.$o->id.'"');
             $qres = $q->fetchObject();
             if ($qres) {
                 $path = $qres->url;
                 $o->exif = exif_read_data('../'.$path);
-                $o->url = $path;
+                $o->filename = $qres->filename;
             }
             $o->size = sizeof($q->fetchAll());
             array_push($json,$o);

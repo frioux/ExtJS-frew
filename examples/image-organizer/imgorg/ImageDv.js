@@ -2,7 +2,7 @@ Imgorg.ImageDv = Ext.extend(Ext.DataView,{
     tpl: new Ext.XTemplate(
         '<tpl for=".">',
         '<div class="thumb-wrap" id="{id}">',
-        '<div class="thumb"><img src="{url}" class="thumb-img"></div>',
+        '<div class="thumb"><img src="images/thumbs/{filename}" class="thumb-img"></div>',
         '<span class="x-editable">{filename:ellipsis(15)}</span></div>',
         '</tpl>'
     ),
@@ -22,7 +22,7 @@ Imgorg.ImageDv = Ext.extend(Ext.DataView,{
                 dataIndex: 'filename'
             })],
             store: new Ext.data.DirectStore({
-                api: Images,
+                api: Imgorg.ss.Images,
                 root: '',
                 fields: ['filename', 'url', 'id', 'size']
             })
@@ -93,7 +93,7 @@ Imgorg.ImageDv = Ext.extend(Ext.DataView,{
     
     syncRename: function(store, rec, op) {
         if (op == 'edit') {
-            Images.rename({image: rec.data.id, name: rec.data.filename, url: rec.data.url});
+            Imgorg.ss.Images.rename({image: rec.data.id, name: rec.data.filename, url: rec.data.url});
         }
     },
     
@@ -104,7 +104,7 @@ Imgorg.ImageDv = Ext.extend(Ext.DataView,{
             imageIds.push(recs[i].data.id);
             this.store.remove(recs[i]);
         }
-        Images.remove({images: imageIds});
+        Imgorg.ss.Images.remove({images: imageIds});
     }
 });
 Ext.reg('img-dv', Imgorg.ImageDv);

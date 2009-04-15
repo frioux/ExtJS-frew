@@ -26,7 +26,7 @@ Imgorg.ImagePanel = Ext.extend(Ext.Panel,{
             items: [{
                 border: false,
                 region: 'center',
-                html: '<div style="text-align:center;padding-top:20px"><img src="'+this.url+'"/></div>',
+                html: '<div style="text-align:center;"><img src="'+this.url+'"/></div>',
                 autoScroll: true
             },{
                 border: false,
@@ -43,9 +43,9 @@ Imgorg.ImagePanel = Ext.extend(Ext.Panel,{
     
     afterRender: function() {
         Imgorg.ImagePanel.superclass.afterRender.call(this);
-        Images.getInfo({image: this.imageData.id}, this.onGetInfo, this);
-        Albums.getAlbums({image: this.imageData.id}, this.onGetAlbums,this);
-        Tags.getTags({image: this.imageData.id}, this.onGetTags, this);
+        Imgorg.ss.Images.getInfo({image: this.imageData.id}, this.onGetInfo, this);
+        Imgorg.ss.Albums.getAlbums({image: this.imageData.id}, this.onGetAlbums,this);
+        Imgorg.ss.Tags.getTags({image: this.imageData.id}, this.onGetTags, this);
     },
     
     onGetInfo: function(data, resp) {

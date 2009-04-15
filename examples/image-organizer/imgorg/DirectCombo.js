@@ -23,7 +23,7 @@ Imgorg.TagCombo = Ext.extend(Imgorg.DirectCombo,{
         id: 'tag-store'
     },
     initComponent: function() {
-        this.api = Tags;
+        this.api = Imgorg.ss.Tags;
         Imgorg.TagCombo.superclass.initComponent.call(this);
     }
 });
@@ -33,11 +33,10 @@ Imgorg.TagMultiCombo = Ext.extend(Ext.ux.MultiCombo,{
     listClass: 'label-combo',
     displayField: 'text',
     valueField: 'id',
-    triggerAction: 'all',
     
     initComponent: function() {
         this.store = new Ext.data.DirectStore(Ext.apply({
-            api: Tags,
+            api: Imgorg.ss.Tags,
             root: '',
             autoLoad: true,
             fields: this.fields || ['text', 'id']
@@ -53,7 +52,7 @@ Imgorg.AlbumCombo = Ext.extend(Imgorg.DirectCombo, {
         id: 'album-store'
     },
     initComponent: function() {
-        this.api = Albums;
+        this.api = Imgorg.ss.Albums;
         Imgorg.AlbumCombo.superclass.initComponent.call(this);
     }
 });

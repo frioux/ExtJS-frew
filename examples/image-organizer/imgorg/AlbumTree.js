@@ -2,7 +2,7 @@ Imgorg.AlbumTree = Ext.extend(Ext.tree.TreePanel,{
     initComponent: function() {
         Ext.apply(this,{
             loader: new Ext.ux.tree.DirectTreeLoader({
-                api: Albums
+                api: Imgorg.ss.Albums
             }),
             root: new Ext.tree.TreeNode({
                 text:'dummynode',
@@ -43,7 +43,7 @@ Imgorg.AlbumTree = Ext.extend(Ext.tree.TreePanel,{
                         node.unselect();
                         Ext.fly(node.ui.elNode).ghost('l', {
                             callback: function() {
-                                Albums.remove({
+                                Imgorg.ss.Albums.remove({
                                     album: node.id
                                 });
                                 node.remove();
@@ -69,7 +69,7 @@ Imgorg.AlbumTree = Ext.extend(Ext.tree.TreePanel,{
     },
     
     addToAlbum: function(nodes, album) {
-        Images.addToAlbum({
+        Imgorg.ss.Images.addToAlbum({
             images: nodes, 
             album: album
         });
@@ -92,7 +92,7 @@ Imgorg.AlbumTree = Ext.extend(Ext.tree.TreePanel,{
     
     onEditComplete: function(editor, newVal, oldVal) {
         var n = editor.editNode;
-        Albums.addOrUpdate({node: n.id, text: newVal, id: n.attributes.id});
+        Imgorg.ss.Albums.addOrUpdate({node: n.id, text: newVal, id: n.attributes.id});
     }
 });
 Ext.reg('img-albumtree', Imgorg.AlbumTree);

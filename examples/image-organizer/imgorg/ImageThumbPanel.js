@@ -84,7 +84,9 @@ Imgorg.ImageThumbPanel = Ext.extend(Ext.Panel, {
     },
     
     tagFilter: function(vals) {
-        var album = this.view.store.lastOptions.params.album;
+        if (this.view.store.lastOptions.params) {
+            var album = this.view.store.lastOptions.params.album;
+        }
         
         this.view.store.load({
             params: {
