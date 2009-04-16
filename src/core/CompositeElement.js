@@ -111,5 +111,5 @@ Ext.Element.select = function(selector, unique, root){
         throw "Invalid selector";
     }
 
-    return (unique === true) ? new Ext.CompositeElement(els) : Ext.CompositeElementLite(els);
+    return (unique === true) ? new Ext.CompositeElement(els) : new Ext.CompositeElementLite(els);
 };
