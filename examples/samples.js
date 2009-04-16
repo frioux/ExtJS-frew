@@ -370,17 +370,7 @@ Ext.EventManager.on(window, 'load', function(){
             url: 'window/gmap.html',
             icon: 'gmap-panel.gif',
             desc: 'A Google Maps wrapper class that enables easy display of dynamic maps in Ext panels and windows.'
-        },/*{
-            text: 'StatusBar',
-            url: 'statusbar/statusbar-demo.html',
-            icon: 'statusbar.gif',
-            desc: 'A simple StatusBar that can be dropped into the bottom of any panel to display status text and icons.'
         },{
-            text: 'StatusBar (advanced)',
-            url: 'statusbar/statusbar-advanced.html',
-            icon: 'statusbar-plugin.gif',
-            desc: 'Customizing the StatusBar via a plugin to provide automatic form validation monitoring and error linking.'
-       },*/{
             text: 'Slider',
             url: 'slider/slider.html',
             icon: 'slider.gif',
@@ -440,6 +430,12 @@ Ext.EventManager.on(window, 'load', function(){
             url: 'grouptabs/',
             icon: 'group-tabs.gif',
             desc: 'A custom example on how to setup tab grouping using vertical tabs.',
+            isNew: true
+        },{
+            text: 'Charts',
+            url: 'chart/charts.html',
+            icon: 'charts.gif',
+            desc: 'An example of how to use the line and bar charts with some custom styling',
             isNew: true
         }]
     }];

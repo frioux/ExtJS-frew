@@ -715,6 +715,7 @@
   <file name="shared\screens\buttons.gif" path="shared\screens" />
   <file name="shared\screens\border-layout.gif" path="shared\screens" />
   <file name="shared\screens\chooser.gif" path="shared\screens" />
+  <file name="shared\screens\charts.gif" path="shared\screens" />
   <file name="shared\screens\combo-custom.gif" path="shared\screens" />
   <file name="shared\screens\combo.gif" path="shared\screens" />
   <file name="shared\screens\data-view.gif" path="shared\screens" />
