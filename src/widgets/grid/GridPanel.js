@@ -70,8 +70,25 @@
  */
 Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
     /**
-     * @cfg {Ext.data.Store} store The {@link Ext.data.Store} the grid should use as its data source (required).
+     * @cfg {String} autoExpandColumn The <tt>{@link Ext.grid.Column#id id}</tt> of a
+     * {@link Ext.grid.Column column} in this grid that should expand to fill unused space.
+     * This value specified here can not be <tt>0</tt>.
      */
+    autoExpandColumn : false,
+    /**
+     * @cfg {Number} autoExpandMax The maximum width the <tt>{@link #autoExpandColumn}</tt>
+     * can have (if enabled). Defaults to <tt>1000</tt>.
+     */
+    autoExpandMax : 1000,
+    /**
+     * @cfg {Number} autoExpandMin The minimum width the <tt>{@link #autoExpandColumn}</tt>
+     * can have (if enabled). Defaults to <tt>50</tt>.
+     */
+    autoExpandMin : 50,
+    /**
+     * @cfg {Boolean} columnLines <tt>true</tt> to add css for column separation lines. Default is <tt>false</tt>.
+     */
+    columnLines : false,
     /**
      * @cfg {Object} cm Shorthand for <tt>{@link #colModel}</tt>.
      */
@@ -79,57 +96,39 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
      * @cfg {Object} colModel The {@link Ext.grid.ColumnModel} to use when rendering the grid (required).
      */
     /**
-     * @cfg {Object} sm Shorthand for <tt>{@link #selModel}</tt>.
-     */
-    /**
-     * @cfg {Object} selModel Any subclass of {@link Ext.grid.AbstractSelectionModel} that will provide
-     * the selection model for the grid (defaults to {@link Ext.grid.RowSelectionModel} if not specified).
-     */
-    /**
      * @cfg {Array} columns An array of {@link Ext.grid.Column columns} to auto create a
      * {@link Ext.grid.ColumnModel}.  The ColumnModel may be explicitly created via the
      * <tt>{@link #colModel}</tt> configuration property.
      */
     /**
-    * @cfg {Number} maxHeight Sets the maximum height of the grid - ignored if <tt>autoHeight</tt> is not on.
-    */
-    /**
-     * @cfg {Boolean} disableSelection True to disable selections in the grid (defaults to false).
-     * - ignored if a {@link #selModel SelectionModel} is specified 
-     */
-    /**
-     * @cfg {Boolean} enableColumnMove False to turn off column reordering via drag drop (defaults to true).
-     */
-    /**
-     * @cfg {Boolean} enableColumnResize False to turn off column resizing for the whole grid (defaults to true).
-     */
-    /**
-     * @cfg {Object} viewConfig A config object that will be applied to the grid's UI view.  Any of
-     * the config options available for {@link Ext.grid.GridView} can be specified here. This option
-     * is ignored if <tt>{@link #view}</tt> is specified.
-     */
-    /**
-     * @cfg {Boolean} hideHeaders True to hide the grid's header (defaults to false).
-     */
-
-    /**
+     * @cfg {String} ddText
      * Configures the text in the drag proxy.  Defaults to:
      * <pre><code>
      * ddText : "{0} selected row{1}"
      * </code></pre>
      * <tt>{0}</tt> is replaced with the number of selected rows.
-     * @type String
      */
     ddText : "{0} selected row{1}",
     /**
-     * @cfg {Number} minColumnWidth The minimum width a column can be resized to. Defaults to 25.
+     * @cfg {Boolean} deferRowRender Defaults to <tt>true</tt> to enable deferred row rendering.
      */
-    minColumnWidth : 25,
+    deferRowRender : true,
     /**
-     * @cfg {Boolean} trackMouseOver True to highlight rows when the mouse is over. Default is <tt>true</tt>
-     * for GridPanel, but <tt>false</tt> for EditorGridPanel.
+     * @cfg {Boolean} disableSelection <tt>true</tt> to disable selections in the grid (defaults to <tt>false</tt>).
+     * - ignored if a {@link #selModel SelectionModel} is specified 
      */
-    trackMouseOver : true,
+    /**
+     * @cfg {Boolean} enableColumnResize <tt>false</tt> to turn off column resizing for the whole grid (defaults to <tt>true</tt>).
+     */
+    /**
+     * @cfg {Boolean} enableColumnHide Defaults to <tt>true</tt> to enable hiding of columns with the header context menu.
+     */
+    enableColumnHide : true,
+    /**
+     * @cfg {Boolean} enableColumnMove Defaults to <tt>true</tt> to enable drag and drop reorder of columns. <tt>false</tt>
+     * to turn off column reordering via drag drop.
+     */
+    enableColumnMove : true,
     /**
      * @cfg {Boolean} enableDragDrop <p>Defaults to <tt>true</tt> enabling dragging of the selected
      * rows of the GridPanel.</p>
@@ -144,17 +143,34 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
      */
     enableDragDrop : false,
     /**
-     * @cfg {Boolean} enableColumnMove Defaults to <tt>true</tt> to enable drag and drop reorder of columns.
-     */
-    enableColumnMove : true,
-    /**
-     * @cfg {Boolean} enableColumnHide Defaults to <tt>true</tt> to enable hiding of columns with the header context menu.
-     */
-    enableColumnHide : true,
-    /**
      * @cfg {Boolean} enableHdMenu Defaults to <tt>true</tt> to enable the drop down button for menu in the headers.
      */
     enableHdMenu : true,
+    /**
+     * @cfg {Boolean} hideHeaders True to hide the grid's header (defaults to false).
+     */
+    /**
+     * @cfg {Object} loadMask An {@link Ext.LoadMask} config or true to mask the grid while
+     * loading (defaults to false).
+     */
+    loadMask : false,
+    /**
+     * @cfg {Number} maxHeight Sets the maximum height of the grid - ignored if <tt>autoHeight</tt> is not on.
+     */
+    /**
+     * @cfg {Number} minColumnWidth The minimum width a column can be resized to. Defaults to <tt>25</tt>.
+     */
+    minColumnWidth : 25,
+    /**
+     * @cfg {Object} sm Shorthand for <tt>{@link #selModel}</tt>.
+     */
+    /**
+     * @cfg {Object} selModel Any subclass of {@link Ext.grid.AbstractSelectionModel} that will provide
+     * the selection model for the grid (defaults to {@link Ext.grid.RowSelectionModel} if not specified).
+     */
+    /**
+     * @cfg {Ext.data.Store} store The {@link Ext.data.Store} the grid should use as its data source (required).
+     */
     /**
      * @cfg {Boolean} stripeRows <tt>true</tt> to stripe the rows. Default is <tt>false</tt>.
      * <p>This causes the CSS class <tt><b>x-grid3-row-alt</b></tt> to be added to alternate rows of
@@ -164,46 +180,10 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
      */
     stripeRows : false,
     /**
-     * @cfg {String} autoExpandColumn The <tt>{@link Ext.grid.Column#id id}</tt> of a
-     * {@link Ext.grid.Column column} in this grid that should expand to fill unused space.
-     * This value specified here can not be <tt>0</tt>.
+     * @cfg {Boolean} trackMouseOver True to highlight rows when the mouse is over. Default is <tt>true</tt>
+     * for GridPanel, but <tt>false</tt> for EditorGridPanel.
      */
-    autoExpandColumn : false,
-    /**
-    * @cfg {Number} autoExpandMin The minimum width the <tt>{@link #autoExpandColumn}</tt>
-    * can have (if enabled). Defaults to <tt>50</tt>.
-    */
-    autoExpandMin : 50,
-    /**
-    * @cfg {Number} autoExpandMax The maximum width the <tt>{@link #autoExpandColumn}</tt>
-    * can have (if enabled). Defaults to <tt>1000</tt>.
-    */
-    autoExpandMax : 1000,
-    /**
-     * @cfg {Object} view The {@link Ext.grid.GridView} used by the grid. This can be set
-     * before a call to {@link Ext.Component#render render()}.
-     */
-    view : null,
-    /**
-     * @cfg {Object} loadMask An {@link Ext.LoadMask} config or true to mask the grid while
-     * loading (defaults to false).
-     */
-    loadMask : false,
-
-    /**
-     * @cfg {Boolean} columnLines True to add css for column separation lines. Default is false.
-     */
-    columnLines : false,
-
-    /**
-     * @cfg {Boolean} deferRowRender True to enable deferred row rendering. Default is true.
-     */
-    deferRowRender : true,
-
-    // private
-    rendered : false,
-    // private
-    viewReady: false,
+    trackMouseOver : true,
     /**
      * @cfg {Array} stateEvents
      * An array of events that, when fired, should trigger this component to save its state.
@@ -215,7 +195,22 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
      * <p>See {@link Ext.Component#stateful} for an explanation of saving and restoring
      * Component state.</p>
      */
-    stateEvents: ["columnmove", "columnresize", "sortchange"],
+    stateEvents : ["columnmove", "columnresize", "sortchange"],
+    /**
+     * @cfg {Object} view The {@link Ext.grid.GridView} used by the grid. This can be set
+     * before a call to {@link Ext.Component#render render()}.
+     */
+    view : null,
+    /**
+     * @cfg {Object} viewConfig A config object that will be applied to the grid's UI view.  Any of
+     * the config options available for {@link Ext.grid.GridView} can be specified here. This option
+     * is ignored if <tt>{@link #view}</tt> is specified.
+     */
+
+    // private
+    rendered : false,
+    // private
+    viewReady : false,
 
     // private
     initComponent : function(){
