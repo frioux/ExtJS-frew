@@ -219,9 +219,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
              */
             'restore'
         );
-		if(this.initHidden === false){
-			this.show();
-		}
+		this.hidden = (this.initHidden !== false);
     },
 
     // private
@@ -280,7 +278,6 @@ Ext.Window = Ext.extend(Ext.Panel, {
 		this.mon(this.el, 'mousedown', this.toFront, this);
         this.manager = this.manager || Ext.WindowMgr;
         this.manager.register(this);
-        this.hidden = true;
         if(this.maximized){
             this.maximized = false;
             this.maximize();
