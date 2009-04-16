@@ -219,7 +219,11 @@ Ext.Window = Ext.extend(Ext.Panel, {
              */
             'restore'
         );
-		this.hidden = (this.initHidden !== false);
+		if(this.initHidden === false){
+			this.show();
+		}else{
+			this.hidden = true;
+		}
     },
 
     // private
