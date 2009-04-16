@@ -461,16 +461,28 @@ p2 = p1.{@link #ownerCt}.{@link Ext.Container#getComponent getComponent}('p2'); 
      */
     /**
      * @cfg {String} xtype
-     * The registered xtype to create. This config option is not used when passing
+     * The registered <tt>xtype</tt> to create. This config option is not used when passing
      * a config object into a constructor. This config option is used only when
      * lazy instantiation is being used, and a child item of a Container is being
      * specified not as a fully instantiated Component, but as a <i>Component config
-     * object</i>. The xtype will be looked up at render time up to determine what
+     * object</i>. The <tt>xtype</tt> will be looked up at render time up to determine what
      * type of child Component to create.<br><br>
      * The predefined xtypes are listed {@link Ext.Component here}.
      * <br><br>
      * If you subclass Components to create your own Components, you may register
      * them using {@link Ext.ComponentMgr#registerType} in order to be able to
+     * take advantage of lazy instantiation and rendering.
+     */
+    /**
+     * @cfg {String} ptype
+     * The registered <tt>ptype</tt> to create. This config option is not used when passing
+     * a config object into a constructor. This config option is used only when
+     * lazy instantiation is being used, and a Plugin is being
+     * specified not as a fully instantiated Component, but as a <i>Component config
+     * object</i>. The <tt>ptype</tt> will be looked up at render time up to determine what
+     * type of Plugin to create.<br><br>
+     * If you create your own Plugins, you may register them using
+     * {@link Ext.ComponentMgr#registerPlugin} in order to be able to
      * take advantage of lazy instantiation and rendering.
      */
     /**
