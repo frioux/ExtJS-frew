@@ -14,18 +14,18 @@
  * {@link Ext.data.HttpProxy}.{@link Ext.data.HttpProxy#load load} for additional details.</p>
  */
 Ext.data.DataProxy = function(conn){
-	// make sure we have a config object here to support ux proxies.
-	// All proxies should now send config into superclass constructor.
-	conn = conn || {};
+    // make sure we have a config object here to support ux proxies.
+    // All proxies should now send config into superclass constructor.
+    conn = conn || {};
 
-	Ext.apply(this, conn);
+    Ext.apply(this, conn);
 
-	this.api = conn.api || {
-		load: undefined,
-		save: undefined,
-		create: undefined,
-		destroy: undefined
-	};
+    this.api = conn.api || {
+        load: undefined,
+        save: undefined,
+        create: undefined,
+        destroy: undefined
+    };
 
     this.addEvents(
         /**
@@ -96,17 +96,17 @@ Ext.data.DataProxy = function(conn){
 
 Ext.extend(Ext.data.DataProxy, Ext.util.Observable, {
 
-	/**
-	 * load
-	 * old-school load method with old method signature.  Simply a proxy-method -> doRequest
-	 * @deprecated
-	 * @param {Object} params
-	 * @param {Object} reader
-	 * @param {Object} callback
-	 * @param {Object} scope
-	 * @param {Object} arg
-	 */
-	load : function(params, reader, callback, scope, arg) {
+    /**
+     * load
+     * old-school load method with old method signature.  Simply a proxy-method -> doRequest
+     * @deprecated
+     * @param {Object} params
+     * @param {Object} reader
+     * @param {Object} callback
+     * @param {Object} scope
+     * @param {Object} arg
+     */
+    load : function(params, reader, callback, scope, arg) {
         this.doRequest('load', null, params, reader, null, cb, scope, arg);
     },
 
@@ -137,20 +137,20 @@ api: {
      * @private
      */
     request : function(action, rs, params, reader, writer, cb, scope, options) {
-		if (!this.api[action]) {
-			if (this.url) {	// <-- if an url was defined, set the appropriate api action to this url
-				this.api[action] = this.url;
-			}
-			else if (typeof(this[action]) != 'function') {	// <-- To keep pre3.0 proxies working, look for a method matching the action (ie: 'load')
-				throw new Error('No proxy url defined for api action "' + action + '"');
-			}
-		}
-		if (this.fireEvent("before" + action, this, params) !== false) {
-			this.doRequest.apply(this, arguments);
-		}
-		else {
-			cb.call(scope || this, null, arg, false);
-		}
+        if (!this.api[action]) {
+            if (this.url) {	// <-- if an url was defined, set the appropriate api action to this url
+                this.api[action] = this.url;
+            }
+            else if (typeof(this[action]) != 'function') {	// <-- To keep pre3.0 proxies working, look for a method matching the action (ie: 'load')
+                throw new Error('No proxy url defined for api action "' + action + '"');
+            }
+        }
+        if (this.fireEvent("before" + action, this, params) !== false) {
+            this.doRequest.apply(this, arguments);
+        }
+        else {
+            cb.call(scope || this, null, arg, false);
+        }
     },
 
     /**
@@ -159,9 +159,9 @@ api: {
      * {@link Ext.data.DirectProxy#doRequest DirectProxy.doRequest}).
      */
     doRequest : function(action, rs, params, reader, writer, cb, scope, options) {
-		// default implementation of doRequest for backwards compatibility with 2.0 proxies.
-		// If we're executing here, the action is probably "load".
-		// Call with the pre-3.0 method signature.
-		this[action](params, reader, cb, scope, options);
-	}
+        // default implementation of doRequest for backwards compatibility with 2.0 proxies.
+        // If we're executing here, the action is probably "load".
+        // Call with the pre-3.0 method signature.
+        this[action](params, reader, cb, scope, options);
+    }
 });
