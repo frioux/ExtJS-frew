@@ -10,7 +10,8 @@ Ext.ux.TabCloseMenu = function(){
 
     function onContextMenu(ts, item, e){
         if(!menu){ // create context menu on first right click
-            menu = new Ext.menu.Menu([{
+            menu = new Ext.menu.Menu({            
+            items: [{
                 id: tabs.id + '-close',
                 text: 'Close Tab',
                 handler : function(){
@@ -26,9 +27,10 @@ Ext.ux.TabCloseMenu = function(){
                         }
                     });
                 }
-            }]);
+            }]});
         }
         ctxItem = item;
+        console.log(menu);
         var items = menu.items;
         items.get(tabs.id + '-close').setDisabled(!item.closable);
         var disableOthers = true;
