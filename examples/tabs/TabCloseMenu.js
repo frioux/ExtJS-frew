@@ -30,7 +30,6 @@ Ext.ux.TabCloseMenu = function(){
             }]});
         }
         ctxItem = item;
-        console.log(menu);
         var items = menu.items;
         items.get(tabs.id + '-close').setDisabled(!item.closable);
         var disableOthers = true;
