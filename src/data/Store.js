@@ -9,7 +9,49 @@
  * <p>A Store object has no inherent knowledge of the format of the data returned by the Proxy (the data object
  * could be an Array, XML, or JSON). A Store object uses an appropriate {@link #reader configured} implementation
  * of a {@link Ext.data.DataReader DataReader} to create {@link Ext.data.Record Record} instances from the data
- * object. These generated Records are cached and made available through accessor functions.</p>
+ * object. These generated Records are cached and made available through accessor functions. The following
+ * examples illustrate explicit and implicit creation of the DataReader used by the Store.</p>
+ * <p>Option 1: use the generic store and then explicitly create a reader</p>
+ * <pre><code>
+
+var rt = Ext.data.Record.create([
+    {name: 'fullname'},
+    {name: 'first'}
+]);
+var myStore = new Ext.data.Store({
+    reader: new Ext.data.ArrayReader(
+        {
+            id: 0  // id for the record will be the first element
+        },
+        rt // recordType
+    )
+});
+ * </code></pre>
+ * <p>Option 2: choose a store that implicitly creates a reader commensurate to the data object.</p> 
+ * <pre><code> 
+var myStore = new Ext.data.ArrayStore({
+    fields: ['fullname', 'first'],
+    id: 0          // id for the record will be the first element
+});
+ * </code></pre>
+ * Load some data into store (note the data object is an array which corresponds to the reader):
+ * <pre><code> 
+var myData = [
+    [1, 'Fred Flintstone', 'Fred'],  // note that id for the record is the first element
+    [2, 'Barney Rubble', 'Barney']
+];
+myStore.loadData(myData);
+ * </code></pre>
+ * Adding a record to the store: 
+ * <pre><code> 
+var defaultData = {
+    fullname: 'Full Name',
+    first: 'First Name'
+};
+var recId = 100; // provide unique id for the record
+var r = new myStore.recordType(defaultData, ++recId); // create new record
+myStore.insert(0, r); // add new record to the store
+ * </code></pre> 
  * @constructor
  * Creates a new Store.
  * @param {Object} config A config object containing the objects needed for the Store to access data,
