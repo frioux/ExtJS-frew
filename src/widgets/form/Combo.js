@@ -2,10 +2,10 @@
  * @class Ext.form.ComboBox
  * @extends Ext.form.TriggerField
  * <p>A combobox control with support for autocomplete, remote-loading, paging and many other features.</p>
- * <p>A ComboBox works in a similar manner to a traditional HTML &lt;select> field. The difference is that to submit the
- * {@link #valueField}, you must specify a {@link #hiddenName} to create a hidden input field to hold the
- * value of the valueField. The <i>{@link #displayField}</i> is shown in the text field which is named
- * according to the {@link #name}.</p>
+ * <p>A ComboBox works in a similar manner to a traditional HTML &lt;select> field. The difference is
+ * that to submit the {@link #valueField}, you must specify a {@link #hiddenName} to create a hidden input
+ * field to hold the value of the valueField. The <i>{@link #displayField}</i> is shown in the text field
+ * which is named according to the {@link #name}.</p>
  * <p><b><u>Events</u></b></p>
  * <p>To do something when something in ComboBox is selected, configure the select event:<pre><code> 
 var cb = new Ext.form.ComboBox({
@@ -65,6 +65,9 @@ var cm = new Ext.grid.ColumnModel([{
 ]);
  * </code></pre></p>
  * 
+ * <p><b><u>Filtering</u></b></p>
+ * <p>A ComboBox {@link #doQuery uses filtering itself}, for information about filtering the ComboBox
+ * store manually see <tt>{@link #lastQuery}</tt>.</p> 
  * @constructor
  * Create a new ComboBox.
  * @param {Object} config Configuration options
@@ -313,7 +316,8 @@ var combo = new Ext.form.ComboBox({
 
     /**
      * The value of the match string used to filter the store. Delete this property to force a requery.
-     * Example use:<pre><code>
+     * Example use:
+     * <pre><code>
 var combo = new Ext.form.ComboBox({
     ...
     mode: 'remote',
@@ -326,7 +330,17 @@ var combo = new Ext.form.ComboBox({
         }
     }
 });
-</code></pre>
+     * </code></pre>
+     * To make sure the filter in the store is not cleared the first time the ComboBox trigger is used
+     * configure the combo with <tt>lastQuery=''</tt>. Example use:
+     * <pre><code>
+var combo = new Ext.form.ComboBox({
+    ...
+    mode: 'local',
+    triggerAction: 'all',
+    lastQuery: '' 
+});
+     * </code></pre>
      * @property lastQuery
      * @type String
      */
