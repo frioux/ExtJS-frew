@@ -157,11 +157,11 @@ api: {
      * @param {Object} scope The scope in which to call the callback
      * @param {Object} arg An optional argument which is passed to the callback as its second parameter.
      */
-    doRequest : function(action, rs, params, reader, writer, cb, scope, arg) {
+    doRequest : function(action, rs, params, reader, writer, callback, scope, arg) {
         var  o = {
             params : params || {},
             request: {
-                callback : cb,
+                callback : callback,
                 scope : scope,
                 arg : arg
             },
@@ -206,7 +206,7 @@ api: {
      * returns a request-callback function.  Note a special case is made for the "load" action vs all the others.
      * @param {String} action [create|update|delete|load]
      * @param {Record[]/DataReader} A list of records beinged acted upon or a DataReader for the "load" request
-     * @param {Function} cb callback function
+     * @param {Function} callback callback function
      * @param {Object} arg
      * @return {Function}
      * @private

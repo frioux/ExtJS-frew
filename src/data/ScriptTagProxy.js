@@ -103,7 +103,7 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
      * @param {Object} scope The scope in which to call the callback
      * @param {Object} arg An optional argument which is passed to the callback as its second parameter.
 	 */
-    doRequest : function(action, rs, params, reader, writer, cb, scope, arg) {
+    doRequest : function(action, rs, params, reader, writer, callback, scope, arg) {
         var p = Ext.urlEncode(Ext.apply(params, this.extraParams));
 
         var url = this.api[action];
@@ -120,7 +120,7 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
             params : params,
             arg : arg,
             url : url,
-            callback : cb,
+            callback : callback,
             scope : scope,
             reader : reader
         };

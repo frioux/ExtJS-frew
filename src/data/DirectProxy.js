@@ -33,7 +33,7 @@ paramOrder: 'param1|param2|param'
 	paramsAsHash: true,
 
 	// protected
-	doRequest : function(action, rs, params, reader, writer, cb, scope, options) {
+	doRequest : function(action, rs, params, reader, writer, callback, scope, options) {
 		var args = [];
 		var directFn = this.api[action];
 		switch (action) {
@@ -51,17 +51,17 @@ paramOrder: 'param1|param2|param'
 				args.push(params);							// <-- load(Hash)
 				break;
 		}
-		args.push(this.createCallback(action, reader, cb, scope, options));
+		args.push(this.createCallback(action, reader, callback, scope, options));
 		directFn.apply(window, args);
 	},
 
 	// private
-	createCallback : function(action, reader, cb, scope, arg) {
+	createCallback : function(action, reader, callback, scope, arg) {
 		return {
 			callback: (action == 'load') ? function(result, e){
 				if (!e.status) {
 					this.fireEvent(action+"exception", this, e, result);
-					cb.call(scope, null, arg, false);
+					callback.call(scope, null, arg, false);
 					return;
 				}
 				var records;
@@ -70,19 +70,19 @@ paramOrder: 'param1|param2|param'
 				}
 				catch (ex) {
 					this.fireEvent(action+"exception", this, e, result, ex);
-					cb.call(scope, null, arg, false);
+					callback.call(scope, null, arg, false);
 					return;
 				}
 				this.fireEvent(action, this, e, arg);
-				cb.call(scope, records, arg, true);
+				callback.call(scope, records, arg, true);
 			} : function(result, e){
 				if(!e.status){
 					this.fireEvent(action+"exception", this, e);
-        			cb.call(scope, null, e, false);
+        			callback.call(scope, null, e, false);
         			return;
 				}
 		        this.fireEvent(action, this, result, e, arg);
-		        cb.call(scope, result, e, true);
+		        callback.call(scope, result, e, true);
 			},
 			scope: this
 		}

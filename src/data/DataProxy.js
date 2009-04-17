@@ -159,7 +159,7 @@ Ext.extend(Ext.data.DataProxy, Ext.util.Observable, {
      * @param {Object} arg
      */
     load : function(params, reader, callback, scope, arg) {
-        this.doRequest('load', null, params, reader, null, cb, scope, arg);
+        this.doRequest('load', null, params, reader, null, callback, scope, arg);
     },
 
     /**
@@ -170,12 +170,12 @@ Ext.extend(Ext.data.DataProxy, Ext.util.Observable, {
      * @param {Object} params
      * @param {Ext.data.DataReader} reader
      * @param {Ext.data.DataWriter} writer
-     * @param {Function} cb
+     * @param {Function} callback
      * @param {Object} scope
      * @param {Object} options
      * @private
      */
-    request : function(action, rs, params, reader, writer, cb, scope, options) {
+    request : function(action, rs, params, reader, writer, callback, scope, options) {
         if (!this.api[action]) {
             if (this.url) {	// <-- if an url was defined, set the appropriate api action to this url
                 this.api[action] = this.url;
@@ -188,7 +188,7 @@ Ext.extend(Ext.data.DataProxy, Ext.util.Observable, {
             this.doRequest.apply(this, arguments);
         }
         else {
-            cb.call(scope || this, null, arg, false);
+            callback.call(scope || this, null, arg, false);
         }
     },
 
@@ -197,10 +197,10 @@ Ext.extend(Ext.data.DataProxy, Ext.util.Observable, {
      * (eg: {@link Ext.data.HttpProxy#doRequest HttpProxy.doRequest},
      * {@link Ext.data.DirectProxy#doRequest DirectProxy.doRequest}).
      */
-    doRequest : function(action, rs, params, reader, writer, cb, scope, options) {
+    doRequest : function(action, rs, params, reader, writer, callback, scope, options) {
         // default implementation of doRequest for backwards compatibility with 2.0 proxies.
         // If we're executing here, the action is probably "load".
         // Call with the pre-3.0 method signature.
-        this[action](params, reader, cb, scope, options);
+        this[action](params, reader, callback, scope, options);
     }
 });

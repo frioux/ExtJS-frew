@@ -45,7 +45,7 @@ Ext.extend(Ext.data.MemoryProxy, Ext.data.DataProxy, {
      * @param {Object} scope The scope in which to call the callback
      * @param {Object} arg An optional argument which is passed to the callback as its second parameter.
 	 */
-	doRequest : function(action, rs, params, reader, writer, cb, scope, arg) {
+	doRequest : function(action, rs, params, reader, writer, callback, scope, arg) {
 		// No implementation for CRUD in MemoryProxy.  Assumes all actions are 'load'
 		params = params || {};
         var result;
@@ -53,9 +53,9 @@ Ext.extend(Ext.data.MemoryProxy, Ext.data.DataProxy, {
             result = reader.readRecords(this.data);
         }catch(e){
             this.fireEvent("loadexception", this, arg, null, e);
-            cb.call(scope, null, arg, false);
+            callback.call(scope, null, arg, false);
             return;
         }
-        cb.call(scope, result, arg, true);
+        callback.call(scope, result, arg, true);
 	}
 });
