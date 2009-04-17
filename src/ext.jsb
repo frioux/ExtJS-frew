@@ -111,8 +111,6 @@
     <include name="direct\JsonProvider.js" />
     <include name="direct\PollingProvider.js" />
     <include name="direct\RemotingProvider.js" />
-    <include name="data\DirectProxy.js" />
-    <include name="data\DirectStore.js" />
     <include name="data\Tree.js" />
     <include name="data\GroupingStore.js" />
     <include name="widgets\Component.js" />
