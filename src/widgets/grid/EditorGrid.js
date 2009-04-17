@@ -97,6 +97,15 @@ Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
              * <li>row - The grid row index</li>
              * <li>column - The grid column index</li>
              * </ul>
+             *
+             * <pre><code> 
+grid.on('afteredit', afterEdit, this );
+
+function afterEdit(e) {
+    // execute an XHR to send/commit data to the server, in callback do (if successful):
+    e.record.commit();
+}; 
+             * </code></pre>
              * @param {Object} e An edit event (see above for description)
              */
             "afteredit",
@@ -114,6 +123,20 @@ Ext.grid.EditorGridPanel = Ext.extend(Ext.grid.GridPanel, {
              * <li>column - The grid column index</li>
              * <li>cancel - Set this to true to cancel the edit or return false from your handler.</li>
              * </ul>
+             * Usage example showing how to remove the red triangle (dirty record indicator) from some
+             * records (not all).  By observing the grid's validateedit event, it can be cancelled if
+             * the edit occurs on a targeted row (for example) and then setting the field's new value
+             * in the Record directly:
+             * <pre><code> 
+grid.on('validateedit', function(e) {
+  var myTargetRow = 6;
+ 
+  if (e.row == myTargetRow) {
+    e.cancel = true;
+    e.record.data[e.field] = e.value;
+  }
+});
+             * </code></pre>
              * @param {Object} e An edit event (see above for description)
              */
             "validateedit"

@@ -161,8 +161,30 @@ Ext.data.Record.prototype = {
     },
 
     /**
-     * Set the named field to the specified value.
-     * @param {String} name The name of the field to set.
+     * Set the {@link Ext.data.Field#name named field} to the specified value.  For example:
+     * <pre><code>
+// record has a field named 'firstname'
+var Employee = Ext.data.Record.{@link #create}([
+    {name: 'firstname'},
+    ...
+]);
+
+// update the 2nd record in the store:
+var rec = myStore.{@link Ext.data.Store#getAt getAt}(1);
+
+// set the value (shows dirty flag):
+rec.set('firstname', 'Betty');
+
+// commit the change (removes dirty flag):
+rec.{@link #commit}();
+
+// update the record in the store, bypass setting dirty flag,
+// and do not store the change in the {@link Ext.data.Store#getModifiedRecords modified records}
+rec.{@link #data}['firstname'] = 'Wilma'); // updates record, but not the view
+rec.{@link #commit}(); // updates the view
+     * </code></pre>
+     * 
+     * @param {String} name The {@link Ext.data.Field#name name of the field} to set.
      * @param {Object} value The value to set the field to.
      */
     set : function(name, value){
@@ -227,8 +249,8 @@ Ext.data.Record.prototype = {
     },
 
     /**
-     * Get the value of the named field.
-     * @param {String} name The name of the field to get the value of.
+     * Get the value of the {@link Ext.data.Field#name named field}.
+     * @param {String} name The {@link Ext.data.Field#name name of the field} to get the value of.
      * @return {Object} The value of the field.
      */
     get : function(name){
@@ -358,10 +380,9 @@ Ext.data.Record.prototype = {
 	},
 
 	/**
-     * markDirty
-     * Marks all fields as dirty.  Useful when adding {@link #phantom} records to a grid which
-     * have not yet been inserted on the serverside.  Marking a new record {@link #dirty}
-     * causes the phantom to be returned by {@link Ext.data.Store#getModifiedRecords}
+     * Marks all fields as <tt>{@link #dirty}</tt>.  Useful when adding <tt>{@link #phantom}</tt>
+     * records to a grid which have not yet been inserted on the serverside.  Marking a new record
+     * <tt>{@link #dirty}</tt> causes the phantom to be returned by {@link Ext.data.Store#getModifiedRecords}
      * where it will have a create action composed for it.
      */
     markDirty : function(){

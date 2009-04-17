@@ -14,7 +14,8 @@
  * <div class="sub-desc"></div></li>
  * </ul></div>
  * <p>Example usage:</p>
- * <pre><code>var grid = new Ext.grid.GridPanel({
+ * <pre><code>
+var grid = new Ext.grid.GridPanel({
     {@link #store}: new Ext.data.Store({
         autoDestroy: true,
         reader: reader,
