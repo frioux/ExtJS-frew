@@ -602,7 +602,7 @@ dt = Date.parseDate("2006-02-29 03:20:01", "Y-m-d H:i:s", true); // returns null
                 "}",
             "}",
             
-            "return v;",
+            "return v;"
         ].join('\n');
 
         return function(format) {

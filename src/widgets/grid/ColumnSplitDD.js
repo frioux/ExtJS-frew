@@ -31,7 +31,7 @@ Ext.extend(Ext.grid.SplitDragZone, Ext.dd.DDProxy, {
 
 
     handleMouseDown : function(e){
-        ev = Ext.EventObject.setEvent(e);
+        var ev = Ext.EventObject.setEvent(e);
         var t = this.fly(ev.getTarget());
         if(t.hasClass("x-grid-split")){
             this.cellIndex = this.view.getCellIndex(t.dom);

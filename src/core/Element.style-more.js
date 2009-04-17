@@ -298,7 +298,7 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 	    getMargins : function(side){
 		    var me = this,
 		    	key,
-		    	hash = {t:"top", l:"left", r:"right", b: "bottom"};
+		    	hash = {t:"top", l:"left", r:"right", b: "bottom"},
 		    	o = {};
 		    	
 		    if (!side) {
