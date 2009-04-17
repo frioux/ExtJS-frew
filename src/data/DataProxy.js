@@ -8,10 +8,31 @@
  * (of the appropriate type which knows how to parse the data object) to provide a block of
  * {@link Ext.data.Records} to an {@link Ext.data.Store}.</p>
  *
- * <p>Custom implementations must implement either the doRequest method (preferred) or the
+ * <p>Custom implementations must implement either the <b>doRequest</b> method (preferred) or the
  * load method (deprecated). See
  * {@link Ext.data.HttpProxy}.{@link Ext.data.HttpProxy#doRequest doRequest} or
  * {@link Ext.data.HttpProxy}.{@link Ext.data.HttpProxy#load load} for additional details.</p>
+ * 
+ * <p><b><u>Example 1</u></b></p>
+ * <pre><code>
+proxy: new Ext.data.ScriptTagProxy({
+    {@link Ext.data.Connection#url url}: 'http://extjs.com/forum/topics-remote.php'
+}),
+ * </code></pre>
+ * 
+ * <p><b><u>Example 2</u></b></p>
+ * <pre><code>
+proxy : new Ext.data.HttpProxy({
+    {@link Ext.data.Connection#method method}: 'GET',
+    {@link Ext.data.HttpProxy#prettyUrls prettyUrls}: false,
+    url: 'local/default.php', // see options parameter for {@link Ext.Ajax#request}
+    {@link #api}: {
+        // all actions except the following will use above url
+        create  : 'local/new.php',
+        save    : 'local/update.php'
+    }
+}),
+ * </code></pre>
  */
 Ext.data.DataProxy = function(conn){
     // make sure we have a config object here to support ux proxies.
@@ -20,6 +41,37 @@ Ext.data.DataProxy = function(conn){
 
     Ext.apply(this, conn);
 
+    /**
+     * @cfg {Object} api
+     * Specific urls to call on CRUD action methods "load", "create", "save" and "destroy".
+     * Defaults to:
+     * <pre><code>
+api: {
+    load    : undefined,
+    create  : undefined,
+    save    : undefined,
+    destroy : undefined
+}
+     * </code></pre>
+     * <p>If the specific url for a given CRUD action is undefined, the CRUD action request
+     * will be directed to the configured <tt>{@link Ext.data.Connection#url url}</tt>.</p>
+     * <br><p><b>Note</b>: To modify the url for an action dynamically the appropriate api
+     * property should be modified before the action is requested using the corresponding before
+     * action event.  For example to modify the url associated with the load action:
+     * <pre><code>
+// modify the url for the action
+myStore.on({
+    beforeload: {
+        fn: function (store, options) {
+            store.proxy.url = 'changed1.php';
+            // proxy url will be superseded by api (only if proxy created to use ajax):            
+            store.proxy.api.load = 'changed2.php';
+        }
+    }
+});
+     * </code></pre>
+     * </p>
+     */
     this.api = conn.api || {
         load: undefined,
         save: undefined,
@@ -109,19 +161,6 @@ Ext.extend(Ext.data.DataProxy, Ext.util.Observable, {
     load : function(params, reader, callback, scope, arg) {
         this.doRequest('load', null, params, reader, null, cb, scope, arg);
     },
-
-    /**
-     * @cfg {Object} api
-     * Specific urls to call on CRUD methods "load", "create", "save" and "destroy".  Defaults to:
-     * <pre><code>
-api: {
-    load : undefined,
-    create : undefined,
-    save : undefined,
-    destroy : undefined
-}
-     * </code></pre>
-     */
 
     /**
      * request
