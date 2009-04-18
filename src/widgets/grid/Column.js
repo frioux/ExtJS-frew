@@ -37,7 +37,7 @@ Ext.grid.Column.prototype = {
      */
     /**
      * @cfg {String} id (optional) A name which identifies this column (defaults to the column's initial
-     * ordinal position. The <tt>id</tt> is used to create a CSS <b>class</b> name which is applied to all
+     * ordinal position.) The <tt>id</tt> is used to create a CSS <b>class</b> name which is applied to all
      * table cells (including headers) in that column (in this context the <tt>id</tt> does not need to be
      * unique). The class name takes the form of <pre>x-grid3-td-<b>id</b></pre>
      * Header cells will also receive this class name, but will also have the class <pre>x-grid3-hd</pre>
@@ -131,8 +131,8 @@ var companyColumn = {
      * @cfg {String} align (optional) Set the CSS text-align property of the column.  Defaults to undefined.
      */
     /**
-     * @cfg {String} css (optional) Set custom CSS for all table cells in the column (excluding headers).
-     * Defaults to undefined.
+     * @cfg {String} css (optional) An inline style definition string which is applied to all table cells in the column
+     * (excluding headers). Defaults to undefined.
      */
     /**
      * @cfg {Boolean} hideable (optional) Specify as <tt>false</tt> to prevent the user from hiding this column
