@@ -156,13 +156,11 @@ Ext.util.Observable.capture = function(o, fn, scope){
  * <p>This makes any event fired on any instance of the passed class also fire a single event through
  * the <i>class</i> allowing for central handling of events on many instances at once.</p>
  * <p>Usage:</p><pre><code>
- Ext.util.Observable.observeClass(Ext.data.Connection);
- Ext.data.Connection.on('beforerequest', function(con, options) {
- console.log("Ajax request made to " + options.url);
- });</code></pre>
+Ext.util.Observable.observeClass(Ext.data.Connection);
+Ext.data.Connection.on('beforerequest', function(con, options) {
+    console.log("Ajax request made to " + options.url);
+});</code></pre>
  * @param {Function} c The class constructor to make observable.
- * @member Ext.util.Observable
- * @method observeClass
  * @static
  */
 Ext.util.Observable.observeClass = function(c){
