@@ -164,6 +164,11 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
      */
     selectedClass : 'x-combo-selected',
     /**
+     * @cfg {String} listEmptyText The empty text to display in the data view if no items are found.
+     * (defaults to '')
+     */
+    listEmptyText: '',
+    /**
      * @cfg {String} triggerClass An additional CSS class used to style the trigger button.  The trigger will always
      * get the class <tt>'x-form-trigger'</tt> and <tt>triggerClass</tt> will be <b>appended</b> if specified
      * (defaults to <tt>'x-form-arrow-trigger'</tt> which displays a downward arrow icon).
@@ -568,7 +573,8 @@ var combo = new Ext.form.ComboBox({
                 tpl: this.tpl,
                 singleSelect: true,
                 selectedClass: this.selectedClass,
-                itemSelector: this.itemSelector || '.' + cls + '-item'
+                itemSelector: this.itemSelector || '.' + cls + '-item',
+                emptyText: this.listEmptyText
             });
 			
             this.mon(this.view, 'click', this.onViewClick, this);
