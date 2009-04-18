@@ -10,6 +10,8 @@
  * {@link Ext#getCmp}, passing the {@link #id}.</p>
  * <p>All user-developed visual widgets that are required to participate in automated lifecycle and size management should subclass Component (or
  * {@link Ext.BoxComponent} if managed box model handling is required, ie height and width management).</p>
+ * <p>See the <a href="http://extjs.com/learn/Tutorial:Creating_new_UI_controls">Creating new UI controls</a> tutorial for details on how
+ * and to either extend or augment ExtJs base classes to create custom Components.</p>
  * <p>Every component has a specific xtype, which is its Ext-specific type name, along with methods for checking the
  * xtype like {@link #getXType} and {@link #isXType}. This is the list of all valid xtypes:</p>
  * <pre>
