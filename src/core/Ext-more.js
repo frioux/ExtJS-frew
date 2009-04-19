@@ -35,9 +35,9 @@ Ext.apply(Ext, function(){
         },
 
         /**
-        * Returns the current HTML document object as an {@link Ext.Element}.
-        * @return Ext.Element The document
-        */
+         * Returns the current HTML document object as an {@link Ext.Element}.
+         * @return Ext.Element The document
+         */
         getDoc : function(){
             return Ext.get(document);
         },
@@ -94,20 +94,20 @@ Ext.apply(Ext, function(){
 
         /**
          * Applies event listeners to elements by selectors when the document is ready.
-         * The event name is specified with an @ suffix.
-         <pre><code>
-         Ext.addBehaviors({
-           // add a listener for click on all anchors in element with id foo
-           '#foo a@click' : function(e, t){
-               // do something
-           },
-
-           // add the same listener to multiple selectors (separated by comma BEFORE the @)
-           '#foo a, #bar span.some-class@mouseover' : function(){
-               // do something
-           }
-         });
-         </code></pre>
+         * The event name is specified with an <tt>&#64;</tt> suffix.
+         * <pre><code>
+Ext.addBehaviors({
+    // add a listener for click on all anchors in element with id foo
+    '#foo a&#64;click' : function(e, t){
+        // do something
+    },
+    
+    // add the same listener to multiple selectors (separated by comma BEFORE the &#64;)
+    '#foo a, #bar span.some-class&#64;mouseover' : function(){
+        // do something
+    }
+});
+         * </code></pre> 
          * @param {Object} obj The list of behaviors to apply
          */
         addBehaviors : function(o){
@@ -152,20 +152,20 @@ Ext.apply(Ext, function(){
 
         /**
          * Copies a set of named properties fom the source object to the destination object.
+         * <p>example:<pre><code>
+ImageComponent = Ext.extend(Ext.BoxComponent, {
+    initComponent: function() {
+        this.autoEl = { tag: 'img' };
+        MyComponent.superclass.initComponent.apply(this, arguments);
+        this.initialBox = Ext.copyTo({}, this.initialConfig, 'x,y,width,height');
+    }
+});
+         * </code></pre> 
          * @param {Object} The destination object.
          * @param {Object} The source object.
          * @param {Array/String} Either an Array of property names, or a comma-delimited list
          * of property names to copy.
          * @return {Object} The modified object.
-         * <p>example:<pre><code>
-            ImageComponent = Ext.extend(Ext.BoxComponent, {
-            initComponent: function() {
-                this.autoEl = { tag: 'img' };
-                MyComponent.superclass.initComponent.apply(this, arguments);
-                this.initialBox = Ext.copyTo({}, this.initialConfig, 'x,y,width,height');
-            }
-        });
-        </code></pre>
         */
         copyTo : function(dest, source, names){
             if(typeof names == 'string'){
@@ -268,7 +268,7 @@ Ext.apply(Ext, function(){
         /**
          * Returns the minimum value in the Array.
          * @param {Array|NodeList} arr The Array from which to select the minimum value.
-         * @param {Function} comp (optional) a function to perform the comparision which determins minimization.
+         * @param {Function} comp (optional) a function to perform the comparision which determines minimization.
          *                   If omitted the "<" operator will be used. Note: gt = 1; eq = 0; lt = -1
          * @return {Object} The minimum value in the Array.
          */
@@ -284,7 +284,7 @@ Ext.apply(Ext, function(){
         /**
          * Returns the maximum value in the Array
          * @param {Array|NodeList} arr The Array from which to select the maximum value.
-         * @param {Function} comp (optional) a function to perform the comparision which determins minimization.
+         * @param {Function} comp (optional) a function to perform the comparision which determines maximization.
          *                   If omitted the ">" operator will be used. Note: gt = 1; eq = 0; lt = -1
          * @return {Object} The maximum value in the Array.
          */
@@ -385,8 +385,8 @@ Ext.partition(
 // false set are those that do not have that className.
          * </code></pre>
          * @param {Array|NodeList} arr The array to partition
-         * @param {Function} truth (optional) a function to determine truth.  If this is omitted the element itself must be able to be
-         *                   evaluated for its truthfulness.
+         * @param {Function} truth (optional) a function to determine truth.  If this is omitted the element
+         *                   itself must be able to be evaluated for its truthfulness.
          * @return {Array} [true<Array>,false<Array>]
          */
         partition : function(arr, truth){
@@ -618,9 +618,9 @@ Ext.applyIf(String, {
      * Pads the left side of a string with a specified character.  This is especially useful
      * for normalizing number and date strings.  Example usage:
      * <pre><code>
-        var s = String.leftPad('123', 5, '0');
-        // s now contains the string: '00123'
-        </code></pre>
+var s = String.leftPad('123', 5, '0');
+// s now contains the string: '00123'
+     * </code></pre>
      * @param {String} string The original string
      * @param {Number} size The total length of the output string
      * @param {String} char (optional) The character with which to pad the original string (defaults to empty string " ")
