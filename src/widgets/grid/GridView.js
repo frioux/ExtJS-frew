@@ -144,25 +144,25 @@ viewConfig: {
      * @cfg {Boolean} deferEmptyText True to defer <tt>{@link #emptyText}</tt> being applied until the store's
      * first load (defaults to <tt>true</tt>).
      */
-    deferEmptyText: true,
+    deferEmptyText : true,
     /**
      * @cfg {Number} scrollOffset The amount of space to reserve for the vertical scrollbar
      * (defaults to <tt>19</tt> pixels).
      */
-    scrollOffset: 19,
+    scrollOffset : 19,
     /**
      * @cfg {Boolean} autoFill
      * Defaults to <tt>false</tt>.  Specify <tt>true</tt> for the column widths to be expanded
      * to fit the grid <b>when the grid is created</b>. See <tt>{@link #forceFit}</tt> also.
      */
-    autoFill: false,
+    autoFill : false,
     /**
      * @cfg {Boolean} forceFit
      * Defaults to <tt>false</tt>.  Specify <tt>true</tt> for the column widths to be re-proportioned
      * from their initially configured <tt>{@link Ext.grid.Column#width width}</tt> to fit the grid
      * width and prevent horizontal scrolling. See <tt>{@link #autoFill}</tt> also.
      */
-    forceFit: false,
+    forceFit : false,
     /**
      * @cfg {Array} sortClasses The CSS classes applied to a header when it is sorted. (defaults to <tt>["sort-asc", "sort-desc"]</tt>)
      */
@@ -195,31 +195,31 @@ viewConfig: {
     </code></pre>
      * @type String
      */
-    selectedRowClass: "x-grid3-row-selected",
+    selectedRowClass : "x-grid3-row-selected",
 
     // private
-    borderWidth: 2,
-    tdClass: 'x-grid3-cell',
-    hdCls: 'x-grid3-hd',
-    markDirty: true,
+    borderWidth : 2,
+    tdClass : 'x-grid3-cell',
+    hdCls : 'x-grid3-hd',
+    markDirty : true,
 
     /**
      * @cfg {Number} cellSelectorDepth The number of levels to search for cells in event delegation (defaults to <tt>4</tt>)
      */
-    cellSelectorDepth: 4,
+    cellSelectorDepth : 4,
     /**
      * @cfg {Number} rowSelectorDepth The number of levels to search for rows in event delegation (defaults to <tt>10</tt>)
      */
-    rowSelectorDepth: 10,
+    rowSelectorDepth : 10,
 
     /**
      * @cfg {String} cellSelector The selector used to find cells internally (defaults to <tt>'td.x-grid3-cell'</tt>)
      */
-    cellSelector: 'td.x-grid3-cell',
+    cellSelector : 'td.x-grid3-cell',
     /**
      * @cfg {String} rowSelector The selector used to find rows internally (defaults to <tt>'div.x-grid3-row'</tt>)
      */
-    rowSelector: 'div.x-grid3-row',
+    rowSelector : 'div.x-grid3-row',
 
     /* -------------------------------- UI Specific ----------------------------- */
 
@@ -663,7 +663,7 @@ viewConfig: {
         }
     },
 
-    afterRender: function(){
+    afterRender : function(){
         if(!this.ds || !this.cm){
             return;
         }
@@ -817,7 +817,7 @@ viewConfig: {
 
     /* ----------------------------------- Core Specific -------------------------------------------*/
     // private
-    init: function(grid){
+    init : function(grid){
         this.grid = grid;
 
         this.initTemplates();
@@ -831,7 +831,7 @@ viewConfig: {
     },
     
     // private 
-    getOffsetWidth: function() {
+    getOffsetWidth : function() {
         return (this.cm.getTotalWidth() + this.scrollOffset) + 'px';
     },
 

@@ -463,14 +463,14 @@ function(grid, rowIndex, columnIndex, e) {
         var view = this.getView();
         view.init(this);
 
-		this.mon(c, {
-			mousedown: this.onMouseDown,
-			click: this.onClick,
-			dblclick: this.onDblClick,
-			contextmenu: this.onContextMenu,
-			keydown: this.onKeyDown,
-			scope: this
-		})
+        this.mon(c, {
+            mousedown: this.onMouseDown,
+            click: this.onClick,
+            dblclick: this.onDblClick,
+            contextmenu: this.onContextMenu,
+            keydown: this.onKeyDown,
+            scope: this
+        })
 
         this.relayEvents(c, ["mousedown","mouseup","mouseover","mouseout","keypress"]);
 
