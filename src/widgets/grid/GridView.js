@@ -146,17 +146,21 @@ viewConfig: {
      */
     deferEmptyText: true,
     /**
-     * @cfg {Number} scrollOffset The amount of space to reserve for the scrollbar (defaults to <tt>19</tt> pixels)
+     * @cfg {Number} scrollOffset The amount of space to reserve for the vertical scrollbar
+     * (defaults to <tt>19</tt> pixels).
      */
     scrollOffset: 19,
     /**
-     * @cfg {Boolean} autoFill True to auto expand the columns to fit the grid <b>when the grid is created</b>.
+     * @cfg {Boolean} autoFill
+     * Defaults to <tt>false</tt>.  Specify <tt>true</tt> for the column widths to be expanded
+     * to fit the grid <b>when the grid is created</b>. See <tt>{@link #forceFit}</tt> also.
      */
     autoFill: false,
     /**
-     * @cfg {Boolean} forceFit True to auto expand/contract the size of the columns to fit the grid width and
-     * prevent horizontal scrolling (defaults to <tt>false</tt>). This option overrides any {@link Ext.grid.ColumnModel ColumnModel} 
-     * <tt>{@link Ext.grid.ColumnModel#width width}</tt> settings.
+     * @cfg {Boolean} forceFit
+     * Defaults to <tt>false</tt>.  Specify <tt>true</tt> for the column widths to be re-proportioned
+     * from their initially configured <tt>{@link Ext.grid.Column#width width}</tt> to fit the grid
+     * width and prevent horizontal scrolling. See <tt>{@link #autoFill}</tt> also.
      */
     forceFit: false,
     /**

@@ -16,10 +16,10 @@
  * <p>Example usage:</p>
  * <pre><code>
 var grid = new Ext.grid.GridPanel({
-    {@link #store}: new Ext.data.Store({
-        autoDestroy: true,
-        reader: reader,
-        data: xg.dummyData
+    {@link #store}: new (@link Ext.data.Store}({
+        (@link Ext.data.Store#autoDestroy autoDestroy}: true,
+        (@link Ext.data.Store#reader reader}: reader,
+        (@link Ext.data.Store#data data}: xg.dummyData
     }),
     {@link #columns}: [
         {id: 'company', header: 'Company', width: 200, sortable: true, dataIndex: 'company'},
@@ -30,11 +30,11 @@ var grid = new Ext.grid.GridPanel({
         {header: 'Last Updated', width: 135, sortable: true, dataIndex: 'lastChange', xtype: 'datecolumn', format: 'M d, Y'}
     ],
     {@link #viewConfig}: {
-        forceFit: true,
+        {@link Ext.grid.GridView#forceFit forceFit}: true,
 
 //      Return CSS class to apply to rows depending upon data values
-        getRowClass: function(record, index) {
-            var c = record.get('change');
+        {@link Ext.grid.GridView#getRowClass getRowClass}: function(record, index) {
+            var c = record.{@link Ext.data.Record#get get}('change');
             if (c < 0) {
                 return 'price-fall';
             } else if (c > 0) {
@@ -71,9 +71,15 @@ var grid = new Ext.grid.GridPanel({
  */
 Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
     /**
-     * @cfg {String} autoExpandColumn The <tt>{@link Ext.grid.Column#id id}</tt> of a
-     * {@link Ext.grid.Column column} in this grid that should expand to fill unused space.
-     * This value specified here can not be <tt>0</tt>.
+     * @cfg {String} autoExpandColumn
+     * <p>The <tt>{@link Ext.grid.Column#id id}</tt> of a {@link Ext.grid.Column column} in
+     * this grid that should expand to fill unused space. This value specified here can not
+     * be <tt>0</tt>.</p>
+     * <br><p><b>Note</b>: If the Grid's {@link Ext.grid.GridView view} is configured with
+     * <tt>{@link Ext.grid.GridView#forceFit forceFit}=true</tt> the <tt>autoExpandColumn</tt>
+     * is ignored. See {@link Ext.grid.Column}.<tt>{@link Ext.grid.Column#width width}</tt>
+     * for additional details.</p>
+     * <p>See <tt>{@link #autoExpandMax}</tt> and <tt>{@link #autoExpandMin}</tt> also.</p>
      */
     autoExpandColumn : false,
     /**
@@ -87,7 +93,8 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
      */
     autoExpandMin : 50,
     /**
-     * @cfg {Boolean} columnLines <tt>true</tt> to add css for column separation lines. Default is <tt>false</tt>.
+     * @cfg {Boolean} columnLines <tt>true</tt> to add css for column separation lines.
+     * Default is <tt>false</tt>.
      */
     columnLines : false,
     /**

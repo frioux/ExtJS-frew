@@ -61,8 +61,23 @@ Ext.grid.Column.prototype = {
      * specified, the column's index is used as an index into the Record's data Array.
      */
     /**
-     * @cfg {Number} width (optional) The initial width in pixels of the column. This is ignored if the
-     * Grid's {@link Ext.grid.GridView view} is configured with {@link Ext.grid.GridView#forceFit forceFit} true.
+     * @cfg {Number} width
+     * (optional) The initial width in pixels of the column.
+     * The width of each column can also be affected if any of the following are configured:
+     * <div class="mdetail-params"><ul>
+     * <li>{@link Ext.grid.GridPanel}.<tt>{@link Ext.grid.GridPanel#autoExpandColumn autoExpandColumn}</tt></li>
+     * <li>{@link Ext.grid.GridView}.<tt>{@link Ext.grid.GridView#forceFit forceFit}</tt>
+     * <div class="sub-desc">
+     * <p>By specifying <tt>forceFit:true</tt>, {@link #fixed non-fixed width} columns will be
+     * re-proportioned (based on the relative initial widths) to fill the width of the grid so
+     * that no horizontal scrollbar is shown.</p>
+     * </div></li>
+     * <li>{@link Ext.grid.GridView}.<tt>{@link Ext.grid.GridView#autoFill autoFill}</tt></li>
+     * <li>{@link Ext.grid.GridPanel}.<tt>{@link Ext.grid.GridPanel#minColumnWidth minColumnWidth}</tt></li>
+     * <br><p><b>Note</b>: when the width of each column is determined, a space on the right side
+     * is reserved for the vertical scrollbar.  The
+     * {@link Ext.grid.GridView}.<tt>{@link Ext.grid.GridView#scrollOffset scrollOffset}</tt>
+     * can be modified to reduce or eliminate the reserved offset.</p>
      */
     /**
      * @cfg {Boolean} sortable (optional) <tt>true</tt> if sorting is to be allowed on this column.
