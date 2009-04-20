@@ -265,7 +265,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
  */
     getTemplateArgs : function(){
         var cls = (this.cls || '');
-        cls += this.iconCls ? (this.text ? ' x-btn-text-icon' : ' x-btn-icon') : ' x-btn-noicon';
+        cls += (this.iconCls || this.icon) ? (this.text ? ' x-btn-text-icon' : ' x-btn-icon') : ' x-btn-noicon';
         if(this.pressed){
             cls += ' x-btn-pressed';
         }
