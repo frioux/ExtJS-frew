@@ -73,8 +73,8 @@ Ext.onReady(function(){
             emptyText: 'Select an image',
             fieldLabel: 'Photo',
             name: 'photo-path',
+            buttonText: '',
             buttonCfg: {
-                text: '',
                 iconCls: 'upload-icon'
             }
         }],
