@@ -1342,7 +1342,7 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
             }, this, {single: true});
         }
 		
-        if(typeof ename == "object"){
+        if(Ext.isObject(ename)){
         	var propRe = /^(?:scope|delay|buffer|single|stopEvent|preventDefault|stopPropagation|normalized|args|delegate)$/;
         	
             var o = ename;
@@ -1350,7 +1350,7 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
                 if(propRe.test(e)){
                     continue;
                 }
-                if(typeof o[e] == "function"){
+                if(Ext.isFunction(o[e])){
                     // shared options
 			        this.mons.push({
 			            item: item, ename: e, fn: o[e], scope: o.scope
@@ -1372,6 +1372,21 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
             item: item, ename: ename, fn: fn, scope: scope
         });        
         item.on(ename, fn, scope, opt);
+    },
+    
+    // protected, opposite of mon
+    mun: function(item, ename, fn, scope){
+        var found, mon;
+        for(var i = 0, len = this.mons.length; i < len; ++i){
+            mon = this.mons[i];
+            if(item === mon.item && ename == mon.ename && fn === mon.fn && scope === mon.scope){
+                this.mons.splice(i, 1);
+                item.un(ename, fn, scope);
+                found = true;
+                break;
+            }
+        }
+        return found;
     },
 
     /**
