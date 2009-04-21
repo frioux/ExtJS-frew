@@ -665,6 +665,8 @@
   <file name="data\DataField.js" path="data" />
   <file name="data\DataProxy.js" path="data" />
   <file name="data\DataReader.js" path="data" />
+  <file name="data\DataWriter.js" path="data" />
+  <file name="data\JsonWriter.js" path="data" />
   <file name="data\DirectProxy.js" path="data" />
   <file name="data\DirectStore.js" path="data" />
   <file name="data\GroupingStore.js" path="data" />
@@ -874,6 +876,4 @@
   <file name="widgets\Window.js" path="widgets" />
   <file name="widgets\WindowManager.js" path="widgets" />
   <file name="debug.js" path="" />
-  <file name="data\DataWriter.js" path="data" />
-  <file name="data\JsonWriter.js" path="data" />
 </project>
