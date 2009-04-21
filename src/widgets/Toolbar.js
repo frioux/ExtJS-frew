@@ -598,6 +598,7 @@ Ext.reg('toolbar', Ext.Toolbar);
 
 /**
  * @class Ext.Toolbar.Item
+ * @extends Ext.BoxComponent
  * The base class that other non-interacting Toolbar Item classes should extend in order to
  * get some basic common toolbar item functionality.
  * @constructor
