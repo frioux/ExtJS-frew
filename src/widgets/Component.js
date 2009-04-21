@@ -1419,7 +1419,7 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
 
     /**
      * Provides the link for Observable's fireEvent method to bubble up the ownership hierarchy.
-     * @return the Container which owns this Component.
+     * @return {Ext.Container} the Container which owns this Component.
      */
     getBubbleTarget : function(){
         return this.ownerCt;
