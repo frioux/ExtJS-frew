@@ -882,6 +882,34 @@ Ext.Foo = Ext.extend(Ext.Bar, {
     },
 
     initRef : function(){
+        /**
+         * @cfg {String} ref
+         * <p>A path specification, relative to the Component's {@link #ownerCt} specifying into which
+         * ancestor Container to place a named reference to this Component.</p>
+         * <p>The ancestor axis can be traversed by using '/' characters in the path.
+         * For example, to put a reference to a Toolbar Button into <i>the Panel which owns the Toolbar</i>:</p><pre><code>
+var myGrid = new Ext.grid.EditorGridPanel({
+    title: 'My EditorGridPanel',
+    store: myStore,
+    colModel: myColModel,
+    tbar: [{
+        text: 'Save',
+        handler: saveChanges,
+        disabled: true,
+        ref: '../saveButton'
+    }],
+    listeners: {
+        afteredit: function() {
+//          The button reference is in the GridPanel
+            myGrid.saveButton.enable();
+        }
+    }
+});
+</code></pre>
+         * <p>In the code above, if the ref had been <code>'saveButton'</code> the reference would
+         * have been placed into the Toolbar. Each '/' in the ref moves up one level from the
+         * Component's {@link #ownerCt}.</p>
+         */
         if(this.ref){
             var levels = this.ref.split('/');
             var last = levels.length, i = 0;
