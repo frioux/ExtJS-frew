@@ -406,7 +406,7 @@ var combo = new Ext.form.ComboBox({
                 for(var i = 0, len = opts.length;i < len; i++){
                     var o = opts[i];
                     var value = (o.hasAttribute ? o.hasAttribute('value') : o.getAttribute('value') !== null) ? o.value : o.text;
-                    if(o.selected && !Ext.isEmpty(this.value, true)) {
+                    if(o.selected && Ext.isEmpty(this.value, true)) {
                         this.value = value;
                     }
                     d.push([value, o.text]);
