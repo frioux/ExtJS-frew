@@ -164,16 +164,15 @@ new Ext.Panel({
      * so are not scanned to collect form items. However, the values <b>will</b> be submitted because form
      * submission parameters are collected from the DOM tree.</p>
      */
-    /**
-     * @cfg {Object/Array} fbar
-     * <p>If <tt>{@link #buttons}</tt> are specified, they will supersede the <tt>fbar</tt> configuration property.
-     * A toolbar in the footer may be explicitly created through configuration of <tt>{@link #fbar}</tt>
-     * also.  <tt>fbar</tt> is configured similar to <tt>{@link #bbar}</tt> or <tt>{@link #tbar}</tt>.
-     * See <tt>{@link #buttons}</tt> for additional details. 
+    /** @cfg {Object/Array} fbar
+     * <p>A {@link Ext.Toolbar Toolbar} object, a Toolbar config, or an array of
+     * {@link Ext.Button Button}s/{@link Ext.Button Button} configs, describing a {@link Ext.Toolbar Toolbar} to be rendered into this Panel's footer element.</p>
+     * <p>After render, the <code>fbar</code> property will be an {@link Ext.Toolbar Toolbar} instance.</p>
+     * <p>If <tt>{@link #buttons}</tt> are specified, they will supersede the <tt>fbar</tt> configuration property.</p>
      * The Panel's <tt>{@link #buttonAlign}</tt> configuration affects the layout of these items, for example:
      * <pre><code>
 var w = new Ext.Window({
-    height:250,
+    height: 250,
     width: 500,
     bbar: new Ext.Toolbar({
         items: [{
@@ -183,7 +182,7 @@ var w = new Ext.Window({
         }]
     }),
     {@link #buttonAlign}: 'left', // anything but 'center' or 'right' and you can use "-", and "->" 
-                         // to control the alignment of fbar items
+                                  // to control the alignment of fbar items
     fbar: [{
         text: 'fbar Left'
     },'->',{
@@ -191,6 +190,10 @@ var w = new Ext.Window({
     }]
 }).show();
      * </code></pre>
+     * <p><b>Note:</b> Although a Toolbar may contain Field components, these will <b>not<b> be updated by a load
+     * of an ancestor FormPanel. A Panel's toolbars are not part of the standard Container->Component hierarchy, and
+     * so are not scanned to collect form items. However, the values <b>will</b> be submitted because form
+     * submission parameters are collected from the DOM tree.</p>
      */
     /**
      * @cfg {Boolean} header
