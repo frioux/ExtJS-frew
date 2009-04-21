@@ -502,6 +502,29 @@ p2 = p1.{@link #ownerCt}.{@link Ext.Container#getComponent getComponent}('p2'); 
      * @cfg {String} style
      * A custom style specification to be applied to this component's Element.  Should be a valid argument to
      * {@link Ext.Element#applyStyles}.
+     * <pre><code>
+new Ext.Panel({
+    title: 'Some Title',
+    renderTo: Ext.getBody(),
+    width: 400, height: 300,
+    layout: 'form',
+    items: [{
+        xtype: 'textarea',
+        style: {
+            width: '95%',
+            marginBottom: '10px'
+        }
+    },
+        new Ext.Button({
+            text: 'Send',
+            minWidth: '100',
+            style: {
+                marginBottom: '10px'
+            }
+        })
+    ]
+});
+     * </code></pre>
      */
     /**
      * @cfg {String} ctCls

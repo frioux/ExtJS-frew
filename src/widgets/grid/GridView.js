@@ -152,15 +152,21 @@ viewConfig: {
     scrollOffset : 19,
     /**
      * @cfg {Boolean} autoFill
-     * Defaults to <tt>false</tt>.  Specify <tt>true</tt> for the column widths to be expanded
-     * to fit the grid <b>when the grid is created</b>. See <tt>{@link #forceFit}</tt> also.
+     * Defaults to <tt>false</tt>.  Specify <tt>true</tt> to have the column widths re-proportioned
+     * when the grid is <b>initially rendered</b>.  The 
+     * {@link Ext.grid.Column#width initially configured width}</tt> of each column will be adjusted
+     * to fit the grid width and prevent horizontal scrolling. If columns are later resized (manually
+     * or programmatically), the other columns in the grid will <b>not</b> be resized to fit the grid width.
+     * See <tt>{@link #forceFit}</tt> also.
      */
     autoFill : false,
     /**
      * @cfg {Boolean} forceFit
-     * Defaults to <tt>false</tt>.  Specify <tt>true</tt> for the column widths to be re-proportioned
-     * from their initially configured <tt>{@link Ext.grid.Column#width width}</tt> to fit the grid
-     * width and prevent horizontal scrolling. See <tt>{@link #autoFill}</tt> also.
+     * Defaults to <tt>false</tt>.  Specify <tt>true</tt> to have the column widths re-proportioned
+     * at <b>all times</b>.  The {@link Ext.grid.Column#width initially configured width}</tt> of each
+     * column will be adjusted to fit the grid width and prevent horizontal scrolling. If columns are
+     * later resized (manually or programmatically), the other columns in the grid <b>will</b> be resized
+     * to fit the grid width. See <tt>{@link #autoFill}</tt> also.
      */
     forceFit : false,
     /**

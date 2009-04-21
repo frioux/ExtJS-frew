@@ -874,4 +874,6 @@
   <file name="widgets\Window.js" path="widgets" />
   <file name="widgets\WindowManager.js" path="widgets" />
   <file name="debug.js" path="" />
+  <file name="data\DataWriter.js" path="data" />
+  <file name="data\JsonWriter.js" path="data" />
 </project>
