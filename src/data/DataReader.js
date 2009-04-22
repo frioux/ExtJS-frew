@@ -35,7 +35,7 @@ Ext.data.DataReader.prototype = {
 		record.editing = true;	// <-- prevent unwanted afterEdit calls by record.
 		record.phantom = false;	// <-- The purpose of this method is to "un-phantom" a record
 		record.id = values[this.meta.idProperty];
-		record.data = this.extractValues(data, record.fields.items, record.fields.items.length);x
+		record.data = this.extractValues(data, record.fields.items, record.fields.items.length);
 		record.commit();
 		record.editing = false;
 	}
