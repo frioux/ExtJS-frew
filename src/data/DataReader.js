@@ -41,14 +41,33 @@ Ext.data.DataReader.prototype = {
 	},
 
 	/**
-	 * Used for updating a non-phantom record's data with fresh data from server possibly after an update.
-	 * @param {Record} record
+	 * Used for updating a non-phantom record's data with fresh data from server after a save action.  Developers should always send the
+	 * entire record from the server when performing an update.
+	 * @param {Record/Record[]} rs
 	 * @param {Object} data
 	 */
-	refresh : function(record, data) {
-		record.editing = true;	// <-- prevent unwanted afterEdit calls by record.
-		record.data = this.extractValues(data, record.fields.items, record.fields.items.length);
-		record.commit();
-		record.editing = false;
+	update : function(rs, data) {
+		if (Ext.isArray(rs)) {
+			for (var i = rs.length - 1; i >= 0; i--) {
+				// search for corresponding data from server...
+				for (var n = data.length - 1; n >= 0; n--) {
+					if (data[n][this.meta.idProperty] == rs[i].id) {
+						// Found new data!  call this method again with single record and data to fall-into the else clause below.
+						this.update(rs[i], data.splice(n, 1).shift());
+						break;
+					}
+				}
+				// if still have a record here, we couldn't match data from server to a record.  just commit.
+				if (rs[i]) {
+					rs[i].commit();
+				}
+			}
+		}
+		else {
+			rs.editing = true; // <-- prevent unwanted afterEdit calls by record.
+			rs.data = this.extractValues(data, rs.fields.items, rs.fields.items.length);
+			rs.commit();
+			rs.editing = false;
+		}
 	}
 };
