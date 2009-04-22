@@ -1,15 +1,15 @@
 /**
  * @class Ext.data.DataProxy
  * @extends Ext.util.Observable
- * This Class is an abstract base Class for implementations which provide retrieval of
- * unformatted data objects.<br>
+ * <p>This Class is an abstract base Class for implementations which provide retrieval of
+ * unformatted data objects.</p>
  *
  * <p>DataProxy implementations are usually used in conjunction with an implementation of {@link Ext.data.DataReader}
  * (of the appropriate type which knows how to parse the data object) to provide a block of
  * {@link Ext.data.Records} to an {@link Ext.data.Store}.</p>
  *
- * <p>Custom implementations must implement either the <b>doRequest</b> method (preferred) or the
- * load method (deprecated). See
+ * <p>Custom implementations must implement either the <code><b>doRequest</b></code> method (preferred) or the
+ * <code>load</code> method (deprecated). See
  * {@link Ext.data.HttpProxy}.{@link Ext.data.HttpProxy#doRequest doRequest} or
  * {@link Ext.data.HttpProxy}.{@link Ext.data.HttpProxy#load load} for additional details.</p>
  *
@@ -44,51 +44,50 @@ Ext.data.DataProxy = function(conn){
     /**
      * @cfg {Object} api
      * Specific urls to call on CRUD action methods "load", "create", "save" and "destroy".
-     * Defaults to:
-     * <pre><code>
+     * Defaults to:<pre><code>
 api: {
     load    : undefined,
     create  : undefined,
     save    : undefined,
     destroy : undefined
 }
-     * </code></pre>
-     * <p>If the specific url for a given CRUD action is undefined, the CRUD action request
+</code></pre>
+     * <p>If the specific URL for a given CRUD action is undefined, the CRUD action request
      * will be directed to the configured <tt>{@link Ext.data.Connection#url url}</tt>.</p>
-     * <br><p><b>Note</b>: To modify the url for an action dynamically the appropriate api
+     * <br><p><b>Note</b>: To modify the URL for an action dynamically the appropriate API
      * property should be modified before the action is requested using the corresponding before
-     * action event.  For example to modify the url associated with the load action:
+     * action event.  For example to modify the URL associated with the load action:
      * <pre><code>
 // modify the url for the action
 myStore.on({
     beforeload: {
         fn: function (store, options) {
-        	// use <tt>{@link Ext.data.HttpProxy#setUrl setUrl} to change the url for *just* this request.
-        	store.proxy.setUrl('changed1.php');
+            // use <tt>{@link Ext.data.HttpProxy#setUrl setUrl} to change the URL for *just* this request.
+            store.proxy.setUrl('changed1.php');
 
-        	// set optional second parameter to true to make this url-change permanent, applying this url for all subsequent requests.
-        	store.proxy.setUrl('changed1.php', true);
+            // set optional second parameter to true to make this URL change permanent, applying this URL for all subsequent requests.
+            store.proxy.setUrl('changed1.php', true);
 
-        	// manually set the <b>private</b> connection url.  <b>Warning:</b>  Accessing the private url property like should be avoided.  Please use the public
-        	// method <tt>{@link Ext.data.HttpProxy#setUrl setUrl} instead, shown above.  It should be noted that changing the url like
-        	// this will affect the url for just this request.  Subsequent requests will use the api or url defined in your initial
-        	// proxy configuration.
+            // manually set the <b>private</b> connection URL.  <b>Warning:</b>  Accessing the private URL property like should be avoided.  Please use the public
+            // method <tt>{@link Ext.data.HttpProxy#setUrl setUrl} instead, shown above.  It should be noted that changing the URL like
+            // this will affect the URL for just this request.  Subsequent requests will use the API or URL defined in your initial
+            // proxy configuration.
             store.proxy.conn.url = 'changed1.php';
 
-            // proxy url will be superseded by api (only if proxy created to use ajax):
-            // It should be noted that proxy api changes are permanent and will be used for all subsequent requests.
+            // proxy URL will be superseded by API (only if proxy created to use ajax):
+            // It should be noted that proxy API changes are permanent and will be used for all subsequent requests.
             store.proxy.api.load = 'changed2.php';
 
-            // However, altering the proxy api should be done using the public method <tt>{@link Ext.data.HttpProxy#setApi setApi} instead.
+            // However, altering the proxy API should be done using the public method <tt>{@link Ext.data.HttpProxy#setApi setApi} instead.
             store.proxy.setApi('load', 'changed2.php');
 
-            // Or set the entire api with a config-object.  When using the config-object option, you must redefine the <b>entire</b> api --
+            // Or set the entire API with a config-object.  When using the config-object option, you must redefine the <b>entire</b> API --
             // not just a specific action of it.
             store.proxy.setApi({
-            	load: 'changed_load.php',
-            	save: 'changed_save.php',
-            	destroy: 'changed_destroy.php',
-            	create: 'changed_create.php'
+                load: 'changed_load.php',
+                save: 'changed_save.php',
+                destroy: 'changed_destroy.php',
+                create: 'changed_create.php'
             });
         }
     }
@@ -172,34 +171,31 @@ myStore.on({
 
 Ext.extend(Ext.data.DataProxy, Ext.util.Observable, {
 
-	/**
-	 * setApi
-	 * Redefines the the proxy's api or a single action of an api.  Can be called with two method-signatures.
-	 * 1.  @param {Object} api
-	 * If called with an object as the only parameter, the object should redefine the entire api
-	 * eg:
-	 * proxy.setApi({
-	 * 		load: '/users/load',
-	 * 		save: '/users/save',
-	 * 		create: '/users/create'
-	 * 		destroy: '/users/destroy'
-	 * });
-	 *
-	 * 2.  @param {String load|create|save|destroy} action
-	 * 	   @param {String/Function} url
-	 * If called with two parameters, the first parameter should be a string specifying the api action to
-	 * re-define and the second parameter should be the url (or function if using DirectProxy) to call for that action.
-	 * eg:
-	 * proxy.setApi('load', '/users/new_load_url');
-	 */
-	setApi : function() {
-		if (arguments.length == 1) {
-			this.api = arguments[0];
-		}
-		else if (arguments.length == 2) {
-			this.api[arguments[0]] = arguments[1];
-		}
-	},
+    /**
+     * <p>Redefines the the Proxy's API or a single action of an API. Can be called with two method signatures.</p>
+     * <p>If called with an object as the only parameter, the object should redefine the entire API, eg:</p><code><pre>
+proxy.setApi({
+    load: '/users/load',
+    save: '/users/save',
+    create: '/users/create'
+    destroy: '/users/destroy'
+});
+</pre></code>
+     * <p>If called with two parameters, the first parameter should be a string specifying the API action to
+     * redefine and the second parameter should be the URL (or function if using DirectProxy) to call for that action, eg:</p><code><pre>
+proxy.setApi('load', '/users/new_load_url');
+</pre></code>
+     * @param {Mixed} api An API specification object, or the name of an action.
+     * @param {String/Function} url The URL (or function if using DirectProxy) to call for the action.
+     */
+    setApi : function() {
+        if (arguments.length == 1) {
+            this.api = arguments[0];
+        }
+        else if (arguments.length == 2) {
+            this.api[arguments[0]] = arguments[1];
+        }
+    },
 
     /**
      * request
@@ -215,23 +211,23 @@ Ext.extend(Ext.data.DataProxy, Ext.util.Observable, {
      * @private
      */
     request : function(action, rs, params, reader, writer, callback, scope, options) {
-		params = params || {};
+        params = params || {};
         if (this.fireEvent("beforee" + action, this, params) !== false) {
-			try {
-				this.doRequest.apply(this, arguments);
-			}
-			catch (e) {
-				if (typeof(console) == 'object' && typeof(console.error) == 'function') {
-					console.error(e);
-				}
-			}
+            try {
+                this.doRequest.apply(this, arguments);
+            }
+            catch (e) {
+                if (typeof(console) == 'object' && typeof(console.error) == 'function') {
+                    console.error(e);
+                }
+            }
         }
         else {
             callback.call(scope || this, null, arg, false);
         }
     },
 
-	/**
+    /**
      * load
      * old-school load method with old method signature.  Simply a proxy-method -> doRequest
      * @deprecated
