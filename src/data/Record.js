@@ -183,7 +183,7 @@ rec.{@link #commit}();
 rec.{@link #data}['firstname'] = 'Wilma'); // updates record, but not the view
 rec.{@link #commit}(); // updates the view
      * </code></pre>
-     * 
+     *
      * @param {String} name The {@link Ext.data.Field#name name of the field} to set.
      * @param {Object} value The value to set the field to.
      */
@@ -219,8 +219,8 @@ rec.{@link #commit}(); // updates the view
 		this.phantom = false;	// <-- The purpose of this method is to "un-phantom" a record
 		this.id = id;
 		this.fields.each(function(f) {	// <-- update record fields with data from server if was sent
-            if (data[f.name] || data[f.mapping]) {
-                this.set(f.name, (f.mapping) ? data[f.mapping] : data[f.name]);
+			if (data[f.name] || data[f.mapping]) {
+                this.set(f.name, f.convert((f.mapping) ? data[f.mapping] : data[f.name]));
             }
         },this);
 		this.commit();
