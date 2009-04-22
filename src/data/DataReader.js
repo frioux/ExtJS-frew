@@ -31,10 +31,21 @@ Ext.data.DataReader.prototype = {
 	 * @param {String} data The new record data to apply.  Must include the primary-key as reported by database.
 	 */
 	realize: function(record, data){
-		var values = this.extractValues(data, record.fields.items, record.fields.items.length);
 		record.editing = true;	// <-- prevent unwanted afterEdit calls by record.
 		record.phantom = false;	// <-- The purpose of this method is to "un-phantom" a record
 		record.id = values[this.meta.idProperty];
+		record.data = this.extractValues(data, record.fields.items, record.fields.items.length);
+		record.commit();
+		record.editing = false;
+	},
+
+	/**
+	 * Used for updating a non-phantom record's data with fresh data from server possibly after an update.
+	 * @param {Record} record
+	 * @param {Object} data
+	 */
+	refresh : function(record, data) {
+		record.editing = true;	// <-- prevent unwanted afterEdit calls by record.
 		record.data = this.extractValues(data, record.fields.items, record.fields.items.length);
 		record.commit();
 		record.editing = false;
