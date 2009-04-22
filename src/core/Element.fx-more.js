@@ -114,7 +114,7 @@ function(){
 	     * @return {Boolean}
 	     */
 	    isMasked : function(){	    
-	        return this.mask && this.mask.isVisible();
+	        return this._mask && this._mask.isVisible();
 	    },
 	    
 	    /**
