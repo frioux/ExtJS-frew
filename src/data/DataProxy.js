@@ -212,7 +212,7 @@ proxy.setApi('load', '/users/new_load_url');
      */
     request : function(action, rs, params, reader, writer, callback, scope, options) {
         params = params || {};
-        if (this.fireEvent("beforee" + action, this, params) !== false) {
+        if (this.fireEvent("before" + action, this, params) !== false) {
             try {
                 this.doRequest.apply(this, arguments);
             }
