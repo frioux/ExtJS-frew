@@ -17,9 +17,9 @@
  * <pre><code>
 var grid = new Ext.grid.GridPanel({
     {@link #store}: new (@link Ext.data.Store}({
-        (@link Ext.data.Store#autoDestroy autoDestroy}: true,
-        (@link Ext.data.Store#reader reader}: reader,
-        (@link Ext.data.Store#data data}: xg.dummyData
+        {@link Ext.data.Store#autoDestroy autoDestroy}: true,
+        {@link Ext.data.Store#reader reader}: reader,
+        {@link Ext.data.Store#data data}: xg.dummyData
     }),
     {@link #columns}: [
         {id: 'company', header: 'Company', width: 200, sortable: true, dataIndex: 'company'},

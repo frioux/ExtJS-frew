@@ -50,6 +50,12 @@ Ext.grid.Column.prototype = {
      * to display in the Grid view. 
      */
     /**
+     * @cfg {Boolean} groupable If the grid is being rendered by an {@link Ext.grid.GroupingView}, this option
+     * may be used to disable the header menu item to group by the column selected. Defaults to <tt>true</tt>,
+     * which enables the header menu group option.  Set to <tt>false</tt> to disable (but still show) the
+     * group option in the header menu for the column. See also <code>{@link #groupName}</code>.
+     */
+    /**
      * @cfg {String} groupName If the grid is being rendered by an {@link Ext.grid.GroupingView}, this option
      * may be used to specify the text with which to prefix the group field value in the group header line.
      * See also {@link #groupRenderer} and
