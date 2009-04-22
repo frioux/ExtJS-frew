@@ -678,7 +678,7 @@ sortInfo: {
             return;
         }
         if (!record.phantom || (record.phantom && record.isValid)) {
-            this.save(record);
+			this.save();
         }
     },
 
@@ -784,10 +784,9 @@ sortInfo: {
     /**
      * Send all {@link #getModifiedRecords modifiedRecords} to the server using the
      * api's configured save url.
-     * @param {Object} options
      */
-    save : function(rs) {
-        rs = rs || this.getModifiedRecords();
+    save : function() {
+        var rs = this.getModifiedRecords();
         if (!rs.length && !rs instanceof Ext.data.Record && !this.removed.length) {
             return false;
         }
