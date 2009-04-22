@@ -806,7 +806,6 @@ sortInfo: {
                     if (rs[i].phantom === true) {
                         var rec = rs.splice(i, 1).shift();
                         if (rec.isValid()) {
-                            //this.execute('create', rec);
 							crs.push(rec);
                         }
                     }
