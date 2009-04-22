@@ -813,6 +813,9 @@ sortInfo: {
                     }
                 }
 				if (crs.length > 0) {
+					if (crs.length == 1) {
+						crs = crs.shift();
+					}
 					this.execute('create', crs);
 				}
             }
@@ -882,14 +885,28 @@ sortInfo: {
 
     // private onCreateRecord proxy callback for create action
     onCreateRecords : function(rs, data) {
-        // TODO: raise exception if server didn't send a database pk back?
 		if (Ext.isArray(rs)) {
 			for (var i=0,len=rs.length;i<len;i++) {
 				this.onCreateRecords(rs[i], data[i]);
 			}
 		}
-		else if (rs.phantom && data[this.reader.meta.idProperty]) {
-			rs.realize(data, data[this.reader.meta.idProperty]);
+		else if (rs.phantom) {
+			try {
+				this.reader.realize(rs, data);
+			}
+			catch (e) {
+				// force reload if we couldn't realize the record?  Otherwise Store might re-execute a create request.
+				this.reload();
+				e += '  A Store reload have been executed in order to prevent a duplicate record being created.';
+
+				// Framework needs an exceptionHandler to send execptions to that would detect the existence of Firebug, etc.
+				if (typeof(console) == 'object' && typeof(console.error) == 'function') {
+					console.error(e);
+				}
+				else if (typeof(Ext.log) == 'function') {
+					Ext.log(e);
+				}
+			}
         }
     },
 

@@ -18,10 +18,29 @@ Ext.data.DataReader = function(meta, recordType){
      * @property meta
      */
     this.meta = meta;
-    this.recordType = Ext.isArray(recordType) ? 
+    this.recordType = Ext.isArray(recordType) ?
         Ext.data.Record.create(recordType) : recordType;
 };
 
 Ext.data.DataReader.prototype = {
-    
+
+	/**
+	 * Used for un-phantoming a record after a successful database insert.  Sets the records pk along with any other new data.
+	 * Will perform a commit as well, un-marking dirty-fields.  Store's "update" event will be suppressed.
+	 * @param {Record} record The phantom record to be realized.
+	 * @param {String} data The new record data to apply.  Must include the primary-key as reported by database.
+	 */
+	realize: function(record, data){
+		var values = this.extractValues(data, record.fields.items, record.fields.items.length);
+		record.editing = true;	// <-- prevent unwanted afterEdit calls by record.
+		record.phantom = false;	// <-- The purpose of this method is to "un-phantom" a record
+		record.id = values[this.meta.idProperty];
+		record.fields.each(function(f) {	// <-- update record fields with data from server if was sent
+			if (values[f.name] || values[f.mapping]) {
+		 		record.set(f.name, (f.mapping) ? values[f.mapping] : values[f.name]);
+		 	}
+		});
+		record.commit();
+		record.editing = false;
+	}
 };

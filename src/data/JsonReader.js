@@ -148,7 +148,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
      * @return {Object} data A data block which is used by an Ext.data.Store object as
      * a cache of Ext.data.Records.
      */
-    readRecords : function(o){
+	readRecords : function(o){
         /**
          * After any data loads, the raw JSON data is available for further custom processing.  If no data is
          * loaded or there is a load exception this property will be undefined.
@@ -203,18 +203,12 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
                 success = false;
             }
         }
+
         var records = [];
         for(var i = 0; i < c; i++){
             var n = root[i];
-            var values = {};
-            var id = this.getId(n);
-            for(var j = 0; j < fl; j++){
-                f = fi[j];
-                var v = this.ef[j](n);
-                values[f.name] = f.convert((v !== undefined) ? v : f.defaultValue, n);
-            }
-            var record = new Record(values, id);
-            record.json = n;
+			var record = new Record(this.extractValues(n, fi, fl), this.getId(n));
+			record.json = n;
             records[i] = record;
         }
         return {
@@ -222,6 +216,17 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             records : records,
             totalRecords : totalRecords
         };
+    },
+
+	// private extractValues
+    extractValues: function(data, items, len) {
+		var values = {};
+        for(var j = 0; j < len; j++){
+            f = items[j];
+            var v = this.ef[j](data);
+            values[f.name] = f.convert((v !== undefined) ? v : f.defaultValue, data);
+        }
+        return values;
     },
 
 	/**
@@ -236,5 +241,19 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             throw {message: "JsonReader.read: Json object not found"};
         }
 		return o;
+	},
+
+	/**
+	 * JsonReader implementation of DataReader#realize.  Simply checks for existence of idProperty in data and raises an exception
+	 * if not found.
+	 * @param {Record} record
+	 * @param {Object} data
+	 */
+	realize : function(record, data) {
+		if (!data[this.meta.idProperty]) {
+		 	throw new Error("JsonReader attempted to realize a record but could not find the idProperty '" + this.meta.idProperty + "' in the returned data.  Please ensure you send the '" + this.meta.idProperty + "' back in your response from the server using the meta-data defined in your DataReader when creating new records.");
+		}
+		Ext.data.JsonReader.superclass.realize.apply(this, arguments);
 	}
+
 });
