@@ -32,10 +32,18 @@ paramOrder: 'param1|param2|param'
 	 */
 	paramsAsHash: true,
 
+	/**
+	 * @cfg {Function} directFn
+	 * Function to call when executing a request.  directFn is a simple alternative to defining the api configuration-parameter
+	 * for Store's which will not implement a full CRUD api.
+	 */
+	directFn : undefined,
+
 	// protected
 	doRequest : function(action, rs, params, reader, writer, callback, scope, options) {
 		var args = [];
-		var directFn = this.api[action];
+
+		var directFn = this.api[action] || this.directFn;
 		switch (action) {
 			case 'save':
 				args.push(params[reader.meta.idProperty]);	// <-- save(Integer/Integer[], Hash/Hash[])
@@ -48,7 +56,13 @@ paramOrder: 'param1|param2|param'
 				args.push(params[reader.meta.root]);		// <-- create(Hash)
 				break;
 			case 'load':
-				args.push(params);							// <-- load(Hash)
+				if(this.paramOrder){
+					for(var i = 0, len = this.paramOrder.length; i < len; i++){
+						args.push(params[this.paramOrder[i]]);
+					}
+				}else if(this.paramsAsHash){
+					args.push(params);
+				}
 				break;
 		}
 		args.push(this.createCallback(action, reader, callback, scope, options));
