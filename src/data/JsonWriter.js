@@ -22,10 +22,17 @@ Ext.data.JsonWriter = Ext.extend(Ext.data.DataWriter, {
 		return (this.returnJson === true) ? Ext.encode(data) : data;
 	},
 
+	create : function(p, rs) {
+		Ext.data.JsonWriter.superclass.create.apply(this, arguments);
+		if (this.returnJson) {
+			p[this.dataProperty] = Ext.encode(p[this.dataProperty]);
+		}
+	},
+
 	createRecord : function(rec) {
 		var data = this.toHash(rec);
 		delete data[this.meta.idProperty];
-		return (this.returnJson === true) ? Ext.encode(data) : data;
+		return data;
 	},
 
 	save : function(p, rs) {

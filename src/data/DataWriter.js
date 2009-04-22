@@ -69,8 +69,17 @@ Ext.data.DataWriter.prototype = {
 	 * @param {Object} p Params-hash to apply result to.
 	 * @param {Record/Record[]} rs Record(s) to write
 	 */
-	create : function(p, rec) {
-		return p[this.dataProperty] = this.createRecord(rec);
+	create : function(p, rs) {
+		if (Ext.isArray(rs)) {
+			var data = [];
+			for (var n=0,len=rs.length;n<len;n++) {
+				data.push(this.createRecord(rs[n]));
+			}
+			p[this.dataProperty] = data;
+		}
+		else if (rs instanceof Ext.data.Record) {
+			p[this.dataProperty] = this.createRecord(rs);
+		}
 	},
 
 	/**

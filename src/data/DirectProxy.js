@@ -39,13 +39,13 @@ paramOrder: 'param1|param2|param'
 		switch (action) {
 			case 'save':
 				args.push(params[reader.meta.idProperty]);	// <-- save(Integer/Integer[], Hash/Hash[])
-				args.push(params[writer.dataProperty]);
+				args.push(params[reader.meta.root]);
 				break;
 			case 'destroy':
-				args.push(params[writer.dataProperty]);		// <-- destroy(Int/Int[])
+				args.push(params[reader.meta.root]);		// <-- destroy(Int/Int[])
 				break;
 			case 'create':
-				args.push(params[writer.dataProperty]);		// <-- create(Hash)
+				args.push(params[reader.meta.root]);		// <-- create(Hash)
 				break;
 			case 'load':
 				args.push(params);							// <-- load(Hash)

@@ -106,7 +106,7 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
     doRequest : function(action, rs, params, reader, writer, callback, scope, arg) {
         var p = Ext.urlEncode(Ext.apply(params, this.extraParams));
 
-        var url = this.api[action];
+        var url = this.url || this.api[action];
 		url += (url.indexOf("?") != -1 ? "&" : "?") + p;
 
         if(this.nocache){

@@ -27,23 +27,23 @@ var myStore = new Ext.data.Store({
     )
 });
  * </code></pre>
- * <p>Option 2: choose a store that implicitly creates a reader commensurate to the data object.</p> 
- * <pre><code> 
+ * <p>Option 2: choose a store that implicitly creates a reader commensurate to the data object.</p>
+ * <pre><code>
 var myStore = new Ext.data.ArrayStore({
     fields: ['fullname', 'first'],
     id: 0          // id for the record will be the first element
 });
  * </code></pre>
  * Load some data into store (note the data object is an array which corresponds to the reader):
- * <pre><code> 
+ * <pre><code>
 var myData = [
     [1, 'Fred Flintstone', 'Fred'],  // note that id for the record is the first element
     [2, 'Barney Rubble', 'Barney']
 ];
 myStore.loadData(myData);
  * </code></pre>
- * Adding a record to the store: 
- * <pre><code> 
+ * Adding a record to the store:
+ * <pre><code>
 var defaultData = {
     fullname: 'Full Name',
     first: 'First Name'
@@ -51,7 +51,7 @@ var defaultData = {
 var recId = 100; // provide unique id for the record
 var r = new myStore.recordType(defaultData, ++recId); // create new record
 myStore.insert(0, r); // add new record to the store
- * </code></pre> 
+ * </code></pre>
  * @constructor
  * Creates a new Store.
  * @param {Object} config A config object containing the objects needed for the Store to access data,
@@ -271,6 +271,7 @@ var grid = new Ext.grid.EditorGridPanel({
          * Fires before a network save request fires.  If the handler returns false, the action will be cancelled.
          * @param {Store} this
          * @param {Record/Record[]} The record or Array of records being saved
+         * @param {Object} options The request options.  Extra HTTP params can be added via the params key
          */
         'beforesave',
         /**
@@ -294,6 +295,7 @@ var grid = new Ext.grid.EditorGridPanel({
          * Fires before a record will be destroyed
          * @param {Store} this
          * @param {Record/Record[]} rs, record(s) to be destroyed
+         * @param {Object} options The request options.  Extra HTTP params can be added via the params key
          */
         'beforedestroy',
         /**
@@ -310,6 +312,7 @@ var grid = new Ext.grid.EditorGridPanel({
          * @param {Store} this
          * @param {Ext.data.Record[]} rs
          * @param {Ext.Direct.Event} response
+         * @param {Object} options The request options.  Extra HTTP params can be added via the params key
          */
         'destroyexception',
         /**
@@ -325,6 +328,7 @@ var grid = new Ext.grid.EditorGridPanel({
          * @param {Store} this
          * @param {Object} result
          * @param {Ext.Direct.ExceptionEvent} response
+         * @param {Object} options The request options.  Extra HTTP params can be added via the params key
          */
         'create',
         /**
@@ -742,22 +746,39 @@ sortInfo: {
      * @private
      */
     execute : function(action, rs, options) {
-        if (action != 'load' && !this.writer) {	// TODO: define actions as CONSTANTS
-            // blow up if trying to execute 'create', 'destroy', 'save' without a Writer installed.
-            throw new Error('Store attempted to execute the remote action "' + action + '" without a DataWriter installed.');
-        }
-        options = options || {};
-        if (this.fireEvent('before'+action, this, rs||options)) {	// <-- if action is load, rs will be null
-            var p = Ext.apply(options.params || {}, this.baseParams, {xaction: action});
-            if (this.writer && typeof(this.writer[action]) == 'function') {
-                this.writer[action](p, rs);// <-- call writer if action-method exists (ie: it won't for load action; will for create, destroy, save)
-            }
-            this.proxy.request(action, rs, p, this.reader, this.writer, this.createCallback(action, rs), this, options);
-            return true;
-        }
-        else {
-            return false;
-        }
+		options = Ext.applyIf(options||{}, {
+			params: {}
+		});
+		// have to separate before-events since load has a different signature than create,destroy and save.
+		// capture return values from the beforeaction into doRequest.
+		var doRequest = true;
+		if (action === 'load') {
+			doRequest = this.fireEvent('before'+action, this, options);
+		}
+		else {
+			if (!this.writer) { // TODO: define actions as CONSTANTS
+				// blow up if trying to execute 'create', 'destroy', 'save' without a Writer installed.
+				throw new Error('Store attempted to execute the remote action "' + action + '" without a DataWriter installed.');
+			}
+			else if (typeof(this.writer[action]) != 'function') {
+				throw new Error('Store attempted to write an unknown action "' + action + '"');
+			}
+			if (doRequest = this.fireEvent('before' + action, this, rs, options)) {
+				// write data to the request params.
+				this.writer[action](options.params, rs);
+			}
+		}
+		if (doRequest !== false) {
+			// build request params, apply xaction.
+			var p = Ext.apply(options.params || {}, this.baseParams, {
+				xaction: action
+			});
+			this.proxy.request(action, rs, p, this.reader, this.writer, this.createCallback(action, rs), this, options);
+			return true;
+		}
+		else {
+			return false;
+		}
     },
 
     /**
@@ -781,14 +802,19 @@ sortInfo: {
         }
         try {
             if (Ext.isArray(rs)) {
+				var crs = [];
                 for (var i = rs.length-1; i >= 0; i--) {
                     if (rs[i].phantom === true) {
                         var rec = rs.splice(i, 1).shift();
                         if (rec.isValid()) {
-                            this.execute('create', rec);
+                            //this.execute('create', rec);
+							crs.push(rec);
                         }
                     }
                 }
+				if (crs.length > 0) {
+					this.execute('create', crs);
+				}
             }
             else if (rs.phantom) {
                 if (!rs.isValid()) {
@@ -823,7 +849,7 @@ sortInfo: {
             if (success === true) {
                 switch (action) {
                     case 'create':
-                        this.onCreateRecord(rs, data);
+                        this.onCreateRecords(rs, data);
                         break;
                     case 'destroy':
                         this.onDestroyRecords(rs, data);
@@ -855,10 +881,15 @@ sortInfo: {
     },
 
     // private onCreateRecord proxy callback for create action
-    onCreateRecord : function(record, data) {
+    onCreateRecords : function(rs, data) {
         // TODO: raise exception if server didn't send a database pk back?
-        if (record.phantom && data[this.reader.meta.idProperty]) {
-			record.realize(data, data[this.reader.meta.idProperty]);
+		if (Ext.isArray(rs)) {
+			for (var i=0,len=rs.length;i<len;i++) {
+				this.onCreateRecords(rs[i], data[i]);
+			}
+		}
+		else if (rs.phantom && data[this.reader.meta.idProperty]) {
+			rs.realize(data, data[this.reader.meta.idProperty]);
         }
     },
 
