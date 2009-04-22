@@ -140,7 +140,7 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             cm = c.margins;
             totalFlex += c.flex || 0;
             totalHeight += c.getHeight() + cm.top + cm.bottom;
-            maxWidth = Math.max(maxWidth, c.getWidth() + cm.left + cm.top);
+            maxWidth = Math.max(maxWidth, c.getWidth() + cm.left + cm.right);
         }
 
         var innerCtWidth = maxWidth + this.padding.left + this.padding.right;
