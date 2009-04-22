@@ -91,6 +91,9 @@ api: {
 	 */
 	prettyUrls : false,
 
+	//private.  A hash containing active requests, keyed on action [load|create|destroy|save]
+	activeRequest : {},
+
     /**
      * Return the {@link Ext.data.Connection} object being used by this Proxy.
      * @return {Connection} The Connection object. This object may be used to subscribe to events on
@@ -166,12 +169,12 @@ api: {
 			}
 
 			Ext.applyIf(o, this.conn);
-			// We don't want to abort requests anymore since proxy can do full CRUD, not just load.
-			// Do we want to throw our requests into a buffer and deal with each after they return?
-            //if(this.activeRequest){
-            //    Ext.Ajax.abort(this.activeRequest);
-            //}
-            this.activeRequest = Ext.Ajax.request(o);
+
+			// If a currently running request is found for this action, abort it.
+			if (this.activeRequest[action]) {
+				Ext.Ajax.abort(this.activeRequest[action]);
+			}
+			this.activeRequest[action] = Ext.Ajax.request(o);
 
 			// request is sent, nullify the connection url in preparation for the next request
 			this.conn.url = null;
@@ -212,8 +215,7 @@ api: {
 		return (action == 'load')
 			// special case for load callback
 			? function(o, success, response){
-				// removed while implementing Writer.  @see doRequest
-				//delete this.activeRequest;
+				delete this.activeRequest[action];
 		        if(!success){
 		            this.fireEvent("loadexception", this, o, response);
 		            o.request.callback.call(o.request.scope, null, o.request.arg, false);
@@ -232,6 +234,7 @@ api: {
 			}
 			// callbacks for all others:  create, save, destroy
 			: function(o, success, response) {
+				delete this.activeRequest[action];
 				var reader = o.reader;
 				var res = reader.readResponse(response);
 				if(!res[reader.meta.successProperty] === true){
