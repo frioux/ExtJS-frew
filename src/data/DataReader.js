@@ -38,7 +38,7 @@ Ext.data.DataReader.prototype = {
             for (var i = rs.length - 1; i >= 0; i--) {
                 // recurse
                 if (Ext.isArray(data)) {
-                    this.realize(rs.splice(i,1).shift(), data[i]);
+                    this.realize(rs.splice(i,1).shift(), data.splice(i,1).shift());
                 }
                 else {
                     // weird...rs is an array but data isn't??  recurse but just send in the whole data object.
