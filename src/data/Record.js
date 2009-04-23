@@ -23,8 +23,8 @@
  * not specified an {@link #Record.id integer id is automatically generated}.
  */
 Ext.data.Record = function(data, id){
-	// if no id, call the auto id method
-	this.id = (id || id === 0) ? id : Ext.data.Record.id(this);
+    // if no id, call the auto id method
+    this.id = (id || id === 0) ? id : Ext.data.Record.id(this);
     this.data = data;
 };
 
@@ -103,8 +103,8 @@ Ext.data.Record.COMMIT = 'commit';
  * @return {String} auto-generated string id, <tt>"ext-record-i++'</tt>;
  */
 Ext.data.Record.id = function(rec) {
-	rec.phantom = true;
-	return [Ext.data.Record.PREFIX, '-', Ext.data.Record.AUTO_ID++].join('');
+    rec.phantom = true;
+    return [Ext.data.Record.PREFIX, '-', Ext.data.Record.AUTO_ID++].join('');
 }
 
 Ext.data.Record.prototype = {
@@ -141,14 +141,14 @@ Ext.data.Record.prototype = {
      * @type {Object}
      */
     modified: null,
-	/**
-	 * <tt>false</tt> when the record does not yet exist in a server-side database (see
-	 * {@link #markDirty}).  Any record which has a real database pk set as its id property
-	 * is NOT a phantom -- it's real.
-	 * @property phantom
-	 * @type {Boolean}
-	 */
-	phantom : false,
+    /**
+     * <tt>false</tt> when the record does not yet exist in a server-side database (see
+     * {@link #markDirty}).  Any record which has a real database pk set as its id property
+     * is NOT a phantom -- it's real.
+     * @property phantom
+     * @type {Boolean}
+     */
+    phantom : false,
 
     // private
     join : function(store){
@@ -203,35 +203,6 @@ rec.{@link #commit}(); // updates the view
             this.afterEdit();
         }
     },
-
-	/**
-	 * Used for un-phantoming a record after a successful database insert.  Sets the records pk along with any other new data.
-	 * Will perform a commit as well, un-marking dirty-fields.  Store's "update" event will be suppressed.
-	 * @param {Object} data The new record data to apply.  Must include the primary-key as reported by database.
-	 * @param {String} idProperty The key in the data-object that represents the id-property of this record
-	 */
-	realize : function(data, id) {
-		if (!id) {
-			// TODO:  Make better exception message
-			throw new Error("Second paramater to Record#realize must be provided");
-		}
-		this.editing = true;	// <-- prevent unwanted afterEdit calls by record.
-		this.phantom = false;	// <-- The purpose of this method is to "un-phantom" a record
-		this.id = id;
-		this.fields.each(function(f) {	// <-- update record fields with data from server if was sent
-            if (data[f.name] || data[f.mapping]) {
-                this.set(f.name, (f.mapping) ? data[f.mapping] : data[f.name]);
-            }
-            /*
-			if (data[f.name] || data[f.mapping]) {
-                this.set(f.name, f.convert((f.mapping) ? data[f.mapping] : data[f.name]));
-            }
-            */
-
-        },this);
-		this.commit();
-		this.editing = false;
-	},
 
     // private
     afterEdit: function(){
@@ -372,20 +343,20 @@ rec.{@link #commit}(); // updates the view
         return !!(this.modified && this.modified.hasOwnProperty(fieldName));
     },
 
-	/**
-	 * isValid
-	 * By default returns <tt>false</tt> if any {@link Ext.data.Field field} within the
-	 * record configured with <tt>{@link Ext.data.Field#allowBlank} = false</tt> returns
-	 * <tt>true</tt> from an {@link Ext}.{@link Ext#isEmpty isempty} test.
-	 * @return {Boolean}
-	 */
-	isValid : function() {
-		return this.fields.find(function(f) {
-			return (f.allowBlank == false && Ext.isEmpty(this.data[f.name])) ? true : false;
-		},this) ? false : true;
-	},
+    /**
+     * isValid
+     * By default returns <tt>false</tt> if any {@link Ext.data.Field field} within the
+     * record configured with <tt>{@link Ext.data.Field#allowBlank} = false</tt> returns
+     * <tt>true</tt> from an {@link Ext}.{@link Ext#isEmpty isempty} test.
+     * @return {Boolean}
+     */
+    isValid : function() {
+        return this.fields.find(function(f) {
+            return (f.allowBlank == false && Ext.isEmpty(this.data[f.name])) ? true : false;
+        },this) ? false : true;
+    },
 
-	/**
+    /**
      * Marks all fields as <tt>{@link #dirty}</tt>.  Useful when adding <tt>{@link #phantom}</tt>
      * records to a grid which have not yet been inserted on the serverside.  Marking a new record
      * <tt>{@link #dirty}</tt> causes the phantom to be returned by {@link Ext.data.Store#getModifiedRecords}
@@ -397,7 +368,7 @@ rec.{@link #commit}(); // updates the view
             this.modified = {};
         }
         this.fields.each(function(f) {
-			this.modified[f.name] = this.data[f.name];
-		},this);
+            this.modified[f.name] = this.data[f.name];
+        },this);
     }
 };
