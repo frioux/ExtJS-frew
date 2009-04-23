@@ -33,14 +33,33 @@ Ext.data.DataReader.prototype = {
 	 * @param {Record} record The phantom record to be realized.
 	 * @param {String} data The new record data to apply.  Must include the primary-key as reported by database.
 	 */
-	realize: function(record, data){
-		var values = this.extractValues(data, record.fields.items, record.fields.items.length)
-		record.editing = true;	// <-- prevent unwanted afterEdit calls by record.
-		record.phantom = false;	// <-- The purpose of this method is to "un-phantom" a record
-		record.id = values[this.meta.idProperty];
-		record.data = values;
-		record.commit();
-		record.editing = false;
+	realize: function(rs, data){
+		if (Ext.isArray(rs)) {
+			for (var i = rs.length - 1; i >= 0; i--) {
+				// recurse
+				if (Ext.isArray(data)) {
+					this.realize(rs.splice(i,1).shift(), data[i]);
+				}
+				else {
+					// weird...rs is an array but data isn't??  recurse but just send in the whole data object.
+					// the else clause below will detect !this.isData and throw exception.
+					this.realize(rs.splice(i,1).shift(), data);
+				}
+			}
+		}
+		else {
+			if (!this.isData(data)) {
+				rs.commit();
+				throw new Error("DataReader#realize was called with invalid remote-data.  Please see the docs for DataReader#realize and review your DataReader configuration.");
+			}
+			var values = this.extractValues(data, rs.fields.items, rs.fields.items.length)
+			rs.editing = true; // <-- prevent unwanted afterEdit calls by record.
+			rs.phantom = false; // <-- The purpose of this method is to "un-phantom" a record
+			rs.id = values[this.meta.idProperty];
+			rs.data = values;
+			rs.commit();
+			rs.editing = false;
+		}
 	},
 
 	/**
@@ -56,27 +75,35 @@ Ext.data.DataReader.prototype = {
 	update : function(rs, data) {
 		if (Ext.isArray(rs)) {
 			for (var i=rs.length-1; i >= 0; i--) {
-				// search for corresponding data from server...
-				for (var n = data.length - 1; n >= 0; n--) {
-					if (data[n] && typeof(data[n]) == 'object' && data[n][this.meta.idProperty] == rs[i].id) {
-						// Found new data!  splice-off the hash and call this method again with single record & data
-						this.update(rs[i], data.splice(n, 1).shift());
-						break;
-					}
+				if (Ext.isArray(data)) {
+					this.update(rs.splice(i,1).shift(), data.splice(i,1).shift());
 				}
-				// if we still have a record here that hasn't been spliced-off, :(, we couldn't match data from server to a record.  just commit.
-				// would be nice to throw an exception here perhaps.  Developer should check their return-data schema matches
-				// the schema defined in DataReader config "root" and "idProperty".
-				if (rs[i]) {
-					rs[i].commit();
+				else {
+					// weird...rs is an array but data isn't??  recurse but just send in the whole data object.
+					// the else clause below will detect !this.isData and throw exception.
+					this.update(rs.splice(i,1).shift(), data);
 				}
 			}
 		}
 		else {
+			if (!this.isData(data)) {
+				rs.commit();
+				throw new Error("DataReader#update received invalid data from server.  Please see docs for DataReader#update");
+			}
 			rs.editing = true; // <-- prevent unwanted afterEdit calls by record.
 			rs.data = this.extractValues(data, rs.fields.items, rs.fields.items.length);
 			rs.commit();
 			rs.editing = false;
 		}
+	},
+
+	/**
+	 * Returns true if the supplied data-hash <strong>looks</strong> like data.  Checks to see if it has a key
+	 * corresponding to idProperty defined in your DataReader config containing non-empty pk.
+	 * @return {Boolean}
+	 * @param {Object} data
+	 */
+	isData : function(data) {
+		return (data && typeof(data) == 'object' && !Ext.isEmpty(data[this.meta.idProperty])) ? true : false
 	}
 };

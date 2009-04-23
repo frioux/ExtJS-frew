@@ -241,19 +241,6 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             throw {message: "JsonReader.read: Json object not found"};
         }
 		return o;
-	},
-
-	/**
-	 * JsonReader implementation of DataReader#realize.  Simply checks for existence of idProperty in data and raises an exception
-	 * if not found.
-	 * @param {Record} record
-	 * @param {Object} data
-	 */
-	realize : function(record, data) {
-		if (!data[this.meta.idProperty]) {
-		 	throw new Error("JsonReader attempted to realize a record but could not find the idProperty '" + this.meta.idProperty + "' in the returned data.  Please ensure you send the '" + this.meta.idProperty + "' back in your response from the server using the meta-data defined in your DataReader when creating new records.");
-		}
-		Ext.data.JsonReader.superclass.realize.apply(this, arguments);
 	}
 
 });

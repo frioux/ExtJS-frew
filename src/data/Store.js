@@ -883,41 +883,38 @@ sortInfo: {
 
     // private onCreateRecord proxy callback for create action
     onCreateRecords : function(rs, data) {
-		if (Ext.isArray(rs)) {
-			for (var i=0,len=rs.length;i<len;i++) {
-				this.onCreateRecords(rs[i], data[i]);
+		try {
+			this.reader.realize(rs, data);
+		} catch (e) {
+			this.handleException(e);
+			if (Ext.isArray(rs)) {
+				// Recurse to run back into the try {}
+				this.onCreateRecords(rs, data);
 			}
 		}
-		else if (rs.phantom) {
-			try {
-				this.reader.realize(rs, data);
-			}
-			catch (e) {
-				// force reload if we couldn't realize the record?  Otherwise Store might re-execute a create request.
-				this.reload();
-				e += '  A Store reload have been executed in order to prevent a duplicate record being created.';
-
-				// Framework needs an exceptionHandler to send execptions to that would detect the existence of Firebug, etc.
-				if (typeof(console) == 'object' && typeof(console.error) == 'function') {
-					console.error(e);
-				}
-				else if (typeof(Ext.log) == 'function') {
-					Ext.log(e);
-				}
-			}
-        }
     },
 
     // private, onSaveRecords proxy callback for update action
     onSaveRecords : function(rs, data) {
-		// ensure we're dealing with an array.  DataReader#update is recursive and will splice each record & associated
-		// data-hash until empty.
-        if (!Ext.isArray(rs)) {
-            rs = [rs];
-			data = [data];
-        }
-		this.reader.update(rs, data);
+		try {
+			this.reader.update(rs, data);
+		} catch (e) {
+			this.handleException(e);
+			if (Ext.isArray(rs)) {
+				// Recurse to run back into the try {}
+				this.onSaveRecords(rs, data);
+			}
+		}
     },
+
+	handleException : function(e) {
+		if (typeof(console) == 'object' && typeof(console.error) == 'function') {
+			console.error(e);
+		}
+		else {
+			alert(e);
+		}
+	},
 
     // private onDestroyRecords proxy callback for destroy action
     onDestroyRecords : function(rs, data) {
