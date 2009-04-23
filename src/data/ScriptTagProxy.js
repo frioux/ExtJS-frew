@@ -151,11 +151,11 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
                 try {
                     result = trans.reader.readRecords(res);
                 }catch(e){
-                    conn.fireEvent("loadexception", conn, res, trans.arg, e);
+                    conn.fireEvent(Ext.data.READ+"exception", conn, res, trans.arg, e);
                     trans.callback.call(trans.scope||window, null, trans.arg, false);
                     return;
                 }
-                conn.fireEvent("load", conn, res, trans.arg);
+                conn.fireEvent(Ext.data.READ, conn, res, trans.arg);
                 trans.callback.call(trans.scope||window, result, trans.arg, true);
             }
             : function(res) {
@@ -208,7 +208,7 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
     handleFailure : function(trans){
         this.trans = false;
         this.destroyTrans(trans, false);
-        this.fireEvent("loadexception", this, null, trans.arg);
+        this.fireEvent(Ext.data.READ+"exception", this, null, trans.arg);
         trans.callback.call(trans.scope||window, null, trans.arg, false);
     }
 });

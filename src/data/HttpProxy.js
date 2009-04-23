@@ -202,7 +202,7 @@ api: {
 
     /**
      * createCallback
-     * returns a request-callback function.  Note a special case is made for the "load" action vs all the others.
+     * returns a request-callback function.  Note a special case is made for the Ext.data.READ action vs all the others.
      * @param {String} action [create|update|delete|load]
      * @param {Record[]/DataReader} A list of records beinged acted upon or a DataReader for the "load" request
      * @param {Function} cb callback function
@@ -216,7 +216,7 @@ api: {
             ? function(o, success, response){
                 this.activeRequest[action] = undefined;
                 if(!success){
-                    this.fireEvent("loadexception", this, o, response);
+                    this.fireEvent(Ext.data.READ+"exception", this, o, response);
                     o.request.callback.call(o.request.scope, null, o.request.arg, false);
                     return;
                 }
@@ -224,11 +224,11 @@ api: {
                 try {
                     result = o.reader.read(response);
                 }catch(e){
-                    this.fireEvent("loadexception", this, o, response, e);
+                    this.fireEvent(Ext.data.READ+"exception", this, o, response, e);
                     o.request.callback.call(o.request.scope, null, o.request.arg, false);
                     return;
                 }
-                this.fireEvent("load", this, o, o.request.arg);
+                this.fireEvent(Ext.data.READ, this, o, o.request.arg);
                 o.request.callback.call(o.request.scope, result, o.request.arg, true);
             }
             // callbacks for all others:  create, save, destroy

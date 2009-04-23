@@ -104,14 +104,14 @@ myStore.on({
 
     this.addEvents(
         /**
-         * @event beforeload
+         * @event beforeload (beforeExt.data.READ)
          * Fires before a network request is made to retrieve a data object.
          * @param {Object} this
          * @param {Object} params The params object passed to the {@link #request} function
          */
         'before'+Ext.data.READ,
         /**
-         * @event load
+         * @event load (Ext.data.READ)
          * Fires before the load method's callback is called.
          * @param {Object} this
          * @param {Object} o The data object
@@ -119,14 +119,14 @@ myStore.on({
          */
         Ext.data.READ,
         /**
-         * @event beforesave
+         * @event beforesave (beforeExt.data.UPDATE)
          * Fires before a network request is made to save a data object
          * @param {Object} this
          * @param {Object} params The params object passed to the {@link #request} function
          */
         'before'+Ext.data.UPDATE,
         /**
-         * @event save
+         * @event save (Ext.data.UPDATE)
          * Fires before the request-callback is called
          * @param {Object} this
          * @param {Object} o The data object
@@ -134,7 +134,7 @@ myStore.on({
          */
         Ext.data.UPDATE,
         /**
-         * @event beforedestroy
+         * @event beforedestroy (Ext.data.DESTROY)
          * Fires before a network request is made to destroy an object
          * @param {Object} this
          * @param {Object} o The data object
@@ -142,7 +142,7 @@ myStore.on({
          */
         'before'+Ext.data.DESTROY,
         /**
-         * @event destroy
+         * @event destroy (Ext.data.DESTROY)
          * Fires before a the request-callback is called
          * @param {Object} this
          * @param {Object} o The data object
@@ -150,7 +150,7 @@ myStore.on({
          */
         Ext.data.DESTROY,
         /**
-         * @event beforecreate
+         * @event beforecreate (beforeExt.data.CREATE)
          * Fires before a network request is made to create an object
          * @param {Object} this
          * @param {Object} o The data object
@@ -158,7 +158,7 @@ myStore.on({
          */
         'before' + Ext.data.DataProxy.CREATE,
         /**
-         * @event create
+         * @event create (Ext.data.CREATE)
          * Fires before a the request-callback is called
          * @param {Object} this
          * @param {Object} o The data object

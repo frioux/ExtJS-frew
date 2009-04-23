@@ -245,85 +245,85 @@ var grid = new Ext.grid.EditorGridPanel({
          */
         'clear',
         /**
-         * @event beforeload
+         * @event beforeload (beforeExt.data.READ)
          * Fires before a request is made for a new data object.  If the beforeload handler returns
          * <tt>false</tt> the {@link #load} action will be canceled.
          * @param {Store} this
          * @param {Object} options The loading options that were specified (see {@link #load} for details)
          */
-        'beforeload',
+        'before'+Ext.data.READ,
         /**
-         * @event load
+         * @event load (Ext.data.READ)
          * Fires after a new set of Records has been loaded.
          * @param {Store} this
          * @param {Ext.data.Record[]} records The Records that were loaded
          * @param {Object} options The loading options that were specified (see {@link #load} for details)
          */
-        'load',
+        Ext.data.READ,
         /**
-         * @event loadexception
+         * @event loadexception (Ext.data.READexception)
          * Fires if an exception occurs in the Proxy during loading.
          * Called with the signature of the Proxy's "loadexception" event.
          */
-        'loadexception',
+        Ext.data.READ+'exception',
         /**
-         * @event beforesave
+         * @event beforesave (beforeExt.data.UPDATE)
          * Fires before a network save request fires.  If the handler returns false, the action will be cancelled.
          * @param {Store} this
          * @param {Record/Record[]} The record or Array of records being saved
          * @param {Object} options The request options.  Extra HTTP params can be added via the params key
          */
-        'beforesave',
+        'before'+Ext.data.UPDATE,
         /**
-         * @event save
+         * @event save (Ext.data.UPDATE)
          * Fires after a network save request has completed.
          * @param {Store} this
          * @param {Object} result data
          * @param {Ext.Direct.Transaction} response
          */
-        'save',
+        Ext.data.UPDATE,
         /**
-         * @event saveexception
+         * @event saveexception (Ext.data.UPDATEexception)
          * Fires when a network save exception occurs.
          * @param {DirectProxy} proxy
          * @param {Object} result
          * @param {Ext.Direct.ExceptionEvent}
          */
-        'saveexception',
+        Ext.data.UPDATE+'exception',
         /**
-         * @event beforedestroy
+         * @event beforedestroy (beforeExt.data.DESTROY)
          * Fires before a record will be destroyed
          * @param {Store} this
          * @param {Record/Record[]} rs, record(s) to be destroyed
          * @param {Object} options The request options.  Extra HTTP params can be added via the params key
          */
-        'beforedestroy',
+        'before'+Ext.data.DESTROY,
         /**
-         * @event destroy
+         * @event destroy (Ext.data.DESTROY)
          * Fires after a record has been destroyed
          * @param {Store} this
          * @param {Object} result
          * @param {Ext.Direct.Event} response
          */
-        'destroy',
+        Ext.data.DESTROY,
         /**
-         * @event destroyexception
+         * @event destroyexception (Ext.data.DESTROYexception)
          * Fires when a destroy exception occurred
          * @param {Store} this
          * @param {Ext.data.Record[]} rs
          * @param {Ext.Direct.Event} response
          * @param {Object} options The request options.  Extra HTTP params can be added via the params key
          */
-        'destroyexception',
+        Ext.data.DESTROY+'exception',
         /**
-         * @event beforecreate
+         * @event beforecreate (beforeExt.data.CREATE)
          * Fires before a network create request occurs
          * @param {Store} this
          * @param {Record/Record[]}
          */
         'before' + Ext.data.CREATE,
         /**
-         * @event create
+         * @event create (Ext.data.CREATE)
          * Fires after network create request occurs
          * @param {Store} this
          * @param {Object} result
@@ -332,7 +332,7 @@ var grid = new Ext.grid.EditorGridPanel({
          */
         Ext.data.CREATE,
         /**
-         * @event createexception
+         * @event createexception (Ext.data.CREATEexception)
          * Fires after network create exception occurs
          * @param {DirectProxy} this
          * @param {Record} record
@@ -942,7 +942,7 @@ sortInfo: {
     loadRecords : function(o, options, success){
         if(!o || success === false){
             if(success !== false){
-                this.fireEvent("load", this, [], options);
+                this.fireEvent(Ext.data.READ, this, [], options);
             }
             if(options.callback){
                 options.callback.call(options.scope || this, [], options, false);
@@ -970,7 +970,7 @@ sortInfo: {
             this.totalLength = Math.max(t, this.data.length+r.length);
             this.add(r);
         }
-        this.fireEvent("load", this, r, options);
+        this.fireEvent(Ext.data.READ, this, r, options);
         if(options.callback){
             options.callback.call(options.scope || this, r, options, true);
         }
