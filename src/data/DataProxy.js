@@ -109,7 +109,7 @@ myStore.on({
          * @param {Object} this
          * @param {Object} params The params object passed to the {@link #request} function
          */
-        'beforeload',
+        'before'+Ext.data.READ,
         /**
          * @event load
          * Fires before the load method's callback is called.
@@ -117,14 +117,14 @@ myStore.on({
          * @param {Object} o The data object
          * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
-        'load',
+        Ext.data.READ,
         /**
          * @event beforesave
          * Fires before a network request is made to save a data object
          * @param {Object} this
          * @param {Object} params The params object passed to the {@link #request} function
          */
-        'beforesave',
+        'before'+Ext.data.UPDATE,
         /**
          * @event save
          * Fires before the request-callback is called
@@ -132,7 +132,7 @@ myStore.on({
          * @param {Object} o The data object
          * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
-        'save',
+        Ext.data.UPDATE,
         /**
          * @event beforedestroy
          * Fires before a network request is made to destroy an object
@@ -140,7 +140,7 @@ myStore.on({
          * @param {Object} o The data object
          * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
-        'beforedestroy',
+        'before'+Ext.data.DESTROY,
         /**
          * @event destroy
          * Fires before a the request-callback is called
@@ -148,7 +148,7 @@ myStore.on({
          * @param {Object} o The data object
          * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
-        'destroy',
+        Ext.data.DESTROY,
         /**
          * @event beforecreate
          * Fires before a network request is made to create an object
@@ -156,7 +156,7 @@ myStore.on({
          * @param {Object} o The data object
          * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
-        'beforecreate',
+        'before' + Ext.data.DataProxy.CREATE,
         /**
          * @event create
          * Fires before a the request-callback is called
@@ -164,10 +164,31 @@ myStore.on({
          * @param {Object} o The data object
          * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
-        'create'
+        Ext.data.CREATE
     );
     Ext.data.DataProxy.superclass.constructor.call(this);
 };
+
+// TODO: Move these const defs somewhere more general?
+/**
+ * @const Ext.data.CREATE Text representing the remote-action "create"
+ */
+Ext.data.CREATE   = 'create';
+/**
+ * @const Ext.data.READ Text representing the remote-action for remotely reading/loading data from server.
+ * It important these names not be changed since they sometimes map to a method on another object, like Ext.data.DataWriter for example.
+ * The name "load" is important for maintaining backwards-compatibility with Ext-2.0, as well.
+ */
+Ext.data.READ     = 'load';
+/**
+ * @const Ext.data.UPDATE Text representing the remote-action to rupdate records on server.
+ * The word update would be preferred here, instead of "save" but "update" has already been used for events pre-Ext3.
+ */
+Ext.data.UPDATE   = 'save';
+/**
+ * @const Ext.data.UPDATE Text representing the remote-action to destroy records on server.
+ */
+Ext.data.DESTROY  = 'destroy';
 
 Ext.extend(Ext.data.DataProxy, Ext.util.Observable, {
 
@@ -230,7 +251,7 @@ proxy.setApi('load', '/users/new_load_url');
      * @param {Object} arg
      */
     load : function(params, reader, callback, scope, arg) {
-        this.doRequest('load', null, params, reader, callback, scope, arg);
+        this.doRequest(Ext.data.READ, null, params, reader, callback, scope, arg);
     },
 
     /**

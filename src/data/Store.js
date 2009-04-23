@@ -321,7 +321,7 @@ var grid = new Ext.grid.EditorGridPanel({
          * @param {Store} this
          * @param {Record/Record[]}
          */
-        'beforecreate',
+        'before' + Ext.data.CREATE,
         /**
          * @event create
          * Fires after network create request occurs
@@ -330,7 +330,7 @@ var grid = new Ext.grid.EditorGridPanel({
          * @param {Ext.Direct.ExceptionEvent} response
          * @param {Object} options The request options.  Extra HTTP params can be added via the params key
          */
-        'create',
+        Ext.data.CREATE,
         /**
          * @event createexception
          * Fires after network create exception occurs
@@ -338,7 +338,7 @@ var grid = new Ext.grid.EditorGridPanel({
          * @param {Record} record
          * @param {Ext.Direct.ExceptionEvent}
          */
-        'createexception',
+        Ext.data.CREATE + 'exception',
         /**
          * @event event
          * fires on create, load, destroy, save
@@ -663,7 +663,7 @@ sortInfo: {
             options.params[pn["dir"]] = this.sortInfo.direction;
         }
         try {
-            return this.execute('load', null, options); // <-- null represents rs.  No rs for load actions.
+            return this.execute(Ext.data.READ, null, options); // <-- null represents rs.  No rs for load actions.
         } catch(e) {
             this.handleException(e);
             return false;
@@ -757,7 +757,7 @@ sortInfo: {
         // have to separate before-events since load has a different signature than create,destroy and save events since load does not
         // include the rs (record resultset) parameter.  Capture return values from the beforeaction into doRequest flag.
         var doRequest = true;
-        if (action === 'load') {// TODO: define actions as CONSTANTS
+        if (action === Ext.data.READ) {// TODO: define actions as CONSTANTS
             doRequest = this.fireEvent('before'+action, this, options);
         }
         else {
@@ -774,7 +774,7 @@ sortInfo: {
                 throw new Error("Store#execute attempted to execute action '" + action + "' upon an invalid recordset: '" + rs + "'");
             }
 
-            // if rs has just a single record, shift it off so that Writer writes data: "{}" rather than data: "[{}]"
+            // if rs has just a single record, shift it off so that Writer writes data as "{}" rather than "[{}]"
             rs = (rs.length > 1) ? rs : rs.shift();
             if (doRequest = this.fireEvent('before' + action, this, rs, options)) {
                 this.writer[action](options.params, rs); // <-- write data to the request params.
@@ -814,25 +814,26 @@ sortInfo: {
         }
 
         // Next check for phantoms within rs.  splice-off and execute create.
-        var crs = [];    // <-- resultset for creates
+        var phantoms = [];    // <-- resultset for creates
         for (var i = rs.length-1; i >= 0; i--) {
             if (rs[i].phantom === true) {
                 var rec = rs.splice(i, 1).shift();
                 if (rec.isValid()) {
-                    crs.push(rec);
+                    phantoms.push(rec);
                 }
             }
         }
-        if (crs.length > 0) {
+        // If we have phantoms, create them...
+        if (phantoms.length) {
             try {
-                this.execute('create', crs);
+                this.execute(Ext.data.CREATE, phantoms);
             } catch (e) {
                 this.handleException(e);
             }
         }
 
-        // And finally, if we're still here after splicing-off phantoms, we have records left to save.
-        if (rs.length > 0) {
+        // And finally, if we're still here after splicing-off phantoms, save the rest...
+        if (rs.length) {
             try {
                 this.execute('save', rs);
             } catch (e) {
@@ -847,10 +848,10 @@ sortInfo: {
     // and let each onAction method check for success?  Notice that both the destroy-fail case and onDestroyRecords each
     // set this.removed = [].
     createCallback : function(action, rs) {
-        return (action == 'load') ? this.loadRecords : function(data, response, success) {
+        return (action == Ext.data.READ) ? this.loadRecords : function(data, response, success) {
             if (success === true) {
                 switch (action) {
-                    case 'create':
+                    case Ext.data.CREATE:
                         this.onCreateRecords(rs, data);
                         break;
                     case 'destroy':

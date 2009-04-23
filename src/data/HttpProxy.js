@@ -211,7 +211,7 @@ api: {
      * @private
      */
     createCallback : function(action) {
-        return (action == 'load')
+        return (action == Ext.data.READ)
             // special case for load callback
             ? function(o, success, response){
                 this.activeRequest[action] = undefined;

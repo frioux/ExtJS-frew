@@ -86,9 +86,9 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
     nocache : true,
 
     /**
-	 * HttpProxy implementation of DataProxy#doRequest
-	 * @param {String} action
-	 * @param {Ext.data.Record/Ext.data.Record[]} rs If action is load, rs will be null
+     * HttpProxy implementation of DataProxy#doRequest
+     * @param {String} action
+     * @param {Ext.data.Record/Ext.data.Record[]} rs If action is load, rs will be null
      * @param {Object} params An object containing properties which are to be used as HTTP parameters
      * for the request to the remote server.
      * @param {Ext.data.DataReader} reader The Reader object which converts the data
@@ -101,12 +101,12 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
      * </ul>
      * @param {Object} scope The scope in which to call the callback
      * @param {Object} arg An optional argument which is passed to the callback as its second parameter.
-	 */
+     */
     doRequest : function(action, rs, params, reader, callback, scope, arg) {
         var p = Ext.urlEncode(Ext.apply(params, this.extraParams));
 
         var url = this.url || this.api[action];
-		url += (url.indexOf("?") != -1 ? "&" : "?") + p;
+        url += (url.indexOf("?") != -1 ? "&" : "?") + p;
 
         if(this.nocache){
             url += "&_dc=" + (new Date().getTime());
@@ -140,35 +140,35 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
         this.trans = trans;
     },
 
-	// @private createCallback
-	createCallback : function(action, trans) {
-		var conn = this;
-		return (action == 'load')
-			? function(res) {
-            	conn.trans = false;
-		        conn.destroyTrans(trans, true);
-		        var result;
-		        try {
-		            result = trans.reader.readRecords(res);
-		        }catch(e){
-		            conn.fireEvent("loadexception", conn, res, trans.arg, e);
-		            trans.callback.call(trans.scope||window, null, trans.arg, false);
-		            return;
-		        }
-		        conn.fireEvent("load", conn, res, trans.arg);
-		        trans.callback.call(trans.scope||window, result, trans.arg, true);
-			}
-			: function(res) {
-				var reader = trans.reader;
-				if(!res[reader.meta.successProperty] === true){
-					conn.fireEvent(action+"exception", conn, trans, res);
-					trans.callback.call(trans.scope, null, res, false);
-					return;
-				}
-		        conn.fireEvent(action, conn, res[reader.meta.root], res, trans.arg );
-		        trans.callback.call(trans.scope||window, res[reader.meta.root], res, true);
-			}
-	},
+    // @private createCallback
+    createCallback : function(action, trans) {
+        var conn = this;
+        return (action == Ext.data.READ)
+            ? function(res) {
+                conn.trans = false;
+                conn.destroyTrans(trans, true);
+                var result;
+                try {
+                    result = trans.reader.readRecords(res);
+                }catch(e){
+                    conn.fireEvent("loadexception", conn, res, trans.arg, e);
+                    trans.callback.call(trans.scope||window, null, trans.arg, false);
+                    return;
+                }
+                conn.fireEvent("load", conn, res, trans.arg);
+                trans.callback.call(trans.scope||window, result, trans.arg, true);
+            }
+            : function(res) {
+                var reader = trans.reader;
+                if(!res[reader.meta.successProperty] === true){
+                    conn.fireEvent(action+"exception", conn, trans, res);
+                    trans.callback.call(trans.scope, null, res, false);
+                    return;
+                }
+                conn.fireEvent(action, conn, res[reader.meta.root], res, trans.arg );
+                trans.callback.call(trans.scope||window, res[reader.meta.root], res, true);
+            }
+    },
 
     // private
     isLoading : function(){
