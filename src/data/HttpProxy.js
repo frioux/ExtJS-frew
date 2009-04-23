@@ -104,6 +104,23 @@ api: {
     },
 
     /**
+     * Used for overriding the url used for a single request.  Designed to be called during a beforeaction event.  Calling setUrl
+     * will override any urls set via the api configuration parameter.  Set the optional parameter makePermanent to set the url for
+     * all subsequent requests.  If not set to makePermanent, the next request will use the same url or api configuration defined
+     * in the initial proxy configuration.
+     * @param {String} url
+     * @param {Boolean} makePermanent (Optional) [false]
+     *
+     * (eg: beforeload, beforesave, etc).
+     */
+    setUrl : function(url, makePermanent) {
+        this.conn.url = url;
+        if (makePermanent === true) {
+            this.url = url;
+        }
+    },
+
+    /**
      * buildUrl
      * Sets the appropriate url based upon the action being executed.  If prettyUrls is true, and only a single record is being acted upon,
      * url will be built Rails-style, as in "/controller/action/32".
@@ -180,23 +197,6 @@ api: {
 
         }else{
             this.conn.request(o);
-        }
-    },
-
-    /**
-     * Used for overriding the url used for a single request.  Designed to be called during a beforeaction event.  Calling setUrl
-     * will override any urls set via the api configuration parameter.  Set the optional parameter makePermanent to set the url for
-     * all subsequent requests.  If not set to makePermanent, the next request will use the same url or api configuration defined
-     * in the initial proxy configuration.
-     * @param {String} url
-     * @param {Boolean} makePermanent (Optional) [false]
-     *
-     * (eg: beforeload, beforesave, etc).
-     */
-    setUrl : function(url, makePermanent) {
-        this.conn.url = url;
-        if (makePermanent === true) {
-            this.url = url;
         }
     },
 

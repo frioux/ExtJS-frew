@@ -679,7 +679,7 @@ sortInfo: {
      * @private
      */
     updateRecord : function(store, record, action) {
-        if (action != Ext.data.Record.EDIT || this.batchSave) {
+        if (action != Ext.data.Record.EDIT || this.batchSave === true) {
             return;
         }
         if (!record.phantom || (record.phantom && record.isValid)) {
@@ -787,11 +787,6 @@ sortInfo: {
      * eg:  Ext.data.DataReader.Error or Ext.data.Error or Ext.data.DataProxy.Error, etc.
      */
     save : function() {
-        var rs = this.getModifiedRecords();
-        if (!rs.length && !this.removed.length) {
-            return false;	// <-- nothing to to do here.
-        }
-
         // First check for removed records.  Records in this.removed are guaranteed non-phantoms.  @see Store#remove
         if (this.removed.length) {
             try {
@@ -801,7 +796,13 @@ sortInfo: {
             }
         }
 
-        // Next check for phantoms.  splice-off from rs and execute create.
+        // Check for modified records.  Bail-out if empty...
+        var rs = this.getModifiedRecords();
+        if (!rs.length) {
+            return true;
+        }
+
+        // Next check for phantoms within rs.  splice-off and execute create.
         var crs = [];    // <-- resultset for creates
         for (var i = rs.length-1; i >= 0; i--) {
             if (rs[i].phantom === true) {
@@ -812,12 +813,8 @@ sortInfo: {
             }
         }
         if (crs.length > 0) {
-            // we have phantoms to create!
-            if (crs.length == 1) {
-                crs = crs.shift(); // <-- just one record.  shift it off so that Writer composes data as {} instead of [{}]
-            }
             try {
-                this.execute('create', crs);
+                this.execute('create', (crs.length > 1) ? crs : crs.shift());
             } catch (e) {
                 this.handleException(e);
             }
