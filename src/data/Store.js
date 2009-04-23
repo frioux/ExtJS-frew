@@ -748,10 +748,6 @@ sortInfo: {
      * @private
      */
     execute : function(action, rs, options) {
-        // if rs contains just one record, shift it off so that Writer writes data: {} rather than data: [{}]
-        // rs will be null if action === 'load'
-        rs = (!rs || rs.length > 1) ? rs : rs.shift();
-
         // make sure options has a params key
         options = Ext.applyIf(options||{}, {
             params: {}
@@ -771,6 +767,12 @@ sortInfo: {
             else if (typeof(this.writer[action]) != 'function') {
                 throw new Error('Store attempted to write an unknown action "' + action + '"');
             }
+            if (!rs) {
+                throw new Error("Store#execute attempted to execute action '" + action + "' upon an invalid recordset: '" + rs + "'");
+            }
+
+            // if rs has just a single record, shift it off so that Writer writes data: "{}" rather than data: "[{}]"
+            rs = (rs.length > 1) ? rs : rs.shift();
             if (doRequest = this.fireEvent('before' + action, this, rs, options)) {
                 this.writer[action](options.params, rs); // <-- write data to the request params.
             }
