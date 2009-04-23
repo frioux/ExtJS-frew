@@ -30,8 +30,8 @@ Ext.data.DataReader.prototype = {
 	 * will be populated with the default values specified in your Ext.data.Record.create specification.  Without a defaultValue,
 	 * local fields will be populated with empty string "".  So return your entire record's data after remote create and update.
 	 * Will perform a commit as well, un-marking dirty-fields.  Store's "update" event will be suppressed.
-	 * @param {Record} record The phantom record to be realized.
-	 * @param {String} data The new record data to apply.  Must include the primary-key as reported by database.
+	 * @param {Record/Record[]} record The phantom record to be realized.
+	 * @param {Object/Object[]} data The new record data to apply.  Must include the primary-key as reported by database.
 	 */
 	realize: function(rs, data){
 		if (Ext.isArray(rs)) {
@@ -70,7 +70,7 @@ Ext.data.DataReader.prototype = {
 	 * Will perform a commit as well, un-marking dirty-fields.  Store's "update" event will be suppressed as the record receives
 	 * a fresh new data-hash.
 	 * @param {Record/Record[]} rs
-	 * @param {Object} data
+	 * @param {Object/Object[]} data
 	 */
 	update : function(rs, data) {
 		if (Ext.isArray(rs)) {
