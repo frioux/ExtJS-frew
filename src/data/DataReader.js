@@ -48,7 +48,8 @@ Ext.data.DataReader.prototype = {
 	 * You <strong>must</strong> return a complete new record from the server.  If you don't, your local record's missing fields
 	 * will be populated with the default values specified in your Ext.data.Record.create specification.  Without a defaultValue,
 	 * local fields will be populated with empty string "".  So return your entire record's data after both remote create and update.
-	 * entire record from the server when performing an update.
+	 * Will perform a commit as well, un-marking dirty-fields.  Store's "update" event will be suppressed as the record receives
+	 * a fresh new data-hash.
 	 * @param {Record/Record[]} rs
 	 * @param {Object} data
 	 */
@@ -58,12 +59,14 @@ Ext.data.DataReader.prototype = {
 				// search for corresponding data from server...
 				for (var n = data.length - 1; n >= 0; n--) {
 					if (data[n][this.meta.idProperty] == rs[i].id) {
-						// Found new data!  call this method again with single record and data to fall-into the else clause below.
+						// Found new data!  splice-off the hash and call this method again with single record & data
 						this.update(rs[i], data.splice(n, 1).shift());
 						break;
 					}
 				}
-				// if still have a record here, we couldn't match data from server to a record.  just commit.
+				// if we still have a record here that hasn't been spliced-off, :(, we couldn't match data from server to a record.  just commit.
+				// would be nice throw an exception here perhaps.  Developer should check their return-data schema matches
+				// the schema defined in DataReader config "root" and "idProperty".
 				if (rs[i]) {
 					rs[i].commit();
 				}
