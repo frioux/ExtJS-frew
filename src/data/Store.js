@@ -745,6 +745,7 @@ sortInfo: {
      * @param {String} action
      * @param {Record/Record[]} rs
      * @param {Object} options
+     * @throws Error
      * @private
      */
     execute : function(action, rs, options) {
@@ -764,10 +765,12 @@ sortInfo: {
                 // blow up if trying to execute 'create', 'destroy', 'save' without a Writer installed.
                 throw new Error('Store attempted to execute the remote action "' + action + '" without a DataWriter installed.');
             }
-            else if (typeof(this.writer[action]) != 'function') {
-                throw new Error('Store attempted to write an unknown action "' + action + '"');
+            if (typeof(this.writer[action]) != 'function') {
+                // blow up if action not 'create', 'save' or 'destroy'
+                throw new Error('Store#execute attempted to write an unknown action "' + action + '"');
             }
             if (!rs) {
+                // blow up if no recordset received.
                 throw new Error("Store#execute attempted to execute action '" + action + "' upon an invalid recordset: '" + rs + "'");
             }
 
