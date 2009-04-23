@@ -790,7 +790,7 @@ sortInfo: {
         // First check for removed records.  Records in this.removed are guaranteed non-phantoms.  @see Store#remove
         if (this.removed.length) {
             try {
-                this.execute('destroy', this.removed);
+                this.execute('destroy', (this.removed.length > 1) ? this.removed : this.removed.shift());
             } catch (e) {
                 this.handleException(e);
             }
@@ -823,7 +823,7 @@ sortInfo: {
         // And finally, if we're still here after splicing-off phantoms, we have records left to save.
         if (rs.length > 0) {
             try {
-                this.execute('save', rs);
+                this.execute('save', (rs.length > 1) ? rs : rs.shift());
             } catch (e) {
                 this.handleException(e);
             }
