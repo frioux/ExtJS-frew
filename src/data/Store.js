@@ -748,9 +748,15 @@ sortInfo: {
      * @private
      */
     execute : function(action, rs, options) {
+        // if rs contains just one record, shift it off so that Writer writes data: {} rather than data: [{}]
+        // rs will be null if action === 'load'
+        rs = (!rs || rs.length > 1) ? rs : rs.shift();
+
+        // make sure options has a params key
         options = Ext.applyIf(options||{}, {
             params: {}
         });
+
         // have to separate before-events since load has a different signature than create,destroy and save events since load does not
         // include the rs (record resultset) parameter.  Capture return values from the beforeaction into doRequest flag.
         var doRequest = true;
@@ -790,7 +796,7 @@ sortInfo: {
         // First check for removed records.  Records in this.removed are guaranteed non-phantoms.  @see Store#remove
         if (this.removed.length) {
             try {
-                this.execute('destroy', (this.removed.length > 1) ? this.removed : this.removed.shift());
+                this.execute('destroy', this.removed);
             } catch (e) {
                 this.handleException(e);
             }
@@ -814,7 +820,7 @@ sortInfo: {
         }
         if (crs.length > 0) {
             try {
-                this.execute('create', (crs.length > 1) ? crs : crs.shift());
+                this.execute('create', crs);
             } catch (e) {
                 this.handleException(e);
             }
@@ -823,7 +829,7 @@ sortInfo: {
         // And finally, if we're still here after splicing-off phantoms, we have records left to save.
         if (rs.length > 0) {
             try {
-                this.execute('save', (rs.length > 1) ? rs : rs.shift());
+                this.execute('save', rs);
             } catch (e) {
                 this.handleException(e);
             }
