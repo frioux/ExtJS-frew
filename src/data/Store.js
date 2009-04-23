@@ -793,43 +793,45 @@ sortInfo: {
         if (this.removed.length) {
             try {
                 this.execute('destroy', this.removed);
-            }
-            catch (e) {
+            } catch (e) {
                 this.handleException(e);
             }
         }
-        try {
-            if (Ext.isArray(rs)) {
-				var crs = [];
-				// first check for phantoms.  splice-off and execute create.
-                for (var i = rs.length-1; i >= 0; i--) {
-                    if (rs[i].phantom === true) {
-                        var rec = rs.splice(i, 1).shift();
-                        if (rec.isValid()) {
-							crs.push(rec);
-                        }
+        if (Ext.isArray(rs)) {
+			var crs = [];
+			// first check for phantoms.  splice-off and execute create.
+            for (var i = rs.length-1; i >= 0; i--) {
+                if (rs[i].phantom === true) {
+                    var rec = rs.splice(i, 1).shift();
+                    if (rec.isValid()) {
+						crs.push(rec);
                     }
                 }
-				if (crs.length > 0) {
-					// we have phantoms to create...
-					if (crs.length == 1) {
-						crs = crs.shift();
-					}
-					this.execute('create', crs);
+            }
+			if (crs.length > 0) {
+				// we have phantoms to create...
+				if (crs.length == 1) {
+					crs = crs.shift();
 				}
-            }
-            if (rs.length > 0) {
-				// if we're here after executing create actions, we have records left to save.
-                this.execute('save', rs);
-                return true;
-            }
-            else {
-                // no more actions to execute.  They may have been spliced-out by create actions above.  just return true.
-                return true;
-            }
+				try {
+					this.execute('create', crs);
+				} catch (e) {
+					this.handleException(e);
+				}
+			}
         }
-        catch (e) {
-            this.handleException(e);
+        if (rs.length > 0) {
+			// if we're here after executing create actions, we have records left to save.
+			try {
+				this.execute('save', rs);
+			} catch (e) {
+				this.handleException(e);
+			}
+            return true;
+        }
+        else {
+            // no more actions to execute.  They may have been spliced-out by create actions above.  just return true.
+            return true;
         }
         return true;
     },
