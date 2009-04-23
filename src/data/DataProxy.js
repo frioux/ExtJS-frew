@@ -201,7 +201,7 @@ proxy.setApi('load', '/users/new_load_url');
      * request
      * All proxy actions are executed through this method.  Automatically fires the "before" + action event
      * @param {String} action
-     * @param {Ext.data.Record/Ext.data.Record[]} rs
+     * @param {Ext.data.Record/Ext.data.Record[]/null} rs Will be null when action is 'load'
      * @param {Object} params
      * @param {Ext.data.DataReader} reader
      * @param {Function} callback
