@@ -782,21 +782,20 @@ sortInfo: {
     },
 
     /**
-     * Send all {@link #getModifiedRecords modifiedRecords} to the server using the
+     * Send all {@link #getModifiedRecords modifiedRecords}, removed records and phantom records to the server using the
      * api's configured save url.
      */
     save : function() {
         var rs = this.getModifiedRecords();
-        if (!rs.length && !rs instanceof Ext.data.Record && !this.removed.length) {
-            return false;
+        if (!rs.length && !this.removed.length) {
+            return false;	// <-- nothing to save.
         }
-        var action = 'save';
         if (this.removed.length) {
             try {
                 this.execute('destroy', this.removed);
             }
             catch (e) {
-                throw e;	// <-- just re-throw it for now...
+                this.handleException(e);
             }
         }
         try {
@@ -817,17 +816,8 @@ sortInfo: {
 					this.execute('create', crs);
 				}
             }
-            else if (rs.phantom) {
-                if (!rs.isValid()) {
-                    return false;
-                }
-                action = 'create';
-            }
-            if (Ext.isArray(rs) && rs.length == 1) {
-                rs = rs[0];
-            }
-            if (rs instanceof Ext.data.Record || rs.length > 0) {
-                this.execute(action, rs);
+            if (rs.length > 0) {
+                this.execute('save', rs);
                 return true;
             }
             else {
@@ -836,7 +826,7 @@ sortInfo: {
             }
         }
         catch (e) {
-            throw e;
+            this.handleException(e);
         }
         return true;
     },
@@ -876,7 +866,8 @@ sortInfo: {
 						break;
 				}
 			}
-			// fire on 'create', 'destroy', 'save'
+			// fire on 'create', 'destroy', 'save'.
+			// this event is currently undocumented.
 			this.fireEvent('event', this, data, response);
         }
     },
@@ -888,7 +879,7 @@ sortInfo: {
 		} catch (e) {
 			this.handleException(e);
 			if (Ext.isArray(rs)) {
-				// Recurse to run back into the try {}
+				// Recurse to run back into the try {}.  DataReader#realize splices-off the rs until empty.
 				this.onCreateRecords(rs, data);
 			}
 		}
@@ -901,12 +892,13 @@ sortInfo: {
 		} catch (e) {
 			this.handleException(e);
 			if (Ext.isArray(rs)) {
-				// Recurse to run back into the try {}
+				// Recurse to run back into the try {}.  DataReader#update splices-off the rs until empty.
 				this.onSaveRecords(rs, data);
 			}
 		}
     },
 
+	// private handleException.  Possibly temporary until Ext framework has an exception-handler.
 	handleException : function(e) {
 		if (typeof(console) == 'object' && typeof(console.error) == 'function') {
 			console.error(e);
