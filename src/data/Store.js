@@ -662,7 +662,12 @@ sortInfo: {
             options.params[pn["sort"]] = this.sortInfo.field;
             options.params[pn["dir"]] = this.sortInfo.direction;
         }
-        return this.execute('load', null, options);
+        try {
+            return this.execute('load', null, options); // <-- null represents rs.  No rs for load actions.
+        } catch(e) {
+            this.handleException(e);
+            return false;
+        }
     },
 
     /**
@@ -690,19 +695,18 @@ sortInfo: {
      * @private
      */
     createRecords : function(store, rs, index) {
-        if (this.batchSave == false) {
-            for (var i = 0, len = rs.length; i < len; i++) {
-                if (rs[i].phantom && rs[i].isValid()) {
-                    rs[i].markDirty();	// <-- Mark new records dirty
-                    this.execute('create', rs[i]);
-                }
+        for (var i = 0, len = rs.length; i < len; i++) {
+            if (rs[i].phantom && rs[i].isValid()) {
+                rs[i].markDirty();  // <-- Mark new records dirty
             }
+        }
+        if (this.batchSave == false) {
+            this.save();
         }
         else {
             for (var i = 0, len = rs.length; i < len; i++) {
                 if (rs[i].phantom && rs[i].isValid()) {
-                    rs[i].markDirty();	// <-- Mark new records dirty
-                    this.modified.push(rs[i]);
+                    this.modified.push(rs[i]);  // <-- add to modified
                 }
             }
         }
@@ -723,17 +727,15 @@ sortInfo: {
         if (record.phantom === true) {
             return;
         }
+        this.removed.push(record);
 
         // since the record has already been removed from the store but the server request has not yet been executed,
         // must keep track of the last known index this record existed.  If a server error occurs, the record can be
         // put back into the store.  @see Store#createCallback where the record is returned when response status === false
         record.lastIndex = index;
 
-        if (!this.batchSave) {
-            this.execute('destroy', record);
-        }
-        else {
-            this.removed.push(record);
+        if (this.batchSave === false) {
+            this.save();
         }
     },
 
@@ -749,14 +751,14 @@ sortInfo: {
         options = Ext.applyIf(options||{}, {
             params: {}
         });
-        // have to separate before-events since load has a different signature than create,destroy and save.
-        // capture return values from the beforeaction into doRequest.
+        // have to separate before-events since load has a different signature than create,destroy and save events since load does not
+        // include the rs (record resultset) parameter.  Capture return values from the beforeaction into doRequest flag.
         var doRequest = true;
-        if (action === 'load') {
+        if (action === 'load') {// TODO: define actions as CONSTANTS
             doRequest = this.fireEvent('before'+action, this, options);
         }
         else {
-            if (!this.writer) { // TODO: define actions as CONSTANTS
+            if (!this.writer) {
                 // blow up if trying to execute 'create', 'destroy', 'save' without a Writer installed.
                 throw new Error('Store attempted to execute the remote action "' + action + '" without a DataWriter installed.');
             }
@@ -764,16 +766,13 @@ sortInfo: {
                 throw new Error('Store attempted to write an unknown action "' + action + '"');
             }
             if (doRequest = this.fireEvent('before' + action, this, rs, options)) {
-                // write data to the request params.
-                this.writer[action](options.params, rs);
+                this.writer[action](options.params, rs); // <-- write data to the request params.
             }
         }
         if (doRequest !== false) {
-            // build request params, apply xaction.
-            var p = Ext.apply(options.params || {}, this.baseParams, {
-                xaction: action
-            });
-            this.proxy.request(action, rs, p, this.reader, this.createCallback(action, rs), this, options);
+            // Send request to proxy.  The big Ext.apply as 3rd arg here is simply building the request-params
+            // and applying the xaction parameter.
+            this.proxy.request(action, rs, Ext.apply(options.params || {}, this.baseParams, {xaction: action}), this.reader, this.createCallback(action, rs), this, options);
             return true;
         }
         else {
@@ -784,6 +783,8 @@ sortInfo: {
     /**
      * Send all {@link #getModifiedRecords modifiedRecords}, removed records and phantom records to the server using the
      * api's configured save url.
+     * @TODO:  Create extensions of Error class and send associated Record with thrown exceptions.
+     * eg:  Ext.data.DataReader.Error or Ext.data.Error or Ext.data.DataProxy.Error, etc.
      */
     save : function() {
         var rs = this.getModifiedRecords();
@@ -900,19 +901,19 @@ sortInfo: {
         }
     },
 
+    // private onDestroyRecords proxy callback for destroy action
+    onDestroyRecords : function(rs, data) {
+        this.removed = [];
+    },
+
     // private handleException.  Possibly temporary until Ext framework has an exception-handler.
     handleException : function(e) {
         if (typeof(console) == 'object' && typeof(console.error) == 'function') {
             console.error(e);
         }
         else {
-            alert(e);
+            alert(e);   // <-- ugh.  fix this before official release.
         }
-    },
-
-    // private onDestroyRecords proxy callback for destroy action
-    onDestroyRecords : function(rs, data) {
-        this.removed = [];
     },
 
     /**
