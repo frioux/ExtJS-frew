@@ -25,7 +25,10 @@ Ext.data.DataReader = function(meta, recordType){
 Ext.data.DataReader.prototype = {
 
 	/**
-	 * Used for un-phantoming a record after a successful database insert.  Sets the records pk along with any other new data.
+	 * Used for un-phantoming a record after a successful database insert.  Sets the records pk along with new data from server.
+	 * You <strong>must</strong> return a complete new record from the server.  If you don't, your local record's missing fields
+	 * will be populated with the default values specified in your Ext.data.Record.create specification.  Without a defaultValue,
+	 * local fields will be populated with empty string "".  So return your entire record's data after remote create and update.
 	 * Will perform a commit as well, un-marking dirty-fields.  Store's "update" event will be suppressed.
 	 * @param {Record} record The phantom record to be realized.
 	 * @param {String} data The new record data to apply.  Must include the primary-key as reported by database.
@@ -41,7 +44,10 @@ Ext.data.DataReader.prototype = {
 	},
 
 	/**
-	 * Used for updating a non-phantom record's data with fresh data from server after a save action.  Developers should always send the
+	 * Used for updating a non-phantom or "real" record's data with fresh data from server after remote-save.
+	 * You <strong>must</strong> return a complete new record from the server.  If you don't, your local record's missing fields
+	 * will be populated with the default values specified in your Ext.data.Record.create specification.  Without a defaultValue,
+	 * local fields will be populated with empty string "".  So return your entire record's data after both remote create and update.
 	 * entire record from the server when performing an update.
 	 * @param {Record/Record[]} rs
 	 * @param {Object} data
