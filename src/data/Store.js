@@ -801,6 +801,7 @@ sortInfo: {
         try {
             if (Ext.isArray(rs)) {
 				var crs = [];
+				// first check for phantoms.  splice-off and execute create.
                 for (var i = rs.length-1; i >= 0; i--) {
                     if (rs[i].phantom === true) {
                         var rec = rs.splice(i, 1).shift();
@@ -810,6 +811,7 @@ sortInfo: {
                     }
                 }
 				if (crs.length > 0) {
+					// we have phantoms to create...
 					if (crs.length == 1) {
 						crs = crs.shift();
 					}
@@ -817,6 +819,7 @@ sortInfo: {
 				}
             }
             if (rs.length > 0) {
+				// if we're here after executing create actions, we have records left to save.
                 this.execute('save', rs);
                 return true;
             }
