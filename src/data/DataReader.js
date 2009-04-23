@@ -55,17 +55,17 @@ Ext.data.DataReader.prototype = {
 	 */
 	update : function(rs, data) {
 		if (Ext.isArray(rs)) {
-			for (var i = rs.length - 1; i >= 0; i--) {
+			for (var i=rs.length-1; i >= 0; i--) {
 				// search for corresponding data from server...
 				for (var n = data.length - 1; n >= 0; n--) {
-					if (data[n][this.meta.idProperty] == rs[i].id) {
+					if (data[n] && typeof(data[n]) == 'object' && data[n][this.meta.idProperty] == rs[i].id) {
 						// Found new data!  splice-off the hash and call this method again with single record & data
 						this.update(rs[i], data.splice(n, 1).shift());
 						break;
 					}
 				}
 				// if we still have a record here that hasn't been spliced-off, :(, we couldn't match data from server to a record.  just commit.
-				// would be nice throw an exception here perhaps.  Developer should check their return-data schema matches
+				// would be nice to throw an exception here perhaps.  Developer should check their return-data schema matches
 				// the schema defined in DataReader config "root" and "idProperty".
 				if (rs[i]) {
 					rs[i].commit();

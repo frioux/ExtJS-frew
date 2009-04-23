@@ -910,22 +910,13 @@ sortInfo: {
 
     // private, onSaveRecords proxy callback for update action
     onSaveRecords : function(rs, data) {
+		// ensure we're dealing with an array.  DataReader#update is recursive and will splice each record & associated
+		// data-hash until empty.
         if (!Ext.isArray(rs)) {
             rs = [rs];
 			data = [data];
         }
-		// sample the incoming data.  if the first item has an idProperty, the server seems to have sent
-		// fresh record-data.  Let DataReader#update handle this.
-		if (data[0] && typeof(data[0]) == 'object' && data[0][this.reader.meta.idProperty]==rs[0].id) {
-			this.reader.update(rs, data);
-		}
-		else {
-			// The server doesn't seem to have provided fresh record-data.  However, it *did* respond with successProperty: true
-			// so just commit the records.
-			for (var i=rs.length-1;i>=0;i--) {
-				rs[i].commit();
-	        }
-		}
+		this.reader.update(rs, data);
     },
 
     // private onDestroyRecords proxy callback for destroy action
