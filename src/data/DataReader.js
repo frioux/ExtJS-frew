@@ -29,6 +29,7 @@ Ext.data.DataReader.prototype = {
      * You <b>must</b> return a complete new record from the server.  If you don't, your local record's missing fields
      * will be populated with the default values specified in your Ext.data.Record.create specification.  Without a defaultValue,
      * local fields will be populated with empty string "".  So return your entire record's data after remote create and update.
+     * In addition, you <b>must</b> return record-data from the server in the same order received.
      * Will perform a commit as well, un-marking dirty-fields.  Store's "update" event will be suppressed.
      * @param {Record/Record[]} record The phantom record to be realized.
      * @param {Object/Object[]} data The new record data to apply.  Must include the primary-key as reported by database.
@@ -67,6 +68,7 @@ Ext.data.DataReader.prototype = {
      * You <b>must</b> return a complete new record from the server.  If you don't, your local record's missing fields
      * will be populated with the default values specified in your Ext.data.Record.create specification.  Without a defaultValue,
      * local fields will be populated with empty string "".  So return your entire record's data after both remote create and update.
+     * In addition, you <b>must</b> return record-data from the server in the same order received.
      * Will perform a commit as well, un-marking dirty-fields.  Store's "update" event will be suppressed as the record receives
      * a fresh new data-hash.
      * @param {Record/Record[]} rs
