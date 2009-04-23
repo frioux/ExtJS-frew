@@ -26,7 +26,7 @@ Ext.data.DataReader.prototype = {
 
 	/**
 	 * Used for un-phantoming a record after a successful database insert.  Sets the records pk along with new data from server.
-	 * You <strong>must</strong> return a complete new record from the server.  If you don't, your local record's missing fields
+	 * You <b>must</b> return a complete new record from the server.  If you don't, your local record's missing fields
 	 * will be populated with the default values specified in your Ext.data.Record.create specification.  Without a defaultValue,
 	 * local fields will be populated with empty string "".  So return your entire record's data after remote create and update.
 	 * Will perform a commit as well, un-marking dirty-fields.  Store's "update" event will be suppressed.
@@ -64,7 +64,7 @@ Ext.data.DataReader.prototype = {
 
 	/**
 	 * Used for updating a non-phantom or "real" record's data with fresh data from server after remote-save.
-	 * You <strong>must</strong> return a complete new record from the server.  If you don't, your local record's missing fields
+	 * You <b>must</b> return a complete new record from the server.  If you don't, your local record's missing fields
 	 * will be populated with the default values specified in your Ext.data.Record.create specification.  Without a defaultValue,
 	 * local fields will be populated with empty string "".  So return your entire record's data after both remote create and update.
 	 * Will perform a commit as well, un-marking dirty-fields.  Store's "update" event will be suppressed as the record receives
@@ -100,8 +100,8 @@ Ext.data.DataReader.prototype = {
 	/**
 	 * Returns true if the supplied data-hash <strong>looks</strong> like data.  Checks to see if it has a key
 	 * corresponding to idProperty defined in your DataReader config containing non-empty pk.
-	 * @return {Boolean}
 	 * @param {Object} data
+	 * @return {Boolean}
 	 */
 	isData : function(data) {
 		return (data && typeof(data) == 'object' && !Ext.isEmpty(data[this.meta.idProperty])) ? true : false
