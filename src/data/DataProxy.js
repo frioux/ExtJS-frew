@@ -204,13 +204,12 @@ proxy.setApi('load', '/users/new_load_url');
      * @param {Ext.data.Record/Ext.data.Record[]} rs
      * @param {Object} params
      * @param {Ext.data.DataReader} reader
-     * @param {Ext.data.DataWriter} writer
      * @param {Function} callback
      * @param {Object} scope
      * @param {Object} options
      * @private
      */
-    request : function(action, rs, params, reader, writer, callback, scope, options) {
+    request : function(action, rs, params, reader, callback, scope, options) {
         params = params || {};
         if (this.fireEvent("before" + action, this, params) !== false) {
             this.doRequest.apply(this, arguments);
@@ -231,7 +230,7 @@ proxy.setApi('load', '/users/new_load_url');
      * @param {Object} arg
      */
     load : function(params, reader, callback, scope, arg) {
-        this.doRequest('load', null, params, reader, null, callback, scope, arg);
+        this.doRequest('load', null, params, reader, callback, scope, arg);
     },
 
     /**
@@ -239,7 +238,7 @@ proxy.setApi('load', '/users/new_load_url');
      * (eg: {@link Ext.data.HttpProxy#doRequest HttpProxy.doRequest},
      * {@link Ext.data.DirectProxy#doRequest DirectProxy.doRequest}).
      */
-    doRequest : function(action, rs, params, reader, writer, callback, scope, options) {
+    doRequest : function(action, rs, params, reader, callback, scope, options) {
         // default implementation of doRequest for backwards compatibility with 2.0 proxies.
         // If we're executing here, the action is probably "load".
         // Call with the pre-3.0 method signature.

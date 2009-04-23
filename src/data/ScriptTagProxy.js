@@ -93,7 +93,6 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
      * for the request to the remote server.
      * @param {Ext.data.DataReader} reader The Reader object which converts the data
      * object into a block of Ext.data.Records.
-	 * @param {Ext.data.DataWriter} writer
      * @param {Function} callback The function into which to pass the block of Ext.data.Records.
      * The function must be passed <ul>
      * <li>The Record block object</li>
@@ -103,7 +102,7 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
      * @param {Object} scope The scope in which to call the callback
      * @param {Object} arg An optional argument which is passed to the callback as its second parameter.
 	 */
-    doRequest : function(action, rs, params, reader, writer, callback, scope, arg) {
+    doRequest : function(action, rs, params, reader, callback, scope, arg) {
         var p = Ext.urlEncode(Ext.apply(params, this.extraParams));
 
         var url = this.url || this.api[action];
@@ -166,7 +165,6 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
 					trans.callback.call(trans.scope, null, res, false);
 					return;
 				}
-				// should we read from the Writer config instead of reader.meta.root?
 		        conn.fireEvent(action, conn, res[reader.meta.root], res, trans.arg );
 		        trans.callback.call(trans.scope||window, res[reader.meta.root], res, true);
 			}

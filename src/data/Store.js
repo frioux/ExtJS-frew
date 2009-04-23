@@ -773,7 +773,7 @@ sortInfo: {
 			var p = Ext.apply(options.params || {}, this.baseParams, {
 				xaction: action
 			});
-			this.proxy.request(action, rs, p, this.reader, this.writer, this.createCallback(action, rs), this, options);
+			this.proxy.request(action, rs, p, this.reader, this.createCallback(action, rs), this, options);
 			return true;
 		}
 		else {

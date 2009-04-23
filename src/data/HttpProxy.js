@@ -118,7 +118,7 @@ api: {
 
 		// if we have no url here, throw an exception.
 		if (typeof(url) == 'undefined') {
-			throw new Error('HttpProxy tried build an url for the action "' + action + '" but could not find an api definition for this action or an url to ball-back to.  Please review your proxy configuration.');
+			throw new Error('HttpProxy tried to build an url for the action "' + action + '" but could not find an api definition for this action or an url to fall-back to.  Please review your proxy configuration.');
 		}
 
 		if (this.prettyUrls === true && record instanceof Ext.data.Record && !record.phantom) {
@@ -135,7 +135,6 @@ api: {
      * for the request to the remote server.
      * @param {Ext.data.DataReader} reader The Reader object which converts the data
      * object into a block of Ext.data.Records.
-	 * @param {Ext.data.DataWriter} writer
      * @param {Function} callback The function into which to pass the block of Ext.data.Records.
      * The function must be passed <ul>
      * <li>The Record block object</li>
@@ -145,7 +144,7 @@ api: {
      * @param {Object} scope The scope in which to call the callback
      * @param {Object} arg An optional argument which is passed to the callback as its second parameter.
 	 */
-	doRequest : function(action, rs, params, reader, writer, cb, scope, arg) {
+	doRequest : function(action, rs, params, reader, cb, scope, arg) {
 		var  o = {
             params : params || {},
             request: {
@@ -242,7 +241,6 @@ api: {
 					o.request.callback.call(o.request.scope, null, res, false);
 					return;
 				}
-				// should we read from the Writer config instead of reader.meta.root?
 		        this.fireEvent(action, this, res[reader.meta.root], res, o.request.arg );
 		        o.request.callback.call(o.request.scope, res[reader.meta.root], res, true);
 			}

@@ -40,7 +40,7 @@ paramOrder: 'param1|param2|param'
 	directFn : undefined,
 
 	// protected
-	doRequest : function(action, rs, params, reader, writer, callback, scope, options) {
+	doRequest : function(action, rs, params, reader, callback, scope, options) {
 		var args = [];
 
 		var directFn = this.api[action] || this.directFn;
