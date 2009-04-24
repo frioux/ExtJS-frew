@@ -347,11 +347,11 @@ var grid = new Ext.grid.EditorGridPanel({
     );
 
     if(this.proxy){
-        this.relayEvents(this.proxy,  ["loadexception"]);
+        this.relayEvents(this.proxy,  [Ext.data.READ+"exception"]);
     }
     // With a writer installed into the Store, we want to listen to add/remove events to remotely create/destroy records.
     if (this.writer) {
-        this.relayEvents(this.proxy, ["saveexception", "createexception", "destroyexception"]);
+        this.relayEvents(this.proxy, [Ext.data.UPDATE+"exception", Ext.data.CREATE+"exception", Ext.data.DESTROY+"exception"]);
         this.on('add', this.createRecords.createDelegate(this));
         this.on('remove', this.destroyRecord.createDelegate(this));
         this.on('update', this.updateRecord.createDelegate(this));
@@ -749,6 +749,11 @@ sortInfo: {
      * @private
      */
     execute : function(action, rs, options) {
+        // blow up if action not Ext.data.CREATE, READ, UPDATE, DESTROY
+        if (!Ext.data.isCrudAction(action)) {
+            throw new Error('Store#execute attempted to execute an unknown action "' + action + '".  Valid API actions are "' + Ext.data.getCrudActions().join(', '));
+        }
+
         // make sure options has a params key
         options = Ext.applyIf(options||{}, {
             params: {}
@@ -762,12 +767,8 @@ sortInfo: {
         }
         else {
             if (!this.writer) {
-                // blow up if trying to execute 'create', 'destroy', 'save' without a Writer installed.
+                // blow up if trying to execute CREATE, DESTROY, UPDATE without a Writer installed.
                 throw new Error('Store attempted to execute the remote action "' + action + '" without a DataWriter installed.');
-            }
-            if (typeof(this.writer[action]) != 'function') {
-                // blow up if action not 'create', 'save' or 'destroy'
-                throw new Error('Store#execute attempted to write an unknown action "' + action + '"');
             }
             if (!rs) {
                 // blow up if no recordset received.
@@ -776,8 +777,20 @@ sortInfo: {
 
             // if rs has just a single record, shift it off so that Writer writes data as "{}" rather than "[{}]"
             rs = (rs.length > 1) ? rs : rs.shift();
+
+            // Write the action to option.params
             if (doRequest = this.fireEvent('before' + action, this, rs, options)) {
-                this.writer[action](options.params, rs); // <-- write data to the request params.
+                switch (action) {
+                    case Ext.data.CREATE:
+                       this.writer.create(options.params, rs);
+                       break;
+                    case Ext.data.UPDATE:
+                       this.writer.update(options.params, rs);
+                       break;
+                    case Ext.data.DESTROY:
+                       this.writer.destroy(options.params, rs);
+                       break;
+                }
             }
         }
         if (doRequest !== false) {
@@ -801,7 +814,7 @@ sortInfo: {
         // First check for removed records.  Records in this.removed are guaranteed non-phantoms.  @see Store#remove
         if (this.removed.length) {
             try {
-                this.execute('destroy', this.removed);
+                this.execute(Ext.data.DESTROY, this.removed);
             } catch (e) {
                 this.handleException(e);
             }
@@ -832,10 +845,10 @@ sortInfo: {
             }
         }
 
-        // And finally, if we're still here after splicing-off phantoms, save the rest...
+        // And finally, if we're still here after splicing-off phantoms, update the rest...
         if (rs.length) {
             try {
-                this.execute('save', rs);
+                this.execute(Ext.data.UPDATE, rs);
             } catch (e) {
                 this.handleException(e);
             }
@@ -854,10 +867,10 @@ sortInfo: {
                     case Ext.data.CREATE:
                         this.onCreateRecords(rs, data);
                         break;
-                    case 'destroy':
+                    case Ext.data.DESTROY:
                         this.onDestroyRecords(rs, data);
                         break;
-                    case 'save':
+                    case Ext.data.UPDATE:
                         this.onSaveRecords(rs, data);
                         break;
                 }
@@ -865,7 +878,7 @@ sortInfo: {
             }
             else {
                 switch (action) {
-                    case 'destroy':
+                    case Ext.data.DESTROY:
                         // put records back into store if remote destroy fails.
                         if (rs instanceof Ext.data.Record) {
                             rs = [rs];

@@ -95,12 +95,21 @@ myStore.on({
      * </code></pre>
      * </p>
      */
-    this.api = conn.api || {
-        load: undefined,
-        save: undefined,
-        create: undefined,
-        destroy: undefined
-    };
+
+    // Verify valid api or define if not set.
+    if (conn.api) {
+       var valid = Ext.data.isValidApi(conn.api);
+       if (valid !== true) {
+           throw new Error('Ext.data.DataProxy#constructor recieved an invalid api configuration "' + valid.join(', ') + '".  Please ensure your proxy API contains only "' + Ext.data.getCrudActions().join(', '));
+       }
+    }
+    else {
+        this.api = {};
+        this.api[Ext.data.CREATE]     = undefined;
+        this.api[Ext.data.READ]       = undefined;
+        this.api[Ext.data.UPDATE]     = undefined;
+        this.api[Ext.data.DESTROY]    = undefined;
+    }
 
     this.addEvents(
         /**
@@ -169,27 +178,6 @@ myStore.on({
     Ext.data.DataProxy.superclass.constructor.call(this);
 };
 
-// TODO: Move these const defs somewhere more general?
-/**
- * @const Ext.data.CREATE Text representing the remote-action "create"
- */
-Ext.data.CREATE   = 'create';
-/**
- * @const Ext.data.READ Text representing the remote-action for remotely reading/loading data from server.
- * It important these names not be changed since they sometimes map to a method on another object, like Ext.data.DataWriter for example.
- * The name "load" is important for maintaining backwards-compatibility with Ext-2.0, as well.
- */
-Ext.data.READ     = 'load';
-/**
- * @const Ext.data.UPDATE Text representing the remote-action to rupdate records on server.
- * The word update would be preferred here, instead of "save" but "update" has already been used for events pre-Ext3.
- */
-Ext.data.UPDATE   = 'save';
-/**
- * @const Ext.data.UPDATE Text representing the remote-action to destroy records on server.
- */
-Ext.data.DESTROY  = 'destroy';
-
 Ext.extend(Ext.data.DataProxy, Ext.util.Observable, {
 
     /**
@@ -204,16 +192,25 @@ proxy.setApi({
 </pre></code>
      * <p>If called with two parameters, the first parameter should be a string specifying the API action to
      * redefine and the second parameter should be the URL (or function if using DirectProxy) to call for that action, eg:</p><code><pre>
-proxy.setApi('load', '/users/new_load_url');
+proxy.setApi(Ext.data.READ, '/users/new_load_url');
 </pre></code>
      * @param {Mixed} api An API specification object, or the name of an action.
      * @param {String/Function} url The URL (or function if using DirectProxy) to call for the action.
      */
     setApi : function() {
         if (arguments.length == 1) {
-            this.api = arguments[0];
+            var valid = Ext.data.isValidApi(arguments[0]);
+            if (valid === true) {
+                this.api = arguments[0];
+            }
+            else {
+                throw new Error('Ext.data.DataProxy#setApi received invalid API action(s) "' + valid.join(', ') + '".  Valid API actions are: ' + Ext.data.getCrudActions().join(', '));
+            }
         }
         else if (arguments.length == 2) {
+            if (!Ext.data.isCrudAction(arguments[0])) {
+                throw new Error('Ext.data.DataProxy#setApi received an invalid API action "' + arguments[0] + '".  Valid API actions are: ' + Ext.data.getCrudActions().join(', '))
+            }
             this.api[arguments[0]] = arguments[1];
         }
     },
@@ -266,3 +263,67 @@ proxy.setApi('load', '/users/new_load_url');
         this[action](params, reader, callback, scope, options);
     }
 });
+
+// TODO: Move these consts / static-functions somewhere more thoughtful?
+/**
+ * @const Ext.data.CREATE Text representing the remote-action "create"
+ */
+Ext.data.CREATE   = 'create';
+/**
+ * @const Ext.data.READ Text representing the remote-action for remotely reading/loading data from server.
+ * It important these names not be changed since they sometimes map to a method on another object, like Ext.data.DataWriter for example.
+ * The name "load" is important for maintaining backwards-compatibility with Ext-2.0, as well.
+ */
+Ext.data.READ     = 'load';
+/**
+ * @const Ext.data.UPDATE Text representing the remote-action to rupdate records on server.
+ * The word update would be preferred here, instead of "save" but "update" has already been used for events pre-Ext3.
+ */
+Ext.data.UPDATE   = 'save';
+/**
+ * @const Ext.data.UPDATE Text representing the remote-action to destroy records on server.
+ */
+Ext.data.DESTROY  = 'destroy';
+
+/**
+ * Returns a list of names of all available CRUD actions
+ * @static
+ * @return {String[]}
+ */
+Ext.data.getCrudActions = function(){
+    return [Ext.data.CREATE, Ext.data.READ, Ext.data.UPDATE, Ext.data.DESTROY];
+};
+
+/**
+ * Returns true if supplied action-name is a valid API action defined in CRUD constants
+ * Ext.data.CREATE, Ext.data.READ, Ext.data.UPDATE, Ext.data.DESTROY
+ * @param {String} action
+ * @return {Boolean}
+ * @static
+ */
+Ext.data.isCrudAction = function(action) {
+    var found = false;
+    var crud = Ext.data.getCrudActions();
+    for (var n=0,len=crud.length;n<len;n++) {
+        if (crud[n] == action) {
+           found = true;
+           break;
+        }
+    }
+    return found;
+};
+
+/**
+ * Returns true if the supplied API is valid; that is, that all keys match defined CRUD-actions,
+ * Ext.data.CREATE, Ext.data.READ, Ext.data.UPDATE, Ext.data.DESTROY.  Otherwise returns an array of mistakes.
+ * @return {String[]||true}
+ */
+Ext.data.isValidApi = function(api){
+    var invalid = [];
+    for (var key in api) {
+        if (!Ext.data.isCrudAction(key)) {
+            invalid.push(key);
+        }
+    }
+    return (!invalid.length) ? true : invalid;
+};
