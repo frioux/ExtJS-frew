@@ -699,17 +699,11 @@ sortInfo: {
         for (var i = 0, len = rs.length; i < len; i++) {
             if (rs[i].phantom && rs[i].isValid()) {
                 rs[i].markDirty();  // <-- Mark new records dirty
+                this.modified.push(rs[i]);  // <-- add to modified
             }
         }
-        if (this.batchSave == false) {
+        if (this.batchSave === false) {
             this.save();
-        }
-        else {
-            for (var i = 0, len = rs.length; i < len; i++) {
-                if (rs[i].phantom && rs[i].isValid()) {
-                    this.modified.push(rs[i]);  // <-- add to modified
-                }
-            }
         }
     },
 
@@ -780,7 +774,7 @@ sortInfo: {
             rs = (rs.length > 1) ? rs : rs.shift();
 
             // Write the action to option.params
-            if (doRequest = this.fireEvent('before' + action, this, rs, options)) {
+            if (doRequest = this.fireEvent('before'+action, this, rs, options)) {
                 switch (action) {
                     case Ext.data.CREATE:
                        this.writer.create(options.params, rs);
