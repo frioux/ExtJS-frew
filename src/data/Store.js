@@ -70,6 +70,10 @@ Ext.data.Store = function(config){
      * @property
      */
     this.baseParams = {};
+
+    // temporary removed-records cache
+    this.removed = [];
+
     /**
      * <p>An object containing properties which specify the names of the paging and
      * sorting parameters passed to remote servers when loading blocks of data. By default, this
@@ -476,9 +480,6 @@ sortInfo: {
      * {@link #save} records to the server when a record changes.
      */
     batchSave : false,
-
-    // private destroy temporary cache
-    removed : [],
 
     /**
      * Destroys the store.
