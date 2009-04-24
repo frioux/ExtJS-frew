@@ -165,7 +165,7 @@ myStore.on({
          * @param {Object} o The data object
          * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
-        'before' + Ext.data.DataProxy.CREATE,
+        'before' + Ext.data.CREATE,
         /**
          * @event create (Ext.data.CREATE)
          * Fires before a the request-callback is called

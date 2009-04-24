@@ -36,6 +36,27 @@ Ext.data.DataWriter.prototype = {
     writeAllFields : false,
 
     /**
+     * Writes data in preparation for server-write action.  Simply proxies to DataWriter#update, DataWriter#create
+     * DataWriter#destroy.
+     * @param {String} action [CREATE|UPDATE|DESTROY]
+     * @param {Object} params The params-hash to write-to
+     * @param {Record/Record[]} rs The recordset write.
+     */
+    write : function(action, params, rs) {
+        switch (action) {
+            case Ext.data.CREATE:
+               this.create(params, rs);
+               break;
+            case Ext.data.UPDATE:
+               this.update(params, rs);
+               break;
+            case Ext.data.DESTROY:
+               this.destroy(params, rs);
+               break;
+        }
+    },
+
+    /**
      * update
      * @param {Object} p Params-hash to apply result to.
      * @param {Record/Record[]} rs Record(s) to write

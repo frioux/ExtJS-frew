@@ -762,11 +762,9 @@ sortInfo: {
         }
         else {
             if (!this.writer) {
-                // blow up if trying to execute CREATE, DESTROY, UPDATE without a Writer installed.
                 throw new Error('Store attempted to execute the remote action "' + action + '" without a DataWriter installed.');
             }
             if (!rs) {
-                // blow up if no recordset received.
                 throw new Error("Store#execute attempted to execute action '" + action + "' upon an invalid recordset: '" + rs + "'");
             }
 
@@ -775,17 +773,7 @@ sortInfo: {
 
             // Write the action to option.params
             if (doRequest = this.fireEvent('before'+action, this, rs, options)) {
-                switch (action) {
-                    case Ext.data.CREATE:
-                       this.writer.create(options.params, rs);
-                       break;
-                    case Ext.data.UPDATE:
-                       this.writer.update(options.params, rs);
-                       break;
-                    case Ext.data.DESTROY:
-                       this.writer.destroy(options.params, rs);
-                       break;
-                }
+                this.writer.write(action, options.params, rs);
             }
         }
         if (doRequest !== false) {
@@ -822,7 +810,7 @@ sortInfo: {
         }
 
         // Next check for phantoms within rs.  splice-off and execute create.
-        var phantoms = [];    // <-- resultset for creates
+        var phantoms = [];
         for (var i = rs.length-1; i >= 0; i--) {
             if (rs[i].phantom === true) {
                 var rec = rs.splice(i, 1).shift();
@@ -831,7 +819,7 @@ sortInfo: {
                 }
             }
         }
-        // If we have phantoms, create them...
+        // If we have valid phantoms, create them...
         if (phantoms.length) {
             try {
                 this.execute(Ext.data.CREATE, phantoms);

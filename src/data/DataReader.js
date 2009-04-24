@@ -32,7 +32,7 @@ Ext.data.DataReader.prototype = {
      * In addition, you <b>must</b> return record-data from the server in the same order received.
      * Will perform a commit as well, un-marking dirty-fields.  Store's "update" event will be suppressed.
      * @param {Record/Record[]} record The phantom record to be realized.
-     * @param {Object/Object[]} data The new record data to apply.  Must include the primary-key as reported by database.
+     * @param {Object/Object[]} data The new record data to apply.  Must include the primary-key from database defined in idProperty field.
      */
     realize: function(rs, data){
         if (Ext.isArray(rs)) {
@@ -42,7 +42,7 @@ Ext.data.DataReader.prototype = {
                     this.realize(rs.splice(i,1).shift(), data.splice(i,1).shift());
                 }
                 else {
-                    // weird...rs is an array but data isn't??  recurse but just send in the whole data object.
+                    // weird...rs is an array but data isn't??  recurse but just send in the whole invalid data object.
                     // the else clause below will detect !this.isData and throw exception.
                     this.realize(rs.splice(i,1).shift(), data);
                 }
