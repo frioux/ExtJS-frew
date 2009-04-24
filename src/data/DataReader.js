@@ -50,6 +50,8 @@ Ext.data.DataReader.prototype = {
         }
         else {
             if (!this.isData(data)) {
+                // TODO: create custom Exception class to return record in thrown exception.  Allow exception-handler the choice
+                // to commit or not rather than blindly rs.commit() here.
                 rs.commit();
                 throw new Error("DataReader#realize was called with invalid remote-data.  Please see the docs for DataReader#realize and review your DataReader configuration.");
             }
@@ -87,11 +89,13 @@ Ext.data.DataReader.prototype = {
         }
         else {
             if (!this.isData(data)) {
+                // TODO: create custom Exception class to return record in thrown exception.  Allow exception-handler the choice
+                // to commit or not rather than blindly rs.commit() here.
                 rs.commit();
                 throw new Error("DataReader#update received invalid data from server.  Please see docs for DataReader#update");
-            }            
+            }
             rs.data = this.extractValues(data, rs.fields.items, rs.fields.items.length);
-            rs.commit();            
+            rs.commit();
         }
     },
 
