@@ -23,11 +23,6 @@ Ext.data.DataWriter.prototype = {
 
     meta : {},
     /**
-     * @cfg {String} dataProperty The property-name in request-params where data will be written
-     * (defaults to <tt>'data'</tt>).
-     */
-    dataProperty : 'data',
-    /**
      * @cfg {Boolean} writeAllFields
      * <tt>false</tt> by default.  Set <tt>true</tt> to have DataWriter return ALL fields of a modified
      * record -- not just those that changed.
@@ -70,11 +65,11 @@ Ext.data.DataWriter.prototype = {
                 data.push(this.updateRecord(rs[n]));
             }
             p[this.meta.idProperty] = ids;
-            p[this.dataProperty] = data;
+            p[this.meta.root] = data;
         }
         else if (rs instanceof Ext.data.Record) {
             p[this.meta.idProperty] = rs.id;
-            p[this.dataProperty] = this.updateRecord(rs);
+            p[this.meta.root] = this.updateRecord(rs);
         }
         return false;
     },
@@ -96,10 +91,10 @@ Ext.data.DataWriter.prototype = {
             for (var n=0,len=rs.length;n<len;n++) {
                 data.push(this.createRecord(rs[n]));
             }
-            p[this.dataProperty] = data;
+            p[this.meta.root] = data;
         }
         else if (rs instanceof Ext.data.Record) {
-            p[this.dataProperty] = this.createRecord(rs);
+            p[this.meta.root] = this.createRecord(rs);
         }
     },
 
@@ -121,7 +116,7 @@ Ext.data.DataWriter.prototype = {
             for (var i=0,len=rs.length;i<len;i++) {
                 data.push(this.destroyRecord(rs[i]));
             }
-            p[this.dataProperty] = data;
+            p[this.meta.root] = data;
         } else if (rs instanceof Ext.data.Record) {
             p[this.dataProperty] = this.destroyRecord(rs);
         }

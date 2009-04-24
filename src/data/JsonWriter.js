@@ -25,7 +25,7 @@ Ext.data.JsonWriter = Ext.extend(Ext.data.DataWriter, {
     create : function(p, rs) {
         Ext.data.JsonWriter.superclass.create.apply(this, arguments);
         if (this.returnJson) {
-            p[this.dataProperty] = Ext.encode(p[this.dataProperty]);
+            p[this.meta.root] = Ext.encode(p[this.meta.root]);
         }
     },
 
@@ -41,7 +41,7 @@ Ext.data.JsonWriter = Ext.extend(Ext.data.DataWriter, {
             if (Ext.isArray(rs)) {
                 p[this.meta.idProperty] = Ext.encode(p[this.meta.idProperty]);
             }
-            p[this.dataProperty] = Ext.encode(p[this.dataProperty]);
+            p[this.meta.root] = Ext.encode(p[this.meta.root]);
         }
     },
 
@@ -53,7 +53,7 @@ Ext.data.JsonWriter = Ext.extend(Ext.data.DataWriter, {
     destroy : function(p, rs) {
         Ext.data.JsonWriter.superclass.destroy.apply(this, arguments);
         if (this.returnJson) {
-            p[this.dataProperty] = Ext.encode(p[this.dataProperty]);
+            p[this.meta.root] = Ext.encode(p[this.meta.root]);
         }
 
     },
