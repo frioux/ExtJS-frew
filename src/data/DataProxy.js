@@ -100,7 +100,7 @@ myStore.on({
     if (conn.api) {
        var valid = Ext.data.isValidApi(conn.api);
        if (valid !== true) {
-           throw new Error('Ext.data.DataProxy#constructor recieved an invalid api configuration "' + valid.join(', ') + '".  Please ensure your proxy API contains only "' + Ext.data.getCrudActions().join(', '));
+           throw new Error('Ext.data.DataProxy#constructor recieved an invalid API-configuration "' + valid.join(', ') + '".  Please ensure your proxy API-configuration contains only the actions "' + Ext.data.getCrudActions().join(', '));
        }
     }
     else {
