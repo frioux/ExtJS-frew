@@ -54,12 +54,10 @@ Ext.data.DataReader.prototype = {
                 throw new Error("DataReader#realize was called with invalid remote-data.  Please see the docs for DataReader#realize and review your DataReader configuration.");
             }
             var values = this.extractValues(data, rs.fields.items, rs.fields.items.length)
-            rs.editing = true; // <-- prevent unwanted afterEdit calls by record.
             rs.phantom = false; // <-- That's what it's all about
-            rs.id = values[this.meta.idProperty];
+            rs.id = data[this.meta.idProperty];
             rs.data = values;
             rs.commit();
-            rs.editing = false;
         }
     },
 
