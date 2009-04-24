@@ -89,11 +89,9 @@ Ext.data.DataReader.prototype = {
             if (!this.isData(data)) {
                 rs.commit();
                 throw new Error("DataReader#update received invalid data from server.  Please see docs for DataReader#update");
-            }
-            rs.editing = true; // <-- prevent unwanted afterEdit calls by record.
+            }            
             rs.data = this.extractValues(data, rs.fields.items, rs.fields.items.length);
-            rs.commit();
-            rs.editing = false;
+            rs.commit();            
         }
     },
 
