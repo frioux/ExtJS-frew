@@ -696,10 +696,7 @@ sortInfo: {
      * @private
      */
     updateRecord : function(store, record, action) {
-        if (action != Ext.data.Record.EDIT || this.batchSave === true) {
-            return;
-        }
-        if (!record.phantom || (record.phantom && record.isValid)) {
+        if (action == Ext.data.Record.EDIT && this.batchSave !== true && (!record.phantom || (record.phantom && record.isValid))) {
             this.save();
         }
     },
@@ -719,7 +716,7 @@ sortInfo: {
             }
         }
         if (this.batchSave === false) {
-            this.save();
+            return this.save();
         }
     },
 
@@ -855,9 +852,6 @@ sortInfo: {
 
     // private callback-handler for remote CRUD actions
     // Do not override -- override loadRecords, onCreateRecords, onDestroyRecords and onSaveRecords instead.
-    // TODO:  refactor.  place destroy fail switch into its own method perhaps?  Maybe remove the if (success === true) check
-    // and let each onAction method check for success?  Notice that both the destroy-fail case and onDestroyRecords each
-    // set this.removed = [].
     createCallback : function(action, rs) {
         return (action == Ext.data.READ) ? this.loadRecords : function(data, response, success) {
             switch (action) {
