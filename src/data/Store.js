@@ -344,10 +344,26 @@ var grid = new Ext.grid.EditorGridPanel({
          */
         Ext.data.CREATE + 'exception',
         /**
-         * @event event
-         * fires on create, load, destroy, save
+         * @event beforewrite NOT YET IMPLEMENTED
          */
-        'event'
+        'beforewrite',
+        /**
+         * @event write
+         * fires when server returns 200 after Ext.data.CREATE, UPDATE and DESTROY.  Check the res['successProperty'] of the Response
+         * parameter for action's success/fail.
+         * @TODO We can probably get rid of all other write-action events (ie: beforesave, save, saveexecption, beforecreate, create, createexception, etc)
+         *  in favor of this one "write" event.
+         * @param {Extd.data.Store} store
+         * @param {String} action [Ext.data.CREATE|Ext.data.UPDATE|Ext.data.DESTROY]
+         * @param {Object} result The "data" picked-out out of the response for convenience.
+         * @param {Ext.Direct.Transaction} res
+         * @param {Record/Record[]} rs Store's records, the subject(s) of the write-action
+         */
+        'write',
+        /**
+         * @event writeexception NOT NET IMPLEMENTED
+         */
+        'writeexception'
     );
 
     if(this.proxy){
@@ -855,10 +871,11 @@ sortInfo: {
                     this.onSaveRecords(success, rs, data);
                     break;
             }
+            // @deprecated firing events for *each* action in favour of catch-all "write" event following...
             this.fireEvent(action, this, data, response);
 
-            // fire 'event' on all write-actions.  This event is currently undocumented.
-            this.fireEvent('event', this, data, response);
+            // fire catch-all "write" event for CREATE, DESTROY, UPDATE
+            this.fireEvent('write', this, action, data, response, rs);
         }
     },
 
