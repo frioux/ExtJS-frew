@@ -771,20 +771,18 @@ sortInfo: {
             // if rs has just a single record, shift it off so that Writer writes data as "{}" rather than "[{}]"
             rs = (rs.length > 1) ? rs : rs.shift();
 
-            // Write the action to option.params
-            if (doRequest = this.fireEvent('before'+action, this, rs, options)) {
+            // Write the action to options.params
+            if (doRequest = this.fireEvent('before'+action, this, rs, options) !== false) {
                 this.writer.write(action, options.params, rs);
             }
         }
         if (doRequest !== false) {
             // Send request to proxy.  The big Ext.apply as 3rd arg here is simply building the request-params
             // and applying the xaction parameter.
+            // @TODO: let writer write xaction param as well rather than here in store.  DataWriter needs to expose more hooks.
             this.proxy.request(action, rs, Ext.apply(options.params || {}, this.baseParams, {xaction: action}), this.reader, this.createCallback(action, rs), this, options);
-            return true;
         }
-        else {
-            return false;
-        }
+        return doRequest;
     },
 
     /**
@@ -840,78 +838,80 @@ sortInfo: {
     },
 
     // private callback-handler for remote CRUD actions
+    // Do not override -- override loadRecords, onCreateRecords, onDestroyRecords and onSaveRecords instead.
     // TODO:  refactor.  place destroy fail switch into its own method perhaps?  Maybe remove the if (success === true) check
     // and let each onAction method check for success?  Notice that both the destroy-fail case and onDestroyRecords each
     // set this.removed = [].
     createCallback : function(action, rs) {
         return (action == Ext.data.READ) ? this.loadRecords : function(data, response, success) {
-            if (success === true) {
-                switch (action) {
-                    case Ext.data.CREATE:
-                        this.onCreateRecords(rs, data);
-                        break;
-                    case Ext.data.DESTROY:
-                        this.onDestroyRecords(rs, data);
-                        break;
-                    case Ext.data.UPDATE:
-                        this.onSaveRecords(rs, data);
-                        break;
-                }
-                this.fireEvent(action, this, data, response);
+            switch (action) {
+                case Ext.data.CREATE:
+                    this.onCreateRecords(success, rs, data);
+                    break;
+                case Ext.data.DESTROY:
+                    this.onDestroyRecords(success, rs, data);
+                    break;
+                case Ext.data.UPDATE:
+                    this.onSaveRecords(success, rs, data);
+                    break;
             }
-            else {
-                switch (action) {
-                    case Ext.data.DESTROY:
-                        // put records back into store if remote destroy fails.
-                        if (rs instanceof Ext.data.Record) {
-                            rs = [rs];
-                        }
-                        for (var i=0,len=rs.length;i<len;i++) {
-                            this.insert(rs[i].lastIndex, rs[i]);	// <-- lastIndex set in Store#destroyRecord
-                        }
-                        this.removed = [];
+            this.fireEvent(action, this, data, response);
 
-                        break;
-                }
-            }
-            // fire on 'create', 'destroy', 'save'.
-            // this event is currently undocumented.
+            // fire 'event' on all write-actions.  This event is currently undocumented.
             this.fireEvent('event', this, data, response);
         }
     },
 
-    // private onCreateRecord proxy callback for create action
-    onCreateRecords : function(rs, data) {
-        try {
-            this.reader.realize(rs, data);
-        } catch (e) {
-            this.handleException(e);
-            if (Ext.isArray(rs)) {
-                // Recurse to run back into the try {}.  DataReader#realize splices-off the rs until empty.
-                this.onCreateRecords(rs, data);
+    // protected onCreateRecord proxy callback for create action
+    onCreateRecords : function(success, rs, data) {
+        if (success === true) {
+            try {
+                this.reader.realize(rs, data);
+            }
+            catch (e) {
+                this.handleException(e);
+                if (Ext.isArray(rs)) {
+                    // Recurse to run back into the try {}.  DataReader#realize splices-off the rs until empty.
+                    this.onCreateRecords(success, rs, data);
+                }
             }
         }
     },
 
-    // private, onSaveRecords proxy callback for update action
-    onSaveRecords : function(rs, data) {
-        try {
-            this.reader.update(rs, data);
-        } catch (e) {
-            this.handleException(e);
-            if (Ext.isArray(rs)) {
-                // Recurse to run back into the try {}.  DataReader#update splices-off the rs until empty.
-                this.onSaveRecords(rs, data);
+    // protected, onSaveRecords proxy callback for update action
+    onSaveRecords : function(success, rs, data) {
+        if (success === true) {
+            try {
+                this.reader.update(rs, data);
+            }
+            catch (e) {
+                this.handleException(e);
+                if (Ext.isArray(rs)) {
+                    // Recurse to run back into the try {}.  DataReader#update splices-off the rs until empty.
+                    this.onSaveRecords(success, rs, data);
+                }
             }
         }
     },
 
-    // private onDestroyRecords proxy callback for destroy action
-    onDestroyRecords : function(rs, data) {
+    // protected onDestroyRecords proxy callback for destroy action
+    onDestroyRecords : function(success, rs, data) {
         this.removed = [];
+        if (success === true) {
+            // nothing to do so far...invert the logic?
+        } else {
+            // put records back into store if remote destroy fails.
+            // @TODO: Might want to let developer decide.
+            if (rs instanceof Ext.data.Record) {
+                rs = [rs];
+            }
+            for (var i=0,len=rs.length;i<len;i++) {
+                this.insert(rs[i].lastIndex, rs[i]);    // <-- lastIndex set in Store#destroyRecord
+            }
+        }
     },
 
-    // private handleException.  Possibly temporary until Ext framework has an exception-handler.
+    // protected handleException.  Possibly temporary until Ext framework has an exception-handler.
     handleException : function(e) {
         if (typeof(console) == 'object' && typeof(console.error) == 'function') {
             console.error(e);

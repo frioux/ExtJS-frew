@@ -62,14 +62,14 @@ api: {
 myStore.on({
     beforeload: {
         fn: function (store, options) {
-            // use <tt>{@link Ext.data.HttpProxy#setUrl setUrl} to change the URL for *just* this request.
+            // use <tt>{@link Ext.data.HttpProxy#setUrl setUrl}</tt> to change the URL for *just* this request.
             store.proxy.setUrl('changed1.php');
 
             // set optional second parameter to true to make this URL change permanent, applying this URL for all subsequent requests.
             store.proxy.setUrl('changed1.php', true);
 
             // manually set the <b>private</b> connection URL.  <b>Warning:</b>  Accessing the private URL property like should be avoided.  Please use the public
-            // method <tt>{@link Ext.data.HttpProxy#setUrl setUrl} instead, shown above.  It should be noted that changing the URL like
+            // method <tt>{@link Ext.data.HttpProxy#setUrl setUrl}</tt> instead, shown above.  It should be noted that changing the URL like
             // this will affect the URL for just this request.  Subsequent requests will use the API or URL defined in your initial
             // proxy configuration.
             store.proxy.conn.url = 'changed1.php';
@@ -78,7 +78,7 @@ myStore.on({
             // It should be noted that proxy API changes are permanent and will be used for all subsequent requests.
             store.proxy.api.load = 'changed2.php';
 
-            // However, altering the proxy API should be done using the public method <tt>{@link Ext.data.HttpProxy#setApi setApi} instead.
+            // However, altering the proxy API should be done using the public method <tt>{@link Ext.data.DataProxy#setApi setApi}</tt> instead.
             store.proxy.setApi('load', 'changed2.php');
 
             // Or set the entire API with a config-object.  When using the config-object option, you must redefine the <b>entire</b> API --
@@ -298,12 +298,13 @@ Ext.data.getCrudActions = function(){
  * Returns true if supplied action-name is a valid API action defined in CRUD constants
  * Ext.data.CREATE, Ext.data.READ, Ext.data.UPDATE, Ext.data.DESTROY
  * @param {String} action
+ * @param {String[]}(Optional) List of availabe CRUD actions.  Pass in list when executing multiple times for efficiency.
  * @return {Boolean}
  * @static
  */
-Ext.data.isCrudAction = function(action) {
+Ext.data.isCrudAction = function(action, crud) {
     var found = false;
-    var crud = Ext.data.getCrudActions();
+    crud = crud || Ext.data.getCrudActions();
     for (var n=0,len=crud.length;n<len;n++) {
         if (crud[n] == action) {
            found = true;
@@ -317,12 +318,14 @@ Ext.data.isCrudAction = function(action) {
  * Returns true if the supplied API is valid; that is, that all keys match defined CRUD-actions,
  * Ext.data.CREATE, Ext.data.READ, Ext.data.UPDATE, Ext.data.DESTROY.  Otherwise returns an array of mistakes.
  * @return {String[]||true}
+ * @static
  */
 Ext.data.isValidApi = function(api){
     var invalid = [];
-    for (var key in api) {
-        if (!Ext.data.isCrudAction(key)) {
-            invalid.push(key);
+    var crud = Ext.data.getCrudActions();
+    for (var action in api) {
+        if (!Ext.data.isCrudAction(action, crud)) {
+            invalid.push(action);
         }
     }
     return (!invalid.length) ? true : invalid;
