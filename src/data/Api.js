@@ -1,6 +1,6 @@
 /**
  * Ext.data.Api is a singleton designed to manage the data API including methods for validating
- * a developer's DataProxy / Ext.Direct API.  Defines CONSTANTS for CRUD-actions create, read, update and destroy.
+ * a developer's DataProxy API.  Defines CONSTANTS for CRUD-actions create, read, update and destroy.
  * @singleton
  */
 Ext.data.Api = (function() {
@@ -36,7 +36,7 @@ Ext.data.Api = (function() {
         },
         /**
          * Returns true if supplied action-name is a valid API action defined in CRUD constants
-         * Ext.data.CREATE, Ext.data.READ, Ext.data.UPDATE, Ext.data.DESTROY
+         * Ext.data.Api.CREATE, Ext.data.Api.READ, Ext.data.Api.UPDATE, Ext.data.Api.DESTROY
          * @param {String} action
          * @param {String[]}(Optional) List of availabe CRUD actions.  Pass in list when executing multiple times for efficiency.
          * @return {Boolean}
@@ -54,7 +54,7 @@ Ext.data.Api = (function() {
         },
         /**
          * Returns true if the supplied API is valid; that is, that all keys match defined CRUD-actions,
-         * Ext.data.CREATE, Ext.data.READ, Ext.data.UPDATE, Ext.data.DESTROY.  Otherwise returns an array of mistakes.
+         * Ext.data.Api.CREATE, Ext.data.Api.READ, Ext.data.Api.UPDATE, Ext.data.Api.DESTROY.  Otherwise returns an array of mistakes.
          * @return {String[]||true}
          */
         isValid : function(api){
