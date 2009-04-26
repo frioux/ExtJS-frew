@@ -1,13 +1,13 @@
 /**
  * @class Ext.data.JsonWriter
  * @extends Ext.data.DataWriter
- * Data reader class to create an Array of {@link Ext.data.Record} objects from a JSON response
+ * DataWriter extension for writing an array or single {@link Ext.data.Record} object(s) in preparation for executing a remote CRUD action.
  */
 Ext.data.JsonWriter = Ext.extend(Ext.data.DataWriter, {
     /**
      * @cfg {Boolean} returnJson <tt>true</tt> to {@link Ext.util.JSON#encode encode} the
      * {@link Ext.data.DataWriter#toHash hashed data}. Defaults to <tt>true</tt>.  When using
-     * {@link Ext.data.DirectProxy}, set this to <tt>false</tt> since Ext.Direct will perform
+     * {@link Ext.data.DirectProxy}, set this to <tt>false</tt> since Ext.Direct.JsonProvider will perform
      * its own json-encoding.
      */
     returnJson : true,
@@ -33,9 +33,7 @@ Ext.data.JsonWriter = Ext.extend(Ext.data.DataWriter, {
      * @param {Ext.data.Record} rec
      */
     createRecord : function(rec) {
-        var data = this.toHash(rec);
-        delete data[this.meta.idProperty];
-        return data;
+        return this.toHash(rec);
     },
     /**
      * updateRecord
