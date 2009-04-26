@@ -3,27 +3,28 @@
  * a developer's DataProxy / Ext.Direct API.  Defines CONSTANTS for CRUD-actions create, read, update and destroy.
  */
 Ext.data.Api = (function() {
-    /**
-     * @const Ext.data.Api.CREATE Text representing the remote-action "create"
-     */
-    CREATE   = 'create';
-    /**
-     * @const Ext.data.Api.READ Text representing the remote-action for remotely reading/loading data from server.
-     * It important these names not be changed since they sometimes map to a method on another object, like Ext.data.DataWriter for example.
-     * The name "load" is important for maintaining backwards-compatibility with Ext-2.0, as well.
-     */
-    READ     = 'load';
-    /**
-     * @const Ext.data.Api.UPDATE Text representing the remote-action to rupdate records on server.
-     * The word update would be preferred here, instead of "save" but "update" has already been used for events pre-Ext3.
-     */
-    UPDATE   = 'save';
-    /**
-     * @const Ext.data.Api.UPDATE Text representing the remote-action to destroy records on server.
-     */
-    DESTROY  = 'destroy';
 
     return {
+        /**
+         * @const Ext.data.Api.CREATE Text representing the remote-action "create"
+         */
+        CREATE : 'create',
+        /**
+         * @const Ext.data.Api.READ Text representing the remote-action for remotely reading/loading data from server.
+         * It important these names not be changed since they sometimes map to a method on another object, like Ext.data.DataWriter for example.
+         * The name "load" is important for maintaining backwards-compatibility with Ext-2.0, as well.
+         */
+        READ     : 'load',
+        /**
+         * @const Ext.data.Api.UPDATE Text representing the remote-action to rupdate records on server.
+         * The word update would be preferred here, instead of "save" but "update" has already been used for events pre-Ext3.
+         */
+        UPDATE   : 'save',
+        /**
+         * @const Ext.data.Api.UPDATE Text representing the remote-action to destroy records on server.
+         */
+        DESTROY  : 'destroy',
+
         /**
          * Returns a list of names of all available CRUD actions
          * @static

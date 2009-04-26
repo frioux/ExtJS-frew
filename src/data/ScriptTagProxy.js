@@ -114,6 +114,7 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
         var transId = ++Ext.data.ScriptTagProxy.TRANS_ID;
         var trans = {
             id : transId,
+            action: action,
             cb : "stcCallback"+transId,
             scriptId : "stcScript"+transId,
             params : params,
@@ -143,7 +144,7 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
     // @private createCallback
     createCallback : function(action, trans) {
         var conn = this;
-        return (action == Ext.data.READ)
+        return (action == Ext.data.Api.READ)
             ? function(res) {
                 conn.trans = false;
                 conn.destroyTrans(trans, true);
@@ -151,21 +152,21 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
                 try {
                     result = trans.reader.readRecords(res);
                 }catch(e){
-                    conn.fireEvent(Ext.data.READ+"exception", conn, res, trans.arg, e);
+                    conn.fireEvent(Ext.data.Api.READ+"exception", conn, res, trans.arg, e);
                     trans.callback.call(trans.scope||window, null, trans.arg, false);
                     return;
                 }
-                conn.fireEvent(Ext.data.READ, conn, res, trans.arg);
+                conn.fireEvent(Ext.data.Api.READ, conn, res, trans.arg);
                 trans.callback.call(trans.scope||window, result, trans.arg, true);
             }
             : function(res) {
                 var reader = trans.reader;
                 if(!res[reader.meta.successProperty] === true){
-                    conn.fireEvent(action+"exception", conn, trans, res);
+                    conn.fireEvent("writeexception", action, conn, trans, res);
                     trans.callback.call(trans.scope, null, res, false);
                     return;
                 }
-                conn.fireEvent(action, conn, res[reader.meta.root], res, trans.arg );
+                conn.fireEvent("write", action, conn, res[reader.meta.root], res, trans.arg );
                 trans.callback.call(trans.scope||window, res[reader.meta.root], res, true);
             }
     },
@@ -208,7 +209,12 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
     handleFailure : function(trans){
         this.trans = false;
         this.destroyTrans(trans, false);
-        this.fireEvent(Ext.data.READ+"exception", this, null, trans.arg);
+        if (trans.action === Ext.data.Api.READ) {
+            this.fireEvent(Ext.data.Api.READ+"exception", this, null, trans.arg);
+        }
+        else {
+            this.fireEvent("writeexception", this, trans.action, null, trans.arg);
+        }
         trans.callback.call(trans.scope||window, null, trans.arg, false);
     }
 });

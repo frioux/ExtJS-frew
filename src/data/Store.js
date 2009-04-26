@@ -249,100 +249,27 @@ var grid = new Ext.grid.EditorGridPanel({
          */
         'clear',
         /**
-         * @event beforeload (beforeExt.data.READ)
+         * @event beforeload (before+Ext.data.Api.READ)
          * Fires before a request is made for a new data object.  If the beforeload handler returns
          * <tt>false</tt> the {@link #load} action will be canceled.
          * @param {Store} this
          * @param {Object} options The loading options that were specified (see {@link #load} for details)
          */
-        'before'+Ext.data.READ,
+        'before'+Ext.data.Api.READ,
         /**
-         * @event load (Ext.data.READ)
+         * @event load (Ext.data.Api.READ)
          * Fires after a new set of Records has been loaded.
          * @param {Store} this
          * @param {Ext.data.Record[]} records The Records that were loaded
          * @param {Object} options The loading options that were specified (see {@link #load} for details)
          */
-        Ext.data.READ,
+        Ext.data.Api.READ,
         /**
-         * @event loadexception (Ext.data.READexception)
+         * @event loadexception (Ext.data.Api.READ+exception)
          * Fires if an exception occurs in the Proxy during loading.
          * Called with the signature of the Proxy's "loadexception" event.
          */
-        Ext.data.READ+'exception',
-        /**
-         * @event beforesave (beforeExt.data.UPDATE)
-         * Fires before a network save request fires.  If the handler returns false, the action will be cancelled.
-         * @param {Store} this
-         * @param {Record/Record[]} The record or Array of records being saved
-         * @param {Object} options The request options.  Extra HTTP params can be added via the params key
-         */
-        'before'+Ext.data.UPDATE,
-        /**
-         * @event save (Ext.data.UPDATE)
-         * Fires after a network save request has completed.
-         * @param {Store} this
-         * @param {Object} result data
-         * @param {Ext.Direct.Transaction} response
-         */
-        Ext.data.UPDATE,
-        /**
-         * @event saveexception (Ext.data.UPDATEexception)
-         * Fires when a network save exception occurs.
-         * @param {DirectProxy} proxy
-         * @param {Object} result
-         * @param {Ext.Direct.ExceptionEvent}
-         */
-        Ext.data.UPDATE+'exception',
-        /**
-         * @event beforedestroy (beforeExt.data.DESTROY)
-         * Fires before a record will be destroyed
-         * @param {Store} this
-         * @param {Record/Record[]} rs, record(s) to be destroyed
-         * @param {Object} options The request options.  Extra HTTP params can be added via the params key
-         */
-        'before'+Ext.data.DESTROY,
-        /**
-         * @event destroy (Ext.data.DESTROY)
-         * Fires after a record has been destroyed
-         * @param {Store} this
-         * @param {Object} result
-         * @param {Ext.Direct.Event} response
-         */
-        Ext.data.DESTROY,
-        /**
-         * @event destroyexception (Ext.data.DESTROYexception)
-         * Fires when a destroy exception occurred
-         * @param {Store} this
-         * @param {Ext.data.Record[]} rs
-         * @param {Ext.Direct.Event} response
-         * @param {Object} options The request options.  Extra HTTP params can be added via the params key
-         */
-        Ext.data.DESTROY+'exception',
-        /**
-         * @event beforecreate (beforeExt.data.CREATE)
-         * Fires before a network create request occurs
-         * @param {Store} this
-         * @param {Record/Record[]}
-         */
-        'before' + Ext.data.CREATE,
-        /**
-         * @event create (Ext.data.CREATE)
-         * Fires after network create request occurs
-         * @param {Store} this
-         * @param {Object} result
-         * @param {Ext.Direct.ExceptionEvent} response
-         * @param {Object} options The request options.  Extra HTTP params can be added via the params key
-         */
-        Ext.data.CREATE,
-        /**
-         * @event createexception (Ext.data.CREATEexception)
-         * Fires after network create exception occurs
-         * @param {DirectProxy} this
-         * @param {Record} record
-         * @param {Ext.Direct.ExceptionEvent}
-         */
-        Ext.data.CREATE + 'exception',
+        Ext.data.Api.READ+'exception',
         /**
          * @event beforewrite NOT YET IMPLEMENTED
          */
@@ -367,7 +294,7 @@ var grid = new Ext.grid.EditorGridPanel({
     );
 
     if(this.proxy){
-        this.relayEvents(this.proxy,  [Ext.data.READ+"exception"]);
+        this.relayEvents(this.proxy,  [Ext.data.Api.READ+"exception"]);
     }
     // With a writer installed into the Store, we want to listen to add/remove events to remotely create/destroy records.
     if (this.writer) {
@@ -680,7 +607,7 @@ sortInfo: {
             options.params[pn["dir"]] = this.sortInfo.direction;
         }
         try {
-            return this.execute(Ext.data.READ, null, options); // <-- null represents rs.  No rs for load actions.
+            return this.execute(Ext.data.Api.READ, null, options); // <-- null represents rs.  No rs for load actions.
         } catch(e) {
             this.handleException(e);
             return false;
@@ -716,7 +643,7 @@ sortInfo: {
             }
         }
         if (this.batchSave === false) {
-            return this.save();
+            this.save();
         }
     },
 
@@ -732,18 +659,17 @@ sortInfo: {
         if (this.modified.indexOf(record) != -1) {	// <-- handled already if @cfg pruneModifiedRecords == true
             this.modified.remove(record);
         }
-        if (record.phantom === true) {
-            return;
-        }
-        this.removed.push(record);
+        if (!record.phantom) {
+            this.removed.push(record);
 
-        // since the record has already been removed from the store but the server request has not yet been executed,
-        // must keep track of the last known index this record existed.  If a server error occurs, the record can be
-        // put back into the store.  @see Store#createCallback where the record is returned when response status === false
-        record.lastIndex = index;
+            // since the record has already been removed from the store but the server request has not yet been executed,
+            // must keep track of the last known index this record existed.  If a server error occurs, the record can be
+            // put back into the store.  @see Store#createCallback where the record is returned when response status === false
+            record.lastIndex = index;
 
-        if (this.batchSave === false) {
-            this.save();
+            if (this.batchSave === false) {
+                this.save();
+            }
         }
     },
 
@@ -758,8 +684,8 @@ sortInfo: {
      */
     execute : function(action, rs, options) {
         // blow up if action not Ext.data.CREATE, READ, UPDATE, DESTROY
-        if (!Ext.data.isCrudAction(action)) {
-            throw new Error('Store#execute attempted to execute an unknown action "' + action + '".  Valid API actions are "' + Ext.data.getCrudActions().join(', '));
+        if (!Ext.data.Api.isVerb(action)) {
+            throw new Error('Store#execute attempted to execute an unknown action "' + action + '".  Valid API actions are "' + Ext.data.Api.getVerbs().join(', '));
         }
 
         // make sure options has a params key
@@ -770,22 +696,15 @@ sortInfo: {
         // have to separate before-events since load has a different signature than create,destroy and save events since load does not
         // include the rs (record resultset) parameter.  Capture return values from the beforeaction into doRequest flag.
         var doRequest = true;
-        if (action === Ext.data.READ) {// TODO: define actions as CONSTANTS
+        if (action === Ext.data.Api.READ) {// TODO: define actions as CONSTANTS
             doRequest = this.fireEvent('before'+action, this, options);
         }
         else {
-            if (!this.writer) {
-                throw new Error('Store attempted to execute the remote action "' + action + '" without a DataWriter installed.');
-            }
-            if (!rs) {
-                throw new Error("Store#execute attempted to execute action '" + action + "' upon an invalid recordset: '" + rs + "'");
-            }
-
-            // if rs has just a single record, shift it off so that Writer writes data as "{}" rather than "[{}]"
+            // if rs has just a single recoractiond, shift it off so that Writer writes data as "{}" rather than "[{}]"
             rs = (rs.length > 1) ? rs : rs.shift();
 
             // Write the action to options.params
-            if (doRequest = this.fireEvent('before'+action, this, rs, options) !== false) {
+            if (doRequest = this.fireEvent('beforewrite', this, action, rs, options) !== false) {
                 this.writer.write(action, options.params, rs);
             }
         }
@@ -805,10 +724,14 @@ sortInfo: {
      * eg:  Ext.data.DataReader.Error or Ext.data.Error or Ext.data.DataProxy.Error, etc.
      */
     save : function() {
+        if (!this.writer) {
+            throw new Error('Store#save called without a DataWriter installed!  Unable to execute remote-actions.  See docs for Ext.data.Api, Ext.data.DataWriter, Ext.data.JsonWriter.');
+        }
+
         // First check for removed records.  Records in this.removed are guaranteed non-phantoms.  @see Store#remove
         if (this.removed.length) {
             try {
-                this.execute(Ext.data.DESTROY, this.removed);
+                this.execute(Ext.data.Api.DESTROY, this.removed);
             } catch (e) {
                 this.handleException(e);
             }
@@ -829,20 +752,23 @@ sortInfo: {
                     phantoms.push(rec);
                 }
             }
+            else if (!rs[i].isValid()) { // <-- while we're here, splice-off any !isValid real records
+                rs.splice(i,1);
+            }
         }
         // If we have valid phantoms, create them...
         if (phantoms.length) {
             try {
-                this.execute(Ext.data.CREATE, phantoms);
+                this.execute(Ext.data.Api.CREATE, phantoms);
             } catch (e) {
                 this.handleException(e);
             }
         }
 
-        // And finally, if we're still here after splicing-off phantoms, update the rest...
+        // And finally, if we're still here after splicing-off phantoms and !isValid real records, update the rest...
         if (rs.length) {
             try {
-                this.execute(Ext.data.UPDATE, rs);
+                this.execute(Ext.data.Api.UPDATE, rs);
             } catch (e) {
                 this.handleException(e);
             }
@@ -853,21 +779,18 @@ sortInfo: {
     // private callback-handler for remote CRUD actions
     // Do not override -- override loadRecords, onCreateRecords, onDestroyRecords and onSaveRecords instead.
     createCallback : function(action, rs) {
-        return (action == Ext.data.READ) ? this.loadRecords : function(data, response, success) {
+        return (action == Ext.data.Api.READ) ? this.loadRecords : function(data, response, success) {
             switch (action) {
-                case Ext.data.CREATE:
+                case Ext.data.Api.CREATE:
                     this.onCreateRecords(success, rs, data);
                     break;
-                case Ext.data.DESTROY:
+                case Ext.data.Api.DESTROY:
                     this.onDestroyRecords(success, rs, data);
                     break;
-                case Ext.data.UPDATE:
+                case Ext.data.Api.UPDATE:
                     this.onSaveRecords(success, rs, data);
                     break;
             }
-            // @deprecated firing events for *each* action in favour of catch-all "write" event following...
-            this.fireEvent(action, this, data, response);
-
             // fire catch-all "write" event for CREATE, DESTROY, UPDATE
             this.fireEvent('write', this, action, data, response, rs);
         }
@@ -949,7 +872,7 @@ sortInfo: {
     loadRecords : function(o, options, success){
         if(!o || success === false){
             if(success !== false){
-                this.fireEvent(Ext.data.READ, this, [], options);
+                this.fireEvent(Ext.data.Api.READ, this, [], options);
             }
             if(options.callback){
                 options.callback.call(options.scope || this, [], options, false);
@@ -977,7 +900,7 @@ sortInfo: {
             this.totalLength = Math.max(t, this.data.length+r.length);
             this.add(r);
         }
-        this.fireEvent(Ext.data.READ, this, r, options);
+        this.fireEvent(Ext.data.Api.READ, this, r, options);
         if(options.callback){
             options.callback.call(options.scope || this, r, options, true);
         }

@@ -45,10 +45,10 @@ paramOrder: 'param1|param2|param'
 
         var directFn = this.api[action] || this.directFn;
         switch (action) {
-            case Ext.data.CREATE:
+            case Ext.data.Api.CREATE:
                 args.push(params[reader.meta.root]);		// <-- create(Hash)
                 break;
-            case Ext.data.READ:
+            case Ext.data.Api.READ:
                 if(this.paramOrder){
                     for(var i = 0, len = this.paramOrder.length; i < len; i++){
                         args.push(params[this.paramOrder[i]]);
@@ -57,11 +57,11 @@ paramOrder: 'param1|param2|param'
                     args.push(params);
                 }
                 break;
-            case Ext.data.UPDATE:
+            case Ext.data.Api.UPDATE:
                 args.push(params[reader.meta.idProperty]);  // <-- save(Integer/Integer[], Hash/Hash[])
                 args.push(params[reader.meta.root]);
                 break;
-            case Ext.data.DESTROY:
+            case Ext.data.Api.DESTROY:
                 args.push(params[reader.meta.root]);        // <-- destroy(Int/Int[])
                 break;
         }
@@ -72,7 +72,7 @@ paramOrder: 'param1|param2|param'
     // private
     createCallback : function(action, reader, callback, scope, arg) {
         return {
-            callback: (action == Ext.data.READ) ? function(result, e){
+            callback: (action == Ext.data.Api.READ) ? function(result, e){
                 if (!e.status) {
                     this.fireEvent(action+"exception", this, e, result);
                     callback.call(scope, null, arg, false);
@@ -83,19 +83,19 @@ paramOrder: 'param1|param2|param'
                     records = reader.readRecords(result);
                 }
                 catch (ex) {
-                    this.fireEvent(action+"exception", this, e, result, ex);
+                    this.fireEvent("writeexception", this, action, e, result, ex);
                     callback.call(scope, null, arg, false);
                     return;
                 }
-                this.fireEvent(action, this, e, arg);
+                this.fireEvent("write", this, action, e, arg);
                 callback.call(scope, records, arg, true);
             } : function(result, e){
                 if(!e.status){
-                    this.fireEvent(action+"exception", this, e);
+                    this.fireEvent("writeexception", this, action, e);
                     callback.call(scope, null, e, false);
                     return;
                 }
-                this.fireEvent(action, this, result, e, arg);
+                this.fireEvent("write", this, action, result, e, arg);
                 callback.call(scope, result, e, true);
             },
             scope: this

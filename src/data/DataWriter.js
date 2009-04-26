@@ -39,13 +39,13 @@ Ext.data.DataWriter.prototype = {
      */
     write : function(action, params, rs) {
         switch (action) {
-            case Ext.data.CREATE:
+            case Ext.data.Api.CREATE:
                this.create(params, rs);
                break;
-            case Ext.data.UPDATE:
+            case Ext.data.Api.UPDATE:
                this.update(params, rs);
                break;
-            case Ext.data.DESTROY:
+            case Ext.data.Api.DESTROY:
                this.destroy(params, rs);
                break;
         }

@@ -202,7 +202,7 @@ api: {
 
     /**
      * createCallback
-     * returns a request-callback function.  Note a special case is made for the Ext.data.READ action vs all the others.
+     * returns a request-callback function.  Note a special case is made for the Ext.data.Api.READ action vs all the others.
      * @param {String} action [create|update|delete|load]
      * @param {Record[]/DataReader} A list of records beinged acted upon or a DataReader for the "load" request
      * @param {Function} cb callback function
@@ -211,12 +211,12 @@ api: {
      * @private
      */
     createCallback : function(action) {
-        return (action == Ext.data.READ)
+        return (action == Ext.data.Api.READ)
             // special case for load callback
             ? function(o, success, response){
                 this.activeRequest[action] = undefined;
                 if(!success){
-                    this.fireEvent(Ext.data.READ+"exception", this, o, response);
+                    this.fireEvent(action+"exception", this, o, response);
                     o.request.callback.call(o.request.scope, null, o.request.arg, false);
                     return;
                 }
@@ -224,11 +224,11 @@ api: {
                 try {
                     result = o.reader.read(response);
                 }catch(e){
-                    this.fireEvent(Ext.data.READ+"exception", this, o, response, e);
+                    this.fireEvent(action+"exception", this, o, response, e);
                     o.request.callback.call(o.request.scope, null, o.request.arg, false);
                     return;
                 }
-                this.fireEvent(Ext.data.READ, this, o, o.request.arg);
+                this.fireEvent(action, this, o, o.request.arg);
                 o.request.callback.call(o.request.scope, result, o.request.arg, true);
             }
             // callbacks for all others:  create, save, destroy
@@ -237,11 +237,11 @@ api: {
                 var reader = o.reader;
                 var res = reader.readResponse(response);
                 if(!res[reader.meta.successProperty] === true){
-                    this.fireEvent(action+"exception", this, o, res);
+                    this.fireEvent("writeexception", this, action, o, res);
                     o.request.callback.call(o.request.scope, null, res, false);
                     return;
                 }
-                this.fireEvent(action, this, res[reader.meta.root], res, o.request.arg );
+                this.fireEvent("write", this, action, res[reader.meta.root], res, o.request.arg );
                 o.request.callback.call(o.request.scope, res[reader.meta.root], res, true);
             }
     }
