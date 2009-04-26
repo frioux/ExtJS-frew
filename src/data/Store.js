@@ -298,7 +298,7 @@ var grid = new Ext.grid.EditorGridPanel({
     }
     // With a writer installed into the Store, we want to listen to add/remove events to remotely create/destroy records.
     if (this.writer) {
-        this.relayEvents(this.proxy, [Ext.data.UPDATE+"exception", Ext.data.CREATE+"exception", Ext.data.DESTROY+"exception"]);
+        this.relayEvents(this.proxy, ["writeexception"]);
         this.on('add', this.createRecords.createDelegate(this));
         this.on('remove', this.destroyRecord.createDelegate(this));
         this.on('update', this.updateRecord.createDelegate(this));
