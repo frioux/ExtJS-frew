@@ -118,7 +118,7 @@ Ext.data.DataWriter.prototype = {
             }
             p[this.meta.root] = data;
         } else if (rs instanceof Ext.data.Record) {
-            p[this.dataProperty] = this.destroyRecord(rs);
+            p[this.meta.root] = this.destroyRecord(rs);
         }
         return false;
     },
