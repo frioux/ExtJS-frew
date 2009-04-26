@@ -38,25 +38,39 @@ Ext.data.DataWriter.prototype = {
      * @param {Record/Record[]} rs The recordset write.
      */
     write : function(action, params, rs) {
+        var data = null;
         switch (action) {
             case Ext.data.Api.CREATE:
-               this.create(params, rs);
+               data = this.create(rs);
                break;
             case Ext.data.Api.UPDATE:
-               this.update(params, rs);
+               data = this.update(rs);
                break;
             case Ext.data.Api.DESTROY:
-               this.destroy(params, rs);
+               data = this.destroy(rs);
                break;
         }
+        this.render(action, rs, params, data);
     },
+
+    /**
+     * abstract method meant to be overridden by all DataWriter extensions.  It's the extension's job to apply the "data" to the "params".
+     * The data-object provided to render is populated with data according to the meta-info defined in the user's DataReader config,
+     * @param {String} action [Ext.data.Api.CREATE|READ|UPDATE|DESTROY]
+     * @param {Record[]} rs Store recordset
+     * @param {Object} params Http params to be sent to server.
+     * @param {Object} data object populated according to DataReader meta-data.
+     */
+    render : Ext.emptyFn,
 
     /**
      * update
      * @param {Object} p Params-hash to apply result to.
      * @param {Record/Record[]} rs Record(s) to write
+     * @private
      */
-    update : function(p, rs) {
+    update : function(rs) {
+        var params = {};
         if (Ext.isArray(rs)) {
             var data = [];
             var ids = [];
@@ -64,14 +78,14 @@ Ext.data.DataWriter.prototype = {
                 ids.push(rs[n].id);
                 data.push(this.updateRecord(rs[n]));
             }
-            p[this.meta.idProperty] = ids;
-            p[this.meta.root] = data;
+            params[this.meta.idProperty] = ids;
+            params[this.meta.root] = data;
         }
         else if (rs instanceof Ext.data.Record) {
-            p[this.meta.idProperty] = rs.id;
-            p[this.meta.root] = this.updateRecord(rs);
+            params[this.meta.idProperty] = rs.id;
+            params[this.meta.root] = this.updateRecord(rs);
         }
-        return false;
+        return params;
     },
 
     /**
@@ -84,18 +98,21 @@ Ext.data.DataWriter.prototype = {
      * create
      * @param {Object} p Params-hash to apply result to.
      * @param {Record/Record[]} rs Record(s) to write
+     * @private
      */
-    create : function(p, rs) {
+    create : function(rs) {
+        var params = {};
         if (Ext.isArray(rs)) {
             var data = [];
             for (var n=0,len=rs.length;n<len;n++) {
                 data.push(this.createRecord(rs[n]));
             }
-            p[this.meta.root] = data;
+            params[this.meta.root] = data;
         }
         else if (rs instanceof Ext.data.Record) {
-            p[this.meta.root] = this.createRecord(rs);
+            params[this.meta.root] = this.createRecord(rs);
         }
+        return params;
     },
 
     /**
@@ -108,19 +125,21 @@ Ext.data.DataWriter.prototype = {
      * destroy
      * @param {Object} p Params-hash to apply result to.
      * @param {Record/Record[]} rs Record(s) to write
+     * @private
      */
-    destroy : function(p, rs) {
+    destroy : function(rs) {
+        var params = {};
         if (Ext.isArray(rs)) {
             var data = [];
             var ids = [];
             for (var i=0,len=rs.length;i<len;i++) {
                 data.push(this.destroyRecord(rs[i]));
             }
-            p[this.meta.root] = data;
+            params[this.meta.root] = data;
         } else if (rs instanceof Ext.data.Record) {
-            p[this.meta.root] = this.destroyRecord(rs);
+            params[this.meta.root] = this.destroyRecord(rs);
         }
-        return false;
+        return params;
     },
 
     /**

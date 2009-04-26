@@ -13,51 +13,42 @@ Ext.data.JsonWriter = Ext.extend(Ext.data.DataWriter, {
     returnJson : true,
 
     /**
-     * writeRecord
-     * @param {Ext.data.Record} rec
-     * @return {Object}
+     * Final action of a write event.  Apply the written data-object to params.
+     * @param {String} action [Ext.data.Api.CREATE|READ|UPDATE|DESTROY]
+     * @param {Record[]} rs
+     * @param {Object} http params
+     * @param {Object} data object populated according to DataReader meta-data "root" and "idProperty"
      */
-    writeRecord : function(rec) {
-        var data = this.toHash(rec);
-        return (this.returnJson === true) ? Ext.encode(data) : data;
-    },
-
-    create : function(p, rs) {
-        Ext.data.JsonWriter.superclass.create.apply(this, arguments);
+    render : function(action, rs, params, data) {
+        Ext.apply(params, data);
         if (this.returnJson) {
-            p[this.meta.root] = Ext.encode(p[this.meta.root]);
+            if (Ext.isArray(rs) && data[this.meta.idProperty]) {
+                params[this.meta.idProperty] = Ext.encode(params[this.meta.idProperty]);
+            }
+            params[this.meta.root] = Ext.encode(params[this.meta.root]);
         }
     },
-
+    /**
+     * createRecord
+     * @param {Ext.data.Record} rec
+     */
     createRecord : function(rec) {
         var data = this.toHash(rec);
         delete data[this.meta.idProperty];
         return data;
     },
-
-    update : function(p, rs) {
-        Ext.data.JsonWriter.superclass.update.apply(this, arguments);
-        if (this.returnJson) {
-            if (Ext.isArray(rs)) {
-                p[this.meta.idProperty] = Ext.encode(p[this.meta.idProperty]);
-            }
-            p[this.meta.root] = Ext.encode(p[this.meta.root]);
-        }
-    },
-
+    /**
+     * updateRecord
+     * @param {Ext.data.Record} rec
+     */
     updateRecord : function(rec) {
         return this.toHash(rec);
 
     },
-
-    destroy : function(p, rs) {
-        Ext.data.JsonWriter.superclass.destroy.apply(this, arguments);
-        if (this.returnJson) {
-            p[this.meta.root] = Ext.encode(p[this.meta.root]);
-        }
-
-    },
-
+    /**
+     * destroyRecord
+     * @param {Ext.data.Record} rec
+     */
     destroyRecord : function(rec) {
         return rec.id
     }
