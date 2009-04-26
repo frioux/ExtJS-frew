@@ -201,7 +201,7 @@ proxy.setApi(Ext.data.READ, '/users/new_load_url');
      */
     request : function(action, rs, params, reader, callback, scope, options) {
         params = params || {};
-        if (this.fireEvent("beforewrite", this, action, params) !== false) {
+        if ((action == Ext.data.Api.READ) ? this.fireEvent("before"+action, this, params, options) : this.fireEvent("beforewrite", this, action, params, options) !== false) {
             this.doRequest.apply(this, arguments);
         }
         else {
