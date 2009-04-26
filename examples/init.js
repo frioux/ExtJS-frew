@@ -46,8 +46,12 @@ Ext.reg('samplespanel', Ext.samples.SamplePanel);
 
 Ext.onReady(function(){
 
+
+// Instantiate Ext.App instance
+    App = new Ext.App({});
+
     var catalog = Ext.samples.samplesCatalog;
-    
+
     for(var i = 0, c; c = catalog[i]; i++){
         c.id = 'sample-' + i;
     }
@@ -100,35 +104,35 @@ Ext.onReady(function(){
 
     // Resize on demand
     Ext.EventManager.onWindowResize(doResize);
-    
-    var firebugWarning = function () {
-		var cp = new Ext.state.CookieProvider();
 
-		if(window.console && window.console.firebug && ! cp.get('hideFBWarning')){
-			var tpl = new Ext.Template(
-				'<div id="fb" style="border: 1px solid #FF0000; background-color:#FFAAAA; display:none; padding:15px; color:#000000;"><b>Warning: </b> Firebug is known to cause performance issues with Ext JS. <a href="#" id="hideWarning">[ Hide ]</a></div>'			   
-			);
-			var newEl = tpl.insertFirst('all-demos');
-			
-			Ext.fly('hideWarning').on('click', function() {
-				Ext.fly(newEl).slideOut('t',{remove:true});
-				cp.set('hideFBWarning', true);
-                doResize();	
-			});
-			Ext.fly(newEl).slideIn();
-            doResize();	
-		}
+    var firebugWarning = function () {
+        var cp = new Ext.state.CookieProvider();
+
+        if(window.console && window.console.firebug && ! cp.get('hideFBWarning')){
+            var tpl = new Ext.Template(
+                '<div id="fb" style="border: 1px solid #FF0000; background-color:#FFAAAA; display:none; padding:15px; color:#000000;"><b>Warning: </b> Firebug is known to cause performance issues with Ext JS. <a href="#" id="hideWarning">[ Hide ]</a></div>'
+            );
+            var newEl = tpl.insertFirst('all-demos');
+
+            Ext.fly('hideWarning').on('click', function() {
+                Ext.fly(newEl).slideOut('t',{remove:true});
+                cp.set('hideFBWarning', true);
+                doResize();
+            });
+            Ext.fly(newEl).slideIn();
+            doResize();
+        }
     }
 
     var hideMask = function () {
         Ext.get('loading').remove();
         Ext.fly('loading-mask').fadeOut({
-			remove:true,
-			callback : firebugWarning
-		});
+            remove:true,
+            callback : firebugWarning
+        });
     }
 
     hideMask.defer(250);
     doResize();
-    
+
 });

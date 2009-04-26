@@ -507,7 +507,9 @@
   <file name="window\gmap.js" path="window" />
   <file name="window\hello.js" path="window" />
   <file name="window\layout.js" path="window" />
-  <file name="samples.js" path="" />
+  <file name="shared\extjs\App.js" path="shared\extjs" />
+  <file name="init.js" path="" />
+  <file name="data.js" path="" />
   <file name="button\images\add.gif" path="button\images" />
   <file name="button\images\add16.gif" path="button\images" />
   <file name="button\images\add24.gif" path="button\images" />
@@ -694,10 +696,13 @@
   <file name="shared\extjs\images\sample-over.gif" path="shared\extjs\images" />
   <file name="shared\extjs\images\top-bottom.gif" path="shared\extjs\images" />
   <file name="shared\icons\icons.css" path="shared\icons" />
+  <file name="shared\icons\fam\accept.png" path="shared\icons\fam" />
   <file name="shared\icons\fam\add.gif" path="shared\icons\fam" />
   <file name="shared\icons\fam\connect.gif" path="shared\icons\fam" />
   <file name="shared\icons\fam\cross.gif" path="shared\icons\fam" />
   <file name="shared\icons\fam\delete.gif" path="shared\icons\fam" />
+  <file name="shared\icons\fam\error.png" path="shared\icons\fam" />
+  <file name="shared\icons\fam\information.png" path="shared\icons\fam" />
   <file name="shared\icons\fam\plugin.gif" path="shared\icons\fam" />
   <file name="shared\icons\fam\plugin_add.gif" path="shared\icons\fam" />
   <file name="shared\icons\fam\user.gif" path="shared\icons\fam" />
