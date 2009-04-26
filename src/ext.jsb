@@ -83,6 +83,7 @@
     <include name="dd\DropTarget.js" />
     <include name="dd\DragZone.js" />
     <include name="dd\DropZone.js" />
+    <include name="data\Api.js" />
     <include name="data\SortTypes.js" />
     <include name="data\Record.js" />
     <include name="data\StoreMgr.js" />
@@ -445,6 +446,7 @@
     <include name="dd\DropZone.js" />
   </target>
   <target name="Data" file="$output\package\data\data.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
+    <include name="data\Api.js" />
     <include name="data\SortTypes.js" />
     <include name="data\Record.js" />
     <include name="data\StoreMgr.js" />
@@ -610,6 +612,7 @@
   <file name="widgets\ListView.js" path="widgets" />
   <file name="ext.jsb" path="" />
   <file name="license.txt" path="" />
+  <file name="data\Api.js" path="data" />
   <file name="data\Direct.js" path="data" />
   <file name="data\DirectProvider.js" path="data" />
   <file name="data\SimpleStore.js" path="data" />
