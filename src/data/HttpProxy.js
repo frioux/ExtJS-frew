@@ -38,6 +38,13 @@ Ext.data.HttpProxy = function(conn){
 
     this.useAjax = !conn || !conn.events;
 
+    //private.  A hash containing active requests, keyed on action [Ext.data.Api.CREATE|READ|UPDATE|DESTROY]
+    this.activeRequest = {};
+    var verbs = Ext.data.Api.getVerbs();
+    for (var n=0,len=verbs.length;n<len;n++) {
+        this.activeRequest[verbs[n]] = undefined; // <-- initialize availale activeRequest verbs.
+    }
+
     /**
      * @event loadexception
      * Fires if an exception occurs in the Proxy during data loading.  This event can be fired for one of two reasons:
@@ -90,9 +97,6 @@ api: {
      * </code></pre>
      */
     prettyUrls : false,
-
-    //private.  A hash containing active requests, keyed on action [load|create|destroy|save]
-    activeRequest : {},
 
     /**
      * Return the {@link Ext.data.Connection} object being used by this Proxy.
