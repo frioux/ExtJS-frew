@@ -281,14 +281,20 @@ var grid = new Ext.grid.EditorGridPanel({
          * @TODO We can probably get rid of all other write-action events (ie: beforesave, save, saveexecption, beforecreate, create, createexception, etc)
          *  in favor of this one "write" event.
          * @param {Extd.data.Store} store
-         * @param {String} action [Ext.data.CREATE|Ext.data.UPDATE|Ext.data.DESTROY]
+         * @param {String} action [Ext.data.Api.CREATE|UPDATE|DESTROY]
          * @param {Object} result The "data" picked-out out of the response for convenience.
          * @param {Ext.Direct.Transaction} res
          * @param {Record/Record[]} rs Store's records, the subject(s) of the write-action
          */
         'write',
         /**
-         * @event writeexception NOT NET IMPLEMENTED
+         * @event writeexception
+         * Fires when an exception occurred while writing remote-data.
+         * @param {Extd.data.Store} store
+         * @param {String} action [Ext.data.Api.CREATE|UPDATE|DESTROY]
+         * @param {Object} result null
+         * @param {Ext.Direct.Transaction} res
+         * @param {Record/Record[]} rs Store's records, the subject(s) of the write-action
          */
         'writeexception'
     );
@@ -777,7 +783,7 @@ sortInfo: {
     },
 
     // private callback-handler for remote CRUD actions
-    // Do not override -- override loadRecords, onCreateRecords, onDestroyRecords and onSaveRecords instead.
+    // Do not override -- override loadRecords, onCreateRecords, onDestroyRecords and onUpdateRecords instead.
     createCallback : function(action, rs) {
         return (action == Ext.data.Api.READ) ? this.loadRecords : function(data, response, success) {
             switch (action) {
@@ -788,7 +794,7 @@ sortInfo: {
                     this.onDestroyRecords(success, rs, data);
                     break;
                 case Ext.data.Api.UPDATE:
-                    this.onSaveRecords(success, rs, data);
+                    this.onUpdateRecords(success, rs, data);
                     break;
             }
             // fire catch-all "write" event for CREATE, DESTROY, UPDATE
@@ -812,8 +818,8 @@ sortInfo: {
         }
     },
 
-    // protected, onSaveRecords proxy callback for update action
-    onSaveRecords : function(success, rs, data) {
+    // protected, onUpdateRecords proxy callback for update action
+    onUpdateRecords : function(success, rs, data) {
         if (success === true) {
             try {
                 this.reader.update(rs, data);
@@ -822,7 +828,7 @@ sortInfo: {
                 this.handleException(e);
                 if (Ext.isArray(rs)) {
                     // Recurse to run back into the try {}.  DataReader#update splices-off the rs until empty.
-                    this.onSaveRecords(success, rs, data);
+                    this.onUpdateRecords(success, rs, data);
                 }
             }
         }
