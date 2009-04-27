@@ -127,9 +127,10 @@ api: {
     /**
      * buildUrl
      * Sets the appropriate url based upon the action being executed.  If prettyUrls is true, and only a single record is being acted upon,
-     * url will be built Rails-style, as in "/controller/action/32".
+     * url will be built Rails-style, as in "/controller/action/32".  prettyUrls will aply iff the supplied record is an
+     * instance of Ext.data.Record rather than an Array of them.
      * @param {String} action The api action being executed [load|create|update|destroy]
-     * @param {Ext.data.Record/Ext.data.Record[]} The record or Array of Records being acted upon.
+     * @param {Ext.data.Record/Array[Ext.data.Record]} The record or Array of Records being acted upon.
      * @return {String} url
      * @private
      */
@@ -137,8 +138,7 @@ api: {
         record = record || null;
         var url = (this.api[action]) ? this.api[action] : this.url;
 
-        // if we have no url here, throw an exception.
-        if (typeof(url) == 'undefined') {
+        if (!url) {
             throw new Error('HttpProxy tried to build an url for the action "' + action + '" but could not find an api definition for this action or an url to fall-back to.  Please review your proxy configuration.');
         }
 
@@ -168,13 +168,14 @@ api: {
     doRequest : function(action, rs, params, reader, cb, scope, arg) {
         var  o = {
             params : params || {},
+            method: (action === Ext.data.Api.READ) ? "GET" : "POST",
             request: {
                 callback : cb,
                 scope : scope,
                 arg : arg
             },
             reader: reader,
-            callback : this.createCallback(action),
+            callback : this.createCallback(action, rs),
             scope: this
         };
         if(this.useAjax){
@@ -208,13 +209,10 @@ api: {
      * createCallback
      * returns a request-callback function.  Note a special case is made for the Ext.data.Api.READ action vs all the others.
      * @param {String} action [create|update|delete|load]
-     * @param {Record[]/DataReader} A list of records beinged acted upon or a DataReader for the "load" request
-     * @param {Function} cb callback function
-     * @param {Object} arg
-     * @return {Function}
+     * @param {Array[Ext.dataRecord]/} rs The Store-recordset being acted upon
      * @private
      */
-    createCallback : function(action) {
+    createCallback : function(action, rs) {
         return (action == Ext.data.Api.READ)
             // special case for load callback
             ? function(o, success, response){
@@ -245,7 +243,8 @@ api: {
                     o.request.callback.call(o.request.scope, null, res, false);
                     return;
                 }
-                this.fireEvent("write", this, action, res[reader.meta.root], res, o.request.arg );
+                // We could add rs to the signature of write event if desired.
+                this.fireEvent("write", this, action, res[reader.meta.root], res, o.request.arg);
                 o.request.callback.call(o.request.scope, res[reader.meta.root], res, true);
             }
     }
