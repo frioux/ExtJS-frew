@@ -181,6 +181,12 @@
 	top:0;
 	left:0;
 }
+
+.ext-webkit .x-dlg-focus{
+    width: 1px;
+    height: 1px;
+}
+
 .x-dlg-mask{
     z-index:10000;
     display:none;
