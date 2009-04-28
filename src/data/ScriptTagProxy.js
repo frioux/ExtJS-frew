@@ -106,6 +106,9 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
         var p = Ext.urlEncode(Ext.apply(params, this.extraParams));
 
         var url = this.url || this.api[action];
+        if (!url) {
+            throw new Ext.data.Api.Error('invalid-url', 'ScriptTagProxy.js', url);
+        }
         url += (url.indexOf("?") != -1 ? "&" : "?") + p;
 
         if(this.nocache){

@@ -53,7 +53,7 @@ Ext.data.DataReader.prototype = {
                 // TODO: create custom Exception class to return record in thrown exception.  Allow exception-handler the choice
                 // to commit or not rather than blindly rs.commit() here.
                 rs.commit();
-                throw new Error("DataReader#realize was called with invalid remote-data.  Please see the docs for DataReader#realize and review your DataReader configuration.");
+                throw new Ext.data.DataReader.Error('realize', 'DataReader.js', rs);
             }
             var values = this.extractValues(data, rs.fields.items, rs.fields.items.length);
             rs.phantom = false; // <-- That's what it's all about
@@ -92,7 +92,7 @@ Ext.data.DataReader.prototype = {
                 // TODO: create custom Exception class to return record in thrown exception.  Allow exception-handler the choice
                 // to commit or not rather than blindly rs.commit() here.
                 rs.commit();
-                throw new Error("DataReader#update received invalid data from server.  Please see docs for DataReader#update");
+                throw new Ext.data.DataReader.Error('update', 'DataReader.js', rs);
             }
             rs.data = this.extractValues(data, rs.fields.items, rs.fields.items.length);
             rs.commit();
@@ -109,3 +109,24 @@ Ext.data.DataReader.prototype = {
         return (data && typeof(data) == 'object' && !Ext.isEmpty(data[this.meta.idProperty])) ? true : false
     }
 };
+
+/**
+ * General error class for Ext.data.DataReader
+ */
+Ext.data.DataReader.Error = Ext.extend(Ext.Error, {
+    cls: 'Ext.data.DataReader',
+    render : function(id, data) {
+        switch(id) {
+            case 'update':
+                return "#update received invalid data from server.  Please see docs for DataReader#update and review your DataReader configuration.";
+                break;
+            case 'realize':
+                return "#realize was called with invalid remote-data.  Please see the docs for DataReader#realize and review your DataReader configuration.";
+                break;
+            case 'invalid-response':
+                return "#readResponse received an invalid response from the server.";
+                break;
+        }
+    }
+});
+

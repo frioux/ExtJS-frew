@@ -139,7 +139,7 @@ api: {
         var url = (this.api[action]) ? this.api[action] : this.url;
 
         if (!url) {
-            throw new Error('HttpProxy tried to build an url for the action "' + action + '" but could not find an api definition for this action or an url to fall-back to.  Please review your proxy configuration.');
+            throw new Ext.data.Api.Error('invalid-url', 'HttpProxy.js', url);
         }
 
         if (this.prettyUrls === true && record instanceof Ext.data.Record && !record.phantom) {
@@ -178,6 +178,7 @@ api: {
             callback : this.createCallback(action, rs),
             scope: this
         };
+
         if(this.useAjax){
             // Set the connection url.  If this.conn.url is not null here,
             // the user may have overridden the url during a beforeaction event-handler.
@@ -188,7 +189,6 @@ api: {
             else if (this.prettyUrls === true && rs instanceof Ext.data.Record && !rs.phantom) {
                 this.conn.url += '/' + rs.id;
             }
-
             Ext.applyIf(o, this.conn);
 
             // If a currently running request is found for this action, abort it.
@@ -237,15 +237,29 @@ api: {
             : function(o, success, response) {
                 this.activeRequest[action] = undefined;
                 var reader = o.reader;
-                var res = reader.readResponse(response);
+                var res;
+
+                try {
+                    res = reader.readResponse(action, response);
+                } catch (e) {
+                    if (e instanceof Ext.Error) {
+                        e.toConsole();
+                    }
+                    else {
+                        throw e;
+                    }
+                    this.fireEvent("writeexception", this, action, o, res);
+                    return false;
+                }
                 if(!res[reader.meta.successProperty] === true){
                     this.fireEvent("writeexception", this, action, o, res);
                     o.request.callback.call(o.request.scope, null, res, false);
-                    return;
+                    return false;
                 }
                 // We could add rs to the signature of write event if desired.
                 this.fireEvent("write", this, action, res[reader.meta.root], res, o.request.arg);
                 o.request.callback.call(o.request.scope, res[reader.meta.root], res, true);
+
             }
     }
 });

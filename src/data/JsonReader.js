@@ -148,7 +148,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
      * @return {Object} data A data block which is used by an Ext.data.Store object as
      * a cache of Ext.data.Records.
      */
-	readRecords : function(o){
+    readRecords : function(o){
         /**
          * After any data loads, the raw JSON data is available for further custom processing.  If no data is
          * loaded or there is a load exception this property will be undefined.
@@ -207,8 +207,8 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
         var records = [];
         for(var i = 0; i < c; i++){
             var n = root[i];
-			var record = new Record(this.extractValues(n, fi, fl), this.getId(n));
-			record.json = n;
+            var record = new Record(this.extractValues(n, fi, fl), this.getId(n));
+            record.json = n;
             records[i] = record;
         }
         return {
@@ -218,9 +218,9 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
         };
     },
 
-	// private extractValues
+    // private extractValues
     extractValues: function(data, items, len) {
-		var values = {};
+        var values = {};
         for(var j = 0; j < len; j++){
             f = items[j];
             var v = this.ef[j](data);
@@ -229,18 +229,45 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
         return values;
     },
 
-	/**
-	 * readResponse
-	 * decodes a json response from server
-	 * @param {Object} response
-	 */
-	readResponse : function(response) {
-		var json = response.responseText;
+    /**
+     * readResponse
+     * decodes a json response from server
+     * @param {String} action [Ext.data.Api.CREATE|READ|UPDATE|DESTROY]
+     * @param {Object} response
+     */
+    readResponse : function(action, response) {
+        var json = response.responseText;
         var o = Ext.decode(json);
         if(!o) {
-            throw {message: "JsonReader.read: Json object not found"};
+            throw new Ext.data.JsonReader.Error('response', 'JsonReader.js');
         }
-		return o;
-	}
-
+        if (Ext.isEmpty(o[this.meta.successProperty])) {
+            throw new Ext.data.JsonReader.Error('success', 'JsonReader.js', this.meta.successProperty);
+        }
+        else if ((action == Ext.data.Api.CREATE || action == Ext.data.Api.UPDATE) && Ext.isEmpty(o[this.meta.root])) {
+            throw new Ext.data.JsonReader.Error('root', 'JsonReader.js', this.meta.root);
+        }
+        return o;
+    }
 });
+
+/**
+ * Error class for JsonReader
+ */
+Ext.data.JsonReader.Error = Ext.extend(Ext.Error, {
+    cls : 'Ext.data.JsonReader',
+    render : function(id, file, data) {
+        switch (id) {
+            case 'response':
+                return "An error occurred while json-decoding your server response";
+                break;
+            case 'success':
+                return 'Could not locate your "successProperty" (' + data + ') in your server response.  Please review your JsonReader config to ensure the config-property "successProperty" matches the property in your server-response.  See the JsonReader docs.';
+                break;
+            case 'root':
+                return 'Could not locate your "root" property (' + data + ') in your server response.  Please review your JsonReader config to ensure the config-property "root" matches the property your server-response.  See the JsonReader docs.';
+                break;
+        }
+    }
+});
+

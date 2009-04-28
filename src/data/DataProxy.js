@@ -98,10 +98,10 @@ myStore.on({
 
     // Verify valid api or define if not set.
     if (conn.api) {
-       var valid = Ext.data.Api.isValid(conn.api);
-       if (valid !== true) {
-           throw new Error('Ext.data.DataProxy#constructor recieved an invalid API-configuration "' + valid.join(', ') + '".  Please ensure your proxy API-configuration contains only the actions "' + Ext.data.Api.getVerbs().join(', '));
-       }
+        var valid = Ext.data.Api.isValid(conn.api);
+        if (valid !== true) {
+            throw new Ext.data.Api.Error('invalid', 'DataProxy.js', valid);
+        }
     }
     else {
         this.api = {};
@@ -140,12 +140,11 @@ myStore.on({
          * @event write
          * Fires before a the request-callback is called
          * @param {Object} this
+         * @param {String} action [Ext.data.Api.CREATE|READ|UPDATE|DESTROY]
          * @param {Object} o The data object
          * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
         'write'
-
-
     );
     Ext.data.DataProxy.superclass.constructor.call(this);
 };
@@ -176,12 +175,12 @@ proxy.setApi(Ext.data.READ, '/users/new_load_url');
                 this.api = arguments[0];
             }
             else {
-                throw new Error('Ext.data.DataProxy#setApi received invalid API action(s) "' + valid.join(', ') + '".  Valid API actions are: ' + Ext.data.Api.getVerbs().join(', '));
+                throw new Ext.data.Api.Error('invalid', 'DataProxy.js', valid);
             }
         }
         else if (arguments.length == 2) {
             if (!Ext.data.Api.isVerb(arguments[0])) {
-                throw new Error('Ext.data.DataProxy#setApi received an invalid API action "' + arguments[0] + '".  Valid API actions are: ' + Ext.data.Api.getVerbs().join(', '))
+                throw new Ext.data.Api.Error('invalid', 'DataProxy.js', arguments[0]);
             }
             this.api[arguments[0]] = arguments[1];
         }
@@ -233,5 +232,24 @@ proxy.setApi(Ext.data.READ, '/users/new_load_url');
         // If we're executing here, the action is probably "load".
         // Call with the pre-3.0 method signature.
         this[action](params, reader, callback, scope, options);
+    }
+});
+
+/**
+ * DataProxy Error extension.
+ * constructor
+ * @param {String} name
+ * @param {Record/Array[Record]/Array}
+ */
+Ext.data.DataProxy.Error = Ext.extend(Ext.Error, {
+    cls: 'Ext.data.DataProxy',
+    render : function(name, data) {
+        var msg = name;
+        switch(name) {
+            case 'api-invalid':
+                msg = 'recieved an invalid API-configuration "' + data.join(', ') + '".  Please ensure your proxy API-configuration contains only the actions "' + Ext.data.Api.getVerbs().join(', ');
+                break;
+        }
+        return msg;
     }
 });

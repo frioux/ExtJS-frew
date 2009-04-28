@@ -691,9 +691,8 @@ sortInfo: {
     execute : function(action, rs, options) {
         // blow up if action not Ext.data.CREATE, READ, UPDATE, DESTROY
         if (!Ext.data.Api.isVerb(action)) {
-            throw new Error('Store#execute attempted to execute an unknown action "' + action + '".  Valid API actions are "' + Ext.data.Api.getVerbs().join(', '));
+            throw new Ext.data.Api.Error('execute', 'Store.js', action);
         }
-
         // make sure options has a params key
         options = Ext.applyIf(options||{}, {
             params: {}
@@ -717,7 +716,7 @@ sortInfo: {
         if (doRequest !== false) {
             // Send request to proxy.  The big Ext.apply as 3rd arg here is simply building the request-params
             // and applying the xaction parameter.
-            // @TODO: let writer write xaction param as well rather than here in store.  DataWriter needs to expose more hooks.
+            // @TODO: let writer write xaction param as well rather than here in store.
             this.proxy.request(action, rs, Ext.apply(options.params || {}, this.baseParams, {xaction: action}), this.reader, this.createCallback(action, rs), this, options);
         }
         return doRequest;
@@ -731,7 +730,7 @@ sortInfo: {
      */
     save : function() {
         if (!this.writer) {
-            throw new Error('Store#save called without a DataWriter installed!  Unable to execute remote-actions.  See docs for Ext.data.Api, Ext.data.DataWriter, Ext.data.JsonWriter.');
+            throw new Ext.data.Store.Error('writer-undefined', 'Store.js');
         }
 
         // First check for removed records.  Records in this.removed are guaranteed non-phantoms.  @see Store#remove
@@ -797,7 +796,6 @@ sortInfo: {
                     this.onUpdateRecords(success, rs, data);
                     break;
             }
-            // fire catch-all "write" event for CREATE, DESTROY, UPDATE
             this.fireEvent('write', this, action, data, response, rs);
         }
     },
@@ -810,6 +808,8 @@ sortInfo: {
             }
             catch (e) {
                 this.handleException(e);
+            }
+            finally {
                 if (Ext.isArray(rs)) {
                     // Recurse to run back into the try {}.  DataReader#realize splices-off the rs until empty.
                     this.onCreateRecords(success, rs, data);
@@ -853,11 +853,11 @@ sortInfo: {
 
     // protected handleException.  Possibly temporary until Ext framework has an exception-handler.
     handleException : function(e) {
-        if (typeof(console) == 'object' && typeof(console.error) == 'function') {
-            console.error(e);
+        if (e instanceof Ext.Error) {
+            e.toConsole();
         }
-        else {
-            alert(e);   // <-- ugh.  fix this before official release.
+        else if (typeof(console) == 'object' && typeof(console.error) == 'function') {
+            console.error(e);
         }
     },
 
@@ -1309,3 +1309,21 @@ myStore.setBaseParam('foo', {bar:3});
 });
 
 Ext.reg('store', Ext.data.Store);
+
+
+/**
+ * Store Error extension.
+ * constructor
+ * @param {String} name
+ * @param {Record/Array[Record]/Array}
+ */
+Ext.data.Store.Error = Ext.extend(Ext.Error, {
+    cls: 'Ext.data.Store',
+    render : function(name, file, data) {
+        switch(name) {
+            case 'writer-undefined':
+                return 'Attempted to write data without a writer installed!  Please see the Ext.data.Store docs and install a suitable DataWriter';
+                break;
+        }
+    }
+});
