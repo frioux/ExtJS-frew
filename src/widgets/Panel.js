@@ -1420,38 +1420,41 @@ new Ext.Panel({
         if(w !== undefined || h !== undefined){
             if(!this.collapsed){
                 if(typeof w == 'number'){
-					w = this.adjustBodyWidth(w - this.getFrameWidth());
+                    w = this.adjustBodyWidth(w - this.getFrameWidth());
                     if(this.tbar){
-	                    this.tbar.setWidth(w);
-	                    if(this.topToolbar){
-	                        this.topToolbar.setSize(w);
-	                    }
-	                }
-					if(this.bbar){
-	                    this.bbar.setWidth(w);
-	                    if(this.bottomToolbar){
-	                        this.bottomToolbar.setSize(w);
-	                    }
-	                }
-					if(this.fbar){
-                        var fWidth = 1, f = this.fbar;
+                        this.tbar.setWidth(w);
+                        if(this.topToolbar){
+                            this.topToolbar.setSize(w);
+                        }
+                    }
+                    if(this.bbar){
+                        this.bbar.setWidth(w);
+                        if(this.bottomToolbar){
+                            this.bottomToolbar.setSize(w);
+                        }
+                    }
+                    if(this.fbar){
+                        var f = this.fbar, fWidth = 1; strict = Ext.isStrict;
                         if(this.buttonAlign == 'left'){
-	                       fWidth = w - f.container.getFrameWidth('lr');
-                        }else if(Ext.isIE && !Ext.isIE8){
-                            //nasty hackery to get the toolbar to size automatically in IE7 strict mode.
-                            var el = f.getEl();
-                            if(Ext.isIE7 && Ext.isStrict){
-                                (function(){
-                                    f.setWidth(el.child('.x-toolbar-ct').getWidth());
-                                }).defer(1)
-                            }else{
-                                fWidth = el.getWidth();
-                            }
+                           fWidth = w - f.container.getFrameWidth('lr');
                         }else{
-                            fWidth = 'auto';
+                            //center/right alignment off in webkit
+                            if(Ext.isIE || Ext.isWebKit){
+                                //center alignment ok on webkit.
+                                //right broken in both, center on IE
+                                if(!(this.buttonAlign == 'center' && Ext.isWebKit) && (!strict || (!Ext.isIE8 && strict))){
+                                    (function(){
+                                        f.setWidth(f.getEl().child('.x-toolbar-ct').getWidth());
+                                    }).defer(1);
+                                }else{
+                                    fWidth = 'auto';
+                                }
+                            }else{
+                                fWidth = 'auto';
+                            }
                         }
                         f.setWidth(fWidth);
-	                }
+                    }
                     this.body.setWidth(w);
                 }else if(w == 'auto'){
                     this.body.setWidth(w);
@@ -1459,7 +1462,7 @@ new Ext.Panel({
 
                 if(typeof h == 'number'){
                     h = this.adjustBodyHeight(h - this.getFrameHeight());
-				    this.body.setHeight(h);
+                    this.body.setHeight(h);
                 }else if(h == 'auto'){
                     this.body.setHeight(h);
                 }
