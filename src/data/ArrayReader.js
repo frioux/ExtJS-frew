@@ -21,7 +21,6 @@ var myReader = new Ext.data.ArrayReader({
  * <pre><code>
 [ [1, 'Bill', 'Gardener'], [2, 'Ben', 'Horticulturalist'] ]
   </code></pre>
- * @cfg {String} id (optional) The subscript within row Array that provides an ID for the Record
  * @constructor
  * Create a new ArrayReader
  * @param {Object} meta Metadata configuration options.
@@ -35,7 +34,14 @@ Ext.data.ArrayReader = Ext.extend(Ext.data.JsonReader, {
      * @cfg {String} successProperty
      * @hide
      */
-     /**
+    /**
+     * @cfg {Number} id (optional) The subscript within row Array that provides an ID for the Record.
+     * Deprecated. Use {@link #idIndex} instead.
+     */
+    /**
+     * @cfg {Number} idIndex (optional) The subscript within row Array that provides an ID for the Record.
+     */
+    /**
      * Create a data block containing Ext.data.Records from an Array.
      * @param {Object} o An Array of row objects which represents the dataset.
      * @return {Object} data A data block which is used by an Ext.data.Store object as
