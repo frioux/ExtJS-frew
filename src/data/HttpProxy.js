@@ -168,7 +168,7 @@ api: {
     doRequest : function(action, rs, params, reader, cb, scope, arg) {
         var  o = {
             params : params || {},
-            method: (action === Ext.data.Api.READ) ? "GET" : "POST",
+            method: 'POST',  // <-- hard-coded method until made configurable (2009-04-29)
             request: {
                 callback : cb,
                 scope : scope,
