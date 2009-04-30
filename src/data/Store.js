@@ -271,7 +271,11 @@ var grid = new Ext.grid.EditorGridPanel({
          */
         Ext.data.Api.READ+'exception',
         /**
-         * @event beforewrite NOT YET IMPLEMENTED
+         * @event beforewrite
+         * @param {Store} store
+         * @param {String} action
+         * @param {Record/Array[Record]} rs
+         * @param {Object} options HTTP request object.  edit <tt>options.params</tt> to add Http parameters to request.
          */
         'beforewrite',
         /**
@@ -808,8 +812,6 @@ sortInfo: {
             }
             catch (e) {
                 this.handleException(e);
-            }
-            finally {
                 if (Ext.isArray(rs)) {
                     // Recurse to run back into the try {}.  DataReader#realize splices-off the rs until empty.
                     this.onCreateRecords(success, rs, data);
@@ -1314,11 +1316,11 @@ myStore.setBaseParam('foo', {bar:3});
 
 Ext.reg('store', Ext.data.Store);
 
-
 /**
  * Store Error extension.
  * constructor
  * @param {String} name
+ * @param {String} file
  * @param {Record/Array[Record]/Array}
  */
 Ext.data.Store.Error = Ext.extend(Ext.Error, {
