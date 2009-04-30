@@ -1278,7 +1278,11 @@ sortInfo: {
         this.recordType = rtype;
         this.fields = rtype.prototype.fields;
         delete this.snapshot;
-        this.sortInfo = meta.sortInfo;
+        if(meta.sortInfo){
+            this.sortInfo = meta.sortInfo;
+        }else if(this.sortInfo  && !this.fields.get(this.sortInfo.field)){
+            delete this.sortInfo;
+        }
         this.modified = [];
         this.fireEvent('metachange', this, this.reader.meta);
     },
