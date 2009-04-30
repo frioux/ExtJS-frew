@@ -93,19 +93,25 @@ function(){
 	    applyStyles : function(el, styles){
 		    if(styles){
 				var i = 0,
+                    trim = function(v){
+                        if(!Ext.isEmpty(v, true)){
+                            return v.trim();
+                        }
+                        return null;
+                    },
 	    			len,
 	    			style; 
 	    			
 	    		el = Ext.fly(el);	    			
-				if(Ext.isFunction(styles)) {
+				if(Ext.isFunction(styles)){
    					styles = styles.call();
 				}
 				if (typeof styles == "string") {
 					styles = styles.split(/:|;/g);
 					for (len = styles.length; i < len;) {
-						el.setStyle(styles[i++], styles[i++]);	
+						el.setStyle(trim(styles[i++]), trim(styles[i++]));	
 					}
-				} else if (Ext.isObject(styles)) {
+				}else if (Ext.isObject(styles)){
 					el.setStyle(styles);
 				}			
 			}	
