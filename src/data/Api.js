@@ -143,7 +143,7 @@ Ext.Error.prototype = {
  * Error class for Ext.data.Api errors.
  */
 Ext.data.Api.Error = Ext.extend(Ext.Error, {
-    cls: 'Ext.data.Api.Error',
+    cls: 'Ext.data.Api',
     render : function(name, file, data) {
         switch (name) {
             case 'invalid':
