@@ -136,7 +136,7 @@ api: {
      */
     buildUrl : function(action, record) {
         record = record || null;
-        var url = (this.api[action]) ? this.api[action] : this.url;
+        var url = (this.api[action]) ? this.api[action]['url'] : this.url;
 
         if (!url) {
             throw new Ext.data.Api.Error('invalid-url', 'HttpProxy.js', url);
@@ -168,6 +168,7 @@ api: {
     doRequest : function(action, rs, params, reader, cb, scope, arg) {
         var  o = {
             params : params || {},
+            method: this.api[action]['method'] || undefined,
             request: {
                 callback : cb,
                 scope : scope,

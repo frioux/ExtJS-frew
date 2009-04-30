@@ -66,6 +66,47 @@ Ext.data.Api = (function() {
                 }
             }
             return (!invalid.length) ? true : invalid;
+        },
+
+        /**
+         * This method is used internally by <tt>{@link Ext.data.DataProxy DataProxy}</tt> and should not generally need to be used directly.
+         * Each action of a DataProxy api can be initially defined as either a String or an Object.  When specified as an object,
+         * one can explicitly define the HTTP method (GET|POST) to use for each CRUD action.  This method will prepare the supplied API, setting
+         * each action to the Object form.  If your API-actions do not explicitly define the HTTP method, the "method" configuration-parameter will
+         * be used.  If the method configuration parameter is not specified, POST will be used.
+         <code><pre>
+new Ext.data.HttpProxy({
+    method: "POST",     // <-- default HTTP method when not specified.
+    api: {
+        create: 'create.php',
+        load: 'read.php',
+        save: 'save.php',
+        destroy: 'destroy.php'
+    }
+});
+
+// Alternatively, one can use the object-form to specify the API
+new Ext.data.HttpProxy({
+    api: {
+        load: {url: 'read.php', method: 'GET'},
+        create: 'create.php',
+        destroy: 'destroy.php',
+        save: 'update.php'
+    }
+});
+        </pre></code>
+         *
+         * @param {Object} api
+         * @param {String} defaultAction [GET|POST]
+         */
+        prepare : function(api) {
+            for (var action in api) {
+                if (typeof(api[action]) == 'string') {
+                    api[action] = {
+                        url: api[action]
+                    }
+                }
+            }
         }
     }
 })();

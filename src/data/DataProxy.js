@@ -97,11 +97,13 @@ myStore.on({
      */
 
     // Verify valid api or define if not set.
-    if (conn.api) {
-        var valid = Ext.data.Api.isValid(conn.api);
+    if (this.api) {
+        var valid = Ext.data.Api.isValid(this.api);
         if (valid !== true) {
             throw new Ext.data.Api.Error('invalid', 'DataProxy.js', valid);
         }
+        // Prepare the proxy api.  Ensures all API-actions are defined with the Object-form.
+        Ext.data.Api.prepare(this.api);
     }
     else {
         this.api = {};
@@ -184,6 +186,7 @@ proxy.setApi(Ext.data.READ, '/users/new_load_url');
             }
             this.api[arguments[0]] = arguments[1];
         }
+        Ext.data.Api.prepare(this.api, this.action);
     },
 
     /**
