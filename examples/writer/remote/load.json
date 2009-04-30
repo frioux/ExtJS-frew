@@ -1,0 +1,54 @@
+
+{"success":true,"total":"6","data":[
+    {"id":"1","email":"fred@flintstone.com","first":"Fred","last":"Flintstone"},
+    {"id":"2","email":"wilma@flintstone.com","first":"Wilma","last":"Flintstone"},
+    {"id":"3","email":"pebbles@flintstone.com","first":"Pebbles","last":"Flintstone"},
+    {"id":"4","email":"barney@rubble.com","first":"Barney","last":"Rubble"},
+    {"id":"5","email":"betty@rubble.com","first":"Betty","last":"Rubble"},
+    {"id":"6","email":"bambam@rubble.com","first":"BamBam","last":"Rubble"}
+]}
+
+ /**
+ * Psuedo server-side handler in PHP.
+ * The key to fullfilling a successfull "load" request is to return a response having the properties
+ * "successProperty" and "root" defined in your JsonReader config.
+ *
+ <?php
+    // gather request data as appropriate to your application
+    $xaction = $_REQUEST["xaction"]
+    $start = $_REQUEST["start"]
+    $limit = $_REQUEST["limit"]
+    $query = $_REQUEST["query"]
+    $sort = $_REQUEST["sort"]
+
+    // prepare a simple response hash or instance of some Response class in your app.
+    $response = array(
+       "success" => false,
+       "data" => array(),
+       "total" => 0
+    );
+
+
+    // query your DB according to your ORM API.  Attach results to the "root" property defined
+    // in your DataReader config.
+    $response["data"] = Users->find(array(
+       "query" => $query,
+       "start" => $start,
+       "limit" => $limit,
+       "sort" => $sort
+    ));
+
+    // Get total according to your ORM API
+    $response["total"] = Users.getTotal();
+
+    // set "successProperty" as defined in your DataReader config.
+    $response["success"] = true;
+
+    // return json-encoded response
+    echo json_encode($response)
+
+ ?>
+ *
+ *
+ */
+

@@ -11,7 +11,6 @@
      <!-- ENDLIBS -->
 
     <script type="text/javascript" src="../../ext-all.js"></script>
-
     <script type="text/javascript" src="writer.js"></script>
     <script type="text/javascript" src="UserForm.js"></script>
     <script type="text/javascript" src="UserGrid.js"></script>
@@ -35,16 +34,15 @@ from the server.</p>
 
 <code><pre>
 var proxy = new Ext.data.HttpProxy({
-    prettyUrls: false,	// <-- prettyUrls for urls of the form /user/update/1 or /user/destroy/32
+    prettyUrls: false,  // <-- prettyUrls for urls of the form /user/update/1 or /user/destroy/32
     api: {
-        load : '<a href="load.json">load.json</a>',
-        create : '<a href="create.json">create.json</a>',
-        save: '<a href="update.json">update.json</a>',
-        destroy: '<a href="destroy.json">destroy.json</a>'
+        load : '<a id="api-load" href="remote/load.json">remote/load.json</a>',
+        create : '<a id="api-create" href="remote/create.json">remote/create.json</a>',
+        save: '<a id="api-save" href="remote/update.json">remote/update.json</a>',
+        destroy: '<a id="api-destroy" href="remote/destroy.json">remote/destroy.json</a>'
     }
 });
 </pre></code>
-
 <div class="container" style="width:500px">
     <div id="user-form"></div>
     <div id="user-grid"></div>

@@ -1,13 +1,21 @@
+/*
+ * Ext JS Library 3.0 Pre-alpha
+ * Copyright(c) 2006-2008, Ext JS, LLC.
+ * licensing@extjs.com
+ *
+ * http://extjs.com/license
+ */
+
 
 // Create HttpProxy instance.  Notice new configuration parameter "api" here instead of load.  However, you can still use
 // the "url" paramater -- All CRUD requests will be directed to your single url instead.
 var proxy = new Ext.data.HttpProxy({
-    prettyUrls: false,	// <-- prettyUrls for urls of the form /user/update/1 or /user/destroy/32
+    prettyUrls: false,  // <-- prettyUrls for urls of the form /user/update/1 or /user/destroy/32
     api: {
-        load : 'load.json',
-        create : 'create.json',
-        save: 'update.json',
-        destroy: 'destroy.json'
+        load : 'remote/load.json',
+        create : 'remote/create.json',
+        save: 'remote/update.json',
+        destroy: 'remote/destroy.json'
     }
 });
 
@@ -36,9 +44,9 @@ var store = new Ext.data.Store({
     root: 'records',
     proxy: proxy,
     reader: reader,
-    writer: writer,		// <-- plug a DataWriter into the store just as you would a Reader
+    writer: writer,     // <-- plug a DataWriter into the store just as you would a Reader
     paramsAsHash: true,
-    batchSave: false	// <-- true to delay executing create, update, destroy requests until specifically told to do so.
+    batchSave: false    // <-- true to delay executing create, update, destroy requests until specifically told to do so.
 });
 
 // Let's pretend we rendered our grid-columns with meta-data from our ORM framework.
@@ -52,15 +60,15 @@ var userColumns =  [
 // load the store immeditately
 store.load();
 
+
 Ext.onReady(function() {
     Ext.QuickTips.init();
-
 
     // create user.Form instance (@see UserForm.js)
     var userForm = new App.user.Form({
         renderTo: 'user-form',
         listeners: {
-            create : function(fpanel, data) {	// <-- custom "create" event defined in App.user.Form class
+            create : function(fpanel, data) {   // <-- custom "create" event defined in App.user.Form class
                 var rec = new userGrid.store.recordType(data);
                 userGrid.store.insert(0, rec);
             }

@@ -1,0 +1,50 @@
+{"success":true,"data":{"id":66, "email":"newdood@extjs.com","first":"foma","last":"karass"}}
+//
+// NOTE:  SINCE THIS EXAMPLE RETURNS HARD-CODED RESPONSES, WE CANNOT RETURN AN ACTUAL DATABASE PRIMARY-KEY,
+// "id":66 IS RETURNED ARBITRARILY.
+//
+
+/**
+ * Psuedo server-side "create" handler in PHP.
+ * The key to fullfilling a successfull "create" request is to return a response having the properties
+ * "successProperty" and "root" defined in your JsonReader config.  The returned data MUST be of the same
+ * form as the data received.  That is, the server receives just 1 record to create, the server should return 1
+ * record.  If it recieves an Array of records to create, the server should return an Array of records in the
+ * same order received.
+ *
+ * In addition, you MUST return the database primary-key for each record using the "idProperty"
+ * defined in your DataReader config.  If you don't return the pk, the store will continue to think your record
+ * is a "phantom" and will re-execute the the "create" action when the record is modified again.
+ *
+<?php
+    $action = $_REQUEST["xaction"]
+    $data = $_REQUEST["data"]
+
+    $response = array(
+        "success" => false,
+        "data" => null
+    );
+
+    // Are we creating many records?
+    if (is_array($data) {
+        $response["data"] = array();
+        foreach ($data as $rec) {
+            array_push($response["data"], create($rec));   // <-- return data as Array
+        }
+    }
+    else {
+        $response["data"] = create($rec);  // <-- return just a single record if creating just 1 record.
+    }
+    $response["success"] = true;
+    return json_encode($response);
+
+    /**
+    * Sample create function where you'd use an ORM of your choice.
+    *
+    function create($rec) {
+        return User->create($rec);
+    }
+?>
+ *
+ *
+ */
