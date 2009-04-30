@@ -49,6 +49,10 @@ Ext.data.DataReader.prototype = {
             }
         }
         else {
+            // If rs is NOT an array but data IS, see if data contains just 1 record.  If so extract it and carry on.
+            if (Ext.isArray(data) && data.length == 1) {
+                data = data.shift();
+            }
             if (!this.isData(data)) {
                 // TODO: create custom Exception class to return record in thrown exception.  Allow exception-handler the choice
                 // to commit or not rather than blindly rs.commit() here.
@@ -88,6 +92,10 @@ Ext.data.DataReader.prototype = {
             }
         }
         else {
+                     // If rs is NOT an array but data IS, see if data contains just 1 record.  If so extract it and carry on.
+            if (Ext.isArray(data) && data.length == 1) {
+                data = data.shift();
+            }
             if (!this.isData(data)) {
                 // TODO: create custom Exception class to return record in thrown exception.  Allow exception-handler the choice
                 // to commit or not rather than blindly rs.commit() here.
