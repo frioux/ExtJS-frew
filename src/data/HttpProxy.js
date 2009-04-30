@@ -90,6 +90,14 @@ api: {
     destroy : '/controller/destroy_action'
 }
 
+// Alternatively, one can use the object-form to specify each API-action
+api: {
+    load: {url: 'read.php', method: 'GET'},
+    create: 'create.php',
+    destroy: 'destroy.php',
+    save: 'update.php'
+}
+
 // destroying a record having id: 13, the url would look like
 "/controller/destroy_action/13"
 // updating a single record having id: 13, the url would look like
