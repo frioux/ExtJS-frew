@@ -52,20 +52,9 @@ var userColumns =  [
 // load the store immeditately
 store.load();
 
-new ApiForm({
-    id: 'api-form',
-    dataProxy: proxy
-});
-
 Ext.onReady(function() {
     Ext.QuickTips.init();
-     new Ext.Button({
-        renderTo: 'btn-api',
-        text: 'Set API',
-        handler: function(btn, ev) {
-            Ext.getCmp('api-form').show();
-        }
-    });
+
 
     // create user.Form instance (@see UserForm.js)
     var userForm = new App.user.Form({
