@@ -1023,8 +1023,8 @@
   <file name="writer\writer.js" path="writer" />
   <file name="writer\UserForm.js" path="writer" />
   <file name="writer\UserGrid.js" path="writer" />
-  <file name="writer\create.json" path="writer" />
-  <file name="writer\destroy.json" path="writer" />
-  <file name="writer\load.json" path="writer" />
-  <file name="writer\update.json" path="writer" />
+  <file name="writer\remote\create.json" path="writer\remote" />
+  <file name="writer\remote\destroy.json" path="writer\remote" />
+  <file name="writer\remote\load.json" path="writer\remote" />
+  <file name="writer\remote\update.json" path="writer\remote" />
 </project>
