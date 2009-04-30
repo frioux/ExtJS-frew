@@ -94,7 +94,7 @@ Ext.data.DataReader.prototype = {
                 rs.commit();
                 throw new Ext.data.DataReader.Error('update', 'DataReader.js', rs);
             }
-            rs.data = this.extractValues(data, rs.fields.items, rs.fields.items.length);
+            rs.data = this.extractValues(Ext.apply(rs.data, data), rs.fields.items, rs.fields.items.length);
             rs.commit();
         }
     },
