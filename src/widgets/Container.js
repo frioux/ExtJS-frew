@@ -497,8 +497,8 @@ tb.{@link #doLayout}();             // refresh the layout
         this.initItems();
         var a = arguments, len = a.length;
         if(len > 1){
-            for(var i = 0; i < len; i++) {
-                Ext.Container.prototype.add.call(this, a[i]);
+            for(var i = 0; i < len; i++){
+                this.add(a[i]);
             }
             return;
         }
