@@ -150,7 +150,7 @@ api: {
             throw new Ext.data.Api.Error('invalid-url', 'HttpProxy.js', url);
         }
 
-        if (this.prettyUrls === true && record instanceof Ext.data.Record && !record.phantom) {
+        if (this.conn.prettyUrls === true && record instanceof Ext.data.Record && !record.phantom) {
             url += '/' + record.id;
         }
         return url;
@@ -194,7 +194,7 @@ api: {
             if (this.conn.url === null) {
                 this.conn.url = this.buildUrl(action, rs);
             }
-            else if (this.prettyUrls === true && rs instanceof Ext.data.Record && !rs.phantom) {
+            else if (this.conn.prettyUrls === true && rs instanceof Ext.data.Record && !rs.phantom) {
                 this.conn.url += '/' + rs.id;
             }
             Ext.applyIf(o, this.conn);

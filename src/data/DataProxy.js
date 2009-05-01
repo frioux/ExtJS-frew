@@ -39,7 +39,12 @@ Ext.data.DataProxy = function(conn){
     // All proxies should now send config into superclass constructor.
     conn = conn || {};
 
-    Ext.apply(this, conn);
+    // This line caused a bug when people use custom Connection object having its own request method.
+    // http://extjs.com/forum/showthread.php?t=67194.  Just set api and url for now.
+    //Ext.applyIf(this, conn);
+
+    this.api = conn.api;
+    this.url = conn.url;
 
     /**
      * @cfg {Object} api

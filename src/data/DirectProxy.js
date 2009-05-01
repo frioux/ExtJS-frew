@@ -3,7 +3,7 @@
  * @extends Ext.data.DataProxy
  */
 Ext.data.DirectProxy = function(config){
-
+    Ext.apply(this, config);
     if(typeof this.paramOrder == 'string'){
         this.paramOrder = this.paramOrder.split(/[\s,|]/);
     }

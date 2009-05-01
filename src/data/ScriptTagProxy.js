@@ -38,6 +38,8 @@ if (scriptTag) {
  * @param {Object} config A configuration object.
  */
 Ext.data.ScriptTagProxy = function(config){
+    Ext.apply(this, config);
+
     Ext.data.ScriptTagProxy.superclass.constructor.call(this, config);
 
     this.head = document.getElementsByTagName("head")[0];
