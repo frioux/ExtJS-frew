@@ -174,9 +174,10 @@ api: {
      * @param {Object} arg An optional argument which is passed to the callback as its second parameter.
      */
     doRequest : function(action, rs, params, reader, cb, scope, arg) {
+        var method = (this.api[action]) ? this.api[action] : undefined;
         var  o = {
             params : params || {},
-            method: this.api[action]['method'] || undefined,
+            method: method,
             request: {
                 callback : cb,
                 scope : scope,
