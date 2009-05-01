@@ -68,7 +68,6 @@ paramOrder: 'param1|param2|param'
         args.push(this.createCallback(action, reader, callback, scope, options));
         directFn.apply(window, args);
     },
-
     // private
     createCallback : function(action, reader, callback, scope, arg) {
         return {
@@ -83,7 +82,7 @@ paramOrder: 'param1|param2|param'
                     records = reader.readRecords(result);
                 }
                 catch (ex) {
-                    this.fireEvent("writeexception", this, action, e, result, ex);
+                    this.fireEvent("loadexception", this, action, e, result, ex);
                     callback.call(scope, null, arg, false);
                     return;
                 }
