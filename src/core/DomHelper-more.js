@@ -93,12 +93,6 @@ function(){
 	    applyStyles : function(el, styles){
 		    if(styles){
 				var i = 0,
-                    trim = function(v){
-                        if(!Ext.isEmpty(v, true)){
-                            return v.trim();
-                        }
-                        return null;
-                    },
 	    			len,
 	    			style; 
 	    			
@@ -106,10 +100,12 @@ function(){
 				if(Ext.isFunction(styles)){
    					styles = styles.call();
 				}
-				if (typeof styles == "string") {
-					styles = styles.split(/:|;/g);
-					for (len = styles.length; i < len;) {
-						el.setStyle(trim(styles[i++]), trim(styles[i++]));	
+				if(typeof styles == "string"){
+                    //remove last trailing ; if it exists otherwise
+                    //we end up with an empty element at the end of the array.
+					styles = styles.trim().replace(/;$/, '').split(/:|;/g);
+					for(len = styles.length; i < len;){
+						el.setStyle(styles[i++].trim(), styles[i++].trim());	
 					}
 				}else if (Ext.isObject(styles)){
 					el.setStyle(styles);
