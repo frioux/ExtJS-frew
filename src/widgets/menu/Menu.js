@@ -164,8 +164,8 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
     autoLayout: true,       // Provided for backwards compat
 
     initComponent: function(){
-        if(Ext.isArray(this.initalConfig)){
-            Ext.apply(this, {items:this.initalConfig});
+        if(Ext.isArray(this.initialConfig)){
+            Ext.apply(this, {items:this.initialConfig});
         }
         this.addEvents(
             /**
