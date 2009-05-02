@@ -59,7 +59,7 @@ Format  Description                                                             
         date-time granularity which are supported, or see                         2000-02-13T21:25:33
         http://www.w3.org/TR/NOTE-datetime for more info.                         2001-01-12 22:26:34
   U     Seconds since the Unix Epoch (January 1 1970 00:00:00 GMT)                1193432466 or -2138434463
-  $     Microsoft AJAX serialized dates                                           \/Date(1238606590509)\/ (i.e. UTC milliseconds since epoch) or
+  M$    Microsoft AJAX serialized dates                                           \/Date(1238606590509)\/ (i.e. UTC milliseconds since epoch) or
                                                                                   \/Date(1238606590509+0800)\/
 </pre>
  *
@@ -170,7 +170,7 @@ Date.parseFunctions['x-date-format'] = myDateParser;
      * @type Object
      */
     parseFunctions: {
-        "$": function(input, strict) {
+        "M$": function(input, strict) {
             // note: the timezone offset is ignored since the M$ Ajax server sends
             // a UTC milliseconds-since-Unix-epoch value
             var re = new RegExp('\\/Date\\((\\d+)(?:[+-]\\d{4})?\\)\\/');
@@ -199,7 +199,7 @@ Date.formatFunctions['x-date-format'] = myDateFormatter;
      * @type Object
      */
     formatFunctions: {
-        "$": function() {
+        "M$": function() {
             // UTC milliseconds since Unix epoch (M$-AJAX serialized date format (MRSF))
             return '\\/Date(' + this.getTime() + ')\\/';
         }
