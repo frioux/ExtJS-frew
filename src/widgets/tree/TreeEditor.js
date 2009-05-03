@@ -97,7 +97,7 @@ Ext.extend(Ext.tree.TreeEditor, Ext.Editor, {
             */
 			this.editNode = node;
             if(this.tree.autoScroll){
-                node.ui.getEl().scrollIntoView(this.tree.body);
+                Ext.fly(node.ui.getEl()).scrollIntoView(this.tree.body);
             }
             var value = node.text || '';
             if (!Ext.isGecko && Ext.isEmpty(node.text)){
