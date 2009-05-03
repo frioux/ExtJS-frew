@@ -288,6 +288,47 @@ items: [
             </code></pre>
             <p><a href="http://extjs.com/deploy/dev/docs/?class=Ext.layout.TableLayout" target="_blank">API Reference</a></p>
         </div>
+
+        <div id="vbox-details">
+            <h2>Ext.layout.VBoxLayout</h2>
+            <p>A layout that allows for the vertical and horizontal stretching of child items, much like the container
+            layout with size management.</p>
+            <p><b>Sample Config:</b></p>
+            <pre><code>
+layout:'vbox',
+layoutConfig: {
+    align : 'stretch',
+    pack  : 'start',
+},
+items: [
+    {html:'panel 1', flex:1},
+    {html:'panel 2', height:150},
+    {html:'panel 3', flex:2'}
+]
+            </code></pre>
+            <p><a href="http://extjs.com/deploy/dev/docs/?class=Ext.layout.TableLayout" target="_blank">API Reference</a></p>
+        </div>
+
+        <div id="hbox-details">
+            <h2>Ext.layout.VBoxLayout</h2>
+            <p>A layout that allows for the vertical and horizontal stretching of child items, much like the column 
+            layout but can stretch items vertically.</p>
+            <p><b>Sample Config:</b></p>
+            <pre><code>
+layout:'hbox',
+layoutConfig: {
+    align : 'stretch',
+    pack  : 'start',
+},          
+items: [
+    {html:'panel 1', flex:1},
+    {html:'panel 2', width:150},
+    {html:'panel 3', flex:2'}
+]
+            </code></pre>
+            <p><a href="http://extjs.com/deploy/dev/docs/?class=Ext.layout.TableLayout" target="_blank">API Reference</a></p>
+        </div>
+
         
         <!-- Custom layouts -->
         <div id="row-details">
@@ -329,6 +370,7 @@ items: {
 }
             </code></pre>
         </div>
+
         
         <!-- Combination layouts -->
         <div id="tabs-nested-layouts-details">

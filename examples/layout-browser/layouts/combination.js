@@ -1,4 +1,12 @@
 /*
+ * Ext JS Library 3.0 Pre-alpha
+ * Copyright(c) 2006-2008, Ext JS, LLC.
+ * licensing@extjs.com
+ * 
+ * http://extjs.com/license
+ */
+
+/*
  * ================  TabPanel with nested layouts  =======================
  */
 // fake grid data used below in the tabsNestedLayouts config

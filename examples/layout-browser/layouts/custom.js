@@ -1,3 +1,11 @@
+/*
+ * Ext JS Library 3.0 Pre-alpha
+ * Copyright(c) 2006-2008, Ext JS, LLC.
+ * licensing@extjs.com
+ * 
+ * http://extjs.com/license
+ */
+
 
 // We are adding these custom layouts to a namespace that does not
 // exist by default in Ext, so we have to add the namespace first:
