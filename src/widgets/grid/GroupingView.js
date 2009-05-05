@@ -189,15 +189,13 @@ var grid = new Ext.grid.GridPanel({
 
     // private
     beforeMenuShow : function(){
-        var field = this.getGroupField();
-        var g = this.hmenu.items.get('groupBy');
-        if(g){
-            g.setDisabled(this.cm.config[this.hdCtxIndex].groupable === false);
+        var item, items = this.hmenu.items, disabled = this.cm.config[this.hdCtxIndex].groupable === false;
+        if((item = items.get('groupBy'))){
+            item.setDisabled(disabled);
         }
-        var s = this.hmenu.items.get('showGroups');
-        if(s){
-           s.setDisabled(!field && this.cm.config[this.hdCtxIndex].groupable === false);
-			s.setChecked(!!field, true);
+        if((item = items.get('showGroups'))){
+            item.setDisabled(disabled);
+		    item.setChecked(!!this.getGroupField(), true);
         }
     },
 
