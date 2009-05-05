@@ -490,7 +490,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
     },
 
     // private
-    afterShow : function(){
+    afterShow : function(isAnim){
         this.proxy.hide();
         this.el.setStyle('display', 'block');
         this.el.show();
@@ -513,6 +513,10 @@ Ext.Window = Ext.extend(Ext.Panel, {
         }
         this.toFront();
         this.updateHandles();
+        if(isAnim && (Ext.isIE || Ext.isWebKit)){
+            var sz = this.getSize();
+            this.onResize(sz.width, sz.height);
+        }
         this.fireEvent("show", this);
     },
 
@@ -522,7 +526,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
         this.proxy.setBox(this.animateTarget.getBox());
         this.proxy.setOpacity(0);
         var b = this.getBox(false);
-        b.callback = this.afterShow;
+        b.callback = this.afterShow.createDelegate(this, [true], false);
         b.scope = this;
         b.duration = .25;
         b.easing = 'easeNone';
