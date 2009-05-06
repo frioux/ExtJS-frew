@@ -241,8 +241,8 @@ var form = new Ext.form.FormPanel({
     },
 
     /**
-     * <p>Returns true if the value of this Field has been changed from its original value,
-     * and is not disabled.</p>
+     * <p>Returns true if the value of this Field has been changed from its original value.
+     * Will return false if the field is disabled or has not been rendered yet.</p>
      * <p>Note that if the owning {@link Ext.form.BasicForm form} was configured with
      * {@link Ext.form.BasicForm}.{@link Ext.form.BasicForm#trackResetOnLoad trackResetOnLoad}
      * then the <i>original value</i> is updated when the values are loaded by
@@ -251,7 +251,7 @@ var form = new Ext.form.FormPanel({
      * is not disabled), false otherwise.
      */
     isDirty : function() {
-        if(this.disabled) {
+        if(this.disabled || !this.rendered) {
             return false;
         }
         return String(this.getValue()) !== String(this.originalValue);
