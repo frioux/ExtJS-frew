@@ -51,7 +51,8 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
         var l = this.loader;
         if(!l){
             l = new Ext.tree.TreeLoader({
-                dataUrl: this.dataUrl
+                dataUrl: this.dataUrl,
+                requestMethod: this.requestMethod
             });
         }else if(typeof l == 'object' && !l.load){
             l = new Ext.tree.TreeLoader(l);
