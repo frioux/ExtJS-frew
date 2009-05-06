@@ -28,6 +28,7 @@
  * @cfg {Ext.tree.TreeLoader} loader A {@link Ext.tree.TreeLoader} for use with this TreePanel
  * @cfg {String} pathSeparator The token used to separate sub-paths in path strings (defaults to <tt>'/'</tt>)
  * @cfg {Boolean} useArrows <tt>true</tt> to use Vista-style arrows in the tree (defaults to <tt>false</tt>)
+ * @cfg {String} requestMethod The HTTP request method for loading data (defaults to the value of {@link Ext.Ajax#method}).
  *
  * @constructor
  * @param {Object} config
