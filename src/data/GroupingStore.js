@@ -125,3 +125,4 @@ Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
                (this.sortInfo ? this.sortInfo.field : undefined) : this.groupField;
     }
 });
+Ext.reg('groupingstore', Ext.data.GroupingStore);
