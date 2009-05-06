@@ -220,7 +220,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
 
     // private extractValues
     extractValues: function(data, items, len) {
-        var values = {};
+        var f, values = {};
         for(var j = 0; j < len; j++){
             f = items[j];
             var v = this.ef[j](data);

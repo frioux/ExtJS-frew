@@ -298,6 +298,7 @@ Ext.debug.DomTree = Ext.extend(Ext.tree.TreePanel, {
             return s;
         }
 
+        /*
         function onNodeSelect(t, n, last){
             return;
             if(last && last.unframe){
@@ -354,6 +355,7 @@ Ext.debug.DomTree = Ext.extend(Ext.tree.TreePanel, {
             stylesGrid.treeNode = n;
             stylesGrid.view.fitColumns();
         }
+        */
 
         this.loader = new Ext.tree.TreeLoader();
         this.loader.load = function(n, cb){
