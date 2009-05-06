@@ -125,15 +125,15 @@ myStore.on({
          * @param {Object} this
          * @param {Object} params The params object passed to the {@link #request} function
          */
-        'before'+Ext.data.READ,
+        'before'+Ext.data.Api.READ,
         /**
-         * @event load (Ext.data.READ)
+         * @event load (Ext.data.Api.READ)
          * Fires before the load method's callback is called.
          * @param {Object} this
          * @param {Object} o The data object
          * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
-        Ext.data.READ,
+        Ext.data.Api.READ,
         /**
          * @event beforewrite
          * Fires before a network request is made to CREATE, UPDATE, DESTROY an object
@@ -170,7 +170,7 @@ proxy.setApi({
 </pre></code>
      * <p>If called with two parameters, the first parameter should be a string specifying the API action to
      * redefine and the second parameter should be the URL (or function if using DirectProxy) to call for that action, eg:</p><code><pre>
-proxy.setApi(Ext.data.READ, '/users/new_load_url');
+proxy.setApi(Ext.data.Api.READ, '/users/new_load_url');
 </pre></code>
      * @param {Mixed} api An API specification object, or the name of an action.
      * @param {String/Function} url The URL (or function if using DirectProxy) to call for the action.
@@ -227,7 +227,7 @@ proxy.setApi(Ext.data.READ, '/users/new_load_url');
      * @param {Object} arg
      */
     load : function(params, reader, callback, scope, arg) {
-        this.doRequest(Ext.data.READ, null, params, reader, callback, scope, arg);
+        this.doRequest(Ext.data.Api.READ, null, params, reader, callback, scope, arg);
     },
 
     /**
