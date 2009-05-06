@@ -431,25 +431,15 @@ var combo = new Ext.form.ComboBox({
             }
         }
         //auto-configure store from local array data
-        else if(Ext.isArray(this.store)){
-            if (Ext.isArray(this.store[0])){
-                this.store = new Ext.data.ArrayStore({
-                    fields: ['value','text'],
-                    data: this.store,
-                    autoDestroy: true
-                });
-                this.valueField = 'value';
-            }else{
-                this.store = new Ext.data.ArrayStore({
-                    fields: ['text'],
-                    data: this.store,
-                    expandData: true,
-                    autoDestroy: true
-                });
-                this.valueField = 'text';
+        else{
+            this.store = Ext.StoreMgr.lookup(this.store);
+            if(this.store.autoCreated){
+                this.displayField = this.valueField = 'field1';
+                if(!this.store.expandData){
+                    this.displayField = 'field2';
+                }
+                this.mode = 'local';
             }
-            this.displayField = 'text';
-            this.mode = 'local';
         }
 
         this.selectedIndex = -1;

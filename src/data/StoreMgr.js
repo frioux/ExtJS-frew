@@ -40,7 +40,23 @@ Ext.StoreMgr = Ext.apply(new Ext.util.MixedCollection(), {
      * @return {Ext.data.Store}
      */
     lookup : function(id){
-        return typeof id == "object" ? (id.events ? id : Ext.create(id, 'store')) : this.get(id);
+        if(Ext.isArray(id)){
+            var fields = ['field1'], expand = !Ext.isArray(id[0]);
+            if(!expand){
+                for(var i = 2, len = id[0].length; i <= len; ++i){
+                    fields.push('field' + i);
+                }
+            }
+            return new Ext.data.ArrayStore({
+                fields: fields,
+                data: id,
+                expandData: expand,
+                autoDestroy: true,
+                autoCreated: true
+
+            });
+        }
+        return Ext.isObject(id) ? (id.events ? id : Ext.create(id, 'store')) : this.get(id);
     },
 
     // getKey implementation for MixedCollection
