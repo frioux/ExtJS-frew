@@ -431,7 +431,7 @@ var combo = new Ext.form.ComboBox({
             }
         }
         //auto-configure store from local array data
-        else{
+        else if(this.store){
             this.store = Ext.StoreMgr.lookup(this.store);
             if(this.store.autoCreated){
                 this.displayField = this.valueField = 'field1';
