@@ -101,7 +101,7 @@ function(){
    					styles = styles.call();
 				}
 				if(typeof styles == "string"){
-					styles = styles.trim().split(/\s*(?::|;)\s+/);
+					styles = styles.trim().split(/\s*(?::|;)\s*/);
 					for(len = styles.length; i < len;){
 						el.setStyle(styles[i++], styles[i++]);	
 					}
