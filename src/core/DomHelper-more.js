@@ -101,11 +101,9 @@ function(){
    					styles = styles.call();
 				}
 				if(typeof styles == "string"){
-                    //remove last trailing ; if it exists otherwise
-                    //we end up with an empty element at the end of the array.
-					styles = styles.trim().replace(/;$/, '').split(/:|;/g);
+					styles = styles.trim().split(/\s*(?::|;)\s+/);
 					for(len = styles.length; i < len;){
-						el.setStyle(styles[i++].trim(), styles[i++].trim());	
+						el.setStyle(styles[i++], styles[i++]);	
 					}
 				}else if (Ext.isObject(styles)){
 					el.setStyle(styles);
