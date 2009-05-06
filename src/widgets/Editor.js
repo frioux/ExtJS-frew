@@ -262,23 +262,21 @@ Ext.extend(Ext.Editor, Ext.Component, {
             return;
         }
         var v = this.getValue();
-        if(this.revertInvalid !== false && !this.field.isValid()){
-            v = this.startValue;
-            this.cancelEdit(true);
+        if(!this.field.isValid()){
+            if(this.revertInvalid !== false){
+                this.cancelEdit(remainVisible);
+            }
+            return;
         }
         if(String(v) === String(this.startValue) && this.ignoreNoChange){
-            this.editing = false;
-            this.hide();
+            this.hideEdit(remainVisible);
             return;
         }
         if(this.fireEvent("beforecomplete", this, v, this.startValue) !== false){
-            this.editing = false;
             if(this.updateEl && this.boundEl){
                 this.boundEl.update(v);
             }
-            if(remainVisible !== true){
-                this.hide();
-            }
+            this.hideEdit(remainVisible);
             this.fireEvent("complete", this, v, this.startValue);
         }
     },
@@ -315,10 +313,16 @@ Ext.extend(Ext.Editor, Ext.Component, {
         if(this.editing){
             var v = this.getValue();
             this.setValue(this.startValue);
-            if(remainVisible !== true){
-                this.hide();
-            }
+            this.hideEdit(remainVisible);
             this.fireEvent("canceledit", this, v, this.startValue);
+        }
+    },
+    
+    // private
+    hideEdit: function(remainVisible){
+        if(remainVisible !== true){
+            this.editing = false;
+            this.hide();
         }
     },
 
