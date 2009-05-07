@@ -23,7 +23,7 @@
  * @cfg {String} hlColor The color of the node highlight (defaults to <tt>'C3DAF9'</tt>)
  * @cfg {Boolean} animate <tt>true</tt> to enable animated expand/collapse (defaults to the value of {@link Ext#enableFx})
  * @cfg {Boolean} singleExpand <tt>true</tt> if only 1 node per branch may be expanded
- * @cfg {Boolean} selModel A tree selection model to use with this TreePanel (defaults to an {@link Ext.tree.DefaultSelectionModel})
+ * @cfg {Object} selModel A tree selection model to use with this TreePanel (defaults to an {@link Ext.tree.DefaultSelectionModel})
  * @cfg {Boolean} trackMouseOver <tt>false</tt> to disable mouse over highlighting 
  * @cfg {Ext.tree.TreeLoader} loader A {@link Ext.tree.TreeLoader} for use with this TreePanel
  * @cfg {String} pathSeparator The token used to separate sub-paths in path strings (defaults to <tt>'/'</tt>)
