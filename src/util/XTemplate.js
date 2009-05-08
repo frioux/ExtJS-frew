@@ -254,7 +254,7 @@ Ext.extend(Ext.XTemplate, Ext.Template, {
             return '';
         }
         vs = t.target ? t.target.call(me, values, parent) : values;
-        len = vs.len;
+        len = vs.length;
         parent = t.target ? values : parent;
         if(t.target && Ext.isArray(vs)){
 	        Ext.each(vs, function(v, i) {
