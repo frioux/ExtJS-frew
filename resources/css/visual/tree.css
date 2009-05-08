@@ -1,7 +1,3 @@
-.x-tree .x-panel-body{
-    background-color:#fff;
-}
-
 .x-tree-node-expanded .x-tree-node-icon{
 	background-image:url(../images/default/tree/folder-open.gif);
 }
