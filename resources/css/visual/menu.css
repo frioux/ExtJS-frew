@@ -64,9 +64,9 @@ a.x-menu-item {
 }
 
 .x-menu-scroller-top {
-    background-image:url(../../resources/images/default/layout/mini-top.gif);
+    background-image:url(../images/default/layout/mini-top.gif);
 }
 
 .x-menu-scroller-bottom {
-    background-image:url(../../resources/images/default/layout/mini-bottom.gif);
+    background-image:url(../images/default/layout/mini-bottom.gif);
 }
