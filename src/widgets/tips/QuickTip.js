@@ -108,21 +108,21 @@ Ext.QuickTip = Ext.extend(Ext.ToolTip, {
             t.removeAttribute("title");
             e.preventDefault();
         } else{
-            ttp = t.qtip || et.getAttributeNS(ns, cfg.attribute);
+            ttp = t.qtip || et.getAttribute(cfg.attribute, ns);
         }
         if(ttp){
-            var autoHide = et.getAttributeNS(ns, cfg.hide);
+            var autoHide = et.getAttribute(cfg.hide, ns);
             this.activeTarget = {
                 el: t,
                 text: ttp,
-                width: et.getAttributeNS(ns, cfg.width),
+                width: et.getAttribute(cfg.width, ns),
                 autoHide: autoHide != "user" && autoHide !== 'false',
-                title: et.getAttributeNS(ns, cfg.title),
-                cls: et.getAttributeNS(ns, cfg.cls),
-                align: et.getAttributeNS(ns, cfg.align)
+                title: et.getAttribute(cfg.title, ns),
+                cls: et.getAttribute(cfg.cls, ns),
+                align: et.getAttribute(cfg.align, ns)
                 
             };
-            this.anchor = et.getAttributeNS(ns, cfg.anchor);
+            this.anchor = et.getAttribute(cfg.anchor, ns);
             if(this.anchor){
                 this.anchorTarget = t;
             }
