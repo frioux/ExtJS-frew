@@ -36,8 +36,9 @@ Ext.data.DataWriter.prototype = {
      * @param {String} action [CREATE|UPDATE|DESTROY]
      * @param {Object} params The params-hash to write-to
      * @param {Record/Record[]} rs The recordset write.
+     * @param {Boolean} isApiAction true if the action is defined as a DataProxy action using api configuration parameter.
      */
-    write : function(action, params, rs) {
+    write : function(action, params, rs, isApiAction) {
         var data = null;
         switch (action) {
             case Ext.data.Api.CREATE:
@@ -50,7 +51,7 @@ Ext.data.DataWriter.prototype = {
                data = this.destroy(rs);
                break;
         }
-        this.render(action, rs, params, data);
+        this.render(action, rs, params, data, isApiAction);
     },
 
     /**

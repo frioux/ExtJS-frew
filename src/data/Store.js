@@ -721,7 +721,7 @@ sortInfo: {
             // Send request to proxy.  The big Ext.apply as 3rd arg here is simply building the request-params
             // and applying the xaction parameter.
             // @TODO: let writer write xaction param as well rather than here in store.
-            this.proxy.request(action, rs, Ext.apply(options.params || {}, this.baseParams, {xaction: action}), this.reader, this.createCallback(action, rs), this, options);
+            this.proxy.request(action, rs, Ext.apply(options.params || {}, this.baseParams), this.reader, this.createCallback(action, rs), this, options);
         }
         return doRequest;
     },

@@ -1,5 +1,6 @@
 /**
  * @class Ext.data.HttpProxy
+
  * @extends Ext.data.DataProxy
  * An implementation of {@link Ext.data.DataProxy} that reads a data object from a {@link Ext.data.Connection Connection} object
  * configured to reference a certain URL.<br>
@@ -187,17 +188,17 @@ api: {
             callback : this.createCallback(action, rs),
             scope: this
         };
-
+        // Set the connection url.  If this.conn.url is not null here,
+        // the user may have overridden the url during a beforeaction event-handler.
+        // this.conn.url is nullified after each request.
+        if (this.conn.url === null) {
+            this.conn.url = this.buildUrl(action, rs);
+        }
+        else if (this.conn.prettyUrls === true && rs instanceof Ext.data.Record && !rs.phantom) {
+            this.conn.url += '/' + rs.id;
+        }
         if(this.useAjax){
-            // Set the connection url.  If this.conn.url is not null here,
-            // the user may have overridden the url during a beforeaction event-handler.
-            // this.conn.url is nullified after each request.
-            if (this.conn.url === null) {
-                this.conn.url = this.buildUrl(action, rs);
-            }
-            else if (this.conn.prettyUrls === true && rs instanceof Ext.data.Record && !rs.phantom) {
-                this.conn.url += '/' + rs.id;
-            }
+
             Ext.applyIf(o, this.conn);
 
             // If a currently running request is found for this action, abort it.
@@ -205,13 +206,11 @@ api: {
                 Ext.Ajax.abort(this.activeRequest[action]);
             }
             this.activeRequest[action] = Ext.Ajax.request(o);
-
-            // request is sent, nullify the connection url in preparation for the next request
-            this.conn.url = null;
-
         }else{
             this.conn.request(o);
         }
+        // request is sent, nullify the connection url in preparation for the next request
+        this.conn.url = null;
     },
 
     /**

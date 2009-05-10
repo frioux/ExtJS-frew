@@ -105,7 +105,8 @@ myStore.on({
     if (this.api) {
         var valid = Ext.data.Api.isValid(this.api);
         if (valid !== true) {
-            throw new Ext.data.Api.Error('invalid', 'DataProxy.js', valid);
+            // disabled throwing exception, validator is too strict.
+            //throw new Ext.data.Api.Error('invalid', 'DataProxy.js', valid);
         }
         // Prepare the proxy api.  Ensures all API-actions are defined with the Object-form.
         Ext.data.Api.prepare(this.api);
@@ -195,6 +196,19 @@ proxy.setApi(Ext.data.Api.READ, '/users/new_load_url');
     },
 
     /**
+     * Returns true if the specified action is defined as a unique action in the api-config.  This method is used internally by Store
+     * before a DataWriter#write is executed so it can determine whether the request needs to include the "xaction" parameter in the
+     * request.  If all API-actions are routed to unique urls, the xaction parameter is unecessary.  However, if no api is defined
+     * and all Proxy actions are routed to DataProxy#url, the server-side will require the xaction parameter to perform a switch to
+     * the corresponding code for CRUD action.
+     * @param {String [Ext.data.Api.CREATE|READ|UPDATE|DESTROY]} action
+     * @return {Boolean}
+     */
+    isApiAction : function(action) {
+        return (this.api[action]) ? true : false;
+    },
+
+    /**
      * request
      * All proxy actions are executed through this method.  Automatically fires the "before" + action event
      * @param {String} action
@@ -208,6 +222,9 @@ proxy.setApi(Ext.data.Api.READ, '/users/new_load_url');
      */
     request : function(action, rs, params, reader, callback, scope, options) {
         params = params || {};
+        if (!this.isApiAction(action)) {
+            params.xaction = action;
+        }
         if ((action == Ext.data.Api.READ) ? this.fireEvent("before"+action, this, params, options) : this.fireEvent("beforewrite", this, action, params, options) !== false) {
             this.doRequest.apply(this, arguments);
         }
