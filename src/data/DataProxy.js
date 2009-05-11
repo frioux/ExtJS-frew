@@ -196,8 +196,7 @@ proxy.setApi(Ext.data.Api.READ, '/users/new_load_url');
     },
 
     /**
-     * Returns true if the specified action is defined as a unique action in the api-config.  This method is used internally by Store
-     * before a DataWriter#write is executed so it can determine whether the request needs to include the "xaction" parameter in the
+     * Returns true if the specified action is defined as a unique action in the api-config.
      * request.  If all API-actions are routed to unique urls, the xaction parameter is unecessary.  However, if no api is defined
      * and all Proxy actions are routed to DataProxy#url, the server-side will require the xaction parameter to perform a switch to
      * the corresponding code for CRUD action.
@@ -222,9 +221,6 @@ proxy.setApi(Ext.data.Api.READ, '/users/new_load_url');
      */
     request : function(action, rs, params, reader, callback, scope, options) {
         params = params || {};
-        if (!this.isApiAction(action)) {
-            params.xaction = action;
-        }
         if ((action == Ext.data.Api.READ) ? this.fireEvent("before"+action, this, params, options) : this.fireEvent("beforewrite", this, action, params, options) !== false) {
             this.doRequest.apply(this, arguments);
         }

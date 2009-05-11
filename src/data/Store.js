@@ -720,8 +720,11 @@ sortInfo: {
         if (doRequest !== false) {
             // Send request to proxy.  The big Ext.apply as 3rd arg here is simply building the request-params
             // and applying the xaction parameter.
-            // @TODO: let writer write xaction param as well rather than here in store.
-            this.proxy.request(action, rs, Ext.apply(options.params || {}, this.baseParams), this.reader, this.createCallback(action, rs), this, options);
+            var params = Ext.apply(options.params || {}, this.baseParams);
+            if (this.writer && !this.proxy.isApiAction(action)) {
+                params.xaction = action;
+            }
+            this.proxy.request(action, rs, params, this.reader, this.createCallback(action, rs), this, options);
         }
         return doRequest;
     },
@@ -804,11 +807,28 @@ sortInfo: {
         }
     },
 
+    // remap record ids in MixedCollection after records have been realized.  @see Store#onCreateRecords, @see DataReader#realize
+    reMap : function(record) {
+        if (Ext.isArray(record)) {
+            for (var i = 0, len = record.length; i < len; i++) {
+                this.reMap(record[i]);
+            }
+        }
+        else {
+            delete this.data.map[record._phid];
+            this.data.map[record.id] = record;
+            var index = this.data.keys.indexOf(record._phid);
+            this.data.keys.splice(index, 1, record.id);
+            delete record._phid;
+        }
+    },
+
     // protected onCreateRecord proxy callback for create action
     onCreateRecords : function(success, rs, data) {
         if (success === true) {
             try {
                 this.reader.realize(rs, data);
+                this.reMap(rs);
             }
             catch (e) {
                 this.handleException(e);

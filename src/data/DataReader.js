@@ -61,6 +61,7 @@ Ext.data.DataReader.prototype = {
             }
             var values = this.extractValues(data, rs.fields.items, rs.fields.items.length);
             rs.phantom = false; // <-- That's what it's all about
+            rs._phid = rs.id;  // <-- save oldId so we can remap in Store#onCreateRecords
             rs.id = data[this.meta.idProperty];
             rs.data = values;
             rs.commit();
