@@ -10,24 +10,23 @@
  * @history 2007-07-08 jvs
  * Slight mods for Ext 2.0
  */
-Ext.ux.SelectBox = function(config){
-	this.searchResetDelay = 1000;
-	config = config || {};
-	config = Ext.apply(config || {}, {
-		editable: false,
-		forceSelection: true,
-		rowHeight: false,
-		lastSearchTerm: false,
-        triggerAction: 'all',
-        mode: 'local'
-    });
-
-	Ext.ux.SelectBox.superclass.constructor.apply(this, arguments);
-
-	this.lastSelectedIndex = this.selectedIndex || 0;
-};
-
-Ext.extend(Ext.ux.SelectBox, Ext.form.ComboBox, {
+Ext.ux.SelectBox = Ext.extend(Ext.form.ComboBox, {
+	constructor: function(config){
+		this.searchResetDelay = 1000;
+		config = config || {};
+		config = Ext.apply(config || {}, {
+			editable: false,
+			forceSelection: true,
+			rowHeight: false,
+			lastSearchTerm: false,
+			triggerAction: 'all',
+			mode: 'local'
+		});
+	
+		Ext.ux.SelectBox.superclass.constructor.apply(this, arguments);
+	
+		this.lastSelectedIndex = this.selectedIndex || 0;
+	},	
 
 	initEvents : function(){
 		Ext.ux.SelectBox.superclass.initEvents.apply(this, arguments);

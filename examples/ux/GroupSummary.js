@@ -1,8 +1,8 @@
-Ext.grid.GroupSummary = function(config){
-    Ext.apply(this, config);
-};
-
-Ext.extend(Ext.grid.GroupSummary, Ext.util.Observable, {
+Ext.ux.GroupSummary = Ext.extend(Ext.util.Observable, {
+    constructor: function(config){
+        Ext.apply(this, config);
+        Ext.ux.GroupSummary.superclass.constructor.call(this);
+    },
     init : function(grid){
         this.grid = grid;
         this.cm = grid.getColumnModel();
@@ -83,7 +83,7 @@ Ext.extend(Ext.grid.GroupSummary, Ext.util.Observable, {
                 c = cs[i];
                 cf = cfg[i];
                 if(cf.summaryType){
-                    data[c.name] = Ext.grid.GroupSummary.Calculations[cf.summaryType](data[c.name] || 0, r, c.name, data);
+                    data[c.name] = Ext.ux.GroupSummary.Calculations[cf.summaryType](data[c.name] || 0, r, c.name, data);
                 }
             }
         }
@@ -184,8 +184,9 @@ Ext.extend(Ext.grid.GroupSummary, Ext.util.Observable, {
         }
     }
 });
+Ext.grid.GroupSummary = Ext.ux.GroupSummary;
 
-Ext.grid.GroupSummary.Calculations = {
+Ext.ux.GroupSummary.Calculations = {
     'sum' : function(v, record, field){
         return v + (record.data[field]||0);
     },
@@ -211,14 +212,15 @@ Ext.grid.GroupSummary.Calculations = {
         var t = (data[field+'total'] = ((data[field+'total']||0) + (record.data[field]||0)));
         return t === 0 ? 0 : t / c;
     }
-}
+};
+Ext.grid.GroupSummary.Calculations = Ext.ux.GroupSummary.Calculations;
 
-Ext.grid.HybridSummary = Ext.extend(Ext.grid.GroupSummary, {
+Ext.ux.HybridSummary = Ext.extend(Ext.ux.GroupSummary, {
     calculate : function(rs, cs){
         var gcol = this.view.getGroupField();
         var gvalue = rs[0].data[gcol];
         var gdata = this.getSummaryData(gvalue);
-        return gdata || Ext.grid.HybridSummary.superclass.calculate.call(this, rs, cs);
+        return gdata || Ext.ux.HybridSummary.superclass.calculate.call(this, rs, cs);
     },
 
     updateSummaryData : function(groupValue, data, skipRefresh){
@@ -240,3 +242,4 @@ Ext.grid.HybridSummary = Ext.extend(Ext.grid.GroupSummary, {
         return null;
     }
 });
+Ext.grid.HybridSummary = Ext.ux.HybridSummary;

@@ -3,11 +3,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
     <title>Editor Grid Example</title>
     <link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css" />
-    <!-- GC --><!-- LIBS --><script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
-    <!-- ENDLIBS --><script type="text/javascript" src="../../ext-all-debug.js"></script>
-    <script type="text/javascript" src="gen-names.js"></script>
-    <script type="text/javascript" src="RowEditor.js"></script>
-    <script type="text/javascript" src="row-editor.js"></script>
     <link rel="stylesheet" type="text/css" href="grid-examples.css" />
     <!-- Common Styles for the examples -->
     <link rel="stylesheet" type="text/css" href="../shared/examples.css" />
@@ -48,59 +43,20 @@
 		.x-box-inner {
 			zoom:1;
 		}
-		.ext-ie .x-row-editor .x-form-text {
-		    margin:0 !important; 
-		}
-        .x-row-editor-header {
-            height:2px;
-            overflow:hidden;
-            background: transparent url(images/row-editor-bg.gif) repeat-x 0 0;
-        }
-        .x-row-editor-footer {
-            height:2px;
-            overflow:hidden;
-            background: transparent url(images/row-editor-bg.gif) repeat-x 0 -2px;
-        }
-        .ext-ie .x-row-editor-footer {
-		    margin-top:-1px;
-		}
-
-        .x-row-editor-body {
-            overflow:hidden;
-            zoom:1;
-            background: #ebf2fb;
-            padding-top:2px;
-        }
-        .x-row-editor .x-btns {
-            position:absolute;
-            top:28px;
-            left:20px;
-            padding-left:5px;
-            background: transparent url(images/row-editor-btns.gif) no-repeat 0 0;
-        }
-        .x-row-editor .x-btns .x-plain-bwrap {
-            padding-right:5px;
-            background: transparent url(images/row-editor-btns.gif) no-repeat right -31px;
-        }
-        .x-row-editor .x-btns .x-plain-body {
-            background: transparent url(images/row-editor-btns.gif) repeat-x 0 -62px;
-            height:31px;
-        }
-        .x-row-editor .x-btns .x-table-layout-cell {
-            padding:3px;
-        }
         .icon-user-add {
             background-image: url(../shared/icons/fam/user_add.gif) !important;
         }
         .icon-user-delete {
             background-image: url(../shared/icons/fam/user_delete.gif) !important;
-        }
-        
-        .errorTip .x-tip-body ul{
-            list-style-type:disc;
-            margin-left:15px;
-        }
+        }        
     </style>
+    
+    <!-- GC --><!-- LIBS -->
+    <script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../../ext-all.js"></script>
+    <script type="text/javascript" src="gen-names.js"></script>
+    <script type="text/javascript" src="../ux/RowEditor.js"></script>
+    <script type="text/javascript" src="row-editor.js"></script>
 </head>
 <body>
     <h1>Row Editor Grid Example</h1>

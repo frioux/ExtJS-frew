@@ -1,4 +1,4 @@
-Ext.form.Spinner = Ext.extend(Ext.util.Observable, {
+Ext.ux.Spinner = Ext.extend(Ext.util.Observable, {
     incrementValue: 1,
     alternateIncrementValue: 5,
     triggerClass: 'x-form-spinner-trigger',
@@ -8,7 +8,7 @@ Ext.form.Spinner = Ext.extend(Ext.util.Observable, {
     accelerate: false,
     
     constructor: function(config){
-        Ext.form.Spinner.superclass.constructor.call(this, config);
+        Ext.ux.Spinner.superclass.constructor.call(this, config);
         Ext.apply(this, config);
         this.mimicing = false;
     },
@@ -422,3 +422,5 @@ Ext.form.Spinner = Ext.extend(Ext.util.Observable, {
         }
     }
 });
+//backwards compat
+Ext.form.Spinner = Ext.ux.Spinner;

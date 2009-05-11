@@ -127,10 +127,10 @@ Ext.Spotlight.prototype = {
     destroy : function(){
         this.doHide();
         Ext.destroy(
-                this.right,
-                this.left,
-                this.top,
-                this.bottom);
+            this.right,
+            this.left,
+            this.top,
+            this.bottom);
         delete this.el;
         delete this.all;
     }

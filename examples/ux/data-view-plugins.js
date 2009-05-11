@@ -1,17 +1,5 @@
 
-Ext.DataView.LabelEditor = function(cfg, field){
-    Ext.DataView.LabelEditor.superclass.constructor.call(this,
-        field || new Ext.form.TextField({
-            allowBlank: false,
-            growMin:90,
-            growMax:240,
-            grow:true,
-            selectOnFocus:true
-        }), cfg
-    );
-}
-
-Ext.extend(Ext.DataView.LabelEditor, Ext.Editor, {
+Ext.DataView.LabelEditor = Ext.extend(Ext.Editor, {
     alignment: "tl-tl",
     hideEl : false,
     cls: "x-small-editor",
@@ -19,7 +7,19 @@ Ext.extend(Ext.DataView.LabelEditor, Ext.Editor, {
     completeOnEnter: true,
     cancelOnEsc: true,
     labelSelector: 'span.x-editable',
-
+    
+    constructor: function(cfg, field){
+        Ext.DataView.LabelEditor.superclass.constructor.call(this,
+            field || new Ext.form.TextField({
+                allowBlank: false,
+                growMin:90,
+                growMax:240,
+                grow:true,
+                selectOnFocus:true
+            }), cfg
+        );
+    },
+    
     init : function(view){
         this.view = view;
         view.on('render', this.initEditor, this);

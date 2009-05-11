@@ -1,4 +1,4 @@
-Ext.form.SpinnerField = Ext.extend(Ext.form.NumberField, {
+Ext.ux.SpinnerField = Ext.extend(Ext.form.NumberField, {
     deferHeight: true,
     autoSize: Ext.emptyFn,
     onBlur: Ext.emptyFn,
@@ -15,7 +15,7 @@ Ext.form.SpinnerField = Ext.extend(Ext.form.NumberField, {
 				: [config.plugins, spl])
 			: spl;
 			
-		Ext.form.SpinnerField.superclass.constructor.call(this, Ext.apply(config, {plugins: plugins}));	
+		Ext.ux.SpinnerField.superclass.constructor.call(this, Ext.apply(config, {plugins: plugins}));	
 	},
 
     onShow: function(){
@@ -51,4 +51,6 @@ Ext.form.SpinnerField = Ext.extend(Ext.form.NumberField, {
     }
 });
 
-Ext.reg('spinner', Ext.form.SpinnerField);
+Ext.reg('spinner', Ext.ux.SpinnerField);
+//backwards comapt
+Ext.form.SpinnerField = Ext.ux.SpinnerField;
