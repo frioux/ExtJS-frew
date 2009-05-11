@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project path="" name="Ext Examples" author="Ext JS, LLC" version="3.0 Pre-alpha" copyright="Ext JS Library $version&#xD;&#xA;Copyright(c) 2006-2008, $author.&#xD;&#xA;licensing@extjs.com&#xD;&#xA;&#xD;&#xA;http://extjs.com/license" output="C:\apps\www\deploy\ext-3.0-dev\examples" source="True" source-dir="$output" minify="False" min-dir="$output\build" doc="False" doc-dir="$output\docs" master="true" master-file="$output\yui-ext.js" zip="true" zip-file="$output\yuo-ext.$version.zip">
+<project path="" name="Ext Examples" author="Ext JS, LLC" version="3.0 RC1.1" copyright="Ext JS Library $version&#xD;&#xA;Copyright(c) 2006-2009, $author.&#xD;&#xA;licensing@extjs.com&#xD;&#xA;&#xD;&#xA;http://extjs.com/license" output="C:\Apps\www\deploy\ext-3.0\examples" source="True" source-dir="$output" minify="False" min-dir="$output\build" doc="False" doc-dir="$output\docs" master="true" master-file="$output\yui-ext.js" zip="true" zip-file="$output\yuo-ext.$version.zip">
   <file name="dialog\blog.html" path="dialog" />
   <file name="dialog\comments.txt" path="dialog" />
   <file name="dialog\hello.html" path="dialog" />
@@ -1027,4 +1027,170 @@
   <file name="writer\remote\destroy.json" path="writer\remote" />
   <file name="writer\remote\load.json" path="writer\remote" />
   <file name="writer\remote\update.json" path="writer\remote" />
+  <file name="dd\dnd_grid_to_formpanel.js" path="dd" />
+  <file name="dd\dnd_grid_to_grid.js" path="dd" />
+  <file name="dd\dnd_grid_to_formpanel.html" path="dd" />
+  <file name="dd\dnd_grid_to_grid.html" path="dd" />
+  <file name="debug\debug.js" path="debug" />
+  <file name="debug\inspector.gif" path="debug" />
+  <file name="debug\debug.css" path="debug" />
+  <file name="debug\sheldon.xml" path="debug" />
+  <file name="image-organizer\images\icons\arrow_up.png" path="image-organizer\images\icons" />
+  <file name="image-organizer\images\icons\box_upload.png" path="image-organizer\images\icons" />
+  <file name="image-organizer\images\icons\cancel.png" path="image-organizer\images\icons" />
+  <file name="image-organizer\images\icons\folder_add.png" path="image-organizer\images\icons" />
+  <file name="image-organizer\images\icons\folder_add_sm.png" path="image-organizer\images\icons" />
+  <file name="image-organizer\images\icons\tag_blue_add.png" path="image-organizer\images\icons" />
+  <file name="image-organizer\images\thumbs\kids_hug.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\images\thumbs\kids_hug2.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\images\thumbs\sara_pink.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\images\thumbs\sara_pumpkin.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\images\thumbs\sara_smile.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\images\thumbs\up_to_something.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\images\thumbs\zack.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\images\thumbs\zacks_grill.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\images\thumbs\zack_dress.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\images\thumbs\zack_hat.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\images\thumbs\zack_sink.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\images\selected.gif" path="image-organizer\images" />
+  <file name="image-organizer\imgorg\AlbumsPanel.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\AlbumTree.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\AlbumWin.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\App.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\Checkable.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\DirectCombo.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\ImageDv.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\ImagePanel.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\ImageThumbPanel.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\MultiCombo.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\TagWin.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\UploadQueue.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\php\sql\setup.php" path="image-organizer\php\sql" />
+  <file name="image-organizer\SWFUpload\plugins\swfupload.cookies.js" path="image-organizer\SWFUpload\plugins" />
+  <file name="image-organizer\SWFUpload\plugins\swfupload.queue.js" path="image-organizer\SWFUpload\plugins" />
+  <file name="image-organizer\SWFUpload\plugins\swfupload.speed.js" path="image-organizer\SWFUpload\plugins" />
+  <file name="image-organizer\SWFUpload\plugins\swfupload.swfobject.js" path="image-organizer\SWFUpload\plugins" />
+  <file name="image-organizer\SWFUpload\swfupload.js" path="image-organizer\SWFUpload" />
+  <file name="key-feed-viewer\images\article.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\bg.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\bullet.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\cancel.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\cmp-bg.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\comment-bg.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\delete.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\details.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\feed-item.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\forward.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\go-to-post.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\grid-hrow.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\header-bar.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\header.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\myfeeds.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\new_tab.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\new_window.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\post-bg.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\post.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\preview-bottom.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\preview-hide.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\preview-right.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\preview.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\refresh.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\rss.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\rss_add.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\rss_delete.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\rss_load.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\signin.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\signout.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\suggested.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\tab-close-on.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\tab-close.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\toolbar.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\wait.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\warning.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\win-bg.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\FeedGrid.js" path="key-feed-viewer" />
+  <file name="key-feed-viewer\FeedPanel.js" path="key-feed-viewer" />
+  <file name="key-feed-viewer\FeedViewer.js" path="key-feed-viewer" />
+  <file name="key-feed-viewer\FeedWindow.js" path="key-feed-viewer" />
+  <file name="key-feed-viewer\Focus.js" path="key-feed-viewer" />
+  <file name="key-feed-viewer\MainPanel.js" path="key-feed-viewer" />
+  <file name="key-feed-viewer\view.html" path="key-feed-viewer" />
+  <file name="key-feed-viewer\feed-viewer.css" path="key-feed-viewer" />
+  <file name="key-feed-viewer\feed-proxy.php" path="key-feed-viewer" />
+  <file name="multiselect\images\bottom2.gif" path="multiselect\images" />
+  <file name="multiselect\images\down2.gif" path="multiselect\images" />
+  <file name="multiselect\images\left2.gif" path="multiselect\images" />
+  <file name="multiselect\images\right2.gif" path="multiselect\images" />
+  <file name="multiselect\images\top2.gif" path="multiselect\images" />
+  <file name="multiselect\images\up2.gif" path="multiselect\images" />
+  <file name="multiselect\multiselect-demo.js" path="multiselect" />
+  <file name="multiselect\multiselect-demo.html" path="multiselect" />
+  <file name="shared\icons\fam\add.png" path="shared\icons\fam" />
+  <file name="shared\icons\fam\control_rewind.png" path="shared\icons\fam" />
+  <file name="shared\icons\silk.css" path="shared\icons" />
+  <file name="tree\aria-tree.js" path="tree" />
+  <file name="tree\ARIA.js" path="tree" />
+  <file name="tree\Focus.js" path="tree" />
+  <file name="tree\aria-tree.html" path="tree" />
+  <file name="ux\css\ColumnNodeUI.css" path="ux\css" />
+  <file name="ux\css\GroupSummary.css" path="ux\css" />
+  <file name="ux\css\MultiSelect.css" path="ux\css" />
+  <file name="ux\css\PanelResizer.css" path="ux\css" />
+  <file name="ux\css\RowEditor.css" path="ux\css" />
+  <file name="ux\images\panel-handle.gif" path="ux\images" />
+  <file name="ux\images\row-editor-bg.gif" path="ux\images" />
+  <file name="ux\images\row-editor-btns.gif" path="ux\images" />
+  <file name="ux\images\summary-bg.gif" path="ux\images" />
+  <file name="ux\images\summary-group-bg.gif" path="ux\images" />
+  <file name="ux\BufferView.js" path="ux" />
+  <file name="ux\ColumnNodeUI.js" path="ux" />
+  <file name="ux\data-view-plugins.js" path="ux" />
+  <file name="ux\Ext.ux.GMapPanel.js" path="ux" />
+  <file name="ux\FileUploadField.js" path="ux" />
+  <file name="ux\GroupSummary.js" path="ux" />
+  <file name="ux\ItemSelector.js" path="ux" />
+  <file name="ux\MultiSelect.js" path="ux" />
+  <file name="ux\PagingMemoryProxy.js" path="ux" />
+  <file name="ux\PanelResizer.js" path="ux" />
+  <file name="ux\ProgressBarPager.js" path="ux" />
+  <file name="ux\RowEditor.js" path="ux" />
+  <file name="ux\RowExpander.js" path="ux" />
+  <file name="ux\SelectBox.js" path="ux" />
+  <file name="ux\SliderTip.js" path="ux" />
+  <file name="ux\SlidingPager.js" path="ux" />
+  <file name="ux\SpinnerField.js" path="ux" />
+  <file name="ux\SpinnerPlugin.js" path="ux" />
+  <file name="ux\Spotlight.js" path="ux" />
+  <file name="ux\TabCloseMenu.js" path="ux" />
+  <file name="ux\TableGrid.js" path="ux" />
+  <file name="ux\TabScrollerMenu.js" path="ux" />
+  <file name="ux\XmlTreeLoader.js" path="ux" />
+  <target name="User Extension JS Pack" file="$output\ux\ux-all.js" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
+    <include name="ux\ItemSelector.js" />
+    <include name="ux\MultiSelect.js" />
+    <include name="ux\XmlTreeLoader.js" />
+    <include name="ux\TabScrollerMenu.js" />
+    <include name="ux\TableGrid.js" />
+    <include name="ux\FileUploadField.js" />
+    <include name="ux\ColumnNodeUI.js" />
+    <include name="ux\data-view-plugins.js" />
+    <include name="ux\Ext.ux.GMapPanel.js" />
+    <include name="ux\GroupSummary.js" />
+    <include name="ux\PagingMemoryProxy.js" />
+    <include name="ux\ProgressBarPager.js" />
+    <include name="ux\TabCloseMenu.js" />
+    <include name="ux\SelectBox.js" />
+    <include name="ux\Spotlight.js" />
+    <include name="ux\SpinnerPlugin.js" />
+    <include name="ux\SpinnerField.js" />
+    <include name="ux\SliderTip.js" />
+    <include name="ux\SlidingPager.js" />
+  </target>
+  <target name="User Extension CSS Pack" file="$output\ux\css\ux-all.css" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
+    <include name="ux\css\ColumnNodeUI.css" />
+    <include name="ux\css\GroupSummary.css" />
+    <include name="ux\css\MultiSelect.css" />
+    <include name="ux\css\PanelResizer.css" />
+    <include name="ux\css\RowEditor.css" />
+  </target>
 </project>
