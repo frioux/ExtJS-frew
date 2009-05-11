@@ -289,6 +289,7 @@ TestAction.multiply(
                 extTID: t.tid,
                 extAction: c,
                 extMethod: m.name,
+                extType: 'rpc',
                 extUpload: String(isUpload)
             };
             if(callback && typeof callback == 'object'){
