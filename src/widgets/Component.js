@@ -1376,6 +1376,12 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
     getDomPositionEl : function(){
         return this.getPositionEl ? this.getPositionEl() : this.getEl();
     },
+    
+    // private
+    purgeListeners: function(){
+        Ext.Component.superclass.purgeListeners.call(this);
+        this.mons = null;
+    },
 
     // internal function for auto removal of assigned event handlers on destruction
     mon : function(item, ename, fn, scope, opt){
