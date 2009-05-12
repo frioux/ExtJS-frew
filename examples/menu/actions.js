@@ -29,10 +29,10 @@ Ext.onReady(function(){
         renderTo: Ext.getBody()
     });
 
-
+    var tb = panel.getTopToolbar();
     // Buttons added to the toolbar of the Panel above
     // to test/demo doing group operations with an action
-    panel.getTopToolbar().add('->', {
+    tb.add('->', {
         text: 'Disable',
         handler: function(){
             action.setDisabled(!action.isDisabled());
@@ -56,4 +56,5 @@ Ext.onReady(function(){
             action.setIconClass(action.getIconClass() == 'blist' ? 'bmenu' : 'blist');
         }
     });
+    tb.doLayout();
 });
