@@ -70,8 +70,7 @@ paramOrder: 'param1|param2|param'
     },
     // private
     createCallback : function(action, reader, callback, scope, arg) {
-        return {
-            callback: (action == Ext.data.Api.READ) ? function(result, e){
+        return (action == Ext.data.Api.READ) ? function(result, e){
                 if (!e.status) {
                     this.fireEvent(action+"exception", this, e, result);
                     callback.call(scope, null, arg, false);
@@ -96,8 +95,6 @@ paramOrder: 'param1|param2|param'
                 }
                 this.fireEvent("write", this, action, result, e, arg);
                 callback.call(scope, result, e, true);
-            },
-            scope: this
-        }
+            }
     }
 });
