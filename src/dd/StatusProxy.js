@@ -73,7 +73,7 @@ Ext.dd.StatusProxy.prototype = {
         }
         var el = this.ghost.dom.firstChild; 
         if(el){
-            Ext.fly(el).setStyle(Ext.isIE ? 'styleFloat' : 'cssFloat', 'none');
+            Ext.fly(el).setStyle('float', 'none');
         }
     },
 
