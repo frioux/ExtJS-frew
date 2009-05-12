@@ -88,8 +88,8 @@ Ext.Ajax.request({
     url: 'gen-invoice-grid.php',
     // send additional parameters to instruct server script
     params: {
-        startDate = Ext.getCmp('start-date').getValue(),
-        endDate = Ext.getCmp('end-date').getValue()
+        startDate: Ext.getCmp('start-date').getValue(),
+        endDate: Ext.getCmp('end-date').getValue()
     },
     // process the response object to add it to the TabPanel:
     success: function(xhr) {
