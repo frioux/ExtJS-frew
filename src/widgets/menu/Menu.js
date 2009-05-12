@@ -228,12 +228,25 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         Ext.menu.Menu.superclass.initComponent.call(this);
         if(this.autoLayout){
             this.on({
-                add: this.doLayout,
-                remove: this.doLayout,
+                add: this.onItemChange,
+                remove: this.onItemChange,
                 scope: this
             });
         }
         //Ext.EventManager.onWindowResize(this.hide, this);
+    },
+    
+    onItemChange: function(){
+        this.doLayout();
+        if(this.isVisible()){
+            if(this.enableScrolling){
+                this.constrainScroll(this.el.getTop());
+            }
+            if(Ext.isIE){
+              this.layout.doAutoSize();
+            }
+            this.el.sync();
+        }
     },
 
     //private
