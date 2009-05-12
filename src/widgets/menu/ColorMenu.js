@@ -27,8 +27,9 @@
         Ext.apply(this, {
             plain: true,
             showSeparator: false,
-            items: this.palette = new Ext.ColorPalette(Ext.apply(this.initialConfig, {listeners: null}))
+            items: this.palette = new Ext.ColorPalette(this.initialConfig)
         });
+        this.palette.purgeListeners();
         Ext.menu.ColorMenu.superclass.initComponent.call(this);
         this.relayEvents(this.palette, ['select']);
     },
