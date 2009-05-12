@@ -1043,7 +1043,7 @@ var myGrid = new Ext.grid.EditorGridPanel({
 
     // private
     getAutoCreate : function(){
-        var cfg = typeof this.autoCreate == "object" ?
+        var cfg = Ext.isObject(this.autoCreate) ?
                       this.autoCreate : Ext.apply({}, this.defaultAutoCreate);
         if(this.id && !cfg.id){
             cfg.id = this.id;
@@ -1219,12 +1219,7 @@ new Ext.Panel({
 
     // private
     onShow : function(){
-        if(this.hideParent){
-            this.container.removeClass('x-hide-' + this.hideMode);
-        }else{
-            this.getActionEl().removeClass('x-hide-' + this.hideMode);
-        }
-
+        this.getVisibiltyEl().removeClass('x-hide-' + this.hideMode);
     },
 
     /**
@@ -1244,11 +1239,12 @@ new Ext.Panel({
 
     // private
     onHide : function(){
-        if(this.hideParent){
-            this.container.addClass('x-hide-' + this.hideMode);
-        }else{
-            this.getActionEl().addClass('x-hide-' + this.hideMode);
-        }
+        this.getVisibiltyEl().addClass('x-hide-' + this.hideMode);
+    },
+    
+    // private
+    getVisibiltyEl: function(){
+        return this.hideParent ? this.container : this.getActionEl();    
     },
 
     /**
@@ -1265,7 +1261,7 @@ new Ext.Panel({
      * @return {Boolean} True if this component is visible, false otherwise.
      */
     isVisible : function(){
-        return this.rendered && this.getActionEl().isVisible();
+        return this.rendered && this.getVisibiltyEl().isVisible();
     },
 
     /**
