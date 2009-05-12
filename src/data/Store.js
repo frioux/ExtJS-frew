@@ -710,7 +710,9 @@ sortInfo: {
         }
         else {
             // if rs has just a single recoractiond, shift it off so that Writer writes data as "{}" rather than "[{}]"
-            rs = (rs.length > 1) ? rs : rs.shift();
+            if (Ext.isArray(rs) && rs.length == 1) {
+                rs = rs.shift();
+            }
 
             // Write the action to options.params
             if (doRequest = this.fireEvent('beforewrite', this, action, rs, options) !== false) {
@@ -718,8 +720,7 @@ sortInfo: {
             }
         }
         if (doRequest !== false) {
-            // Send request to proxy.  The big Ext.apply as 3rd arg here is simply building the request-params
-            // and applying the xaction parameter.
+            // Send request to proxy.
             var params = Ext.apply(options.params || {}, this.baseParams);
             if (this.writer && !this.proxy.isApiAction(action)) {
                 params.xaction = action;
