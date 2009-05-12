@@ -34,6 +34,7 @@
             plain: true,
             showSeparator: false,
             items: this.picker = new Ext.DatePicker(Ext.apply({
+                listeners: null,
                 internalRender: this.strict || !Ext.isIE,
                 ctCls: 'x-menu-date-item'
             }, this.initialConfig))
