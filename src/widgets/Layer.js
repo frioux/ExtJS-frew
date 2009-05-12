@@ -10,7 +10,7 @@
  * @cfg {Boolean} constrain False to disable constrain to viewport (defaults to true)
  * @cfg {String} cls CSS class to add to the element
  * @cfg {Number} zindex Starting z-index (defaults to 11000)
- * @cfg {Number} shadowOffset Number of pixels to offset the shadow (defaults to 3)
+ * @cfg {Number} shadowOffset Number of pixels to offset the shadow (defaults to 4)
  * @constructor
  * @param {Object} config An object with config options.
  * @param {String/HTMLElement} existingEl (optional) Uses an existing DOM element. If the element is not found it creates it.
