@@ -65,7 +65,7 @@ paramOrder: 'param1|param2|param'
                 args.push(params[reader.meta.root]);        // <-- destroy(Int/Int[])
                 break;
         }
-        args.push(this.createCallback(action, reader, callback, scope, options));
+        args.push(this.createCallback(action, reader, callback, scope, options), this);
         directFn.apply(window, args);
     },
     // private
