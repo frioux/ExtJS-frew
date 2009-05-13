@@ -166,30 +166,8 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
 
 //      Generate extraction functions for the totalProperty, the root, the id, and for each field
         if (!this.ef) {
-            if(s.totalProperty) {
-                this.getTotal = this.getJsonAccessor(s.totalProperty);
-            }
-            if(s.successProperty) {
-                this.getSuccess = this.getJsonAccessor(s.successProperty);
-            }
-            this.getRoot = s.root ? this.getJsonAccessor(s.root) : function(p){return p;};
-            if (s.id || s.idProperty) {
-                var g = this.getJsonAccessor(s.id || s.idProperty);
-                this.getId = function(rec) {
-                    var r = g(rec);
-                    return (r === undefined || r === "") ? null : r;
-                };
-            } else {
-                this.getId = function(){return null;};
-            }
-            this.ef = [];
-            for(var i = 0; i < fl; i++){
-                f = fi[i];
-                var map = (f.mapping !== undefined && f.mapping !== null) ? f.mapping : f.name;
-                this.ef[i] = this.getJsonAccessor(map);
-            }
+            this.ef = this.generateExtractionFn(s, f, fi, fl);
         }
-
         var root = this.getRoot(o), c = root.length, totalRecords = c, success = true;
         if(s.totalProperty){
             var v = parseInt(this.getTotal(o), 10);
@@ -218,6 +196,35 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
         };
     },
 
+    generateExtractionFn : function() {
+        var s = this.meta, Record = this.recordType,
+            f = Record.prototype.fields, fi = f.items, fl = f.length;
+
+        if(s.totalProperty) {
+            this.getTotal = this.getJsonAccessor(s.totalProperty);
+        }
+        if(s.successProperty) {
+            this.getSuccess = this.getJsonAccessor(s.successProperty);
+        }
+        this.getRoot = s.root ? this.getJsonAccessor(s.root) : function(p){return p;};
+        if (s.id || s.idProperty) {
+            var g = this.getJsonAccessor(s.id || s.idProperty);
+            this.getId = function(rec) {
+                var r = g(rec);
+                return (r === undefined || r === "") ? null : r;
+            };
+        } else {
+            this.getId = function(){return null;};
+        }
+        var ef = [];
+        for(var i = 0; i < fl; i++){
+            f = fi[i];
+            var map = (f.mapping !== undefined && f.mapping !== null) ? f.mapping : f.name;
+            ef.push(this.getJsonAccessor(map));
+        }
+        return ef;
+    },
+
     // private extractValues
     extractValues: function(data, items, len) {
         var f, values = {};
@@ -244,8 +251,13 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
         if (Ext.isEmpty(o[this.meta.successProperty])) {
             throw new Ext.data.JsonReader.Error('success', 'JsonReader.js', this.meta.successProperty);
         }
+        // TODO, separate empty and undefined exceptions.
         else if ((action == Ext.data.Api.CREATE || action == Ext.data.Api.UPDATE) && Ext.isEmpty(o[this.meta.root])) {
             throw new Ext.data.JsonReader.Error('root', 'JsonReader.js', this.meta.root);
+        }
+        // makde sure extaction functions are defined.
+        if (!this.ef) {
+            this.ef = this.generateExtractionFn();
         }
         return o;
     }
