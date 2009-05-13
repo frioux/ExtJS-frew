@@ -166,7 +166,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
 
 //      Generate extraction functions for the totalProperty, the root, the id, and for each field
         if (!this.ef) {
-            this.ef = this.buildExtractionFn();
+            this.ef = this.buildExtractors();
         }
         var root = this.getRoot(o), c = root.length, totalRecords = c, success = true;
         if(s.totalProperty){
@@ -197,7 +197,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
     },
 
     // private
-    buildExtractionFn : function() {
+    buildExtractors : function() {
         var s = this.meta, Record = this.recordType,
             f = Record.prototype.fields, fi = f.items, fl = f.length;
 
@@ -258,7 +258,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
         }
         // makde sure extaction functions are defined.
         if (!this.ef) {
-            this.ef = this.buildExtractionFn();
+            this.ef = this.buildExtractors();
         }
         return o;
     }
