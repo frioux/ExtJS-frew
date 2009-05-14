@@ -50,7 +50,7 @@ Ext.data.ArrayReader = Ext.extend(Ext.data.JsonReader, {
     readRecords : function(o){
         this.arrayData = o;
         var s = this.meta;
-        var sid = s ? (s.idIndex || s.id) : null;
+        var sid = s ? ((typeof s.idIndex == 'number') ? s.idIndex : s.id) : null;
     	var recordType = this.recordType, fields = recordType.prototype.fields;
     	var records = [];
 
