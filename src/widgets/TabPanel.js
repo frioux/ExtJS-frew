@@ -636,11 +636,11 @@ new Ext.TabPanel({
     /**
      * Gets the DOM element for the tab strip item which activates the child panel with the specified
      * ID. Access this to change the visual treatment of the item, for example by changing the CSS class name.
-     * @param {Panel/Number} tab The tab component, or the tab's index
+     * @param {Panel/Number/String} tab The tab component, or the tab's index, or the tabs id or itemId.
      * @return {HTMLElement} The DOM node
      */
     getTabEl : function(item){
-        var itemId = (typeof item === 'number')?this.items.items[item].getItemId() : item.getItemId();
+        var itemId = (Ext.isObject(item) ? item : this.getComponent(item)).getItemId();
         return document.getElementById(this.id+this.idDelimiter+itemId);
     },
 
