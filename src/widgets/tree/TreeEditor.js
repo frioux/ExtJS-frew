@@ -101,7 +101,7 @@ Ext.extend(Ext.tree.TreeEditor, Ext.Editor, {
             }
             var value = node.text || '';
             if (!Ext.isGecko && Ext.isEmpty(node.text)){
-                node.setText('&nbsp;');
+                node.setText('&#160;');
             }
             this.autoEditTimer = this.startEdit.defer(this.editDelay, this, [node.ui.textNode, value]);
             return false;

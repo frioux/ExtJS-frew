@@ -673,7 +673,7 @@ viewConfig: {
         if(!this.ds || !this.cm){
             return;
         }
-        this.mainBody.dom.innerHTML = this.renderRows() || '&nbsp;';
+        this.mainBody.dom.innerHTML = this.renderRows() || '&#160;';
         this.processRows(0, true);
 
         if(this.deferEmptyText !== true){
@@ -685,7 +685,7 @@ viewConfig: {
     renderUI : function(){
 
         var header = this.renderHeaders();
-        var body = this.templates.body.apply({rows:'&nbsp;'});
+        var body = this.templates.body.apply({rows:'&#160;'});
 
 
         var html = this.templates.master.apply({
@@ -1177,7 +1177,7 @@ viewConfig: {
 
     // private
     renderBody : function(){
-        var markup = this.renderRows() || '&nbsp;';
+        var markup = this.renderRows() || '&#160;';
         return this.templates.body.apply({rows: markup});
     },
 

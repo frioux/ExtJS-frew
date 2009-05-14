@@ -484,12 +484,12 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
                 top: this.el.insertFirst({
                     tag: 'div',
                     cls: 'x-menu-scroller x-menu-scroller-top',
-                    html: '&nbsp;'
+                    html: '&#160;'
                 }),
                 bottom: this.el.createChild({
                     tag: 'div',
                     cls: 'x-menu-scroller x-menu-scroller-bottom',
-                    html: '&nbsp;'
+                    html: '&#160;'
                 })
             };
             this.scroller.top.hover(this.onScrollerIn, this.onScrollerOut, this);
