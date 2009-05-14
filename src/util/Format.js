@@ -259,10 +259,10 @@ Ext.util.Format = function(){
             if(!format){
 		        return v;
 		    }
-		    v *= 1;
-		    if(typeof v != 'number' || isNaN(v)){
-		        return '';
-		    }
+		    v = Ext.num(v, NaN);
+            if (isNaN(v)){
+                return '';
+            }
 		    var comma = ',',
 		        dec = '.',
 		        i18n = false,
