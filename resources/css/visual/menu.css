@@ -26,6 +26,7 @@ a.x-menu-item {
 }
 
 .x-menu-item-active {
+    background-image: url(../images/default/menu/item-over.gif);
 	background-color: #dbecf4;
     border-color:#aaccf6;
 }
