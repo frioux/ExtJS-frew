@@ -419,7 +419,7 @@ items: [
 
     // private - used as the key lookup function for the items collection
     getComponentId : function(comp){
-        return c.getItemId();
+        return comp.getItemId();
     },
 
     /**
