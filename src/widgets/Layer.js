@@ -61,7 +61,7 @@ var shims = [];
 Ext.extend(Ext.Layer, Ext.Element, {
 
     getZIndex : function(){
-        return this.zindex || parseInt(this.getStyle("z-index"), 10) || 11000;
+        return this.zindex || parseInt((this.getShim() || this).getStyle("z-index"), 10) || 11000;
     },
 
     getShim : function(){
