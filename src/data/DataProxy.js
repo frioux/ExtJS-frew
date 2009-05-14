@@ -113,10 +113,9 @@ myStore.on({
     }
     else {
         this.api = {};
-        this.api[Ext.data.Api.CREATE]     = undefined;
-        this.api[Ext.data.Api.READ]       = undefined;
-        this.api[Ext.data.Api.UPDATE]     = undefined;
-        this.api[Ext.data.Api.DESTROY]    = undefined;
+        Ext.each(Ext.data.Api.getVerbs(), function(verb){
+            this.api[verb] = undefined;
+        }, this);
     }
 
     this.addEvents(
@@ -253,6 +252,13 @@ proxy.setApi(Ext.data.Api.READ, '/users/new_load_url');
         // If we're executing here, the action is probably "load".
         // Call with the pre-3.0 method signature.
         this[action](params, reader, callback, scope, options);
+    },
+    
+    /**
+     * Destroys the proxy by purging any event listeners and cancelling any active requests.
+     */
+    destroy: function(){
+        this.purgeListeners();
     }
 });
 

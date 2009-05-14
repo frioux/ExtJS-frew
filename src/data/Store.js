@@ -442,6 +442,8 @@ sortInfo: {
             Ext.StoreMgr.unregister(this);
         }
         this.data = null;
+        Ext.destroy(this.proxy);
+        this.reader = this.writer = null;
         this.purgeListeners();
     },
 

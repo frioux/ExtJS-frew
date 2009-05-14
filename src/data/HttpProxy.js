@@ -41,10 +41,9 @@ Ext.data.HttpProxy = function(conn){
 
     //private.  A hash containing active requests, keyed on action [Ext.data.Api.CREATE|READ|UPDATE|DESTROY]
     this.activeRequest = {};
-    var verbs = Ext.data.Api.getVerbs();
-    for (var n=0,len=verbs.length;n<len;n++) {
-        this.activeRequest[verbs[n]] = undefined; // <-- initialize availale activeRequest verbs.
-    }
+    Ext.each(Ext.data.Api.getVerbs(), function(verb){
+        this.activeRequest[verb] = undefined;
+    }, this);
 
     /**
      * @event loadexception
@@ -269,5 +268,19 @@ api: {
                 o.request.callback.call(o.request.scope, res[reader.meta.root], res, true);
 
             }
+    },
+    
+    // inherit docs
+    destroy: function(){
+        if(!this.useAjax){
+            this.conn.abort();
+        }else if(this.activeRequest){
+            Ext.each(Ext.data.Api.getVerbs(), function(verb){
+                if(this.activeRequest[verb]){
+                    Ext.Ajax.abort(this.activeRequest[verb]);
+                }
+            }, this);
+        }
+        Ext.data.HttpProxy.superclass.destroy.call(this);
     }
 });

@@ -221,5 +221,11 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
             this.fireEvent("writeexception", this, trans.action, null, trans.arg);
         }
         trans.callback.call(trans.scope||window, null, trans.arg, false);
+    },
+    
+    // inherit docs
+    destroy: function(){
+        this.abort();
+        Ext.data.ScriptTagProxy.superclass.destroy.call(this);
     }
 });
