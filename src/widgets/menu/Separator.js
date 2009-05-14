@@ -20,6 +20,12 @@ Ext.extend(Ext.menu.Separator, Ext.menu.BaseItem, {
      * @cfg {Boolean} hideOnClick True to hide the containing menu after this item is clicked (defaults to false)
      */
     hideOnClick : false,
+    
+    /** 
+     * @cfg {String} activeClass
+     * @hide 
+     */
+    activeClass: '',
 
     // private
     onRender : function(li){
