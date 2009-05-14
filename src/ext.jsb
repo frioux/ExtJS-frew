@@ -177,8 +177,6 @@
     <include name="widgets\menu\Separator.js" />
     <include name="widgets\menu\Item.js" />
     <include name="widgets\menu\CheckItem.js" />
-    <include name="widgets\menu\DateItem.js" />
-    <include name="widgets\menu\ColorItem.js" />
     <include name="widgets\menu\DateMenu.js" />
     <include name="widgets\menu\ColorMenu.js" />
     <include name="widgets\form\Field.js" />
@@ -295,11 +293,8 @@
   <file name="layout\LayoutRegion.js" path="layout" />
   <file name="layout\LayoutStateManager.js" path="layout" />
   <file name="layout\SplitLayoutRegion.js" path="layout" />
-  <file name="menu\Adapter.js" path="menu" />
   <file name="menu\BaseItem.js" path="menu" />
   <file name="menu\CheckItem.js" path="menu" />
-  <file name="menu\ColorItem.js" path="menu" />
-  <file name="menu\DateItem.js" path="menu" />
   <file name="menu\DateMenu.js" path="menu" />
   <file name="menu\Item.js" path="menu" />
   <file name="menu\Menu.js" path="menu" />
@@ -356,9 +351,6 @@
     <include name="widgets\menu\Separator.js" />
     <include name="widgets\menu\Item.js" />
     <include name="widgets\menu\CheckItem.js" />
-    <include name="widgets\menu\Adapter.js" />
-    <include name="widgets\menu\DateItem.js" />
-    <include name="widgets\menu\ColorItem.js" />
     <include name="widgets\menu\DateMenu.js" />
     <include name="widgets\menu\ColorMenu.js" />
   </target>
@@ -820,12 +812,9 @@
   <file name="widgets\list\ColumnResizer.js" path="widgets\list" />
   <file name="widgets\list\ListView.js" path="widgets\list" />
   <file name="widgets\list\Sorter.js" path="widgets\list" />
-  <file name="widgets\menu\Adapter.js" path="widgets\menu" />
   <file name="widgets\menu\BaseItem.js" path="widgets\menu" />
   <file name="widgets\menu\CheckItem.js" path="widgets\menu" />
-  <file name="widgets\menu\ColorItem.js" path="widgets\menu" />
   <file name="widgets\menu\ColorMenu.js" path="widgets\menu" />
-  <file name="widgets\menu\DateItem.js" path="widgets\menu" />
   <file name="widgets\menu\DateMenu.js" path="widgets\menu" />
   <file name="widgets\menu\Item.js" path="widgets\menu" />
   <file name="widgets\menu\Menu.js" path="widgets\menu" />
