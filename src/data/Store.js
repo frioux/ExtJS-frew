@@ -483,14 +483,16 @@ sortInfo: {
      */
     remove : function(record){
         var index = this.data.indexOf(record);
-        this.data.removeAt(index);
-        if(this.pruneModifiedRecords){
-            this.modified.remove(record);
+        if(index > -1){
+            this.data.removeAt(index);
+            if(this.pruneModifiedRecords){
+                this.modified.remove(record);
+            }
+            if(this.snapshot){
+                this.snapshot.remove(record);
+            }
+            this.fireEvent("remove", this, record, index);
         }
-        if(this.snapshot){
-            this.snapshot.remove(record);
-        }
-        this.fireEvent("remove", this, record, index);
     },
 
     /**
