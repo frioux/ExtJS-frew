@@ -86,6 +86,8 @@ a.x-menu-item {
 }
 
 .x-menu-item-active {
+    background-repeat: repeat-x;
+    background-position: left bottom;
     border-style:solid;
     border-width: 1px 0;
     margin:0 1px;
