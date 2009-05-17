@@ -706,9 +706,9 @@ function(grid, rowIndex, columnIndex, e) {
 
     /**
      * Returns the grid's SelectionModel.
-     * @return {Ext.grid.AbstractSelectionModel SelectionModel} The selection model configured by the
-     * @link (#selModel} configuration option. This will be a subclass of {Ext.grid.AbstractSelectionModel}
-     * which provides either cell or row selectability.
+     * @return {SelectionModel} The selection model configured by the @link (#selModel} configuration option.
+     * This will be a subclass of {@link Ext.grid.AbstractSelectionModel} which provides either cell or row
+     * selectability. If no selection model was configured, this will return a {@link Ext.grid.RowSelectionModel RowSelectionModel}.
      */
     getSelectionModel : function(){
         if(!this.selModel){
