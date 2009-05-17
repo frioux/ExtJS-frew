@@ -313,7 +313,7 @@ Ext.ux.Multiselect = Ext.extend(Ext.form.Field,  {
         this.fs.destroy();
         if (this.dragZone && this.dragZone.destroy) this.dragZone.destroy();
         if (this.dropZone && this.dropZone.destroy) this.dropZone.destroy();
-        Ext.ux.Multiselector.superclass.destroy.call(this);
+        Ext.ux.Multiselect.superclass.destroy.call(this);
     }
 });
 
