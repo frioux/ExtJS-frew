@@ -493,26 +493,8 @@ var form = new Ext.form.FormPanel({
 
     // private
     adjustWidth : function(tag, w){
-        tag = tag.toLowerCase();
-        if(typeof w == 'number' && !Ext.isWebKit && !this.normalWidth){
-            if(Ext.isIE && (tag == 'input' || tag == 'textarea')){
-                if(tag == 'input' && !Ext.isStrict){
-                    return this.inEditor ? w : w - 3;
-                }
-                if(tag == 'input' && Ext.isStrict){
-                    return w - (Ext.isIE6 ? 4 : 1);
-                }
-                if(tag == 'textarea' && Ext.isStrict){
-                    return w-2;
-                }
-            }else if(Ext.isOpera && Ext.isStrict){
-                if(tag == 'input'){
-                    return w + 2;
-                }
-                if(tag == 'textarea'){
-                    return w-2;
-                }
-            }
+        if(typeof w == 'number' && (Ext.isIE && (Ext.isIE6 || !Ext.isStrict)) && /input|textarea/i.test(tag) && !this.inEditor){
+            return w - 3;
         }
         return w;
     }
