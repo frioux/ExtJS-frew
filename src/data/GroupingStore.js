@@ -46,6 +46,10 @@ Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
             if(this.baseParams){
                 delete this.baseParams.groupBy;
             }
+            var lo = this.lastOptions;
+            if(lo && lo.params){
+                delete lo.params.groupBy;
+            }
             this.reload();
         }else{
             this.applySort();
@@ -90,8 +94,8 @@ Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
             if(!this.baseParams){
                 this.baseParams = {};
             }
-            this.baseParams['groupBy'] = this.groupField;
-            this.baseParams['groupDir'] = this.groupDir;
+            this.baseParams.groupBy = this.groupField;
+            this.baseParams.groupDir = this.groupDir;
         }
     },
 
