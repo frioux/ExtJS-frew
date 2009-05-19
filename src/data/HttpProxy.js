@@ -243,8 +243,6 @@ api: {
             // callbacks for all others:  create, save, destroy
             : function(o, success, response) {
                 this.activeRequest[action] = undefined;
-                var reader = o.reader;
-                var res;
 
                 // blow up on 500
                 if (!success) {
@@ -252,6 +250,8 @@ api: {
                     o.request.callback.call(o.request.scope, null, response, false);
                     return false;
                 }
+                var reader = o.reader;
+                var res;
                 try {
                     res = reader.readResponse(action, response);
                 } catch (e) {
@@ -271,7 +271,7 @@ api: {
 
             }
     },
-    
+
     // inherit docs
     destroy: function(){
         if(!this.useAjax){
