@@ -314,12 +314,12 @@ Ext.Toolbar = function(config){
     if(Ext.isArray(config)){
         config = {items: config, layout: 'toolbar'};
     } else {
-    	config = Ext.apply({
-    		layout: 'toolbar'
-    	}, config);
-	    if(config.buttons) {
-	    	config.items = config.buttons;
-	    }
+        config = Ext.apply({
+            layout: 'toolbar'
+        }, config);
+        if(config.buttons) {
+            config.items = config.buttons;
+        }
     }
     Ext.Toolbar.superclass.constructor.call(this, config);
 };
@@ -430,7 +430,7 @@ Ext.extend(T, Ext.Container, {
      * Forces subsequent additions into the float:right toolbar
      */
     addFill : function(){
-    	this.addItem(new T.Fill());
+        this.addItem(new T.Fill());
     },
 
     /**
@@ -439,7 +439,7 @@ Ext.extend(T, Ext.Container, {
      * @return {Ext.Toolbar.Item} The element's item
      */
     addElement : function(el){
-    	var item = new T.Item({el:el});
+        var item = new T.Item({el:el});
         this.addItem(item);
         return item;
     },
@@ -450,8 +450,8 @@ Ext.extend(T, Ext.Container, {
      * @return {Ext.Toolbar.Item} The item
      */
     addItem : function(item){
-    	Ext.Toolbar.superclass.add.apply(this, arguments);
-    	return item;
+        Ext.Toolbar.superclass.add.apply(this, arguments);
+        return item;
     },
 
     /**
@@ -481,7 +481,7 @@ Ext.extend(T, Ext.Container, {
     // private
     initMenuTracking : function(item){
         if(this.trackMenus && item.menu){
-        	this.mon(item, {
+            this.mon(item, {
                 'menutriggerover' : this.onButtonTriggerOver,
                 'menushow' : this.onButtonMenuShow,
                 'menuhide' : this.onButtonMenuHide,
@@ -496,7 +496,7 @@ Ext.extend(T, Ext.Container, {
      * @return {Ext.Toolbar.Item} The element's item
      */
     addText : function(text){
-    	var t = new T.TextItem(text);
+        var t = new T.TextItem(text);
         this.addItem(t);
         return t;
     },
@@ -529,7 +529,7 @@ Ext.extend(T, Ext.Container, {
      * @return {Ext.Toolbar.Item} The element's item
      */
     addDom : function(config){
-    	var item = new T.Item({autoEl: config});
+        var item = new T.Item({autoEl: config});
         this.addItem(item);
         return item;
     },
@@ -541,8 +541,8 @@ Ext.extend(T, Ext.Container, {
      * @return {Ext.Toolbar.Item}
      */
     addField : function(field){
-    	this.addItem(field);
-    	return field;
+        this.addItem(field);
+        return field;
     },
 
     applyDefaults : function(c){
@@ -621,11 +621,11 @@ Ext.reg('tbitem', T.Item);
  * (css class:<tt>'xtb-sep'</tt>). Example usage:
  * <pre><code>
 new Ext.Panel({
-	tbar : [
-		'Item 1',
-		{xtype: 'tbseparator'}, // or '-'
-		'Item 2'
-	]
+    tbar : [
+        'Item 1',
+        {xtype: 'tbseparator'}, // or '-'
+        'Item 2'
+    ]
 });
 </code></pre>
  * @constructor
@@ -651,14 +651,14 @@ Ext.reg('tbseparator', T.Separator);
  * <p>Example usage:</p>
  * <pre><code>
 new Ext.Panel({
-	tbar : [
-		'Item 1',
-		{xtype: 'tbspacer'}, // or ' '
-		'Item 2',
-		// space width is also configurable via javascript
-		{xtype: 'tbspacer', width: 50}, // add a 50px space
-		'Item 3'        
-	]
+    tbar : [
+        'Item 1',
+        {xtype: 'tbspacer'}, // or ' '
+        'Item 2',
+        // space width is also configurable via javascript
+        {xtype: 'tbspacer', width: 50}, // add a 50px space
+        'Item 3'        
+    ]
 });
 </code></pre>
  * @constructor
@@ -684,11 +684,11 @@ Ext.reg('tbspacer', T.Spacer);
  * the right-justified button container.
  * <pre><code>
 new Ext.Panel({
-	tbar : [
-		'Item 1',
-		{xtype: 'tbfill'}, // or '->'
-		'Item 2'
-	]
+    tbar : [
+        'Item 1',
+        {xtype: 'tbfill'}, // or '->'
+        'Item 2'
+    ]
 });
 </code></pre>
  * @constructor
@@ -709,9 +709,9 @@ Ext.reg('tbfill', T.Fill);
  * (css class:<tt>'xtb-text'</tt>). Example usage:
  * <pre><code>
 new Ext.Panel({
-	tbar : [
-		{xtype: 'tbtext', text: 'Item 1'} // or simply 'Item 1'
-	]
+    tbar : [
+        {xtype: 'tbtext', text: 'Item 1'} // or simply 'Item 1'
+    ]
 });
 </code></pre>
  * @constructor
@@ -720,20 +720,24 @@ new Ext.Panel({
  * @xtype tbtext
  */
 T.TextItem = Ext.extend(T.Item, {
-	constructor: function(config){
-		if (typeof config == 'string') {
-			config = { autoEl: {cls: 'xtb-text', html: config }};
-		} else {
-			config.autoEl = {cls: 'xtb-text', html: config.text || ''};
-		}
-	    T.TextItem.superclass.constructor.call(this, config);
-	},
+    constructor: function(config){
+        if (typeof config == 'string') {
+            config = { autoEl: {cls: 'xtb-text', html: config }};
+        } else {
+            config.autoEl = {cls: 'xtb-text', html: config.text || ''};
+        }
+        T.TextItem.superclass.constructor.call(this, config);
+    },
+    /**
+     * Updates this item's text.
+     * @param {String} t The text to display.
+     */
     setText: function(t) {
-    	if (this.rendered) {
-    		this.el.dom.innerHTML = t;
-    	} else {
-    		this.autoEl.html = t;
-    	}
+        if (this.rendered) {
+            this.el.dom.innerHTML = t;
+        } else {
+            this.autoEl.html = t;
+        }
     }
 });
 Ext.reg('tbtext', T.TextItem);
@@ -840,7 +844,6 @@ Ext.ButtonGroup = Ext.extend(Ext.Panel, {
     /**
      * @cfg {Array} tools  @hide
      */
-   
 });
 
 Ext.reg('buttongroup', Ext.ButtonGroup);
