@@ -105,7 +105,7 @@ Ext.layout.ContainerLayout.prototype = {
         if (this.renderHidden && c != this.activeItem) {
             c.hide();
         }
-        if(position !== undefined){
+        if(position !== undefined && c.doLayout){
             c.doLayout(false, true);
         }
     },
