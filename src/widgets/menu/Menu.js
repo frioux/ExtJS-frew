@@ -228,25 +228,12 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         Ext.menu.Menu.superclass.initComponent.call(this);
         if(this.autoLayout){
             this.on({
-                add: this.onItemChange,
-                remove: this.onItemChange,
+                add: this.doLayout,
+                remove: this.doLayout,
                 scope: this
             });
         }
         //Ext.EventManager.onWindowResize(this.hide, this);
-    },
-    
-    onItemChange: function(){
-        this.doLayout();
-        if(this.isVisible()){
-            if(this.enableScrolling){
-                this.constrainScroll(this.el.getTop());
-            }
-            if(Ext.isIE){
-              this.layout.doAutoSize();
-            }
-            this.el.sync();
-        }
     },
 
     //private
@@ -425,6 +412,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         this.parentMenu = parentMenu;
         if(!this.el){
             this.render();
+            this.doLayout(false, true);
         }
         this.fireEvent("beforeshow", this);
         this.showAt(this.el.getAlignToXY(el, pos || this.defaultAlign), parentMenu, false);
@@ -444,12 +432,12 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
             this.fireEvent("beforeshow", this);
             xy = this.el.adjustForConstraints(xy);
         }
-        Ext.menu.Menu.superclass.onShow.call(this);
         this.el.setXY(xy);
         if(this.enableScrolling){
             this.constrainScroll(xy[1]);     
         }
         this.el.show();
+        Ext.menu.Menu.superclass.onShow.call(this);
         if(Ext.isIE){
            this.layout.doAutoSize();
         }
@@ -504,6 +492,18 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
                     click: this.onScroll.createDelegate(this, [null, this.scroller.bottom], false)
                 }
             });
+        }
+    },
+    
+    onLayout: function(){
+        if(this.isVisible()){
+            if(this.enableScrolling){
+                this.constrainScroll(this.el.getTop());
+            }
+            if(Ext.isIE){
+              this.layout.doAutoSize();
+            }
+            this.el.sync();
         }
     },
 

@@ -85,26 +85,28 @@ Ext.layout.ContainerLayout.prototype = {
     renderItem : function(c, position, target){
         if(c && !c.rendered){
             c.render(target, position);
-            if(this.extraCls){
-            	var t = c.getPositionEl ? c.getPositionEl() : c;
-            	t.addClass(this.extraCls);
-            }
-            if (this.renderHidden && c != this.activeItem) {
-                c.hide();
-            }
+            this.configureItem(c, position);
         }else if(c && !this.isValidParent(c, target)){
-            if(this.extraCls){
-                var t = c.getPositionEl ? c.getPositionEl() : c;
-            	t.addClass(this.extraCls);
-            }
             if(typeof position == 'number'){
                 position = target.dom.childNodes[position];
             }
             target.dom.insertBefore(c.getDomPositionEl().dom, position || null);
             c.container = target;
-            if (this.renderHidden && c != this.activeItem) {
-                c.hide();
-            }
+            this.configureItem(c, position);
+        }
+    },
+    
+    // private
+    configureItem: function(c, position){
+        if(this.extraCls){
+            var t = c.getPositionEl ? c.getPositionEl() : c;
+            t.addClass(this.extraCls);
+        }
+        if (this.renderHidden && c != this.activeItem) {
+            c.hide();
+        }
+        if(position !== undefined){
+            c.doLayout(false, true);
         }
     },
 

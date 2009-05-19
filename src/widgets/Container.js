@@ -657,30 +657,47 @@ tb.{@link #doLayout}();             // refresh the layout
      * to an already rendered container, or possibly after changing sizing/position properties of child components.
      * @param {Boolean} shallow (optional) True to only calc the layout of this component, and let child components auto
      * calc layouts as required (defaults to false, which calls doLayout recursively for each subcontainer)
+     * @param {Boolean} force (optional) True to force a layout to occur, even if the item is hidden.
      * @return {Ext.Container} this
      */
-    doLayout : function(shallow){
+    doLayout: function(shallow, force){
         var rendered = this.rendered;
+        if(!this.isVisible() || this.collapsed){
+            if(!force){
+                this.deferLayout = this.deferLayout || !shallow;
+                return;
+            }else{
+                delete this.deferLayout;
+            }
+        }
+        shallow = shallow && !this.deferLayout;
+        delete this.deferLayout;
         if(rendered && this.layout){
             this.layout.layout();
         }
         if(shallow !== false && this.items){
             var cs = this.items.items;
-            for(var i = 0, len = cs.length; i < len; i++) {
-                var c  = cs[i];
+            for(var i = 0, len = cs.length; i < len; i++){
+                var c = cs[i];
                 if(c.doLayout){
                     c.doLayout();
                 }
             }
         }
         if(rendered){
-            this.onLayout(shallow)
+            this.onLayout(shallow, force);
         }
-        return this;
     },
     
     //private
     onLayout: Ext.emptyFn,
+    
+    onShow: function(){
+        Ext.Container.superclass.onShow.call(this);
+        if(this.deferLayout !== undefined){
+            this.doLayout(true);
+        }
+    },
 
     /**
      * Returns the layout currently in use by the container.  If the container does not currently have a layout

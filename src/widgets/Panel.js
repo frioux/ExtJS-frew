@@ -1382,9 +1382,12 @@ new Ext.Panel({
     },
 
     // private
-    afterExpand : function(){
+    afterExpand: function(){
         this.collapsed = false;
         this.afterEffect();
+        if(this.deferLayout !== undefined){
+            this.doLayout(true);
+        }
         this.fireEvent('expand', this);
     },
 
