@@ -281,9 +281,7 @@ var grid = new Ext.grid.EditorGridPanel({
         /**
          * @event write
          * fires when server returns 200 after Ext.data.CREATE, UPDATE and DESTROY.  Check the res['successProperty'] of the Response
-         * parameter for action's success/fail.
-         * @TODO We can probably get rid of all other write-action events (ie: beforesave, save, saveexecption, beforecreate, create, createexception, etc)
-         *  in favor of this one "write" event.
+         * parameter for action's success/fail.  The server-code might set the successProperty to false if a database validation failed, for example.
          * @param {Extd.data.Store} store
          * @param {String} action [Ext.data.Api.CREATE|UPDATE|DESTROY]
          * @param {Object} result The "data" picked-out out of the response for convenience.
@@ -293,12 +291,11 @@ var grid = new Ext.grid.EditorGridPanel({
         'write',
         /**
          * @event writeexception
-         * Fires when an exception occurred while writing remote-data.
-         * @param {Extd.data.Store} store
+         * Fires when a server-exception occurred while writing remote-data.
+         * @param {Ext.data.DataProxy} proxy
          * @param {String} action [Ext.data.Api.CREATE|UPDATE|DESTROY]
          * @param {Object} result null
-         * @param {Ext.Direct.Transaction} res
-         * @param {Record/Record[]} rs Store's records, the subject(s) of the write-action
+         * @param {Object} response The raw http response object
          */
         'writeexception'
     );

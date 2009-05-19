@@ -246,26 +246,28 @@ api: {
                 var reader = o.reader;
                 var res;
 
+                // blow up on 500
+                if (!success) {
+                    this.fireEvent("writeexception", this, action, o, response);
+                    o.request.callback.call(o.request.scope, null, response, false);
+                    return false;
+                }
                 try {
                     res = reader.readResponse(action, response);
                 } catch (e) {
+                    // blow up on error reading response
                     if (e instanceof Ext.Error) {
                         e.toConsole();
                     }
                     else {
                         throw e;
                     }
-                    this.fireEvent("writeexception", this, action, o, res);
-                    return false;
-                }
-                if(!res[reader.meta.successProperty] === true){
-                    this.fireEvent("writeexception", this, action, o, res);
-                    o.request.callback.call(o.request.scope, null, res, false);
+                    this.fireEvent("writeexception", this, action, o, response);
                     return false;
                 }
                 // We could add rs to the signature of write event if desired.
                 this.fireEvent("write", this, action, res[reader.meta.root], res, o.request.arg);
-                o.request.callback.call(o.request.scope, res[reader.meta.root], res, true);
+                o.request.callback.call(o.request.scope, res[reader.meta.root], res, res[reader.meta.successProperty]);
 
             }
     },

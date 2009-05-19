@@ -21,7 +21,6 @@ Ext.data.DataWriter = function(config){
 
 Ext.data.DataWriter.prototype = {
 
-    meta : {},
     /**
      * @cfg {Boolean} writeAllFields
      * <tt>false</tt> by default.  Set <tt>true</tt> to have DataWriter return ALL fields of a modified

@@ -26,9 +26,8 @@ Ext.data.DataReader.prototype = {
 
     /**
      * Used for un-phantoming a record after a successful database insert.  Sets the records pk along with new data from server.
-     * You <b>must</b> return a complete new record from the server.  If you don't, your local record's missing fields
-     * will be populated with the default values specified in your Ext.data.Record.create specification.  Without a defaultValue,
-     * local fields will be populated with empty string "".  So return your entire record's data after remote create and update.
+     * You <b>must</b> return at least the database pk using the idProperty defined in your DataReader configuration.  The incoming
+     * data from server will be merged with the data in the local record.
      * In addition, you <b>must</b> return record-data from the server in the same order received.
      * Will perform a commit as well, un-marking dirty-fields.  Store's "update" event will be suppressed.
      * @param {Record/Record[]} record The phantom record to be realized.
