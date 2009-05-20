@@ -726,9 +726,6 @@ var menu = new Ext.menu.Menu({
         if(this.editable !== false){
         	this.mon(this.el, 'keyup', this.onKeyUp, this);
         }
-        if(this.forceSelection){
-            this.on('blur', this.doForce, this);
-        }
     },
 
     // private
@@ -1062,11 +1059,17 @@ var menu = new Ext.menu.Menu({
     },
 
     // private
-    doForce : function(){
-        if(this.el.dom.value.length > 0){
-            this.el.dom.value =
-                this.lastSelectionText === undefined ? '' : this.lastSelectionText;
-            this.applyEmptyText();
+    beforeBlur : function(){
+        var val = this.getRawValue();
+        if(this.forceSelection){
+            if(val.length > 0 && val != this.emptyText){
+               this.el.dom.value = this.lastSelectionText === undefined ? '' : this.lastSelectionText;
+                this.applyEmptyText();
+            }else{
+                this.clearValue();
+            }
+        }else{
+            this.setValue(val);
         }
     },
 
@@ -1079,9 +1082,7 @@ var menu = new Ext.menu.Menu({
      * also clears any filter previously saved in the current store (defaults to <tt>false</tt>)
      */
     doQuery : function(q, forceAll){
-        if(q === undefined || q === null){
-            q = '';
-        }
+        q = Ext.isEmpty(q) ? '' : q;
         var qe = {
             query: q,
             forceAll: forceAll,
