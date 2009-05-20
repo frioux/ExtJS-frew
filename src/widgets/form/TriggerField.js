@@ -97,7 +97,7 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
     onRender : function(ct, position){
         Ext.form.TriggerField.superclass.onRender.call(this, ct, position);
 
-        this.wrap = this.el.wrap({cls: "x-form-field-wrap"});
+        this.wrap = this.el.wrap({cls: 'x-form-field-wrap x-form-field-trigger-wrap'});
         this.trigger = this.wrap.createChild(this.triggerConfig ||
                 {tag: "img", src: Ext.BLANK_IMAGE_URL, cls: "x-form-trigger " + this.triggerClass});
         if(this.hideTrigger){
@@ -115,11 +115,6 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
 
     afterRender : function(){
         Ext.form.TriggerField.superclass.afterRender.call(this);
-        var y;
-        if(Ext.isIE && !this.hideTrigger && this.el.getY() != (y = this.trigger.getY())){
-            this.el.position();
-            this.el.setY(y);
-        }
     },
 
     // private
@@ -289,6 +284,7 @@ Ext.form.TwinTriggerField = Ext.extend(Ext.form.TriggerField, {
      * An additional CSS class used to style the trigger button.  The trigger will always get the
      * class <tt>'x-form-trigger'</tt> by default and <tt>triggerClass</tt> will be <b>appended</b> if specified.
      */
+
     initComponent : function(){
         Ext.form.TwinTriggerField.superclass.initComponent.call(this);
 

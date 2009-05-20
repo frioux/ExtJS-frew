@@ -197,7 +197,6 @@ div.x-toolbar-no-items {
 
 /* fix ie toolbar form items */
 .ext-border-box .x-toolbar-cell .x-form-text {
-    margin-top:1px !important;
     margin-bottom:-1px !important;
 }
 
@@ -207,6 +206,15 @@ div.x-toolbar-no-items {
 
 .ext-ie .x-toolbar-cell .x-form-field-wrap {
     height:21px;
+}
+
+.ext-ie .x-toolbar-cell .x-form-text {
+    position:relative;
+    top:-1px;
+}
+
+.ext-ie8 .x-toolbar-cell .x-form-field-trigger-wrap .x-form-text, .ext-strict .ext-ie .x-toolbar-cell .x-form-text {
+    top: 0px;
 }
 
 /* StatusBar */

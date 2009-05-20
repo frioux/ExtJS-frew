@@ -485,11 +485,6 @@ fieldset.x-panel-collapsed .x-fieldset-bwrap {
     zoom:1;
 }
 
-.ext-ie .x-toolbar .x-form-text {
-    position:relative;
-    top:-1px;
-}
-
 .x-fieldset-noborder {
     border:0px none transparent;
 }
