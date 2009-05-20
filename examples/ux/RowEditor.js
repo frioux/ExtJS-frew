@@ -33,7 +33,7 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
     init: function(grid){
         this.grid = grid;
         this.ownerCt = grid;
-        if(this.clicksToEdit == 2){
+        if(this.clicksToEdit === 2){
             this.grid.on('rowdblclick', this.onRowDblClick, this);
         }else{
             this.grid.on('rowclick', this.onRowClick, this);
@@ -55,7 +55,7 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
     isDirty: function(){
         var dirty;
         this.items.each(function(f){
-            if(String(this.values[f.id]) != String(f.getValue())){
+            if(String(this.values[f.id]) !== String(f.getValue())){
                 dirty = true;
                 return false;
             }
@@ -98,7 +98,7 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
             if(!this.isVisible()){
                 this.setPagePosition(Ext.fly(row).getXY());
             } else{
-                this.el.setXY(Ext.fly(row).getXY(), {duration:.15});
+                this.el.setXY(Ext.fly(row).getXY(), {duration:0.15});
             }
             if(!this.isVisible()){
                 this.show();
@@ -142,7 +142,7 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
                 }
             }
             r.endEdit();
-            this.fireEvent('afteredit', this, changes, r, this.rowIndex)
+            this.fireEvent('afteredit', this, changes, r, this.rowIndex);
         }
         this.hide();
     },
@@ -150,15 +150,15 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
     verifyLayout: function(force){
         if(this.el && (this.isVisible() || force === true)){
             var row = this.grid.getView().getRow(this.rowIndex);
-            this.setSize(Ext.fly(row).getWidth(), Ext.fly(row).getHeight() + (Ext.isBorderBox ? 9 : 0));
+            this.setSize(Ext.fly(row).getWidth(), Ext.isIE ? Ext.fly(row).getHeight() + (Ext.isBorderBox ? 9 : 0) : undefined);
             var cm = this.grid.colModel, fields = this.items.items;
             for(var i = 0, len = cm.getColumnCount(); i < len; i++){
                 if(!cm.isHidden(i)){
                     var adjust = 0;
-                    if(i == 0){
+                    if(i === 0){
                         adjust += 0; // outer padding
                     }
-                    if(i == (len - 1)){
+                    if(i === (len - 1)){
                         adjust += 3; // outer padding
                     } else{
                         adjust += 1;
@@ -195,7 +195,7 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
             }
             ed.setWidth(cm.getColumnWidth(i));
             ed.column = c;
-            if(ed.ownerCt != this){
+            if(ed.ownerCt !== this){
                 ed.on('focus', this.ensureVisible, this);
                 ed.on('specialkey', this.onKey, this);
             }
@@ -205,14 +205,14 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
     },
 
     onKey: function(f, e){
-        if(e.getKey() == e.ENTER){
+        if(e.getKey() === e.ENTER){
             this.stopEditing(true);
             e.stopPropagation();
         }
     },
 
     onGridKey: function(e){
-        if(e.getKey() == e.ENTER && !this.isVisible()){
+        if(e.getKey() === e.ENTER && !this.isVisible()){
             var r = this.grid.getSelectionModel().getSelected();
             if(r){
                 var index = this.grid.store.indexOf(r);
@@ -299,14 +299,14 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
             var scroll = view.scroller.dom.scrollLeft;
             var width =  view.mainBody.getWidth();
             var bw = this.btns.getWidth();
-            this.btns.el.shift({left: (width/2)-(bw/2)+scroll, top: h - 2, stopFx: true, duration:.2});
+            this.btns.el.shift({left: (width/2)-(bw/2)+scroll, top: h - 2, stopFx: true, duration:0.2});
         }
     },
 
     // private
     preEditValue : function(r, field){
         var value = r.data[field];
-        return this.autoEncode && typeof value == 'string' ? Ext.util.Format.htmlDecode(value) : value;
+        return this.autoEncode && typeof value === 'string' ? Ext.util.Format.htmlDecode(value) : value;
     },
 
     // private
