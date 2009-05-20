@@ -566,7 +566,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
                    if(c.dom.firstChild.dateValue == t){
                        c.addClass("x-date-selected");
                        if(vis){
-                           c.focus(50);
+                           Ext.fly(c.dom.firstChild).focus(50);
                        }
                        return false;
                    }
