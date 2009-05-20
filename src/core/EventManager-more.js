@@ -290,7 +290,7 @@ Ext.apply(Ext.EventObjectImpl.prototype, {
     isSpecialKey : function(){
         var k = this.normalizeKey(this.keyCode);
         return (this.type == 'keypress' && this.ctrlKey) ||
-		this.isKeyNavPress() ||
+		this.isNavKeyPress() ||
 		(k >= 16 && k <= 20) || // Shift, Ctrl, Alt, Pause, Caps Lock
 		(k >= 44 && k <= 45);   // Print Screen, Insert
     },
