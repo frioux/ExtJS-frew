@@ -399,7 +399,8 @@ items: [
             }
         }
         if(!this.ownerCt){
-            this.doLayout();
+            // force a layout if no ownerCt is set
+            this.doLayout(false, true);
         }
         if(this.monitorResize === true){
             Ext.EventManager.onWindowResize(this.doLayout, this, [false]);
