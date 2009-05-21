@@ -109,6 +109,12 @@ Ext.data.Store = function(config){
     if(this.url && !this.proxy){
         this.proxy = new Ext.data.HttpProxy({url: this.url});
     }
+    // If Store is RESTful, so too is the DataProxy
+    if (this.restful === true) {
+        // When operating RESTfully, a unique transaction is generated for each record.
+        this.batchTransactions = false;
+        Ext.data.Api.restify(this.proxy);
+    }
 
     if(this.reader){ // reader passed
         if(!this.recordType){
@@ -432,6 +438,19 @@ sortInfo: {
     batchSave : false,
 
     /**
+     * @cfg {Boolean} batchTransactions [true]
+     * Defaults to <tt>true</tt>.  Multiple records for each CRUD action CREATE, READ, UPDATE and DESTROY will be combined and sent as one transaction.
+     * Only applies when batchSave is set to <tt>true</tt>.
+     */
+    batchTransactions : true,
+
+    /**
+     * @cfg {Boolean} restful [false]
+     * Defaults to <tt>false</tt>.  Set to <tt>true</tt> to have Store and installed Proxy operate in a RESTful manner.
+     */
+    restful: false,
+
+    /**
      * Destroys the store.
      */
     destroy : function(){
@@ -706,15 +725,15 @@ sortInfo: {
         // have to separate before-events since load has a different signature than create,destroy and save events since load does not
         // include the rs (record resultset) parameter.  Capture return values from the beforeaction into doRequest flag.
         var doRequest = true;
+
         if (action === Ext.data.Api.READ) {// TODO: define actions as CONSTANTS
-            doRequest = this.fireEvent('before'+action, this, options);
+            doRequest = this.fireEvent('before' + action, this, options);
         }
         else {
             // if rs has just a single recoractiond, shift it off so that Writer writes data as "{}" rather than "[{}]"
             if (Ext.isArray(rs) && rs.length == 1) {
                 rs = rs.shift();
             }
-
             // Write the action to options.params
             if (doRequest = this.fireEvent('beforewrite', this, action, rs, options) !== false) {
                 this.writer.write(action, options.params, rs);
@@ -742,13 +761,9 @@ sortInfo: {
             throw new Ext.data.Store.Error('writer-undefined', 'Store.js');
         }
 
-        // First check for removed records.  Records in this.removed are guaranteed non-phantoms.  @see Store#remove
+        // DESTROY:  First check for removed records.  Records in this.removed are guaranteed non-phantoms.  @see Store#remove
         if (this.removed.length) {
-            try {
-                this.execute(Ext.data.Api.DESTROY, this.removed);
-            } catch (e) {
-                this.handleException(e);
-            }
+            this.doTransaction(Ext.data.Api.DESTROY, this.removed);
         }
 
         // Check for modified records.  Bail-out if empty...
@@ -757,7 +772,7 @@ sortInfo: {
             return true;
         }
 
-        // Next check for phantoms within rs.  splice-off and execute create.
+        // CREATE:  Next check for phantoms within rs.  splice-off and execute create.
         var phantoms = [];
         for (var i = rs.length-1; i >= 0; i--) {
             if (rs[i].phantom === true) {
@@ -765,29 +780,39 @@ sortInfo: {
                 if (rec.isValid()) {
                     phantoms.push(rec);
                 }
-            }
-            else if (!rs[i].isValid()) { // <-- while we're here, splice-off any !isValid real records
+            } else if (!rs[i].isValid()) { // <-- while we're here, splice-off any !isValid real records
                 rs.splice(i,1);
             }
         }
         // If we have valid phantoms, create them...
         if (phantoms.length) {
-            try {
-                this.execute(Ext.data.Api.CREATE, phantoms);
-            } catch (e) {
-                this.handleException(e);
-            }
+            this.doTransaction(Ext.data.Api.CREATE, phantoms);
         }
 
-        // And finally, if we're still here after splicing-off phantoms and !isValid real records, update the rest...
+        // UPDATE:  And finally, if we're still here after splicing-off phantoms and !isValid real records, update the rest...
         if (rs.length) {
+            this.doTransaction(Ext.data.Api.UPDATE, rs);
+        }
+        return true;
+    },
+
+    // private.  Simply wraps call to Store#execute in try/catch.  Defers to Store#handleException on error.  Loops if batchTransaction: false
+    doTransaction : function(action, rs) {
+        if (this.batchTransactions === false) {
+            for (var i = 0, len = rs.length; i < len; i++) {
+                try {
+                    this.execute(action, rs[i]);
+                } catch (e) {
+                    this.handleException(e);
+                }
+            }
+        } else {
             try {
-                this.execute(Ext.data.Api.UPDATE, rs);
+                this.execute(action, rs);
             } catch (e) {
                 this.handleException(e);
             }
         }
-        return true;
     },
 
     // private callback-handler for remote CRUD actions
@@ -805,7 +830,9 @@ sortInfo: {
                     this.onUpdateRecords(success, rs, data);
                     break;
             }
-            this.fireEvent('write', this, action, data, response, rs);
+            if (success === true) {
+                this.fireEvent('write', this, action, data, response, rs);
+            }
         }
     },
 
@@ -815,8 +842,7 @@ sortInfo: {
             for (var i = 0, len = record.length; i < len; i++) {
                 this.reMap(record[i]);
             }
-        }
-        else {
+        } else {
             delete this.data.map[record._phid];
             this.data.map[record.id] = record;
             var index = this.data.keys.indexOf(record._phid);
@@ -831,8 +857,7 @@ sortInfo: {
             try {
                 this.reader.realize(rs, data);
                 this.reMap(rs);
-            }
-            catch (e) {
+            } catch (e) {
                 this.handleException(e);
                 if (Ext.isArray(rs)) {
                     // Recurse to run back into the try {}.  DataReader#realize splices-off the rs until empty.
@@ -847,8 +872,7 @@ sortInfo: {
         if (success === true) {
             try {
                 this.reader.update(rs, data);
-            }
-            catch (e) {
+            } catch (e) {
                 this.handleException(e);
                 if (Ext.isArray(rs)) {
                     // Recurse to run back into the try {}.  DataReader#update splices-off the rs until empty.
@@ -879,8 +903,7 @@ sortInfo: {
     handleException : function(e) {
         if (e instanceof Ext.Error) {
             e.toConsole();
-        }
-        else if (typeof(console) == 'object' && typeof(console.error) == 'function') {
+        } else if (typeof(console) == 'object' && typeof(console.error) == 'function') {
             console.error(e);
         }
     },

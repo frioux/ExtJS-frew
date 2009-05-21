@@ -157,6 +157,12 @@ myStore.on({
 };
 
 Ext.extend(Ext.data.DataProxy, Ext.util.Observable, {
+    /**
+     * @cfg {Boolean} restful [false]
+     * Defaults to <tt>false</tt>.  Set to <tt>true</tt> to operate in a RESTful manner.  Note:  this parameter will automatically be set to <tt>true</tt> if
+     * the {@link Ext.data.Store} it's plugged into is set to <tt>restful: true</tt>.  If your Store is RESTful, you need not explicitly set this option.
+     */
+    restful: false,
 
     /**
      * <p>Redefines the the Proxy's API or a single action of an API. Can be called with two method signatures.</p>
@@ -253,7 +259,7 @@ proxy.setApi(Ext.data.Api.READ, '/users/new_load_url');
         // Call with the pre-3.0 method signature.
         this[action](params, reader, callback, scope, options);
     },
-    
+
     /**
      * Destroys the proxy by purging any event listeners and cancelling any active requests.
      */

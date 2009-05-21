@@ -5,6 +5,24 @@
  */
 Ext.data.Api = (function() {
 
+    // private method to apply appropiate REST method to an API-action
+    var setRestMethod = function(action, api) {
+        switch (action) {
+            case Ext.data.Api.CREATE:
+                api['method'] = 'POST';
+                break;
+            case Ext.data.Api.READ:
+                api['method'] = 'GET';
+                break;
+            case Ext.data.Api.UPDATE:
+                api['method'] = 'PUT';
+                break;
+            case Ext.data.Api.DESTROY:
+                api['method'] = 'DELETE';
+                break;
+        }
+    }
+
     return {
         /**
          * @const Ext.data.Api.CREATE Text representing the remote-action "create"
@@ -97,16 +115,32 @@ new Ext.data.HttpProxy({
         </pre></code>
          *
          * @param {Object} api
-         * @param {String} defaultAction [GET|POST]
+         * @param {Boolean} restful [false]
          */
-        prepare : function(api) {
+        prepare : function(api, restful) {
+            restful == restful || false;
             for (var action in api) {
                 if (typeof(api[action]) == 'string') {
                     api[action] = {
                         url: api[action]
                     }
                 }
+                if (restful === true) {
+                    setRestMethod(action, api[action]);
+                }
             }
+        },
+
+        /**
+         * Prepares a supplied Proxy to be RESTful
+         * @param {Ext.data.DataProxy}
+         */
+        restify : function(proxy) {
+            proxy.conn.restful = true;
+            Ext.each(Ext.data.Api.getVerbs(), function(verb){
+                proxy.api[verb] = proxy.api[verb] || proxy.url;
+            }, this);
+            Ext.data.Api.prepare(proxy.api, true);
         }
     }
 })();

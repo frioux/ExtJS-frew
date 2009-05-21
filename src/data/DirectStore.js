@@ -34,67 +34,13 @@
  * @param {Object} config
  */
 Ext.data.DirectStore = function(c){
+    // each transaction upon a singe record will generatie a distinct Direct transaction since Direct queues them into one Ajax request.
+    c.batchTransactions = false;
+
     Ext.data.DirectStore.superclass.constructor.call(this, Ext.apply(c, {
         proxy: (typeof(c.proxy) == 'undefined') ? new Ext.data.DirectProxy(Ext.copyTo({}, c, 'paramOrder,paramsAsHash,directFn,api')) : c.proxy,
         reader: (typeof(c.reader) == 'undefined' && typeof(c.fields) == 'object') ? new Ext.data.JsonReader(Ext.copyTo({}, c, 'totalProperty,root,idProperty'), c.fields) : c.reader
     }));
 };
-Ext.extend(Ext.data.DirectStore, Ext.data.Store, {
-    /**
-     * Send all {@link #getModifiedRecords modifiedRecords}, removed records and phantom records to the server using the
-     * api's configured save url.
-     */
-    save : function(options) {
-        if (!this.writer) {
-            throw new Ext.data.Store.Error('writer-undefined', 'Store.js');
-        }
-
-        // First check for removed records.  Records in this.removed are guaranteed non-phantoms.  @see Store#remove
-        if (this.removed.length) {
-            for (var i = 0, len = this.removed.length; i < len; i++) {
-                try {
-                    this.execute(Ext.data.Api.DESTROY, this.removed[i]);
-                }
-                catch (e) {
-                    this.handleException(e);
-                }
-            }
-        }
-
-        // Check for modified records.  Bail-out if empty...
-        var rs = this.getModifiedRecords();
-        if (!rs.length) {
-            return true;
-        }
-
-        // Next create phantoms within rs...
-        for (var i = rs.length-1; i >= 0; i--) {
-            if (rs[i].phantom === true) {
-                var rec = rs.splice(i, 1).shift();
-                if (rec.isValid()) {
-                    try {
-                        this.execute(Ext.data.Api.CREATE, rec);
-                    } catch (e) {
-                        this.handleException(e);
-                    }
-                }
-            }
-            else if (!rs[i].isValid()) { // <-- while we're here, splice-off any !isValid real records
-                rs.splice(i,1);
-            }
-        }
-        // And finally, if we're still here after splicing-off phantoms and !isValid real records, update the rest...
-        if (rs.length) {
-            for (var i = 0, len = rs.length; i < len; i++) {
-                try {
-                    this.execute(Ext.data.Api.UPDATE, rs[i]);
-                }
-                catch (e) {
-                    this.handleException(e);
-                }
-            }
-        }
-        return true;
-    }
-});
+Ext.extend(Ext.data.DirectStore, Ext.data.Store, {});
 Ext.reg('directstore', Ext.data.DirectStore);

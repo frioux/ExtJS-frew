@@ -66,7 +66,7 @@ Ext.data.HttpProxy = function(conn){
 
 Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
     /**
-     * @cfg {Boolean} prettyUrls
+     * @cfg {Boolean} restful
      * <p>If set to <tt>true</tt>, a {@link Ext.data.Record#phantom non-phantom} record's
      * {@link Ext.data.Record#id id} will be appended to the url (defaults to <tt>false</tt>).</p><br>
      * <p>The url is built based upon the action being executed <tt>[load|create|save|destroy]</tt>
@@ -98,14 +98,6 @@ api: {
     save: 'update.php'
 }
 
-// destroying a record having id: 13, the url would look like
-"/controller/destroy_action/13"
-// updating a single record having id: 13, the url would look like
-"/controller/update/13"
-     * </code></pre>
-     */
-    prettyUrls : false,
-
     /**
      * Return the {@link Ext.data.Connection} object being used by this Proxy.
      * @return {Connection} The Connection object. This object may be used to subscribe to events on
@@ -134,8 +126,8 @@ api: {
 
     /**
      * buildUrl
-     * Sets the appropriate url based upon the action being executed.  If prettyUrls is true, and only a single record is being acted upon,
-     * url will be built Rails-style, as in "/controller/action/32".  prettyUrls will aply iff the supplied record is an
+     * Sets the appropriate url based upon the action being executed.  If restful is true, and only a single record is being acted upon,
+     * url will be built Rails-style, as in "/controller/action/32".  restful will aply iff the supplied record is an
      * instance of Ext.data.Record rather than an Array of them.
      * @param {String} action The api action being executed [load|create|update|destroy]
      * @param {Ext.data.Record/Array[Ext.data.Record]} The record or Array of Records being acted upon.
@@ -145,12 +137,11 @@ api: {
     buildUrl : function(action, record) {
         record = record || null;
         var url = (this.api[action]) ? this.api[action]['url'] : this.url;
-
         if (!url) {
             throw new Ext.data.Api.Error('invalid-url', 'HttpProxy.js', url);
         }
-
-        if (this.conn.prettyUrls === true && record instanceof Ext.data.Record && !record.phantom) {
+        // prettyUrls is deprectated in favor of restful-config
+        if ((this.prettyUrls === true || this.conn.restful === true) && record instanceof Ext.data.Record && !record.phantom) {
             url += '/' + record.id;
         }
         return url;
@@ -174,10 +165,9 @@ api: {
      * @param {Object} arg An optional argument which is passed to the callback as its second parameter.
      */
     doRequest : function(action, rs, params, reader, cb, scope, arg) {
-        var method = (this.api[action]) ? this.api[action]['method'] : undefined;
         var  o = {
             params : params || {},
-            method: method,
+            method: (this.api[action]) ? this.api[action]['method'] : undefined,
             request: {
                 callback : cb,
                 scope : scope,
@@ -193,7 +183,7 @@ api: {
         if (this.conn.url === null) {
             this.conn.url = this.buildUrl(action, rs);
         }
-        else if (this.conn.prettyUrls === true && rs instanceof Ext.data.Record && !rs.phantom) {
+        else if (this.conn.restful === true && rs instanceof Ext.data.Record && !rs.phantom) {
             this.conn.url += '/' + rs.id;
         }
         if(this.useAjax){
@@ -202,7 +192,8 @@ api: {
 
             // If a currently running request is found for this action, abort it.
             if (this.activeRequest[action]) {
-                Ext.Ajax.abort(this.activeRequest[action]);
+                // Disabled aborting activeRequest while implementing REST.  activeRequest[action] will have to become an array
+                //Ext.Ajax.abort(this.activeRequest[action]);
             }
             this.activeRequest[action] = Ext.Ajax.request(o);
         }else{
