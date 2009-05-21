@@ -43,9 +43,9 @@ Ext.data.DataProxy = function(conn){
     // http://extjs.com/forum/showthread.php?t=67194.  Just set api and url for now.
     //Ext.applyIf(this, conn);
 
-    this.api = conn.api;
-    this.url = conn.url;
-
+    this.api     = conn.api;
+    this.url     = conn.url;
+    this.restful = conn.restful;
     /**
      * @cfg {Object} api
      * Specific urls to call on CRUD action methods "load", "create", "save" and "destroy".

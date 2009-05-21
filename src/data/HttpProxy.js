@@ -141,7 +141,7 @@ api: {
             throw new Ext.data.Api.Error('invalid-url', 'HttpProxy.js', url);
         }
         // prettyUrls is deprectated in favor of restful-config
-        if ((this.prettyUrls === true || this.conn.restful === true) && record instanceof Ext.data.Record && !record.phantom) {
+        if ((this.prettyUrls === true || this.restful === true) && record instanceof Ext.data.Record && !record.phantom) {
             url += '/' + record.id;
         }
         return url;
@@ -183,7 +183,7 @@ api: {
         if (this.conn.url === null) {
             this.conn.url = this.buildUrl(action, rs);
         }
-        else if (this.conn.restful === true && rs instanceof Ext.data.Record && !rs.phantom) {
+        else if (this.restful === true && rs instanceof Ext.data.Record && !rs.phantom) {
             this.conn.url += '/' + rs.id;
         }
         if(this.useAjax){

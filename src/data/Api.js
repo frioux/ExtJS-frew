@@ -133,10 +133,10 @@ new Ext.data.HttpProxy({
 
         /**
          * Prepares a supplied Proxy to be RESTful
-         * @param {Ext.data.DataProxy}
+         * @param {Ext.data.DataProxy} proxy
          */
         restify : function(proxy) {
-            proxy.conn.restful = true;
+            proxy.restful = true;
             Ext.each(Ext.data.Api.getVerbs(), function(verb){
                 proxy.api[verb] = proxy.api[verb] || proxy.url;
             }, this);
