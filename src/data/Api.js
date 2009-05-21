@@ -21,7 +21,7 @@ Ext.data.Api = (function() {
                 api['method'] = 'DELETE';
                 break;
         }
-    }
+    };
 
     return {
         /**
