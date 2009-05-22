@@ -6,17 +6,13 @@
  * http://extjs.com/license
  */
 
+// Application instance for showing user-feedback messages.
+var App = new Ext.App({});
 
 // Create HttpProxy instance.  Notice new configuration parameter "api" here instead of load.  However, you can still use
 // the "url" paramater -- All CRUD requests will be directed to your single url instead.
 var proxy = new Ext.data.HttpProxy({
-    prettyUrls: false,  // <-- prettyUrls for urls of the form /user/update/1 or /user/destroy/32
-    api: {
-        load : 'remote/load.json',
-        create : 'remote/create.json',
-        save: 'remote/update.json',
-        destroy: 'remote/destroy.json'
-    }
+    url: 'remote/users.php'
 });
 
 // Typical JsonReader.  Notice additional meta-data params for defining the core attributes of your json-response
@@ -41,12 +37,15 @@ var writer = new Ext.data.JsonWriter({
 // Typical Store collecting the Proxy, Reader and Writer together.
 var store = new Ext.data.Store({
     id: 'user',
-    root: 'records',
+    restful: true,     // <-- This Store is RESTful
     proxy: proxy,
     reader: reader,
-    writer: writer,     // <-- plug a DataWriter into the store just as you would a Reader
-    paramsAsHash: true,
-    batchSave: false    // <-- true to delay executing create, update, destroy requests until specifically told to do so.
+    writer: writer,    // <-- plug a DataWriter into the store just as you would a Reader
+    listeners: {
+        write : function(store, action, result, response, rs) {
+            //alert('action: ' + action + ', success: ' + response.success + ', message: ' + response.message);
+        }
+    }
 });
 
 // Let's pretend we rendered our grid-columns with meta-data from our ORM framework.
@@ -64,30 +63,57 @@ store.load();
 Ext.onReady(function() {
     Ext.QuickTips.init();
 
-    // create user.Form instance (@see UserForm.js)
-    var userForm = new App.user.Form({
-        renderTo: 'user-form',
-        listeners: {
-            create : function(fpanel, data) {   // <-- custom "create" event defined in App.user.Form class
-                var rec = new userGrid.store.recordType(data);
-                userGrid.store.insert(0, rec);
-            }
-        }
+    var editor = new Ext.ux.RowEditor({
+        saveText: 'Update'
     });
 
     // create user.Grid instance (@see UserGrid.js)
-    var userGrid = new App.user.Grid({
+    var userGrid = new Ext.grid.GridPanel({
         renderTo: 'user-grid',
+        iconCls: 'icon-grid',
+        frame: true,
+        title: 'Users',
+        autoScroll: true,
+        height: 300,
         store: store,
+        plugins: [editor],
         columns : userColumns,
-        listeners: {
-            rowclick: function(g, index, ev) {
-                var rec = g.store.getAt(index);
-                userForm.loadRecord(rec);
-            },
-            destroy : function() {
-                userForm.getForm().reset();
-            }
+        tbar: [{
+            text: 'Add',
+            iconCls: 'silk-add',
+            handler: onAdd
+        }, '-', {
+            text: 'Delete',
+            iconCls: 'silk-delete',
+            handler: onDelete
+        }, '-'],
+        viewConfig: {
+            forceFit: true
         }
     });
+
+    /**
+     * onAdd
+     */
+    function onAdd(btn, ev) {
+        var u = new userGrid.store.recordType({
+            first : '',
+            last: '',
+            email : ''
+        });
+        editor.stopEditing();
+        userGrid.store.insert(0, u);
+        editor.startEditing(0);
+    }
+    /**
+     * onDelete
+     */
+    function onDelete() {
+        var rec = userGrid.getSelectionModel().getSelected();
+        if (!rec) {
+            return false;
+        }
+        userGrid.store.remove(rec);
+    }
+
 });
