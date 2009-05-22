@@ -33,19 +33,19 @@ Ext.onReady(function(){
             data: xg.dummyData
         }),
         cm: new xg.ColumnModel({
-			defaults: {
-				width: 20,
-				sortable: true
-			},
-			columns: [
-	            expander,
-	            {id:'company',header: "Company", width: 40, dataIndex: 'company'},
-	            {header: "Price", renderer: Ext.util.Format.usMoney, dataIndex: 'price'},
-	            {header: "Change", dataIndex: 'change'},
-	            {header: "% Change", dataIndex: 'pctChange'},
-	            {header: "Last Updated", renderer: Ext.util.Format.dateRenderer('m/d/Y'), dataIndex: 'lastChange'}
-        	]
-		}),
+            defaults: {
+                width: 20,
+                sortable: true
+            },
+            columns: [
+                expander,
+                {id:'company',header: "Company", width: 40, dataIndex: 'company'},
+                {header: "Price", renderer: Ext.util.Format.usMoney, dataIndex: 'price'},
+                {header: "Change", dataIndex: 'change'},
+                {header: "% Change", dataIndex: 'pctChange'},
+                {header: "Last Updated", renderer: Ext.util.Format.dateRenderer('m/d/Y'), dataIndex: 'lastChange'}
+            ]
+        }),
         viewConfig: {
             forceFit:true
         },
@@ -69,19 +69,19 @@ Ext.onReady(function(){
             data: xg.dummyData
         }),
         cm: new xg.ColumnModel({
-			defaults: {
-				width: 120,
-				sortable: true
-			},
-			columns: [
-	            sm,
-	            {id:'company',header: "Company", width: 200, dataIndex: 'company'},
-	            {header: "Price", renderer: Ext.util.Format.usMoney, dataIndex: 'price'},
-	            {header: "Change", dataIndex: 'change'},
-	            {header: "% Change", dataIndex: 'pctChange'},
-	            {header: "Last Updated", width: 135, renderer: Ext.util.Format.dateRenderer('m/d/Y'), dataIndex: 'lastChange'}
-	        ]
-		}),
+            defaults: {
+                width: 120,
+                sortable: true
+            },
+            columns: [
+                sm,
+                {id:'company',header: "Company", width: 200, dataIndex: 'company'},
+                {header: "Price", renderer: Ext.util.Format.usMoney, dataIndex: 'price'},
+                {header: "Change", dataIndex: 'change'},
+                {header: "% Change", dataIndex: 'pctChange'},
+                {header: "Last Updated", width: 135, renderer: Ext.util.Format.dateRenderer('m/d/Y'), dataIndex: 'lastChange'}
+            ]
+        }),
         sm: sm,
         width:600,
         height:300,
@@ -120,7 +120,19 @@ Ext.onReady(function(){
     ////////////////////////////////////////////////////////////////////////////////////////
     // Grid 4
     ////////////////////////////////////////////////////////////////////////////////////////
-    var sm2 = new xg.CheckboxSelectionModel();
+    var sm2 = new xg.CheckboxSelectionModel({
+        listeners: {
+            // On selection change, set enabled state of the removeButton
+            // which was placed into the GridPanel using the ref config
+            selectionchange: function(sm) {
+                if (sm.getCount()) {
+                    grid4.removeButton.enable();
+                } else {
+                    grid4.removeButton.disable();
+                }
+            }
+        }
+    });
     var grid4 = new xg.GridPanel({
         id:'button-grid',
         store: new Ext.data.Store({
@@ -157,7 +169,11 @@ Ext.onReady(function(){
         },'-',{
             text:'Remove Something',
             tooltip:'Remove the selected item',
-            iconCls:'remove'
+            iconCls:'remove',
+
+            // Place a reference in the GridPanel
+            ref: '../removeButton',
+            disabled: true
         }],
 
         width:600,
