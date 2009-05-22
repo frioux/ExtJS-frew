@@ -168,7 +168,7 @@ TestAction.multiply(
         }else{
             var ts = [].concat(opt.ts);
             for(var i = 0, len = ts.length; i < len; i++){
-                var t = this.getTransaction(opt.ts[i]);
+                var t = this.getTransaction(ts[i]);
                 if(t && t.retryCount < this.maxRetries){
                     t.retry();
                 }else{
