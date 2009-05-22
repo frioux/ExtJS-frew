@@ -1027,6 +1027,17 @@
   <file name="writer\remote\destroy.json" path="writer\remote" />
   <file name="writer\remote\load.json" path="writer\remote" />
   <file name="writer\remote\update.json" path="writer\remote" />
+
+  <file name="restful\restful.html" path="restful" />
+  <file name="restful\restful.css" path="restful" />
+  <file name="restful\restful.js" path="restful" />
+  <file name="restful\Ext.ux.RowEditor.js" path="restful" />
+  <file name="restful\remote\users.php" path="restful\remote" />
+  <file name="restful\remote\create.json" path="restful\remote" />
+  <file name="restful\remote\destroy.json" path="restful\remote" />
+  <file name="restful\remote\load.json" path="restful\remote" />
+  <file name="restful\remote\update.json" path="restful\remote" />
+
   <file name="dd\dnd_grid_to_formpanel.js" path="dd" />
   <file name="dd\dnd_grid_to_grid.js" path="dd" />
   <file name="dd\dnd_grid_to_formpanel.html" path="dd" />
