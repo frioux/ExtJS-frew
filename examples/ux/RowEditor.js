@@ -72,7 +72,7 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
         if(typeof rowIndex == 'object'){
             rowIndex = this.grid.getStore().indexOf(rowIndex);
         }
-        if(this.fireEvent('beforedit', this, rowIndex) !== false){
+        if(this.fireEvent('beforeedit', this, rowIndex) !== false){
             var g = this.grid, view = g.getView();
             var row = view.getRow(rowIndex);
             var record = g.store.getAt(rowIndex);
@@ -126,11 +126,13 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
         for(var i = 0, len = cm.getColumnCount(); i < len; i++){
             if(!cm.isHidden(i)){
                 var dindex = cm.getDataIndex(i);
-                var oldValue = r.data[dindex];
-                var value = this.postEditValue(fields[i].getValue(), oldValue, r, dindex);
-                if(String(oldValue) !== String(value)){
-                    changes[dindex] = value;
-                    hasChange = true;
+                if(!Ext.isEmpty(dindex)){
+                    var oldValue = r.data[dindex];
+                    var value = this.postEditValue(fields[i].getValue(), oldValue, r, dindex);
+                    if(String(oldValue) !== String(value)){
+                        changes[dindex] = value;
+                        hasChange = true;
+                    }
                 }
             }
         }
