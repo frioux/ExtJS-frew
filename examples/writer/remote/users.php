@@ -2,7 +2,7 @@
     /**
      * Simple MVC-like REST backend with simulated database using $_SESSION.
      * This file contains following Classes
-     *   - ApplicationController
+     *   - ApplicationController:  base-class for Controllers
      *   - Users: extends ApplicationController
      *   - User:  A simple ORM class
      *   - Response:  A simple JSON-response class
