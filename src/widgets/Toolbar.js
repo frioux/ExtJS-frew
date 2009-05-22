@@ -94,7 +94,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
         var clipWidth = w - this.triggerWidth;
         var hideIndex = -1;
 
-        if(iw > w || (this.hiddens && w > lw)){
+        if(iw > w || (this.hiddens && w >= lw)){
             var i, items = this.container.items.items, len = items.length, c;
             var loopWidth = 0;
             for(i = 0; i < len; i++) {
