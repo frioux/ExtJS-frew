@@ -1,6 +1,12 @@
 <?php
     /**
      * Simple MVC-like REST backend with simulated database using $_SESSION.
+     * This file contains following Classes
+     *   - ApplicationController
+     *   - Users: extends ApplicationController
+     *   - User:  A simple ORM class
+     *   - Response:  A simple JSON-response class
+     *   - DB:  A simulated database connection
      */
     session_start();
 
