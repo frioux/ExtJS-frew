@@ -365,7 +365,7 @@ Ext.extend(T, Ext.Container, {
      * arguments of mixed type and adds them to the toolbar.
      * @param {Mixed} arg1 The following types of arguments are all valid:<br />
      * <ul>
-     * <li>{@link Ext.Toolbar.Button} config: A valid button config object (equivalent to {@link #addButton})</li>
+     * <li>{@link Ext.Button} config: A valid button config object (equivalent to {@link #addButton})</li>
      * <li>HtmlElement: Any standard HTML element (equivalent to {@link #addElement})</li>
      * <li>Field: Any form field (equivalent to {@link #addField})</li>
      * <li>Item: Any subclass of {@link Ext.Toolbar.Item} (equivalent to {@link #addItem})</li>
@@ -455,9 +455,9 @@ Ext.extend(T, Ext.Container, {
     },
 
     /**
-     * Adds a button (or buttons). See {@link Ext.Toolbar.Button} for more info on the config.
+     * Adds a button (or buttons). See {@link Ext.Button} for more info on the config.
      * @param {Object/Array} config A button config or array of configs
-     * @return {Ext.Toolbar.Button/Array}
+     * @return {Ext.Button/Array}
      */
     addButton : function(config){
         if(Ext.isArray(config)){
@@ -502,11 +502,11 @@ Ext.extend(T, Ext.Container, {
     },
 
     /**
-     * Inserts any {@link Ext.Toolbar.Item}/{@link Ext.Toolbar.Button} at the specified index.
+     * Inserts any {@link Ext.Toolbar.Item}/{@link Ext.Button} at the specified index.
      * @param {Number} index The index where the item is to be inserted
-     * @param {Object/Ext.Toolbar.Item/Ext.Toolbar.Button/Array} item The button, or button config object to be
+     * @param {Object/Ext.Toolbar.Item/Ext.Button/Array} item The button, or button config object to be
      * inserted, or an array of buttons/configs.
-     * @return {Ext.Toolbar.Button/Item}
+     * @return {Ext.Button/Item}
      */
     insertButton : function(index, item){
         if(Ext.isArray(item)){
