@@ -41,13 +41,12 @@
                 $this->id = (isset($params['id'])) ? $params['id'] : null;
                 $this->params = (isset($params['data'])) ? json_decode(stripslashes($params['data']), true) : null;
             } else {
-                // grab id from path if exists... (eg: /users/69)
-                $id = array_pop(split('/', $_SERVER["PATH_INFO"]));
-                $this->id = (is_numeric($id)) ? $id : null;
-
                 // grab JSON data if there...
                 $this->params = (isset($_REQUEST['data'])) ? json_decode(stripslashes($_REQUEST['data']), true) : null;
             }
+            // grab id from path if exists... (eg: /users/69)
+            $id = array_pop(split('/', $_SERVER["PATH_INFO"]));
+            $this->id = (is_numeric($id)) ? $id : null;
         }
 
         /**
@@ -96,7 +95,7 @@
             $rec = User::create($this->params);
             if ($rec) {
                 $res->success = true;
-                $res->message = "Created new user";
+                $res->message = "Created new User" . $rec->id;
                 $res->data = $rec->to_hash();
             } else {
                 $res->message = "Failed to create User";
@@ -112,7 +111,7 @@
             if ($rec) {
                 $res->data = $rec->to_hash();
                 $res->success = true;
-                $res->message = 'Users#update';
+                $res->message = 'Updated User ' . $this->id;
             } else {
                 $res->message = "Failed to find that User";
             }
@@ -125,7 +124,7 @@
             $res = new Response();
             if (User::destroy($this->id)) {
                 $res->success = true;
-                $res->message = 'Users#destroy';
+                $res->message = 'Destroyed User ' . $this->id;
             } else {
                 $res->message = "Failed to destroy User";
             }
