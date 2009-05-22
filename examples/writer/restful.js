@@ -67,7 +67,7 @@ Ext.onReady(function() {
         saveText: 'Update'
     });
 
-    // create user.Grid instance (@see UserGrid.js)
+    // Create a typical GridPanel with RowEditor plugin
     var userGrid = new Ext.grid.GridPanel({
         renderTo: 'user-grid',
         iconCls: 'icon-grid',
