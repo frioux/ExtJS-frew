@@ -1,16 +1,7 @@
-/*
- * Ext JS Library 3.0 Pre-alpha
- * Copyright(c) 2006-2008, Ext JS, LLC.
- * licensing@extjs.com
- *
- * http://extjs.com/license
- */
-
 // Application instance for showing user-feedback messages.
 var App = new Ext.App({});
 
-// Create HttpProxy instance.  Notice new configuration parameter "api" here instead of load.  However, you can still use
-// the "url" paramater -- All CRUD requests will be directed to your single url instead.
+// Create a standard HttpProxy instance.
 var proxy = new Ext.data.HttpProxy({
     url: 'remote/users.php'
 });
@@ -29,10 +20,7 @@ var reader = new Ext.data.JsonReader({
 ]);
 
 // The new DataWriter component.
-var writer = new Ext.data.JsonWriter({
-    returnJson: true,
-    writeAllFields: false
-});
+var writer = new Ext.data.JsonWriter();
 
 // Typical Store collecting the Proxy, Reader and Writer together.
 var store = new Ext.data.Store({
@@ -59,10 +47,10 @@ var userColumns =  [
 // load the store immeditately
 store.load();
 
-
 Ext.onReady(function() {
     Ext.QuickTips.init();
 
+    // We'll use the new RowEditor for this example.
     var editor = new Ext.ux.RowEditor({
         saveText: 'Update'
     });
