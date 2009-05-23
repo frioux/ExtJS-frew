@@ -676,7 +676,7 @@ tb.{@link #doLayout}();             // refresh the layout
         if(rendered && this.layout){
             this.layout.layout();
         }
-        if(shallow !== false && this.items){
+        if(shallow !== true && this.items){
             var cs = this.items.items;
             for(var i = 0, len = cs.length; i < len; i++){
                 var c = cs[i];
