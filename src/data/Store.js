@@ -309,7 +309,7 @@ var grid = new Ext.grid.EditorGridPanel({
     if(this.proxy){
         this.relayEvents(this.proxy,  [Ext.data.Api.READ+"exception"]);
     }
-    // With a writer installed into the Store, we want to listen to add/remove events to remotely create/destroy records.
+    // With a writer set for the Store, we want to listen to add/remove events to remotely create/destroy records.
     if (this.writer) {
         this.relayEvents(this.proxy, ["writeexception"]);
         this.on('add', this.createRecords.createDelegate(this));
@@ -446,7 +446,7 @@ sortInfo: {
 
     /**
      * @cfg {Boolean} restful [false]
-     * Defaults to <tt>false</tt>.  Set to <tt>true</tt> to have Store and installed Proxy operate in a RESTful manner.
+     * Defaults to <tt>false</tt>.  Set to <tt>true</tt> to have Store and set Proxy operate in a RESTful manner.
      */
     restful: false,
 
@@ -645,7 +645,7 @@ sortInfo: {
     },
 
     /**
-     * updateRecord  Should not be used directly.  This method will be called automatically if a Writer is installed.
+     * updateRecord  Should not be used directly.  This method will be called automatically if a Writer is set.
      * Listens to "update" event.
      * @param {Object} store
      * @param {Object} record
@@ -659,7 +659,7 @@ sortInfo: {
     },
 
     /**
-     * createRecords.  Should not be used directly.  Store#add will call this automatically if a Writer is installed
+     * createRecords.  Should not be used directly.  Store#add will call this automatically if a Writer is set 
      * @param {Object} store
      * @param {Object} rs
      * @param {Object} index
@@ -679,7 +679,7 @@ sortInfo: {
 
     /**
      * destroyRecord
-     * Destroys a record or records.  Should not be used directly.  It's called by Store#remove if a Writer is installed.
+     * Destroys a record or records.  Should not be used directly.  It's called by Store#remove if a Writer is set.
      * @param {Store} this
      * @param {Ext.data.Record/Ext.data.Record[]}
      * @param {Number} index
@@ -704,7 +704,7 @@ sortInfo: {
     },
 
     /**
-     * execute Executes a CRUD action on a proxy if a Writer is installed.  Should not be used directly.  Called automatically
+     * execute Executes a CRUD action on a proxy if a Writer is set.  Should not be used directly.  Called automatically
      * by Store#add, Store#remove, Store#afterEdit
      * @param {String} action
      * @param {Record/Record[]} rs
@@ -1373,7 +1373,7 @@ Ext.data.Store.Error = Ext.extend(Ext.Error, {
     render : function(name, file, data) {
         switch(name) {
             case 'writer-undefined':
-                return 'Attempted to write data without a writer installed!  Please see the Ext.data.Store docs and install a suitable DataWriter';
+                return 'Attempted to write data without a writer set!  Please see the Ext.data.Store docs and set a suitable DataWriter';
                 break;
         }
     }
