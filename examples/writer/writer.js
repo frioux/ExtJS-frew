@@ -40,12 +40,16 @@ var store = new Ext.data.Store({
     batchSave: false    // <-- true to delay executing create, update, destroy requests until specifically told to do so.
 });
 
+
+// A new generic text field
+var textField =  new Ext.form.TextField();
+
 // Let's pretend we rendered our grid-columns with meta-data from our ORM framework.
 var userColumns =  [
     {header: "ID", width: 40, sortable: true, dataIndex: 'id'},
-    {header: "Email", width: 100, sortable: true, dataIndex: 'email', editor: new Ext.form.TextField({})},
-    {header: "First", width: 50, sortable: true, dataIndex: 'first', editor: new Ext.form.TextField({})},
-    {header: "Last", width: 50, sortable: true, dataIndex: 'last', editor: new Ext.form.TextField({})}
+    {header: "Email", width: 100, sortable: true, dataIndex: 'email', editor: textField},
+    {header: "First", width: 50, sortable: true, dataIndex: 'first', editor: textField},
+    {header: "Last", width: 50, sortable: true, dataIndex: 'last', editor: textField}
 ];
 
 // load the store immeditately
