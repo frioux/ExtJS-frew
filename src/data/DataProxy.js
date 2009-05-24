@@ -1,31 +1,31 @@
 /**
  * @class Ext.data.DataProxy
  * @extends Ext.util.Observable
- * <p>This Class is an abstract base Class for implementations which provide retrieval of
- * unformatted data objects.</p>
- *
+ * <p>Abstract base class for implementations which provide retrieval of unformatted data objects.
+ * This class is intended to be extended and should not be created directly. For existing implementations,
+ * see {@link Ext.data.DirectProxy}, {@link Ext.data.HttpProxy}, {@link Ext.data.ScriptTagProxy} and
+ * {@link Ext.data.MemoryProxy}.</p>
  * <p>DataProxy implementations are usually used in conjunction with an implementation of {@link Ext.data.DataReader}
  * (of the appropriate type which knows how to parse the data object) to provide a block of
  * {@link Ext.data.Records} to an {@link Ext.data.Store}.</p>
- *
+ * <p>The parameter to a DataProxy constructor may be an {@link Ext.data.Connection} or can also be the
+ * config object to an {@link Ext.data.Connection}.</p>
  * <p>Custom implementations must implement either the <code><b>doRequest</b></code> method (preferred) or the
  * <code>load</code> method (deprecated). See
  * {@link Ext.data.HttpProxy}.{@link Ext.data.HttpProxy#doRequest doRequest} or
  * {@link Ext.data.HttpProxy}.{@link Ext.data.HttpProxy#load load} for additional details.</p>
- *
  * <p><b><u>Example 1</u></b></p>
  * <pre><code>
 proxy: new Ext.data.ScriptTagProxy({
     {@link Ext.data.Connection#url url}: 'http://extjs.com/forum/topics-remote.php'
 }),
  * </code></pre>
- *
  * <p><b><u>Example 2</u></b></p>
  * <pre><code>
 proxy : new Ext.data.HttpProxy({
     {@link Ext.data.Connection#method method}: 'GET',
     {@link Ext.data.HttpProxy#prettyUrls prettyUrls}: false,
-    url: 'local/default.php', // see options parameter for {@link Ext.Ajax#request}
+    {@link Ext.data.Connection#url url}: 'local/default.php', // see options parameter for {@link Ext.Ajax#request}
     {@link #api}: {
         // all actions except the following will use above url
         create  : 'local/new.php',
@@ -100,54 +100,45 @@ myStore.on({
      * </code></pre>
      * </p>
      */
-
-    // Verify valid api or define if not set.
-    if (this.api) {
-        var valid = Ext.data.Api.isValid(this.api);
-        if (valid !== true) {
-            // disabled throwing exception, validator is too strict.
-            //throw new Ext.data.Api.Error('invalid', 'DataProxy.js', valid);
+    // Prepare the proxy api.  Ensures all API-actions are defined with the Object-form.
+    try {
+        Ext.data.Api.prepare(this);
+    } catch (e) {
+        if (e instanceof Ext.data.Api.Error) {
+            e.toConsole();
         }
-        // Prepare the proxy api.  Ensures all API-actions are defined with the Object-form.
-        Ext.data.Api.prepare(this.api);
-    }
-    else {
-        this.api = {};
-        Ext.each(Ext.data.Api.getVerbs(), function(verb){
-            this.api[verb] = undefined;
-        }, this);
     }
 
     this.addEvents(
         /**
-         * @event beforeload (beforeExt.data.Api.READ)
+         * @event beforeload (beforeExt.data.Api.actions.read)
          * Fires before a network request is made to retrieve a data object.
          * @param {Object} this
          * @param {Object} params The params object passed to the {@link #request} function
          */
-        'before'+Ext.data.Api.READ,
+        'before'+Ext.data.Api.actions.read,
         /**
-         * @event load (Ext.data.Api.READ)
+         * @event load (Ext.data.Api.actions.read)
          * Fires before the load method's callback is called.
          * @param {Object} this
          * @param {Object} o The data object
          * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
-        Ext.data.Api.READ,
+        Ext.data.Api.actions.read,
         /**
          * @event beforewrite
          * Fires before a network request is made to CREATE, UPDATE, DESTROY an object
          * @param {Object} this
-         * @param {String} action [Ext.data.Api.CREATE|Ext.data.Api.READ|Ext.data.Api.UPDATE|Ext.data.Api.DESTROY]
+         * @param {String} action [Ext.data.Api.actions.create|update|destroy]
          * @param {Object} o The data object
          * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
         'beforewrite',
         /**
          * @event write
-         * Fires before a the request-callback is called
+         * Fires before the request-callback is called
          * @param {Object} this
-         * @param {String} action [Ext.data.Api.CREATE|READ|UPDATE|DESTROY]
+         * @param {String} action [Ext.data.Api.actions.create|read|upate|destroy]
          * @param {Object} o The data object
          * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
@@ -158,14 +149,35 @@ myStore.on({
 
 Ext.extend(Ext.data.DataProxy, Ext.util.Observable, {
     /**
-     * @cfg {Boolean} restful [false]
-     * Defaults to <tt>false</tt>.  Set to <tt>true</tt> to operate in a RESTful manner.  Note:  this parameter will automatically be set to <tt>true</tt> if
-     * the {@link Ext.data.Store} it's plugged into is set to <tt>restful: true</tt>.  If your Store is RESTful, you need not explicitly set this option.
+     * @cfg {Boolean} restful
+     * <p>Defaults to <tt>false</tt>.  Set to <tt>true</tt> to operate in a RESTful manner.</p>
+     * <br><p> Note: this parameter will automatically be set to <tt>true</tt> if the
+     * {@link Ext.data.Store} it is plugged into is set to <code>restful: true</code>. If the
+     * Store is RESTful, there is no need to set this option on the proxy.</p>
+     * <br><p>RESTful implementations enable the serverside framework to automatically route
+     * actions sent to one url based upon the HTTP method, for example:
+     * <pre><code>
+store: new Ext.data.Store({
+    restful: true,
+    proxy: new Ext.data.HttpProxy({url:'/users'}); // all requests sent to /users
+    ...
+)}
+     * </code></pre>
+     * There is no <code>{@link #api}</code> specified in the configuration of the proxy,
+     * all requests will be marshalled to a single RESTful url (/users) so the serverside
+     * framework can inspect the HTTP Method and act accordingly:
+     * <pre>
+<u>Method</u>   <u>url</u>        <u>action</u>
+POST     /users     create
+GET      /users     read
+PUT      /users/23  update
+DESTROY  /users/23  delete
+     * </pre></p>
      */
     restful: false,
 
     /**
-     * <p>Redefines the the Proxy's API or a single action of an API. Can be called with two method signatures.</p>
+     * <p>Redefines the Proxy's API or a single action of an API. Can be called with two method signatures.</p>
      * <p>If called with an object as the only parameter, the object should redefine the entire API, eg:</p><code><pre>
 proxy.setApi({
     load: '/users/load',
@@ -176,7 +188,7 @@ proxy.setApi({
 </pre></code>
      * <p>If called with two parameters, the first parameter should be a string specifying the API action to
      * redefine and the second parameter should be the URL (or function if using DirectProxy) to call for that action, eg:</p><code><pre>
-proxy.setApi(Ext.data.Api.READ, '/users/new_load_url');
+proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
 </pre></code>
      * @param {Mixed} api An API specification object, or the name of an action.
      * @param {String/Function} url The URL (or function if using DirectProxy) to call for the action.
@@ -213,20 +225,19 @@ proxy.setApi(Ext.data.Api.READ, '/users/new_load_url');
     },
 
     /**
-     * request
      * All proxy actions are executed through this method.  Automatically fires the "before" + action event
      * @param {String} action
      * @param {Ext.data.Record/Ext.data.Record[]/null} rs Will be null when action is 'load'
      * @param {Object} params
      * @param {Ext.data.DataReader} reader
      * @param {Function} callback
-     * @param {Object} scope
+     * @param {Object} scope Scope with which to call the callback (defaults to the Proxy object)
      * @param {Object} options
      * @private
      */
     request : function(action, rs, params, reader, callback, scope, options) {
         params = params || {};
-        if ((action == Ext.data.Api.READ) ? this.fireEvent("before"+action, this, params, options) : this.fireEvent("beforewrite", this, action, params, options) !== false) {
+        if ((action == 'read') ? this.fireEvent("before"+Ext.data.Api.actions[action], this, params, options) : this.fireEvent("beforewrite", this, action, params, options) !== false) {
             this.doRequest.apply(this, arguments);
         }
         else {
@@ -235,8 +246,7 @@ proxy.setApi(Ext.data.Api.READ, '/users/new_load_url');
     },
 
     /**
-     * load
-     * old-school load method with old method signature.  Simply a proxy-method -> doRequest
+     * <b>Deprecated</b> load method using old method signature. See {@doRequest} for preferred method.
      * @deprecated
      * @param {Object} params
      * @param {Object} reader
@@ -245,7 +255,7 @@ proxy.setApi(Ext.data.Api.READ, '/users/new_load_url');
      * @param {Object} arg
      */
     load : function(params, reader, callback, scope, arg) {
-        this.doRequest(Ext.data.Api.READ, null, params, reader, callback, scope, arg);
+        this.doRequest(Ext.data.Api.actions.read, null, params, reader, callback, scope, arg);
     },
 
     /**

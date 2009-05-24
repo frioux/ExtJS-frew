@@ -45,10 +45,10 @@ paramOrder: 'param1|param2|param'
 
         var directFn = this.api[action] || this.directFn;
         switch (action) {
-            case Ext.data.Api.CREATE:
+            case Ext.data.Api.actions.create:
                 args.push(params[reader.meta.root]);		// <-- create(Hash)
                 break;
-            case Ext.data.Api.READ:
+            case Ext.data.Api.actions.read:
                 if(this.paramOrder){
                     for(var i = 0, len = this.paramOrder.length; i < len; i++){
                         args.push(params[this.paramOrder[i]]);
@@ -57,11 +57,11 @@ paramOrder: 'param1|param2|param'
                     args.push(params);
                 }
                 break;
-            case Ext.data.Api.UPDATE:
+            case Ext.data.Api.actions.update:
                 args.push(params[reader.meta.idProperty]);  // <-- save(Integer/Integer[], Hash/Hash[])
                 args.push(params[reader.meta.root]);
                 break;
-            case Ext.data.Api.DESTROY:
+            case Ext.data.Api.actions.destroy:
                 args.push(params[reader.meta.root]);        // <-- destroy(Int/Int[])
                 break;
         }
@@ -70,7 +70,7 @@ paramOrder: 'param1|param2|param'
     },
     // private
     createCallback : function(action, reader, callback, scope, arg) {
-        return (action == Ext.data.Api.READ) ? function(result, e){
+        return (action == Ext.data.Api.actions.read) ? function(result, e){
                 if (!e.status) {
                     this.fireEvent(action+"exception", this, e, result);
                     callback.call(scope, null, arg, false);

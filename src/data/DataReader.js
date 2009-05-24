@@ -53,14 +53,13 @@ Ext.data.DataReader.prototype = {
                 data = data.shift();
             }
             if (!this.isData(data)) {
-                // TODO: create custom Exception class to return record in thrown exception.  Allow exception-handler the choice
-                // to commit or not rather than blindly rs.commit() here.
+                // TODO: Let exception-handler choose to commit or not rather than blindly rs.commit() here.
                 rs.commit();
                 throw new Ext.data.DataReader.Error('realize', 'DataReader.js', rs);
             }
             var values = this.extractValues(data, rs.fields.items, rs.fields.items.length);
             rs.phantom = false; // <-- That's what it's all about
-            rs._phid = rs.id;  // <-- save oldId so we can remap in Store#onCreateRecords
+            rs._phid = rs.id;  // <-- copy phantom-id -> _phid, so we can remap in Store#onCreateRecords
             rs.id = data[this.meta.idProperty];
             rs.data = values;
             rs.commit();

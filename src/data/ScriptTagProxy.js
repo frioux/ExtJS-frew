@@ -149,7 +149,7 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
     // @private createCallback
     createCallback : function(action, trans) {
         var conn = this;
-        return (action == Ext.data.Api.READ)
+        return (action == Ext.data.Api.actions.read)
             ? function(res) {
                 conn.trans = false;
                 conn.destroyTrans(trans, true);
@@ -157,11 +157,11 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
                 try {
                     result = trans.reader.readRecords(res);
                 }catch(e){
-                    conn.fireEvent(Ext.data.Api.READ+"exception", conn, res, trans.arg, e);
+                    conn.fireEvent(Ext.data.Api.actions.read+"exception", conn, res, trans.arg, e);
                     trans.callback.call(trans.scope||window, null, trans.arg, false);
                     return;
                 }
-                conn.fireEvent(Ext.data.Api.READ, conn, res, trans.arg);
+                conn.fireEvent(Ext.data.Api.actions.read, conn, res, trans.arg);
                 trans.callback.call(trans.scope||window, result, trans.arg, true);
             }
             : function(res) {
@@ -214,15 +214,15 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
     handleFailure : function(trans){
         this.trans = false;
         this.destroyTrans(trans, false);
-        if (trans.action === Ext.data.Api.READ) {
-            this.fireEvent(Ext.data.Api.READ+"exception", this, null, trans.arg);
+        if (trans.action === Ext.data.Api.actions.read) {
+            this.fireEvent(Ext.data.Api.actions.read+"exception", this, null, trans.arg);
         }
         else {
             this.fireEvent("writeexception", this, trans.action, null, trans.arg);
         }
         trans.callback.call(trans.scope||window, null, trans.arg, false);
     },
-    
+
     // inherit docs
     destroy: function(){
         this.abort();

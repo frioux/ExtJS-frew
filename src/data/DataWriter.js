@@ -39,14 +39,15 @@ Ext.data.DataWriter.prototype = {
      */
     write : function(action, params, rs, isApiAction) {
         var data = null;
+        var actions = Ext.data.Api.actions;
         switch (action) {
-            case Ext.data.Api.CREATE:
+            case actions.create:
                data = this.create(rs);
                break;
-            case Ext.data.Api.UPDATE:
+            case actions.update:
                data = this.update(rs);
                break;
-            case Ext.data.Api.DESTROY:
+            case actions.destroy:
                data = this.destroy(rs);
                break;
         }
@@ -56,7 +57,7 @@ Ext.data.DataWriter.prototype = {
     /**
      * abstract method meant to be overridden by all DataWriter extensions.  It's the extension's job to apply the "data" to the "params".
      * The data-object provided to render is populated with data according to the meta-info defined in the user's DataReader config,
-     * @param {String} action [Ext.data.Api.CREATE|READ|UPDATE|DESTROY]
+     * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
      * @param {Record[]} rs Store recordset
      * @param {Object} params Http params to be sent to server.
      * @param {Object} data object populated according to DataReader meta-data.

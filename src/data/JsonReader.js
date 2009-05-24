@@ -240,7 +240,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
     /**
      * readResponse
      * decodes a json response from server
-     * @param {String} action [Ext.data.Api.CREATE|READ|UPDATE|DESTROY]
+     * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
      * @param {Object} response
      */
     readResponse : function(action, response) {
@@ -253,7 +253,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             throw new Ext.data.JsonReader.Error('success', 'JsonReader.js', this.meta.successProperty);
         }
         // TODO, separate empty and undefined exceptions.
-        else if ((action == Ext.data.Api.CREATE || action == Ext.data.Api.UPDATE) && Ext.isEmpty(o[this.meta.root])) {
+        else if ((action == Ext.data.Api.actions.create || action == Ext.data.Api.actions.update) && Ext.isEmpty(o[this.meta.root])) {
             throw new Ext.data.JsonReader.Error('root', 'JsonReader.js', this.meta.root);
         }
         // makde sure extaction functions are defined.

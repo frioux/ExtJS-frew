@@ -1,89 +1,102 @@
 /**
+ * @class Ext.data.Api
+ * @extends Object
  * Ext.data.Api is a singleton designed to manage the data API including methods for validating
- * a developer's DataProxy API.  Defines CONSTANTS for CRUD-actions create, read, update and destroy.
+ * a developer's DataProxy API.  Defines CONSTANTS for custom and CRUD actions create, read, update and destroy.
  * @singleton
  */
 Ext.data.Api = (function() {
 
-    // private method to apply appropiate REST method to an API-action
-    var setRestMethod = function(action, api) {
-        switch (action) {
-            case Ext.data.Api.CREATE:
-                api['method'] = 'POST';
-                break;
-            case Ext.data.Api.READ:
-                api['method'] = 'GET';
-                break;
-            case Ext.data.Api.UPDATE:
-                api['method'] = 'PUT';
-                break;
-            case Ext.data.Api.DESTROY:
-                api['method'] = 'DELETE';
-                break;
-        }
-    };
+    // private validActions.  As each Api-action is validated through Ext.data.Api.isAction, its validity gets
+    // cached here so we don't have to loop thorugh the api actions each time.
+    var validActions = {};
 
     return {
         /**
-         * @const Ext.data.Api.CREATE Text representing the remote-action "create"
+         * Defined actions corresponding to remote actions:
+         * <pre>
+         * CREATE  Text representing the remote-action to create records on server.
+         * READ    Text representing the remote-action to read/load data from server.
+         * UPDATE  Text representing the remote-action to update records on server.
+         * DESTROY Text representing the remote-action to destroy records on server.
+         * </pre>
+         * @property actions
+         * @type Object
          */
-        CREATE  : 'create',
-        /**
-         * @const Ext.data.Api.READ Text representing the action for remotely reading/loading data from server.
-         * The word "load" is important for maintaining backwards-compatibility with Ext-2.0, as well.  "read" would be preferred.
-         * However, with the introduction of Ext.data.Api singleton, we my be able to use "read" now.
-         */
-        READ    : 'load',
-        /**
-         * @const Ext.data.Api.UPDATE Text representing the remote-action to rupdate records on server.
-         * The word "update" would be preferred here, instead of "save" but "update" has already been used for events pre-Ext3.
-         * However, since the introduction of the Ext.data.Api singleton, we may be able to use "udpate" now.
-         */
-        UPDATE  : 'save',
-        /**
-         * @const Ext.data.Api.DESTROY Text representing the remote-action to destroy records on server.
-         */
-        DESTROY : 'destroy',
+        actions : {
+            create  : 'create',
+            // although 'read' would be preferred, load is used for backward compatibility
+            // However, with the introduction of the Ext.data.Api singleton, we my be able to use "read" now.
+            read    : 'load',
+            // although 'update' would be preferred, 'save' has already been used for events pre-Ext3.
+            // However, with the introduction of the Ext.data.Api singleton, we may be able to use "udpate" now.
+            update  : 'save',
+            destroy : 'destroy'
+        },
 
         /**
-         * Returns a list of names of all available CRUD actions
-         * @return {String[]}
+         * Defined {CRUD action}:{HTTP method} pairs corresponding to remote actions for RESTful proxies.
+         * Defaults to:
+         * <pre><code>
+restActions : {
+    create  : 'POST',
+    read    : 'GET',
+    update  : 'PUT',
+    destroy : 'DELETE'
+},
+         * </code></pre>
          */
-        getVerbs : function(){
-            return [this.CREATE, this.READ, this.UPDATE, this.DESTROY];
+        restActions : {
+            create  : 'POST',
+            read    : 'GET',
+            update  : 'PUT',
+            destroy : 'DELETE'
         },
+
         /**
-         * Returns true if supplied action-name is a valid API action defined in CRUD constants
-         * Ext.data.Api.CREATE, Ext.data.Api.READ, Ext.data.Api.UPDATE, Ext.data.Api.DESTROY
+         * Returns true if supplied action-name is a valid API action defined in <code>{@link #actions}</code> constants
          * @param {String} action
-         * @param {String[]}(Optional) List of availabe CRUD actions.  Pass in list when executing multiple times for efficiency.
+         * @param {String[]}(Optional) List of available CRUD actions.  Pass in list when executing multiple times for efficiency.
          * @return {Boolean}
          */
-        isVerb : function(action, crud) {
-            var found = false;
-            crud = crud || this.getVerbs();
-            for (var n=0,len=crud.length;n<len;n++) {
-                if (crud[n] == action) {
-                   found = true;
-                   break;
+        isAction : function(action) {
+            if (validActions[action]) {
+                return true;    // <-- This action is known to be valid.  return immediately.
+            }
+            for (var k in this.actions) {
+                if (this.actions[k] === action)  {
+                    validActions[action] = true;    // <-- cache the validity of this action.
+                    break;
                 }
             }
-            return found;
+            return (validActions[action]) ? true : false;
         },
         /**
-         * Returns true if the supplied API is valid; that is, that all keys match defined CRUD-actions,
-         * Ext.data.Api.CREATE, Ext.data.Api.READ, Ext.data.Api.UPDATE, Ext.data.Api.DESTROY.  Otherwise returns an array of mistakes.
+         * Returns true if the supplied API is valid; that is, check that all keys match defined actions
+         * otherwise returns an array of mistakes.
          * @return {String[]||true}
          */
         isValid : function(api){
             var invalid = [];
-            var crud = this.getVerbs(); // <-- cache a copy of teh verbs.
+            var crud = this.actions; // <-- cache a copy of the actions.
             for (var action in api) {
-                if (!this.isVerb(action, crud)) {   // <-- send cache of verbs into isVerb.  This call is only reason for isVerb to accept 2nd param.
+                if (!(action in crud)) {
                     invalid.push(action);
                 }
             }
             return (!invalid.length) ? true : invalid;
+        },
+
+        hasUniqueUrl : function(verb, proxy) {
+            var url = proxy.api[verb].url;
+            var unique = true;
+            for (var action in proxy.api) {
+                unique = (action === verb) ? true : (proxy.api[action].url != url) ? true : false;
+                if (unique === false) {
+                    break;
+                }
+            }
+            return unique;
         },
 
         /**
@@ -114,43 +127,50 @@ new Ext.data.HttpProxy({
 });
         </pre></code>
          *
-         * @param {Object} api
-         * @param {Boolean} restful [false]
+         * @param {Ext.data.DataProxy} proxy
          */
-        prepare : function(api, restful) {
-            restful == restful || false;
-            for (var action in api) {
-                if (typeof(api[action]) == 'string') {
-                    api[action] = {
-                        url: api[action]
-                    }
+        prepare : function(proxy) {
+            if (!proxy.api) {
+                proxy.api = {}; // <-- No api?  create a blank one, apply proxy.url for each action.
+            }
+            for (var verb in this.actions) {
+                var action = this.actions[verb];
+                proxy.api[action] = proxy.api[action] || proxy.url;
+                if (proxy.api[action] == undefined) {
+                    throw new Ext.data.Api.Error('action-url-undefined', 'Api.js', action);
                 }
-                if (restful === true) {
-                    setRestMethod(action, api[action]);
+                if (typeof(proxy.api[action]) == 'string') {
+                    proxy.api[action] = {
+                        url: proxy.api[action]
+                    };
                 }
             }
         },
 
         /**
-         * Prepares a supplied Proxy to be RESTful
+         * Prepares a supplied Proxy to be RESTful.
          * @param {Ext.data.DataProxy} proxy
          */
         restify : function(proxy) {
             proxy.restful = true;
-            Ext.each(Ext.data.Api.getVerbs(), function(verb){
-                proxy.api[verb] = proxy.api[verb] || proxy.url;
-            }, this);
-            Ext.data.Api.prepare(proxy.api, true);
+            for (var verb in this.restActions) {
+                var action = this.actions[verb];
+                proxy.api[action].method = this.restActions[verb];
+            }
         }
-    }
+    };
 })();
 
 /**
- * General Ext Error class.  Wraps the Javascript Error class as Ext.Element wraps a DomNode.
- * To display the error to client, call Ext.Error#toConsole which will check for the existence of Firebug.
+ * @class Ext.Error
+ * @extends Object
+ * <p>The Ext.Error class wraps the native Javascript Error class similar to how Ext.Element wraps a DomNode.
+ * To display an error to the client call the {@link #toConsole} method which will check for the
+ * existence of Firebug.</p>
+ *
  * TODO: Move to Ext.js?
+ *
 <code><pre>
-
 try {
     generateError({
         foo: 'bar'
@@ -176,14 +196,15 @@ Ext.Error = function(id, file, data) {
 }
 Ext.Error.prototype = {
     /**
-     * @property {String} cls
      * The ClassName of this Error.
-     * @param {Object} name
+     * @property cls
+     * @type String
      */
     cls: 'Ext.Error',
     /**
-     * @property {String} id
      * The id of the error.
+     * @property id
+     * @type String
      */
     id : undefined,
 
@@ -221,20 +242,18 @@ Ext.data.Api.Error = Ext.extend(Ext.Error, {
     cls: 'Ext.data.Api',
     render : function(name, file, data) {
         switch (name) {
+            case 'action-url-undefined':
+                return 'No fallback url defined for action "' + data + '".  When defining a DataProxy api, please be sure to define an url for each CRUD action in Ext.data.Api.actions or define a default url in addition to your api-configuration.';
             case 'invalid':
                 // make sure data is an array so we can call join on it.
                 data = (!Ext.isArray(data)) ? [data] : data;
-                return 'recieved an invalid API-configuration "' + data.join(', ') + '".  Please ensure your proxy API-configuration contains only the actions "' + Ext.data.Api.getVerbs().join(', ');
-                break;
+                return 'received an invalid API-configuration "' + data.join(', ') + '".  Please ensure your proxy API-configuration contains only the actions defined in Ext.data.Api.actions';
             case 'invalid-url':
                 return 'Invalid url "' + data + '".  Please review your proxy configuration.';
-                break;
             case 'execute':
-                return 'Attempted to execute an unknown action "' + data + '".  Valid API actions are "' + Ext.data.Api.getVerbs().join(', ');
-                break;
+                return 'Attempted to execute an unknown action "' + data + '".  Valid API actions are defined in Ext.data.Api.actions"';
             default:
-                 return 'Unknown Error "' + name + '"';
+                return 'Unknown Error "' + name + '"';
         }
     }
 });
-

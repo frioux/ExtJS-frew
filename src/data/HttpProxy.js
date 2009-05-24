@@ -1,32 +1,31 @@
 /**
  * @class Ext.data.HttpProxy
-
  * @extends Ext.data.DataProxy
- * An implementation of {@link Ext.data.DataProxy} that reads a data object from a {@link Ext.data.Connection Connection} object
- * configured to reference a certain URL.<br>
- * <p>
- * <b>Note that this class cannot be used to retrieve data from a domain other than the domain
- * from which the running page was served.<br>
- * <p>
- * For cross-domain access to remote data, use a {@link Ext.data.ScriptTagProxy ScriptTagProxy}.</b><br>
- * <p>
- * Be aware that to enable the browser to parse an XML document, the server must set
- * the Content-Type header in the HTTP response to "text/xml".
+ * <p>An implementation of {@link Ext.data.DataProxy} that processes data requests within the same
+ * domain of the originating page.</p>
+ * <p><b>Note</b>: this class cannot be used to retrieve data from a domain other
+ * than the domain from which the running page was served. For cross-domain requests, use a
+ * {@link Ext.data.ScriptTagProxy ScriptTagProxy}.</p>
+ * <p>Be aware that to enable the browser to parse an XML document, the server must set
+ * the Content-Type header in the HTTP response to "<tt>text/xml</tt>".</p>
  * @constructor
- * @param {Object} conn an {@link Ext.data.Connection} object, or options parameter to {@link Ext.Ajax#request}.
- * <p>Note that if this HttpProxy is being used by a (@link Ext.data.Store Store}, then the Store's call to
- * {@link #load} will override any specified <tt>callback</tt> and <tt>params</tt> options. In this
- * case, use the Store's {@link Ext.data.Store#events events} to modify parameters, or react to loading events.
- * The Store's {@link Ext.data.Store#baseParams baseParams} may also be used to pass parameters known at
- * instantiation time.</p>
- * <p>If an options parameter is passed, the singleton {@link Ext.Ajax} object will be used to make the request.</p>
+ * @param {Object} conn
+ * An {@link Ext.data.Connection} object, or options parameter to {@link Ext.Ajax#request}.
+ * <p>Note that if this HttpProxy is being used by a (@link Ext.data.Store Store}, then the
+ * Store's call to {@link #load} will override any specified <tt>callback</tt> and <tt>params</tt>
+ * options. In this case, use the Store's {@link Ext.data.Store#events events} to modify parameters,
+ * or react to loading events. The Store's {@link Ext.data.Store#baseParams baseParams} may also be
+ * used to pass parameters known at instantiation time.</p>
+ * <p>If an options parameter is passed, the singleton {@link Ext.Ajax} object will be used to make
+ * the request.</p>
  */
 Ext.data.HttpProxy = function(conn){
     Ext.data.HttpProxy.superclass.constructor.call(this, conn);
 
     /**
-     * The Connection object (Or options parameter to {@link Ext.Ajax#request}) which this HttpProxy uses to make requests to the server.
-     * Properties of this object may be changed dynamically to change the way data is requested.
+     * The Connection object (Or options parameter to {@link Ext.Ajax#request}) which this HttpProxy
+     * uses to make requests to the server. Properties of this object may be changed dynamically to
+     * change the way data is requested.
      * @property
      */
     this.conn = conn;
@@ -39,10 +38,10 @@ Ext.data.HttpProxy = function(conn){
 
     this.useAjax = !conn || !conn.events;
 
-    //private.  A hash containing active requests, keyed on action [Ext.data.Api.CREATE|READ|UPDATE|DESTROY]
+    //private.  A hash containing active requests, keyed on action [Ext.data.Api.actions.create|read|update|destroy]
     this.activeRequest = {};
-    Ext.each(Ext.data.Api.getVerbs(), function(verb){
-        this.activeRequest[verb] = undefined;
+    Ext.each(Ext.data.Api.actions, function(action){
+        this.activeRequest[action] = undefined;
     }, this);
 
     /**
@@ -97,6 +96,7 @@ api: {
     destroy: 'destroy.php',
     save: 'update.php'
 }
+     */
 
     /**
      * Return the {@link Ext.data.Connection} object being used by this Proxy.
@@ -149,18 +149,18 @@ api: {
 
     /**
      * HttpProxy implementation of DataProxy#doRequest
-     * @param {String} action
+     * @param {String} action The crud action type (create, read, update, destroy)
      * @param {Ext.data.Record/Ext.data.Record[]} rs If action is load, rs will be null
      * @param {Object} params An object containing properties which are to be used as HTTP parameters
      * for the request to the remote server.
      * @param {Ext.data.DataReader} reader The Reader object which converts the data
      * object into a block of Ext.data.Records.
-     * @param {Function} callback The function into which to pass the block of Ext.data.Records.
-     * The function must be passed <ul>
-     * <li>The Record block object</li>
-     * <li>The "arg" argument from the load function</li>
-     * <li>A boolean success indicator</li>
-     * </ul>
+     * @param {Function} callback
+     * <div class="sub-desc"><p>A function to be called after the request.
+     * The <tt>callback</tt> is passed the following arguments:<ul>
+     * <li><tt>r</tt> : Ext.data.Record[] The block of Ext.data.Records.</li>
+     * <li><tt>options</tt>: Options object from the action request</li>
+     * <li><tt>success</tt>: Boolean success indicator</li></ul></p></div>
      * @param {Object} scope The scope in which to call the callback
      * @param {Object} arg An optional argument which is passed to the callback as its second parameter.
      */
@@ -204,15 +204,15 @@ api: {
     },
 
     /**
-     * createCallback
-     * returns a request-callback function.  Note a special case is made for the Ext.data.Api.READ action vs all the others.
+     * Returns a callback function for a request.  Note a special case is made for the
+     * read action vs all the others.
      * @param {String} action [create|update|delete|load]
-     * @param {Array[Ext.dataRecord]/} rs The Store-recordset being acted upon
+     * @param {Ext.data.Record[]} rs The Store-recordset being acted upon
      * @private
      */
     createCallback : function(action, rs) {
-        return (action == Ext.data.Api.READ)
-            // special case for load callback
+        return (action == Ext.data.Api.actions.read)
+            // special case for read/load action callback
             ? function(o, success, response){
                 this.activeRequest[action] = undefined;
                 if(!success){

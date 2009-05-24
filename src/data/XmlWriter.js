@@ -6,7 +6,7 @@
 Ext.data.XmlWriter = Ext.extend(Ext.data.DataWriter, {
     /**
      * Final action of a write event.  Apply the written data-object to params.
-     * @param {String} action [Ext.data.Api.CREATE|READ|UPDATE|DESTROY]
+     * @param {String} action [Ext.data.Api.create|read|update|destroy]
      * @param {Record[]} rs
      * @param {Object} http params
      * @param {Object} data object populated according to DataReader meta-data "root" and "idProperty"
