@@ -5,10 +5,9 @@
  * (<tt>{@link Ext.Container#items items}</tt>) that are managed using a
  * {@link Ext.layout.CardLayout CardLayout layout manager}, and displayed as separate tabs.</p>
  * 
- * <p><b>Note:</b> It is advisable to configure all child items of a TabPanel (and any Container
- * which uses a {@link Ext.layout.CardLayout CardLayout}) with
- * <b><tt>{@link Ext.Component#hideMode hideMode:'offsets'}</tt></b> to avoid rendering errors
- * in child components hidden using the CSS <tt>display</tt> style.
+ * <b>Note:</b> By default, a tab's close tool <i>destroys</i> the child tab Component
+ * and all its descendants. This makes the child tab Component, and all its descendants <b>unusable</b>. To enable
+ * re-use of a tab, configure the TabPanel with <b><code>{link #autoDestroy autoDestroy: 'false'}</code></b>.
  * 
  * <p><b><u>TabPanel header/footer elements</u></b></p> 
  * <p>TabPanels use their {@link Ext.Panel#header header} or {@link Ext.Panel#footer footer} element
