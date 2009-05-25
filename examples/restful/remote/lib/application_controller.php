@@ -19,9 +19,7 @@ class ApplicationController {
         }
         if ($request->action) {
             return $this->{$request->action}();
-        }
-
-        // normal dispatch here.  discover action
+        }        
     }
 
     protected function dispatchRestful() {

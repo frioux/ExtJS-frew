@@ -36,7 +36,7 @@ var store = new Ext.data.Store({
     reader: reader,
     writer: writer,     // <-- plug a DataWriter into the store just as you would a Reader
     paramsAsHash: true,
-    batchSave: false    // <-- true to delay executing create, update, destroy requests until specifically told to do so.
+    autoSave: true    // <-- true to delay executing create, update, destroy requests until specifically told to do so.
 });
 
 

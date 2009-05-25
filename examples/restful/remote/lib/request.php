@@ -5,6 +5,7 @@
  */
 class Request {
     public $restful, $method, $controller, $action, $id, $params;
+
     public function __construct($params) {
         $this->restful = (isset($params["restful"])) ? $params["restful"] : false;
         $this->method = $_SERVER["REQUEST_METHOD"];
