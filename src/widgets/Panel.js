@@ -111,7 +111,7 @@ new Ext.Panel({
      * @cfg {Object} footerCfg
      * <p>A {@link Ext.DomHelper DomHelper} element specification object specifying the element structure
      * of this Panel's {@link #footer} Element.  See <tt>{@link #bodyCfg}</tt> also.</p>
-     */    
+     */
     /**
      * @cfg {Boolean} closable
      * Panels themselves do not directly support being closed, but some Panel subclasses do (like
@@ -181,7 +181,7 @@ var w = new Ext.Window({
             text: 'bbar Right'
         }]
     }),
-    {@link #buttonAlign}: 'left', // anything but 'center' or 'right' and you can use "-", and "->" 
+    {@link #buttonAlign}: 'left', // anything but 'center' or 'right' and you can use "-", and "->"
                                   // to control the alignment of fbar items
     fbar: [{
         text: 'fbar Left'
@@ -206,7 +206,7 @@ var w = new Ext.Window({
      * @cfg {Boolean} footer
      * <tt>true</tt> to create the footer element explicitly, false to skip creating it. The footer
      * will be created automatically if <tt>{@link #buttons}</tt> or a <tt>{@link #fbar}</tt> have
-     * been configured.  See <tt>{@link #bodyCfg}</tt> for an example. 
+     * been configured.  See <tt>{@link #bodyCfg}</tt> for an example.
      */
     /**
      * @cfg {String} title
@@ -662,13 +662,13 @@ new Ext.Panel({
      * Defaults to '<tt>body</tt>'.
      */
     elements : 'body',
-	/**
-	 * @cfg {Boolean} resetBodyCss
-	 * Defaults to <tt>false</tt>.  When set to <tt>true</tt>, an extra css class <tt>'x-panel-normal'</tt>
-	 * will be added the the panel's element which will reset any body html to styles suggested by the W3C
-	 * (see http://www.w3.org/TR/CSS21/sample.html).
-	 */
-	resetBodyCss: false,
+    /**
+     * @cfg {Boolean} preventBodyReset
+     * Defaults to <tt>false</tt>.  When set to <tt>true</tt>, an extra css class <tt>'x-panel-normal'</tt>
+     * will be added the the panel's element, effectively applying css styles suggested by the W3C
+     * (see http://www.w3.org/TR/CSS21/sample.html) to the Panel's body element.
+     */
+    preventBodyReset: false,
 
     // protected - these could be used to customize the behavior of the window,
     // but changing them would not be useful without further mofifications and
@@ -880,9 +880,9 @@ new Ext.Panel({
             this.footer = cp.down('.'+this.footerCls);
             this.fromMarkup = true;
         }
-		if (this.resetBodyCss === true) {
-			el.addClass('x-panel-reset');
-		}
+        if (this.preventBodyReset === true) {
+            el.addClass('x-panel-reset');
+        }
         if(this.cls){
             el.addClass(this.cls);
         }
@@ -989,7 +989,7 @@ new Ext.Panel({
                 });
             }
             if(this.titleCollapse && this.header){
-            	this.mon(this.header, 'click', this.toggleCollapse, this);
+                this.mon(this.header, 'click', this.toggleCollapse, this);
                 this.header.setStyle('cursor', 'pointer');
             }
         }
@@ -1202,9 +1202,9 @@ new Ext.Panel({
     createToolHandler : function(t, tc, overCls, panel){
         return function(e){
             t.removeClass(overCls);
-			if(tc.stopEvent !== false){
-				e.stopEvent();
-			}
+            if(tc.stopEvent !== false){
+                e.stopEvent();
+            }
             if(tc.handler){
                 tc.handler.call(tc.scope || t, e, t, panel, tc);
             }
