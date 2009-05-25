@@ -7,10 +7,10 @@
  * <p>Windows can also be linked to a {@link Ext.WindowGroup} or managed by the {@link Ext.WindowMgr} to provide 
  * grouping, activation, to front, to back and other application-specific behavior.</p>
  * <p>By default, Windows will be rendered to document.body. To {@link #constrain} a Window to another element
- * specify {@link b.Component#renderTo renderTo}.</p>
- * <b>Note:</b> By default, the <code>{@link #closable close}</code> header tool <i>destroys</i> the Window resulting in
+ * specify {@link Ext.Component#renderTo renderTo}.</p>
+ * <p><b>Note:</b> By default, the <code>{@link #closable close}</code> header tool <i>destroys</i> the Window resulting in
  * destruction of any child Components. This makes the Window object, and all its descendants <b>unusable</b>. To enable
- * re-use of a Window, use <b><code>{link #closeAction closeAction: 'hide'}</code></b>.
+ * re-use of a Window, use <b><code>{@link #closeAction closeAction: 'hide'}</code></b>.</p>
  * @constructor
  * @param {Object} config The config object
  * @xtype window
