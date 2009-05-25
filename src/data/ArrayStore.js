@@ -2,7 +2,7 @@
  * @class Ext.data.ArrayStore
  * @extends Ext.data.Store
  * Formerly known as "SimpleStore", ArrayStore is a small helper class to make creating {@link Ext.data.Store Store}s
- * from Array data easier. ArrayStore is <b>not</b> pre-configured with a built-in {@link Ext.data.DataProxy} 
+ * from Array data easier. ArrayStore is <b>not</b> pre-configured with a built-in {@link Ext.data.DataProxy}
  * but is pre-configured with a built-in {@link Ext.data.ArrayReader ArrayReader}.
  * <p>To consume a data object of the form:</p><pre><code>
 var myData = [
@@ -11,7 +11,7 @@ var myData = [
     ['Boeing Co.',75.43,0.53,0.71,'9/1 12:00am'],
     ['Hewlett-Packard Co.',36.53,-0.03,-0.08,'9/1 12:00am'],
     ['Wal-Mart Stores, Inc.',45.45,0.73,1.63,'9/1 12:00am']
-]; 
+];
 </code></pre>
  * The store configuration would be something like:</p><pre><code>
 var store = new Ext.data.ArrayStore({

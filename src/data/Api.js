@@ -87,12 +87,19 @@ restActions : {
             return (!invalid.length) ? true : invalid;
         },
 
-        hasUniqueUrl : function(verb, proxy) {
+        /**
+         * Returns true if the supplied verb upon the supplied proxy points to a unique url in that none of the other api-actions
+         * point to the same url.  The question is important for deciding whether to insert the "xaction" HTTP parameter within an
+         * Ajax request.  This method is used internally and shouldn't generally need to be called directly.
+         * @param {Ext.data.DataProxy} proxy
+         * @param {String} verb
+         * @return {Boolean}
+         */
+        hasUniqueUrl : function(proxy, verb) {
             var url = proxy.api[verb].url;
             var unique = true;
             for (var action in proxy.api) {
-                unique = (action === verb) ? true : (proxy.api[action].url != url) ? true : false;
-                if (unique === false) {
+                if ((unique = (action === verb) ? true : (proxy.api[action].url != url) ? true : false) === false) {
                     break;
                 }
             }
@@ -131,7 +138,7 @@ new Ext.data.HttpProxy({
          */
         prepare : function(proxy) {
             if (!proxy.api) {
-                proxy.api = {}; // <-- No api?  create a blank one, apply proxy.url for each action.
+                proxy.api = {}; // <-- No api?  create a blank one.
             }
             for (var verb in this.actions) {
                 var action = this.actions[verb];
@@ -154,8 +161,7 @@ new Ext.data.HttpProxy({
         restify : function(proxy) {
             proxy.restful = true;
             for (var verb in this.restActions) {
-                var action = this.actions[verb];
-                proxy.api[action].method = this.restActions[verb];
+                proxy.api[this.actions[verb]].method = this.restActions[verb];
             }
         }
     };

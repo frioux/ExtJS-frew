@@ -125,29 +125,6 @@ api: {
     },
 
     /**
-     * buildUrl
-     * Sets the appropriate url based upon the action being executed.  If restful is true, and only a single record is being acted upon,
-     * url will be built Rails-style, as in "/controller/action/32".  restful will aply iff the supplied record is an
-     * instance of Ext.data.Record rather than an Array of them.
-     * @param {String} action The api action being executed [load|create|update|destroy]
-     * @param {Ext.data.Record/Array[Ext.data.Record]} The record or Array of Records being acted upon.
-     * @return {String} url
-     * @private
-     */
-    buildUrl : function(action, record) {
-        record = record || null;
-        var url = (this.api[action]) ? this.api[action]['url'] : this.url;
-        if (!url) {
-            throw new Ext.data.Api.Error('invalid-url', 'HttpProxy.js', url);
-        }
-        // prettyUrls is deprectated in favor of restful-config
-        if ((this.prettyUrls === true || this.restful === true) && record instanceof Ext.data.Record && !record.phantom) {
-            url += '/' + record.id;
-        }
-        return url;
-    },
-
-    /**
      * HttpProxy implementation of DataProxy#doRequest
      * @param {String} action The crud action type (create, read, update, destroy)
      * @param {Ext.data.Record/Ext.data.Record[]} rs If action is load, rs will be null
