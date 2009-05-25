@@ -198,10 +198,11 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
      * @cfg {String} triggerAction The action to execute when the trigger is clicked.
      * <div class="mdetail-params"><ul>
      * <li><b><tt>'query'</tt></b> : <b>Default</b>
-     * <p class="sub-desc">{@link #doQuery run the query} using the {Ext.form.Field#getRawValue raw value}</p></li>
+     * <p class="sub-desc">{@link #doQuery run the query} using the {@link Ext.form.Field#getRawValue raw value}.</p></li>
      * <li><b><tt>'all'</tt></b> : 
      * <p class="sub-desc">{@link #doQuery run the query} specified by the <tt>{@link #allQuery}</tt> config option</p></li>
      * </ul></div>
+     * <p>See also <code>{@link #queryParam}</code>.</p>
      */
     triggerAction : 'query',
     /**
