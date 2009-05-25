@@ -35,7 +35,6 @@ Ext.extend(Ext.data.MemoryProxy, Ext.data.DataProxy, {
      * for the request to the remote server.
      * @param {Ext.data.DataReader} reader The Reader object which converts the data
      * object into a block of Ext.data.Records.
-     * @param {Ext.data.DataWriter} writer
      * @param {Function} callback The function into which to pass the block of Ext.data.Records.
      * The function must be passed <ul>
      * <li>The Record block object</li>
