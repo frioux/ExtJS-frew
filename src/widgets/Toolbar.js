@@ -710,7 +710,7 @@ Ext.reg('tbfill', T.Fill);
  * @class Ext.Toolbar.TextItem
  * @extends Ext.Toolbar.Item
  * A simple class that renders text directly into a toolbar
- * (css class:<tt>'xtb-text'</tt>). Example usage:
+ * (with css class:<tt>'xtb-text'</tt>). Example usage:
  * <pre><code>
 new Ext.Panel({
     tbar : [
@@ -733,8 +733,8 @@ T.TextItem = Ext.extend(T.Item, {
         T.TextItem.superclass.constructor.call(this, config);
     },
     /**
-     * Updates this item's text.
-     * @param {String} t The text to display.
+     * Updates this item's text, setting the text to be used as innerHTML.
+     * @param {String} t The text to display (html accepted).
      */
     setText: function(t) {
         if (this.rendered) {
