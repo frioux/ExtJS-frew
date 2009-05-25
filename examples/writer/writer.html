@@ -23,13 +23,14 @@
 <body>
 <script type="text/javascript" src="../shared/examples.js"></script><!-- EXAMPLES -->
 <h1>Ext.data.DataWriter Example</h1>
-<p>This example shows how to implement a Writer for your Store.</p>
+<p>This example shows how to implement a Writer for your Store.  A Writer-enabled Store frees you from having to manually compose Ajax requests
+to perform CRUD actions on a Store.</p>
 <p>Note that the js is not minified so it is readable. See <a href="writer.js">writer.js</a>, <a href="UserForm.js">UserForm.js</a> and
 <a href="UserGrid.js">UserGrid.js</a>.</p>
 
 <p>The HttpProxy plugged into the store in this example uses the new <em>api</em> configuration instead of an <em>url</em>.
-Since we can't run server-side code in these examples, the api here points to static json files which represent simulated CRUD responses
-from the server.</p>
+A simple MVC-like php backend has been created for this example which simulates a database by storing records in $_SESSION.  See the file /remote/app/controllers/users.php.  You may have to configure
+your web-server to allow scripts to be executed in the /examples directory.</p>
 
 <p>Take note of the requests being generated in Firebug as you interact with the Grid and Form.</p>
 

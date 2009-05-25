@@ -34,11 +34,9 @@ var writer = new Ext.data.JsonWriter({
 // Typical Store collecting the Proxy, Reader and Writer together.
 var store = new Ext.data.Store({
     id: 'user',
-    root: 'records',
     proxy: proxy,
     reader: reader,
     writer: writer,     // <-- plug a DataWriter into the store just as you would a Reader
-    paramsAsHash: true,
     autoSave: true,    // <-- true to delay executing create, update, destroy requests until specifically told to do so.
     listeners: {
         write : function(store, action, result, res, rs) {
