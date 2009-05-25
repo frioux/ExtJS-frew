@@ -34,12 +34,11 @@ from the server.</p>
 
 <code><pre>
 var proxy = new Ext.data.HttpProxy({
-    prettyUrls: false,  // <-- prettyUrls for urls of the form /user/update/1 or /user/destroy/32
     api: {
-        load : '<a id="api-load" href="#">app.php/users/view</a>',
-        create : '<a id="api-create" href="#">app.php/users/create</a>',
-        save: '<a id="api-save" href="#">app.php/users/update</a>',
-        destroy: '<a id="api-destroy" href="#">app.php/users/destroy</a>'
+        load : 'app.php/users/view',
+        create : 'app.php/users/create',
+        save: 'app.php/users/update',
+        destroy: 'app.php/users/destroy'
     }
 });
 </pre></code>

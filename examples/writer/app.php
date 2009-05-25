@@ -1,12 +1,13 @@
 <?php
     require('remote/init.php');
-    require('remote/app/controllers/users.php');
 
     // Get Request
     $request = new Request(array('restful' => false));
 
     // Get Controller
-    $controller = new Users();
+    require('remote/app/controllers/' . $request->controller . '.php');
+    $controller_name = ucfirst($request->controller);
+    $controller = new $controller_name;
 
     // Dispatch request
     echo $controller->dispatch($request);
