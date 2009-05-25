@@ -1023,10 +1023,17 @@
   <file name="writer\writer.js" path="writer" />
   <file name="writer\UserForm.js" path="writer" />
   <file name="writer\UserGrid.js" path="writer" />
-  <file name="writer\remote\create.json" path="writer\remote" />
-  <file name="writer\remote\destroy.json" path="writer\remote" />
-  <file name="writer\remote\load.json" path="writer\remote" />
-  <file name="writer\remote\update.json" path="writer\remote" />
+
+  <file name="writer\app.php" path="writer" />
+  <file name="writer\remote\init.php" path="writer\remote" />
+  <file name="writer\remote\lib\session_db.php" path="writer\remote\lib" />
+  <file name="writer\remote\lib\application_controller.php" path="writer\remote\lib" />
+  <file name="writer\remote\lib\model.php" path="writer\remote\lib" />
+  <file name="writer\remote\lib\request.php" path="writer\remote\lib" />
+  <file name="writer\remote\lib\response.php" path="writer\remote\lib" />
+  <file name="writer\remote\app\controllers\users.php" path="writer\remote\app\controllers" />
+  <file name="writer\remote\app\models\user.php" path="writer\remote\app\models" />
+
 
   <file name="restful\restful.html" path="restful" />
   <file name="restful\restful.css" path="restful" />
