@@ -1039,7 +1039,7 @@
   <file name="restful\restful.css" path="restful" />
   <file name="restful\restful.js" path="restful" />
   <file name="restful\Ext.ux.RowEditor.js" path="restful" />
-  <file name="restful\users.php" path="restful" />
+  <file name="restful\app.php" path="restful" />
   <file name="restful\remote\init.php" path="restful\remote" />
   <file name="restful\remote\lib\session_db.php" path="restful\remote\lib" />
   <file name="restful\remote\lib\application_controller.php" path="restful\remote\lib" />
