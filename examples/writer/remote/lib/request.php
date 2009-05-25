@@ -13,6 +13,9 @@ class Request {
     public function isRestful() {
         return $this->restful;
     }
+    public function to_string() {
+        return "controller: " . $this->controller . ', action: ' . $this->action . ', id: ' . $this->id;
+    }
     protected function parseRequest() {
         if ($this->method == 'PUT') {   // <-- Have to jump through hoops to get PUT data
             $raw  = '';
@@ -32,9 +35,9 @@ class Request {
         }
         // parse path info
         if (isset($_SERVER["PATH_INFO"])){
-            $cai = '/^\/([a-z]+\w)\/([a-z]+\w)\/([0-9]+\w)$/';  // /controller/action/id
+            $cai = '/^\/([a-z]+\w)\/([a-z]+\w)\/([0-9]+)$/';    // /controller/action/id
             $ca =  '/^\/([a-z]+\w)\/([a-z]+\w)$/';              // /controller/action
-            $ci = '/^\/([a-z]+\w)\/([0-9]+\w)$/';               // /controller/id
+            $ci = '/^\/([a-z]+\w)\/([0-9]+)$/';               // /controller/id
             $c =  '/^\/([a-z]+)$/';                             // /controller
             $i =  '/^\/([0-9]+)$/';                             // /id
             $matches = array();
