@@ -55,7 +55,8 @@ class Users extends ApplicationController {
      */
     public function destroy() {
         $res = new Response();
-        if (User::destroy($this->id)) {
+
+        if (User::destroy($this->params)) {
             $res->success = true;
             $res->message = 'Destroyed User ' . $this->id;
         } else {
