@@ -935,9 +935,10 @@ sortInfo: {
             if (rs instanceof Ext.data.Record) {
                 rs = [rs];
             }
-            for (var i=0,len=rs.length;i<len;i++) {
+            for (var i=rs.length-1;i>=0;i--) {
                 this.insert(rs[i].lastIndex, rs[i]);    // <-- lastIndex set in Store#destroyRecord
             }
+
         }
     },
 
