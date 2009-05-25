@@ -99,6 +99,7 @@ Store xtypes
 ---------------------------------------
 arraystore       {@link Ext.data.ArrayStore}
 directstore      {@link Ext.data.DirectStore}
+groupingstore    {@link Ext.data.GroupingStore}
 jsonstore        {@link Ext.data.JsonStore}
 simplestore      {@link Ext.data.SimpleStore}      (deprecated; use arraystore)
 store            {@link Ext.data.Store}

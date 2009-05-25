@@ -8,6 +8,7 @@
  * Creates a new GroupingStore.
  * @param {Object} config A config object containing the objects needed for the Store to access data,
  * and read the data into Records.
+ * @xtype groupingstore
  */
 Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
     
