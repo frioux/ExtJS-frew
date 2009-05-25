@@ -20,34 +20,52 @@ class Users extends ApplicationController {
      */
     public function create() {
         $res = new Response();
-        $rec = User::create($this->params);
-        if ($rec) {
+
+        // Ugh, php...check if !hash
+        if (is_array($this->params) && !empty($this->params) && preg_match('/^\d+$/', implode('', array_keys($this->params)))) {
+            foreach ($this->params as $data) {
+                array_push($res->data, User::create($data)->to_hash());
+            }
             $res->success = true;
-            $res->message = "Created new User" . $rec->id;
-            $res->data = $rec->to_hash();
+            $res->message = "Created " . count($res->data) . ' records';
         } else {
-            $res->message = "Failed to create User";
+            if ($rec =  User::create($this->params)) {
+                $res->success = true;
+                $res->data = $rec->to_hash();
+                $res->message = "Created record";
+            } else {
+                $res->success = false;
+                $res->message = "Failed to create record";
+            }
         }
         return $res->to_json();
     }
+
     /**
      * update
      */
     public function update() {
         $res = new Response();
-
-        $rec = User::update($this->id, $this->params);
-        if ($rec) {
-            $res->data = $rec->to_hash();
+        if (is_array($this->id)) {
+            $res->data = array();
+            foreach ($this->id as $idx => $id) {
+                if ($rec = User::update($id, $this->params[$idx])) {
+                    array_push($res->data, $rec->to_hash());
+                }
+            }
             $res->success = true;
-            $res->message = 'Updated User ' . $this->id;
+            $res->message = "Updated " . count($res->data) . " records";
         } else {
-            $res->message = "Failed to find that User";
+            if ($rec = User::update($this->id, $this->params)) {
+                $res->data = $rec->to_hash();
+                $res->success = true;
+                $res->message = "Updated record";
+            } else {
+                $res->message = "Failed to updated record";
+                $res->success = false;
+            }
         }
         return $res->to_json();
-    }
-    private function updateUser($id, $data) {
-
     }
 
     /**
@@ -56,11 +74,22 @@ class Users extends ApplicationController {
     public function destroy() {
         $res = new Response();
 
-        if (User::destroy($this->params)) {
+        if (is_array($this->params)) {
+            $destroyed = array();
+            foreach ($this->params as $id) {
+                if ($rec = User::destroy($id)) {
+                    array_push($destroyed, $rec);
+                }
+            }
             $res->success = true;
-            $res->message = 'Destroyed User ' . $this->id;
+            $res->message = 'Destroyed ' . count($destroyed) . ' records';
         } else {
-            $res->message = "Failed to destroy User";
+            if ($rec = User::destroy($this->params)) {
+                $res->message = "Destroyed User";
+                $res->success = true;
+            } else {
+                $res->message = "Failed to Destroy user";
+            }
         }
         return $res->to_json();
     }

@@ -1,3 +1,6 @@
+// Application instance for showing user-feedback messages.
+var App = new Ext.App({});
+
 // Create HttpProxy instance.  Notice new configuration parameter "api" here instead of load.  However, you can still use
 // the "url" paramater -- All CRUD requests will be directed to your single url instead.
 var proxy = new Ext.data.HttpProxy({
@@ -36,7 +39,12 @@ var store = new Ext.data.Store({
     reader: reader,
     writer: writer,     // <-- plug a DataWriter into the store just as you would a Reader
     paramsAsHash: true,
-    autoSave: true    // <-- true to delay executing create, update, destroy requests until specifically told to do so.
+    autoSave: true,    // <-- true to delay executing create, update, destroy requests until specifically told to do so.
+    listeners: {
+        write : function(store, action, result, res, rs) {
+            App.setAlert(res.success, res.message); // <-- show user-feedback for all write actions
+        }
+    }
 });
 
 
