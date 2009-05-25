@@ -142,7 +142,7 @@ new Ext.data.HttpProxy({
             }
             for (var verb in this.actions) {
                 var action = this.actions[verb];
-                proxy.api[action] = proxy.api[action] || proxy.url;
+                proxy.api[action] = proxy.api[action] || proxy.url || proxy.directFn;
                 if (proxy.api[action] == undefined) {
                     throw new Ext.data.Api.Error('action-url-undefined', 'Api.js', action);
                 }
