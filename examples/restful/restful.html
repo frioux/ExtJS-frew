@@ -31,8 +31,8 @@ and plugging a suitable <strong>Ext.data.DataWriter</strong> into your Store.  T
 
 <p>Take note of the requests being generated in Firebug as you interact with the Grid.</p>
 
-<p>The HttpProxy in this example points to a single url <strong>users.php</strong>.  You may have to edit your web-server's configuration to allow this
-php file to be executable.  users.php implements a simple RESTful backend controller and simulates a database by storing records in the $_SESSION.</p>
+<p>The HttpProxy in this example points to a single url <strong>app.php/users</strong>.  You may have to edit your web-server's configuration to allow the
+php back-end to be executable.  app.php implements a simple RESTful backend controller and simulates a database by storing records in the $_SESSION.</p>
 <code><pre>
 var proxy = new Ext.data.HttpProxy({
     url: 'app.php/users'
