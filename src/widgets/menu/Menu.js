@@ -1,6 +1,7 @@
 /**
  * @class Ext.layout.MenuLayout
  * @extends Ext.layout.ContainerLayout
+ * <p>Layout manager used by {@link Ext.menu.Menu}. Generally this class should not need to be used directly.</p>
  */
  Ext.layout.MenuLayout = Ext.extend(Ext.layout.ContainerLayout, {
     renderItem : function(c, position, target){
