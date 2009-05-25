@@ -1,9 +1,9 @@
 <?php
  /**
- * @class DB
+ * @class SessionDB
  * Fake Database.  Stores records in $_SESSION
  */
-class DB {
+class SessionDB {
     public function __construct() {
         if (!isset($_SESSION['pk'])) {
             $_SESSION['pk'] = 10;           // <-- start fake pks at 10

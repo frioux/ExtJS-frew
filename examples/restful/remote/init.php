@@ -8,10 +8,10 @@
     require(dirname(__FILE__).'/lib/request.php');
     require(dirname(__FILE__).'/lib/response.php');
 
-    // require /models
+    // require /models (Should iterate app/models and auto-include all files there)
     require(dirname(__FILE__).'/app/models/user.php');
 
     // Fake a database connection using _SESSION
-    $dbh = new DB();
+    $dbh = new SessionDB();
 
 ?>
