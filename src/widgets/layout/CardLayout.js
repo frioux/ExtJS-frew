@@ -75,10 +75,13 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
     
     /**
      * @cfg {Boolean} layoutOnCardChange
-     * True to force a layout of the active item when the active card is changed.
+     * True to force a layout of the active item when the active card is changed. Defaults to false.
      */
     layoutOnCardChange : false,
 
+    /**
+     * @cfg {Boolean} renderHidden @hide
+     */
     // private
     renderHidden : true,
 
