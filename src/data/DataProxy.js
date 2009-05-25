@@ -46,6 +46,8 @@ Ext.data.DataProxy = function(conn){
     this.api     = conn.api;
     this.url     = conn.url;
     this.restful = conn.restful;
+    this.prettyUrls = true;
+
     /**
      * @cfg {Object} api
      * Specific urls to call on CRUD action methods "load", "create", "save" and "destroy".

@@ -112,7 +112,7 @@ Ext.data.Store = function(config){
     // If Store is RESTful, so too is the DataProxy
     if (this.restful === true) {
         // When operating RESTfully, a unique transaction is generated for each record.
-        this.batchTransactions = false;
+        this.batch = false;
         Ext.data.Api.restify(this.proxy);
     }
 
@@ -396,7 +396,7 @@ var store = new Ext.data.Store({
     reader: reader,
     writer: writer,     // <-- plug a DataWriter into the store just as you would a Reader
     paramsAsHash: true,
-    batchSave: false    // <-- true to delay executing create, update, destroy requests
+    autoSave: false    // <-- false to delay executing create, update, destroy requests
                         //     until specifically told to do so.
 });
      * </code></pre></p>
@@ -457,24 +457,24 @@ sortInfo: {
    lastOptions : null,
 
     /**
-     * @cfg {Boolean} batchSave
-     * <p>Defaults to <tt>false</tt> causing the store to automatically {@link #save} records to
-     * the server when a record changes. Specify <tt>true</tt> to manually call {@link #save}
+     * @cfg {Boolean} autoSave
+     * <p>Defaults to <tt>true</tt> causing the store to automatically {@link #save} records to
+     * the server when a record changes. Specify <tt>false</tt> to manually call {@link #save}
      * to send all modifiedRecords to the server.</p>
      * <br><p><b>Note</b>: each CRUD action will be sent as a separate request.</p>
      */
-    batchSave : false,
+    autoSave : true,
 
     /**
-     * @cfg {Boolean} batchTransactions
+     * @cfg {Boolean} batch
      * <p>Defaults to <tt>true</tt> (unless <code>{@link #restful}:true</code>). Multiple
      * requests for each CRUD action (CREATE, READ, UPDATE and DESTROY) will be combined
-     * and sent as one transaction. Only applies when <code>{@link #batchSave}</code> is set
-     * to <tt>true</tt>.</p>
+     * and sent as one transaction. Only applies when <code>{@link #autoSave}</code> is set
+     * to <tt>false</tt>.</p>
      * <br><p>If Store is RESTful, the DataProxy is also RESTful, and a unique transaction is
      * generated for each record.</p>
      */
-    batchTransactions : true,
+    batch : true,
 
     /**
      * @cfg {Boolean} restful [false]
@@ -685,7 +685,7 @@ sortInfo: {
      * @private
      */
     updateRecord : function(store, record, action) {
-        if (action == Ext.data.Record.EDIT && this.batchSave !== true && (!record.phantom || (record.phantom && record.isValid))) {
+        if (action == Ext.data.Record.EDIT && this.autoSave === true && (!record.phantom || (record.phantom && record.isValid))) {
             this.save();
         }
     },
@@ -704,7 +704,7 @@ sortInfo: {
                 this.modified.push(rs[i]);  // <-- add to modified
             }
         }
-        if (this.batchSave === false) {
+        if (this.autoSave === true) {
             this.save();
         }
     },
@@ -729,7 +729,7 @@ sortInfo: {
             // put back into the store.  @see Store#createCallback where the record is returned when response status === false
             record.lastIndex = index;
 
-            if (this.batchSave === false) {
+            if (this.autoSave === true) {
                 this.save();
             }
         }
@@ -839,7 +839,7 @@ sortInfo: {
 
     // private.  Simply wraps call to Store#execute in try/catch.  Defers to Store#handleException on error.  Loops if batchTransaction: false
     doTransaction : function(action, rs) {
-        if (this.batchTransactions === false) {
+        if (this.batch === false) {
             for (var i = 0, len = rs.length; i < len; i++) {
                 try {
                     this.execute(action, rs[i]);
