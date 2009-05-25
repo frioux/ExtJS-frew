@@ -17,6 +17,9 @@ class ApplicationController {
         if ($request->isRestful()) {
             return $this->dispatchRestful();
         }
+        if ($request->action) {
+            return $this->{$request->action}();
+        }
 
         // normal dispatch here.  discover action
     }

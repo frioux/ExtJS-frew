@@ -28,6 +28,7 @@ class Request {
         } else {
             // grab JSON data if there...
             $this->params = (isset($_REQUEST['data'])) ? json_decode(stripslashes($_REQUEST['data']), true) : null;
+            $this->id = (isset($_REQUEST['id'])) ? json_decode(stripslashes($_REQUEST['id']), true) : null;
         }
         // parse path info
         if (isset($_SERVER["PATH_INFO"])){
