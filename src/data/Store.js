@@ -774,7 +774,7 @@ sortInfo: {
         if (doRequest !== false) {
             // Send request to proxy.
             var params = Ext.apply(options.params || {}, this.baseParams);
-            if (this.writer && this.proxy.url && !this.proxy.restful && !Ext.data.Api.hasUniqueUrl(action, this.proxy)) {
+            if (this.writer && this.proxy.url && !this.proxy.restful && !Ext.data.Api.hasUniqueUrl(this.proxy, action)) {
                 params.xaction = action;
             }
             this.proxy.request(action, rs, params, this.reader, this.createCallback(action, rs), this, options);
@@ -965,7 +965,7 @@ sortInfo: {
     // private
     // Called as a callback by the Reader during a load operation.
     loadRecords : function(o, options, success){
-        if(!o || success === false || !o[this.reader.meta.successProperty]){
+        if(!o || success === false){
             if(success !== false){
                 this.fireEvent(Ext.data.Api.actions.read, this, [], options);
             }
