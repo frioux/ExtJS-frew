@@ -1032,11 +1032,15 @@
   <file name="restful\restful.css" path="restful" />
   <file name="restful\restful.js" path="restful" />
   <file name="restful\Ext.ux.RowEditor.js" path="restful" />
-  <file name="restful\remote\users.php" path="restful\remote" />
-  <file name="restful\remote\create.json" path="restful\remote" />
-  <file name="restful\remote\destroy.json" path="restful\remote" />
-  <file name="restful\remote\load.json" path="restful\remote" />
-  <file name="restful\remote\update.json" path="restful\remote" />
+  <file name="restful\users.php" path="restful" />
+  <file name="restful\remote\init.php" path="restful\remote" />
+  <file name="restful\remote\lib\session_db.php" path="restful\remote\lib" />
+  <file name="restful\remote\lib\application_controller.php" path="restful\remote\lib" />
+  <file name="restful\remote\lib\model.php" path="restful\remote\lib" />
+  <file name="restful\remote\lib\request.php" path="restful\remote\lib" />
+  <file name="restful\remote\lib\response.php" path="restful\remote\lib" />
+  <file name="restful\remote\app\controllers\users.php" path="restful\remote\app\controllers" />
+  <file name="restful\remote\app\models\user.php" path="restful\remote\app\models" />
 
   <file name="dd\dnd_grid_to_formpanel.js" path="dd" />
   <file name="dd\dnd_grid_to_grid.js" path="dd" />
