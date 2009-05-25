@@ -467,13 +467,7 @@ Ext.extend(T, Ext.Container, {
             }
             return buttons;
         }
-        var b = config;
-        if(!b.events){
-            b = config.split ?
-                new T.SplitButton(config) :
-                new T.Button(config);
-        }
-        this.initMenuTracking(b);
+        var b = this.constructButton(config);
         this.addItem(b);
         return b;
     },
@@ -516,11 +510,21 @@ Ext.extend(T, Ext.Container, {
             }
             return buttons;
         }
-        if (!(item instanceof T.Button)){
-           item = new T.Button(item);
+        var b = this.constructButton(item);
+        Ext.Toolbar.superclass.insert.call(this, index, b);
+        return b;
+    },
+    
+    // private
+    constructButton: function(item){
+        var b = item;
+        if(!b.events){
+            b = b.split ?
+                new T.SplitButton(b) :
+                new T.Button(b);
         }
-        Ext.Toolbar.superclass.insert.call(this, index, item);
-        return item;
+        this.initMenuTracking(b);
+        return b;
     },
 
     /**
