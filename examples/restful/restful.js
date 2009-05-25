@@ -3,7 +3,7 @@ var App = new Ext.App({});
 
 // Create a standard HttpProxy instance.
 var proxy = new Ext.data.HttpProxy({
-    url: 'remote/users.php'
+    url: 'users.php'
 });
 
 // Typical JsonReader.  Notice additional meta-data params for defining the core attributes of your json-response
