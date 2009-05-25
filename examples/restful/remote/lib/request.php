@@ -33,8 +33,8 @@ class Request {
         }
         // parse path info
         if (isset($_SERVER["PATH_INFO"])){
-            $cai = '/^\/([a-z]+\w)\/([a-z]+\w)\/([0-9]+\w)$/';  // /controller/action/id
-            $ca =  '/^\/([a-z]+\w)\/([a-z]+\w)$/';              // /controller/action
+            $cai = '/^\/([a-z]+\w)\/([a-z]+\w)\/([0-9]+)$/';  // /controller/action/id
+            $ca =  '/^\/([a-z]+\w)\/([a-z]+)$/';              // /controller/action
             $ci = '/^\/([a-z]+\w)\/([0-9]+)$/';               // /controller/id
             $c =  '/^\/([a-z]+\w)$/';                             // /controller
             $i =  '/^\/([0-9]+)$/';                             // /id
