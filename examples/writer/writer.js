@@ -1,12 +1,11 @@
 // Create HttpProxy instance.  Notice new configuration parameter "api" here instead of load.  However, you can still use
 // the "url" paramater -- All CRUD requests will be directed to your single url instead.
 var proxy = new Ext.data.HttpProxy({
-    prettyUrls: false,  // <-- prettyUrls for urls of the form /user/update/1 or /user/destroy/32
     api: {
-        load : 'remote/load.json',
-        create : 'remote/create.json',
-        save: 'remote/update.json',
-        destroy: 'remote/destroy.json'
+        load : 'app.php/users/view',
+        create : 'app.php/users/create',
+        save: 'app.php/users/update',
+        destroy: 'app.php/users/destroy'
     }
 });
 
