@@ -36,8 +36,8 @@ var store = new Ext.data.Store({
     id: 'user',
     proxy: proxy,
     reader: reader,
-    writer: writer,     // <-- plug a DataWriter into the store just as you would a Reader
-    autoSave: true,    // <-- true to delay executing create, update, destroy requests until specifically told to do so.
+    writer: writer,  // <-- plug a DataWriter into the store just as you would a Reader
+    autoSave: true,  // <-- false would delay executing create, update, destroy requests until specifically told to do so.
     listeners: {
         write : function(store, action, result, res, rs) {
             App.setAlert(res.success, res.message); // <-- show user-feedback for all write actions
