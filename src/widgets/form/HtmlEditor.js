@@ -711,7 +711,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             try{
                 Ext.EventManager.removeAll(this.doc);
                 for (var prop in this.doc){
-                   delete this.doc[i];
+                   delete this.doc[prop];
                 }
             }catch(e){}
         }
