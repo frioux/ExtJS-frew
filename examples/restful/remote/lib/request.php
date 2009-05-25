@@ -34,8 +34,8 @@ class Request {
         if (isset($_SERVER["PATH_INFO"])){
             $cai = '/^\/([a-z]+\w)\/([a-z]+\w)\/([0-9]+\w)$/';  // /controller/action/id
             $ca =  '/^\/([a-z]+\w)\/([a-z]+\w)$/';              // /controller/action
-            $ci = '/^\/([a-z]+\w)\/([0-9]+\w)$/';               // /controller/id
-            $c =  '/^\/([a-z]+)$/';                             // /controller
+            $ci = '/^\/([a-z]+\w)\/([0-9]+)$/';               // /controller/id
+            $c =  '/^\/([a-z]+\w)$/';                             // /controller
             $i =  '/^\/([0-9]+)$/';                             // /id
             $matches = array();
             if (preg_match($cai, $_SERVER["PATH_INFO"], $matches)) {
