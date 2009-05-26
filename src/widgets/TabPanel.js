@@ -7,7 +7,7 @@
  * 
  * <b>Note:</b> By default, a tab's close tool <i>destroys</i> the child tab Component
  * and all its descendants. This makes the child tab Component, and all its descendants <b>unusable</b>. To enable
- * re-use of a tab, configure the TabPanel with <b><code>{@link #autoDestroy autoDestroy: 'false'}</code></b>.
+ * re-use of a tab, configure the TabPanel with <b><code>{@link #autoDestroy autoDestroy: false}</code></b>.
  * 
  * <p><b><u>TabPanel header/footer elements</u></b></p> 
  * <p>TabPanels use their {@link Ext.Panel#header header} or {@link Ext.Panel#footer footer} element
