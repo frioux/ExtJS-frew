@@ -151,7 +151,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
     addComponentToMenu: function(m, c){
         if(c instanceof Ext.Toolbar.Separator){
             m.add('-');
-        }else if(typeof c.isXType == 'function'){
+        }else if(Ext.isFunction(c.isXType)){
             if(c.isXType('splitbutton')){
                 m.add(this.createMenuConfig(c, true));
             }else if(c.isXType('button')){
@@ -371,7 +371,7 @@ Ext.extend(T, Ext.Container, {
      * <li>Item: Any subclass of {@link Ext.Toolbar.Item} (equivalent to {@link #addItem})</li>
      * <li>String: Any generic string (gets wrapped in a {@link Ext.Toolbar.TextItem}, equivalent to {@link #addText}).
      * Note that there are a few special strings that are treated differently as explained next.</li>
-     * <li>'separator' or '-': Creates a separator element (equivalent to {@link #addSeparator})</li>
+     * <li>'-': Creates a separator element (equivalent to {@link #addSeparator})</li>
      * <li>' ': Creates a spacer element (equivalent to {@link #addSpacer})</li>
      * <li>'->': Creates a fill element (equivalent to {@link #addFill})</li>
      * </ul>
@@ -379,35 +379,55 @@ Ext.extend(T, Ext.Container, {
      * @param {Mixed} etc.
      */
     add : function(){
-        var a = arguments, l = a.length;
-        for(var i = 0; i < l; i++){
-            var el = a[i];
-            if(el.isFormField){ // some kind of form field
-                this.addField(el);
-            }else if(el.render){ // some kind of Toolbar.Item
-                this.addItem(el);
-            }else if(typeof el == "string"){ // string
-                if(el == "separator" || el == "-"){
-                    this.addSeparator();
-                }else if(el == " "){
-                    this.addSpacer();
-                }else if(el == "->"){
-                    this.addFill();
-                }else{
-                    this.addText(el);
-                }
-            }else if(el.tag){ // DomHelper spec
-                this.addDom(el);
-            }else if(el.tagName){ // element
-                this.addElement(el);
-            }else if(typeof el == "object"){ // must be button config?
-                if(el.xtype){
-                    this.addItem(Ext.create(el, 'button'));
-                }else{
-                    this.addButton(el);
-                }
+        //probably not needed, left here so documentation will still generate.
+        Ext.Toolbar.superclass.add.apply(this, arguments);
+    },
+    
+    // private
+    lookupComponent: function(c){
+        if(typeof c == 'string'){
+            if(c == '-'){
+                c = new T.Separator();
+            }else if(c == ' '){
+                c = new T.Spacer();
+            }else if(c == '->'){
+                c = new T.Fill();
+            }else{
+                c = new T.TextItem(c);
+            }
+            this.applyDefaults(c);
+        }else{
+            if(c.isFormField || c.render){ // some kind of form field, some kind of Toolbar.Item
+                c = this.constructItem(c);
+            }else if(c.tag){ // DomHelper spec
+                c = new T.Item({autoEl: c});
+            }else if(c.tagName){ // element
+                c = new T.Item({el:c});
+            }else if(Ext.isObject(c)){ // must be button config?
+                c = c.xtype ? this.constructItem(c) : this.constructButton(c);
             }
         }
+        return c;
+    },
+    
+    // private
+    applyDefaults : function(c){
+        if(typeof c != 'string'){
+            c = Ext.Toolbar.superclass.applyDefaults.call(this, c);
+            var d = this.internalDefaults;
+            if(c.events){
+                Ext.applyIf(c.initialConfig, d);
+                Ext.apply(c, d);
+            }else{
+                Ext.applyIf(c, d);
+            }
+        }
+        return c;
+    },
+    
+    // private
+    constructItem : function(item){
+        return Ext.create(item, 'button');
     },
 
     /**
@@ -415,7 +435,7 @@ Ext.extend(T, Ext.Container, {
      * @return {Ext.Toolbar.Item} The separator {@link Ext.Toolbar.Item item}
      */
     addSeparator : function(){
-        return this.addItem(new T.Separator());
+        return this.add(new T.Separator());
     },
 
     /**
@@ -423,14 +443,14 @@ Ext.extend(T, Ext.Container, {
      * @return {Ext.Toolbar.Spacer} The spacer item
      */
     addSpacer : function(){
-        return this.addItem(new T.Spacer());
+        return this.add(new T.Spacer());
     },
 
     /**
      * Forces subsequent additions into the float:right toolbar
      */
     addFill : function(){
-        this.addItem(new T.Fill());
+        this.add(new T.Fill());
     },
 
     /**
@@ -439,9 +459,7 @@ Ext.extend(T, Ext.Container, {
      * @return {Ext.Toolbar.Item} The element's item
      */
     addElement : function(el){
-        var item = new T.Item({el:el});
-        this.addItem(item);
-        return item;
+        return this.addItem(new T.Item({el:el}));
     },
 
     /**
@@ -450,8 +468,7 @@ Ext.extend(T, Ext.Container, {
      * @return {Ext.Toolbar.Item} The item
      */
     addItem : function(item){
-        Ext.Toolbar.superclass.add.apply(this, arguments);
-        return item;
+        return Ext.Toolbar.superclass.add.apply(this, arguments);
     },
 
     /**
@@ -467,32 +484,35 @@ Ext.extend(T, Ext.Container, {
             }
             return buttons;
         }
-        var b = this.constructButton(config);
-        this.addItem(b);
-        return b;
+        return this.add(this.constructButton(config));
     },
-
-    // private
-    initMenuTracking : function(item){
-        if(this.trackMenus && item.menu){
-            this.mon(item, {
-                'menutriggerover' : this.onButtonTriggerOver,
-                'menushow' : this.onButtonMenuShow,
-                'menuhide' : this.onButtonMenuHide,
-                scope: this
-            });
-        }
-    },
-
+    
     /**
      * Adds text to the toolbar
      * @param {String} text The text to add
      * @return {Ext.Toolbar.Item} The element's item
      */
     addText : function(text){
-        var t = new T.TextItem(text);
-        this.addItem(t);
-        return t;
+        return this.addItem(new T.TextItem(text));
+    },
+    
+    /**
+     * Adds a new element to the toolbar from the passed {@link Ext.DomHelper} config
+     * @param {Object} config
+     * @return {Ext.Toolbar.Item} The element's item
+     */
+    addDom : function(config){
+        return this.add(new T.Item({autoEl: config}));
+    },
+
+    /**
+     * Adds a dynamically rendered Ext.form field (TextField, ComboBox, etc). Note: the field should not have
+     * been rendered yet. For a field that has already been rendered, use {@link #addElement}.
+     * @param {Ext.form.Field} field
+     * @return {Ext.Toolbar.Item}
+     */
+    addField : function(field){
+        return this.add(field);
     },
 
     /**
@@ -510,55 +530,26 @@ Ext.extend(T, Ext.Container, {
             }
             return buttons;
         }
-        var b = this.constructButton(item);
-        Ext.Toolbar.superclass.insert.call(this, index, b);
-        return b;
+        return Ext.Toolbar.superclass.insert.call(this, index, item);
+    },
+    
+    // private
+    initMenuTracking : function(item){
+        if(this.trackMenus && item.menu){
+            this.mon(item, {
+                'menutriggerover' : this.onButtonTriggerOver,
+                'menushow' : this.onButtonMenuShow,
+                'menuhide' : this.onButtonMenuHide,
+                scope: this
+            });
+        }
     },
     
     // private
     constructButton: function(item){
-        var b = item;
-        if(!b.events){
-            b = b.split ?
-                new T.SplitButton(b) :
-                new T.Button(b);
-        }
+        var b = item.events ? item : this.constructItem(item);
         this.initMenuTracking(b);
         return b;
-    },
-
-    /**
-     * Adds a new element to the toolbar from the passed {@link Ext.DomHelper} config
-     * @param {Object} config
-     * @return {Ext.Toolbar.Item} The element's item
-     */
-    addDom : function(config){
-        var item = new T.Item({autoEl: config});
-        this.addItem(item);
-        return item;
-    },
-
-    /**
-     * Adds a dynamically rendered Ext.form field (TextField, ComboBox, etc). Note: the field should not have
-     * been rendered yet. For a field that has already been rendered, use {@link #addElement}.
-     * @param {Ext.form.Field} field
-     * @return {Ext.Toolbar.Item}
-     */
-    addField : function(field){
-        this.addItem(field);
-        return field;
-    },
-
-    applyDefaults : function(c){
-        c = Ext.Toolbar.superclass.applyDefaults.call(this, c);
-        var d = this.internalDefaults;
-        if(c.events){
-            Ext.applyIf(c.initialConfig, d);
-            Ext.apply(c, d);
-        }else{
-            Ext.applyIf(c, d);
-        }
-        return c;
     },
 
     // private
