@@ -1,40 +1,48 @@
 /**
  * @class Ext.data.Store
  * @extends Ext.util.Observable
- * The Store class encapsulates a client side cache of {@link Ext.data.Record Record}
+ * <p>The Store class encapsulates a client side cache of {@link Ext.data.Record Record}
  * objects which provide input data for Components such as the {@link Ext.grid.GridPanel GridPanel},
  * the {@link Ext.form.ComboBox ComboBox}, or the {@link Ext.DataView DataView}.</p>
- * <p>A Store object uses its {@link #proxy configured} implementation of {@link Ext.data.DataProxy DataProxy}
- * to access a data object unless you call {@link #loadData} directly and pass in your data.</p>
- * <p>A Store object has no inherent knowledge of the format of the data returned by the Proxy (the data object
- * could be an Array, XML, or JSON). A Store object uses an appropriate {@link #reader configured} implementation
+ * <p><u>Retrieving Data</u></p>
+ * <p>A Store object may access a data object using:<div class="mdetail-params"><ul>
+ * <li>{@link #proxy configured implementation} of {@link Ext.data.DataProxy DataProxy}</li>
+ * <li>{@link #data} to automatically pass in data</li>
+ * <li>{@link #loadData} to manually pass in data</li>
+ * </ul></div></p>
+ * <p><u>Reading Data</u></p>
+ * <p>A Store object has no inherent knowledge of the format of the data object (it could be
+ * an Array, XML, or JSON). A Store object uses an appropriate {@link #reader configured implementation}
  * of a {@link Ext.data.DataReader DataReader} to create {@link Ext.data.Record Record} instances from the data
- * object. These generated Records are cached and made available through accessor functions. The following
- * examples illustrate explicit and implicit creation of the DataReader used by the Store.</p>
- * <p>Option 1: use the generic store and then explicitly create a reader</p>
+ * object.</p>
+ * <p><u>Store Types</u></p>
+ * <p>There are several implementations of Store available which are customized for use with
+ * a specific DataReader implementation.  Here is an example using an ArrayStore which implicitly
+ * creates a reader commensurate to an Array data object.</p>
  * <pre><code>
-
+var myStore = new Ext.data.ArrayStore({
+    fields: ['fullname', 'first'],
+    idIndex: 0 // id for each record will be the first element
+});
+ * </code></pre>
+ * <p>For custom implementations create a basic {@link Ext.data.Store} configured as needed:</p>
+ * <pre><code>
+// create a {@link Ext.data.Record Record} constructor:
 var rt = Ext.data.Record.create([
     {name: 'fullname'},
     {name: 'first'}
 ]);
 var myStore = new Ext.data.Store({
+    // explicitly create reader
     reader: new Ext.data.ArrayReader(
         {
-            id: 0  // id for the record will be the first element
+            idIndex: 0  // id for each record will be the first element
         },
         rt // recordType
     )
 });
  * </code></pre>
- * <p>Option 2: choose a store that implicitly creates a reader commensurate to the data object.</p>
- * <pre><code>
-var myStore = new Ext.data.ArrayStore({
-    fields: ['fullname', 'first'],
-    id: 0          // id for the record will be the first element
-});
- * </code></pre>
- * Load some data into store (note the data object is an array which corresponds to the reader):
+ * <p>Load some data into store (note the data object is an array which corresponds to the reader):</p>
  * <pre><code>
 var myData = [
     [1, 'Fred Flintstone', 'Fred'],  // note that id for the record is the first element
@@ -42,7 +50,8 @@ var myData = [
 ];
 myStore.loadData(myData);
  * </code></pre>
- * Adding a record to the store:
+ * <p>Records are cached and made available through accessor functions.  An example of adding
+ * a record to the store:</p>
  * <pre><code>
 var defaultData = {
     fullname: 'Full Name',
@@ -133,8 +142,8 @@ Ext.data.Store = function(config){
      * The {@link Ext.data.Record Record} constructor as supplied to (or created by) the
      * {@link Ext.data.DataReader Reader}. Read-only.
      * <p>If the Reader was constructed by passing in an Array of {@link Ext.data.Field} definition objects,
-     * instead of a created Record constructor it will implicitly create a constructor from that Array, see
-     * {@link Ext.data.Record}.{@link Ext.data.Record#create create} for additional details.</p>
+     * instead of a Record constructor, it will implicitly create a Record constructor from that Array (see
+     * {@link Ext.data.Record}.{@link Ext.data.Record#create create} for additional details).</p>
      * <p>This property may be used to create new Records of the type held in this Store, for example:</p><pre><code>
 // create the data store
 var store = new Ext.data.ArrayStore({
@@ -354,6 +363,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
     /**
      * @cfg {String} url If a <tt>{@link #proxy}</tt> is not specified the <tt>url</tt> will be used to
      * implicitly configure a {@link Ext.data.HttpProxy HttpProxy} if an <tt>url</tt> is specified.
+     * Typically this option, or the <code>{@link #data}</code> option will be specified.
      */
     /**
      * @cfg {Boolean/Object} autoLoad If <tt>{@link #data}</tt> is not specified, and if <tt>autoLoad</tt>
@@ -363,10 +373,11 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
      */
     /**
      * @cfg {Ext.data.DataProxy} proxy The {@link Ext.data.DataProxy DataProxy} object which provides
-     * access to a data object.
+     * access to a data object.  See <code>{@link #url}</code>.
      */
     /**
-     * @cfg {Array} data Inline data to be loaded when the store is initialized.
+     * @cfg {Array} data An inline data object readable by the <code>{@link #reader}</code>.
+     * Typically this option, or the <code>{@link #url}</code> option will be specified.
      */
     /**
      * @cfg {Ext.data.DataReader} reader The {@link Ext.data.DataReader Reader} object which processes the

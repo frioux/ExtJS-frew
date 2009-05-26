@@ -6,10 +6,11 @@
  * be created directly. For existing implementations, see {@link Ext.data.ArrayReader},
  * {@link Ext.data.JsonReader} and {@link Ext.data.XmlReader}.
  * @constructor Create a new DataReader
- * @param {Object} meta Metadata configuration options (implementation-specific)
- * @param {Object} recordType Either an Array of field definition objects as specified
- * in {@link Ext.data.Record#create}, or an {@link Ext.data.Record} object created
- * using {@link Ext.data.Record#create}.
+ * @param {Object} meta Metadata configuration options (implementation-specific).
+ * @param {Array/Object} recordType
+ * <p>Either an Array of {@link Ext.data.Field Field} definition objects (which
+ * will be passed to {@link Ext.data.Record#create}, or a {@link Ext.data.Record Record}
+ * constructor created using {@link Ext.data.Record#create}.</p> 
  */
 Ext.data.DataReader = function(meta, recordType){
     /**
@@ -18,6 +19,12 @@ Ext.data.DataReader = function(meta, recordType){
      * @property meta
      */
     this.meta = meta;
+    /**
+     * @cfg {Array/Object} fields
+     * <p>Either an Array of {@link Ext.data.Field Field} definition objects (which
+     * will be passed to {@link Ext.data.Record#create}, or a {@link Ext.data.Record Record}
+     * constructor created from {@link Ext.data.Record#create}.</p>
+     */
     this.recordType = Ext.isArray(recordType) ?
         Ext.data.Record.create(recordType) : recordType;
 };

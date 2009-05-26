@@ -1,10 +1,9 @@
 /**
  * @class Ext.data.JsonReader
  * @extends Ext.data.DataReader
- * Data reader class to create an Array of {@link Ext.data.Record} objects from a JSON response
- * based on mappings in a provided {@link Ext.data.Record} constructor.<br>
- * <p>
- * Example code:
+ * <p>Data reader class to create an Array of {@link Ext.data.Record} objects from a JSON response
+ * based on mappings in a provided {@link Ext.data.Record} constructor.</p>
+ * <p>Example code:</p>
  * <pre><code>
 var Employee = Ext.data.Record.create([
     {name: 'firstname'},                  // map the Record's "firstname" field to the row object's key of the same name
@@ -13,7 +12,7 @@ var Employee = Ext.data.Record.create([
 var myReader = new Ext.data.JsonReader(
     {                             // The metadata property, with configuration options:
         totalProperty: "results", //   the property which contains the total dataset size (optional)
-        root: "rows",             //   the property which contains an Array of row objects
+        root: "rows",             //   the property which contains an Array of record data objects
         idProperty: "id"          //   the property within each row object that provides an ID for the record (optional)
     },
     Employee  // {@link Ext.data.Record} constructor that provides mapping for JSON object
@@ -28,7 +27,7 @@ var myReader = new Ext.data.JsonReader(
     ]
 }
 </code></pre>
- * <p><b><u>Automatic configuration using metaData</u></b>
+ * <p><b><u>Automatic configuration using metaData</u></b></p>
  * <p>It is possible to change a JsonReader's metadata at any time by including a <b><tt>metaData</tt></b>
  * property in the JSON data object. If the JSON data object has a <b><tt>metaData</tt></b> property, a
  * {@link Ext.data.Store Store} object using this Reader will reconfigure itself to use the newly provided
@@ -82,8 +81,10 @@ var myReader = new Ext.data.JsonReader();
  * @constructor
  * Create a new JsonReader
  * @param {Object} meta Metadata configuration options.
- * @param {Object} recordType Either an Array of field definition objects as passed to
- * {@link Ext.data.Record#create}, or a {@link Ext.data.Record Record} constructor created using {@link Ext.data.Record#create}.
+ * @param {Array/Object} recordType
+ * <p>Either an Array of {@link Ext.data.Field Field} definition objects (which
+ * will be passed to {@link Ext.data.Record#create}, or a {@link Ext.data.Record Record}
+ * constructor created from {@link Ext.data.Record#create}.</p> 
  */
 Ext.data.JsonReader = function(meta, recordType){
     meta = meta || {};
