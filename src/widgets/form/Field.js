@@ -9,12 +9,6 @@
  */
 Ext.form.Field = Ext.extend(Ext.BoxComponent,  {
     /**
-     * @cfg {String} fieldLabel The label text to display next to this field (defaults to '')
-     * <p><b>A Field's label is not by default rendered as part of the Field's structure.
-     * The label is rendered by the {@link Ext.layout.FormLayout form layout} layout manager
-     * of the {@link Ext.form.Container Container} to which the Field is added.</b></p>
-     */
-    /**
      * @cfg {String} inputType The type attribute for input fields -- e.g. radio, text, password, file (defaults
      * to "text"). The types "file" and "password" must be used to render those field types currently -- there are
      * no separate Ext components for those. Note that if you use <tt>inputType:'file'</tt>, {@link #emptyText}
@@ -29,6 +23,8 @@ Ext.form.Field = Ext.extend(Ext.BoxComponent,  {
      */
     /**
      * @cfg {String} name The field's HTML name attribute (defaults to "").
+     * <b>Note</b>: this property must be set if this field is to be automatically included with
+     * {@link Ext.form.BasicForm#submit form submit()}.
      */
     /**
      * @cfg {String} cls A custom CSS class to apply to the field's underlying element (defaults to "").
