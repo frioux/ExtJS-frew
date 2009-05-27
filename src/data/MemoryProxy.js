@@ -7,13 +7,15 @@
  * @param {Object} data The data object which the Reader uses to construct a block of Ext.data.Records.
  */
 Ext.data.MemoryProxy = function(data){
-    Ext.data.MemoryProxy.superclass.constructor.call(this);
+    // Must define a dummy api with "read" action to satisfy DataProxy#doRequest and Ext.data.Api#prepare *before* calling super
+    var api = {};
+    api[Ext.data.Api.actions.read] = true;
+    Ext.data.MemoryProxy.superclass.constructor.call(this, {
+        api: api
+    });
     this.data = data;
 
-    // Define the proxy api to satisfy DataProxy#doRequest
-    this.api = {
-        load: true
-    };
+
 };
 
 Ext.extend(Ext.data.MemoryProxy, Ext.data.DataProxy, {
