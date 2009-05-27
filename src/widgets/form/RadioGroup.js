@@ -23,7 +23,50 @@ Ext.form.RadioGroup = Ext.extend(Ext.form.CheckboxGroup, {
     defaultType : 'radio',
     
     // private
-    groupCls: 'x-form-radio-group'
+    groupCls: 'x-form-radio-group',
+    
+    /**
+     * Gets the selected {@link Ext.form.Radio} in the group, if it exists.
+     * @return {Ext.form.Radio} The selected radio.
+     */
+    getValue: function(){
+        var out = null;
+        if(this.items){
+            this.items.each(function(item){
+                if(item.checked){
+                    out = item;
+                    return false;
+                }
+            });
+        }
+        return out;
+    },
+    
+    /**
+     * Sets the checked radio in the group.
+     * @param {String/Ext.form.Radio} id The radio to check.
+     * @param {Boolean} value The value to set the radio.
+     * @return {Ext.form.RadioGroup} this
+     */
+    setValue: function(id, value){
+        if(this.rendered){
+            var f = this.getBox(id);
+            if(f){
+                f.setValue(value);
+                if(f.checked){
+                    this.items.each(function(item){
+                        if (item !== f){
+                            item.setValue(false);
+                        }
+                    }, this);
+                }
+            }
+        }else{
+            this.values = [id, value];
+        }
+        return this;
+    }
+
 });
 
 Ext.reg('radiogroup', Ext.form.RadioGroup);
