@@ -681,11 +681,6 @@ function(grid, rowIndex, columnIndex, e) {
     },
 
     // private
-    getSelections : function(){
-        return this.selModel.getSelections();
-    },
-
-    // private
     onResize : function(){
         Ext.grid.GridPanel.superclass.onResize.apply(this, arguments);
         if(this.viewReady){
