@@ -108,7 +108,7 @@ textarea {
     cursor:pointer;
 }
 
-.ext-safari .x-form-field-wrap .x-form-trigger,.ext-gecko .x-form-field-wrap .x-form-trigger{
+.ext-safari .x-form-field-wrap .x-form-trigger{
     right:0;
 }
 
