@@ -86,7 +86,7 @@ function(){
 	            mm.center(me);
 	        }
 	        if(Ext.isIE && !(Ext.isIE7 && Ext.isStrict) && me.getStyle('height') == 'auto'){ // ie will not expand full height automatically
-	            me._mask.setSize(dom.clientWidth, me.getHeight());
+	            me._mask.setSize(undefined, me.getHeight());
 	        }
 	        return me._mask;
 	    },
