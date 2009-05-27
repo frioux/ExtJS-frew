@@ -231,7 +231,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
 
     // private
     getState : function(){
-        return Ext.apply(Ext.Window.superclass.getState.call(this) || {}, this.getBox());
+        return Ext.apply(Ext.Window.superclass.getState.call(this) || {}, this.getBox(true));
     },
 
     // private
