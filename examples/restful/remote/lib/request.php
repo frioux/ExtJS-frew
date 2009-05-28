@@ -31,7 +31,7 @@ class Request {
             $this->params = (isset($_REQUEST['data'])) ? json_decode(stripslashes($_REQUEST['data']), true) : null;
             $this->id = (isset($_REQUEST['id'])) ? json_decode(stripslashes($_REQUEST['id']), true) : null;
         }
-        // parse path info
+        // Quickndirty PATH_INFO parser
         if (isset($_SERVER["PATH_INFO"])){
             $cai = '/^\/([a-z]+\w)\/([a-z]+\w)\/([0-9]+)$/';  // /controller/action/id
             $ca =  '/^\/([a-z]+\w)\/([a-z]+)$/';              // /controller/action

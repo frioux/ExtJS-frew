@@ -31,7 +31,7 @@ var store = new Ext.data.Store({
     writer: writer,    // <-- plug a DataWriter into the store just as you would a Reader
     listeners: {
         write : function(store, action, result, response, rs) {
-            //alert('action: ' + action + ', success: ' + response.success + ', message: ' + response.message);
+            App.setAlert(response.success, response.message);
         }
     }
 });

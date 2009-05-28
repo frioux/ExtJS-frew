@@ -5,9 +5,9 @@ var App = new Ext.App({});
 // the "url" paramater -- All CRUD requests will be directed to your single url instead.
 var proxy = new Ext.data.HttpProxy({
     api: {
-        load : 'app.php/users/view',
+        read : 'app.php/users/view',
         create : 'app.php/users/create',
-        save: 'app.php/users/update',
+        update: 'app.php/users/update',
         destroy: 'app.php/users/destroy'
     }
 });
@@ -37,7 +37,7 @@ var store = new Ext.data.Store({
     proxy: proxy,
     reader: reader,
     writer: writer,  // <-- plug a DataWriter into the store just as you would a Reader
-    autoSave: true,  // <-- false would delay executing create, update, destroy requests until specifically told to do so.
+    autoSave: true,  // <-- false would delay executing create, update, destroy requests until specifically told to do so with some [save] buton.
     listeners: {
         write : function(store, action, result, res, rs) {
             App.setAlert(res.success, res.message); // <-- show user-feedback for all write actions
