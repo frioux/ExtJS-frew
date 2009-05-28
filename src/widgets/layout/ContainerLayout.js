@@ -168,12 +168,13 @@ Ext.layout.ContainerLayout.prototype = {
     },
 
     /**
-     * @cfg {Ext.Template} fieldTpl
-     * A {@link Template Ext.Template} used by Field rendering layout classes (such as
+     * The {@link Template Ext.Template} used by Field rendering layout classes (such as
      * {@link Ext.layout.FormLayout}) to create the DOM structure of a fully wrapped,
      * labeled and styled form Field. A default Template is supplied, but this may be
      * overriden to create custom field structures. The template processes values returned from
-     * {@link Ext.form.FormLayout#getTemplateArgs}.
+     * {@link Ext.layout.FormLayout#getTemplateArgs}.
+     * @property fieldTpl
+     * @type Ext.Template
      */
     fieldTpl: (function() {
         var t = new Ext.Template(
