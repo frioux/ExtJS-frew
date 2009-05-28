@@ -39,28 +39,11 @@ Ext.data.HttpProxy = function(conn){
     this.useAjax = !conn || !conn.events;
 
     //private.  A hash containing active requests, keyed on action [Ext.data.Api.actions.create|read|update|destroy]
+    var actions = Ext.data.Api.actions
     this.activeRequest = {};
-    Ext.each(Ext.data.Api.actions, function(action){
-        this.activeRequest[action] = undefined;
-    }, this);
-
-    /**
-     * @event loadexception
-     * Fires if an exception occurs in the Proxy during data loading.  This event can be fired for one of two reasons:
-     * <ul><li><b>The load call returned success: false.</b>  This means the server logic returned a failure
-     * status and there is no data to read.  In this case, this event will be raised and the
-     * fourth parameter (read error) will be null.</li>
-     * <li><b>The load succeeded but the reader could not read the response.</b>  This means the server returned
-     * data, but the configured Reader threw an error while reading the data.  In this case, this event will be
-     * raised and the caught error will be passed along as the fourth parameter of this event.</li></ul>
-     * Note that this event is also relayed through {@link Ext.data.Store}, so you can listen for it directly
-     * on any Store instance.
-     * @param {Object} this
-     * @param {Object} options The loading options that were specified (see {@link #load} for details)
-     * @param {Object} response The XMLHttpRequest object containing the response data
-     * @param {Error} e The JavaScript Error object caught if the configured Reader could not read the data.
-     * If the load call returned success: false, this parameter will be null.
-     */
+    for (var verb in actions) {
+        this.activeRequest[actions[verb]] = undefined;
+    }
 };
 
 Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
@@ -188,56 +171,69 @@ api: {
      * @private
      */
     createCallback : function(action, rs) {
-        return (action == Ext.data.Api.actions.read)
-            // special case for read/load action callback
-            ? function(o, success, response){
-                this.activeRequest[action] = undefined;
-                if(!success){
-                    this.fireEvent(action+"exception", this, o, response);
-                    o.request.callback.call(o.request.scope, null, o.request.arg, false);
-                    return;
-                }
-                var result;
-                try {
-                    result = o.reader.read(response);
-                }catch(e){
-                    this.fireEvent(action+"exception", this, o, response, e);
-                    o.request.callback.call(o.request.scope, null, o.request.arg, false);
-                    return;
-                }
-                this.fireEvent(action, this, o, o.request.arg);
-                o.request.callback.call(o.request.scope, result, o.request.arg, true);
+        return function(o, success, response) {
+            this.activeRequest[action] = undefined;
+            if (!success) { // <-- both read & write responses generate responseexception now -- not loadexception/writeexception
+                this.fireEvent('responseexception', this, action, o, response);
+                o.request.callback.call(o.request.scope, null, o.request.arg, false);
+                return;
             }
-            // callbacks for all others:  create, save, destroy
-            : function(o, success, response) {
-                this.activeRequest[action] = undefined;
-
-                // blow up on 500
-                if (!success) {
-                    this.fireEvent("writeexception", this, action, o, response);
-                    o.request.callback.call(o.request.scope, null, response, false);
-                    return false;
-                }
-                var reader = o.reader;
-                var res;
-                try {
-                    res = reader.readResponse(action, response);
-                } catch (e) {
-                    // blow up on error reading response
-                    if (e instanceof Ext.Error) {
-                        e.toConsole();
-                    }
-                    else {
-                        throw e;
-                    }
-                    this.fireEvent("writeexception", this, action, o, response);
-                    return false;
-                }
-                // We could add rs to the signature of write event if desired.
-                this.fireEvent("write", this, action, res[reader.meta.root], res, o.request.arg);
-                o.request.callback.call(o.request.scope, res[reader.meta.root], res, res[reader.meta.successProperty]);
-
+            if (action === Ext.data.Api.actions.read) {
+                this.onRead(action, o, response);
+            } else {
+                this.onWrite(action, o, response, rs);
             }
+        }
+    },
+
+    /**
+     * Callback for read actions
+     * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
+     * @param {Object} trans The request transaction object
+     * @param {Object} res The server response
+     * @protected
+     */
+    onRead : function(action, o, response) {
+        var result;
+        try {
+            result = o.reader.read(response);
+        }catch(e){
+            this.fireEvent("responseexception", this, action, o, response, e);
+            o.request.callback.call(o.request.scope, null, o.request.arg, false);
+            return;
+        }
+        if (result.success === false) {
+            var res = o.reader.readResponse(action, response);
+            this.fireEvent('loadexception', this, res, o.request.arg);
+        }
+        else {
+            this.fireEvent("load", this, o, o.request.arg);
+        }
+        o.request.callback.call(o.request.scope, result, o.request.arg, result.success);
+    },
+    /**
+     * Callback for write actions
+     * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
+     * @param {Object} trans The request transaction object
+     * @param {Object} res The server response
+     * @protected
+     */
+    onWrite : function(action, o, response, rs) {
+        var reader = o.reader;
+        var res;
+        try {
+            res = reader.readResponse(action, response);
+        } catch (e) {
+            this.fireEvent("responseexception", this, action, o, response, e);
+            o.request.callback.call(o.request.scope, null, o.request.arg, false);
+            return;
+        }
+        if (res[reader.meta.successProperty] === false) {
+            this.fireEvent('writeexception', this, action, res, rs, o.request.arg);
+        } else {
+            this.fireEvent("write", this, action, res[reader.meta.root], res, rs, o.request.arg);
+        }
+        o.request.callback.call(o.request.scope, res[reader.meta.root], res, res[reader.meta.successProperty]);
     },
 
     // inherit docs
@@ -245,11 +241,12 @@ api: {
         if(!this.useAjax){
             this.conn.abort();
         }else if(this.activeRequest){
-            Ext.each(Ext.data.Api.getVerbs(), function(verb){
-                if(this.activeRequest[verb]){
-                    Ext.Ajax.abort(this.activeRequest[verb]);
+            var actions = Ext.data.Api.actions;
+            for (var verb in actions) {
+                if(this.activeRequest[actions[verb]]){
+                    Ext.Ajax.abort(this.activeRequest[actions[verb]]);
                 }
-            }, this);
+            }
         }
         Ext.data.HttpProxy.superclass.destroy.call(this);
     }

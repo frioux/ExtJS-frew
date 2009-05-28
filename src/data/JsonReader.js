@@ -165,7 +165,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
         var s = this.meta, Record = this.recordType,
             f = Record.prototype.fields, fi = f.items, fl = f.length;
 
-//      Generate extraction functions for the totalProperty, the root, the id, and for each field
+        // Generate extraction functions for the totalProperty, the root, the id, and for each field
         if (!this.ef) {
             this.ef = this.buildExtractors();
         }
@@ -254,7 +254,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             throw new Ext.data.JsonReader.Error('success', 'JsonReader.js', this.meta.successProperty);
         }
         // TODO, separate empty and undefined exceptions.
-        else if ((action == Ext.data.Api.actions.create || action == Ext.data.Api.actions.update) && Ext.isEmpty(o[this.meta.root])) {
+        else if ((action === Ext.data.Api.actions.create || action === Ext.data.Api.actions.update) && Ext.isEmpty(o[this.meta.root])) {
             throw new Ext.data.JsonReader.Error('root', 'JsonReader.js', this.meta.root);
         }
         // makde sure extaction functions are defined.

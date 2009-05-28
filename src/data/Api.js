@@ -7,8 +7,10 @@
  */
 Ext.data.Api = (function() {
 
-    // private validActions.  As each Api-action is validated through Ext.data.Api.isAction, its validity gets
-    // cached here so we don't have to loop thorugh the api actions each time.
+    // private validActions.  validActions is essentially an inverted hash of Ext.data.Api.actions, where value becomes the key.
+    // Some methods in this singleton (eg: getActions, getVerb) will loop through actions with the code <code>for (var verb in this.actions)</code>
+    // For efficiency, some methods will first check this hash for a match.  Those methods which do acces validActions will cache their result here.
+    // We cannot pre-define this hash since the developer may over-ride the actions at runtime.
     var validActions = {};
 
     return {
@@ -25,12 +27,8 @@ Ext.data.Api = (function() {
          */
         actions : {
             create  : 'create',
-            // although 'read' would be preferred, load is used for backward compatibility
-            // However, with the introduction of the Ext.data.Api singleton, we my be able to use "read" now.
-            read    : 'load',
-            // although 'update' would be preferred, 'save' has already been used for events pre-Ext3.
-            // However, with the introduction of the Ext.data.Api singleton, we may be able to use "udpate" now.
-            update  : 'save',
+            read    : 'read',
+            update  : 'update',
             destroy : 'destroy'
         },
 
@@ -60,17 +58,31 @@ restActions : {
          * @return {Boolean}
          */
         isAction : function(action) {
-            if (validActions[action]) {
-                return true;    // <-- This action is known to be valid.  return immediately.
+            return (Ext.data.Api.actions[action]) ? true : false;
+        },
+
+        /**
+         * Returns the actual CRUD action KEY "create", "read", "update" or "destroy" from the supplied action-name.  This method is used internally and shouldn't generally
+         * need to be used directly.  The key/value pair of Ext.data.Api.actions will often be identical but this is not necessarily true.  A developer can override this naming
+         * convention if desired.  However, the framework internally calls methods based upon the KEY so a way of retreiving the the words "create", "read", "update" and "destroy" is
+         * required.  This method will cache discovered KEYS into the private validActions hash.
+         * @param {String} name The runtime name of the action.
+         * @return {String||null} returns the action-key, or verb of the user-action or null if invalid.
+         * @nodoc
+         */
+        getVerb : function(name) {
+            if (validActions[name]) {
+                return validActions[name];  // <-- found in cache.  return immediately.
             }
-            for (var k in this.actions) {
-                if (this.actions[k] === action)  {
-                    validActions[action] = true;    // <-- cache the validity of this action.
+            for (var verb in this.actions) {
+                if (this.actions[verb] === name) {
+                    validActions[name] = verb;
                     break;
                 }
             }
-            return (validActions[action]) ? true : false;
+            return (validActions[name] != undefined) ? validActions[name] : null;
         },
+
         /**
          * Returns true if the supplied API is valid; that is, check that all keys match defined actions
          * otherwise returns an array of mistakes.
@@ -143,9 +155,6 @@ new Ext.data.HttpProxy({
             for (var verb in this.actions) {
                 var action = this.actions[verb];
                 proxy.api[action] = proxy.api[action] || proxy.url || proxy.directFn;
-                if (proxy.api[action] == undefined) {
-                    throw new Ext.data.Api.Error('action-url-undefined', 'Api.js', action);
-                }
                 if (typeof(proxy.api[action]) == 'string') {
                     proxy.api[action] = {
                         url: proxy.api[action]
@@ -225,12 +234,14 @@ Ext.Error.prototype = {
      * Attempts to output the exception info on FireBug console if exists.
      */
     toConsole : function() {
+
         if (typeof(console) == 'object' && typeof(console.error) == 'function') {
             console.error(this.error);
         }
         else {
             alert("Error: " + this.cls + ' ' + this.message);   // <-- ugh.  fix this before official release.
         }
+       //Ext.Msg.alert(this.cls + ' Exception', this.message);
     },
 
     /**

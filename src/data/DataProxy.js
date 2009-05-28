@@ -40,13 +40,16 @@ Ext.data.DataProxy = function(conn){
     conn = conn || {};
 
     // This line caused a bug when people use custom Connection object having its own request method.
-    // http://extjs.com/forum/showthread.php?t=67194.  Just set api and url for now.
+    // http://extjs.com/forum/showthread.php?t=67194.  Have to set DataProxy config
     //Ext.applyIf(this, conn);
 
     this.api     = conn.api;
     this.url     = conn.url;
     this.restful = conn.restful;
-    this.prettyUrls = true;
+    this.listeners = conn.listeners;
+
+    // deprecated
+    this.prettyUrls = conn.prettyUrls;
 
     /**
      * @cfg {Object} api
@@ -113,26 +116,56 @@ myStore.on({
 
     this.addEvents(
         /**
-         * @event beforeload (beforeExt.data.Api.actions.read)
+         * @event responseexception
+         * NOTE:  This event was formerly called loadexception in Ext 2.0.  Since a DataProxy can both read & write in Ext 3.0, the event
+         * loadexception was generalized to responseexception.
+         * Fires if an exception occurs in the Proxy during remote request.  This event can be fired for one of two reasons:
+         * <ul><li><b>The remote-request failed and the server did not return status === 200</b></li>
+         * <li><b>The remote-request succeeded but the reader could not read the response.</b>  This means the server returned
+         * data, but the configured Reader threw an error while reading the response.  In this case, this event will be
+         * raised and the caught error will be passed along as the fourth parameter of this event.</li></ul>
+         * Note that this event is also relayed through {@link Ext.data.Store}, so you can listen for it directly
+         * on any Store instance.
+         * @param {DataProxy} this
+         * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
+         * @param {Object} options The loading options that were specified (see {@link #load} for details)
+         * @param {Object} response The XMLHttpRequest object containing the response data
+         * @param {Error} e The JavaScript Error object caught if the configured Reader could not read the data.
+         */
+        'responseexception',
+        /**
+         * @event beforeload
          * Fires before a network request is made to retrieve a data object.
          * @param {Object} this
          * @param {Object} params The params object passed to the {@link #request} function
          */
-        'before'+Ext.data.Api.actions.read,
+        'beforeload',
         /**
-         * @event load (Ext.data.Api.actions.read)
+         * @event load
          * Fires before the load method's callback is called.
          * @param {Object} this
          * @param {Object} o The data object
          * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
-        Ext.data.Api.actions.read,
+        'load',
+        /**
+         * @event loadexception
+         * Fires if the load request returned successProperty === false.</b>  This means the server logic returned a failure
+         * status and there is no data to read.  For example, the server might return successProperty === false if authorization failed.
+         * Note that this event is also relayed through {@link Ext.data.Store}, so you can listen for it directly
+         * on any Store instance.
+         * @param {DataProxy} this
+         * @param {Object} response The decoded response object from the server.
+         * @param {Object} reqeust argument
+         */
+        'loadexception',
         /**
          * @event beforewrite
-         * Fires before a network request is made to CREATE, UPDATE, DESTROY an object
-         * @param {Object} this
+         * Fires before a network request is generated for one of the actions Ext.data.Api.actions.create|update|destroy
+         * @param {DataProxy} this
          * @param {String} action [Ext.data.Api.actions.create|update|destroy]
-         * @param {Object} o The data object
+         * @param {Record/Array[Record]} rs
+         * @param {Object} params HTTP request-params object.  Edit <code>params</code> to add Http parameters to the request.
          * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
         'beforewrite',
@@ -141,10 +174,25 @@ myStore.on({
          * Fires before the request-callback is called
          * @param {Object} this
          * @param {String} action [Ext.data.Api.actions.create|read|upate|destroy]
-         * @param {Object} o The data object
+         * @param {Object} data The data object extracted from the server-response
+         * @param {Object} response The decoded response from server
+         * @param {Record/Record{}} rs The records from Store
          * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
-        'write'
+        'write',
+        /**
+         * @event writeexception
+         * Fires when a valid server-response is returned from a write-request having successProperty === false.</b>  This means the server logic returned a failure
+         * status on the write-action (for authorization failure or record-not-found, for example.)
+         * Note that this event is also relayed through {@link Ext.data.Store}, so you can listen for it directly
+         * on any Store instance.
+         * @param {DataProxy} this
+         * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
+         * @param {Object} response The decoded response from server.
+         * @param {Record/Record[]} rs The records from Store
+         * @param {Object} arg The callback's arg object passed to the {@link #request} function
+         */
+        'writeexception'
     );
     Ext.data.DataProxy.superclass.constructor.call(this);
 };
@@ -206,12 +254,12 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
             }
         }
         else if (arguments.length == 2) {
-            if (!Ext.data.Api.isVerb(arguments[0])) {
+            if (!Ext.data.Api.isAction(arguments[0])) {
                 throw new Ext.data.Api.Error('invalid', 'DataProxy.js', arguments[0]);
             }
             this.api[arguments[0]] = arguments[1];
         }
-        Ext.data.Api.prepare(this.api, this.action);
+        Ext.data.Api.prepare(this.proxy);
     },
 
     /**
@@ -238,14 +286,18 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
      * @private
      */
     request : function(action, rs, params, reader, callback, scope, options) {
+        if (!this.api[action]) {
+            throw new Ext.data.DataProxy.Error('action-undefined', 'DataProxy.js', action);
+        }
         params = params || {};
-        if ((action == 'read') ? this.fireEvent("before"+Ext.data.Api.actions[action], this, params, options) : this.fireEvent("beforewrite", this, action, params, options) !== false) {
+        if ((action === Ext.data.Api.actions.read) ? this.fireEvent("beforeload", this, params, options) : this.fireEvent("beforewrite", this, action, rs, params, options) !== false) {
             this.doRequest.apply(this, arguments);
         }
         else {
             callback.call(scope || this, null, arg, false);
         }
     },
+
 
     /**
      * <b>Deprecated</b> load method using old method signature. See {@doRequest} for preferred method.
@@ -269,7 +321,8 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
         // default implementation of doRequest for backwards compatibility with 2.0 proxies.
         // If we're executing here, the action is probably "load".
         // Call with the pre-3.0 method signature.
-        this[action](params, reader, callback, scope, options);
+        // WARNING:  Potentially infinitely recursive:  See load above which calls this.doRequest
+        this.load(params, reader, callback, scope, options);
     },
 
     /**
@@ -314,8 +367,11 @@ Ext.data.DataProxy.Error = Ext.extend(Ext.Error, {
     render : function(name, data) {
         var msg = name;
         switch(name) {
+            case 'action-undefined':
+                msg = "DataProxy attempted to execute an API-action but found an undefined url / function.  Please review your Proxy url/api-configuration.";
+                break;
             case 'api-invalid':
-                msg = 'recieved an invalid API-configuration "' + data.join(', ') + '".  Please ensure your proxy API-configuration contains only the actions "' + Ext.data.Api.getVerbs().join(', ');
+                msg = 'recieved an invalid API-configuration "' + data.join(', ') + '".  Please ensure your proxy API-configuration contains only the actions from Ext.data.Api.actions.'
                 break;
         }
         return msg;

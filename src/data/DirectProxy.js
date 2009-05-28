@@ -42,8 +42,8 @@ paramOrder: 'param1|param2|param'
     // protected
     doRequest : function(action, rs, params, reader, callback, scope, options) {
         var args = [];
-
         var directFn = this.api[action] || this.directFn;
+
         switch (action) {
             case Ext.data.Api.actions.create:
                 args.push(params[reader.meta.root]);		// <-- create(Hash)
@@ -65,36 +65,69 @@ paramOrder: 'param1|param2|param'
                 args.push(params[reader.meta.root]);        // <-- destroy(Int/Int[])
                 break;
         }
-        args.push(this.createCallback(action, reader, callback, scope, options), this);
+
+        var trans = {
+            params : params || {},
+            callback : callback,
+            scope : scope,
+            arg : options,
+            reader: reader
+        };
+
+        args.push(this.createCallback(action, rs, trans), this);
         directFn.apply(window, args);
     },
+
     // private
-    createCallback : function(action, reader, callback, scope, arg) {
-        return (action == Ext.data.Api.actions.read) ? function(result, e){
-                if (!e.status) {
-                    this.fireEvent(action+"exception", this, e, result);
-                    callback.call(scope, null, arg, false);
-                    return;
-                }
-                var records;
-                try {
-                    records = reader.readRecords(result);
-                }
-                catch (ex) {
-                    this.fireEvent("loadexception", this, action, e, result, ex);
-                    callback.call(scope, null, arg, false);
-                    return;
-                }
-                this.fireEvent("write", this, action, e, arg);
-                callback.call(scope, records, arg, true);
-            } : function(result, e){
-                if(!e.status){
-                    this.fireEvent("writeexception", this, action, e);
-                    callback.call(scope, null, e, false);
-                    return;
-                }
-                this.fireEvent("write", this, action, result, e, arg);
-                callback.call(scope, result, e, true);
+    createCallback : function(action, rs, trans) {
+        return function(result, e) {
+            if (action === Ext.data.Api.actions.read) {
+                this.onRead(action, trans, result, e);
+            } else {
+                this.onWrite(action, trans, result, e, rs);
             }
+        }
+    },
+    /**
+     * Callback for read actions
+     * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
+     * @param {Object} trans The request transaction object
+     * @param {Object} res The server response
+     * @protected
+     */
+    onRead : function(action, trans, result, e) {
+        if (!e.status) {
+            this.fireEvent("loadexception", this, e, trans.arg);
+            callback.call(trans.scope, null, trans.arg, false);
+            return;
+        }
+        var records;
+        try {
+            records = trans.reader.readRecords(result);
+        }
+        catch (ex) {
+            this.fireEvent("responseexception", this, action, result, e, ex);
+            trans.callback.call(trans.scope, null, trans.arg, false);
+            return;
+        }
+        this.fireEvent("load", this, e, trans.arg);
+        trans.callback.call(trans.scope, records, trans.arg, true);
+    },
+    /**
+     * Callback for write actions
+     * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
+     * @param {Object} trans The request transaction object
+     * @param {Object} res The server response
+     * @protected
+     */
+    onWrite : function(action, trans, result, e, rs) {
+         if(!e.status){
+            this.fireEvent("writeexception", this, action, e, rs, trans.arg);
+            trans.callback.call(trans.scope, result, e, false);
+            return;
+        }
+        this.fireEvent("write", this, action, result, e, rs, trans.arg);
+        trans.callback.call(trans.scope, result, e, true);
     }
 });
+

@@ -14,8 +14,6 @@ Ext.data.MemoryProxy = function(data){
         api: api
     });
     this.data = data;
-
-
 };
 
 Ext.extend(Ext.data.MemoryProxy, Ext.data.DataProxy, {

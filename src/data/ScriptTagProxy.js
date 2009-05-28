@@ -129,7 +129,7 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
             scope : scope,
             reader : reader
         };
-        window[trans.cb] = this.createCallback(action, trans);
+        window[trans.cb] = this.createCallback(action, rs, trans);
         url += String.format("&{0}={1}", this.callbackParam, trans.cb);
         if(this.autoAbort !== false){
             this.abort();
@@ -147,33 +147,53 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
     },
 
     // @private createCallback
-    createCallback : function(action, trans) {
-        var conn = this;
-        return (action == Ext.data.Api.actions.read)
-            ? function(res) {
-                conn.trans = false;
-                conn.destroyTrans(trans, true);
-                var result;
-                try {
-                    result = trans.reader.readRecords(res);
-                }catch(e){
-                    conn.fireEvent(Ext.data.Api.actions.read+"exception", conn, res, trans.arg, e);
-                    trans.callback.call(trans.scope||window, null, trans.arg, false);
-                    return;
-                }
-                conn.fireEvent(Ext.data.Api.actions.read, conn, res, trans.arg);
-                trans.callback.call(trans.scope||window, result, trans.arg, true);
+    createCallback : function(action, rs, trans) {
+        var self = this;
+        return function(res) {
+            self.trans = false;
+            self.destroyTrans(trans, true);
+            if (action === Ext.data.Api.actions.read) {
+                self.onRead.call(self, action, trans, res);
+            } else {
+                self.onWrite.call(self, action, trans, res, rs);
             }
-            : function(res) {
-                var reader = trans.reader;
-                if(!res[reader.meta.successProperty] === true){
-                    conn.fireEvent("writeexception", action, conn, trans, res);
-                    trans.callback.call(trans.scope, null, res, false);
-                    return;
-                }
-                conn.fireEvent("write", action, conn, res[reader.meta.root], res, trans.arg );
-                trans.callback.call(trans.scope||window, res[reader.meta.root], res, true);
-            }
+        }
+    },
+    /**
+     * Callback for read actions
+     * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
+     * @param {Object} trans The request transaction object
+     * @param {Object} res The server response
+     * @protected
+     */
+    onRead : function(action, trans, res) {
+        var result;
+        try {
+            result = trans.reader.readRecords(res);
+        }catch(e){
+            conn.fireEvent("loadexception", this, res, trans.arg, e);
+            trans.callback.call(trans.scope||window, null, trans.arg, false);
+            return;
+        }
+        this.fireEvent("load", this, res, trans.arg);
+        trans.callback.call(trans.scope||window, result, trans.arg, true);
+    },
+    /**
+     * Callback for write actions
+     * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
+     * @param {Object} trans The request transaction object
+     * @param {Object} res The server response
+     * @protected
+     */
+    onWrite : function(action, trans, res, rs) {
+        var reader = trans.reader;
+        if(!res[reader.meta.successProperty] === true){
+            this.fireEvent("writeexception", this, action, res, rs, trans.arg);
+            trans.callback.call(trans.scope||window, null, res, false);
+            return;
+        }
+        this.fireEvent("write", this, action, res[reader.meta.root], res, rs, trans.arg );
+        trans.callback.call(trans.scope||window, res[reader.meta.root], res, true);
     },
 
     // private
@@ -215,7 +235,7 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
         this.trans = false;
         this.destroyTrans(trans, false);
         if (trans.action === Ext.data.Api.actions.read) {
-            this.fireEvent(Ext.data.Api.actions.read+"exception", this, null, trans.arg);
+            this.fireEvent("loadexception", this, null, trans.arg);
         }
         else {
             this.fireEvent("writeexception", this, trans.action, null, trans.arg);
