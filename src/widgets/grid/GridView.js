@@ -1337,12 +1337,15 @@ viewConfig: {
             }
         }
         if(ds){
-            ds.on("load", this.onLoad, this);
-            ds.on("datachanged", this.onDataChange, this);
-            ds.on("add", this.onAdd, this);
-            ds.on("remove", this.onRemove, this);
-            ds.on("update", this.onUpdate, this);
-            ds.on("clear", this.onClear, this);
+            ds.on({
+                scope: this,
+                load: this.onLoad,
+                datachanged: this.onDataChange,
+                add: this.onAdd,
+                remove: this.onRemove,
+                update: this.onUpdate,
+                clear: this.onClear
+            });
         }
         this.ds = ds;
 
@@ -1352,16 +1355,17 @@ viewConfig: {
             this.cm.un("headerchange", this.onHeaderChange, this);
             this.cm.un("hiddenchange", this.onHiddenChange, this);
             this.cm.un("columnmoved", this.onColumnMove, this);
-            this.cm.un("columnlockchange", this.onColumnLock, this);
         }
         if(cm){
             delete this.lastViewWidth;
-            cm.on("configchange", this.onColConfigChange, this);
-            cm.on("widthchange", this.onColWidthChange, this);
-            cm.on("headerchange", this.onHeaderChange, this);
-            cm.on("hiddenchange", this.onHiddenChange, this);
-            cm.on("columnmoved", this.onColumnMove, this);
-            cm.on("columnlockchange", this.onColumnLock, this);
+            cm.on({
+                scope: this,
+                configchange: this.onColConfigChange,
+                widthchange: this.onColWidthChange,
+                headerchange: this.onHeaderChange,
+                hiddenchange: this.onHiddenChange,
+                columnmoved: this.onColumnMove
+            });
         }
         this.cm = cm;
     },

@@ -432,10 +432,13 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         }
         if(store){
             store = Ext.StoreMgr.lookup(store);
-            store.on("beforeload", this.beforeLoad, this);
-            store.on("load", this.onLoad, this);
-            store.on("loadexception", this.onLoadError, this);
-            store.on("responseexception", this.onLoadError, this);
+            store.on({
+                scope: this,
+                beforeload: this.beforeLoad,
+                load: this.onLoad,
+                loadexception: this.onLoadError,
+                responseexception: this.onLoadError
+            });
 
             this.paramNames.start = store.paramNames.start;
             this.paramNames.limit = store.paramNames.limit;

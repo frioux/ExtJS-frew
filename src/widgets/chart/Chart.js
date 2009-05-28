@@ -117,11 +117,14 @@ Ext.chart.Chart = Ext.extend(Ext.FlashComponent, {
         }
         if(store){
             store = Ext.StoreMgr.lookup(store);
-            store.on("datachanged", this.refresh, this);
-            store.on("add", this.delayRefresh, this);
-            store.on("remove", this.delayRefresh, this);
-            store.on("update", this.delayRefresh, this);
-            store.on("clear", this.refresh, this);
+            store.on({
+                scope: this,
+                datachanged: this.refresh,
+                add: this.delayRefresh,
+                remove: this.delayRefresh,
+                update: this.delayRefresh,
+                clear: this.refresh
+            });
         }
         this.store = store;
         if(store && !initial){

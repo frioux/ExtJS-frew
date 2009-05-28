@@ -664,9 +664,12 @@ var menu = new Ext.menu.Menu({
             }
 
             this.store = Ext.StoreMgr.lookup(store);
-            this.store.on('beforeload', this.onBeforeLoad, this);
-            this.store.on('load', this.onLoad, this);
-            this.store.on('loadexception', this.collapse, this);
+            this.store.on({
+                scope: this,
+                beforeload: this.onBeforeLoad,
+                load: this.onLoad,
+                loadexception: this.collapse
+            });
             this.store.on('responseexception', this.collapse, this);
 
             if(this.view){
