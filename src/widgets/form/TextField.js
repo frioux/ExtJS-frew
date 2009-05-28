@@ -337,14 +337,17 @@ var myField = new Ext.form.NumberField({
 
     // private
     preFocus : function(){
+        var el = this.el;
         if(this.emptyText){
-            if(this.el.dom.value == this.emptyText){
+            if(el.dom.value == this.emptyText){
                 this.setRawValue('');
             }
-            this.el.removeClass(this.emptyClass);
+            el.removeClass(this.emptyClass);
         }
         if(this.selectOnFocus){
-            this.el.dom.select();
+            (function(){
+                el.dom.select();
+            }).defer(this.inEditor && Ext.isIE ? 50 : 0);    
         }
     },
 
@@ -372,7 +375,7 @@ var myField = new Ext.form.NumberField({
     },
 
     setValue : function(v){
-        if(this.emptyText && this.el && v !== undefined && v !== null && v !== ''){
+        if(this.emptyText && this.el && Ext.isEmpty(v)){
             this.el.removeClass(this.emptyClass);
         }
         Ext.form.TextField.superclass.setValue.apply(this, arguments);
