@@ -132,16 +132,27 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
     createMenuConfig: function(c, hideOnClick){
         var cfg = {
-            text: c.text,
+            text: c.overflowText || c.text,
             iconCls: c.iconCls,
             icon: c.icon,
             itemId: c.itemId,
             disabled: c.disabled,
             handler: c.handler,
             scope: c.scope,
-            menu: c.menu
-        };
-        cfg.hideOnClick = hideOnClick;
+            menu: c.menu,
+            hideOnClick: hideOnClick
+        }, group = c.toggleGroup;
+        if(group){
+            Ext.apply(cfg, {
+                group: group,
+                checked: c.pressed,
+                listeners: {
+                    checkchange: function(item, checked){
+                        c.toggle(checked);
+                    }
+                }
+            });
+        }
         delete cfg.xtype;
         delete cfg.id;
         return cfg;
@@ -208,6 +219,11 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
             var td = this.insertCell(this.more, this.extrasTr, 100);
             this.more.render(td);
         }
+    },
+    
+    destroy: function(){
+        Ext.destroy(this.more, this.moreMenu);
+        Ext.layout.ToolbarLayout.superclass.destroy.call(this);
     }
     /**
      * @property activeItem
@@ -606,6 +622,9 @@ T.Item = Ext.extend(Ext.BoxComponent, {
     enable:Ext.emptyFn,
     disable:Ext.emptyFn,
     focus:Ext.emptyFn
+    /**
+     * @cfg {String} overflowText Text to be used for the menu if the item is overflowed.
+     */
 });
 Ext.reg('tbitem', T.Item);
 
