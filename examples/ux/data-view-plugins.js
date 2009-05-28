@@ -27,7 +27,18 @@ Ext.DataView.LabelEditor = Ext.extend(Ext.Editor, {
     },
 
     initEditor : function(){
+        this.view.on({
+            scope: this,
+            containerclick: this.doBlur,
+            click: this.doBlur
+        });
         this.view.getEl().on('mousedown', this.onMouseDown, this, {delegate: this.labelSelector});
+    },
+    
+    doBlur: function(){
+        if(this.editing){
+            this.field.blur();
+        }
     },
 
     onMouseDown : function(e, target){
@@ -116,6 +127,7 @@ Ext.DataView.DragSelector = function(cfg){
     }
 
     function onEnd(e){
+        view.un('containerclick', cancelClick, view);
         if(proxy){
             proxy.setDisplayed(false);
         }
