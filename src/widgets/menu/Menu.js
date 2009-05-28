@@ -302,6 +302,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
             }else{
                 if(t.menu && this.ignoreParentClicks){
                     t.expandMenu();
+                    e.preventDefault();
                 }else if(t.onClick){
                     t.onClick(e);
                     this.fireEvent("click", this, t, e);
@@ -335,7 +336,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
             }else{
                 a.deactivate();
             }
-            this.activeItem = null;
+            delete this.activeItem;
         }
     },
 
