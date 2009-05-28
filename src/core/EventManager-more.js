@@ -291,6 +291,7 @@ Ext.apply(Ext.EventObjectImpl.prototype, {
         var k = this.normalizeKey(this.keyCode);
         return (this.type == 'keypress' && this.ctrlKey) ||
 		this.isNavKeyPress() ||
+        (k == this.BACKSPACE) || // Backspace
 		(k >= 16 && k <= 20) || // Shift, Ctrl, Alt, Pause, Caps Lock
 		(k >= 44 && k <= 45);   // Print Screen, Insert
     },

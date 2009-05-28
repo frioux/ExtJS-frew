@@ -358,18 +358,12 @@ var myField = new Ext.form.NumberField({
 
     // private
     filterKeys : function(e){
-        if(e.ctrlKey){
+        // special keys don't generate charCodes, so leave them alone
+        if(e.ctrlKey || e.isSpecialKey()){
             return;
         }
-        var k = e.getKey();
-        if(Ext.isGecko && (e.isNavKeyPress() || k == e.BACKSPACE || (k == e.DELETE && e.button == -1))){
-            return;
-        }
-        var c = e.getCharCode(), cc = String.fromCharCode(c);
-        if(!Ext.isGecko && e.isSpecialKey() && !cc){
-            return;
-        }
-        if(!this.maskRe.test(cc)){
+        
+        if(!this.maskRe.test(String.fromCharCode(e.getCharCode()))){
             e.stopEvent();
         }
     },
