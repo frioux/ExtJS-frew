@@ -158,13 +158,6 @@
 .x-toolbar-ct {
     width:100%;
 }
-/*
-  Fix for buttonAlign center and right in FF2
-  Make x-toolbar-ct NOT stretch 100%
-*/
-.ext-gecko2 .x-toolbar-ct {
-    width: auto;
-}
 
 .x-toolbar-right td {
     text-align: center;
@@ -215,6 +208,10 @@ div.x-toolbar-no-items {
 
 .ext-ie8 .x-toolbar-cell .x-form-field-trigger-wrap .x-form-text, .ext-strict .ext-ie .x-toolbar-cell .x-form-text {
     top: 0px;
+}
+
+.x-toolbar-right td .x-form-field-trigger-wrap{
+    text-align: left;
 }
 
 /* StatusBar */
