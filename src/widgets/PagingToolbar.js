@@ -360,7 +360,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
             this.field.value = pageNum;
         }else if (k == e.UP || k == e.PAGEUP || k == e.DOWN || k == e.PAGEDOWN){
             e.stopEvent();
-            if(pageNum = this.readPage(d)){
+            if((pageNum = this.readPage(d))){
                 var increment = e.shiftKey ? 10 : 1;
                 if(k == e.DOWN || k == e.PAGEDOWN){
                     increment *= -1;
