@@ -134,7 +134,11 @@ Ext.layout.ContainerLayout.prototype = {
                 this.container.un('resize', this.onResize, this);
             }
             if(ct){
-                ct.on('resize', this.onResize, this);
+                ct.on({
+                    scope: this,
+                    resize: this.onResize,
+                    bodyresize: this.onResize
+                });
             }
         }
         this.container = ct;

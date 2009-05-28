@@ -1007,6 +1007,7 @@ new Ext.Panel({
                 toolbarCls: 'x-panel-fbar'
             });
         }
+        this.toolbars = [];
         if(this.fbar){
             this.fbar = Ext.create(this.fbar, 'toolbar');
             this.fbar.enableOverflow = false;
@@ -1021,6 +1022,7 @@ new Ext.Panel({
             this.fbar.ownerCt = this;
             this.fbar.render(bct);
             bct.createChild({cls:'x-clear'});
+            this.toolbars.push(this.fbar);
         }
 
         if(this.tbar && this.topToolbar){
@@ -1031,6 +1033,7 @@ new Ext.Panel({
             }
             this.topToolbar.ownerCt = this;
             this.topToolbar.render(this.tbar);
+            this.toolbars.push(this.topToolbar);
         }
         if(this.bbar && this.bottomToolbar){
             if(Ext.isArray(this.bottomToolbar)){
@@ -1040,7 +1043,15 @@ new Ext.Panel({
             }
             this.bottomToolbar.ownerCt = this;
             this.bottomToolbar.render(this.bbar);
+            this.toolbars.push(this.bottomToolbar);
         }
+        Ext.each(this.toolbars, function(tb){
+            tb.on({
+                scope: this,
+                afterlayout: this.syncHeight,
+                remove: this.syncHeight
+            })
+        }, this);
     },
 
     /**
@@ -1171,14 +1182,29 @@ new Ext.Panel({
     },
 
     onLayout : function(){
-        if(this.topToolbar){
-            this.topToolbar.doLayout();
+        if(this.toolbars.length > 0){
+            this.duringLayout = true;
+            Ext.each(this.toolbars, function(tb){
+                tb.doLayout();
+            });
+            delete this.duringLayout;
+            this.syncHeight();
         }
-        if(this.bottomToolbar){
-            this.bottomToolbar.doLayout();
-        }
-        if(this.fbar){
-            this.fbar.doLayout();
+    },
+    
+    syncHeight: function(){
+        if(!this.duringLayout){
+            var last = this.lastSize;
+            if(last && !Ext.isEmpty(last.height)){
+                var old = last.height, h = this.el.getHeight();
+                if(old != 'auto' && old != h){
+                    h = old - h;
+                    var bd = this.body;
+                    bd.setHeight(bd.getHeight() + h);
+                    var sz = bd.getSize();
+                    this.fireEvent('bodyresize', sz.width, sz.height);
+                }
+            }
         }
     },
 
@@ -1326,7 +1352,9 @@ new Ext.Panel({
             return;
         }
         var doAnim = animate === true || (animate !== false && this.animCollapse);
-        this.beforeEffect();
+        if(doAnim){
+            this.beforeEffect();
+        }
         this.onCollapse(doAnim, animate);
         return this;
     },
@@ -1339,15 +1367,17 @@ new Ext.Panel({
                         this.collapseDefaults));
         }else{
             this[this.collapseEl].hide();
-            this.afterCollapse();
+            this.afterCollapse(doAnim);
         }
     },
 
     // private
-    afterCollapse : function(){
+    afterCollapse : function(doAnim){
         this.collapsed = true;
         this.el.addClass(this.collapsedCls);
-        this.afterEffect();
+        if(doAnim){
+            this.afterEffect();
+        }
         this.fireEvent('collapse', this);
     },
 
