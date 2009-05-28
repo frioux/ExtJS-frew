@@ -21,8 +21,9 @@
     font-size:1px;
     -moz-outline:0 none;
     outline:0 none;
-    -moz-user-select: text;
-    -khtml-user-select: text;
+    -moz-user-select: none;
+    -khtml-user-select:none;
+    -webkit-user-select:ignore;
 	display:block;
 	overflow:hidden;  
 }
