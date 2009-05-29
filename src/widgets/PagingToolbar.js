@@ -424,8 +424,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
             this.store.un("beforeload", this.beforeLoad, this);
             this.store.un("load", this.onLoad, this);
             this.store.un("loadexception", this.onLoadError, this);
-            this.store.un("responseexception", this.onLoadError, this);
-
+            this.store.un("exception", this.onLoadError, this);
             if(store !== this.store && this.store.autoDestroy){
                 this.store.destroy();
             }
@@ -437,9 +436,8 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
                 beforeload: this.beforeLoad,
                 load: this.onLoad,
                 loadexception: this.onLoadError,
-                responseexception: this.onLoadError
+                exception: this.onLoadError
             });
-
             this.paramNames.start = store.paramNames.start;
             this.paramNames.limit = store.paramNames.limit;
 
