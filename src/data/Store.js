@@ -993,11 +993,7 @@ sortInfo: {
 
     // protected handleException.  Possibly temporary until Ext framework has an exception-handler.
     handleException : function(e) {
-        if (typeof(console) == 'object' && typeof(console.error) == 'function') {
-            console.error(e);
-        } else {
-            throw e;
-        }
+        Ext.handleError(e);
     },
 
     /**
