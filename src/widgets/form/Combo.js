@@ -644,7 +644,7 @@ var menu = new Ext.menu.Menu({
             this.store.un('beforeload', this.onBeforeLoad, this);
             this.store.un('load', this.onLoad, this);
             this.store.un('loadexception', this.collapse, this);
-            this.store.un('responseexception', this.collapse, this);
+            this.store.un('exception', this.collapse, this);
             if(this.store !== store && this.store.autoDestroy){
                 this.store.destroy();
             }
@@ -668,9 +668,9 @@ var menu = new Ext.menu.Menu({
                 scope: this,
                 beforeload: this.onBeforeLoad,
                 load: this.onLoad,
-                loadexception: this.collapse
+                loadexception: this.collapse,
+                exception: this.collapse
             });
-            this.store.on('responseexception', this.collapse, this);
 
             if(this.view){
                 this.view.bindStore(store);
