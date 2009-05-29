@@ -49,6 +49,7 @@ Ext.onReady(function(){
         viewConfig: {
             forceFit:true
         },
+        columnLines: true,
         width: 600,
         height: 300,
         plugins: expander,
@@ -83,6 +84,7 @@ Ext.onReady(function(){
             ]
         }),
         sm: sm,
+        columnLines: true,
         width:600,
         height:300,
         frame:true,
@@ -110,6 +112,7 @@ Ext.onReady(function(){
         viewConfig: {
             forceFit:true
         },
+        columnLines: true,
         width:600,
         height:300,
         title:'Grid with Numbered Rows and Force Fit',
@@ -152,6 +155,7 @@ Ext.onReady(function(){
         viewConfig: {
             forceFit:true
         },
+        columnLines: true,
 
         // inline buttons
         buttons: [{text:'Save'},{text:'Cancel'}],
