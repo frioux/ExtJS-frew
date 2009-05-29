@@ -1023,7 +1023,6 @@
   <file name="writer\writer.js" path="writer" />
   <file name="writer\UserForm.js" path="writer" />
   <file name="writer\UserGrid.js" path="writer" />
-
   <file name="writer\app.php" path="writer" />
   <file name="writer\remote\init.php" path="writer\remote" />
   <file name="writer\remote\lib\session_db.php" path="writer\remote\lib" />
@@ -1033,8 +1032,6 @@
   <file name="writer\remote\lib\response.php" path="writer\remote\lib" />
   <file name="writer\remote\app\controllers\users.php" path="writer\remote\app\controllers" />
   <file name="writer\remote\app\models\user.php" path="writer\remote\app\models" />
-
-
   <file name="restful\restful.html" path="restful" />
   <file name="restful\restful.css" path="restful" />
   <file name="restful\restful.js" path="restful" />
@@ -1048,7 +1045,6 @@
   <file name="restful\remote\lib\response.php" path="restful\remote\lib" />
   <file name="restful\remote\app\controllers\users.php" path="restful\remote\app\controllers" />
   <file name="restful\remote\app\models\user.php" path="restful\remote\app\models" />
-
   <file name="dd\dnd_grid_to_formpanel.js" path="dd" />
   <file name="dd\dnd_grid_to_grid.js" path="dd" />
   <file name="dd\dnd_grid_to_formpanel.html" path="dd" />
