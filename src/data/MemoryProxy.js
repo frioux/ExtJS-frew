@@ -51,7 +51,10 @@ Ext.extend(Ext.data.MemoryProxy, Ext.data.DataProxy, {
         try {
             result = reader.readRecords(this.data);
         }catch(e){
-            this.fireEvent("loadexception", this, arg, null, e);
+            // @deprecated loadexception
+            this.fireEvent("loadexception", this, null, arg, e);
+
+            this.fireEvent('exception', this, 'response', action, arg, null, e);
             callback.call(scope, null, arg, false);
             return;
         }

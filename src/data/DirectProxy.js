@@ -80,11 +80,20 @@ paramOrder: 'param1|param2|param'
 
     // private
     createCallback : function(action, rs, trans) {
-        return function(result, e) {
+        return function(result, res) {
+            if (!res.status) {
+                // @deprecated fire loadexception
+                if (action === Ext.data.Api.actions.read) {
+                    this.fireEvent("loadexception", this, trans, res, null);
+                }
+                this.fireEvent('exception', this, 'remote', action, trans, res, null);
+                trans.callback.call(trans.scope, null, trans.arg, false);
+                return;
+            }
             if (action === Ext.data.Api.actions.read) {
-                this.onRead(action, trans, result, e);
+                this.onRead(action, trans, result, res);
             } else {
-                this.onWrite(action, trans, result, e, rs);
+                this.onWrite(action, trans, result, res, rs);
             }
         }
     },
@@ -95,22 +104,20 @@ paramOrder: 'param1|param2|param'
      * @param {Object} res The server response
      * @protected
      */
-    onRead : function(action, trans, result, e) {
-        if (!e.status) {
-            this.fireEvent("loadexception", this, e, trans.arg);
-            callback.call(trans.scope, null, trans.arg, false);
-            return;
-        }
+    onRead : function(action, trans, result, res) {
         var records;
         try {
             records = trans.reader.readRecords(result);
         }
         catch (ex) {
-            this.fireEvent("responseexception", this, action, result, e, ex);
+            // @deprecated: Fire old loadexception for backwards-compat.
+            this.fireEvent("loadexception", this, trans, res, ex);
+
+            this.fireEvent('exception', this, 'response', action, trans, res, ex);
             trans.callback.call(trans.scope, null, trans.arg, false);
             return;
         }
-        this.fireEvent("load", this, e, trans.arg);
+        this.fireEvent("load", this, res, trans.arg);
         trans.callback.call(trans.scope, records, trans.arg, true);
     },
     /**
@@ -120,14 +127,9 @@ paramOrder: 'param1|param2|param'
      * @param {Object} res The server response
      * @protected
      */
-    onWrite : function(action, trans, result, e, rs) {
-         if(!e.status){
-            this.fireEvent("writeexception", this, action, e, rs, trans.arg);
-            trans.callback.call(trans.scope, result, e, false);
-            return;
-        }
-        this.fireEvent("write", this, action, result, e, rs, trans.arg);
-        trans.callback.call(trans.scope, result, e, true);
+    onWrite : function(action, trans, result, res, rs) {
+        this.fireEvent("write", this, action, result, res, rs, trans.arg);
+        trans.callback.call(trans.scope, result, res, true);
     }
 });
 

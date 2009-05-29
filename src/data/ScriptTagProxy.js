@@ -171,12 +171,22 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
         try {
             result = trans.reader.readRecords(res);
         }catch(e){
-            conn.fireEvent("loadexception", this, res, trans.arg, e);
+            // @deprecated: fire loadexception
+            this.fireEvent("loadexception", this, trans, res, e);
+
+            this.fireEvent('exception', this, 'response', action, trans, res, e);
             trans.callback.call(trans.scope||window, null, trans.arg, false);
             return;
         }
-        this.fireEvent("load", this, res, trans.arg);
-        trans.callback.call(trans.scope||window, result, trans.arg, true);
+        if (result.success === false) {
+            // @deprecated: fire old loadexception for backwards-compat.
+            this.fireEvent('loadexception', this, trans, res);
+
+            this.fireEvent('exception', this, 'remote', action, trans, res, null);
+        } else {
+            this.fireEvent("load", this, res, trans.arg);
+        }
+        trans.callback.call(trans.scope||window, result, trans.arg, result.success);
     },
     /**
      * Callback for write actions
@@ -187,8 +197,16 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
      */
     onWrite : function(action, trans, res, rs) {
         var reader = trans.reader;
+        try {
+            // though we already have a response object here in STP, run through readResponse to catch any meta-data exceptions.
+            reader.readResponse(action, res);
+        } catch (e) {
+            this.fireEvent('exception', this, 'response', action, trans, res, e);
+            trans.callback.call(trans.scope||window, null, res, false);
+            return;
+        }
         if(!res[reader.meta.successProperty] === true){
-            this.fireEvent("writeexception", this, action, res, rs, trans.arg);
+            this.fireEvent('exception', this, 'remote', action, trans, res, rs);
             trans.callback.call(trans.scope||window, null, res, false);
             return;
         }
@@ -235,11 +253,14 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
         this.trans = false;
         this.destroyTrans(trans, false);
         if (trans.action === Ext.data.Api.actions.read) {
+            // @deprecated firing loadexception
             this.fireEvent("loadexception", this, null, trans.arg);
         }
-        else {
-            this.fireEvent("writeexception", this, trans.action, null, trans.arg);
-        }
+
+        this.fireEvent('exception', this, 'response', trans.action, {
+            response: null,
+            options: trans.arg
+        });
         trans.callback.call(trans.scope||window, null, trans.arg, false);
     },
 

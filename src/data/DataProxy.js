@@ -116,23 +116,42 @@ myStore.on({
 
     this.addEvents(
         /**
-         * @event responseexception
-         * NOTE:  This event was formerly called loadexception in Ext 2.0.  Since a DataProxy can both read & write in Ext 3.0, the event
-         * loadexception was generalized to responseexception.
-         * Fires if an exception occurs in the Proxy during remote request.  This event can be fired for one of two reasons:
+         * @event exception
+         * Fires if an exception occurs in the Proxy during a remote request.  This event can be fired for one of two reasons:
          * <ul><li><b>The remote-request failed and the server did not return status === 200</b></li>
          * <li><b>The remote-request succeeded but the reader could not read the response.</b>  This means the server returned
          * data, but the configured Reader threw an error while reading the response.  In this case, this event will be
-         * raised and the caught error will be passed along as the fourth parameter of this event.</li></ul>
+         * raised and the caught error will be passed along into this event.</li></ul>
          * Note that this event is also relayed through {@link Ext.data.Store}, so you can listen for it directly
          * on any Store instance.
+         * This event fires with two different contexts based upon the 2nd parameter <tt>type [remote|response]</tt>.  Note that the
+         * first four parameters are identical between the two contexts -- only the final two parameters differ.
+         *
+         * <b>response</b>
+         * If the type of exception is "response", an <b>invalid response</b> from the server was returned, either 404, 500 or the response
+         * meta-data does not match that defined in your DataReader (eg: root, idProperty, successProperty).
+         * The event parameters for this context are:
          * @param {DataProxy} this
+         * @param {String} type [remote|response]
          * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
          * @param {Object} options The loading options that were specified (see {@link #load} for details)
-         * @param {Object} response The XMLHttpRequest object containing the response data
+         * @param {Object} response The raw browser response object (eg: XMLHttpRequest)
          * @param {Error} e The JavaScript Error object caught if the configured Reader could not read the data.
+         * If the load call returned success: false, this parameter will be null.
+         *
+         * <b>remote</b>
+         * If the type of exception is "remote", a <b>valid response</b> was returned from the server having successProperty === false.  This
+         * response might contain an error-message sent from the server.  For example, the user may have failed
+         * authentication/authorization or a database validation error occurred.
+         * @param {DataProxy} this
+         * @param {String} type [remote|response]
+         * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
+         * @param {Object} options The loading options that were specified (see {@link #load} for details)
+         * @param {Object} response The decoded response object sent from the server.
+         * @param {Record/Record[]} rs Records from the Store.  This parameter will only exist if the <tt>action</tt> was a <b>write</b> action
+         * (Ext.data.Api.actions.create|update|destroy)
          */
-        'responseexception',
+        'exception',
         /**
          * @event beforeload
          * Fires before a network request is made to retrieve a data object.
@@ -150,13 +169,21 @@ myStore.on({
         'load',
         /**
          * @event loadexception
-         * Fires if the load request returned successProperty === false.</b>  This means the server logic returned a failure
-         * status and there is no data to read.  For example, the server might return successProperty === false if authorization failed.
+         * @deprecated Please use catch-all {@link #exception} event instead.
+         * Fires if an exception occurs in the Proxy during data loading.  This event can be fired for one of two reasons:
+         * <ul><li><b>The load call returned success: false.</b>  This means the server logic returned a failure
+         * status and there is no data to read.  In this case, this event will be raised and the
+         * fourth parameter (read error) will be null.</li>
+         * <li><b>The load succeeded but the reader could not read the response.</b>  This means the server returned
+         * data, but the configured Reader threw an error while reading the data.  In this case, this event will be
+         * raised and the caught error will be passed along as the fourth parameter of this event.</li></ul>
          * Note that this event is also relayed through {@link Ext.data.Store}, so you can listen for it directly
          * on any Store instance.
-         * @param {DataProxy} this
-         * @param {Object} response The decoded response object from the server.
-         * @param {Object} reqeust argument
+         * @param {Object} this
+         * @param {Object} options The loading options that were specified (see {@link #load} for details)
+         * @param {Object} response The raw response object (eg: XMLHttpRequest) containing the response data
+         * @param {Error} e The JavaScript Error object caught if the configured Reader could not read the data.
+         * If the load call returned success: false, this parameter will be null.
          */
         'loadexception',
         /**
@@ -166,7 +193,6 @@ myStore.on({
          * @param {String} action [Ext.data.Api.actions.create|update|destroy]
          * @param {Record/Array[Record]} rs
          * @param {Object} params HTTP request-params object.  Edit <code>params</code> to add Http parameters to the request.
-         * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
         'beforewrite',
         /**
@@ -179,20 +205,7 @@ myStore.on({
          * @param {Record/Record{}} rs The records from Store
          * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
-        'write',
-        /**
-         * @event writeexception
-         * Fires when a valid server-response is returned from a write-request having successProperty === false.</b>  This means the server logic returned a failure
-         * status on the write-action (for authorization failure or record-not-found, for example.)
-         * Note that this event is also relayed through {@link Ext.data.Store}, so you can listen for it directly
-         * on any Store instance.
-         * @param {DataProxy} this
-         * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
-         * @param {Object} response The decoded response from server.
-         * @param {Record/Record[]} rs The records from Store
-         * @param {Object} arg The callback's arg object passed to the {@link #request} function
-         */
-        'writeexception'
+        'write'
     );
     Ext.data.DataProxy.superclass.constructor.call(this);
 };
@@ -290,7 +303,7 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
             throw new Ext.data.DataProxy.Error('action-undefined', 'DataProxy.js', action);
         }
         params = params || {};
-        if ((action === Ext.data.Api.actions.read) ? this.fireEvent("beforeload", this, params, options) : this.fireEvent("beforewrite", this, action, rs, params, options) !== false) {
+        if ((action === Ext.data.Api.actions.read) ? this.fireEvent("beforeload", this, params) : this.fireEvent("beforewrite", this, action, rs, params) !== false) {
             this.doRequest.apply(this, arguments);
         }
         else {

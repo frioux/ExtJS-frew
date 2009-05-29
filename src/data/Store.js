@@ -202,6 +202,7 @@ var grid = new Ext.grid.EditorGridPanel({
      * @property recordType
      * @type Function
      */
+
     if(this.recordType){
         /**
          * A {@link Ext.util.MixedCollection MixedCollection} containing the defined {@link Ext.data.Field Field}s
@@ -264,22 +265,42 @@ var grid = new Ext.grid.EditorGridPanel({
          */
         'clear',
         /**
-         * @event responseexception
-         * <b>NOTE:</b>  This event was formerly called as loadexception in Ext 2.0.  Since a DataProxy can both read & write in Ext 3.0, the event
-         * loadexception was generalized to responseexception.
+         * @event exception
          * Fires if an exception occurs in the Proxy during a remote request.  This event can be fired for one of two reasons:
          * <ul><li><b>The remote-request failed and the server did not return status === 200</b></li>
          * <li><b>The remote-request succeeded but the reader could not read the response.</b>  This means the server returned
          * data, but the configured Reader threw an error while reading the response.  In this case, this event will be
-         * raised and the caught error will be passed along as the fourth parameter of this event.</li></ul>
-         * Note that this event is also relayed through {@link Ext.data.DataProxy}
+         * raised and the caught error will be passed along into this event.</li></ul>
+         * Note that this event is also relayed through {@link Ext.data.DataProxy}.
+         *
+         * This event fires with two different contexts based upon the 2nd parameter <tt>type [remote|response]</tt>.  Note that the
+         * first four parameters are identical between the two contexts -- only the final two parameters differ.
+         *
+         * <b>response</b>
+         * If the type of exception is "response", an <b>invalid response</b> from the server was returned, either 404, 500 or the response
+         * meta-data does not match that defined in your DataReader (eg: root, idProperty, successProperty).
+         * The event parameters for this context are:
          * @param {DataProxy} this
+         * @param {String} type [remote|response]
          * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
          * @param {Object} options The loading options that were specified (see {@link #load} for details)
-         * @param {Object} response The XMLHttpRequest object containing the response data
+         * @param {Object} response The raw browser response object (eg: XMLHttpRequest)
          * @param {Error} e The JavaScript Error object caught if the configured Reader could not read the data.
+         * If the load call returned success: false, this parameter will be null.
+         *
+         * <b>remote</b>
+         * If the type of exception is "remote", a <b>valid response</b> was returned from the server having successProperty === false.  This
+         * response might contain an error-message sent from the server.  For example, the user may have failed
+         * authentication/authorization or a database validation error occurred.
+         * @param {DataProxy} this
+         * @param {String} type [remote|response]
+         * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
+         * @param {Object} options The loading options that were specified (see {@link #load} for details)
+         * @param {Object} response The decoded response object sent from the server.
+         * @param {Record/Record[]} rs Records from the Store.  This parameter will only exist if the <tt>action</tt> was a <b>write</b> action
+         * (Ext.data.Api.actions.create|update|destroy)
          */
-        'responseexception',
+        'exception',
         /**
          * @event beforeload
          * Fires before a request is made for a new data object.  If the beforeload handler returns
@@ -298,6 +319,7 @@ var grid = new Ext.grid.EditorGridPanel({
         'load',
         /**
          * @event loadexception
+         * @deprecated Please use {@link #execption} instead.
          * Fires only if the load request returned a valid response having successProperty === false.</b>  This means the server logic returned a failure
          * status and there is no data to read.  For example, the server might return successProperty === false if authorization failed.
          * Called with the signature of the Proxy's "loadexception" event.
@@ -311,7 +333,7 @@ var grid = new Ext.grid.EditorGridPanel({
          * @param {DataProxy} this
          * @param {String} action [Ext.data.Api.actions.create|update|destroy]
          * @param {Record/Array[Record]} rs
-         * @param {Object} params HTTP request-params object.  Edit <code>params</code> to add Http parameters to the request.
+         * @param {Object} options The loading options that were specified. Edit <code>options.params</code> to add Http parameters to the request.  (see {@link #save} for details)
          * @param {Object} arg The callback's arg object passed to the {@link #request} function
          */
         'beforewrite',
@@ -327,23 +349,11 @@ var grid = new Ext.grid.EditorGridPanel({
          * @param {Ext.Direct.Transaction} res
          * @param {Record/Record[]} rs Store's records, the subject(s) of the write-action
          */
-        'write',
-         /**
-         * @event writeexception
-         * Fires when a valid server-response is returned from a write-request having successProperty === false.</b>  This means the server logic returned a failure
-         * status on the write-action (for authorization failure or record-not-found, for example.).
-         * Called with the signature of DataProxy's writeexception event.
-         * @param {DataProxy} this
-         * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
-         * @param {Object} response The decoded response from server.
-         * @param {Record/Record[]} rs Store's records
-         * @param {Object} arg The request argument
-         */
-        'writeexception'
+        'write'
     );
 
     if(this.proxy){
-        this.relayEvents(this.proxy,  ["loadexception", "responseexception"]);
+        this.relayEvents(this.proxy,  ["loadexception", "exception"]);
     }
     // With a writer set for the Store, we want to listen to add/remove events to remotely create/destroy records.
     if (this.writer) {

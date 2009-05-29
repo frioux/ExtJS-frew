@@ -173,8 +173,12 @@ api: {
     createCallback : function(action, rs) {
         return function(o, success, response) {
             this.activeRequest[action] = undefined;
-            if (!success) { // <-- both read & write responses generate responseexception now -- not loadexception/writeexception
-                this.fireEvent('responseexception', this, action, o, response);
+            if (!success) {
+                if (action === Ext.data.Api.actions.read) {
+                    // @deprecated: fire loadresponse for backwards compat.
+                    this.fireEvent("loadexception", this, o, response);
+                }
+                this.fireEvent('exception', this, 'response', action, o, response);
                 o.request.callback.call(o.request.scope, null, o.request.arg, false);
                 return;
             }
@@ -198,13 +202,19 @@ api: {
         try {
             result = o.reader.read(response);
         }catch(e){
-            this.fireEvent("responseexception", this, action, o, response, e);
+            // @deprecated: fire old loadexception for backwards-compat.
+            this.fireEvent("loadexception", this, o, response, e);
+            this.fireEvent('exception', this, 'response', action, o, response, e);
             o.request.callback.call(o.request.scope, null, o.request.arg, false);
             return;
         }
         if (result.success === false) {
-            var res = o.reader.readResponse(action, response);
-            this.fireEvent('loadexception', this, res, o.request.arg);
+            // @deprecated: fire old loadexception for backwards-compat.
+            this.fireEvent('loadexception', this, o, response);
+
+            // Get DataReader read-back a response-object to pass along to exception event
+            var res = o.reader.readResponse(action, response)
+            this.fireEvent('exception', this, 'remote', action, o, res, null);
         }
         else {
             this.fireEvent("load", this, o, o.request.arg);
@@ -224,12 +234,12 @@ api: {
         try {
             res = reader.readResponse(action, response);
         } catch (e) {
-            this.fireEvent("responseexception", this, action, o, response, e);
+            this.fireEvent('exception', this, 'response', action, o, response, e);
             o.request.callback.call(o.request.scope, null, o.request.arg, false);
             return;
         }
         if (res[reader.meta.successProperty] === false) {
-            this.fireEvent('writeexception', this, action, res, rs, o.request.arg);
+            this.fireEvent('exception', this, 'remote', action, o, res, rs);
         } else {
             this.fireEvent("write", this, action, res[reader.meta.root], res, rs, o.request.arg);
         }

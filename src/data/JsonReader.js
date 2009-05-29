@@ -84,7 +84,7 @@ var myReader = new Ext.data.JsonReader();
  * @param {Array/Object} recordType
  * <p>Either an Array of {@link Ext.data.Field Field} definition objects (which
  * will be passed to {@link Ext.data.Record#create}, or a {@link Ext.data.Record Record}
- * constructor created from {@link Ext.data.Record#create}.</p> 
+ * constructor created from {@link Ext.data.Record#create}.</p>
  */
 Ext.data.JsonReader = function(meta, recordType){
     meta = meta || {};
@@ -245,8 +245,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
      * @param {Object} response
      */
     readResponse : function(action, response) {
-        var json = response.responseText;
-        var o = Ext.decode(json);
+        var o = (typeof(response.responseText) != undefined) ? Ext.decode(response.responseText) : response;
         if(!o) {
             throw new Ext.data.JsonReader.Error('response', 'JsonReader.js');
         }
@@ -254,8 +253,13 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             throw new Ext.data.JsonReader.Error('success', 'JsonReader.js', this.meta.successProperty);
         }
         // TODO, separate empty and undefined exceptions.
-        else if ((action === Ext.data.Api.actions.create || action === Ext.data.Api.actions.update) && Ext.isEmpty(o[this.meta.root])) {
-            throw new Ext.data.JsonReader.Error('root', 'JsonReader.js', this.meta.root);
+        if ((action === Ext.data.Api.actions.create || action === Ext.data.Api.actions.update)) {
+            if (Ext.isEmpty(o[this.meta.root])) {
+                throw new Ext.data.JsonReader.Error('root-emtpy', 'JsonReader.js', this.meta.root);
+            }
+            else if (typeof(o[this.meta.root]) === undefined) {
+                throw new Ext.data.JsonReader.Error('root-undefined', 'JsonReader.js', this.meta.root);
+            }
         }
         // makde sure extaction functions are defined.
         if (!this.ef) {
@@ -278,8 +282,11 @@ Ext.data.JsonReader.Error = Ext.extend(Ext.Error, {
             case 'success':
                 return 'Could not locate your "successProperty" (' + data + ') in your server response.  Please review your JsonReader config to ensure the config-property "successProperty" matches the property in your server-response.  See the JsonReader docs.';
                 break;
-            case 'root':
+            case 'root-undefined':
                 return 'Could not locate your "root" property (' + data + ') in your server response.  Please review your JsonReader config to ensure the config-property "root" matches the property your server-response.  See the JsonReader docs.';
+                break;
+            case 'root-emtpy':
+                return 'Data was expected to be returned by the server in the "root" property of the response.  Please review your JsonReader configuration to ensure the "root" property matches that returned in the server-response.  See JsonReader docs.';
                 break;
         }
     }
