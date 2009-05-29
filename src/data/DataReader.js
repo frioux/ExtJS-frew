@@ -134,10 +134,12 @@ Ext.data.DataReader.Error = Ext.extend(Ext.Error, {
     },
     name: 'Ext.data.DataReader'
 });
-Ext.Error.lang["Ext.data.DataReader"] = {
-    'update': "#update received invalid data from server.  Please see docs for DataReader#update and review your DataReader configuration.",
-    'realize': "#realize was called with invalid remote-data.  Please see the docs for DataReader#realize and review your DataReader configuration.",
-    'invalid-response': "#readResponse received an invalid response from the server."
-};
+Ext.apply(Ext.data.DataReader.Error.prototype, {
+    lang : {
+        'update': "#update received invalid data from server.  Please see docs for DataReader#update and review your DataReader configuration.",
+        'realize': "#realize was called with invalid remote-data.  Please see the docs for DataReader#realize and review your DataReader configuration.",
+        'invalid-response': "#readResponse received an invalid response from the server."
+    }
+});
 
 

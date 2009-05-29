@@ -176,62 +176,6 @@ new Ext.data.HttpProxy({
     };
 })();
 
-/**
- * @class Ext.Error
- * @extends Error
- * TODO: Move to Ext.js?
- *
-<code><pre>
-try {
-    generateError({
-        foo: 'bar'
-    });
-}
-catch (e) {
-    console.error(e);
-}
-function generateError(data) {
-    throw new Ext.Error('foo-error', data);
-}
-
-</pre></code>
- * @param {String} message
- */
-Ext.Error = function(message) {
-    // Try to read the message from Ext.Error.lang
-    this.message = (Ext.Error.lang[this.name] && Ext.Error.lang[this.name][message]) ? Ext.Error.lang[this.name][message] : message;
-}
-Ext.Error.prototype = new Error();
-Ext.apply(Ext.Error.prototype, {
-    name: 'Ext.Error',
-    /**
-     * getName
-     * @return {String}
-     */
-    getName : function() {
-        return this.name;
-    },
-    /**
-     * getMessage
-     * @return {String}
-     */
-    getMessage : function() {
-        return this.message;
-    },
-    /**
-     * toJson
-     * @return {String}
-     */
-    toJson : function() {
-        return Ext.encode(this);
-    }
-});
-
-/**
- * Ext.Error.lang
- * Language object for Ext Error messages.
- */
-Ext.Error.lang = {};
 
 /**
  * Error class for Ext.data.Api errors.
@@ -243,9 +187,11 @@ Ext.data.Api.Error = Ext.extend(Ext.Error, {
     },
     name: 'Ext.data.Api'
 });
-Ext.Error.lang["Ext.data.Api"] = {
-    'action-url-undefined': 'No fallback url defined for this action.  When defining a DataProxy api, please be sure to define an url for each CRUD action in Ext.data.Api.actions or define a default url in addition to your api-configuration.',
-    'invalid': 'received an invalid API-configuration.  Please ensure your proxy API-configuration contains only the actions defined in Ext.data.Api.actions',
-    'invalid-url': 'Invalid url.  Please review your proxy configuration.',
-    'execute': 'Attempted to execute an unknown action.  Valid API actions are defined in Ext.data.Api.actions"'
-}
+Ext.apply(Ext.data.Api.Error.prototype, {
+    lang: {
+        'action-url-undefined': 'No fallback url defined for this action.  When defining a DataProxy api, please be sure to define an url for each CRUD action in Ext.data.Api.actions or define a default url in addition to your api-configuration.',
+        'invalid': 'received an invalid API-configuration.  Please ensure your proxy API-configuration contains only the actions defined in Ext.data.Api.actions',
+        'invalid-url': 'Invalid url.  Please review your proxy configuration.',
+        'execute': 'Attempted to execute an unknown action.  Valid API actions are defined in Ext.data.Api.actions"'
+    }
+});

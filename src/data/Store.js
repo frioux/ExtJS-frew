@@ -1461,6 +1461,9 @@ Ext.reg('store', Ext.data.Store);
 Ext.data.Store.Error = Ext.extend(Ext.Error, {
     name: 'Ext.data.Store'
 });
-Ext.Error.lang["Ext.data.Store"] = {
-    "writer-undefined" : "Attempted to execute a write-action without a DataWriter installed."
-}
+Ext.apply(Ext.data.Store.Error.prototype, {
+    lang: {
+        "writer-undefined" : "Attempted to execute a write-action without a DataWriter installed."
+    }
+});
+

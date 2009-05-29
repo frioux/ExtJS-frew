@@ -279,9 +279,11 @@ Ext.data.JsonReader.Error = Ext.extend(Ext.Error, {
     },
     name : 'Ext.data.JsonReader'
 });
-Ext.Error.lang["Ext.data.JsonReader"] = {
-    'response': "An error occurred while json-decoding your server response",
-    'successProperty': 'Could not locate your "successProperty" in your server response.  Please review your JsonReader config to ensure the config-property "successProperty" matches the property in your server-response.  See the JsonReader docs.',
-    'root-undefined': 'Could not locate your "root" property in your server response.  Please review your JsonReader config to ensure the config-property "root" matches the property your server-response.  See the JsonReader docs.',
-    'root-emtpy': 'Data was expected to be returned by the server in the "root" property of the response.  Please review your JsonReader configuration to ensure the "root" property matches that returned in the server-response.  See JsonReader docs.'
-};
+Ext.apply(Ext.data.JsonReader.Error.prototype, {
+    lang: {
+        'response': "An error occurred while json-decoding your server response",
+        'successProperty': 'Could not locate your "successProperty" in your server response.  Please review your JsonReader config to ensure the config-property "successProperty" matches the property in your server-response.  See the JsonReader docs.',
+        'root-undefined': 'Could not locate your "root" property in your server response.  Please review your JsonReader config to ensure the config-property "root" matches the property your server-response.  See the JsonReader docs.',
+        'root-emtpy': 'Data was expected to be returned by the server in the "root" property of the response.  Please review your JsonReader configuration to ensure the "root" property matches that returned in the server-response.  See JsonReader docs.'
+    }
+});
