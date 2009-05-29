@@ -172,7 +172,7 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
 	// private
     onClickChange : function(local){
         if(local.top > this.clickRange[0] && local.top < this.clickRange[1]){
-            this.setValue(Math.round(this.reverseValue(local.left)), undefined, true);
+            this.setValue(Ext.util.Format.round(this.reverseValue(local.left), this.decimalPrecision), undefined, true);
         }
     },
 
@@ -407,14 +407,14 @@ Ext.Slider.Vertical = {
     onDrag: function(e){
         var pos = this.innerEl.translatePoints(this.tracker.getXY());
         var bottom = this.innerEl.getHeight()-pos.top;
-        this.setValue(this.minValue + Math.round(bottom/this.getRatio()), false);
+        this.setValue(this.minValue + Ext.util.Format.round(bottom/this.getRatio(), this.decimalPrecision), false);
         this.fireEvent('drag', this, e);
     },
 
     onClickChange : function(local){
         if(local.left > this.clickRange[0] && local.left < this.clickRange[1]){
             var bottom = this.innerEl.getHeight()-local.top;
-            this.setValue(this.minValue + Math.round(bottom/this.getRatio()), undefined, true);
+            this.setValue(this.minValue + Ext.util.Format.round(bottom/this.getRatio(), this.decimalPrecision), undefined, true);
         }
     }
 };
