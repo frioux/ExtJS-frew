@@ -139,8 +139,11 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
 	// private override
     initEvents : function(){
         this.thumb.addClassOnOver('x-slider-thumb-over');
-        this.mon(this.el, 'mousedown', this.onMouseDown, this);
-        this.mon(this.el, 'keydown', this.onKeyDown, this);
+        this.mon(this.el, {
+            scope: this,
+            mousedown: this.onMouseDown,
+            keydown: this.onKeyDown
+        });
 
         this.focusEl.swallowEvent("click", true);
 
@@ -242,8 +245,8 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
 
 	// private
     normalizeValue : function(v){
-        v = Ext.util.Format.round(v, this.decimalPrecision);
         v = this.doSnap(v);
+        v = Ext.util.Format.round(v, this.decimalPrecision);
         v = v.constrain(this.minValue, this.maxValue);
         return v;
     },
@@ -307,7 +310,7 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
 	// private
     onDrag: function(e){
         var pos = this.innerEl.translatePoints(this.tracker.getXY());
-        this.setValue(Math.round(this.reverseValue(pos.left)), false);
+        this.setValue(Ext.util.Format.round(this.reverseValue(pos.left), this.decimalPrecision), false);
         this.fireEvent('drag', this, e);
     },
 
