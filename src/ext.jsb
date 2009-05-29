@@ -60,6 +60,7 @@
     <include name="core\core\CompositeElementLite.js" />
     <include name="core\CompositeElementLite-more.js" />
     <include name="core\CompositeElement.js" />
+    <include name="core\Error.js" />
     <include name="data\core\Connection.js" />
     <include name="util\UpdateManager.js" />
     <include name="util\Date.js" />
@@ -651,6 +652,7 @@
   <file name="core\core\Fx.js" path="core" />
   <file name="core\core\Template.js" path="core\core" />
   <file name="core\Template-more.js" path="core" />
+  <file name="core\Error.js" path="core" />
   <file name="data\ArrayReader.js" path="data" />
   <file name="data\ArrayStore.js" path="data" />
   <file name="data\core\Connection.js" path="data\core" />
