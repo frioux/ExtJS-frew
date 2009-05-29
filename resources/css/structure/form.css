@@ -348,6 +348,19 @@ textarea {
     clear:none !important;
     display:inline !important;
     margin-left:4px;
+    top: -2px;
+}
+
+.ext-gecko2 .x-form-cb-label{
+    top: -1px;
+}
+
+.ext-strict .ext-ie8 .x-form-cb-label {
+    top: -3px;
+}
+
+.ext-opera .x-form-cb-label, .ext-safari3 .x-form-cb-label, .ext-ie7 .x-form-cb-label, .ext-ie6 .x-form-cb-label {
+    top: 0;
 }
 
 .x-form-column {

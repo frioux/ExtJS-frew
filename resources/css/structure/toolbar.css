@@ -214,6 +214,15 @@ div.x-toolbar-no-items {
     text-align: left;
 }
 
+.x-toolbar-cell .x-form-checkbox, .x-toolbar-cell .x-form-radio{
+    vertical-align: top;
+    margin-top: 3px;
+}
+
+.x-toolbar-cell .x-form-check-wrap label{
+    vertical-align: bottom;
+}
+
 /* StatusBar */
 .x-statusbar .x-status-text {
     height: 21px;
