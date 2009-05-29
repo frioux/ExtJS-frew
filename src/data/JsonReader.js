@@ -247,18 +247,18 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
     readResponse : function(action, response) {
         var o = (typeof(response.responseText) != undefined) ? Ext.decode(response.responseText) : response;
         if(!o) {
-            throw new Ext.data.JsonReader.Error('response', 'JsonReader.js');
+            throw new Ext.data.JsonReader.Error('response');
         }
         if (Ext.isEmpty(o[this.meta.successProperty])) {
-            throw new Ext.data.JsonReader.Error('success', 'JsonReader.js', this.meta.successProperty);
+            throw new Ext.data.JsonReader.Error('successProperty', this.meta.successProperty);
         }
         // TODO, separate empty and undefined exceptions.
         if ((action === Ext.data.Api.actions.create || action === Ext.data.Api.actions.update)) {
             if (Ext.isEmpty(o[this.meta.root])) {
-                throw new Ext.data.JsonReader.Error('root-emtpy', 'JsonReader.js', this.meta.root);
+                throw new Ext.data.JsonReader.Error('root-emtpy', this.meta.root);
             }
             else if (typeof(o[this.meta.root]) === undefined) {
-                throw new Ext.data.JsonReader.Error('root-undefined', 'JsonReader.js', this.meta.root);
+                throw new Ext.data.JsonReader.Error('root-undefined', this.meta.root);
             }
         }
         // makde sure extaction functions are defined.
@@ -273,22 +273,15 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
  * Error class for JsonReader
  */
 Ext.data.JsonReader.Error = Ext.extend(Ext.Error, {
-    cls : 'Ext.data.JsonReader',
-    render : function(id, file, data) {
-        switch (id) {
-            case 'response':
-                return "An error occurred while json-decoding your server response";
-                break;
-            case 'success':
-                return 'Could not locate your "successProperty" (' + data + ') in your server response.  Please review your JsonReader config to ensure the config-property "successProperty" matches the property in your server-response.  See the JsonReader docs.';
-                break;
-            case 'root-undefined':
-                return 'Could not locate your "root" property (' + data + ') in your server response.  Please review your JsonReader config to ensure the config-property "root" matches the property your server-response.  See the JsonReader docs.';
-                break;
-            case 'root-emtpy':
-                return 'Data was expected to be returned by the server in the "root" property of the response.  Please review your JsonReader configuration to ensure the "root" property matches that returned in the server-response.  See JsonReader docs.';
-                break;
-        }
-    }
+    constructor : function(message, arg) {
+        this.arg = arg;
+        Ext.Error.call(this, message);
+    },
+    name : 'Ext.data.JsonReader'
 });
-
+Ext.Error.lang["Ext.data.JsonReader"] = {
+    'response': "An error occurred while json-decoding your server response",
+    'successProperty': 'Could not locate your "successProperty" in your server response.  Please review your JsonReader config to ensure the config-property "successProperty" matches the property in your server-response.  See the JsonReader docs.',
+    'root-undefined': 'Could not locate your "root" property in your server response.  Please review your JsonReader config to ensure the config-property "root" matches the property your server-response.  See the JsonReader docs.',
+    'root-emtpy': 'Data was expected to be returned by the server in the "root" property of the response.  Please review your JsonReader configuration to ensure the "root" property matches that returned in the server-response.  See JsonReader docs.'
+};

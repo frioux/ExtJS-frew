@@ -357,7 +357,6 @@ var grid = new Ext.grid.EditorGridPanel({
     }
     // With a writer set for the Store, we want to listen to add/remove events to remotely create/destroy records.
     if (this.writer) {
-        this.relayEvents(this.proxy, ["writeexception"]);
         this.on('add', this.createRecords.createDelegate(this));
         this.on('remove', this.destroyRecord.createDelegate(this));
         this.on('update', this.updateRecord.createDelegate(this));
@@ -793,7 +792,7 @@ sortInfo: {
     execute : function(action, rs, options) {
         // blow up if action not Ext.data.CREATE, READ, UPDATE, DESTROY
         if (!Ext.data.Api.isAction(action)) {
-            throw new Ext.data.Api.Error('execute', 'Store.js', action);
+            throw new Ext.data.Api.Error('execute', action);
         }
         // make sure options has a params key
         options = Ext.applyIf(options||{}, {
@@ -845,7 +844,7 @@ sortInfo: {
      */
     save : function() {
         if (!this.writer) {
-            throw new Ext.data.Store.Error('writer-undefined', 'Store.js');
+            throw new Ext.data.Store.Error('writer-undefined');
         }
 
         // DESTROY:  First check for removed records.  Records in this.removed are guaranteed non-phantoms.  @see Store#remove
@@ -906,7 +905,7 @@ sortInfo: {
     createCallback : function(action, rs) {
         var actions = Ext.data.Api.actions;
         return (action == "read") ? this.loadRecords : function(data, response, success) {
-            // If success === false here, writeexception will have been called in DataProxy
+            // If success === false here, exception will have been called in DataProxy
             if (success === true) {
                 this.fireEvent('write', this, action, data, response, rs);
             } else {
@@ -917,7 +916,7 @@ sortInfo: {
         }
     },
 
-    // Clears records from modified array after a writeexception.
+    // Clears records from modified array after an exception event.
     // NOTE:  records are left marked dirty.  Do we want to commit them even though they were not updated/realized?
     clearModified : function(rs) {
         if (Ext.isArray(rs)) {
@@ -996,10 +995,10 @@ sortInfo: {
 
     // protected handleException.  Possibly temporary until Ext framework has an exception-handler.
     handleException : function(e) {
-        if (e instanceof Ext.Error) {
-            e.toConsole();
-        } else if (typeof(console) == 'object' && typeof(console.error) == 'function') {
+        if (typeof(console) == 'object' && typeof(console.error) == 'function') {
             console.error(e);
+        } else {
+            throw e;
         }
     },
 
@@ -1460,16 +1459,10 @@ Ext.reg('store', Ext.data.Store);
  * Store Error extension.
  * constructor
  * @param {String} name
- * @param {String} file
- * @param {Record/Array[Record]/Array}
  */
 Ext.data.Store.Error = Ext.extend(Ext.Error, {
-    cls: 'Ext.data.Store',
-    render : function(name, file, data) {
-        switch(name) {
-            case 'writer-undefined':
-                return 'Attempted to write data without a writer set!  Please see the Ext.data.Store docs and set a suitable DataWriter';
-                break;
-        }
-    }
+    name: 'Ext.data.Store'
 });
+Ext.Error.lang["Ext.data.Store"] = {
+    "writer-undefined" : "Attempted to execute a write-action without a DataWriter installed."
+}

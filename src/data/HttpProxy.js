@@ -104,6 +104,7 @@ api: {
         this.conn.url = url;
         if (makePermanent === true) {
             this.url = url;
+            Ext.data.Api.prepare(this);
         }
     },
 

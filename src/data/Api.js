@@ -108,7 +108,7 @@ restActions : {
          * @return {Boolean}
          */
         hasUniqueUrl : function(proxy, verb) {
-            var url = proxy.api[verb].url;
+            var url = (proxy.api[verb]) ? proxy.api[verb].url : null;
             var unique = true;
             for (var action in proxy.api) {
                 if ((unique = (action === verb) ? true : (proxy.api[action].url != url) ? true : false) === false) {
@@ -178,11 +178,7 @@ new Ext.data.HttpProxy({
 
 /**
  * @class Ext.Error
- * @extends Object
- * <p>The Ext.Error class wraps the native Javascript Error class similar to how Ext.Element wraps a DomNode.
- * To display an error to the client call the {@link #toConsole} method which will check for the
- * existence of Firebug.</p>
- *
+ * @extends Error
  * TODO: Move to Ext.js?
  *
 <code><pre>
@@ -192,85 +188,64 @@ try {
     });
 }
 catch (e) {
-    e.toConsole();
+    console.error(e);
 }
 function generateError(data) {
-    throw new Ext.Error('foo-error', 'Foo.js', data);
+    throw new Ext.Error('foo-error', data);
 }
 
 </pre></code>
- * @param {String} id A simple label for the error for lookup.
- * @param {String} file The file where the error occurred.
- * @param {Mixed} data context-data.
+ * @param {String} message
  */
-Ext.Error = function(id, file, data) {
-    this.message = this.render.apply(this, arguments);
-    this.error = new Error(this.message, file);
-    this.error.name = this.cls;
-    this.id = id;
+Ext.Error = function(message) {
+    // Try to read the message from Ext.Error.lang
+    this.message = (Ext.Error.lang[this.name] && Ext.Error.lang[this.name][message]) ? Ext.Error.lang[this.name][message] : message;
 }
-Ext.Error.prototype = {
+Ext.Error.prototype = new Error();
+Ext.apply(Ext.Error.prototype, {
+    name: 'Ext.Error',
     /**
-     * The ClassName of this Error.
-     * @property cls
-     * @type String
+     * getName
+     * @return {String}
      */
-    cls: 'Ext.Error',
-    /**
-     * The id of the error.
-     * @property id
-     * @type String
-     */
-    id : undefined,
-
-    /**
-     * Abstract method to render error message.  All Error extensions should override this method.
-     */
-    render : function(id, file, data) {
-       return this.cls + ' ' + id;
+    getName : function() {
+        return this.name;
     },
-
     /**
-     * Attempts to output the exception info on FireBug console if exists.
+     * getMessage
+     * @return {String}
      */
-    toConsole : function() {
-
-        if (typeof(console) == 'object' && typeof(console.error) == 'function') {
-            console.error(this.error);
-        }
-        else {
-            alert("Error: " + this.cls + ' ' + this.message);   // <-- ugh.  fix this before official release.
-        }
-       //Ext.Msg.alert(this.cls + ' Exception', this.message);
+    getMessage : function() {
+        return this.message;
     },
-
     /**
-     * toString
+     * toJson
+     * @return {String}
      */
-    toString : function() {
-        return this.error.toString();
+    toJson : function() {
+        return Ext.encode(this);
     }
-};
+});
+
+/**
+ * Ext.Error.lang
+ * Language object for Ext Error messages.
+ */
+Ext.Error.lang = {};
 
 /**
  * Error class for Ext.data.Api errors.
  */
 Ext.data.Api.Error = Ext.extend(Ext.Error, {
-    cls: 'Ext.data.Api',
-    render : function(name, file, data) {
-        switch (name) {
-            case 'action-url-undefined':
-                return 'No fallback url defined for action "' + data + '".  When defining a DataProxy api, please be sure to define an url for each CRUD action in Ext.data.Api.actions or define a default url in addition to your api-configuration.';
-            case 'invalid':
-                // make sure data is an array so we can call join on it.
-                data = (!Ext.isArray(data)) ? [data] : data;
-                return 'received an invalid API-configuration "' + data.join(', ') + '".  Please ensure your proxy API-configuration contains only the actions defined in Ext.data.Api.actions';
-            case 'invalid-url':
-                return 'Invalid url "' + data + '".  Please review your proxy configuration.';
-            case 'execute':
-                return 'Attempted to execute an unknown action "' + data + '".  Valid API actions are defined in Ext.data.Api.actions"';
-            default:
-                return 'Unknown Error "' + name + '"';
-        }
-    }
+    constructor : function(message, arg) {
+        this.arg = arg;
+        Ext.Error.call(this, message);
+    },
+    name: 'Ext.data.Api'
 });
+Ext.Error.lang["Ext.data.Api"] = {
+    'action-url-undefined': 'No fallback url defined for this action.  When defining a DataProxy api, please be sure to define an url for each CRUD action in Ext.data.Api.actions or define a default url in addition to your api-configuration.',
+    'invalid': 'received an invalid API-configuration.  Please ensure your proxy API-configuration contains only the actions defined in Ext.data.Api.actions',
+    'invalid-url': 'Invalid url.  Please review your proxy configuration.',
+    'execute': 'Attempted to execute an unknown action.  Valid API actions are defined in Ext.data.Api.actions"'
+}

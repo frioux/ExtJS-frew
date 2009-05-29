@@ -10,7 +10,7 @@
  * @param {Array/Object} recordType
  * <p>Either an Array of {@link Ext.data.Field Field} definition objects (which
  * will be passed to {@link Ext.data.Record#create}, or a {@link Ext.data.Record Record}
- * constructor created using {@link Ext.data.Record#create}.</p> 
+ * constructor created using {@link Ext.data.Record#create}.</p>
  */
 Ext.data.DataReader = function(meta, recordType){
     /**
@@ -62,7 +62,7 @@ Ext.data.DataReader.prototype = {
             if (!this.isData(data)) {
                 // TODO: Let exception-handler choose to commit or not rather than blindly rs.commit() here.
                 rs.commit();
-                throw new Ext.data.DataReader.Error('realize', 'DataReader.js', rs);
+                throw new Ext.data.DataReader.Error('realize', rs);
             }
             var values = this.extractValues(data, rs.fields.items, rs.fields.items.length);
             rs.phantom = false; // <-- That's what it's all about
@@ -106,7 +106,7 @@ Ext.data.DataReader.prototype = {
                 // TODO: create custom Exception class to return record in thrown exception.  Allow exception-handler the choice
                 // to commit or not rather than blindly rs.commit() here.
                 rs.commit();
-                throw new Ext.data.DataReader.Error('update', 'DataReader.js', rs);
+                throw new Ext.data.DataReader.Error('update', rs);
             }
             rs.data = this.extractValues(Ext.apply(rs.data, data), rs.fields.items, rs.fields.items.length);
             rs.commit();
@@ -128,19 +128,16 @@ Ext.data.DataReader.prototype = {
  * General error class for Ext.data.DataReader
  */
 Ext.data.DataReader.Error = Ext.extend(Ext.Error, {
-    cls: 'Ext.data.DataReader',
-    render : function(id, data) {
-        switch(id) {
-            case 'update':
-                return "#update received invalid data from server.  Please see docs for DataReader#update and review your DataReader configuration.";
-                break;
-            case 'realize':
-                return "#realize was called with invalid remote-data.  Please see the docs for DataReader#realize and review your DataReader configuration.";
-                break;
-            case 'invalid-response':
-                return "#readResponse received an invalid response from the server.";
-                break;
-        }
-    }
+    constructor : function(message, arg) {
+        this.arg = arg;
+        Ext.Error.call(this, message);
+    },
+    name: 'Ext.data.DataReader'
 });
+Ext.Error.lang["Ext.data.DataReader"] = {
+    'update': "#update received invalid data from server.  Please see docs for DataReader#update and review your DataReader configuration.",
+    'realize': "#realize was called with invalid remote-data.  Please see the docs for DataReader#realize and review your DataReader configuration.",
+    'invalid-response': "#readResponse received an invalid response from the server."
+};
+
 

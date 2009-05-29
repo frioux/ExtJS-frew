@@ -109,7 +109,7 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
 
         var url = this.buildUrl(action, rs);
         if (!url) {
-            throw new Ext.data.Api.Error('invalid-url', 'ScriptTagProxy.js', url);
+            throw new Ext.data.Api.Error('invalid-url', url);
         }
         url += (url.indexOf("?") != -1 ? "&" : "?") + p;
 

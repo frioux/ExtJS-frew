@@ -263,16 +263,16 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
                 this.api = arguments[0];
             }
             else {
-                throw new Ext.data.Api.Error('invalid', 'DataProxy.js', valid);
+                throw new Ext.data.Api.Error('invalid', valid);
             }
         }
         else if (arguments.length == 2) {
             if (!Ext.data.Api.isAction(arguments[0])) {
-                throw new Ext.data.Api.Error('invalid', 'DataProxy.js', arguments[0]);
+                throw new Ext.data.Api.Error('invalid', arguments[0]);
             }
             this.api[arguments[0]] = arguments[1];
         }
-        Ext.data.Api.prepare(this.proxy);
+        Ext.data.Api.prepare(this);
     },
 
     /**
@@ -300,7 +300,7 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
      */
     request : function(action, rs, params, reader, callback, scope, options) {
         if (!this.api[action]) {
-            throw new Ext.data.DataProxy.Error('action-undefined', 'DataProxy.js', action);
+            throw new Ext.data.DataProxy.Error('action-undefined', action);
         }
         params = params || {};
         if ((action === Ext.data.Api.actions.read) ? this.fireEvent("beforeload", this, params) : this.fireEvent("beforewrite", this, action, rs, params) !== false) {
@@ -352,7 +352,7 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
         record = record || null;
         var url = (this.api[action]) ? this.api[action]['url'] : this.url;
         if (!url) {
-            throw new Ext.data.Api.Error('invalid-url', 'HttpProxy.js', url);
+            throw new Ext.data.Api.Error('invalid-url', action);
         }
         // prettyUrls is deprectated in favor of restful-config
         if ((this.prettyUrls === true || this.restful === true) && record instanceof Ext.data.Record && !record.phantom) {
@@ -376,17 +376,13 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
  * @param {Record/Array[Record]/Array}
  */
 Ext.data.DataProxy.Error = Ext.extend(Ext.Error, {
-    cls: 'Ext.data.DataProxy',
-    render : function(name, data) {
-        var msg = name;
-        switch(name) {
-            case 'action-undefined':
-                msg = "DataProxy attempted to execute an API-action but found an undefined url / function.  Please review your Proxy url/api-configuration.";
-                break;
-            case 'api-invalid':
-                msg = 'recieved an invalid API-configuration "' + data.join(', ') + '".  Please ensure your proxy API-configuration contains only the actions from Ext.data.Api.actions.'
-                break;
-        }
-        return msg;
-    }
+    constructor : function(message, arg) {
+        this.arg = arg;
+        Ext.Error.call(this, message);
+    },
+    name: 'Ext.data.DataProxy'
 });
+Ext.Error.lang["Ext.data.DataProxy"] = {
+    'action-undefined': "DataProxy attempted to execute an API-action but found an undefined url / function.  Please review your Proxy url/api-configuration.",
+    'api-invalid': 'Recieved an invalid API-configuration.  Please ensure your proxy API-configuration contains only the actions from Ext.data.Api.actions.'
+}
