@@ -96,6 +96,13 @@ Ext.extend(Ext.dd.DragTracker, Ext.util.Observable,  {
     },
 
     onMouseMove: function(e, target){
+        // HACK: IE hack to see if button was released outside of window. */
+        if(this.active && Ext.isIE && !e.browserEvent.button){
+            e.preventDefault();
+            this.onMouseUp(e);
+            return;
+        }
+
         e.preventDefault();
         var xy = e.getXY(), s = this.startXY;
         this.lastXY = xy;
