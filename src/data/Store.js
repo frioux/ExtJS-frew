@@ -913,7 +913,7 @@ sortInfo: {
             }
             // calls: onCreateRecords | onUpdateRecords | onDestroyRecords
             this['on' + Ext.util.Format.capitalize(action) + 'Records'](success, rs, data);
-        }
+        };
     },
 
     // Clears records from modified array after an exception event.
@@ -977,19 +977,17 @@ sortInfo: {
 
     // protected onDestroyRecords proxy callback for destroy action
     onDestroyRecords : function(success, rs, data) {
-        this.removed = [];
-        if (success === true) {
-            // nothing to do so far...invert the logic?
-        } else {
+        // splice each rec out of this.removed
+        rs = (rs instanceof Ext.data.Record) ? [rs] : rs;
+        for (var i=0,len=rs.length;i<len;i++) {
+            this.removed.splice(this.removed.indexOf(rs[i]), 1);
+        }
+        if (success === false) {
             // put records back into store if remote destroy fails.
             // @TODO: Might want to let developer decide.
-            if (rs instanceof Ext.data.Record) {
-                rs = [rs];
-            }
-            for (var i=rs.length-1;i>=0;i--) {
+            for (i=rs.length-1;i>=0;i--) {
                 this.insert(rs[i].lastIndex, rs[i]);    // <-- lastIndex set in Store#destroyRecord
             }
-
         }
     },
 

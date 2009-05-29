@@ -86,7 +86,7 @@ api: {
      * @return {Connection} The Connection object. This object may be used to subscribe to events on
      * a finer-grained basis than the DataProxy events.
      */
-    getConnection : function(){
+    getConnection : function() {
         return this.useAjax ? Ext.Ajax : this.conn;
     },
 

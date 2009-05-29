@@ -80,7 +80,7 @@ restActions : {
                     break;
                 }
             }
-            return (validActions[name] != undefined) ? validActions[name] : null;
+            return (validActions[name] !== undefined) ? validActions[name] : null;
         },
 
         /**

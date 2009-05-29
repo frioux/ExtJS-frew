@@ -307,7 +307,7 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
             this.doRequest.apply(this, arguments);
         }
         else {
-            callback.call(scope || this, null, arg, false);
+            callback.call(scope || this, null, options, false);
         }
     },
 
