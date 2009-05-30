@@ -163,10 +163,10 @@ Ext.ux.GroupTabPanel = Ext.extend(Ext.TabPanel, {
         if(groupEl) {
             var y = Ext.isGecko2 ? 0 : 1;
             if (this.tabPosition == 'left'){
-                this.tabJoint.alignTo(groupEl, 'tl-tr', [-2,y]);
+                //this.tabJoint.alignTo(groupEl, 'tl-tr', [-2,y]);
             }
             else {
-                this.tabJoint.alignTo(groupEl, 'tr-tl', [1,y]);
+                //this.tabJoint.alignTo(groupEl, 'tr-tl', [1,y]);
             }
 
             this.tabJoint.setHeight(Ext.fly(groupEl).getHeight() - 2);            
@@ -203,13 +203,20 @@ Ext.ux.GroupTabPanel = Ext.extend(Ext.TabPanel, {
         
         var el = before ? this.itemTpl.insertBefore(before, p) : this.itemTpl.append(this.strip, p);
         
-        this.createCorner(el, 'top-' + this.tabPosition);
-        this.createCorner(el, 'bottom-' + this.tabPosition);
+        var tl = this.createCorner(el, 'top-' + this.tabPosition);
+        var bl = this.createCorner(el, 'bottom-' + this.tabPosition);
 
         if (group.expanded) {
             this.expandGroup(el);
         }
-        
+
+        if (Ext.isIE6 || (Ext.isIE && !Ext.isStrict)){
+            bl.setLeft('-10px');
+            bl.setBottom('-5px');
+            tl.setLeft('-10px');
+            tl.setTop('-5px');
+        }
+
         this.mon(group, 'changemainitem', this.onGroupChangeMainItem, this);
         this.mon(group, 'beforetabchange', this.onGroupBeforeTabChange, this);
     },

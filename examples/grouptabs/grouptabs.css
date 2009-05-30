@@ -1,6 +1,6 @@
 .x-tab-panel.x-grouptabs-panel {
     background-color: #4E78B1;
-    padding: 15px;
+    border: solid 15px #4E78B1;
 }
 .x-tab-panel-left .x-tab-panel-header,
 .x-tab-panel-right .x-tab-panel-header {
@@ -206,4 +206,8 @@
 
 .x-grouptabs-panel ul.x-grouptabs-sub .x-grouptabs-main-item {
 	display: none;
+}
+
+.x-tab-with-icon{
+   border-style:none !important;
 }
