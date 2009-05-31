@@ -46,7 +46,7 @@ var embeddedColumns = new Ext.Container({
  * <p><u><b>Layout</b></u></p> 
  * <p>Every Container delegates the rendering of its child Components to a layout manager class which must be
  * configured into the Container using the <tt><b>{@link #layout}</b></tt> configuration property.</p>
- * <p>When either specifying child {@link #items} of a Container, or dynamically {@link #add adding} components
+ * <p>When either specifying child {@link #items} of a Container, or dynamically {@link #add adding} Components
  * to a Container, remember to consider how you wish the Container to arrange those child elements, and whether
  * those child elements need to be sized using one of Ext's built-in <tt><b>{@link #layout}</b></tt> schemes. By
  * default, Containers use the {@link Ext.layout.ContainerLayout ContainerLayout} scheme. This simply renders

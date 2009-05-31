@@ -3,7 +3,15 @@
  * @extends Ext.Container
  * <p>Panel is a container that has specific functionality and structural components that make
  * it the perfect building block for application-oriented user interfaces.</p>
- * <p>A Panel may contain {@link #bbar bottom} and {@link #tbar top} toolbars, along with separate
+ * <p>Panels are, by virtue of their inheritance from {@link Ext.Container}, capable
+ * of being configured with a {@link layout}, and containing child Components.</p>
+ * <p>When either specifying child {@link #items} of a Panel, or dynamically {@link #add adding} Components
+ * to a Panel, remember to consider how you wish the Panel to arrange those child elements, and whether
+ * those child elements need to be sized using one of Ext's built-in <tt><b>{@link #layout}</b></tt> schemes. By
+ * default, Panels use the {@link Ext.layout.ContainerLayout ContainerLayout} scheme. This simply renders
+ * child components, appending them one after the other inside the Container, and <b>does not apply any sizing</b>
+ * at all.</p>
+ * <p>A Panel may also contain {@link #bbar bottom} and {@link #tbar top} toolbars, along with separate
  * {@link #header}, {@link #footer} and {@link #body} sections (see {@link #frame} for additional
  * information).</p>
  * <p>Panel also provides built-in {@link #collapsible expandable and collapsible behavior}, along with
