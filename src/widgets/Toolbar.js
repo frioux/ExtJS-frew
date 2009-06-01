@@ -131,7 +131,10 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
     },
 
     createMenuConfig: function(c, hideOnClick){
-        var cfg = {
+        var cfg = Ext.apply({}, c.initialConfig),
+            group = c.toggleGroup;
+            
+        Ext.apply(cfg, {
             text: c.overflowText || c.text,
             iconCls: c.iconCls,
             icon: c.icon,
@@ -141,7 +144,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
             scope: c.scope,
             menu: c.menu,
             hideOnClick: hideOnClick
-        }, group = c.toggleGroup;
+        });
         if(group || c.enableToggle){
             Ext.apply(cfg, {
                 group: group,
