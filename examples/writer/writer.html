@@ -37,10 +37,10 @@ your web-server to allow scripts to be executed in the /examples directory.</p>
 <code><pre>
 var proxy = new Ext.data.HttpProxy({
     api: {
-        load : 'app.php/users/view',
-        create : 'app.php/users/create',
-        save: 'app.php/users/update',
-        destroy: 'app.php/users/destroy'
+        read    : 'app.php/users/view',
+        create  : 'app.php/users/create',
+        update  : 'app.php/users/update',
+        destroy : 'app.php/users/destroy'
     }
 });
 </pre></code>
