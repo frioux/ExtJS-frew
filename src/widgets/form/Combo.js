@@ -859,6 +859,12 @@ var menu = new Ext.menu.Menu({
             this.fireEvent('select', this, record, index);
         }
     },
+    
+    // inherit docs
+    getName: function(){
+        var hf = this.hiddenField;
+        return hf && hf.name ? hf.name : this.hiddenName || Ext.form.ComboBox.superclass.getName.call(this);    
+    },
 
     /**
      * Returns the currently selected field value or empty string if no value is set.
@@ -1075,6 +1081,10 @@ var menu = new Ext.menu.Menu({
                 this.clearValue();
             }
         }else{
+            var rec = this.findRecord(this.displayField, val);
+            if(rec){
+                val = rec.get(this.valueField);
+            }
             this.setValue(val);
         }
     },
