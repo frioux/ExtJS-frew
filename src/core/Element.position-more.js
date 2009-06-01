@@ -91,7 +91,7 @@ Ext.Element.addMethods({
 	        };
         
  	    direction = direction.toLowerCase();    
- 	    me.moveTo(hash[direction][0], hash[direction][1], me.animTest.call(me, arguments, animate, 1));
+ 	    me.moveTo(hash[direction][0], hash[direction][1], me.animTest.call(me, arguments, animate, 2));
     },
     
     /**
