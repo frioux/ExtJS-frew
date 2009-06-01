@@ -146,7 +146,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
      */
     scrollIncrement: 24,
     /**
-     * @cfg {Boolean} useIcons True to show the icon separator. (defaults to true).
+     * @cfg {Boolean} showSeparator True to show the icon separator. (defaults to true).
      */
     showSeparator: true,
 
