@@ -23,6 +23,7 @@
  * not specified an {@link #Record.id integer id is automatically generated}.
  */
 Ext.data.Record = function(data, id){
+    data = data || {};
     // if no id, call the auto id method
     this.id = (id || id === 0) ? id : Ext.data.Record.id(this);
     this.data = data;
