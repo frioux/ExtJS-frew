@@ -703,9 +703,12 @@ viewConfig: {
 
         // get mousedowns early
         Ext.fly(this.innerHd).on("click", this.handleHdDown, this);
-        this.mainHd.on("mouseover", this.handleHdOver, this);
-        this.mainHd.on("mouseout", this.handleHdOut, this);
-        this.mainHd.on("mousemove", this.handleHdMove, this);
+        this.mainHd.on({
+            scope: this,
+            mouseover: this.handleHdOver,
+            mouseout: this.handleHdOut,
+            mousemove: this.handleHdMove
+        })
 
         this.scroller.on('scroll', this.syncScroll,  this);
         if(g.enableColumnResize !== false){
@@ -725,8 +728,11 @@ viewConfig: {
             );
             if(g.enableColumnHide !== false){
                 this.colMenu = new Ext.menu.Menu({id:g.id + "-hcols-menu"});
-                this.colMenu.on("beforeshow", this.beforeColMenuShow, this);
-                this.colMenu.on("itemclick", this.handleHdMenuClick, this);
+                this.colMenu.on({
+                    scope: this,
+                    beforeshow: this.beforeColMenuShow,
+                    itemclick: this.handleHdMenuClick
+                });
                 this.hmenu.add('-', {
                     itemId:"columns",
                     hideOnClick: false,
@@ -739,8 +745,11 @@ viewConfig: {
         }
 
         if(g.trackMouseOver){
-             this.mainBody.on("mouseover", this.onRowOver, this);
-             this.mainBody.on("mouseout", this.onRowOut, this);
+            this.mainBody.on({
+                scope: this,
+                mouseover: this.onRowOver,
+                mouseout: this.onRowOut
+            });
         }
 
         if(g.enableDragDrop || g.enableDrag){
