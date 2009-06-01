@@ -185,7 +185,7 @@ var form = new Ext.form.FormPanel({
      * @return {String} name The field {@link Ext.form.Field#name name} or {@link Ext.form.ComboBox#hiddenName hiddenName}  
      */
     getName: function(){
-         return this.rendered && this.el.dom.name ? this.el.dom.name : (this.hiddenName || '');
+         return this.rendered ? (this.el.dom.name ? this.el.dom.name : (this.hiddenName || '')) : this.name;
     },
 
     // private
