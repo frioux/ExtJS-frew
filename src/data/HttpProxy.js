@@ -214,7 +214,7 @@ api: {
             this.fireEvent('loadexception', this, o, response);
 
             // Get DataReader read-back a response-object to pass along to exception event
-            var res = o.reader.readResponse(action, response)
+            var res = o.reader.readResponse(action, response);
             this.fireEvent('exception', this, 'remote', action, o, res, null);
         }
         else {
