@@ -142,7 +142,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
             menu: c.menu,
             hideOnClick: hideOnClick
         }, group = c.toggleGroup;
-        if(group){
+        if(group || c.enableToggle){
             Ext.apply(cfg, {
                 group: group,
                 checked: c.pressed,
