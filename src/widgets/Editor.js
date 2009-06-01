@@ -273,6 +273,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
             return;
         }
         if(this.fireEvent("beforecomplete", this, v, this.startValue) !== false){
+            v = this.getValue();
             if(this.updateEl && this.boundEl){
                 this.boundEl.update(v);
             }
