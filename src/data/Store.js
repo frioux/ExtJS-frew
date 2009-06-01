@@ -281,7 +281,7 @@ var grid = new Ext.grid.EditorGridPanel({
          * meta-data does not match that defined in your DataReader (eg: root, idProperty, successProperty).
          * The event parameters for this context are:
          * @param {DataProxy} this
-         * @param {String} type [remote|response]
+         * @param {String} type [response]
          * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
          * @param {Object} options The loading options that were specified (see {@link #load} for details)
          * @param {Object} response The raw browser response object (eg: XMLHttpRequest)
@@ -293,7 +293,7 @@ var grid = new Ext.grid.EditorGridPanel({
          * response might contain an error-message sent from the server.  For example, the user may have failed
          * authentication/authorization or a database validation error occurred.
          * @param {DataProxy} this
-         * @param {String} type [remote|response]
+         * @param {String} type [remote]
          * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
          * @param {Object} options The loading options that were specified (see {@link #load} for details)
          * @param {Object} response The decoded response object sent from the server.
