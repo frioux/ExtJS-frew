@@ -27,13 +27,13 @@
      */
 };
 Ext.extend(Ext.tree.AsyncTreeNode, Ext.tree.TreeNode, {
-    expand : function(deep, anim, callback){
+    expand : function(deep, anim, callback, scope){
         if(this.loading){ // if an async load is already running, waiting til it's done
             var timer;
             var f = function(){
                 if(!this.loading){ // done loading
                     clearInterval(timer);
-                    this.expand(deep, anim, callback);
+                    this.expand(deep, anim, callback, scope);
                 }
             }.createDelegate(this);
             timer = setInterval(f, 200);
@@ -47,11 +47,11 @@ Ext.extend(Ext.tree.AsyncTreeNode, Ext.tree.TreeNode, {
             this.ui.beforeLoad(this);
             var loader = this.loader || this.attributes.loader || this.getOwnerTree().getLoader();
             if(loader){
-                loader.load(this, this.loadComplete.createDelegate(this, [deep, anim, callback]));
+                loader.load(this, this.loadComplete.createDelegate(this, [deep, anim, callback, scope]), this);
                 return;
             }
         }
-        Ext.tree.AsyncTreeNode.superclass.expand.call(this, deep, anim, callback);
+        Ext.tree.AsyncTreeNode.superclass.expand.call(this, deep, anim, callback, scope);
     },
     
     /**
@@ -62,12 +62,12 @@ Ext.extend(Ext.tree.AsyncTreeNode, Ext.tree.TreeNode, {
         return this.loading;  
     },
     
-    loadComplete : function(deep, anim, callback){
+    loadComplete : function(deep, anim, callback, scope){
         this.loading = false;
         this.loaded = true;
         this.ui.afterLoad(this);
         this.fireEvent("load", this);
-        this.expand(deep, anim, callback);
+        this.expand(deep, anim, callback, scope);
     },
     
     /**
@@ -89,8 +89,9 @@ Ext.extend(Ext.tree.AsyncTreeNode, Ext.tree.TreeNode, {
     /**
      * Trigger a reload for this node
      * @param {Function} callback
+     * @param {Object} scope (optional) The scope in which to execute the callback.
      */
-    reload : function(callback){
+    reload : function(callback, scope){
         this.collapse(false, false);
         while(this.firstChild){
             this.removeChild(this.firstChild).destroy();
@@ -100,7 +101,7 @@ Ext.extend(Ext.tree.AsyncTreeNode, Ext.tree.TreeNode, {
         if(this.isHiddenRoot()){
             this.expanded = false;
         }
-        this.expand(false, false, callback);
+        this.expand(false, false, callback, scope);
     }
 });
 
