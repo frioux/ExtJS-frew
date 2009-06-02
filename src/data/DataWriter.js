@@ -37,7 +37,6 @@ Ext.data.DataWriter.prototype = {
      * @param {Record/Record[]} rs The recordset write.
      */
     write : function(action, params, rs) {
-        // the getActionVerb bit allows to call this.create(rs)|this.update(rs)|this.destroy(rs).
         this.render(action, rs, params, this[action](rs));
     },
 

@@ -271,7 +271,6 @@ var grid = new Ext.grid.EditorGridPanel({
          * <li><b>The remote-request succeeded but the reader could not read the response.</b>  This means the server returned
          * data, but the configured Reader threw an error while reading the response.  In this case, this event will be
          * raised and the caught error will be passed along into this event.</li></ul>
-         * Note that this event is also relayed through {@link Ext.data.DataProxy}.
          *
          * This event fires with two different contexts based upon the 2nd parameter <tt>type [remote|response]</tt>.  Note that the
          * first four parameters are identical between the two contexts -- only the final two parameters differ.
@@ -280,7 +279,7 @@ var grid = new Ext.grid.EditorGridPanel({
          * If the type of exception is "response", an <b>invalid response</b> from the server was returned, either 404, 500 or the response
          * meta-data does not match that defined in your DataReader (eg: root, idProperty, successProperty).
          * The event parameters for this context are:
-         * @param {DataProxy} this
+         * @param {DataProxy} sender
          * @param {String} type [response]
          * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
          * @param {Object} options The loading options that were specified (see {@link #load} for details)
@@ -292,17 +291,20 @@ var grid = new Ext.grid.EditorGridPanel({
          * If the type of exception is "remote", a <b>valid response</b> was returned from the server having successProperty === false.  This
          * response might contain an error-message sent from the server.  For example, the user may have failed
          * authentication/authorization or a database validation error occurred.
-         * @param {DataProxy} this
+         * @param {DataProxy} sender
          * @param {String} type [remote]
          * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
          * @param {Object} options The loading options that were specified (see {@link #load} for details)
          * @param {Object} response The decoded response object sent from the server.
          * @param {Record/Record[]} rs Records from the Store.  This parameter will only exist if the <tt>action</tt> was a <b>write</b> action
          * (Ext.data.Api.actions.create|update|destroy)
+         *
+         * Note that this event is also relayed through {@link Ext.data.DataProxy}.
          */
         'exception',
         /**
          * @event beforeload
+         * @deprecated Please use catch-all {@link #exception} event instead.
          * Fires before a request is made for a new data object.  If the beforeload handler returns
          * <tt>false</tt> the {@link #load} action will be canceled.
          * @param {Store} this
@@ -319,7 +321,8 @@ var grid = new Ext.grid.EditorGridPanel({
         'load',
         /**
          * @event loadexception
-         * @deprecated Please use {@link #execption} instead.
+         * @deprecated
+         * This event is <b>deprecated</b>.  Please use catch-all {@link #exception} event instead.
          * Fires only if the load request returned a valid response having successProperty === false.</b>  This means the server logic returned a failure
          * status and there is no data to read.  For example, the server might return successProperty === false if authorization failed.
          * Called with the signature of the Proxy's "loadexception" event.
@@ -900,7 +903,7 @@ sortInfo: {
         }
     },
 
-    // private callback-handler for remote CRUD actions
+    // @private callback-handler for remote CRUD actions
     // Do not override -- override loadRecords, onCreateRecords, onDestroyRecords and onUpdateRecords instead.
     createCallback : function(action, rs) {
         var actions = Ext.data.Api.actions;
@@ -943,7 +946,7 @@ sortInfo: {
         }
     },
 
-    // protected onCreateRecord proxy callback for create action
+    // @protected onCreateRecord proxy callback for create action
     onCreateRecords : function(success, rs, data) {
         if (success === true) {
             try {
@@ -960,7 +963,7 @@ sortInfo: {
         }
     },
 
-    // protected, onUpdateRecords proxy callback for update action
+    // @protected, onUpdateRecords proxy callback for update action
     onUpdateRecords : function(success, rs, data) {
         if (success === true) {
             try {
@@ -975,7 +978,7 @@ sortInfo: {
         }
     },
 
-    // protected onDestroyRecords proxy callback for destroy action
+    // @protected onDestroyRecords proxy callback for destroy action
     onDestroyRecords : function(success, rs, data) {
         // splice each rec out of this.removed
         rs = (rs instanceof Ext.data.Record) ? [rs] : rs;
@@ -993,6 +996,7 @@ sortInfo: {
 
     // protected handleException.  Possibly temporary until Ext framework has an exception-handler.
     handleException : function(e) {
+        // @see core/Error.js
         Ext.handleError(e);
     },
 

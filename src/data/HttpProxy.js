@@ -176,7 +176,7 @@ api: {
             this.activeRequest[action] = undefined;
             if (!success) {
                 if (action === Ext.data.Api.actions.read) {
-                    // @deprecated: fire loadresponse for backwards compat.
+                    // @deprecated: fire loadexception for backwards compat.
                     this.fireEvent("loadexception", this, o, response);
                 }
                 this.fireEvent('exception', this, 'response', action, o, response);

@@ -164,7 +164,8 @@ new Ext.data.HttpProxy({
         },
 
         /**
-         * Prepares a supplied Proxy to be RESTful.
+         * Prepares a supplied Proxy to be RESTful.  Sets the HTTP method for each api-action to be one of
+         * GET, POST, PUT, DELETE according to the defined {@link #restActions}.
          * @param {Ext.data.DataProxy} proxy
          */
         restify : function(proxy) {
