@@ -277,7 +277,7 @@ var grid = new Ext.grid.EditorGridPanel({
          * The remote-request succeeded but the reader could not read the response.
          * This means the server returned data, but the configured Reader threw an
          * error while reading the response.  In this case, this event will be
-         * raised and the caught error will be passed along into this event. 
+         * raised and the caught error will be passed along into this event.
          * </div></li>
          * </ul></div>
          * <br><p>This event fires with two different contexts based upon the 2nd
@@ -286,7 +286,7 @@ var grid = new Ext.grid.EditorGridPanel({
          * differ.</p>
          * @param {DataProxy} sender
          * @param {String} type
-         * <p>The value of this parameter will be either <tt>"response"</tt> or <tt>"remote"</tt>.</p> 
+         * <p>The value of this parameter will be either <tt>"response"</tt> or <tt>"remote"</tt>.</p>
          * <div class="mdetail-params"><ul>
          * <li><b><tt>"response"</tt></b> : <div class="sub-desc">
          * <p>An <b>invalid</b> response from the server was returned: either 404,
@@ -303,7 +303,7 @@ var grid = new Ext.grid.EditorGridPanel({
          * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
          * @param {Object} options The loading options that were specified (see {@link #load} for details)
          * @param {Object} response
-         * <p>The value of this parameter depends on the value of the <code>type</code> parameter:</p> 
+         * <p>The value of this parameter depends on the value of the <code>type</code> parameter:</p>
          * <div class="mdetail-params"><ul>
          * <li><b><tt>"response"</tt></b> : <div class="sub-desc">
          * <p>The raw browser response object (eg: XMLHttpRequest)</p>
@@ -313,7 +313,7 @@ var grid = new Ext.grid.EditorGridPanel({
          * </div></li>
          * </ul></div>
          * @param {Mixed} arg
-         * <p>The type and value of this parameter depends on the value of the <code>type</code> parameter:</p> 
+         * <p>The type and value of this parameter depends on the value of the <code>type</code> parameter:</p>
          * <div class="mdetail-params"><ul>
          * <li><b><tt>"response"</tt></b> : Error<div class="sub-desc">
          * <p>The JavaScript Error object caught if the configured Reader could not read the data.
@@ -328,10 +328,8 @@ var grid = new Ext.grid.EditorGridPanel({
         'exception',
         /**
          * @event beforeload
-         * This event is <b>deprecated</b> in favor of the catch-all {@link #exception} event instead.
          * Fires before a request is made for a new data object.  If the beforeload handler returns
          * <tt>false</tt> the {@link #load} action will be canceled.
-         * @deprecated
          * @param {Store} this
          * @param {Object} options The loading options that were specified (see {@link #load} for details)
          */
