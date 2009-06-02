@@ -29,7 +29,7 @@ proxy : new Ext.data.HttpProxy({
     {@link #api}: {
         // all actions except the following will use above url
         create  : 'local/new.php',
-        save    : 'local/update.php'
+        update  : 'local/update.php'
     }
 }),
  * </code></pre>
@@ -53,12 +53,12 @@ Ext.data.DataProxy = function(conn){
 
     /**
      * @cfg {Object} api
-     * Specific urls to call on CRUD action methods "load", "create", "save" and "destroy".
+     * Specific urls to call on CRUD action methods "read", "create", "update" and "destroy".
      * Defaults to:<pre><code>
 api: {
-    load    : undefined,
+    read    : undefined,
     create  : undefined,
-    save    : undefined,
+    update  : undefined,
     destroy : undefined
 }
 </code></pre>
