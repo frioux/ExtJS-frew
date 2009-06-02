@@ -5,7 +5,7 @@ Ext.ns('App', 'App.user');
  */
 App.user.Grid = Ext.extend(Ext.grid.EditorGridPanel, {
     renderTo: 'user-grid',
-    iconCls: 'icon-grid',
+    iconCls: 'silk-grid',
     frame: true,
     title: 'Users',
     autoScroll: true,

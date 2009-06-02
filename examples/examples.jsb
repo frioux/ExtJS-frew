@@ -785,6 +785,8 @@
   <file name="shared\screens\tree-xml-loader.gif" path="shared\screens" />
   <file name="shared\screens\window-layout.gif" path="shared\screens" />
   <file name="shared\screens\window.gif" path="shared\screens" />
+  <file name="shared\screens\writer-thumb.gif" path="shared\screens" />
+  <file name="shared\screens\restful-thumb.gif" path="shared\screens" />
   <file name="shared\info-bg.gif" path="shared" />
   <file name="simple-widgets\images\custom-bar.gif" path="simple-widgets\images" />
   <file name="simple-widgets\ajax-tip.html" path="simple-widgets" />
@@ -1021,6 +1023,7 @@
   <file name="writer\writer.html" path="writer" />
   <file name="writer\writer.css" path="writer" />
   <file name="writer\writer.js" path="writer" />
+  <file name="writer\writer-thumb.gif" path="writer" />
   <file name="writer\UserForm.js" path="writer" />
   <file name="writer\UserGrid.js" path="writer" />
   <file name="writer\app.php" path="writer" />
@@ -1035,6 +1038,7 @@
   <file name="restful\restful.html" path="restful" />
   <file name="restful\restful.css" path="restful" />
   <file name="restful\restful.js" path="restful" />
+  <file name="restful\restful-thumb.gif" path="restful" />
   <file name="restful\Ext.ux.RowEditor.js" path="restful" />
   <file name="restful\app.php" path="restful" />
   <file name="restful\remote\init.php" path="restful\remote" />

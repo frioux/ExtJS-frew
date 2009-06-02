@@ -108,6 +108,18 @@ Ext.samples.samplesCatalog = [{
         icon: 'grid-buffer.gif',
         desc: 'GridView optimized for performance by rendering only visible rows.',
         isNew: true
+    }, {
+        text: 'Editable Grid with JsonWriter',
+        url: 'writer/writer.html',
+        icon: 'writer-thumb.gif',
+        desc: 'This Store uses JsonWriter to automatically generate CRUD requests to the server through a standard HttpProxy.',
+        isNew: true
+    }, {
+        text: 'RESTful Store with GridPanel and RowEditor',
+        url: 'restful/restful.html',
+        icon: 'restful-thumb.gif',
+        desc: 'A RESTful Store with JsonWriter which automatically generates CRUD requests to the server.',
+        isNew: true
     }]
 },{
     title: 'Tabs',
