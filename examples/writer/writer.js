@@ -41,6 +41,15 @@ var store = new Ext.data.Store({
     listeners: {
         write : function(store, action, result, res, rs) {
             App.setAlert(res.success, res.message); // <-- show user-feedback for all write actions
+        },
+        exception : function(proxy, type, action, options, res, arg) {
+            if (type === 'remote') {
+                Ext.Msg.show({
+                    title: 'REMOTE EXCEPTION',
+                    msg: res.message,
+                    icon: Ext.MessageBox.ERROR
+                });
+            }
         }
     }
 });
