@@ -1,7 +1,7 @@
 /**
- * Ext.handleError
- * Temporary location.  Will be moved to more appropriate place once we figure how how to implement error-handling.
- * @param {Object} e
+ * Framework-wide error-handler.  Developers can override this method to provide custom exception-handling.  Framework
+ * errors will often extend from the base Ext.Error class.
+ * @param {Object/Error} e The thrown exception object.
  */
 Ext.handleError = function(e) {
     throw e;
@@ -10,7 +10,6 @@ Ext.handleError = function(e) {
 /**
  * @class Ext.Error
  * @extends Error
- * TODO: Move to Ext.js?
  *
 <code><pre>
 try {
