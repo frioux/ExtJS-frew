@@ -89,11 +89,6 @@ var myReader = new Ext.data.JsonReader();
 Ext.data.JsonReader = function(meta, recordType){
     meta = meta || {};
 
-    // blow up if no root defined.
-    if (meta.root === undefined) {
-        throw new Ext.data.JsonReader.Error('root-undefined-config');
-    }
-
     // default idProperty, successProperty & totalProperty -> "id", "success", "total"
     Ext.applyIf(meta, {
         idProperty: 'id',
