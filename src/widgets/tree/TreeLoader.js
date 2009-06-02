@@ -209,9 +209,7 @@ paramOrder: 'param1|param2|param'
             if(this.directFn){
                 var args = this.getParams(node);
                 args.push(this.processDirectResponse.createDelegate(this, [{callback: callback, node: node, scope: scope}], true));
-                this.directFn.apply(window, args, function(result, response){
-                    console.log('sup');
-                });
+                this.directFn.apply(window, args);
             }else{
                 this.transId = Ext.Ajax.request({
                     method:this.requestMethod,
