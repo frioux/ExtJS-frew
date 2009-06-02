@@ -2,7 +2,8 @@
  * @class Ext.data.Api
  * @extends Object
  * Ext.data.Api is a singleton designed to manage the data API including methods for validating
- * a developer's DataProxy API.  Defines CONSTANTS for custom and CRUD actions create, read, update and destroy.
+ * a developer's DataProxy API.  Defines variables for CRUD actions create, read, update and destroy in addition to a
+ * mapping of RESTful HTTP methods GET, POST, PUT and DELETE to CRUD actions.
  * @singleton
  */
 Ext.data.Api = (function() {
@@ -16,12 +17,14 @@ Ext.data.Api = (function() {
     return {
         /**
          * Defined actions corresponding to remote actions:
-         * <pre>
-         * CREATE  Text representing the remote-action to create records on server.
-         * READ    Text representing the remote-action to read/load data from server.
-         * UPDATE  Text representing the remote-action to update records on server.
-         * DESTROY Text representing the remote-action to destroy records on server.
-         * </pre>
+         * <pre><code>
+actions: {
+    create  : 'create',  // Text representing the remote-action to create records on server.
+    read    : 'read',    // Text representing the remote-action to read/load data from server.
+    update  : 'update',  // Text representing the remote-action to update records on server.
+    destroy : 'destroy'  // Text representing the remote-action to destroy records on server.
+}
+         * </code></pre>
          * @property actions
          * @type Object
          */

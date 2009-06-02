@@ -139,6 +139,7 @@ Ext.data.DataWriter.prototype = {
      * toHash
      * Converts a Record to a hash
      * @param {Record}
+     * @private
      */
     toHash : function(rec) {
         var map = rec.fields.map;

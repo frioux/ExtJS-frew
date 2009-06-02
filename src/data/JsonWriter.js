@@ -30,6 +30,7 @@ Ext.data.JsonWriter = Ext.extend(Ext.data.DataWriter, {
     },
     /**
      * createRecord
+     * @protected
      * @param {Ext.data.Record} rec
      */
     createRecord : function(rec) {
@@ -37,6 +38,7 @@ Ext.data.JsonWriter = Ext.extend(Ext.data.DataWriter, {
     },
     /**
      * updateRecord
+     * @protected
      * @param {Ext.data.Record} rec
      */
     updateRecord : function(rec) {
@@ -45,6 +47,7 @@ Ext.data.JsonWriter = Ext.extend(Ext.data.DataWriter, {
     },
     /**
      * destroyRecord
+     * @protected
      * @param {Ext.data.Record} rec
      */
     destroyRecord : function(rec) {

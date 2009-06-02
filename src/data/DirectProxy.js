@@ -102,7 +102,7 @@ paramOrder: 'param1|param2|param'
      * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
      * @param {Object} trans The request transaction object
      * @param {Object} res The server response
-     * @protected
+     * @private
      */
     onRead : function(action, trans, result, res) {
         var records;
@@ -125,7 +125,7 @@ paramOrder: 'param1|param2|param'
      * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
      * @param {Object} trans The request transaction object
      * @param {Object} res The server response
-     * @protected
+     * @private
      */
     onWrite : function(action, trans, result, res, rs) {
         this.fireEvent("write", this, action, result, res, rs, trans.arg);

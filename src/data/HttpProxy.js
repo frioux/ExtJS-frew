@@ -196,7 +196,7 @@ api: {
      * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
      * @param {Object} trans The request transaction object
      * @param {Object} res The server response
-     * @protected
+     * @private
      */
     onRead : function(action, o, response) {
         var result;
@@ -227,7 +227,7 @@ api: {
      * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
      * @param {Object} trans The request transaction object
      * @param {Object} res The server response
-     * @protected
+     * @private
      */
     onWrite : function(action, o, response, rs) {
         var reader = o.reader;

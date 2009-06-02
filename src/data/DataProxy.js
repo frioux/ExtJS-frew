@@ -299,7 +299,6 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
      * @param {Function} callback
      * @param {Object} scope Scope with which to call the callback (defaults to the Proxy object)
      * @param {Object} options
-     * @private
      */
     request : function(action, rs, params, reader, callback, scope, options) {
         if (!this.api[action]) {
