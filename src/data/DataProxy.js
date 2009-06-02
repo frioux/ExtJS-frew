@@ -94,10 +94,10 @@ myStore.on({
             // Or set the entire API with a config-object.  When using the config-object option, you must redefine the <b>entire</b> API --
             // not just a specific action of it.
             store.proxy.setApi({
-                load: 'changed_load.php',
-                save: 'changed_save.php',
-                destroy: 'changed_destroy.php',
-                create: 'changed_create.php'
+                read    : 'changed_read.php',
+                create  : 'changed_create.php',
+                update  : 'changed_update.php',
+                destroy : 'changed_destroy.php'
             });
         }
     }
@@ -246,10 +246,10 @@ DESTROY  /users/23  delete
      * <p>Redefines the Proxy's API or a single action of an API. Can be called with two method signatures.</p>
      * <p>If called with an object as the only parameter, the object should redefine the <b>entire</b> API, eg:</p><code><pre>
 proxy.setApi({
-    load: '/users/load',
-    save: '/users/save',
-    create: '/users/create'
-    destroy: '/users/destroy'
+    read    : '/users/read',
+    create  : '/users/create',
+    update  : '/users/update',
+    destroy : '/users/destroy'
 });
 </pre></code>
      * <p>If called with two parameters, the first parameter should be a string specifying the API action to
