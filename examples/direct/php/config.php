@@ -7,6 +7,9 @@ $API = array(
 	        ),
 	        'multiply'=>array(
 	            'len'=>1
+	        ),
+	        'getTree'=>array(
+	        	'len'=>1
 	        )
 	    )
 	)
