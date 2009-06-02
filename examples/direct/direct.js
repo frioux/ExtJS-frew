@@ -24,7 +24,7 @@ Ext.onReady(function(){
                 var t = e.getTransaction();
                 out.append(String.format('<p><b>Successful call to {0}.{1} with response:</b><xmp>{2}</xmp></p>',
                        t.action, t.method, Ext.encode(result)));
-                out.el.scroll('b', 100000, true);
+                out.el.scrollTo('t', 100000, true);
             });
         }
     });
@@ -47,7 +47,7 @@ Ext.onReady(function(){
                     out.append(String.format('<p><b>Call to {0}.{1} failed with message:</b><xmp>{2}</xmp></p>',
                         t.action, t.method, e.message));
                 }
-                out.el.scroll('b', 100000, true);
+                out.el.scrollTo('t', 100000, true);
             });
         }
     });
@@ -77,6 +77,6 @@ Ext.onReady(function(){
 
     Ext.Direct.on('message', function(e){
         out.append(String.format('<p><i>{0}</i></p>', e.data));
-                out.el.scroll('b', 100000, true);
+                out.el.scrollTo('t', 100000, true);
     });
 });
