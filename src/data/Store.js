@@ -266,47 +266,72 @@ var grid = new Ext.grid.EditorGridPanel({
         'clear',
         /**
          * @event exception
-         * Fires if an exception occurs in the Proxy during a remote request.  This event can be fired for one of two reasons:
-         * <ul><li><b>The remote-request failed and the server did not return status === 200</b></li>
-         * <li><b>The remote-request succeeded but the reader could not read the response.</b>  This means the server returned
-         * data, but the configured Reader threw an error while reading the response.  In this case, this event will be
-         * raised and the caught error will be passed along into this event.</li></ul>
-         *
-         * This event fires with two different contexts based upon the 2nd parameter <tt>type [remote|response]</tt>.  Note that the
-         * first four parameters are identical between the two contexts -- only the final two parameters differ.
-         *
-         * <b>response</b>
-         * If the type of exception is "response", an <b>invalid response</b> from the server was returned, either 404, 500 or the response
-         * meta-data does not match that defined in your DataReader (eg: root, idProperty, successProperty).
-         * The event parameters for this context are:
+         * <p>Fires if an exception occurs in the Proxy during a remote request.
+         * (Note that this event is also relayed through {@link Ext.data.DataProxy}).
+         * This event can be fired for one of two reasons:</p>
+         * <div class="mdetail-params"><ul>
+         * <li>remote-request <b>failed</b> : <div class="sub-desc">
+         * The server did not return status === 200.
+         * </div></li>
+         * <li>remote-request <b>succeeded</b> : <div class="sub-desc">
+         * The remote-request succeeded but the reader could not read the response.
+         * This means the server returned data, but the configured Reader threw an
+         * error while reading the response.  In this case, this event will be
+         * raised and the caught error will be passed along into this event. 
+         * </div></li>
+         * </ul></div>
+         * <br><p>This event fires with two different contexts based upon the 2nd
+         * parameter <tt>type [remote|response]</tt>.  The first four parameters
+         * are identical between the two contexts -- only the final two parameters
+         * differ.</p>
          * @param {DataProxy} sender
-         * @param {String} type [response]
+         * @param {String} type
+         * <p>The value of this parameter will be either <tt>"response"</tt> or <tt>"remote"</tt>.</p> 
+         * <div class="mdetail-params"><ul>
+         * <li><b><tt>"response"</tt></b> : <div class="sub-desc">
+         * <p>An <b>invalid</b> response from the server was returned: either 404,
+         * 500 or the response meta-data does not match that defined in the DataReader
+         * (eg: root, idProperty, successProperty).</p>
+         * </div></li>
+         * <li><b><tt>"remote"</tt></b> : <div class="sub-desc">
+         * <p>A <b>valid</b> response was returned from the server having
+         * successProperty === false.  This response might contain an error-message
+         * sent from the server.  For example, the user may have failed
+         * authentication/authorization or a database validation error occurred.</p>
+         * </div></li>
+         * </ul></div>
          * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
          * @param {Object} options The loading options that were specified (see {@link #load} for details)
-         * @param {Object} response The raw browser response object (eg: XMLHttpRequest)
-         * @param {Error} e The JavaScript Error object caught if the configured Reader could not read the data.
-         * If the load call returned success: false, this parameter will be null.
-         *
-         * <b>remote</b>
-         * If the type of exception is "remote", a <b>valid response</b> was returned from the server having successProperty === false.  This
-         * response might contain an error-message sent from the server.  For example, the user may have failed
-         * authentication/authorization or a database validation error occurred.
-         * @param {DataProxy} sender
-         * @param {String} type [remote]
-         * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
-         * @param {Object} options The loading options that were specified (see {@link #load} for details)
-         * @param {Object} response The decoded response object sent from the server.
-         * @param {Record/Record[]} rs Records from the Store.  This parameter will only exist if the <tt>action</tt> was a <b>write</b> action
-         * (Ext.data.Api.actions.create|update|destroy)
-         *
-         * Note that this event is also relayed through {@link Ext.data.DataProxy}.
+         * @param {Object} response
+         * <p>The value of this parameter depends on the value of the <code>type</code> parameter:</p> 
+         * <div class="mdetail-params"><ul>
+         * <li><b><tt>"response"</tt></b> : <div class="sub-desc">
+         * <p>The raw browser response object (eg: XMLHttpRequest)</p>
+         * </div></li>
+         * <li><b><tt>"remote"</tt></b> : <div class="sub-desc">
+         * <p>The decoded response object sent from the server.</p>
+         * </div></li>
+         * </ul></div>
+         * @param {Mixed} arg
+         * <p>The type and value of this parameter depends on the value of the <code>type</code> parameter:</p> 
+         * <div class="mdetail-params"><ul>
+         * <li><b><tt>"response"</tt></b> : Error<div class="sub-desc">
+         * <p>The JavaScript Error object caught if the configured Reader could not read the data.
+         * If the load call returned success===false, this parameter will be null.</p>
+         * </div></li>
+         * <li><b><tt>"remote"</tt></b> : Record/Record[]<div class="sub-desc">
+         * <p>This parameter will only exist if the <tt>action</tt> was a <b>write</b> action
+         * (Ext.data.Api.actions.create|update|destroy).</p>
+         * </div></li>
+         * </ul></div>
          */
         'exception',
         /**
          * @event beforeload
-         * @deprecated Please use catch-all {@link #exception} event instead.
+         * This event is <b>deprecated</b> in favor of the catch-all {@link #exception} event instead.
          * Fires before a request is made for a new data object.  If the beforeload handler returns
          * <tt>false</tt> the {@link #load} action will be canceled.
+         * @deprecated
          * @param {Store} this
          * @param {Object} options The loading options that were specified (see {@link #load} for details)
          */
@@ -321,11 +346,13 @@ var grid = new Ext.grid.EditorGridPanel({
         'load',
         /**
          * @event loadexception
+         * This event is <b>deprecated</b> in favor of the catch-all <b><code>{@link #exception}</code></b>
+         * event instead. Fires only if the load request returned a valid response having
+         * <code>successProperty === false</code>.  This means the server logic returned a failure
+         * status and there is no data to read.  For example, the server might return
+         * <code>successProperty === false</code> if authorization failed.  This event is
+         * called with the signature of the Proxy's "loadexception" event.
          * @deprecated
-         * This event is <b>deprecated</b>.  Please use catch-all {@link #exception} event instead.
-         * Fires only if the load request returned a valid response having successProperty === false.</b>  This means the server logic returned a failure
-         * status and there is no data to read.  For example, the server might return successProperty === false if authorization failed.
-         * Called with the signature of the Proxy's "loadexception" event.
          * @param {DataProxy} this
          * @param {Object} response The decoded response object from the server.
          * @param {Object} arg The request argument.
@@ -739,7 +766,7 @@ sortInfo: {
     },
 
     /**
-     * createRecords.  Should not be used directly.  Store#add will call this automatically if a Writer is set
+     * Should not be used directly.  Store#add will call this automatically if a Writer is set
      * @param {Object} store
      * @param {Object} rs
      * @param {Object} index
@@ -758,7 +785,6 @@ sortInfo: {
     },
 
     /**
-     * destroyRecord
      * Destroys a record or records.  Should not be used directly.  It's called by Store#remove if a Writer is set.
      * @param {Store} this
      * @param {Ext.data.Record/Ext.data.Record[]}
@@ -784,7 +810,7 @@ sortInfo: {
     },
 
     /**
-     * execute Executes a CRUD action on a proxy if a Writer is set.  Should not be used directly.  Called automatically
+     * Executes a CRUD action on a proxy if a Writer is set.  Should not be used directly.  Called automatically
      * by Store#add, Store#remove, Store#afterEdit
      * @param {String} action
      * @param {Record/Record[]} rs
