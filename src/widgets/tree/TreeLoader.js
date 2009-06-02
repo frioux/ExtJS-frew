@@ -129,10 +129,10 @@ paramOrder: 'param1|param2|param'
 
     /**
      * @cfg {Boolean} paramsAsHash Only used when using directFn.
-     * Send parameters as a collection of named arguments (defaults to <tt>true</tt>). Providing a
+     * Send parameters as a collection of named arguments (defaults to <tt>false</tt>). Providing a
      * <tt>{@link #paramOrder}</tt> nullifies this configuration.
      */
-    paramsAsHash: true,
+    paramsAsHash: false,
 
     /**
      * @cfg {Function} directFn
@@ -231,6 +231,7 @@ paramOrder: 'param1|param2|param'
     processDirectResponse: function(result, response, args){
         if(response.status){
             this.processResponse({
+                responseData: Ext.isArray(result) ? result : null,
                 responseText: result,
                 argument: args
             }, args.node, args.callback, args.scope);
@@ -304,7 +305,7 @@ new Ext.tree.TreePanel({
     processResponse : function(response, node, callback, scope){
         var json = response.responseText;
         try {
-            var o = Ext.decode(json);
+            var o = response.responseData || Ext.decode(json);
             node.beginUpdate();
             for(var i = 0, len = o.length; i < len; i++){
                 var n = this.createNode(o[i]);
