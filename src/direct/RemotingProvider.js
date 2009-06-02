@@ -292,7 +292,9 @@ TestAction.multiply(
                 extType: 'rpc',
                 extUpload: String(isUpload)
             };
-            if(callback && typeof callback == 'object'){
+            // change made from typeof callback check to callback.params
+            // to support addl param passing in DirectSubmit EAC 6/2
+            if(callback && typeof callback.params == 'object'){
                 Ext.apply(params, callback.params);
             }
             Ext.Ajax.request({
