@@ -28,6 +28,12 @@ Ext.data.DataWriter.prototype = {
      * <tt>false</tt> to have DataWriter only request modified fields from a record.
      */
     writeAllFields : false,
+    /**
+     * @cfg {Boolean} listful
+     * <tt>false</tt> by default.  Set <tt>true</tt> to have the DataWriter <b>always</b> write HTTP params as a list,
+     * even when acting upon a single record.
+     */
+    listful : false,    // <-- listful is actually not used internally here in DataWriter.  @see Ext.data.Store#execute.
 
     /**
      * Writes data in preparation for server-write action.  Simply proxies to DataWriter#update, DataWriter#create

@@ -834,8 +834,12 @@ sortInfo: {
             doRequest = this.fireEvent('beforeload', this, options);
         }
         else {
+            // if Writer is configured as listful, force single-recoord rs to be [{}} instead of {}
+            if (this.writer.listful === true && this.restful !== true) {
+                rs = (Ext.isArray(rs)) ? rs : [rs];
+            }
             // if rs has just a single record, shift it off so that Writer writes data as "{}" rather than "[{}]"
-            if (Ext.isArray(rs) && rs.length == 1) {
+            else if (Ext.isArray(rs) && rs.length == 1) {
                 rs = rs.shift();
             }
             // Write the action to options.params
