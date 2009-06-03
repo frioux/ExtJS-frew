@@ -1,7 +1,7 @@
 /**
  * @class Ext.Container
  * @extends Ext.BoxComponent
- * <p>Base class for any {@link Ext.BoxComponent} that can contain other Components. Containers handle the
+ * <p>Base class for any {@link Ext.BoxComponent} that may contain other Components. Containers handle the
  * basic behavior of containing items, namely adding, inserting and removing items.</p>
  * 
  * <p>The most commonly used Container classes are {@link Ext.Panel}, {@link Ext.Window} and {@link Ext.TabPanel}.
@@ -44,21 +44,21 @@ var embeddedColumns = new Ext.Container({
 });</code></pre></p>
  * 
  * <p><u><b>Layout</b></u></p> 
- * <p>Every Container delegates the rendering of its child Components to a layout manager class which must be
- * configured into the Container using the <tt><b>{@link #layout}</b></tt> configuration property.</p>
- * <p>When either specifying child {@link #items} of a Container, or dynamically {@link #add adding} Components
+ * <p>Container classes delegate the rendering of child Components to a layout manager class which must be
+ * configured into the Container using the <code><b>{@link #layout}</b></code> configuration property.</p>
+ * <p>When either specifying child <code>{@link #items}</code> of a Container, or dynamically {@link #add adding} Components
  * to a Container, remember to consider how you wish the Container to arrange those child elements, and whether
- * those child elements need to be sized using one of Ext's built-in <tt><b>{@link #layout}</b></tt> schemes. By
+ * those child elements need to be sized using one of Ext's built-in <b><code>{@link #layout}</code></b> schemes. By
  * default, Containers use the {@link Ext.layout.ContainerLayout ContainerLayout} scheme. This simply renders
  * child components, appending them one after the other inside the Container, and <b>does not apply any sizing</b>
  * at all.</p>
- * <p>A common mistake is when a developer neglects to specify a <tt><b>{@link #layout}</b></tt>.  Widgets like
- * GridPanels or TreePanels are added to Containers for which no <tt><b>{@link #layout}</b></tt> has been specified.
+ * <p>A common mistake is when a developer neglects to specify a <b><code>{@link #layout}</code></b> (eg. widgets like
+ * GridPanels or TreePanels are added to Containers for which no <tt><b>{@link #layout}</b></tt> has been specified).
  * If a Container is left to use the default {@link Ext.layout.ContainerLayout ContainerLayout} scheme, none of its
  * child components will be resized, or changed in any way when the Container is resized.</p>
  * <p>Another variation of this problem is when a developer will attempt to add a GridPanel to a TabPanel by wrapping
  * the GridPanel <i>inside</i> a wrapping Panel (that has no <tt><b>{@link #layout}</b></tt> specified) and add that
- * wrapping Panel to the TabPanel. A GridPanel <b>is</b> a Component which can be added unadorned into a Container.
+ * wrapping Panel to the TabPanel (also known as "overnesting"). A GridPanel <b>is</b> a Component which can be added unadorned into a Container.
  * If that wrapping Panel has no <tt><b>{@link #layout}</b></tt> configuration, then the GridPanel will not be sized
  * as expected.<p>
  * <p>Below is an example of adding a newly created GridPanel to a TabPanel. Note that a TabPanel uses
@@ -156,7 +156,7 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
     /** 
      * @cfg {Boolean} monitorResize
      * True to automatically monitor window resize events to handle anything that is sensitive to the current size
-     * of the viewport.  This value is typically managed by the chosen <tt>{@link #layout}</tt> and should not need
+     * of the viewport.  This value is typically managed by the chosen <code>{@link #layout}</code> and should not need
      * to be set manually.
      */
     /**
@@ -221,8 +221,8 @@ layoutConfig: {
      */
     /**
      * @cfg {Object} layoutConfig
-     * This is a config object containing properties specific to the chosen <tt><b>{@link #layout}</b></tt> if
-     * <tt><b>{@link #layout}</b></tt> has been specified as a <i>string</i>.</p>
+     * This is a config object containing properties specific to the chosen <b><code>{@link #layout}</code></b> if
+     * <b><code>{@link #layout}</code></b> has been specified as a <i>string</i>.</p>
      */    
     /**
      * @cfg {Boolean/Number} bufferResize
@@ -485,10 +485,10 @@ tb.{@link #doLayout}();             // refresh the layout
      * or in response to a {@link #doLayout} call.<br><br>
      * A Component config object may be passed instead of an instantiated Component object.
      * The type of Component created from a config object is determined by the
-     * <tt>{@link Ext.Component#xtype xtype}</tt> config property. If no <tt>xtype</tt>
+     * <code>{@link Ext.Component#xtype xtype}</code> config property. If no <tt>xtype</tt>
      * is configured, the Container's {@link #defaultType} is used.<br><br>
      * For a list of all available <tt>{@link Ext.Component#xtype xtypes}</tt>, see
-     * {@link Ext.Component}.<tt>{@link Ext.Component#xtype xtype}</tt>.
+     * {@link Ext.Component}.<code>{@link Ext.Component#xtype xtype}</code>.
      * @param {Ext.Component/Object} component2
      * @param {Ext.Component/Object} etc
      * @return {Ext.Component} component The Component (or config object) that was
