@@ -1083,7 +1083,7 @@ var menu = new Ext.menu.Menu({
         }else{
             var rec = this.findRecord(this.displayField, val);
             if(rec){
-                val = rec.get(this.valueField);
+                val = rec.get(this.valueField || this.displayField);
             }
             this.setValue(val);
         }
