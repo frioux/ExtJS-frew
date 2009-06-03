@@ -2,7 +2,7 @@
  * Ext JS Library 3.0 Pre-alpha
  * Copyright(c) 2006-2008, Ext JS, LLC.
  * licensing@extjs.com
- * 
+ *
  * http://extjs.com/license
  */
 
@@ -38,6 +38,12 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
         }else{
             this.grid.on('rowclick', this.onRowClick, this);
         }
+
+        // stopEditing without saving when a record is removed from Store.
+        this.grid.store.on('remove', function() {
+            this.stopEditing(false);
+        },this);
+
         this.grid.on('keydown', this.onGridKey, this);
         this.grid.on('columnresize', this.verifyLayout, this);
         this.grid.on('columnmove', this.onColumnMove, this);
@@ -51,7 +57,7 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
         this.initFields();
         this.verifyLayout();
     },
-    
+
     isDirty: function(){
         var dirty;
         this.items.each(function(f){
@@ -390,7 +396,7 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
         this.btns.saveBtn.setDisabled(!valid);
         this.fireEvent('validation', this, valid);
     },
-    
+
     showTooltip: function(msg){
         var t = this.tooltip;
         if(!t){
@@ -459,7 +465,7 @@ Ext.override(Ext.ToolTip, {
         }
         bw += this.getFrameWidth() + (this.closable ? 20 : 0) + this.body.getPadding("lr") + 20;
         this.setWidth(bw.constrain(this.minWidth, this.maxWidth));
-        
+
         // IE7 repaint bug on initial show
         if(Ext.isIE7 && !this.repainted){
             this.el.repaint();
