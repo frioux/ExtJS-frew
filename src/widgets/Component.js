@@ -302,9 +302,9 @@ new Ext.FormPanel({
      * @cfg {String} labelStyle <p>A CSS style specification string to apply directly to this field's
      * label.  Defaults to the container's labelStyle value if set (eg,
      * <tt>{@link Ext.layout.FormLayout#labelStyle}</tt> , or '').</p>
-     * <br><p><b>Note</b>: see the note for <tt>{@link #clearCls}</tt>.</p><br>
-     * <p>Also see <tt>{@link #hideLabel} and
-     * {@link Ext.layout.FormLayout}.{@link Ext.layout.FormLayout#fieldTpl fieldTpl}.</p>
+     * <br><p><b>Note</b>: see the note for <code>{@link #clearCls}</code>.</p><br>
+     * <p>Also see <code>{@link #hideLabel}</code> and
+     * <code>{@link Ext.layout.FormLayout}.{@link Ext.layout.FormLayout#fieldTpl fieldTpl}.</code></p>
      * Example use:<pre><code>
 new Ext.FormPanel({
     height: 100,
