@@ -47,7 +47,7 @@ var proxy = new Ext.data.HttpProxy({
 
 <p>An <b>Error has been simulated</b> on the server-side:  Attempting to update a record having ODD-numbered id will generate this errror.
 Responses from the update action will have successProperty === false along with a message.  This error can be handled by
-listening to the "exception" event upon Store.</p>
+listening to the <b>"exception"</b> event upon your Store.</p>
 
 <code><pre>
 exception : function(proxy, type, action, options, res, arg) {
@@ -60,6 +60,7 @@ exception : function(proxy, type, action, options, res, arg) {
     }
 }
 </pre></code>
+<p><b>Note: This new "exception" event supercedes the old loadexception event which is now deprecated.</b></p>
 
 <div class="container" style="width:500px">
     <div id="user-form"></div>

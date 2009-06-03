@@ -109,7 +109,7 @@ Ext.samples.samplesCatalog = [{
         desc: 'GridView optimized for performance by rendering only visible rows.',
         isNew: true
     }, {
-        text: 'Editable Grid with JsonWriter',
+        text: 'Editable Grid with Writable Store',
         url: 'writer/writer.html',
         icon: 'writer-thumb.gif',
         desc: 'This Store uses JsonWriter to automatically generate CRUD requests to the server through a standard HttpProxy.',
