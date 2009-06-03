@@ -32,6 +32,19 @@ to perform CRUD actions on a Store.</p>
 A simple MVC-like php backend has been created for this example which simulates a database by storing records in $_SESSION.  See the file /remote/app/controllers/users.php.  You may have to configure
 your web-server to allow scripts to be executed in the /examples directory.</p>
 
+<code><pre>
+var proxy = new Ext.data.HttpProxy({
+    api: {
+        read    : 'app.php/users/read',
+        create  : 'app.php/users/create',
+        update  : 'app.php/users/update',
+        destroy : 'app.php/users/destroy'
+    }
+});
+</pre></code>
+
+<p>Take note of the requests being generated in Firebug as you interact with the Grid and Form.</p>
+
 <p>An <b>Error has been simulated</b> on the server-side:  Attempting to update a record having ODD-numbered id will generate this errror.
 Responses from the update action will have successProperty === false along with a message.  This error can be handled by
 listening to the "exception" event upon Store.</p>
@@ -48,18 +61,6 @@ exception : function(proxy, type, action, options, res, arg) {
 }
 </pre></code>
 
-<p>Take note of the requests being generated in Firebug as you interact with the Grid and Form.</p>
-
-<code><pre>
-var proxy = new Ext.data.HttpProxy({
-    api: {
-        read    : 'app.php/users/read',
-        create  : 'app.php/users/create',
-        update  : 'app.php/users/update',
-        destroy : 'app.php/users/destroy'
-    }
-});
-</pre></code>
 <div class="container" style="width:500px">
     <div id="user-form"></div>
     <div id="user-grid"></div>
