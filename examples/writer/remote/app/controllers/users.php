@@ -64,6 +64,11 @@ class Users extends ApplicationController {
                 $res->message = "Failed to updated record";
                 $res->success = false;
             }
+            // SIMULATE ERROR:  All records having odd-numbered ID have error.
+            if ($this->id % 2) {
+                $res->success = false;
+                $res->message = "SIMULATED ERROR:  Lorem ipsum dolor sit amet, placerat consectetuer, nec lacus imperdiet velit dui interdum vestibulum, sagittis lectus morbi, urna aliquet minus natoque commodo egestas non, libero libero arcu sed sed.";
+            }
         }
         return $res->to_json();
     }
