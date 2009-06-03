@@ -171,11 +171,9 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
             }else if(c.isXType('button')){
                 m.add(this.createMenuConfig(c, !c.menu));
             }else if(c.isXType('buttongroup')){
-                m.add('-');
                 c.items.each(function(item){
                      this.addComponentToMenu(m, item);
                 }, this);
-                m.add('-');
             }
         }
     },
@@ -191,12 +189,39 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
     // private
     beforeMoreShow : function(m){
+        var h = this.container.items.items,
+            items = m.items,
+            len = h.length,
+            first = false,
+            c,
+            last,
+            items,
+            isGroup,
+            isSep = function(isMenu, item){
+                return isMenu ? item instanceof Ext.menu.Separator : item instanceof Ext.Toolbar.Separator;
+            };
+            
         this.clearMenu();
         m.removeAll();
-        for(var i = 0, h = this.container.items.items, len = h.length, c; i < len; i++){
+        for(var i = 0; i < len; i++){
             c = h[i];
             if(c.xtbHidden){
+                isGroup = c.isXType('buttongroup');
+                //item is a button group and we have more than 1 item
+                if(isGroup && items.getCount() > 0){
+                    //check if the previous item was a separator
+                    if(!isSep(true, items.last())){
+                        m.add('-')
+                    }
+                }
                 this.addComponentToMenu(m, c);
+                //check if there's any more items
+                if(isGroup && i < len - 1){
+                    //if we have more items, check if the next one is a seperator
+                    if(!isSep(false, h[i + 1])){
+                        m.add('-');
+                    }
+                }
             }
         }
         // put something so the menu isn't empty
