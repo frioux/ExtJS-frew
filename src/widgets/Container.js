@@ -496,11 +496,11 @@ tb.{@link #doLayout}();             // refresh the layout
      */
     add : function(comp){
         this.initItems();
-        var a = arguments, len = a.length;
-        if(len > 1){
-            for(var i = 0; i < len; i++){
-                this.add(a[i]);
-            }
+        var args = arguments.length > 1;
+        if(args || Ext.isArray(comp)){
+            Ext.each(args ? arguments : comp, function(c){
+                this.add(c);
+            }, this);
             return;
         }
         var c = this.lookupComponent(this.applyDefaults(comp));

@@ -407,10 +407,7 @@ Ext.extend(T, Ext.Container, {
      * @param {Mixed} arg2
      * @param {Mixed} etc.
      */
-    add : function(){
-        //probably not needed, left here so documentation will still generate.
-        Ext.Toolbar.superclass.add.apply(this, arguments);
-    },
+    add : Ext.Container.prototype.add,
     
     // private
     lookupComponent: function(c){
