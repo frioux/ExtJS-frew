@@ -664,15 +664,14 @@ tb.{@link #doLayout}();             // refresh the layout
     doLayout: function(shallow, force){
         var rendered = this.rendered;
         if(!this.isVisible() || this.collapsed){
-            if(!force){
-                this.deferLayout = this.deferLayout || !shallow;
+            this.deferLayout = this.deferLayout || !shallow;
+            if(!force){                
                 return;
-            }else{
-                delete this.deferLayout;
             }
+            shallow = shallow && !this.deferLayout;
+        } else {
+            delete this.deferLayout;
         }
-        shallow = shallow && !this.deferLayout;
-        delete this.deferLayout;
         if(rendered && this.layout){
             this.layout.layout();
         }
