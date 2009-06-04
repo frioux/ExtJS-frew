@@ -1697,11 +1697,7 @@ panel.load({
                 Ext.destroy(this.buttons[b]);
             }
         }
-        Ext.destroy(
-            this.topToolbar,
-            this.bottomToolbar,
-            this.fbar
-        );
+        Ext.destroy(this.toolbars);
         Ext.Panel.superclass.beforeDestroy.call(this);
     },
 
