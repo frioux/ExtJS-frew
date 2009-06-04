@@ -210,11 +210,14 @@ TestAction.multiply(
         var callData;
         if(Ext.isArray(data)){
             callData = [];
+            o.ts = [];
             for(var i = 0, len = data.length; i < len; i++){
                 callData.push(this.getCallData(data[i]));
+                o.ts.push(data[i]);
             }
         }else{
             callData = this.getCallData(data);
+            o.ts = data;
         }
 
         if(this.enableUrlEncode){
@@ -260,7 +263,7 @@ TestAction.multiply(
             action: c,
             method: m.name,
             data: data,
-            cb: scope && typeof hs == 'function' ? hs.createDelegate(scope) : hs
+            cb: scope && Ext.isFunction(hs) ? hs.createDelegate(scope) : hs
         });
 
         if(this.fireEvent('beforecall', this, t) !== false){
@@ -276,7 +279,7 @@ TestAction.multiply(
             action: c,
             method: m.name,
             args:[form, callback, scope],
-            cb: scope && typeof callback == 'function' ? callback.createDelegate(scope) : callback
+            cb: scope && Ext.isFunction(callback) ? callback.createDelegate(scope) : callback
         });
 
         if(this.fireEvent('beforecall', this, t) !== false){
@@ -294,7 +297,7 @@ TestAction.multiply(
             };
             // change made from typeof callback check to callback.params
             // to support addl param passing in DirectSubmit EAC 6/2
-            if(callback && typeof callback.params == 'object'){
+            if(callback && Ext.isObject(callback.params)){
                 Ext.apply(params, callback.params);
             }
             Ext.Ajax.request({
@@ -336,7 +339,7 @@ TestAction.multiply(
         if(t && t.cb){
             var hs = t.cb;
             var result = e.result || e.data;
-            if(typeof hs == 'function'){
+            if(Ext.isFunction(hs)){
                 hs(result, e);
             } else{
                 Ext.callback(hs[fn], hs.scope, [result, e]);
