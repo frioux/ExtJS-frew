@@ -354,34 +354,32 @@ Ext.Msg.show({
               d.setIconClass(opt.iconCls);
             }
             this.setIcon(opt.icon);
-            bwidth = updateButtons(opt.buttons);
-            progressBar.setVisible(opt.progress === true || opt.wait === true);
-            this.updateProgress(0, opt.progressText);
-            this.updateText(opt.msg);
             if(opt.cls){
                 d.el.addClass(opt.cls);
             }
             d.proxyDrag = opt.proxyDrag === true;
             d.modal = opt.modal !== false;
             d.mask = opt.modal !== false ? mask : false;
+            
+            d.on('show', function(){
+                //workaround for window internally enabling keymap in afterShow
+                d.keyMap.setDisabled(allowClose !== true);
+                d.doLayout();
+                this.setIcon(opt.icon);
+                bwidth = updateButtons(opt.buttons);
+                progressBar.setVisible(opt.progress === true || opt.wait === true);
+                this.updateProgress(0, opt.progressText);
+                this.updateText(opt.msg);
+                if(opt.wait === true){
+                    progressBar.wait(opt.waitConfig);
+                }
+
+            }, this, {single:true});
             if(!d.isVisible()){
                 // force it to the end of the z-index stack so it gets a cursor in FF
                 document.body.appendChild(dlg.el.dom);
                 d.setAnimateTarget(opt.animEl);
                 d.show(opt.animEl);
-            }
-
-            //workaround for window internally enabling keymap in afterShow
-            d.on('show', function(){
-                if(allowClose === true){
-                    d.keyMap.enable();
-                }else{
-                    d.keyMap.disable();
-                }
-            }, this, {single:true});
-
-            if(opt.wait === true){
-                progressBar.wait(opt.waitConfig);
             }
             return this;
         },
