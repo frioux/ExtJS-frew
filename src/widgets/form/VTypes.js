@@ -46,7 +46,9 @@ Ext.form.VTypes = function(){
          * validation per the email RFC specifications is very complex and beyond the scope of this class, although
          * this function can be overridden if a more comprehensive validation scheme is desired.  See the validation
          * section of the <a href="http://en.wikipedia.org/wiki/E-mail_address">Wikipedia article on email addresses</a> 
-         * for additional information.
+         * for additional information.  This implementation is intended to validate the following emails:<tt>
+         * 'barney@domain.de', 'barney.rubble@domain.com', 'barney-rubble@domain.coop', 'barney+rubble@domain.com'
+         * </tt>.
          * @param {String} value The email address
          */
         'email' : function(v){
