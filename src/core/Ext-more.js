@@ -171,12 +171,11 @@ ImageComponent = Ext.extend(Ext.BoxComponent, {
             if(typeof names == 'string'){
                 names = names.split(/[,;\s]/);
             }
-            for(var i = 0, len = names.length; i< len; i++){
-                var n = names[i];
-                if(source.hasOwnProperty(n)){
-                    dest[n] = source[n];
+            Ext.each(names, function(name){
+                if(source.hasOwnProperty(name)){
+                    dest[name] = source[name];
                 }
-            }
+            }, this);
             return dest;
         },
 
@@ -191,17 +190,17 @@ ImageComponent = Ext.extend(Ext.BoxComponent, {
          * @param {Mixed} etc... (optional)
          */
         destroy : function(){
-            for(var i = 0, a = arguments, len = a.length; i < len; i++) {
-                var as = a[i];
-                if(as){
-                    if(Ext.isFunction(as.destroy)){
-                        as.destroy();
-                    }
-                    else if(as.dom){
-                        as.remove();
-                    }
+            Ext.each(arguments, function(arg){
+                if(arg){
+                    if(Ext.isArray(arg)){
+                        this.destroy.apply(this, arg);
+                    }else if(Ext.isFunction(arg.destroy)){
+                        arg.destroy();
+                    }else if(arg.dom){
+                        arg.remove();
+                    }    
                 }
-            }
+            }, this);
         },
 
         /**
