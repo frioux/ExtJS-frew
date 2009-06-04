@@ -4,6 +4,7 @@
  * <p>Layout manager used by {@link Ext.menu.Menu}. Generally this class should not need to be used directly.</p>
  */
  Ext.layout.MenuLayout = Ext.extend(Ext.layout.ContainerLayout, {
+    monitorResize: true,
     renderItem : function(c, position, target){
         if (!this.itemTpl) {
             this.itemTpl = Ext.layout.MenuLayout.prototype.itemTpl = new Ext.XTemplate(
@@ -161,10 +162,11 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
 
     // private
     hidden: true,
-    hideMode: 'offsets',    // Important for laying out Components
     layout: 'menu',
+    hideMode: 'offsets',    // Important for laying out Components
     scrollerHeight: 8,
     autoLayout: true,       // Provided for backwards compat
+    defaultType: 'menuitem',
 
     initComponent: function(){
         if(Ext.isArray(this.initialConfig)){
@@ -483,6 +485,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
             this.activeMax = max;
             this.ul.setHeight(max);
             this.createScrollers();
+            this.el.select('.x-menu-scroller').setDisplayed('');
         }else{
             this.ul.setHeight(full);
             this.el.select('.x-menu-scroller').setDisplayed('none');
@@ -572,12 +575,12 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
             c = (c == 'separator' || c == '-') ? new Ext.menu.Separator() : new Ext.menu.TextItem(c);
              this.applyDefaults(c);
          }else{
-            if(c.tagName || c.el){ // element. Wrap it.
+            if(Ext.isObject(c)){
+                c = this.getMenuItem(c);
+            }else if(c.tagName || c.el){ // element. Wrap it.
                 c = new Ext.BoxComponent({
                     el: c
                 });
-            }else if(Ext.isObject(c)){ // must be menu item config?
-                c = this.getMenuItem(c);
             }
          }
          return c;
@@ -601,14 +604,11 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
     
     // private
     getMenuItem: function(config){
-       if(!(config.isXType && config.isXType(Ext.menu.Item))){
-            if(config.xtype){
-                return Ext.create(config, this.defaultType);
-            }else if(typeof config.checked == "boolean"){ // must be check menu item config?
-                return new Ext.menu.CheckItem(config);
-            }else{
-                return new Ext.menu.Item(config);
+       if(!config.isXType){
+            if(!config.xtype && typeof config.checked == "boolean"){
+                return new Ext.menu.CheckItem(config)
             }
+            return Ext.create(config, this.defaultType);
         }
         return config; 
     },

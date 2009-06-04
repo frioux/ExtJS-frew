@@ -112,18 +112,19 @@ Ext.layout.ContainerLayout.prototype = {
 
     // private
     onResize: function(){
-        if(this.container.collapsed){
+        var ct = this.container;
+        if(ct.collapsed){
             return;
         }
         var b = this.container.bufferResize;
         if(b){
             if(!this.resizeTask){
-                this.resizeTask = new Ext.util.DelayedTask(this.layout, this);
+                this.resizeTask = new Ext.util.DelayedTask(ct.doLayout, ct);
                 this.resizeBuffer = typeof b == 'number' ? b : 100;
             }
             this.resizeTask.delay(this.resizeBuffer);
         }else{
-            this.layout();
+            ct.doLayout();
         }
     },
 
