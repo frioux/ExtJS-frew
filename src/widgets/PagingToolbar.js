@@ -420,6 +420,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
      * @param {Store} store The store to bind to this view
      */
     bindStore : function(store, initial){
+        var doLoad;
         if(!initial && this.store){
             this.store.un("beforeload", this.beforeLoad, this);
             this.store.un("load", this.onLoad, this);
@@ -441,11 +442,12 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
             this.paramNames.start = store.paramNames.start;
             this.paramNames.limit = store.paramNames.limit;
 
-            if (store.getCount() > 0){
-                this.onLoad(store, null, {});
-            }
+            doLoad = store.getCount() > 0;
         }
         this.store = store;
+        if(doLoad){
+            this.onLoad(store, null, {});
+        }
     },
 
     /**
