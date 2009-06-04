@@ -315,7 +315,7 @@ mc.add(otherEl);
  * @return {Object} The item associated with the passed key.
  */
     item : function(key){
-        var item = typeof this.map[key] != "undefined" ? this.map[key] : (typeof key == 'number') ? this.items[key] : null;
+        var item = typeof this.map[key] != "undefined" ? this.map[key] : (typeof key == 'number') ? this.items[key] : undefined;
         return !Ext.isFunction(item) || this.allowFunctions ? item : null; // for prototype!
     },
 
