@@ -24,6 +24,11 @@ Ext.extend(Ext.Editor, Ext.Component, {
     * The Field object (or descendant) or config object for field
     */
     /**
+     * @cfg {Boolean} allowBlur
+     * True to {@link #completeEdit complete the editing process} if in edit mode when the
+     * field is blurred. Defaults to <tt>false</tt>.
+     */
+    /**
      * @cfg {Boolean/String} autoSize
      * True for the editor to automatically adopt the size of the element being edited, "width" to adopt the width only,
      * or "height" to adopt the height only (defaults to false)
