@@ -1425,7 +1425,6 @@ new Ext.Panel({
     afterExpand: function(doAnim){
         this.collapsed = false;
         if(doAnim !== false){
-            console.log('here');
             this.afterEffect();
         }
         if(this.deferLayout !== undefined){
