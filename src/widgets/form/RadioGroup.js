@@ -50,19 +50,23 @@ Ext.form.RadioGroup = Ext.extend(Ext.form.CheckboxGroup, {
      */
     setValue: function(id, value){
         if(this.rendered){
-            var f = this.getBox(id);
-            if(f){
-                f.setValue(value);
-                if(f.checked){
-                    this.items.each(function(item){
-                        if (item !== f){
-                            item.setValue(false);
-                        }
-                    }, this);
+            if(arguments.length > 1){
+                var f = this.getBox(id);
+                if(f){
+                    f.setValue(value);
+                    if(f.checked){
+                        this.items.each(function(item){
+                            if (item !== f){
+                                item.setValue(false);
+                            }
+                        }, this);
+                    }
                 }
+            }else{
+                this.setValueForItem(id);
             }
         }else{
-            this.values = [id, value];
+            this.values = arguments;
         }
         return this;
     }

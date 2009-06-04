@@ -248,6 +248,8 @@ group.setValues({
                             f.setValue(id[i]);
                         }
                     }
+                }else{
+                    this.setValueForItem(id);
                 }
             }else{
                 var f = this.getBox(id);
@@ -258,6 +260,15 @@ group.setValues({
         }else{
             this.values = arguments;
         }
+    },
+    
+    setValueForItem: function(val){
+        val = String(val).split(',');
+        this.items.each(function(item){
+            if(val.indexOf(item.inputValue)> -1){
+                item.setValue(true);
+            }
+        }, this);
     },
     
     // private
