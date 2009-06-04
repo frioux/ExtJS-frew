@@ -7,18 +7,18 @@ Ext.onReady(function(){
         html: Ext.example.bogusMarkup
     });
 
-	// resetBodyCss: true
+	// preventBodyReset: true
 	new Ext.Panel({
 		title: 'A Panel with W3C-suggested body-html styling',
-		resetBodyCss: true,
+		preventBodyReset: true,
 		renderTo: 'panel-reset-true',
 		width: 400,
 		html: html.join('')
 	});
 
-	// resetBodyCss: false
+	// preventBodyReset: false
 	new Ext.Panel({
-		title: 'Same panel as above with resetBodyCss: false',
+		title: 'Same panel as above with preventBodyReset: false',
 		normal: false,
 		renderTo: 'panel-reset-false',
 		width: 400,
