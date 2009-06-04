@@ -312,7 +312,8 @@ mc.add(otherEl);
  * Returns the item associated with the passed key OR index. Key has priority over index.  This is the equivalent
  * of calling {@link #key} first, then if nothing matched calling {@link #itemAt}.
  * @param {String/Number} key The key or index of the item.
- * @return {Object} The item associated with the passed key.
+ * @return {Object} If the item is found, returns the item.  If the item was not found, returns <tt>undefined</tt>.
+ * If an item was found, but is a Class, returns <tt>null</tt>.
  */
     item : function(key){
         var item = typeof this.map[key] != "undefined" ? this.map[key] : (typeof key == 'number') ? this.items[key] : undefined;
@@ -555,9 +556,11 @@ mc.add(otherEl);
     }
 });
 /**
- * Returns the item associated with the passed key or index.
- * @method
+ * This method calls {@link #item item()}.
+ * Returns the item associated with the passed key OR index. Key has priority over index.  This is the equivalent
+ * of calling {@link #key} first, then if nothing matched calling {@link #itemAt}.
  * @param {String/Number} key The key or index of the item.
- * @return {Object} The item associated with the passed key.
+ * @return {Object} If the item is found, returns the item.  If the item was not found, returns <tt>undefined</tt>.
+ * If an item was found, but is a Class, returns <tt>null</tt>.
  */
 Ext.util.MixedCollection.prototype.get = Ext.util.MixedCollection.prototype.item;

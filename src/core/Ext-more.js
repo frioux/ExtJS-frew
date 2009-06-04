@@ -432,9 +432,11 @@ Ext.zip(
         },
 
         /**
+         * This is shorthand reference to {@link Ext.ComponentMgr#get}.
          * Looks up an existing {@link Ext.Component Component} by {@link Ext.Component#id id}
          * @param {String} id The component {@link Ext.Component#id id}
-         * @return Ext.Component The Component, or null if not found.
+         * @return Ext.Component The Component, <tt>undefined</tt> if not found, or <tt>null</tt> if a
+         * Class was found.
         */
         getCmp : function(id){
             return Ext.ComponentMgr.get(id);

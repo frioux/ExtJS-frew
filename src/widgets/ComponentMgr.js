@@ -36,9 +36,11 @@ Ext.ComponentMgr = function(){
         },
 
         /**
-         * Returns a component by {@link Ext.Component#id id}
+         * Returns a component by {@link Ext.Component#id id}.  
+         * For additional details see {@link Ext.util.MixedCollection#get}.
          * @param {String} id The component {@link Ext.Component#id id}
-         * @return Ext.Component
+         * @return Ext.Component The Component, <tt>undefined</tt> if not found, or <tt>null</tt> if a
+         * Class was found.
          */
         get : function(id){
             return all.get(id);
