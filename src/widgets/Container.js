@@ -383,7 +383,7 @@ items: [
     render : function(){
         Ext.Container.superclass.render.apply(this, arguments);
         if(this.layout){
-            if(typeof this.layout == 'object' && !this.layout.layout){
+            if(Ext.isObject(this.layout) && !this.layout.layout){
                 this.layoutConfig = this.layout;
                 this.layout = this.layoutConfig.type;
             }
@@ -632,7 +632,7 @@ tb.{@link #doLayout}();             // refresh the layout
      * @return Ext.Component
      */
     getComponent : function(comp){
-        if(typeof comp == 'object'){
+        if(Ext.isObject(comp)){
             return comp;
         }
         return this.items.get(comp);

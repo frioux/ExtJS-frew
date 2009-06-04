@@ -410,7 +410,7 @@ new Ext.TabPanel({
             this.readTabs(false);
         }
         if(this.activeTab !== undefined){
-            var item = (typeof this.activeTab == 'object') ? this.activeTab : this.items.get(this.activeTab);
+            var item = Ext.isObject(this.activeTab) ? this.activeTab : this.items.get(this.activeTab);
             delete this.activeTab;
             this.setActiveTab(item);
         }
@@ -648,8 +648,7 @@ new Ext.TabPanel({
      * @return {HTMLElement} The DOM node
      */
     getTabEl : function(item){
-        var itemId = (Ext.isObject(item) ? item : this.getComponent(item)).getItemId();
-        return document.getElementById(this.id+this.idDelimiter+itemId);
+        return document.getElementById(this.id + this.idDelimiter + this.getComponent(item).getItemId());
     },
 
     // private
