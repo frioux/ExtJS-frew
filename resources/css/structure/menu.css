@@ -1,8 +1,11 @@
 .x-menu {
-	border: 1px solid;
 	z-index: 15000;
 	zoom: 1;
 	background: repeat-y;
+}
+
+.x-menu-floating{
+    border: 1px solid;
 }
 
 .x-menu a {

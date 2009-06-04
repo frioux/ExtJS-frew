@@ -1,7 +1,10 @@
 .x-menu {
-	border-color:#718bb7;
     background-color:#f0f0f0;
 	background-image:url(../images/default/menu/menu.gif);
+}
+
+.x-menu-floating{
+    border-color:#718bb7;
 }
 
 .x-menu-nosep {

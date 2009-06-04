@@ -66,12 +66,14 @@
 
     doAutoSize : function(){
         var ct = this.container, w = ct.width;
-        if(w){
-            ct.setWidth(w);
-        }else if(Ext.isIE){
-            ct.setWidth(Ext.isStrict && (Ext.isIE7 || Ext.isIE8) ? 'auto' : ct.minWidth);
-            var el = ct.getEl(), t = el.dom.offsetWidth; // force recalc
-            ct.setWidth(ct.getLayoutTarget().getWidth() + el.getFrameWidth('lr'));
+        if(ct.floating){
+            if(w){
+                ct.setWidth(w);
+            }else if(Ext.isIE){
+                ct.setWidth(Ext.isStrict && (Ext.isIE7 || Ext.isIE8) ? 'auto' : ct.minWidth);
+                var el = ct.getEl(), t = el.dom.offsetWidth; // force recalc
+                ct.setWidth(ct.getLayoutTarget().getWidth() + el.getFrameWidth('lr'));
+            }
         }
     }
 });
@@ -226,6 +228,14 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
             'itemclick'
         );    
         Ext.menu.MenuMgr.register(this);
+        if(this.floating){
+            Ext.EventManager.onWindowResize(this.hide, this);
+        }else{
+            if(this.initialConfig.hidden !== false){
+                this.hidden = false;
+            }
+            this.internalDefaults = {hideOnClick: false};
+        }
         Ext.menu.Menu.superclass.initComponent.call(this);
         if(this.autoLayout){
             this.on({
@@ -234,7 +244,6 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
                 scope: this
             });
         }
-        //Ext.EventManager.onWindowResize(this.hide, this);
     },
 
     //private
@@ -250,7 +259,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
 
         var dh = {
             id: this.getId(),
-            cls: 'x-menu ' + ((this.floating) ? 'x-layer ' : '') + (this.cls || '') + (this.plain ? ' x-menu-plain' : '') + (this.showSeparator ? '' : ' x-menu-nosep'),
+            cls: 'x-menu ' + ((this.floating) ? 'x-menu-floating x-layer ' : '') + (this.cls || '') + (this.plain ? ' x-menu-plain' : '') + (this.showSeparator ? '' : ' x-menu-nosep'),
             style: this.style,
             cn: [
                 {tag: 'a', cls: 'x-menu-focus', href: '#', onclick: 'return false;', tabIndex: '-1'},
@@ -276,12 +285,19 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         // generic focus element
         this.focusEl = this.el.child('a.x-menu-focus');
         this.ul = this.el.child('ul.x-menu-list');
-        this.mon(this.ul, 'click', this.onClick, this);
-        this.mon(this.ul, 'mouseover', this.onMouseOver, this);
-        this.mon(this.ul, 'mouseout', this.onMouseOut, this);
+        this.mon(this.ul, {
+            scope: this,
+            click: this.onClick,
+            mouseover: this.onMouseOver,
+            mouseout: this.onMouseOut
+        });
         if(this.enableScrolling){
-            this.mon(this.el, 'click', this.onScroll, this, {delegate: '.x-menu-scroller'});
-            this.mon(this.el, 'mouseover', this.deactivateActive, this, {delegate: '.x-menu-scroller'});
+            this.mon(this.el, {
+                scope: this,
+                delegate: '.x-menu-scroller',
+                click: this.onScroll,
+                mouseover: this.deactivateActive
+            });
         }
     },
 
@@ -411,13 +427,17 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
      * @param {Ext.menu.Menu} parentMenu (optional) This menu's parent menu, if applicable (defaults to undefined)
      */
     show : function(el, pos, parentMenu){
-        this.parentMenu = parentMenu;
-        if(!this.el){
-            this.render();
-            this.doLayout(false, true);
+        if(this.floating){
+            this.parentMenu = parentMenu;
+            if(!this.el){
+                this.render();
+                this.doLayout(false, true);
+            }
+            this.fireEvent("beforeshow", this);
+            this.showAt(this.el.getAlignToXY(el, pos || this.defaultAlign), parentMenu, false);
+        }else{
+            Ext.menu.Menu.superclass.show.call(this);
         }
-        this.fireEvent("beforeshow", this);
-        this.showAt(this.el.getAlignToXY(el, pos || this.defaultAlign), parentMenu, false);
     },
 
     /**
@@ -450,13 +470,16 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
 
     constrainScroll: function(y){
         var max, full = this.ul.setHeight('auto').getHeight();
-        if (this.maxHeight){
-            max = this.maxHeight - (this.scrollerHeight * 3);
+        if(this.floating){
+            if(this.maxHeight){
+                max = this.maxHeight - (this.scrollerHeight * 3);
+            }else{
+                max = Ext.fly(this.el.dom.parentNode).getViewSize().height - y - (this.scrollerHeight * 3);
+            }
         }else{
-            var ct = Ext.get(this.el.dom.parentNode);
-            max = Ext.fly(this.el.dom.parentNode).getViewSize().height - y - (this.scrollerHeight * 3);
+            max = this.getHeight() - (this.scrollerHeight * 2);
         }
-        if (full > max && max > 0){
+        if(full > max && max > 0){
             this.activeMax = max;
             this.ul.setHeight(max);
             this.createScrollers();
@@ -502,10 +525,12 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
             if(this.enableScrolling){
                 this.constrainScroll(this.el.getTop());
             }
-            if(Ext.isIE){
-              this.layout.doAutoSize();
+            if(this.floating){
+                if(Ext.isIE){
+                    this.layout.doAutoSize();
+                }
+                this.el.sync();
             }
-            this.el.sync();
         }
     },
 
@@ -526,12 +551,12 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
      * @param {Boolean} deep (optional) True to hide all parent menus recursively, if any (defaults to false)
      */
     hide : function(deep){
-        if(this.el){
-            Ext.menu.Menu.superclass.hide.call(this);
+        Ext.menu.Menu.superclass.hide.call(this);
+        if(this.el && this.floating){
             this.el.hide();
-            if(deep === true && this.parentMenu){
-                this.parentMenu.hide(true);
-            }
+        }
+        if(deep === true && this.parentMenu){
+            this.parentMenu.hide(true);
         }
     },
 
@@ -543,24 +568,49 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
 
     // private
     lookupComponent: function(c){
-        var item;
-        if(c.render){ // some kind of Component
-            item = c;
-         }else if(typeof c == "string"){ // string
-             if(c == "separator" || c == "-"){
-                 item = new Ext.menu.Separator();
-             }else{
-                 item = new Ext.menu.TextItem(c);
-             }
-         }else if(c.tagName || c.el){ // element. Wrap it.
-             item = new Ext.BoxComponent({
-                el: c
-             })
-         }else if(typeof c == "object"){ // must be menu item config?
-             Ext.applyIf(c, this.defaults);
-             item = this.getMenuItem(c);
+         if(typeof c == 'string'){
+            c = (c == 'separator' || c == '-') ? new Ext.menu.Separator() : new Ext.menu.TextItem(c);
+             this.applyDefaults(c);
+         }else{
+            if(c.tagName || c.el){ // element. Wrap it.
+                c = new Ext.BoxComponent({
+                    el: c
+                });
+            }else if(Ext.isObject(c)){ // must be menu item config?
+                c = this.getMenuItem(c);
+            }
          }
-         return item;
+         return c;
+    },
+    
+    applyDefaults : function(c){
+        if(typeof c != 'string'){
+            c = Ext.menu.Menu.superclass.applyDefaults.call(this, c);
+            var d = this.internalDefaults;
+            if(d){
+                if(c.events){
+                    Ext.applyIf(c.initialConfig, d);
+                    Ext.apply(c, d);
+                }else{
+                    Ext.applyIf(c, d);
+                }
+            }
+        }
+        return c;
+    },
+    
+    // private
+    getMenuItem: function(config){
+       if(!(config.isXType && config.isXType(Ext.menu.Item))){
+            if(config.xtype){
+                return Ext.create(config, this.defaultType);
+            }else if(typeof config.checked == "boolean"){ // must be check menu item config?
+                return new Ext.menu.CheckItem(config);
+            }else{
+                return new Ext.menu.Item(config);
+            }
+        }
+        return config; 
     },
 
     /**
@@ -596,20 +646,6 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
      */
     addMenuItem : function(config){
         return this.add(this.getMenuItem(config));
-    },
-
-    // private
-    getMenuItem: function(config){
-       if(!(config.isXType && config.isXType(Ext.menu.Item))){
-            if(config.xtype){
-                return Ext.ComponentMgr.create(config, this.defaultType);
-            }else if(typeof config.checked == "boolean"){ // must be check menu item config?
-                return new Ext.menu.CheckItem(config);
-            }else{
-                return new Ext.menu.Item(config);
-            }
-        }
-        return config; 
     },
 
     /**
