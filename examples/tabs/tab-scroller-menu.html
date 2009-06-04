@@ -1,50 +1,40 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-    <title>Hello World Window Example</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Advanced Tabs</title>
     <link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css" />
-
+ 
     <!-- GC -->
  	<!-- LIBS -->
  	<script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
  	<!-- ENDLIBS -->
-
-    <script type="text/javascript" src="../../ext-all.js"></script>
-
-    <script language="javascript" src="hello.js"></script>
-
-<!-- Common Styles for the examples -->
-<link rel="stylesheet" type="text/css" href="../shared/examples.css" />
-
-    <style type="text/css">
-    .x-panel-body p {
-        margin:10px;
-        font-size:12px;
-    }
-    </style>
-</head>
+ 
+    <script type="text/javascript" src="../../ext-all-debug.js"></script>
+ 
+ 
+    <link rel="stylesheet" type="text/css" href="tab-scroller-menu.css" />
+    
+    <script type="text/javascript" src="../ux/TabScrollerMenu.js"></script>
+    <script type="text/javascript" src="tab-scroller-menu.js"></script>
+    <!-- Common Styles for the examples -->
+ 
+    <link rel="stylesheet" type="text/css" href="../shared/examples.css" />
+ 
+</head> 
 <body>
-<script type="text/javascript" src="../shared/examples.js"></script><!-- EXAMPLES -->
-
-<h1>Hello World Window</h1>
-<p>This example shows how to create a very simple modal Window with "autoTabs" from existing markup.</p>
-<input type="button" id="show-btn" value="Hello World" /><br /><br />
-<p>Note that the js is not minified so it is readable. See <a href="hello.js">hello.js</a> for the full source code.</p>
-
-<div id="hello-win" class="x-hidden">
-    <div class="x-window-header">Hello Dialog</div>
-    <div id="hello-tabs">
-        <!-- Auto create tab 1 -->
-        <div class="x-tab" title="Hello World 1">
-            <p>Hello...</p>
-        </div>
-        <!-- Auto create tab 2 -->
-        <div class="x-tab" title="Hello World 2">
-            <p>... World!</p>
-        </div>
-    </div>
-</div>
+    <p>
+    An Example of a "Tab Scroller Menu" plugin.  <p>The js is not minified so it is readable. See <a href="tab-scroller-menu.js">tab-scroller-menu.js</a>.</p>
+ 
+    In order to use this plugin in your code, you need the following files:
+    </p>
+    <ul>
+        <li> <a href="tab-scroller-menu.css">tab-scroller-menu.css</a> : Required CSS file. </li>
+        <li> <a href="tab-scroller-menu.gif">tab-scroller-menu.gif</a> : Required GIF Sprite.</li>
+        <li> <a href="TabScrollerMenu.js">TabScrollerMenu.js</a> : The actual plugin code. </li>
+    </ul>
+ 
 </body>
 </html>
+
 

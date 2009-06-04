@@ -131,8 +131,8 @@
     <include name="widgets\layout\AccordionLayout.js" />
     <include name="widgets\layout\TableLayout.js" />
     <include name="widgets\layout\AbsoluteLayout.js" />
-    <include name="widgets\Viewport.js" />
     <include name="widgets\layout\BoxLayout.js" />
+    <include name="widgets\Viewport.js" />
     <include name="widgets\Panel.js" />
     <include name="widgets\Window.js" />
     <include name="widgets\WindowManager.js" />
