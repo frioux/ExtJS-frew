@@ -369,7 +369,7 @@ var myField = new Ext.form.NumberField({
     },
 
     setValue : function(v){
-        if(this.emptyText && this.el && Ext.isEmpty(v)){
+        if(this.emptyText && this.el && !Ext.isEmpty(v)){
             this.el.removeClass(this.emptyClass);
         }
         Ext.form.TextField.superclass.setValue.apply(this, arguments);
