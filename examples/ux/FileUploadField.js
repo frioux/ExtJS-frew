@@ -84,7 +84,7 @@ Ext.ux.FileUploadField = Ext.extend(Ext.form.TextField,  {
     
     // private
     getFileInputId: function(){
-        return this.id+'-file';
+        return this.id + '-file';
     },
     
     // private
@@ -98,6 +98,13 @@ Ext.ux.FileUploadField = Ext.extend(Ext.form.TextField,  {
             this.el.setWidth(w);
         }
     },
+    
+    // private
+    onDestroy: function(){
+        Ext.form.FileUploadField.superclass.onDestroy.call(this);
+        Ext.destroy(this.fileInput, this.button, this.wrap);
+    },
+
     
     // private
     preFocus : Ext.emptyFn,
