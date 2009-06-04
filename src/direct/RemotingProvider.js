@@ -203,21 +203,19 @@ TestAction.multiply(
         var o = {
             url: this.url,
             callback: this.onData,
-            scope: this
+            scope: this,
+            ts: data
         };
 
         // send only needed data
         var callData;
         if(Ext.isArray(data)){
             callData = [];
-            o.ts = [];
             for(var i = 0, len = data.length; i < len; i++){
                 callData.push(this.getCallData(data[i]));
-                o.ts.push(data[i]);
             }
         }else{
             callData = this.getCallData(data);
-            o.ts = data;
         }
 
         if(this.enableUrlEncode){
