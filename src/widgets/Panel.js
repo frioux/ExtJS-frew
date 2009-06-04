@@ -1375,7 +1375,7 @@ new Ext.Panel({
                         this.collapseDefaults));
         }else{
             this[this.collapseEl].hide();
-            this.afterCollapse(doAnim);
+            this.afterCollapse(false);
         }
     },
 
@@ -1383,7 +1383,7 @@ new Ext.Panel({
     afterCollapse : function(doAnim){
         this.collapsed = true;
         this.el.addClass(this.collapsedCls);
-        if(doAnim){
+        if(doAnim !== false){
             this.afterEffect();
         }
         this.fireEvent('collapse', this);
@@ -1402,7 +1402,9 @@ new Ext.Panel({
         }
         var doAnim = animate === true || (animate !== false && this.animCollapse);
         this.el.removeClass(this.collapsedCls);
-        this.beforeEffect();
+        if(doAnim){
+            this.beforeEffect();
+        }
         this.onExpand(doAnim, animate);
         return this;
     },
@@ -1415,14 +1417,17 @@ new Ext.Panel({
                         this.expandDefaults));
         }else{
             this[this.collapseEl].show();
-            this.afterExpand();
+            this.afterExpand(false);
         }
     },
 
     // private
-    afterExpand: function(){
+    afterExpand: function(doAnim){
         this.collapsed = false;
-        this.afterEffect();
+        if(doAnim !== false){
+            console.log('here');
+            this.afterEffect();
+        }
         if(this.deferLayout !== undefined){
             this.doLayout(true);
         }
