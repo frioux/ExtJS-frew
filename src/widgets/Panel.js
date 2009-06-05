@@ -673,8 +673,9 @@ new Ext.Panel({
     /**
      * @cfg {Boolean} preventBodyReset
      * Defaults to <tt>false</tt>.  When set to <tt>true</tt>, an extra css class <tt>'x-panel-normal'</tt>
-     * will be added the the panel's element, effectively applying css styles suggested by the W3C
-     * (see http://www.w3.org/TR/CSS21/sample.html) to the Panel's body element.
+     * will be added to the panel's element, effectively applying css styles suggested by the W3C
+     * (see http://www.w3.org/TR/CSS21/sample.html) to the Panel's <b>body</b> element (not the header,
+     * footer, etc.).
      */
     preventBodyReset: false,
 
