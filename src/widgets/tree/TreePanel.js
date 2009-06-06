@@ -87,6 +87,7 @@ new Ext.Viewport({
         // remaining code not shown ...
     }]
 });
+</code></pre>
  * 
  * @cfg {Ext.tree.TreeNode} root The root node for the tree.
  * @cfg {Boolean} rootVisible <tt>false</tt> to hide the root node (defaults to <tt>true</tt>)
