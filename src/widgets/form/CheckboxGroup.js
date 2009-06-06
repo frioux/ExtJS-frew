@@ -48,7 +48,7 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
     defaultType : 'checkbox',
     
     // private
-    groupCls: 'x-form-check-group',
+    groupCls : 'x-form-check-group',
     
     // private
     onRender : function(ct, position){
@@ -160,7 +160,7 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
         Ext.form.CheckboxGroup.superclass.onRender.call(this, ct, position);
     },
     
-    afterRender: function(){
+    afterRender : function(){
         Ext.form.CheckboxGroup.superclass.afterRender.call(this);
         if(this.values){
             this.setValue.apply(this, this.values);
@@ -217,8 +217,9 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
     
     /**
      * Sets the checked radio in the group.
-     * @param {Mixed} id The checkbox to check. This can also be an array of boolean values, or an object literal containing the set of values, eg:
-         * <pre><code>
+     * @param {Mixed} id The checkbox to check. This can also be an array of
+     * boolean values, or an object literal containing the set of values, eg:
+     * <pre><code>
 group.setValues([true, true, false, true, false]);
 group.setValues({
     check1: true,
@@ -262,7 +263,7 @@ group.setValues({
         }
     },
     
-    setValueForItem: function(val){
+    setValueForItem : function(val){
         val = String(val).split(',');
         this.items.each(function(item){
             if(val.indexOf(item.inputValue)> -1){
@@ -272,7 +273,7 @@ group.setValues({
     },
     
     // private
-    getBox: function(id){
+    getBox : function(id){
         var box = null;
         this.items.each(function(f){
             if(id == f || f.dataIndex == id || f.id == id || f.getName() == id){
@@ -287,7 +288,7 @@ group.setValues({
      * Gets an array of the selected {@link Ext.form.Checkbox} in the group.
      * @return {Array} An array of the selected checkboxes.
      */
-    getValue: function(){
+    getValue : function(){
         var out = [];
         if(this.items){
             this.items.each(function(item){
