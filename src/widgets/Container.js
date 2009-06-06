@@ -44,37 +44,50 @@ var embeddedColumns = new Ext.Container({
 });</code></pre></p>
  * 
  * <p><u><b>Layout</b></u></p> 
- * <p>Container classes delegate the rendering of child Components to a layout manager class which must be
- * configured into the Container using the <code><b>{@link #layout}</b></code> configuration property.</p>
- * <p>When either specifying child <code>{@link #items}</code> of a Container, or dynamically {@link #add adding} Components
- * to a Container, remember to consider how you wish the Container to arrange those child elements, and whether
- * those child elements need to be sized using one of Ext's built-in <b><code>{@link #layout}</code></b> schemes. By
- * default, Containers use the {@link Ext.layout.ContainerLayout ContainerLayout} scheme. This simply renders
- * child components, appending them one after the other inside the Container, and <b>does not apply any sizing</b>
- * at all.</p>
- * <p>A common mistake is when a developer neglects to specify a <b><code>{@link #layout}</code></b> (eg. widgets like
- * GridPanels or TreePanels are added to Containers for which no <tt><b>{@link #layout}</b></tt> has been specified).
- * If a Container is left to use the default {@link Ext.layout.ContainerLayout ContainerLayout} scheme, none of its
- * child components will be resized, or changed in any way when the Container is resized.</p>
- * <p>Another variation of this problem is when a developer will attempt to add a GridPanel to a TabPanel by wrapping
- * the GridPanel <i>inside</i> a wrapping Panel (that has no <tt><b>{@link #layout}</b></tt> specified) and add that
- * wrapping Panel to the TabPanel (also known as "overnesting"). A GridPanel <b>is</b> a Component which can be added unadorned into a Container.
- * If that wrapping Panel has no <tt><b>{@link #layout}</b></tt> configuration, then the GridPanel will not be sized
- * as expected.<p>
- * <p>Below is an example of adding a newly created GridPanel to a TabPanel. Note that a TabPanel uses
- * {@link Ext.layout.CardLayout} as its layout manager which means all its child items are sized to
- * {@link Ext.layout.FitLayout fit} exactly into its client area. The following code requires prior knowledge of
- * how to create GridPanels. See {@link Ext.grid.GridPanel}, {@link Ext.data.Store} and {@link Ext.data.JsonReader}
- * as well as the grid examples in the Ext installation's <tt>examples/grid</tt> directory.</p><pre><code>
+ * <p>Container classes delegate the rendering of child Components to a layout
+ * manager class which must be configured into the Container using the
+ * <code><b>{@link #layout}</b></code> configuration property.</p>
+ * <p>When either specifying child <code>{@link #items}</code> of a Container,
+ * or dynamically {@link #add adding} Components to a Container, remember to
+ * consider how you wish the Container to arrange those child elements, and
+ * whether those child elements need to be sized using one of Ext's built-in
+ * <b><code>{@link #layout}</code></b> schemes. By default, Containers use the
+ * {@link Ext.layout.ContainerLayout ContainerLayout} scheme which only
+ * renders child components, appending them one after the other inside the
+ * Container, and <b>does not apply any sizing</b> at all.</p>
+ * <p>A common mistake is when a developer neglects to specify a
+ * <b><code>{@link #layout}</code></b> (eg. widgets like GridPanels or
+ * TreePanels are added to Containers for which no <tt><b>{@link #layout}</b></tt>
+ * has been specified). If a Container is left to use the default
+ * {@link Ext.layout.ContainerLayout ContainerLayout} scheme, none of its
+ * child components will be resized, or changed in any way when the Container
+ * is resized.</p>
+ * <p>Certain layout managers allow dynamic addition of child components.
+ * Those that do include {@link Ext.layout.CardLayout},
+ * {@link Ext.layout.AnchorLayout}, {@link Ext.layout.FormLayout}, and 
+ * {@link Ext.layout.TableLayout}. For example:<pre><code>
 //  Create the GridPanel.
-myGrid = new Ext.grid.GridPanel({
+var myNewGrid = new Ext.grid.GridPanel({
     store: myStore,
     columns: myColumnModel,
     title: 'Results', // the title becomes the title of the tab
 });
 
-myTabPanel.add(myGrid);
-myTabPanel.setActiveTab(myGrid);
+myTabPanel.add(myNewGrid); // {@link Ext.TabPanel} implicitly uses {@link Ext.layout.CardLayout CardLayout}
+myTabPanel.{@link Ext.TabPanel#setActiveTab setActiveTab}(myNewGrid);
+ * </code></pre></p> 
+ * <p>The example above adds a newly created GridPanel to a TabPanel. Note that
+ * a TabPanel uses {@link Ext.layout.CardLayout} as its layout manager which
+ * means all its child items are sized to {@link Ext.layout.FitLayout fit}
+ * exactly into its client area.
+ * <p><b><u>Overnesting is a common problem</u></b>.  
+ * An example of overnesting occurs when a GridPanel is added to a TabPanel
+ * by wrapping the GridPanel <i>inside</i> a wrapping Panel (that has no
+ * <tt><b>{@link #layout}</b></tt> specified) and then add that wrapping Panel
+ * to the TabPanel. The point to realize is that a GridPanel <b>is</b> a
+ * Component which can be added directly to a Container. If the wrapping Panel
+ * has no <tt><b>{@link #layout}</b></tt> configuration, then the overnested
+ * GridPanel will not be sized as expected.<p>
 </code></pre>
  * 
  * <p><u><b>Adding via remote configuration</b></u></p>
@@ -161,7 +174,25 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
      */
     /**
      * @cfg {String/Object} layout
-     * Specify the layout manager class for this container either as an Object or as a String:
+     * When creating complex UIs, it is important to remember that sizing and
+     * positioning of child items is the responsibility of the Container's
+     * layout manager. If you expect child items to be sized in response to
+     * user interactions, <b>you must specify a layout manager</b> which
+     * creates and manages the type of layout you have in mind.  For example:<pre><code>
+new Ext.Window({
+    width:300, height: 300,
+    layout: 'fit', // explicitly set layout manager: override the default (layout:'auto')
+    items: [{
+        title: 'Panel inside a Window'
+    }]
+}).show();
+     * </code></pre> 
+     * <p>Omitting the {@link #layout} config means that the
+     * {@link Ext.layout.ContainerLayout default layout manager} will be used which does
+     * nothing but render child components sequentially into the Container (no sizing or
+     * positioning will be performed in this situation).</p>
+     * <p>The layout manager class for this container may be specified as either as an
+     * Object or as a String:</p>
      * <div><ul class="mdetail-params">
      * 
      * <li><u>Specify as an Object</u></li>
@@ -176,8 +207,8 @@ layout: {
 </code></pre>
      * 
      * <li><tt><b>type</b></tt></li>
-     * <br/><p>The layout type to be used for this container.  If not specified, a default {@link Ext.layout.ContainerLayout}
-     * will be created and used.</p>
+     * <br/><p>The layout type to be used for this container.  If not specified,
+     * a default {@link Ext.layout.ContainerLayout} will be created and used.</p>
      * <br/><p>Valid layout <tt>type</tt> values are:</p>
      * <div class="sub-desc"><ul class="mdetail-params">
      * <li><tt><b>{@link Ext.layout.AbsoluteLayout absolute}</b></tt></li>
@@ -197,8 +228,10 @@ layout: {
      * </ul></div>
      * 
      * <li>Layout specific configuration properties</li>
-     * <br/><p>Additional layout specific configuration properties may also be specified. For complete details regarding
-     * the valid config options for each layout type, see the layout class corresponding to the <tt>type</tt> specified.</p>
+     * <br/><p>Additional layout specific configuration properties may also be
+     * specified. For complete details regarding the valid config options for
+     * each layout type, see the layout class corresponding to the <tt>type</tt>
+     * specified.</p>
      * 
      * </ul></div>
      * 
@@ -213,16 +246,19 @@ layoutConfig: {
 } 
 </code></pre>
      * <li><tt><b>layout</b></tt></li>
-     * <br/><p>The layout <tt>type</tt> to be used for this container (see list of valid layout type values above).</p><br/>
+     * <br/><p>The layout <tt>type</tt> to be used for this container (see list
+     * of valid layout type values above).</p><br/>
      * <li><tt><b>{@link #layoutConfig}</b></tt></li>
-     * <br/><p>Additional layout specific configuration properties. For complete details regarding the valid config
-     * options for each layout type, see the layout class corresponding to the <tt>layout</tt> specified.</p>
+     * <br/><p>Additional layout specific configuration properties. For complete
+     * details regarding the valid config options for each layout type, see the
+     * layout class corresponding to the <tt>layout</tt> specified.</p>
      * </ul></div></ul></div>
      */
     /**
      * @cfg {Object} layoutConfig
-     * This is a config object containing properties specific to the chosen <b><code>{@link #layout}</code></b> if
-     * <b><code>{@link #layout}</code></b> has been specified as a <i>string</i>.</p>
+     * This is a config object containing properties specific to the chosen
+     * <b><code>{@link #layout}</code></b> if <b><code>{@link #layout}</code></b>
+     * has been specified as a <i>string</i>.</p>
      */    
     /**
      * @cfg {Boolean/Number} bufferResize
@@ -239,18 +275,35 @@ layoutConfig: {
      * {@link Ext.layout.FitLayout}).  Related to {@link Ext.layout.ContainerLayout#activeItem}.
      */
     /**
-     * @cfg {Mixed} items
-     * A single item, or an array of child Components to be added to this container.
-     * Each item can be any type of object based on {@link Ext.Component}.<br><br>
-     * Component config objects may also be specified in order to avoid the overhead
-     * of constructing a real Component object if lazy rendering might mean that the
-     * added Component will not be rendered immediately. To take advantage of this
-     * "lazy instantiation", set the {@link Ext.Component#xtype} config property to
-     * the registered type of the Component wanted.<br><br>
-     * For a list of all available xtypes, see {@link Ext.Component}.
-     * If a single item is being passed, it should be passed directly as an object
-     * reference (e.g., items: {...}).  Multiple items should be passed as an array
-     * of objects (e.g., items: [{...}, {...}]).
+     * @cfg {Object/Array} items
+     * <pre><b>** IMPORTANT</b>: be sure to specify a <b><code>{@link #layout}</code> ! **</b></pre>
+     * <p>A single item, or an array of child Components to be added to this container,
+     * for example:</p>
+     * <pre><code>
+// specifying a single item
+items: {...}
+
+// specifying multiple items
+items: [{...}, {...}]
+     * </code></pre>
+     * <p>Each item may be:</p>
+     * <div><ul class="mdetail-params">
+     * <li>any type of object based on {@link Ext.Component}</li>
+     * <li>a fully instanciated object or</li>
+     * <li>an object literal that:</li>
+     * <div><ul class="mdetail-params">
+     * <li>has a specified <code>{@link Ext.Component#xtype xtype}</code></li>
+     * <li>the {@link Ext.Component#xtype} specified is associated with the Component
+     * desired and should be chosen from one of the available xtypes as listed
+     * in {@link Ext.Component}.</li>
+     * <li>If an <code>{@link Ext.Component#xtype xtype}</code> is not explicitly
+     * specified, the {@link #defaultType} for that Container is used.</li>
+     * <li>will be "lazily instanciated", avoiding the overhead of constructing a fully
+     * instanciated Component object</li>
+     * </ul></div></ul></div>
+     * <p>Note: Ext uses lazy rendering. Child Components will only be rendered
+     * should it become necessary, that is: when the Container is layed out either
+     * on first render or in response to a {@link #doLayout} call.</p>
      */
     /**
      * @cfg {Object} defaults
@@ -424,46 +477,17 @@ items: [
     },
 
     /**
-     * <p>Add a {@link Ext.Component Component} to this Container.</p><br>
-     * <div><ul>
-     * <li><b>Description</b> : <ul>
-     * <div class="sub-desc">Fires the {@link #beforeadd} event before adding, then fires
-     * the {@link #add} event after the component has been added.</div>
-     * </ul></li>
-     * <li><b>Notes</b> : <ul>
-     * <div class="sub-desc">When creating complex UIs, it is important to remember that
-     * sizing and positioning of child items is the responsibility of the Container's
-     * {@link #layout} manager. If you expect child items to be sized in response to user
-     * interactions, <b>you must specify a layout manager</b> which creates and manages
-     * the type of layout you have in mind.  For example:<pre><code>
-new Ext.Window({
-    width:300, height: 300,
-    layout: 'fit', // explicitly set layout manager: override the default (layout:'auto')
-    items: [{
-        title: 'Panel inside a Window'
-    }]
-}).show();
-     * </code></pre> 
-     * Omitting the {@link #layout} config means that the
-     * {@link Ext.layout.ContainerLayout default layout manager} will be used which does
-     * nothing but render child components sequentially into the Container (no sizing or
-     * positioning will be performed in this situation).</b></div>
-     * <div class="sub-desc">You should never specify {@link Ext.Component#renderTo renderTo}
-     * or call the {@link Ext.Component#render render method} of a child Component when
-     * using a Container as child Components of this container are rendered/managed by
-     * this container's {@link #layout} manager.</div>
-     * <div class="sub-desc">Certain layout managers allow dynamic addition of child
-     * components. Those that do include {@link Ext.layout.CardLayout},
-     * {@link Ext.layout.AnchorLayout}, {@link Ext.layout.FormLayout}, and 
-     * {@link Ext.layout.TableLayout}. For example:<pre><code>
-var myNewGrid = new Ext.grid.GridPanel({
-    store: myStore,
-    colModel: myColModel
-});
-myTabPanel.add(myNewGrid); // {@link Ext.TabPanel} implicitly uses {@link Ext.layout.CardLayout CardLayout}
-myTabPanel.{@link Ext.TabPanel#setActiveTab setActiveTab}(myNewGrid);
-     * </code></pre></div>
-     * <div class="sub-desc">If the Container is <i>already rendered</i> when <tt>add</tt>
+     * <p>Adds {@link Ext.Component Component}(s) to this Container.</p>
+     * <br><p><b>Description</b></u> :
+     * <div><ul class="mdetail-params">
+     * <li>Fires the {@link #beforeadd} event before adding</li>
+     * <li>The Container's {@link #defaults default config values} will be applied
+     * accordingly (see <code>{@link #defaults}</code> for details).</li>
+     * <li>Fires the {@link #add} event after the component has been added.</li>
+     * </ul></div>
+     * <br><p><b>Notes</b></u> :
+     * <div><ul class="mdetail-params">
+     * <li>If the Container is <i>already rendered</i> when <tt>add</tt>
      * is called, you may need to call {@link #doLayout} to refresh the view which causes
      * any unrendered child Components to be rendered. This is required so that you can
      * <tt>add</tt> multiple child components if needed while only refreshing the layout
@@ -473,26 +497,17 @@ tb.render(document.body);  // toolbar is rendered
 tb.add({text:'Button 1'}); // add multiple items ({@link #defaultType} for {@link Ext.Toolbar Toolbar} is 'button')
 tb.add({text:'Button 2'});
 tb.{@link #doLayout}();             // refresh the layout
-     * </code></pre></div>
-     * <div class="sub-desc"><i>Warning:</i> Containers directly managed by the BorderLayout layout manager
+     * </code></pre></li>
+     * <li><i>Warning:</i> Containers directly managed by the BorderLayout layout manager
      * may not be removed or added.  See the Notes for {@link Ext.layout.BorderLayout BorderLayout}
-     * for more details.</div>
-     * </ul></li>
+     * for more details.</li>
      * </ul></div>
-     * @param {Ext.Component/Object} component The Component to add.<br><br>
-     * Ext uses lazy rendering, and will only render the added Component should
-     * it become necessary, that is: when the Container is layed out either on first render
-     * or in response to a {@link #doLayout} call.<br><br>
-     * A Component config object may be passed instead of an instantiated Component object.
-     * The type of Component created from a config object is determined by the
-     * <code>{@link Ext.Component#xtype xtype}</code> config property. If no <tt>xtype</tt>
-     * is configured, the Container's {@link #defaultType} is used.<br><br>
-     * For a list of all available <tt>{@link Ext.Component#xtype xtypes}</tt>, see
-     * {@link Ext.Component}.<code>{@link Ext.Component#xtype xtype}</code>.
-     * @param {Ext.Component/Object} component2
-     * @param {Ext.Component/Object} etc
-     * @return {Ext.Component} component The Component (or config object) that was
-     * added with the {@link #defaults Container's default config values} applied.
+     * @param {Object/Array} component
+     * <p>Either a single component or an Array of components to add.  See
+     * <code>{@link #items}</code> for additional information.</p>
+     * @param {Object} (Optional) component_2
+     * @param {Object} (Optional) component_n
+     * @return {Ext.Component} component The Component (or config object) that was added.
      */
     add : function(comp){
         this.initItems();

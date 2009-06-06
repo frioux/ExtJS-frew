@@ -584,11 +584,11 @@ new Ext.Panel({
      * <p>Specify the id of the element, a DOM element or an existing Element that this component
      * will be rendered into.</p><div><ul>
      * <li><b>Notes</b> : <ul>
-     * <div class="sub-desc">When using this config, a call to render() is not required.</div>
      * <div class="sub-desc">Do <u>not</u> use this option if the Component is to be a child item of
      * a {@link Ext.Container Container}. It is the responsibility of the
      * {@link Ext.Container Container}'s {@link Ext.Container#layout layout manager}
-     * to render its child items.</div>
+     * to render and manage its child items.</div>
+     * <div class="sub-desc">When using this config, a call to render() is not required.</div>
      * </ul></li>
      * </ul></div>
      * <p>See <tt>{@link #render}</tt> also.</p>
