@@ -23,13 +23,13 @@ Ext.form.RadioGroup = Ext.extend(Ext.form.CheckboxGroup, {
     defaultType : 'radio',
     
     // private
-    groupCls: 'x-form-radio-group',
+    groupCls : 'x-form-radio-group',
     
     /**
      * Gets the selected {@link Ext.form.Radio} in the group, if it exists.
      * @return {Ext.form.Radio} The selected radio.
      */
-    getValue: function(){
+    getValue : function(){
         var out = null;
         if(this.items){
             this.items.each(function(item){
@@ -48,7 +48,7 @@ Ext.form.RadioGroup = Ext.extend(Ext.form.CheckboxGroup, {
      * @param {Boolean} value The value to set the radio.
      * @return {Ext.form.RadioGroup} this
      */
-    setValue: function(id, value){
+    setValue : function(id, value){
         if(this.rendered){
             if(arguments.length > 1){
                 var f = this.getBox(id);
