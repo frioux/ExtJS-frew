@@ -185,7 +185,8 @@ rec.{@link #commit}();
 rec.{@link #data}['firstname'] = 'Wilma'); // updates record, but not the view
 rec.{@link #commit}(); // updates the view
      * </code></pre>
-     *
+     * <b>Note</b>: see <code>{@link #beginEdit}</code> to prevent the store's <code>update</code>
+     * event firing. 
      * @param {String} name The {@link Ext.data.Field#name name of the field} to set.
      * @param {Object} value The value to set the field to.
      */
@@ -237,7 +238,9 @@ rec.{@link #commit}(); // updates the view
     },
 
     /**
-     * Begin an edit. While in edit mode, no events are relayed to the containing store.
+     * Begin an edit. While in edit mode, no events (eg. the <code>update</code> event)
+     * are relayed to the containing store.  
+     * See also: <code>{@link #endEdit}</code> and <code>{@link #cancelEdit}</code>. 
      */
     beginEdit : function(){
         this.editing = true;
@@ -253,7 +256,8 @@ rec.{@link #commit}(); // updates the view
     },
 
     /**
-     * End an edit. If any data was modified, the containing store is notified.
+     * End an edit. If any data was modified, the containing store is notified
+     * (ie, the store's <code>update</code> event will fire).
      */
     endEdit : function(){
         this.editing = false;
@@ -266,10 +270,10 @@ rec.{@link #commit}(); // updates the view
      * Usually called by the {@link Ext.data.Store} which owns the Record.
      * Rejects all changes made to the Record since either creation, or the last commit operation.
      * Modified fields are reverted to their original values.
-     * <p>
-     * Developers should subscribe to the {@link Ext.data.Store#update} event to have their code notified
-     * of reject operations.
-     * @param {Boolean} silent (optional) True to skip notification of the owning store of the change (defaults to false)
+     * <p>Developers should subscribe to the {@link Ext.data.Store#update} event
+     * to have their code notified of reject operations.</p>
+     * @param {Boolean} silent (optional) True to skip notification of the owning
+     * store of the change (defaults to false)
      */
     reject : function(silent){
         var m = this.modified;
@@ -289,10 +293,10 @@ rec.{@link #commit}(); // updates the view
     /**
      * Usually called by the {@link Ext.data.Store} which owns the Record.
      * Commits all changes made to the Record since either creation, or the last commit operation.
-     * <p>
-     * Developers should subscribe to the {@link Ext.data.Store#update} event to have their code notified
-     * of commit operations.
-     * @param {Boolean} silent (optional) True to skip notification of the owning store of the change (defaults to false)
+     * <p>Developers should subscribe to the {@link Ext.data.Store#update} event
+     * to have their code notified of commit operations.</p>
+     * @param {Boolean} silent (optional) True to skip notification of the owning
+     * store of the change (defaults to false)
      */
     commit : function(silent){
         this.dirty = false;
@@ -329,7 +333,9 @@ rec.{@link #commit}(); // updates the view
 
     /**
      * Creates a copy of this Record.
-     * @param {String} id (optional) A new Record id, defaults to {@link #Record.id autogenerating an id}
+     * @param {String} id (optional) A new Record id, defaults to {@link #Record.id autogenerating an id}.
+     * Note: if an <code>id</code> is not specified the copy created will be a
+     * <code>{@link #phantom}</code> Record.
      * @return {Record}
      */
     copy : function(newId) {
@@ -337,7 +343,8 @@ rec.{@link #commit}(); // updates the view
     },
 
     /**
-     * Returns <tt>true</tt> if the passed field name has been {@link #modified} since the load or last commit.
+     * Returns <tt>true</tt> if the passed field name has been <code>{@link #modified}</code>
+     * since the load or last commit.
      * @param {String} fieldName {@link Ext.data.Field.{@link Ext.data.Field#name}
      * @return {Boolean}
      */
@@ -346,7 +353,6 @@ rec.{@link #commit}(); // updates the view
     },
 
     /**
-     * isValid
      * By default returns <tt>false</tt> if any {@link Ext.data.Field field} within the
      * record configured with <tt>{@link Ext.data.Field#allowBlank} = false</tt> returns
      * <tt>true</tt> from an {@link Ext}.{@link Ext#isEmpty isempty} test.
@@ -359,10 +365,13 @@ rec.{@link #commit}(); // updates the view
     },
 
     /**
-     * Marks all fields as <tt>{@link #dirty}</tt>.  Useful when adding <tt>{@link #phantom}</tt>
-     * records to a grid which have not yet been inserted on the serverside.  Marking a new record
-     * <tt>{@link #dirty}</tt> causes the phantom to be returned by {@link Ext.data.Store#getModifiedRecords}
-     * where it will have a create action composed for it.
+     * <p>Marks this <b>Record</b> as <code>{@link #dirty}</code>.  This method
+     * is used interally when adding <code>{@link #phantom}</code> records to a
+     * {@link Ext.data.Store#writer writer enabled store}.</p>
+     * <br><p>Marking a record <code>{@link #dirty}</code> causes the phantom to
+     * be returned by {@link Ext.data.Store#getModifiedRecords} where it will
+     * have a create action composed for it during {@link Ext.data.Store#save store save}
+     * operations.</p>
      */
     markDirty : function(){
         this.dirty = true;

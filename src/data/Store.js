@@ -59,7 +59,7 @@ var defaultData = {
 };
 var recId = 100; // provide unique id for the record
 var r = new myStore.recordType(defaultData, ++recId); // create new record
-myStore.insert(0, r); // add new record to the store
+myStore.{@link #insert}(0, r); // insert a new record into the store (also see {@link #add}) 
  * </code></pre>
  * @constructor
  * Creates a new Store.
@@ -193,7 +193,7 @@ var grid = new Ext.grid.EditorGridPanel({
             var recId = 3; // provide unique id
             var p = new store.recordType(defaultData, recId); // create new record
             grid.stopEditing();
-            store.insert(0, p); // add new record to the store
+            store.{@link #insert}(0, p); // insert a new record into the store (also see {@link #add})
             grid.startEditing(0, 0);
         }
     }]
@@ -569,8 +569,11 @@ sortInfo: {
     },
 
     /**
-     * Add Records to the Store and fires the {@link #add} event.
-     * @param {Ext.data.Record[]} records An Array of Ext.data.Record objects to add to the cache. See {@link #recordType}.
+     * Add Records to the Store and fires the {@link #add} event.  To add Records
+     * to the store from a remote source use <code>{@link #load}({add:true})</code>.
+     * See also <code>{@link #recordType}</code> and <code>{@link #insert}</code>. 
+     * @param {Ext.data.Record[]} records An Array of Ext.data.Record objects
+     * to add to the cache. See {@link #recordType}.
      */
     add : function(records){
         records = [].concat(records);
@@ -640,6 +643,7 @@ sortInfo: {
 
     /**
      * Inserts Records into the Store at the given index and fires the {@link #add} event.
+     * See also <code>{@link #add}</code> and <code>{@link #addSorted}</code>. 
      * @param {Number} index The start index at which to insert the passed Records.
      * @param {Ext.data.Record[]} records An Array of Ext.data.Record objects to add to the cache.
      */
@@ -709,7 +713,7 @@ sortInfo: {
     /**
      * Loads the Record cache from the configured <tt>{@link #proxy}</tt> using the configured <tt>{@link #reader}</tt>.
      * <p>If using remote paging, then the first load call must specify the <tt>start</tt>
-     * and <tt>limit</tt> properties in the options.params property to establish the initial
+     * and <tt>limit</tt> properties in the <code>options.params</code> property to establish the initial
      * position within the dataset, and the number of Records to cache on each read from the Proxy.</p>
      * <p><b>Important</b>: loading is asynchronous, so this call will return before the new data has been
      * loaded. To perform any post-processing where information from the load call is required, use the
@@ -1088,8 +1092,8 @@ sortInfo: {
      * @param {Boolean} append (Optional) <tt>true</tt> to append the new Records rather the default to replace
      * the existing cache.
      * <b>Note</b>: that Records in a Store are keyed by their {@link Ext.data.Record#id id}, so added Records
-     * with ids which are already present in the Store will <i>replace</i> existing Records. Records with new,
-     * unique ids will be added.
+     * with ids which are already present in the Store will <i>replace</i> existing Records. Only Records with
+     * new, unique ids will be added.
      */
     loadData : function(o, append){
         var r = this.reader.readRecords(o);
