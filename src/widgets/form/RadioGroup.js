@@ -9,13 +9,14 @@
  */
 Ext.form.RadioGroup = Ext.extend(Ext.form.CheckboxGroup, {
     /**
-     * @cfg {Boolean} allowBlank True to allow every item in the group to be blank (defaults to false). If allowBlank = 
-     * false and no items are selected at validation time, {@link @blankText} will be used as the error text.
+     * @cfg {Boolean} allowBlank True to allow every item in the group to be blank (defaults to true).
+     * If allowBlank = false and no items are selected at validation time, {@link @blankText} will
+     * be used as the error text.
      */
     allowBlank : true,
     /**
-     * @cfg {String} blankText Error text to display if the {@link #allowBlank} validation fails (defaults to "You must 
-     * select one item in this group")
+     * @cfg {String} blankText Error text to display if the {@link #allowBlank} validation fails
+     * (defaults to "You must select one item in this group")
      */
     blankText : "You must select one item in this group",
     

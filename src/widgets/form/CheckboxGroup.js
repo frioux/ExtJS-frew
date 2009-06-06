@@ -1,7 +1,23 @@
 /**
  * @class Ext.form.CheckboxGroup
  * @extends Ext.form.Field
- * A grouping container for {@link Ext.form.Checkbox} controls.
+ * <p>A grouping container for {@link Ext.form.Checkbox} controls.</p>
+ * <p>Sample usage:</p>
+ * <pre><code>
+var myCheckboxGroup = new Ext.form.CheckboxGroup({
+    id:'myGroup',
+    xtype: 'checkboxgroup',
+    fieldLabel: 'Single Column',
+    itemCls: 'x-check-group-alt',
+    // Put all controls in a single column with width 100%
+    columns: 1,
+    items: [
+        {boxLabel: 'Item 1', name: 'cb-col-1'},
+        {boxLabel: 'Item 2', name: 'cb-col-2', checked: true},
+        {boxLabel: 'Item 3', name: 'cb-col-3'}
+    ]
+});
+ * </code></pre>
  * @constructor
  * Creates a new CheckboxGroup
  * @param {Object} config Configuration options
@@ -67,7 +83,7 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
                     hideLabel: true,
                     anchor: '100%'
                 }
-            }
+            };
             
             if(this.items[0].items){
                 
@@ -77,10 +93,10 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
                     layoutConfig: {columns: this.items.length},
                     defaults: this.defaults,
                     items: this.items
-                })
+                });
                 for(var i=0, len=this.items.length; i<len; i++){
                     Ext.applyIf(this.items[i], colCfg);
-                };
+                }
                 
             }else{
                 
@@ -216,19 +232,25 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
     },
     
     /**
-     * Sets the checked radio in the group.
-     * @param {Mixed} id The checkbox to check. This can also be an array of
-     * boolean values, or an object literal containing the set of values, eg:
+     * {@link Ext.form.Checkbox#setValue Set the value(s)} of an item or items
+     * in the group. Examples illustrating how this method may be called:
      * <pre><code>
-group.setValues([true, true, false, true, false]);
-group.setValues({
-    check1: true,
-    check2: false,
-    check3: false
+// call with name and value
+myCheckboxGroup.setValue('cb-col-1', true);
+// call with an array of boolean values 
+myCheckboxGroup.setValue([true, false, false]);
+// call with an object literal specifying item:value pairs
+myCheckboxGroup.setValue({
+    'cb-col-2': false,
+    'cb-col-3': true
 });
-         * </code></pre> 
-     * @param {Boolean} value (optional) The value to set the radio.
-     * @return {Ext.form.RadioGroup} this
+// use comma separated string to set items with name to true (checked)
+myCheckboxGroup.setValue('cb-col-1,cb-col-3');
+     * </code></pre>
+     * See {@link Ext.form.Checkbox#setValue} for additional information.
+     * @param {Mixed} id The checkbox to check, or as described by example shown.
+     * @param {Boolean} value (optional) The value to set the item.
+     * @return {Ext.form.CheckboxGroup} this
      */
     setValue : function(id, value){
         if(this.rendered){
@@ -261,6 +283,7 @@ group.setValues({
         }else{
             this.values = arguments;
         }
+        return this;
     },
     
     setValueForItem : function(val){

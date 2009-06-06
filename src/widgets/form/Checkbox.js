@@ -17,7 +17,7 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
      */
     fieldClass: "x-form-field",
     /**
-     * @cfg {Boolean} checked True if the the checkbox should render already checked (defaults to false)
+     * @cfg {Boolean} checked <tt>true</tt> if the checkbox should render initially checked (defaults to <tt>false</tt>)
      */
     checked: false,
     /**
@@ -84,12 +84,14 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
     },
 
     /**
-     * Overridden and disabled. The editor element does not support standard valid/invalid marking. @hide
+     * @hide
+     * Overridden and disabled. The editor element does not support standard valid/invalid marking.
      * @method
      */
     markInvalid : Ext.emptyFn,
     /**
-     * Overridden and disabled. The editor element does not support standard valid/invalid marking. @hide
+     * @hide
+     * Overridden and disabled. The editor element does not support standard valid/invalid marking.
      * @method
      */
     clearInvalid : Ext.emptyFn,
@@ -139,8 +141,10 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
     },
 
     /**
-     * Sets the checked state of the checkbox.
-     * @param {Boolean/String} checked True, 'true', '1', or 'on' to check the checkbox, any other value will uncheck it.
+     * Sets the checked state of the checkbox, fires the "check" event, and calls a
+     * <code>{@link #handler}</code> (if configured).
+     * @param {Boolean/String} checked The following values will check the checkbox:
+     * <code>true, 'true', '1', or 'on'</code>. Any other value will uncheck the checkbox.
      * @return {Ext.form.Field} this
      */
     setValue : function(v){
