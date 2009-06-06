@@ -55,10 +55,12 @@ Ext.BoxComponent = Ext.extend(Ext.Component, {
     /**
      * @cfg {Number} height
      * The height of this component in pixels (defaults to auto).
+     * <b>Note</b> to express this dimension as a percentage or offset see {@link Ext.Component#anchor}.
      */
     /**
      * @cfg {Number} width
      * The width of this component in pixels (defaults to auto).
+     * <b>Note</b> to express this dimension as a percentage or offset see {@link Ext.Component#anchor}.
      */
     /**
      * @cfg {Boolean} autoHeight
