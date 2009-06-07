@@ -1,5 +1,5 @@
 /**
- @class Ext.grid.RowSelectionModel
+ * @class Ext.grid.RowSelectionModel
  * @extends Ext.grid.AbstractSelectionModel
  * The default SelectionModel used by {@link Ext.grid.GridPanel}.
  * It supports multiple selections and keyboard selection/navigation. The objects stored
@@ -26,7 +26,7 @@ Ext.grid.RowSelectionModel = function(config){
 	    "selectionchange",
         /**
 	     * @event beforerowselect
-	     * Fires when a row is being selected, return false to cancel.
+	     * Fires before a row is selected, return false to cancel the selection.
 	     * @param {SelectionModel} this
 	     * @param {Number} rowIndex The index to be selected
 	     * @param {Boolean} keepExisting False if other selections will be cleared
@@ -43,7 +43,8 @@ Ext.grid.RowSelectionModel = function(config){
 	    "rowselect",
         /**
 	     * @event rowdeselect
-	     * Fires when a row is deselected.
+	     * Fires when a row is deselected.  To prevent deselection
+	     * {@link Ext.grid.AbstractSelectionModel#lock lock the selections}. 
 	     * @param {SelectionModel} this
 	     * @param {Number} rowIndex
 	     * @param {Record} record
@@ -57,13 +58,14 @@ Ext.grid.RowSelectionModel = function(config){
 Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
     /**
      * @cfg {Boolean} singleSelect
-     * True to allow selection of only one row at a time (defaults to false)
+     * <tt>true</tt> to allow selection of only one row at a time (defaults to <tt>false</tt>
+     * allowing multiple selections)
      */
     singleSelect : false,
 
 	/**
 	 * @cfg {Boolean} moveEditorOnEnter
-	 * False to turn off moving the editor to the next row down when the enter key is pressed
+	 * <tt>false</tt> to turn off moving the editor to the next row down when the enter key is pressed
 	 * or the next row up when shift + enter keys are pressed.
 	 */
     // private
@@ -151,7 +153,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
     /**
      * Select records.
      * @param {Array} records The records to select
-     * @param {Boolean} keepExisting (optional) True to keep existing selections
+     * @param {Boolean} keepExisting (optional) <tt>true</tt> to keep existing selections
      */
     selectRecords : function(records, keepExisting){
         if(!keepExisting){
@@ -180,7 +182,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
 
     /**
      * Select the last row.
-     * @param {Boolean} keepExisting (optional) True to keep existing selections
+     * @param {Boolean} keepExisting (optional) <tt>true</tt> to keep existing selections
      */
     selectLastRow : function(keepExisting){
         this.selectRow(this.grid.store.getCount() - 1, keepExisting);
@@ -188,8 +190,8 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
 
     /**
      * Selects the row immediately following the last selected row.
-     * @param {Boolean} keepExisting (optional) True to keep existing selections
-     * @return {Boolean} True if there is a next row, else false
+     * @param {Boolean} keepExisting (optional) <tt>true</tt> to keep existing selections
+     * @return {Boolean} <tt>true</tt> if there is a next row, else <tt>false</tt>
      */
     selectNext : function(keepExisting){
         if(this.hasNext()){
@@ -202,8 +204,8 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
 
     /**
      * Selects the row that precedes the last selected row.
-     * @param {Boolean} keepExisting (optional) True to keep existing selections
-     * @return {Boolean} True if there is a previous row, else false
+     * @param {Boolean} keepExisting (optional) <tt>true</tt> to keep existing selections
+     * @return {Boolean} <tt>true</tt> if there is a previous row, else <tt>false</tt>
      */
     selectPrevious : function(keepExisting){
         if(this.hasPrevious()){
@@ -248,8 +250,9 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
     },
 
     /**
-     * Calls the passed function with each selection. If the function returns false, iteration is
-     * stopped and this function returns false. Otherwise it returns true.
+     * Calls the passed function with each selection. If the function returns
+     * <tt>false</tt>, iteration is stopped and this function returns
+     * <tt>false</tt>. Otherwise it returns <tt>true</tt>.
      * @param {Function} fn
      * @param {Object} scope (optional)
      * @return {Boolean} true if all selections were iterated
@@ -265,7 +268,10 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
     },
 
     /**
-     * Clears all selections.
+     * Clears all selections if the selection model
+     * {@link Ext.grid.AbstractSelectionModel#isLocked is not locked}.
+     * @param {Boolean} fast (optional) <tt>true</tt> to bypass the
+     * conditional checks and events described in {@link #deselectRow}.
      */
     clearSelections : function(fast){
         if(this.isLocked()) return;
@@ -284,7 +290,8 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
 
 
     /**
-     * Selects all rows.
+     * Selects all rows if the selection model
+     * {@link Ext.grid.AbstractSelectionModel#isLocked is not locked}. 
      */
     selectAll : function(){
         if(this.isLocked()) return;
@@ -295,7 +302,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
     },
 
     /**
-     * Returns True if there is a selection.
+     * Returns <tt>true</tt> if there is a selection.
      * @return {Boolean}
      */
     hasSelection : function(){
@@ -303,8 +310,8 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
     },
 
     /**
-     * Returns True if the specified row is selected.
-     * @param {Number/Record} record The record or index of the record to check
+     * Returns <tt>true</tt> if the specified row is selected.
+     * @param {Number/Record} index The record or index of the record to check
      * @return {Boolean}
      */
     isSelected : function(index){
@@ -313,7 +320,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
     },
 
     /**
-     * Returns True if the specified record id is selected.
+     * Returns <tt>true</tt> if the specified record id is selected.
      * @param {String} id The id of record to check
      * @return {Boolean}
      */
@@ -346,7 +353,8 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
     /**
      * Selects multiple rows.
      * @param {Array} rows Array of the indexes of the row to select
-     * @param {Boolean} keepExisting (optional) True to keep existing selections (defaults to false)
+     * @param {Boolean} keepExisting (optional) <tt>true</tt> to keep
+     * existing selections (defaults to <tt>false</tt>)
      */
     selectRows : function(rows, keepExisting){
         if(!keepExisting){
@@ -358,7 +366,9 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
     },
 
     /**
-     * Selects a range of rows. All rows in between startRow and endRow are also selected.
+     * Selects a range of rows if the selection model
+     * {@link Ext.grid.AbstractSelectionModel#isLocked is not locked}.
+     * All rows in between startRow and endRow are also selected.
      * @param {Number} startRow The index of the first row in the range
      * @param {Number} endRow The index of the last row in the range
      * @param {Boolean} keepExisting (optional) True to retain existing selections
@@ -380,7 +390,9 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
     },
 
     /**
-     * Deselects a range of rows. All rows in between startRow and endRow are also deselected.
+     * Deselects a range of rows if the selection model
+     * {@link Ext.grid.AbstractSelectionModel#isLocked is not locked}.  
+     * All rows in between startRow and endRow are also deselected.
      * @param {Number} startRow The index of the first row in the range
      * @param {Number} endRow The index of the last row in the range
      */
@@ -392,9 +404,15 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
     },
 
     /**
-     * Selects a row.
+     * Selects a row.  Before selecting a row, checks if the selection model
+     * {@link Ext.grid.AbstractSelectionModel#isLocked is locked} and fires the
+     * {@link #beforerowselect} event.  If these checks are satisfied the row
+     * will be selected and followed up by  firing the {@link #rowselect} and
+     * {@link #selectionchange} events.
      * @param {Number} row The index of the row to select
-     * @param {Boolean} keepExisting (optional) True to keep existing selections
+     * @param {Boolean} keepExisting (optional) <tt>true</tt> to keep existing selections
+     * @param {Boolean} preventViewNotify (optional) Specify <tt>true</tt> to
+     * prevent notifying the view (disables updating the selected appearance)
      */
     selectRow : function(index, keepExisting, preventViewNotify){
         if(this.isLocked() || (index < 0 || index >= this.grid.store.getCount()) || (keepExisting && this.isSelected(index))){
@@ -416,8 +434,13 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
     },
 
     /**
-     * Deselects a row.
+     * Deselects a row.  Before deselecting a row, checks if the selection model
+     * {@link Ext.grid.AbstractSelectionModel#isLocked is locked}.
+     * If this check is satisfied the row will be deselected and followed up by
+     * firing the {@link #rowdeselect} and {@link #selectionchange} events.
      * @param {Number} row The index of the row to deselect
+     * @param {Boolean} preventViewNotify (optional) Specify <tt>true</tt> to
+     * prevent notifying the view (disables updating the selected appearance)
      */
     deselectRow : function(index, preventViewNotify){
         if(this.isLocked()) return;

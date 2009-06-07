@@ -19,7 +19,7 @@ Ext.grid.CellSelectionModel = function(config){
     this.addEvents(
         /**
 	     * @event beforecellselect
-	     * Fires before a cell is selected.
+	     * Fires before a cell is selected, return false to cancel the selection.
 	     * @param {SelectionModel} this
 	     * @param {Number} rowIndex The selected row index
 	     * @param {Number} colIndex The selected cell index
@@ -105,8 +105,9 @@ var data = record.get(fieldName);
     },
 
     /**
-     * Clears all selections.
-     * @param {Boolean} true to prevent the gridview from being notified about the change.
+     * If anything is selected, clears all selections and fires the selectionchange event.
+     * @param {Boolean} preventNotify <tt>true</tt> to prevent the gridview from
+     * being notified about the change.
      */
     clearSelections : function(preventNotify){
         var s = this.selection;
@@ -120,7 +121,7 @@ var data = record.get(fieldName);
     },
 
     /**
-     * Returns true if there is a selection.
+     * Returns <tt>true</tt> if there is a selection.
      * @return {Boolean}
      */
     hasSelection : function(){
@@ -136,9 +137,17 @@ var data = record.get(fieldName);
     },
 
     /**
-     * Selects a cell.
-     * @param {Number} rowIndex
-     * @param {Number} collIndex
+     * Selects a cell.  Before selecting a cell, fires the
+     * {@link #beforecellselect} event.  If this check is satisfied the cell
+     * will be selected and followed up by  firing the {@link #cellselect} and
+     * {@link #selectionchange} events.
+     * @param {Number} rowIndex The index of the row to select
+     * @param {Number} colIndex The index of the column to select
+     * @param {Boolean} preventViewNotify (optional) Specify <tt>true</tt> to
+     * prevent notifying the view (disables updating the selected appearance)
+     * @param {Boolean} preventFocus (optional) Whether to prevent the cell at
+     * the specified rowIndex / colIndex from being focused.
+     * @param {Ext.data.Record} r (optional) The record to select
      */
     select : function(rowIndex, colIndex, preventViewNotify, preventFocus, /*internal*/ r){
         if(this.fireEvent("beforecellselect", this, rowIndex, colIndex) !== false){
