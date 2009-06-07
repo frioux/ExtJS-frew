@@ -19,37 +19,37 @@ Ext.grid.RowSelectionModel = function(config){
 
     this.addEvents(
         /**
-	     * @event selectionchange
-	     * Fires when the selection changes
-	     * @param {SelectionModel} this
-	     */
-	    "selectionchange",
+         * @event selectionchange
+         * Fires when the selection changes
+         * @param {SelectionModel} this
+         */
+        "selectionchange",
         /**
-	     * @event beforerowselect
-	     * Fires before a row is selected, return false to cancel the selection.
-	     * @param {SelectionModel} this
-	     * @param {Number} rowIndex The index to be selected
-	     * @param {Boolean} keepExisting False if other selections will be cleared
-	     * @param {Record} record The record to be selected
-	     */
-	    "beforerowselect",
+         * @event beforerowselect
+         * Fires before a row is selected, return false to cancel the selection.
+         * @param {SelectionModel} this
+         * @param {Number} rowIndex The index to be selected
+         * @param {Boolean} keepExisting False if other selections will be cleared
+         * @param {Record} record The record to be selected
+         */
+        "beforerowselect",
         /**
-	     * @event rowselect
-	     * Fires when a row is selected.
-	     * @param {SelectionModel} this
-	     * @param {Number} rowIndex The selected index
-	     * @param {Ext.data.Record} r The selected record
-	     */
-	    "rowselect",
+         * @event rowselect
+         * Fires when a row is selected.
+         * @param {SelectionModel} this
+         * @param {Number} rowIndex The selected index
+         * @param {Ext.data.Record} r The selected record
+         */
+        "rowselect",
         /**
-	     * @event rowdeselect
-	     * Fires when a row is deselected.  To prevent deselection
-	     * {@link Ext.grid.AbstractSelectionModel#lock lock the selections}. 
-	     * @param {SelectionModel} this
-	     * @param {Number} rowIndex
-	     * @param {Record} record
-	     */
-	    "rowdeselect"
+         * @event rowdeselect
+         * Fires when a row is deselected.  To prevent deselection
+         * {@link Ext.grid.AbstractSelectionModel#lock lock the selections}. 
+         * @param {SelectionModel} this
+         * @param {Number} rowIndex
+         * @param {Record} record
+         */
+        "rowdeselect"
     );
 
     Ext.grid.RowSelectionModel.superclass.constructor.call(this);
@@ -63,11 +63,11 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
      */
     singleSelect : false,
 
-	/**
-	 * @cfg {Boolean} moveEditorOnEnter
-	 * <tt>false</tt> to turn off moving the editor to the next row down when the enter key is pressed
-	 * or the next row up when shift + enter keys are pressed.
-	 */
+    /**
+     * @cfg {Boolean} moveEditorOnEnter
+     * <tt>false</tt> to turn off moving the editor to the next row down when the enter key is pressed
+     * or the next row up when shift + enter keys are pressed.
+     */
     // private
     initEvents : function(){
 
@@ -197,9 +197,9 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
         if(this.hasNext()){
             this.selectRow(this.last+1, keepExisting);
             this.grid.getView().focusRow(this.last);
-			return true;
+            return true;
         }
-		return false;
+        return false;
     },
 
     /**
@@ -211,9 +211,9 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
         if(this.hasPrevious()){
             this.selectRow(this.last-1, keepExisting);
             this.grid.getView().focusRow(this.last);
-			return true;
+            return true;
         }
-		return false;
+        return false;
     },
 
     /**
@@ -488,13 +488,13 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
         }else if(k == e.ENTER){
             e.stopEvent();
             ed.completeEdit();
-			if(this.moveEditorOnEnter !== false){
-				if(shift){
-					newCell = g.walkCells(ed.row - 1, ed.col, -1, this.acceptsNav, this);
-				}else{
-					newCell = g.walkCells(ed.row + 1, ed.col, 1, this.acceptsNav, this);
-				}
-			}
+            if(this.moveEditorOnEnter !== false){
+                if(shift){
+                    newCell = g.walkCells(ed.row - 1, ed.col, -1, this.acceptsNav, this);
+                }else{
+                    newCell = g.walkCells(ed.row + 1, ed.col, 1, this.acceptsNav, this);
+                }
+            }
         }else if(k == e.ESC){
             ed.cancelEdit();
         }
