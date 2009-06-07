@@ -711,14 +711,14 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider({
      * that hidden Components still have height and width so that layout managers can perform measurements when
      * calculating layouts.</p>
      */
-    hideMode: 'display',
+    hideMode : 'display',
     /**
      * @cfg {Boolean} hideParent
      * True to hide and show the component's container when hide/show is called on the component, false to hide
      * and show the component itself (defaults to false).  For example, this can be used as a shortcut for a hide
      * button on a window by setting hide:true on the button when adding it to its parent container.
      */
-    hideParent: false,
+    hideParent : false,
     /**
      * <p>Returns the {@link Ext.Element} which encapsulates this Component. This will
      * <i>usually</i> be a &lt;DIV> element created by the class's onRender method, but
@@ -1222,7 +1222,7 @@ new Ext.Panel({
      * Show this component.
      * @return {Ext.Component} this
      */
-    show: function(){
+    show : function(){
         if(this.fireEvent("beforeshow", this) !== false){
             this.hidden = false;
             if(this.autoRender){
@@ -1245,7 +1245,7 @@ new Ext.Panel({
      * Hide this component.
      * @return {Ext.Component} this
      */
-    hide: function(){
+    hide : function(){
         if(this.fireEvent("beforehide", this) !== false){
             this.hidden = true;
             if(this.rendered){
@@ -1262,7 +1262,7 @@ new Ext.Panel({
     },
     
     // private
-    getVisibiltyEl: function(){
+    getVisibiltyEl : function(){
         return this.hideParent ? this.container : this.getActionEl();    
     },
 
@@ -1271,7 +1271,7 @@ new Ext.Panel({
      * @param {Boolean} visible True to show, false to hide
      * @return {Ext.Component} this
      */
-    setVisible: function(visible){
+    setVisible : function(visible){
         return this[visible ? "show" : "hide"]();
     },
 
@@ -1372,7 +1372,7 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
      * @param {Object} scope (optional)
      * @return {Ext.Container} The first Container for which the custom function returns true
      */
-    findParentBy: function(fn) {
+    findParentBy : function(fn) {
         for (var p = this.ownerCt; (p != null) && !fn(p, this); p = p.ownerCt);
         return p || null;
     },
@@ -1382,7 +1382,7 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
      * @param {String/Class} xtype The xtype string for a component, or the class of the component directly
      * @return {Ext.Container} The first Container which matches the given xtype or class
      */
-    findParentByType: function(xtype) {
+    findParentByType : function(xtype) {
         return typeof xtype == 'function' ?
             this.findParentBy(function(p){
                 return p.constructor === xtype;
@@ -1397,7 +1397,7 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
     },
     
     // private
-    purgeListeners: function(){
+    purgeListeners : function(){
         Ext.Component.superclass.purgeListeners.call(this);
         if(this.mons){
             this.on('beforedestroy', this.clearMons, this, {single: true});
@@ -1405,7 +1405,7 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
     },
     
     // private
-    clearMons: function(){
+    clearMons : function(){
         Ext.each(this.mons, function(m){
             m.item.un(m.ename, m.fn, m.scope);
         }, this);
@@ -1452,7 +1452,7 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
     },
     
     // protected, opposite of mon
-    mun: function(item, ename, fn, scope){
+    mun : function(item, ename, fn, scope){
         var found, mon;
         for(var i = 0, len = this.mons.length; i < len; ++i){
             mon = this.mons[i];
