@@ -50,7 +50,7 @@ store.load({
  * <p>Paging can also be accomplished with local data using extensions:</p>
  * <div class="mdetail-params"><ul>
  * <li><a href="http://extjs.com/forum/showthread.php?t=57386">Ext.ux.data.PagingStore</a></li>
- * <li>Paging Memory Proxy (examples/locale/PagingMemoryProxy.js)</li>
+ * <li>Paging Memory Proxy (examples/ux/PagingMemoryProxy.js)</li>
  * </ul></div>
  * @constructor
  * Create a new PagingToolbar
@@ -74,7 +74,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
      * @cfg {Number} pageSize
      * The number of records to display per page (defaults to <tt>20</tt>)
      */
-    pageSize: 20,
+    pageSize : 20,
     /**
      * @cfg {Boolean} prependButtons
      * <tt>true</tt> to insert any configured <tt>items</tt> <i>before</i> the paging buttons.
@@ -160,7 +160,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
      * @property cursor
      */
 
-    initComponent: function(){
+    initComponent : function(){
         var pagingItems = [this.first = new T.Button({
             tooltip: this.firstText,
             iconCls: "x-tbar-page-first",
@@ -254,7 +254,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
     },
 
     // private
-    onFirstLayout: function(ii) {
+    onFirstLayout : function(ii) {
         this.mon(this.inputItem.el, "keydown", this.onPagingKeyDown, this);
         this.mon(this.inputItem.el, "blur", this.onPagingBlur, this);
         this.mon(this.inputItem.el, "focus", this.onPagingFocus, this);
@@ -313,7 +313,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
      * Change the active page
      * @param {Integer} page The page to display
      */
-    changePage: function(page){
+    changePage : function(page){
         this.doLoad(((page-1) * this.pageSize).constrain(0, this.store.getTotalCount()));
     },
 
@@ -335,12 +335,12 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         return pageNum;
     },
 
-    onPagingFocus: function(){
+    onPagingFocus : function(){
         this.field.select();
     },
 
     //private
-    onPagingBlur: function(e){
+    onPagingBlur : function(e){
         this.field.value = this.getPageData().activePage;
     },
 
@@ -417,7 +417,8 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
 
     /**
      * Binds the paging toolbar to the specified {@link Ext.data.Store}
-     * @param {Store} store The store to bind to this view
+     * @param {Store} store The store to bind to this toolbar
+     * @param {Boolean} initial (Optional) true to not remove listeners
      */
     bindStore : function(store, initial){
         var doLoad;
