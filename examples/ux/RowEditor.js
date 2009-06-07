@@ -1,11 +1,11 @@
-/*
- * Ext JS Library 3.0 Pre-alpha
- * Copyright(c) 2006-2008, Ext JS, LLC.
- * licensing@extjs.com
- *
- * http://extjs.com/license
- */
 
+/**
+ * @class Ext.ux.RowEditor
+ * @extends Ext.Panel 
+ * Plugin (ptype = 'roweditor') that adds the ability to rapidly edit full rows in a grid.
+ * A validation mode may be enabled which uses AnchorTips to notify the user of all
+ * validation errors at once.
+ */
 Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
     floating: true,
     shadow: false,
@@ -27,7 +27,36 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
 
     initComponent: function(){
         Ext.ux.RowEditor.superclass.initComponent.call(this);
-        this.addEvents('beforeedit', 'validateedit', 'afteredit');
+        this.addEvents(
+            /**
+             * @event beforeedit
+             * Fired before the row editor is activated.
+             * If the listener returns <tt>false</tt> the editor will not be activated.
+             * @param {Ext.ux.grid.RowEditor} roweditor This object
+             * @param {Number} rowIndex The rowIndex of the row just edited
+             */
+            'beforeedit',
+            /**
+             * @event validateedit
+             * Fired after a row is edited and passes validation.
+             * If the listener returns <tt>false</tt> changes to the record will not be set.
+             * @param {Ext.ux.grid.RowEditor} roweditor This object
+             * @param {Object} changes Object with changes made to the record.
+             * @param {Ext.data.Record} r The Record that was edited.
+             * @param {Number} rowIndex The rowIndex of the row just edited
+             */
+            'validateedit',
+            /**
+             * @event afteredit
+             * Fired after a row is edited and passes validation.  This event is fired
+             * after the store's update event is fired with this edit.
+             * @param {Ext.ux.grid.RowEditor} roweditor This object
+             * @param {Object} changes Object with changes made to the record.
+             * @param {Ext.data.Record} r The Record that was edited.
+             * @param {Number} rowIndex The rowIndex of the row just edited
+             */
+            'afteredit'
+        );
     },
 
     init: function(grid){
