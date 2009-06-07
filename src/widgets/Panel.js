@@ -613,25 +613,25 @@ new Ext.Panel({
      * when it is disabled, but masking the panel can provide an additional visual cue that the panel is
      * disabled.
      */
-    maskDisabled: true,
+    maskDisabled : true,
     /**
      * @cfg {Boolean} animCollapse
      * <tt>true</tt> to animate the transition when the panel is collapsed, <tt>false</tt> to skip the
      * animation (defaults to <tt>true</tt> if the {@link Ext.Fx} class is available, otherwise <tt>false</tt>).
      */
-    animCollapse: Ext.enableFx,
+    animCollapse : Ext.enableFx,
     /**
      * @cfg {Boolean} headerAsText
      * <tt>true</tt> to display the panel <tt>{@link #title}</tt> in the <tt>{@link #header}</tt>,
      * <tt>false</tt> to hide it (defaults to <tt>true</tt>).
      */
-    headerAsText: true,
+    headerAsText : true,
     /**
      * @cfg {String} buttonAlign
      * The alignment of any {@link #buttons} added to this panel.  Valid values are <tt>'right'</tt>,
      * <tt>'left'</tt> and <tt>'center'</tt> (defaults to <tt>'right'</tt>).
      */
-    buttonAlign: 'right',
+    buttonAlign : 'right',
     /**
      * @cfg {Boolean} collapsed
      * <tt>true</tt> to render the panel collapsed, <tt>false</tt> to render it expanded (defaults to
@@ -643,12 +643,12 @@ new Ext.Panel({
      * <tt>true</tt> to make sure the collapse/expand toggle button always renders first (to the left of)
      * any other tools in the panel's title bar, <tt>false</tt> to render it last (defaults to <tt>true</tt>).
      */
-    collapseFirst: true,
+    collapseFirst : true,
     /**
      * @cfg {Number} minButtonWidth
      * Minimum width in pixels of all {@link #buttons} in this panel (defaults to <tt>75</tt>)
      */
-    minButtonWidth:75,
+    minButtonWidth : 75,
     /**
      * @cfg {Boolean} unstyled
      * Overrides the <tt>{@link #baseCls}</tt> setting to <tt>{@link #baseCls} = 'x-plain'</tt> which renders
@@ -677,7 +677,7 @@ new Ext.Panel({
      * (see http://www.w3.org/TR/CSS21/sample.html) to the Panel's <b>body</b> element (not the header,
      * footer, etc.).
      */
-    preventBodyReset: false,
+    preventBodyReset : false,
 
     // protected - these could be used to customize the behavior of the window,
     // but changing them would not be useful without further mofifications and
@@ -685,17 +685,17 @@ new Ext.Panel({
     toolTarget : 'header',
     collapseEl : 'bwrap',
     slideAnchor : 't',
-    disabledClass: '',
+    disabledClass : '',
 
     // private, notify box this class will handle heights
-    deferHeight: true,
+    deferHeight : true,
     // private
     expandDefaults: {
-        duration:.25
+        duration : .25
     },
     // private
-    collapseDefaults: {
-        duration:.25
+    collapseDefaults : {
+        duration : .25
     },
 
     // private
@@ -1201,7 +1201,7 @@ new Ext.Panel({
         }
     },
     
-    syncHeight: function(){
+    syncHeight : function(){
         if(!this.duringLayout){
             var last = this.lastSize;
             if(last && !Ext.isEmpty(last.height)){
@@ -1423,7 +1423,7 @@ new Ext.Panel({
     },
 
     // private
-    afterExpand: function(doAnim){
+    afterExpand : function(doAnim){
         this.collapsed = false;
         if(doAnim !== false){
             this.afterEffect();
@@ -1750,7 +1750,7 @@ panel.load({
      * @param {String} id
      * @return {Object} tool
      */
-    getTool: function(id) {
+    getTool : function(id) {
         return this.tools[id];
     }
 
