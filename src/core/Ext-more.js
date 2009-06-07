@@ -355,7 +355,7 @@ Ext.partition(
 Ext.invoke(Ext.query("p"), "getAttribute", "id");
 // [el1.getAttribute("id"), el2.getAttribute("id"), ..., elN.getAttribute("id")]
          * </code></pre>
-         * @param {Array|NodeList(not in IE)} arr The Array of items to invoke the method on.
+         * @param {Array|NodeList} arr The Array of items to invoke the method on.
          * @param {String} methodName The method name to invoke.
          * @param {Anything} ... Arguments to send into the method invocation.
          * @return {Array} The results of invoking the method on each item in the array.
