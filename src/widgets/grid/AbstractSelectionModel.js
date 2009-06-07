@@ -11,6 +11,12 @@ Ext.grid.AbstractSelectionModel = function(){
 };
 
 Ext.extend(Ext.grid.AbstractSelectionModel, Ext.util.Observable,  {
+    /**
+     * The GridPanel for which this SelectionModel is handling selection. Read-only.
+     * @type Object
+     * @property grid
+     */
+
     /** @ignore Called by the grid automatically. Do not call directly. */
     init : function(grid){
         this.grid = grid;
