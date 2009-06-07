@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project path="" name="Ext Examples" author="Ext JS, LLC" version="3.0 RC1.1" copyright="Ext JS Library $version&#xD;&#xA;Copyright(c) 2006-2009, $author.&#xD;&#xA;licensing@extjs.com&#xD;&#xA;&#xD;&#xA;http://extjs.com/license" output="C:\Apps\www\deploy\ext-3.0\examples" source="True" source-dir="$output" minify="False" min-dir="$output\build" doc="False" doc-dir="$output\docs" master="true" master-file="$output\yui-ext.js" zip="true" zip-file="$output\yuo-ext.$version.zip">
+<project path="" name="Ext Examples" author="Ext JS, LLC" version="3.0 post RC2" copyright="Ext JS Library $version&#xD;&#xA;Copyright(c) 2006-2009, $author.&#xD;&#xA;licensing@extjs.com&#xD;&#xA;&#xD;&#xA;http://extjs.com/license" output="C:\Apps\www\deploy\ext-3.0\examples" source="True" source-dir="$output" minify="False" min-dir="$output\build" doc="False" doc-dir="$output\docs" master="true" master-file="$output\yui-ext.js" zip="true" zip-file="$output\yuo-ext.$version.zip">
   <file name="dialog\blog.html" path="dialog" />
   <file name="dialog\comments.txt" path="dialog" />
   <file name="dialog\hello.html" path="dialog" />
   <file name="dialog\layout.html" path="dialog" />
   <file name="dialog\post.php" path="dialog" />
-  <file name="grid\paging-grid.html" path="grid" />
   <file name="layout\feed-proxy.php" path="layout" />
   <file name="layout\feed-viewer.html" path="layout" />
   <file name="yui-ext-examples.jsb" path="" />
@@ -13,14 +12,11 @@
   <file name="layout\feed-viewer.css" path="layout" />
   <file name=".project" path="" />
   <file name="dialog\test.html" path="dialog" />
-  <file name="grid\PropsGrid.js" path="grid" />
   <file name="jquery-bundled.js" path="" />
   <file name="form\warning.gif" path="form" />
   <file name="form\forum-search.css" path="form" />
   <file name="layout\child.html" path="layout" />
   <file name="layout\parent.html" path="layout" />
-  <file name="grid\virtual-grid.html" path="grid" />
-  <file name="grid\virtualgrid.js" path="grid" />
   <file name="effects.js" path="" />
   <file name="jquery-plugins.js" path="" />
   <file name="lib.js" path="" />
@@ -35,7 +31,6 @@
   <file name="form\load-form.php" path="form" />
   <file name="form\save-form.php" path="form" />
   <file name="table.html" path="" />
-  <file name="grid\grid-perf.html" path="grid" />
   <file name="panels\images\app-win-btn-sprite.gif" path="panels\images" />
   <file name="panels\images\appbar-bg.gif" path="panels\images" />
   <file name="panels\images\appbar-btn-sprite.gif" path="panels\images" />
@@ -69,9 +64,7 @@
   <file name="editor\editor.css" path="editor" />
   <file name="editor\editor.html" path="editor" />
   <file name="editor\blank.html" path="editor" />
-  <file name="grid\perf.html" path="grid" />
   <file name="editor\editor.js" path="editor" />
-  <file name="grid\perf.js" path="grid" />
   <file name="window\windows.css" path="window" />
   <file name="form\job.html" path="form" />
   <file name="form\jobs.css" path="form" />
@@ -79,8 +72,6 @@
   <file name="form\view-jobs.html" path="form" />
   <file name="form\view-jobs.js" path="form" />
   <file name="form\jobs-remote.php" path="form" />
-  <file name="grid\CheckboxSelectionModel.js" path="grid" />
-  <file name="grid\RowNumberer.js" path="grid" />
   <file name="panels\desktop.js" path="panels" />
   <file name="layout\feed-viewer.js" path="layout" />
   <file name="feed-viewer\images\add-feed.gif" path="feed-viewer\images" />
@@ -105,8 +96,6 @@
   <file name="dialog\hello.js" path="dialog" />
   <file name="dialog\layout.js" path="dialog" />
   <file name="dialog\post.js" path="dialog" />
-  <file name="grid\Grouper.js" path="grid" />
-  <file name="grid\GroupingView.js" path="grid" />
   <file name="panels\app.js" path="panels" />
   <file name="panels\panels.js" path="panels" />
   <file name="widgets\images\custom-bar.gif" path="widgets\images" />
@@ -267,9 +256,6 @@
   <file name="desktop\js\plugins.js" path="desktop\js" />
   <file name="shared\site\extjs.css" path="shared\site" />
   <file name="shared\site\extjs2.css" path="shared\site" />
-  <file name="grid\LiveView.js" path="grid" />
-  <file name="grid\live.html" path="grid" />
-  <file name="grid\live.js" path="grid" />
   <file name="six\css\six.css" path="six\css" />
   <file name="six\css\ui.css" path="six\css" />
   <file name="six\images\six\button\btn-arrow.gif" path="six\images\six\button" />
@@ -328,8 +314,6 @@
   <file name="dependency\dependency.html" path="dependency" />
   <file name="dependency\dependency.php" path="dependency" />
   <file name="dependency\dependency.js" path="dependency" />
-  <file name="grid\auto-width-grid.html" path="grid" />
-  <file name="grid\auto-width-grid.js" path="grid" />
   <file name="slider\echo.php" path="slider" />
   <file name="slider\simple-slider.html" path="slider" />
   <file name="slider\simple-slider.js" path="slider" />
@@ -357,9 +341,6 @@
   <file name="direct\poll.js" path="direct" />
   <file name="direct\poll.php" path="direct" />
   <file name="direct\router.php" path="direct" />
-  <file name="grid\images\panel-handle.gif" path="grid\images" />
-  <file name="grid\images\summary-bg.gif" path="grid\images" />
-  <file name="grid\images\summary-group-bg.gif" path="grid\images" />
   <file name="grid\array-grid.html" path="grid" />
   <file name="grid\array-grid.js" path="grid" />
   <file name="grid\binding-with-classes.html" path="grid" />
@@ -368,7 +349,6 @@
   <file name="grid\binding.js" path="grid" />
   <file name="grid\buffer.html" path="grid" />
   <file name="grid\buffer.js" path="grid" />
-  <file name="grid\BufferView.js" path="grid" />
   <file name="grid\CallBroker.js" path="grid" />
   <file name="grid\custom-grid.html" path="grid" />
   <file name="grid\custom-grid.js" path="grid" />
@@ -377,40 +357,31 @@
   <file name="grid\edit-grid.js" path="grid" />
   <file name="grid\from-markup.html" path="grid" />
   <file name="grid\from-markup.js" path="grid" />
+  <file name="grid\gen-names.js" path="grid" />
   <file name="grid\grid-examples.css" path="grid" />
   <file name="grid\grid3.html" path="grid" />
   <file name="grid\grid3.js" path="grid" />
   <file name="grid\grouping.css" path="grid" />
   <file name="grid\grouping.html" path="grid" />
   <file name="grid\grouping.js" path="grid" />
-  <file name="grid\GroupSummary.js" path="grid" />
   <file name="grid\hybrid-totals.js" path="grid" />
   <file name="grid\paging.html" path="grid" />
   <file name="grid\paging.js" path="grid" />
-  <file name="grid\PanelResizer.js" path="grid" />
   <file name="grid\plants.xml" path="grid" />
   <file name="grid\row-editor.html" path="grid" />
   <file name="grid\row-editor.js" path="grid" />
-  <file name="grid\RowExpander.js" path="grid" />
+  <file name="grid\row-editor-data.json" path="grid" />
   <file name="grid\sheldon.xml" path="grid" />
   <file name="grid\sliding-pager.html" path="grid" />
   <file name="grid\sliding-pager.js" path="grid" />
-  <file name="grid\SlidingPager.js" path="grid" />
   <file name="grid\progress-bar-pager.html" path="grid" />
   <file name="grid\progress-bar-pager.js" path="grid" />
-  <file name="grid\ProgressBarPager.js" path="grid" />
-  <file name="grid\summary.css" path="grid" />
   <file name="grid\summary.json" path="grid" />
   <file name="grid\topic.gif" path="grid" />
   <file name="grid\totals.html" path="grid" />
   <file name="grid\totals.js" path="grid" />
   <file name="grid\xml-grid.html" path="grid" />
   <file name="grid\xml-grid.js" path="grid" />
-  <file name="grid\images\row-editor-bg.gif" path="grid\images" />
-  <file name="grid\images\row-editor-btns.gif" path="grid\images" />
-  <file name="grid\row-editor-data.json" path="grid" />
-  <file name="grid\gen-names.js" path="grid" />
-  <file name="grid\RowEditor.js" path="grid" />
   <file name="button\buttons.js" path="button" />
   <file name="chart\charts.js" path="chart" />
   <file name="core\spotlight-example.js" path="core" />

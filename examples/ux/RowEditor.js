@@ -1,4 +1,3 @@
-
 /**
  * @class Ext.ux.RowEditor
  * @extends Ext.Panel 
