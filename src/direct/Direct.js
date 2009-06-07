@@ -16,19 +16,17 @@ Ext.Direct.on('message', function(e){
  */
 Ext.Direct = Ext.extend(Ext.util.Observable, {
     /**
-     * @property eventTypes
-     * @type Object
      * Each event type implements a getData() method. The default event types are:
      * <div class="mdetail-params"><ul>
      * <li><b><tt>event</tt></b> : Ext.Direct.Event</li>
      * <li><b><tt>exception</tt></b> : Ext.Direct.ExceptionEvent</li>
      * <li><b><tt>rpc</tt></b> : Ext.Direct.RemotingEvent</li>
      * </ul></div>
+     * @property eventTypes
+     * @type Object
      */
 
     /**
-     * @property exceptions
-     * @type Object
      * Four types of possible exceptions which can occur:
      * <div class="mdetail-params"><ul>
      * <li><b><tt>Ext.Direct.exceptions.TRANSPORT</tt></b> : 'xhr'</li>
@@ -36,6 +34,8 @@ Ext.Direct = Ext.extend(Ext.util.Observable, {
      * <li><b><tt>Ext.Direct.exceptions.LOGIN</tt></b> : 'login'</li>
      * <li><b><tt>Ext.Direct.exceptions.SERVER</tt></b> : 'exception'</li>
      * </ul></div>
+     * @property exceptions
+     * @type Object
      */
     exceptions: {
         TRANSPORT: 'xhr',
