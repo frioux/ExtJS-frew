@@ -707,12 +707,12 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider({
     autoShow : false,
     /**
      * @cfg {String} hideMode
-     * <p>How this component should be hidden. Supported values are "visibility" (css visibility), "offsets" (negative
-     * offset position) and "display" (css display) - defaults to "display".</p>
-     * <p>For Containers which may be hidden and shown as part of a {@link Ext.layout.CardLayout card layout} Container such as a
-     * {@link Ext.TabPanel TabPanel}, it is recommended that hideMode is configured as "offsets". This ensures
-     * that hidden Components still have height and width so that layout managers can perform measurements when
-     * calculating layouts.</p>
+     * <p>How this component should be hidden. Supported values are <tt>"visibility"</tt>
+     * (css visibility), <tt>"offsets"</tt> (negative offset position) and <tt>"display"</tt>
+     * (css display).</p>
+     * <br><p><b>Note</b>: the default of <tt>"display"</tt> is generally preferred
+     * since items are automatically laid out when they are first shown (no sizing
+     * is done while hidden).</p>
      */
     hideMode : 'display',
     /**

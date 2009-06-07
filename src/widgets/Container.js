@@ -302,8 +302,9 @@ items: [{...}, {...}]
      * instanciated Component object</li>
      * </ul></div></ul></div>
      * <p>Note: Ext uses lazy rendering. Child Components will only be rendered
-     * should it become necessary, that is: when the Container is layed out either
-     * on first render or in response to a {@link #doLayout} call.</p>
+     * should it become necessary. Items are automatically laid out when they are first
+     * shown (no sizing is done while hidden), or in response to a {@link #doLayout} call.
+     * </p>
      */
     /**
      * @cfg {Object} defaults

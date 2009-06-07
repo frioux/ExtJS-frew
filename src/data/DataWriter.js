@@ -1,9 +1,42 @@
 /**
  * @class Ext.data.DataWriter
- * Abstract base class for writing structured data from a data source and converting
- * it into a JSON-string containing {@link Ext.data.Record} objects and metadata for use
- * by an {@link Ext.data.Store}.  This class is intended to be extended and should not
- * be created directly. For existing implementations, see {@link Ext.data.JsonWriter},
+ * <p>Ext.data.DataWriter facilitates create, update, and destroy actions between
+ * an Ext.data.Store and a server-side framework. A Writer enabled Store will
+ * automatically manage the Ajax requests to perform CRUD actions on a Store.</p>  
+ * <p>Ext.data.DataWriter is an abstract base class which is intended to be extended
+ * and should not be created directly. For existing implementations, see
+ * {@link Ext.data.JsonWriter}.</p>
+ * <p>Creating a writer is simple:</p>
+ * <pre><code> 
+var writer = new Ext.data.JsonWriter();
+ * </code></pre>
+ * <p>The proxy for a writer enabled store can be configured with a simple <code>url</code>:</p>
+ * <pre><code> 
+// Create a standard HttpProxy instance.
+var proxy = new Ext.data.HttpProxy({
+    url: 'app.php/users'
+});
+ * </code></pre>
+ * <p>For finer grained control, the proxy may also be configured with an <code>api</code>:</p>
+ * <pre><code> 
+// Use the api specification
+var proxy = new Ext.data.HttpProxy({
+    api: {
+        read    : 'app.php/users/read',
+        create  : 'app.php/users/create',
+        update  : 'app.php/users/update',
+        destroy : 'app.php/users/destroy'
+    }
+});
+ * </code></pre>
+ * <p>Creating a Writer enabled store:</p>
+ * <pre><code> 
+var store = new Ext.data.Store({
+    proxy: proxy,
+    reader: reader,
+    writer: writer
+});
+ * </code></pre>
  * @constructor Create a new DataWriter
  * @param {Object} meta Metadata configuration options (implementation-specific)
  * @param {Object} recordType Either an Array of field definition objects as specified
@@ -110,7 +143,7 @@ Ext.data.DataWriter.prototype = {
 
     /**
      * @cfg {Function} createRecord Abstract method that should be implemented in all subclasses
-     * (eg: {@link Ext.data.JsonWriter#createRecord JsonWriter.createRecord}
+     * (eg: {@link Ext.data.JsonWriter#createRecord JsonWriter.createRecord})
      */
     createRecord : Ext.emptyFn,
 
@@ -137,12 +170,11 @@ Ext.data.DataWriter.prototype = {
 
     /**
      * @cfg {Function} destroyRecord Abstract method that should be implemented in all subclasses
-     * (eg: {@link Ext.data.JsonWriter#destroyRecord JsonWriter.destroyRecord}
+     * (eg: {@link Ext.data.JsonWriter#destroyRecord JsonWriter.destroyRecord})
      */
     destroyRecord : Ext.emptyFn,
 
     /**
-     * toHash
      * Converts a Record to a hash
      * @param {Record}
      * @private

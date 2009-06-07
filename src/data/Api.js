@@ -1,9 +1,10 @@
 /**
  * @class Ext.data.Api
  * @extends Object
- * Ext.data.Api is a singleton designed to manage the data API including methods for validating
- * a developer's DataProxy API.  Defines variables for CRUD actions create, read, update and destroy in addition to a
- * mapping of RESTful HTTP methods GET, POST, PUT and DELETE to CRUD actions.
+ * Ext.data.Api is a singleton designed to manage the data API including methods
+ * for validating a developer's DataProxy API.  Defines variables for CRUD actions
+ * create, read, update and destroy in addition to a mapping of RESTful HTTP methods
+ * GET, POST, PUT and DELETE to CRUD actions.
  * @singleton
  */
 Ext.data.Api = (function() {
@@ -36,7 +37,8 @@ actions: {
         },
 
         /**
-         * Defined {CRUD action}:{HTTP method} pairs corresponding to remote actions for RESTful proxies.
+         * Defined {CRUD action}:{HTTP method} pairs to associate HTTP methods with the
+         * corresponding actions for {@link Ext.data.DataProxy#restful RESTful proxies}.
          * Defaults to:
          * <pre><code>
 restActions : {

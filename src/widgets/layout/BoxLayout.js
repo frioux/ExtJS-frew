@@ -4,13 +4,6 @@
  * <p>Base Class for HBoxLayout and VBoxLayout Classes. Generally it should not need to be used directly.</p>
  */
 Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
-    // private
-    monitorResize:true,
-    scrollOffset : 0,
-    extraCls: 'x-box-item',
-    ctCls: 'x-box-layout-ct',
-    innerCls: 'x-box-inner',
-
     /**
      * @cfg {Object} defaultMargins
      * If the individual contained items do not have a <tt>margins</tt> property specified, the margins
@@ -23,8 +16,16 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
      * Defaults to <tt>'0'</tt>. Sets the padding to be applied to all child items managed by this
      * container's layout. 
      */
-    padding:'0',
-    pack: 'start',
+    padding : '0',
+    // documented in subclasses
+    pack : 'start',
+
+    // private
+    monitorResize : true,
+    scrollOffset : 0,
+    extraCls : 'x-box-item',
+    ctCls : 'x-box-layout-ct',
+    innerCls : 'x-box-inner',
 
     // private
     isValidParent : function(c, target){
@@ -84,10 +85,11 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
      * <b>mid-width</b> of the container</div></li>
      * <li><b><tt>stretch</tt></b> : <div class="sub-desc">child items are stretched horizontally to fill
      * the width of the container</div></li>
-     * <li><b><tt>strechmax</tt></b> : <div class="sub-desc"> </div></li>
+     * <li><b><tt>stretchmax</tt></b> : <div class="sub-desc">child items are stretched horizontally to
+     * the size of the largest item.</div></li>
      * </ul></div>
      */
-    align: 'left', // left, center, stretch, strechmax
+    align : 'left', // left, center, stretch, strechmax
     /**
      * @cfg {String} pack
      * Controls how the child items of the container are packed together. Acceptable configuration values
@@ -101,7 +103,6 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
      * side of container</div></li>
      * </ul></div>
      */
-    pack: 'start',
     /**
      * @cfg {Number} flex
      * This configuation option is to be applied to <b>child <tt>items</tt></b> of the container managed
@@ -216,10 +217,10 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
      * <b>mid-height</b> of the container</div></li>
      * <li><b><tt>stretch</tt></b> : <div class="sub-desc">child items are stretched vertically to fill
      * the height of the container</div></li>
-     * <li><b><tt>strechmax</tt></b> : <div class="sub-desc"> </div></li>
-     * </ul></div>
+     * <li><b><tt>stretchmax</tt></b> : <div class="sub-desc">child items are stretched vertically to
+     * the size of the largest item.</div></li>
      */
-    align: 'top', // top, middle, stretch, strechmax
+    align : 'top', // top, middle, stretch, strechmax
     /**
      * @cfg {String} pack
      * Controls how the child items of the container are packed together. Acceptable configuration values
@@ -233,7 +234,6 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
      * side of container</div></li>
      * </ul></div>
      */
-    pack: 'start',
     /**
      * @cfg {Number} flex
      * This configuation option is to be applied to <b>child <tt>items</tt></b> of the container managed

@@ -1,9 +1,17 @@
 /**
  * @class Ext.ListView
  * @extends Ext.DataView
- * <p>Built using the {@link Ext.XTemplate} Class, Ext.ListView offers a fast and light-weight implentation
- * of a {@link Ext.grid.GridPanel Grid} like view with resizable columns. This view has no horizontal scrolling
- * as column widths are initially proportioned by percentage based on the container width and number of columns.</p>
+ * <p>Ext.ListView is a fast and light-weight implentation of a
+ * {@link Ext.grid.GridPanel Grid} like view with the following characteristics:</p>
+ * <div class="mdetail-params"><ul>
+ * <li>resizable columns</li>
+ * <li>selectable</li>
+ * <li>column widths are initially proportioned by percentage based on the container
+ * width and number of columns</li>
+ * <li>uses templates to render the data in any required format</li>
+ * <li>no horizontal scrolling</li>
+ * <li>no editing</li>
+ * </ul></div>
  * <p>Example usage:</p>
  * <pre><code>
 // consume JSON of this form:

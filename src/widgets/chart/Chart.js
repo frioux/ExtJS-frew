@@ -1,6 +1,8 @@
 /**
  * @class Ext.chart.Chart
  * @extends Ext.FlashComponent
+ * The Ext.chart package provides the capability to visualize data with flash based charting.
+ * Each chart binds directly to an Ext.data.Store enabling automatic updates of the chart.
  * @constructor
  * @xtype chart
  */

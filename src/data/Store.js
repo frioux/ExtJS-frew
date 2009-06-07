@@ -549,9 +549,14 @@ sortInfo: {
     batch : true,
 
     /**
-     * @cfg {Boolean} restful [false]
-     * Defaults to <tt>false</tt>.  Set to <tt>true</tt> to have Store and set Proxy operate in a RESTful manner, utilizing the HTTP methods
-     * GET, POST, PUT and DELETE for corresponding CREATE, READ, UPDATE and DESTROY actions.
+     * @cfg {Boolean} restful
+     * Defaults to <tt>false</tt>.  Set to <tt>true</tt> to have the Store and the set
+     * Proxy operate in a RESTful manner. The store will automatically generate GET, POST,
+     * PUT and DELETE requests to the server. The HTTP method used for any given CRUD
+     * action is described in {@link Ext.data.Api#restActions}.  For additional information
+     * see {@link Ext.data.DataProxy#restful}.
+     * <p><b>Note</b>: if <code>{@link #restful}:true</code> <code>batch</code> will
+     * internally be set to <tt>false</tt>.</p>
      */
     restful: false,
 
