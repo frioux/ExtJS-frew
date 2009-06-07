@@ -186,7 +186,10 @@ Ext.Component = function(config){
         'render',
         /**
          * @event afterrender
-         * Fires after the component rendering is finished.
+         * <p>Fires after the component rendering is finished.</p>
+         * <p>The afterrender event is fired after this Component has been rendered, been postprocesed
+         * by any afterRender method defined for the Component, and, if {@link #stateful}, after state
+         * has been restored.</p>
          * @param {Ext.Component} this
          */
         'afterrender',
