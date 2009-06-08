@@ -236,7 +236,7 @@ buttons: [{
 
     // private
     createCallback : function(opts){
-		var opts = opts || {};
+        var opts = opts || {};
         return {
             success: this.success,
             failure: this.failure,
@@ -377,12 +377,35 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
  * <p>A class which handles loading of data from a server into the Fields of an {@link Ext.form.BasicForm}.</p>
  * <p>Instances of this class are only created by a {@link Ext.form.BasicForm Form} when
  * {@link Ext.form.BasicForm#load load}ing.</p>
- * <p>A response packet <b>must</b> contain a boolean <tt style="font-weight:bold">success</tt> property, and
- * a <tt style="font-weight:bold">data</tt> property. The <tt style="font-weight:bold">data</tt> property
+ * <p>A response packet <b>must</b> contain a boolean <code style="font-weight:bold">success</code> property, and
+ * a <code style="font-weight:bold">data</code> property. The <code style="font-weight:bold">data</code> property
  * contains the values of Fields to load. The individual value object for each Field
  * is passed to the Field's {@link Ext.form.Field#setValue setValue} method.</p>
- * <p>By default, response packets are assumed to be JSON, so a typical response
- * packet may look like this:</p><pre><code>
+ * <p>By default, response packets are assumed to be JSON, so for the following form load call:<pre><code>
+var myForm = new Ext.form.FormPanel({
+    title: 'Client and routing info',
+    items: [{
+        fieldLabel: 'Client',
+        name: 'clientName'
+    }, {
+        fieldLabel: 'Port of loading',
+        name: 'portOfLoading'
+    }, {
+        fieldLabel: 'Port of discharge',
+        name: 'portOfDischarge'
+    }]
+});
+myForm.{@link Ext.form.FormPanel#getForm getForm}().{@link Ext.form.BasicForm#load load}({
+    url: '/getRoutingInfo.php',
+    params: {
+        consignmentRef: myConsignmentRef
+    },
+    failure: function(form, action() {
+        Ext.Msg.alert("Load failed", action.result.errorMessage);
+    }
+});
+</code></pre>
+ * a success response packet may look like this:</p><pre><code>
 {
     success: true,
     data: {
@@ -391,8 +414,13 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
         portOfDischarge: "OSL"
     }
 }</code></pre>
+ * while a failure response packet may look like this:</p><pre><code>
+{
+    success: false,
+    errorMessage: "Consignment reference not found"
+}</code></pre>
  * <p>Other data may be placed into the response for processing the {@link Ext.form.BasicForm Form}'s callback
- * or event handler methods. The object decoded from this JSON is available in the {@link #result} property.</p>
+ * or event handler methods. The object decoded from this JSON is available in the {@link Ext.form.Action#result result} property.</p>
  */
 Ext.form.Action.Load = function(form, options){
     Ext.form.Action.Load.superclass.constructor.call(this, form, options);

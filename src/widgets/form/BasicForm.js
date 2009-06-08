@@ -311,16 +311,21 @@ new Ext.FormPanel({
      * All of the config options listed below are supported by both the submit
      * and load actions unless otherwise noted (custom actions could also accept
      * other config options):<ul>
-     * <li><b>url</b> : String<p class="sub-desc">The url for the action (defaults
-     * to the form's {@link #url}.)</p></li>
-     * <li><b>method</b> : String<p class="sub-desc">The form method to use (defaults
-     * to the form's method, or POST if not defined)</p></li>
+     *
+     * <li><b>url</b> : String<div class="sub-desc">The url for the action (defaults
+     * to the form's {@link #url}.)</div></li>
+     *
+     * <li><b>method</b> : String<div class="sub-desc">The form method to use (defaults
+     * to the form's method, or POST if not defined)</div></li>
+     *
      * <li><b>params</b> : String/Object<div class="sub-desc"><p>The params to pass
      * (defaults to the form's baseParams, or none if not defined)</p>
      * <p>Parameters are encoded as standard HTTP parameters using {@link Ext#urlEncode}.</p></div></li>
-     * <li><b>headers</b> : Object<p class="sub-desc">Request headers to set for the action
-     * (defaults to the form's default headers)</p></li>
-     * <li><b>success</b> : Function<p class="sub-desc">The callback that will
+     *
+     * <li><b>headers</b> : Object<div class="sub-desc">Request headers to set for the action
+     * (defaults to the form's default headers)</div></li>
+     *
+     * <li><b>success</b> : Function<div class="sub-desc">The callback that will
      * be invoked after a successful response. The function is passed the following parameters:<ul>
      * <li><tt>form</tt> : Ext.form.BasicForm<div class="sub-desc">The form that requested the action</div></li>
      * <li><tt>action</tt> : The {@link Ext.form.Action Action} object which performed the operation.
@@ -328,27 +333,27 @@ new Ext.FormPanel({
      * <li><tt>{@link Ext.form.Action#response response}</tt></li>
      * <li><tt>{@link Ext.form.Action#result result}</tt> : interrogate for custom postprocessing</li>
      * <li><tt>{@link Ext.form.Action#type type}</tt></li>
-     * </ul></p></li>
-     * <li><b>failure</b> : Function
-     * <div class="sub-desc">
-     * <p>The callback that will be invoked after a failed transaction attempt. The function is
-     * passed the following parameters:</p><ul>
-     * <li><tt>form</tt> : The {@link Ext.form.BasicForm} that requested the action. 
-     * <div class="sub-desc"></div></li>
+     * </ul></div></li></ul></div></li>
+     *
+     * <li><b>failure</b> : Function<div class="sub-desc">The callback that will be invoked after a
+     * failed transaction attempt. The function is passed the following parameters:<ul>
+     * <li><tt>form</tt> : The {@link Ext.form.BasicForm} that requested the action.</li>
      * <li><tt>action</tt> : The {@link Ext.form.Action Action} object which performed the operation.
      * <div class="sub-desc">The action object contains these properties of interest:<ul>
      * <li><tt>{@link Ext.form.Action#failureType failureType}</tt></li>
      * <li><tt>{@link Ext.form.Action#response response}</tt></li>
      * <li><tt>{@link Ext.form.Action#result result}</tt> : interrogate for custom postprocessing</li>
      * <li><tt>{@link Ext.form.Action#type type}</tt></li>
-     * </ul></div></li></ul>
-     * </div></li>
-     * <li><b>scope</b> : Object<p class="sub-desc">The scope in which to call the
-     * callback functions (The <tt>this</tt> reference for the callback functions).</p></li>
-     * <li><b>clientValidation</b> : Boolean<p class="sub-desc">Submit Action only.
+     * </ul></div></li></ul></div></li>
+     *
+     * <li><b>scope</b> : Object<div class="sub-desc">The scope in which to call the
+     * callback functions (The <tt>this</tt> reference for the callback functions).</div></li>
+     *
+     * <li><b>clientValidation</b> : Boolean<div class="sub-desc">Submit Action only.
      * Determines whether a Form's fields are validated in a final call to
      * {@link Ext.form.BasicForm#isValid isValid} prior to submission. Set to <tt>false</tt>
-     * to prevent this. If undefined, pre-submission field validation is performed.</p></li></ul>
+     * to prevent this. If undefined, pre-submission field validation is performed.</div></li></ul>
+     *
      * @return {BasicForm} this
      */
     doAction : function(action, options){
