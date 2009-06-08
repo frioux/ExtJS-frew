@@ -723,21 +723,21 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider({
      */
     hideParent : false,
     /**
-     * <p>Returns the {@link Ext.Element} which encapsulates this Component. This will
-     * <i>usually</i> be a &lt;DIV> element created by the class's onRender method, but
+     * <p>The {@link Ext.Element} which encapsulates this Component. Read-only.</p>
+     * <p>This will <i>usually</i> be a &lt;DIV> element created by the class's onRender method, but
      * that may be overridden using the {@link #autoEl} config.</p>
-     * <br><p><b>Note</b>: this element will not be available until this Component has been
-     * rendered.</b></p><br>
+     * <br><p><b>Note</b>: this element will not be available until this Component has been rendered.</p><br>
      * <p>To add listeners for <b>DOM events</b> to this Component (as opposed to listeners
-     * for this Component's own Observable events), perform the adding of the listener in a
-     * render event listener:</p><pre><code>
+     * for this Component's own Observable events), see the {@link #listeners} config for a suggestion,
+     * or use a render listener directly:</p><pre><code>
 new Ext.Panel({
     title: 'The Clickable Panel',
     listeners: {
         render: function(p) {
             // Append the Panel to the click handler&#39;s argument list.
             p.getEl().on('click', handlePanelClick.createDelegate(null, [p], true));
-        }
+        },
+        single: true  // Remove the listener after first invocation
     }
 });
 </code></pre>
@@ -1106,11 +1106,13 @@ var myGrid = new Ext.grid.EditorGridPanel({
     onDestroy  : Ext.emptyFn,
 
     /**
-     * <p>Returns the {@link Ext.Element} which encapsulates this Component. This will <i>usually</i> be
-     * a &lt;DIV> element created by the class's onRender method, but that may be overridden using the {@link #autoEl} config.</p>
-     * <p><b>The Element will not be available until this Component has been rendered.</b></p>
-     * <p>To add listeners for <b>DOM events</b> to this Component (as opposed to listeners for this Component's
-     * own Observable events), perform the adding of the listener in a one-off render event listener:</p><pre><code>
+     * <p>Returns the {@link Ext.Element} which encapsulates this Component.</p>
+     * <p>This will <i>usually</i> be a &lt;DIV> element created by the class's onRender method, but
+     * that may be overridden using the {@link #autoEl} config.</p>
+     * <br><p><b>Note</b>: this element will not be available until this Component has been rendered.</p><br>
+     * <p>To add listeners for <b>DOM events</b> to this Component (as opposed to listeners
+     * for this Component's own Observable events), see the {@link #listeners} config for a suggestion,
+     * or use a render listener directly:</p><pre><code>
 new Ext.Panel({
     title: 'The Clickable Panel',
     listeners: {
