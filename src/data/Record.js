@@ -185,8 +185,14 @@ rec.{@link #commit}();
 rec.{@link #data}['firstname'] = 'Wilma'); // updates record, but not the view
 rec.{@link #commit}(); // updates the view
      * </code></pre>
-     * <b>Note</b>: see <code>{@link #beginEdit}</code> to prevent the store's <code>update</code>
-     * event firing. 
+     * <b>Notes</b>:<div class="mdetail-params"><ul>
+     * <li>If the store has a writer and <code>autoSave=true</code>, each set()
+     * will execute an XHR to the server.</li>
+     * <li>Use <code>{@link #beginEdit}</code> to prevent the store's <code>update</code>
+     * event firing while using set().</li>
+     * <li>Use <code>{@link #endEdit}</code> to have the store's <code>update</code>
+     * event fire.</li>
+     * </ul></div>
      * @param {String} name The {@link Ext.data.Field#name name of the field} to set.
      * @param {Object} value The value to set the field to.
      */
