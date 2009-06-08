@@ -254,9 +254,17 @@ buttons: [{
  * and processes the returned response.</p>
  * <p>Instances of this class are only created by a {@link Ext.form.BasicForm Form} when
  * {@link Ext.form.BasicForm#submit submit}ting.</p>
- * <p>A response packet must contain a boolean <tt style="font-weight:bold">success</tt> property, and, optionally
- * an <tt style="font-weight:bold">errors</tt> property. The <tt style="font-weight:bold">errors</tt> property contains error
- * messages for invalid fields.</p>
+ * <p><u><b>Response Packet Criteria</b></u></p>
+ * <p>A response packet may contain:
+ * <div class="mdetail-params"><ul>
+ * <li><b><code>success</code></b> property : Boolean</li>
+ * <div class="sub-desc">The <code>success</code> property is required.
+ * </ul></div>
+ * <li><b><code>errors</code></b> property : Object</li>
+ * <div class="sub-desc">The <code>errors</code> property, which is optional, contains error
+ * messages for invalid fields.
+ * </ul></div>
+ * <p><u><b>JSON Packets</b></u></p>
  * <p>By default, response packets are assumed to be JSON, so a typical response
  * packet may look like this:</p><pre><code>
 {
@@ -267,7 +275,8 @@ buttons: [{
     }
 }</code></pre>
  * <p>Other data may be placed into the response for processing by the {@link Ext.form.BasicForm}'s callback
- * or event handler methods. The object decoded from this JSON is available in the {@link #result} property.</p>
+ * or event handler methods. The object decoded from this JSON is available in the
+ * {@link Ext.form.Action#result result} property.</p>
  * <p>Alternatively, if an {@link #errorReader} is specified as an {@link Ext.data.XmlReader XmlReader}:</p><pre><code>
     errorReader: new Ext.data.XmlReader({
             record : 'field',
@@ -301,16 +310,18 @@ Ext.form.Action.Submit = function(form, options){
 
 Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
     /**
-    * @cfg {Ext.data.DataReader} errorReader <b>Optional. JSON is interpreted with no need for an errorReader.</b>
-    * <p>A Reader which reads a single record from the returned data. The DataReader's <b>success</b> property specifies
-    * how submission success is determined. The Record's data provides the error messages to apply to any invalid form Fields.</p>.
-    */
+     * @cfg {Ext.data.DataReader} errorReader <p><b>Optional. JSON is interpreted with
+     * no need for an errorReader.</b></p>
+     * <p>A Reader which reads a single record from the returned data. The DataReader's
+     * <b>success</b> property specifies how submission success is determined. The Record's
+     * data provides the error messages to apply to any invalid form Fields.</p>
+     */
     /**
-    * @cfg {boolean} clientValidation Determines whether a Form's fields are validated
-    * in a final call to {@link Ext.form.BasicForm#isValid isValid} prior to submission.
-    * Pass <tt>false</tt> in the Form's submit options to prevent this. If not defined, pre-submission field validation
-    * is performed.
-    */
+     * @cfg {boolean} clientValidation Determines whether a Form's fields are validated
+     * in a final call to {@link Ext.form.BasicForm#isValid isValid} prior to submission.
+     * Pass <tt>false</tt> in the Form's submit options to prevent this. If not defined, pre-submission field validation
+     * is performed.
+     */
     type : 'submit',
 
     // private
@@ -377,12 +388,18 @@ Ext.extend(Ext.form.Action.Submit, Ext.form.Action, {
  * <p>A class which handles loading of data from a server into the Fields of an {@link Ext.form.BasicForm}.</p>
  * <p>Instances of this class are only created by a {@link Ext.form.BasicForm Form} when
  * {@link Ext.form.BasicForm#load load}ing.</p>
- * <p>A response packet <b>must</b> contain a boolean <code style="font-weight:bold">success</code> property, and
- * a <code style="font-weight:bold">data</code> property. The <code style="font-weight:bold">data</code> property
- * contains the values of Fields to load. The individual value object for each Field
- * is passed to the Field's {@link Ext.form.Field#setValue setValue} method.</p>
+ * <p><u><b>Response Packet Criteria</b></u></p>
+ * <p>A response packet <b>must</b> contain:
+ * <div class="mdetail-params"><ul>
+ * <li><b><code>success</code></b> property : Boolean</li>
+ * <li><b><code>data</code></b> property : Object</li>
+ * <div class="sub-desc">The <code>data</code> property contains the values of Fields to load.
+ * The individual value object for each Field is passed to the Field's
+ * {@link Ext.form.Field#setValue setValue} method.</div></li>
+ * </ul></div>
+ * <p><u><b>JSON Packets</b></u></p>
  * <p>By default, response packets are assumed to be JSON, so for the following form load call:<pre><code>
-var myForm = new Ext.form.FormPanel({
+var myFormPanel = new Ext.form.FormPanel({
     title: 'Client and routing info',
     items: [{
         fieldLabel: 'Client',
@@ -395,7 +412,7 @@ var myForm = new Ext.form.FormPanel({
         name: 'portOfDischarge'
     }]
 });
-myForm.{@link Ext.form.FormPanel#getForm getForm}().{@link Ext.form.BasicForm#load load}({
+myFormPanel.{@link Ext.form.FormPanel#getForm getForm}().{@link Ext.form.BasicForm#load load}({
     url: '/getRoutingInfo.php',
     params: {
         consignmentRef: myConsignmentRef
@@ -405,7 +422,7 @@ myForm.{@link Ext.form.FormPanel#getForm getForm}().{@link Ext.form.BasicForm#lo
     }
 });
 </code></pre>
- * a success response packet may look like this:</p><pre><code>
+ * a <b>success response</b> packet may look like this:</p><pre><code>
 {
     success: true,
     data: {
@@ -414,13 +431,14 @@ myForm.{@link Ext.form.FormPanel#getForm getForm}().{@link Ext.form.BasicForm#lo
         portOfDischarge: "OSL"
     }
 }</code></pre>
- * while a failure response packet may look like this:</p><pre><code>
+ * while a <b>failure response</b> packet may look like this:</p><pre><code>
 {
     success: false,
     errorMessage: "Consignment reference not found"
 }</code></pre>
- * <p>Other data may be placed into the response for processing the {@link Ext.form.BasicForm Form}'s callback
- * or event handler methods. The object decoded from this JSON is available in the {@link Ext.form.Action#result result} property.</p>
+ * <p>Other data may be placed into the response for processing the {@link Ext.form.BasicForm Form}'s
+ * callback or event handler methods. The object decoded from this JSON is available in the
+ * {@link Ext.form.Action#result result} property.</p>
  */
 Ext.form.Action.Load = function(form, options){
     Ext.form.Action.Load.superclass.constructor.call(this, form, options);

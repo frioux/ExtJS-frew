@@ -78,17 +78,23 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      */
     /**
      * @cfg {DataReader} reader
-     * An Ext.data.DataReader (e.g. {@link Ext.data.XmlReader}) to be used to read data when executing "load" actions.
-     * This is optional as there is built-in support for processing JSON.
+     * An Ext.data.DataReader (e.g. {@link Ext.data.XmlReader}) to be used to read
+     * data when executing "load" actions. This is optional as there is built-in
+     * support for processing JSON.  For additional information on using an XMLReader
+     * see the example provided in examples/form/xml-form.html.
      */
     /**
      * @cfg {DataReader} errorReader
-     * <p>An Ext.data.DataReader (e.g. {@link Ext.data.XmlReader}) to be used to read field error messages returned from "submit" actions.
-     * This is completely optional as there is built-in support for processing JSON.</p>
-     * <p>The Records which provide messages for the invalid Fields must use the Field name (or id) as the Record ID,
-     * and must contain a field called "msg" which contains the error message.</p>
-     * <p>The errorReader does not have to be a full-blown implementation of a DataReader. It simply needs to implement a 
-     * <tt>read(xhr)</tt> function which returns an Array of Records in an object with the following structure:<pre><code>
+     * <p>An Ext.data.DataReader (e.g. {@link Ext.data.XmlReader}) to be used to
+     * read field error messages returned from "submit" actions. This is optional
+     * as there is built-in support for processing JSON.</p>
+     * <p>The Records which provide messages for the invalid Fields must use the
+     * Field name (or id) as the Record ID, and must contain a field called "msg"
+     * which contains the error message.</p>
+     * <p>The errorReader does not have to be a full-blown implementation of a
+     * DataReader. It simply needs to implement a <tt>read(xhr)</tt> function
+     * which returns an Array of Records in an object with the following
+     * structure:</p><pre><code>
 {
     records: recordArray
 }
@@ -96,7 +102,8 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      */
     /**
      * @cfg {String} url
-     * The URL to use for form actions if one isn't supplied in the {@link #doAction action} options.
+     * The URL to use for form actions if one isn't supplied in the
+     * <code>{@link #doAction doAction} options</code>.
      */
     /**
      * @cfg {Boolean} fileUpload
@@ -308,8 +315,9 @@ new Ext.FormPanel({
      * @param {String/Object} actionName The name of the predefined action type,
      * or instance of {@link Ext.form.Action} to perform.
      * @param {Object} options (optional) The options to pass to the {@link Ext.form.Action}. 
-     * All of the config options listed below are supported by both the submit
-     * and load actions unless otherwise noted (custom actions could also accept
+     * All of the config options listed below are supported by both the
+     * {@link Ext.form.Action.Submit submit} and {@link Ext.form.Action.Load load} 
+     * actions unless otherwise noted (custom actions could also accept
      * other config options):<ul>
      *
      * <li><b>url</b> : String<div class="sub-desc">The url for the action (defaults
@@ -326,7 +334,10 @@ new Ext.FormPanel({
      * (defaults to the form's default headers)</div></li>
      *
      * <li><b>success</b> : Function<div class="sub-desc">The callback that will
-     * be invoked after a successful response. The function is passed the following parameters:<ul>
+     * be invoked after a successful response (see top of 
+     * {@link Ext.form.Action.Submit submit} and {@link Ext.form.Action.Load load}
+     * for a description of what constitutes a successful response).
+     * The function is passed the following parameters:<ul>
      * <li><tt>form</tt> : Ext.form.BasicForm<div class="sub-desc">The form that requested the action</div></li>
      * <li><tt>action</tt> : The {@link Ext.form.Action Action} object which performed the operation.
      * <div class="sub-desc">The action object contains these properties of interest:<ul>
