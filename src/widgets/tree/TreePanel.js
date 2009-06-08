@@ -8,7 +8,7 @@
  * specified using the {@link #root} config option, or using the {@link #setRootNode} method.
  * <p>An example of tree rendered to an existing div:</p><pre><code>
 var tree = new Ext.tree.TreePanel({
-    el: 'tree-div',
+    renderTo: 'tree-div',
     useArrows: true,
     autoScroll: true,
     animate: true,
@@ -26,29 +26,23 @@ var tree = new Ext.tree.TreePanel({
     }
 });
 
-// render the tree
-tree.render();
 tree.getRootNode().expand();
  * </code></pre>
  * <p>The example above would work with a data packet similar to this:</p><pre><code>
-[
-   {
-      "text":"adapter",
-      "id":"source\/adapter",
-      "cls":"folder"
-   },
-   {
-      "text":"dd",
-      "id":"source\/dd",
-      "cls":"folder"
-   },
-   {
-      "text":"debug.js",
-      "id":"source\/debug.js",
-      "leaf":true,
-      "cls":"file"
-   }
-]
+[{
+    "text": "adapter",
+    "id": "source\/adapter",
+    "cls": "folder"
+}, {
+    "text": "dd",
+    "id": "source\/dd",
+    "cls": "folder"
+}, {
+    "text": "debug.js",
+    "id": "source\/debug.js",
+    "leaf": true,
+    "cls": "file"
+}]
  * </code></pre>
  * <p>An example of tree within a Viewport:</p><pre><code>
 new Ext.Viewport({
