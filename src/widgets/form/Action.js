@@ -446,6 +446,20 @@ Ext.extend(Ext.form.Action.Load, Ext.form.Action, {
 /**
  * @class Ext.form.Action.DirectLoad
  * @extends Ext.form.Action.Load
+ * Provides Ext.direct support for loading form data.
+ * <pre><code>
+var form = new Ext.form.FormPanel({
+    api: {
+        load: App.ss.ClientForm.load,   
+        submit: App.ss.ClientForm.submit
+    },
+    paramOrder: ['uid'],
+    defaultType: 'textfield',
+    items: [
+        // form fields go here
+    ]
+});
+ * </code></pre>
  */
 Ext.form.Action.DirectLoad = Ext.extend(Ext.form.Action.Load, {
     constructor: function(form, opts) {        
@@ -486,6 +500,8 @@ Ext.form.Action.DirectLoad = Ext.extend(Ext.form.Action.Load, {
 /**
  * @class Ext.form.Action.DirectSubmit
  * @extends Ext.form.Action.Submit
+ * Provides Ext.direct support for submitting form data.
+ * See {@link Ext.form.Action.DirectLoad}.
  */
 Ext.form.Action.DirectSubmit = Ext.extend(Ext.form.Action.Submit, {
     constructor: function(form, opts) {

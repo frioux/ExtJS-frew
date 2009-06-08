@@ -131,7 +131,8 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     timeout: 30,
 
     /**
-     * @cfg {Object} api
+     * @cfg {Object} api (Optional) If specified load and submit actions will be handled
+     * with {@link Ext.form.Action.DirectLoad} and {@link Ext.form.Action.DirectSubmit}.
      * Methods which have been imported by Ext.Direct can be specified here to load and submit
      * forms. 
      * Such as the following:<pre><code>
@@ -140,18 +141,20 @@ api: {
     submit: App.ss.MyProfile.submit
 }
 </code></pre>
-     * <p>Load actions can use paramOrder or paramsAsHash to customize how the load method is invoked.
-     * Submit actions will always use a standard form submit. The formHandler configuration must be set
-     * on the associated server-side method which has been imported by Ext.Direct</p>
+     * <p>Load actions can use <code>{@link #paramOrder}</code> or <code>{@link #paramsAsHash}</code>
+     * to customize how the load method is invoked.
+     * Submit actions will always use a standard form submit. The formHandler configuration must
+     * be set on the associated server-side method which has been imported by Ext.Direct</p>
      */
 
     /**
-     * @cfg {Array/String} paramOrder Defaults to <tt>undefined</tt>. Only used for the api load configuration.
-     * A list of params to be executed
-     * server side.  Specify the params in the order in which they must be executed on the server-side
-     * as either (1) an Array of String values, or (2) a String of params delimited by either whitespace,
-     * comma, or pipe. For example,
-     * any of the following would be acceptable:<pre><code>
+     * @cfg {Array/String} paramOrder <p>A list of params to be executed server side.
+     * Defaults to <tt>undefined</tt>. Only used for the <code>{@link #api}</code>
+     * <code>load</code> configuration.</p>
+     * <br><p>Specify the params in the order in which they must be executed on the
+     * server-side as either (1) an Array of String values, or (2) a String of params
+     * delimited by either whitespace, comma, or pipe. For example,
+     * any of the following would be acceptable:</p><pre><code>
 paramOrder: ['param1','param2','param3']
 paramOrder: 'param1 param2 param3'
 paramOrder: 'param1,param2,param3'
@@ -161,8 +164,9 @@ paramOrder: 'param1|param2|param'
     paramOrder: undefined,
 
     /**
-     * @cfg {Boolean} paramsAsHash Only used for the api load configuration.
-     * Send parameters as a collection of named arguments (defaults to <tt>false</tt>). Providing a
+     * @cfg {Boolean} paramsAsHash Only used for the <code>{@link #api}</code>
+     * <code>load</code> configuration. Send parameters as a collection of named
+     * arguments (defaults to <tt>false</tt>). Providing a
      * <tt>{@link #paramOrder}</tt> nullifies this configuration.
      */
     paramsAsHash: false,
