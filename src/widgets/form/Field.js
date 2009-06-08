@@ -88,8 +88,13 @@ side          Add an error icon to the right of the field with a popup on hover
      */
     msgFx : 'normal',
     /**
-     * @cfg {Boolean} readOnly True to mark the field as readOnly in HTML (defaults to false) -- Note: this only
-     * sets the element's readOnly DOM attribute.
+     * @cfg {Boolean} readOnly <tt>true</tt> to mark the field as readOnly in HTML
+     * (defaults to <tt>false</tt>).
+     * <br><p><b>Note</b>: this only sets the element's readOnly DOM attribute.
+     * Setting <code>readOnly=true</code>, for example, will not disable triggering a
+     * ComboBox or DateField; it gives you the option of forcing the user to choose
+     * via the trigger without typing in the text box. To hide the trigger use
+     * <code>{@link Ext.form.TriggerField#hideTrigger hideTrigger}</code>.</p>
      */
     readOnly : false,
     /**
@@ -105,8 +110,8 @@ side          Add an error icon to the right of the field with a popup on hover
     // private
     hasFocus : false,
 
-	// private
-	initComponent : function(){
+    // private
+    initComponent : function(){
         Ext.form.Field.superclass.initComponent.call(this);
         this.addEvents(
             /**
@@ -278,8 +283,8 @@ var form = new Ext.form.FormPanel({
 
     // private
     initEvents : function(){
-    	this.mon(this.el, Ext.isIE || Ext.isSafari3 || Ext.isChrome ? "keydown" : "keypress", this.fireKey,  this);
-		this.mon(this.el, 'focus', this.onFocus, this);
+        this.mon(this.el, Ext.isIE || Ext.isSafari3 || Ext.isChrome ? "keydown" : "keypress", this.fireKey,  this);
+        this.mon(this.el, 'focus', this.onFocus, this);
 
         // fix weird FF/Win editor issue when changing OS window focus
         var o = this.inEditor && Ext.isWindows && Ext.isGecko ? {buffer:10} : null;
@@ -471,7 +476,7 @@ var form = new Ext.form.FormPanel({
     },
 
     // private, does not work for all fields
-    append :function(v){
+    append : function(v){
          this.setValue([this.getValue(), v].join(''));
     },
 
