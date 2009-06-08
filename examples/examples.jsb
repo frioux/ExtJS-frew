@@ -329,18 +329,18 @@
   <file name="menu\xl-toolbar.css" path="menu" />
   <file name="menu\xl-toolbar.html" path="menu" />
   <file name="menu\xl-toolbar.js" path="menu" />
-  <file name="direct\classes\Echo.php" path="direct\classes" />
-  <file name="direct\.tmp_direct.html~" path="direct" />
-  <file name="direct\direct.html" path="direct" />
-  <file name="direct\classes\EchoAction.php" path="direct\classes" />
-  <file name="direct\classes\config.php" path="direct\classes" />
-  <file name="direct\classes\TestAction.php" path="direct\classes" />
-  <file name="direct\api.php" path="direct" />
-  <file name="direct\DirectProvider.js" path="direct" />
-  <file name="direct\poll.html" path="direct" />
-  <file name="direct\poll.js" path="direct" />
-  <file name="direct\poll.php" path="direct" />
-  <file name="direct\router.php" path="direct" />
+  <file name="direct\direct.js" path="direct" />
+  <file name="direct\direct.php" path="direct" />
+  <file name="direct\direct-form.js" path="direct" />
+  <file name="direct\direct-form.php" path="direct" />
+  <file name="direct\direct-tree.js" path="direct" />
+  <file name="direct\direct-tree.php" path="direct" />
+  <file name="direct\php\api.php" path="direct\php" />
+  <file name="direct\php\config.php" path="direct\php" />
+  <file name="direct\php\poll.php" path="direct\php" />
+  <file name="direct\php\router.php" path="direct\php" />
+  <file name="direct\php\classes\TestAction.php" path="direct\php\classes" />
+  <file name="direct\php\classes\Profile.php" path="direct\php\classes" />
   <file name="grid\array-grid.html" path="grid" />
   <file name="grid\array-grid.js" path="grid" />
   <file name="grid\binding-with-classes.html" path="grid" />
@@ -395,7 +395,6 @@
   <file name="desktop\js\StartMenu.js" path="desktop\js" />
   <file name="desktop\js\TaskBar.js" path="desktop\js" />
   <file name="desktop\sample.js" path="desktop" />
-  <file name="direct\direct.js" path="direct" />
   <file name="feed-viewer\FeedGrid.js" path="feed-viewer" />
   <file name="feed-viewer\FeedPanel.js" path="feed-viewer" />
   <file name="feed-viewer\FeedViewer.js" path="feed-viewer" />
@@ -941,12 +940,6 @@
   <file name="view\data-view.css" path="view" />
   <file name="view\list-view.css" path="view" />
   <file name="samples.css" path="" />
-  <file name="direct\php\classes\TestAction.php" path="direct\php\classes" />
-  <file name="direct\php\api.php" path="direct\php" />
-  <file name="direct\php\config.php" path="direct\php" />
-  <file name="direct\php\poll.php" path="direct\php" />
-  <file name="direct\php\router.php" path="direct\php" />
-  <file name="direct\direct.php" path="direct" />
   <file name="feed-viewer\feed-proxy.php" path="feed-viewer" />
   <file name="form\file-upload.php" path="form" />
   <file name="state\get-state.php" path="state" />
