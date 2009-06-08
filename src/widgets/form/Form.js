@@ -10,11 +10,13 @@
  * {@link Ext.layout.FormLayout} layout manager.</p>
  * 
  * <p><b><u>BasicForm</u></b></p>
- * <p>Although <b>not listed</b> as configuration options of FormPanel, the FormPanel class also accepts all
- * of the config options required to configure its internal {@link Ext.form.BasicForm} for 
- * {@link Ext.form.BasicForm#fileUpload file uploads} or providing the functionality for
- * {@link Ext.form.BasicForm#doAction loading, validating and submitting} the form.</p>
- * 
+ * <p>Although <b>not listed</b> as configuration options of FormPanel, the FormPanel class accepts all
+ * of the config options required to configure its internal {@link Ext.form.BasicForm} for:
+ * <div class="mdetail-params"><ul>
+ * <li>{@link Ext.form.BasicForm#fileUpload file uploads}</li>
+ * <li>functionality for {@link Ext.form.BasicForm#doAction loading, validating and submitting} the form</li>
+ * </ul></div>
+ *  
  * <p><b>Note</b>: If subclassing FormPanel, any configuration options for the BasicForm must be applied to
  * the <tt><b>initialConfig</b></tt> property of the FormPanel. Applying {@link Ext.form.BasicForm BasicForm}
  * configuration settings to <b><tt>this</tt></b> will <b>not</b> affect the BasicForm's configuration.</p>

@@ -492,18 +492,46 @@ Ext.extend(Ext.form.Action.Load, Ext.form.Action, {
 /**
  * @class Ext.form.Action.DirectLoad
  * @extends Ext.form.Action.Load
- * Provides Ext.direct support for loading form data.
+ * Provides Ext.direct support for loading form data. This example illustrates usage
+ * of Ext.Direct to load a submit a form through Ext.Direct.
  * <pre><code>
-var form = new Ext.form.FormPanel({
-    api: {
-        load: App.ss.ClientForm.load,   
-        submit: App.ss.ClientForm.submit
-    },
-    paramOrder: ['uid'],
+var myFormPanel = new Ext.form.FormPanel({
+    // configs for FormPanel
+    title: 'Basic Information',
+    border: false,
+    padding: 10,
+    buttons:[{
+        text: 'Submit',
+        handler: function(){
+            basicInfo.getForm().submit({
+                params: {
+                    uid: 5
+                }
+            });
+        }
+    }],
+    
+    // configs apply to child items
+    defaults: {anchor: '100%'},
     defaultType: 'textfield',
     items: [
         // form fields go here
-    ]
+    ],
+    
+    // configs for BasicForm
+    api: {
+        load: Profile.getBasicInfo,
+        // The server-side must mark the submit handler as a 'formHandler'
+        submit: Profile.updateBasicInfo
+    },    
+    paramOrder: ['uid']
+});
+
+// load the form
+myFormPanel.getForm().load({
+    params: {
+        uid: 5
+    }
 });
  * </code></pre>
  */
