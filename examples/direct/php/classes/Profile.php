@@ -1,5 +1,14 @@
 <?php
 class Profile {
+
+    // submit method
+    function updateBasicInfo($userId){
+        return array(
+            'success'=>true,
+            'id'=>$userId
+        );
+    }
+
     function getBasicInfo($userId){
         return array(
             'success'=>true,
@@ -10,7 +19,7 @@ class Profile {
              )
         );
     }
-    
+
     function getPhoneInfo($userId) {
         return array(
             'success'=>true,
@@ -32,5 +41,5 @@ class Profile {
                 'zip'=>33776
             )
         );
-    }}
-?>
+    }
+}

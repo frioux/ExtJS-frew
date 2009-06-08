@@ -24,8 +24,11 @@ $API = array(
             ),
             'getLocationInfo'=>array(
                 'len'=>1
+            ),
+            'updateBasicInfo'=>array(
+                'len'=>1,
+                'formHandler'=>true
             )
         )
-    )        
+    )
 );
-?>

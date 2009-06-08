@@ -1,18 +1,31 @@
+// This example illustrates how to load a FormPanel or BasicForm through Ext.Direct.
+
 Ext.onReady(function(){
-    // slow the buffering down from the default of 10ms to 100ms
+    // Notice that Direct requests will batch together if they occur
+    // within the enableBuffer delay period (in milliseconds).
+    // Slow the buffering down from the default of 10ms to 100ms
     Ext.app.REMOTING_API.enableBuffer = 100;
     Ext.Direct.addProvider(Ext.app.REMOTING_API);
     
     var basicInfo = new Ext.form.FormPanel({
+        // configs for FormPanel
         title: 'Basic Information',
-        api: {
-            load: Profile.getBasicInfo
-        },    
         border: false,
         padding: 10,
-        paramOrder: ['uid'],
-        defaultType: 'textfield',
+        buttons:[{
+            text: 'Submit',
+            handler: function(){
+                basicInfo.getForm().submit({
+                    params: {
+                        uid: 5
+                    }
+                });
+            }
+        }],
+        
+        // configs apply to child items
         defaults: {anchor: '100%'},
+        defaultType: 'textfield',
         items: [{
             fieldLabel: 'Name',
             name: 'name'
@@ -22,7 +35,15 @@ Ext.onReady(function(){
         },{
             fieldLabel: 'Company',
             name: 'company'
-        }]
+        }],
+        
+        // configs for BasicForm
+        api: {
+            load: Profile.getBasicInfo,
+            // The server-side must mark the submit handler as a 'formHandler'
+            submit: Profile.updateBasicInfo
+        },    
+        paramOrder: ['uid']
     });
     
     var phoneInfo = new Ext.form.FormPanel({
