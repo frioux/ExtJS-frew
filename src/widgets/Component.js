@@ -725,11 +725,11 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider({
     /**
      * <p>The {@link Ext.Element} which encapsulates this Component. Read-only.</p>
      * <p>This will <i>usually</i> be a &lt;DIV> element created by the class's onRender method, but
-     * that may be overridden using the {@link #autoEl} config.</p>
+     * that may be overridden using the <code>{@link #autoEl}</code> config.</p>
      * <br><p><b>Note</b>: this element will not be available until this Component has been rendered.</p><br>
      * <p>To add listeners for <b>DOM events</b> to this Component (as opposed to listeners
-     * for this Component's own Observable events), see the {@link #listeners} config for a suggestion,
-     * or use a render listener directly:</p><pre><code>
+     * for this Component's own Observable events), see the {@link Ext.util.Observable#listeners listeners}
+     * config for a suggestion, or use a render listener directly:</p><pre><code>
 new Ext.Panel({
     title: 'The Clickable Panel',
     listeners: {
