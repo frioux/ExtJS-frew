@@ -406,8 +406,8 @@ Ext.extend(T, Ext.Container, {
      * </ul>
      * @param {Mixed} arg2
      * @param {Mixed} etc.
+     * @method add
      */
-    add : Ext.Container.prototype.add,
     
     // private
     lookupComponent: function(c){
