@@ -259,7 +259,14 @@ Ext.BoxComponent = Ext.extend(Ext.Component, {
         return this;
     },
 
-    // protected
+    /**
+     * <p>Returns the outermost Element of this Component which defines the Components overall size.</p>
+     * <p><i>Usually</i> this will return the same Element as {@link #getEl}, but in some cases, a Component
+     * may have some more wrapping Elements around its main active Element.</p>
+     * <p>An example is a ComboBox. It is encased in a <i>wrapping</i> Element which contains both the <code>&lt;input></code>
+     * Element (which is what would be returned by its <code>egtEl</code> method, <i>and</i> the trigger button Element.
+     * This Element is returned as the <code>resizeEl.</code>
+     */
     getResizeEl : function(){
         return this.resizeEl || this.el;
     },
