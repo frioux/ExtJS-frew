@@ -5,6 +5,12 @@
  */
  Ext.layout.MenuLayout = Ext.extend(Ext.layout.ContainerLayout, {
     monitorResize: true,
+    
+    setContainer : function(ct){
+        this.monitorResize = !ct.floating;
+        Ext.layout.MenuLayout.superclass.setContainer.call(this, ct);
+    },
+    
     renderItem : function(c, position, target){
         if (!this.itemTpl) {
             this.itemTpl = Ext.layout.MenuLayout.prototype.itemTpl = new Ext.XTemplate(
@@ -473,17 +479,13 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
     constrainScroll: function(y){
         var max, full = this.ul.setHeight('auto').getHeight();
         if(this.floating){
-            if(this.maxHeight){
-                max = this.maxHeight - (this.scrollerHeight * 3);
-            }else{
-                max = Ext.fly(this.el.dom.parentNode).getViewSize().height - y - (this.scrollerHeight * 3);
-            }
+            max = this.maxHeight ? this.maxHeight : Ext.fly(this.el.dom.parentNode).getViewSize().height - y;
         }else{
-            max = this.getHeight() - (this.scrollerHeight * 2);
+            max = this.getHeight();
         }
         if(full > max && max > 0){
-            this.activeMax = max;
-            this.ul.setHeight(max);
+            this.activeMax = max - this.scrollerHeight * 2 - this.el.getFrameWidth('tb');
+            this.ul.setHeight(this.activeMax);
             this.createScrollers();
             this.el.select('.x-menu-scroller').setDisplayed('');
         }else{
@@ -529,9 +531,6 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
                 this.constrainScroll(this.el.getTop());
             }
             if(this.floating){
-                if(Ext.isIE){
-                    this.layout.doAutoSize();
-                }
                 this.el.sync();
             }
         }
