@@ -55,7 +55,7 @@ Ext.onReady(function(){
     );
 
     // add an inline editor for the nodes
-    var ge = new Ext.tree.TreeEditor(tree, {
+    var ge = new Ext.tree.TreeEditor(tree, {/* fieldconfig here */ }, {
         allowBlank:false,
         blankText:'A name is required',
         selectOnFocus:true
