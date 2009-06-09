@@ -400,9 +400,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
         this.focus();
         this.updateHandles();
         this.saveState();
-        if(this.layout){
-            this.doLayout();
-        }
+        this.doLayout();
         this.fireEvent("resize", this, box.width, box.height);
     },
 
@@ -508,9 +506,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
             Ext.EventManager.onWindowResize(this.onWindowResize, this);
         }
         this.doConstrain();
-        if(this.layout){
-            this.doLayout();
-        }
+        this.doLayout();
         if(this.keyMap){
             this.keyMap.enable();
         }
