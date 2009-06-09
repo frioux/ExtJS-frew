@@ -108,6 +108,7 @@ new Ext.Viewport({
  *
  * @constructor
  * @param {Object} config
+ * @xtype treepanel
  */
 Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
     rootVisible : true,
