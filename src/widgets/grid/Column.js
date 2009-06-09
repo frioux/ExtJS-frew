@@ -219,8 +219,6 @@ var grid = new Ext.grid.GridPanel({
     // private. Used by ColumnModel to avoid reprocessing
     isColumn : true,
     /**
-     * @property renderer
-     * @type Function
      * A function which returns displayable data when passed the following parameters:
      * <div class="mdetail-params"><ul>
      * <li><b>value</b> : Object<p class="sub-desc">The data value for the cell.</p></li>
@@ -235,6 +233,8 @@ var grid = new Ext.grid.GridPanel({
      * <li><b>store</b> : Ext.data.Store<p class="sub-desc">The {@link Ext.data.Store} object from which the Record
      * was extracted.</p></li>
      * </ul></div>
+     * @property renderer
+     * @type Function
      */
     renderer : function(value){
         if(typeof value == "string" && value.length < 1){
