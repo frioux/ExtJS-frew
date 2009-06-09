@@ -1175,9 +1175,14 @@ var menu = new Ext.menu.Menu({
         }
         this.list.alignTo(this.wrap, this.listAlign);
         this.list.show();
-        this.innerList.setOverflow('auto'); // necessary for FF 2.0/Mac
-        Ext.getDoc().on('mousewheel', this.collapseIf, this);
-        Ext.getDoc().on('mousedown', this.collapseIf, this);
+        if(Ext.isGecko2){
+            this.innerList.setOverflow('auto'); // necessary for FF 2.0/Mac
+        }
+        Ext.getDoc().on({
+            scope: this,
+            mousewheel: this.collapseIf,
+            mousedown: this.collapseIf
+        });
         this.fireEvent('expand', this);
     },
 
