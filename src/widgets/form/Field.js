@@ -237,7 +237,13 @@ var form = new Ext.form.FormPanel({
         }else if(!Ext.isEmpty(this.el.dom.value) && this.el.dom.value != this.emptyText){
             this.setValue(this.el.dom.value);
         }
-        // reference to original value for reset
+        /**
+         * The original value of the field as configured in the {@link #value} configuration, or
+         * as loaded by the last form load operation if the form's {@link Ext.form.BasicForm#trackResetOnLoad trackResetOnLoad}
+         * setting is <code>true</code>.
+         * @type mixed
+         * @property originalValue
+         */
         this.originalValue = this.getValue();
     },
 
