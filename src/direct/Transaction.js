@@ -1,8 +1,15 @@
+/**
+ * @class Ext.Direct.Transaction
+ * @extends Object
+ * <p>Supporting Class for Ext.Direct (not intended to be used directly).</p>
+ * @constructor
+ * @param {Object} config
+ */
 Ext.Direct.Transaction = function(config){
     Ext.apply(this, config);
     this.tid = ++Ext.Direct.TID;
     this.retryCount = 0;
-}
+};
 Ext.Direct.Transaction.prototype = {
     send: function(){
         this.provider.queueTransaction(this);
