@@ -237,6 +237,10 @@ TestAction.multiply(
     },
 
     queueTransaction: function(t){
+        if(t.form){
+            this.processForm(t);
+            return;
+        }
         this.callBuffer.push(t);
         if(this.enableBuffer){
             if(!this.callTask){
@@ -277,37 +281,43 @@ TestAction.multiply(
             action: c,
             method: m.name,
             args:[form, callback, scope],
-            cb: scope && Ext.isFunction(callback) ? callback.createDelegate(scope) : callback
+            cb: scope && Ext.isFunction(callback) ? callback.createDelegate(scope) : callback,
+            isForm: true
         });
 
         if(this.fireEvent('beforecall', this, t) !== false){
             Ext.Direct.addTransaction(t);
-
-            form = Ext.getDom(form);
-            var isUpload = String(form.getAttribute("enctype")).toLowerCase() == 'multipart/form-data';
-
-            var params = {
-                extTID: t.tid,
-                extAction: c,
-                extMethod: m.name,
-                extType: 'rpc',
-                extUpload: String(isUpload)
-            };
+            var isUpload = String(form.getAttribute("enctype")).toLowerCase() == 'multipart/form-data',
+                params = {
+                    extTID: t.tid,
+                    extAction: c,
+                    extMethod: m.name,
+                    extType: 'rpc',
+                    extUpload: String(isUpload)
+                };
+            
             // change made from typeof callback check to callback.params
             // to support addl param passing in DirectSubmit EAC 6/2
-            if(callback && Ext.isObject(callback.params)){
-                Ext.apply(params, callback.params);
-            }
-            Ext.Ajax.request({
-                url: this.url,
-                params: params,
-                callback: this.onData,
-                scope: this,
-                form: form,
+            Ext.apply(t, {
+                form: Ext.getDom(form),
                 isUpload: isUpload,
-                ts: t
+                params: callback && Ext.isObject(callback.params) ? params : Ext.apply(params, callback.params)
             });
+            this.fireEvent('call', this, t);
+            this.processForm(t);
         }
+    },
+    
+    processForm: function(t){
+        Ext.Ajax.request({
+            url: this.url,
+            params: t.params,
+            callback: this.onData,
+            scope: this,
+            form: t.form,
+            isUpload: t.isUpload,
+            ts: t
+        });
     },
 
     createMethod : function(c, m){
