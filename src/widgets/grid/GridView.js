@@ -415,28 +415,28 @@ viewConfig: {
     // getter methods for fetching elements dynamically in the grid
 
 /**
- * Return the &lt;TR> HtmlElement which represents a Grid row for the specified index.
+ * Return the <tt>&lt;div></tt> HtmlElement which represents a Grid row for the specified index.
  * @param {Number} index The row index
- * @return {HtmlElement} The &lt;TR> element.
+ * @return {HtmlElement} The div element.
  */
     getRow : function(row){
         return this.getRows()[row];
     },
 
 /**
- * Returns the grid's &lt;TD> HtmlElement at the specified coordinates.
+ * Returns the grid's <tt>&lt;td></tt> HtmlElement at the specified coordinates.
  * @param {Number} row The row index in which to find the cell.
  * @param {Number} col The column index of the cell.
- * @return {HtmlElement} The &lt;TD> at the specified coordinates.
+ * @return {HtmlElement} The td at the specified coordinates.
  */
     getCell : function(row, col){
         return this.getRow(row).getElementsByTagName('td')[col];
     },
 
 /**
- * Return the &lt;TD> HtmlElement which represents the Grid's header cell for the specified column index.
+ * Return the <tt>&lt;td></tt> HtmlElement which represents the Grid's header cell for the specified column index.
  * @param {Number} index The column index
- * @return {HtmlElement} The &lt;TD> element.
+ * @return {HtmlElement} The td element.
  */
     getHeaderCell : function(index){
       return this.mainHd.dom.getElementsByTagName('td')[index];
