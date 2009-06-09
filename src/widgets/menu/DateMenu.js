@@ -10,6 +10,13 @@
      * @hide 
      */
     enableScrolling: false,
+    
+    /** 
+     * @cfg {Boolean} hideOnClick
+     * False to continue showing the menu after a date is selected, defaults to true.
+     */
+    hideOnClick: true,
+    
     /** 
      * @cfg {Number} maxHeight
      * @hide 
@@ -41,16 +48,20 @@
         this.picker.purgeListeners();
         Ext.menu.DateMenu.superclass.initComponent.call(this);
         this.relayEvents(this.picker, ["select"]);
+        this.on('select', this.doHide, this);
+        if(this.handler){
+            this.on('select', this.handler, this.scope || this);
+        }
     },
 
-    onClick: function() {
+    doHide: function() {
         if(this.hideOnClick){
             this.hide(true);
         }
     },
 
     onBeforeShow: function(){
-        if (this.picker){
+        if(this.picker){
             this.picker.hideMonthPicker(true);
         }
     },
