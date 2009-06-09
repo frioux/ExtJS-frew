@@ -8,12 +8,20 @@ Ext.apply(Ext.EventManager, function(){
     	textSize,
     	D = Ext.lib.Dom,
     	E = Ext.lib.Event,
-    	propRe = /^(?:scope|delay|buffer|single|stopEvent|preventDefault|stopPropagation|normalized|args|delegate)$/;
+    	propRe = /^(?:scope|delay|buffer|single|stopEvent|preventDefault|stopPropagation|normalized|args|delegate)$/,
+        curWidth = 0,
+        curHeight = 0;
       	
 	return { 
 		// private
 	    doResizeEvent: function(){
-	        resizeEvent.fire(D.getViewWidth(), D.getViewHeight());
+            var h = D.getViewHeight(),
+                w = D.getViewWidth();
+            
+            //whacky problem in IE where the resize event will fire even though the w/h are the same.
+            if(curHeight != h || curWidth != w){
+                resizeEvent.fire(curWidth = w, curHeight = h);
+            }
 	    },
 	    
 	    /**
