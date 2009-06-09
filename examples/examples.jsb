@@ -580,6 +580,57 @@
   <file name="forum\details.gif" path="forum" />
   <file name="forum\forum.gif" path="forum" />
   <file name="history\history.html" path="history" />
+  <file name="image-organizer\img-org.css" path="image-organizer" />
+  <file name="image-organizer\index.html" path="image-organizer" />
+  <file name="image-organizer\readme.txt" path="image-organizer" />
+  <file name="image-organizer\images\selected.gif" path="image-organizer\images" />
+  <file name="image-organizer\images\icons\arrow_up.png" path="image-organizer\images\icons" />
+  <file name="image-organizer\images\icons\box_upload.png" path="image-organizer\images\icons" />
+  <file name="image-organizer\images\icons\cancel.png" path="image-organizer\images\icons" />
+  <file name="image-organizer\images\icons\folder_add.png" path="image-organizer\images\icons" />
+  <file name="image-organizer\images\icons\folder_add_sm.png" path="image-organizer\images\icons" />
+  <file name="image-organizer\images\icons\tag_blue_add.png" path="image-organizer\images\icons" />
+  <file name="image-organizer\images\thumbs\kids_hug2.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\images\thumbs\kids_hug.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\images\thumbs\sara_pink.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\images\thumbs\sara_pumpkin.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\images\thumbs\sara_smile.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\images\thumbs\up_to_something.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\images\thumbs\zack.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\images\thumbs\zack_dress.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\images\thumbs\zack_hat.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\images\thumbs\zack_sink.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\images\thumbs\zacks_grill.jpg" path="image-organizer\images\thumbs" />
+  <file name="image-organizer\imgorg\AlbumsPanel.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\AlbumTree.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\AlbumWin.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\App.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\Checkable.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\DirectCombo.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\ImageDv.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\ImagePanel.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\ImageThumbPanel.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\MultiCombo.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\TagWin.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\imgorg\UploadQueue.js" path="image-organizer\imgorg" />
+  <file name="image-organizer\php\api.php" path="image-organizer\php" />
+  <file name="image-organizer\php\config.php" path="image-organizer\php" />
+  <file name="image-organizer\php\poll.php" path="image-organizer\php" />
+  <file name="image-organizer\php\router.php" path="image-organizer\php" />
+  <file name="image-organizer\php\classes" path="image-organizer\php\classes" />
+  <file name="image-organizer\php\classes\Albums.php" path="image-organizer\php\classes" />
+  <file name="image-organizer\php\classes\Images.php" path="image-organizer\php\classes" />
+  <file name="image-organizer\php\classes\Tags.php" path="image-organizer\php\classes" />
+  <file name="image-organizer\php\sql\setup.php" path="image-organizer\php\sql" />
+  <file name="image-organizer\php\sql\imgorg.db" path="image-organizer\php\sql" />
+  <file name="image-organizer\SWFUpload\swfupload.js" path="image-organizer\SWFUpload" />
+  <file name="image-organizer\SWFUpload\swfupload license.txt" path="image-organizer\SWFUpload" />
+  <file name="image-organizer\SWFUpload\Flash\swfupload.swf" path="image-organizer\SWFUpload\Flash" />
+  <file name="image-organizer\SWFUpload\plugins\SWFObject License.txt" path="image-organizer\SWFUpload\plugins" />
+  <file name="image-organizer\SWFUpload\plugins\swfupload.cookies.js" path="image-organizer\SWFUpload\plugins" />
+  <file name="image-organizer\SWFUpload\plugins\swfupload.queue.js" path="image-organizer\SWFUpload\plugins" />
+  <file name="image-organizer\SWFUpload\plugins\swfupload.speed.js" path="image-organizer\SWFUpload\plugins" />
+  <file name="image-organizer\SWFUpload\plugins\swfupload.swfobject.js" path="image-organizer\SWFUpload\plugins" />
   <file name="layout\images\add-feed.gif" path="layout\images" />
   <file name="layout\images\article.gif" path="layout\images" />
   <file name="layout\images\bullet.gif" path="layout\images" />
@@ -633,22 +684,6 @@
   <file name="panel\panels.html" path="panel" />
   <file name="portal\portal.html" path="portal" />
   <file name="resizable\basic.html" path="resizable" />
-  <file name="image-organizer\data-view-plugins.js" path="image-organizer" />
-  <file name="image-organizer\direct.js" path="image-organizer" />
-  <file name="image-organizer\direct.php" path="image-organizer" />
-  <file name="image-organizer\img-dv.js" path="image-organizer" />
-  <file name="image-organizer\img-org.css" path="image-organizer" />
-  <file name="image-organizer\img-org.js" path="image-organizer" />
-  <file name="image-organizer\index.html" path="image-organizer" />
-  <file name="image-organizer\php\api.php" path="image-organizer\php" />
-  <file name="image-organizer\php\classes" path="image-organizer\php\classes" />
-  <file name="image-organizer\php\classes\Albums.php" path="image-organizer\php\classes" />
-  <file name="image-organizer\php\classes\Images.php" path="image-organizer\php\classes" />
-  <file name="image-organizer\php\classes\Tags.php" path="image-organizer\php\classes" />
-  <file name="image-organizer\php\config.php" path="image-organizer\php" />
-  <file name="image-organizer\php\poll.php" path="image-organizer\php" />
-  <file name="image-organizer\php\router.php" path="image-organizer\php" />
-  <file name="image-organizer\tag-combo.js" path="image-organizer" />
   <file name="shared\extjs\images\bd-bg.gif" path="shared\extjs\images" />
   <file name="shared\extjs\images\c-sep-l.gif" path="shared\extjs\images" />
   <file name="shared\extjs\images\c-sep.gif" path="shared\extjs\images" />
@@ -1021,42 +1056,6 @@
   <file name="debug\inspector.gif" path="debug" />
   <file name="debug\debug.css" path="debug" />
   <file name="debug\sheldon.xml" path="debug" />
-  <file name="image-organizer\images\icons\arrow_up.png" path="image-organizer\images\icons" />
-  <file name="image-organizer\images\icons\box_upload.png" path="image-organizer\images\icons" />
-  <file name="image-organizer\images\icons\cancel.png" path="image-organizer\images\icons" />
-  <file name="image-organizer\images\icons\folder_add.png" path="image-organizer\images\icons" />
-  <file name="image-organizer\images\icons\folder_add_sm.png" path="image-organizer\images\icons" />
-  <file name="image-organizer\images\icons\tag_blue_add.png" path="image-organizer\images\icons" />
-  <file name="image-organizer\images\thumbs\kids_hug.jpg" path="image-organizer\images\thumbs" />
-  <file name="image-organizer\images\thumbs\kids_hug2.jpg" path="image-organizer\images\thumbs" />
-  <file name="image-organizer\images\thumbs\sara_pink.jpg" path="image-organizer\images\thumbs" />
-  <file name="image-organizer\images\thumbs\sara_pumpkin.jpg" path="image-organizer\images\thumbs" />
-  <file name="image-organizer\images\thumbs\sara_smile.jpg" path="image-organizer\images\thumbs" />
-  <file name="image-organizer\images\thumbs\up_to_something.jpg" path="image-organizer\images\thumbs" />
-  <file name="image-organizer\images\thumbs\zack.jpg" path="image-organizer\images\thumbs" />
-  <file name="image-organizer\images\thumbs\zacks_grill.jpg" path="image-organizer\images\thumbs" />
-  <file name="image-organizer\images\thumbs\zack_dress.jpg" path="image-organizer\images\thumbs" />
-  <file name="image-organizer\images\thumbs\zack_hat.jpg" path="image-organizer\images\thumbs" />
-  <file name="image-organizer\images\thumbs\zack_sink.jpg" path="image-organizer\images\thumbs" />
-  <file name="image-organizer\images\selected.gif" path="image-organizer\images" />
-  <file name="image-organizer\imgorg\AlbumsPanel.js" path="image-organizer\imgorg" />
-  <file name="image-organizer\imgorg\AlbumTree.js" path="image-organizer\imgorg" />
-  <file name="image-organizer\imgorg\AlbumWin.js" path="image-organizer\imgorg" />
-  <file name="image-organizer\imgorg\App.js" path="image-organizer\imgorg" />
-  <file name="image-organizer\imgorg\Checkable.js" path="image-organizer\imgorg" />
-  <file name="image-organizer\imgorg\DirectCombo.js" path="image-organizer\imgorg" />
-  <file name="image-organizer\imgorg\ImageDv.js" path="image-organizer\imgorg" />
-  <file name="image-organizer\imgorg\ImagePanel.js" path="image-organizer\imgorg" />
-  <file name="image-organizer\imgorg\ImageThumbPanel.js" path="image-organizer\imgorg" />
-  <file name="image-organizer\imgorg\MultiCombo.js" path="image-organizer\imgorg" />
-  <file name="image-organizer\imgorg\TagWin.js" path="image-organizer\imgorg" />
-  <file name="image-organizer\imgorg\UploadQueue.js" path="image-organizer\imgorg" />
-  <file name="image-organizer\php\sql\setup.php" path="image-organizer\php\sql" />
-  <file name="image-organizer\SWFUpload\plugins\swfupload.cookies.js" path="image-organizer\SWFUpload\plugins" />
-  <file name="image-organizer\SWFUpload\plugins\swfupload.queue.js" path="image-organizer\SWFUpload\plugins" />
-  <file name="image-organizer\SWFUpload\plugins\swfupload.speed.js" path="image-organizer\SWFUpload\plugins" />
-  <file name="image-organizer\SWFUpload\plugins\swfupload.swfobject.js" path="image-organizer\SWFUpload\plugins" />
-  <file name="image-organizer\SWFUpload\swfupload.js" path="image-organizer\SWFUpload" />
   <file name="key-feed-viewer\images\article.gif" path="key-feed-viewer\images" />
   <file name="key-feed-viewer\images\bg.gif" path="key-feed-viewer\images" />
   <file name="key-feed-viewer\images\bullet.gif" path="key-feed-viewer\images" />

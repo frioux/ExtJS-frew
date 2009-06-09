@@ -11,7 +11,7 @@ class Images {
                 $qry .= ' INNER JOIN Images_Tags it'.$i.' ON i.id = it'.$i.'.image_id';
                 array_push($where,' it'.$i.'.tag_id = "'.$tags[$i].'"');
             }
-        } 
+        }
         if ($album) {
             $qry .= ' INNER JOIN Albums a ON i.album_id = a.id';
             array_push($where, ' a.id ="'.$album.'"');
@@ -30,10 +30,15 @@ class Images {
         $db->queryExec('INSERT INTO Images (filename, url) VALUES("'.$name.'","images/'.$name.'")');
         $q = $db->query('SELECT * FROM Images WHERE filename = "'.$name.'"');
         move_uploaded_file($files["Filedata"]["tmp_name"],"../images/".$name);
-        
-        return array(data => $files["Filedata"], res => $q->fetchObject(), test => $phm->getImageQuality());
+
+        return array(
+            'data' => $files["Filedata"],
+            'res'  => $q->fetchObject()
+            //,
+            //'test' => $phm->getImageQuality()
+            );
     }
-    
+
     function addToAlbum($data) {
         $images = $data->images;
         $album = $data->album;
@@ -42,9 +47,9 @@ class Images {
 //            $db->queryExec('INSERT INTO Albums_Images (image_id, album_id) VALUES ("'.$images[$i].'","'.$album.'")');
             $db->queryExec('UPDATE Images SET album_id = "'.$album.'" WHERE id ="'.$images[$i].'"');
         }
-        return array(success => true, images => $images, album => $album);
+        return array('success' => true, 'images' => $images, 'album' => $album);
     }
-    
+
     function tagImage($data) {
         $images = $data->images;
         $tag = $data->tag;
@@ -58,9 +63,9 @@ class Images {
         for ($i = 0;$i < sizeof($images);$i++) {
             $db->queryExec('INSERT INTO Images_Tags (image_id, tag_id) VALUES ("'.$images[$i].'","'.$tag.'")');
         }
-        return array(success => true, images => $images, tag => $tag);
+        return array('success' => true, 'images' => $images, 'tag' => $tag);
     }
-    
+
     function rename($data) {
         $db = new SQLiteDatabase("sql/imgorg.db");
         $image = $data->image;
@@ -69,13 +74,13 @@ class Images {
         $urls = split('/',$url);
         array_pop($urls);
         $newUrl = (join('/',$urls)).'/'.$name;
-        
+
         $db->queryExec('UPDATE Images SET url = "'.$newUrl.'", filename = "'.$name.'" WHERE id = "'.$image.'"');
         rename('../'.$url, '../'.$newUrl);
-        
-        return array(image => $image, name => $name, url => $newUrl);
+
+        return array('image' => $image, 'name' => $name, 'url' => $newUrl);
     }
-    
+
     function remove($data) {
         $db = new SQLiteDatabase("sql/imgorg.db");
         $images = $data->images;
@@ -87,7 +92,7 @@ class Images {
             $db->queryExec('DELETE FROM Images_Tags WHERE image_id ="'.$images[$i].'"');
         }
     }
-    
+
     function getInfo($data) {
         $db = new SQLiteDatabase("sql/imgorg.db");
         $image = $data->image;

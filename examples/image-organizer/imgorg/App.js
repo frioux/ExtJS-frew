@@ -37,13 +37,14 @@ Imgorg.App = function() {
             },
             minimum_flash_version: "9.0.28",
             post_params: {
-                extAction: 'Images',
-                extUpload: true,
-                extMethod: 'upload'
+                extAction: 'Images', // The class to use
+                extUpload: true,      
+                extMethod: 'upload'  // The method to execute
+                //needs extTID – Transaction ID to associate with this request.
             }
         };
         swfu = new SWFUpload(settings);
-    }
+    };
     var view, thumbPanel, uploadPanel, tabPanel;
     return {
         debugSWF: false,

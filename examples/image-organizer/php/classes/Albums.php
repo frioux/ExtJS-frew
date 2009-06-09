@@ -2,6 +2,7 @@
 class Albums {
     function loadtree(){
         $db = new SQLiteDatabase("sql/imgorg.db");
+
         $res = $db->query('select * from Albums');
         $json = array();
         while ($o = $res->fetchObject()) {
@@ -21,13 +22,13 @@ class Albums {
         }
         return array(success => true);
     }
-    
+
     function remove($data) {
         $db = new SQLiteDatabase('sql/imgorg.db');
         $q = $db->queryExec('DELETE FROM Albums where id ="'.$data->album.'"');
         return array(success=>true, album => $data->album);
     }
-    
+
     function load($data){
         // use $query for type-ahead
         $query = $data->query;
@@ -39,15 +40,15 @@ class Albums {
         $q = $db->query($qryStr);
         return $q->fetchAll();
     }
-    
+
     function getAlbums($data) {
         $db = new SQLiteDatabase('sql/imgorg.db');
         $image = $data->image;
-        
+
         $q = $db->query('SELECT a.text as text, a.id as id FROM Albums a INNER JOIN Images i ON a.id = i.album_id WHERE i.id = "'.$image.'"');
         return $q->fetchAll();
     }
-    
+
     function getAllInfo($data) {
         $db = new SQLiteDatabase('sql/imgorg.db');
         $res = $db->query('select * from Albums');
@@ -57,7 +58,10 @@ class Albums {
             $qres = $q->fetchObject();
             if ($qres) {
                 $path = $qres->url;
-                $o->exif = exif_read_data('../'.$path);
+                $filename = '../'.$path;
+                if (file_exists($filename)) {
+                    $o->exif = exif_read_data($filename);
+                }
                 $o->filename = $qres->filename;
             }
             $o->size = sizeof($q->fetchAll());
