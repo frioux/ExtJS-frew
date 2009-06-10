@@ -44,6 +44,7 @@ store.load({
         start: 0,          // specify params for the first page load if using paging
         limit: myPageSize,
         foo:   'bar'
+    }
 });
  * </code></pre>
  * <p><u>Paging with Local Data</u></p>
