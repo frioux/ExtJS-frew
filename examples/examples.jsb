@@ -74,25 +74,6 @@
   <file name="form\jobs-remote.php" path="form" />
   <file name="panels\desktop.js" path="panels" />
   <file name="layout\feed-viewer.js" path="layout" />
-  <file name="feed-viewer\images\add-feed.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\feed-viewer.html" path="feed-viewer" />
-  <file name="feed-viewer\feed-viewer.js" path="feed-viewer" />
-  <file name="feed-viewer\bg.gif" path="feed-viewer" />
-  <file name="feed-viewer\cmp-bg.gif" path="feed-viewer" />
-  <file name="feed-viewer\details.gif" path="feed-viewer" />
-  <file name="feed-viewer\feed-viewer-old.js" path="feed-viewer" />
-  <file name="feed-viewer\feed-viewer3.css" path="feed-viewer" />
-  <file name="feed-viewer\feed-viewer3.html" path="feed-viewer" />
-  <file name="feed-viewer\feed-viewer3.js" path="feed-viewer" />
-  <file name="feed-viewer\forum.gif" path="feed-viewer" />
-  <file name="feed-viewer\forum.js" path="feed-viewer" />
-  <file name="feed-viewer\message.png" path="feed-viewer" />
-  <file name="feed-viewer\messages.png" path="feed-viewer" />
-  <file name="feed-viewer\message_edit.png" path="feed-viewer" />
-  <file name="feed-viewer\preview.png" path="feed-viewer" />
-  <file name="feed-viewer\images\preview-hide.png" path="feed-viewer\images" />
-  <file name="feed-viewer\images\preview-right.png" path="feed-viewer\images" />
-  <file name="feed-viewer\images\preview.png" path="feed-viewer\images" />
   <file name="dialog\hello.js" path="dialog" />
   <file name="dialog\layout.js" path="dialog" />
   <file name="dialog\post.js" path="dialog" />
@@ -229,7 +210,6 @@
   <file name="window\windows.js" path="window" />
   <file name="layout\portal.html" path="layout" />
   <file name="layout\Portal.js" path="layout" />
-  <file name="feed-viewer\images\hd-bg.gif" path="feed-viewer\images" />
   <file name="desktop\js\cookies.js" path="desktop\js" />
   <file name="desktop\plugins\layout-window\js\plugin.js" path="desktop\plugins\layout-window\js" />
   <file name="desktop\wallpapers\qwikioffice.jpg" path="desktop\wallpapers" />
@@ -341,6 +321,51 @@
   <file name="direct\php\router.php" path="direct\php" />
   <file name="direct\php\classes\TestAction.php" path="direct\php\classes" />
   <file name="direct\php\classes\Profile.php" path="direct\php\classes" />
+  <file name="feed-viewer\FeedGrid.js" path="feed-viewer" />
+  <file name="feed-viewer\FeedPanel.js" path="feed-viewer" />
+  <file name="feed-viewer\feed-proxy.php" path="feed-viewer" />
+  <file name="feed-viewer\feed-viewer.css" path="feed-viewer" />
+  <file name="feed-viewer\FeedViewer.js" path="feed-viewer" />
+  <file name="feed-viewer\FeedWindow.js" path="feed-viewer" />
+  <file name="feed-viewer\MainPanel.js" path="feed-viewer" />
+  <file name="feed-viewer\view.html" path="feed-viewer" />
+  <file name="feed-viewer\images\article.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\bg.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\bullet.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\cancel.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\cmp-bg.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\comment-bg.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\delete.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\details.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\feed-item.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\forward.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\go-to-post.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\grid-hrow.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\header.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\header-bar.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\myfeeds.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\new_tab.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\new_window.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\post.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\post-bg.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\preview.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\preview-bottom.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\preview-hide.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\preview-right.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\refresh.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\rss.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\rss_add.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\rss_delete.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\rss_load.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\signin.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\signout.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\suggested.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\tab-close.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\tab-close-on.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\toolbar.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\wait.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\warning.gif" path="feed-viewer\images" />
+  <file name="feed-viewer\images\win-bg.gif" path="feed-viewer\images" />
   <file name="grid\array-grid.html" path="grid" />
   <file name="grid\array-grid.js" path="grid" />
   <file name="grid\binding-with-classes.html" path="grid" />
@@ -395,11 +420,6 @@
   <file name="desktop\js\StartMenu.js" path="desktop\js" />
   <file name="desktop\js\TaskBar.js" path="desktop\js" />
   <file name="desktop\sample.js" path="desktop" />
-  <file name="feed-viewer\FeedGrid.js" path="feed-viewer" />
-  <file name="feed-viewer\FeedPanel.js" path="feed-viewer" />
-  <file name="feed-viewer\FeedViewer.js" path="feed-viewer" />
-  <file name="feed-viewer\FeedWindow.js" path="feed-viewer" />
-  <file name="feed-viewer\MainPanel.js" path="feed-viewer" />
   <file name="form\absform.js" path="form" />
   <file name="form\adv-vtypes.js" path="form" />
   <file name="form\anchoring.js" path="form" />
@@ -444,6 +464,9 @@
   <file name="simple-widgets\progress-bar.js" path="simple-widgets" />
   <file name="simple-widgets\qtips.js" path="simple-widgets" />
   <file name="slider\slider.js" path="slider" />
+  <file name="state\get-state.php" path="state" />
+  <file name="state\README.txt" path="state" />
+  <file name="state\save-state.php" path="state" />
   <file name="state\SessionProvider.js" path="state" />
   <file name="tabs\TabCloseMenu.js" path="tabs" />
   <file name="tabs\tabs-adv.js" path="tabs" />
@@ -525,44 +548,6 @@
   <file name="desktop\wallpapers\ext.gif" path="desktop\wallpapers" />
   <file name="desktop\wallpapers\shiny.gif" path="desktop\wallpapers" />
   <file name="desktop\desktop.html" path="desktop" />
-  <file name="feed-viewer\images\article.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\bg.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\bullet.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\cancel.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\cmp-bg.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\comment-bg.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\delete.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\details.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\feed-item.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\forward.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\go-to-post.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\grid-hrow.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\header-bar.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\header.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\myfeeds.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\new_tab.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\new_window.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\post-bg.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\post.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\preview-bottom.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\preview-hide.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\preview-right.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\preview.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\refresh.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\rss.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\rss_add.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\rss_delete.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\rss_load.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\signin.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\signout.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\suggested.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\tab-close-on.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\tab-close.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\toolbar.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\wait.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\warning.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\images\win-bg.gif" path="feed-viewer\images" />
-  <file name="feed-viewer\view.html" path="feed-viewer" />
   <file name="form\absform.html" path="form" />
   <file name="form\adv-vtypes.html" path="form" />
   <file name="form\anchoring.html" path="form" />
@@ -861,7 +846,6 @@
   <file name="desktop\wallpapers\desktop.jpg" path="desktop\wallpapers" />
   <file name="desktop\wallpapers\desktop2.jpg" path="desktop\wallpapers" />
   <file name="desktop\wallpapers\sky.jpg" path="desktop\wallpapers" />
-  <file name="feed-viewer\feed-viewer.css" path="feed-viewer" />
   <file name="form\combos.css" path="form" />
   <file name="form\file-upload.css" path="form" />
   <file name="form\forms.css" path="form" />
@@ -975,10 +959,7 @@
   <file name="view\data-view.css" path="view" />
   <file name="view\list-view.css" path="view" />
   <file name="samples.css" path="" />
-  <file name="feed-viewer\feed-proxy.php" path="feed-viewer" />
   <file name="form\file-upload.php" path="form" />
-  <file name="state\get-state.php" path="state" />
-  <file name="state\save-state.php" path="state" />
   <file name="tree\get-nodes.php" path="tree" />
   <file name="tree\save-dep.php" path="tree" />
   <file name="view\get-images.php" path="view" />
