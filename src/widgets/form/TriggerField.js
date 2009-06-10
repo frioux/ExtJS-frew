@@ -261,7 +261,8 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
  * @extends Ext.form.TriggerField
  * TwinTriggerField is not a public class to be used directly.  It is meant as an abstract base class
  * to be extended by an implementing class.  For an example of implementing this class, see the custom
- * SearchField implementation here: http://extjs.com/deploy/ext/examples/form/custom.html
+ * SearchField implementation here:
+ * <a href="http://extjs.com/deploy/ext/examples/form/custom.html">http://extjs.com/deploy/ext/examples/form/custom.html</a>
  */
 Ext.form.TwinTriggerField = Ext.extend(Ext.form.TriggerField, {
     /**

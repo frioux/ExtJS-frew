@@ -257,12 +257,11 @@ buttons: [{
  * <p><u><b>Response Packet Criteria</b></u></p>
  * <p>A response packet may contain:
  * <div class="mdetail-params"><ul>
- * <li><b><code>success</code></b> property : Boolean</li>
- * <div class="sub-desc">The <code>success</code> property is required.
- * </ul></div>
- * <li><b><code>errors</code></b> property : Object</li>
- * <div class="sub-desc">The <code>errors</code> property, which is optional, contains error
- * messages for invalid fields.
+ * <li><b><code>success</code></b> property : Boolean
+ * <div class="sub-desc">The <code>success</code> property is required.</div></li>
+ * <li><b><code>errors</code></b> property : Object
+ * <div class="sub-desc"><div class="sub-desc">The <code>errors</code> property,
+ * which is optional, contains error messages for invalid fields.</div></li>
  * </ul></div>
  * <p><u><b>JSON Packets</b></u></p>
  * <p>By default, response packets are assumed to be JSON, so a typical response
