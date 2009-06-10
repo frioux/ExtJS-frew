@@ -359,7 +359,12 @@ viewConfig: {
         return this.fly(el).findParent(this.cellSelector, this.cellSelectorDepth);
     },
 
-    // private
+/**
+ * <p>Return the index of the grid column which contains the passed element.</p>
+ * See also {@link #findRowIndex}
+ * @param {Element} el The target element
+ * @return The column index, or <b>false</b> if the target element is not within a row of this GridView.
+ */
     findCellIndex : function(el, requiredCls){
         var cell = this.findCell(el);
         if(cell && (!requiredCls || this.fly(cell).hasClass(requiredCls))){
@@ -403,7 +408,8 @@ viewConfig: {
     },
 
 /**
- * Return the index of the grid row which contains the passed element.
+ * <p>Return the index of the grid row which contains the passed element.</p>
+ * See also {@link #findCellIndex}
  * @param {Element} el The target element
  * @return The row index, or <b>false</b> if the target element is not within a row of this GridView.
  */
