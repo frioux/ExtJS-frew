@@ -132,7 +132,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
      */
     lastText : "Last Page",
     /**
-     * @cfg {String} lastText
+     * @cfg {String} refreshText
      * The quicktip text displayed for the Refresh button (defaults to <tt>"Refresh"</tt>).
      * <b>Note</b>: quick tips must be initialized for the quicktip to show.
      */
