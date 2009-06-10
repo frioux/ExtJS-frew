@@ -484,7 +484,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
             max = this.getHeight();
         }
         if(full > max && max > 0){
-            this.activeMax = max - this.scrollerHeight * 2 - this.el.getFrameWidth('tb') - this.el.shadowOffset;
+            this.activeMax = max - this.scrollerHeight * 2 - this.el.getFrameWidth('tb') - Ext.num(this.el.shadowOffset, 0);
             this.ul.setHeight(this.activeMax);
             this.createScrollers();
             this.el.select('.x-menu-scroller').setDisplayed('');
