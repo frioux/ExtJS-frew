@@ -50,6 +50,11 @@ Ext.Panel = Ext.extend(Ext.Container, {
      * @property bwrap
      */
     /**
+     * True if this panel is collapsed. Read-only.
+     * @type Boolean
+     * @property collapsed
+     */
+    /**
      * @cfg {Object} bodyCfg
      * <p>A {@link Ext.DomHelper DomHelper} element specification object may be specified for any
      * Panel Element.</p>
