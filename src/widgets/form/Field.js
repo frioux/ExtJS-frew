@@ -289,7 +289,7 @@ var form = new Ext.form.FormPanel({
 
     // private
     initEvents : function(){
-        this.mon(this.el, Ext.isIE || Ext.isSafari3 || Ext.isChrome ? "keydown" : "keypress", this.fireKey,  this);
+        this.mon(this.el, Ext.EventManager.useKeydown() ? "keydown" : "keypress", this.fireKey,  this);
         this.mon(this.el, 'focus', this.onFocus, this);
 
         // fix weird FF/Win editor issue when changing OS window focus

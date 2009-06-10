@@ -99,7 +99,13 @@ Ext.apply(Ext.EventManager, function(){
 	    /**
          * Url used for onDocumentReady with using SSL (defaults to Ext.SSL_SECURE_URL)
          */
-        ieDeferSrc : false   
+        ieDeferSrc : false,
+        
+        // protected for use inside the framework
+        // detects whether we should use keydown or keypress based on the browser.
+        useKeydown: function(){
+            return Ext.isIE || (Ext.isWebkit && !Ext.isSafari2) || Ext.isAir;
+        }
     }
 }());
 
