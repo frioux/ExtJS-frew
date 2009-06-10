@@ -104,7 +104,7 @@ Ext.apply(Ext.EventManager, function(){
         // protected for use inside the framework
         // detects whether we should use keydown or keypress based on the browser.
         useKeydown: function(){
-            return Ext.isIE || (Ext.isWebkit && !Ext.isSafari2) || Ext.isAir;
+            return Ext.isIE || (Ext.isWebKit && !Ext.isSafari2) || Ext.isAir;
         }
     }
 }());
