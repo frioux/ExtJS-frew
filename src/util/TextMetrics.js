@@ -1,7 +1,8 @@
 /**
  * @class Ext.util.TextMetrics
  * Provides precise pixel measurements for blocks of text so that you can determine exactly how high and
- * wide, in pixels, a given block of text will be.
+ * wide, in pixels, a given block of text will be. Note that when measuring text, it should be plain text and
+ * should not contain any HTML, otherwise it may not be measured correctly.
  * @singleton
  */
 Ext.util.TextMetrics = function(){
