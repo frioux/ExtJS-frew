@@ -286,6 +286,13 @@ myCheckboxGroup.setValue('cb-col-1,cb-col-3');
         return this;
     },
     
+    // private
+    onDestroy: function(){
+        Ext.destroy(this.panel);
+        Ext.form.CheckboxGroup.superclass.onDestroy.call(this);
+
+    },
+    
     setValueForItem : function(val){
         val = String(val).split(',');
         this.items.each(function(item){
