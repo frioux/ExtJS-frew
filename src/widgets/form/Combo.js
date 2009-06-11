@@ -729,7 +729,7 @@ var menu = new Ext.menu.Menu({
         if(this.typeAhead){
             this.taTask = new Ext.util.DelayedTask(this.onTypeAhead, this);
         }
-        if(this.editable !== false){
+        if(this.editable !== false && !this.enableKeyEvents){
             this.mon(this.el, 'keyup', this.onKeyUp, this);
         }
     },
@@ -1054,10 +1054,12 @@ var menu = new Ext.menu.Menu({
 
     // private
     onKeyUp : function(e){
-        if(this.editable !== false && !e.isSpecialKey()){
-            this.lastKey = e.getKey();
+        var k = e.getKey();
+        if(this.editable !== false && (k == e.BACKSPACE || !e.isSpecialKey())){
+            this.lastKey = k;
             this.dqTask.delay(this.queryDelay);
         }
+        Ext.form.ComboBox.superclass.onKeyUp.call(this, e);
     },
 
     // private
