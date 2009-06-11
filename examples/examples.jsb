@@ -496,7 +496,6 @@
   <file name="view\data-view-plugins.js" path="view" />
   <file name="view\data-view.js" path="view" />
   <file name="view\list-view.js" path="view" />
-  <file name="window\Ext.ux.GMapPanel.js" path="window" />
   <file name="window\gmap.js" path="window" />
   <file name="window\hello.js" path="window" />
   <file name="window\layout.js" path="window" />
@@ -616,6 +615,52 @@
   <file name="image-organizer\SWFUpload\plugins\swfupload.queue.js" path="image-organizer\SWFUpload\plugins" />
   <file name="image-organizer\SWFUpload\plugins\swfupload.speed.js" path="image-organizer\SWFUpload\plugins" />
   <file name="image-organizer\SWFUpload\plugins\swfupload.swfobject.js" path="image-organizer\SWFUpload\plugins" />
+  <file name="key-feed-viewer\FeedGrid.js" path="key-feed-viewer" />
+  <file name="key-feed-viewer\FeedPanel.js" path="key-feed-viewer" />
+  <file name="key-feed-viewer\feed-proxy.php" path="key-feed-viewer" />
+  <file name="key-feed-viewer\feed-viewer.css" path="key-feed-viewer" />
+  <file name="key-feed-viewer\FeedViewer.js" path="key-feed-viewer" />
+  <file name="key-feed-viewer\FeedWindow.js" path="key-feed-viewer" />
+  <file name="key-feed-viewer\Focus.js" path="key-feed-viewer" />
+  <file name="key-feed-viewer\MainPanel.js" path="key-feed-viewer" />
+  <file name="key-feed-viewer\view.html" path="key-feed-viewer" />
+  <file name="key-feed-viewer\images\article.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\bg.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\bullet.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\cancel.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\cmp-bg.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\comment-bg.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\delete.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\details.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\feed-item.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\forward.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\go-to-post.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\grid-hrow.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\header.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\header-bar.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\myfeeds.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\new_tab.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\new_window.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\post.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\post-bg.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\preview.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\preview-bottom.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\preview-hide.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\preview-right.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\refresh.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\rss.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\rss_add.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\rss_delete.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\rss_load.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\signin.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\signout.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\suggested.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\tab-close.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\tab-close-on.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\toolbar.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\wait.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\warning.gif" path="key-feed-viewer\images" />
+  <file name="key-feed-viewer\images\win-bg.gif" path="key-feed-viewer\images" />
   <file name="layout\images\add-feed.gif" path="layout\images" />
   <file name="layout\images\article.gif" path="layout\images" />
   <file name="layout\images\bullet.gif" path="layout\images" />
@@ -1037,52 +1082,6 @@
   <file name="debug\inspector.gif" path="debug" />
   <file name="debug\debug.css" path="debug" />
   <file name="debug\sheldon.xml" path="debug" />
-  <file name="key-feed-viewer\images\article.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\bg.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\bullet.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\cancel.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\cmp-bg.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\comment-bg.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\delete.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\details.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\feed-item.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\forward.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\go-to-post.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\grid-hrow.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\header-bar.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\header.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\myfeeds.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\new_tab.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\new_window.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\post-bg.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\post.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\preview-bottom.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\preview-hide.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\preview-right.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\preview.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\refresh.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\rss.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\rss_add.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\rss_delete.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\rss_load.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\signin.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\signout.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\suggested.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\tab-close-on.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\tab-close.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\toolbar.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\wait.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\warning.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\images\win-bg.gif" path="key-feed-viewer\images" />
-  <file name="key-feed-viewer\FeedGrid.js" path="key-feed-viewer" />
-  <file name="key-feed-viewer\FeedPanel.js" path="key-feed-viewer" />
-  <file name="key-feed-viewer\FeedViewer.js" path="key-feed-viewer" />
-  <file name="key-feed-viewer\FeedWindow.js" path="key-feed-viewer" />
-  <file name="key-feed-viewer\Focus.js" path="key-feed-viewer" />
-  <file name="key-feed-viewer\MainPanel.js" path="key-feed-viewer" />
-  <file name="key-feed-viewer\view.html" path="key-feed-viewer" />
-  <file name="key-feed-viewer\feed-viewer.css" path="key-feed-viewer" />
-  <file name="key-feed-viewer\feed-proxy.php" path="key-feed-viewer" />
   <file name="multiselect\images\bottom2.gif" path="multiselect\images" />
   <file name="multiselect\images\down2.gif" path="multiselect\images" />
   <file name="multiselect\images\left2.gif" path="multiselect\images" />
@@ -1111,7 +1110,7 @@
   <file name="ux\BufferView.js" path="ux" />
   <file name="ux\ColumnNodeUI.js" path="ux" />
   <file name="ux\data-view-plugins.js" path="ux" />
-  <file name="ux\Ext.ux.GMapPanel.js" path="ux" />
+  <file name="ux\GMapPanel.js" path="ux" />
   <file name="ux\FileUploadField.js" path="ux" />
   <file name="ux\GroupSummary.js" path="ux" />
   <file name="ux\ItemSelector.js" path="ux" />
@@ -1140,7 +1139,7 @@
     <include name="ux\FileUploadField.js" />
     <include name="ux\ColumnNodeUI.js" />
     <include name="ux\data-view-plugins.js" />
-    <include name="ux\Ext.ux.GMapPanel.js" />
+    <include name="ux\GMapPanel.js" />
     <include name="ux\GroupSummary.js" />
     <include name="ux\PagingMemoryProxy.js" />
     <include name="ux\ProgressBarPager.js" />
