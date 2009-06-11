@@ -8,7 +8,7 @@
 
 // add a handler for a 'message' event sent by the server 
 Ext.Direct.on('message', function(e){
-    out.append(String.format('<p><i>{0}</i></p>', e.data));
+    out.append(String.format('&lt;p>&lt;i>{0}&lt;/i>&lt;/p>', e.data));
             out.el.scrollTo('t', 100000, true);
 });
  * </code></pre>
