@@ -692,8 +692,11 @@ Ext.layout.BorderLayout.Region.prototype = {
         Ext.getDoc().un("click", this.slideInIf, this);
     },
 
-    // these names are backwards but not changed for compat
-    // private
+    /**
+     * If this Region is {@link #floatable}, this method slides this Region into full visibility <i>over the top
+     * of the center Region</i> where it floats until either {@link #slideIn} is called, or other regions of the layout
+     * are clicked, or the mouse exits the Region.
+     */
     slideOut : function(){
         if(this.isSlid || this.el.hasActiveFx()){
             return;
@@ -746,7 +749,10 @@ Ext.layout.BorderLayout.Region.prototype = {
         }
     },
 
-    // private
+    /**
+     * If this Region is {@link #floatable}, and this Region has been slid into floating visibility, then this method slides
+     * this region back into its collapsed state.
+     */
     slideIn : function(cb){
         if(!this.isSlid || this.el.hasActiveFx()){
             Ext.callback(cb);
