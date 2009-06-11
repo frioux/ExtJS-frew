@@ -8,7 +8,8 @@ function(){
         HIDDEN = "hidden",
         NONE = "none",
 	    XMASKED = "x-masked",
-		XMASKEDRELATIVE = "x-masked-relative";
+		XMASKEDRELATIVE = "x-masked-relative",
+        data = Ext.Element.data;
 		
 	return {
 		/**
@@ -46,7 +47,9 @@ function(){
 	     */
 	    enableDisplayMode : function(display){	    
 	        this.setVisibilityMode(Ext.Element.DISPLAY);
-	        if(!Ext.isEmpty(display)) this.originalDisplay = display;
+	        if(!Ext.isEmpty(display)){
+                data(this.dom, 'originalDisplay', display);
+            }
 	        return this;
 	    },
 	    
@@ -61,34 +64,37 @@ function(){
 		    var me = this,
 		    	dom = me.dom,
 		    	dh = Ext.DomHelper,
-		    	EXTELMASKMSG = "ext-el-mask-msg";
+		    	EXTELMASKMSG = "ext-el-mask-msg",
+                el, 
+                mask;
 		    	
 	        if(me.getStyle("position") == "static"){
 	            me.addClass(XMASKEDRELATIVE);
 	        }
-	        if(me._maskMsg){
-	            me._maskMsg.remove();
+	        if(el = data(dom, 'maskMsg')){
+	            el.remove();
 	        }
-	        if(me._mask){
-	            me._mask.remove();
+	        if(el = data(dom, 'mask')){
+	            el.remove();
 	        }
 	
-	        me._mask = dh.append(dom, {cls : "ext-el-mask"}, true);
+            mask = dh.append(dom, {cls : "ext-el-mask"}, true);
+	        data(dom, 'mask', mask);
 	
 	        me.addClass(XMASKED);
-	        me._mask.setDisplayed(true);
+	        mask.setDisplayed(true);
 	        if(typeof msg == 'string'){
-	            me._maskMsg = dh.append(dom, {cls : EXTELMASKMSG, cn:{tag:'div'}}, true);
-	            var mm = me._maskMsg;
+                var mm = dh.append(dom, {cls : EXTELMASKMSG, cn:{tag:'div'}}, true);
+                data(dom, 'maskMsg', mm);
 	            mm.dom.className = msgCls ? EXTELMASKMSG + " " + msgCls : EXTELMASKMSG;
 	            mm.dom.firstChild.innerHTML = msg;
 	            mm.setDisplayed(true);
 	            mm.center(me);
 	        }
 	        if(Ext.isIE && !(Ext.isIE7 && Ext.isStrict) && me.getStyle('height') == 'auto'){ // ie will not expand full height automatically
-	            me._mask.setSize(undefined, me.getHeight());
+	            mask.setSize(undefined, me.getHeight());
 	        }
-	        return me._mask;
+	        return mask;
 	    },
 	
 	    /**
@@ -96,15 +102,16 @@ function(){
 	     */
 	    unmask : function(){
 		    var me = this,
-		    	mask = me._mask,
-		    	maskMsg = me._maskMsg;
+                dom = me.dom,
+		    	mask = data(dom, 'mask'),
+		    	maskMsg = data(dom, 'maskMsg');
 	        if(mask){
 	            if(maskMsg){
 	                maskMsg.remove();
-	                delete me._maskMsg;
+                    data(dom, 'maskMsg', undefined);
 	            }
 	            mask.remove();
-	            delete me._mask;
+                data(dom, 'mask', undefined);
 	        }
 	        me.removeClass([XMASKED, XMASKEDRELATIVE]);
 	    },
@@ -113,8 +120,9 @@ function(){
 	     * Returns true if this element is masked
 	     * @return {Boolean}
 	     */
-	    isMasked : function(){	    
-	        return this._mask && this._mask.isVisible();
+	    isMasked : function(){
+            var m = data(this.dom, 'mask');
+	        return m && m.isVisible();
 	    },
 	    
 	    /**

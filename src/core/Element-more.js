@@ -48,19 +48,20 @@ Ext.Element.addMethods({
      */
     clean : function(forceReclean){
         var me = this, 
-        	n = me.dom.firstChild, 
+            dom = me.dom,
+        	n = dom.firstChild, 
         	ni = -1;
         	
-	    if(me.isCleaned && forceReclean !== true){
+	    if(Ext.Element.data(dom, 'isCleaned') && forceReclean !== true){
             return me;
         }      
         	
  	    while(n){
  	        var nx = n.nextSibling;
- 	        n.nodeType == 3 && !/\S/.test(n.nodeValue) ? me.dom.removeChild(n) : n.nodeIndex = ++ni; 
+ 	        n.nodeType == 3 && !/\S/.test(n.nodeValue) ? dom.removeChild(n) : n.nodeIndex = ++ni; 
  	        n = nx;
  	    }
- 	    me.isCleaned = true;
+        Ext.Element.data(dom, 'isCleaned', true);
  	    return me;
  	},
     

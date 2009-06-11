@@ -60,12 +60,12 @@ Ext.Element.addMethods(function(){
 	    
 	    // private  ==> used by ext full
 		setOverflow : function(v){
-			var me = this;
+			var dom = this.dom;
 	    	if(v=='auto' && Ext.isMac && Ext.isGecko2){ // work around stupid FF 2.0/Mac scroll bar bug
-	    		me.dom.style.overflow = 'hidden';
-	        	(function(){me.dom.style.overflow = 'auto';}).defer(1, me);
+	    		dom.style.overflow = 'hidden';
+	        	(function(){dom.style.overflow = 'auto';}).defer(1);
 	    	}else{
-	    		me.dom.style.overflow = v;
+	    		dom.style.overflow = v;
 	    	}
 		},
 		
@@ -120,7 +120,7 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
          */
 	    setSize : function(width, height, animate){
 			var me = this;
-			if(typeof width == "object"){ // in case of object from getSize()
+			if(Ext.isObject(width)){ // in case of object from getSize()
 			    height = width.height; 
 			    width = width.width;
 			}
@@ -203,13 +203,13 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 	     * @return {Ext.Element} this
 	     */
 	    addClassOnFocus : function(className){
-		this.on("focus", function(){
-		    Ext.fly(this, INTERNAL).addClass(className);
-		}, this.dom);
-		this.on("blur", function(){
-		    Ext.fly(this, INTERNAL).removeClass(className);
-		}, this.dom);
-		return this;
+		    this.on("focus", function(){
+		        Ext.fly(this, INTERNAL).addClass(className);
+		    }, this.dom);
+		    this.on("blur", function(){
+		        Ext.fly(this, INTERNAL).removeClass(className);
+		    }, this.dom);
+		    return this;
 	    },
 	    
 	    /**
@@ -271,7 +271,7 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 	        var dom = this.dom;
 	        this.addClass("x-repaint");
 	        setTimeout(function(){
-	            Ext.get(dom).removeClass("x-repaint");
+	            Ext.fly(dom).removeClass("x-repaint");
 	        }, 1);
 	        return this;
 	    },

@@ -56,11 +56,12 @@ Ext.Element.addMethods({
      * @return {Ext.Element} this
      */
     anchorTo : function(el, alignment, offsets, animate, monitorScroll, callback){        
-	    var me = this;
+	    var me = this,
+            dom = me.dom;
 	    
 	    function action(){
-            this.alignTo(el, alignment, offsets, animate);
-            Ext.callback(callback, this);
+            fly(dom).alignTo(el, alignment, offsets, animate);
+            Ext.callback(callback, fly(dom));
         };
         
         Ext.EventManager.onWindowResize(action, me);
