@@ -1366,9 +1366,7 @@ new Ext.Panel({
             return;
         }
         var doAnim = animate === true || (animate !== false && this.animCollapse);
-        if(doAnim){
-            this.beforeEffect();
-        }
+        this.beforeEffect();
         this.onCollapse(doAnim, animate);
         return this;
     },
@@ -1381,17 +1379,15 @@ new Ext.Panel({
                         this.collapseDefaults));
         }else{
             this[this.collapseEl].hide();
-            this.afterCollapse(false);
+            this.afterCollapse();
         }
     },
 
     // private
-    afterCollapse : function(doAnim){
+    afterCollapse : function(){
         this.collapsed = true;
         this.el.addClass(this.collapsedCls);
-        if(doAnim !== false){
-            this.afterEffect();
-        }
+        this.afterEffect();
         this.fireEvent('collapse', this);
     },
 
@@ -1408,9 +1404,7 @@ new Ext.Panel({
         }
         var doAnim = animate === true || (animate !== false && this.animCollapse);
         this.el.removeClass(this.collapsedCls);
-        if(doAnim){
-            this.beforeEffect();
-        }
+        this.beforeEffect();
         this.onExpand(doAnim, animate);
         return this;
     },
@@ -1423,16 +1417,14 @@ new Ext.Panel({
                         this.expandDefaults));
         }else{
             this[this.collapseEl].show();
-            this.afterExpand(false);
+            this.afterExpand();
         }
     },
 
     // private
-    afterExpand : function(doAnim){
+    afterExpand : function(){
         this.collapsed = false;
-        if(doAnim !== false){
-            this.afterEffect();
-        }
+        this.afterEffect();
         if(this.deferLayout !== undefined){
             this.doLayout(true);
         }
