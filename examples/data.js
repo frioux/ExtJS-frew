@@ -3,12 +3,12 @@ Ext.ns("Ext.samples");
 Ext.samples.samplesCatalog = [{
     title: 'Combination Samples',
     samples: [{
-        text: 'Feed Viewer 2.0',
+        text: 'Feed Viewer',
         url: 'feed-viewer/view.html',
         icon: 'feeds.gif',
-        desc: 'RSS 2.0 feed reader sample application that features a swappable reader panel layout.'
+        desc: 'RSS feed reader sample application that features a swappable reader panel layout.'
     },{
-        text: 'Simple Tasks 2.0',
+        text: 'Simple Tasks',
         url: 'http://extjs.com/blog/2008/02/24/tasks2/',
         icon: 'air.gif',
         desc: 'Complete personal task management application sample that runs on <a href="http://labs.adobe.com/technologies/air/" target="_blank">Adobe AIR</a>.'

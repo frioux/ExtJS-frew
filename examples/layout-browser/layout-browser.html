@@ -1,10 +1,10 @@
 <html>
 <head>
-    <title>Ext 2.0 Layout Examples</title>
+    <title>ExtJS Layout Examples</title>
     <link rel="stylesheet" type="text/css" href="../../resources/css/ext-all.css">
     <script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
     <script type="text/javascript" src="../../ext-all.js"></script>
-    
+
     <!-- custom includes -->
     <link rel="stylesheet" type="text/css" href="layout-browser.css">
     <script type="text/javascript" src="layouts/basic.js"></script>
@@ -15,23 +15,23 @@
 <body>
     <div id="header"><h1>Ext Layout Browser</h1></div>
     <div style="display:none;">
-    
+
         <!-- Start page content -->
         <div id="start-div">
             <div style="float:left;" ><img src="images/layout-icon.gif" /></div>
             <div style="margin-left:100px;">
                 <h2>Welcome!</h2>
-                <p>There are many sample layouts to choose from that should give you a good head start in building your own 
+                <p>There are many sample layouts to choose from that should give you a good head start in building your own
                 application layout.  Just like the combination examples, you can mix and match most layouts as
                 needed, so don't be afraid to experiment!</p>
                 <p>Select a layout from the tree to the left to begin.</p>
             </div>
         </div>
-        
+
         <!-- Basic layouts -->
         <div id="absolute-details">
             <h2>Ext.layout.AbsoluteLayout</h2>
-            <p>This is a simple layout style that allows you to position items within a container using 
+            <p>This is a simple layout style that allows you to position items within a container using
             CSS-style absolute positioning via XY coordinates.</p>
             <p><b>Sample Config:</b></p>
             <pre><code>
@@ -47,7 +47,7 @@ items:[{
         </div>
         <div id="accordion-details">
             <h2>Ext.layout.Accordion</h2>
-            <p>Displays one panel at a time in a stacked layout.  No special config properties are required other 
+            <p>Displays one panel at a time in a stacked layout.  No special config properties are required other
             than the layout &mdash; all panels added to the container will be converted to accordion panels.</p>
             <p><b>Sample Config:</b></p>
             <pre><code>
@@ -79,8 +79,8 @@ items:[{
             <p>Provides anchoring of contained items to the container's edges.  This type of layout is most commonly
             seen within FormPanels (or any container with a FormLayout) where fields are sized relative to the
             container without hard-coding their dimensions.</p>
-            <p>In this example, panels are anchored for example purposes so that you can easily see the effect.  
-            If you resize the browser window, the anchored panels will automatically resize to maintain the 
+            <p>In this example, panels are anchored for example purposes so that you can easily see the effect.
+            If you resize the browser window, the anchored panels will automatically resize to maintain the
             same relative dimensions.</p>
             <p><b>Sample Config:</b></p>
             <pre><code>
@@ -195,7 +195,7 @@ items: [{
             <h2>Ext.layout.ColumnLayout</h2>
             <p>This is a useful layout style when you need multiple columns that can have varying content height.
             Any fixed-width column widths are calculated first, then any percentage-width columns specified using
-            the <tt>columnWidth</tt> config will be calculated based on remaining container width.  Percentages 
+            the <tt>columnWidth</tt> config will be calculated based on remaining container width.  Percentages
             should add up to 1 (100%) in order to fill the container.</p>
             <p><b>Sample Config:</b></p>
             <pre><code>
@@ -311,7 +311,7 @@ items: [
 
         <div id="hbox-details">
             <h2>Ext.layout.VBoxLayout</h2>
-            <p>A layout that allows for the vertical and horizontal stretching of child items, much like the column 
+            <p>A layout that allows for the vertical and horizontal stretching of child items, much like the column
             layout but can stretch items vertically.</p>
             <p><b>Sample Config:</b></p>
             <pre><code>
@@ -319,7 +319,7 @@ layout:'hbox',
 layoutConfig: {
     align : 'stretch',
     pack  : 'start',
-},          
+},
 items: [
     {html:'panel 1', flex:1},
     {html:'panel 2', width:150},
@@ -329,13 +329,13 @@ items: [
             <p><a href="http://extjs.com/deploy/dev/docs/?class=Ext.layout.TableLayout" target="_blank">API Reference</a></p>
         </div>
 
-        
+
         <!-- Custom layouts -->
         <div id="row-details">
             <h2>Ext.ux.layout.RowLayout</h2>
-            <p>This is a useful layout style when you need multiple rows of content. Any fixed-height rows are 
+            <p>This is a useful layout style when you need multiple rows of content. Any fixed-height rows are
             calculated first, then any percentage-height rows specified using the <tt>rowHeight</tt> config will
-            be calculated based on remaining container height.  Percentages should add up to 1 (100%) in order 
+            be calculated based on remaining container height.  Percentages should add up to 1 (100%) in order
             to fill the container. Standard panel widths (fixed or percentage) are also supported.</p>
             <p><b>Sample Config:</b></p>
             <pre><code>
@@ -357,7 +357,7 @@ items: [{
         <div id="center-details">
             <h2>Ext.ux.layout.CenterLayout</h2>
             <p>A simple layout for centering contents within a container.  The only requirement is that the container
-            have a single child panel with a width specified (fixed or percentage).  The child panel can then contain 
+            have a single child panel with a width specified (fixed or percentage).  The child panel can then contain
             any content, including other components, that will display centered within the main container. To make the
             centered panel non-visual, remove the title and add <tt>border:false</tt> to the child config.</p>
             <p><b>Sample Config:</b></p>
@@ -371,7 +371,7 @@ items: {
             </code></pre>
         </div>
 
-        
+
         <!-- Combination layouts -->
         <div id="tabs-nested-layouts-details">
             <h2>Tabs With Nested Layouts</h2>
@@ -389,7 +389,7 @@ items: {
             <h2>Complex Layout</h2>
             <p></p>
         </div>
-        
+
         <!-- Form layouts -->
         <div id="abs-form-details">
             <h2>Absolute Layout Form</h2>

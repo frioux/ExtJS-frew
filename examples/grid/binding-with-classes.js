@@ -7,7 +7,7 @@ Ext.ns('App');
  * @extends Ext.data.Store
  * @cfg {String} url This will be a url of a location to load the BookStore
  * This is a specialized Store which maintains books.
- * It already knows about Amazon's XML definition and will expose the following 
+ * It already knows about Amazon's XML definition and will expose the following
  * Record defintion:
  *  - Author
  *  - Manufacturer
@@ -33,7 +33,7 @@ App.BookStore = function(config) {
 		   'DetailPageURL'
        ])
 	});
-	// call the superclass's constructor 
+	// call the superclass's constructor
 	App.BookStore.superclass.constructor.call(this, config);
 };
 Ext.extend(App.BookStore, Ext.data.Store);
@@ -43,18 +43,18 @@ Ext.extend(App.BookStore, Ext.data.Store);
 /**
  * App.BookGrid
  * @extends Ext.grid.GridPanel
- * This is a custom grid which will display book information. It is tied to 
- * a specific record definition by the dataIndex properties. 
- * 
+ * This is a custom grid which will display book information. It is tied to
+ * a specific record definition by the dataIndex properties.
+ *
  * It follows a very custom pattern used only when extending Ext.Components
  * in which you can omit the constructor.
- * 
+ *
  * It also registers the class with the Component Manager with an xtype of
  * bookgrid. This allows the application to take care of the lazy-instatiation
- * facilities provided in Ext 2.0's Component Model.
+ * facilities provided in Ext's Component Model.
  */
 App.BookGrid = Ext.extend(Ext.grid.GridPanel, {
-	// override 
+	// override
 	initComponent : function() {
 		Ext.apply(this, {
 			// Pass in a column model definition
@@ -79,7 +79,7 @@ App.BookGrid = Ext.extend(Ext.grid.GridPanel, {
 			}
 		});
 		// finally call the superclasses implementation
-		App.BookGrid.superclass.initComponent.call(this);		
+		App.BookGrid.superclass.initComponent.call(this);
 	}
 });
 // This will associate an string representation of a class
@@ -92,12 +92,12 @@ Ext.reg('bookgrid', App.BookGrid);
  * App.BookDetail
  * @extends Ext.Panel
  * This is a specialized Panel which is used to show information about
- * a book. 
- * 
- * This demonstrates adding 2 custom properties (tplMarkup and 
+ * a book.
+ *
+ * This demonstrates adding 2 custom properties (tplMarkup and
  * startingMarkup) to the class. It also overrides the initComponent
  * method and adds a new method called updateDetail.
- * 
+ *
  * The class will be registered with an xtype of 'bookdetail'
  */
 App.BookDetail = Ext.extend(Ext.Panel, {
@@ -127,7 +127,7 @@ App.BookDetail = Ext.extend(Ext.Panel, {
 	},
 	// add a method which updates the details
 	updateDetail: function(data) {
-		this.tpl.overwrite(this.body, data);		
+		this.tpl.overwrite(this.body, data);
 	}
 });
 // register the App.BookDetail class with an xtype of bookdetail
@@ -137,12 +137,12 @@ Ext.reg('bookdetail', App.BookDetail);
 /**
  * App.BookMasterDetail
  * @extends Ext.Panel
- * 
+ *
  * This is a specialized panel which is composed of both a bookgrid
- * and a bookdetail panel. It provides the glue between the two 
+ * and a bookdetail panel. It provides the glue between the two
  * components to allow them to communicate. You could consider this
  * the actual application.
- * 
+ *
  */
 App.BookMasterDetail = Ext.extend(Ext.Panel, {
 	// override initComponent
@@ -165,28 +165,28 @@ App.BookMasterDetail = Ext.extend(Ext.Panel, {
 				xtype: 'bookdetail',
 				itemId: 'detailPanel',
 				region: 'center'
-			}]			
+			}]
 		})
-		// call the superclass's initComponent implementation		
+		// call the superclass's initComponent implementation
 		App.BookMasterDetail.superclass.initComponent.call(this);
 	},
 	// override initEvents
 	initEvents: function() {
 		// call the superclass's initEvents implementation
 		App.BookMasterDetail.superclass.initEvents.call(this);
-		
+
 		// now add application specific events
 		// notice we use the selectionmodel's rowselect event rather
 		// than a click event from the grid to provide key navigation
 		// as well as mouse navigation
-		var bookGridSm = this.getComponent('gridPanel').getSelectionModel();		
-		bookGridSm.on('rowselect', this.onRowSelect, this);		
+		var bookGridSm = this.getComponent('gridPanel').getSelectionModel();
+		bookGridSm.on('rowselect', this.onRowSelect, this);
 	},
 	// add a method called onRowSelect
 	// This matches the method signature as defined by the 'rowselect'
 	// event defined in Ext.grid.RowSelectionModel
 	onRowSelect: function(sm, rowIdx, r) {
-		// getComponent will retrieve itemId's or id's. Note that itemId's 
+		// getComponent will retrieve itemId's or id's. Note that itemId's
 		// are scoped locally to this instance of a component to avoid
 		// conflicts with the ComponentMgr
 		var detailPanel = this.getComponent('detailPanel');
@@ -200,7 +200,7 @@ Ext.reg('bookmasterdetail', App.BookMasterDetail);
 // Finally now that we've defined all of our classes we can instantiate
 // an instance of the app and renderTo an existing div called 'binding-example'
 // Note now that classes have encapsulated this behavior we can easily create
-// an instance of this app to be used in many different contexts, you could 
+// an instance of this app to be used in many different contexts, you could
 // easily place this application in an Ext.Window for example
 Ext.onReady(function() {
 	// create an instance of the app
