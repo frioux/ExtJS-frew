@@ -31,7 +31,7 @@ Ext.Layer = function(config, existingEl){
         this.addClass(config.cls);
     }
     this.constrain = config.constrain !== false;
-    this.visibilityMode = Ext.Element.VISIBILITY;
+    this.setVisibilityMode(Ext.Element.VISIBILITY);
     if(config.id){
         this.id = this.dom.id = config.id;
     }else{
