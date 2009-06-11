@@ -50,6 +50,12 @@ Ext.onReady(function(){
         url:'http://feeds.feedburner.com/ajaxian',
         text: 'Ajaxian'
     }, true);
+    
+    Ext.get('header').on('click', function() {
+        viewport.focus();
+    });
+    
+    feeds.focus();
 });
 
 // This is a custom event handler passed to preview panels so link open in a new windw

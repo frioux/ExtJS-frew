@@ -152,3 +152,5 @@ Ext.extend(FeedGrid, Ext.grid.GridPanel, {
                 );
     }
 });
+
+Ext.reg('appfeedgrid', FeedGrid);

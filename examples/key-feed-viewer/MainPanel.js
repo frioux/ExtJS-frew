@@ -1,11 +1,3 @@
-/*
- * Ext JS Library 3.0 Pre-alpha
- * Copyright(c) 2006-2008, Ext JS, LLC.
- * licensing@extjs.com
- * 
- * http://extjs.com/license
- */
-
 MainPanel = function(){
     this.preview = new Ext.Panel({
         id: 'preview',
@@ -244,5 +236,4 @@ Ext.extend(MainPanel, Ext.TabPanel, {
     }
 });
 
-// just registering to participate in determination of inherited xtypes
 Ext.reg('appmainpanel', MainPanel);

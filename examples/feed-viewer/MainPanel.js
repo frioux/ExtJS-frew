@@ -227,3 +227,5 @@ Ext.extend(MainPanel, Ext.TabPanel, {
         this.endUpdate();
     }
 });
+
+Ext.reg('appmainpanel', MainPanel);

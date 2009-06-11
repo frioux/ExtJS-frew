@@ -1,11 +1,3 @@
-/*
- * Ext JS Library 3.0 Pre-alpha
- * Copyright(c) 2006-2008, Ext JS, LLC.
- * licensing@extjs.com
- * 
- * http://extjs.com/license
- */
-
 FeedPanel = function() {
     FeedPanel.superclass.constructor.call(this, {
         id:'feed-tree',
@@ -16,8 +8,8 @@ FeedPanel = function() {
         minSize: 175,
         maxSize: 400,
         collapsible: true,
-        margins:'5 0 5 5',
-        cmargins:'5 5 5 5',
+        margins:'0 0 5 5',
+        cmargins:'0 5 5 5',
         rootVisible:false,
         lines:false,
         autoScroll:true,
@@ -178,5 +170,5 @@ Ext.extend(FeedPanel, Ext.tree.TreePanel, {
         });
     }
 });
-// just registering to participate in determination of inherited xtypes
+
 Ext.reg('appfeedpanel', FeedPanel); 

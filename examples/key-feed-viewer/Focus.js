@@ -446,6 +446,9 @@ Ext.override(Ext.Container, {
 });
 
 Ext.override(Ext.Panel, {
+    /**
+     * @cfg {Boolean} enableTabbing <tt>true</tt> to enable tabbing. Default is <tt>false</tt>.
+     */        
     getFocusItems: function(){
         // items gets all the items inside the body
         var items = Ext.Panel.superclass.getFocusItems.call(this), bodyFocus = null;

@@ -13,9 +13,8 @@ FeedPanel = function() {
         rootVisible:false,
         lines:false,
         autoScroll:true,
-        root: new Ext.tree.TreeNode('Feed Viewer'),
+        root: new Ext.tree.TreeNode('My Feeds'),
         collapseFirst:false,
-
         tbar: [{
             iconCls:'add-feed',
             text:'Add Feed',
@@ -171,3 +170,5 @@ Ext.extend(FeedPanel, Ext.tree.TreePanel, {
         });
     }
 });
+
+Ext.reg('appfeedpanel', FeedPanel); 
