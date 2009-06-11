@@ -385,7 +385,8 @@
   <file name="menu\images\group.gif" path="menu\images" />
   <file name="menu\images\view.gif" path="menu\images" />
   <file name="message-box\msg-box.html" path="message-box" />
-  <file name="message-box\msg-box.js" path="message-box" />  <file name="multiselect\multiselect-demo.html" path="multiselect" />
+  <file name="message-box\msg-box.js" path="message-box" />
+  <file name="multiselect\multiselect-demo.html" path="multiselect" />
   <file name="message-box\images\comment.gif" path="message-box\images" />
   <file name="message-box\images\comment-bg.gif" path="message-box\images" />
   <file name="message-box\images\download.gif" path="message-box\images" />
