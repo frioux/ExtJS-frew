@@ -43,7 +43,7 @@ Ext.onReady(function(){
 
         tbar: [
             'Search: ', ' ',
-            new Ext.app.SearchField({
+            new Ext.ux.form.SearchField({
                 store: ds,
                 width:320
             })
