@@ -129,15 +129,21 @@ Ext.samples.samplesCatalog = [{
         icon: 'tabs.gif',
         desc: 'Basic tab functionality including autoHeight, tabs from markup, Ajax loading and tab events.'
     },{
+        text: 'TabPanel Scroller Menu',
+        url: 'tabs/tab-scroller-menu.html',
+        icon: 'tab-panel-scroller-menu.gif',
+        desc: 'An example of an overflow menu that appears to the right of the TabPanel tab strip',
+        isNew: true
+    },{
         text: 'Advanced Tabs',
         url: 'tabs/tabs-adv.html',
         icon: 'tabs-adv.gif',
         desc: 'Advanced tab features including tab scrolling, adding tabs programmatically and a context menu plugin.'
     },{
-        text: 'TabPanel Scroller Menu',
-        url: 'tabs/tab-scroller-menu.html',
-        icon: 'tab-panel-scroller-menu.gif',
-        desc: 'An example of an overflow menu that appears to the right of the TabPanel tab strip',
+        text: 'Group Tabs',
+        url: 'grouptabs/grouptabs.html',
+        icon: 'group-tabs.gif',
+        desc: 'A custom example on how to setup tab grouping using vertical tabs.',
         isNew: true
     }]
 },{
@@ -396,12 +402,6 @@ Ext.samples.samplesCatalog = [{
         url: 'locale/multi-lang.html',
         icon: 'locale-switch.gif',
         desc: 'Dynamically render various Ext components in different locales by selecting from a locale list.'
-    },{
-        text: 'Group Tabs',
-        url: 'grouptabs/',
-        icon: 'group-tabs.gif',
-        desc: 'A custom example on how to setup tab grouping using vertical tabs.',
-        isNew: true
     },{
         text: 'Charts',
         url: 'chart/charts.html',

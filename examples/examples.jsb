@@ -232,18 +232,8 @@
   <file name="grid\totals.js" path="grid" />
   <file name="grid\xml-grid.html" path="grid" />
   <file name="grid\xml-grid.js" path="grid" />
-  <file name="grouptabs\GroupTab.js" path="grouptabs" />
-  <file name="grouptabs\GroupTabPanel.js" path="grouptabs" />
-  <file name="grouptabs\grouptabs.css" path="grouptabs" />
-  <file name="grouptabs\index.html" path="grouptabs" />
-  <file name="grouptabs\sample.js" path="grouptabs" />
-  <file name="grouptabs\images\elbow-minus-nl.gif" path="grouptabs\images" />
-  <file name="grouptabs\images\elbow-plus-nl.gif" path="grouptabs\images" />
-  <file name="grouptabs\images\group.png" path="grouptabs\images" />
-  <file name="grouptabs\images\subscriptions.png" path="grouptabs\images" />
-  <file name="grouptabs\images\templates.png" path="grouptabs\images" />
-  <file name="grouptabs\images\tickets.png" path="grouptabs\images" />
-  <file name="grouptabs\images\x-grouptabs-corners.gif" path="grouptabs\images" />
+  <file name="grouptabs\grouptabs.html" path="grouptabs" />
+  <file name="grouptabs\grouptabs.js" path="grouptabs" />
   <file name="history\history.html" path="history" />
   <file name="history\history.js" path="history" />
   <file name="image-organizer\img-org.css" path="image-organizer" />
@@ -746,17 +736,25 @@
   <file name="writer\remote\lib\session_db.php" path="writer\remote\lib" />
   <file name="ux\BufferView.js" path="ux" />
   <file name="ux\ColumnNodeUI.js" path="ux" />
+  <file name="ux\css\ColumnNodeUI.css" path="ux\css" />
   <file name="ux\data-view-plugins.js" path="ux" />
   <file name="ux\FileUploadField.js" path="ux" />
   <file name="ux\Focus.js" path="ux" />
   <file name="ux\GMapPanel.js" path="ux" />
   <file name="ux\GroupSummary.js" path="ux" />
+  <file name="ux\css\GroupSummary.css" path="ux\css" />
+  <file name="ux\GroupTab.js" path="ux" />
+  <file name="ux\GroupTabPanel.js" path="ux" />
+  <file name="ux\css\GroupTab.css" path="ux\css" />
   <file name="ux\ItemSelector.js" path="ux" />
   <file name="ux\MultiSelect.js" path="ux" />
+  <file name="ux\css\MultiSelect.css" path="ux\css" />
   <file name="ux\PagingMemoryProxy.js" path="ux" />
   <file name="ux\PanelResizer.js" path="ux" />
+  <file name="ux\css\PanelResizer.css" path="ux\css" />
   <file name="ux\ProgressBarPager.js" path="ux" />
   <file name="ux\RowEditor.js" path="ux" />
+  <file name="ux\css\RowEditor.css" path="ux\css" />
   <file name="ux\RowExpander.js" path="ux" />
   <file name="ux\SelectBox.js" path="ux" />
   <file name="ux\SearchField.js" path="ux" />
@@ -769,16 +767,18 @@
   <file name="ux\TableGrid.js" path="ux" />
   <file name="ux\TabScrollerMenu.js" path="ux" />
   <file name="ux\XmlTreeLoader.js" path="ux" />
-  <file name="ux\css\ColumnNodeUI.css" path="ux\css" />
-  <file name="ux\css\GroupSummary.css" path="ux\css" />
-  <file name="ux\css\MultiSelect.css" path="ux\css" />
-  <file name="ux\css\PanelResizer.css" path="ux\css" />
-  <file name="ux\css\RowEditor.css" path="ux\css" />
+  <file name="ux\images\elbow-minus-nl.gif" path="ux\images" />
+  <file name="ux\images\elbow-plus-nl.gif" path="ux\images" />
+  <file name="ux\images\group.png" path="ux\images" />
   <file name="ux\images\panel-handle.gif" path="ux\images" />
   <file name="ux\images\row-editor-bg.gif" path="ux\images" />
   <file name="ux\images\row-editor-btns.gif" path="ux\images" />
   <file name="ux\images\summary-bg.gif" path="ux\images" />
   <file name="ux\images\summary-group-bg.gif" path="ux\images" />
+  <file name="ux\images\subscriptions.png" path="ux\images" />
+  <file name="ux\images\templates.png" path="ux\images" />
+  <file name="ux\images\tickets.png" path="ux\images" />
+  <file name="ux\images\x-grouptabs-corners.gif" path="ux\images" />
   <target name="User Extension JS Pack" file="$output\ux\ux-all.js" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="ux\ColumnNodeUI.js" />
     <include name="ux\data-view-plugins.js" />
@@ -786,6 +786,8 @@
     <include name="ux\Focus.js" />
     <include name="ux\GMapPanel.js" />
     <include name="ux\GroupSummary.js" />
+    <include name="ux\GroupTab.js" />
+    <include name="ux\GroupTabPanel.js" />
     <include name="ux\ItemSelector.js" />
     <include name="ux\MultiSelect.js" />
     <include name="ux\PagingMemoryProxy.js" />
@@ -805,6 +807,7 @@
   <target name="User Extension CSS Pack" file="$output\ux\css\ux-all.css" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="ux\css\ColumnNodeUI.css" />
     <include name="ux\css\GroupSummary.css" />
+    <include name="ux\css\GroupTab.css" />
     <include name="ux\css\MultiSelect.css" />
     <include name="ux\css\PanelResizer.css" />
     <include name="ux\css\RowEditor.css" />
