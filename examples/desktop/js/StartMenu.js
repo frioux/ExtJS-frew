@@ -1,11 +1,3 @@
-/*
- * Ext JS Library 3.0 Pre-alpha
- * Copyright(c) 2006-2008, Ext JS, LLC.
- * licensing@extjs.com
- * 
- * http://extjs.com/license
- */
-
 /**
  * @class Ext.ux.StartMenu
  * @extends Ext.menu.Menu
@@ -44,26 +36,26 @@ Ext.namespace("Ext.ux");
 Ext.ux.StartMenu = Ext.extend(Ext.menu.Menu, {
     initComponent: function(config) {
     	Ext.ux.StartMenu.superclass.initComponent.call(this, config);
-        
+
         var tools = this.toolItems;
         this.toolItems = new Ext.util.MixedCollection();
         if(tools){
             this.addTool.apply(this, tools);
-        }        
+        }
     },
-    
+
     // private
     onRender : function(ct, position){
-        Ext.ux.StartMenu.superclass.onRender.call(this, ct, position);        
+        Ext.ux.StartMenu.superclass.onRender.call(this, ct, position);
         var el = this.el.addClass('ux-start-menu');
-        
+
         var header = el.createChild({
         	tag: "div",
         	cls: "x-window-header x-unselectable x-panel-icon "+this.iconCls
         });
-        
+
 		this.header = header;
-        
+
 		var headerText = header.createChild({
 			tag: "span",
 			cls: "x-window-header-text"
@@ -77,7 +69,7 @@ Ext.ux.StartMenu = Ext.extend(Ext.menu.Menu, {
 		var tc = header.wrap({
 			cls: "ux-start-menu-tc"
 		});
-		
+
 		this.menuBWrap = el.createChild({
 			tag: "div",
 			cls: "x-window-body x-border-layout-ct ux-start-menu-body"
@@ -88,7 +80,7 @@ Ext.ux.StartMenu = Ext.extend(Ext.menu.Menu, {
 		var mc = this.menuBWrap.wrap({
 			cls: "x-window-mc ux-start-menu-bwrap"
 		});
-		
+
 		this.menuPanel = this.menuBWrap.createChild({
 			tag: "div",
 			cls: "x-panel x-border-panel ux-start-menu-apps-panel"
@@ -97,7 +89,7 @@ Ext.ux.StartMenu = Ext.extend(Ext.menu.Menu, {
 			tag: "div",
 			cls: "x-panel x-border-panel ux-start-menu-tools-panel"
 		});
-        
+
 		var bwrap = ml.wrap({cls: "x-window-bwrap"});
 		var bc = bwrap.createChild({
 			tag: "div",
@@ -111,20 +103,20 @@ Ext.ux.StartMenu = Ext.extend(Ext.menu.Menu, {
 		});
 
         this.ul.appendTo(this.menuPanel);
-        
+
         var toolsUl = this.toolsPanel.createChild({
         	tag: "ul",
         	cls: "x-menu-list"
         });
-       
+
         this.mon(toolsUl, 'click', this.onClick, this);
         this.mon(toolsUl, 'mouseover', this.onMouseOver, this);
         this.mon(toolsUl, 'mouseout', this.onMouseOut, this);
-        
+
         this.items.each(function(item){
             item.parentMenu = this;
         }, this);
-        
+
         this.toolItems.each(
         	function(item){
 	            var li = document.createElement("li");
@@ -133,27 +125,27 @@ Ext.ux.StartMenu = Ext.extend(Ext.menu.Menu, {
 	            item.render(li);
                 item.parentMenu = this;
 	        }, this);
-	        
+
         this.toolsUl = toolsUl;
-           
-        this.menuBWrap.setStyle('position', 'relative');  
+
+        this.menuBWrap.setStyle('position', 'relative');
         this.menuBWrap.setHeight(this.height - 28);
-              
+
         this.menuPanel.setStyle({
         	padding: '2px',
         	position: 'absolute',
         	overflow: 'auto'
         });
-        
+
         this.toolsPanel.setStyle({
         	padding: '2px 4px 2px 2px',
         	position: 'absolute',
         	overflow: 'auto'
         });
-        
+
         this.setTitle(this.title);
     },
-    
+
     // private
     findTargetItem : function(e){
         var t = e.getTarget(".x-menu-list-item", this.ul,  true);
@@ -181,16 +173,16 @@ Ext.ux.StartMenu = Ext.extend(Ext.menu.Menu, {
 
         this.fireEvent("beforeshow", this);
         this.showAt(this.el.getAlignToXY(el, pos || this.defaultAlign), parentMenu, false);
-        var tPanelWidth = 100;      
+        var tPanelWidth = 100;
         var box = this.menuBWrap.getBox();
         this.menuPanel.setWidth(box.width-tPanelWidth);
         this.menuPanel.setHeight(box.height);
-        
+
         this.toolsPanel.setWidth(tPanelWidth);
         this.toolsPanel.setX(box.x+box.width-tPanelWidth);
         this.toolsPanel.setHeight(box.height);
     },
-    
+
     addTool : function(){
         var a = arguments, l = a.length, item;
         for(var i = 0; i < l; i++){
@@ -211,7 +203,7 @@ Ext.ux.StartMenu = Ext.extend(Ext.menu.Menu, {
         }
         return item;
     },
-    
+
     /**
      * Adds a separator bar to the Tools
      * @return {Ext.menu.Item} The menu item that was added
@@ -242,7 +234,7 @@ Ext.ux.StartMenu = Ext.extend(Ext.menu.Menu, {
         }
         return this.addToolItem(config);
     },
-    
+
     setTitle : function(title, iconCls){
         this.title = title;
         this.header.child('span').update(title);

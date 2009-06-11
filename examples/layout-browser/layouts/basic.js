@@ -1,20 +1,12 @@
-/*
- * Ext JS Library 3.0 Pre-alpha
- * Copyright(c) 2006-2008, Ext JS, LLC.
- * licensing@extjs.com
- * 
- * http://extjs.com/license
- */
-
 //
-// Note that these are all defined as panel configs, rather than instantiated 
+// Note that these are all defined as panel configs, rather than instantiated
 // as panel objects.  You could just as easily do this instead:
 //
 // var absolute = new Ext.Panel({ ... });
 //
-// However, by passing configs into the main container instead of objects, we can defer 
+// However, by passing configs into the main container instead of objects, we can defer
 // layout AND object instantiation until absolutely needed.  Since most of these panels
-// won't be shown by default until requested, this will save us some processing 
+// won't be shown by default until requested, this will save us some processing
 // time up front when initially rendering the page.
 //
 // Since all of these configs are being added into a layout container, they are
@@ -208,12 +200,12 @@ var cardWizard = {
 	defaults: {border:false},
 	bbar: ['->', {
 		id: 'card-prev',
-		text: '&laquo; Previous', 
+		text: '&laquo; Previous',
 		handler: cardNav.createDelegate(this, [-1]),
 		disabled: true
 	},{
 		id: 'card-next',
-		text: 'Next &raquo;', 
+		text: 'Next &raquo;',
 		handler: cardNav.createDelegate(this, [1])
 	}],
 	items: [{
@@ -379,7 +371,7 @@ var vbox = {
                         flex  : 2,
                         html  : "flex : 2"
                 }
-	]	
+	]
 }
 
 var hbox = {

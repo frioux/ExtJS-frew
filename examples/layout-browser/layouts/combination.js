@@ -1,12 +1,4 @@
 /*
- * Ext JS Library 3.0 Pre-alpha
- * Copyright(c) 2006-2008, Ext JS, LLC.
- * licensing@extjs.com
- * 
- * http://extjs.com/license
- */
-
-/*
  * ================  TabPanel with nested layouts  =======================
  */
 // fake grid data used below in the tabsNestedLayouts config
@@ -41,7 +33,7 @@ var myData = [
     ['Verizon Communications',35.57,0.39,1.11,'9/1 12:00am'],
     ['Wal-Mart Stores, Inc.',45.45,0.73,1.63,'9/1 12:00am']
 ];
-    
+
 var tabsNestedLayouts = {
 	xtype: 'tabpanel',
 	id: 'tabs-nested-layouts-panel',
@@ -75,7 +67,7 @@ var tabsNestedLayouts = {
 				layout: 'border',
                 // Make sure IE can still calculate dimensions after a resize when the tab is not active.
                 // With display mode, if the tab is rendered but hidden, IE will mess up the layout on show:
-                hideMode: Ext.isIE ? 'offsets' : 'display', 
+                hideMode: Ext.isIE ? 'offsets' : 'display',
 				items: [{
 					title: 'West',
 					region: 'west',
@@ -134,7 +126,7 @@ var tabsNestedLayouts = {
 				        ],
 				        stripeRows: true,
 				        autoExpandColumn: 'company',
-				        
+
 				        // Add a listener to load the data only after the grid is rendered:
 				        listeners: {
 				        	render: function(){
@@ -178,7 +170,7 @@ var absform = new Ext.form.FormPanel({
         xtype: 'label',
         text: 'To:'
     },{
-    	// The button is not a Field subclass, so it must be 
+    	// The button is not a Field subclass, so it must be
     	// wrapped in a panel for proper positioning to work
     	xtype: 'panel',
     	x: 55,
@@ -223,7 +215,7 @@ var absoluteForm = {
 	    frame: true,
 	    bodyStyle: 'padding:10px 5px 5px;',
 	    items: absform,
-	    
+
 	    tbar: [{
 	    	text: 'Send',
 	    	iconCls: 'icon-send'

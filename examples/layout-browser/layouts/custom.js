@@ -1,12 +1,3 @@
-/*
- * Ext JS Library 3.0 Pre-alpha
- * Copyright(c) 2006-2008, Ext JS, LLC.
- * licensing@extjs.com
- * 
- * http://extjs.com/license
- */
-
-
 // We are adding these custom layouts to a namespace that does not
 // exist by default in Ext, so we have to add the namespace first:
 Ext.ns('Ext.ux.layout');
@@ -19,11 +10,11 @@ Ext.ns('Ext.ux.layout');
  * @extends Ext.layout.FitLayout
  * <p>This is a very simple layout style used to center contents within a container.  This layout works within
  * nested containers and can also be used as expected as a Viewport layout to center the page layout.</p>
- * <p>As a subclass of FitLayout, CenterLayout expects to have a single child panel of the container that uses 
+ * <p>As a subclass of FitLayout, CenterLayout expects to have a single child panel of the container that uses
  * the layout.  The layout does not require any config options, although the child panel contained within the
  * layout must provide a fixed or percentage width.  The child panel's height will fit to the container by
- * default, but you can specify <tt>autoHeight:true</tt> to allow it to autosize based on its content height.  
- * Example usage:</p> 
+ * default, but you can specify <tt>autoHeight:true</tt> to allow it to autosize based on its content height.
+ * Example usage:</p>
  * <pre><code>
 // The content panel is centered in the container
 var p = new Ext.Panel({
@@ -121,7 +112,7 @@ var p = new Ext.Panel({
     layout:'ux.row',
     items: [{
         title: 'Row 1',
-        rowHeight: .25 
+        rowHeight: .25
     },{
         title: 'Row 2',
         rowHeight: .6
@@ -182,10 +173,10 @@ Ext.ux.layout.RowLayout = Ext.extend(Ext.layout.ContainerLayout, {
             ph = h;
 
         this.innerCt.setSize({height:h});
-        
+
         // some rows can be percentages while others are fixed
         // so we need to make 2 passes
-        
+
         for(i = 0; i < len; i++){
             r = rs[i];
             if(!r.rowHeight){
@@ -202,7 +193,7 @@ Ext.ux.layout.RowLayout = Ext.extend(Ext.layout.ContainerLayout, {
             }
         }
     }
-    
+
     /**
      * @property activeItem
      * @hide
