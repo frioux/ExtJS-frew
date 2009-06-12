@@ -1,8 +1,49 @@
 /**
  * @class Ext.Direct
  * @extends Ext.util.Observable
- * <p>Provides a single interface to facilitate data communication between the client and server.</p>
- * <p>Custom events from the server may be handled by the client by adding listeners, for example:</p>
+ * <p><b><u>Overview</u></b></p>
+ * 
+ * <p>Ext.Direct aims to streamline communication between the client and server
+ * by providing a single interface that reduces the amount of common code
+ * typically required to validate data and handle returned data packets
+ * (reading data, error conditions, etc).</p>
+ *  
+ * <p>The Ext.direct namespace includes several classes for a closer integration
+ * with the server-side. The Ext.data namespace also includes classes for working
+ * with Ext.data.Stores which are backed by data from an Ext.Direct method.</p>
+ * 
+ * <p><b><u>Specification</u></b></p>
+ * 
+ * <p>For additional information consult the 
+ * <a href="http://extjs.com/products/extjs/direct.php">Ext.Direct Specification</a>.</p>
+ *   
+ * <p><b><u>Providers</u></b></p>
+ * 
+ * <p>Ext.Direct uses a provider architecture, where one or more providers are
+ * used to transport data to and from the server. There are several providers
+ * that exist in the core at the moment:</p><div class="mdetail-params"><ul>
+ * 
+ * <li>{@link Ext.direct.JsonProvider JsonProvider} for simple JSON operations</li>
+ * <li>{@link Ext.direct.PollingProvider PollingProvider} for repeated requests</li>
+ * <li>{@link Ext.direct.RemotingProvider RemotingProvider} exposes server side
+ * on the client.</li>
+ * </ul></div>
+ * 
+ * <p>A provider does not need to be invoked directly, providers are added via
+ * {@link Ext.Direct}.{@link Ext.Direct#add add}.</p>
+ * 
+ * <p><b><u>Router</u></b></p>
+ * 
+ * <p>Ext.Direct utilizes a "router" on the server to direct requests from the client
+ * to the appropriate server-side method. Because the Ext.Direct API is completely
+ * platform-agnostic, you could completely swap out a Java based server solution
+ * and replace it with one that uses C# without changing the client side JavaScript
+ * at all.</p>
+ * 
+ * <p><b><u>Server side events</u></b></p>
+ * 
+ * <p>Custom events from the server may be handled by the client by adding
+ * listeners, for example:</p>
  * <pre><code>
 {"type":"event","name":"message","data":"Successfully polled at: 11:19:30 am"}
 

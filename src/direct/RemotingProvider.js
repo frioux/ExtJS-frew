@@ -2,15 +2,17 @@
  * @class Ext.direct.RemotingProvider
  * @extends Ext.direct.JsonProvider
  * 
- * <p>Provides for remote procedure call (RPC) type of connection where the client can initiate
- * a procedure on the server.</p>
+ * <p>The {@link Ext.direct.RemotingProvider RemotingProvider} exposes access to
+ * server side methods on the client (a remote procedure call (RPC) type of
+ * connection where the client can initiate a procedure on the server).</p>
  * 
- * <p>When adding a provider via {@link Ext.Direct}.{@link Ext.Direct#add add} the
- * Ext.direct.RemotingProvider will be invoked to create a client-side stub of the
- * provider. This Class will never need to be invoked directly.</p>
- *
- * <p>Configurations for this Class should be outputted by the server-side Ext.Direct
- * stack when the API description is built.</p>
+ * <p>This allows for code to be organized in a fashion that is maintainable,
+ * while providing a clear path between client and server, something that is
+ * not always apparent when using URLs.</p>
+ * 
+ * <p>To accomplish this the server-side needs to describe what classes and methods
+ * are available on the client-side. This configuration will typically be
+ * outputted by the server-side Ext.Direct stack when the API description is built.</p>
  */
 Ext.direct.RemotingProvider = Ext.extend(Ext.direct.JsonProvider, {       
     /**
@@ -22,20 +24,22 @@ Ext.direct.RemotingProvider = Ext.extend(Ext.direct.JsonProvider, {
     "TestAction":[ // array of methods within each server side Class to be   
     {              // stubbed out on client
         "name":"doEcho", 
-        "len":1          
+        "len":1            
     },{
         "name":"multiply",// name of method
-        "len":2           // the number of parameters that will be used to create an
-                          // array of data to send to the server side function 
+        "len":2           // The number of parameters that will be used to create an
+                          // array of data to send to the server side function.
+                          // Ensure the server sends back a Number, not a String. 
     },{
         "name":"doForm",
-        "formHandler":true, // use specialized form handling method 
+        "formHandler":true, // direct the client to use specialized form handling method 
         "len":1
     }]
 }
      * </code></pre>
-     * a <b>client side</b> handler to call the server side method "multiply" in the
-     * "TestAction" Class might look like this:
+     * <p>Note that a Store is not required, a server method can be called at any time.
+     * In the following example a <b>client side</b> handler is used to call the
+     * server side method "multiply" in the server-side "TestAction" Class:</p>
      * <pre><code>
 TestAction.multiply(
     2, 4, // pass two arguments to server, so specify len=2
@@ -80,9 +84,13 @@ TestAction.multiply(
     
     /**
      * @cfg {Number/Boolean} enableBuffer
-     * <tt>true</tt> or <tt>false</tt> to enable or disable combining of method calls.
-     * If a number is specified this is the amount of time in milliseconds to wait
-     * before sending a batched request (defaults to <tt>10</tt>.
+     * <p><tt>true</tt> or <tt>false</tt> to enable or disable combining of method
+     * calls. If a number is specified this is the amount of time in milliseconds
+     * to wait before sending a batched request (defaults to <tt>10</tt>).</p>
+     * <br><p>Calls which are received within the specified timeframe will be
+     * concatenated together and sent in a single request, optimizing the
+     * application by reducing the amount of round trips that have to be made
+     * to the server.</p>
      */
     enableBuffer: 10,
     
