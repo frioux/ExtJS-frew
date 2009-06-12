@@ -12,48 +12,48 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
      * @cfg {String} todayText
      * The text to display on the button that selects the current date (defaults to <tt>'Today'</tt>)
      */
-    todayText : "Today",
+    todayText : 'Today',
     /**
      * @cfg {String} okText
-     * The text to display on the ok button
+     * The text to display on the ok button (defaults to <tt>'&#160;OK&#160;'</tt> to give the user extra clicking room)
      */
-    okText : "&#160;OK&#160;", // &#160; to give the user extra clicking room
+    okText : '&#160;OK&#160;',
     /**
      * @cfg {String} cancelText
      * The text to display on the cancel button (defaults to <tt>'Cancel'</tt>)
      */
-    cancelText : "Cancel",
+    cancelText : 'Cancel',
     /**
      * @cfg {String} todayTip
      * The tooltip to display for the button that selects the current date (defaults to <tt>'{current date} (Spacebar)'</tt>)
      */
-    todayTip : "{0} (Spacebar)",
+    todayTip : '{0} (Spacebar)',
     /**
      * @cfg {String} minText
      * The error text to display if the minDate validation fails (defaults to <tt>'This date is before the minimum date'</tt>)
      */
-    minText : "This date is before the minimum date",
+    minText : 'This date is before the minimum date',
     /**
      * @cfg {String} maxText
      * The error text to display if the maxDate validation fails (defaults to <tt>'This date is after the maximum date'</tt>)
      */
-    maxText : "This date is after the maximum date",
+    maxText : 'This date is after the maximum date',
     /**
      * @cfg {String} format
      * The default date format string which can be overriden for localization support.  The format must be
      * valid according to {@link Date#parseDate} (defaults to <tt>'m/d/y'</tt>).
      */
-    format : "m/d/y",
+    format : 'm/d/y',
     /**
      * @cfg {String} disabledDaysText
      * The tooltip to display when the date falls on a disabled day (defaults to <tt>'Disabled'</tt>)
      */
-    disabledDaysText : "Disabled",
+    disabledDaysText : 'Disabled',
     /**
      * @cfg {String} disabledDatesText
      * The tooltip text to display when the date falls on a disabled date (defaults to <tt>'Disabled'</tt>)
      */
-    disabledDatesText : "Disabled",
+    disabledDatesText : 'Disabled',
     /**
      * @cfg {Array} monthNames
      * An array of textual month names which can be overriden for localization support (defaults to Date.monthNames)
@@ -68,17 +68,17 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
      * @cfg {String} nextText
      * The next month navigation button tooltip (defaults to <tt>'Next Month (Control+Right)'</tt>)
      */
-    nextText: 'Next Month (Control+Right)',
+    nextText : 'Next Month (Control+Right)',
     /**
      * @cfg {String} prevText
      * The previous month navigation button tooltip (defaults to <tt>'Previous Month (Control+Left)'</tt>)
      */
-    prevText: 'Previous Month (Control+Left)',
+    prevText : 'Previous Month (Control+Left)',
     /**
      * @cfg {String} monthYearText
      * The header month selector tooltip (defaults to <tt>'Choose a month (Control+Up/Down to move years)'</tt>)
      */
-    monthYearText: 'Choose a month (Control+Up/Down to move years)',
+    monthYearText : 'Choose a month (Control+Up/Down to move years)',
     /**
      * @cfg {Number} startDay
      * Day index at which the week should begin, 0-based (defaults to 0, which is Sunday)
@@ -110,18 +110,18 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
      */
     /**
      * @cfg {Array} disabledDates
-     * An array of "dates" to disable, as strings. These strings will be used to build a dynamic regular
+     * An array of 'dates' to disable, as strings. These strings will be used to build a dynamic regular
      * expression so they are very powerful. Some examples:
      * <ul>
-     * <li>["03/08/2003", "09/16/2003"] would disable those exact dates</li>
-     * <li>["03/08", "09/16"] would disable those days for every year</li>
-     * <li>["^03/08"] would only match the beginning (useful if you are using short years)</li>
-     * <li>["03/../2006"] would disable every day in March 2006</li>
-     * <li>["^03"] would disable every day in every March</li>
+     * <li>['03/08/2003', '09/16/2003'] would disable those exact dates</li>
+     * <li>['03/08', '09/16'] would disable those days for every year</li>
+     * <li>['^03/08'] would only match the beginning (useful if you are using short years)</li>
+     * <li>['03/../2006'] would disable every day in March 2006</li>
+     * <li>['^03'] would disable every day in every March</li>
      * </ul>
      * Note that the format of the dates included in the array should exactly match the {@link #format} config.
-     * In order to support regular expressions, if you are using a date format that has "." in it, you will have to
-     * escape the dot when restricting dates. For example: ["03\\.08\\.03"].
+     * In order to support regular expressions, if you are using a date format that has '.' in it, you will have to
+     * escape the dot when restricting dates. For example: ['03\\.08\\.03'].
      */
 
     // private
@@ -142,7 +142,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
         );
 
         if(this.handler){
-            this.on("select", this.handler,  this.scope || this);
+            this.on('select', this.handler,  this.scope || this);
         }
 
         this.initDisabledDays();
@@ -152,12 +152,12 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
     initDisabledDays : function(){
         if(!this.disabledDatesRE && this.disabledDates){
             var dd = this.disabledDates;
-            var re = "(?:";
+            var re = '(?:';
             for(var i = 0; i < dd.length; i++){
                 re += dd[i];
-                if(i != dd.length-1) re += "|";
+                if(i != dd.length-1) re += '|';
             }
-            this.disabledDatesRE = new RegExp(re + ")");
+            this.disabledDatesRE = new RegExp(re + ')');
         }
     },
 
@@ -244,12 +244,12 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
             if(d > 6){
                 d = d-7;
             }
-            m.push("<th><span>", dn[d].substr(0,1), "</span></th>");
+            m.push('<th><span>', dn[d].substr(0,1), '</span></th>');
         }
-        m[m.length] = "</tr></thead><tbody><tr>";
+        m[m.length] = '</tr></thead><tbody><tr>';
         for(var i = 0; i < 42; i++) {
             if(i % 7 == 0 && i != 0){
-                m[m.length] = "</tr><tr>";
+                m[m.length] = '</tr><tr>';
             }
             m[m.length] = '<td><a href="#" hidefocus="on" class="x-date-date" tabIndex="1"><em><span></span></em></a></td>';
         }
@@ -257,68 +257,68 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
                 this.showToday ? '<tr><td colspan="3" class="x-date-bottom" align="center"></td></tr>' : '',
                 '</table><div class="x-date-mp"></div>');
 
-        var el = document.createElement("div");
-        el.className = "x-date-picker";
-        el.innerHTML = m.join("");
+        var el = document.createElement('div');
+        el.className = 'x-date-picker';
+        el.innerHTML = m.join('');
 
         container.dom.insertBefore(el, position);
 
         this.el = Ext.get(el);
         this.eventEl = Ext.get(el.firstChild);
 
-        new Ext.util.ClickRepeater(this.el.child("td.x-date-left a"), {
+        new Ext.util.ClickRepeater(this.el.child('td.x-date-left a'), {
             handler: this.showPrevMonth,
             scope: this,
             preventDefault:true,
             stopDefault:true
         });
 
-        new Ext.util.ClickRepeater(this.el.child("td.x-date-right a"), {
+        new Ext.util.ClickRepeater(this.el.child('td.x-date-right a'), {
             handler: this.showNextMonth,
             scope: this,
             preventDefault:true,
             stopDefault:true
         });
 
-        this.mon(this.eventEl, "mousewheel", this.handleMouseWheel, this);
+        this.mon(this.eventEl, 'mousewheel', this.handleMouseWheel, this);
 
         this.monthPicker = this.el.down('div.x-date-mp');
         this.monthPicker.enableDisplayMode('block');
 
         var kn = new Ext.KeyNav(this.eventEl, {
-            "left" : function(e){
+            'left' : function(e){
                 e.ctrlKey ?
                     this.showPrevMonth() :
-                    this.update(this.activeDate.add("d", -1));
+                    this.update(this.activeDate.add('d', -1));
             },
 
-            "right" : function(e){
+            'right' : function(e){
                 e.ctrlKey ?
                     this.showNextMonth() :
-                    this.update(this.activeDate.add("d", 1));
+                    this.update(this.activeDate.add('d', 1));
             },
 
-            "up" : function(e){
+            'up' : function(e){
                 e.ctrlKey ?
                     this.showNextYear() :
-                    this.update(this.activeDate.add("d", -7));
+                    this.update(this.activeDate.add('d', -7));
             },
 
-            "down" : function(e){
+            'down' : function(e){
                 e.ctrlKey ?
                     this.showPrevYear() :
-                    this.update(this.activeDate.add("d", 7));
+                    this.update(this.activeDate.add('d', 7));
             },
 
-            "pageUp" : function(e){
+            'pageUp' : function(e){
                 this.showNextMonth();
             },
 
-            "pageDown" : function(e){
+            'pageDown' : function(e){
                 this.showPrevMonth();
             },
 
-            "enter" : function(e){
+            'enter' : function(e){
                 e.stopPropagation();
                 return true;
             },
@@ -326,27 +326,27 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
             scope : this
         });
 
-        this.mon(this.eventEl, "click", this.handleDateClick,  this, {delegate: "a.x-date-date"});
+        this.mon(this.eventEl, 'click', this.handleDateClick,  this, {delegate: 'a.x-date-date'});
 
         this.el.unselectable();
 
-        this.cells = this.el.select("table.x-date-inner tbody td");
-        this.textNodes = this.el.query("table.x-date-inner tbody span");
+        this.cells = this.el.select('table.x-date-inner tbody td');
+        this.textNodes = this.el.query('table.x-date-inner tbody span');
 
         this.mbtn = new Ext.Button({
-            text: "&#160;",
+            text: '&#160;',
             tooltip: this.monthYearText,
-            renderTo: this.el.child("td.x-date-middle", true)
+            renderTo: this.el.child('td.x-date-middle', true)
         });
 
 		this.mon(this.mbtn, 'click', this.showMonthPicker, this);
-        this.mbtn.el.child('em').addClass("x-btn-arrow");
+        this.mbtn.el.child('em').addClass('x-btn-arrow');
 
         if(this.showToday){
             this.todayKeyListener = this.eventEl.addKeyListener(Ext.EventObject.SPACE, this.selectToday,  this);
             var today = (new Date()).dateFormat(this.format);
             this.todayBtn = new Ext.Button({
-                renderTo: this.el.child("td.x-date-bottom", true),
+                renderTo: this.el.child('td.x-date-bottom', true),
                 text: String.format(this.todayText, today),
                 tooltip: String.format(this.todayTip, today),
                 handler: this.selectToday,
@@ -442,7 +442,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
     },
 
     // private
-    selectMPMonth: function(m){
+    selectMPMonth : function(m){
 
     },
 
@@ -456,7 +456,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
         else if(el.is('button.x-date-mp-ok')){
             var d = new Date(this.mpSelYear, this.mpSelMonth, (this.activeDate || this.value).getDate());
             if(d.getMonth() != this.mpSelMonth){
-                // "fix" the JS rolling date conversion if needed
+                // 'fix' the JS rolling date conversion if needed
                 d = new Date(this.mpSelYear, this.mpSelMonth, 1).getLastDateOfMonth();
             }
             this.update(d);
@@ -507,22 +507,22 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
 
     // private
     showPrevMonth : function(e){
-        this.update(this.activeDate.add("mo", -1));
+        this.update(this.activeDate.add('mo', -1));
     },
 
     // private
     showNextMonth : function(e){
-        this.update(this.activeDate.add("mo", 1));
+        this.update(this.activeDate.add('mo', 1));
     },
 
     // private
     showPrevYear : function(){
-        this.update(this.activeDate.add("y", -1));
+        this.update(this.activeDate.add('y', -1));
     },
 
     // private
     showNextYear : function(){
-        this.update(this.activeDate.add("y", 1));
+        this.update(this.activeDate.add('y', 1));
     },
 
     // private
@@ -540,9 +540,9 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
     // private
     handleDateClick : function(e, t){
         e.stopEvent();
-        if(t.dateValue && !Ext.fly(t.parentNode).hasClass("x-date-disabled")){
+        if(t.dateValue && !Ext.fly(t.parentNode).hasClass('x-date-disabled')){
             this.setValue(new Date(t.dateValue));
-            this.fireEvent("select", this, this.value);
+            this.fireEvent('select', this, this.value);
         }
     },
 
@@ -550,7 +550,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
     selectToday : function(){
         if(this.todayBtn && !this.todayBtn.disabled){
             this.setValue(new Date().clearTime());
-            this.fireEvent("select", this, this.value);
+            this.fireEvent('select', this, this.value);
         }
     },
 
@@ -561,10 +561,10 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
         if(!forceRefresh && vd && this.el){
             var t = date.getTime();
             if(vd.getMonth() == date.getMonth() && vd.getFullYear() == date.getFullYear()){
-                this.cells.removeClass("x-date-selected");
+                this.cells.removeClass('x-date-selected');
                 this.cells.each(function(c){
                    if(c.dom.firstChild.dateValue == t){
-                       c.addClass("x-date-selected");
+                       c.addClass('x-date-selected');
                        if(vis){
                            Ext.fly(c.dom.firstChild).focus(50);
                        }
@@ -582,7 +582,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
             startingPos += 7;
         }
 
-        var pm = date.add("mo", -1);
+        var pm = date.add('mo', -1);
         var prevStart = pm.getDaysInMonth()-startingPos;
 
         var cells = this.cells.elements;
@@ -598,7 +598,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
         var max = this.maxDate ? this.maxDate.clearTime() : Number.POSITIVE_INFINITY;
         var ddMatch = this.disabledDatesRE;
         var ddText = this.disabledDatesText;
-        var ddays = this.disabledDays ? this.disabledDays.join("") : false;
+        var ddays = this.disabledDays ? this.disabledDays.join('') : false;
         var ddaysText = this.disabledDaysText;
         var format = this.format;
 
@@ -613,41 +613,41 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
         }
 
         var setCellClass = function(cal, cell){
-            cell.title = "";
+            cell.title = '';
             var t = d.getTime();
             cell.firstChild.dateValue = t;
             if(t == today){
-                cell.className += " x-date-today";
+                cell.className += ' x-date-today';
                 cell.title = cal.todayText;
             }
             if(t == sel){
-                cell.className += " x-date-selected";
+                cell.className += ' x-date-selected';
                 if(vis){
                     Ext.fly(cell.firstChild).focus(50);
                 }
             }
             // disabling
             if(t < min) {
-                cell.className = " x-date-disabled";
+                cell.className = ' x-date-disabled';
                 cell.title = cal.minText;
                 return;
             }
             if(t > max) {
-                cell.className = " x-date-disabled";
+                cell.className = ' x-date-disabled';
                 cell.title = cal.maxText;
                 return;
             }
             if(ddays){
                 if(ddays.indexOf(d.getDay()) != -1){
                     cell.title = ddaysText;
-                    cell.className = " x-date-disabled";
+                    cell.className = ' x-date-disabled';
                 }
             }
             if(ddMatch && format){
                 var fvalue = d.dateFormat(format);
                 if(ddMatch.test(fvalue)){
-                    cell.title = ddText.replace("%0", fvalue);
-                    cell.className = " x-date-disabled";
+                    cell.title = ddText.replace('%0', fvalue);
+                    cell.className = ' x-date-disabled';
                 }
             }
         };
@@ -656,37 +656,37 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
         for(; i < startingPos; i++) {
             textEls[i].innerHTML = (++prevStart);
             d.setDate(d.getDate()+1);
-            cells[i].className = "x-date-prevday";
+            cells[i].className = 'x-date-prevday';
             setCellClass(this, cells[i]);
         }
         for(; i < days; i++){
             var intDay = i - startingPos + 1;
             textEls[i].innerHTML = (intDay);
             d.setDate(d.getDate()+1);
-            cells[i].className = "x-date-active";
+            cells[i].className = 'x-date-active';
             setCellClass(this, cells[i]);
         }
         var extraDays = 0;
         for(; i < 42; i++) {
              textEls[i].innerHTML = (++extraDays);
              d.setDate(d.getDate()+1);
-             cells[i].className = "x-date-nextday";
+             cells[i].className = 'x-date-nextday';
              setCellClass(this, cells[i]);
         }
 
-        this.mbtn.setText(this.monthNames[date.getMonth()] + " " + date.getFullYear());
+        this.mbtn.setText(this.monthNames[date.getMonth()] + ' ' + date.getFullYear());
 
         if(!this.internalRender){
             var main = this.el.dom.firstChild;
             var w = main.offsetWidth;
-            this.el.setWidth(w + this.el.getBorderWidth("lr"));
+            this.el.setWidth(w + this.el.getBorderWidth('lr'));
             Ext.fly(main).setWidth(w);
             this.internalRender = true;
             // opera does not respect the auto grow header center column
             // then, after it gets a width opera refuses to recalculate
             // without a second pass
             if(Ext.isOpera && !this.secondPass){
-                main.rows[0].cells[1].style.width = (w - (main.rows[0].cells[0].offsetWidth+main.rows[0].cells[2].offsetWidth)) + "px";
+                main.rows[0].cells[1].style.width = (w - (main.rows[0].cells[0].offsetWidth+main.rows[0].cells[2].offsetWidth)) + 'px';
                 this.secondPass = true;
                 this.update.defer(10, this, [date]);
             }
@@ -711,4 +711,5 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
      * @cfg {String} autoEl @hide
      */
 });
+
 Ext.reg('datepicker', Ext.DatePicker);
