@@ -2,48 +2,49 @@ Ext.ns('Ext.ux');
 
 Ext.ux.GroupTabPanel = Ext.extend(Ext.TabPanel, {
     tabPosition: 'left',
-    
+
     alternateColor: false,
-    
+
     alternateCls: 'x-grouptabs-panel-alt',
-    
+
+    // Ext.ux.GroupTab
     defaultType: 'grouptab',
-    
+
     deferredRender: false,
-    
+
     activeGroup : null,
-    
+
     initComponent: function(){
         Ext.ux.GroupTabPanel.superclass.initComponent.call(this);
-        
+
         this.addEvents(
             'beforegroupchange',
             'groupchange'
         );
         this.elements = 'body,header';
         this.stripTarget = 'header';
-        
+
         this.tabPosition = this.tabPosition == 'right' ? 'right' : 'left';
-        
+
         this.addClass('x-grouptabs-panel');
-        
+
         if (this.tabStyle && this.tabStyle != '') {
             this.addClass('x-grouptabs-panel-' + this.tabStyle);
         }
-        
+
         if (this.alternateColor) {
             this.addClass(this.alternateCls);
         }
-        
+
         this.on('beforeadd', function(gtp, item, index){
             this.initGroup(item, index);
-        });		     
+        });
     },
-    
+
     initEvents : function() {
         this.mon(this.strip, 'mousedown', this.onStripMouseDown, this);
     },
-        
+
     onRender: function(ct, position){
         Ext.TabPanel.superclass.onRender.call(this, ct, position);
 
@@ -64,10 +65,10 @@ Ext.ux.GroupTabPanel = Ext.extend(Ext.TabPanel, {
 
         if (!this.itemTpl) {
             var tt = new Ext.Template(
-                '<li class="{cls}" id="{id}">', 
-                '<a class="x-grouptabs-expand" onclick="return false;"></a>', 
+                '<li class="{cls}" id="{id}">',
+                '<a class="x-grouptabs-expand" onclick="return false;"></a>',
                 '<a class="x-grouptabs-text {iconCls}" href="#" onclick="return false;">',
-                '<span>{text}</span></a>', 
+                '<span>{text}</span></a>',
                 '</li>'
             );
             tt.disableFormats = true;
@@ -77,17 +78,17 @@ Ext.ux.GroupTabPanel = Ext.extend(Ext.TabPanel, {
 
         this.items.each(this.initGroup, this);
     },
-    
+
     afterRender: function(){
         Ext.ux.GroupTabPanel.superclass.afterRender.call(this);
-        
+
         this.tabJoint = Ext.fly(this.body.dom.parentNode).createChild({
             cls: 'x-tab-joint'
         });
-        
+
         this.addClass('x-tab-panel-' + this.tabPosition);
         this.header.setWidth(this.tabWidth);
-        
+
         if (this.activeGroup !== undefined) {
             var group = (typeof this.activeGroup == 'object') ? this.activeGroup : this.items.get(this.activeGroup);
             delete this.activeGroup;
@@ -97,7 +98,7 @@ Ext.ux.GroupTabPanel = Ext.extend(Ext.TabPanel, {
     },
 
     getGroupEl : Ext.TabPanel.prototype.getTabEl,
-        
+
     // private
     findTargets: function(e){
         var item = null;
@@ -119,7 +120,7 @@ Ext.ux.GroupTabPanel = Ext.extend(Ext.TabPanel, {
             el: itemEl
         };
     },
-    
+
     // private
     onStripMouseDown: function(e){
         if (e.button != 0) {
@@ -139,26 +140,26 @@ Ext.ux.GroupTabPanel = Ext.extend(Ext.TabPanel, {
             }
         }
     },
-    
+
     expandGroup: function(groupEl){
         if(groupEl.isXType) {
             groupEl = this.getGroupEl(groupEl);
         }
         Ext.fly(groupEl).addClass('x-grouptabs-expanded');
     },
-    
+
     toggleGroup: function(groupEl){
         if(groupEl.isXType) {
             groupEl = this.getGroupEl(groupEl);
-        }        
+        }
         Ext.fly(groupEl).toggleClass('x-grouptabs-expanded');
-    },    
-    
+    },
+
     syncTabJoint: function(groupEl){
         if (!this.tabJoint) {
             return;
         }
-        
+
         groupEl = groupEl || this.getGroupEl(this.activeGroup);
         if(groupEl) {
             var y = Ext.isGecko2 ? 0 : 1;
@@ -169,40 +170,40 @@ Ext.ux.GroupTabPanel = Ext.extend(Ext.TabPanel, {
                 //this.tabJoint.alignTo(groupEl, 'tr-tl', [1,y]);
             }
 
-            this.tabJoint.setHeight(Ext.fly(groupEl).getHeight() - 2);            
+            this.tabJoint.setHeight(Ext.fly(groupEl).getHeight() - 2);
         }
         else {
             this.tabJoint.hide();
         }
     },
-    
+
     getActiveTab : function() {
         if(!this.activeGroup) return null;
-        return this.activeGroup.getTabEl(this.activeGroup.activeTab) || null;  
+        return this.activeGroup.getTabEl(this.activeGroup.activeTab) || null;
     },
-    
+
     onResize: function(){
         Ext.ux.GroupTabPanel.superclass.onResize.apply(this, arguments);
         this.syncTabJoint();
     },
-    
+
     createCorner: function(el, pos){
         return Ext.fly(el).createChild({
             cls: 'x-grouptabs-corner x-grouptabs-corner-' + pos
         });
     },
-    
+
     initGroup: function(group, index){
-        var before = this.strip.dom.childNodes[index];        
+        var before = this.strip.dom.childNodes[index];
         var p = this.getTemplateArgs(group);
         if (index === 0) {
             p.cls += ' x-tab-first';
         }
         p.cls += ' x-grouptabs-main';
         p.text = group.getMainItem().title;
-        
+
         var el = before ? this.itemTpl.insertBefore(before, p) : this.itemTpl.append(this.strip, p);
-        
+
         var tl = this.createCorner(el, 'top-' + this.tabPosition);
         var bl = this.createCorner(el, 'bottom-' + this.tabPosition);
 
@@ -220,7 +221,7 @@ Ext.ux.GroupTabPanel = Ext.extend(Ext.TabPanel, {
         this.mon(group, 'changemainitem', this.onGroupChangeMainItem, this);
         this.mon(group, 'beforetabchange', this.onGroupBeforeTabChange, this);
     },
-    
+
     setActiveGroup : function(group) {
         group = this.getComponent(group);
         if(!group || this.fireEvent('beforegroupchange', this, group, this.activeGroup) === false){
@@ -241,7 +242,7 @@ Ext.ux.GroupTabPanel = Ext.extend(Ext.TabPanel, {
 
             var groupEl = this.getGroupEl(group);
             Ext.fly(groupEl).addClass('x-tab-strip-active');
-                        
+
             this.activeGroup = group;
             this.stack.add(group);
 
@@ -250,30 +251,30 @@ Ext.ux.GroupTabPanel = Ext.extend(Ext.TabPanel, {
 
             group.fireEvent('activate', group);
             this.fireEvent('groupchange', this, group);
-        }        
+        }
     },
-    
+
     onGroupBeforeTabChange: function(group, newTab, oldTab){
         if(group !== this.activeGroup || newTab !== oldTab) {
             this.strip.select('.x-grouptabs-sub > li.x-tab-strip-active', true).removeClass('x-tab-strip-active');
-        } 
-        
+        }
+
         this.expandGroup(this.getGroupEl(group));
         this.setActiveGroup(group);
     },
-    
+
     onGroupChangeMainItem: function(){
         //console.log(arguments);
     },
-    
+
     getFrameHeight: function(){
         var h = this.el.getFrameWidth('tb');
         h += (this.tbar ? this.tbar.getHeight() : 0) +
         (this.bbar ? this.bbar.getHeight() : 0);
-        
+
         return h;
     },
-    
+
     adjustBodyWidth: function(w){
         return w - this.tabWidth;
     }
