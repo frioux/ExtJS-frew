@@ -150,6 +150,6 @@ Ext.KeyNav.prototype = {
     
     // private
     isKeydown: function(){
-        return this.forceKeyDown || Ext.EventManager.useKeydown();
+        return this.forceKeyDown || Ext.EventManager.useKeydown;
     }
 };

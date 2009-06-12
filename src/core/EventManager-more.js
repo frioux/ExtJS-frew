@@ -10,7 +10,13 @@ Ext.apply(Ext.EventManager, function(){
     	E = Ext.lib.Event,
     	propRe = /^(?:scope|delay|buffer|single|stopEvent|preventDefault|stopPropagation|normalized|args|delegate)$/,
         curWidth = 0,
-        curHeight = 0;
+        curHeight = 0,
+        // note 1: IE fires ONLY the keydown event on specialkey autorepeat
+        // note 2: Safari < 3.1, Gecko (Mac/Linux) & Opera fire only the keypress event on specialkey autorepeat
+        // (research done by @Jan Wolter at http://unixpapa.com/js/key.html)
+        useKeydown = Ext.isSafari 
+                    ? Ext.num(navigator.userAgent.toLowerCase().match(/version\/(\d+\.\d)/)[1] || 2) >= 3.1
+                    : !((Ext.isGecko && !Ext.isWindows) || Ext.isOpera);
       	
 	return { 
 		// private
@@ -103,9 +109,7 @@ Ext.apply(Ext.EventManager, function(){
         
         // protected for use inside the framework
         // detects whether we should use keydown or keypress based on the browser.
-        useKeydown: function(){
-            return Ext.isIE || (Ext.isWebKit && !Ext.isSafari2) || Ext.isAir;
-        }
+        useKeydown: useKeydown
     }
 }());
 
