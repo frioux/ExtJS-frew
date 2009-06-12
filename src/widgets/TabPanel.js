@@ -749,7 +749,15 @@ new Ext.TabPanel({
     /**
      * Sets the specified tab as the active tab. This method fires the {@link #beforetabchange} event which
      * can <tt>return false</tt> to cancel the tab change.
-     * @param {String/Panel} tab The id or tab Panel to activate
+     * @param {String/Number} item 
+     * The id or tab Panel to activate. This parameter may be any of the following:
+     * <div><ul class="mdetail-params">
+     * <li>a <b><tt>String</tt></b> : representing the <code>{@link Ext.Component#itemId itemId}</code> 
+     * or <code>{@link Ext.Component#id id}</code> of the child component </li>
+     * <li>a <b><tt>Number</tt></b> : representing the position of the child component
+     * within the <code>{@link #items}</code> <b>property</b></li>
+     * </ul></div>
+     * <p>For additional information see {@link Ext.util.MixedCollection#get}.
      */
     setActiveTab : function(item){
         item = this.getComponent(item);
