@@ -316,7 +316,8 @@ mc.add(otherEl);
  * If an item was found, but is a Class, returns <tt>null</tt>.
  */
     item : function(key){
-        var item = typeof this.map[key] != "undefined" ? this.map[key] : (typeof key == 'number') ? this.items[key] : undefined;
+        var mk = this.map[key],
+            item = mk !== undefined ? mk : (typeof key == 'number') ? this.items[key] : undefined;
         return !Ext.isFunction(item) || this.allowFunctions ? item : null; // for prototype!
     },
 
