@@ -431,19 +431,20 @@ new Ext.FormPanel({
      * that is rendered to the page for this component. This allows you to write id-based CSS
      * rules to style the specific instance of this component uniquely, and also to select
      * sub-elements using this component's id as the parent.</p>
-     * <p><b>Note</b>: to avoid complications imposed by a unique <tt>id</tt> see <tt>{@link #itemId}</tt>.</p>
-     * <p><b>Note</b>: to access the container of an item see <tt>{@link #ownerCt}</tt>.</p>
+     * <p><b>Note</b>: to avoid complications imposed by a unique <tt>id</tt> also see
+     * <code>{@link #itemId}</code> and <code>{@link #ref}</code>.</p>
+     * <p><b>Note</b>: to access the container of an item see <code>{@link #ownerCt}</code>.</p>
      */
     /**
      * @cfg {String} itemId
      * <p>An <tt>itemId</tt> can be used as an alternative way to get a reference to a component
-     * when no object reference is available.  Instead of using an <tt>{@link #id}</tt> with
-     * {@link Ext}.{@link Ext#getCmp getCmp}, use <tt>itemId</tt> with
+     * when no object reference is available.  Instead of using an <code>{@link #id}</code> with
+     * {@link Ext}.{@link Ext#getCmp getCmp}, use <code>itemId</code> with
      * {@link Ext.Container}.{@link Ext.Container#getComponent getComponent} which will retrieve
-     * <tt>itemId</tt>'s or <tt>{@link #id}</tt>'s. Since <tt>itemId</tt>'s are an index to the
-     * container's internal MixedCollection, the <tt>itemId</tt> is scoped locally to the container -- 
+     * <code>itemId</code>'s or <tt>{@link #id}</tt>'s. Since <code>itemId</code>'s are an index to the
+     * container's internal MixedCollection, the <code>itemId</code> is scoped locally to the container -- 
      * avoiding potential conflicts with {@link Ext.ComponentMgr} which requires a <b>unique</b>
-     * <tt>{@link #id}</tt>.</p>
+     * <code>{@link #id}</code>.</p>
      * <pre><code>
 var c = new Ext.Panel({ //
     {@link Ext.BoxComponent#height height}: 300,
@@ -465,7 +466,7 @@ var c = new Ext.Panel({ //
 p1 = c.{@link Ext.Container#getComponent getComponent}('p1'); // not the same as {@link Ext#getCmp Ext.getCmp()}
 p2 = p1.{@link #ownerCt}.{@link Ext.Container#getComponent getComponent}('p2'); // reference via a sibling 
      * </code></pre>
-     * <p>Also see <tt>{@link #id}</tt>.</p>
+     * <p>Also see <tt>{@link #id}</tt> and <code>{@link #ref}</code>.</p>
      * <p><b>Note</b>: to access the container of an item see <tt>{@link #ownerCt}</tt>.</p>
      */
     /**
@@ -1131,17 +1132,20 @@ new Ext.Panel({
     },
 
     /**
-     * Returns the id of this component or generates an id:<pre><code>
+     * Returns the <code>id</code> of this component or automatically generates and
+     * returns an <code>id</code> if an <code>id</code> is not defined yet:<pre><code>
      * "ext-comp-" + (++Ext.Component.AUTO_ID)
      * </code></pre>
-     * @return {String}
+     * @return {String} id
      */
     getId : function(){
         return this.id || (this.id = "ext-comp-" + (++Ext.Component.AUTO_ID));
     },
 
     /**
-     * Returns the item id of this component.
+     * Returns the <code>{@link #itemId}</code> of this component.  If an
+     * <code>{@link #itemId}</code> was not assigned through configuration the
+     * <code>id</code> is returned using <code>{@link #getId}</code>.
      * @return {String}
      */
     getItemId : function(){
