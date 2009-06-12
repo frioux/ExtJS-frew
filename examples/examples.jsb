@@ -397,13 +397,9 @@
   <file name="organizer\organizer.js" path="organizer" />
   <file name="panel\panels.html" path="panel" />
   <file name="panel\panels.js" path="panel" />
-  <file name="portal\portal.css" path="portal" />
   <file name="portal\portal.html" path="portal" />
-  <file name="portal\Portal.js" path="portal" />
-  <file name="portal\PortalColumn.js" path="portal" />
-  <file name="portal\Portlet.js" path="portal" />
+  <file name="portal\portal.js" path="portal" />
   <file name="portal\sample.css" path="portal" />
-  <file name="portal\sample.js" path="portal" />
   <file name="portal\sample-grid.js" path="portal" />
   <file name="resizable\basic.css" path="resizable" />
   <file name="resizable\basic.html" path="resizable" />
@@ -756,6 +752,10 @@
   <file name="ux\PagingMemoryProxy.js" path="ux" />
   <file name="ux\PanelResizer.js" path="ux" />
   <file name="ux\css\PanelResizer.css" path="ux\css" />
+  <file name="ux\Portal.js" path="ux" />
+  <file name="ux\css\Portal.css" path="ux\css" />
+  <file name="ux\PortalColumn.js" path="ux" />
+  <file name="ux\Portlet.js" path="ux" />
   <file name="ux\ProgressBarPager.js" path="ux" />
   <file name="ux\RowEditor.js" path="ux" />
   <file name="ux\css\RowEditor.css" path="ux\css" />
@@ -791,6 +791,9 @@
     <include name="ux\ItemSelector.js" />
     <include name="ux\MultiSelect.js" />
     <include name="ux\PagingMemoryProxy.js" />
+    <include name="ux\Portal.js" />
+    <include name="ux\PortalColumn.js" />
+    <include name="ux\Portlet.js" />
     <include name="ux\ProgressBarPager.js" />
     <include name="ux\SearchField.js" />
     <include name="ux\SelectBox.js" />
@@ -810,6 +813,7 @@
     <include name="ux\css\GroupTab.css" />
     <include name="ux\css\MultiSelect.css" />
     <include name="ux\css\PanelResizer.css" />
+    <include name="ux\css\Portal.css" />
     <include name="ux\css\RowEditor.css" />
   </target>
 </project>
