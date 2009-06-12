@@ -338,7 +338,7 @@ Ext.grid.NumberColumn = Ext.extend(Ext.grid.Column, {
 Ext.grid.DateColumn = Ext.extend(Ext.grid.Column, {
     /**
      * @cfg {String} format
-     * A formatting string as used by {@link Date.format} to format a Date for this Column
+     * A formatting string as used by {@link Date#format} to format a Date for this Column
      * (defaults to <tt>'m/d/Y'</tt>).
      */
     format : 'm/d/Y',
