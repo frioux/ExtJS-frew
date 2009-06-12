@@ -105,7 +105,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
     /**
      * @cfg {RegExp} disabledDatesRE
      * JavaScript regular expression used to disable a pattern of dates (defaults to null).  The {@link #disabledDates}
-     * config will generate this regex internally, but if you specify disabledDatesRE it will take precedence over the 
+     * config will generate this regex internally, but if you specify disabledDatesRE it will take precedence over the
      * disabledDates value.
      */
     /**
@@ -160,7 +160,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
             this.disabledDatesRE = new RegExp(re + ")");
         }
     },
-    
+
     /**
      * Replaces any existing disabled dates with new values and refreshes the DatePicker.
      * @param {Array/RegExp} disabledDates An array of date strings (see the {@link #disabledDates} config
@@ -176,7 +176,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
         this.initDisabledDays();
         this.update(this.value, true);
     },
-    
+
     /**
      * Replaces any existing disabled days (by index, 0-6) with new values and refreshes the DatePicker.
      * @param {Array} disabledDays An array of disabled day indexes. See the {@link #disabledDays} config
@@ -186,7 +186,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
         this.disabledDays = dd;
         this.update(this.value, true);
     },
-    
+
     /**
      * Replaces any existing {@link #minDate} with the new value and refreshes the DatePicker.
      * @param {Date} value The minimum date that can be selected
@@ -195,7 +195,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
         this.minDate = dt;
         this.update(this.value, true);
     },
-    
+
     /**
      * Replaces any existing {@link #maxDate} with the new value and refreshes the DatePicker.
      * @param {Date} value The maximum date that can be selected
@@ -253,8 +253,8 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
             }
             m[m.length] = '<td><a href="#" hidefocus="on" class="x-date-date" tabIndex="1"><em><span></span></em></a></td>';
         }
-        m.push('</tr></tbody></table></td></tr>', 
-                this.showToday ? '<tr><td colspan="3" class="x-date-bottom" align="center"></td></tr>' : '', 
+        m.push('</tr></tbody></table></td></tr>',
+                this.showToday ? '<tr><td colspan="3" class="x-date-bottom" align="center"></td></tr>' : '',
                 '</table><div class="x-date-mp"></div>');
 
         var el = document.createElement("div");
@@ -284,7 +284,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
 
         this.monthPicker = this.el.down('div.x-date-mp');
         this.monthPicker.enableDisplayMode('block');
-        
+
         var kn = new Ext.KeyNav(this.eventEl, {
             "left" : function(e){
                 e.ctrlKey ?
@@ -329,7 +329,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
         this.mon(this.eventEl, "click", this.handleDateClick,  this, {delegate: "a.x-date-date"});
 
         this.el.unselectable();
-        
+
         this.cells = this.el.select("table.x-date-inner tbody td");
         this.textNodes = this.el.query("table.x-date-inner tbody span");
 
@@ -338,7 +338,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
             tooltip: this.monthYearText,
             renderTo: this.el.child("td.x-date-middle", true)
         });
-        
+
 		this.mon(this.mbtn, 'click', this.showMonthPicker, this);
         this.mbtn.el.child('em').addClass("x-btn-arrow");
 
@@ -353,7 +353,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
                 scope: this
             });
         }
-        
+
         if(Ext.isIE){
             this.el.repaint();
         }
@@ -382,7 +382,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
                 '</table>'
             );
             this.monthPicker.update(buf.join(''));
-            
+
             this.mon(this.monthPicker, 'click', this.onMonthClick, this);
             this.mon(this.monthPicker, 'dblclick', this.onMonthDblClick, this);
 
@@ -443,7 +443,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
 
     // private
     selectMPMonth: function(m){
-        
+
     },
 
     // private
@@ -604,14 +604,14 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
 
         if(this.showToday){
             var td = new Date().clearTime();
-            var disable = (td < min || td > max || 
-                (ddMatch && format && ddMatch.test(td.dateFormat(format))) || 
+            var disable = (td < min || td > max ||
+                (ddMatch && format && ddMatch.test(td.dateFormat(format))) ||
                 (ddays && ddays.indexOf(td.getDay()) != -1));
-                        
+
             this.todayBtn.setDisabled(disable);
             this.todayKeyListener[disable ? 'disable' : 'enable']();
         }
-        
+
         var setCellClass = function(cal, cell){
             cell.title = "";
             var t = d.getTime();
