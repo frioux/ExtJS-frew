@@ -234,6 +234,10 @@
   <file name="grid\xml-grid.js" path="grid" />
   <file name="grouptabs\grouptabs.html" path="grouptabs" />
   <file name="grouptabs\grouptabs.js" path="grouptabs" />
+  <file name="grouptabs\images\group.png" path="grouptabs\images" />
+  <file name="grouptabs\images\subscriptions.png" path="grouptabs\images" />
+  <file name="grouptabs\images\templates.png" path="grouptabs\images" />
+  <file name="grouptabs\images\tickets.png" path="grouptabs\images" />
   <file name="history\history.html" path="history" />
   <file name="history\history.js" path="history" />
   <file name="image-organizer\img-org.css" path="image-organizer" />
@@ -769,15 +773,11 @@
   <file name="ux\XmlTreeLoader.js" path="ux" />
   <file name="ux\images\elbow-minus-nl.gif" path="ux\images" />
   <file name="ux\images\elbow-plus-nl.gif" path="ux\images" />
-  <file name="ux\images\group.png" path="ux\images" />
   <file name="ux\images\panel-handle.gif" path="ux\images" />
   <file name="ux\images\row-editor-bg.gif" path="ux\images" />
   <file name="ux\images\row-editor-btns.gif" path="ux\images" />
   <file name="ux\images\summary-bg.gif" path="ux\images" />
   <file name="ux\images\summary-group-bg.gif" path="ux\images" />
-  <file name="ux\images\subscriptions.png" path="ux\images" />
-  <file name="ux\images\templates.png" path="ux\images" />
-  <file name="ux\images\tickets.png" path="ux\images" />
   <file name="ux\images\x-grouptabs-corners.gif" path="ux\images" />
   <target name="User Extension JS Pack" file="$output\ux\ux-all.js" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="ux\ColumnNodeUI.js" />
