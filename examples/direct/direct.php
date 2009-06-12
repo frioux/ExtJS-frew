@@ -14,10 +14,10 @@
     <script language="javascript" src="direct.js"></script>
 
 	<script type="text/javascript" src="php/api.php"></script>
-	
+
     <!-- Common Styles for the examples -->
     <link rel="stylesheet" type="text/css" href="../shared/examples.css" />
-    <style>
+    <style type="text/css">
         #out {
             padding: 5px;
             overflow:auto;
@@ -27,7 +27,7 @@
             color:#555;
         }
         #out xmp {
-            margin: 5px; 
+            margin: 5px;
         }
         #out p {
             margin:0;
