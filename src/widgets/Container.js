@@ -643,9 +643,17 @@ tb.{@link #doLayout}();             // refresh the layout
     },
 
     /**
-     * Gets a direct child Component by id, or by index.
-     * @param {String/Number} id or index of child Component to return.
-     * @return Ext.Component
+     * Examines this container's <code>{@link #items}</code> <b>property</b>
+     * and gets a direct child component of this container.
+     * @param {String/Number} comp This parameter may be any of the following:
+     * <div><ul class="mdetail-params">
+     * <li>a <b><tt>String</tt></b> : representing the <code>{@link Ext.Component#itemId itemId}</code> 
+     * or <code>{@link Ext.Component#id id}</code> of the child component </li>
+     * <li>a <b><tt>Number</tt></b> : representing the position of the child component
+     * within the <code>{@link #items}</code> <b>property</b></li>
+     * </ul></div>
+     * <p>For additional information see {@link Ext.util.MixedCollection#get}.
+     * @return Ext.Component The component (if found).
      */
     getComponent : function(comp){
         if(Ext.isObject(comp)){
