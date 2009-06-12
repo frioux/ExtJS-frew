@@ -351,11 +351,11 @@ myGrid.on('render', function(grid) {
     hide: function(){
         this.clearTimer('dismiss');
         this.lastActive = new Date();
-        delete this.triggerElement;
         if(this.anchorEl){
             this.anchorEl.hide();
         }
         Ext.ToolTip.superclass.hide.call(this);
+        delete this.triggerElement;
     },
 
     /**
