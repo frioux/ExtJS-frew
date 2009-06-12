@@ -112,20 +112,25 @@ Ext.layout.ContainerLayout.prototype = {
 
     // private
     onResize: function(){
-        var ct = this.container;
-        if(ct.collapsed){
+        if(this.container.collapsed){
             return;
         }
         var b = this.container.bufferResize;
         if(b){
             if(!this.resizeTask){
-                this.resizeTask = new Ext.util.DelayedTask(ct.doLayout, ct);
+                this.resizeTask = new Ext.util.DelayedTask(this.runLayout, this);
                 this.resizeBuffer = typeof b == 'number' ? b : 100;
             }
             this.resizeTask.delay(this.resizeBuffer);
         }else{
-            ct.doLayout();
+            this.runLayout();
         }
+    },
+    
+    // private
+    runLayout: function(){
+        this.layout();
+        this.container.onLayout();
     },
 
     // private
