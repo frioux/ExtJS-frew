@@ -6,7 +6,7 @@
  * @cfg {Boolean} shim False to disable the iframe shim in browsers which need one (defaults to true)
  * @cfg {String/Boolean} shadow True to automatically create an {@link Ext.Shadow}, or a string indicating the
  * shadow's display {@link Ext.Shadow#mode}. False to disable the shadow. (defaults to false)
- * @cfg {Object} dh DomHelper object config to create element with (defaults to {tag: "div", cls: "x-layer"}).
+ * @cfg {Object} dh DomHelper object config to create element with (defaults to {tag: 'div', cls: 'x-layer'}).
  * @cfg {Boolean} constrain False to disable constrain to viewport (defaults to true)
  * @cfg {String} cls CSS class to add to the element
  * @cfg {Number} zindex Starting z-index (defaults to 11000)
@@ -24,7 +24,7 @@ Ext.Layer = function(config, existingEl){
         this.dom = Ext.getDom(existingEl);
     }
     if(!this.dom){
-        var o = config.dh || {tag: "div", cls: "x-layer"};
+        var o = config.dh || {tag: 'div', cls: 'x-layer'};
         this.dom = dh.append(pel, o);
     }
     if(config.cls){
@@ -38,7 +38,7 @@ Ext.Layer = function(config, existingEl){
         this.id = Ext.id(this.dom);
     }
     this.zindex = config.zindex || this.getZIndex();
-    this.position("absolute", this.zindex);
+    this.position('absolute', this.zindex);
     if(config.shadow){
         this.shadowOffset = config.shadowOffset || 4;
         this.shadow = new Ext.Shadow({
@@ -61,7 +61,7 @@ var shims = [];
 Ext.extend(Ext.Layer, Ext.Element, {
 
     getZIndex : function(){
-        return this.zindex || parseInt((this.getShim() || this).getStyle("z-index"), 10) || 11000;
+        return this.zindex || parseInt((this.getShim() || this).getStyle('z-index'), 10) || 11000;
     },
 
     getShim : function(){
@@ -141,10 +141,10 @@ Ext.extend(Ext.Layer, Ext.Element, {
                     }
                     // fit the shim behind the shadow, so it is shimmed too
                     var a = sw.adjusts, s = sh.dom.style;
-                    s.left = (Math.min(l, l+a.l))+"px";
-                    s.top = (Math.min(t, t+a.t))+"px";
-                    s.width = (w+a.w)+"px";
-                    s.height = (h+a.h)+"px";
+                    s.left = (Math.min(l, l+a.l))+'px';
+                    s.top = (Math.min(t, t+a.t))+'px';
+                    s.width = (w+a.w)+'px';
+                    s.height = (h+a.h)+'px';
                 }
             }else if(sh){
                 if(doShow){
@@ -246,7 +246,7 @@ Ext.extend(Ext.Layer, Ext.Element, {
     showAction : function(){
         this.visible = true; // track visibility to prevent getStyle calls
         if(this.useDisplay === true){
-            this.setDisplayed("");
+            this.setDisplayed('');
         }else if(this.lastXY){
             supr.setXY.call(this, this.lastXY);
         }else if(this.lastLT){
@@ -444,12 +444,12 @@ Ext.extend(Ext.Layer, Ext.Element, {
      */
     setZIndex : function(zindex){
         this.zindex = zindex;
-        this.setStyle("z-index", zindex + 2);
+        this.setStyle('z-index', zindex + 2);
         if(this.shadow){
             this.shadow.setZIndex(zindex + 1);
         }
         if(this.shim){
-            this.shim.setStyle("z-index", zindex);
+            this.shim.setStyle('z-index', zindex);
         }
         return this;
     }
