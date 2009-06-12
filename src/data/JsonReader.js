@@ -253,7 +253,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
      * @param {Object} response
      */
     readResponse : function(action, response) {
-        var o = (typeof(response.responseText) != undefined) ? Ext.decode(response.responseText) : response;
+        var o = (response.responseText !== undefined) ? Ext.decode(response.responseText) : response;
         if(!o) {
             throw new Ext.data.JsonReader.Error('response');
         }
@@ -265,7 +265,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             if (Ext.isEmpty(o[this.meta.root])) {
                 throw new Ext.data.JsonReader.Error('root-emtpy', this.meta.root);
             }
-            else if (typeof(o[this.meta.root]) === undefined) {
+            else if (o[this.meta.root] === undefined) {
                 throw new Ext.data.JsonReader.Error('root-undefined-response', this.meta.root);
             }
         }
