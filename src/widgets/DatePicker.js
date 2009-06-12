@@ -10,7 +10,7 @@
 Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
     /**
      * @cfg {String} todayText
-     * The text to display on the button that selects the current date (defaults to "Today")
+     * The text to display on the button that selects the current date (defaults to <tt>'Today'</tt>)
      */
     todayText : "Today",
     /**
@@ -20,38 +20,38 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
     okText : "&#160;OK&#160;", // &#160; to give the user extra clicking room
     /**
      * @cfg {String} cancelText
-     * The text to display on the cancel button
+     * The text to display on the cancel button (defaults to <tt>'Cancel'</tt>)
      */
     cancelText : "Cancel",
     /**
      * @cfg {String} todayTip
-     * The tooltip to display for the button that selects the current date (defaults to "{current date} (Spacebar)")
+     * The tooltip to display for the button that selects the current date (defaults to <tt>'{current date} (Spacebar)'</tt>)
      */
     todayTip : "{0} (Spacebar)",
     /**
      * @cfg {String} minText
-     * The error text to display if the minDate validation fails (defaults to "This date is before the minimum date")
+     * The error text to display if the minDate validation fails (defaults to <tt>'This date is before the minimum date'</tt>)
      */
     minText : "This date is before the minimum date",
     /**
      * @cfg {String} maxText
-     * The error text to display if the maxDate validation fails (defaults to "This date is after the maximum date")
+     * The error text to display if the maxDate validation fails (defaults to <tt>'This date is after the maximum date'</tt>)
      */
     maxText : "This date is after the maximum date",
     /**
      * @cfg {String} format
      * The default date format string which can be overriden for localization support.  The format must be
-     * valid according to {@link Date#parseDate} (defaults to 'm/d/y').
+     * valid according to {@link Date#parseDate} (defaults to <tt>'m/d/y'</tt>).
      */
     format : "m/d/y",
     /**
      * @cfg {String} disabledDaysText
-     * The tooltip to display when the date falls on a disabled day (defaults to "Disabled")
+     * The tooltip to display when the date falls on a disabled day (defaults to <tt>'Disabled'</tt>)
      */
     disabledDaysText : "Disabled",
     /**
      * @cfg {String} disabledDatesText
-     * The tooltip text to display when the date falls on a disabled date (defaults to "Disabled")
+     * The tooltip text to display when the date falls on a disabled date (defaults to <tt>'Disabled'</tt>)
      */
     disabledDatesText : "Disabled",
     /**
@@ -66,17 +66,17 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
     dayNames : Date.dayNames,
     /**
      * @cfg {String} nextText
-     * The next month navigation button tooltip (defaults to 'Next Month (Control+Right)')
+     * The next month navigation button tooltip (defaults to <tt>'Next Month (Control+Right)'</tt>)
      */
     nextText: 'Next Month (Control+Right)',
     /**
      * @cfg {String} prevText
-     * The previous month navigation button tooltip (defaults to 'Previous Month (Control+Left)')
+     * The previous month navigation button tooltip (defaults to <tt>'Previous Month (Control+Left)'</tt>)
      */
     prevText: 'Previous Month (Control+Left)',
     /**
      * @cfg {String} monthYearText
-     * The header month selector tooltip (defaults to 'Choose a month (Control+Up/Down to move years)')
+     * The header month selector tooltip (defaults to <tt>'Choose a month (Control+Up/Down to move years)'</tt>)
      */
     monthYearText: 'Choose a month (Control+Up/Down to move years)',
     /**
@@ -87,7 +87,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
     /**
      * @cfg {Boolean} showToday
      * False to hide the footer area containing the Today button and disable the keyboard handler for spacebar
-     * that selects the current date (defaults to true).
+     * that selects the current date (defaults to <tt>true</tt>).
      */
     showToday : true,
     /**
