@@ -53,6 +53,11 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
      */
     editable: true,
     /**
+     * @cfg {String} wrapFocusClass The class added to the to the wrap of the trigger element. Defaults to
+     * <tt>x-trigger-wrap-focus</tt>.
+     */
+    wrapFocusClass: 'x-trigger-wrap-focus',
+    /**
      * @hide 
      * @method autoSize
      */
@@ -137,7 +142,7 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
     onFocus : function(){
         Ext.form.TriggerField.superclass.onFocus.call(this);
         if(!this.mimicing){
-            this.wrap.addClass('x-trigger-wrap-focus');
+            this.wrap.addClass(this.wrapFocusClass);
             this.mimicing = true;
             Ext.get(Ext.isIE ? document.body : document).on("mousedown", this.mimicBlur, this, {delay: 10});
             if(this.monitorTab){
@@ -172,11 +177,10 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
         if(this.monitorTab && this.el){
             this.el.un("keydown", this.checkTab, this);
         }
-        this.beforeBlur();
-        if(this.wrap){
-            this.wrap.removeClass('x-trigger-wrap-focus');
-        }
         Ext.form.TriggerField.superclass.onBlur.call(this);
+        if(this.wrap){
+            this.wrap.removeClass(this.wrapFocusClass);
+        }
     },
 
     beforeBlur : Ext.emptyFn, 
