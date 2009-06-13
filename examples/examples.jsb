@@ -735,6 +735,8 @@
   <file name="writer\remote\lib\response.php" path="writer\remote\lib" />
   <file name="writer\remote\lib\session_db.php" path="writer\remote\lib" />
   <file name="ux\BufferView.js" path="ux" />
+  <file name="ux\CenterLayout.js" path="ux" />
+  <file name="ux\css\CenterLayout.css" path="ux\css" />
   <file name="ux\ColumnNodeUI.js" path="ux" />
   <file name="ux\css\ColumnNodeUI.css" path="ux\css" />
   <file name="ux\DataView-more.js" path="ux" />
@@ -760,8 +762,9 @@
   <file name="ux\RowEditor.js" path="ux" />
   <file name="ux\css\RowEditor.css" path="ux\css" />
   <file name="ux\RowExpander.js" path="ux" />
-  <file name="ux\SelectBox.js" path="ux" />
+  <file name="ux\RowLayout.js" path="ux" />
   <file name="ux\SearchField.js" path="ux" />
+  <file name="ux\SelectBox.js" path="ux" />
   <file name="ux\SliderTip.js" path="ux" />
   <file name="ux\SlidingPager.js" path="ux" />
   <file name="ux\SpinnerField.js" path="ux" />
@@ -780,6 +783,8 @@
   <file name="ux\images\summary-group-bg.gif" path="ux\images" />
   <file name="ux\images\x-grouptabs-corners.gif" path="ux\images" />
   <target name="User Extension JS Pack" file="$output\ux\ux-all.js" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
+    <include name="ux\BufferView.js" />
+    <include name="ux\CenterLayout.js" />
     <include name="ux\ColumnNodeUI.js" />
     <include name="ux\DataView-more.js" />
     <include name="ux\FileUploadField.js" />
@@ -791,10 +796,14 @@
     <include name="ux\ItemSelector.js" />
     <include name="ux\MultiSelect.js" />
     <include name="ux\PagingMemoryProxy.js" />
+    <include name="ux\PanelResizer.js" />
     <include name="ux\Portal.js" />
     <include name="ux\PortalColumn.js" />
     <include name="ux\Portlet.js" />
     <include name="ux\ProgressBarPager.js" />
+    <include name="ux\RowEditor.js" />
+    <include name="ux\RowExpander.js" />
+    <include name="ux\RowLayout.js" />
     <include name="ux\SearchField.js" />
     <include name="ux\SelectBox.js" />
     <include name="ux\SliderTip.js" />
@@ -808,6 +817,7 @@
     <include name="ux\XmlTreeLoader.js" />
   </target>
   <target name="User Extension CSS Pack" file="$output\ux\css\ux-all.css" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
+    <include name="ux\css\CenterLayout.css" />
     <include name="ux\css\ColumnNodeUI.css" />
     <include name="ux\css\GroupSummary.css" />
     <include name="ux\css\GroupTab.css" />

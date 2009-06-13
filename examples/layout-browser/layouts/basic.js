@@ -27,7 +27,7 @@ var start = {
 };
 
 /*
- * ================  AnbsoluteLayout config  =======================
+ * ================  AbsoluteLayout config  =======================
  */
 var absolute = {
 	id: 'absolute-panel',
@@ -56,9 +56,9 @@ var absolute = {
  * ================  AccordionLayout config  =======================
  */
 var accordion = {
-    id:'accordion-panel',
+    id: 'accordion-panel',
 	title: 'Accordion Layout',
-    layout:'accordion',
+    layout: 'accordion',
     bodyBorder: false,  // useful for accordion containers since the inner panels have borders already
     bodyStyle: 'background-color:#DFE8F6',  // if all accordion panels are collapsed, this looks better in this layout
 	defaults: {bodyStyle: 'padding:15px'},
@@ -115,7 +115,7 @@ var anchor = {
 var border = {
 	id:'border-panel',
 	title: 'Border Layout',
-    layout:'border',
+    layout: 'border',
     bodyBorder: false,
 	defaults: {
 		collapsible: true,
@@ -146,7 +146,7 @@ var border = {
 	},{
 		title: 'Main Content',
 		collapsible: false,
-        region:'center',
+        region: 'center',
 		margins: '5 0 0 0',
 		html: '<h1>Main Page</h1><p>This is where the main content would go</p>'
 	}]
@@ -226,16 +226,16 @@ var cardWizard = {
 var column = {
 	id:'column-panel',
 	title: 'Column Layout',
-    layout:'column',
-    bodyStyle:'padding:5px',
+    layout: 'column',
+    bodyStyle: 'padding:5px',
 	defaults: {bodyStyle:'padding:15px'},
     items: [{
-        title: 'Width = .25',
-		columnWidth: .25,
+        title: 'Width = 0.25',
+		columnWidth: 0.25,
 		html: '<p>This is some short content.</p>'
     },{
-        title: 'Width = .75',
-		columnWidth: .75,
+        title: 'Width = 0.75',
+		columnWidth: 0.75,
 		html: '<p>This is some longer content.</p><p>This is some longer content.</p><p>This is some longer content.</p><p>This is some longer content.</p><p>This is some longer content.</p><p>This is some longer content.</p>'
     },{
         title: 'Width = 250px',
@@ -248,9 +248,9 @@ var column = {
  * ================  FitLayout config  =======================
  */
 var fit = {
-	id:'fit-panel',
+	id: 'fit-panel',
 	title: 'Fit Layout',
-    layout:'fit',
+    layout: 'fit',
     items: {
 		title: 'Inner Panel',
 		html: '<p>This panel is fit within its container.</p>',
@@ -270,7 +270,7 @@ var form = {
 	id: 'form-panel',
     labelWidth: 75,
     title: 'Form Layout',
-    bodyStyle:'padding:15px',
+    bodyStyle: 'padding:15px',
     width: 350,
 	labelPad: 20,
 	layoutConfig: {
@@ -304,9 +304,9 @@ var form = {
  * ================  TableLayout config  =======================
  */
 var table = {
-	id:'table-panel',
+	id: 'table-panel',
 	title: 'Table Layout',
-    layout:'table',
+    layout: 'table',
 	layoutConfig: {
 		columns: 4
 	},
@@ -344,62 +344,60 @@ var table = {
 };
 
 
+/*
+ * ================  VBoxLayout config  =======================
+ */
 var vbox = {
-	id     : 'vbox-panel',
-	title  : 'vBox Layout',
-	layout : {
-		type  : 'vbox',
-		pack  : 'start',
-		align : 'stretch'
-	},
-	defaults : {
-		frame : true
-	},
-	items  : [
-		{
-			title : 'Panel 1',
-			flex  : 1,
-			html  : "flex : 1"
-		},
-                {
-                        title  : 'Panel 2',
-                        height : 100,
-                        html   : "height: 100"
-                },
-                {
-                        title : 'Panel 3',
-                        flex  : 2,
-                        html  : "flex : 2"
-                }
-	]
-}
+    id: 'vbox-panel',
+    title: 'vBox Layout',
+    layout: {
+        type: 'vbox',
+        pack: 'start',
+        align: 'stretch'
+    },
+    defaults: {
+        frame: true
+    },
+    items: [{
+        title: 'Panel 1',
+        flex: 1,
+        html: 'flex : 1'
+    }, {
+        title: 'Panel 2',
+        height: 100,
+        html: 'height: 100'
+    }, {
+        title: 'Panel 3',
+        flex: 2,
+        html: 'flex : 2'
+    }]
+};
 
+/*
+ * ================  HBoxLayout config  =======================
+ */
 var hbox = {
-        id     : 'hbox-panel',
-        title  : 'hBox Layout',
-        layout : {
-                type  : 'hbox',
-                pack  : 'start',
-                align : 'stretch'
-        },
-        defaults : {
-                frame : true
-        },
-        items  : [
-                {
-                        title : 'Panel 1',
-                        flex  : 1,
-                        html  : "flex : 1"
-                },
-                {
-                        title : 'Panel 2',
-                        width : 100,
-                        html  : "width : 100"
-                },
-                {
-                        title : 'Panel 3',
-                        flex  : 2,
-                        html  : "flex : 2"
-                }
-        ]
-}
+    id: 'hbox-panel',
+    title: 'hBox Layout',
+    layout: {
+        type: 'hbox',
+        pack: 'start',
+        align: 'stretch'
+    },
+    defaults: {
+        frame: true
+    },
+    items: [{
+        title: 'Panel 1',
+        flex: 1,
+        html: 'flex : 1'
+    }, {
+        title: 'Panel 2',
+        width: 100,
+        html: 'width : 100'
+    }, {
+        title: 'Panel 3',
+        flex: 2,
+        html: 'flex : 2'
+    }]
+};
