@@ -11,6 +11,9 @@
  * @cfg {String} cls CSS class to add to the element
  * @cfg {Number} zindex Starting z-index (defaults to 11000)
  * @cfg {Number} shadowOffset Number of pixels to offset the shadow (defaults to 4)
+ * @cfg {Boolean} useDisplay
+ * Defaults to use css offsets to hide the Layer. Specify <tt>true</tt>
+ * to use css style <tt>'display:none;'</tt> to hide the Layer.
  * @constructor
  * @param {Object} config An object with config options.
  * @param {String/HTMLElement} existingEl (optional) Uses an existing DOM element. If the element is not found it creates it.
