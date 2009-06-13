@@ -207,7 +207,7 @@ Ext.extend(Ext.grid.PropertyColumnModel, Ext.grid.ColumnModel, {
             return this.editors['string'];
         }
     },
-    
+
     // inherit docs
     destroy : function(){
         Ext.grid.PropertyColumnModel.superclass.destroy.call(this);
@@ -237,7 +237,7 @@ var grid = new Ext.grid.PropertyGrid({
         "Description": "A test object"
     }
 });
-</pre></code>
+</code></pre>
  * @constructor
  * @param {Object} config The grid config object
  */

@@ -66,14 +66,14 @@ Ext.Action.prototype = {
      * The CSS class selector that specifies a background image to be used as the header icon for
      * all components using this action (defaults to '').
      * <p>An example of specifying a custom icon class would be something like:
-     * </p><code><pre>
+     * </p><pre><code>
 // specify the property in the config for the class:
      ...
      iconCls: 'do-something'
 
 // css class that specifies background image to be used as the icon image:
 .do-something { background-image: url(../images/my-icon.gif) 0 6px no-repeat !important; }
-</pre></code>
+</code></pre>
      */
     /**
      * @cfg {Boolean} disabled True to disable all components using this action, false to enable them (defaults to false).
@@ -238,7 +238,7 @@ Ext.Action.prototype = {
      * Executes this action manually using the handler function specified in the original config object
      * or the handler function set with <code>{@link #setHandler}</code>.  Any arguments passed to this
      * function will be passed on to the handler function.
-     * @param {Mixed} arg1 (optional) Variable number of arguments passed to the handler function 
+     * @param {Mixed} arg1 (optional) Variable number of arguments passed to the handler function
      * @param {Mixed} arg2 (optional)
      * @param {Mixed} etc... (optional)
      */

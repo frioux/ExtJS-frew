@@ -64,7 +64,7 @@ Ext.ToolTip = Ext.extend(Ext.Tip, {
      * <p>When specified, the child element of the target which caused a show event is placed into the {@link #triggerElement} property
      * before the ToolTip is shown.</p>
      * <p>This may be useful when a Component has regular, repeating elements in it, each of which need a Tooltip which contains
-     * information specific to that element. For example:</p><code><pre>
+     * information specific to that element. For example:</p><pre><code>
 var myGrid = new Ext.grid.gridPanel(gridConfig);
 myGrid.on('render', function(grid) {
     var store = grid.getStore();  // Capture the Store.
@@ -81,7 +81,7 @@ myGrid.on('render', function(grid) {
             }
         }
     });
-});</pre></code>
+});</code></pre>
      */
 
     // private
@@ -96,7 +96,7 @@ myGrid.on('render', function(grid) {
         this.initTarget(this.target);
         this.origAnchor = this.anchor;
     },
-    
+
     // private
     onRender : function(ct, position){
         Ext.ToolTip.superclass.onRender.call(this, ct, position);
@@ -105,7 +105,7 @@ myGrid.on('render', function(grid) {
             cls: 'x-tip-anchor ' + this.anchorCls
         });
     },
-    
+
     // private
     afterRender : function(){
         Ext.ToolTip.superclass.afterRender.call(this);
@@ -162,20 +162,20 @@ myGrid.on('render', function(grid) {
         if(this.anchor){
             this.targetCounter++;
             var offsets = this.getOffsets();
-            var xy = (this.anchorToTarget && !this.trackMouse) ? 
-                this.el.getAlignToXY(this.anchorTarget, this.getAnchorAlign()) : 
+            var xy = (this.anchorToTarget && !this.trackMouse) ?
+                this.el.getAlignToXY(this.anchorTarget, this.getAnchorAlign()) :
                 this.targetXY;
-            
+
             var dw = Ext.lib.Dom.getViewWidth()-5;
             var dh = Ext.lib.Dom.getViewHeight()-5;
             var scrollX = (document.documentElement.scrollLeft || document.body.scrollLeft || 0)+5;
             var scrollY = (document.documentElement.scrollTop || document.body.scrollTop || 0)+5;
-            
+
             var axy = [xy[0] + offsets[0], xy[1] + offsets[1]];
             var sz = this.getSize();
             this.anchorEl.removeClass(this.anchorCls);
-            
-            if(this.targetCounter < 2){                
+
+            if(this.targetCounter < 2){
                 if(axy[0] < scrollX){
                     if(this.anchorToTarget){
                         this.defaultAlign = 'l-r';
@@ -209,7 +209,7 @@ myGrid.on('render', function(grid) {
                     return this.getTargetXY();
                 }
             }
-            
+
             this.anchorCls = 'x-tip-anchor-'+this.getAnchorPosition();
             this.anchorEl.addClass(this.anchorCls);
             this.targetCounter = 0;
@@ -219,7 +219,7 @@ myGrid.on('render', function(grid) {
             return [this.targetXY[0]+mouseOffset[0], this.targetXY[1]+mouseOffset[1]];
         }
     },
-    
+
     getMouseOffset : function(){
         var offset = this.anchor ? [0,0] : [15,18];
         if(this.mouseOffset){
@@ -228,7 +228,7 @@ myGrid.on('render', function(grid) {
         }
         return offset;
     },
-    
+
     // private
     getAnchorPosition : function(){
         if(this.anchor){
@@ -240,7 +240,7 @@ myGrid.on('render', function(grid) {
             }
             this.tipAnchor = m[1].charAt(0);
         }
-        
+
         switch(this.tipAnchor){
             case 't': return 'top';
             case 'b': return 'bottom';
@@ -248,7 +248,7 @@ myGrid.on('render', function(grid) {
         }
         return 'left';
     },
-    
+
     // private
     getAnchorAlign : function(){
         switch(this.anchor){
@@ -258,7 +258,7 @@ myGrid.on('render', function(grid) {
             default     : return 'bl-tl';
         }
     },
-    
+
     // private
     getOffsets: function(){
         var offsets, ap = this.getAnchorPosition().charAt(0);
@@ -296,7 +296,7 @@ myGrid.on('render', function(grid) {
         var mouseOffset = this.getMouseOffset();
         offsets[0] += mouseOffset[0];
         offsets[1] += mouseOffset[1];
-        
+
         return offsets;
     },
 
@@ -371,7 +371,7 @@ myGrid.on('render', function(grid) {
             this.anchor = this.origAnchor;
         }
         this.showAt(this.getTargetXY());
-        
+
         if(this.anchor){
             this.syncAnchor();
             this.anchorEl.show();
@@ -390,7 +390,7 @@ myGrid.on('render', function(grid) {
             this.dismissTimer = this.hide.defer(this.dismissDelay, this);
         }
     },
-    
+
     // private
     syncAnchor : function(){
         var anchorPos, targetPos, offset;
@@ -418,7 +418,7 @@ myGrid.on('render', function(grid) {
         }
         this.anchorEl.alignTo(this.el, anchorPos+'-'+targetPos, offset);
     },
-    
+
     // private
     setPagePosition : function(x, y){
         Ext.ToolTip.superclass.setPagePosition.call(this, x, y);

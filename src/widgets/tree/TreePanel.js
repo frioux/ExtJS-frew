@@ -82,7 +82,7 @@ new Ext.Viewport({
     }]
 });
 </code></pre>
- * 
+ *
  * @cfg {Ext.tree.TreeNode} root The root node for the tree.
  * @cfg {Boolean} rootVisible <tt>false</tt> to hide the root node (defaults to <tt>true</tt>)
  * @cfg {Boolean} lines <tt>false</tt> to disable tree lines (defaults to <tt>true</tt>)
@@ -100,7 +100,7 @@ new Ext.Viewport({
  * @cfg {Boolean} animate <tt>true</tt> to enable animated expand/collapse (defaults to the value of {@link Ext#enableFx})
  * @cfg {Boolean} singleExpand <tt>true</tt> if only 1 node per branch may be expanded
  * @cfg {Object} selModel A tree selection model to use with this TreePanel (defaults to an {@link Ext.tree.DefaultSelectionModel})
- * @cfg {Boolean} trackMouseOver <tt>false</tt> to disable mouse over highlighting 
+ * @cfg {Boolean} trackMouseOver <tt>false</tt> to disable mouse over highlighting
  * @cfg {Ext.tree.TreeLoader} loader A {@link Ext.tree.TreeLoader} for use with this TreePanel
  * @cfg {String} pathSeparator The token used to separate sub-paths in path strings (defaults to <tt>'/'</tt>)
  * @cfg {Boolean} useArrows <tt>true</tt> to use Vista-style arrows in the tree (defaults to <tt>false</tt>)
@@ -136,7 +136,7 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
             l = new Ext.tree.TreeLoader(l);
         }
         this.loader = l;
-        
+
         this.nodeHash = {};
 
         /**
@@ -312,7 +312,7 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
             * @event contextmenu
             * Fires when a node is right clicked. To display a context menu in response to this
             * event, first create a Menu object (see {@link Ext.menu.Menu} for details), then add
-            * a handler for this event:<code><pre>
+            * a handler for this event:<pre><code>
 new Ext.tree.TreePanel({
     title: 'My TreePanel',
     root: new Ext.tree.AsyncTreeNode({
@@ -351,7 +351,7 @@ new Ext.tree.TreePanel({
         }
     }
 });
-</pre></code>
+</code></pre>
             * @param {Node} node The node
             * @param {Ext.EventObject} e The event object
             */
@@ -466,12 +466,12 @@ new Ext.tree.TreePanel({
 
     /**
      * Sets the root node for this tree. If the TreePanel has already rendered a root node, the
-     * previous root node (and all of its descendants) are destroyed before the new root node is rendered. 
+     * previous root node (and all of its descendants) are destroyed before the new root node is rendered.
      * @param {Node} node
      * @return {Node}
      */
     setRootNode : function(node){
-        Ext.destroy(this.root);     
+        Ext.destroy(this.root);
         if(!node.render){ // attributes passed
             node = this.loader.createNode(node);
         }
@@ -481,12 +481,12 @@ new Ext.tree.TreePanel({
         this.registerNode(node);
         if(!this.rootVisible){
             var uiP = node.attributes.uiProvider;
-            node.ui = uiP ? new uiP(node) : new Ext.tree.RootTreeNodeUI(node); 
-        }        
+            node.ui = uiP ? new uiP(node) : new Ext.tree.RootTreeNodeUI(node);
+        }
         if (this.innerCt) {
             this.innerCt.update('');
             this.afterRender();
-        }        
+        }
         return node;
     },
 
@@ -696,7 +696,7 @@ new Ext.tree.TreePanel({
         }
         if((this.enableDD || this.enableDrag) && !this.dragZone){
            /**
-            * The dragZone used by this tree if drag is enabled (see {@link #enableDD} or {@link #enableDrag}) 
+            * The dragZone used by this tree if drag is enabled (see {@link #enableDD} or {@link #enableDrag})
             * @property dragZone
             * @type Ext.tree.TreeDragZone
             */
@@ -732,130 +732,130 @@ new Ext.tree.TreePanel({
         this.nodeHash = null;
         Ext.tree.TreePanel.superclass.onDestroy.call(this);
     }
-    
-    /** 
-     * @cfg {String/Number} activeItem 
-     * @hide 
+
+    /**
+     * @cfg {String/Number} activeItem
+     * @hide
      */
-    /** 
-     * @cfg {Boolean} autoDestroy 
-     * @hide 
+    /**
+     * @cfg {Boolean} autoDestroy
+     * @hide
      */
-    /** 
-     * @cfg {Object/String/Function} autoLoad 
-     * @hide 
+    /**
+     * @cfg {Object/String/Function} autoLoad
+     * @hide
      */
-    /** 
-     * @cfg {Boolean} autoWidth 
-     * @hide 
+    /**
+     * @cfg {Boolean} autoWidth
+     * @hide
      */
-    /** 
-     * @cfg {Boolean/Number} bufferResize 
-     * @hide 
+    /**
+     * @cfg {Boolean/Number} bufferResize
+     * @hide
      */
-    /** 
-     * @cfg {String} defaultType 
-     * @hide 
+    /**
+     * @cfg {String} defaultType
+     * @hide
      */
-    /** 
-     * @cfg {Object} defaults 
-     * @hide 
+    /**
+     * @cfg {Object} defaults
+     * @hide
      */
-    /** 
-     * @cfg {Boolean} hideBorders 
-     * @hide 
+    /**
+     * @cfg {Boolean} hideBorders
+     * @hide
      */
-    /** 
-     * @cfg {Mixed} items 
-     * @hide 
+    /**
+     * @cfg {Mixed} items
+     * @hide
      */
-    /** 
-     * @cfg {String} layout 
-     * @hide 
+    /**
+     * @cfg {String} layout
+     * @hide
      */
-    /** 
-     * @cfg {Object} layoutConfig 
-     * @hide 
+    /**
+     * @cfg {Object} layoutConfig
+     * @hide
      */
-    /** 
-     * @cfg {Boolean} monitorResize 
-     * @hide 
+    /**
+     * @cfg {Boolean} monitorResize
+     * @hide
      */
-    /** 
-     * @property items 
-     * @hide 
+    /**
+     * @property items
+     * @hide
      */
-    /** 
-     * @method cascade 
-     * @hide 
+    /**
+     * @method cascade
+     * @hide
      */
-    /** 
-     * @method doLayout 
-     * @hide 
+    /**
+     * @method doLayout
+     * @hide
      */
-    /** 
-     * @method find 
-     * @hide 
+    /**
+     * @method find
+     * @hide
      */
-    /** 
-     * @method findBy 
-     * @hide 
+    /**
+     * @method findBy
+     * @hide
      */
-    /** 
-     * @method findById 
-     * @hide 
+    /**
+     * @method findById
+     * @hide
      */
-    /** 
-     * @method findByType 
-     * @hide 
+    /**
+     * @method findByType
+     * @hide
      */
-    /** 
-     * @method getComponent 
-     * @hide 
+    /**
+     * @method getComponent
+     * @hide
      */
-    /** 
-     * @method getLayout 
-     * @hide 
+    /**
+     * @method getLayout
+     * @hide
      */
-    /** 
-     * @method getUpdater 
-     * @hide 
+    /**
+     * @method getUpdater
+     * @hide
      */
-    /** 
-     * @method insert 
-     * @hide 
+    /**
+     * @method insert
+     * @hide
      */
-    /** 
-     * @method load 
-     * @hide 
+    /**
+     * @method load
+     * @hide
      */
-    /** 
-     * @method remove 
-     * @hide 
+    /**
+     * @method remove
+     * @hide
      */
-    /** 
-     * @event add 
-     * @hide 
+    /**
+     * @event add
+     * @hide
      */
-    /** 
+    /**
      * @method removeAll
-     * @hide 
+     * @hide
      */
-    /** 
-     * @event afterLayout 
-     * @hide 
+    /**
+     * @event afterLayout
+     * @hide
      */
-    /** 
-     * @event beforeadd 
-     * @hide 
+    /**
+     * @event beforeadd
+     * @hide
      */
-    /** 
-     * @event beforeremove 
-     * @hide 
+    /**
+     * @event beforeremove
+     * @hide
      */
-    /** 
-     * @event remove 
-     * @hide 
+    /**
+     * @event remove
+     * @hide
      */
 
 

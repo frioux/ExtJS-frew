@@ -19,13 +19,13 @@ Ext.handleError = function(e) {
  * <p>Some sample messages currently implemented:</p><pre>
 "DataProxy attempted to execute an API-action but found an undefined
 url / function. Please review your Proxy url/api-configuration."
- * </pre><pre> 
-"Could not locate your "root" property in your server response.  
+ * </pre><pre>
+"Could not locate your "root" property in your server response.
 Please review your JsonReader config to ensure the config-property
 "root" matches the property your server-response.  See the JsonReader
 docs for additional assistance."
- * </pre> 
- * <p>An example of the code used for generating error messages:</p><code><pre>
+ * </pre>
+ * <p>An example of the code used for generating error messages:</p><pre><code>
 try {
     generateError({
         foo: 'bar'
@@ -37,7 +37,7 @@ catch (e) {
 function generateError(data) {
     throw new Ext.Error('foo-error', data);
 }
- * </pre></code>
+ * </code></pre>
  * @param {String} message
  */
 Ext.Error = function(message) {

@@ -111,7 +111,7 @@ Ext.extend(Ext.tree.TreeLoader, Ext.util.Observable, {
     * child nodes before loading.
     */
     clearOnLoad : true,
-    
+
     /**
      * @cfg {Array/String} paramOrder Defaults to <tt>undefined</tt>. Only used when using directFn.
      * A list of params to be executed
@@ -227,7 +227,7 @@ paramOrder: 'param1|param2|param'
             this.runCallback(callback, scope || node, []);
         }
     },
-    
+
     processDirectResponse: function(result, response, args){
         if(response.status){
             this.processResponse({
@@ -241,7 +241,7 @@ paramOrder: 'param1|param2|param'
             });
         }
     },
-    
+
     // private
     runCallback: function(cb, scope, args){
         if(Ext.isFunction(cb)){
@@ -262,7 +262,7 @@ paramOrder: 'param1|param2|param'
     /**
     * <p>Override this function for custom TreeNode node implementation, or to
     * modify the attributes at creation time.</p>
-    * Example:<code><pre>
+    * Example:<pre><code>
 new Ext.tree.TreePanel({
     ...
     new Ext.tree.TreeLoader({
@@ -279,7 +279,7 @@ new Ext.tree.TreePanel({
     }),
     ...
 });
-</pre></code>
+</code></pre>
     * @param attr {Object} The attributes from which to create the new node.
     */
     createNode : function(attr){
@@ -323,7 +323,7 @@ new Ext.tree.TreePanel({
     handleResponse : function(response){
         this.transId = false;
         var a = response.argument;
-        this.processResponse(response, a.node, a.callback, a.scope);        
+        this.processResponse(response, a.node, a.callback, a.scope);
         this.fireEvent("load", this, a.node, response);
     },
 

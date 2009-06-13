@@ -129,7 +129,7 @@ restActions : {
          * one can explicitly define the HTTP method (GET|POST) to use for each CRUD action.  This method will prepare the supplied API, setting
          * each action to the Object form.  If your API-actions do not explicitly define the HTTP method, the "method" configuration-parameter will
          * be used.  If the method configuration parameter is not specified, POST will be used.
-         <code><pre>
+         <pre><code>
 new Ext.data.HttpProxy({
     method: "POST",     // <-- default HTTP method when not specified.
     api: {
@@ -149,7 +149,7 @@ new Ext.data.HttpProxy({
         save: 'update.php'
     }
 });
-        </pre></code>
+        </code></pre>
          *
          * @param {Ext.data.DataProxy} proxy
          */

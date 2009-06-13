@@ -154,9 +154,9 @@ Ext.apply(Date, {
      * date formats are requested for Ext standard formatting strings.</p>
      * <p>Custom parsing functions may be inserted into this object, keyed by a name which from then on
      * may be used as a format string to {@link #parseDate}.<p>
-     * <p>Example:</p><code><pre>
+     * <p>Example:</p><pre><code>
 Date.parseFunctions['x-date-format'] = myDateParser;
-</pre></code>
+</code></pre>
      * <p>A parsing function should return a Date object, and is passed the following parameters:<div class="mdetail-params"><ul>
      * <li><code>date</code> : String<div class="sub-desc">The date string to parse.</div></li>
      * <li><code>strict</code> : Boolean<div class="sub-desc">True to validate date strings while parsing
@@ -186,9 +186,9 @@ Date.parseFunctions['x-date-format'] = myDateParser;
      * <p>This object is automatically populated with date formatting functions as
      * date formats are requested for Ext standard formatting strings.</p>
      * <p>Custom formatting functions may be inserted into this object, keyed by a name which from then on
-     * may be used as a format string to {@link #format}. Example:</p><code><pre>
+     * may be used as a format string to {@link #format}. Example:</p><pre><code>
 Date.formatFunctions['x-date-format'] = myDateFormatter;
-</pre></code>
+</code></pre>
      * <p>A formatting function should return a string repesentation of the passed Date object:<div class="mdetail-params"><ul>
      * <li><code>date</code> : Date<div class="sub-desc">The Date to format.</div></li>
      * </ul></div></p>
@@ -517,7 +517,7 @@ Date.formatCodes.x = "String.leftPad(this.getDate(), 2, '0')";
 //dt = Fri May 25 2007 (current date)
 var dt = new Date();
 
-//dt = Thu May 25 2006 (today's month/day in 2006)
+//dt = Thu May 25 2006 (today&#39;s month/day in 2006)
 dt = Date.parseDate("2006", "Y");
 
 //dt = Sun Jan 15 2006 (all date parts specified)

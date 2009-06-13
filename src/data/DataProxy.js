@@ -244,7 +244,7 @@ DESTROY  /users/23  delete
 
     /**
      * <p>Redefines the Proxy's API or a single action of an API. Can be called with two method signatures.</p>
-     * <p>If called with an object as the only parameter, the object should redefine the <b>entire</b> API, eg:</p><code><pre>
+     * <p>If called with an object as the only parameter, the object should redefine the <b>entire</b> API, eg:</p><pre><code>
 proxy.setApi({
     read    : '/users/read',
     create  : '/users/create',
@@ -253,9 +253,9 @@ proxy.setApi({
 });
 </pre></code>
      * <p>If called with two parameters, the first parameter should be a string specifying the API action to
-     * redefine and the second parameter should be the URL (or function if using DirectProxy) to call for that action, eg:</p><code><pre>
+     * redefine and the second parameter should be the URL (or function if using DirectProxy) to call for that action, eg:</p><pre><code>
 proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
-</pre></code>
+</code></pre>
      * @param {String/Object} api An API specification object, or the name of an action.
      * @param {String/Function} url The URL (or function if using DirectProxy) to call for the action.
      */

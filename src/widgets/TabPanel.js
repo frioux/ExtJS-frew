@@ -4,20 +4,20 @@
  * for layout purposes, but also have special support for containing child Components
  * (<tt>{@link Ext.Container#items items}</tt>) that are managed using a
  * {@link Ext.layout.CardLayout CardLayout layout manager}, and displayed as separate tabs.</p>
- * 
+ *
  * <b>Note:</b> By default, a tab's close tool <i>destroys</i> the child tab Component
  * and all its descendants. This makes the child tab Component, and all its descendants <b>unusable</b>. To enable
  * re-use of a tab, configure the TabPanel with <b><code>{@link #autoDestroy autoDestroy: false}</code></b>.
- * 
- * <p><b><u>TabPanel header/footer elements</u></b></p> 
+ *
+ * <p><b><u>TabPanel header/footer elements</u></b></p>
  * <p>TabPanels use their {@link Ext.Panel#header header} or {@link Ext.Panel#footer footer} element
  * (depending on the {@link #tabPosition} configuration) to accommodate the tab selector buttons.
  * This means that a TabPanel will not display any configured title, and will not display any
  * configured header {@link Ext.Panel#tools tools}.</p>
  * <p>To display a header, embed the TabPanel in a {@link Ext.Panel Panel} which uses
  * <b><tt>{@link Ext.Container#layout layout:'fit'}</tt></b>.</p>
- * 
- * <p><b><u>Tab Events</u></b></p> 
+ *
+ * <p><b><u>Tab Events</u></b></p>
  * <p>There is no actual tab class &mdash; each tab is simply a {@link Ext.BoxComponent Component}
  * such as a {@link Ext.Panel Panel}. However, when rendered in a TabPanel, each child Component
  * can fire additional events that only exist for tabs and are not available from other Components.
@@ -28,7 +28,7 @@
  * <li><tt><b>{@link Ext.Panel#deactivate deactivate}</b></tt> : Fires when the Component that
  * was the active tab becomes deactivated.</li>
  * </ul></div>
- * <p><b><u>Creating TabPanels from Code</u></b></p> 
+ * <p><b><u>Creating TabPanels from Code</u></b></p>
  * <p>TabPanels can be created and rendered completely in code, as in this example:</p>
  * <pre><code>
 var tabs = new Ext.TabPanel({
@@ -43,16 +43,16 @@ var tabs = new Ext.TabPanel({
     }]
 });
 </code></pre>
- * <p><b><u>Creating TabPanels from Existing Markup</u></b></p> 
+ * <p><b><u>Creating TabPanels from Existing Markup</u></b></p>
  * <p>TabPanels can also be rendered from pre-existing markup in a couple of ways.</p>
  * <div><ul class="mdetail-params">
- * 
+ *
  * <li>Pre-Structured Markup</li>
  * <div class="sub-desc">
  * <p>A container div with one or more nested tab divs with class <tt>'x-tab'</tt> can be rendered entirely
  * from existing markup (See the {@link #autoTabs} example).</p>
  * </div>
- * 
+ *
  * <li>Un-Structured Markup</li>
  * <div class="sub-desc">
  * <p>A TabPanel can also be rendered from markup that is not strictly structured by simply specifying by id
@@ -75,11 +75,11 @@ var tabs = new Ext.TabPanel({
 </code></pre>
  * Note that the tab divs in this example contain the class <tt>'x-hide-display'</tt> so that they can be rendered
  * deferred without displaying outside the tabs. You could alternately set <tt>{@link #deferredRender} = false </tt>
- * to render all content tabs on page load. 
+ * to render all content tabs on page load.
  * </div>
- * 
+ *
  * </ul></div>
- * 
+ *
  * @extends Ext.Panel
  * @constructor
  * @param {Object} config The configuration options
@@ -117,7 +117,7 @@ Ext.TabPanel = Ext.extend(Ext.Panel,  {
      * is within a {@link Ext.form.FormPanel form}, then until a tab is activated, any Fields within
      * unactivated tabs will not be rendered, and will therefore not be submitted and will not be
      * available to either {@link Ext.form.BasicForm#getValues getValues} or
-     * {@link Ext.form.BasicForm#setValues setValues}.</p>    
+     * {@link Ext.form.BasicForm#setValues setValues}.</p>
      */
     deferredRender : true,
     /**
@@ -339,7 +339,7 @@ var tabs = new Ext.TabPanel({
          * <tt>x-tab-strip-close</tt>.</p>
          * <p>If a custom <tt>itemTpl</tt> is supplied, it is the developer's responsibility to create CSS
          * style rules to create the desired appearance.</p>
-         * Below is an example of how to create customized tab selector items:<code><pre>
+         * Below is an example of how to create customized tab selector items:<pre><code>
 new Ext.TabPanel({
     renderTo: document.body,
     minTabWidth: 115,
@@ -460,7 +460,7 @@ new Ext.TabPanel({
         if(t.close){
             if (t.item.fireEvent('beforeclose', t.item) !== false) {
                 t.item.fireEvent('close', t.item);
-                this.remove(t.item);                
+                this.remove(t.item);
             }
             return;
         }
@@ -547,7 +547,7 @@ new Ext.TabPanel({
         if(item.tabCls){
             cls += ' ' + item.tabCls;
         }
-        
+
         return {
             id: this.id + this.idDelimiter + item.getItemId(),
             text: item.title,
@@ -555,7 +555,7 @@ new Ext.TabPanel({
             iconCls: item.iconCls || ''
         };
     },
-    
+
     // private
     onAdd : function(tp, item, index){
         this.initTab(item, index);
@@ -632,7 +632,7 @@ new Ext.TabPanel({
             Ext.fly(el).child('span.x-tab-strip-text', true).innerHTML = item.title;
         }
     },
-    
+
     //private
     onItemIconChanged : function(item, iconCls, oldCls){
         var el = this.getTabEl(item);
@@ -749,10 +749,10 @@ new Ext.TabPanel({
     /**
      * Sets the specified tab as the active tab. This method fires the {@link #beforetabchange} event which
      * can <tt>return false</tt> to cancel the tab change.
-     * @param {String/Number} item 
+     * @param {String/Number} item
      * The id or tab Panel to activate. This parameter may be any of the following:
      * <div><ul class="mdetail-params">
-     * <li>a <b><tt>String</tt></b> : representing the <code>{@link Ext.Component#itemId itemId}</code> 
+     * <li>a <b><tt>String</tt></b> : representing the <code>{@link Ext.Component#itemId itemId}</code>
      * or <code>{@link Ext.Component#id id}</code> of the child component </li>
      * <li>a <b><tt>Number</tt></b> : representing the position of the child component
      * within the <code>{@link Ext.Container#items items}</code> <b>property</b></li>

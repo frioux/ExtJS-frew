@@ -32,7 +32,7 @@ Ext.form.BasicForm = function(el, config){
     Ext.apply(this, config);
     if(typeof this.paramOrder == 'string'){
         this.paramOrder = this.paramOrder.split(/[\s,|]/);
-    }    
+    }
     /*
      * @property items
      * A {@link Ext.util.MixedCollection MixedCollection) containing all the Ext.form.Fields in this form.
@@ -141,7 +141,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
      * @cfg {Object} api (Optional) If specified load and submit actions will be handled
      * with {@link Ext.form.Action.DirectLoad} and {@link Ext.form.Action.DirectSubmit}.
      * Methods which have been imported by Ext.Direct can be specified here to load and submit
-     * forms. 
+     * forms.
      * Such as the following:<pre><code>
 api: {
     load: App.ss.MyProfile.load,
@@ -215,7 +215,7 @@ new Ext.FormPanel({
         handler: function(){
             var O = this.ownerCt;
             if (O.getForm().isValid()) {
-                if (O.url) 
+                if (O.url)
                     O.getForm().getEl().dom.action = O.url;
                 if (O.baseParams) {
                     for (i in O.baseParams) {
@@ -310,13 +310,13 @@ new Ext.FormPanel({
 
     /**
      * Performs a predefined action ({@link Ext.form.Action.Submit} or
-     * {@link Ext.form.Action.Load}) or a custom extension of {@link Ext.form.Action} 
+     * {@link Ext.form.Action.Load}) or a custom extension of {@link Ext.form.Action}
      * to perform application-specific processing.
      * @param {String/Object} actionName The name of the predefined action type,
      * or instance of {@link Ext.form.Action} to perform.
-     * @param {Object} options (optional) The options to pass to the {@link Ext.form.Action}. 
+     * @param {Object} options (optional) The options to pass to the {@link Ext.form.Action}.
      * All of the config options listed below are supported by both the
-     * {@link Ext.form.Action.Submit submit} and {@link Ext.form.Action.Load load} 
+     * {@link Ext.form.Action.Submit submit} and {@link Ext.form.Action.Load load}
      * actions unless otherwise noted (custom actions could also accept
      * other config options):<ul>
      *
@@ -334,7 +334,7 @@ new Ext.FormPanel({
      * (defaults to the form's default headers)</div></li>
      *
      * <li><b>success</b> : Function<div class="sub-desc">The callback that will
-     * be invoked after a successful response (see top of 
+     * be invoked after a successful response (see top of
      * {@link Ext.form.Action.Submit submit} and {@link Ext.form.Action.Load load}
      * for a description of what constitutes a successful response).
      * The function is passed the following parameters:<ul>
@@ -440,7 +440,7 @@ myFormPanel.getForm().submit({
      */
     load : function(options){
         var loadAction = String.format('{0}load', this.api ? 'direct' : '');
-        this.doAction(loadAction, options);       
+        this.doAction(loadAction, options);
         return this;
     },
 
@@ -562,16 +562,16 @@ myFormPanel.getForm().submit({
 
     /**
      * Set values for fields in this form in bulk.
-     * @param {Array/Object} values Either an array in the form:<br><br><code><pre>
+     * @param {Array/Object} values Either an array in the form:<pre><code>
 [{id:'clientName', value:'Fred. Olsen Lines'},
  {id:'portOfLoading', value:'FXT'},
- {id:'portOfDischarge', value:'OSL'} ]</pre></code><br><br>
-     * or an object hash of the form:<br><br><code><pre>
+ {id:'portOfDischarge', value:'OSL'} ]</code></pre>
+     * or an object hash of the form:<pre><code>
 {
     clientName: 'Fred. Olsen Lines',
     portOfLoading: 'FXT',
     portOfDischarge: 'OSL'
-}</pre></code><br>
+}</code></pre>
      * @return {BasicForm} this
      */
     setValues : function(values){
