@@ -108,11 +108,11 @@ xmlstore         {@link Ext.data.XmlStore}
  * @constructor
  * @param {Ext.Element/String/Object} config The configuration options may be specified as either:
  * <div class="mdetail-params"><ul>
- * <li><b>an element</b> : 
+ * <li><b>an element</b> :
  * <p class="sub-desc">it is set as the internal element and its id used as the component id</p></li>
- * <li><b>a string</b> : 
+ * <li><b>a string</b> :
  * <p class="sub-desc">it is assumed to be the id of an existing element and is used as the component id</p></li>
- * <li><b>anything else</b> : 
+ * <li><b>anything else</b> :
  * <p class="sub-desc">it is assumed to be a standard config object and is applied to the component</p></li>
  * </ul></div>
  */
@@ -286,7 +286,7 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
     /**
      * @cfg {String} fieldLabel <p>The label text to display next to this Component (defaults to '').</p>
      * <br><p><b>Note</b>: this config is only used when this Component is rendered by a Container which
-     * has been configured to use the <b>{@link Ext.layout.FormLayout FormLayout}</b> layout manager (eg. 
+     * has been configured to use the <b>{@link Ext.layout.FormLayout FormLayout}</b> layout manager (eg.
      * {@link Ext.form.FormPanel} or specifying <tt>layout:'form'</tt>).</p><br>
      * <p>Also see <tt>{@link #hideLabel}</tt> and
      * {@link Ext.layout.FormLayout}.{@link Ext.layout.FormLayout#fieldTpl fieldTpl}.</p>
@@ -340,7 +340,7 @@ new Ext.FormPanel({
     layoutConfig: {
         labelSeparator: '~'   // layout config has lowest priority (defaults to ':')
     },
-    {@link Ext.layout.FormLayout#labelSeparator labelSeparator}: '>>',     // config at container level 
+    {@link Ext.layout.FormLayout#labelSeparator labelSeparator}: '>>',     // config at container level
     items: [{
         xtype: 'textfield',
         fieldLabel: 'Field 1',
@@ -376,14 +376,14 @@ new Ext.FormPanel({
      * <tt>'x-form-clear-left'</tt>).</p>
      * <br><p><b>Note</b>: this config is only used when this Component is rendered by a Container
      * which has been configured to use the <b>{@link Ext.layout.FormLayout FormLayout}</b> layout
-     * manager (eg. {@link Ext.form.FormPanel} or specifying <tt>layout:'form'</tt>) and either a 
+     * manager (eg. {@link Ext.form.FormPanel} or specifying <tt>layout:'form'</tt>) and either a
      * <tt>{@link #fieldLabel}</tt> is specified or <tt>isFormField=true</tt> is specified.</p><br>
      * <p>See {@link Ext.layout.FormLayout}.{@link Ext.layout.FormLayout#fieldTpl fieldTpl} also.</p>
      */
     /**
      * @cfg {String} itemCls <p>An additional CSS class to apply to the div wrapping the form item
      * element of this field.  If supplied, <tt>itemCls</tt> at the <b>field</b> level will override
-     * the default <tt>itemCls</tt> supplied at the <b>container</b> level. The value specified for 
+     * the default <tt>itemCls</tt> supplied at the <b>container</b> level. The value specified for
      * <tt>itemCls</tt> will be added to the default class (<tt>'x-form-item'</tt>).</p>
      * <p>Since it is applied to the item wrapper (see
      * {@link Ext.layout.FormLayout}.{@link Ext.layout.FormLayout#fieldTpl fieldTpl}), it allows
@@ -442,7 +442,7 @@ new Ext.FormPanel({
      * {@link Ext}.{@link Ext#getCmp getCmp}, use <code>itemId</code> with
      * {@link Ext.Container}.{@link Ext.Container#getComponent getComponent} which will retrieve
      * <code>itemId</code>'s or <tt>{@link #id}</tt>'s. Since <code>itemId</code>'s are an index to the
-     * container's internal MixedCollection, the <code>itemId</code> is scoped locally to the container -- 
+     * container's internal MixedCollection, the <code>itemId</code> is scoped locally to the container --
      * avoiding potential conflicts with {@link Ext.ComponentMgr} which requires a <b>unique</b>
      * <code>{@link #id}</code>.</p>
      * <pre><code>
@@ -464,7 +464,7 @@ var c = new Ext.Panel({ //
     ]
 })
 p1 = c.{@link Ext.Container#getComponent getComponent}('p1'); // not the same as {@link Ext#getCmp Ext.getCmp()}
-p2 = p1.{@link #ownerCt}.{@link Ext.Container#getComponent getComponent}('p2'); // reference via a sibling 
+p2 = p1.{@link #ownerCt}.{@link Ext.Container#getComponent getComponent}('p2'); // reference via a sibling
      * </code></pre>
      * <p>Also see <tt>{@link #id}</tt> and <code>{@link #ref}</code>.</p>
      * <p><b>Note</b>: to access the container of an item see <tt>{@link #ownerCt}</tt>.</p>
@@ -689,7 +689,7 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider({
 </code></pre>
      */
     autoEl : 'div',
-    
+
     /**
      * @cfg {String} disabledClass
      * CSS class added to the component when it is disabled (defaults to "x-item-disabled").
@@ -1269,10 +1269,10 @@ new Ext.Panel({
     onHide : function(){
         this.getVisibiltyEl().addClass('x-hide-' + this.hideMode);
     },
-    
+
     // private
     getVisibiltyEl : function(){
-        return this.hideParent ? this.container : this.getActionEl();    
+        return this.hideParent ? this.container : this.getActionEl();
     },
 
     /**
@@ -1344,7 +1344,7 @@ var isBoxInstance = t.isXType('box', true); // false, not a direct BoxComponent 
         }else if (typeof xtype == 'object'){
             xtype = xtype.constructor.xtype; //handle being passed an instance
         }
-            
+
         return !shallow ? ('/' + this.getXTypes() + '/').indexOf('/' + xtype + '/') != -1 : this.constructor.xtype == xtype;
     },
 
@@ -1357,7 +1357,7 @@ var isBoxInstance = t.isXType('box', true); // false, not a direct BoxComponent 
      * <pre><code>
 var t = new Ext.form.TextField();
 alert(t.getXTypes());  // alerts 'component/box/field/textfield'
-</pre></code>
+</code></pre>
      * @return {String} The xtype hierarchy string
      */
     getXTypes : function(){
@@ -1404,7 +1404,7 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
     getDomPositionEl : function(){
         return this.getPositionEl ? this.getPositionEl() : this.getEl();
     },
-    
+
     // private
     purgeListeners : function(){
         Ext.Component.superclass.purgeListeners.call(this);
@@ -1412,7 +1412,7 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
             this.on('beforedestroy', this.clearMons, this, {single: true});
         }
     },
-    
+
     // private
     clearMons : function(){
         Ext.each(this.mons, function(m){
@@ -1427,10 +1427,10 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
             this.mons = [];
             this.on('beforedestroy', this.clearMons, this, {single: true});
         }
-		
+
         if(Ext.isObject(ename)){
         	var propRe = /^(?:scope|delay|buffer|single|stopEvent|preventDefault|stopPropagation|normalized|args|delegate)$/;
-        	
+
             var o = ename;
             for(var e in o){
                 if(propRe.test(e)){
@@ -1453,13 +1453,13 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
             return;
         }
 
-            
+
         this.mons.push({
             item: item, ename: ename, fn: fn, scope: scope
-        });        
+        });
         item.on(ename, fn, scope, opt);
     },
-    
+
     // protected, opposite of mon
     mun : function(item, ename, fn, scope){
         var found, mon;

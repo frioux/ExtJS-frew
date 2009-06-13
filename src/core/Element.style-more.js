@@ -7,7 +7,7 @@ Ext.Element.boxMarkup = '<div class="{0}-tl"><div class="{0}-tr"><div class="{0}
 
 Ext.Element.addMethods(function(){
 	var INTERNAL = "_internal";
-	return {			
+	return {
 	    /**
 	     * More flexible version of {@link #setStyle} for setting style properties.
 	     * @param {String/Object/Function} styles A style specification string, e.g. "width:100px", or object in the form {width:"100px"}, or
@@ -18,7 +18,7 @@ Ext.Element.addMethods(function(){
 	        Ext.DomHelper.applyStyles(this.dom, style);
 	        return this;
 	    },
-	    
+
 		/**
 	     * Returns an object with properties matching the styles requested.
 	     * For example, el.getStyles('color', 'font-size', 'width') might return
@@ -31,17 +31,17 @@ Ext.Element.addMethods(function(){
 	    getStyles : function(){
 		    var ret = {};
 		    Ext.each(arguments, function(v) {
-			   ret[v] = this.getStyle(v); 
+			   ret[v] = this.getStyle(v);
 		    },
 		    this);
 		    return ret;
 	    },
-	    
+
 		getStyleSize : function(){
 	        var me = this,
-	        	w, 
-	        	h, 
-	        	d = this.dom, 
+	        	w,
+	        	h,
+	        	d = this.dom,
 	        	s = d.style;
 	        if(s.width && s.width != 'auto'){
 	            w = parseInt(s.width, 10);
@@ -57,7 +57,7 @@ Ext.Element.addMethods(function(){
 	        }
 	        return {width: w || me.getWidth(true), height: h || me.getHeight(true)};
 	    },
-	    
+
 	    // private  ==> used by ext full
 		setOverflow : function(v){
 			var dom = this.dom;
@@ -68,7 +68,7 @@ Ext.Element.addMethods(function(){
 	    		dom.style.overflow = v;
 	    	}
 		},
-		
+
 	   /**
 		* <p>Wraps the specified element with a special 9 element markup/CSS block that renders by default as
 		* a gray container with a gradient background, rounded corners and a 4-way shadow.</p>
@@ -80,7 +80,7 @@ Ext.Element.boxMarkup =
     &#39;&lt;div class="{0}-tl">&lt;div class="{0}-tr">&lt;div class="{0}-tc">&lt;/div>&lt;/div>&lt;/div>
      &lt;div class="{0}-ml">&lt;div class="{0}-mr">&lt;div class="{0}-mc">&lt;/div>&lt;/div>&lt;/div>
      &lt;div class="{0}-bl">&lt;div class="{0}-br">&lt;div class="{0}-bc">&lt;/div>&lt;/div>&lt;/div>&#39;;
-		* </pre></code>
+		* </code></pre>
 		* <p>Example usage:</p>
 		* <pre><code>
 // Basic box wrap
@@ -90,7 +90,7 @@ Ext.get("foo").boxWrap();
 // 'x-box-blue' is a built-in alternative -- look at the related CSS definitions as an example
 // for how to create a custom box wrap style.
 Ext.get("foo").boxWrap().addClass("x-box-blue");
-		* </pre></code>
+		* </code></pre>
 		* @param {String} class (optional) A base CSS class to apply to the containing wrapper element
 		* (defaults to <tt>'x-box'</tt>). Note that there are a number of CSS rules that are dependent on
 		* this name to make the overall effect work, so if you supply an alternate base class, make sure you
@@ -99,11 +99,11 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 		*/
 	    boxWrap : function(cls){
 	        cls = cls || 'x-box';
-	        var el = Ext.get(this.insertHtml("beforeBegin", "<div class='" + cls + "'>" + String.format(Ext.Element.boxMarkup, cls) + "</div>"));        //String.format('<div class="{0}">'+Ext.Element.boxMarkup+'</div>', cls)));        
+	        var el = Ext.get(this.insertHtml("beforeBegin", "<div class='" + cls + "'>" + String.format(Ext.Element.boxMarkup, cls) + "</div>"));        //String.format('<div class="{0}">'+Ext.Element.boxMarkup+'</div>', cls)));
 	        Ext.DomQuery.selectNode('.' + cls + '-mc', el.dom).appendChild(this.dom);
 	        return el;
 	    },
-	    
+
         /**
          * Set the size of this Element. If animation is true, both width and height will be animated concurrently.
          * @param {Mixed} width The new width. This may be one of:<div class="mdetail-params"><ul>
@@ -121,10 +121,10 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 	    setSize : function(width, height, animate){
 			var me = this;
 			if(Ext.isObject(width)){ // in case of object from getSize()
-			    height = width.height; 
+			    height = width.height;
 			    width = width.width;
 			}
-			width = me.adjustWidth(width); 
+			width = me.adjustWidth(width);
 			height = me.adjustHeight(height);
 			if(!animate || !me.anim){
 			    me.dom.style.width = me.addUnits(width);
@@ -134,15 +134,15 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 			}
 			return me;
 	    },
-	    
+
 	    /**
 	     * Returns either the offsetHeight or the height of this element based on CSS height adjusted by padding or borders
 	     * when needed to simulate offsetHeight when offsets aren't available. This may not work on display:none elements
 	     * if a height has not been set using CSS.
 	     * @return {Number}
 	     */
-	    getComputedHeight : function(){	    
-		    var me = this,        	
+	    getComputedHeight : function(){
+		    var me = this,
 	        	h = Math.max(me.dom.offsetHeight, me.dom.clientHeight);
 	        if(!h){
 	            h = parseInt(me.getStyle('height'), 10) || 0;
@@ -152,7 +152,7 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 	        }
 	        return h;
 	    },
-	
+
 	    /**
 	     * Returns either the offsetWidth or the width of this element based on CSS width adjusted by padding or borders
 	     * when needed to simulate offsetWidth when offsets aren't available. This may not work on display:none elements
@@ -169,7 +169,7 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 	        }
 	        return w;
 	    },
-	    
+
 	    /**
 	     * Returns the sum width of the padding and borders for the passed "sides". See getBorderWidth()
 	     for more information about the sides.
@@ -179,24 +179,24 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 	    getFrameWidth : function(sides, onlyContentBox){
 	        return onlyContentBox && this.isBorderBox() ? 0 : (this.getPadding(sides) + this.getBorderWidth(sides));
 	    },
-	    
+
 	    /**
 	     * Sets up event handlers to add and remove a css class when the mouse is over this element
 	     * @param {String} className
 	     * @return {Ext.Element} this
 	     */
-	    addClassOnOver : function(className){	    	
+	    addClassOnOver : function(className){
 	        this.hover(
 	            function(){
 	                Ext.fly(this, INTERNAL).addClass(className);
 	            },
 	            function(){
 	                Ext.fly(this, INTERNAL).removeClass(className);
-	            }			   
+	            }
 	        );
 	        return this;
 	    },
-	
+
 	    /**
 	     * Sets up event handlers to add and remove a css class when this element has the focus
 	     * @param {String} className
@@ -211,7 +211,7 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 		    }, this.dom);
 		    return this;
 	    },
-	    
+
 	    /**
 	     * Sets up event handlers to add and remove a css class when the mouse is down and then up on this element (a click effect)
 	     * @param {String} className
@@ -230,7 +230,7 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 	        });
 	        return this;
 	    },
-	    
+
 	    /**
 	     * Returns the width and height of the viewport.
         * <pre><code>
@@ -241,19 +241,19 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
             width: vpSize.width * 0.9,
             height: vpSize.height * 0.95
         });
-        // To handle window resizing you would have to hook onto onWindowResize. 
-        </pre></code>
+        // To handle window resizing you would have to hook onto onWindowResize.
+        </code></pre>
 	     * @return {Object} An object containing the viewport's size {width: (viewport width), height: (viewport height)}
 	     */
 	    getViewSize : function(){
-	        var doc = document, 
-	        	d = this.dom, 
-	        	extdom = Ext.lib.Dom, 
+	        var doc = document,
+	        	d = this.dom,
+	        	extdom = Ext.lib.Dom,
 	        	isDoc = (d == doc || d == doc.body);
 	        return { width : (isDoc ? extdom.getViewWidth() : d.clientWidth),
 	        		 height : (isDoc ? extdom.getViewHeight() : d.clientHeight) };
 	    },
-	    
+
 	    /**
 	     * Returns the size of the element.
 	     * @param {Boolean} contentSize (optional) true to get the width/size minus borders and padding
@@ -261,8 +261,8 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 	     */
 	    getSize : function(contentSize){
 	        return {width: this.getWidth(contentSize), height: this.getHeight(contentSize)};
-	    },   
-		    
+	    },
+
 	    /**
 	     * Forces the browser to repaint this element
 	     * @return {Ext.Element} this
@@ -275,18 +275,18 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 	        }, 1);
 	        return this;
 	    },
-	    
+
 	    /**
 	     * Disables text selection for this element (normalized across browsers)
 	     * @return {Ext.Element} this
 	     */
-	    unselectable : function(){	    
-	        this.dom.unselectable = "on";        
+	    unselectable : function(){
+	        this.dom.unselectable = "on";
 	        return this.swallowEvent("selectstart", true).
 	        		    applyStyles("-moz-user-select:none;-khtml-user-select:none;").
 	        		    addClass("x-unselectable");
 	    },
-	    
+
 	    /**
 	     * Returns an object with properties top, left, right and bottom representing the margins of this element unless sides is passed,
 	     * then it returns the calculated width of the sides (see getPadding)
@@ -298,7 +298,7 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 		    	key,
 		    	hash = {t:"top", l:"left", r:"right", b: "bottom"},
 		    	o = {};
-		    	
+
 		    if (!side) {
 		        for (key in me.margins)
 		        	o[hash[key]] = parseInt(me.getStyle(me.margins[key]), 10) || 0;
@@ -306,6 +306,6 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 	        } else {
 	            return me.addStyles.call(me, side, me.margins);
 	        }
-	    }	
+	    }
     }
 }());

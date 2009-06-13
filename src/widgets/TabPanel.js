@@ -386,7 +386,7 @@ new Ext.TabPanel({
         extraText: 'Extra stuff in the tab button'
     }]
 });
-</pre></code>
+</code></pre>
          */
         if(!this.itemTpl){
             var tt = new Ext.Template(

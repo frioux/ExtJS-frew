@@ -251,7 +251,7 @@ proxy.setApi({
     update  : '/users/update',
     destroy : '/users/destroy'
 });
-</pre></code>
+</code></pre>
      * <p>If called with two parameters, the first parameter should be a string specifying the API action to
      * redefine and the second parameter should be the URL (or function if using DirectProxy) to call for that action, eg:</p><pre><code>
 proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
