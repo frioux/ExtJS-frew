@@ -4,6 +4,11 @@
 
 Ext.ns("Ext.grid", "Ext.dd", "Ext.tree", "Ext.form", "Ext.menu",
        "Ext.state", "Ext.layout", "Ext.app", "Ext.ux", "Ext.chart", "Ext.direct");
+    /**
+     * Namespace alloted for extensions to the framework.
+     * @property ux
+     * @type Object
+     */
 
 Ext.apply(Ext, function(){
     var E = Ext, idSeed = 0;
