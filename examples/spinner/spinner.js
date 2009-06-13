@@ -3,18 +3,18 @@ Ext.onReady(function(){
         labelWidth: 40, // label settings here cascade unless overridden
         frame: true,
         title: 'Simple Form',
-        bodyStyle:'padding:5px 5px 0',
+        bodyStyle: 'padding:5px 5px 0',
         width: 210,
         defaults: {width: 135},
         defaultType: 'textfield',
 
         items: [
-            new Ext.form.SpinnerField({
+            new Ext.ux.form.SpinnerField({
                 fieldLabel: 'Age',
-                name: 'age',
+                name: 'age'
             }),
             {
-            	xtype: 'spinner',
+            	xtype: 'spinnerfield',
             	fieldLabel: 'Test',
             	name: 'test',
             	minValue: 0,

@@ -601,11 +601,8 @@
   <file name="slider\images\slider-bg.png" path="slider\images" />
   <file name="slider\images\slider-thumb.png" path="slider\images" />
   <file name="slider\images\ticks.gif" path="slider\images" />
-  <file name="spinner\index.html" path="spinner" />
-  <file name="spinner\sample.js" path="spinner" />
-  <file name="spinner\spinner.css" path="spinner" />
-  <file name="spinner\images\spinner.gif" path="spinner\images" />
-  <file name="spinner\images\spinner-split.gif" path="spinner\images" />
+  <file name="spinner\spinner.html" path="spinner" />
+  <file name="spinner\spinner.js" path="spinner" />
   <file name="state\get-state.php" path="state" />
   <file name="state\README.txt" path="state" />
   <file name="state\save-state.php" path="state" />
@@ -768,7 +765,8 @@
   <file name="ux\SliderTip.js" path="ux" />
   <file name="ux\SlidingPager.js" path="ux" />
   <file name="ux\SpinnerField.js" path="ux" />
-  <file name="ux\SpinnerPlugin.js" path="ux" />
+  <file name="ux\Spinner.js" path="ux" />
+  <file name="ux\Spinner.css" path="ux" />
   <file name="ux\Spotlight.js" path="ux" />
   <file name="ux\TabCloseMenu.js" path="ux" />
   <file name="ux\TableGrid.js" path="ux" />
@@ -779,6 +777,8 @@
   <file name="ux\images\panel-handle.gif" path="ux\images" />
   <file name="ux\images\row-editor-bg.gif" path="ux\images" />
   <file name="ux\images\row-editor-btns.gif" path="ux\images" />
+  <file name="ux\images\spinner.gif" path="ux\images" />
+  <file name="ux\images\spinner-split.gif" path="ux\images" />
   <file name="ux\images\summary-bg.gif" path="ux\images" />
   <file name="ux\images\summary-group-bg.gif" path="ux\images" />
   <file name="ux\images\x-grouptabs-corners.gif" path="ux\images" />
@@ -809,7 +809,7 @@
     <include name="ux\SliderTip.js" />
     <include name="ux\SlidingPager.js" />
     <include name="ux\SpinnerField.js" />
-    <include name="ux\SpinnerPlugin.js" />
+    <include name="ux\Spinner.js" />
     <include name="ux\Spotlight.js" />
     <include name="ux\TabCloseMenu.js" />
     <include name="ux\TableGrid.js" />
@@ -825,5 +825,6 @@
     <include name="ux\css\PanelResizer.css" />
     <include name="ux\css\Portal.css" />
     <include name="ux\css\RowEditor.css" />
+    <include name="ux\css\Spinner.css" />
   </target>
 </project>

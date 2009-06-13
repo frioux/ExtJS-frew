@@ -1,21 +1,28 @@
-Ext.ux.SpinnerField = Ext.extend(Ext.form.NumberField, {
+Ext.ns('Ext.ux.form');
+
+/**
+ * @class Ext.ux.form.SpinnerField
+ * @extends Ext.form.NumberField
+ * Creates a field utilizing Ext.ux.Spinner
+ */
+Ext.ux.form.SpinnerField = Ext.extend(Ext.form.NumberField, {
     deferHeight: true,
     autoSize: Ext.emptyFn,
     onBlur: Ext.emptyFn,
     adjustSize: Ext.BoxComponent.prototype.adjustSize,
-        
+
 	constructor: function(config) {
 		var spinnerConfig = Ext.copyTo({}, config, 'incrementValue,alternateIncrementValue,accelerate,defaultValue,triggerClass,splitterClass');
-		
-		var spl = this.spinner = new Ext.form.Spinner(spinnerConfig);
-		
-		var plugins = config.plugins 
-			? (Ext.isArray(config.plugins) 
+
+		var spl = this.spinner = new Ext.ux.Spinner(spinnerConfig);
+
+		var plugins = config.plugins
+			? (Ext.isArray(config.plugins)
 				? config.plugins.push(spl)
 				: [config.plugins, spl])
 			: spl;
-			
-		Ext.ux.SpinnerField.superclass.constructor.call(this, Ext.apply(config, {plugins: plugins}));	
+
+		Ext.ux.form.SpinnerField.superclass.constructor.call(this, Ext.apply(config, {plugins: plugins}));
 	},
 
     onShow: function(){
@@ -24,21 +31,21 @@ Ext.ux.SpinnerField = Ext.extend(Ext.form.NumberField, {
             this.wrap.dom.style.visibility = 'visible';
         }
     },
-    
+
     onHide: function(){
         this.wrap.dom.style.display = 'none';
     },
-        
+
     // private
     getResizeEl: function(){
         return this.wrap;
     },
-    
+
     // private
     getPositionEl: function(){
         return this.wrap;
     },
-    
+
     // private
     alignErrorIcon: function(){
         if (this.wrap) {
@@ -51,6 +58,7 @@ Ext.ux.SpinnerField = Ext.extend(Ext.form.NumberField, {
     }
 });
 
-Ext.reg('spinner', Ext.ux.SpinnerField);
-//backwards comapt
-Ext.form.SpinnerField = Ext.ux.SpinnerField;
+Ext.reg('spinnerfield', Ext.ux.form.SpinnerField);
+
+//backwards compat
+Ext.form.SpinnerField = Ext.ux.form.SpinnerField;
