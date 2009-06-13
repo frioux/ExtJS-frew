@@ -1207,7 +1207,7 @@ new Ext.Panel({
     },
     
     syncHeight : function(){
-        if(!this.duringLayout){
+        if(!(this.autoHeight || this.duringLayout)){
             var last = this.lastSize;
             if(last && !Ext.isEmpty(last.height)){
                 var old = last.height, h = this.el.getHeight();
