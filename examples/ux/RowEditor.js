@@ -1,11 +1,15 @@
+Ext.ns('Ext.ux.grid');
+
 /**
- * @class Ext.ux.RowEditor
+ * @class Ext.ux.grid.RowEditor
  * @extends Ext.Panel 
  * Plugin (ptype = 'roweditor') that adds the ability to rapidly edit full rows in a grid.
  * A validation mode may be enabled which uses AnchorTips to notify the user of all
  * validation errors at once.
+ * 
+ * @ptype roweditor
  */
-Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
+Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
     floating: true,
     shadow: false,
     layout: 'hbox',
@@ -25,7 +29,7 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
     },
 
     initComponent: function(){
-        Ext.ux.RowEditor.superclass.initComponent.call(this);
+        Ext.ux.grid.RowEditor.superclass.initComponent.call(this);
         this.addEvents(
             /**
              * @event beforeedit
@@ -282,7 +286,7 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
     },
 
     onRender: function(){
-        Ext.ux.RowEditor.superclass.onRender.apply(this, arguments);
+        Ext.ux.grid.RowEditor.superclass.onRender.apply(this, arguments);
         this.el.swallowEvent(['keydown', 'keyup', 'keypress']);
         this.btns = new Ext.Panel({
             baseCls: 'x-plain',
@@ -308,7 +312,7 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
     },
 
     afterRender: function(){
-        Ext.ux.RowEditor.superclass.afterRender.apply(this, arguments);
+        Ext.ux.grid.RowEditor.superclass.afterRender.apply(this, arguments);
         this.positionButtons();
         if(this.monitorValid){
             this.startMonitoring();
@@ -319,11 +323,11 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
         if(this.monitorValid){
             this.startMonitoring();
         }
-        Ext.ux.RowEditor.superclass.onShow.apply(this, arguments);
+        Ext.ux.grid.RowEditor.superclass.onShow.apply(this, arguments);
     },
 
     onHide: function(){
-        Ext.ux.RowEditor.superclass.onHide.apply(this, arguments);
+        Ext.ux.grid.RowEditor.superclass.onHide.apply(this, arguments);
         this.stopMonitoring();
         this.grid.getView().focusRow(this.rowIndex);
     },
@@ -460,7 +464,7 @@ Ext.ux.RowEditor = Ext.extend(Ext.Panel, {
         return data;
     }
 });
-Ext.preg('roweditor', Ext.ux.RowEditor);
+Ext.preg('roweditor', Ext.ux.grid.RowEditor);
 
 Ext.override(Ext.form.Field, {
     markInvalid : function(msg){

@@ -19,7 +19,7 @@ Ext.onReady(function(){
         type: 'bool'
     }]);
 
-    
+
     // hideous function to generate employee data
     var genData = function(){
         var data = [];
@@ -49,7 +49,7 @@ Ext.onReady(function(){
         sortInfo: {field: 'start', direction: 'ASC'}
     });
 
-    var editor = new Ext.ux.RowEditor({
+    var editor = new Ext.ux.grid.RowEditor({
         saveText: 'Update'
     });
 
@@ -61,7 +61,7 @@ Ext.onReady(function(){
         autoExpandColumn: 'name',
         plugins: [editor],
         view: new Ext.grid.GroupingView({
-            markDirty: false  
+            markDirty: false
         }),
         tbar: [{
             iconCls: 'icon-user-add',
@@ -190,7 +190,7 @@ Ext.onReady(function(){
     store.on('add', cstore.refreshData, cstore);
     store.on('remove', cstore.refreshData, cstore);
     store.on('update', cstore.refreshData, cstore);
-    
+
     var chart = new Ext.Panel({
         width:600,
         height:200,
@@ -200,7 +200,7 @@ Ext.onReady(function(){
         split: true,
         minHeight: 100,
         maxHeight: 500,
-        
+
         items: {
             xtype: 'columnchart',
             store: cstore,

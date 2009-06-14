@@ -50,8 +50,8 @@ store.load();
 Ext.onReady(function() {
     Ext.QuickTips.init();
 
-    // We'll use the new RowEditor for this example.
-    var editor = new Ext.ux.RowEditor({
+    // use RowEditor for editing
+    var editor = new Ext.ux.grid.RowEditor({
         saveText: 'Update'
     });
 
