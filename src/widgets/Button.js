@@ -306,11 +306,14 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
          * @type Ext.Element
          * @property btnEl
          */
-        var btnEl = this.btnEl = btn.child(this.buttonSelector);
-        this.mon(btnEl, 'focus', this.onFocus, this);
-        this.mon(btnEl, 'blur', this.onBlur, this);
+        this.btnEl = btn.child(this.buttonSelector);
+        this.mon(this.btnEl, {
+            scope: this,
+            focus: this.onFocus,
+            blur: this.onBlur
+        });
 
-        this.initButtonEl(btn, btnEl);
+        this.initButtonEl(btn, this.btnEl);
 
         Ext.ButtonToggleMgr.register(this);
     },
@@ -329,26 +332,30 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
             btnEl.dom.tabIndex = this.tabIndex;
         }
         if(this.tooltip){
-            this.setTooltip(this.tooltip);
+            this.setTooltip(this.tooltip, true);
         }
 
         if(this.handleMouseEvents){
-            this.mon(btn, 'mouseover', this.onMouseOver, this);
-            this.mon(btn, 'mousedown', this.onMouseDown, this);
+            this.mon(btn, {
+                scope: this,
+                mouseover: this.onMouseOver,
+                mousedown: this.onMouseDown
+            });
             
             // new functionality for monitoring on the document level
             //this.mon(btn, "mouseout", this.onMouseOut, this);
         }
 
         if(this.menu){
-            this.mon(this.menu, 'show', this.onMenuShow, this);
-            this.mon(this.menu, 'hide', this.onMenuHide, this);
+            this.mon(this.menu, {
+                scope: this,
+                show: this.onMenuShow,
+                hide: this.onMenuHide
+            });
         }
 
         if(this.repeat){
-            var repeater = new Ext.util.ClickRepeater(btn,
-                typeof this.repeat == "object" ? this.repeat : {}
-            );
+            var repeater = new Ext.util.ClickRepeater(btn, Ext.isObject(this.repeat) ? this.repeat : {});
             this.mon(repeater, 'click', this.onClick, this);
         }
         
@@ -358,11 +365,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     // private
     afterRender : function(){
         Ext.Button.superclass.afterRender.call(this);
-        if(Ext.isIE6){
-            this.doAutoWidth.defer(1, this);
-        }else{
-            this.doAutoWidth();
-        }
+        this.doAutoWidth();
     },
 
     /**
@@ -387,12 +390,16 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      * </ul></div>
      * @return {Ext.Button} this
      */
-    setTooltip : function(tooltip){
+    setTooltip : function(tooltip, /* private */ initial){
         if(this.rendered){
+            if(!initial){
+                this.clearTip();
+            }
             if(Ext.isObject(tooltip)){
                 Ext.QuickTips.register(Ext.apply({
                       target: this.btnEl.id
                 }, tooltip));
+                this.tooltip = tooltip;
             }else{
                 this.btnEl.dom[this.tooltipType] = tooltip;
             }
@@ -403,15 +410,18 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     },
     
     // private
+    clearTip: function(){
+        if(Ext.isObject(this.tooltip)){
+            Ext.QuickTips.unregister(this.btnEl);
+        }
+    },
+    
+    // private
     beforeDestroy: function(){
         if(this.rendered){
-            if(this.btnEl){
-                if(typeof this.tooltip == 'object'){
-                    Ext.QuickTips.unregister(this.btnEl);
-                }
-            }
+            this.clearTip();
         }
-        Ext.destroy(this.menu);
+        Ext.destroy(this.menu, this.repeater);
     },
 
     // private
@@ -423,7 +433,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
 
     // private
     doAutoWidth : function(){
-        if(this.el && this.text && typeof this.width == 'undefined'){
+        if(this.el && this.text && this.width === undefined){
             this.el.setWidth("auto");
             if(Ext.isIE7 && Ext.isStrict){
                 var ib = this.btnEl;
