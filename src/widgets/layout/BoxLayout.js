@@ -59,7 +59,16 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
     getTargetSize : function(target){
         return (Ext.isIE6 && Ext.isStrict && target.dom == document.body) ? target.getStyleSize() : target.getViewSize();
-        //return Ext.isIE && target.dom != Ext.getBody().dom ? target.getStyleSize() : target.getViewSize();
+    },
+    
+    // private
+    checkSize: function(w, h){
+        if((Ext.isIE && !Ext.isStrict) && (w < 1 || h < 1)){
+            return false;
+        }else if(w < 1 && h < 1){
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -115,53 +124,36 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
     // private
     onLayout : function(ct, target){
         Ext.layout.VBoxLayout.superclass.onLayout.call(this, ct, target);
-
-                var cs = ct.items.items, len = cs.length, c, i, last = len-1, cm,
+                    
+        
+        var cs = ct.items.items, cm, ch, margin,
             size = this.getTargetSize(target),
             w = size.width - target.getPadding('lr') - this.scrollOffset,
             h = size.height - target.getPadding('tb'),
-            l = this.padding.left, t = this.padding.top;
-            
-        if ((Ext.isIE && !Ext.isStrict) && (w < 1 || h < 1)) {
-            return;
-        } else if (w < 1 && h < 1) {
+            l = this.padding.left, t = this.padding.top,
+            isStart = this.pack == 'start',
+            stretchWidth = w - (this.padding.left + this.padding.right),
+            extraHeight = 0;
+            maxWidth = 0,
+            totalFlex = 0,
+            flexHeight = 0,
+            usedHeight = 0;
+           
+        if(!this.checkSize()){
             return;
         }
-        var totalFlex = totalHeight = 0;
-        for(i = 0; i < len; i++){
-            c = cs[i];
+            
+        Ext.each(cs, function(c){
             cm = c.margins;
             totalFlex += c.flex || 0;
-            totalHeight += c.getHeight() + cm.top + cm.bottom;
-        }
-        var ch, extraHeight = h - totalHeight - this.padding.top - this.padding.bottom, allocated = 0;
-        if(this.pack == 'center'){
-            t += extraHeight ? extraHeight/2 : 0;
-        }else if(this.pack == 'end'){
-            t += extraHeight;
-        }
-        for(i = 0; i < len; i++){
-            c = cs[i];
-            cm = c.margins;
             ch = c.getHeight();
-            t += cm.top;
-            c.setPosition(l + cm.left, t);
-            if(this.pack == 'start' && c.flex){
-                var ratio = c.flex/totalFlex, add = Math.floor(extraHeight*ratio);
-                allocated += add;
-                add += (i == last) ? (extraHeight-allocated) : 0;
-                ch += add;
-                c.setHeight(ch);
-            }
-            t += ch + cm.bottom;
-        }
-        var stretchWidth = w - (this.padding.left + this.padding.right),
-            maxWidth = 0;
-        for(i = 0; i < len; i++){
-            c = cs[i];
-            cm = c.margins;
+            margin = cm.top + cm.bottom;
+            extraHeight += ch + margin;
+            flexHeight += margin + (c.flex ? 0 : ch);
             maxWidth = Math.max(maxWidth, c.getWidth() + cm.left + cm.right);
-        }
+        });
+        extraHeight = h - extraHeight - this.padding.top - this.padding.bottom
+        
         var innerCtWidth = maxWidth + this.padding.left + this.padding.right;
         switch(this.align){
             case 'stretch':
@@ -175,9 +167,42 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                 this.innerCt.setSize(w = Math.max(w, innerCtWidth), h);
                 break;
         }
+
+        var isStart = this.pack == 'start',
+            availHeight = h - this.padding.top - this.padding.bottom - flexHeight,
+            leftOver = availHeight;
+            heights = [],
+            idx = 0;
+            
+
+        Ext.each(cs, function(c){
+            if(isStart && c.flex){
+                ch = Math.floor(availHeight * (c.flex / totalFlex));
+                leftOver -= ch;
+                heights.push(ch);
+            }
+        }); 
+        
+        if(this.pack == 'center'){
+            t += extraHeight ? extraHeight / 2 : 0;
+        }else if(this.pack == 'end'){
+            t += extraHeight;
+        }
+        Ext.each(cs, function(c){
+            cm = c.margins;
+            t += cm.top;
+            c.setPosition(l + cm.left, t);
+            if(isStart && c.flex){
+                ch = Math.max(0, heights[idx++] + (leftOver-- > 0 ? 1 : 0));
+                c.setHeight(ch);
+            }else{
+                ch = c.getHeight();
+            }
+            t += ch + cm.bottom;
+        });
+        
         var availableWidth = w - this.padding.left - this.padding.right;
-        for(i = 0; i < len; i++){
-            c = cs[i];
+        Ext.each(cs, function(c){
             if(this.align == 'center'){
                 var diff = availableWidth - (c.getWidth() + cm.left + cm.right);
                 if(diff > 0){
@@ -190,7 +215,7 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                 c.setWidth((maxWidth - (cm.left + cm.right)).constrain(
                     c.minWidth || 0, c.maxWidth || 1000000));
             }
-        }
+        }, this);
     }
     /**
      * @property activeItem
@@ -246,52 +271,35 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
     // private
     onLayout : function(ct, target){
         Ext.layout.HBoxLayout.superclass.onLayout.call(this, ct, target);
-        var cs = ct.items.items, len = cs.length, c, i, last = len-1, cm,
+        
+        var cs = ct.items.items, cm, cw, margin,
             size = this.getTargetSize(target),
             w = size.width - target.getPadding('lr') - this.scrollOffset,
             h = size.height - target.getPadding('tb'),
-            l = this.padding.left, t = this.padding.top;
+            l = this.padding.left, t = this.padding.top,
+            isStart = this.pack == 'start',
+            stretchHeight = h - (this.padding.top + this.padding.bottom),
+            extraWidth = 0;
+            maxHeight = 0,
+            totalFlex = 0,
+            flexWidth = 0,
+            usedWidth = 0;
             
-        if ((Ext.isIE && !Ext.isStrict) && (w < 1 || h < 1)) {
-            return;
-        } else if (w < 1 && h < 1) {
+        if(!this.checkSize()){
             return;
         }
-        var totalFlex = totalWidth = 0;
-        for(i = 0; i < len; i++){
-            c = cs[i];
+        
+        Ext.each(cs, function(c){
             cm = c.margins;
             totalFlex += c.flex || 0;
-            totalWidth += c.getWidth() + cm.left + cm.right;
-        }
-        var cw, extraWidth = w - totalWidth - this.padding.left - this.padding.right, allocated = 0;
-        if(this.pack == 'center'){
-            l += extraWidth ? extraWidth/2 : 0;
-        }else if(this.pack == 'end'){
-            l += extraWidth;
-        }
-        for(i = 0; i < len; i++){
-            c = cs[i];
-            cm = c.margins;
             cw = c.getWidth();
-            l += cm.left;
-            c.setPosition(l, t + cm.top);
-            if(this.pack == 'start' && c.flex){
-                var ratio = c.flex/totalFlex, add = Math.floor(extraWidth*ratio);
-                allocated += add;
-                add += (i == last) ? (extraWidth-allocated) : 0;
-                cw += add;
-                c.setWidth(cw);
-            }
-            l += cw + cm.right;
-        }
-        var stretchHeight = h - (this.padding.top + this.padding.bottom),
-            maxHeight = 0;
-        for(i = 0; i < len; i++){
-            c = cs[i];
-            cm = c.margins;
+            margin = cm.left + cm.right;
+            extraWidth += cw + margin;
+            flexWidth += margin + (c.flex ? 0 : cw);
             maxHeight = Math.max(maxHeight, c.getHeight() + cm.top + cm.bottom);
-        }
+        });
+        extraWidth = w - extraWidth - this.padding.left - this.padding.right
+        
         var innerCtHeight = maxHeight + this.padding.top + this.padding.bottom;
         switch(this.align){
             case 'stretch':
@@ -305,9 +313,44 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                 this.innerCt.setSize(w, h = Math.max(h, innerCtHeight));
                 break;
         }
+        
+
+        var availWidth = w - this.padding.left - this.padding.right - flexWidth,
+            leftOver = availWidth;
+            widths = [],
+            idx = 0;
+            
+
+        Ext.each(cs, function(c){
+            if(isStart && c.flex){
+                cw = Math.floor(availWidth * (c.flex / totalFlex));
+                leftOver -= cw;
+                widths.push(cw);
+            }
+        }); 
+        
+        if(this.pack == 'center'){
+            l += extraWidth ? extraWidth / 2 : 0;
+        }else if(this.pack == 'end'){
+            l += extraWidth;
+        }
+        Ext.each(cs, function(c){
+            cm = c.margins;
+            l += cm.left;
+            c.setPosition(l, t + cm.top);
+            if(isStart && c.flex){
+                cw = Math.max(0, widths[idx++] + (leftOver-- > 0 ? 1 : 0));
+                c.setWidth(cw);
+            }else{
+                cw = c.getWidth();
+            }
+            l += cw + cm.right;
+        });
+        
+        
+        
         var availableHeight = h - this.padding.top - this.padding.bottom;
-        for(i = 0; i < len; i++){
-            c = cs[i];
+        Ext.each(cs, function(c){
             if(this.align == 'middle'){
                 var diff = availableHeight - (c.getHeight() + cm.top + cm.bottom);
                 if(diff > 0){
@@ -320,7 +363,7 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                 c.setHeight((maxHeight - (cm.top + cm.bottom)).constrain(
                     c.minHeight || 0, c.maxHeight || 1000000));
             }
-        }
+        }, this);
     }
 
     /**
