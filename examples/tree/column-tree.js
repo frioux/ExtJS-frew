@@ -1,12 +1,12 @@
 Ext.onReady(function(){
-    var tree = new Ext.tree.ColumnTree({
+    var tree = new Ext.ux.tree.ColumnTree({
         width: 550,
         height: 300,
         rootVisible:false,
         autoScroll:true,
         title: 'Example Tasks',
         renderTo: Ext.getBody(),
-        
+
         columns:[{
             header:'Task',
             width:330,
@@ -24,7 +24,7 @@ Ext.onReady(function(){
         loader: new Ext.tree.TreeLoader({
             dataUrl:'column-data.json',
             uiProviders:{
-                'col': Ext.tree.ColumnNodeUI
+                'col': Ext.ux.tree.ColumnNodeUI
             }
         }),
 
