@@ -5,9 +5,9 @@
  */
 
 /**
- * @class Ext.ux.ItemSelector
+ * @class Ext.ux.form.ItemSelector
  * @extends Ext.form.Field
- * A control that allows selection of between two Ext.ux.MultiSelect controls.
+ * A control that allows selection of between two Ext.ux.form.MultiSelect controls.
  *
  *  @history
  *    2008-06-19 bpm Original code contributed by Toby Stuart (with contributions from Robert Williams)
@@ -15,8 +15,9 @@
  * @constructor
  * Create a new ItemSelector
  * @param {Object} config Configuration options
+ * @xtype itemselector 
  */
-Ext.ux.ItemSelector = Ext.extend(Ext.form.Field,  {
+Ext.ux.form.ItemSelector = Ext.extend(Ext.form.Field,  {
     hideNavIcons:false,
     imagePath:"",
     iconUp:"up2.gif",
@@ -36,12 +37,12 @@ Ext.ux.ItemSelector = Ext.extend(Ext.form.Field,  {
     border:false,
     defaultAutoCreate:{tag: "div"},
     /**
-     * @cfg {Array} multiselects An array of {@link Ext.ux.Multiselect} config objects, with at least all required parameters (e.g., store)
+     * @cfg {Array} multiselects An array of {@link Ext.ux.form.MultiSelect} config objects, with at least all required parameters (e.g., store)
      */
     multiselects:null,
 
     initComponent: function(){
-        Ext.ux.ItemSelector.superclass.initComponent.call(this);
+        Ext.ux.form.ItemSelector.superclass.initComponent.call(this);
         this.addEvents({
             'rowdblclick' : true,
             'change' : true
@@ -49,7 +50,7 @@ Ext.ux.ItemSelector = Ext.extend(Ext.form.Field,  {
     },
 
     onRender: function(ct, position){
-        Ext.ux.ItemSelector.superclass.onRender.call(this, ct, position);
+        Ext.ux.form.ItemSelector.superclass.onRender.call(this, ct, position);
 
         // Internal default configuration for both multiselects
         var msConfig = [{
@@ -66,10 +67,10 @@ Ext.ux.ItemSelector = Ext.extend(Ext.form.Field,  {
             height: 100
         }];
 
-        this.fromMultiselect = new Ext.ux.Multiselect(Ext.applyIf(this.multiselects[0], msConfig[0]));
+        this.fromMultiselect = new Ext.ux.form.MultiSelect(Ext.applyIf(this.multiselects[0], msConfig[0]));
         this.fromMultiselect.on('dblclick', this.onRowDblClick, this);
 
-        this.toMultiselect = new Ext.ux.Multiselect(Ext.applyIf(this.multiselects[1], msConfig[1]));
+        this.toMultiselect = new Ext.ux.form.MultiSelect(Ext.applyIf(this.multiselects[1], msConfig[1]));
         this.toMultiselect.on('dblclick', this.onRowDblClick, this);
 
         var p = new Ext.Panel({
@@ -130,7 +131,7 @@ Ext.ux.ItemSelector = Ext.extend(Ext.form.Field,  {
     },
 
     afterRender: function(){
-        Ext.ux.ItemSelector.superclass.afterRender.call(this);
+        Ext.ux.form.ItemSelector.superclass.afterRender.call(this);
 
         this.toStore = this.toMultiselect.store;
         this.toStore.on('add', this.valueChanged, this);
@@ -317,4 +318,7 @@ Ext.ux.ItemSelector = Ext.extend(Ext.form.Field,  {
     }
 });
 
-Ext.reg("itemselector", Ext.ux.ItemSelector);
+Ext.reg('itemselector', Ext.ux.form.ItemSelector);
+
+//backwards compat
+Ext.ux.ItemSelector = Ext.ux.form.ItemSelector;

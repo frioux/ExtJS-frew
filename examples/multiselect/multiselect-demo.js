@@ -2,9 +2,9 @@ Ext.onReady(function(){
 
     Ext.QuickTips.init();
     Ext.form.Field.prototype.msgTarget = 'side';
-    
+
     /*
-     * Ext.ux.Multiselect Example Code
+     * Ext.ux.form.MultiSelect Example Code
      */
     var msForm = new Ext.form.FormPanel({
         title: 'MultiSelect Test',
@@ -48,19 +48,19 @@ Ext.onReady(function(){
 	            }
             }]
         }],
-        
+
         buttons: [{
             text: 'Save',
             handler: function(){
                 if(msForm.getForm().isValid()){
-	                Ext.Msg.alert('Submitted Values', 'The following will be sent to the server: <br />'+ 
+	                Ext.Msg.alert('Submitted Values', 'The following will be sent to the server: <br />'+
 	                    msForm.getForm().getValues(true));
                 }
             }
         }]
     });
-    
-    
+
+
     var ds = new Ext.data.ArrayStore({
         data: [[123,"One Hundred Twenty Three"],
             ["1", "One"], ["2", "Two"], ["3", "Three"], ["4", "Four"], ["5", "Five"],
@@ -71,9 +71,9 @@ Ext.onReady(function(){
             direction: 'ASC'
         }
     });
-    
+
     /*
-     * Ext.ux.ItemSelector Example Code
+     * Ext.ux.form.ItemSelector Example Code
      */
     var isForm = new Ext.form.FormPanel({
         title: 'ItemSelector Test',
@@ -103,16 +103,16 @@ Ext.onReady(function(){
             }],
             imagePath: 'images/'
         }],
-        
+
         buttons: [{
             text: 'Save',
             handler: function(){
                 if(isForm.getForm().isValid()){
-                    Ext.Msg.alert('Submitted Values', 'The following will be sent to the server: <br />'+ 
+                    Ext.Msg.alert('Submitted Values', 'The following will be sent to the server: <br />'+
                         isForm.getForm().getValues(true));
                 }
             }
         }]
     });
-    
+
 });
