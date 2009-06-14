@@ -1,4 +1,8 @@
-
+/**
+ * @class Ext.DataView.LabelEditor
+ * @extends Ext.Editor
+ * 
+ */
 Ext.DataView.LabelEditor = Ext.extend(Ext.Editor, {
     alignment: "tl-tl",
     hideEl : false,

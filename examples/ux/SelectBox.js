@@ -1,16 +1,18 @@
+Ext.ns('Ext.ux.form');
+
 /**
- * Makes a ComboBox more closely mimic an HTML SELECT.  Supports clicking and dragging
+ * @class Ext.ux.form.SelectBox
+ * @extends Ext.form.ComboBox
+ * <p>Makes a ComboBox more closely mimic an HTML SELECT.  Supports clicking and dragging
  * through the list, with item selection occurring when the mouse button is released.
  * When used will automatically set {@link #editable} to false and call {@link Ext.Element#unselectable}
- * on inner elements.  Re-enabling editable after calling this will NOT work.
- *
- * @author Corey Gilmore
- * http://extjs.com/forum/showthread.php?t=6392
- * 
+ * on inner elements.  Re-enabling editable after calling this will NOT work.</p>
+ * @author Corey Gilmore http://extjs.com/forum/showthread.php?t=6392
  * @history 2007-07-08 jvs
  * Slight mods for Ext 2.0
+ * @xtype selectbox
  */
-Ext.ux.SelectBox = Ext.extend(Ext.form.ComboBox, {
+Ext.ux.form.SelectBox = Ext.extend(Ext.form.ComboBox, {
 	constructor: function(config){
 		this.searchResetDelay = 1000;
 		config = config || {};
@@ -22,14 +24,14 @@ Ext.ux.SelectBox = Ext.extend(Ext.form.ComboBox, {
 			triggerAction: 'all',
 			mode: 'local'
 		});
-	
-		Ext.ux.SelectBox.superclass.constructor.apply(this, arguments);
-	
+
+		Ext.ux.form.SelectBox.superclass.constructor.apply(this, arguments);
+
 		this.lastSelectedIndex = this.selectedIndex || 0;
-	},	
+	},
 
 	initEvents : function(){
-		Ext.ux.SelectBox.superclass.initEvents.apply(this, arguments);
+		Ext.ux.form.SelectBox.superclass.initEvents.apply(this, arguments);
 		// you need to use keypress to capture upper/lower case and shift+key, but it doesn't work in IE
 		this.el.on('keydown', this.keySearch, this, true);
 		this.cshTask = new Ext.util.DelayedTask(this.clearSearchHistory, this);
@@ -79,7 +81,7 @@ Ext.ux.SelectBox = Ext.extend(Ext.form.ComboBox, {
 
 	onRender : function(ct, position) {
 		this.store.on('load', this.calcRowsPerPage, this);
-		Ext.ux.SelectBox.superclass.onRender.apply(this, arguments);
+		Ext.ux.form.SelectBox.superclass.onRender.apply(this, arguments);
 		if( this.mode == 'local' ) {
 			this.calcRowsPerPage();
 		}
@@ -97,7 +99,7 @@ Ext.ux.SelectBox = Ext.extend(Ext.form.ComboBox, {
 	},
 
 	render : function(ct) {
-		Ext.ux.SelectBox.superclass.render.apply(this, arguments);
+		Ext.ux.form.SelectBox.superclass.render.apply(this, arguments);
 		if( Ext.isSafari ) {
 			this.el.swallowEvent('mousedown', true);
 		}
@@ -188,3 +190,8 @@ Ext.ux.SelectBox = Ext.extend(Ext.form.ComboBox, {
 	}
 
 });
+
+Ext.reg('selectbox', Ext.ux.form.SelectBox);
+
+//backwards compat
+Ext.ux.SelectBox = Ext.ux.form.SelectBox;

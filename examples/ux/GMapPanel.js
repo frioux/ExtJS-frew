@@ -1,13 +1,7 @@
 /**
- * @author Shea Frederick
- */
-
-Ext.namespace('Ext.ux');
- 
-/**
- *
- * @class GMapPanel
+ * @class Ext.ux.GMapPanel
  * @extends Ext.Panel
+ * @author Shea Frederick
  */
 Ext.ux.GMapPanel = Ext.extend(Ext.Panel, {
     initComponent : function(){
@@ -212,4 +206,4 @@ Ext.ux.GMapPanel = Ext.extend(Ext.Panel, {
  
 });
 
-Ext.reg('gmappanel',Ext.ux.GMapPanel); 
+Ext.reg('gmappanel', Ext.ux.GMapPanel); 

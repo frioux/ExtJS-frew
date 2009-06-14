@@ -4,6 +4,7 @@ Ext.ns('Ext.ux.form');
  * @class Ext.ux.form.SpinnerField
  * @extends Ext.form.NumberField
  * Creates a field utilizing Ext.ux.Spinner
+ * @xtype spinnerfield
  */
 Ext.ux.form.SpinnerField = Ext.extend(Ext.form.NumberField, {
     deferHeight: true,
