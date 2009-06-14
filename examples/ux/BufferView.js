@@ -1,21 +1,21 @@
 /**
- * @class Ext.ux.BufferView
+ * @class Ext.ux.grid.BufferView
  * @extends Ext.grid.GridView
  * A custom GridView which renders rows on an as-needed basis.
  */
-Ext.ux.BufferView = Ext.extend(Ext.grid.GridView, {
+Ext.ux.grid.BufferView = Ext.extend(Ext.grid.GridView, {
 	/**
 	 * @cfg {Number} rowHeight
 	 * The height of a row in the grid.
 	 */
 	rowHeight: 19,
-	
+
 	/**
 	 * @cfg {Number} borderHeight
 	 * The combined height of border-top and border-bottom of a row.
 	 */
 	borderHeight: 2,
-	
+
 	/**
 	 * @cfg {Boolean/Number} scrollDelay
 	 * The number of milliseconds before rendering rows out of the visible
@@ -23,23 +23,23 @@ Ext.ux.BufferView = Ext.extend(Ext.grid.GridView, {
 	 * of false.
 	 */
 	scrollDelay: 100,
-	
+
 	/**
 	 * @cfg {Number} cacheSize
 	 * The number of rows to look forward and backwards from the currently viewable
 	 * area.  The cache applies only to rows that have been rendered already.
 	 */
 	cacheSize: 20,
-	
+
 	/**
 	 * @cfg {Number} cleanDelay
 	 * The number of milliseconds to buffer cleaning of extra rows not in the
 	 * cache.
 	 */
 	cleanDelay: 500,
-	
+
 	initTemplates : function(){
-		Ext.ux.BufferView.superclass.initTemplates.call(this);
+		Ext.ux.grid.BufferView.superclass.initTemplates.call(this);
 		var ts = this.templates;
 		// empty div to act as a place holder for a row
 	        ts.rowHolder = new Ext.Template(
@@ -47,7 +47,7 @@ Ext.ux.BufferView = Ext.extend(Ext.grid.GridView, {
 		);
 		ts.rowHolder.disableFormats = true;
 		ts.rowHolder.compile();
-		
+
 		ts.rowBody = new Ext.Template(
 		        '<table class="x-grid3-row-table" border="0" cellspacing="0" cellpadding="0" style="{tstyle}">',
 			'<tbody><tr>{cells}</tr>',
@@ -85,7 +85,7 @@ Ext.ux.BufferView = Ext.extend(Ext.grid.GridView, {
 	doRender : function(cs, rs, ds, startRow, colCount, stripe, onlyBody){
 		var ts = this.templates, ct = ts.cell, rt = ts.row, rb = ts.rowBody, last = colCount-1;
 		var rh = this.getStyleRowHeight();
-		var vr = this.getVisibleRows(); 
+		var vr = this.getVisibleRows();
 		var tstyle = 'width:'+this.getTotalWidth()+';height:'+rh+'px;';
 		// buffers
 		var buf = [], cb, c, p = {}, rp = {tstyle: tstyle}, r;
@@ -127,14 +127,14 @@ Ext.ux.BufferView = Ext.extend(Ext.grid.GridView, {
 		}
 		return buf.join("");
 	},
-	
+
 	isRowRendered: function(index){
 		var row = this.getRow(index);
 		return row && row.childNodes.length > 0;
 	},
-	
+
 	syncScroll: function(){
-		Ext.ux.BufferView.superclass.syncScroll.apply(this, arguments);
+		Ext.ux.grid.BufferView.superclass.syncScroll.apply(this, arguments);
 		this.update();
 	},
 
@@ -161,20 +161,20 @@ Ext.ux.BufferView = Ext.extend(Ext.grid.GridView, {
 				if(!this.isRowRendered(i)){
 					var html = this.doRender(cs, [ds.getAt(i)], ds, i, cm.getColumnCount(), g.stripeRows, true);
 					this.getRow(i).innerHTML = html;
-				}	
+				}
 			}
 			this.clean();
 		}
 	},
 
-	// a buffered method to clean rows	
+	// a buffered method to clean rows
 	clean : function(){
 		if(!this.cleanTask){
 			this.cleanTask = new Ext.util.DelayedTask(this.doClean, this);
 		}
 		this.cleanTask.delay(this.cleanDelay);
 	},
-	
+
 	doClean: function(){
 		if (this.getVisibleRowCount() > 0) {
 			var vr = this.getVisibleRows();
@@ -186,7 +186,7 @@ Ext.ux.BufferView = Ext.extend(Ext.grid.GridView, {
 			// so lets clean the end...
 			if(vr.first <= 0){
 				i = vr.last + 1;
-			}			
+			}
 			for(var len = this.ds.getCount(); i < len; i++){
 				// if current row is outside of first and last and
 				// has content, update the innerHTML to nothing
@@ -198,7 +198,7 @@ Ext.ux.BufferView = Ext.extend(Ext.grid.GridView, {
 	},
 
 	layout: function(){
-		Ext.ux.BufferView.superclass.layout.call(this);
+		Ext.ux.grid.BufferView.superclass.layout.call(this);
 		this.update();
 	}
 });

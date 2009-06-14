@@ -1,11 +1,11 @@
 Ext.onReady(function(){
-	
+
     var store = new Ext.data.Store({
         remoteSort: true,
         baseParams: {lightWeight:true,ext: 'js'},
         sortInfo: {field:'lastpost', direction:'DESC'},
         autoLoad: {params:{start:0, limit:500}},
-        
+
         proxy: new Ext.data.ScriptTagProxy({
             url: 'http://extjs.com/forum/topics-browse-remote.php'
         }),
@@ -54,20 +54,21 @@ Ext.onReady(function(){
             renderer: renderLast,
             sortable:true
         }],
-		
+
 	    bbar: new Ext.PagingToolbar({
 		    store: store,
 		    pageSize:500,
 		    displayInfo:true
 	    }),
-	
-	    view: new Ext.ux.BufferView({
+
+	    view: new Ext.ux.grid.BufferView({
 		    // custom row height
 		    rowHeight: 34,
 		    // render rows as they come into viewable area.
 		    scrollDelay: false
 	    })
-    });
+    });
+
 
     // render functions
     function renderTopic(value, p, record){
