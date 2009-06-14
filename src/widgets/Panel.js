@@ -1215,7 +1215,7 @@ new Ext.Panel({
                     var bd = this.body, bdh = bd.getHeight();
                     h = Math.max(bdh + old - h, 0);
                     if(bdh != h){
-                        bd.setHeight(bd.getHeight() + h);
+                        bd.setHeight(h);
                         var sz = bd.getSize();
                         this.fireEvent('bodyresize', sz.width, sz.height);
                     }
