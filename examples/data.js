@@ -73,13 +73,13 @@ Ext.samples.samplesCatalog = [{
         icon: 'grid-grouping.gif',
         desc: 'A basic grouping grid showing collapsible data groups that can be customized via the "Group By" header menu option.'
     },{
-        text: 'Live Group Summary',
+        text: 'Grouping with Dynamic Summary',
         url: 'grid/totals.html',
         icon: 'grid-summary.gif',
         desc: 'Advanced grouping grid that allows cell editing and includes custom dynamic summary calculations.'
     },{
         text: 'Grid Plugins',
-        url: 'grid/grid3.html',
+        url: 'grid/grid-plugins.html',
         icon: 'grid-plugins.gif',
         desc: 'Multiple grids customized via plugins: expander rows, checkbox selection and row numbering.'
     }/*,{

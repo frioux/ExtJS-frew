@@ -6,9 +6,6 @@ Ext.onReady(function(){
 
     var reader = new Ext.data.JsonReader({
         idProperty:'taskId',
-        root:'data',
-        remoteGroup:true,
-        remoteSort: true,
         fields: [
             {name: 'projectId', type: 'int'},
             {name: 'project', type: 'string'},
@@ -18,32 +15,37 @@ Ext.onReady(function(){
             {name: 'rate', type: 'float'},
             {name: 'cost', type: 'float'},
             {name: 'due', type: 'date', dateFormat:'m/d/Y'}
-        ]
-
+        ],
+		// additional configuration for remote
+        root:'data',
+        remoteGroup:true,
+        remoteSort: true
     });
 
     // define a custom summary function
-    Ext.grid.GroupSummary.Calculations['totalCost'] = function(v, record, field){
+    Ext.ux.grid.GroupSummary.Calculations['totalCost'] = function(v, record, field){
         return v + (record.data.estimate * record.data.rate);
-    }
+    };
 
-    var summary = new Ext.grid.HybridSummary(); 
+	// utilize custom extension for Hybrid Summary
+    var summary = new Ext.ux.grid.HybridSummary();
 
     var grid = new xg.EditorGridPanel({
         ds: new Ext.data.GroupingStore({
             reader: reader,
+			// use remote data
             proxy : new Ext.data.HttpProxy({
-                url: 'summary.json',
+                url: 'totals-hybrid.json',
                 method: 'GET'
             }),
-            sortInfo:{field: 'due', direction: "ASC"},
-            groupField:'project'
+            sortInfo: {field: 'due', direction: 'ASC'},
+            groupField: 'project'
         }),
 
         columns: [
             {
                 id: 'description',
-                header: "Task",
+                header: 'Task',
                 width: 80,
                 sortable: true,
                 dataIndex: 'description',
@@ -56,12 +58,12 @@ Ext.onReady(function(){
                    allowBlank: false
                 })
             },{
-                header: "Project",
+                header: 'Project',
                 width: 20,
                 sortable: true,
                 dataIndex: 'project'
             },{
-                header: "Due Date",
+                header: 'Due Date',
                 width: 25,
                 sortable: true,
                 dataIndex: 'due',
@@ -71,7 +73,7 @@ Ext.onReady(function(){
                     format: 'm/d/Y'
                 })
             },{
-                header: "Estimate",
+                header: 'Estimate',
                 width: 20,
                 sortable: true,
                 dataIndex: 'estimate',
@@ -85,7 +87,7 @@ Ext.onReady(function(){
                     style: 'text-align:left'
                 })
             },{
-                header: "Rate",
+                header: 'Rate',
                 width: 20,
                 sortable: true,
                 renderer: Ext.util.Format.usMoney,
@@ -98,7 +100,7 @@ Ext.onReady(function(){
                 })
             },{
                 id: 'cost',
-                header: "Cost",
+                header: 'Cost',
                 width: 20,
                 sortable: false,
                 groupable: false,
@@ -106,7 +108,7 @@ Ext.onReady(function(){
                     return Ext.util.Format.usMoney(record.data.estimate * record.data.rate);
                 },
                 dataIndex: 'cost',
-                summaryType:'totalCost',
+                summaryType: 'totalCost',
                 summaryRenderer: Ext.util.Format.usMoney
             }
         ],
@@ -114,6 +116,8 @@ Ext.onReady(function(){
         view: new Ext.grid.GroupingView({
             forceFit:true,
             showGroupName: false,
+            enableNoGroups:false,
+			enableGroupingMenu:false,
             hideGroupedColumn: true
         }),
 
@@ -121,10 +125,11 @@ Ext.onReady(function(){
 
         tbar : [{
             text: 'Toggle',
+            tooltip: 'Toggle the visibility of summary row',
             handler: function(){summary.toggleSummaries();}
         }],
 
-        frame:true,
+        frame: true,
         width: 800,
         height: 450,
         clicksToEdit: 1,
@@ -141,35 +146,14 @@ Ext.onReady(function(){
         var groupValue = 'Ext Forms: Field Anchoring';
         summary.showSummaryMsg(groupValue, 'Updating Summary...');
         setTimeout(function(){ // simulate server call
+            // HybridSummary class implements updateSummaryData
             summary.updateSummaryData(groupValue,
-                {due: new Date(2007, 6, 29), estimate: 21, rate: 185, cost: 2900});
+                // create data object based on configured dataIndex
+                {description: 22, estimate: 888, rate: 888, due: new Date(), cost: 8});
         }, 2000);
     });
 
+	// load the remote data
     grid.store.load();
+
 });
-
-Ext.grid.dummyProjects = [
-    {projectId: 100, project: 'Ext Forms: Field Anchoring'},
-    {projectId: 101, project: 'Ext Grid: Single-level Grouping'},
-    {projectId: 102, project: 'Ext Grid: Summary Rows'}
-];
-
-Ext.grid.dummyData = [
-    {projectId: 100, project: 'Ext Forms: Field Anchoring', taskId: 112, description: 'Integrate 2.0 Forms with 2.0 Layouts', estimate: 6, rate: 150, due:'06/24/2007'},
-    {projectId: 100, project: 'Ext Forms: Field Anchoring', taskId: 113, description: 'Implement AnchorLayout', estimate: 4, rate: 150, due:'06/25/2007'},
-    {projectId: 100, project: 'Ext Forms: Field Anchoring', taskId: 114, description: 'Add support for multiple types of anchors', estimate: 4, rate: 150, due:'06/27/2007'},
-    {projectId: 100, project: 'Ext Forms: Field Anchoring', taskId: 115, description: 'Testing and debugging', estimate: 8, rate: 0, due:'06/29/2007'},
-    {projectId: 101, project: 'Ext Grid: Single-level Grouping', taskId: 101, description: 'Add required rendering "hooks" to GridView', estimate: 6, rate: 100, due:'07/01/2007'},
-    {projectId: 101, project: 'Ext Grid: Single-level Grouping', taskId: 102, description: 'Extend GridView and override rendering functions', estimate: 6, rate: 100, due:'07/03/2007'},
-    {projectId: 101, project: 'Ext Grid: Single-level Grouping', taskId: 103, description: 'Extend Store with grouping functionality', estimate: 4, rate: 100, due:'07/04/2007'},
-    {projectId: 101, project: 'Ext Grid: Single-level Grouping', taskId: 121, description: 'Default CSS Styling', estimate: 2, rate: 100, due:'07/05/2007'},
-    {projectId: 101, project: 'Ext Grid: Single-level Grouping', taskId: 104, description: 'Testing and debugging', estimate: 6, rate: 100, due:'07/06/2007'},
-    {projectId: 102, project: 'Ext Grid: Summary Rows', taskId: 105, description: 'Ext Grid plugin integration', estimate: 4, rate: 125, due:'07/01/2007'},
-    {projectId: 102, project: 'Ext Grid: Summary Rows', taskId: 106, description: 'Summary creation during rendering phase', estimate: 4, rate: 125, due:'07/02/2007'},
-    {projectId: 102, project: 'Ext Grid: Summary Rows', taskId: 107, description: 'Dynamic summary updates in editor grids', estimate: 6, rate: 125, due:'07/05/2007'},
-    {projectId: 102, project: 'Ext Grid: Summary Rows', taskId: 108, description: 'Remote summary integration', estimate: 4, rate: 125, due:'07/05/2007'},
-    {projectId: 102, project: 'Ext Grid: Summary Rows', taskId: 109, description: 'Summary renderers and calculators', estimate: 4, rate: 125, due:'07/06/2007'},
-    {projectId: 102, project: 'Ext Grid: Summary Rows', taskId: 110, description: 'Integrate summaries with GroupingView', estimate: 10, rate: 125, due:'07/11/2007'},
-    {projectId: 102, project: 'Ext Grid: Summary Rows', taskId: 111, description: 'Testing and debugging', estimate: 8, rate: 125, due:'07/15/2007'}
-];

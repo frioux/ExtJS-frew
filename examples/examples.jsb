@@ -208,13 +208,12 @@
   <file name="grid\from-markup.html" path="grid" />
   <file name="grid\from-markup.js" path="grid" />
   <file name="grid\gen-names.js" path="grid" />
-  <file name="grid\grid3.html" path="grid" />
-  <file name="grid\grid3.js" path="grid" />
   <file name="grid\grid-examples.css" path="grid" />
+  <file name="grid\grid-plugins.html" path="grid" />
+  <file name="grid\grid-plugins.js" path="grid" />
   <file name="grid\grouping.css" path="grid" />
   <file name="grid\grouping.html" path="grid" />
   <file name="grid\grouping.js" path="grid" />
-  <file name="grid\hybrid-totals.js" path="grid" />
   <file name="grid\paging.html" path="grid" />
   <file name="grid\paging.js" path="grid" />
   <file name="grid\plants.xml" path="grid" />
@@ -226,10 +225,12 @@
   <file name="grid\sheldon.xml" path="grid" />
   <file name="grid\sliding-pager.html" path="grid" />
   <file name="grid\sliding-pager.js" path="grid" />
-  <file name="grid\summary.json" path="grid" />
+  <file name="grid\totals-hybrid.json" path="grid" />
   <file name="grid\topic.gif" path="grid" />
   <file name="grid\totals.html" path="grid" />
   <file name="grid\totals.js" path="grid" />
+  <file name="grid\totals-hybrid.html" path="grid" />
+  <file name="grid\totals-hybrid.js" path="grid" />
   <file name="grid\xml-grid.html" path="grid" />
   <file name="grid\xml-grid.js" path="grid" />
   <file name="grouptabs\grouptabs.html" path="grouptabs" />

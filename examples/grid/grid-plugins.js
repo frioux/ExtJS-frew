@@ -2,7 +2,7 @@
 Ext.onReady(function(){
 
     Ext.QuickTips.init();
-    
+
     var xg = Ext.grid;
 
     // shared reader
@@ -20,7 +20,7 @@ Ext.onReady(function(){
     // Grid 1
     ////////////////////////////////////////////////////////////////////////////////////////
     // row expander
-    var expander = new xg.RowExpander({
+    var expander = new Ext.ux.grid.RowExpander({
         tpl : new Ext.Template(
             '<p><b>Company:</b> {company}</p><br>',
             '<p><b>Summary:</b> {desc}</p>'
