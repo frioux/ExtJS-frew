@@ -1,5 +1,12 @@
+Ext.ns('Ext.ux.form');
 
-Ext.ux.FileUploadField = Ext.extend(Ext.form.TextField,  {
+/**
+ * @class Ext.ux.form.FileUploadField
+ * @extends Ext.form.TextField
+ * Creates a file upload field.
+ * @xtype fileuploadfield
+ */
+Ext.ux.form.FileUploadField = Ext.extend(Ext.form.TextField,  {
     /**
      * @cfg {String} buttonText The button text to display on the upload button (defaults to
      * 'Browse...').  Note that if you supply a value for {@link #buttonCfg}, the buttonCfg.text
@@ -22,46 +29,46 @@ Ext.ux.FileUploadField = Ext.extend(Ext.form.TextField,  {
 
     // private
     readOnly: true,
-    
+
     /**
-     * @hide 
+     * @hide
      * @method autoSize
      */
     autoSize: Ext.emptyFn,
-    
+
     // private
     initComponent: function(){
-        Ext.ux.FileUploadField.superclass.initComponent.call(this);
-        
+        Ext.ux.form.FileUploadField.superclass.initComponent.call(this);
+
         this.addEvents(
             /**
              * @event fileselected
              * Fires when the underlying file input field's value has changed from the user
              * selecting a new file from the system file selection dialog.
-             * @param {Ext.ux.FileUploadField} this
+             * @param {Ext.ux.form.FileUploadField} this
              * @param {String} value The file value returned by the underlying file input field
              */
             'fileselected'
         );
     },
-    
+
     // private
     onRender : function(ct, position){
-        Ext.ux.FileUploadField.superclass.onRender.call(this, ct, position);
-        
+        Ext.ux.form.FileUploadField.superclass.onRender.call(this, ct, position);
+
         this.wrap = this.el.wrap({cls:'x-form-field-wrap x-form-file-wrap'});
         this.el.addClass('x-form-file-text');
         this.el.dom.removeAttribute('name');
-        
+
         this.fileInput = this.wrap.createChild({
             id: this.getFileInputId(),
             name: this.name||this.getId(),
             cls: 'x-form-file',
-            tag: 'input', 
+            tag: 'input',
             type: 'file',
             size: 1
         });
-        
+
         var btnCfg = Ext.applyIf(this.buttonCfg || {}, {
             text: this.buttonText
         });
@@ -69,46 +76,46 @@ Ext.ux.FileUploadField = Ext.extend(Ext.form.TextField,  {
             renderTo: this.wrap,
             cls: 'x-form-file-btn' + (btnCfg.iconCls ? ' x-btn-icon' : '')
         }));
-        
+
         if(this.buttonOnly){
             this.el.hide();
             this.wrap.setWidth(this.button.getEl().getWidth());
         }
-        
+
         this.fileInput.on('change', function(){
             var v = this.fileInput.dom.value;
             this.setValue(v);
             this.fireEvent('fileselected', this, v);
         }, this);
     },
-    
+
     // private
     getFileInputId: function(){
         return this.id + '-file';
     },
-    
+
     // private
     onResize : function(w, h){
-        Ext.ux.FileUploadField.superclass.onResize.call(this, w, h);
-        
+        Ext.ux.form.FileUploadField.superclass.onResize.call(this, w, h);
+
         this.wrap.setWidth(w);
-        
+
         if(!this.buttonOnly){
             var w = this.wrap.getWidth() - this.button.getEl().getWidth() - this.buttonOffset;
             this.el.setWidth(w);
         }
     },
-    
+
     // private
     onDestroy: function(){
-        Ext.form.FileUploadField.superclass.onDestroy.call(this);
+        Ext.ux.form.FileUploadField.superclass.onDestroy.call(this);
         Ext.destroy(this.fileInput, this.button, this.wrap);
     },
 
-    
+
     // private
     preFocus : Ext.emptyFn,
-    
+
     // private
     getResizeEl : function(){
         return this.wrap;
@@ -123,8 +130,10 @@ Ext.ux.FileUploadField = Ext.extend(Ext.form.TextField,  {
     alignErrorIcon : function(){
         this.errorIcon.alignTo(this.wrap, 'tl-tr', [2, 0]);
     }
-    
+
 });
-Ext.reg('fileuploadfield', Ext.ux.FileUploadField);
+
+Ext.reg('fileuploadfield', Ext.ux.form.FileUploadField);
+
 // backwards compat
-Ext.form.FileUploadField = Ext.ux.FileUploadField;
+Ext.form.FileUploadField = Ext.ux.form.FileUploadField;
