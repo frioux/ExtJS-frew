@@ -1212,11 +1212,13 @@ new Ext.Panel({
             if(last && !Ext.isEmpty(last.height)){
                 var old = last.height, h = this.el.getHeight();
                 if(old != 'auto' && old != h){
-                    h = old - h;
-                    var bd = this.body;
-                    bd.setHeight(bd.getHeight() + h);
-                    var sz = bd.getSize();
-                    this.fireEvent('bodyresize', sz.width, sz.height);
+                    var bd = this.body, bdh = bd.getHeight();
+                    h = Math.max(bdh + old - h, 0);
+                    if(bdh != h){
+                        bd.setHeight(bd.getHeight() + h);
+                        var sz = bd.getSize();
+                        this.fireEvent('bodyresize', sz.width, sz.height);
+                    }
                 }
             }
         }
