@@ -2,7 +2,7 @@
 Ext.onReady(function(){
     Ext.QuickTips.init();
     Ext.form.Field.prototype.msgTarget = 'side';
-    
+
     /* Language chooser combobox  */
     var store = new Ext.data.ArrayStore({
         fields: ['code', 'language', 'charset'],
@@ -74,12 +74,12 @@ Ext.onReady(function(){
         ]
     });
     datefield.render('datefield');
-    
+
     // shorthand alias
     var fm = Ext.form, Ed = Ext.grid.GridEditor;
-    var monthArray = Date.monthNames.map(function (e) { return [e]; });    
+    var monthArray = Date.monthNames.map(function (e) { return [e]; });
     var ds = new Ext.data.Store({
-		proxy: new Ext.data.PagingMemoryProxy(monthArray),
+		proxy: new Ext.ux.data.PagingMemoryProxy(monthArray),
 		reader: new Ext.data.ArrayReader({}, [
 			{name: 'month'}
 		])
@@ -111,5 +111,5 @@ Ext.onReady(function(){
     grid.render();
 
     // trigger the data store load
-    ds.load({params:{start:0, limit:6}});    
+    ds.load({params:{start:0, limit:6}});
 });
