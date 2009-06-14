@@ -16,10 +16,16 @@ if(!Array.prototype.map){
      };
 }
 
-/* Paging Memory Proxy, allows to use paging grid with in memory dataset */
-Ext.ux.PagingMemoryProxy = Ext.extend(Ext.data.MemoryProxy, {
+Ext.ns('Ext.ux.data');
+
+/**
+ * @class Ext.ux.data.PagingMemoryProxy
+ * @extends Ext.data.MemoryProxy
+ * <p>Paging Memory Proxy, allows to use paging grid with in memory dataset</p>
+ */
+Ext.ux.data.PagingMemoryProxy = Ext.extend(Ext.data.MemoryProxy, {
     constructor: function(data) {
-	Ext.ux.PagingMemoryProxy.superclass.constructor.call(this);
+	Ext.ux.data.PagingMemoryProxy.superclass.constructor.call(this);
 	this.data = data;
     },
     doRequest : function(action, rs, params, reader, callback, scope, options) {
@@ -74,5 +80,6 @@ Ext.ux.PagingMemoryProxy = Ext.extend(Ext.data.MemoryProxy, {
 	callback.call(scope, result, options, true);
     }
 });
+
 //backwards compat.
-Ext.data.PagingMemoryProxy = Ext.ux.PagingMemoryProxy;
+Ext.data.PagingMemoryProxy = Ext.ux.data.PagingMemoryProxy;
