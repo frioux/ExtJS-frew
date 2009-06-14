@@ -1,11 +1,13 @@
+Ext.ns('Ext.ux.tree');
+
 /**
- * @class Ext.ux.XmlTreeLoader
+ * @class Ext.ux.tree.XmlTreeLoader
  * @extends Ext.tree.TreeLoader
  * <p>A TreeLoader that can convert an XML document into a hierarchy of {@link Ext.tree.TreeNode}s.
  * Any text value included as a text node in the XML will be added to the parent node as an attribute
  * called <tt>innerText</tt>.  Also, the tag name of each XML node will be added to the tree node as
  * an attribute called <tt>tagName</tt>.</p>
- * <p>By default, this class expects that your source XML will provide the necessary attributes on each 
+ * <p>By default, this class expects that your source XML will provide the necessary attributes on each
  * node as expected by the {@link Ext.tree.TreePanel} to display and load properly.  However, you can
  * provide your own custom processing of node attributes by overriding the {@link #processNode} method
  * and modifying the attributes as needed before they are used to create the associated TreeNode.</p>
@@ -13,7 +15,7 @@
  * Creates a new XmlTreeloader.
  * @param {Object} config A config object containing config properties.
  */
-Ext.ux.XmlTreeLoader = Ext.extend(Ext.tree.TreeLoader, {
+Ext.ux.tree.XmlTreeLoader = Ext.extend(Ext.tree.TreeLoader, {
     /**
      * @property  XML_NODE_ELEMENT
      * XML element node (value 1, read-only)
@@ -26,17 +28,17 @@ Ext.ux.XmlTreeLoader = Ext.extend(Ext.tree.TreeLoader, {
      * @type Number
      */
     XML_NODE_TEXT : 3,
-    
+
     // private override
     processResponse : function(response, node, callback){
         var xmlData = response.responseXML;
         var root = xmlData.documentElement || xmlData;
-        
+
         try{
             node.beginUpdate();
             node.appendChild(this.parseXml(root));
             node.endUpdate();
-            
+
             if(typeof callback == "function"){
                 callback(this, node);
             }
@@ -44,7 +46,7 @@ Ext.ux.XmlTreeLoader = Ext.extend(Ext.tree.TreeLoader, {
             this.handleFailure(response);
         }
     },
-    
+
     // private
     parseXml : function(node) {
         var nodes = [];
@@ -68,25 +70,25 @@ Ext.ux.XmlTreeLoader = Ext.extend(Ext.tree.TreeLoader, {
                 }
             }
         }, this);
-        
+
         return nodes;
     },
-    
+
     // private override
     createNode : function(node){
         var attr = {
             tagName: node.tagName
         };
-        
+
         Ext.each(node.attributes, function(a){
             attr[a.nodeName] = a.nodeValue;
         });
-        
+
         this.processAttributes(attr);
-        
-        return Ext.ux.XmlTreeLoader.superclass.createNode.call(this, attr);
+
+        return Ext.ux.tree.XmlTreeLoader.superclass.createNode.call(this, attr);
     },
-    
+
     /*
      * Template method intended to be overridden by subclasses that need to provide
      * custom attribute processing prior to the creation of each TreeNode.  This method
@@ -95,3 +97,6 @@ Ext.ux.XmlTreeLoader = Ext.extend(Ext.tree.TreeLoader, {
      */
     processAttributes: Ext.emptyFn
 });
+
+//backwards compat
+Ext.ux.XmlTreeLoader = Ext.ux.tree.XmlTreeLoader;

@@ -2,31 +2,31 @@
 //
 // Extend the XmlTreeLoader to set some custom TreeNode attributes specific to our application:
 //
-Ext.app.BookLoader = Ext.extend(Ext.ux.XmlTreeLoader, {
+Ext.app.BookLoader = Ext.extend(Ext.ux.tree.XmlTreeLoader, {
     processAttributes : function(attr){
         if(attr.first){ // is it an author node?
-            
+
             // Set the node text that will show in the tree since our raw data does not include a text attribute:
             attr.text = attr.first + ' ' + attr.last;
-            
+
             // Author icon, using the gender flag to choose a specific icon:
             attr.iconCls = 'author-' + attr.gender;
-            
+
             // Override these values for our folder nodes because we are loading all data at once.  If we were
             // loading each node asynchronously (the default) we would not want to do this:
             attr.loaded = true;
             attr.expanded = true;
         }
         else if(attr.title){ // is it a book node?
-            
+
             // Set the node text that will show in the tree since our raw data does not include a text attribute:
             attr.text = attr.title + ' (' + attr.published + ')';
-            
+
             // Book icon:
             attr.iconCls = 'book';
-            
+
             // Tell the tree this is a leaf node.  This could also be passed as an attribute in the original XML,
-            // but this example demonstrates that you can control this even when you cannot dictate the format of 
+            // but this example demonstrates that you can control this even when you cannot dictate the format of
             // the incoming source XML:
             attr.leaf = true;
         }
@@ -34,9 +34,9 @@ Ext.app.BookLoader = Ext.extend(Ext.ux.XmlTreeLoader, {
 });
 
 Ext.onReady(function(){
-	
+
     var detailsText = '<i>Select a book to see more information...</i>';
-    
+
 	var tpl = new Ext.Template(
         '<h2 class="title">{title}</h2>',
         '<p><b>Published</b>: {published}</p>',
@@ -44,7 +44,7 @@ Ext.onReady(function(){
         '<p><a href="{url}" target="_blank">Purchase from Amazon</a></p>'
 	);
     tpl.compile();
-    
+
     new Ext.Panel({
         title: 'Reading List',
 	    renderTo: 'tree',
@@ -59,12 +59,12 @@ Ext.onReady(function(){
             autoScroll: true,
 	        rootVisible: false,
 	        root: new Ext.tree.AsyncTreeNode(),
-            
+
             // Our custom TreeLoader:
 	        loader: new Ext.app.BookLoader({
 	            dataUrl:'xml-tree-data.xml'
 	        }),
-            
+
 	        listeners: {
 	            'render': function(tp){
                     tp.getSelectionModel().on('selectionchange', function(tree, node){
