@@ -1,7 +1,7 @@
-Ext.Spotlight = function(config){
+Ext.ux.Spotlight = function(config){
     Ext.apply(this, config);
 }
-Ext.Spotlight.prototype = {
+Ext.ux.Spotlight.prototype = {
     active : false,
     animate : true,
     duration: .25,
@@ -135,3 +135,6 @@ Ext.Spotlight.prototype = {
         delete this.all;
     }
 };
+
+//backwards compat
+Ext.Spotlight = Ext.ux.Spotlight;
