@@ -735,6 +735,7 @@
   <file name="ux\BufferView.js" path="ux" />
   <file name="ux\CenterLayout.js" path="ux" />
   <file name="ux\css\CenterLayout.css" path="ux\css" />
+  <file name="ux\CheckColumn.js" path="ux" />
   <file name="ux\ColumnNodeUI.js" path="ux" />
   <file name="ux\css\ColumnNodeUI.css" path="ux\css" />
   <file name="ux\DataView-more.js" path="ux" />
@@ -786,6 +787,7 @@
   <target name="User Extension JS Pack" file="$output\ux\ux-all.js" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="ux\BufferView.js" />
     <include name="ux\CenterLayout.js" />
+    <include name="ux\CheckColumn.js" />
     <include name="ux\ColumnNodeUI.js" />
     <include name="ux\DataView-more.js" />
     <include name="ux\FileUploadField.js" />

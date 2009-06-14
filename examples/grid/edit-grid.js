@@ -3,13 +3,13 @@ Ext.onReady(function(){
 
     function formatDate(value){
         return value ? value.dateFormat('M d, Y') : '';
-    };
+    }
     // shorthand alias
     var fm = Ext.form;
 
     // custom column plugin example
     var checkColumn = new Ext.grid.CheckColumn({
-       header: "Indoor?",
+       header: 'Indoor?',
        dataIndex: 'indoor',
        width: 55
     });
@@ -18,26 +18,27 @@ Ext.onReady(function(){
     // dataIndex maps the column to the specific data field in
     // the data store (created below)
     var cm = new Ext.grid.ColumnModel([{
-           id:'common',
-           header: "Common Name",
+           id: 'common',
+           header: 'Common Name',
            dataIndex: 'common',
            width: 220,
+           // use shorthand alias defined above
            editor: new fm.TextField({
                allowBlank: false
            })
         },{
-           header: "Light",
+           header: 'Light',
            dataIndex: 'light',
            width: 130,
-           editor: new Ext.form.ComboBox({
+           editor: new fm.ComboBox({
                typeAhead: true,
                triggerAction: 'all',
                transform:'light',
-               lazyRender:true,
+               lazyRender: true,
                listClass: 'x-combo-list-small'
             })
         },{
-           header: "Price",
+           header: 'Price',
            dataIndex: 'price',
            width: 70,
            align: 'right',
@@ -48,7 +49,7 @@ Ext.onReady(function(){
                maxValue: 100000
            })
         },{
-           header: "Available",
+           header: 'Available',
            dataIndex: 'availDate',
            width: 95,
            renderer: formatDate,
@@ -65,31 +66,32 @@ Ext.onReady(function(){
     // by default columns are sortable
     cm.defaultSortable = true;
 
-    // this could be inline, but we want to define the Plant record
-    // type so we can add records dynamically
-    var Plant = Ext.data.Record.create([
-           // the "name" below matches the tag name to read, except "availDate"
-           // which is mapped to the tag "availability"
-           {name: 'common', type: 'string'},
-           {name: 'botanical', type: 'string'},
-           {name: 'light'},
-           {name: 'price', type: 'float'},             // automatic date conversions
-           {name: 'availDate', mapping: 'availability', type: 'date', dateFormat: 'm/d/Y'},
-           {name: 'indoor', type: 'bool'}
-      ]);
-
     // create the Data Store
     var store = new Ext.data.Store({
-        // load using HTTP
+        // load remote data using HTTP
         url: 'plants.xml',
 
-        // the return will be XML, so lets set up a reader
-        reader: new Ext.data.XmlReader({
-               // records will have a "plant" tag
-               record: 'plant'
-           }, Plant),
+        // specify a XmlReader (coincides with the XML format of the returned data)
+        reader: new Ext.data.XmlReader(
+            {
+                // records will have a 'plant' tag
+                record: 'plant'
+            },
+            // use an Array of field definition objects to implicitly create a Record constructor
+            [
+                // the 'name' below matches the tag name to read, except 'availDate'
+                // which is mapped to the tag 'availability'
+                {name: 'common', type: 'string'},
+                {name: 'botanical', type: 'string'},
+                {name: 'light'},
+                {name: 'price', type: 'float'},             
+                // dates can be automatically converted by specifying dateFormat
+                {name: 'availDate', mapping: 'availability', type: 'date', dateFormat: 'm/d/Y'},
+                {name: 'indoor', type: 'bool'}
+            ]
+        ),
 
-        sortInfo:{field:'common', direction:'ASC'}
+        sortInfo: {field:'common', direction:'ASC'}
     });
 
     // create the editor grid
@@ -97,17 +99,18 @@ Ext.onReady(function(){
         store: store,
         cm: cm,
         renderTo: 'editor-grid',
-        width:600,
-        height:300,
-        autoExpandColumn:'common',
-        title:'Edit Plants?',
-        frame:true,
-        plugins:checkColumn,
-        clicksToEdit:1,
-
+        width: 600,
+        height: 300,
+        autoExpandColumn: 'common',
+        title: 'Edit Plants?',
+        frame: true,
+        plugins: checkColumn,
+        clicksToEdit: 1,
         tbar: [{
             text: 'Add Plant',
             handler : function(){
+                // access the Record constructor through the grid's store
+                var Plant = grid.getStore().recordType;
                 var p = new Plant({
                     common: 'New Plant 1',
                     light: 'Mostly Shade',
@@ -125,35 +128,3 @@ Ext.onReady(function(){
     // trigger the data store load
     store.load();
 });
-
-Ext.grid.CheckColumn = function(config){
-    Ext.apply(this, config);
-    if(!this.id){
-        this.id = Ext.id();
-    }
-    this.renderer = this.renderer.createDelegate(this);
-};
-
-Ext.grid.CheckColumn.prototype ={
-    init : function(grid){
-        this.grid = grid;
-        this.grid.on('render', function(){
-            var view = this.grid.getView();
-            view.mainBody.on('mousedown', this.onMouseDown, this);
-        }, this);
-    },
-
-    onMouseDown : function(e, t){
-        if(t.className && t.className.indexOf('x-grid3-cc-'+this.id) != -1){
-            e.stopEvent();
-            var index = this.grid.getView().findRowIndex(t);
-            var record = this.grid.store.getAt(index);
-            record.set(this.dataIndex, !record.data[this.dataIndex]);
-        }
-    },
-
-    renderer : function(v, p, record){
-        p.css += ' x-grid3-check-col-td'; 
-        return '<div class="x-grid3-check-col'+(v?'-on':'')+' x-grid3-cc-'+this.id+'">&#160;</div>';
-    }
-};
