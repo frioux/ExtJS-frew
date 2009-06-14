@@ -1,7 +1,28 @@
-Ext.ux.GroupSummary = Ext.extend(Ext.util.Observable, {
-    constructor: function(config){
+Ext.ns('Ext.ux.grid');
+
+/**
+ * @class Ext.ux.grid.GroupSummary
+ * @extends Ext.util.Observable
+ * A GridPanel plugin that enables dynamic column calculations and a dynamically
+ * updated grouped summary row.
+ */
+Ext.ux.grid.GroupSummary = Ext.extend(Ext.util.Observable, {
+    /**
+     * @cfg {Function} summaryRenderer Renderer example:<pre><code>
+summaryRenderer: function(v, params, data){
+    return ((v === 0 || v > 1) ? '(' + v +' Tasks)' : '(1 Task)');
+},
+     * </code></pre>
+     */
+    /**
+     * @cfg {String} summaryType (Optional) The type of
+     * calculation to be used for the column.  For options available see
+     * {@link #Calculations}.
+     */
+
+    constructor : function(config){
         Ext.apply(this, config);
-        Ext.ux.GroupSummary.superclass.constructor.call(this);
+        Ext.ux.grid.GroupSummary.superclass.constructor.call(this);
     },
     init : function(grid){
         this.grid = grid;
@@ -39,6 +60,10 @@ Ext.ux.GroupSummary = Ext.extend(Ext.util.Observable, {
         this.cellTpl.compile();
     },
 
+    /**
+     * Toggle the display of the summary row on/off
+     * @param {Boolean} visible <tt>true</tt> to show the summary, <tt>false</tt> to hide the summary.
+     */
     toggleSummaries : function(visible){
         var el = this.grid.getGridEl();
         if(el){
@@ -75,6 +100,11 @@ Ext.ux.GroupSummary = Ext.extend(Ext.util.Observable, {
         });
     },
 
+    /**
+     * @private
+     * @param {Object} rs
+     * @param {Object} cs
+     */
     calculate : function(rs, cs){
         var data = {}, r, c, cfg = this.cm.config, cf;
         for(var j = 0, jlen = rs.length; j < jlen; j++){
@@ -83,7 +113,7 @@ Ext.ux.GroupSummary = Ext.extend(Ext.util.Observable, {
                 c = cs[i];
                 cf = cfg[i];
                 if(cf.summaryType){
-                    data[c.name] = Ext.ux.GroupSummary.Calculations[cf.summaryType](data[c.name] || 0, r, c.name, data);
+                    data[c.name] = Ext.ux.grid.GroupSummary.Calculations[cf.summaryType](data[c.name] || 0, r, c.name, data);
                 }
             }
         }
@@ -128,7 +158,7 @@ Ext.ux.GroupSummary = Ext.extend(Ext.util.Observable, {
         }
     },
 
-    // Note: requires that all (or the first) record in the 
+    // Note: requires that all (or the first) record in the
     // group share the same group value. Returns false if the group
     // could not be found.
     refreshSummary : function(groupValue){
@@ -176,6 +206,17 @@ Ext.ux.GroupSummary = Ext.extend(Ext.util.Observable, {
         }
     },
 
+    /**
+     * Show a message in the summary row.
+     * <pre><code>
+grid.on('afteredit', function(){
+    var groupValue = 'Ext Forms: Field Anchoring';
+    summary.showSummaryMsg(groupValue, 'Updating Summary...');
+});
+     * </code></pre>
+     * @param {String} groupValue
+     * @param {String} msg Text to use as innerHTML for the summary row.
+     */
     showSummaryMsg : function(groupValue, msg){
         var gid = this.view.getGroupId(groupValue);
         var node = this.getSummaryNode(gid);
@@ -184,9 +225,30 @@ Ext.ux.GroupSummary = Ext.extend(Ext.util.Observable, {
         }
     }
 });
-Ext.grid.GroupSummary = Ext.ux.GroupSummary;
 
-Ext.ux.GroupSummary.Calculations = {
+//backwards compat
+Ext.grid.GroupSummary = Ext.ux.grid.GroupSummary;
+
+
+/**
+ * Calculation types for summary row:</p><div class="mdetail-params"><ul>
+ * <li><b><tt>sum</tt></b> : <div class="sub-desc"></div></li>
+ * <li><b><tt>count</tt></b> : <div class="sub-desc"></div></li>
+ * <li><b><tt>max</tt></b> : <div class="sub-desc"></div></li>
+ * <li><b><tt>min</tt></b> : <div class="sub-desc"></div></li>
+ * <li><b><tt>average</tt></b> : <div class="sub-desc"></div></li>
+ * </ul></div>
+ * <p>Custom calculations may be implemented.  An example of
+ * custom <code>summaryType=totalCost</code>:</p><pre><code>
+// define a custom summary function
+Ext.ux.grid.GroupSummary.Calculations['totalCost'] = function(v, record, field){
+    return v + (record.data.estimate * record.data.rate);
+};
+ * </code></pre>
+ * @property Calculations
+ */
+
+Ext.ux.grid.GroupSummary.Calculations = {
     'sum' : function(v, record, field){
         return v + (record.data[field]||0);
     },
@@ -213,16 +275,65 @@ Ext.ux.GroupSummary.Calculations = {
         return t === 0 ? 0 : t / c;
     }
 };
-Ext.grid.GroupSummary.Calculations = Ext.ux.GroupSummary.Calculations;
+Ext.grid.GroupSummary.Calculations = Ext.ux.grid.GroupSummary.Calculations;
 
-Ext.ux.HybridSummary = Ext.extend(Ext.ux.GroupSummary, {
+/**
+ * @class Ext.ux.grid.HybridSummary
+ * @extends Ext.ux.grid.GroupSummary
+ * Adds capability to specify the summary data for the group via json as illustrated here:
+ * <pre><code>
+{
+    data: [
+        {
+            projectId: 100,     project: 'House',
+            taskId:    112, description: 'Paint',
+            estimate:    6,        rate:     150,
+            due:'06/24/2007'
+        },
+        ...
+    ],
+
+    summaryData: {
+        'House': {
+            description: 14, estimate: 9,
+                   rate: 99, due: new Date(2009, 6, 29),
+                   cost: 999
+        }
+    }
+}
+ * </code></pre>
+ *
+ */
+Ext.ux.grid.HybridSummary = Ext.extend(Ext.ux.grid.GroupSummary, {
+    /**
+     * @private
+     * @param {Object} rs
+     * @param {Object} cs
+     */
     calculate : function(rs, cs){
         var gcol = this.view.getGroupField();
         var gvalue = rs[0].data[gcol];
         var gdata = this.getSummaryData(gvalue);
-        return gdata || Ext.ux.HybridSummary.superclass.calculate.call(this, rs, cs);
+        return gdata || Ext.ux.grid.HybridSummary.superclass.calculate.call(this, rs, cs);
     },
 
+    /**
+     * <pre><code>
+grid.on('afteredit', function(){
+    var groupValue = 'Ext Forms: Field Anchoring';
+    summary.showSummaryMsg(groupValue, 'Updating Summary...');
+    setTimeout(function(){ // simulate server call
+        // HybridSummary class implements updateSummaryData
+        summary.updateSummaryData(groupValue,
+            // create data object based on configured dataIndex
+            {description: 22, estimate: 888, rate: 888, due: new Date(), cost: 8});
+    }, 2000);
+});
+     * </code></pre>
+     * @param {String} groupValue
+     * @param {Object} data data object
+     * @param {Boolean} skipRefresh (Optional) Defaults to false
+     */
     updateSummaryData : function(groupValue, data, skipRefresh){
         var json = this.grid.store.reader.jsonData;
         if(!json.summaryData){
@@ -234,6 +345,11 @@ Ext.ux.HybridSummary = Ext.extend(Ext.ux.GroupSummary, {
         }
     },
 
+    /**
+     * Returns the summaryData for the specified groupValue or null.
+     * @param {String} groupValue
+     * @return {Object} summaryData
+     */
     getSummaryData : function(groupValue){
         var json = this.grid.store.reader.jsonData;
         if(json && json.summaryData){
@@ -242,4 +358,6 @@ Ext.ux.HybridSummary = Ext.extend(Ext.ux.GroupSummary, {
         return null;
     }
 });
-Ext.grid.HybridSummary = Ext.ux.HybridSummary;
+
+//backwards compat
+Ext.grid.HybridSummary = Ext.ux.grid.HybridSummary;
