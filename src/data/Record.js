@@ -197,7 +197,10 @@ rec.{@link #commit}(); // updates the view
      * @param {Object} value The value to set the field to.
      */
     set : function(name, value){
-        if(String(this.data[name]) == String(value)){
+        var isObj = (typeof value === 'object');
+        if(!isObj && String(this.data[name]) === String(value)){
+            return;
+        } else if (isObj && Ext.encode(this.data[name]) === Ext.encode(value)) {
             return;
         }
         this.dirty = true;
