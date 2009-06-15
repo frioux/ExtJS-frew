@@ -1,13 +1,12 @@
 Ext.onReady(function(){
     // shorthand
     var Tree = Ext.tree;
-    
+
     var tree = new Tree.TreePanel({
-        el:'tree-div',
-        useArrows:true,
-        autoScroll:true,
-        animate:true,
-        enableDD:true,
+        useArrows: true,
+        autoScroll: true,
+        animate: true,
+        enableDD: true,
         containerScroll: true,
         border: false,
         // auto create TreeLoader
@@ -16,12 +15,12 @@ Ext.onReady(function(){
         root: {
             nodeType: 'async',
             text: 'Ext JS',
-            draggable:false,
-            id:'source'
+            draggable: false,
+            id: 'source'
         }
     });
 
     // render the tree
-    tree.render();
+    tree.render('tree-div');
     tree.getRootNode().expand();
 });

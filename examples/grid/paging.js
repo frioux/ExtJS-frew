@@ -34,7 +34,6 @@ Ext.onReady(function(){
     }
 
     var grid = new Ext.grid.GridPanel({
-        el:'topic-grid',
         width:700,
         height:500,
         title:'ExtJS.com - Browse Forums',
@@ -109,7 +108,7 @@ Ext.onReady(function(){
     });
 
     // render it
-    grid.render();
+    grid.render('topic-grid');
 
     // trigger the data store load
     store.load({params:{start:0, limit:25}});

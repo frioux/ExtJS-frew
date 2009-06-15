@@ -6,7 +6,6 @@ var TreeTest = function(){
         init : function(){
             // yui-ext tree
             var tree = new Tree.TreePanel({
-                el:'tree',
                 animate:true,
                 autoScroll:true,
                 loader: new Tree.TreeLoader({dataUrl:'get-nodes.php'}),
@@ -28,7 +27,7 @@ var TreeTest = function(){
             tree.setRootNode(root);
 
             // render the tree
-            tree.render();
+            tree.render('tree');
             root.expand(false, /*no anim*/ false);
             tree.bodyFocus.fi.setFrameEl(tree.el);
             tree.getSelectionModel().select(tree.getRootNode());

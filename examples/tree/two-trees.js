@@ -6,7 +6,6 @@ var TreeTest = function(){
         init : function(){
             // yui-ext tree
             var tree = new Tree.TreePanel({
-                el:'tree',
                 animate:true, 
                 autoScroll:true,
                 loader: new Tree.TreeLoader({dataUrl:'get-nodes.php'}),
@@ -28,7 +27,7 @@ var TreeTest = function(){
             tree.setRootNode(root);
             
             // render the tree
-            tree.render();
+            tree.render('tree');
             
             root.expand(false, /*no anim*/ false);
             
@@ -36,7 +35,6 @@ var TreeTest = function(){
             
             // YUI tree            
             var tree2 = new Tree.TreePanel({
-                el:'tree2',
                 animate:true,
                 autoScroll:true,
                 //rootVisible: false,
@@ -60,7 +58,7 @@ var TreeTest = function(){
                 id:'yui'
             });
             tree2.setRootNode(root2);
-            tree2.render();
+            tree2.render('tree2');
             
             root2.expand(false, /*no anim*/ false);
         }

@@ -1,6 +1,5 @@
 Ext.onReady(function(){
     var propsGrid = new Ext.grid.PropertyGrid({
-        el:'props-grid',
         nameText: 'Properties Grid',
         width:300,
         autoHeight:true,
@@ -10,7 +9,7 @@ Ext.onReady(function(){
         }
     });
 
-    propsGrid.render();
+    propsGrid.render('props-grid');
 
     propsGrid.setSource({
         "(name)": "Properties Grid",
