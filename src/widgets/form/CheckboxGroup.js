@@ -157,6 +157,7 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
             }
             
             this.panel = new Ext.Panel(panelCfg);
+            this.panel.ownerCt = this;
             this.el = this.panel.getEl();
             
             if(this.forId && this.itemCls){
