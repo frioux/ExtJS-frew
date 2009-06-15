@@ -451,7 +451,7 @@ Ext.zip(
          * you may want to set this to true.
          * @type Boolean
          */
-        useShims : ((E.isIE && E.isIE6) || (E.isMac && E.isGecko && !E.isGecko3)),
+        useShims: E.isIE6 || (E.isMac && E.isGecko2),
 
         // inpired by a similar function in mootools library
         /**
