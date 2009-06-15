@@ -114,9 +114,9 @@
 .x-panel-reset .x-panel-body u,
 .x-panel-reset .x-panel-body ins          	  { text-decoration: underline }
 .x-panel-reset .x-panel-body br:before       { content: "\A" }
-.x-panel-reset .x-panel-body :before, :after { white-space: pre-line }
+.x-panel-reset .x-panel-body :before, .x-panel-reset .x-panel-body :after { white-space: pre-line }
 .x-panel-reset .x-panel-body center          { text-align: center }
-.x-panel-reset .x-panel-body :link, :visited { text-decoration: underline }
+.x-panel-reset .x-panel-body :link, .x-panel-reset .x-panel-body :visited { text-decoration: underline }
 .x-panel-reset .x-panel-body :focus          { outline: thin dotted invert }
 
 /* Begin bidirectionality settings (do not change) */
