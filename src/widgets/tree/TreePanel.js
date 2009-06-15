@@ -538,7 +538,7 @@ new Ext.tree.TreePanel({
             if(this.attributes.checked){
                 r.push(!a ? this : (a == 'id' ? this.id : this.attributes[a]));
             }
-        }
+        };
         startNode.cascade(f);
         return r;
     },

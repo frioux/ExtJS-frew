@@ -630,7 +630,7 @@ tb.{@link #doLayout}();             // refresh the layout
         this.initItems();
         var item, rem = [], items = [];
         this.items.each(function(i){
-            rem.push(i)
+            rem.push(i);
         });
         for (var i = 0, len = rem.length; i < len; ++i){
             item = rem[i];

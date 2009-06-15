@@ -471,7 +471,7 @@ function(grid, rowIndex, columnIndex, e) {
             contextmenu: this.onContextMenu,
             keydown: this.onKeyDown,
             scope: this
-        })
+        });
 
         this.relayEvents(c, ["mousedown","mouseup","mouseover","mouseout","keypress"]);
 
@@ -521,7 +521,7 @@ function(grid, rowIndex, columnIndex, e) {
 
     getState : function(){
         var o = {columns: []};
-        for(var i = 0, c; c = this.colModel.config[i]; i++){
+        for(var i = 0, c; (c = this.colModel.config[i]); i++){
             o.columns[i] = {
                 id: c.id,
                 width: c.width
