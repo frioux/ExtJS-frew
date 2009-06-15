@@ -200,8 +200,6 @@
   <file name="grid\buffer.html" path="grid" />
   <file name="grid\buffer.js" path="grid" />
   <file name="grid\CallBroker.js" path="grid" />
-  <file name="grid\custom-grid.html" path="grid" />
-  <file name="grid\custom-grid.js" path="grid" />
   <file name="grid\details.gif" path="grid" />
   <file name="grid\edit-grid.html" path="grid" />
   <file name="grid\edit-grid.js" path="grid" />
@@ -219,6 +217,8 @@
   <file name="grid\plants.xml" path="grid" />
   <file name="grid\progress-bar-pager.html" path="grid" />
   <file name="grid\progress-bar-pager.js" path="grid" />
+  <file name="grid\property-grid.html" path="grid" />
+  <file name="grid\property-grid.js" path="grid" />
   <file name="grid\row-editor.html" path="grid" />
   <file name="grid\row-editor.js" path="grid" />
   <file name="grid\row-editor-data.json" path="grid" />
@@ -387,12 +387,6 @@
   <file name="message-box\images\download.gif" path="message-box\images" />
   <file name="message-box\images\warning.gif" path="message-box\images" />
   <file name="multiselect\multiselect-demo.js" path="multiselect" />
-  <file name="multiselect\images\bottom2.gif" path="multiselect\images" />
-  <file name="multiselect\images\down2.gif" path="multiselect\images" />
-  <file name="multiselect\images\left2.gif" path="multiselect\images" />
-  <file name="multiselect\images\right2.gif" path="multiselect\images" />
-  <file name="multiselect\images\top2.gif" path="multiselect\images" />
-  <file name="multiselect\images\up2.gif" path="multiselect\images" />
   <file name="organizer\organizer.css" path="organizer" />
   <file name="organizer\organizer.html" path="organizer" />
   <file name="organizer\organizer.js" path="organizer" />
@@ -784,6 +778,12 @@
   <file name="ux\images\summary-bg.gif" path="ux\images" />
   <file name="ux\images\summary-group-bg.gif" path="ux\images" />
   <file name="ux\images\x-grouptabs-corners.gif" path="ux\images" />
+  <file name="ux\images\bottom2.gif" path="ux\images" />
+  <file name="ux\images\down2.gif" path="ux\images" />
+  <file name="ux\images\left2.gif" path="ux\images" />
+  <file name="ux\images\right2.gif" path="ux\images" />
+  <file name="ux\images\top2.gif" path="ux\images" />
+  <file name="ux\images\up2.gif" path="ux\images" />
   <target name="User Extension JS Pack" file="$output\ux\ux-all.js" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="ux\BufferView.js" />
     <include name="ux\CenterLayout.js" />
