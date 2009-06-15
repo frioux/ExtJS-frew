@@ -132,6 +132,7 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             h = size.height - target.getPadding('tb'),
             l = this.padding.left, t = this.padding.top,
             isStart = this.pack == 'start',
+            isRestore = ['stretch', 'stretchmax'].indexOf(this.align) == -1,
             stretchWidth = w - (this.padding.left + this.padding.right),
             extraHeight = 0;
             maxWidth = 0,
@@ -168,10 +169,10 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                 break;
         }
 
-        var isStart = this.pack == 'start',
-            availHeight = h - this.padding.top - this.padding.bottom - flexHeight,
+        var availHeight = h - this.padding.top - this.padding.bottom - flexHeight,
             leftOver = availHeight;
             heights = [],
+            restore = [],
             idx = 0;
             
 
@@ -194,7 +195,10 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             c.setPosition(l + cm.left, t);
             if(isStart && c.flex){
                 ch = Math.max(0, heights[idx++] + (leftOver-- > 0 ? 1 : 0));
-                c.setHeight(ch);
+                if(isRestore){
+                    restore.push(c.getWidth());
+                }
+                c.setSize('auto', ch);
             }else{
                 ch = c.getHeight();
             }
@@ -202,18 +206,24 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         });
         
         var availableWidth = w - this.padding.left - this.padding.right;
+        idx = 0;
         Ext.each(cs, function(c){
-            if(this.align == 'center'){
-                var diff = availableWidth - (c.getWidth() + cm.left + cm.right);
-                if(diff > 0){
-                    c.setPosition(l + cm.left + (diff/2), c.y);
-                }
-            }else if(this.align == 'stretch'){
+            if(this.align == 'stretch'){
                 c.setWidth((stretchWidth - (cm.left + cm.right)).constrain(
                     c.minWidth || 0, c.maxWidth || 1000000));
             }else if(this.align == 'stretchmax'){
                 c.setWidth((maxWidth - (cm.left + cm.right)).constrain(
                     c.minWidth || 0, c.maxWidth || 1000000));
+            }else{
+                if(this.align == 'center'){
+                    var diff = availableWidth - (c.getWidth() + cm.left + cm.right);
+                    if(diff > 0){
+                        c.setPosition(l + cm.left + (diff/2), c.y);
+                    }
+                }
+                if(isStart && c.flex){
+                    c.setWidth(restore[idx++]);
+                }
             }
         }, this);
     }
@@ -278,6 +288,7 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             h = size.height - target.getPadding('tb'),
             l = this.padding.left, t = this.padding.top,
             isStart = this.pack == 'start',
+            isRestore = ['stretch', 'stretchmax'].indexOf(this.align) == -1,
             stretchHeight = h - (this.padding.top + this.padding.bottom),
             extraWidth = 0;
             maxHeight = 0,
@@ -318,6 +329,7 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         var availWidth = w - this.padding.left - this.padding.right - flexWidth,
             leftOver = availWidth;
             widths = [],
+            restore = [],
             idx = 0;
             
 
@@ -340,7 +352,10 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             c.setPosition(l, t + cm.top);
             if(isStart && c.flex){
                 cw = Math.max(0, widths[idx++] + (leftOver-- > 0 ? 1 : 0));
-                c.setWidth(cw);
+                if(isRestore){
+                    restore.push(ch.getHeight());
+                }
+                c.setSize(cw, 'auto');
             }else{
                 cw = c.getWidth();
             }
@@ -351,17 +366,22 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         
         var availableHeight = h - this.padding.top - this.padding.bottom;
         Ext.each(cs, function(c){
-            if(this.align == 'middle'){
-                var diff = availableHeight - (c.getHeight() + cm.top + cm.bottom);
-                if(diff > 0){
-                    c.setPosition(c.x, t + cm.top + (diff/2));
-                }
-            }else if(this.align == 'stretch'){
+            if(this.align == 'stretch'){
                 c.setHeight((stretchHeight - (cm.top + cm.bottom)).constrain(
                     c.minHeight || 0, c.maxHeight || 1000000));
             }else if(this.align == 'stretchmax'){
                 c.setHeight((maxHeight - (cm.top + cm.bottom)).constrain(
                     c.minHeight || 0, c.maxHeight || 1000000));
+            }else{
+                if(this.align == 'middle'){
+                    var diff = availableHeight - (c.getHeight() + cm.top + cm.bottom);
+                    if(diff > 0){
+                        c.setPosition(c.x, t + cm.top + (diff/2));
+                    }
+                }
+                if(isStart && c.flex){
+                    c.setHeight(restore[idx++]);
+                }
             }
         }, this);
     }
