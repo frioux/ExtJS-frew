@@ -1,11 +1,10 @@
-
 /**
  * @class Ext.Button
  * @extends Ext.BoxComponent
  * Simple Button class
  * @cfg {String} text The button text to be used as innerHTML (html tags are accepted)
  * @cfg {String} icon The path to an image to display in the button (the image will be set as the background-image
- * CSS property of the button by default, so if you want a mixed icon/text button, set cls:"x-btn-text-icon")
+ * CSS property of the button by default, so if you want a mixed icon/text button, set cls:'x-btn-text-icon')
  * @cfg {Function} handler A function called when the button is clicked (can be used instead of click event).
  * The handler is passed the following parameters:<div class="mdetail-params"><ul>
  * <li><code>b</code> : Button<div class="sub-desc">This Button.</div></li>
@@ -78,8 +77,13 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      * @cfg {String} menuAlign
      * The position to align the menu to (see {@link Ext.Element#alignTo} for more details, defaults to 'tl-bl?').
      */
-    menuAlign : "tl-bl?",
+    menuAlign : 'tl-bl?',
 
+    /**
+     * @cfg {String} overflowText If used in a {@link Ext.Toolbar Toolbar}, the
+     * text to be used if this item is shown in the overflow menu. See also
+     * {@link Ext.Toolbar.Item}.<code>{@link Ext.Toolbar.Item#overflowText overflowText}</code>.
+     */
     /**
      * @cfg {String} iconCls
      * A css class which sets a background image to be used as the icon for this button
@@ -107,7 +111,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
 
     /**
      * @cfg {String} tooltipType
-     * The type of tooltip to use. Either "qtip" (default) for QuickTips or "title" for title attribute.
+     * The type of tooltip to use. Either 'qtip' (default) for QuickTips or 'title' for title attribute.
      */
     tooltipType : 'qtip',
 
@@ -119,17 +123,17 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      * a focussable element.</p>
      * <p>Defaults to <b><tt>"button:first-child"</tt></b>.</p>
      */
-    buttonSelector : "button:first-child",
+    buttonSelector : 'button:first-child',
 
     /**
      * @cfg {String} scale
      * <p>(Optional) The size of the Button. Three values are allowed:</p>
      * <ul class="mdetail-params">
-     * <li>"small"<div class="sub-desc">Results in the button element being 16px high.</div></li>
-     * <li>"medium"<div class="sub-desc">Results in the button element being 24px high.</div></li>
-     * <li>"large"<div class="sub-desc">Results in the button element being 32px high.</div></li>
+     * <li>'small'<div class="sub-desc">Results in the button element being 16px high.</div></li>
+     * <li>'medium'<div class="sub-desc">Results in the button element being 24px high.</div></li>
+     * <li>'large'<div class="sub-desc">Results in the button element being 32px high.</div></li>
      * </ul>
-     * <p>Defaults to <b><tt>"small"</tt></b>.</p>
+     * <p>Defaults to <b><tt>'small'</tt></b>.</p>
      */
     scale: 'small',
 
@@ -137,12 +141,12 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      * @cfg {String} iconAlign
      * <p>(Optional) The side of the Button box to render the icon. Four values are allowed:</p>
      * <ul class="mdetail-params">
-     * <li>"top"<div class="sub-desc"></div></li>
-     * <li>"right"<div class="sub-desc"></div></li>
-     * <li>"bottom"<div class="sub-desc"></div></li>
-     * <li>"left"<div class="sub-desc"></div></li>
+     * <li>'top'<div class="sub-desc"></div></li>
+     * <li>'right'<div class="sub-desc"></div></li>
+     * <li>'bottom'<div class="sub-desc"></div></li>
+     * <li>'left'<div class="sub-desc"></div></li>
      * </ul>
-     * <p>Defaults to <b><tt>"left"</tt></b>.</p>
+     * <p>Defaults to <b><tt>'left'</tt></b>.</p>
      */
     iconAlign : 'left',
 
@@ -151,10 +155,10 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      * <p>(Optional) The side of the Button box to render the arrow if the button has an associated {@link #menu}.
      * Two values are allowed:</p>
      * <ul class="mdetail-params">
-     * <li>"right"<div class="sub-desc"></div></li>
-     * <li>"bottom"<div class="sub-desc"></div></li>
+     * <li>'right'<div class="sub-desc"></div></li>
+     * <li>'bottom'<div class="sub-desc"></div></li>
      * </ul>
-     * <p>Defaults to <b><tt>"right"</tt></b>.</p>
+     * <p>Defaults to <b><tt>'right'</tt></b>.</p>
      */
     arrowAlign : 'right',
 
@@ -186,14 +190,14 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
              * @param {Button} this
              * @param {EventObject} e The click event
              */
-            "click",
+            'click',
             /**
              * @event toggle
-             * Fires when the "pressed" state of this button changes (only if enableToggle = true)
+             * Fires when the 'pressed' state of this button changes (only if enableToggle = true)
              * @param {Button} this
              * @param {Boolean} pressed
              */
-            "toggle",
+            'toggle',
             /**
              * @event mouseover
              * Fires when the mouse hovers over the button
@@ -343,7 +347,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
             });
             
             // new functionality for monitoring on the document level
-            //this.mon(btn, "mouseout", this.onMouseOut, this);
+            //this.mon(btn, 'mouseout', this.onMouseOut, this);
         }
 
         if(this.menu){
@@ -434,7 +438,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     // private
     doAutoWidth : function(){
         if(this.el && this.text && this.width === undefined){
-            this.el.setWidth("auto");
+            this.el.setWidth('auto');
             if(Ext.isIE7 && Ext.isStrict){
                 var ib = this.btnEl;
                 if(ib && ib.getWidth() > 20){
@@ -470,7 +474,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     setText : function(text){
         this.text = text;
         if(this.el){
-            this.el.child("td.x-btn-mc " + this.buttonSelector).update(text);
+            this.el.child('td.x-btn-mc ' + this.buttonSelector).update(text);
         }
         this.doAutoWidth();
         return this;
@@ -493,10 +497,10 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     toggle : function(state, suppressEvent){
         state = state === undefined ? !this.pressed : !!state;
         if(state != this.pressed){
-            this.el[state ? 'addClass' : 'removeClass']("x-btn-pressed");
+            this.el[state ? 'addClass' : 'removeClass']('x-btn-pressed');
             this.pressed = state;
             if(!suppressEvent){
-                this.fireEvent("toggle", this, state);
+                this.fireEvent('toggle', this, state);
                 if(this.toggleHandler){
                     this.toggleHandler.call(this.scope || this, this, state);
                 }
@@ -575,9 +579,9 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
             if(this.menu && !this.menu.isVisible() && !this.ignoreNextClick){
                 this.showMenu();
             }
-            this.fireEvent("click", this, e);
+            this.fireEvent('click', this, e);
             if(this.handler){
-                //this.el.removeClass("x-btn-over");
+                //this.el.removeClass('x-btn-over');
                 this.handler.call(this.scope || this, this, e);
             }
         }
@@ -598,7 +602,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         if(!this.disabled){
             var internal = e.within(this.el,  true);
             if(!internal){
-                this.el.addClass("x-btn-over");
+                this.el.addClass('x-btn-over');
                 if(!this.monitoringMouseOver){
                     Ext.getDoc().on('mouseover', this.monitorMouseOver, this);
                     this.monitoringMouseOver = true;
@@ -625,7 +629,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     // private
     onMouseOut : function(e){
         var internal = e.within(this.el) && e.target != this.el.dom;
-        this.el.removeClass("x-btn-over");
+        this.el.removeClass('x-btn-over');
         this.fireEvent('mouseout', this, e);
         if(this.isMenuTriggerOut(e, internal)){
             this.fireEvent('menutriggerout', this, this.menu, e);
@@ -634,12 +638,12 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     // private
     onFocus : function(e){
         if(!this.disabled){
-            this.el.addClass("x-btn-focus");
+            this.el.addClass('x-btn-focus');
         }
     },
     // private
     onBlur : function(e){
-        this.el.removeClass("x-btn-focus");
+        this.el.removeClass('x-btn-focus');
     },
 
     // private
@@ -650,26 +654,26 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     // private
     onMouseDown : function(e){
         if(!this.disabled && e.button == 0){
-            this.getClickEl(e).addClass("x-btn-click");
+            this.getClickEl(e).addClass('x-btn-click');
             Ext.getDoc().on('mouseup', this.onMouseUp, this);
         }
     },
     // private
     onMouseUp : function(e){
         if(e.button == 0){
-            this.getClickEl(e, true).removeClass("x-btn-click");
+            this.getClickEl(e, true).removeClass('x-btn-click');
             Ext.getDoc().un('mouseup', this.onMouseUp, this);
         }
     },
     // private
     onMenuShow : function(e){
         this.ignoreNextClick = 0;
-        this.el.addClass("x-btn-menu-active");
+        this.el.addClass('x-btn-menu-active');
         this.fireEvent('menushow', this, this.menu);
     },
     // private
     onMenuHide : function(e){
-        this.el.removeClass("x-btn-menu-active");
+        this.el.removeClass('x-btn-menu-active');
         this.ignoreNextClick = this.restoreClick.defer(250, this);
         this.fireEvent('menuhide', this, this.menu);
     },
@@ -712,7 +716,7 @@ Ext.ButtonToggleMgr = function(){
                g = groups[btn.toggleGroup] = [];
            }
            g.push(btn);
-           btn.on("toggle", toggleGroup);
+           btn.on('toggle', toggleGroup);
        },
 
        unregister : function(btn){
@@ -722,7 +726,7 @@ Ext.ButtonToggleMgr = function(){
            var g = groups[btn.toggleGroup];
            if(g){
                g.remove(btn);
-               btn.un("toggle", toggleGroup);
+               btn.un('toggle', toggleGroup);
            }
        },
 
