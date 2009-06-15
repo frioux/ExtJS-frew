@@ -182,7 +182,7 @@ Ext.Direct.addProvider(
     },
 
     removeProvider : function(id){
-        var provider = id.id ? id : providers[id.id];
+        var provider = id.id ? id : this.providers[id.id];
         provider.un('data', this.onProviderData, this);
         provider.un('exception', this.onProviderException, this);
         delete this.providers[provider.id];

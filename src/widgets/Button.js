@@ -569,7 +569,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         if(e){
             e.preventDefault();
         }
-        if(e.button != 0){
+        if(e.button !== 0){
             return;
         }
         if(!this.disabled){
@@ -653,14 +653,14 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
 
     // private
     onMouseDown : function(e){
-        if(!this.disabled && e.button == 0){
+        if(!this.disabled && e.button === 0){
             this.getClickEl(e).addClass('x-btn-click');
             Ext.getDoc().on('mouseup', this.onMouseUp, this);
         }
     },
     // private
     onMouseUp : function(e){
-        if(e.button == 0){
+        if(e.button === 0){
             this.getClickEl(e, true).removeClass('x-btn-click');
             Ext.getDoc().un('mouseup', this.onMouseUp, this);
         }

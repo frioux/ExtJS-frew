@@ -527,9 +527,9 @@ Ext.Window = Ext.extend(Ext.Panel, {
         var b = this.getBox(false);
         b.callback = this.afterShow.createDelegate(this, [true], false);
         b.scope = this;
-        b.duration = .25;
+        b.duration = 0.25;
         b.easing = 'easeNone';
-        b.opacity = .5;
+        b.opacity = 0.5;
         b.block = true;
         this.el.setStyle('display', 'none');
         this.proxy.shift(b);
@@ -581,7 +581,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
 
     // private
     animHide : function(){
-        this.proxy.setOpacity(.5);
+        this.proxy.setOpacity(0.5);
         this.proxy.show();
         var tb = this.getBox(false);
         this.proxy.setBox(tb);
@@ -589,7 +589,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
         var b = this.animateTarget.getBox();
         b.callback = this.afterHide;
         b.scope = this;
-        b.duration = .25;
+        b.duration = 0.25;
         b.easing = 'easeNone';
         b.block = true;
         b.opacity = 0;

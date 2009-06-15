@@ -155,7 +155,9 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
             var re = '(?:';
             for(var i = 0; i < dd.length; i++){
                 re += dd[i];
-                if(i != dd.length-1) re += '|';
+                if(i != dd.length-1){
+                    re += '|';
+                }
             }
             this.disabledDatesRE = new RegExp(re + ')');
         }
@@ -237,9 +239,10 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
         var m = [
              '<table cellspacing="0">',
                 '<tr><td class="x-date-left"><a href="#" title="', this.prevText ,'">&#160;</a></td><td class="x-date-middle" align="center"></td><td class="x-date-right"><a href="#" title="', this.nextText ,'">&#160;</a></td></tr>',
-                '<tr><td colspan="3"><table class="x-date-inner" cellspacing="0"><thead><tr>'];
-        var dn = this.dayNames;
-        for(var i = 0; i < 7; i++){
+                '<tr><td colspan="3"><table class="x-date-inner" cellspacing="0"><thead><tr>'],
+                dn = this.dayNames,
+                i;
+        for(i = 0; i < 7; i++){
             var d = this.startDay+i;
             if(d > 6){
                 d = d-7;
@@ -247,8 +250,8 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
             m.push('<th><span>', dn[d].substr(0,1), '</span></th>');
         }
         m[m.length] = '</tr></thead><tbody><tr>';
-        for(var i = 0; i < 42; i++) {
-            if(i % 7 == 0 && i != 0){
+        for(i = 0; i < 42; i++) {
+            if(i % 7 === 0 && i !== 0){
                 m[m.length] = '</tr><tr>';
             }
             m[m.length] = '<td><a href="#" hidefocus="on" class="x-date-date" tabIndex="1"><em><span></span></em></a></td>';
@@ -266,14 +269,14 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
         this.el = Ext.get(el);
         this.eventEl = Ext.get(el.firstChild);
 
-        new Ext.util.ClickRepeater(this.el.child('td.x-date-left a'), {
+        this.prevRepeater = new Ext.util.ClickRepeater(this.el.child('td.x-date-left a'), {
             handler: this.showPrevMonth,
             scope: this,
             preventDefault:true,
             stopDefault:true
         });
 
-        new Ext.util.ClickRepeater(this.el.child('td.x-date-right a'), {
+        this.nextRepeater = new Ext.util.ClickRepeater(this.el.child('td.x-date-right a'), {
             handler: this.showNextMonth,
             scope: this,
             preventDefault:true,
@@ -287,27 +290,35 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
 
         var kn = new Ext.KeyNav(this.eventEl, {
             'left' : function(e){
-                e.ctrlKey ?
-                    this.showPrevMonth() :
-                    this.update(this.activeDate.add('d', -1));
+                if(e.ctrlKey){
+                    this.showPrevMonth();
+                }else{
+                    this.update(this.activeDate.add('d', -1));    
+                }
             },
 
             'right' : function(e){
-                e.ctrlKey ?
-                    this.showNextMonth() :
-                    this.update(this.activeDate.add('d', 1));
+                if(e.ctrlKey){
+                    this.showNextMonth();
+                }else{
+                    this.update(this.activeDate.add('d', 1));    
+                }
             },
 
             'up' : function(e){
-                e.ctrlKey ?
-                    this.showNextYear() :
+                if(e.ctrlKey){
+                    this.showNextYear();
+                }else{
                     this.update(this.activeDate.add('d', -7));
+                }
             },
 
             'down' : function(e){
-                e.ctrlKey ?
-                    this.showPrevYear() :
+                if(e.ctrlKey){
+                    this.showPrevYear();
+                }else{
                     this.update(this.activeDate.add('d', 7));
+                }
             },
 
             'pageUp' : function(e){
@@ -368,7 +379,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
                 buf.push(
                     '<tr><td class="x-date-mp-month"><a href="#">', this.monthNames[i].substr(0, 3), '</a></td>',
                     '<td class="x-date-mp-month x-date-mp-sep"><a href="#">', this.monthNames[i+6].substr(0, 3), '</a></td>',
-                    i == 0 ?
+                    i === 0 ?
                     '<td class="x-date-mp-ybtn" align="center"><a class="x-date-mp-prev"></a></td><td class="x-date-mp-ybtn" align="center"><a class="x-date-mp-next"></a></td></tr>' :
                     '<td class="x-date-mp-year"><a href="#"></a></td><td class="x-date-mp-year"><a href="#"></a></td></tr>'
                 );
@@ -391,10 +402,10 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
 
             this.mpMonths.each(function(m, a, i){
                 i += 1;
-                if((i%2) == 0){
-                    m.dom.xmonth = 5 + Math.round(i * .5);
+                if((i%2) === 0){
+                    m.dom.xmonth = 5 + Math.round(i * 0.5);
                 }else{
-                    m.dom.xmonth = Math.round((i-1) * .5);
+                    m.dom.xmonth = Math.round((i-1) * 0.5);
                 }
             });
         }
@@ -412,7 +423,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
         this.mpSelYear = (this.activeDate || this.value).getFullYear();
         this.updateMPYear(this.mpSelYear);
 
-        this.monthPicker.slideIn('t', {duration:.2});
+        this.monthPicker.slideIn('t', {duration:0.2});
     },
 
     // private
@@ -421,12 +432,12 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
         var ys = this.mpYears.elements;
         for(var i = 1; i <= 10; i++){
             var td = ys[i-1], y2;
-            if((i%2) == 0){
-                y2 = y + Math.round(i * .5);
+            if((i%2) === 0){
+                y2 = y + Math.round(i * 0.5);
                 td.firstChild.innerHTML = y2;
                 td.xyear = y2;
             }else{
-                y2 = y - (5-Math.round(i * .5));
+                y2 = y - (5-Math.round(i * 0.5));
                 td.firstChild.innerHTML = y2;
                 td.xyear = y2;
             }
@@ -462,12 +473,12 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
             this.update(d);
             this.hideMonthPicker();
         }
-        else if(pn = el.up('td.x-date-mp-month', 2)){
+        else if((pn = el.up('td.x-date-mp-month', 2))){
             this.mpMonths.removeClass('x-date-mp-sel');
             pn.addClass('x-date-mp-sel');
             this.mpSelMonth = pn.dom.xmonth;
         }
-        else if(pn = el.up('td.x-date-mp-year', 2)){
+        else if((pn = el.up('td.x-date-mp-year', 2))){
             this.mpYears.removeClass('x-date-mp-sel');
             pn.addClass('x-date-mp-sel');
             this.mpSelYear = pn.dom.xyear;
@@ -484,11 +495,11 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
     onMonthDblClick : function(e, t){
         e.stopEvent();
         var el = new Ext.Element(t), pn;
-        if(pn = el.up('td.x-date-mp-month', 2)){
+        if((pn = el.up('td.x-date-mp-month', 2))){
             this.update(new Date(this.mpSelYear, pn.dom.xmonth, (this.activeDate || this.value).getDate()));
             this.hideMonthPicker();
         }
-        else if(pn = el.up('td.x-date-mp-year', 2)){
+        else if((pn = el.up('td.x-date-mp-year', 2))){
             this.update(new Date(pn.dom.xyear, this.mpSelMonth, (this.activeDate || this.value).getDate()));
             this.hideMonthPicker();
         }
@@ -500,7 +511,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
             if(disableAnim === true){
                 this.monthPicker.hide();
             }else{
-                this.monthPicker.slideOut('t', {duration:.2});
+                this.monthPicker.slideOut('t', {duration:0.2});
             }
         }
     },

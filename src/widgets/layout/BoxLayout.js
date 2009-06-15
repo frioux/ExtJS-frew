@@ -134,7 +134,7 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             isStart = this.pack == 'start',
             isRestore = ['stretch', 'stretchmax'].indexOf(this.align) == -1,
             stretchWidth = w - (this.padding.left + this.padding.right),
-            extraHeight = 0;
+            extraHeight = 0,
             maxWidth = 0,
             totalFlex = 0,
             flexHeight = 0,
@@ -153,7 +153,7 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             flexHeight += margin + (c.flex ? 0 : ch);
             maxWidth = Math.max(maxWidth, c.getWidth() + cm.left + cm.right);
         });
-        extraHeight = h - extraHeight - this.padding.top - this.padding.bottom
+        extraHeight = h - extraHeight - this.padding.top - this.padding.bottom;
         
         var innerCtWidth = maxWidth + this.padding.left + this.padding.right;
         switch(this.align){
@@ -233,7 +233,7 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
      */
 });
 
-Ext.Container.LAYOUTS['vbox'] = Ext.layout.VBoxLayout;
+Ext.Container.LAYOUTS.vbox = Ext.layout.VBoxLayout;
 
 /**
  * @class Ext.layout.HBoxLayout
@@ -290,7 +290,7 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             isStart = this.pack == 'start',
             isRestore = ['stretch', 'stretchmax'].indexOf(this.align) == -1,
             stretchHeight = h - (this.padding.top + this.padding.bottom),
-            extraWidth = 0;
+            extraWidth = 0,
             maxHeight = 0,
             totalFlex = 0,
             flexWidth = 0,
@@ -309,7 +309,7 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             flexWidth += margin + (c.flex ? 0 : cw);
             maxHeight = Math.max(maxHeight, c.getHeight() + cm.top + cm.bottom);
         });
-        extraWidth = w - extraWidth - this.padding.left - this.padding.right
+        extraWidth = w - extraWidth - this.padding.left - this.padding.right;
         
         var innerCtHeight = maxHeight + this.padding.top + this.padding.bottom;
         switch(this.align){
@@ -354,7 +354,7 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             if(isStart && c.flex){
                 cw = Math.max(0, widths[idx++] + (leftOver-- > 0 ? 1 : 0));
                 if(isRestore){
-                    restore.push(ch.getHeight());
+                    restore.push(c.getHeight());
                 }
                 c.setSize(cw, availableHeight);
             }else{
@@ -391,4 +391,4 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
      */
 });
 
-Ext.Container.LAYOUTS['hbox'] = Ext.layout.HBoxLayout;
+Ext.Container.LAYOUTS.hbox = Ext.layout.HBoxLayout;

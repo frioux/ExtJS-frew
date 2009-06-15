@@ -696,11 +696,11 @@ new Ext.Panel({
     deferHeight : true,
     // private
     expandDefaults: {
-        duration : .25
+        duration : 0.25
     },
     // private
     collapseDefaults : {
-        duration : .25
+        duration : 0.25
     },
 
     // private
@@ -882,7 +882,9 @@ new Ext.Panel({
         Ext.Panel.superclass.onRender.call(this, ct, position);
         this.createClasses();
 
-        var el = this.el, d = el.dom;
+        var el = this.el, 
+            d = el.dom,
+            bw;
         el.addClass(this.baseCls);
         if(d.firstChild){ // existing markup
             this.header = el.down('.'+this.headerCls);
@@ -915,7 +917,7 @@ new Ext.Panel({
             this.createElement('bwrap', d);
 
             // append the mid and bottom frame to the bwrap
-            var bw = this.bwrap.dom;
+            bw = this.bwrap.dom;
             var ml = d.childNodes[1], bl = d.childNodes[2];
             bw.appendChild(ml);
             bw.appendChild(bl);
@@ -934,7 +936,7 @@ new Ext.Panel({
             this.createElement('bwrap', d);
 
             // append the mid and bottom frame to the bwrap
-            var bw = this.bwrap.dom;
+            bw = this.bwrap.dom;
             this.createElement('tbar', bw);
             this.createElement('body', bw);
             this.createElement('bbar', bw);
@@ -1064,7 +1066,7 @@ new Ext.Panel({
                 scope: this,
                 afterlayout: this.syncHeight,
                 remove: this.syncHeight
-            })
+            });
         }, this);
     },
 
@@ -1216,6 +1218,9 @@ new Ext.Panel({
                     h = Math.max(bdh + old - h, 0);
                     if(bdh != h){
                         bd.setHeight(h);
+                        if(Ext.isIE && h <= 0){
+                            return;
+                        }
                         var sz = bd.getSize();
                         this.fireEvent('bodyresize', sz.width, sz.height);
                     }
@@ -1479,7 +1484,9 @@ new Ext.Panel({
                         }
                     }
                     if(this.fbar){
-                        var f = this.fbar, fWidth = 1; strict = Ext.isStrict;
+                        var f = this.fbar, 
+                            fWidth = 1,
+                            strict = Ext.isStrict;
                         if(this.buttonAlign == 'left'){
                            fWidth = w - f.container.getFrameWidth('lr');
                         }else{
@@ -1506,7 +1513,7 @@ new Ext.Panel({
                 }
 
                 if(typeof h == 'number'){
-                    h = this.adjustBodyHeight(h - this.getFrameHeight());
+                    h = Math.max(0, this.adjustBodyHeight(h - this.getFrameHeight()));
                     this.body.setHeight(h);
                 }else if(h == 'auto'){
                     this.body.setHeight(h);

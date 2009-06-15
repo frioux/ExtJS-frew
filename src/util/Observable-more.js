@@ -16,7 +16,7 @@ Ext.apply(Ext.util.Observable.prototype, function(){
             e.before = [];
             e.after = [];
             
-            function makeCall(fn, scope, args){
+            var makeCall = function(fn, scope, args){
                 if (!Ext.isEmpty(v = fn.apply(scope || obj, args))) {
                     if (Ext.isObject(v)) {
                         returnValue = !Ext.isEmpty(v.returnValue) ? v.returnValue : v;
@@ -30,7 +30,7 @@ Ext.apply(Ext.util.Observable.prototype, function(){
                             returnValue = v;
                         }
                 }
-            }
+            };
             
             this[method] = function(){
                 var args = Ext.toArray(arguments);
@@ -80,17 +80,17 @@ Ext.apply(Ext.util.Observable.prototype, function(){
         
         removeMethodListener: function(method, fn, scope){
             var e = getMethodEvent.call(this, method), found = false;
-            Ext.each(e.before, function(b){
+            Ext.each(e.before, function(b, i, arr){
                 if (b.fn == fn && b.scope == scope) {
-                    b.splice(i, 1);
+                    arr.splice(i, 1);
                     found = true;
                     return false;
                 }
             });
             if (!found) {
-                Ext.each(e.after, function(a){
+                Ext.each(e.after, function(a, i, arr){
                     if (a.fn == fn && a.scope == scope) {
-                        a.splice(i, 1);
+                        arr.splice(i, 1);
                         return false;
                     }
                 });
@@ -108,7 +108,7 @@ Ext.apply(Ext.util.Observable.prototype, function(){
                 return function(){
                     return me.fireEvent.apply(me, [ename].concat(Ext.toArray(arguments)));
                 };
-            };
+            }
             Ext.each(events, function(ename){
                 me.events[ename] = me.events[ename] || true;
                 o.on(ename, createHandler(ename), me);
@@ -132,7 +132,7 @@ Ext.apply(Ext.util.Observable.prototype, function(){
                 ce.bubble = true;
             });
         }
-    }
+    };
 }());
 
 

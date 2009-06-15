@@ -64,8 +64,7 @@ Ext.ProgressBar = Ext.extend(Ext.BoxComponent, {
             '</div>'
         );
 
-        this.el = position 
-        	? tpl.insertBefore(position, {cls: this.baseCls}, true)
+        this.el = position ? tpl.insertBefore(position, {cls: this.baseCls}, true)
         	: tpl.append(ct, {cls: this.baseCls}, true);
 		        
         if(this.id){
@@ -192,7 +191,7 @@ myAction.on('complete', function(){
             this.waitTimer = Ext.TaskMgr.start({
                 run: function(i){
                     var inc = o.increment || 10;
-                    this.updateProgress(((((i+inc)%inc)+1)*(100/inc))*.01, null, o.animate);
+                    this.updateProgress(((((i+inc)%inc)+1)*(100/inc))*0.01, null, o.animate);
                 },
                 interval: o.interval || 1000,
                 duration: o.duration,
@@ -213,7 +212,7 @@ myAction.on('complete', function(){
      * @return {Boolean} True if waiting, else false
      */
     isWaiting : function(){
-        return this.waitTimer != null;
+        return this.waitTimer !== null;
     },
 
     /**

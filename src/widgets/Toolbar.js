@@ -244,7 +244,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
      */
 });
 
-Ext.Container.LAYOUTS['toolbar'] = Ext.layout.ToolbarLayout;
+Ext.Container.LAYOUTS.toolbar = Ext.layout.ToolbarLayout;
 
 /**
  * @class Ext.Toolbar
@@ -383,7 +383,7 @@ Ext.extend(T, Ext.Container, {
             if(!this.autoCreate){
                 this.autoCreate = {
                     cls: this.toolbarCls + ' x-small-editor'
-                }
+                };
             }
             this.el = ct.createChild(Ext.apply({ id: this.id },this.autoCreate), position);
         }

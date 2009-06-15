@@ -154,7 +154,7 @@ Ext.TabPanel = Ext.extend(Ext.Panel,  {
      * @cfg {Float} scrollDuration The number of milliseconds that each scroll animation should last (defaults
      * to <tt>.35</tt>). Only applies when <tt>{@link #animScroll} = true</tt>.
      */
-    scrollDuration : .35,
+    scrollDuration : 0.35,
     /**
      * @cfg {Boolean} animScroll True to animate tab scrolling so that hidden tabs slide smoothly into view (defaults
      * to <tt>true</tt>).  Only applies when <tt>{@link #enableTabScroll} = true</tt>.
@@ -452,7 +452,7 @@ new Ext.TabPanel({
 
     // private
     onStripMouseDown : function(e){
-        if(e.button != 0){
+        if(e.button !== 0){
             return;
         }
         e.preventDefault();
@@ -987,7 +987,7 @@ new Ext.TabPanel({
     // private
     updateScrollButtons : function(){
         var pos = this.getScrollPos();
-        this.scrollLeft[pos == 0 ? 'addClass' : 'removeClass']('x-tab-scroller-left-disabled');
+        this.scrollLeft[pos === 0 ? 'addClass' : 'removeClass']('x-tab-scroller-left-disabled');
         this.scrollRight[pos >= (this.getScrollWidth()-this.getScrollArea()) ? 'addClass' : 'removeClass']('x-tab-scroller-right-disabled');
     },
 

@@ -56,7 +56,7 @@ Ext.SplitButton = Ext.extend(Ext.Button, {
     onRender : function(){
         Ext.SplitButton.superclass.onRender.apply(this, arguments);
         if(this.arrowTooltip){
-            btn.child(this.arrowSelector).dom[this.tooltipType] = this.arrowTooltip;
+            this.el.child(this.arrowSelector).dom[this.tooltipType] = this.arrowTooltip;
         }
     },
 

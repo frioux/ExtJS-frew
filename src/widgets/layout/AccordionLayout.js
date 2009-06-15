@@ -161,13 +161,13 @@ Ext.layout.AccordionLayout = Ext.extend(Ext.layout.FitLayout, {
             if(item.rendered && item.collapsed){
                 item.expand();
             }else{
-                this.activeItem = c;
+                this.activeItem = item;
             }
         }
 
     }
 });
-Ext.Container.LAYOUTS['accordion'] = Ext.layout.AccordionLayout;
+Ext.Container.LAYOUTS.accordion = Ext.layout.AccordionLayout;
 
 //backwards compat
 Ext.layout.Accordion = Ext.layout.AccordionLayout;

@@ -282,7 +282,7 @@ Ext.debug.DomTree = Ext.extend(Ext.tree.TreePanel, {
             }
             cn.select();
             var a = cn.ui.anchor;
-            treeEl.dom.scrollTop = Math.max(0 ,a.offsetTop-10);
+            this.getTreeEl().dom.scrollTop = Math.max(0 ,a.offsetTop-10);
             //treeEl.dom.scrollLeft = Math.max(0 ,a.offsetLeft-10); no likey
             cn.highlight();
             return true;

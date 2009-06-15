@@ -324,7 +324,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
 
     // private
     onAdd : function(ds, records, index){
-        if(this.all.getCount() == 0){
+        if(this.all.getCount() === 0){
             this.refresh();
             return;
         }
@@ -344,7 +344,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
         this.deselect(index);
         this.all.removeElement(index, true);
         this.updateIndexes(index);
-        if (this.store.getCount() == 0){
+        if (this.store.getCount() === 0){
             this.refresh();
         }
     },
@@ -443,7 +443,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
         if(item){
             this.fireEvent("contextmenu", this, this.indexOf(item), item, e);
         }else{
-            this.fireEvent("containercontextmenu", this, e)
+            this.fireEvent("containercontextmenu", this, e);
         }
     },
 
@@ -520,7 +520,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
      * @return {Number} The node count
      */
     getSelectionCount : function(){
-        return this.selected.getCount()
+        return this.selected.getCount();
     },
 
     /**
