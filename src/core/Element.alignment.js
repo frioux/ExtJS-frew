@@ -60,8 +60,8 @@ Ext.Element.addMethods({
             dom = me.dom;
 	    
 	    function action(){
-            fly(dom).alignTo(el, alignment, offsets, animate);
-            Ext.callback(callback, fly(dom));
+            Ext.fly(dom).alignTo(el, alignment, offsets, animate);
+            Ext.callback(callback, Ext.fly(dom));
         };
         
         Ext.EventManager.onWindowResize(action, me);
