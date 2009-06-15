@@ -164,44 +164,51 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
     initComponent : function(){
         var pagingItems = [this.first = new T.Button({
             tooltip: this.firstText,
+            overflowText: this.firstText,
             iconCls: "x-tbar-page-first",
             disabled: true,
-            handler: this.onClick,
+            handler: this.onFirstClick,
             scope: this
         }), this.prev = new T.Button({
             tooltip: this.prevText,
+            overflowText: this.prevText,
             iconCls: "x-tbar-page-prev",
             disabled: true,
-            handler: this.onClick,
+            handler: this.onPrevClick,
             scope: this
         }), '-', this.beforePageText,
-        this.inputItem = new T.Item({
-            height: 18,
-            autoEl: {
-                tag: "input",
-                type: "text",
-                size: "3",
-                value: "1",
-                cls: "x-tbar-page-number"
+        this.inputItem = new Ext.form.NumberField({
+            cls: 'x-tbar-page-number',
+            allowDecimals: false,
+            allowNegative: false,
+            enableKeyEvents: true,
+            selectOnFocus: true, 
+            listeners: {
+                scope: this,
+                keydown: this.onPagingKeyDown,
+                blur: this.onPagingBlur
             }
         }), this.afterTextItem = new T.TextItem({
             text: String.format(this.afterPageText, 1)
         }), '-', this.next = new T.Button({
             tooltip: this.nextText,
+            overflowText: this.nextText,
             iconCls: "x-tbar-page-next",
             disabled: true,
-            handler: this.onClick,
+            handler: this.onNextClick,
             scope: this
         }), this.last = new T.Button({
             tooltip: this.lastText,
+            overflowText: this.lastText,
             iconCls: "x-tbar-page-last",
             disabled: true,
-            handler: this.onClick,
+            handler: this.onLastClick,
             scope: this
         }), '-', this.refresh = new T.Button({
             tooltip: this.refreshText,
+            overflowText: this.refreshText,
             iconCls: "x-tbar-loading",
-            handler: this.onClick,
+            handler: this.onRefreshClick,
             scope: this
         })];
 
@@ -255,12 +262,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
     },
 
     // private
-    onFirstLayout : function(ii) {
-        this.mon(this.inputItem.el, "keydown", this.onPagingKeyDown, this);
-        this.mon(this.inputItem.el, "blur", this.onPagingBlur, this);
-        this.mon(this.inputItem.el, "focus", this.onPagingFocus, this);
-
-        this.field = this.inputItem.el.dom;
+    onFirstLayout : function(){
         if(this.dsLoaded){
             this.onLoad.apply(this, this.dsLoaded);
         }
@@ -290,7 +292,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         var d = this.getPageData(), ap = d.activePage, ps = d.pages;
 
         this.afterTextItem.setText(String.format(this.afterPageText, d.pages));
-        this.field.value = ap;
+        this.inputItem.setValue(ap);
         this.first.setDisabled(ap == 1);
         this.prev.setDisabled(ap == 1);
         this.next.setDisabled(ap == ps);
@@ -328,25 +330,25 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
 
     // private
     readPage : function(d){
-        var v = this.field.value, pageNum;
+        var v = this.inputItem.getValue(), pageNum;
         if (!v || isNaN(pageNum = parseInt(v, 10))) {
-            this.field.value = d.activePage;
+            this.inputItem.setValue(d.activePage);
             return false;
         }
         return pageNum;
     },
 
     onPagingFocus : function(){
-        this.field.select();
+        this.inputItem.select();
     },
 
     //private
     onPagingBlur : function(e){
-        this.field.value = this.getPageData().activePage;
+        this.inputItem.setValue(this.getPageData().activePage);
     },
 
     // private
-    onPagingKeyDown : function(e){
+    onPagingKeyDown : function(field, e){
         var k = e.getKey(), d = this.getPageData(), pageNum;
         if (k == e.RETURN) {
             e.stopEvent();
@@ -358,7 +360,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         }else if (k == e.HOME || k == e.END){
             e.stopEvent();
             pageNum = k == e.HOME ? 1 : d.pages;
-            this.field.value = pageNum;
+            field.setValue(pageNum);
         }else if (k == e.UP || k == e.PAGEUP || k == e.DOWN || k == e.PAGEDOWN){
             e.stopEvent();
             if((pageNum = this.readPage(d))){
@@ -368,7 +370,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
                 }
                 pageNum += increment;
                 if(pageNum >= 1 & pageNum <= d.pages){
-                    this.field.value = pageNum;
+                    field.setValue(pageNum);
                 }
             }
         }
@@ -390,30 +392,29 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
             this.store.load({params:o});
         }
     },
-
+    
     // private
-    onClick : function(button){
-        var store = this.store;
-        switch(button){
-            case this.first:
-                this.doLoad(0);
-            break;
-            case this.prev:
-                this.doLoad(Math.max(0, this.cursor-this.pageSize));
-            break;
-            case this.next:
-                this.doLoad(this.cursor+this.pageSize);
-            break;
-            case this.last:
-                var total = store.getTotalCount();
-                var extra = total % this.pageSize;
-                var lastStart = extra ? (total - extra) : total-this.pageSize;
-                this.doLoad(lastStart);
-            break;
-            case this.refresh:
-                this.doLoad(this.cursor);
-            break;
-        }
+    onFirstClick: function(){
+        this.doLoad(0);    
+    },
+    
+    onPrevClick: function(){
+        this.doLoad(Math.max(0, this.cursor-this.pageSize));
+    },
+    
+    onNextClick: function(){
+        this.doLoad(this.cursor+this.pageSize);
+    },
+    
+    onLastClick: function(){
+        var total = this.store.getTotalCount(),
+            extra = total % this.pageSize;
+            
+        this.doLoad(extra ? (total - extra) : total - this.pageSize);    
+    },
+    
+    onRefreshClick: function(){
+        this.doLoad(this.cursor);    
     },
 
     /**

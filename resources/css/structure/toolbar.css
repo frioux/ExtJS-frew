@@ -144,8 +144,12 @@
 
 /* Paging Toolbar */
 .x-tbar-page-number{
-	width:24px;
+	width:30px;
 	height:14px;
+}
+
+.ext-ie .x-tbar-page-number{
+    margin-top: 2px;
 }
 
 .x-paging-info {
