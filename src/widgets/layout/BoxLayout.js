@@ -170,7 +170,7 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         }
 
         var availHeight = h - this.padding.top - this.padding.bottom - flexHeight,
-            leftOver = availHeight;
+            leftOver = availHeight,
             heights = [],
             restore = [],
             idx = 0,
@@ -327,7 +327,7 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         
 
         var availWidth = w - this.padding.left - this.padding.right - flexWidth,
-            leftOver = availWidth;
+            leftOver = availWidth,
             widths = [],
             restore = [],
             idx = 0,
