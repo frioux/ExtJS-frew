@@ -63,7 +63,7 @@ Ext.ux.GroupTabPanel = Ext.extend(Ext.TabPanel, {
 
         this.body.addClass('x-tab-panel-body-'+this.tabPosition);
 
-        if (!this.itemTpl) {
+        if (!this.hasOwnProperty('itemTpl') && !Ext.ux.GroupTabPanel.prototype.itemTpl) {
             var tt = new Ext.Template(
                 '<li class="{cls}" id="{id}">',
                 '<a class="x-grouptabs-expand" onclick="return false;"></a>',
