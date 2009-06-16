@@ -149,10 +149,12 @@ Ext.Window = Ext.extend(Ext.Panel, {
     expandOnShow : true,
     /**
      * @cfg {String} closeAction
-     * The action to take when the close button is clicked.  The default action is 'close' which will actually remove
-     * the window from the DOM and destroy it.  The other valid option is 'hide' which will simply hide the window
+     * <p>The action to take when the close header tool is clicked.  The default action is 'close' which will remove
+     * the Window from the DOM and destroy it and all descendant Components. The other valid option is 'hide' which will simply hide the window
      * by setting visibility to hidden and applying negative offsets, keeping the window available to be redisplayed
-     * via the {@link #show} method.
+     * via the {@link #show} method.</p>
+     * <p><b>Note:</b> This setting does not affect the {@link #close} method. That will always destroy the Window. To
+     * programatically <i>hide</i> a Window, call {@link #hide}.</p>
      */
     closeAction : 'close',
 
@@ -222,11 +224,11 @@ Ext.Window = Ext.extend(Ext.Panel, {
              */
             'restore'
         );
-		if(this.initHidden === false){
-			this.show();
-		}else{
-			this.hidden = true;
-		}
+        if(this.initHidden === false){
+            this.show();
+        }else{
+            this.hidden = true;
+        }
     },
 
     // private
@@ -282,7 +284,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
         if(this.draggable){
             this.header.addClass("x-window-draggable");
         }
-		this.mon(this.el, 'mousedown', this.toFront, this);
+        this.mon(this.el, 'mousedown', this.toFront, this);
         this.manager = this.manager || Ext.WindowMgr;
         this.manager.register(this);
         if(this.maximized){
@@ -315,9 +317,9 @@ Ext.Window = Ext.extend(Ext.Panel, {
     beforeDestroy : function(){
         if (this.rendered){
             this.hide();
-		  if(this.doAnchor){
-		        Ext.EventManager.removeResizeListener(this.doAnchor, this);
-		      Ext.EventManager.un(window, 'scroll', this.doAnchor, this);
+          if(this.doAnchor){
+                Ext.EventManager.removeResizeListener(this.doAnchor, this);
+              Ext.EventManager.un(window, 'scroll', this.doAnchor, this);
             }
             Ext.destroy(
                 this.focusEl,
@@ -499,7 +501,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
             this.fitContainer();
         }
         if(Ext.isMac && Ext.isGecko){ // work around stupid FF 2.0/Mac scroll bar bug
-        	this.cascade(this.setAutoScroll);
+            this.cascade(this.setAutoScroll);
         }
 
         if(this.monitorResize || this.modal || this.constrain || this.constrainHeader){
@@ -653,9 +655,9 @@ Ext.Window = Ext.extend(Ext.Panel, {
         if(show !== false){
             this.el.show();
             this.focus();
-	        if(Ext.isMac && Ext.isGecko){ // work around stupid FF 2.0/Mac scroll bar bug
-	        	this.cascade(this.setAutoScroll);
-	        }
+            if(Ext.isMac && Ext.isGecko){ // work around stupid FF 2.0/Mac scroll bar bug
+                this.cascade(this.setAutoScroll);
+            }
         }
         if(matchPosition !== false){
             this.setPosition(this.activeGhost.getLeft(true), this.activeGhost.getTop(true));
@@ -677,8 +679,10 @@ Ext.Window = Ext.extend(Ext.Panel, {
     },
 
     /**
-     * Closes the window, removes it from the DOM and destroys the window object.  The beforeclose event is fired
-     * before the close happens and will cancel the close action if it returns false.
+     * <p>Closes the Window, removes it from the DOM, destroys the Window object and all its descendant Components.
+     * The beforeclose event is fired before the close happens and will cancel the close action if it returns false.<p>
+     * <p><b>Note:</b> This method is not affected by the {@link #closeAction} setting. That just affects the action
+     * triggered when clicking the "close" tool in the header. To hide the Window without destroying it, call {@link #hide}.</p>
      */
     close : function(){
         if(this.fireEvent("beforeclose", this) !== false){
