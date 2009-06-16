@@ -229,7 +229,7 @@ Ext.debug.LogPanel = Ext.extend(Ext.Panel, {
 
     log : function(){
         var markup = [  '<div style="padding:5px !important;border-bottom:1px solid #ccc;">',
-                    Ext.util.Format.htmlEncode(Array.prototype.join.call(arguments, ', ')).replace(/\n/g, '<br />').replace(/\s/g, '&#160;'),
+                    Ext.util.Format.htmlEncode(Array.prototype.join.call(arguments, ', ')).replace(/\n/g, '<br/>').replace(/\s/g, '&#160;'),
                     '</div>'].join('');
 
         this.body.insertHtml('beforeend', markup);
