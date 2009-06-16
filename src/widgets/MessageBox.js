@@ -588,7 +588,7 @@ Ext.MessageBox.ERROR
          */
         maxWidth : 600,
         /**
-         * The minimum width in pixels of the message box (defaults to 100)
+         * The minimum width in pixels of the message box (defaults to 110)
          * @type Number
          */
         minWidth : 110,
