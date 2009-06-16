@@ -1024,8 +1024,7 @@ document.write(Date.dayNames[dt.getLastDayOfMonth()]); //output: 'Wednesday'
      * @return {Number} The day number (0-6).
      */
     getLastDayOfMonth : function() {
-        var day = (this.getDay() + (Date.daysInMonth[this.getMonth()] - this.getDate())) % 7;
-        return (day < 0) ? (day + 7) : day;
+        return this.getLastDateOfMonth().getDay();
     },
 
 
