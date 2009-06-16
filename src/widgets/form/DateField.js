@@ -294,7 +294,7 @@ dateField.setValue('2006-05-04');
 
     // private
     onDestroy : function(){
-		Ext.destroy(this.menu, this.wrap);
+		Ext.destroy(this.menu);
         Ext.form.DateField.superclass.onDestroy.call(this);
     },
 

@@ -99,6 +99,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
     defaultValue: Ext.isOpera ? '&nbsp;' : '&#8203;',
 
     // private properties
+    actionMode: 'wrap',
     validationEvent : false,
     deferHeight: true,
     initialized : false,

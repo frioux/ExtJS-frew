@@ -44,6 +44,9 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
      * (defaults to this Checkbox).
      */
 
+    // private
+    actionMode: 'wrap',
+    
 	// private
     initComponent : function(){
         Ext.form.Checkbox.superclass.initComponent.call(this);

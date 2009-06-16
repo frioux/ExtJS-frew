@@ -68,6 +68,8 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
     deferHeight : true,
     // private
     mimicing : false,
+    
+    actionMode: 'wrap',
 
     // private
     onResize : function(w, h){
@@ -224,20 +226,6 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
         if(this.wrap){
             this.wrap.removeClass(this.disabledClass);
         }
-    },
-
-    // private
-    onShow : function(){
-        if(this.wrap){
-			var s = this.wrap.dom.style;
-            s.display = '';
-            s.visibility = 'visible';
-        }
-    },
-
-    // private
-    onHide : function(){
-        this.wrap.dom.style.display = 'none';
     },
 
     /**
