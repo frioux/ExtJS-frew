@@ -60,7 +60,7 @@ Ext.form.Radio = Ext.extend(Ext.form.Checkbox, {
             var r = this.el.up('form').child('input[name='+this.el.dom.name+'][value='+v+']', true);
             if (r){
                 r.checked = true;
-            };
+            }
         }
         return this;
     }

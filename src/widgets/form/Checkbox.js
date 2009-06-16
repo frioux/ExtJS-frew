@@ -120,7 +120,9 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
     },
 
     // private
-    initValue : Ext.emptyFn,
+    initValue: function() {
+        this.originalValue = this.getValue();
+    },
 
     /**
      * Returns the checked state of the checkbox.
