@@ -69,7 +69,7 @@ Ext.onReady(function(){
 	            'render': function(tp){
                     tp.getSelectionModel().on('selectionchange', function(tree, node){
                         var el = Ext.getCmp('details-panel').body;
-	                    if(node.leaf){
+	                    if(node && node.leaf){
 	                        tpl.overwrite(el, node.attributes);
 	                    }else{
                             el.update(detailsText);
