@@ -40,14 +40,14 @@ Ext.onReady(function(){
 
 	// declare the source Grid
     var firstGrid = new Ext.grid.GridPanel({
-		ddGroup          : 'secondGridDDGroup',
+	ddGroup          : 'secondGridDDGroup',
         store            : firstGridStore,
         columns          : cols,
-		enableDragDrop   : true,
+	enableDragDrop   : true,
         stripeRows       : true,
         autoExpandColumn : 'name',
         width            : 325,
-		region           : 'west',
+	region           : 'west',
         title            : 'First Grid'
     });
 
@@ -58,14 +58,14 @@ Ext.onReady(function(){
 
     // create the destination Grid
     var secondGrid = new Ext.grid.GridPanel({
-		ddGroup          : 'firstGridDDGroup',
+	ddGroup          : 'firstGridDDGroup',
         store            : secondGridStore,
         columns          : cols,
-		enableDragDrop   : true,
+	enableDragDrop   : true,
         stripeRows       : true,
         autoExpandColumn : 'name',
         width            : 325,
-		region           : 'center',
+	region           : 'center',
         title            : 'Second Grid'
     });
 
