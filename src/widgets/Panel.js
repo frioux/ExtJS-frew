@@ -816,11 +816,11 @@ new Ext.Panel({
         if(this.header === true){
             this.elements += ',header';
             delete this.header;
-        }else if(this.title && this.header !== false){
+        }else if(this.headerCfg || (this.title && this.header !== false)){
             this.elements += ',header';
         }
 
-        if(this.footer === true){
+        if(this.footerCfg || this.footer === true){
             this.elements += ',footer';
             delete this.footer;
         }
