@@ -107,7 +107,7 @@ Ext.data.Record.COMMIT = 'commit';
 Ext.data.Record.id = function(rec) {
     rec.phantom = true;
     return [Ext.data.Record.PREFIX, '-', Ext.data.Record.AUTO_ID++].join('');
-}
+};
 
 Ext.data.Record.prototype = {
     /**
@@ -332,7 +332,7 @@ rec.{@link #commit}(); // updates the view
 
     // private
     hasError : function(){
-        return this.error != null;
+        return this.error !== null;
     },
 
     // private
@@ -369,7 +369,7 @@ rec.{@link #commit}(); // updates the view
      */
     isValid : function() {
         return this.fields.find(function(f) {
-            return (f.allowBlank == false && Ext.isEmpty(this.data[f.name])) ? true : false;
+            return (f.allowBlank === false && Ext.isEmpty(this.data[f.name])) ? true : false;
         },this) ? false : true;
     },
 

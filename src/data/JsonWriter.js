@@ -51,6 +51,6 @@ Ext.data.JsonWriter = Ext.extend(Ext.data.DataWriter, {
      * @param {Ext.data.Record} rec
      */
     destroyRecord : function(rec) {
-        return rec.id
+        return rec.id;
     }
 });

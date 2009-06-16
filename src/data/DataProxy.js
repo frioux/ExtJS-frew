@@ -352,7 +352,7 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
      */
     buildUrl : function(action, record) {
         record = record || null;
-        var url = (this.api[action]) ? this.api[action]['url'] : this.url;
+        var url = (this.api[action]) ? this.api[action].url : this.url;
         if (!url) {
             throw new Ext.data.Api.Error('invalid-url', action);
         }

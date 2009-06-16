@@ -39,7 +39,7 @@ Ext.data.HttpProxy = function(conn){
     this.useAjax = !conn || !conn.events;
 
     //private.  A hash containing active requests, keyed on action [Ext.data.Api.actions.create|read|update|destroy]
-    var actions = Ext.data.Api.actions
+    var actions = Ext.data.Api.actions;
     this.activeRequest = {};
     for (var verb in actions) {
         this.activeRequest[actions[verb]] = undefined;

@@ -180,7 +180,9 @@ Ext.data.Node = function(attributes){
     if(!this.childNodes.indexOf){ // indexOf is a must
         this.childNodes.indexOf = function(o){
             for(var i = 0, len = this.length; i < len; i++){
-                if(this[i] == o) return i;
+                if(this[i] == o){
+                    return i;
+                }
             }
             return -1;
         };
@@ -383,7 +385,7 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
                 oldParent.removeChild(node);
             }
             index = this.childNodes.length;
-            if(index == 0){
+            if(index === 0){
                 this.setFirstChild(node);
             }
             this.childNodes.push(node);
@@ -482,7 +484,7 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
             }
             oldParent.removeChild(node);
         }
-        if(refIndex == 0){
+        if(refIndex === 0){
             this.setFirstChild(node);
         }
         this.childNodes.splice(refIndex, 0, node);
@@ -736,7 +738,7 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
                 var n = cs[i];
                 n.previousSibling = cs[i-1];
                 n.nextSibling = cs[i+1];
-                if(i == 0){
+                if(i === 0){
                     this.setFirstChild(n);
                 }
                 if(i == len-1){

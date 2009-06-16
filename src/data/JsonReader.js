@@ -139,11 +139,11 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
         var re = /[\[\.]/;
         return function(expr) {
             try {
-                return(re.test(expr))
-                    ? new Function("obj", "return obj." + expr)
-                    : function(obj){
-                        return obj[expr];
-                    };
+                return(re.test(expr)) ? 
+                new Function("obj", "return obj." + expr) :
+                function(obj){
+                    return obj[expr];
+                };
             } catch(e){}
             return Ext.emptyFn;
         };
@@ -171,7 +171,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             this.onMetaChange(this.meta, this.recordType, o);
         }
         var s = this.meta, Record = this.recordType,
-            f = Record.prototype.fields, fi = f.items, fl = f.length;
+            f = Record.prototype.fields, fi = f.items, fl = f.length, v;
 
         // Generate extraction functions for the totalProperty, the root, the id, and for each field
         if (!this.ef) {
@@ -179,13 +179,13 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
         }
         var root = this.getRoot(o), c = root.length, totalRecords = c, success = true;
         if(s.totalProperty){
-            var v = parseInt(this.getTotal(o), 10);
+            v = parseInt(this.getTotal(o), 10);
             if(!isNaN(v)){
                 totalRecords = v;
             }
         }
         if(s.successProperty){
-            var v = this.getSuccess(o);
+            v = this.getSuccess(o);
             if(v === false || v === 'false'){
                 success = false;
             }

@@ -17,7 +17,7 @@ Ext.StoreMgr = Ext.apply(new Ext.util.MixedCollection(), {
      * @param {Ext.data.Store} etc... (optional)
      */
     register : function(){
-        for(var i = 0, s; s = arguments[i]; i++){
+        for(var i = 0, s; (s = arguments[i]); i++){
             this.add(s);
         }
     },
@@ -29,7 +29,7 @@ Ext.StoreMgr = Ext.apply(new Ext.util.MixedCollection(), {
      * @param {String/Object} etc... (optional)
      */
     unregister : function(){
-        for(var i = 0, s; s = arguments[i]; i++){
+        for(var i = 0, s; (s = arguments[i]); i++){
             this.remove(this.lookup(s));
         }
     },

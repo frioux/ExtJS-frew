@@ -120,7 +120,7 @@ Ext.data.DataReader.prototype = {
      * @return {Boolean}
      */
     isData : function(data) {
-        return (data && typeof(data) == 'object' && !Ext.isEmpty(data[this.meta.idProperty])) ? true : false
+        return (data && Ext.isObject(data) && !Ext.isEmpty(data[this.meta.idProperty])) ? true : false;
     }
 };
 

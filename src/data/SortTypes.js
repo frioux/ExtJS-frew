@@ -70,8 +70,7 @@ Ext.data.SortTypes = {
      */
     asFloat : function(s) {
     	var val = parseFloat(String(s).replace(/,/g, ""));
-        if(isNaN(val)) val = 0;
-    	return val;
+    	return isNaN(val) ? 0 : val;
     },
     
     /**
@@ -80,8 +79,7 @@ Ext.data.SortTypes = {
      * @return {Number} The comparison value
      */
     asInt : function(s) {
-        var val = parseInt(String(s).replace(/,/g, ""));
-        if(isNaN(val)) val = 0;
-    	return val;
+        var val = parseInt(String(s).replace(/,/g, ""), 10);
+        return isNaN(val) ? 0 : val;
     }
 };

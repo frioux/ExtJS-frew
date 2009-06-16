@@ -95,7 +95,7 @@ paramOrder: 'param1|param2|param'
             } else {
                 this.onWrite(action, trans, result, res, rs);
             }
-        }
+        };
     },
     /**
      * Callback for read actions

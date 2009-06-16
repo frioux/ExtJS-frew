@@ -47,10 +47,12 @@ Ext.data.ArrayReader = Ext.extend(Ext.data.JsonReader, {
      */
     readRecords : function(o){
         this.arrayData = o;
-        var s = this.meta;
-        var sid = s ? Ext.num(s.idIndex, s.id) : null;
-        var recordType = this.recordType, fields = recordType.prototype.fields;
-        var records = [];
+        var s = this.meta,
+            sid = s ? Ext.num(s.idIndex, s.id) : null,
+            recordType = this.recordType, 
+            fields = recordType.prototype.fields,
+            records = [],
+            v;
 
         if(!this.getRoot) {
             this.getRoot = s.root ? this.getJsonAccessor(s.root) : function(p) {return p;};
@@ -68,7 +70,7 @@ Ext.data.ArrayReader = Ext.extend(Ext.data.JsonReader, {
             for(var j = 0, jlen = fields.length; j < jlen; j++) {
                 var f = fields.items[j];
                 var k = f.mapping !== undefined && f.mapping !== null ? f.mapping : j;
-                var v = n[k] !== undefined ? n[k] : f.defaultValue;
+                v = n[k] !== undefined ? n[k] : f.defaultValue;
                 v = f.convert(v, n);
                 values[f.name] = v;
             }
@@ -80,7 +82,7 @@ Ext.data.ArrayReader = Ext.extend(Ext.data.JsonReader, {
         var totalRecords = records.length;
 
         if(s.totalProperty) {
-            var v = parseInt(this.getTotal(o), 10);
+            v = parseInt(this.getTotal(o), 10);
             if(!isNaN(v)) {
                 totalRecords = v;
             }

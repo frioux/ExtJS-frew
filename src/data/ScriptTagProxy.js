@@ -157,7 +157,7 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
             } else {
                 self.onWrite.call(self, action, trans, res, rs);
             }
-        }
+        };
     },
     /**
      * Callback for read actions
