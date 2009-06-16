@@ -1284,6 +1284,9 @@ new Ext.Panel({
         }
         Ext.Panel.superclass.afterRender.call(this); // do sizing calcs last
         this.initEvents();
+        if(this.frame && this.bbar && Ext.isIE && !Ext.isIE8){
+            this.el.repaint();
+        }
     },
 
     // private
