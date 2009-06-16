@@ -199,7 +199,6 @@
   <file name="grid\binding-with-classes.js" path="grid" />
   <file name="grid\buffer.html" path="grid" />
   <file name="grid\buffer.js" path="grid" />
-  <file name="grid\CallBroker.js" path="grid" />
   <file name="grid\details.gif" path="grid" />
   <file name="grid\edit-grid.html" path="grid" />
   <file name="grid\edit-grid.js" path="grid" />
