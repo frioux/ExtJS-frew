@@ -69,20 +69,28 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
             this.grid.on('rowdblclick', this.onRowDblClick, this);
         }else{
             this.grid.on('rowclick', this.onRowClick, this);
+            if(Ext.isIE){
+                this.grid.on('rowdblclick', this.onRowDblClick, this);
+            }
         }
 
         // stopEditing without saving when a record is removed from Store.
-        this.grid.store.on('remove', function() {
+        this.grid.getStore().on('remove', function() {
             this.stopEditing(false);
         },this);
 
-        this.grid.on('keydown', this.onGridKey, this);
-        this.grid.on('columnresize', this.verifyLayout, this);
-        this.grid.on('columnmove', this.onColumnMove, this);
-        this.grid.on('bodyscroll', this.positionButtons, this, {buffer: 250});
+        this.grid.on({
+            scope: this,
+            keydown: this.onGridKey,
+            columnresize: this.verifyLayout,
+            columnmove: this.onColumnMove,
+            bodyscroll: {
+                buffer: 250,
+                fn: this.positionButtons
+            }
+        });
         this.grid.getColumnModel().on('hiddenchange', this.verifyLayout, this, {delay:1});
-        var view = grid.getView();
-        view.on('refresh', this.stopEditing.createDelegate(this, []));
+        grid.getView().on('refresh', this.stopEditing.createDelegate(this, []));
     },
 
     onColumnMove: function(){
