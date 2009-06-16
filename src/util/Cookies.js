@@ -33,7 +33,7 @@ Ext.util.Cookies = {
         var path = (argc > 3) ? argv[3] : '/';
         var domain = (argc > 4) ? argv[4] : null;
         var secure = (argc > 5) ? argv[5] : false;
-        document.cookie = name + "=" + escape(value) + ((expires == null) ? "" : ("; expires=" + expires.toGMTString())) + ((path == null) ? "" : ("; path=" + path)) + ((domain == null) ? "" : ("; domain=" + domain)) + ((secure == true) ? "; secure" : "");
+        document.cookie = name + "=" + escape(value) + ((expires === null) ? "" : ("; expires=" + expires.toGMTString())) + ((path === null) ? "" : ("; path=" + path)) + ((domain === null) ? "" : ("; domain=" + domain)) + ((secure === true) ? "; secure" : "");
     },
 
     /**
@@ -56,11 +56,13 @@ Ext.util.Cookies = {
         var j = 0;
         while(i < clen){
             j = i + alen;
-            if(document.cookie.substring(i, j) == arg)
+            if(document.cookie.substring(i, j) == arg){
                 return Ext.util.Cookies.getCookieVal(j);
+            }
             i = document.cookie.indexOf(" ", i) + 1;
-            if(i == 0)
+            if(i === 0){
                 break;
+            }
         }
         return null;
     },

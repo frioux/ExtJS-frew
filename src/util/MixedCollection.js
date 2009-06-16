@@ -235,7 +235,7 @@ mc.add(otherEl);
         }
         this.length++;
         this.items.splice(index, 0, o);
-        if(typeof key != "undefined" && key != null){
+        if(typeof key != "undefined" && key !== null){
             this.map[key] = o;
         }
         this.keys.splice(index, 0, key);
@@ -386,22 +386,24 @@ mc.add(otherEl);
 
     // private
     _sort : function(property, dir, fn){
-        var dsc = String(dir).toUpperCase() == "DESC" ? -1 : 1;
+        var i, 
+            dsc = String(dir).toUpperCase() == "DESC" ? -1 : 1,
+            c = [], k = this.keys, items = this.items;
+            
         fn = fn || function(a, b){
             return a-b;
         };
-        var c = [], k = this.keys, items = this.items;
-        for(var i = 0, len = items.length; i < len; i++){
+        for(i = 0, len = items.length; i < len; i++){
             c[c.length] = {key: k[i], value: items[i], index: i};
         }
         c.sort(function(a, b){
             var v = fn(a[property], b[property]) * dsc;
-            if(v == 0){
+            if(v === 0){
                 v = (a.index < b.index ? -1 : 1);
             }
             return v;
         });
-        for(var i = 0, len = c.length; i < len; i++){
+        for(i = 0, len = c.length; i < len; i++){
             items[i] = c[i].value;
             k[i] = c[i].key;
         }
@@ -442,13 +444,13 @@ mc.add(otherEl);
         }
         start = start || 0;
         end = Math.min(typeof end == "undefined" ? this.length-1 : end, this.length-1);
-        var r = [];
+        var i, r = [];
         if(start <= end){
-            for(var i = start; i <= end; i++) {
+            for(i = start; i <= end; i++) {
                 r[r.length] = items[i];
             }
         }else{
-            for(var i = start; i >= end; i--) {
+            for(i = start; i >= end; i--) {
                 r[r.length] = items[i];
             }
         }
