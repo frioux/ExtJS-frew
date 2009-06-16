@@ -313,9 +313,7 @@ Ext.ux.form.MultiSelect = Ext.extend(Ext.form.Field,  {
 
     // inherit docs
     destroy: function(){
-        this.fs.destroy();
-        if (this.dragZone && this.dragZone.destroy) this.dragZone.destroy();
-        if (this.dropZone && this.dropZone.destroy) this.dropZone.destroy();
+        Ext.destroy(this.fs, this.dragZone, this.dropZone);
         Ext.ux.form.MultiSelect.superclass.destroy.call(this);
     }
 });
@@ -343,6 +341,14 @@ Ext.ux.form.MultiSelect.DragZone = function(ms, config){
 };
 
 Ext.extend(Ext.ux.form.MultiSelect.DragZone, Ext.dd.DragZone, {
+    onInitDrag : function(x, y){
+        var el = Ext.get(this.dragData.ddel.cloneNode(true));
+        this.proxy.update(el.dom);
+        el.setWidth(el.child('em').getWidth());
+        this.onStartDrag(x, y);
+        return true;
+    },
+    
     // private
     collectSelection: function(data) {
         data.repairXY = Ext.fly(this.view.getSelectedNodes()[0]).getXY();
