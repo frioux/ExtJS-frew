@@ -84,6 +84,11 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
      */
     // private
     renderHidden : true,
+    
+    constructor: function(config){
+        Ext.layout.CardLayout.superclass.constructor.call(this, config);
+        this.forceLayout = (this.deferredRender === false);
+    },
 
     /**
      * Sets the active (visible) item in the layout.
