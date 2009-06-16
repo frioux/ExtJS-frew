@@ -591,7 +591,7 @@ Ext.MessageBox.ERROR
          * The minimum width in pixels of the message box (defaults to 100)
          * @type Number
          */
-        minWidth : 100,
+        minWidth : 110,
         /**
          * The minimum width in pixels of the message box if it is a progress-style dialog.  This is useful
          * for setting a different minimum width than text-only dialogs may need (defaults to 250)
