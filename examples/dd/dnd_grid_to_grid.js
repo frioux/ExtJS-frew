@@ -112,7 +112,7 @@ Ext.onReady(function(){
 			function addRow(record, index, allItems) {
 
 				// Search for duplicates
-				var foundItem = firstGridStore.find('name', record.data.name);
+				var foundItem = firstGridStore.findExact('name', record.data.name);
 				// if not found
 				if (foundItem  == -1) {
 					firstGridStore.add(record);
@@ -144,7 +144,7 @@ Ext.onReady(function(){
 			function addRow(record, index, allItems) {
 
 				// Search for duplicates
-				var foundItem = secondGridStore.find('name', record.data.name);
+				var foundItem = secondGridStore.findExact('name', record.data.name);
 				// if not found
 				if (foundItem  == -1) {
 					secondGridStore.add(record);

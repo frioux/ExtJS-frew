@@ -747,8 +747,8 @@ sortInfo: {
         if(this.sortInfo && this.remoteSort){
             var pn = this.paramNames;
             options.params = options.params || {};
-            options.params[pn["sort"]] = this.sortInfo.field;
-            options.params[pn["dir"]] = this.sortInfo.direction;
+            options.params[pn.sort] = this.sortInfo.field;
+            options.params[pn.dir] = this.sortInfo.direction;
         }
         try {
             return this.execute("read", null, options); // <-- null represents rs.  No rs for load actions.
@@ -924,19 +924,19 @@ sortInfo: {
 
     // private.  Simply wraps call to Store#execute in try/catch.  Defers to Store#handleException on error.  Loops if batch: false
     doTransaction : function(action, rs) {
-        if (this.batch === false) {
-            for (var i = 0, len = rs.length; i < len; i++) {
-                transaction.call(this, rs[i]);
-            }
-        } else {
-            transaction.call(this, rs);
-        }
         function transaction(records) {
             try {
                 this.execute(action, records);
             } catch (e) {
                 this.handleException(e);
             }
+        }
+        if (this.batch === false) {
+            for (var i = 0, len = rs.length; i < len; i++) {
+                transaction.call(this, rs[i]);
+            }
+        } else {
+            transaction.call(this, rs);
         }
     },
 
@@ -1342,6 +1342,19 @@ sortInfo: {
     find : function(property, value, start, anyMatch, caseSensitive){
         var fn = this.createFilterFn(property, value, anyMatch, caseSensitive);
         return fn ? this.data.findIndexBy(fn, null, start) : -1;
+    },
+    
+    /**
+     * Finds the index of the first matching record in this store by a specific property/value.
+     * @param {String} property A property on your objects
+     * @param {String/RegExp} value The value to match against
+     * @param {Number} startIndex (optional) The index to start searching at
+     * @return {Number} The matched index or -1
+     */
+    findExact: function(property, value, start){
+        return this.data.findIndexBy(function(rec){
+            return rec.get(property) === value;
+        }, this, start);
     },
 
     /**
