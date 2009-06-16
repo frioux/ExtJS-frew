@@ -87,7 +87,6 @@ new Ext.Panel({
         cls: 'x-panel-body',  // Default class not applied if Custom element specified
         html: 'Message'
     },
-    {@link #footer}: true,
     footerCfg: {
         tag: 'h2',
         cls: 'x-panel-footer'        // same as the Default class
