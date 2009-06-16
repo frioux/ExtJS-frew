@@ -62,9 +62,11 @@ Ext.grid.Column.prototype = {
      * {@link Ext.grid.GroupingView}.{@link Ext.grid.GroupingView#showGroupName showGroupName}.
      */
     /**
-     * @cfg {String} dataIndex (optional) The name of the field in the grid's {@link Ext.data.Store}'s
+     * @cfg {String} dataIndex (optional) <p>The name of the field in the grid's {@link Ext.data.Store}'s
      * {@link Ext.data.Record} definition from which to draw the column's value. If not
-     * specified, the column's index is used as an index into the Record's data Array.
+     * specified, the column's index is used as an index into the Record definition's field Collection.</p>
+     * <p>It is not safe to rely on using the column's index in this way if the columns
+     * are {@link Ext.grid.GridPanel#enableColumnMove moveable}.</p>
      */
     /**
      * @cfg {Number} width
