@@ -1046,7 +1046,7 @@ var menu = new Ext.menu.Menu({
         if(ct > 0){
             if(this.selectedIndex == -1){
                 this.select(0);
-            }else if(this.selectedIndex != 0){
+            }else if(this.selectedIndex !== 0){
                 this.select(this.selectedIndex-1);
             }
         }
