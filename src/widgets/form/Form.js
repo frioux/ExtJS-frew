@@ -73,11 +73,7 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
      * the form's {@link #monitorValid valid state monitor task} to enable/disable those Buttons depending on
      * the form's valid/invalid state.</p>
      */
-    /**
-     * @cfg {String} buttonAlign Valid values are <tt>'left'</tt>, <tt>'center'</tt>, and <tt>'right'</tt>
-     * (defaults to <tt>'center'</tt>).
-     */
-    buttonAlign : 'center',
+
 
     /**
      * @cfg {Number} minButtonWidth Minimum width of all buttons in pixels (defaults to <tt>75</tt>).
