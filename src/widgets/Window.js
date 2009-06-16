@@ -2,8 +2,8 @@
  * @class Ext.Window
  * @extends Ext.Panel
  * <p>A specialized panel intended for use as an application window.  Windows are floated, {@link #resizable}, and
- * {@link #draggable} by default.  Windows can be maximized to fill the viewport, restored to their prior size, and
- * can be {@link #minimize}d.</p>
+ * {@link #draggable} by default.  Windows can be {@link #maximizable maximized} to fill the viewport,
+ * restored to their prior size, and can be {@link #minimize}d.</p>
  * <p>Windows can also be linked to a {@link Ext.WindowGroup} or managed by the {@link Ext.WindowMgr} to provide 
  * grouping, activation, to front, to back and other application-specific behavior.</p>
  * <p>By default, Windows will be rendered to document.body. To {@link #constrain} a Window to another element
@@ -85,14 +85,34 @@ Ext.Window = Ext.extend(Ext.Panel, {
     /**
      * @cfg {Boolean} closable
      * <p>True to display the 'close' tool button and allow the user to close the window, false to
-     * hide the button and disallow closing the window (default to true).</p>
+     * hide the button and disallow closing the window (defaults to true).</p>
      * <p>By default, when close is requested by either clicking the close button in the header
      * or pressing ESC when the Window has focus, the {@link #close} method will be called. This
-     * will <i>destroy</i> the Window and its content meaning that it may not be reused.</p>
+     * will <i>{@link Ext.Component#destroy destroy}</i> the Window and its content meaning that
+     * it may not be reused.</p>
      * <p>To make closing a Window <i>hide</i> the Window so that it may be reused, set
      * {@link #closeAction} to 'hide'.
      */
     closable : true,
+    /**
+     * @cfg {String} closeAction
+     * <p>The action to take when the close header tool is clicked:
+     * <div class="mdetail-params"><ul>
+     * <li><b><code>'{@link #close}'</code></b> : <b>Default</b><div class="sub-desc">
+     * {@link #close remove} the window from the DOM and {@link Ext.Component#destroy destroy}
+     * it and all descendant Components. The window will <b>not</b> be available to be
+     * redisplayed via the {@link #show} method.
+     * </div></li>
+     * <li><b><code>'{@link #hide}'</code></b> : <div class="sub-desc">
+     * {@link #hide} the window by setting visibility to hidden and applying negative offsets.
+     * The window will be available to be redisplayed via the {@link #show} method.
+     * </div></li>
+     * </ul></div>
+     * <p><b>Note:</b> This setting does not affect the {@link #close} method
+     * which will always {@link Ext.Component#destroy destroy} the window. To
+     * programatically <i>hide</i> a window, call {@link #hide}.</p>
+     */
+    closeAction : 'close',
     /**
      * @cfg {Boolean} constrain
      * True to constrain the window within its containing element, false to allow it to fall outside of its
@@ -147,16 +167,6 @@ Ext.Window = Ext.extend(Ext.Panel, {
      * {@link #collapsed}) when displayed (defaults to true).
      */
     expandOnShow : true,
-    /**
-     * @cfg {String} closeAction
-     * <p>The action to take when the close header tool is clicked.  The default action is 'close' which will remove
-     * the Window from the DOM and destroy it and all descendant Components. The other valid option is 'hide' which will simply hide the window
-     * by setting visibility to hidden and applying negative offsets, keeping the window available to be redisplayed
-     * via the {@link #show} method.</p>
-     * <p><b>Note:</b> This setting does not affect the {@link #close} method. That will always destroy the Window. To
-     * programatically <i>hide</i> a Window, call {@link #hide}.</p>
-     */
-    closeAction : 'close',
 
     // inherited docs, same default
     collapsible : false,
@@ -246,16 +256,16 @@ Ext.Window = Ext.extend(Ext.Panel, {
 
         // this element allows the Window to be focused for keyboard events
         this.focusEl = this.el.createChild({
-                    tag: "a", href:"#", cls:"x-dlg-focus",
-                    tabIndex:"-1", html: "&#160;"});
+                    tag: 'a', href:'#', cls:'x-dlg-focus',
+                    tabIndex:'-1', html: '&#160;'});
         this.focusEl.swallowEvent('click', true);
 
-        this.proxy = this.el.createProxy("x-window-proxy");
+        this.proxy = this.el.createProxy('x-window-proxy');
         this.proxy.enableDisplayMode('block');
 
         if(this.modal){
-            this.mask = this.container.createChild({cls:"ext-el-mask"}, this.el.dom);
-            this.mask.enableDisplayMode("block");
+            this.mask = this.container.createChild({cls:'ext-el-mask'}, this.el.dom);
+            this.mask.enableDisplayMode('block');
             this.mask.hide();
             this.mon(this.mask, 'click', this.focus, this);
         }
@@ -273,7 +283,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
             this.resizer = new Ext.Resizable(this.el, {
                 minWidth: this.minWidth,
                 minHeight:this.minHeight,
-                handles: this.resizeHandles || "all",
+                handles: this.resizeHandles || 'all',
                 pinned: true,
                 resizeElement : this.resizerAction
             });
@@ -282,7 +292,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
         }
 
         if(this.draggable){
-            this.header.addClass("x-window-draggable");
+            this.header.addClass('x-window-draggable');
         }
         this.mon(this.el, 'mousedown', this.toFront, this);
         this.manager = this.manager || Ext.WindowMgr;
@@ -403,7 +413,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
         this.updateHandles();
         this.saveState();
         this.doLayout();
-        this.fireEvent("resize", this, box.width, box.height);
+        this.fireEvent('resize', this, box.width, box.height);
     },
 
     /**
@@ -451,7 +461,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
         }
 
         if(this.modal){
-            Ext.getBody().addClass("x-body-masked");
+            Ext.getBody().addClass('x-body-masked');
             this.mask.setSize(Ext.lib.Dom.getViewWidth(true), Ext.lib.Dom.getViewHeight(true));
             this.mask.show();
         }
@@ -473,7 +483,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
             this.toFront();
             return this;
         }
-        if(this.fireEvent("beforeshow", this) === false){
+        if(this.fireEvent('beforeshow', this) === false){
             return this;
         }
         if(cb){
@@ -518,7 +528,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
             var sz = this.getSize();
             this.onResize(sz.width, sz.height);
         }
-        this.fireEvent("show", this);
+        this.fireEvent('show', this);
     },
 
     // private
@@ -546,7 +556,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
      * @return {Ext.Window} this
      */
     hide : function(animateTarget, cb, scope){
-        if(this.hidden || this.fireEvent("beforehide", this) === false){
+        if(this.hidden || this.fireEvent('beforehide', this) === false){
             return this;
         }
         if(cb){
@@ -558,7 +568,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
         }
         if(this.modal){
             this.mask.hide();
-            Ext.getBody().removeClass("x-body-masked");
+            Ext.getBody().removeClass('x-body-masked');
         }
         if(this.animateTarget){
             this.animHide();
@@ -578,7 +588,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
         if(this.keyMap){
             this.keyMap.disable();
         }
-        this.fireEvent("hide", this);
+        this.fireEvent('hide', this);
     },
 
     // private
@@ -679,13 +689,15 @@ Ext.Window = Ext.extend(Ext.Panel, {
     },
 
     /**
-     * <p>Closes the Window, removes it from the DOM, destroys the Window object and all its descendant Components.
-     * The beforeclose event is fired before the close happens and will cancel the close action if it returns false.<p>
-     * <p><b>Note:</b> This method is not affected by the {@link #closeAction} setting. That just affects the action
-     * triggered when clicking the "close" tool in the header. To hide the Window without destroying it, call {@link #hide}.</p>
+     * <p>Closes the Window, removes it from the DOM, {@link Ext.Component#destroy destroy}s
+     * the Window object and all its descendant Components. The {@link Ext.Panel#beforeclose beforeclose}
+     * event is fired before the close happens and will cancel the close action if it returns false.<p>
+     * <p><b>Note:</b> This method is not affected by the {@link #closeAction} setting which
+     * only affects the action triggered when clicking the {@link #closable 'close' tool in the header}.
+     * To hide the Window without destroying it, call {@link #hide}.</p>
      */
     close : function(){
-        if(this.fireEvent("beforeclose", this) !== false){
+        if(this.fireEvent('beforeclose', this) !== false){
             this.hide(null, function(){
                 this.fireEvent('close', this);
                 this.destroy();
@@ -694,8 +706,9 @@ Ext.Window = Ext.extend(Ext.Panel, {
     },
 
     /**
-     * Fits the window within its current container and automatically replaces the 'maximize' tool button with
-     * the 'restore' tool button.
+     * Fits the window within its current container and automatically replaces
+     * the {@link #maximizable 'maximize' tool button} with the 'restore' tool button.
+     * Also see {@link #toggleMaximize}.
      * @return {Ext.Window} this
      */
     maximize : function(){
@@ -727,8 +740,10 @@ Ext.Window = Ext.extend(Ext.Panel, {
     },
 
     /**
-     * Restores a maximized window back to its original size and position prior to being maximized and also replaces
+     * Restores a {@link #maximizable maximized}  window back to its original
+     * size and position prior to being maximized and also replaces
      * the 'restore' tool button with the 'maximize' tool button.
+     * Also see {@link #toggleMaximize}.
      * @return {Ext.Window} this
      */
     restore : function(){
@@ -776,13 +791,13 @@ Ext.Window = Ext.extend(Ext.Panel, {
     // z-index is managed by the WindowManager and may be overwritten at any time
     setZIndex : function(index){
         if(this.modal){
-            this.mask.setStyle("z-index", index);
+            this.mask.setStyle('z-index', index);
         }
         this.el.setZIndex(++index);
         index += 5;
 
         if(this.resizer){
-            this.resizer.proxy.setStyle("z-index", ++index);
+            this.resizer.proxy.setStyle('z-index', ++index);
         }
 
         this.lastZIndex = index;
@@ -831,6 +846,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
 
     /**
      * Brings this window to the front of any other visible windows
+     * @param {Boolean} e (optional) Specify <tt>false</tt> to prevent the window from being focused.
      * @return {Ext.Window} this
      */
     toFront : function(e){
