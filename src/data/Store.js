@@ -858,7 +858,7 @@ sortInfo: {
         }
         if (doRequest !== false) {
             // Send request to proxy.
-            var params = Ext.apply(options.params || {}, this.baseParams);
+            var params = Ext.apply({}, options.params, this.baseParams);
             if (this.writer && this.proxy.url && !this.proxy.restful && !Ext.data.Api.hasUniqueUrl(this.proxy, action)) {
                 params.xaction = action;
             }
