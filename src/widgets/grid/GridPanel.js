@@ -449,7 +449,15 @@ function(grid, rowIndex, columnIndex, e) {
              * @param {Grid} this
              * @param {Object} sortInfo An object with the keys field and direction
              */
-            "sortchange"
+            "sortchange",
+            /**
+             * @event reconfigure
+             * Fires when the grid is reconfigured with a new grid and/or column model.
+             * @param {Grid} this
+             * @param {Ext.data.Store} store The new store
+             * @param {Ext.grid.ColumnModel} colModel The new column model
+             */
+            "reconfigure"
         );
     },
 
@@ -574,6 +582,7 @@ function(grid, rowIndex, columnIndex, e) {
         if(this.rendered){
             this.view.refresh(true);
         }
+        this.fireEvent('reconfigure', this, store, colModel);
     },
 
     // private
