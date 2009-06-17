@@ -112,11 +112,11 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
      * @cfg {String} ddText
      * Configures the text in the drag proxy.  Defaults to:
      * <pre><code>
-     * ddText : "{0} selected row{1}"
+     * ddText : '{0} selected row{1}'
      * </code></pre>
      * <tt>{0}</tt> is replaced with the number of selected rows.
      */
-    ddText : "{0} selected row{1}",
+    ddText : '{0} selected row{1}',
     /**
      * @cfg {Boolean} deferRowRender <P>Defaults to <tt>true</tt> to enable deferred row rendering.</p>
      * <p>This allows the GridPanel to be initially rendered empty, with the expensive update of the row
@@ -184,7 +184,7 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
      * @cfg {Boolean} stripeRows <tt>true</tt> to stripe the rows. Default is <tt>false</tt>.
      * <p>This causes the CSS class <tt><b>x-grid3-row-alt</b></tt> to be added to alternate rows of
      * the grid. A default CSS rule is provided which sets a background colour, but you can override this
-     * with a rule which either overrides the <b>background-color</b> style using the "!important"
+     * with a rule which either overrides the <b>background-color</b> style using the '!important'
      * modifier, or which uses a CSS selector of higher specificity.</p>
      */
     stripeRows : false,
@@ -197,14 +197,14 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
      * @cfg {Array} stateEvents
      * An array of events that, when fired, should trigger this component to save its state.
      * Defaults to:<pre><code>
-     * stateEvents: ["columnmove", "columnresize", "sortchange"]
+     * stateEvents: ['columnmove', 'columnresize', 'sortchange']
      * </code></pre>
      * <p>These can be any types of events supported by this component, including browser or
      * custom events (e.g., <tt>['click', 'customerchange']</tt>).</p>
      * <p>See {@link Ext.Component#stateful} for an explanation of saving and restoring
      * Component state.</p>
      */
-    stateEvents : ["columnmove", "columnresize", "sortchange"],
+    stateEvents : ['columnmove', 'columnresize', 'sortchange'],
     /**
      * @cfg {Object} view The {@link Ext.grid.GridView} used by the grid. This can be set
      * before a call to {@link Ext.Component#render render()}.
@@ -260,55 +260,55 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
              * The raw click event for the entire grid.
              * @param {Ext.EventObject} e
              */
-            "click",
+            'click',
             /**
              * @event dblclick
              * The raw dblclick event for the entire grid.
              * @param {Ext.EventObject} e
              */
-            "dblclick",
+            'dblclick',
             /**
              * @event contextmenu
              * The raw contextmenu event for the entire grid.
              * @param {Ext.EventObject} e
              */
-            "contextmenu",
+            'contextmenu',
             /**
              * @event mousedown
              * The raw mousedown event for the entire grid.
              * @param {Ext.EventObject} e
              */
-            "mousedown",
+            'mousedown',
             /**
              * @event mouseup
              * The raw mouseup event for the entire grid.
              * @param {Ext.EventObject} e
              */
-            "mouseup",
+            'mouseup',
             /**
              * @event mouseover
              * The raw mouseover event for the entire grid.
              * @param {Ext.EventObject} e
              */
-            "mouseover",
+            'mouseover',
             /**
              * @event mouseout
              * The raw mouseout event for the entire grid.
              * @param {Ext.EventObject} e
              */
-            "mouseout",
+            'mouseout',
             /**
              * @event keypress
              * The raw keypress event for the entire grid.
              * @param {Ext.EventObject} e
              */
-            "keypress",
+            'keypress',
             /**
              * @event keydown
              * The raw keydown event for the entire grid.
              * @param {Ext.EventObject} e
              */
-            "keydown",
+            'keydown',
 
             // custom events
             /**
@@ -319,7 +319,7 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
              * @param {Number} columnIndex
              * @param {Ext.EventObject} e
              */
-            "cellmousedown",
+            'cellmousedown',
             /**
              * @event rowmousedown
              * Fires before a row is clicked
@@ -327,7 +327,7 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
              * @param {Number} rowIndex
              * @param {Ext.EventObject} e
              */
-            "rowmousedown",
+            'rowmousedown',
             /**
              * @event headermousedown
              * Fires before a header is clicked
@@ -335,7 +335,7 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
              * @param {Number} columnIndex
              * @param {Ext.EventObject} e
              */
-            "headermousedown",
+            'headermousedown',
 
             /**
              * @event cellclick
@@ -355,7 +355,7 @@ function(grid, rowIndex, columnIndex, e) {
              * @param {Number} columnIndex
              * @param {Ext.EventObject} e
              */
-            "cellclick",
+            'cellclick',
             /**
              * @event celldblclick
              * Fires when a cell is double clicked
@@ -364,7 +364,7 @@ function(grid, rowIndex, columnIndex, e) {
              * @param {Number} columnIndex
              * @param {Ext.EventObject} e
              */
-            "celldblclick",
+            'celldblclick',
             /**
              * @event rowclick
              * Fires when a row is clicked
@@ -372,7 +372,7 @@ function(grid, rowIndex, columnIndex, e) {
              * @param {Number} rowIndex
              * @param {Ext.EventObject} e
              */
-            "rowclick",
+            'rowclick',
             /**
              * @event rowdblclick
              * Fires when a row is double clicked
@@ -380,7 +380,7 @@ function(grid, rowIndex, columnIndex, e) {
              * @param {Number} rowIndex
              * @param {Ext.EventObject} e
              */
-            "rowdblclick",
+            'rowdblclick',
             /**
              * @event headerclick
              * Fires when a header is clicked
@@ -388,7 +388,7 @@ function(grid, rowIndex, columnIndex, e) {
              * @param {Number} columnIndex
              * @param {Ext.EventObject} e
              */
-            "headerclick",
+            'headerclick',
             /**
              * @event headerdblclick
              * Fires when a header cell is double clicked
@@ -396,7 +396,7 @@ function(grid, rowIndex, columnIndex, e) {
              * @param {Number} columnIndex
              * @param {Ext.EventObject} e
              */
-            "headerdblclick",
+            'headerdblclick',
             /**
              * @event rowcontextmenu
              * Fires when a row is right clicked
@@ -404,7 +404,7 @@ function(grid, rowIndex, columnIndex, e) {
              * @param {Number} rowIndex
              * @param {Ext.EventObject} e
              */
-            "rowcontextmenu",
+            'rowcontextmenu',
             /**
              * @event cellcontextmenu
              * Fires when a cell is right clicked
@@ -413,7 +413,7 @@ function(grid, rowIndex, columnIndex, e) {
              * @param {Number} cellIndex
              * @param {Ext.EventObject} e
              */
-            "cellcontextmenu",
+            'cellcontextmenu',
             /**
              * @event headercontextmenu
              * Fires when a header is right clicked
@@ -421,43 +421,43 @@ function(grid, rowIndex, columnIndex, e) {
              * @param {Number} columnIndex
              * @param {Ext.EventObject} e
              */
-            "headercontextmenu",
+            'headercontextmenu',
             /**
              * @event bodyscroll
              * Fires when the body element is scrolled
              * @param {Number} scrollLeft
              * @param {Number} scrollTop
              */
-            "bodyscroll",
+            'bodyscroll',
             /**
              * @event columnresize
              * Fires when the user resizes a column
              * @param {Number} columnIndex
              * @param {Number} newSize
              */
-            "columnresize",
+            'columnresize',
             /**
              * @event columnmove
              * Fires when the user moves a column
              * @param {Number} oldIndex
              * @param {Number} newIndex
              */
-            "columnmove",
+            'columnmove',
             /**
              * @event sortchange
              * Fires when the grid's store sort changes
              * @param {Grid} this
              * @param {Object} sortInfo An object with the keys field and direction
              */
-            "sortchange",
+            'sortchange',
             /**
              * @event reconfigure
-             * Fires when the grid is reconfigured with a new grid and/or column model.
+             * Fires when the grid is reconfigured with a new store and/or column model.
              * @param {Grid} this
              * @param {Ext.data.Store} store The new store
              * @param {Ext.grid.ColumnModel} colModel The new column model
              */
-            "reconfigure"
+            'reconfigure'
         );
     },
 
@@ -481,7 +481,7 @@ function(grid, rowIndex, columnIndex, e) {
             scope: this
         });
 
-        this.relayEvents(c, ["mousedown","mouseup","mouseover","mouseout","keypress"]);
+        this.relayEvents(c, ['mousedown','mouseup','mouseover','mouseout','keypress']);
 
         this.getSelectionModel().init(this);
         this.view.render();
@@ -560,8 +560,9 @@ function(grid, rowIndex, columnIndex, e) {
     },
 
     /**
-     * <p>Reconfigures the grid to use a different Store and Column Model.
-     * The View will be bound to the new objects and refreshed.</p>
+     * <p>Reconfigures the grid to use a different Store and Column Model
+     * and fires the 'reconfigure' event. The View will be bound to the new
+     * objects and refreshed.</p>
      * <p>Be aware that upon reconfiguring a GridPanel, certain existing settings <i>may</i> become
      * invalidated. For example the configured {@link #autoExpandColumn} may no longer exist in the
      * new ColumnModel. Also, an existing {@link Ext.PagingToolbar PagingToolbar} will still be bound
@@ -587,7 +588,7 @@ function(grid, rowIndex, columnIndex, e) {
 
     // private
     onKeyDown : function(e){
-        this.fireEvent("keydown", e);
+        this.fireEvent('keydown', e);
     },
 
     // private
@@ -595,7 +596,7 @@ function(grid, rowIndex, columnIndex, e) {
         if(this.rendered){
             var c = this.body;
             c.removeAllListeners();
-            c.update("");
+            c.update('');
             Ext.destroy(this.view, this.loadMask);
         }else if(this.store && this.store.autoDestroy){
             this.store.destroy();
@@ -612,14 +613,14 @@ function(grid, rowIndex, columnIndex, e) {
         var v = this.view;
         var header = v.findHeaderIndex(t);
         if(header !== false){
-            this.fireEvent("header" + name, this, header, e);
+            this.fireEvent('header' + name, this, header, e);
         }else{
             var row = v.findRowIndex(t);
             var cell = v.findCellIndex(t);
             if(row !== false){
-                this.fireEvent("row" + name, this, row, e);
+                this.fireEvent('row' + name, this, row, e);
                 if(cell !== false){
-                    this.fireEvent("cell" + name, this, row, cell, e);
+                    this.fireEvent('cell' + name, this, row, cell, e);
                 }
             }
         }
@@ -627,22 +628,22 @@ function(grid, rowIndex, columnIndex, e) {
 
     // private
     onClick : function(e){
-        this.processEvent("click", e);
+        this.processEvent('click', e);
     },
 
     // private
     onMouseDown : function(e){
-        this.processEvent("mousedown", e);
+        this.processEvent('mousedown', e);
     },
 
     // private
     onContextMenu : function(e, t){
-        this.processEvent("contextmenu", e);
+        this.processEvent('contextmenu', e);
     },
 
     // private
     onDblClick : function(e){
-        this.processEvent("dblclick", e);
+        this.processEvent('dblclick', e);
     },
 
     // private
@@ -709,10 +710,10 @@ function(grid, rowIndex, columnIndex, e) {
     stopEditing : Ext.emptyFn,
 
     /**
-     * Returns the grid's SelectionModel.
-     * @return {SelectionModel} The selection model configured by the @link (#selModel} configuration option.
-     * This will be a subclass of {@link Ext.grid.AbstractSelectionModel} which provides either cell or row
-     * selectability. If no selection model was configured, this will return a {@link Ext.grid.RowSelectionModel RowSelectionModel}.
+     * Returns the grid's selection model configured by the <code>{@link #selModel}</code>
+     * configuration option. If no selection model was configured, this will create
+     * and return a {@link Ext.grid.RowSelectionModel RowSelectionModel}.
+     * @return {SelectionModel}
      */
     getSelectionModel : function(){
         if(!this.selModel){
