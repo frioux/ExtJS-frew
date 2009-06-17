@@ -598,7 +598,7 @@ dt = Date.parseDate("2006-02-29 03:20:01", "Y-m-d H:i:s", true); // returns null
                     // date calculations (note: these calculations create a dependency on Ext.num())
                     "y = y >= 0? y : Ext.num(def.y, dt.getFullYear());",
                     "m = m >= 0? m : Ext.num(def.m - 1, dt.getMonth());",
-                    "d = d || Ext.num(def.d, dt.getDate());",
+                    "d = d >= 0? d : Ext.num(def.d, dt.getDate());",
 
                     // time calculations (note: these calculations create a dependency on Ext.num())
                     "h  = h || Ext.num(def.h, dt.getHours());",
