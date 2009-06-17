@@ -204,7 +204,7 @@ Date.formatFunctions['x-date-format'] = myDateFormatter;
             return '\\/Date(' + this.getTime() + ')\\/';
         }
     },
-    daysInMonth : [31,28,31,30,31,30,31,31,30,31,30,31],
+
     y2kYear : 50,
 
     /**
@@ -959,11 +959,14 @@ Ext.apply(Date.prototype, {
      * Get the numeric day number of the year, adjusted for leap year.
      * @return {Number} 0 to 364 (365 in leap years).
      */
-    getDayOfYear : function() {
-        var num = 0;
-        Date.daysInMonth[1] = this.isLeapYear() ? 29 : 28;
-        for (var i = 0; i < this.getMonth(); ++i) {
-            num += Date.daysInMonth[i];
+    getDayOfYear: function() {
+        var i = 0,
+            num = 0,
+            d = this.clone(),
+            m = this.getMonth();
+
+        for (i = 0, d.setMonth(0); i < m; d.setMonth(++i)) {
+            num += d.getDaysInMonth();
         }
         return num + this.getDate() - 1;
     },
@@ -1048,10 +1051,15 @@ document.write(Date.dayNames[dt.getLastDayOfMonth()]); //output: 'Wednesday'
      * Get the number of days in the current month, adjusted for leap year.
      * @return {Number} The number of days in the month.
      */
-    getDaysInMonth : function() {
-        Date.daysInMonth[1] = this.isLeapYear() ? 29 : 28;
-        return Date.daysInMonth[this.getMonth()];
-    },
+    getDaysInMonth: function() {
+        var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        return function() { // return a closure for efficiency
+            var m = this.getMonth();
+
+            return m == 1 && this.isLeapYear() ? 29 : daysInMonth[m];
+        }
+    }(),
 
     /**
      * Get the English ordinal suffix of the current day (equivalent to the format specifier 'S').
