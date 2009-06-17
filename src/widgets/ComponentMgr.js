@@ -36,7 +36,7 @@ Ext.ComponentMgr = function(){
         },
 
         /**
-         * Returns a component by {@link Ext.Component#id id}.  
+         * Returns a component by {@link Ext.Component#id id}.
          * For additional details see {@link Ext.util.MixedCollection#get}.
          * @param {String} id The component {@link Ext.Component#id id}
          * @return Ext.Component The Component, <tt>undefined</tt> if not found, or <tt>null</tt> if a
@@ -147,7 +147,7 @@ Ext.reg = Ext.ComponentMgr.registerType; // this will be called a lot internally
  * may be looked up.
  * @param {Constructor} cls The new Plugin class.
  * @member Ext
- * @method reg
+ * @method preg
  */
 Ext.preg = Ext.ComponentMgr.registerPlugin;
 Ext.create = Ext.ComponentMgr.create;
