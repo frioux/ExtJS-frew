@@ -67,6 +67,15 @@ Ext.ComponentMgr = function(){
          * @type {MixedCollection}
          */
         all : all,
+        
+        /**
+         * Checks if a Component type is registered.
+         * @param {Ext.Component} xtype The mnemonic string by which the Component class may be looked up
+         * @return {Boolean} Whether the type is registered.
+         */
+        isRegistered: function(xtype){
+            return types[xtype] !== undefined;    
+        },
 
         /**
          * <p>Registers a new Component constructor, keyed by a new
