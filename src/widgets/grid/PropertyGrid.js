@@ -201,7 +201,7 @@ Ext.extend(Ext.grid.PropertyColumnModel, Ext.grid.ColumnModel, {
         }else if(typeof val == 'number'){
             return this.editors.number;
         }else if(typeof val == 'boolean'){
-            return this.editors.boolean;
+            return this.editors['boolean'];
         }else{
             return this.editors.string;
         }
