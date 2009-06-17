@@ -300,12 +300,13 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 		    	o = {};
 
 		    if (!side) {
-		        for (key in me.margins)
+		        for (key in me.margins){
 		        	o[hash[key]] = parseInt(me.getStyle(me.margins[key]), 10) || 0;
+                }
 		        return o;
 	        } else {
 	            return me.addStyles.call(me, side, me.margins);
 	        }
 	    }
-    }
+    };
 }());

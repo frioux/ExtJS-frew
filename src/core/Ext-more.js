@@ -19,7 +19,7 @@ Ext.apply(Ext, function(){
          * the IE insecure content warning (defaults to javascript:false).
          * @type String
          */
-        SSL_SECURE_URL : "javascript:false",
+        //SSL_SECURE_URL : "javascript:false",
 
         /**
         * A reusable empty function
@@ -63,7 +63,7 @@ Ext.apply(Ext, function(){
          * @return {Number} Value, if numeric, else defaultValue
          */
         num : function(v, defaultValue){
-            v = Number(v == null || typeof v == 'boolean'? NaN : v);
+            v = Number(v === null || typeof v == 'boolean'? NaN : v);
             return isNaN(v)? defaultValue : v;
         },
 
@@ -229,7 +229,9 @@ ImageComponent = Ext.extend(Ext.BoxComponent, {
         clean : function(arr){
             var ret = [];
             Ext.each(arr, function(v){
-                if(!!v) ret.push(v);
+                if(!!v){
+                    ret.push(v);
+                }
             });
             return ret;
         },
@@ -261,10 +263,14 @@ ImageComponent = Ext.extend(Ext.BoxComponent, {
             var worker = [];
             function rFlatten(a) {
                 Ext.each(a, function(v) {
-                    Ext.isArray(v) ? rFlatten(v) : worker.push(v);
+                    if(Ext.isArray(v)){
+                        rFlatten(v);
+                    }else{
+                        worker.push(v);
+                    }
                 });
                 return worker;
-            };
+            }
             return rFlatten(arr);
         },
 
@@ -277,7 +283,7 @@ ImageComponent = Ext.extend(Ext.BoxComponent, {
          */
         min : function(arr, comp){
             var ret = arr[0];
-            comp = comp || function(a,b){ return a < b ? -1 : 1 };
+            comp = comp || function(a,b){ return a < b ? -1 : 1; };
             Ext.each(arr, function(v) {
                 ret = comp(ret, v) == -1 ? ret : v;
             });
@@ -293,7 +299,7 @@ ImageComponent = Ext.extend(Ext.BoxComponent, {
          */
         max : function(arr, comp){
             var ret = arr[0];
-            comp = comp || function(a,b){ return a > b ? 1 : -1 };
+            comp = comp || function(a,b){ return a > b ? 1 : -1; };
             Ext.each(arr, function(v) {
                 ret = comp(ret, v) == 1 ? ret : v;
             });
@@ -416,7 +422,7 @@ Ext.zip(
          * @return {Array} The zipped set.
          */
         zip : function(){
-            var parts = Ext.partition(arguments, function( val ){ return typeof val != "function" }),
+            var parts = Ext.partition(arguments, function( val ){ return !Ext.isFunction(val); }),
                 arrs = parts[0],
                 fn = parts[1][0],
                 len = Ext.max(Ext.pluck(arrs, "length")),
@@ -514,7 +520,7 @@ Ext.zip(
                 }
             }
         }
-    }
+    };
 }());
 
 /**

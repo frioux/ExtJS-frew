@@ -40,7 +40,7 @@ Ext.apply(Ext.Template.prototype, {
             } else {
                 return values[name] !== undefined ? values[name] : "";
             }
-        };
+        }
         return me.html.replace(me.re, fn);
     },
 		

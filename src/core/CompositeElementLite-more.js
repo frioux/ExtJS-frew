@@ -3,7 +3,9 @@
  */
 Ext.apply(Ext.CompositeElementLite.prototype, {	
 	addElements : function(els, root){
-        if(!els) return this;
+        if(!els){
+            return this;
+        }
         if(typeof els == "string"){
             els = Ext.Element.selectorFunction(els, root);
         }
@@ -78,9 +80,14 @@ Ext.apply(Ext.CompositeElementLite.prototype, {
 	        els = this.elements,	    
 	    	el;	    	
 	    Ext.each(keys, function(val){
-		    if (el = (els[val] || els[val = me.indexOf(val)])) {
-		    	if(removeDom)
-		    		el.dom ? el.remove() : Ext.removeNode(el);
+		    if ((el = (els[val] || els[val = me.indexOf(val)]))) {
+		    	if(removeDom){
+                    if(el.dom){
+                        el.remove();
+                    }else{
+                        Ext.removeNode(el);
+                    }
+                }
 		    	els.splice(val, 1);		    	
 			}
 	    });

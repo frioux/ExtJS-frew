@@ -29,11 +29,11 @@ Ext.Element.addMethods({
         	extraX = vp ? scroll.left : !local ? o[0] : 0,
         	extraY = vp ? scroll.top : !local ? o[1] : 0,
         	hash = {
-	        	c  : [r(w * .5), r(h * .5)],
-	        	t  : [r(w * .5), 0],
-	        	l  : [0, r(h * .5)],
-	        	r  : [w, r(h * .5)],
-	        	b  : [r(w * .5), h],
+	        	c  : [r(w * 0.5), r(h * 0.5)],
+	        	t  : [r(w * 0.5), 0],
+	        	l  : [0, r(h * 0.5)],
+	        	r  : [w, r(h * 0.5)],
+	        	b  : [r(w * 0.5), h],
 	        	tl : [0, 0],	
 	        	bl : [0, h],
 	        	br : [w, h],
@@ -62,7 +62,7 @@ Ext.Element.addMethods({
 	    function action(){
             Ext.fly(dom).alignTo(el, alignment, offsets, animate);
             Ext.callback(callback, Ext.fly(dom));
-        };
+        }
         
         Ext.EventManager.onWindowResize(action, me);
         
@@ -90,7 +90,7 @@ Ext.Element.addMethods({
         }
         
         o = o || [0,0];
-        p = (p == "?" ? "tl-bl?" : (!/-/.test(p) && p != "" ? "tl-" + p : p || "tl-bl")).toLowerCase();;       
+        p = (p == "?" ? "tl-bl?" : (!/-/.test(p) && p !== "" ? "tl-" + p : p || "tl-bl")).toLowerCase();       
                 
         var me = this,
         	d = me.dom,
@@ -118,7 +118,7 @@ Ext.Element.addMethods({
         	c = false, //constrain to viewport
         	p1 = "", 
         	p2 = "",
-        	m = p.match(/^([a-z]+)-([a-z]+)(\?)?$/)
+        	m = p.match(/^([a-z]+)-([a-z]+)(\?)?$/);
         
         if(!m){
            throw "Element.alignTo with an invalid alignment " + p;

@@ -38,7 +38,9 @@ Ext.extend(Ext.CompositeElement, Ext.CompositeElementLite, {
     * @return {CompositeElement} this
     */
     add : function(els, root){
-	    if(!els) return this;
+	    if(!els){
+            return this;
+        }
         if(typeof els == "string"){
             els = Ext.Element.selectorFunction(els, root);
         }
@@ -71,7 +73,7 @@ Ext.extend(Ext.CompositeElement, Ext.CompositeElementLite, {
 			if(el.is(selector)){
 				out.push(Ext.get(el));
 			}
-		})
+		});
 		me.elements = out;
 		return me;
 	},
@@ -84,7 +86,7 @@ Ext.extend(Ext.CompositeElement, Ext.CompositeElementLite, {
     */
     each : function(fn, scope){        
         Ext.each(this.elements, function(e,i) {
-	        return fn.call(scope || e, e, this, i)
+	        return fn.call(scope || e, e, this, i);
         }, this);
         return this;
     }

@@ -42,5 +42,5 @@ Ext.apply(Ext.Element.prototype, function() {
             }
 	        return rt;
 	    }
-    }
+    };
 }());

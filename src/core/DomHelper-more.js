@@ -48,17 +48,21 @@ function(){
             useSet = !!el.setAttribute; // In IE some elements don't have setAttribute
             for(attr in o){
 	            val = o[attr];                
-                if(["tag", "children", "cn", "html", "style"].indexOf(attr) == -1 || !Ext.isFunction(val)) {
-	                if (attr == "cls") {
+                if(["tag", "children", "cn", "html", "style"].indexOf(attr) == -1 || !Ext.isFunction(val)){
+	                if(attr == "cls"){
 	                    el.className = val;
-	                } else {
-		                useSet ? el.setAttribute(attr, val) : el[attr] = val;		                
+	                }else{
+                        if(useSet){
+                            el.setAttribute(attr, val);
+                        }else{
+                            el[attr] = val;
+                        }	                
 	                }
                 }
             }
             pub.applyStyles(el, o.style);
             
-            if (cn = o.children || o.cn) {
+            if ((cn = o.children) || o.cn) {
                 createDom(cn, el);
             } else if (o.html) {
                 el.innerHTML = o.html;
@@ -68,7 +72,7 @@ function(){
            parentNode.appendChild(el);
         }
         return el;
-    };
+    }
 	
 	pub = {
 		/**
@@ -161,6 +165,6 @@ function(){
 	     * @return {HTMLElement} The new uninserted node
 	     */
         createDom: createDom
-	}
+	};
 	return pub;	
 }());

@@ -71,10 +71,10 @@ function(){
 	        if(me.getStyle("position") == "static"){
 	            me.addClass(XMASKEDRELATIVE);
 	        }
-	        if(el = data(dom, 'maskMsg')){
+	        if((el = data(dom, 'maskMsg'))){
 	            el.remove();
 	        }
-	        if(el = data(dom, 'mask')){
+	        if((el = data(dom, 'mask'))){
 	            el.remove();
 	        }
 	
@@ -142,5 +142,5 @@ function(){
 	        shim.autoBoxAdjust = false;
 	        return shim;
 	    }
-    }
+    };
 }());

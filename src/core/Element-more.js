@@ -58,7 +58,11 @@ Ext.Element.addMethods({
         	
  	    while(n){
  	        var nx = n.nextSibling;
- 	        n.nodeType == 3 && !/\S/.test(n.nodeValue) ? dom.removeChild(n) : n.nodeIndex = ++ni; 
+            if(n.nodeType == 3 && !/\S/.test(n.nodeValue)){
+                dom.removeChild(n);
+            }else{
+                n.nodeIndex = ++ni;
+            }
  	        n = nx;
  	    }
         Ext.Element.data(dom, 'isCleaned', true);
@@ -120,7 +124,7 @@ Ext.Element.addMethods({
             	el,
             	s;
 
-            while(match = re.exec(html)){
+            while((match = re.exec(html))){
                 attrs = match[1];
                 srcMatch = attrs ? attrs.match(srcRe) : false;
                 if(srcMatch && srcMatch[2]){
