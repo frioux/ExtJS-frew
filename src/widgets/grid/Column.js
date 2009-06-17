@@ -44,29 +44,26 @@ Ext.grid.Column.prototype = {
      * unique identifier.
      */
     /**
-     * @cfg {String} header The header text to be used as innerHTML (html tags are accepted)
-     * to display in the Grid view. 
+     * @cfg {String} header Optional. The header text to be used as innerHTML
+     * (html tags are accepted) to display in the Grid view.  <b>Note</b>: to
+     * have a clickable header with no text displayed use <tt>'&#160;'</tt>. 
      */
     /**
-     * @cfg {Boolean} groupable If the grid is being rendered by an {@link Ext.grid.GroupingView}, this option
+     * @cfg {Boolean} groupable Optional. If the grid is being rendered by an {@link Ext.grid.GroupingView}, this option
      * may be used to disable the header menu item to group by the column selected. Defaults to <tt>true</tt>,
      * which enables the header menu group option.  Set to <tt>false</tt> to disable (but still show) the
      * group option in the header menu for the column. See also <code>{@link #groupName}</code>.
      */
     /**
-     * @cfg {String} groupName If the grid is being rendered by an {@link Ext.grid.GroupingView}, this option
+     * @cfg {String} groupName Optional. If the grid is being rendered by an {@link Ext.grid.GroupingView}, this option
      * may be used to specify the text with which to prefix the group field value in the group header line.
      * See also {@link #groupRenderer} and
      * {@link Ext.grid.GroupingView}.{@link Ext.grid.GroupingView#showGroupName showGroupName}.
      */
     /**
-     * @cfg {String} dataIndex <p>Optional. The name of the field in the grid's {@link Ext.data.Store}'s
-     * {@link Ext.data.Record} definition from which to draw the column's value.</p>
-     * <br><p><b>Note</b>: If not specified, the index position of this column configuration within
-     * the {@link Ext.grid.ColumnModel#ColumnModel configuration for the Column Model} is used as
-     * an index into the Record definition's field Collection. If the columns are
-     * {@link Ext.grid.GridPanel#enableColumnMove moveable} it is not safe to rely on using the
-     * column's index in this way.</p>
+     * @cfg {String} dataIndex <p><b>Required</b>. The name of the field in the
+     * grid's {@link Ext.data.Store}'s {@link Ext.data.Record} definition from
+     * which to draw the column's value.</p>
      */
     /**
      * @cfg {Number} width
@@ -199,7 +196,7 @@ var grid = new Ext.grid.GridPanel({
      * if editing is supported by the grid. See <tt>{@link #editable}</tt> also.
      */
     /**
-     * @cfg {Function} groupRenderer <p>If the grid is being rendered by an {@link Ext.grid.GroupingView}, this option
+     * @cfg {Function} groupRenderer <p>Optional. If the grid is being rendered by an {@link Ext.grid.GroupingView}, this option
      * may be used to specify the function used to format the grouping field value for display in the group 
      * {@link #groupName header}.  If a <tt><b>groupRenderer</b></tt> is not specified, the configured
      * <tt><b>{@link #renderer}</b></tt> will be called; if a <tt><b>{@link #renderer}</b></tt> is also not specified
@@ -221,7 +218,7 @@ var grid = new Ext.grid.GridPanel({
     // private. Used by ColumnModel to avoid reprocessing
     isColumn : true,
     /**
-     * A function which returns displayable data when passed the following parameters:
+     * Optional. A function which returns displayable data when passed the following parameters:
      * <div class="mdetail-params"><ul>
      * <li><b>value</b> : Object<p class="sub-desc">The data value for the cell.</p></li>
      * <li><b>metadata</b> : Object<p class="sub-desc">An object in which you may set the following attributes:<ul>
