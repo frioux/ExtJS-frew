@@ -62,7 +62,7 @@ function(){
             }
             pub.applyStyles(el, o.style);
             
-            if ((cn = o.children) || o.cn) {
+            if ((cn = o.children || o.cn)) {
                 createDom(cn, el);
             } else if (o.html) {
                 el.innerHTML = o.html;
