@@ -527,22 +527,23 @@ viewConfig: {
 
     // private
     updateAllColumnWidths : function(){
-        var tw = this.getTotalWidth();
-        var clen = this.cm.getColumnCount();
-        var ws = [];
-        for(var i = 0; i < clen; i++){
+        var tw = this.getTotalWidth(),
+            clen = this.cm.getColumnCount(),
+            ws = [],
+            i;
+        for(i = 0; i < clen; i++){
             ws[i] = this.getColumnWidth(i);
         }
         this.innerHd.firstChild.style.width = this.getOffsetWidth();
         this.innerHd.firstChild.firstChild.style.width = tw;
         this.mainBody.dom.style.width = tw;
-        for(var i = 0; i < clen; i++){
+        for(i = 0; i < clen; i++){
             var hd = this.getHeaderCell(i);
             hd.style.width = ws[i];
         }
 
         var ns = this.getRows(), row, trow;
-        for(var i = 0, len = ns.length; i < len; i++){
+        for(i = 0, len = ns.length; i < len; i++){
             row = ns[i];
             row.style.width = tw;
             if(row.firstChild){
@@ -618,18 +619,20 @@ viewConfig: {
             for(var i = 0; i < colCount; i++){
                 c = cs[i];
                 p.id = c.id;
-                p.css = i == 0 ? 'x-grid3-cell-first ' : (i == last ? 'x-grid3-cell-last ' : '');
+                p.css = i === 0 ? 'x-grid3-cell-first ' : (i == last ? 'x-grid3-cell-last ' : '');
                 p.attr = p.cellAttr = "";
                 p.value = c.renderer(r.data[c.name], p, r, rowIndex, i, ds);
                 p.style = c.style;
-                if(p.value == undefined || p.value === "") p.value = "&#160;";
+                if(Ext.isEmpty(p.value)){
+                    p.value = "&#160;";
+                }
                 if(this.markDirty && r.dirty && typeof r.modified[c.name] !== 'undefined'){
                     p.css += ' x-grid3-dirty-cell';
                 }
                 cb[cb.length] = ct.apply(p);
             }
             var alt = [];
-            if(stripe && ((rowIndex+1) % 2 == 0)){
+            if(stripe && ((rowIndex+1) % 2 === 0)){
                 alt[0] = "x-grid3-row-alt";
             }
             if(r.dirty){
@@ -661,8 +664,8 @@ viewConfig: {
             var row = rows[i];
             row.rowIndex = i;
             if(!skipStripe){
-                var isAlt = ((i+1) % 2 == 0);
-                var hasAlt = (' '+row.className + ' ').indexOf(cls) != -1;
+                var isAlt = ((i+1) % 2 === 0),
+                    hasAlt = (' '+row.className + ' ').indexOf(cls) != -1;
                 if(isAlt == hasAlt){
                     continue;
                 }
@@ -714,7 +717,7 @@ viewConfig: {
             mouseover: this.handleHdOver,
             mouseout: this.handleHdOut,
             mousemove: this.handleHdMove
-        })
+        });
 
         this.scroller.on('scroll', this.syncScroll,  this);
         if(g.enableColumnResize !== false){
@@ -858,18 +861,20 @@ viewConfig: {
 
     // private
     renderHeaders : function(){
-        var cm = this.cm, ts = this.templates;
-        var ct = ts.hcell;
-
-        var cb = [], p = {};
-        var len = cm.getColumnCount();
-        var last = len - 1;
+        var cm = this.cm, 
+            ts = this.templates,
+            ct = ts.hcell,
+            cb = [], 
+            p = {},
+            len = cm.getColumnCount(),
+            last = len - 1;
+            
         for(var i = 0; i < len; i++){
             p.id = cm.getColumnId(i);
             p.value = cm.getColumnHeader(i) || "";
             p.style = this.getColumnStyle(i, true);
             p.tooltip = this.getColumnTooltip(i);
-            p.css = i == 0 ? 'x-grid3-cell-first ' : (i == last ? 'x-grid3-cell-last ' : '');
+            p.css = i === 0 ? 'x-grid3-cell-first ' : (i == last ? 'x-grid3-cell-last ' : '');
             if(cm.config[i].align == 'right'){
                 p.istyle = 'padding-right:16px';
             } else {
@@ -973,23 +978,25 @@ viewConfig: {
             return;
         }
 
-        var rowEl = resolved.row, cellEl = resolved.cell;
-
-        var c = this.scroller.dom;
-
-        var ctop = 0;
-        var p = rowEl, stop = this.el.dom;
+        var rowEl = resolved.row, 
+            cellEl = resolved.cell,
+            c = this.scroller.dom,
+            ctop = 0,
+            p = rowEl, 
+            stop = this.el.dom;
+            
         while(p && p != stop){
             ctop += p.offsetTop;
             p = p.offsetParent;
         }
         ctop -= this.mainHd.dom.offsetHeight;
 
-        var cbot = ctop + rowEl.offsetHeight;
-
-        var ch = c.clientHeight;
-        var stop = parseInt(c.scrollTop, 10);
-        var sbot = stop + ch;
+        var cbot = ctop + rowEl.offsetHeight,
+            ch = c.clientHeight;
+            sbot = stop + ch;
+            
+        stop = parseInt(c.scrollTop, 10);
+        
 
         if(ctop < stop){
           c.scrollTop = ctop;

@@ -274,7 +274,9 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
      * conditional checks and events described in {@link #deselectRow}.
      */
     clearSelections : function(fast){
-        if(this.isLocked()) return;
+        if(this.isLocked()){
+            return;
+        }
         if(fast !== true){
             var ds = this.grid.store;
             var s = this.selections;
@@ -294,7 +296,9 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
      * {@link Ext.grid.AbstractSelectionModel#isLocked is not locked}. 
      */
     selectAll : function(){
-        if(this.isLocked()) return;
+        if(this.isLocked()){
+            return;
+        }
         this.selections.clear();
         for(var i = 0, len = this.grid.store.getCount(); i < len; i++){
             this.selectRow(i, true);
@@ -332,7 +336,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
     handleMouseDown : function(g, rowIndex, e){
         if(e.button !== 0 || this.isLocked()){
             return;
-        };
+        }
         var view = this.grid.getView();
         if(e.shiftKey && !this.singleSelect && this.last !== false){
             var last = this.last;
@@ -374,16 +378,19 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
      * @param {Boolean} keepExisting (optional) True to retain existing selections
      */
     selectRange : function(startRow, endRow, keepExisting){
-        if(this.isLocked()) return;
+        var i;
+        if(this.isLocked()){
+            return;
+        }
         if(!keepExisting){
             this.clearSelections();
         }
         if(startRow <= endRow){
-            for(var i = startRow; i <= endRow; i++){
+            for(i = startRow; i <= endRow; i++){
                 this.selectRow(i, true);
             }
         }else{
-            for(var i = startRow; i >= endRow; i--){
+            for(i = startRow; i >= endRow; i--){
                 this.selectRow(i, true);
             }
         }
@@ -397,7 +404,9 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
      * @param {Number} endRow The index of the last row in the range
      */
     deselectRange : function(startRow, endRow, preventViewNotify){
-        if(this.isLocked()) return;
+        if(this.isLocked()){
+            return;
+        }
         for(var i = startRow; i <= endRow; i++){
             this.deselectRow(i, preventViewNotify);
         }
@@ -443,7 +452,9 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
      * prevent notifying the view (disables updating the selected appearance)
      */
     deselectRow : function(index, preventViewNotify){
-        if(this.isLocked()) return;
+        if(this.isLocked()){
+            return;
+        }
         if(this.last == index){
             this.last = false;
         }

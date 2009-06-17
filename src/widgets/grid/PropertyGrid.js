@@ -60,8 +60,8 @@ Ext.extend(Ext.grid.PropertyStore, Ext.util.Observable, {
     // private
     onUpdate : function(ds, record, type){
         if(type == Ext.data.Record.EDIT){
-            var v = record.data['value'];
-            var oldValue = record.modified['value'];
+            var v = record.data.value;
+            var oldValue = record.modified.value;
             if(this.grid.fireEvent('beforepropertychange', this.source, record.id, v, oldValue) !== false){
                 this.source[record.id] = v;
                 record.commit();
@@ -81,10 +81,8 @@ Ext.extend(Ext.grid.PropertyStore, Ext.util.Observable, {
     isEditableValue: function(val){
         if(Ext.isDate(val)){
             return true;
-        }else if(typeof val == 'object' || typeof val == 'function'){
-            return false;
         }
-        return true;
+        return !(Ext.isObject(val) || Ext.isFunction(val));
     },
 
     // private
@@ -192,19 +190,20 @@ Ext.extend(Ext.grid.PropertyColumnModel, Ext.grid.ColumnModel, {
 
     // private
     getCellEditor : function(colIndex, rowIndex){
-        var p = this.store.getProperty(rowIndex);
-        var n = p.data['name'], val = p.data['value'];
+        var p = this.store.getProperty(rowIndex),
+            n = p.data.name, 
+            val = p.data.value;
         if(this.grid.customEditors[n]){
             return this.grid.customEditors[n];
         }
         if(Ext.isDate(val)){
-            return this.editors['date'];
+            return this.editors.date;
         }else if(typeof val == 'number'){
-            return this.editors['number'];
+            return this.editors.number;
         }else if(typeof val == 'boolean'){
-            return this.editors['boolean'];
+            return this.editors.boolean;
         }else{
-            return this.editors['string'];
+            return this.editors.string;
         }
     },
 

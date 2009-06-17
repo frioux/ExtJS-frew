@@ -22,7 +22,7 @@ Ext.grid.Column = function(config){
     if(this.editor){
         this.editor = Ext.create(this.editor, 'textfield');
     }
-}
+};
 
 Ext.grid.Column.AUTO_ID = 0;
 
@@ -369,7 +369,7 @@ Ext.grid.TemplateColumn = Ext.extend(Ext.grid.Column, {
         var tpl = typeof Ext.isObject(this.tpl) ? this.tpl : new Ext.XTemplate(this.tpl);
         this.renderer = function(value, p, r){
             return tpl.apply(r.data);
-        }
+        };
         this.tpl = tpl;
     }
 });

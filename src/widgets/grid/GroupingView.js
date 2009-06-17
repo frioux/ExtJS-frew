@@ -343,8 +343,9 @@ var grid = new Ext.grid.GridPanel({
         if(rs.length < 1){
             return '';
         }
-        var groupField = this.getGroupField();
-        var colIndex = this.cm.findColumnIndex(groupField);
+        var groupField = this.getGroupField(),
+            colIndex = this.cm.findColumnIndex(groupField),
+            g;
 
         this.enableGrouping = !!groupField;
 
@@ -362,9 +363,10 @@ var grid = new Ext.grid.GridPanel({
 
         var groups = [], curGroup, i, len, gid;
         for(i = 0, len = rs.length; i < len; i++){
-            var rowIndex = startRow + i;
-            var r = rs[i],
-                gvalue = r.data[groupField],
+            var rowIndex = startRow + i,
+                r = rs[i],
+                gvalue = r.data[groupField];
+                
                 g = this.getGroup(gvalue, r, groupRenderer, rowIndex, colIndex, ds);
             if(!curGroup || curGroup.group != g){
                 gid = gidPrefix + '-gp-' + groupField + '-' + Ext.util.Format.htmlEncode(g);
@@ -391,7 +393,7 @@ var grid = new Ext.grid.GridPanel({
 
         var buf = [];
         for(i = 0, len = groups.length; i < len; i++){
-            var g = groups[i];
+            g = groups[i];
             this.doGroupStart(buf, g, cs, ds, colCount);
             buf[buf.length] = Ext.grid.GroupingView.superclass.doRender.call(
                     this, cs, g.rs, ds, g.startRow, colCount, stripe);

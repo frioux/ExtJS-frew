@@ -132,7 +132,7 @@ var data = record.get(fieldName);
     handleMouseDown : function(g, row, cell, e){
         if(e.button !== 0 || this.isLocked()){
             return;
-        };
+        }
         this.select(row, cell);
     },
 
@@ -222,7 +222,7 @@ var data = record.get(fieldName);
                     return;
                 }
              break;
-        };
+        }
         if(newCell){
             this.select(newCell[0], newCell[1]);
             e.stopEvent();

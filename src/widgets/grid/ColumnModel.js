@@ -189,10 +189,11 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * and destroys existing editors.
      */
     setConfig : function(config, initial){
+        var i, c;
         if(!initial){ // cleanup
             delete this.totalWidth;
-            for(var i = 0, len = this.config.length; i < len; i++){
-                var c = this.config[i];
+            for(i = 0, len = this.config.length; i < len; i++){
+                c = this.config[i];
                 if(c.editor){
                     c.editor.destroy();
                 }
@@ -208,8 +209,8 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
         this.config = config;
         this.lookup = {};
         // if no id, create one
-        for(var i = 0, len = config.length; i < len; i++){
-            var c = Ext.applyIf(config[i], this.defaults);
+        for(i = 0, len = config.length; i < len; i++){
+            c = Ext.applyIf(config[i], this.defaults);
             if(!c.isColumn){
                 var cls = Ext.grid.Column.types[c.xtype || 'gridcolumn'];
                 c = new cls(c);
@@ -569,7 +570,6 @@ myGrid.getColumnModel().setHidden(0, true); // hide column 0 (0 = the first colu
      * Destroys this the column model by purging any event listeners, and removing any editors.
      */
     destroy : function(){
-        var c = this.config;
         for(var i = 0, c = this.config, len = c.length; i < len; i++){
             Ext.destroy(c[i].editor);
         }
