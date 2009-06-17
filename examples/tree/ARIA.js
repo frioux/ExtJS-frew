@@ -102,32 +102,3 @@ Ext.override(Ext.tree.TreePanel, {
 });
      
 })();
-/*
-<ul role="tree" aria-label="My Feeds" tabindex="-1" aria-activedescendant="ext-gen87">
-    <div role="presentation">
-        <li role="treeitem" aria-labelledby="ext-gen23" aria-expanded="true">
-            <div role="presentation">
-                <span role="presentation"/>
-                <img role="presentation"/>
-                <img role="presentation"/>
-                <a tabindex="1" role="presentation">
-                    <span id="ext-gen23" aria-expanded="false" aria-selected="false" aria-level="1">My Feeds</span>
-                </a>
-            </div>
-            <ul role="group">
-                <li role="treeitem" aria-labelledby="ext-gen84" id="ext-gen87">
-                    <div role="presentation">
-                        <span class="x-tree-node-indent" role="presentation">
-                        <img class="x-tree-icon" src="http://extjs.com/s.gif"/></span>
-                        <img role="presentation"/>
-                        <img unselectable="on" class="x-tree-node-icon feed-icon" src="http://extjs.com/s.gif" role="presentation"/>
-                        <a tabindex="1" href="" class="x-tree-node-anchor" hidefocus="on" role="presentation">
-                            <span unselectable="on" id="ext-gen84" aria-expanded="false" aria-selected="true" aria-level="2">ExtJS.com Blog</span>
-                        </a>
-                    </div>
-                    <ul style="display: none;" class="x-tree-node-ct"/>
-                </li>
-                <li class="x-tree-node" role="treeitem" aria-labelledby="ext-gen88">
-                    <div unselectable="on" class="x-tree-node-el x-tree-node-leaf x-unselectable feed" ext:tree-node-id="http://extjs.com/forum/external.php?type=RSS2" role="presentation"><span class="x-tree-node-indent" role="presentation"><img class="x-tree-icon" src="http://extjs.com/s.gif"/></span><img class="x-tree-ec-icon x-tree-elbow" src="http://extjs.com/s.gif" role="presentation"/><img unselectable="on" class="x-tree-node-icon feed-icon" src="http://extjs.com/s.gif" role="presentation"/><a tabindex="1" href="" class="x-tree-node-anchor" hidefocus="on" role="presentation"><span unselectable="on" id="ext-gen88" aria-expanded="false" aria-selected="false" aria-level="2">ExtJS.com Forums</span></a></div><ul style="display: none;" class="x-tree-node-ct"/></li><li class="x-tree-node" role="treeitem" aria-labelledby="ext-gen89"><div unselectable="on" class="x-tree-node-el x-tree-node-leaf x-unselectable feed" ext:tree-node-id="http://feeds.feedburner.com/ajaxian" role="presentation"><span class="x-tree-node-indent" role="presentation"><img class="x-tree-icon" src="http://extjs.com/s.gif"/></span><img class="x-tree-ec-icon x-tree-elbow-end" src="http://extjs.com/s.gif" role="presentation"/><img unselectable="on" class="x-tree-node-icon feed-icon" src="http://extjs.com/s.gif" role="presentation"/><a tabindex="1" href="" class="x-tree-node-anchor" hidefocus="on" role="presentation"><span unselectable="on" id="ext-gen89" aria-expanded="false" aria-selected="false" aria-level="2">Ajaxian</span></a></div><ul style="display: none;" class="x-tree-node-ct"/></li></ul></li></div></ul>
-                    
-*/
