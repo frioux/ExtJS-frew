@@ -507,13 +507,9 @@ a.x-grid3-hd-btn:hover {
     padding-top:6px;
 }
 
-.x-grid-group-hd div {
-    background:transparent no-repeat 3px -47px;
+.x-grid-group-hd div.x-grid-group-title {
+    background:transparent no-repeat 3px 3px;
     padding:4px 4px 4px 17px;
-}
-
-.x-grid-group-collapsed .x-grid-group-hd div {
-    background-position: 3px 3px;
 }
 
 .x-grid-group-collapsed .x-grid-group-body {

@@ -19,7 +19,7 @@ Ext.grid.Column = function(config){
     if(this.id === undefined){
         this.id = ++Ext.grid.Column.AUTO_ID;
     }
-    if(this.editor && this.editor.xtype && !this.editor.events){
+    if(this.editor){
         this.editor = Ext.create(this.editor, 'textfield');
     }
 }
@@ -297,7 +297,7 @@ Ext.grid.BooleanColumn = Ext.extend(Ext.grid.Column, {
     undefinedText: '&#160;',
 
     constructor: function(cfg){
-        Ext.grid.BooleanColumn.constructor.apply(this, arguments);
+        Ext.grid.BooleanColumn.superclass.constructor.call(this, cfg);
         var t = this.trueText, f = this.falseText, u = this.undefinedText;
         this.renderer = function(v){
             if(v === undefined){
@@ -325,7 +325,7 @@ Ext.grid.NumberColumn = Ext.extend(Ext.grid.Column, {
      */
     format : '0,000.00',
     constructor: function(cfg){
-        Ext.grid.NumberColumn.constructor.apply(this, arguments);
+        Ext.grid.NumberColumn.superclass.constructor.call(this, cfg);
         this.renderer = Ext.util.Format.numberRenderer(this.format);
     }
 });
@@ -345,7 +345,7 @@ Ext.grid.DateColumn = Ext.extend(Ext.grid.Column, {
      */
     format : 'm/d/Y',
     constructor: function(cfg){
-        Ext.grid.DateColumn.constructor.apply(this, arguments);
+        Ext.grid.DateColumn.superclass.constructor.call(this, cfg);
         this.renderer = Ext.util.Format.dateRenderer(this.format);
     }
 });
@@ -365,8 +365,8 @@ Ext.grid.TemplateColumn = Ext.extend(Ext.grid.Column, {
      * {@link Ext.data.Record Record}'s {@link Ext.data.Record#data data} to produce a column's rendered value.
      */
     constructor: function(cfg){
-        Ext.grid.TemplateColumn.constructor.apply(this, arguments);
-        var tpl = typeof this.tpl == 'object' ? this.tpl : new Ext.XTemplate(this.tpl);
+        Ext.grid.TemplateColumn.superclass.constructor.call(this, cfg);
+        var tpl = typeof Ext.isObject(this.tpl) ? this.tpl : new Ext.XTemplate(this.tpl);
         this.renderer = function(value, p, r){
             return tpl.apply(r.data);
         }

@@ -226,10 +226,14 @@ td.x-grid3-hd-over .x-grid3-hd-inner, td.sort-desc .x-grid3-hd-inner, td.sort-as
     border-bottom-color:#99bbe8;
 }
 
-.x-grid-group-hd div {
-    background-image:url(../images/default/grid/group-expand-sprite.gif);
+.x-grid-group-hd div.x-grid-group-title {
+    background-image:url(../images/default/grid/group-collapse.gif);
     color:#3764a0;
     font:bold 11px tahoma, arial, helvetica, sans-serif;
+}
+
+.x-grid-group-collapsed .x-grid-group-hd div.x-grid-group-title {
+    background-image:url(../images/default/grid/group-expand.gif);
 }
 
 .x-group-by-icon {
