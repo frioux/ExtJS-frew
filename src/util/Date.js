@@ -173,7 +173,7 @@ Date.parseFunctions['x-date-format'] = myDateParser;
         "M$": function(input, strict) {
             // note: the timezone offset is ignored since the M$ Ajax server sends
             // a UTC milliseconds-since-Unix-epoch value (negative values are allowed)
-            var re = new RegExp('\\/Date\\(([-+])?(\\d+)\\)\\/');
+            var re = new RegExp('\\/Date\\(([-+])?(\\d+)(?:[+-]\\d{4})?\\)\\/');
             var r = (input || '').match(re);
             return r? new Date(((r[1] || '') + r[2]) * 1) : null;
         }
