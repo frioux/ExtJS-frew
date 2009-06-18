@@ -195,9 +195,6 @@ Ext.ux.form.MultiSelect = Ext.extend(Ext.form.Field,  {
     },
 
     // private
-    initValue:Ext.emptyFn,
-
-    // private
     onViewClick: function(vw, index, node, e) {
         this.fireEvent('change', this, this.getValue(), this.hiddenField.dom.value);
         this.hiddenField.dom.value = this.getValue();

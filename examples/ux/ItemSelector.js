@@ -147,8 +147,6 @@ Ext.ux.form.ItemSelector = Ext.extend(Ext.form.Field,  {
         this.valueChanged(this.toStore);
     },
 
-    initValue:Ext.emptyFn,
-
     toTop : function() {
         var selectionsArray = this.toMultiselect.view.getSelectedIndexes();
         var records = [];
