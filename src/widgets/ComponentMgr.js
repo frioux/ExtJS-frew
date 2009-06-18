@@ -73,7 +73,7 @@ Ext.ComponentMgr = function(){
          * @param {Ext.Component} xtype The mnemonic string by which the Component class may be looked up
          * @return {Boolean} Whether the type is registered.
          */
-        isRegistered: function(xtype){
+        isRegistered : function(xtype){
             return types[xtype] !== undefined;    
         },
 
