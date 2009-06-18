@@ -135,7 +135,7 @@ Ext.ux.form.ItemSelector = Ext.extend(Ext.form.Field,  {
             this.fromMultiselect.fs.doLayout();
             this.toMultiselect.fs.doLayout();
         }
-    }
+    },
 
     afterRender: function(){
         Ext.ux.form.ItemSelector.superclass.afterRender.call(this);
