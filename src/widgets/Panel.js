@@ -1215,7 +1215,7 @@ new Ext.Panel({
                 if(old != 'auto' && old != h){
                     var bd = this.body, bdh = bd.getHeight();
                     h = Math.max(bdh + old - h, 0);
-                    if(bdh != h){
+                    if(bdh > 0 && bdh != h){
                         bd.setHeight(h);
                         if(Ext.isIE && h <= 0){
                             return;
