@@ -16,9 +16,9 @@ Ext.form.RadioGroup = Ext.extend(Ext.form.CheckboxGroup, {
     allowBlank : true,
     /**
      * @cfg {String} blankText Error text to display if the {@link #allowBlank} validation fails
-     * (defaults to "You must select one item in this group")
+     * (defaults to 'You must select one item in this group')
      */
-    blankText : "You must select one item in this group",
+    blankText : 'You must select one item in this group',
     
     // private
     defaultType : 'radio',
@@ -26,19 +26,12 @@ Ext.form.RadioGroup = Ext.extend(Ext.form.CheckboxGroup, {
     // private
     groupCls : 'x-form-radio-group',
     
-    // private
-    initComponent: function(){
-        this.addEvents(
-            /**
-             * @event change
-             * Fires when the state of a child radio changes.
-             * @param {Ext.form.RadioGroup} this
-             * @param {Ext.form.Radio} checked The checked radio
-             */
-            'change'
-        );   
-        Ext.form.RadioGroup.superclass.initComponent.call(this);
-    },
+    /**
+     * @event change
+     * Fires when the state of a child radio changes.
+     * @param {Ext.form.RadioGroup} this
+     * @param {Ext.form.Radio} checked The checked radio
+     */
     
     /**
      * Gets the selected {@link Ext.form.Radio} in the group, if it exists.
@@ -87,7 +80,7 @@ Ext.form.RadioGroup = Ext.extend(Ext.form.CheckboxGroup, {
     },
     
     // private
-    fireChecked: function(){
+    fireChecked : function(){
         if(!this.checkTask){
             this.checkTask = new Ext.util.DelayedTask(this.bufferChecked, this);
         }
@@ -95,7 +88,7 @@ Ext.form.RadioGroup = Ext.extend(Ext.form.CheckboxGroup, {
     },
     
     // private
-    bufferChecked: function(){
+    bufferChecked : function(){
         var out = null;
         this.items.each(function(item){
             if(item.checked){
@@ -106,7 +99,7 @@ Ext.form.RadioGroup = Ext.extend(Ext.form.CheckboxGroup, {
         this.fireEvent('change', this, out);
     },
     
-    onDestroy: function(){
+    onDestroy : function(){
         if(this.checkTask){
             this.checkTask.cancel();
             this.checkTask = null;
