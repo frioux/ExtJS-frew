@@ -781,7 +781,7 @@ viewConfig: {
         var csize = c.getSize(true);
         var vw = csize.width;
 
-        if(vw < 20 || csize.height < 20){ // display: none?
+        if(!g.hideHeaders && (vw < 20 || csize.height < 20)){ // display: none?
             return;
         }
         
