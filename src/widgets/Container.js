@@ -281,10 +281,12 @@ layoutConfig: {
      * for example:</p>
      * <pre><code>
 // specifying a single item
-items: {...}
+items: {...},
+layout: 'fit',    // specify a layout!
 
 // specifying multiple items
-items: [{...}, {...}]
+items: [{...}, {...}],
+layout: 'anchor', // specify a layout!
      * </code></pre>
      * <p>Each item may be:</p>
      * <div><ul class="mdetail-params">
@@ -301,10 +303,14 @@ items: [{...}, {...}]
      * <li>will be "lazily instanciated", avoiding the overhead of constructing a fully
      * instanciated Component object</li>
      * </ul></div></ul></div>
-     * <p>Note: Ext uses lazy rendering. Child Components will only be rendered
+     * <p><b>Notes</b>:</p>
+     * <div><ul class="mdetail-params">
+     * <li>Ext uses lazy rendering. Child Components will only be rendered
      * should it become necessary. Items are automatically laid out when they are first
-     * shown (no sizing is done while hidden), or in response to a {@link #doLayout} call.
-     * </p>
+     * shown (no sizing is done while hidden), or in response to a {@link #doLayout} call.</li>
+     * <li>Do not specify <code>{@link Ext.Panel#contentEl contentEl}</code>/
+     * <code>{@link Ext.Panel#html html}</code> with <code>items</code>.</li>
+     * </ul></div>
      */
     /**
      * @cfg {Object} defaults
@@ -336,7 +342,7 @@ items: [
      * If true the container will automatically destroy any contained component that is removed from it, else
      * destruction must be handled manually (defaults to true).
      */
-    autoDestroy: true,
+    autoDestroy : true,
     /** @cfg {Boolean} hideBorders
      * True to hide the borders of each contained component, false to defer to the component's existing
      * border settings (defaults to false).
@@ -347,7 +353,7 @@ items: [
      * <p>Defaults to <tt>'panel'</tt>, except {@link Ext.menu.Menu} which defaults to <tt>'menuitem'</tt>,
      * and {@link Ext.Toolbar} and {@link Ext.ButtonGroup} which default to <tt>'button'</tt>.</p>
      */
-    defaultType: 'panel',
+    defaultType : 'panel',
 
     // private
     initComponent : function(){
@@ -541,7 +547,7 @@ tb.{@link #doLayout}();             // refresh the layout
      * A Component config object may be passed in order to avoid the overhead of
      * constructing a real Component object if lazy rendering might mean that the
      * inserted Component will not be rendered immediately. To take advantage of
-     * this "lazy instantiation", set the {@link Ext.Component#xtype} config
+     * this 'lazy instantiation', set the {@link Ext.Component#xtype} config
      * property to the registered type of the Component wanted.<br><br>
      * For a list of all available xtypes, see {@link Ext.Component}.
      * @return {Ext.Component} component The Component (or config object) that was
@@ -714,9 +720,9 @@ tb.{@link #doLayout}();             // refresh the layout
     },
     
     //private
-    onLayout: Ext.emptyFn,
+    onLayout : Ext.emptyFn,
     
-    onShow: function(){
+    onShow : function(){
         Ext.Container.superclass.onShow.call(this);
         if(this.deferLayout !== undefined){
             this.doLayout(true);
@@ -840,7 +846,7 @@ tb.{@link #doLayout}();             // refresh the layout
     /**
      * Find a component under this container at any level by a custom function. If the passed function returns
      * true, the component will be included in the results. The passed function is called with the arguments (component, this container).
-     * @param {Function} fcn
+     * @param {Function} fn The function to call
      * @param {Object} scope (optional)
      * @return {Array} Array of Ext.Components
      */
