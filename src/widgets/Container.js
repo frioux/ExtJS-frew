@@ -338,11 +338,19 @@ items: [
      * </code></pre>
      */
 
+    
     /** @cfg {Boolean} autoDestroy
      * If true the container will automatically destroy any contained component that is removed from it, else
      * destruction must be handled manually (defaults to true).
      */
     autoDestroy : true,
+    
+    /** @cfg {Boolean} forceLayout
+     * If true the container will force a layout initially even if hidden or collapsed. This option
+     * is useful for forcing forms to render in collapsed or hidden containers. (defaults to false).
+     */
+    forceLayout: false,
+    
     /** @cfg {Boolean} hideBorders
      * True to hide the borders of each contained component, false to defer to the component's existing
      * border settings (defaults to false).
@@ -692,10 +700,12 @@ tb.{@link #doLayout}();             // refresh the layout
      * @return {Ext.Container} this
      */
     doLayout: function(shallow, force){
-        var rendered = this.rendered;
+        var rendered = this.rendered,
+            forceLayout = this.forceLayout;
+            
         if(!this.isVisible() || this.collapsed){
             this.deferLayout = this.deferLayout || !shallow;
-            if(!force){                
+            if(!(force || forceLayout)){               
                 return;
             }
             shallow = shallow && !this.deferLayout;
@@ -710,6 +720,7 @@ tb.{@link #doLayout}();             // refresh the layout
             for(var i = 0, len = cs.length; i < len; i++){
                 var c = cs[i];
                 if(c.doLayout){
+                    c.forceLayout = forceLayout;
                     c.doLayout();
                 }
             }
@@ -717,6 +728,7 @@ tb.{@link #doLayout}();             // refresh the layout
         if(rendered){
             this.onLayout(shallow, force);
         }
+        delete this.forceLayout;
     },
     
     //private

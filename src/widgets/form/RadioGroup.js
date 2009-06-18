@@ -39,14 +39,12 @@ Ext.form.RadioGroup = Ext.extend(Ext.form.CheckboxGroup, {
      */
     getValue : function(){
         var out = null;
-        if(this.items){
-            this.items.each(function(item){
-                if(item.checked){
-                    out = item;
-                    return false;
-                }
-            });
-        }
+        this.eachItem(function(item){
+            if(item.checked){
+                out = item;
+                return false;
+            }
+        });
         return out;
     },
     
@@ -63,11 +61,11 @@ Ext.form.RadioGroup = Ext.extend(Ext.form.CheckboxGroup, {
                 if(f){
                     f.setValue(value);
                     if(f.checked){
-                        this.items.each(function(item){
+                        this.eachItem(function(item){
                             if (item !== f){
                                 item.setValue(false);
                             }
-                        }, this);
+                        });
                     }
                 }
             }else{
@@ -90,7 +88,7 @@ Ext.form.RadioGroup = Ext.extend(Ext.form.CheckboxGroup, {
     // private
     bufferChecked : function(){
         var out = null;
-        this.items.each(function(item){
+        this.eachItem(function(item){
             if(item.checked){
                 out = item;
                 return false;

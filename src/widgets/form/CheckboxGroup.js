@@ -197,15 +197,24 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
             this.setValue.apply(this, this.values);
             delete this.values;
         }
-        this.items.each(function(item){
+        this.eachItem(function(item){
             item.on('check', this.fireChecked, this);
-        }, this);
+        });
+    },
+    
+    // private
+    doLayout: function(){
+        //ugly method required to layout hidden items
+        if(this.rendered){
+            this.panel.forceLayout = this.ownerCt.forceLayout;
+            this.panel.doLayout();
+        }
     },
     
     // private
     fireChecked: function(){
         var arr = [];
-        this.items.each(function(item){
+        this.eachItem(function(item){
             if(item.checked){
                 arr.push(item);
             }
@@ -217,11 +226,11 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
     validateValue : function(value){
         if(!this.allowBlank){
             var blank = true;
-            this.items.each(function(f){
+            this.eachItem(function(f){
                 if(f.checked){
-                    return blank = false;
+                    return (blank = false);
                 }
-            }, this);
+            });
             if(blank){
                 this.markInvalid(this.blankText);
                 return false;
@@ -232,16 +241,24 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
     
     // private
     onDisable : function(){
-        this.items.each(function(item){
+        this.eachItem(function(item){
             item.disable();
-        })
+        });
     },
 
     // private
     onEnable : function(){
-        this.items.each(function(item){
+        this.eachItem(function(item){
             item.enable();
-        })
+        });
+    },
+    
+    // private
+    doLayout: function(){
+        if(this.rendered){
+            this.panel.forceLayout = this.ownerCt.forceLayout;
+            this.panel.doLayout();
+        }
     },
     
     // private
@@ -253,11 +270,11 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
     // inherit docs from Field
     reset : function(){
         Ext.form.CheckboxGroup.superclass.reset.call(this);
-        this.items.each(function(c){
+        this.eachItem(function(c){
             if(c.reset){
                 c.reset();
             }
-        }, this);
+        });
     },
     
     /**
@@ -324,22 +341,22 @@ myCheckboxGroup.setValue('cb-col-1,cb-col-3');
     
     setValueForItem : function(val){
         val = String(val).split(',');
-        this.items.each(function(item){
+        this.eachItem(function(item){
             if(val.indexOf(item.inputValue)> -1){
                 item.setValue(true);
             }
-        }, this);
+        });
     },
     
     // private
     getBox : function(id){
         var box = null;
-        this.items.each(function(f){
+        this.eachItem(function(f){
             if(id == f || f.dataIndex == id || f.id == id || f.getName() == id){
                 box = f;
                 return false;
             }
-        }, this);
+        });
         return box;
     },
     
@@ -349,14 +366,19 @@ myCheckboxGroup.setValue('cb-col-1,cb-col-3');
      */
     getValue : function(){
         var out = [];
-        if(this.items){
-            this.items.each(function(item){
-                if(item.checked){
-                    out.push(item);
-                }
-            });
-        }
+        this.eachItem(function(item){
+            if(item.checked){
+                out.push(item);
+            }
+        });
         return out;
+    },
+    
+    // private
+    eachItem: function(fn){
+        if(this.items && this.items.each){
+            this.items.each(fn, this);
+        }
     },
     
     /**

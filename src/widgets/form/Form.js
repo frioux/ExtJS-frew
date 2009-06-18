@@ -164,7 +164,8 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
                     labelWidth: c.ownerCt.labelWidth,
                     itemCls: c.ownerCt.itemCls
                 });
-                if(c.items){
+                //each check required for check/radio groups.
+                if(c.items && c.items.each){
                     c.items.each(fn, this);
                 }
             }
