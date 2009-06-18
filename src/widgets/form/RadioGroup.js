@@ -111,6 +111,7 @@ Ext.form.RadioGroup = Ext.extend(Ext.form.CheckboxGroup, {
             this.checkTask.cancel();
             this.checkTask = null;
         }
+        Ext.form.RadioGroup.superclass.onDestroy.call(this);
     }
 
 });
