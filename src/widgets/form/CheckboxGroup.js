@@ -67,6 +67,20 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
     groupCls : 'x-form-check-group',
     
     // private
+    initComponent: function(){
+        this.addEvents(
+            /**
+             * @event change
+             * Fires when the state of a child checkbox changes.
+             * @param {Ext.form.CheckboxGroup} this
+             * @param {Array} checked An array containing the checked boxes.
+             */
+            'change'
+        );   
+        Ext.form.CheckboxGroup.superclass.initComponent.call(this);
+    },
+    
+    // private
     onRender : function(ct, position){
         if(!this.el){
             var panelCfg = {
@@ -183,6 +197,20 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
             this.setValue.apply(this, this.values);
             delete this.values;
         }
+        this.items.each(function(item){
+            item.on('check', this.fireChecked, this);
+        }, this);
+    },
+    
+    // private
+    fireChecked: function(){
+        var arr = [];
+        this.items.each(function(item){
+            if(item.checked){
+                arr.push(item);
+            }
+        });
+        this.fireEvent('change', this, arr);
     },
     
     // private

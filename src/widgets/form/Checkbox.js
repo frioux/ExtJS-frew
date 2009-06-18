@@ -153,15 +153,16 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
      * @return {Ext.form.Field} this
      */
     setValue : function(v){
-        var checked = this.checked = (v === true || v === 'true' || v == '1' || String(v).toLowerCase() == 'on');
+        var checked = this.checked ;
+        this.checked = (v === true || v === 'true' || v == '1' || String(v).toLowerCase() == 'on');
         if(this.rendered){
-            this.el.dom.checked = checked;
-            this.el.dom.defaultChecked = checked;
+            this.el.dom.checked = this.checked;
+            this.el.dom.defaultChecked = this.checked;
         }
         if(checked != this.checked){
-            this.fireEvent("check", this, checked);
+            this.fireEvent("check", this, this.checked);
             if(this.handler){
-                this.handler.call(this.scope || this, this, checked);
+                this.handler.call(this.scope || this, this, this.checked);
             }
         }
         return this;

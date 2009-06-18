@@ -26,6 +26,20 @@ Ext.form.RadioGroup = Ext.extend(Ext.form.CheckboxGroup, {
     // private
     groupCls : 'x-form-radio-group',
     
+    // private
+    initComponent: function(){
+        this.addEvents(
+            /**
+             * @event change
+             * Fires when the state of a child radio changes.
+             * @param {Ext.form.RadioGroup} this
+             * @param {Ext.form.Radio} checked The checked radio
+             */
+            'change'
+        );   
+        Ext.form.RadioGroup.superclass.initComponent.call(this);
+    },
+    
     /**
      * Gets the selected {@link Ext.form.Radio} in the group, if it exists.
      * @return {Ext.form.Radio} The selected radio.
@@ -70,6 +84,33 @@ Ext.form.RadioGroup = Ext.extend(Ext.form.CheckboxGroup, {
             this.values = arguments;
         }
         return this;
+    },
+    
+    // private
+    fireChecked: function(){
+        if(!this.checkTask){
+            this.checkTask = new Ext.util.DelayedTask(this.bufferChecked, this);
+        }
+        this.checkTask.delay(10);
+    },
+    
+    // private
+    bufferChecked: function(){
+        var out = null;
+        this.items.each(function(item){
+            if(item.checked){
+                out = item;
+                return false;
+            }
+        });
+        this.fireEvent('change', this, out);
+    },
+    
+    onDestroy: function(){
+        if(this.checkTask){
+            this.checkTask.cancel();
+            this.checkTask = null;
+        }
     }
 
 });
