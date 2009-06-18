@@ -19,7 +19,7 @@ Ext.apply(Ext, function(){
          * the IE insecure content warning (defaults to javascript:false).
          * @type String
          */
-        //SSL_SECURE_URL : "javascript:false",
+        SSL_SECURE_URL : "javascript:false",
 
         /**
         * A reusable empty function
