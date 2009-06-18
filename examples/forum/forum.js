@@ -1,37 +1,3 @@
-Ext.override(Ext.data.ScriptTagProxy, {
-    createCallback : function(action, trans) {
-        var conn = this;
-        return (action == 'load')
-            ? function(res) {
-                conn.trans = false;
-                conn.destroyTrans(trans, true);
-                var result;
-                try {
-                    result = trans.reader.readRecords(res);
-                }catch(e){
-                    console.log(e);
-                    conn.fireEvent("loadexception", conn, res, trans.arg, e);
-                    trans.callback.call(trans.scope||window, null, trans.arg, false);
-                    return;
-                }
-                conn.fireEvent("load", conn, res, trans.arg);
-                trans.callback.call(trans.scope||window, result, trans.arg, true);
-            }
-            : function(res) {
-                var reader = trans.reader;
-                if(!res[reader.meta.successProperty] === true){
-                    conn.fireEvent(action+"exception", conn, trans, res);
-                    trans.callback.call(trans.scope, null, res, false);
-                    return;
-                }
-                // should we read from the Writer config instead of reader.meta.root?
-                conn.fireEvent(action, conn, res[reader.meta.root], res, trans.arg );
-                trans.callback.call(trans.scope||window, res[reader.meta.root], res, true);
-            }
-    }
-});
-
-
 var Forum = {};
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -230,7 +196,7 @@ Ext.onReady(function(){
                 region:'west',
                 title:'Forums',
                 split:true,
-                width: 225,
+                width: 325,
                 minSize: 175,
                 maxSize: 400,
                 collapsible: true,
@@ -261,7 +227,17 @@ Ext.onReady(function(){
                             id:'topic-grid',
                             store: ds,
                             cm: cm,
-                            sm:new Ext.grid.RowSelectionModel({singleSelect:true}),
+                            sm:new Ext.grid.RowSelectionModel({
+                                singleSelect:true,
+                                listeners: {
+                                    selectionchange: function(sel){
+                                        var rec = sel.getSelected();
+                                        if(rec){
+                                            Ext.getCmp('preview').body.update('<b><u>' + rec.get('title') + '</u></b><br /><br />Post details here.');
+                                        }
+                                    }
+                                }
+                            }),
                             trackMouseOver:false,
                             loadMask: {msg:'Loading Topics...'},
                             viewConfig: {
@@ -313,7 +289,8 @@ Ext.onReady(function(){
                             region:'south',
                             height:250,
                             title:'View Topic',
-                            split:true
+                            split:true,
+                            bodyStyle: 'padding: 10px; font-family: Arial; font-size: 12px;'
                         }
                      ]
                  }
@@ -323,7 +300,7 @@ Ext.onReady(function(){
 
     var tree = Ext.getCmp('forum-tree');
     tree.on('append', function(tree, p, node){
-       if(node.id == 5){
+       if(node.id == 40){
            node.select.defer(100, node);
        }
     });
@@ -344,22 +321,18 @@ Ext.onReady(function(){
         reader: new Ext.data.JsonReader({
             root: 'topics',
             totalProperty: 'totalCount',
-            id: 'post_id'
+            id: 'threadid'
         }, [
-            {name: 'title', mapping: 'topic_title'},
-            {name: 'topicId', mapping: 'topic_id'},
-            {name: 'author', mapping: 'author'},
-            {name: 'lastPost', mapping: 'post_time', type: 'date', dateFormat: 'timestamp'},
-            {name: 'excerpt', mapping: 'post_text'}
+            'title', 'author',
+            {name: 'lastpost', type: 'date', dateFormat: 'timestamp'}
         ])
     });
 
     // Custom rendering Template
-    var resultTpl = new Ext.Template(
-        '<div class="search-item">',
-            '<h3><span>{lastPost:date("M j, Y")}<br />by {author}</span>{title}</h3>',
-            '{excerpt}',
-        '</div>'
+    var resultTpl = new Ext.XTemplate(
+        '<tpl for=".">',
+            '<div class="x-combo-list-item search-item">{title} by <b>{author}</b></div>',
+        '</tpl>'
     );
 
     var search = new Ext.form.ComboBox({
@@ -407,11 +380,11 @@ Forum.TreeLoader = function(){
 Ext.extend(Forum.TreeLoader, Ext.tree.TreeLoader, {
     dataUrl: 'http://extjs.com/forum/forums-remote.php',
     requestData : function(node, cb){
-        this.proxy.request('load', null, {}, {
+        this.proxy.request('read', null, {}, {
             readRecords : function(o){
                 return o;
             }
-        }, null, this.addNodes, this, {node:node, cb:cb});
+        }, this.addNodes, this, {node:node, cb:cb});
     },
 
     addNodes : function(o, arg){
