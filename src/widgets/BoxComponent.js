@@ -64,15 +64,77 @@ Ext.BoxComponent = Ext.extend(Ext.Component, {
      */
     /**
      * @cfg {Boolean} autoHeight
-     * True to use height:'auto', false to use fixed height (defaults to false). <b>Note</b>: Although many components 
-     * inherit this config option, not all will function as expected with a height of 'auto'. Setting autoHeight:true 
-     * means that the browser will manage height based on the element's contents, and that Ext will not manage it at all.
+     * <p>True to use height:'auto', false to use fixed height (or allow it to be managed by its parent
+     * Container's {@link Ext.Container#layout layout manager}. Defaults to false.</p>
+     * <p><b>Note</b>: Although many components inherit this config option, not all will
+     * function as expected with a height of 'auto'. Setting autoHeight:true means that the
+     * browser will manage height based on the element's contents, and that Ext will not manage it at all.</p>
+     * <p>If the <i>browser</i> is managing the height, be aware that resizes performed by the browser in response
+     * to changes within the structure of the Component cannot be detected. Therefore changes to the height might
+     * result in elements needing to be synchronized with the new height. Example:</p><pre><code>
+var w = new Ext.Window({
+    title: 'Window',
+    width: 600,
+    autoHeight: true,
+    items: {
+        title: 'Collapse Me',
+        height: 400,
+        collapsible: true,
+        border: false,
+        listeners: {
+            beforecollapse: function() {
+                w.el.shadow.hide();
+            },
+            beforeexpand: function() {
+                w.el.shadow.hide();
+            },
+            collapse: function() {
+                w.syncShadow();
+            },
+            expand: function() {
+                w.syncShadow();
+            }
+        }
+    }
+}).show();
+</code></pre>
      */
     /**
      * @cfg {Boolean} autoWidth
-     * True to use width:'auto', false to use fixed width (defaults to false). <b>Note</b>: Although many components 
-     * inherit this config option, not all will function as expected with a width of 'auto'. Setting autoWidth:true 
-     * means that the browser will manage width based on the element's contents, and that Ext will not manage it at all.
+     * <p>True to use width:'auto', false to use fixed width (or allow it to be managed by its parent
+     * Container's {@link Ext.Container#layout layout manager}. Defaults to false.</p>
+     * <p><b>Note</b>: Although many components  inherit this config option, not all will
+     * function as expected with a width of 'auto'. Setting autoWidth:true means that the
+     * browser will manage width based on the element's contents, and that Ext will not manage it at all.</p>
+     * <p>If the <i>browser</i> is managing the width, be aware that resizes performed by the browser in response
+     * to changes within the structure of the Component cannot be detected. Therefore changes to the width might
+     * result in elements needing to be synchronized with the new width. For example, where the target element is:</p><pre><code>
+&lt;div id='grid-container' style='margin-left:25%;width:50%'>&lt;/div>
+</code></pre>
+     * A Panel rendered into that target element must listen for browser window resize in order to relay its
+      * child items when the browser changes its width:<pre><code>
+var myPanel = new Ext.Panel({
+    renderTo: 'grid-container',
+    monitorResize: true, // relay on browser resize
+    title: 'Panel',
+    height: 400,
+    autoWidth: true,
+    layout: 'hbox',
+    layoutConfig: {
+        align: 'stretch'
+    },
+    defaults: {
+        flex: 1
+    },
+    items: [{
+        title: 'Box 1',
+    }, {
+        title: 'Box 2'
+    }, {
+        title: 'Box 3'
+    }],
+});
+</code></pre>
      */
 
     /* // private internal config
