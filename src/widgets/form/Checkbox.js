@@ -13,18 +13,18 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
      */
     focusClass : undefined,
     /**
-     * @cfg {String} fieldClass The default CSS class for the checkbox (defaults to "x-form-field")
+     * @cfg {String} fieldClass The default CSS class for the checkbox (defaults to 'x-form-field')
      */
-    fieldClass: "x-form-field",
+    fieldClass : 'x-form-field',
     /**
      * @cfg {Boolean} checked <tt>true</tt> if the checkbox should render initially checked (defaults to <tt>false</tt>)
      */
-    checked: false,
+    checked : false,
     /**
      * @cfg {String/Object} autoCreate A DomHelper element spec, or true for a default element spec (defaults to
-     * {tag: "input", type: "checkbox", autocomplete: "off"})
+     * {tag: 'input', type: 'checkbox', autocomplete: 'off'})
      */
-    defaultAutoCreate : { tag: "input", type: 'checkbox', autocomplete: "off"},
+    defaultAutoCreate : { tag: 'input', type: 'checkbox', autocomplete: 'off'},
     /**
      * @cfg {String} boxLabel The text that appears beside the checkbox
      */
@@ -40,12 +40,12 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
      * </ul></div>
      */
     /**
-     * @cfg {Object} scope An object to use as the scope ("this" reference) of the {@link #handler} function
+     * @cfg {Object} scope An object to use as the scope ('this' reference) of the {@link #handler} function
      * (defaults to this Checkbox).
      */
 
     // private
-    actionMode: 'wrap',
+    actionMode : 'wrap',
     
 	// private
     initComponent : function(){
@@ -105,7 +105,7 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
         if(this.inputValue !== undefined){
             this.el.dom.value = this.inputValue;
         }
-        this.wrap = this.el.wrap({cls: "x-form-check-wrap"});
+        this.wrap = this.el.wrap({cls: 'x-form-check-wrap'});
         if(this.boxLabel){
             this.wrap.createChild({tag: 'label', htmlFor: this.el.id, cls: 'x-form-cb-label', html: this.boxLabel});
         }
@@ -123,7 +123,7 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
     },
 
     // private
-    initValue: function() {
+    initValue : function() {
         this.originalValue = this.getValue();
     },
 
@@ -146,7 +146,7 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
     },
 
     /**
-     * Sets the checked state of the checkbox, fires the "check" event, and calls a
+     * Sets the checked state of the checkbox, fires the 'check' event, and calls a
      * <code>{@link #handler}</code> (if configured).
      * @param {Boolean/String} checked The following values will check the checkbox:
      * <code>true, 'true', '1', or 'on'</code>. Any other value will uncheck the checkbox.
@@ -160,7 +160,7 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
             this.el.dom.defaultChecked = this.checked;
         }
         if(checked != this.checked){
-            this.fireEvent("check", this, this.checked);
+            this.fireEvent('check', this, this.checked);
             if(this.handler){
                 this.handler.call(this.scope || this, this, this.checked);
             }
