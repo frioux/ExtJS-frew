@@ -518,6 +518,8 @@
   <file name="images\default\grid\grid3-special-col-sel-bg.gif" path="images\default\grid" />
   <file name="images\default\grid\group-by.gif" path="images\default\grid" />
   <file name="images\default\grid\group-expand-sprite.gif" path="images\default\grid" />
+  <file name="images\default\grid\group-expand.gif" path="images\default\grid" />
+  <file name="images\default\grid\group-collapse.gif" path="images\default\grid" />
   <file name="images\default\grid\hd-pop.gif" path="images\default\grid" />
   <file name="images\default\grid\hmenu-asc.gif" path="images\default\grid" />
   <file name="images\default\grid\hmenu-desc.gif" path="images\default\grid" />
