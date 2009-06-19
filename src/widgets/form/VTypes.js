@@ -2,7 +2,7 @@
  * @class Ext.form.VTypes
  * <p>This is a singleton object which contains a set of commonly used field validation functions.
  * The validations provided are basic and intended to be easily customizable and extended.</p>
- * <p>To add custom VTypes specify the <tt>{@link Ext.form.TextField#vtype vtype}</tt> validation
+ * <p>To add custom VTypes specify the <code>{@link Ext.form.TextField#vtype vtype}</code> validation
  * test function, and optionally specify any corresponding error text to display and any keystroke
  * filtering mask to apply. For example:</p>
  * <pre><code>
@@ -50,6 +50,7 @@ Ext.form.VTypes = function(){
          * 'barney@domain.de', 'barney.rubble@domain.com', 'barney-rubble@domain.coop', 'barney+rubble@domain.com'
          * </tt>.
          * @param {String} value The email address
+         * @return {Boolean} true if the RegExp test passed, and false if not.
          */
         'email' : function(v){
             return email.test(v);
@@ -71,6 +72,7 @@ Ext.form.VTypes = function(){
         /**
          * The function used to validate URLs
          * @param {String} value The URL
+         * @return {Boolean} true if the RegExp test passed, and false if not.
          */
         'url' : function(v){
             return url.test(v);
@@ -85,6 +87,7 @@ Ext.form.VTypes = function(){
         /**
          * The function used to validate alpha values
          * @param {String} value The value
+         * @return {Boolean} true if the RegExp test passed, and false if not.
          */
         'alpha' : function(v){
             return alpha.test(v);
@@ -105,6 +108,7 @@ Ext.form.VTypes = function(){
         /**
          * The function used to validate alphanumeric values
          * @param {String} value The value
+         * @return {Boolean} true if the RegExp test passed, and false if not.
          */
         'alphanum' : function(v){
             return alphanum.test(v);
