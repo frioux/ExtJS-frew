@@ -187,7 +187,7 @@ Ext.extend(Ext.Resizable, Ext.util.Observable, {
         maxHeight : 10000,
         enabled : true,
         animate : false,
-        duration : .35,
+        duration : 0.35,
         dynamic : false,
         handles : false,
         multiDirectional : false,
@@ -246,8 +246,11 @@ Ext.extend(Ext.Resizable, Ext.util.Observable, {
                 this.overlay = this.el.createProxy({tag: "div", cls: "x-resizable-overlay", html: "&#160;"}, Ext.getBody());
                 this.overlay.unselectable();
                 this.overlay.enableDisplayMode("block");
-                this.overlay.on("mousemove", this.onMouseMove, this);
-                this.overlay.on("mouseup", this.onMouseUp, this);
+                this.overlay.on({
+                    scope: this,
+                    mousemove: this.onMouseMove,
+                    mouseup: this.onMouseUp
+                });
             }
             this.overlay.setStyle("cursor", handle.el.getStyle("cursor"));
 
@@ -290,6 +293,7 @@ Ext.extend(Ext.Resizable, Ext.util.Observable, {
 
     // private
     onMouseUp : function(e){
+        this.activeHandle = null;
         var size = this.resizeElement();
         this.resizing = false;
         this.handleOut();
@@ -325,7 +329,9 @@ Ext.extend(Ext.Resizable, Ext.util.Observable, {
 
     // private
     snap : function(value, inc, min){
-        if(!inc || !value) return value;
+        if(!inc || !value){
+            return value;
+        }
         var newValue = value;
         var m = value % inc;
         if(m > 0){
@@ -396,14 +402,14 @@ new Ext.Panel({
         if(v - diff < m){
             diff = v - m;    
         }else if(v - diff > mx){
-            diff = mx - v; 
+            diff = v - mx; 
         }
         return diff;                
     },
 
     // private
     onMouseMove : function(e){
-        if(this.enabled){
+        if(this.enabled && this.activeHandle){
             try{// try catch so if something goes wrong the user doesn't get hung
 
             if(this.resizeRegion && !this.resizeRegion.contains(e.getPoint())) {
@@ -411,21 +417,26 @@ new Ext.Panel({
             }
 
             //var curXY = this.startPoint;
-            var curSize = this.curSize || this.startBox;
-            var x = this.startBox.x, y = this.startBox.y;
-            var ox = x, oy = y;
-            var w = curSize.width, h = curSize.height;
-            var ow = w, oh = h;
-            var mw = this.minWidth, mh = this.minHeight;
-            var mxw = this.maxWidth, mxh = this.maxHeight;
-            var wi = this.widthIncrement;
-            var hi = this.heightIncrement;
-            
-            var eventXY = e.getXY();
-            var diffX = -(this.startPoint[0] - Math.max(this.minX, eventXY[0]));
-            var diffY = -(this.startPoint[1] - Math.max(this.minY, eventXY[1]));
-            
-            var pos = this.activeHandle.position;
+            var curSize = this.curSize || this.startBox,
+                x = this.startBox.x, y = this.startBox.y,
+                ox = x, 
+                oy = y,
+                w = curSize.width, 
+                h = curSize.height,
+                ow = w, 
+                oh = h,
+                mw = this.minWidth, 
+                mh = this.minHeight,
+                mxw = this.maxWidth, 
+                mxh = this.maxHeight,
+                wi = this.widthIncrement,
+                hi = this.heightIncrement,
+                eventXY = e.getXY(),
+                diffX = -(this.startPoint[0] - Math.max(this.minX, eventXY[0])),
+                diffY = -(this.startPoint[1] - Math.max(this.minY, eventXY[1])),
+                pos = this.activeHandle.position,
+                tw,
+                th;
             
             switch(pos){
                 case "east":
@@ -520,7 +531,7 @@ new Ext.Panel({
                         h = oh * (w/ow);
                     break;
                     case "north":
-                        var tw = w;
+                        tw = w;
                         w = ow * (h/oh);
                         w = Math.min(Math.max(mw, w), mxw);
                         h = oh * (w/ow);
@@ -529,28 +540,28 @@ new Ext.Panel({
                     case "southwest":
                         h = oh * (w/ow);
                         h = Math.min(Math.max(mh, h), mxh);
-                        var tw = w;
+                        tw = w;
                         w = ow * (h/oh);
                         x += tw - w;
                         break;
                     case "west":
-                        var th = h;
+                        th = h;
                         h = oh * (w/ow);
                         h = Math.min(Math.max(mh, h), mxh);
                         y += (th - h) / 2;
-                        var tw = w;
+                        tw = w;
                         w = ow * (h/oh);
                         x += tw - w;
                        break;
                     case "northwest":
-                        var tw = w;
-                        var th = h;
+                        tw = w;
+                        th = h;
                         h = oh * (w/ow);
                         h = Math.min(Math.max(mh, h), mxh);
                         w = ow * (h/oh);
                         y += th - h;
-                         x += tw - w;
-                       break;
+                        x += tw - w;
+                        break;
                         
                 }
             }
@@ -558,7 +569,7 @@ new Ext.Panel({
             if(this.dynamic){
                 this.resizeElement();
             }
-            }catch(e){}
+            }catch(ex){}
         }
     },
 
@@ -598,14 +609,8 @@ new Ext.Panel({
      * @param {Boolean} removeEl (optional) true to remove the element from the DOM
      */
     destroy : function(removeEl){
-        if(this.dd){
-            this.dd.destroy();
-        }
-        if(this.overlay){
-            Ext.destroy(this.overlay);
-            this.overlay = null;
-        }
-        Ext.destroy(this.proxy);
+        Ext.destroy(this.dd, this.overlay, this.proxy);
+        this.overlay = null;
         this.proxy = null;
         
         var ps = Ext.Resizable.positions;
@@ -619,6 +624,7 @@ new Ext.Panel({
             Ext.destroy(this.el);
             this.el = null;
         }
+        this.purgeListeners();
     },
 
     syncHandleHeight : function(){
@@ -657,8 +663,11 @@ Ext.Resizable.Handle = function(rz, pos, disableTrackOver, transparent){
     }
     this.el.on("mousedown", this.onMouseDown, this);
     if(!disableTrackOver){
-        this.el.on("mouseover", this.onMouseOver, this);
-        this.el.on("mouseout", this.onMouseOut, this);
+        this.el.on({
+            scope: this,
+            mouseover: this.onMouseOver,
+            mouseout: this.onMouseOut
+        });
     }
 };
 
