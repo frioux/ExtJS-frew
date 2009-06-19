@@ -1455,6 +1455,7 @@ viewConfig: {
         this.refresh(true);
         this.restoreScroll(s);
         this.afterMove(newIndex);
+        this.grid.fireEvent('columnmove', oldIndex, newIndex);
     },
 
     // private
