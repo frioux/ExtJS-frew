@@ -109,6 +109,9 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
      * <tt>{@link #colModel}</tt> configuration property.
      */
     /**
+     * @cfg {String} ddGroup The DD group this GridPanel belongs to. Defaults to <tt>'GridDD'</tt> if not specified.
+     */
+    /**
      * @cfg {String} ddText
      * Configures the text in the drag proxy.  Defaults to:
      * <pre><code>
