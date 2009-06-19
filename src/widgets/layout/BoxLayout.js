@@ -208,6 +208,7 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         
         idx = 0;
         Ext.each(cs, function(c){
+            cm = c.margins;
             if(this.align == 'stretch'){
                 c.setWidth((stretchWidth - (cm.left + cm.right)).constrain(
                     c.minWidth || 0, c.maxWidth || 1000000));
@@ -365,7 +366,10 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         
         idx = 0;
         Ext.each(cs, function(c){
+            var cm = c.margins;
             if(this.align == 'stretch'){
+                console.log(stretchHeight, cm.top, cm.bottom, (stretchHeight - (cm.top + cm.bottom)).constrain(
+                    c.minHeight || 0, c.maxHeight || 1000000));
                 c.setHeight((stretchHeight - (cm.top + cm.bottom)).constrain(
                     c.minHeight || 0, c.maxHeight || 1000000));
             }else if(this.align == 'stretchmax'){
