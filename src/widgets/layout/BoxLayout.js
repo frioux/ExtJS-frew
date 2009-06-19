@@ -69,6 +69,16 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
             return false;
         }
         return true;
+    },
+    
+    getItems: function(ct){
+        var items = [];
+        ct.items.each(function(c){
+            if(c.isVisible()){
+                items.push(c);
+            }
+        });
+        return items;
     }
 
     /**
@@ -126,7 +136,7 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         Ext.layout.VBoxLayout.superclass.onLayout.call(this, ct, target);
                     
         
-        var cs = ct.items.items, cm, ch, margin,
+        var cs = this.getItems(ct), cm, ch, margin,
             size = this.getTargetSize(target),
             w = size.width - target.getPadding('lr') - this.scrollOffset,
             h = size.height - target.getPadding('tb'),
@@ -209,11 +219,12 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         idx = 0;
         Ext.each(cs, function(c){
             cm = c.margins;
+            //multiply by 2 because we've already set the left to account for the left margin
             if(this.align == 'stretch'){
-                c.setWidth((stretchWidth - (cm.left + cm.right)).constrain(
+                c.setWidth((stretchWidth - (cm.left * 2 + cm.right)).constrain(
                     c.minWidth || 0, c.maxWidth || 1000000));
             }else if(this.align == 'stretchmax'){
-                c.setWidth((maxWidth - (cm.left + cm.right)).constrain(
+                c.setWidth((maxWidth - (cm.left * 2 + cm.right)).constrain(
                     c.minWidth || 0, c.maxWidth || 1000000));
             }else{
                 if(this.align == 'center'){
@@ -283,7 +294,7 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
     onLayout : function(ct, target){
         Ext.layout.HBoxLayout.superclass.onLayout.call(this, ct, target);
         
-        var cs = ct.items.items, cm, cw, margin,
+        var cs = this.getItems(ct), cm, cw, margin,
             size = this.getTargetSize(target),
             w = size.width - target.getPadding('lr') - this.scrollOffset,
             h = size.height - target.getPadding('tb'),
@@ -367,11 +378,12 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         idx = 0;
         Ext.each(cs, function(c){
             var cm = c.margins;
+            //multiply by 2 because we've already set the top to account for the top margin
             if(this.align == 'stretch'){
-                c.setHeight((stretchHeight - (cm.top + cm.bottom)).constrain(
+                c.setHeight((stretchHeight - (cm.top * 2 + cm.bottom)).constrain(
                     c.minHeight || 0, c.maxHeight || 1000000));
             }else if(this.align == 'stretchmax'){
-                c.setHeight((maxHeight - (cm.top + cm.bottom)).constrain(
+                c.setHeight((maxHeight - (cm.top * 2 + cm.bottom)).constrain(
                     c.minHeight || 0, c.maxHeight || 1000000));
             }else{
                 if(this.align == 'middle'){
