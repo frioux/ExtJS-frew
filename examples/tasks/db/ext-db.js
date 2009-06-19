@@ -204,6 +204,17 @@ Ext.extend(Ext.data.SqlDB.Proxy, Ext.data.DataProxy, {
             callback.call(scope||this, null, arg, false);
         }
     },
+    
+    request : function(action, rs, params, reader, callback, scope, options) {
+        //no action check here
+        params = params || {};
+        if ((action === Ext.data.Api.actions.read) ? this.fireEvent("beforeload", this, params) : this.fireEvent("beforewrite", this, action, rs, params) !== false) {
+            this.doRequest.apply(this, arguments);
+        }
+        else {
+            callback.call(scope || this, null, options, false);
+        }
+    },
 
     onLoad : function(trans, rs, e, stmt){
         if(rs === false){
