@@ -8,4 +8,3 @@ if(!isset($_SESSION['state'])){
 echo 'Ext.appState = ';
 echo json_encode($_SESSION['state']);
 echo ';';
-?>

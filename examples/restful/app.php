@@ -12,4 +12,3 @@
     // Dispatch request
     echo $controller->dispatch($request);
 
-?>

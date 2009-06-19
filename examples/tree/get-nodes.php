@@ -41,4 +41,3 @@ while($f = $d->read()){
 }
 $d->close();
 echo json_encode($nodes);
-?>

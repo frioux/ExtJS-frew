@@ -1,10 +1,10 @@
 <?php
-/* The SQLite extension is enabled by default as of PHP 5. 
- * Before that time the SQLite library is needed. 
- * 
+/* The SQLite extension is enabled by default as of PHP 5.
+ * Before that time the SQLite library is needed.
+ *
  * For more info on setting up SQLite See:
  * http://www.php.net/manual/en/sqlite.installation.php
- * 
+ *
  */
     if ($db = new SQLiteDatabase('imgorg.db')) {
         // Albums
@@ -14,7 +14,7 @@
             text STRING,
             created STRING,
             description TEXT
-        ); 
+        );
         INSERT INTO Albums (text) VALUES ("Test");
         INSERT INTO Albums (text) VALUES ("Album2");');
 
@@ -50,7 +50,7 @@
             album_id INTEGER,
             description TEXT
         )');
-        
+
 //        $dir = "../../images/thumbs/";
 //        $images = array();
 //        $d = dir($dir);
@@ -59,14 +59,14 @@
 //            if(!preg_match('/\.(jpg|gif|png)$/', $name)) continue;
 //            $size = filesize($dir.$name);
 //            $lastmod = filemtime($dir.$name)*1000;
-//            $db->queryExec('INSERT INTO Images (filename, url) VALUES 
+//            $db->queryExec('INSERT INTO Images (filename, url) VALUES
 //                ("'.$name.'","images/thumbs/'.$name.'")');
 //        }
 //        $d->close();
-        
-        
+
+
         echo json_encode($db->query('select * from Images')->fetchAll());
     } else {
         die($err);
     }
-?>
+

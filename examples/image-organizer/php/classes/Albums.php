@@ -70,4 +70,3 @@ class Albums {
         return $json;
     }
 }
-?>

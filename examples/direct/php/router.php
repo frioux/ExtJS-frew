@@ -99,4 +99,3 @@ if($isForm && $isUpload){
 }else{
 	echo json_encode($response);
 }
-?>

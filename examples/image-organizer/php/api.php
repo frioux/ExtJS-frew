@@ -30,4 +30,3 @@ echo 'Imgorg.REMOTING_API = ';
 
 echo json_encode($cfg);
 echo ';';
-?>

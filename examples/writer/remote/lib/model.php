@@ -67,4 +67,4 @@ class Model {
         return $this->attributes;
     }
 }
-?>
+

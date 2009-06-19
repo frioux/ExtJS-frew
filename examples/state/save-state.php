@@ -14,4 +14,3 @@ foreach($_COOKIE as $name=>$value){
         setCookie($name, '', time()-10000, '/');
     }
 }
-?>

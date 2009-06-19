@@ -10,7 +10,7 @@ class TestAction {
         }
         return $num*8;
     }
-    
+
     function getTree($id){
         $out = array();
         if($id == "root"){
@@ -34,4 +34,3 @@ class TestAction {
         return $out;
     }
 }
-?>

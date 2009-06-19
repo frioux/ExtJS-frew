@@ -19,7 +19,7 @@ class ApplicationController {
         }
         if ($request->action) {
             return $this->{$request->action}();
-        }        
+        }
     }
 
     protected function dispatchRestful() {
@@ -39,4 +39,4 @@ class ApplicationController {
         }
     }
 }
-?>
+

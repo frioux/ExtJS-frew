@@ -10,4 +10,3 @@ if($feed != '' && strpos($feed, 'http') === 0){
 	echo str_replace('<dc:creator', '<author', $xml);
 	return;
 }
-?>

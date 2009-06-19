@@ -29,4 +29,3 @@ echo 'Ext.app.REMOTING_API = ';
 
 echo json_encode($cfg);
 echo ';';
-?>

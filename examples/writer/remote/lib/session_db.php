@@ -40,4 +40,3 @@ function getData() {
         array('id' => 6, 'first' => "BamBam", 'last' => 'Rubble', 'email' => 'bambam@rubble.com')
     );
 }
-?>

@@ -12,4 +12,3 @@ while($name = $d->read()){
 $d->close();
 $o = array('images'=>$images);
 echo json_encode($o);
-?>

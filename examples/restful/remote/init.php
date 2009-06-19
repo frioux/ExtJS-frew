@@ -14,4 +14,4 @@
     // Fake a database connection using _SESSION
     $dbh = new SessionDB();
 
-?>
+

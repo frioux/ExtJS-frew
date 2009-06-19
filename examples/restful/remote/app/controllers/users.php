@@ -59,4 +59,4 @@ class Users extends ApplicationController {
         return $res->to_json();
     }
 }
-?>
+

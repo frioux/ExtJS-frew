@@ -102,4 +102,3 @@ class Images {
         return $ret;
     }
 }
-?>

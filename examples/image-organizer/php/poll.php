@@ -4,4 +4,3 @@ echo json_encode(array(
     'name'=>'message',
     'data'=>'Successfully polled at: '. date('g:i:s a')
 ));
-?>
