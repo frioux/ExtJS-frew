@@ -628,6 +628,14 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             }
             if(this.fireEvent('beforepush', this, v) !== false){
                 this.getEditorBody().innerHTML = v;
+                if(Ext.isGecko){
+                    // Gecko hack, see: https://bugzilla.mozilla.org/show_bug.cgi?id=232791#c8
+                    var d = this.doc,
+                        mode = d.designMode.toLowerCase();
+                    
+                    d.designMode = mode.toggle('on', 'off');
+                    d.designMode = mode;
+                }
                 this.fireEvent('push', this, v);
             }
         }
