@@ -1,4 +1,4 @@
-<?
+<?php
 // from php manual page
 function formatBytes($val, $digits = 3, $mode = "SI", $bB = "B"){ //$mode == "SI"|"IEC", $bB == "b"|"B"
    $si = array("", "K", "M", "G", "T", "P", "E", "Z", "Y");
