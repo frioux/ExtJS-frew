@@ -1,14 +1,14 @@
 /**
  * @class Ext.DomHelper
  */
-Ext.apply(Ext.DomHelper, 
+Ext.apply(Ext.DomHelper,
 function(){
 	var pub,
 		afterbegin = "afterbegin",
     	afterend = "afterend",
     	beforebegin = "beforebegin",
     	beforeend = "beforeend";
-	
+
 	// private
     function doInsert(el, o, returnElement, pos, sibling, append){
         el = Ext.getDom(el);
@@ -18,14 +18,14 @@ function(){
             if (append) {
 	            el.appendChild(newNode);
             } else {
-	        	(sibling == "firstChild" ? el : el.parentNode).insertBefore(newNode, el[sibling] || el);    
-            } 	            
-        } else {	           
+	        	(sibling == "firstChild" ? el : el.parentNode).insertBefore(newNode, el[sibling] || el);
+            }
+        } else {
             newNode = Ext.DomHelper.insertHtml(pos, el, Ext.DomHelper.createHtml(o));
         }
         return returnElement ? Ext.get(newNode, true) : newNode;
     }
-	
+
 	// build as dom
     /** @ignore */
     function createDom(o, parentNode){
@@ -35,10 +35,10 @@ function(){
         	attr,
         	val,
         	cn;
-        	
+
         if (Ext.isArray(o)) {                       // Allow Arrays of siblings to be inserted
-            el = doc.createDocumentFragment(); // in one shot using a DocumentFragment            
-	        Ext.each(o, function(v) {    
+            el = doc.createDocumentFragment(); // in one shot using a DocumentFragment
+	        Ext.each(o, function(v) {
                 createDom(v, el);
             });
         } else if (typeof o == "string") {         // Allow a string as a child spec.
@@ -47,7 +47,7 @@ function(){
             el = doc.createElement( o.tag || 'div' );
             useSet = !!el.setAttribute; // In IE some elements don't have setAttribute
             for(attr in o){
-	            val = o[attr];                
+	            val = o[attr];
                 if(["tag", "children", "cn", "html", "style"].indexOf(attr) == -1 || !Ext.isFunction(val)){
 	                if(attr == "cls"){
 	                    el.className = val;
@@ -56,12 +56,12 @@ function(){
                             el.setAttribute(attr, val);
                         }else{
                             el[attr] = val;
-                        }	                
+                        }
 	                }
                 }
             }
             pub.applyStyles(el, o.style);
-            
+
             if ((cn = o.children || o.cn)) {
                 createDom(cn, el);
             } else if (o.html) {
@@ -73,7 +73,7 @@ function(){
         }
         return el;
     }
-	
+
 	pub = {
 		/**
 	     * Creates a new Ext.Template from the DOM object spec.
@@ -84,10 +84,10 @@ function(){
 	        var html = Ext.DomHelper.createHtml(o);
 	        return new Ext.Template(html);
 	    },
-	    
+
 		/** True to force the use of DOM instead of html fragments @type Boolean */
 	    useDom : false,
-	    
+
 	    /**
 	     * Applies a style specification to an element.
 	     * @param {String/HTMLElement} el The element to apply styles to
@@ -98,62 +98,66 @@ function(){
 		    if(styles){
 				var i = 0,
 	    			len,
-	    			style; 
-	    			
-	    		el = Ext.fly(el);	    			
+	    			style;
+
+	    		el = Ext.fly(el);
 				if(Ext.isFunction(styles)){
    					styles = styles.call();
 				}
 				if(typeof styles == "string"){
 					styles = styles.trim().split(/\s*(?::|;)\s*/);
 					for(len = styles.length; i < len;){
-						el.setStyle(styles[i++], styles[i++]);	
+						el.setStyle(styles[i++], styles[i++]);
 					}
 				}else if (Ext.isObject(styles)){
 					el.setStyle(styles);
-				}			
-			}	
+				}
+			}
 	    },
-	    
+
 	    /**
 	     * Creates new DOM element(s) and inserts them before el.
 	     * @param {Mixed} el The context element
 	     * @param {Object/String} o The DOM object spec (and children) or raw HTML blob
 	     * @param {Boolean} returnElement (optional) true to return a Ext.Element
 	     * @return {HTMLElement/Ext.Element} The new node
+         * @hide (repeat)
 	     */
 	    insertBefore : function(el, o, returnElement){
 	        return doInsert(el, o, returnElement, beforebegin);
 	    },
-	
+
 	    /**
 	     * Creates new DOM element(s) and inserts them after el.
 	     * @param {Mixed} el The context element
 	     * @param {Object} o The DOM object spec (and children)
 	     * @param {Boolean} returnElement (optional) true to return a Ext.Element
 	     * @return {HTMLElement/Ext.Element} The new node
+         * @hide (repeat)
 	     */
 	    insertAfter : function(el, o, returnElement){
 	        return doInsert(el, o, returnElement, afterend, "nextSibling");
 	    },
-	
+
 	    /**
 	     * Creates new DOM element(s) and inserts them as the first child of el.
 	     * @param {Mixed} el The context element
 	     * @param {Object/String} o The DOM object spec (and children) or raw HTML blob
 	     * @param {Boolean} returnElement (optional) true to return a Ext.Element
 	     * @return {HTMLElement/Ext.Element} The new node
+         * @hide (repeat)
 	     */
 	    insertFirst : function(el, o, returnElement){
 	        return doInsert(el, o, returnElement, afterbegin, "firstChild");
-	    },	    
-	
+	    },
+
 	    /**
 	     * Creates new DOM element(s) and appends them to el.
 	     * @param {Mixed} el The context element
 	     * @param {Object/String} o The DOM object spec (and children) or raw HTML blob
 	     * @param {Boolean} returnElement (optional) true to return a Ext.Element
 	     * @return {HTMLElement/Ext.Element} The new node
+         * @hide (repeat)
 	     */
 	    append: function(el, o, returnElement){
             return doInsert(el, o, returnElement, beforeend, "", true);
@@ -166,5 +170,5 @@ function(){
 	     */
         createDom: createDom
 	};
-	return pub;	
+	return pub;
 }());
