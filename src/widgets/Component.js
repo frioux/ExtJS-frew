@@ -123,7 +123,7 @@ Ext.Component = function(config){
             this.baseAction = config;
         }
         config = config.initialConfig; // component cloning / action set up
-    }else if(config.tagName || config.dom || typeof config == "string"){ // element object
+    }else if(config.tagName || config.dom || typeof config == 'string'){ // element object
         config = {applyTo: config, id: config.id || config};
     }
 
@@ -150,44 +150,48 @@ Ext.Component = function(config){
         'enable',
         /**
          * @event beforeshow
-         * Fires before the component is shown. Return false to stop the show.
+         * Fires before the component is shown by calling the {@link #show} method.
+         * Return false from an event handler to stop the show.
          * @param {Ext.Component} this
          */
         'beforeshow',
         /**
          * @event show
-         * Fires after the component is shown.
+         * Fires after the component is shown when calling the {@link #show} method.
          * @param {Ext.Component} this
          */
         'show',
         /**
          * @event beforehide
-         * Fires before the component is hidden. Return false to stop the hide.
+         * Fires before the component is hidden by calling the {@link #hide} method.
+         * Return false from an event handler to stop the hide.
          * @param {Ext.Component} this
          */
         'beforehide',
         /**
          * @event hide
          * Fires after the component is hidden.
+         * Fires after the component is hidden when calling the {@link #hide} method.
          * @param {Ext.Component} this
          */
         'hide',
         /**
          * @event beforerender
-         * Fires before the component is rendered. Return false to stop the render.
+         * Fires before the component is {@link #rendered}. Return false from an
+         * event handler to stop the {@link #render}.
          * @param {Ext.Component} this
          */
         'beforerender',
         /**
          * @event render
-         * Fires after the component markup is rendered.
+         * Fires after the component markup is {@link #rendered}.
          * @param {Ext.Component} this
          */
         'render',
         /**
          * @event afterrender
          * <p>Fires after the component rendering is finished.</p>
-         * <p>The afterrender event is fired after this Component has been rendered, been postprocesed
+         * <p>The afterrender event is fired after this Component has been {@link #rendered}, been postprocesed
          * by any afterRender method defined for the Component, and, if {@link #stateful}, after state
          * has been restored.</p>
          * @param {Ext.Component} this
@@ -195,19 +199,19 @@ Ext.Component = function(config){
         'afterrender',
         /**
          * @event beforedestroy
-         * Fires before the component is destroyed. Return false to stop the destroy.
+         * Fires before the component is {@link #destroy}ed. Return false from an event handler to stop the {@link #destroy}.
          * @param {Ext.Component} this
          */
         'beforedestroy',
         /**
          * @event destroy
-         * Fires after the component is destroyed.
+         * Fires after the component is {@link #destroy}ed.
          * @param {Ext.Component} this
          */
         'destroy',
         /**
          * @event beforestaterestore
-         * Fires before the state of the component is restored. Return false to stop the restore.
+         * Fires before the state of the component is restored. Return false from an event handler to stop the restore.
          * @param {Ext.Component} this
          * @param {Object} state The hash of state values returned from the StateProvider. If this
          * event is not vetoed, then the state object is passed to <b><tt>applyState</tt></b>. By default,
@@ -504,7 +508,7 @@ p2 = p1.{@link #ownerCt}.{@link Ext.Container#getComponent getComponent}('p2'); 
      * @cfg {String} overCls
      * An optional extra CSS class that will be added to this component's Element when the mouse moves
      * over the Element, and removed when the mouse moves out. (defaults to '').  This can be
-     * useful for adding customized "active" or "hover" styles to the component or any of its children using standard CSS rules.
+     * useful for adding customized 'active' or 'hover' styles to the component or any of its children using standard CSS rules.
      */
     /**
      * @cfg {String} style
@@ -554,10 +558,13 @@ new Ext.Panel({
      * @cfg {Boolean} disabled
      * Render this component disabled (default is false).
      */
+    disabled : false,
     /**
      * @cfg {Boolean} hidden
-     * Render this component hidden (default is false).
+     * Render this component hidden (default is false). If <tt>true</tt>, the
+     * {@link #hide} method will be called internally.
      */
+    hidden : false,
     /**
      * @cfg {Object/Array} plugins
      * An object or array of objects that will provide custom functionality for this component.  The only
@@ -692,9 +699,9 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider({
 
     /**
      * @cfg {String} disabledClass
-     * CSS class added to the component when it is disabled (defaults to "x-item-disabled").
+     * CSS class added to the component when it is disabled (defaults to 'x-item-disabled').
      */
-    disabledClass : "x-item-disabled",
+    disabledClass : 'x-item-disabled',
     /**
      * @cfg {Boolean} allowDomMove
      * Whether the component can move the Dom node when rendering (defaults to true).
@@ -708,10 +715,10 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider({
     autoShow : false,
     /**
      * @cfg {String} hideMode
-     * <p>How this component should be hidden. Supported values are <tt>"visibility"</tt>
-     * (css visibility), <tt>"offsets"</tt> (negative offset position) and <tt>"display"</tt>
+     * <p>How this component should be hidden. Supported values are <tt>'visibility'</tt>
+     * (css visibility), <tt>'offsets'</tt> (negative offset position) and <tt>'display'</tt>
      * (css display).</p>
-     * <br><p><b>Note</b>: the default of <tt>"display"</tt> is generally preferred
+     * <br><p><b>Note</b>: the default of <tt>'display'</tt> is generally preferred
      * since items are automatically laid out when they are first shown (no sizing
      * is done while hidden).</p>
      */
@@ -758,13 +765,11 @@ new Ext.Panel({
      * @type Boolean
      * @property
      */
-    hidden : false,
     /**
      * True if this component is disabled. Read-only.
      * @type Boolean
      * @property
      */
-    disabled : false,
     /**
      * True if this component has been rendered. Read-only.
      * @type Boolean
@@ -773,10 +778,10 @@ new Ext.Panel({
     rendered : false,
 
     // private
-    ctype : "Ext.Component",
+    ctype : 'Ext.Component',
 
     // private
-    actionMode : "el",
+    actionMode : 'el',
 
     // private
     getActionEl : function(){
@@ -853,7 +858,7 @@ Ext.Foo = Ext.extend(Ext.Bar, {
      * which this component will be inserted (defaults to appending to the end of the container)
      */
     render : function(container, position){
-        if(!this.rendered && this.fireEvent("beforerender", this) !== false){
+        if(!this.rendered && this.fireEvent('beforerender', this) !== false){
             if(!container && this.el){
                 this.el = Ext.get(this.el);
                 container = this.el.dom.parentNode;
@@ -886,7 +891,7 @@ Ext.Foo = Ext.extend(Ext.Bar, {
             if(this.overCls){
                 this.el.addClassOnOver(this.overCls);
             }
-            this.fireEvent("render", this);
+            this.fireEvent('render', this);
             this.afterRender(this.container);
             if(this.hidden){
                 this.hide();
@@ -899,7 +904,7 @@ Ext.Foo = Ext.extend(Ext.Bar, {
                 this.initStateEvents();
             }
             this.initRef();
-            this.fireEvent("afterrender", this);
+            this.fireEvent('afterrender', this);
         }
         return this;
     },
@@ -1082,20 +1087,21 @@ var myGrid = new Ext.grid.EditorGridPanel({
      * removing the component from its {@link Ext.Container} (if applicable) and unregistering it from
      * {@link Ext.ComponentMgr}.  Destruction is generally handled automatically by the framework and this method
      * should usually not need to be called directly.
+     * 
      */
     destroy : function(){
-        if(this.fireEvent("beforedestroy", this) !== false){
+        if(this.fireEvent('beforedestroy', this) !== false){
             this.beforeDestroy();
             if(this.rendered){
                 this.el.removeAllListeners();
                 this.el.remove();
-                if(this.actionMode == "container" || this.removeMode == "container"){
+                if(this.actionMode == 'container' || this.removeMode == 'container'){
                     this.container.remove();
                 }
             }
             this.onDestroy();
             Ext.ComponentMgr.unregister(this);
-            this.fireEvent("destroy", this);
+            this.fireEvent('destroy', this);
             this.purgeListeners();
         }
     },
@@ -1134,12 +1140,12 @@ new Ext.Panel({
     /**
      * Returns the <code>id</code> of this component or automatically generates and
      * returns an <code>id</code> if an <code>id</code> is not defined yet:<pre><code>
-     * "ext-comp-" + (++Ext.Component.AUTO_ID)
+     * 'ext-comp-' + (++Ext.Component.AUTO_ID)
      * </code></pre>
      * @return {String} id
      */
     getId : function(){
-        return this.id || (this.id = "ext-comp-" + (++Ext.Component.AUTO_ID));
+        return this.id || (this.id = 'ext-comp-' + (++Ext.Component.AUTO_ID));
     },
 
     /**
@@ -1181,7 +1187,7 @@ new Ext.Panel({
     },
 
     /**
-     * Disable this component.
+     * Disable this component and fire the 'disable' event.
      * @return {Ext.Component} this
      */
     disable : function(){
@@ -1189,7 +1195,7 @@ new Ext.Panel({
             this.onDisable();
         }
         this.disabled = true;
-        this.fireEvent("disable", this);
+        this.fireEvent('disable', this);
         return this;
     },
 
@@ -1200,7 +1206,7 @@ new Ext.Panel({
     },
 
     /**
-     * Enable this component.
+     * Enable this component and fire the 'enable' event.
      * @return {Ext.Component} this
      */
     enable : function(){
@@ -1208,7 +1214,7 @@ new Ext.Panel({
             this.onEnable();
         }
         this.disabled = false;
-        this.fireEvent("enable", this);
+        this.fireEvent('enable', this);
         return this;
     },
 
@@ -1224,15 +1230,17 @@ new Ext.Panel({
      * @return {Ext.Component} this
      */
     setDisabled : function(disabled){
-        return this[disabled ? "disable" : "enable"]();
+        return this[disabled ? 'disable' : 'enable']();
     },
 
     /**
-     * Show this component.
+     * Show this component.  Listen to the '{@link #beforeshow}' event and return
+     * <tt>false</tt> to cancel showing the component.  Fires the '{@link #show}'
+     * event after showing the component.
      * @return {Ext.Component} this
      */
     show : function(){
-        if(this.fireEvent("beforeshow", this) !== false){
+        if(this.fireEvent('beforeshow', this) !== false){
             this.hidden = false;
             if(this.autoRender){
                 this.render(typeof this.autoRender == 'boolean' ? Ext.getBody() : this.autoRender);
@@ -1240,7 +1248,7 @@ new Ext.Panel({
             if(this.rendered){
                 this.onShow();
             }
-            this.fireEvent("show", this);
+            this.fireEvent('show', this);
         }
         return this;
     },
@@ -1251,16 +1259,19 @@ new Ext.Panel({
     },
 
     /**
-     * Hide this component.
+     * Hide this component.  Listen to the '{@link #beforehide}' event and return
+     * <tt>false</tt> to cancel hiding the component.  Fires the '{@link #hide}'
+     * event after hiding the component. Note this method is called internally if
+     * the component is configured to be <code>{@link #hidden}</code>. 
      * @return {Ext.Component} this
      */
     hide : function(){
-        if(this.fireEvent("beforehide", this) !== false){
+        if(this.fireEvent('beforehide', this) !== false){
             this.hidden = true;
             if(this.rendered){
                 this.onHide();
             }
-            this.fireEvent("hide", this);
+            this.fireEvent('hide', this);
         }
         return this;
     },
@@ -1281,7 +1292,7 @@ new Ext.Panel({
      * @return {Ext.Component} this
      */
     setVisible : function(visible){
-        return this[visible ? "show" : "hide"]();
+        return this[visible ? 'show' : 'hide']();
     },
 
     /**
@@ -1376,9 +1387,8 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
 
     /**
      * Find a container above this component at any level by a custom function. If the passed function returns
-     * true, the container will be returned. The passed function is called with the arguments (container, this component).
-     * @param {Function} fcn
-     * @param {Object} scope (optional)
+     * true, the container will be returned. 
+     * @param {Function} fn The custom function to call with the arguments (container, this component). 
      * @return {Ext.Container} The first Container for which the custom function returns true
      */
     findParentBy : function(fn) {
