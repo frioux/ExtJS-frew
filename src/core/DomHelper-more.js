@@ -4,10 +4,10 @@
 Ext.apply(Ext.DomHelper,
 function(){
 	var pub,
-		afterbegin = "afterbegin",
-    	afterend = "afterend",
-    	beforebegin = "beforebegin",
-    	beforeend = "beforeend";
+		afterbegin = 'afterbegin',
+    	afterend = 'afterend',
+    	beforebegin = 'beforebegin',
+    	beforeend = 'beforeend';
 
 	// private
     function doInsert(el, o, returnElement, pos, sibling, append){
@@ -18,7 +18,7 @@ function(){
             if (append) {
 	            el.appendChild(newNode);
             } else {
-	        	(sibling == "firstChild" ? el : el.parentNode).insertBefore(newNode, el[sibling] || el);
+	        	(sibling == 'firstChild' ? el : el.parentNode).insertBefore(newNode, el[sibling] || el);
             }
         } else {
             newNode = Ext.DomHelper.insertHtml(pos, el, Ext.DomHelper.createHtml(o));
@@ -41,15 +41,15 @@ function(){
 	        Ext.each(o, function(v) {
                 createDom(v, el);
             });
-        } else if (typeof o == "string") {         // Allow a string as a child spec.
+        } else if (typeof o == 'string') {         // Allow a string as a child spec.
             el = doc.createTextNode(o);
         } else {
             el = doc.createElement( o.tag || 'div' );
             useSet = !!el.setAttribute; // In IE some elements don't have setAttribute
             for(attr in o){
 	            val = o[attr];
-                if(["tag", "children", "cn", "html", "style"].indexOf(attr) == -1 || !Ext.isFunction(val)){
-	                if(attr == "cls"){
+                if(['tag', 'children', 'cn', 'html', 'style'].indexOf(attr) == -1 || !Ext.isFunction(val)){
+	                if(attr == 'cls'){
 	                    el.className = val;
 	                }else{
                         if(useSet){
@@ -91,7 +91,7 @@ function(){
 	    /**
 	     * Applies a style specification to an element.
 	     * @param {String/HTMLElement} el The element to apply styles to
-	     * @param {String/Object/Function} styles A style specification string eg "width:100px", or object in the form {width:"100px"}, or
+	     * @param {String/Object/Function} styles A style specification string eg 'width:100px', or object in the form {width:'100px'}, or
 	     * a function which returns such a specification.
 	     */
 	    applyStyles : function(el, styles){
@@ -104,7 +104,7 @@ function(){
 				if(Ext.isFunction(styles)){
    					styles = styles.call();
 				}
-				if(typeof styles == "string"){
+				if(typeof styles == 'string'){
 					styles = styles.trim().split(/\s*(?::|;)\s*/);
 					for(len = styles.length; i < len;){
 						el.setStyle(styles[i++], styles[i++]);
@@ -136,7 +136,7 @@ function(){
          * @hide (repeat)
 	     */
 	    insertAfter : function(el, o, returnElement){
-	        return doInsert(el, o, returnElement, afterend, "nextSibling");
+	        return doInsert(el, o, returnElement, afterend, 'nextSibling');
 	    },
 
 	    /**
@@ -148,7 +148,7 @@ function(){
          * @hide (repeat)
 	     */
 	    insertFirst : function(el, o, returnElement){
-	        return doInsert(el, o, returnElement, afterbegin, "firstChild");
+	        return doInsert(el, o, returnElement, afterbegin, 'firstChild');
 	    },
 
 	    /**
@@ -160,7 +160,7 @@ function(){
          * @hide (repeat)
 	     */
 	    append: function(el, o, returnElement){
-            return doInsert(el, o, returnElement, beforeend, "", true);
+            return doInsert(el, o, returnElement, beforeend, '', true);
         },
 
 	    /**
