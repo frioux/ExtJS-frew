@@ -66,34 +66,35 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
         this.grid = grid;
         this.ownerCt = grid;
         if(this.clicksToEdit === 2){
-            this.grid.on('rowdblclick', this.onRowDblClick, this);
+            grid.on('rowdblclick', this.onRowDblClick, this);
         }else{
-            this.grid.on('rowclick', this.onRowClick, this);
+            grid.on('rowclick', this.onRowClick, this);
             if(Ext.isIE){
-                this.grid.on('rowdblclick', this.onRowDblClick, this);
+                grid.on('rowdblclick', this.onRowDblClick, this);
             }
         }
 
         // stopEditing without saving when a record is removed from Store.
-        this.grid.getStore().on('remove', function() {
+        grid.getStore().on('remove', function() {
             this.stopEditing(false);
         },this);
 
-        this.grid.on({
+        grid.on({
             scope: this,
             keydown: this.onGridKey,
             columnresize: this.verifyLayout,
-            columnmove: this.onColumnMove,
+            columnmove: this.refreshFields,
+            reconfigure: this.refreshFields,
             bodyscroll: {
                 buffer: 250,
                 fn: this.positionButtons
             }
         });
-        this.grid.getColumnModel().on('hiddenchange', this.verifyLayout, this, {delay:1});
+        grid.getColumnModel().on('hiddenchange', this.verifyLayout, this, {delay:1});
         grid.getView().on('refresh', this.stopEditing.createDelegate(this, []));
     },
 
-    onColumnMove: function(){
+    refreshFields: function(){
         this.initFields();
         this.verifyLayout();
     },
@@ -133,7 +134,7 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
             if(!this.initialized){
                 this.initFields();
             }
-            var cm = g.colModel, fields = this.items.items, f, val;
+            var cm = g.getColumnModel(), fields = this.items.items, f, val;
             for(var i = 0, len = cm.getColumnCount(); i < len; i++){
                 val = this.preEditValue(record, cm.getDataIndex(i));
                 f = fields[i];
@@ -147,10 +148,7 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
                 this.el.setXY(Ext.fly(row).getXY(), {duration:0.15});
             }
             if(!this.isVisible()){
-                this.show();
-                if(Ext.isIE){
-                    this.doLayout();
-                }
+                this.show().doLayout();
             }
             if(doFocus !== false){
                 this.doFocus.defer(this.focusDelay, this);
@@ -228,6 +226,7 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
 
     initFields: function(){
         var cm = this.grid.getColumnModel(), pm = Ext.layout.ContainerLayout.prototype.parseMargins;
+        this.removeAll(false);
         for(var i = 0, len = cm.getColumnCount(); i < len; i++){
             var c = cm.getColumnAt(i);
             var ed = c.getEditor();
