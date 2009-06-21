@@ -1021,7 +1021,8 @@ viewConfig: {
 
     // private
     insertRows : function(dm, firstRow, lastRow, isUpdate){
-        if(!isUpdate && firstRow === 0 && lastRow >= dm.getCount()-1){
+        var last = dm.getCount() - 1;
+        if(!isUpdate && firstRow === 0 && lastRow >= last){
             this.refresh();
         }else{
             if(!isUpdate){
@@ -1037,6 +1038,9 @@ viewConfig: {
             if(!isUpdate){
                 this.fireEvent("rowsinserted", this, firstRow, lastRow);
                 this.processRows(firstRow);
+            }else if(firstRow === 0 || firstRow >= last){
+                //ensure first/last row is kept after an update.
+                Ext.fly(this.getRow(firstRow)).addClass(firstRow === 0 ? 'x-grid3-row-first' : 'x-grid3-row-last')
             }
         }
         this.syncFocusEl(firstRow);
