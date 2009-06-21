@@ -76,6 +76,10 @@
     line-height:0;
 }
 
+.ext-border-box .x-tip .x-tip-header, .ext-border-box .x-tip .x-tip-tc{
+    line-height: 1px;
+}
+
 .x-tip .x-tip-header-text {
     padding:0;
     margin:0 0 2px 0;
