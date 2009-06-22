@@ -85,7 +85,7 @@ Ext.tree.TreeNodeUI.prototype = {
             }else{
                 targetNode.appendChild(this.wrap);
             }
-            this.node.renderIndent(true);
+            this.node.renderIndent(true, oldParent != newParent);
         }
     },
 
