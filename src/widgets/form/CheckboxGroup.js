@@ -199,6 +199,7 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
         }
         this.eachItem(function(item){
             item.on('check', this.fireChecked, this);
+            item.inGroup = true;
         });
     },
     
