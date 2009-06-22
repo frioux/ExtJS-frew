@@ -22,7 +22,7 @@ Imgorg.ImageDv = Ext.extend(Ext.DataView,{
                 dataIndex: 'filename'
             })],
             store: new Ext.data.DirectStore({
-                api: Imgorg.ss.Images,
+                directFn: Imgorg.ss.Images.load,
                 root: '',
                 fields: ['filename', 'url', 'id', 'size']
             })

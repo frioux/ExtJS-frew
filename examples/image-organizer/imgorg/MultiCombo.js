@@ -473,14 +473,16 @@ Ext.ux.MultiCombo = Ext.extend(Ext.form.ComboBox, {
 
 		if (typeof(v) == 'string') {	// <-- "1,2,3"
 			value = v.match(/\d+/g); // <-- strip multiple spaces and split on ","
-			for (var n=0,len=value.length;n<len;n++) {
-				value[n] = parseInt(value[n]);
-			}
+            if(value){
+			    for (var n=0,len=value.length;n<len;n++) {
+				    value[n] = parseInt(value[n]);
+			    }
+            }
 		}
 		else if (Ext.isArray(v)) {			// <-- [1,2,3]
 			value = v;
 		}
-		if (value.length) {
+		if (value && value.length) {
 			if (this.mode == 'local') {
 				this.updateValue(value);
 				this.setRawValue(this.getTextValue());
