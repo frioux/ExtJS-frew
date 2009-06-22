@@ -106,27 +106,23 @@ Ext.extend(Ext.grid.PropertyStore, Ext.util.Observable, {
  * @param {Object} source The source data config object
  */
 Ext.grid.PropertyColumnModel = function(grid, store){
+    var g = Ext.grid,
+        f = Ext.form;
+        
     this.grid = grid;
-    var g = Ext.grid;
     g.PropertyColumnModel.superclass.constructor.call(this, [
         {header: this.nameText, width:50, sortable: true, dataIndex:'name', id: 'name', menuDisabled:true},
         {header: this.valueText, width:50, resizable:false, dataIndex: 'value', id: 'value', menuDisabled:true}
     ]);
     this.store = store;
-    this.bselect = Ext.DomHelper.append(document.body, {
-        tag: 'select', cls: 'x-grid-editor x-hide-display', children: [
-            {tag: 'option', value: 'true', html: 'true'},
-            {tag: 'option', value: 'false', html: 'false'}
-        ]
-    });
-    var f = Ext.form;
 
     var bfield = new f.Field({
-        el:this.bselect,
-        bselect : this.bselect,
-        autoShow: true,
+        autoCreate: {tag: 'select', children: [
+            {tag: 'option', value: 'true', html: 'true'},
+            {tag: 'option', value: 'false', html: 'false'}
+        ]},
         getValue : function(){
-            return this.bselect.value == 'true';
+            return this.el.value == 'true';
         }
     });
     this.editors = {
