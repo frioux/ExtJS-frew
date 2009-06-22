@@ -29,8 +29,9 @@ Ext.apply(Ext, function(){
         emptyFn : function(){},
 
         /**
-         * URL to a 1x1 transparent gif image used by Ext to create inline icons with CSS background images. (Defaults to
-         * "http://extjs.com/s.gif" and you should change this to a URL on your server).
+         * URL to a 1x1 transparent gif image used by Ext to create inline icons with CSS background images. 
+         * In older versions of IE, this defaults to "http://extjs.com/s.gif" and you should change this to a URL on your server.
+         * For other browsers it uses an inline data URL.
          * @type String
          */
         BLANK_IMAGE_URL : Ext.isIE6 || Ext.isIE7 ?
