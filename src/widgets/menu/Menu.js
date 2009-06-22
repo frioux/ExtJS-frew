@@ -470,6 +470,9 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         Ext.menu.Menu.superclass.onShow.call(this);
         if(Ext.isIE){
            this.layout.doAutoSize();
+           if(!Ext.isIE8){
+            this.el.repaint();
+           }
         }
         this.hidden = false;
         this.focus();
