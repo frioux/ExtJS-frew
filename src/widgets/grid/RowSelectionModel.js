@@ -512,5 +512,13 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
         if(newCell){
             g.startEditing(newCell[0], newCell[1]);
         }
+    },
+    
+    destroy: function(){
+        if(this.rowNav){
+            this.rowNav.disable();
+            this.rowNav = null;
+        }
+        Ext.grid.RowSelectionModel.superclass.destroy.call(this);
     }
 });
