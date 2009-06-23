@@ -23,28 +23,21 @@ Ext.FlashComponent = Ext.extend(Ext.BoxComponent, {
     onRender : function(){
         Ext.FlashComponent.superclass.onRender.apply(this, arguments);
 
-        var swfId = this.getSwfId();
-        var swf = new deconcept.SWFObject(this.url, swfId, this.swfWidth, this.swfHeight, this.flashVersion, this.backgroundColor);
-		if(this.expressInstall){
-			swf.useExpressInstall(this.expressInstall);
-		}
-
-        // params
-        swf.addParam("allowScriptAccess", "always");
-		if(this.wmode !== undefined){
-			swf.addParam("wmode", this.wmode);
-		}
-
-		swf.addVariable("allowedDomain", document.location.hostname);
-		swf.addVariable("elementID", this.getId());
-
-		// set the name of the function to call when the swf has an event
-		swf.addVariable("eventHandler", "Ext.FlashEventProxy.onEvent");
-
-        var r = swf.write(this.el.dom);
-        if(r){
-			this.swf = Ext.getDom(swfId);
-		}
+        var params = {
+            allowScriptAccess: 'always',
+            bgcolor: this.backgroundColor,
+            wmode: this.wmode
+        }, vars = {
+            allowedDomain: document.location.hostname,
+            elementID: this.getId(),
+            eventHandler: 'Ext.FlashEventProxy.onEvent'
+        };
+        
+        new swfobject.embedSWF(this.url, this.id, this.swfWidth, this.swfHeight, this.flashVersion, 
+            this.expressInstall ? Ext.FlashComponent.EXPRESS_INSTALL_URL : undefined, vars, params);
+            
+        this.swf = Ext.getDom(this.id);
+        this.el = Ext.get(this.swf);
     },
 
     getSwfId : function(){
@@ -74,21 +67,15 @@ Ext.FlashComponent = Ext.extend(Ext.BoxComponent, {
     },
     
     beforeDestroy: function(){
-        if(Ext.isIE && this.rendered){
-            var el = this.el.child('object');
-            if(el){
-                el = el.dom;
-                for (var prop in el){
-                    if(Ext.isFunction(el[prop])){
-                        el[prop] = Ext.emptyFn;
-                    }
-                }
-            }
+        if(this.rendered){
+            swfobject.removeSWF(this.swf.id);
         }
         Ext.FlashComponent.superclass.beforeDestroy.call(this);
     },
 
     onSwfReady : Ext.emptyFn
 });
+
+Ext.FlashComponent.EXPRESS_INSTALL_URL = 'http:/' + '/swfobject.googlecode.com/svn/trunk/swfobject/expressInstall.swf';
 
 Ext.reg('flash', Ext.FlashComponent);
