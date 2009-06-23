@@ -79,17 +79,17 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     /**
      * @cfg {DataReader} reader
      * An Ext.data.DataReader (e.g. {@link Ext.data.XmlReader}) to be used to read
-     * data when executing "load" actions. This is optional as there is built-in
+     * data when executing 'load' actions. This is optional as there is built-in
      * support for processing JSON.  For additional information on using an XMLReader
      * see the example provided in examples/form/xml-form.html.
      */
     /**
      * @cfg {DataReader} errorReader
      * <p>An Ext.data.DataReader (e.g. {@link Ext.data.XmlReader}) to be used to
-     * read field error messages returned from "submit" actions. This is optional
+     * read field error messages returned from 'submit' actions. This is optional
      * as there is built-in support for processing JSON.</p>
      * <p>The Records which provide messages for the invalid Fields must use the
-     * Field name (or id) as the Record ID, and must contain a field called "msg"
+     * Field name (or id) as the Record ID, and must contain a field called 'msg'
      * which contains the error message.</p>
      * <p>The errorReader does not have to be a full-blown implementation of a
      * DataReader. It simply needs to implement a <tt>read(xhr)</tt> function
@@ -108,7 +108,7 @@ Ext.extend(Ext.form.BasicForm, Ext.util.Observable, {
     /**
      * @cfg {Boolean} fileUpload
      * Set to true if this form is a file upload.
-     * <p>File uploads are not performed using normal "Ajax" techniques, that is they are <b>not</b>
+     * <p>File uploads are not performed using normal 'Ajax' techniques, that is they are <b>not</b>
      * performed using XMLHttpRequests. Instead the form is submitted in the standard manner with the
      * DOM <tt>&lt;form></tt> element temporarily modified to have its
      * <a href="http://www.w3.org/TR/REC-html40/present/frames.html#adef-target">target</a> set to refer
@@ -205,13 +205,13 @@ new Ext.FormPanel({
     baseParams: {
         foo: 'bar'
     },
-    url: "myProcess.php",
+    url: 'myProcess.php',
     items: [{
-        xtype: "textfield",
-        name: "userName"
+        xtype: 'textfield',
+        name: 'userName'
     }],
     buttons: [{
-        text: "Save",
+        text: 'Save',
         handler: function(){
             var O = this.ownerCt;
             if (O.getForm().isValid()) {
@@ -220,7 +220,7 @@ new Ext.FormPanel({
                 if (O.baseParams) {
                     for (i in O.baseParams) {
                         O.add({
-                            xtype: "hidden",
+                            xtype: 'hidden',
                             name: i,
                             value: O.baseParams[i]
                         })
@@ -390,32 +390,32 @@ myFormPanel.getForm().submit({
         newStatus: 'delivered'
     },
     success: function(form, action) {
-       Ext.Msg.alert("Success", action.result.msg);
+       Ext.Msg.alert('Success', action.result.msg);
     },
     failure: function(form, action) {
         switch (action.failureType) {
             case Ext.form.Action.CLIENT_INVALID:
-                Ext.Msg.alert("Failure", "Form fields may not be submitted with invalid values");
+                Ext.Msg.alert('Failure', 'Form fields may not be submitted with invalid values');
                 break;
             case Ext.form.Action.CONNECT_FAILURE:
-                Ext.Msg.alert("Failure", "Ajax communication failed");
+                Ext.Msg.alert('Failure', 'Ajax communication failed');
                 break;
             case Ext.form.Action.SERVER_INVALID:
-               Ext.Msg.alert("Failure", action.result.msg);
+               Ext.Msg.alert('Failure', action.result.msg);
        }
     }
 });
 </code></pre>
      * would process the following server response for a successful submission:<pre><code>
 {
-    success: true,
-    msg: 'Consignment updated'
+    "success":true, // note this is Boolean, not string
+    "msg":"Consignment updated"
 }
 </code></pre>
      * and the following server response for a failed submission:<pre><code>
 {
-    success: false,
-    msg: 'You do not have permission to perform this operation'
+    "success":false, // note this is Boolean, not string
+    "msg":"You do not have permission to perform this operation"
 }
 </code></pre>
      * @return {BasicForm} this
