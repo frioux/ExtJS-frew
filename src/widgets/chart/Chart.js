@@ -43,8 +43,14 @@
     },
     
     /**
+     * @cfg {String} url
+     * The url to load the chart from. This defaults to Ext.chart.Chart.CHART_URL, which should
+     * be modified to point to the local charts resource.
+     */
+    
+    /**
      * @cfg {Object} extraStyle
-     * Contains extra styles that will be added or overwritten to the default chartStyle. Defaults to null.
+     * Contains extra styles that will be added or overwritten to the default chartStyle. Defaults to <tt>null</tt>.
      */
     extraStyle: null,
     

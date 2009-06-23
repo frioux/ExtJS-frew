@@ -5,13 +5,38 @@
  * @xtype flash
  */
 Ext.FlashComponent = Ext.extend(Ext.BoxComponent, {
+    /**
+     * @cfg {String} flashVersion
+     * Indicates the version the flash content was published for. Defaults to <tt>'9.0.45'</tt>.
+     */
     flashVersion : '9.0.45',
+    
+    /**
+     * @cfg {String} backgroundColor
+     * The background color of the chart. Defaults to <tt>'#ffffff'</tt>.
+     */
     backgroundColor: '#ffffff',
+    
+    /**
+     * @cfg {String} wmode
+     * The wmode of the flash object. This can be used to control layering. Defaults to <tt>'opaque'</tt>.
+     */
     wmode: 'opaque',
+    
+    /**
+     * @cfg {String} url
+     * The URL of the chart to include. Defaults to <tt>undefined</tt>.
+     */
     url: undefined,
     swfId : undefined,
     swfWidth: '100%',
     swfHeight: '100%',
+    
+    /**
+     * @cfg {Boolean} expressInstall
+     * True to prompt the user to install flash if not installed. Note that this used
+     * Ext.FlashComponent.EXPRESS_INSTALL_URL, which should be set to the local resource. Defaults to <tt>false</tt>.
+     */
     expressInstall: false,
     
     initComponent : function(){
@@ -76,6 +101,11 @@ Ext.FlashComponent = Ext.extend(Ext.BoxComponent, {
     onSwfReady : Ext.emptyFn
 });
 
+/**
+ * Sets the url for installing flash if it doesn't exist. This should be set to a local resource.
+ * @static
+ * @type String
+ */
 Ext.FlashComponent.EXPRESS_INSTALL_URL = 'http:/' + '/swfobject.googlecode.com/svn/trunk/swfobject/expressInstall.swf';
 
 Ext.reg('flash', Ext.FlashComponent);
