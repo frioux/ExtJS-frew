@@ -64,6 +64,7 @@ Ext.data.DataReader.prototype = {
                 rs.commit();
                 throw new Ext.data.DataReader.Error('realize', rs);
             }
+            this.buildExtractors();
             var values = this.extractValues(data, rs.fields.items, rs.fields.items.length);
             rs.phantom = false; // <-- That's what it's all about
             rs._phid = rs.id;  // <-- copy phantom-id -> _phid, so we can remap in Store#onCreateRecords
@@ -108,6 +109,7 @@ Ext.data.DataReader.prototype = {
                 rs.commit();
                 throw new Ext.data.DataReader.Error('update', rs);
             }
+            this.buildExtractors();
             rs.data = this.extractValues(Ext.apply(rs.data, data), rs.fields.items, rs.fields.items.length);
             rs.commit();
         }

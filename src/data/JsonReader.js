@@ -174,9 +174,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             f = Record.prototype.fields, fi = f.items, fl = f.length, v;
 
         // Generate extraction functions for the totalProperty, the root, the id, and for each field
-        if (!this.ef) {
-            this.ef = this.buildExtractors();
-        }
+        this.buildExtractors();
         var root = this.getRoot(o), c = root.length, totalRecords = c, success = true;
         if(s.totalProperty){
             v = parseInt(this.getTotal(o), 10);
@@ -207,6 +205,9 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
 
     // private
     buildExtractors : function() {
+        if(this.ef){
+            return;
+        }
         var s = this.meta, Record = this.recordType,
             f = Record.prototype.fields, fi = f.items, fl = f.length;
 
@@ -232,7 +233,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             var map = (f.mapping !== undefined && f.mapping !== null) ? f.mapping : f.name;
             ef.push(this.getJsonAccessor(map));
         }
-        return ef;
+        this.ef = ef;
     },
 
     // private extractValues
@@ -269,10 +270,8 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
                 throw new Ext.data.JsonReader.Error('root-undefined-response', this.meta.root);
             }
         }
-        // makde sure extaction functions are defined.
-        if (!this.ef) {
-            this.ef = this.buildExtractors();
-        }
+        // make sure extraction functions are defined.
+        this.ef = this.buildExtractors();
         return o;
     }
 });
