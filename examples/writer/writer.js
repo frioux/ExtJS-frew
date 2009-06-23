@@ -27,7 +27,7 @@ var reader = new Ext.data.JsonReader({
 
 // The new DataWriter component.
 var writer = new Ext.data.JsonWriter({
-    returnJson: true,
+    encode: true,
     writeAllFields: false
 });
 
