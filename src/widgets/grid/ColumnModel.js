@@ -189,7 +189,7 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * and destroys existing editors.
      */
     setConfig : function(config, initial){
-        var i, c;
+        var i, c, len;
         if(!initial){ // cleanup
             delete this.totalWidth;
             for(i = 0, len = this.config.length; i < len; i++){
@@ -567,7 +567,7 @@ myGrid.getColumnModel().setHidden(0, true); // hide column 0 (0 = the first colu
     },
     
     /**
-     * Destroys this the column model by purging any event listeners, and removing any editors.
+     * Destroys this column model by purging any event listeners, and removing any editors.
      */
     destroy : function(){
         for(var i = 0, c = this.config, len = c.length; i < len; i++){
