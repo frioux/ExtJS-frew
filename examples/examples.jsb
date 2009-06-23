@@ -15,6 +15,12 @@
   <file name="chart\chart.gif" path="chart" />
   <file name="chart\charts.html" path="chart" />
   <file name="chart\charts.js" path="chart" />
+  <file name="chart\pie-chart.html" path="chart" />
+  <file name="chart\pie-chart.js" path="chart" />
+  <file name="chart\reload-chart.html" path="chart" />
+  <file name="chart\reload-chart.js" path="chart" />
+  <file name="chart\stacked-bar-chart.html" path="chart" />
+  <file name="chart\stacked-bar-chart.js" path="chart" />
   <file name="core\spotlight.html" path="core" />
   <file name="core\spotlight-example.js" path="core" />
   <file name="core\templates.html" path="core" />
