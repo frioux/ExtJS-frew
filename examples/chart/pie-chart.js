@@ -1,3 +1,5 @@
+Ext.chart.Chart.CHART_URL = '../../resources/charts.swf';
+
 Ext.onReady(function(){
     var store = new Ext.data.JsonStore({
         fields: ['season', 'total'],
