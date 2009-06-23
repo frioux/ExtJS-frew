@@ -47,7 +47,8 @@ var store = new Ext.data.Store({
                 Ext.Msg.show({
                     title: 'REMOTE EXCEPTION',
                     msg: res.message,
-                    icon: Ext.MessageBox.ERROR
+                    icon: Ext.MessageBox.ERROR,
+                    buttons: Ext.Msg.OK
                 });
             }
         }
