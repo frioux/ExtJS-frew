@@ -59,7 +59,7 @@ var defaultData = {
 };
 var recId = 100; // provide unique id for the record
 var r = new myStore.recordType(defaultData, ++recId); // create new record
-myStore.{@link #insert}(0, r); // insert a new record into the store (also see {@link #add}) 
+myStore.{@link #insert}(0, r); // insert a new record into the store (also see {@link #add})
  * </code></pre>
  * @constructor
  * Creates a new Store.
@@ -459,7 +459,7 @@ Ext.extend(Ext.data.Store, Ext.util.Observable, {
      * <br><p>Sample implementation:
      * <pre><code>
 var writer = new {@link Ext.data.JsonWriter}({
-    returnJson: true,
+    encode: true,
     writeAllFields: true // write all fields, not just those that changed
 });
 
@@ -579,7 +579,7 @@ sortInfo: {
     /**
      * Add Records to the Store and fires the {@link #add} event.  To add Records
      * to the store from a remote source use <code>{@link #load}({add:true})</code>.
-     * See also <code>{@link #recordType}</code> and <code>{@link #insert}</code>. 
+     * See also <code>{@link #recordType}</code> and <code>{@link #insert}</code>.
      * @param {Ext.data.Record[]} records An Array of Ext.data.Record objects
      * to add to the cache. See {@link #recordType}.
      */
@@ -651,7 +651,7 @@ sortInfo: {
 
     /**
      * Inserts Records into the Store at the given index and fires the {@link #add} event.
-     * See also <code>{@link #add}</code> and <code>{@link #addSorted}</code>. 
+     * See also <code>{@link #add}</code> and <code>{@link #addSorted}</code>.
      * @param {Number} index The start index at which to insert the passed Records.
      * @param {Ext.data.Record[]} records An Array of Ext.data.Record objects to add to the cache.
      */
@@ -1346,7 +1346,7 @@ sortInfo: {
         var fn = this.createFilterFn(property, value, anyMatch, caseSensitive);
         return fn ? this.data.findIndexBy(fn, null, start) : -1;
     },
-    
+
     /**
      * Finds the index of the first matching record in this store by a specific property/value.
      * @param {String} property A property on your objects
