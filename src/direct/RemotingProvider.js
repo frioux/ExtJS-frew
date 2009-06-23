@@ -166,7 +166,7 @@ TestAction.multiply(
             var events = this.getEvents(xhr);
             for(var i = 0, len = events.length; i < len; i++){
                 var e = events[i];
-                var t = e.getTransaction();
+                var t = this.getTransaction(e);
                 this.fireEvent('data', this, e);
                 if(t){
                     this.doCallback(t, e, true);
