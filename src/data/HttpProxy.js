@@ -127,7 +127,6 @@ api: {
      */
     doRequest : function(action, rs, params, reader, cb, scope, arg) {
         var  o = {
-            params : params || {},
             method: (this.api[action]) ? this.api[action]['method'] : undefined,
             request: {
                 callback : cb,
@@ -138,6 +137,13 @@ api: {
             callback : this.createCallback(action, rs),
             scope: this
         };
+        // Sample the request data:  If it's an object, then it hasn't been json-encoded yet.
+        // Transmit data using jsonData config of Ext.Ajax.request
+        if (typeof(params[reader.meta.root]) === 'object') {
+            o.jsonData = params;
+        } else {
+            o.params = params || {};
+        }
         // Set the connection url.  If this.conn.url is not null here,
         // the user may have overridden the url during a beforeaction event-handler.
         // this.conn.url is nullified after each request.
