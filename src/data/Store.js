@@ -119,7 +119,7 @@ Ext.data.Store = function(config){
         this.proxy = new Ext.data.HttpProxy({url: this.url});
     }
     // If Store is RESTful, so too is the DataProxy
-    if (this.restful === true) {
+    if (this.restful === true && this.proxy) {
         // When operating RESTfully, a unique transaction is generated for each record.
         this.batch = false;
         Ext.data.Api.restify(this.proxy);
@@ -1507,8 +1507,9 @@ myStore.setBaseParam('foo', {bar:3});
 Ext.reg('store', Ext.data.Store);
 
 /**
+ * @class Ext.data.Store.Error
+ * @extends Ext.Error
  * Store Error extension.
- * constructor
  * @param {String} name
  */
 Ext.data.Store.Error = Ext.extend(Ext.Error, {

@@ -345,7 +345,7 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
      * Sets the appropriate url based upon the action being executed.  If restful is true, and only a single record is being acted upon,
      * url will be built Rails-style, as in "/controller/action/32".  restful will aply iff the supplied record is an
      * instance of Ext.data.Record rather than an Array of them.
-     * @param {String} action The api action being executed [load|create|update|destroy]
+     * @param {String} action The api action being executed [read|create|update|destroy]
      * @param {Ext.data.Record/Array[Ext.data.Record]} The record or Array of Records being acted upon.
      * @return {String} url
      * @private
@@ -372,6 +372,8 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
 });
 
 /**
+ * @class Ext.data.DataProxy.Error
+ * @extends Ext.Error
  * DataProxy Error extension.
  * constructor
  * @param {String} name

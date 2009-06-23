@@ -277,6 +277,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
 });
 
 /**
+ * @class Ext.data.JsonReader.Error
  * Error class for JsonReader
  */
 Ext.data.JsonReader.Error = Ext.extend(Ext.Error, {

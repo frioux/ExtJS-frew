@@ -90,7 +90,7 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
     /**
      * HttpProxy implementation of DataProxy#doRequest
      * @param {String} action
-     * @param {Ext.data.Record/Ext.data.Record[]} rs If action is load, rs will be null
+     * @param {Ext.data.Record/Ext.data.Record[]} rs If action is <tt>read</tt>, rs will be null
      * @param {Object} params An object containing properties which are to be used as HTTP parameters
      * for the request to the remote server.
      * @param {Ext.data.DataReader} reader The Reader object which converts the data

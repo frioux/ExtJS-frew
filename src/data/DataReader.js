@@ -127,6 +127,8 @@ Ext.data.DataReader.prototype = {
 };
 
 /**
+ * @class Ext.data.DataReader.Error
+ * @extends Ext.Error
  * General error class for Ext.data.DataReader
  */
 Ext.data.DataReader.Error = Ext.extend(Ext.Error, {

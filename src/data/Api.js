@@ -182,9 +182,10 @@ new Ext.data.HttpProxy({
     };
 })();
 
-
 /**
- * Error class for Ext.data.Api errors.
+ * @class Ext.data.Api.Error
+ * @extends Ext.Error
+ * Error class for Ext.data.Api errors
  */
 Ext.data.Api.Error = Ext.extend(Ext.Error, {
     constructor : function(message, arg) {
