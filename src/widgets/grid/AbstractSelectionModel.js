@@ -43,5 +43,9 @@ Ext.extend(Ext.grid.AbstractSelectionModel, Ext.util.Observable,  {
      */
     isLocked : function(){
         return this.locked;
+    },
+    
+    destroy: function(){
+        this.purgeListeners();
     }
 });

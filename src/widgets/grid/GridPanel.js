@@ -604,8 +604,8 @@ function(grid, rowIndex, columnIndex, e) {
         }else if(this.store && this.store.autoDestroy){
             this.store.destroy();
         }
-        Ext.destroy(this.colModel);
-        this.store = this.colModel = this.view = this.loadMask = null;
+        Ext.destroy(this.colModel, this.selModel);
+        this.store = this.selModel = this.colModel = this.view = this.loadMask = null;
         Ext.grid.GridPanel.superclass.onDestroy.call(this);
     },
 
