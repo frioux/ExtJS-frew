@@ -284,6 +284,25 @@ if(Ext.grid.PropertyColumnModel){
   });
 }
 
+if(Ext.grid.BooleanColumn){
+   Ext.apply(Ext.grid.BooleanColumn.prototype, {
+      trueText  : "wahr",
+      falseText : "falsch"
+   });
+}
+
+if(Ext.grid.NumberColumn){
+    Ext.apply(Ext.grid.NumberColumn.prototype, {
+        format : '0.000,00'
+    });
+}
+
+if(Ext.grid.DateColumn){
+    Ext.apply(Ext.grid.DateColumn.prototype, {
+        format : 'd.m.Y'
+    });
+}
+
 if(Ext.layout.BorderLayout && Ext.layout.BorderLayout.SplitRegion){
   Ext.apply(Ext.layout.BorderLayout.SplitRegion.prototype, {
     splitTip            : "Ziehen, um Größe zu ändern.",
