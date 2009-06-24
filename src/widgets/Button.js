@@ -494,7 +494,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     /**
      * If a state it passed, it becomes the pressed state otherwise the current state is toggled.
      * @param {Boolean} state (optional) Force a particular state
-     * @param {Boolean} supressEvent (optional) True to ttop events being fired when calling this method.
+     * @param {Boolean} supressEvent (optional) True to stop events being fired when calling this method.
      * @return {Ext.Button} this
      */
     toggle : function(state, suppressEvent){
