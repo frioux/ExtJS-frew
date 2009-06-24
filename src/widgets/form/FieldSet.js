@@ -91,17 +91,17 @@ Ext.form.FieldSet = Ext.extend(Ext.Panel, {
     /**
      * @cfg {String} baseCls The base CSS class applied to the fieldset (defaults to <tt>'x-fieldset'</tt>).
      */
-    baseCls:'x-fieldset',
+    baseCls : 'x-fieldset',
     /**
      * @cfg {String} layout The {@link Ext.Container#layout} to use inside the fieldset (defaults to <tt>'form'</tt>).
      */
-    layout: 'form',
+    layout : 'form',
     /**
      * @cfg {Boolean} animCollapse
      * <tt>true</tt> to animate the transition when the panel is collapsed, <tt>false</tt> to skip the
      * animation (defaults to <tt>false</tt>).
      */
-    animCollapse: false,
+    animCollapse : false,
 
     // private
     onRender : function(ct, position){
@@ -142,7 +142,7 @@ Ext.form.FieldSet = Ext.extend(Ext.Panel, {
         Ext.form.FieldSet.superclass.onExpand.call(this, doAnim, animArg);
     },
 
-    /* //protected
+    /**
      * This function is called by the fieldset's checkbox when it is toggled (only applies when
      * checkboxToggle = true).  This method should never be called externally, but can be
      * overridden to provide custom behavior when the checkbox is toggled if needed.
@@ -160,10 +160,6 @@ Ext.form.FieldSet = Ext.extend(Ext.Panel, {
      * @hide
      */
     /**
-     * @cfg {Object/Array} bbar
-     * @hide
-     */
-    /**
      * @cfg {Boolean} bodyBorder
      * @hide
      */
@@ -173,14 +169,6 @@ Ext.form.FieldSet = Ext.extend(Ext.Panel, {
      */
     /**
      * @cfg {Boolean/Number} bufferResize
-     * @hide
-     */
-    /**
-     * @cfg {String} buttonAlign
-     * @hide
-     */
-    /**
-     * @cfg {Array} buttons
      * @hide
      */
     /**
@@ -309,4 +297,3 @@ Ext.form.FieldSet = Ext.extend(Ext.Panel, {
      */
 });
 Ext.reg('fieldset', Ext.form.FieldSet);
-
