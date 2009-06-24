@@ -1,3 +1,5 @@
+Ext.ns('Ext.ux.grid');
+
 /**
  * @class Ext.ux.grid.BufferView
  * @extends Ext.grid.GridView
