@@ -158,6 +158,13 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
      * @cfg {Boolean} showSeparator True to show the icon separator. (defaults to true).
      */
     showSeparator: true,
+    /**
+     * @cfg {Array} defaultOffsets An array specifying the [x, y] offset in pixels by which to
+     * change the default Menu popup position after aligning according to the {@link #defaultAlign}
+     * configuration. Defaults to <tt>[0, 0]</tt>.
+     */
+    defaultOffsets : [0, 0],
+
 
     /**
      * @cfg {Boolean} floating
@@ -442,7 +449,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
                 this.doLayout(false, true);
             }
             this.fireEvent("beforeshow", this);
-            this.showAt(this.el.getAlignToXY(el, pos || this.defaultAlign), parentMenu, false);
+            this.showAt(this.el.getAlignToXY(el, pos || this.defaultAlign, this.defaultOffsets), parentMenu, false);
         }else{
             Ext.menu.Menu.superclass.show.call(this);
         }
