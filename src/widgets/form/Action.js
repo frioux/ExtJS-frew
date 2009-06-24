@@ -207,7 +207,7 @@ buttons: [{
         if(appendParams){
             var p = this.getParams();
             if(p){
-                url += (url.indexOf('?') != -1 ? '&' : '?') + p;
+                url = Ext.urlAppend(url, p);
             }
         }
         return url;

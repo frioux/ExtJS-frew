@@ -67,8 +67,7 @@
             this.url = Ext.chart.Chart.CHART_URL;
         }
         if(this.disableCaching){
-            this.url += this.url.indexOf('?') != -1 ? '&' : '?' + 
-            String.format('{0}={1}', this.disableCacheParam, new Date().getTime());
+            this.url = Ext.urlAppend(this.url, String.format('{0}={1}', this.disableCacheParam, new Date().getTime()));
         }
         this.addEvents(
             'itemmouseover',

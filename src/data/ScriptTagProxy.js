@@ -111,10 +111,10 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
         if (!url) {
             throw new Ext.data.Api.Error('invalid-url', url);
         }
-        url += (url.indexOf("?") != -1 ? "&" : "?") + p;
+        url = Ext.urlAppend(url, p);
 
         if(this.nocache){
-            url += "&_dc=" + (new Date().getTime());
+            url = Ext.urlAppend(url, '_dc=' + (new Date().getTime()));
         }
         var transId = ++Ext.data.ScriptTagProxy.TRANS_ID;
         var trans = {
