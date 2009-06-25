@@ -114,15 +114,17 @@ document.write(dt.format(Date.patterns.ShortDate));
 (function() {
 
 /**
- * Indicates whether to use strict date parsing. Strict date parsing will
- * not roll-over invalid dates which is default behaviour of javascript.
+ * Global flag which determines if strict date parsing should be used.
+ * Strict date parsing will not roll-over invalid dates, which is the
+ * default behaviour of javascript Date objects.
+ * (see {@link #parseDate} for more information)
  * Defaults to <tt>false</tt>.
  * @static
  * @type Boolean
 */
 Date.useStrict = false;
-    
-    
+
+
 // create private copy of Ext's String.format() method
 // - to remove unnecessary dependency
 // - to resolve namespace conflict with M$-Ajax's implementation
