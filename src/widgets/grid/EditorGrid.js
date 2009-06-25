@@ -174,8 +174,12 @@ grid.on('validateedit', function(e) {
             this.stopEditing();
             if(this.selModel.getSelectedCell){ // cell sm
                 var sc = this.selModel.getSelectedCell();
-                if(sc && sc.cell[0] === row && sc.cell[1] === col){
+                try{
+                if(sc && sc[0] === row && sc[1] === col){
                     this.startEditing(row, col);
+                }
+                }catch(e){
+                    console.log(e);
                 }
             }else{
                 if(this.selModel.isSelected(row)){
