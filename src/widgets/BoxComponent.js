@@ -35,7 +35,33 @@ Ext.BoxComponent = Ext.extend(Ext.Component, {
      * layout manager (eg. specifying <tt>layout:'border'</tt>).</p><br>
      * <p>See {@link Ext.layout.BorderLayout} also.</p>
      */
-
+    // margins config is used when a BoxComponent is rendered by BorderLayout or BoxLayout.
+    /**
+     * @cfg {Object} margins<p><b>Note</b>: this config is only used when this BoxComponent is rendered
+     * by a Container which has been configured to use the <b>{@link Ext.layout.BorderLayout BorderLayout}</b>
+     * or one of the two <b>{@link Ext.layout.BoxLayout BoxLayout} subclasses.</b></p>
+     * <p>An object containing margins to apply to this BoxComponent in the
+     * format:</p><pre><code>
+{
+    top: (top margin),
+    right: (right margin),
+    bottom: (bottom margin),
+    left: (left margin)
+}</code></pre>
+     * <p>May also be a string containing space-separated, numeric margin values. The order of the
+     * sides associated with each value matches the way CSS processes margin values:</p>
+     * <p><div class="mdetail-params"><ul>
+     * <li>If there is only one value, it applies to all sides.</li>
+     * <li>If there are two values, the top and bottom borders are set to the first value and the
+     * right and left are set to the second.</li>
+     * <li>If there are three values, the top is set to the first value, the left and right are set
+     * to the second, and the bottom is set to the third.</li>
+     * <li>If there are four values, they apply to the top, right, bottom, and left, respectively.</li>
+     * </ul></div></p>
+     * <p>Defaults to:</p><pre><code>
+     * {top:0, right:0, bottom:0, left:0}
+     * </code></pre>
+     */
     /**
      * @cfg {Number} x
      * The local x (left) coordinate for this component if contained within a positioning container.
