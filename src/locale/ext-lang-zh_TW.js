@@ -76,7 +76,7 @@ if(Ext.DatePicker){
        disabledDaysText  : "",
        disabledDatesText : "",
        monthNames        : Date.monthNames,
-       dayNames          : Date.dayNames,       
+       dayNames          : Date.dayNames,
        nextText          : "下個月 (Ctrl+右方向鍵)",
        prevText          : "上個月 (Ctrl+左方向鍵)",
        monthYearText     : "選擇月份 (Ctrl+上/下方向鍵選擇年份)",
@@ -96,7 +96,7 @@ if(Ext.PagingToolbar){
        nextText       : "下一頁",
        lastText       : "最後頁",
        refreshText    : "重新整理",
-       displayMsg     : "顯示{0} - {1}頁,共{2}頁",
+       displayMsg     : "顯示{0} - {1}筆,共{2}筆",
        emptyMsg       : '沒有任何資料'
     });
 }
