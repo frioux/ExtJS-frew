@@ -138,6 +138,7 @@ Ext.layout.ContainerLayout.prototype = {
         if(this.monitorResize && ct != this.container){
             if(this.container){
                 this.container.un('resize', this.onResize, this);
+                this.container.un('bodyresize', this.onResize, this);
             }
             if(ct){
                 ct.on({
