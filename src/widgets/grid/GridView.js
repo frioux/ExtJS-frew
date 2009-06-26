@@ -1237,8 +1237,7 @@ viewConfig: {
         this.grid.stopEditing(true);
 
         var result = this.renderBody();
-        this.mainBody.update(result);
-
+        this.mainBody.update(result).setWidth(this.getTotalWidth());
         if(headersToo === true){
             this.updateHeaders();
             this.updateHeaderSortState();
