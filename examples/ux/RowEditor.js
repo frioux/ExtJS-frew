@@ -85,6 +85,7 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
             columnresize: this.verifyLayout,
             columnmove: this.refreshFields,
             reconfigure: this.refreshFields,
+	    destroy : this.destroy,
             bodyscroll: {
                 buffer: 250,
                 fn: this.positionButtons
