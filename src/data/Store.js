@@ -73,9 +73,9 @@ Ext.data.Store = function(config){
         return o.id;
     };
     /**
-     * An object containing properties which are used as parameters for every HTTP request.
-     * <b>Note</b>: <tt>baseParams</tt> will supersede any <tt>params</tt> provided in a
-     * <tt>{@link #load}</tt> request, see <tt>{@link #load}</tt> for more details.
+     * See the <code>{@link #baseParams corresponding configuration option}</code>
+     * for a description of this property.
+     * To modify this property see <code>{@link #setBaseParam}</code>.
      * @property
      */
     this.baseParams = {};
@@ -88,10 +88,10 @@ Ext.data.Store = function(config){
      * sorting parameters passed to remote servers when loading blocks of data. By default, this
      * object takes the following form:</p><pre><code>
 {
-    start : "start",  // The parameter name which specifies the start row
-    limit : "limit",  // The parameter name which specifies number of rows to return
-    sort : "sort",    // The parameter name which specifies the column to sort on
-    dir : "dir"       // The parameter name which specifies the sort direction
+    start : 'start',  // The parameter name which specifies the start row
+    limit : 'limit',  // The parameter name which specifies number of rows to return
+    sort : 'sort',    // The parameter name which specifies the column to sort on
+    dir : 'dir'       // The parameter name which specifies the sort direction
 }
 </code></pre>
      * <p>The server must produce the requested data block upon receipt of these parameter names.
@@ -102,10 +102,10 @@ Ext.data.Store = function(config){
      * @property
      */
     this.paramNames = {
-        "start" : "start",
-        "limit" : "limit",
-        "sort" : "sort",
-        "dir" : "dir"
+        'start' : 'start',
+        'limit' : 'limit',
+        'sort' : 'sort',
+        'dir' : 'dir'
     };
 
     if(config && config.data){
@@ -163,11 +163,11 @@ var grid = new Ext.grid.EditorGridPanel({
     store: store,
     colModel: new Ext.grid.ColumnModel({
         columns: [
-            {id:'company', header: "Company", width: 160, dataIndex: 'company'},
-            {header: "Price", renderer: 'usMoney', dataIndex: 'price'},
-            {header: "Change", renderer: change, dataIndex: 'change'},
-            {header: "% Change", renderer: pctChange, dataIndex: 'pctChange'},
-            {header: "Last Updated", width: 85,
+            {id:'company', header: 'Company', width: 160, dataIndex: 'company'},
+            {header: 'Price', renderer: 'usMoney', dataIndex: 'price'},
+            {header: 'Change', renderer: change, dataIndex: 'change'},
+            {header: '% Change', renderer: pctChange, dataIndex: 'pctChange'},
+            {header: 'Last Updated', width: 85,
                 renderer: Ext.util.Format.dateRenderer('m/d/Y'),
                 dataIndex: 'lastChange'}
         ],
@@ -286,14 +286,14 @@ var grid = new Ext.grid.EditorGridPanel({
          * differ.</p>
          * @param {DataProxy} sender
          * @param {String} type
-         * <p>The value of this parameter will be either <tt>"response"</tt> or <tt>"remote"</tt>.</p>
+         * <p>The value of this parameter will be either <tt>'response'</tt> or <tt>'remote'</tt>.</p>
          * <div class="mdetail-params"><ul>
-         * <li><b><tt>"response"</tt></b> : <div class="sub-desc">
+         * <li><b><tt>'response'</tt></b> : <div class="sub-desc">
          * <p>An <b>invalid</b> response from the server was returned: either 404,
          * 500 or the response meta-data does not match that defined in the DataReader
          * (eg: root, idProperty, successProperty).</p>
          * </div></li>
-         * <li><b><tt>"remote"</tt></b> : <div class="sub-desc">
+         * <li><b><tt>'remote'</tt></b> : <div class="sub-desc">
          * <p>A <b>valid</b> response was returned from the server having
          * successProperty === false.  This response might contain an error-message
          * sent from the server.  For example, the user may have failed
@@ -305,21 +305,21 @@ var grid = new Ext.grid.EditorGridPanel({
          * @param {Object} response
          * <p>The value of this parameter depends on the value of the <code>type</code> parameter:</p>
          * <div class="mdetail-params"><ul>
-         * <li><b><tt>"response"</tt></b> : <div class="sub-desc">
+         * <li><b><tt>'response'</tt></b> : <div class="sub-desc">
          * <p>The raw browser response object (eg: XMLHttpRequest)</p>
          * </div></li>
-         * <li><b><tt>"remote"</tt></b> : <div class="sub-desc">
+         * <li><b><tt>'remote'</tt></b> : <div class="sub-desc">
          * <p>The decoded response object sent from the server.</p>
          * </div></li>
          * </ul></div>
          * @param {Mixed} arg
          * <p>The type and value of this parameter depends on the value of the <code>type</code> parameter:</p>
          * <div class="mdetail-params"><ul>
-         * <li><b><tt>"response"</tt></b> : Error<div class="sub-desc">
+         * <li><b><tt>'response'</tt></b> : Error<div class="sub-desc">
          * <p>The JavaScript Error object caught if the configured Reader could not read the data.
          * If the load call returned success===false, this parameter will be null.</p>
          * </div></li>
-         * <li><b><tt>"remote"</tt></b> : Record/Record[]<div class="sub-desc">
+         * <li><b><tt>'remote'</tt></b> : Record/Record[]<div class="sub-desc">
          * <p>This parameter will only exist if the <tt>action</tt> was a <b>write</b> action
          * (Ext.data.Api.actions.create|update|destroy).</p>
          * </div></li>
@@ -349,7 +349,7 @@ var grid = new Ext.grid.EditorGridPanel({
          * <code>successProperty === false</code>.  This means the server logic returned a failure
          * status and there is no data to read.  For example, the server might return
          * <code>successProperty === false</code> if authorization failed.  This event is
-         * called with the signature of the Proxy's "loadexception" event.
+         * called with the signature of the Proxy's 'loadexception' event.
          * @deprecated
          * @param {DataProxy} this
          * @param {Object} response The decoded response object from the server.
@@ -373,7 +373,7 @@ var grid = new Ext.grid.EditorGridPanel({
          * failed, for example.
          * @param {Ext.data.Store} store
          * @param {String} action [Ext.data.Api.actions.create|update|destroy]
-         * @param {Object} result The "data" picked-out out of the response for convenience.
+         * @param {Object} result The 'data' picked-out out of the response for convenience.
          * @param {Ext.Direct.Transaction} res
          * @param {Record/Record[]} rs Store's records, the subject(s) of the write-action
          */
@@ -381,7 +381,7 @@ var grid = new Ext.grid.EditorGridPanel({
     );
 
     if(this.proxy){
-        this.relayEvents(this.proxy,  ["loadexception", "exception"]);
+        this.relayEvents(this.proxy,  ['loadexception', 'exception']);
     }
     // With a writer set for the Store, we want to listen to add/remove events to remotely create/destroy records.
     if (this.writer) {
@@ -478,11 +478,16 @@ var store = new Ext.data.Store({
      */
     writer : undefined,
     /**
-     * @cfg {Object} baseParams <p>An object containing properties which are to be sent as parameters
+     * @cfg {Object} baseParams
+     * <p>An object containing properties which are to be sent as parameters
      * for <i>every</i> HTTP request.</p>
      * <p>Parameters are encoded as standard HTTP parameters using {@link Ext#urlEncode}.</p>
-     * <p><b>Note</b>: <tt>baseParams</tt> will supersede any <tt>params</tt> provided in a
-     * <tt>{@link #load}</tt> request, see <tt>{@link #load}</tt> for more details.</p>
+     * <p><b>Note</b>: <code>baseParams</code> may be superseded by any <code>params</code>
+     * specified in a <code>{@link #load}</code> request, see <code>{@link #load}</code>
+     * for more details.</p>
+     * This property may be modified after creation using the <code>{@link #setBaseParam}</code>
+     * method.
+     * @property
      */
     /**
      * @cfg {Object} sortInfo A config object to specify the sort order in the request of a Store's
@@ -490,8 +495,8 @@ var store = new Ext.data.Store({
      * case-sensitive. See also {@link #remoteSort} and {@link #paramNames}.
      * For example:<pre><code>
 sortInfo: {
-    field: "fieldName",
-    direction: "ASC" // or "DESC" (case sensitive for local sorting)
+    field: 'fieldName',
+    direction: 'ASC' // or 'DESC' (case sensitive for local sorting)
 }
 </code></pre>
      */
@@ -504,7 +509,7 @@ sortInfo: {
      * the following two parameters to the <b><tt>{@link #load params}</tt></b>:<div class="mdetail-params"><ul>
      * <li><b><tt>sort</tt></b> : String<p class="sub-desc">The <tt>name</tt> (as specified in the Record's
      * {@link Ext.data.Field Field definition}) of the field to sort on.</p></li>
-     * <li><b><tt>dir</tt></b> : String<p class="sub-desc">The direction of the sort, "ASC" or "DESC" (case-sensitive).</p></li>
+     * <li><b><tt>dir</tt></b> : String<p class="sub-desc">The direction of the sort, 'ASC' or 'DESC' (case-sensitive).</p></li>
      * </ul></div></p>
      */
     remoteSort : false,
@@ -534,7 +539,7 @@ sortInfo: {
     /**
      * @cfg {Boolean} autoSave
      * <p>Defaults to <tt>true</tt> causing the store to automatically {@link #save} records to
-     * the server when a record is modified (ie: becomes "dirty"). Specify <tt>false</tt> to manually call {@link #save}
+     * the server when a record is modified (ie: becomes 'dirty'). Specify <tt>false</tt> to manually call {@link #save}
      * to send all modifiedRecords to the server.</p>
      * <br><p><b>Note</b>: each CRUD action will be sent as a separate request.</p>
      */
@@ -596,7 +601,7 @@ sortInfo: {
         if(this.snapshot){
             this.snapshot.addAll(records);
         }
-        this.fireEvent("add", this, records, index);
+        this.fireEvent('add', this, records, index);
     },
 
     /**
@@ -623,7 +628,7 @@ sortInfo: {
             if(this.snapshot){
                 this.snapshot.remove(record);
             }
-            this.fireEvent("remove", this, record, index);
+            this.fireEvent('remove', this, record, index);
         }
     },
 
@@ -646,7 +651,7 @@ sortInfo: {
         if(this.pruneModifiedRecords){
             this.modified = [];
         }
-        this.fireEvent("clear", this);
+        this.fireEvent('clear', this);
     },
 
     /**
@@ -661,7 +666,7 @@ sortInfo: {
             this.data.insert(index, records[i]);
             records[i].join(this);
         }
-        this.fireEvent("add", this, records, index);
+        this.fireEvent('add', this, records, index);
     },
 
     /**
@@ -719,17 +724,22 @@ sortInfo: {
     },
 
     /**
-     * Loads the Record cache from the configured <tt>{@link #proxy}</tt> using the configured <tt>{@link #reader}</tt>.
-     * <p>If using remote paging, then the first load call must specify the <tt>start</tt>
-     * and <tt>limit</tt> properties in the <code>options.params</code> property to establish the initial
-     * position within the dataset, and the number of Records to cache on each read from the Proxy.</p>
-     * <p><b>Important</b>: loading is asynchronous, so this call will return before the new data has been
-     * loaded. To perform any post-processing where information from the load call is required, use the
-     * <tt>callback</tt> function, or {@link Ext.util.Observable#listeners a "load" event handler}.</p>
+     * <p>Loads the Record cache from the configured <tt>{@link #proxy}</tt> using the configured <tt>{@link #reader}</tt>.</p>
+     * <br><p>Notes:</p><div class="mdetail-params"><ul>
+     * <li><b><u>Important</u></b>: loading is asynchronous! This call will return before the new data has been
+     * loaded. To perform any post-processing where information from the load call is required, specify
+     * the <tt>callback</tt> function to be called, or use a {@link Ext.util.Observable#listeners a 'load' event handler}.</li>
+     * <li>If using {@link Ext.PagingToolbar remote paging}, the first load call must specify the <tt>start</tt> and <tt>limit</tt>
+     * properties in the <code>options.params</code> property to establish the initial position within the
+     * dataset, and the number of Records to cache on each read from the Proxy.</li>
+     * <li>If using {@link #remoteSort remote sorting}, the configured <code>{@link #sortInfo}</code>
+     * will be automatically included with the posted parameters according to the specified
+     * <code>{@link #paramNames}</code>.</li>
+     * </ul></div>
      * @param {Object} options An object containing properties which control loading options:<ul>
      * <li><b><tt>params</tt></b> :Object<div class="sub-desc"><p>An object containing properties to pass as HTTP
-     * parameters to a remote data source. <b>Note</b>: <tt>{@link #baseParams}</tt> will supersede specified
-     * <tt>parameters</tt>.</p>
+     * parameters to a remote data source. <b>Note</b>: <code>params</code> will override any
+     * <code>{@link #baseParams}</code> of the same name.</p>
      * <p>Parameters are encoded as standard HTTP parameters using {@link Ext#urlEncode}.</p></div></li>
      * <li><b><tt>callback</tt></b> : Function<div class="sub-desc"><p>A function to be called after the Records
      * have been loaded. The <tt>callback</tt> is called after the load event and is passed the following arguments:<ul>
@@ -754,7 +764,7 @@ sortInfo: {
             options.params[pn.dir] = this.sortInfo.direction;
         }
         try {
-            return this.execute("read", null, options); // <-- null represents rs.  No rs for load actions.
+            return this.execute('read', null, options); // <-- null represents rs.  No rs for load actions.
         } catch(e) {
             this.handleException(e);
             return false;
@@ -763,7 +773,7 @@ sortInfo: {
 
     /**
      * updateRecord  Should not be used directly.  This method will be called automatically if a Writer is set.
-     * Listens to "update" event.
+     * Listens to 'update' event.
      * @param {Object} store
      * @param {Object} record
      * @param {Object} action
@@ -820,9 +830,10 @@ sortInfo: {
     },
 
     /**
-     * Executes a CRUD action on a proxy if a Writer is set.  Should not be used directly.  Called automatically
-     * by Store#add, Store#remove, Store#afterEdit
-     * @param {String} action
+     * This method should generally not be used directly.  This method is called internally
+     * by {@link #load}, or if a Writer is set will be called automatically when {@link #add},
+     * {@link #remove}, or {@link #update} events fire. 
+     * @param {String} action Action name ('read', 'create', 'update', or 'destroy')
      * @param {Record/Record[]} rs
      * @param {Object} options
      * @throws Error
@@ -842,7 +853,7 @@ sortInfo: {
         // include the rs (record resultset) parameter.  Capture return values from the beforeaction into doRequest flag.
         var doRequest = true;
 
-        if (action === "read") {
+        if (action === 'read') {
             doRequest = this.fireEvent('beforeload', this, options);
         }
         else {
@@ -850,7 +861,7 @@ sortInfo: {
             if (this.writer.listful === true && this.restful !== true) {
                 rs = (Ext.isArray(rs)) ? rs : [rs];
             }
-            // if rs has just a single record, shift it off so that Writer writes data as "{}" rather than "[{}]"
+            // if rs has just a single record, shift it off so that Writer writes data as '{}' rather than '[{}]'
             else if (Ext.isArray(rs) && rs.length == 1) {
                 rs = rs.shift();
             }
@@ -865,7 +876,7 @@ sortInfo: {
             if (this.writer && this.proxy.url && !this.proxy.restful && !Ext.data.Api.hasUniqueUrl(this.proxy, action)) {
                 params.xaction = action;
             }
-            // Note:  Up until this point we've been dealing with "action" as a key from Ext.data.Api.actions.  We'll flip it now
+            // Note:  Up until this point we've been dealing with 'action' as a key from Ext.data.Api.actions.  We'll flip it now
             // and send the value into DataProxy#request, since it's the value which maps to the DataProxy#api
             this.proxy.request(Ext.data.Api.actions[action], rs, params, this.reader, this.createCallback(action, rs), this, options);
         }
@@ -892,7 +903,7 @@ sortInfo: {
 
         // DESTROY:  First check for removed records.  Records in this.removed are guaranteed non-phantoms.  @see Store#remove
         if (this.removed.length) {
-            this.doTransaction("destroy", this.removed);
+            this.doTransaction('destroy', this.removed);
         }
 
         // Check for modified records.  Bail-out if empty...
@@ -947,7 +958,7 @@ sortInfo: {
     // Do not override -- override loadRecords, onCreateRecords, onDestroyRecords and onUpdateRecords instead.
     createCallback : function(action, rs) {
         var actions = Ext.data.Api.actions;
-        return (action == "read") ? this.loadRecords : function(data, response, success) {
+        return (action == 'read') ? this.loadRecords : function(data, response, success) {
             // If success === false here, exception will have been called in DataProxy
             if (success === true) {
                 this.fireEvent('write', this, action, data, response, rs);
@@ -1057,7 +1068,7 @@ sortInfo: {
     loadRecords : function(o, options, success){
         if(!o || success === false){
             if(success !== false){
-                this.fireEvent("load", this, [], options);
+                this.fireEvent('load', this, [], options);
             }
             if(options.callback){
                 options.callback.call(options.scope || this, [], options, false, o);
@@ -1080,12 +1091,12 @@ sortInfo: {
             this.data.addAll(r);
             this.totalLength = t;
             this.applySort();
-            this.fireEvent("datachanged", this);
+            this.fireEvent('datachanged', this);
         }else{
             this.totalLength = Math.max(t, this.data.length+r.length);
             this.add(r);
         }
-        this.fireEvent("load", this, r, options);
+        this.fireEvent('load', this, r, options);
         if(options.callback){
             options.callback.call(options.scope || this, r, options, true);
         }
@@ -1138,7 +1149,7 @@ sortInfo: {
      * Returns an object describing the current sort state of this Store.
      * @return {Object} The sort state of the Store. An object with two properties:<ul>
      * <li><b>field : String<p class="sub-desc">The name of the field by which the Records are sorted.</p></li>
-     * <li><b>direction : String<p class="sub-desc">The sort order, "ASC" or "DESC" (case-sensitive).</p></li>
+     * <li><b>direction : String<p class="sub-desc">The sort order, 'ASC' or 'DESC' (case-sensitive).</p></li>
      * </ul>
      * See <tt>{@link #sortInfo}</tt> for additional details.
      */
@@ -1171,10 +1182,10 @@ sortInfo: {
     /**
      * Sets the default sort column and order to be used by the next {@link #load} operation.
      * @param {String} fieldName The name of the field to sort by.
-     * @param {String} dir (optional) The sort order, "ASC" or "DESC" (case-sensitive, defaults to <tt>"ASC"</tt>)
+     * @param {String} dir (optional) The sort order, 'ASC' or 'DESC' (case-sensitive, defaults to <tt>'ASC'</tt>)
      */
     setDefaultSort : function(field, dir){
-        dir = dir ? dir.toUpperCase() : "ASC";
+        dir = dir ? dir.toUpperCase() : 'ASC';
         this.sortInfo = {field: field, direction: dir};
         this.sortToggle[field] = dir;
     },
@@ -1184,7 +1195,7 @@ sortInfo: {
      * If remote sorting is used, the sort is performed on the server, and the cache is reloaded. If local
      * sorting is used, the cache is sorted internally. See also {@link #remoteSort} and {@link #paramNames}.
      * @param {String} fieldName The name of the field to sort by.
-     * @param {String} dir (optional) The sort order, "ASC" or "DESC" (case-sensitive, defaults to <tt>"ASC"</tt>)
+     * @param {String} dir (optional) The sort order, 'ASC' or 'DESC' (case-sensitive, defaults to <tt>'ASC'</tt>)
      */
     sort : function(fieldName, dir){
         var f = this.fields.get(fieldName);
@@ -1193,7 +1204,7 @@ sortInfo: {
         }
         if(!dir){
             if(this.sortInfo && this.sortInfo.field == f.name){ // toggle sort dir
-                dir = (this.sortToggle[f.name] || "ASC").toggle("ASC", "DESC");
+                dir = (this.sortToggle[f.name] || 'ASC').toggle('ASC', 'DESC');
             }else{
                 dir = f.sortDir;
             }
@@ -1205,7 +1216,7 @@ sortInfo: {
         this.sortInfo = {field: f.name, direction: dir};
         if(!this.remoteSort){
             this.applySort();
-            this.fireEvent("datachanged", this);
+            this.fireEvent('datachanged', this);
         }else{
             if (!this.load(this.lastOptions)) {
                 if (st) {
@@ -1298,7 +1309,7 @@ sortInfo: {
     filterBy : function(fn, scope){
         this.snapshot = this.snapshot || this.data;
         this.data = this.queryBy(fn, scope||this);
-        this.fireEvent("datachanged", this);
+        this.fireEvent('datachanged', this);
     },
 
     /**
@@ -1408,7 +1419,7 @@ sortInfo: {
             this.data = this.snapshot;
             delete this.snapshot;
             if(suppressEvent !== true){
-                this.fireEvent("datachanged", this);
+                this.fireEvent('datachanged', this);
             }
         }
     },
@@ -1426,19 +1437,19 @@ sortInfo: {
         if(this.modified.indexOf(record) == -1){
             this.modified.push(record);
         }
-        this.fireEvent("update", this, record, Ext.data.Record.EDIT);
+        this.fireEvent('update', this, record, Ext.data.Record.EDIT);
     },
 
     // private
     afterReject : function(record){
         this.modified.remove(record);
-        this.fireEvent("update", this, record, Ext.data.Record.REJECT);
+        this.fireEvent('update', this, record, Ext.data.Record.REJECT);
     },
 
     // private
     afterCommit : function(record){
         this.modified.remove(record);
-        this.fireEvent("update", this, record, Ext.data.Record.COMMIT);
+        this.fireEvent('update', this, record, Ext.data.Record.COMMIT);
     },
 
     /**
@@ -1517,7 +1528,7 @@ Ext.data.Store.Error = Ext.extend(Ext.Error, {
 });
 Ext.apply(Ext.data.Store.Error.prototype, {
     lang: {
-        "writer-undefined" : "Attempted to execute a write-action without a DataWriter installed."
+        'writer-undefined' : 'Attempted to execute a write-action without a DataWriter installed.'
     }
 });
 
