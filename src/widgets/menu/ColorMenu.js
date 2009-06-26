@@ -39,13 +39,13 @@
         this.palette.purgeListeners();
         Ext.menu.ColorMenu.superclass.initComponent.call(this);
         this.relayEvents(this.palette, ['select']);
-        this.on('select', this.doHide, this);
+        this.on('select', this.menuHide, this);
         if(this.handler){
             this.on('select', this.handler, this.scope || this)
         }
     },
 
-    doHide: function(){
+    menuHide: function(){
         if(this.hideOnClick){
             this.hide(true);
         }

@@ -123,7 +123,7 @@ Ext.Component = function(config){
             this.baseAction = config;
         }
         config = config.initialConfig; // component cloning / action set up
-    }else if(config.tagName || config.dom || typeof config == 'string'){ // element object
+    }else if(config.tagName || config.dom || Ext.isString(config)){ // element object
         config = {applyTo: config, id: config.id || config};
     }
 
@@ -789,9 +789,9 @@ new Ext.Panel({
     },
 
     initPlugin : function(p){
-        if(p.ptype && typeof p.init != 'function'){
+        if(p.ptype && !Ext.isFunction(p.init)){
             p = Ext.ComponentMgr.createPlugin(p);
-        }else if(typeof p == 'string'){
+        }else if(Ext.isString(p)){
             p = Ext.ComponentMgr.createPlugin({
                 ptype: p
             });
@@ -870,7 +870,7 @@ Ext.Foo = Ext.extend(Ext.Bar, {
             }
             this.rendered = true;
             if(position !== undefined){
-                if(typeof position == 'number'){
+                if(Ext.isNumber(position)){
                     position = this.container.dom.childNodes[position];
                 }else{
                     position = Ext.getDom(position);
@@ -894,10 +894,12 @@ Ext.Foo = Ext.extend(Ext.Bar, {
             this.fireEvent('render', this);
             this.afterRender(this.container);
             if(this.hidden){
-                this.hide();
+                // call this so we don't fire initial hide events.
+                this.doHide();
             }
             if(this.disabled){
-                this.disable();
+                // pass silent so the event doesn't fire the first time.
+                this.disable(true);
             }
 
             if(this.stateful !== false){
@@ -1050,7 +1052,7 @@ var myGrid = new Ext.grid.EditorGridPanel({
     // default function is not really useful
     onRender : function(ct, position){
         if(!this.el && this.autoEl){
-            if(typeof this.autoEl == 'string'){
+            if(Ext.isString(this.autoEl)){
                 this.el = document.createElement(this.autoEl);
             }else{
                 var div = document.createElement('div');
@@ -1166,7 +1168,7 @@ new Ext.Panel({
      */
     focus : function(selectText, delay){
         if(delay){
-            this.focus.defer(typeof delay == 'number' ? delay : 10, this, [selectText, false]);
+            this.focus.defer(Ext.isNumber(delay) ? delay : 10, this, [selectText, false]);
             return;
         }
         if(this.rendered){
@@ -1190,12 +1192,14 @@ new Ext.Panel({
      * Disable this component and fire the 'disable' event.
      * @return {Ext.Component} this
      */
-    disable : function(){
+    disable : function(/* private */ silent){
         if(this.rendered){
             this.onDisable();
         }
         this.disabled = true;
-        this.fireEvent('disable', this);
+        if(silent !== true){
+            this.fireEvent('disable', this);
+        }
         return this;
     },
 
@@ -1243,7 +1247,7 @@ new Ext.Panel({
         if(this.fireEvent('beforeshow', this) !== false){
             this.hidden = false;
             if(this.autoRender){
-                this.render(typeof this.autoRender == 'boolean' ? Ext.getBody() : this.autoRender);
+                this.render(Ext.isBoolean(this.autoRender) ? Ext.getBody() : this.autoRender);
             }
             if(this.rendered){
                 this.onShow();
@@ -1267,13 +1271,18 @@ new Ext.Panel({
      */
     hide : function(){
         if(this.fireEvent('beforehide', this) !== false){
-            this.hidden = true;
-            if(this.rendered){
-                this.onHide();
-            }
+            this.doHide();
             this.fireEvent('hide', this);
         }
         return this;
+    },
+    
+    // private
+    doHide: function(){
+        this.hidden = true;
+        if(this.rendered){
+            this.onHide();
+        }
     },
 
     // private
@@ -1350,9 +1359,9 @@ var isBoxInstance = t.isXType('box', true); // false, not a direct BoxComponent 
      */
     isXType : function(xtype, shallow){
         //assume a string by default
-        if (typeof xtype == 'function'){
+        if (Ext.isFunction(xtype)){
             xtype = xtype.xtype; //handle being passed the class, eg. Ext.Component
-        }else if (typeof xtype == 'object'){
+        }else if (Ext.isObject(xtype)){
             xtype = xtype.constructor.xtype; //handle being passed an instance
         }
 
@@ -1402,7 +1411,7 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
      * @return {Ext.Container} The first Container which matches the given xtype or class
      */
     findParentByType : function(xtype) {
-        return typeof xtype == 'function' ?
+        return Ext.isFunction(xtype) ?
             this.findParentBy(function(p){
                 return p.constructor === xtype;
             }) :

@@ -48,13 +48,13 @@
         this.picker.purgeListeners();
         Ext.menu.DateMenu.superclass.initComponent.call(this);
         this.relayEvents(this.picker, ["select"]);
-        this.on('select', this.doHide, this);
+        this.on('select', this.menuHide, this);
         if(this.handler){
             this.on('select', this.handler, this.scope || this);
         }
     },
 
-    doHide: function() {
+    menuHide: function() {
         if(this.hideOnClick){
             this.hide(true);
         }
