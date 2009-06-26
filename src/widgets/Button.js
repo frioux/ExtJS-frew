@@ -545,11 +545,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     showMenu : function(){
         if(this.rendered && this.menu){
             if(this.tooltip){
-                var t = Ext.QuickTips.getQuickTip();
-                //hide tooltip if we have one and it's active.
-                if(t.isVisible() && t.activeTarget && t.activeTarget.el == this.btnEl.dom){
-                    t.hide();
-                }
+                Ext.QuickTips.getQuickTip().cancelShow(this.btnEl);
             }
             this.menu.show(this.el, this.menuAlign);
         }
