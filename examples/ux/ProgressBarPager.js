@@ -1,7 +1,29 @@
-
+/**
+* @class Ext.ux.ProgressBarPager
+* @extends Object 
+* Plugin (ptype = 'tabclosemenu') for displaying a progressbar inside of a paging toolbar instead of plain text
+* 
+* @ptype progressbarpager 
+* @constructor
+* Create a new ItemSelector
+* @param {Object} config Configuration options
+* @xtype itemselector 
+*/
 Ext.ux.ProgressBarPager  = Ext.extend(Object, {
+	/**
+ 	* @cfg {Integer} progBarWidth
+ 	* <p>The default progress bar width.  Default is 225.</p>
+	*/
 	progBarWidth   : 225,
+	/**
+ 	* @cfg {String} defaultText
+	* <p>The text to display while the store is loading.  Default is 'Loading...'</p>
+ 	*/
 	defaultText    : 'Loading...',
+    	/**
+ 	* @cfg {Object} defaultAnimCfg 
+ 	* <p>A {@link Ext.Fx Ext.Fx} configuration object.  Default is  { duration : 1, easing : 'bounceOut' }.</p>
+ 	*/
 	defaultAnimCfg : {
 		duration   : 1,
 		easing     : 'bounceOut'	
@@ -48,7 +70,7 @@ Ext.ux.ProgressBarPager  = Ext.extend(Object, {
 		}
 		  
 	},
-	//private
+	// private
 	// This method handles the click for the progress bar
 	handleProgressBarClick : function(e){
 		var parent = this.parent;
@@ -63,9 +85,9 @@ Ext.ux.ProgressBarPager  = Ext.extend(Object, {
 		parent.changePage(newpage);
 	},
 	
-	//overrides, private
+	// private, overriddes
 	parentOverrides  : {
-		//Private
+		// private
 		// This method updates the information via the progress bar.
 		updateInfo : function(){
 			if(this.displayItem){
@@ -89,3 +111,5 @@ Ext.ux.ProgressBarPager  = Ext.extend(Object, {
 		}
 	}
 });
+Ext.preg('progressbarpager', Ext.ux.ProgressBarPager);
+
