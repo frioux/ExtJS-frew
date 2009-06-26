@@ -246,7 +246,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         if(this.menu){
             this.menu = Ext.menu.MenuMgr.get(this.menu);
         }
-        if(typeof this.toggleGroup === 'string'){
+        if(Ext.isString(this.toggleGroup)){
             this.enableToggle = true;
         }
     },
@@ -543,7 +543,14 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      * Show this button's menu (if it has one)
      */
     showMenu : function(){
-        if(this.menu){
+        if(this.rendered && this.menu){
+            if(this.tooltip){
+                var t = Ext.QuickTips.getQuickTip();
+                //hide tooltip if we have one and it's active.
+                if(t.isVisible() && t.activeTarget && t.activeTarget.el == this.btnEl.dom){
+                    t.hide();
+                }
+            }
             this.menu.show(this.el, this.menuAlign);
         }
         return this;
