@@ -41,14 +41,13 @@ function(){
 	        Ext.each(o, function(v) {
                 createDom(v, el);
             });
-        } else if (typeof o == 'string') {         // Allow a string as a child spec.
+        } else if (Ext.isString(o)) {         // Allow a string as a child spec.
             el = doc.createTextNode(o);
         } else {
             el = doc.createElement( o.tag || 'div' );
             useSet = !!el.setAttribute; // In IE some elements don't have setAttribute
-            for(attr in o){
-	            val = o[attr];
-                if(['tag', 'children', 'cn', 'html', 'style'].indexOf(attr) == -1 || !Ext.isFunction(val)){
+            Ext.iterate(o, function(attr, val){
+                if(!(/tag|children|cn|html|style/.test(attr) || Ext.isFunction(val))){
 	                if(attr == 'cls'){
 	                    el.className = val;
 	                }else{
@@ -59,7 +58,7 @@ function(){
                         }
 	                }
                 }
-            }
+            });
             pub.applyStyles(el, o.style);
 
             if ((cn = o.children || o.cn)) {
@@ -104,7 +103,7 @@ function(){
 				if(Ext.isFunction(styles)){
    					styles = styles.call();
 				}
-				if(typeof styles == 'string'){
+				if(Ext.isString(styles)){
 					styles = styles.trim().split(/\s*(?::|;)\s*/);
 					for(len = styles.length; i < len;){
 						el.setStyle(styles[i++], styles[i++]);
