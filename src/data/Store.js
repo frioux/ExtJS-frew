@@ -292,16 +292,13 @@ var grid = new Ext.grid.EditorGridPanel({
         'load',
         /**
          * @event loadexception
-         * This event is <b>deprecated</b> in favor of the catch-all <b><code>{@link #exception}</code></b>
-         * event instead. Fires only if the load request returned a valid response having
-         * <code>successProperty === false</code>.  This means the server logic returned a failure
-         * status and there is no data to read.  For example, the server might return
-         * <code>successProperty === false</code> if authorization failed.  This event is
-         * called with the signature of the Proxy's 'loadexception' event.
-         * @deprecated
-         * @param {DataProxy} this
-         * @param {Object} response The decoded response object from the server.
-         * @param {Object} arg The request argument.
+         * <p>This event is <b>deprecated</b> in favor of the catch-all <b><code>{@link #exception}</code></b>
+         * event instead.</p>
+         * <p>This event is relayed through the corresponding {@link Ext.data.DataProxy}.
+         * See {@link Ext.data.DataProxy}.{@link Ext.data.DataProxy#loadexception loadexception}
+         * for additional details.
+         * @param {misc} misc See {@link Ext.data.DataProxy}.{@link Ext.data.DataProxy#loadexception loadexception}
+         * for description. 
          */
         'loadexception',
         /**
