@@ -75,24 +75,30 @@ myStore.on({
             // use <tt>{@link Ext.data.HttpProxy#setUrl setUrl}</tt> to change the URL for *just* this request.
             store.proxy.setUrl('changed1.php');
 
-            // set optional second parameter to true to make this URL change permanent, applying this URL for all subsequent requests.
+            // set optional second parameter to true to make this URL change
+            // permanent, applying this URL for all subsequent requests.
             store.proxy.setUrl('changed1.php', true);
 
-            // manually set the <b>private</b> connection URL.  <b>Warning:</b>  Accessing the private URL property like should be avoided.  Please use the public
-            // method <tt>{@link Ext.data.HttpProxy#setUrl setUrl}</tt> instead, shown above.  It should be noted that changing the URL like
-            // this will affect the URL for just this request.  Subsequent requests will use the API or URL defined in your initial
-            // proxy configuration.
+            // manually set the <b>private</b> connection URL.
+            // <b>Warning:</b>  Accessing the private URL property should be avoided.
+            // Use the public method <tt>{@link Ext.data.HttpProxy#setUrl setUrl}</tt> instead, shown above.
+            // It should be noted that changing the URL like this will affect
+            // the URL for just this request.  Subsequent requests will use the
+            // API or URL defined in your initial proxy configuration.
             store.proxy.conn.url = 'changed1.php';
 
             // proxy URL will be superseded by API (only if proxy created to use ajax):
-            // It should be noted that proxy API changes are permanent and will be used for all subsequent requests.
+            // It should be noted that proxy API changes are permanent and will
+            // be used for all subsequent requests.
             store.proxy.api.load = 'changed2.php';
 
-            // However, altering the proxy API should be done using the public method <tt>{@link Ext.data.DataProxy#setApi setApi}</tt> instead.
+            // However, altering the proxy API should be done using the public
+            // method <tt>{@link Ext.data.DataProxy#setApi setApi}</tt> instead.
             store.proxy.setApi('load', 'changed2.php');
 
-            // Or set the entire API with a config-object.  When using the config-object option, you must redefine the <b>entire</b> API --
-            // not just a specific action of it.
+            // Or set the entire API with a config-object.
+            // When using the config-object option, you must redefine the <b>entire</b>
+            // API -- not just a specific action of it.
             store.proxy.setApi({
                 read    : 'changed_read.php',
                 create  : 'changed_create.php',
@@ -116,42 +122,66 @@ myStore.on({
 
     this.addEvents(
         /**
-         * @event exception
-         * Fires if an exception occurs in the Proxy during a remote request.  This event can be fired for one of two reasons:
-         * <ul><li><b>The remote-request failed and the server did not return status === 200</b></li>
-         * <li><b>The remote-request succeeded but the reader could not read the response.</b>  This means the server returned
-         * data, but the configured Reader threw an error while reading the response.  In this case, this event will be
-         * raised and the caught error will be passed along into this event.</li></ul>
-         *
-         * This event fires with two different contexts based upon the 2nd parameter <tt>type [remote|response]</tt>.  Note that the
-         * first four parameters are identical between the two contexts -- only the final two parameters differ.
-         *
-         * <b>response</b>
-         * If the type of exception is "response", an <b>invalid response</b> from the server was returned, either 404, 500 or the response
-         * meta-data does not match that defined in your DataReader (eg: root, idProperty, successProperty).
-         * The event parameters for this context are:
+         * <p>Fires if an exception occurs in the Proxy during a remote request.
+         * This event is relayed through a corresponding 
+         * {@link Ext.data.Store}.{@link Ext.data.Store#exception exception},
+         * so any Store instance may observe this event.
+         * This event can be fired for one of two reasons:</p>
+         * <div class="mdetail-params"><ul>
+         * <li>remote-request <b>failed</b> : <div class="sub-desc">
+         * The server did not return status === 200.
+         * </div></li>
+         * <li>remote-request <b>succeeded</b> : <div class="sub-desc">
+         * The remote-request succeeded but the reader could not read the response.
+         * This means the server returned data, but the configured Reader threw an
+         * error while reading the response.  In this case, this event will be
+         * raised and the caught error will be passed along into this event.
+         * </div></li>
+         * </ul></div>
+         * <br><p>This event fires with two different contexts based upon the 2nd
+         * parameter <tt>type [remote|response]</tt>.  The first four parameters
+         * are identical between the two contexts -- only the final two parameters
+         * differ.</p>
          * @param {DataProxy} sender
-         * @param {String} type [response]
+         * @param {String} type
+         * <p>The value of this parameter will be either <tt>'response'</tt> or <tt>'remote'</tt>.</p>
+         * <div class="mdetail-params"><ul>
+         * <li><b><tt>'response'</tt></b> : <div class="sub-desc">
+         * <p>An <b>invalid</b> response from the server was returned: either 404,
+         * 500 or the response meta-data does not match that defined in the DataReader
+         * (eg: root, idProperty, successProperty).</p>
+         * </div></li>
+         * <li><b><tt>'remote'</tt></b> : <div class="sub-desc">
+         * <p>A <b>valid</b> response was returned from the server having
+         * successProperty === false.  This response might contain an error-message
+         * sent from the server.  For example, the user may have failed
+         * authentication/authorization or a database validation error occurred.</p>
+         * </div></li>
+         * </ul></div>
          * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
          * @param {Object} options The loading options that were specified (see {@link #load} for details)
-         * @param {Object} response The raw browser response object (eg: XMLHttpRequest)
-         * @param {Error} e The JavaScript Error object caught if the configured Reader could not read the data.
-         * If the load call returned success: false, this parameter will be null.
-         *
-         * <b>remote</b>
-         * If the type of exception is "remote", a <b>valid response</b> was returned from the server having successProperty === false.  This
-         * response might contain an error-message sent from the server.  For example, the user may have failed
-         * authentication/authorization or a database validation error occurred.
-         * @param {DataProxy} sender
-         * @param {String} type [remote]
-         * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
-         * @param {Object} options The loading options that were specified (see {@link #load} for details)
-         * @param {Object} response The decoded response object sent from the server.
-         * @param {Record/Record[]} rs Records from the Store.  This parameter will only exist if the <tt>action</tt> was a <b>write</b> action
-         * (Ext.data.Api.actions.create|update|destroy)
-         *
-         * Note that this event is also relayed through {@link Ext.data.Store}, so you can listen for it directly
-         * on any Store instance.
+         * @param {Object} response
+         * <p>The value of this parameter depends on the value of the <code>type</code> parameter:</p>
+         * <div class="mdetail-params"><ul>
+         * <li><b><tt>'response'</tt></b> : <div class="sub-desc">
+         * <p>The raw browser response object (eg: XMLHttpRequest)</p>
+         * </div></li>
+         * <li><b><tt>'remote'</tt></b> : <div class="sub-desc">
+         * <p>The decoded response object sent from the server.</p>
+         * </div></li>
+         * </ul></div>
+         * @param {Mixed} arg
+         * <p>The type and value of this parameter depends on the value of the <code>type</code> parameter:</p>
+         * <div class="mdetail-params"><ul>
+         * <li><b><tt>'response'</tt></b> : Error<div class="sub-desc">
+         * <p>The JavaScript Error object caught if the configured Reader could not read the data.
+         * If the load call returned success===false, this parameter will be null.</p>
+         * </div></li>
+         * <li><b><tt>'remote'</tt></b> : Record/Record[]<div class="sub-desc">
+         * <p>This parameter will only exist if the <tt>action</tt> was a <b>write</b> action
+         * (Ext.data.Api.actions.create|update|destroy).</p>
+         * </div></li>
+         * </ul></div>
          */
         'exception',
         /**
