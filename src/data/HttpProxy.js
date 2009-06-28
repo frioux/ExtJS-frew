@@ -198,9 +198,9 @@ api: {
     },
 
     /**
-     * Callback for read actions
-     * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
-     * @param {Object} trans The request transaction object
+     * Callback for read action
+     * @param {String} action Action name as per {@link Ext.data.Api.actions#read}.
+     * @param {Object} o The request transaction object
      * @param {Object} res The server response
      * @private
      */
