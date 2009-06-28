@@ -267,63 +267,11 @@ var grid = new Ext.grid.EditorGridPanel({
         /**
          * @event exception
          * <p>Fires if an exception occurs in the Proxy during a remote request.
-         * (Note that this event is also relayed through {@link Ext.data.DataProxy}).
-         * This event can be fired for one of two reasons:</p>
-         * <div class="mdetail-params"><ul>
-         * <li>remote-request <b>failed</b> : <div class="sub-desc">
-         * The server did not return status === 200.
-         * </div></li>
-         * <li>remote-request <b>succeeded</b> : <div class="sub-desc">
-         * The remote-request succeeded but the reader could not read the response.
-         * This means the server returned data, but the configured Reader threw an
-         * error while reading the response.  In this case, this event will be
-         * raised and the caught error will be passed along into this event.
-         * </div></li>
-         * </ul></div>
-         * <br><p>This event fires with two different contexts based upon the 2nd
-         * parameter <tt>type [remote|response]</tt>.  The first four parameters
-         * are identical between the two contexts -- only the final two parameters
-         * differ.</p>
-         * @param {DataProxy} sender
-         * @param {String} type
-         * <p>The value of this parameter will be either <tt>'response'</tt> or <tt>'remote'</tt>.</p>
-         * <div class="mdetail-params"><ul>
-         * <li><b><tt>'response'</tt></b> : <div class="sub-desc">
-         * <p>An <b>invalid</b> response from the server was returned: either 404,
-         * 500 or the response meta-data does not match that defined in the DataReader
-         * (eg: root, idProperty, successProperty).</p>
-         * </div></li>
-         * <li><b><tt>'remote'</tt></b> : <div class="sub-desc">
-         * <p>A <b>valid</b> response was returned from the server having
-         * successProperty === false.  This response might contain an error-message
-         * sent from the server.  For example, the user may have failed
-         * authentication/authorization or a database validation error occurred.</p>
-         * </div></li>
-         * </ul></div>
-         * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
-         * @param {Object} options The loading options that were specified (see {@link #load} for details)
-         * @param {Object} response
-         * <p>The value of this parameter depends on the value of the <code>type</code> parameter:</p>
-         * <div class="mdetail-params"><ul>
-         * <li><b><tt>'response'</tt></b> : <div class="sub-desc">
-         * <p>The raw browser response object (eg: XMLHttpRequest)</p>
-         * </div></li>
-         * <li><b><tt>'remote'</tt></b> : <div class="sub-desc">
-         * <p>The decoded response object sent from the server.</p>
-         * </div></li>
-         * </ul></div>
-         * @param {Mixed} arg
-         * <p>The type and value of this parameter depends on the value of the <code>type</code> parameter:</p>
-         * <div class="mdetail-params"><ul>
-         * <li><b><tt>'response'</tt></b> : Error<div class="sub-desc">
-         * <p>The JavaScript Error object caught if the configured Reader could not read the data.
-         * If the load call returned success===false, this parameter will be null.</p>
-         * </div></li>
-         * <li><b><tt>'remote'</tt></b> : Record/Record[]<div class="sub-desc">
-         * <p>This parameter will only exist if the <tt>action</tt> was a <b>write</b> action
-         * (Ext.data.Api.actions.create|update|destroy).</p>
-         * </div></li>
-         * </ul></div>
+         * This event is relayed through the corresponding {@link Ext.data.DataProxy}.
+         * See {@link Ext.data.DataProxy}.{@link Ext.data.DataProxy#exception exception}
+         * for additional details.
+         * @param {misc} misc See {@link Ext.data.DataProxy}.{@link Ext.data.DataProxy#exception exception}
+         * for description. 
          */
         'exception',
         /**
