@@ -98,12 +98,12 @@ Ext.data.DataWriter.prototype = {
     update : function(rs) {
         var params = {};
         if (Ext.isArray(rs)) {
-            var data = [];
-            var ids = [];
-            for (var n=0,len=rs.length;n<len;n++) {
-                ids.push(rs[n].id);
-                data.push(this.updateRecord(rs[n]));
-            }
+            var data = [],
+                ids = [];
+            Ext.each(rs, function(val){
+                ids.push(val.id);
+                data.push(this.updateRecord(val));
+            }, this);
             params[this.meta.idProperty] = ids;
             params[this.meta.root] = data;
         }
@@ -130,9 +130,9 @@ Ext.data.DataWriter.prototype = {
         var params = {};
         if (Ext.isArray(rs)) {
             var data = [];
-            for (var n=0,len=rs.length;n<len;n++) {
-                data.push(this.createRecord(rs[n]));
-            }
+            Ext.each(rs, function(val){
+                data.push(this.createRecord(val));
+            }, this);
             params[this.meta.root] = data;
         }
         else if (rs instanceof Ext.data.Record) {
@@ -156,11 +156,11 @@ Ext.data.DataWriter.prototype = {
     destroy : function(rs) {
         var params = {};
         if (Ext.isArray(rs)) {
-            var data = [];
-            var ids = [];
-            for (var i=0,len=rs.length;i<len;i++) {
-                data.push(this.destroyRecord(rs[i]));
-            }
+            var data = [],
+                ids = [];
+            Ext.each(rs, function(val){
+                data.push(this.destroyRecord(val));
+            }, this);
             params[this.meta.root] = data;
         } else if (rs instanceof Ext.data.Record) {
             params[this.meta.root] = this.destroyRecord(rs);
@@ -180,12 +180,15 @@ Ext.data.DataWriter.prototype = {
      * @private
      */
     toHash : function(rec) {
-        var map = rec.fields.map;
-        var data = {};
-        var raw = (this.writeAllFields === false && rec.phantom === false) ? rec.getChanges() : rec.data;
-        for (var k in raw) {
-            data[(map[k].mapping) ? map[k].mapping : map[k].name] = raw[k];
-        }
+        var map = rec.fields.map,
+            data = {},
+            raw = (this.writeAllFields === false && rec.phantom === false) ? rec.getChanges() : rec.data,
+            m;
+        Ext.iterate(raw, function(prop, value){
+            if((m = map[prop])){
+                data[m.mapping ? m.mapping : m.name] = value;
+            }
+        });
         data[this.meta.idProperty] = rec.id;
         return data;
     }
