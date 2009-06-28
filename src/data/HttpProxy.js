@@ -30,7 +30,7 @@ Ext.data.HttpProxy = function(conn){
      */
     this.conn = conn;
 
-    // nullify the connection url.  The url param has been copied to "this" above.  The connection
+    // nullify the connection url.  The url param has been copied to 'this' above.  The connection
     // url will be set during each execution of doRequest when buildUrl is called.  This makes it easier for users to override the
     // connection url during beforeaction events (ie: beforeload, beforesave, etc).  The connection url will be nullified
     // after each request as well.  Url is always re-defined during doRequest.
@@ -183,7 +183,7 @@ api: {
             if (!success) {
                 if (action === Ext.data.Api.actions.read) {
                     // @deprecated: fire loadexception for backwards compat.
-                    this.fireEvent("loadexception", this, o, response);
+                    this.fireEvent('loadexception', this, o, response);
                 }
                 this.fireEvent('exception', this, 'response', action, o, response);
                 o.request.callback.call(o.request.scope, null, o.request.arg, false);
@@ -210,7 +210,7 @@ api: {
             result = o.reader.read(response);
         }catch(e){
             // @deprecated: fire old loadexception for backwards-compat.
-            this.fireEvent("loadexception", this, o, response, e);
+            this.fireEvent('loadexception', this, o, response, e);
             this.fireEvent('exception', this, 'response', action, o, response, e);
             o.request.callback.call(o.request.scope, null, o.request.arg, false);
             return;
@@ -224,7 +224,7 @@ api: {
             this.fireEvent('exception', this, 'remote', action, o, res, null);
         }
         else {
-            this.fireEvent("load", this, o, o.request.arg);
+            this.fireEvent('load', this, o, o.request.arg);
         }
         o.request.callback.call(o.request.scope, result, o.request.arg, result.success);
     },
@@ -248,7 +248,7 @@ api: {
         if (res[reader.meta.successProperty] === false) {
             this.fireEvent('exception', this, 'remote', action, o, res, rs);
         } else {
-            this.fireEvent("write", this, action, res[reader.meta.root], res, rs, o.request.arg);
+            this.fireEvent('write', this, action, res[reader.meta.root], res, rs, o.request.arg);
         }
         o.request.callback.call(o.request.scope, res[reader.meta.root], res, res[reader.meta.successProperty]);
     },
