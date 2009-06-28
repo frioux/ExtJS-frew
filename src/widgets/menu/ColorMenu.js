@@ -30,6 +30,18 @@
      * @type ColorPalette
      * The {@link Ext.ColorPalette} instance for this ColorMenu
      */
+    
+    
+    /**
+     * @event click
+     * @hide
+     */
+    
+    /**
+     * @event itemclick
+     * @hide
+     */
+    
     initComponent: function(){
         Ext.apply(this, {
             plain: true,

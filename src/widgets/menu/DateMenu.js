@@ -31,6 +31,16 @@
      * The {@link Ext.DatePicker} instance for this DateMenu
      */
     cls: 'x-date-menu',
+    
+    /**
+     * @event click
+     * @hide
+     */
+    
+    /**
+     * @event itemclick
+     * @hide
+     */
 
     initComponent: function(){
         this.on('beforeshow', this.onBeforeShow, this);
