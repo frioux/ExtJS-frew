@@ -66,7 +66,7 @@ var myReader = new Ext.data.JsonReader();
         foo: 'bar' // custom property
     },
     results: 2,
-    rows: [
+    rows: [ // an Array
         { 'id': 1, 'name': 'Bill', occupation: 'Gardener' },
         { 'id': 2, 'name': 'Ben', occupation: 'Horticulturalist' }
     ]
@@ -75,8 +75,15 @@ var myReader = new Ext.data.JsonReader();
  * @cfg {String} totalProperty [total] Name of the property from which to retrieve the total number of records
  * in the dataset. This is only needed if the whole dataset is not passed in one go, but is being
  * paged from the remote server.  Defaults to <tt>total</tt>.
- * @cfg {String} successProperty [success] Name of the property from which to retrieve the success attribute used by forms.  Defaults to <tt>success</tt>.
- * @cfg {String} root [undefined] <b>Required</b>.  The name of the property which contains the Array of row objects.  Defaults to <tt>undefined</tt>.  An exception will be thrown if the root property is undefiend.
+ * @cfg {String} successProperty [success] Name of the property from which to
+ * retrieve the success attribute. Defaults to <tt>success</tt>.  See
+ * {@link Ext.data.DataProxy}.{@link Ext.data.DataProxy#exception exception}
+ * for additional information.
+ * @cfg {String} root [undefined] <b>Required</b>.  The name of the property
+ * which contains the Array of row objects.  Defaults to <tt>undefined</tt>.
+ * An exception will be thrown if the root property is undefined. The data packet
+ * value for this property should be an empty array to clear the data or show
+ * no data.
  * @cfg {String} idProperty [id] Name of the property within a row object that contains a record identifier value.  Defaults to <tt>id</tt>
  * @constructor
  * Create a new JsonReader
@@ -248,8 +255,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
     },
 
     /**
-     * readResponse
-     * decodes a json response from server
+     * Decode a json response from server.
      * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
      * @param {Object} response
      */
