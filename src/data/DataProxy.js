@@ -122,6 +122,7 @@ myStore.on({
 
     this.addEvents(
         /**
+         * @event exception
          * <p>Fires if an exception occurs in the Proxy during a remote request.
          * This event is relayed through a corresponding
          * {@link Ext.data.Store}.{@link Ext.data.Store#exception exception},
@@ -142,7 +143,7 @@ myStore.on({
          * parameter <tt>type [remote|response]</tt>.  The first four parameters
          * are identical between the two contexts -- only the final two parameters
          * differ.</p>
-         * @param {DataProxy} sender
+         * @param {DataProxy} this The proxy that sent the request
          * @param {String} type
          * <p>The value of this parameter will be either <tt>'response'</tt> or <tt>'remote'</tt>.</p>
          * <div class="mdetail-params"><ul>
@@ -158,8 +159,8 @@ myStore.on({
          * authentication/authorization or a database validation error occurred.</p>
          * </div></li>
          * </ul></div>
-         * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
-         * @param {Object} options The loading options that were specified (see {@link #load} for details)
+         * @param {String} action Name of the action (see {@link Ext.data.Api#actions}.
+         * @param {Object} options The options for the action that were specified in the {@link #request}.
          * @param {Object} response
          * <p>The value of this parameter depends on the value of the <code>type</code> parameter:</p>
          * <div class="mdetail-params"><ul>
@@ -187,42 +188,31 @@ myStore.on({
         /**
          * @event beforeload
          * Fires before a network request is made to retrieve a data object.
-         * @param {Object} this
+         * @param {DataProxy} this The proxy that sent the request
          * @param {Object} params The params object passed to the {@link #request} function
          */
         'beforeload',
         /**
          * @event load
          * Fires before the load method's callback is called.
-         * @param {Object} this
-         * @param {Object} o The data object
-         * @param {Object} arg The callback's arg object passed to the {@link #request} function
+         * @param {DataProxy} this The proxy that sent the request
+         * @param {Object} o The request transaction object
+         * @param {Object} options The callback's <tt>options</tt> property as passed to the {@link #request} function
          */
         'load',
         /**
          * @event loadexception
-         * @deprecated This event is <b>deprecated</b>.  Please use catch-all {@link #exception} event instead.
-         * Fires if an exception occurs in the Proxy during data loading.  This event can be fired for one of two reasons:
-         * <ul><li><b>The load call returned success: false.</b>  This means the server logic returned a failure
-         * status and there is no data to read.  In this case, this event will be raised and the
-         * fourth parameter (read error) will be null.</li>
-         * <li><b>The load succeeded but the reader could not read the response.</b>  This means the server returned
-         * data, but the configured Reader threw an error while reading the data.  In this case, this event will be
-         * raised and the caught error will be passed along as the fourth parameter of this event.</li></ul>
-         * on any Store instance.
-         * @param {Object} this
-         * @param {Object} options The loading options that were specified (see {@link #load} for details)
-         * @param {Object} response The raw response object (eg: XMLHttpRequest) containing the response data
-         * @param {Error} e The JavaScript Error object caught if the configured Reader could not read the data.
-         * If the load call returned success: false, this parameter will be null.
-         *
-         * Note that this event is also relayed through {@link Ext.data.Store}, so you can listen for it directly
+         * <p>This event is <b>deprecated</b>.  The signature of the loadexception event
+         * varies depending on the proxy, use the catch-all {@link #exception} event instead.
+         * This event will fire in addition to the {@link #exception} event.</p>
+         * @param {misc} misc See {@link #exception}. 
+         * @deprecated 
          */
         'loadexception',
         /**
          * @event beforewrite
          * Fires before a network request is generated for one of the actions Ext.data.Api.actions.create|update|destroy
-         * @param {DataProxy} this
+         * @param {DataProxy} this The proxy that sent the request
          * @param {String} action [Ext.data.Api.actions.create|update|destroy]
          * @param {Record/Array[Record]} rs
          * @param {Object} params HTTP request-params object.  Edit <code>params</code> to add Http parameters to the request.
@@ -231,12 +221,12 @@ myStore.on({
         /**
          * @event write
          * Fires before the request-callback is called
-         * @param {Object} this
+         * @param {DataProxy} this The proxy that sent the request
          * @param {String} action [Ext.data.Api.actions.create|read|upate|destroy]
          * @param {Object} data The data object extracted from the server-response
          * @param {Object} response The decoded response from server
          * @param {Record/Record{}} rs The records from Store
-         * @param {Object} arg The callback's arg object passed to the {@link #request} function
+         * @param {Object} options The callback's <tt>options</tt> property as passed to the {@link #request} function
          */
         'write'
     );
@@ -322,13 +312,13 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
 
     /**
      * All proxy actions are executed through this method.  Automatically fires the "before" + action event
-     * @param {String} action
+     * @param {String} action Name of the action
      * @param {Ext.data.Record/Ext.data.Record[]/null} rs Will be null when action is 'load'
      * @param {Object} params
      * @param {Ext.data.DataReader} reader
      * @param {Function} callback
      * @param {Object} scope Scope with which to call the callback (defaults to the Proxy object)
-     * @param {Object} options
+     * @param {Object} options Any options specified for the action (eg. see {@link Ext.data.Store#load}.
      */
     request : function(action, rs, params, reader, callback, scope, options) {
         if (!this.api[action]) {
