@@ -123,7 +123,7 @@ myStore.on({
     this.addEvents(
         /**
          * <p>Fires if an exception occurs in the Proxy during a remote request.
-         * This event is relayed through a corresponding 
+         * This event is relayed through a corresponding
          * {@link Ext.data.Store}.{@link Ext.data.Store#exception exception},
          * so any Store instance may observe this event.
          * This event can be fired for one of two reasons:</p>
@@ -383,12 +383,21 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
     buildUrl : function(action, record) {
         record = record || null;
         var url = (this.api[action]) ? this.api[action].url : this.url;
+        var format = null;
+        var m = url.match(/(.*)(\.\w+)$/);  // <-- look for urls with "provides" suffix, eg: /users.json, /users.xml, etc
+        if (m) {
+            format = m[2];
+            url = m[1];
+        }
         if (!url) {
             throw new Ext.data.Api.Error('invalid-url', action);
         }
         // prettyUrls is deprectated in favor of restful-config
         if ((this.prettyUrls === true || this.restful === true) && record instanceof Ext.data.Record && !record.phantom) {
             url += '/' + record.id;
+        }
+        if (format) {   // <-- append the request format if exists (ie: /users/update/69[.json])
+            url += format;
         }
         return url;
     },
