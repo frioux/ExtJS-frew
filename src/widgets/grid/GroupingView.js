@@ -3,9 +3,13 @@
  * @extends Ext.grid.GridView
  * Adds the ability for single level grouping to the grid. A {@link Ext.data.GroupingStore GroupingStore}
  * must be used to enable grouping.  Some grouping characteristics may also be configured at the
- * {@link Ext.grid.Column Column level} (<code>{@link Ext.grid.Column#groupable groupable}</code>,
- * <code>{@link Ext.grid.Column#groupName groupName}</code>, and
- * <code>{@link Ext.grid.Column#groupRender groupRender}</code>).  
+ * {@link Ext.grid.Column Column level}<div class="mdetail-params"><ul>
+ * <li><code>{@link Ext.grid.Column#emptyGroupText emptyGroupText}</li>
+ * <li><code>{@link Ext.grid.Column#groupable groupable}</li>
+ * <li><code>{@link Ext.grid.Column#groupName groupName}</li>
+ * <li><code>{@link Ext.grid.Column#groupRender groupRender}</li>
+ * </ul></div>
+ * <p>Sample usage:</p>
  * <pre><code>
 var grid = new Ext.grid.GridPanel({
     // A groupingStore is required for a GroupingView
@@ -13,19 +17,19 @@ var grid = new Ext.grid.GridPanel({
         autoDestroy: true,
         reader: reader,
         data: xg.dummyData,
-        sortInfo: {field: 'company', direction: "ASC"},
+        sortInfo: {field: 'company', direction: 'ASC'},
         {@link Ext.data.GroupingStore#groupOnSort groupOnSort}: true,
         {@link Ext.data.GroupingStore#remoteGroup remoteGroup}: true,
         {@link Ext.data.GroupingStore#groupField groupField}: 'industry'
     }),
     colModel: new {@link Ext.grid.ColumnModel}({
         columns:[
-            {id:'company',header: "Company", width: 60, dataIndex: 'company'},
+            {id:'company',header: 'Company', width: 60, dataIndex: 'company'},
             // {@link Ext.grid.Column#groupable groupable}, {@link Ext.grid.Column#groupName groupName}, {@link Ext.grid.Column#groupRender groupRender} are also configurable at column level
-            {header: "Price", renderer: Ext.util.Format.usMoney, dataIndex: 'price', {@link Ext.grid.Column#groupable groupable}: false},
-            {header: "Change", dataIndex: 'change', renderer: Ext.util.Format.usMoney},
-            {header: "Industry", dataIndex: 'industry'},
-            {header: "Last Updated", renderer: Ext.util.Format.dateRenderer('m/d/Y'), dataIndex: 'lastChange'}
+            {header: 'Price', renderer: Ext.util.Format.usMoney, dataIndex: 'price', {@link Ext.grid.Column#groupable groupable}: false},
+            {header: 'Change', dataIndex: 'change', renderer: Ext.util.Format.usMoney},
+            {header: 'Industry', dataIndex: 'industry'},
+            {header: 'Last Updated', renderer: Ext.util.Format.dateRenderer('m/d/Y'), dataIndex: 'lastChange'}
         ],
         defaults: {
             sortable: true,
@@ -54,41 +58,53 @@ var grid = new Ext.grid.GridPanel({
  * @param {Object} config
  */
 Ext.grid.GroupingView = Ext.extend(Ext.grid.GridView, {
+
+    /**
+     * @cfg {String} groupByText Text displayed in the grid header menu for grouping by a column
+     * (defaults to 'Group By This Field').
+     */
+    groupByText : 'Group By This Field',
+    /**
+     * @cfg {String} showGroupsText Text displayed in the grid header for enabling/disabling grouping
+     * (defaults to 'Show in Groups').
+     */
+    showGroupsText : 'Show in Groups',
     /**
      * @cfg {Boolean} hideGroupedColumn <tt>true</tt> to hide the column that is currently grouped (defaults to <tt>false</tt>)
      */
-    hideGroupedColumn:false,
+    hideGroupedColumn : false,
     /**
      * @cfg {Boolean} showGroupName If <tt>true</tt> will display a prefix plus a ': ' before the group field value
      * in the group header line.  The prefix will consist of the <tt><b>{@link Ext.grid.Column#groupName groupName}</b></tt>
      * (or the configured <tt><b>{@link Ext.grid.Column#header header}</b></tt> if not provided) configured in the
      * {@link Ext.grid.Column} for each set of grouped rows (defaults to <tt>true</tt>).
      */
-    showGroupName:true,
+    showGroupName : true,
     /**
      * @cfg {Boolean} startCollapsed <tt>true</tt> to start all groups collapsed (defaults to <tt>false</tt>)
      */
-    startCollapsed:false,
+    startCollapsed : false,
     /**
      * @cfg {Boolean} enableGrouping <tt>false</tt> to disable grouping functionality (defaults to <tt>true</tt>)
      */
-    enableGrouping:true,
+    enableGrouping : true,
     /**
      * @cfg {Boolean} enableGroupingMenu <tt>true</tt> to enable the grouping control in the column menu (defaults to <tt>true</tt>)
      */
-    enableGroupingMenu:true,
+    enableGroupingMenu : true,
     /**
      * @cfg {Boolean} enableNoGroups <tt>true</tt> to allow the user to turn off grouping (defaults to <tt>true</tt>)
      */
-    enableNoGroups:true,
+    enableNoGroups : true,
     /**
-     * @cfg {String} emptyGroupText The text to display when there is an empty group value (defaults to <tt>'(None)'</tt>)
+     * @cfg {String} emptyGroupText The text to display when there is an empty group value (defaults to <tt>'(None)'</tt>).
+     * May also be specified per column, see {@link Ext.grid.Column}.{@link Ext.grid.Column#emptyGroupText emptyGroupText}.
      */
     emptyGroupText : '(None)',
     /**
      * @cfg {Boolean} ignoreAdd <tt>true</tt> to skip refreshing the view when new rows are added (defaults to <tt>false</tt>)
      */
-    ignoreAdd: false,
+    ignoreAdd : false,
     /**
      * @cfg {String} groupTextTpl The template used to render the group header (defaults to <tt>'{text}'</tt>).
      * This is used to format an object which contains the following properties:
@@ -305,7 +321,7 @@ var grid = new Ext.grid.GridPanel({
     },
     
     // private
-    afterRender: function(){
+    afterRender : function(){
         Ext.grid.GroupingView.superclass.afterRender.call(this);
         if(this.grid.deferRowRender){
             this.updateGroupWidths();
@@ -489,18 +505,7 @@ var grid = new Ext.grid.GridPanel({
             var g = this.findGroup(row);
             this.toggleGroup(g, true);
         }
-    },
-
-    /**
-     * @cfg {String} groupByText Text displayed in the grid header menu for grouping by a column
-     * (defaults to 'Group By This Field').
-     */
-    groupByText: 'Group By This Field',
-    /**
-     * @cfg {String} showGroupsText Text displayed in the grid header for enabling/disabling grouping
-     * (defaults to 'Show in Groups').
-     */
-    showGroupsText: 'Show in Groups'
+    }
 });
 // private
 Ext.grid.GroupingView.GROUP_ID = 1000;
