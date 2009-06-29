@@ -826,7 +826,7 @@ Ext.ButtonGroup = Ext.extend(Ext.Panel, {
      */
     baseCls: 'x-btn-group',
     /**
-     * @cfg {String} layout  Defaults to <tt>'table'</tt>.  See {@link Ext.Container#layout}.
+     * @cfg {String} layout  Defaults to <tt>'table'</tt>.  See {@link Ext.layout.TableLayout}.
      */
     layout:'table',
     defaultType: 'button',
