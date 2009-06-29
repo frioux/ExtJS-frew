@@ -61,6 +61,30 @@ Ext.grid.Column.prototype = {
      * {@link Ext.grid.GroupingView}.{@link Ext.grid.GroupingView#showGroupName showGroupName}.
      */
     /**
+     * @cfg {Function} groupRenderer <p>Optional. If the grid is being rendered by an {@link Ext.grid.GroupingView}, this option
+     * may be used to specify the function used to format the grouping field value for display in the group 
+     * {@link #groupName header}.  If a <tt><b>groupRenderer</b></tt> is not specified, the configured
+     * <tt><b>{@link #renderer}</b></tt> will be called; if a <tt><b>{@link #renderer}</b></tt> is also not specified
+     * the new value of the group field will be used.</p>
+     * <p>The called function (either the <tt><b>groupRenderer</b></tt> or <tt><b>{@link #renderer}</b></tt>) will be
+     * passed the following parameters:
+     * <div class="mdetail-params"><ul>
+     * <li><b>v</b> : Object<p class="sub-desc">The new value of the group field.</p></li>
+     * <li><b>unused</b> : undefined<p class="sub-desc">Unused parameter.</p></li>
+     * <li><b>r</b> : Ext.data.Record<p class="sub-desc">The Record providing the data
+     * for the row which caused group change.</p></li>
+     * <li><b>rowIndex</b> : Number<p class="sub-desc">The row index of the Record which caused group change.</p></li>
+     * <li><b>colIndex</b> : Number<p class="sub-desc">The column index of the group field.</p></li>
+     * <li><b>ds</b> : Ext.data.Store<p class="sub-desc">The Store which is providing the data Model.</p></li>
+     * </ul></div></p>
+     * <p>The function should return a string value.</p>
+     */
+    /**
+     * @cfg {String} emptyGroupText Optional. If the grid is being rendered by an {@link Ext.grid.GroupingView}, this option
+     * may be used to specify the text to display when there is an empty group value. Defaults to the
+     * {@link Ext.grid.GroupingView}.{@link Ext.grid.GroupingView#emptyGroupText emptyGroupText}.
+     */    
+    /**
      * @cfg {String} dataIndex <p><b>Required</b>. The name of the field in the
      * grid's {@link Ext.data.Store}'s {@link Ext.data.Record} definition from
      * which to draw the column's value.</p>
@@ -194,25 +218,6 @@ var grid = new Ext.grid.GridPanel({
     /**
      * @cfg {Ext.form.Field} editor Optional. The {@link Ext.form.Field} to use when editing values in this column
      * if editing is supported by the grid. See <tt>{@link #editable}</tt> also.
-     */
-    /**
-     * @cfg {Function} groupRenderer <p>Optional. If the grid is being rendered by an {@link Ext.grid.GroupingView}, this option
-     * may be used to specify the function used to format the grouping field value for display in the group 
-     * {@link #groupName header}.  If a <tt><b>groupRenderer</b></tt> is not specified, the configured
-     * <tt><b>{@link #renderer}</b></tt> will be called; if a <tt><b>{@link #renderer}</b></tt> is also not specified
-     * the new value of the group field will be used.</p>
-     * <p>The called function (either the <tt><b>groupRenderer</b></tt> or <tt><b>{@link #renderer}</b></tt>) will be
-     * passed the following parameters:
-     * <div class="mdetail-params"><ul>
-     * <li><b>v</b> : Object<p class="sub-desc">The new value of the group field.</p></li>
-     * <li><b>unused</b> : undefined<p class="sub-desc">Unused parameter.</p></li>
-     * <li><b>r</b> : Ext.data.Record<p class="sub-desc">The Record providing the data
-     * for the row which caused group change.</p></li>
-     * <li><b>rowIndex</b> : Number<p class="sub-desc">The row index of the Record which caused group change.</p></li>
-     * <li><b>colIndex</b> : Number<p class="sub-desc">The column index of the group field.</p></li>
-     * <li><b>ds</b> : Ext.data.Store<p class="sub-desc">The Store which is providing the data Model.</p></li>
-     * </ul></div></p>
-     * <p>The function should return a string value.</p>
      */
 
     // private. Used by ColumnModel to avoid reprocessing
