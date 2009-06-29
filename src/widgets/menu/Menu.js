@@ -23,7 +23,7 @@
         }
 
         if(c && !c.rendered){
-            if(typeof position == 'number'){
+            if(Ext.isNumber(position)){
                 position = target.dom.childNodes[position];
             }
             var a = this.getItemArgs(c);
@@ -42,7 +42,7 @@
                 c.positionEl.addClass('x-menu-list-item-indent');
             }
         }else if(c && !this.isValidParent(c, target)){
-            if(typeof position == 'number'){
+            if(Ext.isNumber(position)){
                 position = target.dom.childNodes[position];
             }
             target.dom.insertBefore(c.getActionEl().dom, position || null);
@@ -186,30 +186,6 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
             Ext.apply(this, {items:this.initialConfig});
         }
         this.addEvents(
-            /**
-             *  @event beforeshow
-             * Fires before this menu is displayed
-             * @param {Ext.menu.Menu} this
-            */
-            'beforeshow',
-            /**
-             * @event beforehide
-             * Fires before this menu is hidden
-             * @param {Ext.menu.Menu} this
-            */
-            'beforehide',
-            /**
-             * @event show
-             * Fires after this menu is displayed
-             * @param {Ext.menu.Menu} this
-            */
-            'show',
-            /**
-             * @event hide
-             * Fires after this menu is hidden
-             * @param {Ext.menu.Menu} this
-            */
-            'hide',
             /**
              * @event click
              * Fires when this menu is clicked (or when the enter key is pressed while it is active)
@@ -448,8 +424,9 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
                 this.render();
                 this.doLayout(false, true);
             }
-            this.fireEvent("beforeshow", this);
-            this.showAt(this.el.getAlignToXY(el, pos || this.defaultAlign, this.defaultOffsets), parentMenu, false);
+            if(this.fireEvent('beforeshow', this) !== false){
+                this.showAt(this.el.getAlignToXY(el, pos || this.defaultAlign, this.defaultOffsets), parentMenu, false);
+            }
         }else{
             Ext.menu.Menu.superclass.show.call(this);
         }
@@ -465,10 +442,6 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         if(!this.el){
             this.render();
         }
-        if(_e !== false){
-            this.fireEvent("beforeshow", this);
-            xy = this.el.adjustForConstraints(xy);
-        }
         this.el.setXY(xy);
         if(this.enableScrolling){
             this.constrainScroll(xy[1]);     
@@ -476,10 +449,10 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         this.el.show();
         Ext.menu.Menu.superclass.onShow.call(this);
         if(Ext.isIE){
-           this.layout.doAutoSize();
-           if(!Ext.isIE8){
-            this.el.repaint();
-           }
+            this.layout.doAutoSize();
+            if(!Ext.isIE8){
+                this.el.repaint();
+            }
         }
         this.hidden = false;
         this.focus();
@@ -563,24 +536,26 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
      * @param {Boolean} deep (optional) True to hide all parent menus recursively, if any (defaults to false)
      */
     hide : function(deep){
+        this.deepHide = deep;
         Ext.menu.Menu.superclass.hide.call(this);
-        if(this.el && this.floating){
-            this.el.hide();
-        }
-        if(deep === true && this.parentMenu){
-            this.parentMenu.hide(true);
-        }
+        delete this.deepHide;
     },
 
     // private
     onHide: function(){
         Ext.menu.Menu.superclass.onHide.call(this);
         this.deactivateActive();
+        if(this.el && this.floating){
+            this.el.hide();
+        }
+        if(this.deepHide === true && this.parentMenu){
+            this.parentMenu.hide(true);
+        }
     },
 
     // private
     lookupComponent: function(c){
-         if(typeof c == 'string'){
+         if(Ext.isString(c)){
             c = (c == 'separator' || c == '-') ? new Ext.menu.Separator() : new Ext.menu.TextItem(c);
              this.applyDefaults(c);
          }else{
@@ -596,7 +571,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
     },
     
     applyDefaults : function(c){
-        if(typeof c != 'string'){
+        if(Ext.isString(c)){
             c = Ext.menu.Menu.superclass.applyDefaults.call(this, c);
             var d = this.internalDefaults;
             if(d){
@@ -614,7 +589,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
     // private
     getMenuItem: function(config){
        if(!config.isXType){
-            if(!config.xtype && typeof config.checked == "boolean"){
+            if(!config.xtype && Ext.isBoolean(config.checked)){
                 return new Ext.menu.CheckItem(config)
             }
             return Ext.create(config, this.defaultType);
