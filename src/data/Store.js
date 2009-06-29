@@ -271,7 +271,7 @@ var grid = new Ext.grid.EditorGridPanel({
          * See {@link Ext.data.DataProxy}.{@link Ext.data.DataProxy#exception exception}
          * for additional details.
          * @param {misc} misc See {@link Ext.data.DataProxy}.{@link Ext.data.DataProxy#exception exception}
-         * for description. 
+         * for description.
          */
         'exception',
         /**
@@ -777,7 +777,7 @@ sortInfo: {
     /**
      * This method should generally not be used directly.  This method is called internally
      * by {@link #load}, or if a Writer is set will be called automatically when {@link #add},
-     * {@link #remove}, or {@link #update} events fire. 
+     * {@link #remove}, or {@link #update} events fire.
      * @param {String} action Action name ('read', 'create', 'update', or 'destroy')
      * @param {Record/Record[]} rs
      * @param {Object} options
@@ -852,7 +852,7 @@ sortInfo: {
         }
 
         // Check for modified records.  Bail-out if empty...
-        var rs = this.getModifiedRecords();
+        var rs = [].concat(this.getModifiedRecords());
         if (!rs.length) {
             return true;
         }
@@ -907,8 +907,6 @@ sortInfo: {
             // If success === false here, exception will have been called in DataProxy
             if (success === true) {
                 this.fireEvent('write', this, action, data, response, rs);
-            } else {
-                this.clearModified(rs);  // <-- If not cleared, they'll keep getting posted with the same data which caused the server error.
             }
             // calls: onCreateRecords | onUpdateRecords | onDestroyRecords
             this['on' + Ext.util.Format.capitalize(action) + 'Records'](success, rs, data);

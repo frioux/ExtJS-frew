@@ -373,14 +373,15 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
     buildUrl : function(action, record) {
         record = record || null;
         var url = (this.api[action]) ? this.api[action].url : this.url;
+        if (!url) {
+            throw new Ext.data.Api.Error('invalid-url', action);
+        }
+
         var format = null;
         var m = url.match(/(.*)(\.\w+)$/);  // <-- look for urls with "provides" suffix, eg: /users.json, /users.xml, etc
         if (m) {
             format = m[2];
             url = m[1];
-        }
-        if (!url) {
-            throw new Ext.data.Api.Error('invalid-url', action);
         }
         // prettyUrls is deprectated in favor of restful-config
         if ((this.prettyUrls === true || this.restful === true) && record instanceof Ext.data.Record && !record.phantom) {

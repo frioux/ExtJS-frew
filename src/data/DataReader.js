@@ -32,6 +32,11 @@ Ext.data.DataReader = function(meta, recordType){
 Ext.data.DataReader.prototype = {
 
     /**
+     * Abstract method, overridden in {@link Ext.data.JsonReader}
+     */
+    buildExtractors : Ext.emptyFn,
+
+    /**
      * Used for un-phantoming a record after a successful database insert.  Sets the records pk along with new data from server.
      * You <b>must</b> return at least the database pk using the idProperty defined in your DataReader configuration.  The incoming
      * data from server will be merged with the data in the local record.
@@ -61,7 +66,7 @@ Ext.data.DataReader.prototype = {
             }
             if (!this.isData(data)) {
                 // TODO: Let exception-handler choose to commit or not rather than blindly rs.commit() here.
-                rs.commit();
+                //rs.commit();
                 throw new Ext.data.DataReader.Error('realize', rs);
             }
             this.buildExtractors();
