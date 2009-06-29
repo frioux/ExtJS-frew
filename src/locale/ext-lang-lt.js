@@ -182,8 +182,8 @@ if(Ext.form.ComboBox){
 
 if(Ext.form.VTypes){
   Ext.apply(Ext.form.VTypes, {
-    emailText    : 'Šiame lauke turi būti el.pašto adresas formatu "user@domain.com"',
-    urlText      : 'Šiame lauke turi būti nuoroda (URL) formatu "http:/'+'/www.domain.com"',
+    emailText    : 'Šiame lauke turi būti el.pašto adresas formatu "user@example.com"',
+    urlText      : 'Šiame lauke turi būti nuoroda (URL) formatu "http:/'+'/www.example.com"',
     alphaText    : 'Šiame lauke gali būti tik raidės ir ženklas "_"',
     alphanumText : 'Šiame lauke gali būti tik raidės, skaičiai ir ženklas "_"'
   });

@@ -47,7 +47,7 @@ Ext.form.VTypes = function(){
          * this function can be overridden if a more comprehensive validation scheme is desired.  See the validation
          * section of the <a href="http://en.wikipedia.org/wiki/E-mail_address">Wikipedia article on email addresses</a> 
          * for additional information.  This implementation is intended to validate the following emails:<tt>
-         * 'barney@domain.de', 'barney.rubble@domain.com', 'barney-rubble@domain.coop', 'barney+rubble@domain.com'
+         * 'barney@example.de', 'barney.rubble@example.com', 'barney-rubble@example.coop', 'barney+rubble@example.com'
          * </tt>.
          * @param {String} value The email address
          * @return {Boolean} true if the RegExp test passed, and false if not.
@@ -57,10 +57,10 @@ Ext.form.VTypes = function(){
         },
         /**
          * The error text to display when the email validation function returns false.  Defaults to:
-         * <tt>'This field should be an e-mail address in the format "user@domain.com"'</tt>
+         * <tt>'This field should be an e-mail address in the format "user@example.com"'</tt>
          * @type String
          */
-        'emailText' : 'This field should be an e-mail address in the format "user@domain.com"',
+        'emailText' : 'This field should be an e-mail address in the format "user@example.com"',
         /**
          * The keystroke filter mask to be applied on email input.  See the {@link #email} method for 
          * information about more complex email validation. Defaults to:
@@ -79,10 +79,10 @@ Ext.form.VTypes = function(){
         },
         /**
          * The error text to display when the url validation function returns false.  Defaults to:
-         * <tt>'This field should be a URL in the format "http:/'+'/www.domain.com"'</tt>
+         * <tt>'This field should be a URL in the format "http:/'+'/www.example.com"'</tt>
          * @type String
          */
-        'urlText' : 'This field should be a URL in the format "http:/'+'/www.domain.com"',
+        'urlText' : 'This field should be a URL in the format "http:/'+'/www.example.com"',
         
         /**
          * The function used to validate alpha values

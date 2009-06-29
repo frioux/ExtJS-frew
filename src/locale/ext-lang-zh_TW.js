@@ -139,8 +139,8 @@ if(Ext.form.ComboBox){
 
 if(Ext.form.VTypes){
     Ext.apply(Ext.form.VTypes, {
-       emailText    : '此欄位必須輸入像 "user@domain.com" 之E-Mail格式',
-       urlText      : '此欄位必須輸入像 "http:/'+'/www.domain.com" 之網址格式',
+       emailText    : '此欄位必須輸入像 "user@example.com" 之E-Mail格式',
+       urlText      : '此欄位必須輸入像 "http:/'+'/www.example.com" 之網址格式',
        alphaText    : '此欄位僅能輸入半形英文字母及底線( _ )符號',
        alphanumText : '此欄位僅能輸入半形英文字母、數字及底線( _ )符號'
     });

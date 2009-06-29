@@ -161,8 +161,8 @@ if(Ext.form.ComboBox){
 
 if(Ext.form.VTypes){
   Ext.apply(Ext.form.VTypes, {
-    emailText    : 'Това поле трябва да бъде емейл във формат "user@domain.com"',
-    urlText      : 'Това поле трябва да бъде URL във формат "http:/'+'/www.domain.com"',
+    emailText    : 'Това поле трябва да бъде емейл във формат "user@example.com"',
+    urlText      : 'Това поле трябва да бъде URL във формат "http:/'+'/www.example.com"',
     alphaText    : 'Това поле трябва да съдържа само букви и _',
     alphanumText : 'Това поле трябва да съдържа само букви, цифри и _'
   });

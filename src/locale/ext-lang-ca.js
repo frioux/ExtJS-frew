@@ -170,8 +170,8 @@ if(Ext.form.ComboBox){
 
 if(Ext.form.VTypes){
   Ext.apply(Ext.form.VTypes, {
-    emailText    : 'Aquest camp ha de ser una adre&#231;a de e-mail amb el format "user@domain.com"',
-    urlText      : 'Aquest camp ha de ser una URL amb el format "http:/'+'/www.domain.com"',
+    emailText    : 'Aquest camp ha de ser una adre&#231;a de e-mail amb el format "user@example.com"',
+    urlText      : 'Aquest camp ha de ser una URL amb el format "http:/'+'/www.example.com"',
     alphaText    : 'Aquest camp nom&#233;s pot contenir lletres i _',
     alphanumText : 'Aquest camp nom&#233;s por contenir lletres, nombres i _'
   });

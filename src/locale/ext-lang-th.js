@@ -169,8 +169,8 @@ if(Ext.form.ComboBox){
 
 if(Ext.form.VTypes){
   Ext.apply(Ext.form.VTypes, {
-    emailText    : 'This field should be an e-mail address in the format "user@domain.com"',
-    urlText      : 'This field should be a URL in the format "http:/'+'/www.domain.com"',
+    emailText    : 'This field should be an e-mail address in the format "user@example.com"',
+    urlText      : 'This field should be a URL in the format "http:/'+'/www.example.com"',
     alphaText    : 'This field should only contain letters and _',
     alphanumText : 'This field should only contain letters, numbers and _'
   });

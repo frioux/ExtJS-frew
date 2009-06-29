@@ -182,8 +182,8 @@ if(Ext.form.ComboBox){
 
 if(Ext.form.VTypes){
    Ext.apply(Ext.form.VTypes, {
-      emailText    : 'Το πεδίο δέχεται μόνο διευθύνσεις Email σε μορφή "user@domain.com"',
-      urlText      : 'Το πεδίο δέχεται μόνο URL σε μορφή "http:/'+'/www.domain.com"',
+      emailText    : 'Το πεδίο δέχεται μόνο διευθύνσεις Email σε μορφή "user@example.com"',
+      urlText      : 'Το πεδίο δέχεται μόνο URL σε μορφή "http:/'+'/www.example.com"',
       alphaText    : 'Το πεδίο δέχεται μόνο χαρακτήρες και _',
       alphanumText : 'Το πεδίο δέχεται μόνο χαρακτήρες, αριθμούς και _'
    });

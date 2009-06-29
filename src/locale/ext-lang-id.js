@@ -177,8 +177,8 @@ if(Ext.form.ComboBox){
 
 if(Ext.form.VTypes){
   Ext.apply(Ext.form.VTypes, {
-    emailText    : 'Field ini harus dalam format email seperti "user@domain.com"', 
-    urlText      : 'Field ini harus dalam format URL seperti "http:/'+'/www.domain.com"', 
+    emailText    : 'Field ini harus dalam format email seperti "user@example.com"', 
+    urlText      : 'Field ini harus dalam format URL seperti "http:/'+'/www.example.com"', 
     alphaText    : 'Field ini harus terdiri dari huruf dan _', 
     alphanumText : 'Field ini haris terdiri dari huruf, angka dan _'  
   });

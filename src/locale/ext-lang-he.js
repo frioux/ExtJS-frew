@@ -167,8 +167,8 @@ if(Ext.form.ComboBox){
 
 if(Ext.form.VTypes){
   Ext.apply(Ext.form.VTypes, {
-    emailText    : '"user@domain.com" שדה זה צריך להיות כתובת דואר אלקטרוני בפורמט',
-    urlText      : '"http:/'+'/www.domain.com" שדה זה צריך להיות כתובת אינטרנט בפורמט',
+    emailText    : '"user@example.com" שדה זה צריך להיות כתובת דואר אלקטרוני בפורמט',
+    urlText      : '"http:/'+'/www.example.com" שדה זה צריך להיות כתובת אינטרנט בפורמט',
     alphaText    : '_שדה זה יכול להכיל רק אותיות ו',
     alphanumText : '_שדה זה יכול להכיל רק אותיות, מספרים ו'
   });
