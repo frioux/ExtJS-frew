@@ -151,6 +151,7 @@
     <include name="widgets\SplitButton.js" />
     <include name="widgets\CycleButton.js" />
     <include name="widgets\Toolbar.js" />
+    <include name="widgets\ButtonGroup.js" />
     <include name="widgets\PagingToolbar.js" />
     <include name="widgets\Resizable.js" />
     <include name="widgets\Editor.js" />
@@ -845,6 +846,7 @@
   <file name="widgets\Action.js" path="widgets" />
   <file name="widgets\BoxComponent.js" path="widgets" />
   <file name="widgets\Button.js" path="widgets" />
+  <file name="widgets\ButtonGroup.js" path="widgets" />
   <file name="widgets\ColorPalette.js" path="widgets" />
   <file name="widgets\Component.js" path="widgets" />
   <file name="widgets\ComponentMgr.js" path="widgets" />
