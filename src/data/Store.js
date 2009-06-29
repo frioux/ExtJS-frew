@@ -851,9 +851,9 @@ sortInfo: {
             this.doTransaction('destroy', this.removed);
         }
 
-        // Check for modified records.  Bail-out if empty...
+        // Check for modified records. Use a copy so Store#rejectChanges will work if server returns error.
         var rs = [].concat(this.getModifiedRecords());
-        if (!rs.length) {
+        if (!rs.length) { // Bail-out if empty...
             return true;
         }
 
