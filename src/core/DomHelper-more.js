@@ -47,7 +47,7 @@ function(){
             el = doc.createElement( o.tag || 'div' );
             useSet = !!el.setAttribute; // In IE some elements don't have setAttribute
             Ext.iterate(o, function(attr, val){
-                if(!(/tag|children|cn|html|style/.test(attr) || Ext.isFunction(val))){
+                if(!/tag|children|cn|html|style/.test(attr)){
 	                if(attr == 'cls'){
 	                    el.className = val;
 	                }else{
