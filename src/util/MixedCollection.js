@@ -386,7 +386,8 @@ mc.add(otherEl);
 
     // private
     _sort : function(property, dir, fn){
-        var i, 
+        var i,
+            len,
             dsc = String(dir).toUpperCase() == "DESC" ? -1 : 1,
             c = [], k = this.keys, items = this.items;
             
