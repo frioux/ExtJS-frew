@@ -7,6 +7,9 @@ Ext.onReady(function(){
     Ext.app.REMOTING_API.enableBuffer = 100;
     Ext.Direct.addProvider(Ext.app.REMOTING_API);
     
+    // provide feedback for any errors
+    Ext.QuickTips.init();
+    
     var basicInfo = new Ext.form.FormPanel({
         // configs for FormPanel
         title: 'Basic Information',
@@ -17,20 +20,22 @@ Ext.onReady(function(){
             handler: function(){
                 basicInfo.getForm().submit({
                     params: {
-                        uid: 5
+                        foo: 'bar',
+                        uid: 34 
                     }
                 });
             }
         }],
-        
+
         // configs apply to child items
-        defaults: {anchor: '100%'},
+        defaults: {anchor: '-20'}, // provide some room on right for validation errors
         defaultType: 'textfield',
         items: [{
             fieldLabel: 'Name',
             name: 'name'
         },{
             fieldLabel: 'Email',
+            msgTarget: 'side',
             name: 'email'        
         },{
             fieldLabel: 'Company',
@@ -39,11 +44,13 @@ Ext.onReady(function(){
         
         // configs for BasicForm
         api: {
+            // The server-side method to call for load() requests
             load: Profile.getBasicInfo,
             // The server-side must mark the submit handler as a 'formHandler'
             submit: Profile.updateBasicInfo
-        },    
-        paramOrder: ['uid']
+        },
+        // specify the order for the passed params    
+        paramOrder: ['uid', 'foo']
     });
     
     var phoneInfo = new Ext.form.FormPanel({
@@ -102,22 +109,32 @@ Ext.onReady(function(){
         items: [basicInfo, phoneInfo, locationInfo]
     });
         
-    
+    // load the forms (notice the load requests will get batched together)
     basicInfo.getForm().load({
+        // pass 2 arguments to server side getBasicInfo method (len=2)
         params: {
-            uid: 5
+            foo: 'bar',
+            uid: 34 
         }
     });
+
     phoneInfo.getForm().load({
         params: {
             uid: 5
         }
     });    
-    locationInfo.getForm().load({
-        params: {
-            uid: 5
-        }
-    });
+
+    // defer this request just to simulate the request not getting batched
+    // since it exceeds to configured buffer
+    (function(){
+        locationInfo.getForm().load({
+            params: {
+                uid: 5
+            }
+        });
+    }).defer(200);    
+    
+    // rpc call
     TestAction.doEcho('sample');
-   
+
 });

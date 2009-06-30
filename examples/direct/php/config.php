@@ -17,7 +17,7 @@ $API = array(
     'Profile'=>array(
         'methods'=>array(
             'getBasicInfo'=>array(
-                'len'=>1
+                'len'=>2
             ),
             'getPhoneInfo'=>array(
                 'len'=>1
@@ -26,7 +26,7 @@ $API = array(
                 'len'=>1
             ),
             'updateBasicInfo'=>array(
-                'len'=>1,
+                'len'=>2,
                 'formHandler'=>true
             )
         )
