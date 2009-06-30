@@ -75,22 +75,38 @@ Ext.extend(Ext.util.ClickRepeater, Ext.util.Observable, {
     stopDefault : false,
     timer : 0,
 
+    /**
+     * Enables the repeater and allows events to fire.
+     */
     enable: function(){
-        this.el.on('mousedown', this.handleMouseDown, this);
-        if(this.preventDefault || this.stopDefault){
-            this.el.on('click', this.eventOptions, this);
+        if(this.disabled){
+            this.el.on('mousedown', this.handleMouseDown, this);
+            if(this.preventDefault || this.stopDefault){
+                this.el.on('click', this.eventOptions, this);
+            }
         }
+        this.disabled = false;
     },
     
-    disable: function(){
-        clearTimeout(this.timer);
-        if(this.pressClass){
-            this.el.removeClass(this.pressClass);
+    /**
+     * Disables the repeater and stops events from firing.
+     */
+    disable: function(/* private */ force){
+        if(force || !this.disabled){
+            clearTimeout(this.timer);
+            if(this.pressClass){
+                this.el.removeClass(this.pressClass);
+            }
+            Ext.getDoc().un('mouseup', this.handleMouseUp, this);
+            this.el.removeAllListeners();
         }
-        Ext.getDoc().un('mouseup', this.handleMouseUp, this);
-        this.el.removeAllListeners();
+        this.disabled = true;
     },
     
+    /**
+     * Convenience function for setting disabled/enabled by boolean.
+     * @param {Boolean} disabled
+     */
     setDisabled: function(disabled){
         this[disabled ? 'disable' : 'enable']();    
     },
@@ -106,7 +122,7 @@ Ext.extend(Ext.util.ClickRepeater, Ext.util.Observable, {
     
     // private
     destroy : function() {
-        this.disable();
+        this.disable(true);
         Ext.destroy(this.el);
         this.purgeListeners();
     },
