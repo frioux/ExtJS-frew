@@ -37,7 +37,7 @@ Ext.BoxComponent = Ext.extend(Ext.Component, {
      */
     // margins config is used when a BoxComponent is rendered by BorderLayout or BoxLayout.
     /**
-     * @cfg {Object} margins<p><b>Note</b>: this config is only used when this BoxComponent is rendered
+     * @cfg {Object} margins <p><b>Note</b>: this config is only used when this BoxComponent is rendered
      * by a Container which has been configured to use the <b>{@link Ext.layout.BorderLayout BorderLayout}</b>
      * or one of the two <b>{@link Ext.layout.BoxLayout BoxLayout} subclasses.</b></p>
      * <p>An object containing margins to apply to this BoxComponent in the
