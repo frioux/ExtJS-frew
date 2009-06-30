@@ -71,7 +71,7 @@ Ext.SplitButton = Ext.extend(Ext.Button, {
     },
 
     getMenuClass : function(){
-        return this.menu && this.arrowAlign != 'bottom' ? 'x-btn-split' : 'x-btn-split-bottom';
+        return 'x-btn-split' + (this.arrowAlign == 'bottom' ? '-bottom' : '');
     },
 
     isClickOnArrow : function(e){
