@@ -138,14 +138,12 @@ Ext.layout.AccordionLayout = Ext.extend(Ext.layout.FitLayout, {
     // private
     setItemSize : function(item, size){
         if(this.fill && item){
-            var items = this.container.items.items;
             var hh = 0;
-            for(var i = 0, len = items.length; i < len; i++){
-                var p = items[i];
+            this.container.items.each(function(p){
                 if(p != item){
-                    hh += (p.getSize().height - p.bwrap.getHeight());
-                }
-            }
+                    hh += p.header.getHeight();
+                }    
+            });
             size.height -= hh;
             item.setSize(size);
         }
