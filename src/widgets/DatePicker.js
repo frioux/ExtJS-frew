@@ -239,12 +239,25 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
         Ext.DatePicker.superclass.onEnable.call(this);    
         this.doDisabled(false);
         this.update(initial ? this.value : this.activeDate);
+        if(Ext.isIE){
+            this.el.repaint();
+        }
+        
     },
     
     // private
     onDisable: function(){
         Ext.DatePicker.superclass.onDisable.call(this);   
         this.doDisabled(true);
+        if(Ext.isIE && !Ext.isIE8){
+            /* Really strange problem in IE6/7, when disabled, have to explicitly
+             * repaint each of the nodes to get them to display correctly, simply
+             * calling repaint on the main element doesn't appear to be enough.
+             */
+             Ext.each([].concat(this.textNodes, this.el.query('th span')), function(el){
+                 Ext.fly(el).repaint();
+             });
+        }
     },
     
     // private
@@ -381,10 +394,6 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
                 handler: this.selectToday,
                 scope: this
             });
-        }
-
-        if(Ext.isIE){
-            this.el.repaint();
         }
         this.mon(this.eventEl, 'mousewheel', this.handleMouseWheel, this);
         this.mon(this.eventEl, 'click', this.handleDateClick,  this, {delegate: 'a.x-date-date'});
