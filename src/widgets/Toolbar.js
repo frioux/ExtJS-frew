@@ -4,11 +4,11 @@
  * Layout manager implicitly used by Ext.Toolbar.
  */
 Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
-    monitorResize: true,
-    triggerWidth: 18,
-    lastOverflow: false,
+    monitorResize : true,
+    triggerWidth : 18,
+    lastOverflow : false,
 
-    noItemsMenuText: '<div class="x-toolbar-no-items">(None)</div>',
+    noItemsMenuText : '<div class="x-toolbar-no-items">(None)</div>',
     // private
     onLayout : function(ct, target){
         if(!this.leftTr){
@@ -61,7 +61,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
         return td;
     },
 
-    hideItem: function(item){
+    hideItem : function(item){
         var h = (this.hiddens = this.hiddens || []);
         h.push(item);
         item.xtbHidden = true;
@@ -69,7 +69,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
         item.hide();
     },
 
-    unhideItem: function(item){
+    unhideItem : function(item){
         item.show();
         item.xtbHidden = false;
         this.hiddens.remove(item);
@@ -82,7 +82,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
         return c.hidden ? (c.xtbWidth || 0) : c.getDomPositionEl().dom.parentNode.offsetWidth;
     },
 
-    fitToSize :function(t){
+    fitToSize : function(t){
         if(this.container.enableOverflow === false){
             return;
         }
@@ -130,10 +130,10 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
         }
     },
 
-    createMenuConfig: function(c, hideOnClick){
+    createMenuConfig : function(c, hideOnClick){
         var cfg = Ext.apply({}, c.initialConfig),
             group = c.toggleGroup;
-            
+
         Ext.apply(cfg, {
             text: c.overflowText || c.text,
             iconCls: c.iconCls,
@@ -162,7 +162,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
     },
 
     // private
-    addComponentToMenu: function(m, c){
+    addComponentToMenu : function(m, c){
         if(c instanceof Ext.Toolbar.Separator){
             m.add('-');
         }else if(Ext.isFunction(c.isXType)){
@@ -177,8 +177,8 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
             }
         }
     },
-    
-    clearMenu: function(){
+
+    clearMenu : function(){
         var m = this.moreMenu;
         if(m && m.items){
             this.moreMenu.items.each(function(item){
@@ -196,14 +196,14 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
             needsSep = function(group, item){
                 return group.isXType('buttongroup') && !(item instanceof Ext.Toolbar.Separator);
             };
-            
+
         this.clearMenu();
         m.removeAll();
         for(var i = 0; i < len; i++){
             c = h[i];
             if(c.xtbHidden){
                 if(prev && (needsSep(c, prev) || needsSep(prev, c))){
-                    m.add('-');    
+                    m.add('-');
                 }
                 this.addComponentToMenu(m, c);
                 prev = c;
@@ -233,8 +233,8 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
             this.more.render(td);
         }
     },
-    
-    destroy: function(){
+
+    destroy : function(){
         Ext.destroy(this.more, this.moreMenu);
         Ext.layout.ToolbarLayout.superclass.destroy.call(this);
     }
@@ -255,12 +255,12 @@ Ext.Container.LAYOUTS.toolbar = Ext.layout.ToolbarLayout;
  * or implicitly via their xtypes, and can be <tt>{@link #add}</tt>ed dynamically.</p>
  * <p>Some items have shortcut strings for creation:</p>
  * <pre>
-<u>Shortcut</u>  <u>xtype</u>          <u>Class</u>                  <u>Description</u>    
+<u>Shortcut</u>  <u>xtype</u>          <u>Class</u>                  <u>Description</u>
 '->'      'tbfill'       {@link Ext.Toolbar.Fill}       begin using the right-justified button container
 '-'       'tbseparator'  {@link Ext.Toolbar.Separator}  add a vertical separator bar between toolbar items
 ' '       'tbspacer'     {@link Ext.Toolbar.Spacer}     add horiztonal space between elements
  * </pre>
- * 
+ *
  * Example usage of various elements:
  * <pre><code>
 var tb = new Ext.Toolbar({
@@ -289,7 +289,7 @@ var tb = new Ext.Toolbar({
         {xtype: 'tbspacer'},// same as ' ' to create Ext.Toolbar.Spacer
         'text 2',
         {xtype: 'tbspacer', width: 50}, // add a 50px space
-        'text 3'        
+        'text 3'
     ]
 });
  * </code></pre>
@@ -388,7 +388,7 @@ Ext.extend(T, Ext.Container, {
             this.el = ct.createChild(Ext.apply({ id: this.id },this.autoCreate), position);
         }
     },
-    
+
     /**
      * Adds element(s) to the toolbar -- this function takes a variable number of
      * arguments of mixed type and adds them to the toolbar.
@@ -408,9 +408,9 @@ Ext.extend(T, Ext.Container, {
      * @param {Mixed} etc.
      * @method add
      */
-    
+
     // private
-    lookupComponent: function(c){
+    lookupComponent : function(c){
         if(typeof c == 'string'){
             if(c == '-'){
                 c = new T.Separator();
@@ -435,7 +435,7 @@ Ext.extend(T, Ext.Container, {
         }
         return c;
     },
-    
+
     // private
     applyDefaults : function(c){
         if(typeof c != 'string'){
@@ -450,7 +450,7 @@ Ext.extend(T, Ext.Container, {
         }
         return c;
     },
-    
+
     // private
     constructItem : function(item){
         return Ext.create(item, 'button');
@@ -512,7 +512,7 @@ Ext.extend(T, Ext.Container, {
         }
         return this.add(this.constructButton(config));
     },
-    
+
     /**
      * Adds text to the toolbar
      * @param {String} text The text to add
@@ -521,7 +521,7 @@ Ext.extend(T, Ext.Container, {
     addText : function(text){
         return this.addItem(new T.TextItem(text));
     },
-    
+
     /**
      * Adds a new element to the toolbar from the passed {@link Ext.DomHelper} config
      * @param {Object} config
@@ -558,7 +558,7 @@ Ext.extend(T, Ext.Container, {
         }
         return Ext.Toolbar.superclass.insert.call(this, index, item);
     },
-    
+
     // private
     initMenuTracking : function(item){
         if(this.trackMenus && item.menu){
@@ -570,9 +570,9 @@ Ext.extend(T, Ext.Container, {
             });
         }
     },
-    
+
     // private
-    constructButton: function(item){
+    constructButton : function(item){
         var b = item.events ? item : this.constructItem(item);
         this.initMenuTracking(b);
         return b;
@@ -681,7 +681,7 @@ new Ext.Panel({
         'Item 2',
         // space width is also configurable via javascript
         {xtype: 'tbspacer', width: 50}, // add a 50px space
-        'Item 3'        
+        'Item 3'
     ]
 });
 </code></pre>
@@ -694,7 +694,7 @@ T.Spacer = Ext.extend(T.Item, {
      * @cfg {Number} width
      * The width of the spacer in pixels (defaults to 2px via css style <tt>.x-toolbar .xtb-spacer</tt>).
      */
-    
+
     onRender : function(ct, position){
         this.el = ct.createChild({tag:'div', cls:'xtb-spacer', style: this.width?'width:'+this.width+'px':''}, position);
     }
@@ -756,7 +756,7 @@ T.TextItem = Ext.extend(T.Item, {
      * Updates this item's text, setting the text to be used as innerHTML.
      * @param {String} t The text to display (html accepted).
      */
-    setText: function(t) {
+    setText : function(t) {
         if (this.rendered) {
             this.el.dom.innerHTML = t;
         } else {
