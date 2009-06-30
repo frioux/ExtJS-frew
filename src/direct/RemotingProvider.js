@@ -309,7 +309,7 @@ TestAction.multiply(
             Ext.apply(t, {
                 form: Ext.getDom(form),
                 isUpload: isUpload,
-                params: callback && Ext.isObject(callback.params) ? params : Ext.apply(params, callback.params)
+                params: callback && Ext.isObject(callback.params) ? Ext.apply(params, callback.params) : params
             });
             this.fireEvent('call', this, t);
             this.processForm(t);
