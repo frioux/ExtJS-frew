@@ -1026,15 +1026,18 @@ viewConfig: {
             if(!isUpdate){
                 this.fireEvent("beforerowsinserted", this, firstRow, lastRow);
             }
-            var html = this.renderRows(firstRow, lastRow);
-            var before = this.getRow(firstRow);
+            var html = this.renderRows(firstRow, lastRow),
+                before = this.getRow(firstRow);
             if(before){
                 if(firstRow === 0){
                     Ext.fly(this.getRow(0)).removeClass(this.firstRowCls);
                 }
                 Ext.DomHelper.insertHtml('beforeBegin', before, html);
             }else{
-                Ext.fly(this.getRow(last)).removeClass(this.lastRowCls);
+                var r = this.getRow(last - 1);
+                if(r){
+                    Ext.fly(r).removeClass(this.lastRowCls);
+                }
                 Ext.DomHelper.insertHtml('beforeEnd', this.mainBody.dom, html);
             }
             if(!isUpdate){
