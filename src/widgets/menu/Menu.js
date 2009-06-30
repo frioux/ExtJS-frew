@@ -571,7 +571,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
     },
     
     applyDefaults : function(c){
-        if(Ext.isString(c)){
+        if(!Ext.isString(c)){
             c = Ext.menu.Menu.superclass.applyDefaults.call(this, c);
             var d = this.internalDefaults;
             if(d){
