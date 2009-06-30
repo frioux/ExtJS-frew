@@ -151,14 +151,16 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
     // private
     initDisabledDays : function(){
         if(!this.disabledDatesRE && this.disabledDates){
-            var dd = this.disabledDates;
-            var re = '(?:';
-            for(var i = 0; i < dd.length; i++){
-                re += dd[i];
-                if(i != dd.length-1){
+            var dd = this.disabledDates,
+                len = dd.length - 1,
+                re = '(?:';
+                
+            Ext.each(dd, function(d, i){
+                re += Ext.isDate(d) ? '^' + Ext.escapeRe(d.dateFormat(this.format)) + '$' : dd[i];
+                if(i != len){
                     re += '|';
                 }
-            }
+            }, this);
             this.disabledDatesRE = new RegExp(re + ')');
         }
     },

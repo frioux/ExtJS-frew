@@ -124,10 +124,10 @@ disabledDates: ["^03"]
             'select'
         );
 
-        if(typeof this.minValue == "string"){
+        if(Ext.isString(this.minValue)){
             this.minValue = this.parseDate(this.minValue);
         }
-        if(typeof this.maxValue == "string"){
+        if(Ext.isString(this.maxValue)){
             this.maxValue = this.parseDate(this.maxValue);
         }
         this.disabledDatesRE = null;
@@ -137,13 +137,17 @@ disabledDates: ["^03"]
     // private
     initDisabledDays : function(){
         if(this.disabledDates){
-            var dd = this.disabledDates;
-            var re = "(?:";
-            for(var i = 0; i < dd.length; i++){
-                re += dd[i];
-                if(i != dd.length-1) re += "|";
-            }
-            this.disabledDatesRE = new RegExp(re + ")");
+            var dd = this.disabledDates,
+                len = dd.length - 1, 
+                re = "(?:";
+                
+            Ext.each(dd, function(d, i){
+                re += Ext.isDate(d) ? '^' + Ext.escapeRe(d.dateFormat(this.format)) + '$' : dd[i];
+                if(i != len){
+                    re += '|';
+                }
+            }, this);
+            this.disabledDatesRE = new RegExp(re + ')');
         }
     },
 
@@ -177,7 +181,7 @@ disabledDates: ["^03"]
      * @param {Date} value The minimum date that can be selected
      */
     setMinValue : function(dt){
-        this.minValue = (typeof dt == "string" ? this.parseDate(dt) : dt);
+        this.minValue = (Ext.isString(dt) ? this.parseDate(dt) : dt);
         if(this.menu){
             this.menu.picker.setMinDate(this.minValue);
         }
@@ -188,7 +192,7 @@ disabledDates: ["^03"]
      * @param {Date} value The maximum date that can be selected
      */
     setMaxValue : function(dt){
-        this.maxValue = (typeof dt == "string" ? this.parseDate(dt) : dt);
+        this.maxValue = (Ext.isString(dt) ? this.parseDate(dt) : dt);
         if(this.menu){
             this.menu.picker.setMaxDate(this.maxValue);
         }
