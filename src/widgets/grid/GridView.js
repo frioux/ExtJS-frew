@@ -226,6 +226,11 @@ viewConfig: {
      * @cfg {String} rowSelector The selector used to find rows internally (defaults to <tt>'div.x-grid3-row'</tt>)
      */
     rowSelector : 'div.x-grid3-row',
+    
+    // private
+    firstRowCls: 'x-grid3-row-first',
+    lastRowCls: 'x-grid3-row-last',
+    rowClsRe: /(?:^|\s+)x-grid3-row-(first|last|alt)(?:\s+|$)/g,
 
     /* -------------------------------- UI Specific ----------------------------- */
 
@@ -304,7 +309,7 @@ viewConfig: {
     },
 
     // private
-    getEditorParent : function(ed){
+    getEditorParent : function(){
         return this.scroller.dom;
     },
 
@@ -654,28 +659,21 @@ viewConfig: {
         if(!this.ds || this.ds.getCount() < 1){
             return;
         }
+        var rows = this.getRows();
         skipStripe = skipStripe || !this.grid.stripeRows;
         startRow = startRow || 0;
-        var rows = this.getRows();
-        var cls = ' x-grid3-row-alt ';
-        rows[0].className += ' x-grid3-row-first';
-        rows[rows.length - 1].className += ' x-grid3-row-last';
-        for(var i = startRow, len = rows.length; i < len; i++){
-            var row = rows[i];
-            row.rowIndex = i;
-            if(!skipStripe){
-                var isAlt = ((i+1) % 2 === 0),
-                    hasAlt = (' '+row.className + ' ').indexOf(cls) != -1;
-                if(isAlt == hasAlt){
-                    continue;
-                }
-                if(isAlt){
-                    row.className += " x-grid3-row-alt";
-                }else{
-                    row.className = row.className.replace("x-grid3-row-alt", "");
-                }
+        Ext.each(rows, function(row, idx){
+            row.rowIndex = idx;
+            row.className = row.className.replace(this.rowClsRe, ' ');
+            if (!skipStripe && (idx + 1) % 2 === 0) {
+                row.className += ' x-grid3-row-alt';
             }
+        });
+        // add first/last-row classes
+        if(startRow === 0){
+            Ext.fly(rows[0]).addClass(this.firstRowCls);
         }
+        Ext.fly(rows[rows.length - 1]).addClass(this.lastRowCls);
     },
 
     afterRender : function(){
@@ -1031,8 +1029,12 @@ viewConfig: {
             var html = this.renderRows(firstRow, lastRow);
             var before = this.getRow(firstRow);
             if(before){
+                if(firstRow === 0){
+                    Ext.fly(this.getRow(0)).removeClass(this.firstRowCls);
+                }
                 Ext.DomHelper.insertHtml('beforeBegin', before, html);
             }else{
+                Ext.fly(this.getRow(last)).removeClass(this.lastRowCls);
                 Ext.DomHelper.insertHtml('beforeEnd', this.mainBody.dom, html);
             }
             if(!isUpdate){
@@ -1040,7 +1042,7 @@ viewConfig: {
                 this.processRows(firstRow);
             }else if(firstRow === 0 || firstRow >= last){
                 //ensure first/last row is kept after an update.
-                Ext.fly(this.getRow(firstRow)).addClass(firstRow === 0 ? 'x-grid3-row-first' : 'x-grid3-row-last')
+                Ext.fly(this.getRow(firstRow)).addClass(firstRow === 0 ? this.firstRowCls : this.lastRowCls);
             }
         }
         this.syncFocusEl(firstRow);
