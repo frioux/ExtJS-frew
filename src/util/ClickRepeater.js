@@ -55,16 +55,9 @@ Ext.util.ClickRepeater = function(el, config)
         "mouseup"
     );
 
-    this.el.on("mousedown", this.handleMouseDown, this);
-    if(this.preventDefault || this.stopDefault){
-        this.el.on("click", function(e){
-            if(this.preventDefault){
-                e.preventDefault();
-            }
-            if(this.stopDefault){
-                e.stopEvent();
-            }
-        }, this);
+    if(!this.disabled){
+        this.disabled = true;
+        this.enable();
     }
 
     // allow inline handler
@@ -82,8 +75,38 @@ Ext.extend(Ext.util.ClickRepeater, Ext.util.Observable, {
     stopDefault : false,
     timer : 0,
 
+    enable: function(){
+        this.el.on('mousedown', this.handleMouseDown, this);
+        if(this.preventDefault || this.stopDefault){
+            this.el.on('click', this.eventOptions, this);
+        }
+    },
+    
+    disable: function(){
+        clearTimeout(this.timer);
+        if(this.pressClass){
+            this.el.removeClass(this.pressClass);
+        }
+        Ext.getDoc().un('mouseup', this.handleMouseUp, this);
+        this.el.removeAllListeners();
+    },
+    
+    setDisabled: function(disabled){
+        this[disabled ? 'disable' : 'enable']();    
+    },
+    
+    eventOptions: function(e){
+        if(this.preventDefault){
+            e.preventDefault();
+        }
+        if(this.stopDefault){
+            e.stopEvent();
+        }       
+    },
+    
     // private
     destroy : function() {
+        this.disable();
         Ext.destroy(this.el);
         this.purgeListeners();
     },

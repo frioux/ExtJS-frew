@@ -61,6 +61,12 @@
     filter: alpha(opacity=100);
 }
 
+.x-item-disabled .x-date-right a:hover, .x-item-disabled .x-date-left a:hover{
+    -moz-opacity: 0.6;
+    opacity:.6;
+    filter: alpha(opacity=60);
+}
+
 .x-date-right a {
     margin-right:2px;
     text-decoration:none !important;
@@ -137,6 +143,10 @@ table.x-date-inner {
 
 .x-date-inner a:hover, .x-date-inner .x-date-disabled a:hover{
     text-decoration:none !important;
+}
+
+.x-item-disabled .x-date-inner a:hover{
+    background: none;
 }
 
 .x-date-inner .x-date-disabled a {
