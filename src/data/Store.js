@@ -904,12 +904,12 @@ sortInfo: {
     createCallback : function(action, rs) {
         var actions = Ext.data.Api.actions;
         return (action == 'read') ? this.loadRecords : function(data, response, success) {
+            // calls: onCreateRecords | onUpdateRecords | onDestroyRecords
+            this['on' + Ext.util.Format.capitalize(action) + 'Records'](success, rs, data);
             // If success === false here, exception will have been called in DataProxy
             if (success === true) {
                 this.fireEvent('write', this, action, data, response, rs);
             }
-            // calls: onCreateRecords | onUpdateRecords | onDestroyRecords
-            this['on' + Ext.util.Format.capitalize(action) + 'Records'](success, rs, data);
         };
     },
 
