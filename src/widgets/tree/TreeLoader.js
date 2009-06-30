@@ -230,11 +230,11 @@ paramOrder: 'param1|param2|param'
 
     processDirectResponse: function(result, response, args){
         if(response.status){
-            this.processResponse({
+            this.handleResponse({
                 responseData: Ext.isArray(result) ? result : null,
                 responseText: result,
                 argument: args
-            }, args.node, args.callback, args.scope);
+            });
         }else{
             this.handleFailure({
                 argument: args
