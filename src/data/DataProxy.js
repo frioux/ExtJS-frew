@@ -321,7 +321,7 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
      * @param {Object} options Any options specified for the action (eg. see {@link Ext.data.Store#load}.
      */
     request : function(action, rs, params, reader, callback, scope, options) {
-        if (!this.api[action]) {
+        if (!this.api[action] && !this.load) {
             throw new Ext.data.DataProxy.Error('action-undefined', action);
         }
         params = params || {};
@@ -343,9 +343,7 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
      * @param {Object} scope
      * @param {Object} arg
      */
-    load : function(params, reader, callback, scope, arg) {
-        this.doRequest(Ext.data.Api.actions.read, null, params, reader, callback, scope, arg);
-    },
+    load : null,
 
     /**
      * @cfg {Function} doRequest Abstract method that should be implemented in all subclasses
@@ -356,7 +354,6 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
         // default implementation of doRequest for backwards compatibility with 2.0 proxies.
         // If we're executing here, the action is probably "load".
         // Call with the pre-3.0 method signature.
-        // WARNING:  Potentially infinitely recursive:  See load above which calls this.doRequest
         this.load(params, reader, callback, scope, options);
     },
 
