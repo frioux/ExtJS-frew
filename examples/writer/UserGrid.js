@@ -8,8 +8,8 @@ App.user.Grid = Ext.extend(Ext.grid.EditorGridPanel, {
     iconCls: 'silk-grid',
     frame: true,
     title: 'Users',
-    autoScroll: true,
     height: 300,
+    width: 500,
     style: 'margin-top: 10px',
 
     initComponent : function() {

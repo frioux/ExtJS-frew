@@ -10,6 +10,7 @@ App.user.Form = Ext.extend(Ext.form.FormPanel, {
     labelAlign: 'right',
     title: 'User -- All fields are required',
     frame: true,
+    width: 500,
     defaultType: 'textfield',
     defaults: {
         anchor: '100%'
