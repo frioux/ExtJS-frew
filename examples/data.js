@@ -22,13 +22,13 @@ Ext.samples.samplesCatalog = [{
         url:  'organizer/organizer.html',
         icon: 'organizer.gif',
         desc: 'DataView and TreePanel sample that demonstrates dragging data items from a DataView into a TreePanel.'
-    },{
+    }/*,{
         text: 'Image Organizer',
         url:  'image-organizer/index.html',
         icon: 'image-organizer.gif',
         desc: 'Image management application sample utilizing MySQL lite and Ext.Direct.',
         status: 'new'
-    },{
+    }*/,{
         text: 'Ext JS API Documentation',
         url:  '../docs/index.html',
         icon: 'docs.gif',
@@ -51,13 +51,13 @@ Ext.samples.samplesCatalog = [{
     samples: [{
         text: 'Key Feed Viewer',
         url:  'key-feed-viewer/view.html',
-        icon: 'acc-key.gif',
+        icon: 'keyboard.gif',
         desc: 'Keyboard navigation within a complex layout',
         status: 'experimental'
     },{
         text: 'ARIA Tree',
         url:  'tree/aria-tree.html',
-        icon: 'acc-key.gif',
+        icon: 'acc-tree.gif',
         desc: 'Demonstrating ARIA with a TreePanel',
         status: 'experimental'
     }]
@@ -118,7 +118,7 @@ Ext.samples.samplesCatalog = [{
     },{
         text: 'Grouping with Remote Summary',
         url: 'grid/totals-hybrid.html',
-        icon: 'grid-hybrid.gif',
+        icon: 'grid-summary.gif',
         desc: 'Advanced grouping grid that allows cell editing and includes remotely loaded dynamic summary calculations.'
     },{
         text: 'Grid Plugins',
@@ -283,17 +283,17 @@ Ext.samples.samplesCatalog = [{
     },{
         text: 'Absolute Layout (Form)',
         url:  'form/absform.html',
-        icon: 'absolute.gif',
+        icon: 'layout-absolute.gif',
         desc: 'A simple example of form fields utilizing an absolute layout in a window for flexible form resizing.'
     },{
         text: 'Anchor Layout (Form)',
         url:  'form/anchoring.html',
-        icon: 'anchor.gif',
+        icon: 'layout-form.gif',
         desc: 'A simple example of form fields utilizing an anchor layout in a window for flexible form resizing.'
     },{
         text: 'Anchor Layout (Panel)',
         url:  'layout/anchor.html',
-        icon: 'anchor-panel.gif',
+        icon: 'layout-anchor.gif',
         desc: 'An example of Panels anchored in the browser window.'
     },{
         text: 'Column Layout',
@@ -308,13 +308,13 @@ Ext.samples.samplesCatalog = [{
     },{
         text: 'HBox Layout',
         url:  'layout/hbox.html',
-        icon: 'hbox.gif',
+        icon: 'layout-column.gif',
         desc: 'Interactive layout illustrating the capabilities of the HBox Layout.',
         status: 'new'
     },{
         text: 'VBox Layout',
         url:  'layout/vbox.html',
-        icon: 'vbox.gif',
+        icon: 'blank.gif',
         desc: 'Interactive layout illustrating the capabilities of the VBox Layout.',
         status: 'new'
     },{
@@ -481,13 +481,13 @@ Ext.samples.samplesCatalog = [{
     },{
         text: 'Direct Form',
         url:  'direct/direct-form.php',
-        icon: 'direct-form.gif',
+        icon: 'direct.gif',
         desc: 'Ext.Direct Remoting with a Form',
         status: 'new'
     },{
         text: 'Direct TreeLoader',
         url:  'direct/direct-tree.php',
-        icon: 'direct-tree.gif',
+        icon: 'direct.gif',
         desc: 'Ext.Direct Remoting with a Tree',
         status: 'new'
     }]
