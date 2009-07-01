@@ -882,6 +882,10 @@ new Ext.tree.TreePanel({
      * @cfg {String} html  @hide
      */
     /**
+     * @cfg {Boolean} preventBodyReset
+     * @hide
+     */
+    /**
      * @property disabled
      * @hide
      */

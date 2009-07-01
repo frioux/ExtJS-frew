@@ -919,6 +919,10 @@ function(grid, rowIndex, columnIndex, e) {
      * @cfg {String} html  @hide
      */
     /**
+     * @cfg {Boolean} preventBodyReset
+     * @hide
+     */
+    /**
      * @property disabled
      * @hide
      */

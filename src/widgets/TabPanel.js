@@ -1051,6 +1051,10 @@ new Ext.TabPanel({
      * @cfg {String} layout
      * @hide
      */
+    /**
+     * @cfg {Boolean} preventBodyReset
+     * @hide
+     */
 });
 Ext.reg('tabpanel', Ext.TabPanel);
 
