@@ -105,7 +105,7 @@ Ext.onReady(function(){
         renderTo: Ext.getBody(),
         title: 'My Profile',
         width: 300,
-        height: 220,    
+        height: 240,    
         items: [basicInfo, phoneInfo, locationInfo]
     });
         

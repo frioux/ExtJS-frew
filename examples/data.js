@@ -104,7 +104,8 @@ Ext.samples.samplesCatalog = [{
         text: 'Sliding Pager',
         url: 'grid/sliding-pager.html',
         icon: 'slider-pager.gif',
-        desc: 'A demonstration on the integration of the Slider with the Paging Toolbar using a custom plugin.'
+        desc: 'A demonstration on the integration of the Slider with the Paging Toolbar using a custom plugin.',
+        status: 'new'
     },{
         text: 'Grouping',
         url: 'grid/grouping.html',
@@ -114,7 +115,8 @@ Ext.samples.samplesCatalog = [{
         text: 'Grouping with Dynamic Summary',
         url: 'grid/totals.html',
         icon: 'grid-summary.gif',
-        desc: 'Advanced grouping grid that allows cell editing and includes custom dynamic summary calculations.'
+        desc: 'Advanced grouping grid that allows cell editing and includes custom dynamic summary calculations.',
+        status: 'new'
     },{
         text: 'Grouping with Remote Summary',
         url: 'grid/totals-hybrid.html',
@@ -255,7 +257,8 @@ Ext.samples.samplesCatalog = [{
         text: 'Check Tree',
         url: 'tree/check-tree.html',
         icon: 'tree-check.gif',
-        desc: 'An example showing simple checkbox selection in a tree.'
+        desc: 'An example showing simple checkbox selection in a tree.',
+        status: 'new'
     },{
         text: 'XML Tree Loader',
         url: 'tree/xml-tree-loader.html',
@@ -349,7 +352,7 @@ Ext.samples.samplesCatalog = [{
         icon: 'form-xml.gif',
         desc: 'Ajax-loaded form fields from remote XML data and remote field validation on submit.'
     },{
-        text: 'Custom Search Field',
+        text: 'Custom Search Fields',
         url: 'form/custom.html',
         icon: 'form-custom.gif',
         desc: 'A TriggerField search extension combined with an XTemplate for custom results rendering.'
@@ -375,7 +378,7 @@ Ext.samples.samplesCatalog = [{
         desc: 'A demo of how to give standard file upload fields a bit of Ext style using a custom class.'
     },{
         text: 'Spinner Field',
-        url:  'form/spinner.html',
+        url:  'spinner/spinner.html',
         icon: 'form-spinner.gif',
         desc: 'An example of a custom spinner widget.',
         status: 'new'
@@ -463,7 +466,8 @@ Ext.samples.samplesCatalog = [{
         text : 'Field to Grid Drag and Drop',
         url  : 'dd/field-to-grid-dd.html',
         icon : 'dd-fieldtogrid.gif',
-        desc : 'Drag from a form field and drop on a grid.'
+        desc : 'Drag from a form field and drop on a grid.',
+        status: 'new'
     },{
         text : 'Custom Drag and Drop',
         url  : 'dd/dragdropzones.html',
