@@ -1,4 +1,4 @@
-Ext.ns("Ext.samples");
+Ext.ns('Ext.samples');
 
 (function() {
 
@@ -16,15 +16,32 @@ SamplePanel = Ext.extend(Ext.DataView, {
                 '<tpl for="samples">',
                     '<dd ext:url="{url}"><img src="shared/screens/{icon}"/>',
                         '<div><h4>{text}',
-                            '<tpl if="values.isNew"><span class="new-sample"> (New)</span></tpl>',
-                            '<tpl if="values.isUpdated"><span class="updated-sample"> (Updated)</span></tpl>',
+                            '<tpl if="this.isNew(values.status)">',
+                                '<span class="new-sample"> (New)</span>',
+                            '</tpl>',
+                            '<tpl if="this.isUpdated(values.status)">',
+                                '<span class="updated-sample"> (Updated)</span>',
+                            '</tpl>',
+                            '<tpl if="this.isExperimental(values.status)">',
+                                '<span class="new-sample"> (Experimental)</span>',
+                            '</tpl>',
                         '</h4><p>{desc}</p></div>',
                     '</dd>',
                 '</tpl>',
             '<div style="clear:left"></div></dl></div>',
             '</tpl>',
-        '</div>'
-    ),
+        '</div>', {
+         isExperimental: function(status){
+             return status == 'experimental';
+         },
+         isNew: function(status){
+             return status == 'new';
+         },
+         isUpdated: function(status){
+             return status == 'updated';
+         }
+    }),
+
 
     onClick : function(e){
         var group = e.getTarget('h2', 3, true);

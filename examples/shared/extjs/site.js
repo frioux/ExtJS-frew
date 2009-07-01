@@ -19,13 +19,13 @@ Ext.onReady(function(){
 				doc.un('mouseover', handleOver);
 				doc.un('mousedown', handleDown);
 			}
-		}
+		};
 
 		var handleDown = function(e){
 			if(!e.within(menu)){
 				hideMenu();
 			}
-		}
+		};
 
 		var showMenu = function(){
 			clearTimeout(tid);
@@ -51,7 +51,7 @@ Ext.onReady(function(){
 				doc.on('mouseover', handleOver, null, {buffer:150});
 				doc.on('mousedown', handleDown);
 			}
-		}
+		};
 
 		el.on('mouseover', function(e){
 			if(!tid){
@@ -86,7 +86,7 @@ Ext.onReady(function(){
 		}else{
 			bdi.hide();
 			bd.show();
-			bdi.slideIn('l', {duration:.2, stopFx: true, easing:'easeOut'});
+			bdi.slideIn('l', {duration:0.2, stopFx: true, easing:'easeOut'});
 		}
 
 		t.update(!expanded ? 'Hide details' : 'Show details');
