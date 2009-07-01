@@ -3,7 +3,7 @@
  * @extends Ext.util.Observable
  * A TreeLoader provides for lazy loading of an {@link Ext.tree.TreeNode}'s child
  * nodes from a specified URL. The response must be a JavaScript Array definition
- * whose elements are node definition objects. eg:
+ * whose elements are node definition objects. e.g.:
  * <pre><code>
     [{
         id: 1,

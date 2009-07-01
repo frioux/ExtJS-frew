@@ -90,7 +90,7 @@ function(){
 	    /**
 	     * Applies a style specification to an element.
 	     * @param {String/HTMLElement} el The element to apply styles to
-	     * @param {String/Object/Function} styles A style specification string eg 'width:100px', or object in the form {width:'100px'}, or
+	     * @param {String/Object/Function} styles A style specification string e.g. 'width:100px', or object in the form {width:'100px'}, or
 	     * a function which returns such a specification.
 	     */
 	    applyStyles : function(el, styles){

@@ -150,7 +150,7 @@ myStore.on({
          * <li><b><tt>'response'</tt></b> : <div class="sub-desc">
          * <p>An <b>invalid</b> response from the server was returned: either 404,
          * 500 or the response meta-data does not match that defined in the DataReader
-         * (eg: root, idProperty, successProperty).</p>
+         * (e.g.: root, idProperty, successProperty).</p>
          * </div></li>
          * <li><b><tt>'remote'</tt></b> : <div class="sub-desc">
          * <p>A <b>valid</b> response was returned from the server having
@@ -165,7 +165,7 @@ myStore.on({
          * <p>The value of this parameter depends on the value of the <code>type</code> parameter:</p>
          * <div class="mdetail-params"><ul>
          * <li><b><tt>'response'</tt></b> : <div class="sub-desc">
-         * <p>The raw browser response object (eg: XMLHttpRequest)</p>
+         * <p>The raw browser response object (e.g.: XMLHttpRequest)</p>
          * </div></li>
          * <li><b><tt>'remote'</tt></b> : <div class="sub-desc">
          * <p>The decoded response object sent from the server.</p>
@@ -205,8 +205,8 @@ myStore.on({
          * <p>This event is <b>deprecated</b>.  The signature of the loadexception event
          * varies depending on the proxy, use the catch-all {@link #exception} event instead.
          * This event will fire in addition to the {@link #exception} event.</p>
-         * @param {misc} misc See {@link #exception}. 
-         * @deprecated 
+         * @param {misc} misc See {@link #exception}.
+         * @deprecated
          */
         'loadexception',
         /**
@@ -264,7 +264,7 @@ DESTROY  /users/23  delete
 
     /**
      * <p>Redefines the Proxy's API or a single action of an API. Can be called with two method signatures.</p>
-     * <p>If called with an object as the only parameter, the object should redefine the <b>entire</b> API, eg:</p><pre><code>
+     * <p>If called with an object as the only parameter, the object should redefine the <b>entire</b> API, e.g.:</p><pre><code>
 proxy.setApi({
     read    : '/users/read',
     create  : '/users/create',
@@ -273,7 +273,7 @@ proxy.setApi({
 });
 </code></pre>
      * <p>If called with two parameters, the first parameter should be a string specifying the API action to
-     * redefine and the second parameter should be the URL (or function if using DirectProxy) to call for that action, eg:</p><pre><code>
+     * redefine and the second parameter should be the URL (or function if using DirectProxy) to call for that action, e.g.:</p><pre><code>
 proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
 </code></pre>
      * @param {String/Object} api An API specification object, or the name of an action.
@@ -318,7 +318,7 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
      * @param {Ext.data.DataReader} reader
      * @param {Function} callback
      * @param {Object} scope Scope with which to call the callback (defaults to the Proxy object)
-     * @param {Object} options Any options specified for the action (eg. see {@link Ext.data.Store#load}.
+     * @param {Object} options Any options specified for the action (e.g. see {@link Ext.data.Store#load}.
      */
     request : function(action, rs, params, reader, callback, scope, options) {
         if (!this.api[action] && !this.load) {
@@ -347,7 +347,7 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
 
     /**
      * @cfg {Function} doRequest Abstract method that should be implemented in all subclasses
-     * (eg: {@link Ext.data.HttpProxy#doRequest HttpProxy.doRequest},
+     * (e.g.: {@link Ext.data.HttpProxy#doRequest HttpProxy.doRequest},
      * {@link Ext.data.DirectProxy#doRequest DirectProxy.doRequest}).
      */
     doRequest : function(action, rs, params, reader, callback, scope, options) {
@@ -375,7 +375,7 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
         }
 
         var format = null;
-        var m = url.match(/(.*)(\.\w+)$/);  // <-- look for urls with "provides" suffix, eg: /users.json, /users.xml, etc
+        var m = url.match(/(.*)(\.\w+)$/);  // <-- look for urls with "provides" suffix, e.g.: /users.json, /users.xml, etc
         if (m) {
             format = m[2];
             url = m[1];

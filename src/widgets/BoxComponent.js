@@ -32,7 +32,7 @@ Ext.BoxComponent = Ext.extend(Ext.Component, {
     /**
      * @cfg {String} region <p><b>Note</b>: this config is only used when this BoxComponent is rendered
      * by a Container which has been configured to use the <b>{@link Ext.layout.BorderLayout BorderLayout}</b>
-     * layout manager (eg. specifying <tt>layout:'border'</tt>).</p><br>
+     * layout manager (e.g. specifying <tt>layout:'border'</tt>).</p><br>
      * <p>See {@link Ext.layout.BorderLayout} also.</p>
      */
     // margins config is used when a BoxComponent is rendered by BorderLayout or BoxLayout.

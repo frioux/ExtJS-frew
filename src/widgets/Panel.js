@@ -519,7 +519,7 @@ var win = new Ext.Window({
      * in this config instead of <tt>true</tt>. Ext.Panel.DD is an internal, undocumented class which
      * moves a proxy Element around in place of the Panel's element, but provides no other behaviour
      * during dragging or on drop. It is a subclass of {@link Ext.dd.DragSource}, so behaviour may be
-     * added by implementing the interface methods of {@link Ext.dd.DragDrop} eg:
+     * added by implementing the interface methods of {@link Ext.dd.DragDrop} e.g.:
      * <pre><code>
 new Ext.Panel({
     title: 'Drag me',
@@ -881,7 +881,7 @@ new Ext.Panel({
         Ext.Panel.superclass.onRender.call(this, ct, position);
         this.createClasses();
 
-        var el = this.el, 
+        var el = this.el,
             d = el.dom,
             bw;
         el.addClass(this.baseCls);
@@ -1486,7 +1486,7 @@ new Ext.Panel({
                         }
                     }
                     if(this.fbar){
-                        var f = this.fbar, 
+                        var f = this.fbar,
                             fWidth = 1,
                             strict = Ext.isStrict;
                         if(this.buttonAlign == 'left'){

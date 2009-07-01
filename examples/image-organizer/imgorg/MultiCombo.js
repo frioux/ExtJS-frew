@@ -433,7 +433,7 @@ Ext.ux.MultiCombo = Ext.extend(Ext.form.ComboBox, {
 		}
 	},
 	// filters-out already-selected items from type-ahead queries.
-	// eg: if store contains: "betty, barney, bart" and betty is already selected,
+	// e.g.: if store contains: "betty, barney, bart" and betty is already selected,
 	// when user types "b", only "bart" and "barney" should be returned as possible matches,
 	// since betty is *already* selected
 	createTypeAheadFilterFn : function(items) {

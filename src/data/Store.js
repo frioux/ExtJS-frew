@@ -298,7 +298,7 @@ var grid = new Ext.grid.EditorGridPanel({
          * See {@link Ext.data.DataProxy}.{@link Ext.data.DataProxy#loadexception loadexception}
          * for additional details.
          * @param {misc} misc See {@link Ext.data.DataProxy}.{@link Ext.data.DataProxy#loadexception loadexception}
-         * for description. 
+         * for description.
          */
         'loadexception',
         /**
@@ -839,7 +839,7 @@ sortInfo: {
      * {@link #getModifiedRecords modified records}  Ext.data.Api.actions.update
      * </pre>
      * @TODO:  Create extensions of Error class and send associated Record with thrown exceptions.
-     * eg:  Ext.data.DataReader.Error or Ext.data.Error or Ext.data.DataProxy.Error, etc.
+     * e.g.:  Ext.data.DataReader.Error or Ext.data.Error or Ext.data.DataProxy.Error, etc.
      */
     save : function() {
         if (!this.writer) {

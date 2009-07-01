@@ -54,7 +54,7 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
      * <p>The url is built based upon the action being executed <tt>[load|create|save|destroy]</tt>
      * using the commensurate <tt>{@link #api}</tt> property, or if undefined default to the
      * configured {@link Ext.data.Store}.{@link Ext.data.Store#url url}.</p><br>
-     * <p>Some MVC (eg, Ruby on Rails, Merb and Django) support this style of segment based urls
+     * <p>Some MVC (e.g., Ruby on Rails, Merb and Django) support this style of segment based urls
      * where the segments in the URL follow the Model-View-Controller approach.</p><pre><code>
      * someSite.com/controller/action/id
      * </code></pre>
@@ -98,7 +98,7 @@ api: {
      * @param {String} url
      * @param {Boolean} makePermanent (Optional) [false]
      *
-     * (eg: beforeload, beforesave, etc).
+     * (e.g.: beforeload, beforesave, etc).
      */
     setUrl : function(url, makePermanent) {
         this.conn.url = url;

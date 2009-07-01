@@ -290,7 +290,7 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
     /**
      * @cfg {String} fieldLabel <p>The label text to display next to this Component (defaults to '').</p>
      * <br><p><b>Note</b>: this config is only used when this Component is rendered by a Container which
-     * has been configured to use the <b>{@link Ext.layout.FormLayout FormLayout}</b> layout manager (eg.
+     * has been configured to use the <b>{@link Ext.layout.FormLayout FormLayout}</b> layout manager (e.g.
      * {@link Ext.form.FormPanel} or specifying <tt>layout:'form'</tt>).</p><br>
      * <p>Also see <tt>{@link #hideLabel}</tt> and
      * {@link Ext.layout.FormLayout}.{@link Ext.layout.FormLayout#fieldTpl fieldTpl}.</p>
@@ -307,7 +307,7 @@ new Ext.FormPanel({
      */
     /**
      * @cfg {String} labelStyle <p>A CSS style specification string to apply directly to this field's
-     * label.  Defaults to the container's labelStyle value if set (eg,
+     * label.  Defaults to the container's labelStyle value if set (e.g.,
      * <tt>{@link Ext.layout.FormLayout#labelStyle}</tt> , or '').</p>
      * <br><p><b>Note</b>: see the note for <code>{@link #clearCls}</code>.</p><br>
      * <p>Also see <code>{@link #hideLabel}</code> and
@@ -380,7 +380,7 @@ new Ext.FormPanel({
      * <tt>'x-form-clear-left'</tt>).</p>
      * <br><p><b>Note</b>: this config is only used when this Component is rendered by a Container
      * which has been configured to use the <b>{@link Ext.layout.FormLayout FormLayout}</b> layout
-     * manager (eg. {@link Ext.form.FormPanel} or specifying <tt>layout:'form'</tt>) and either a
+     * manager (e.g. {@link Ext.form.FormPanel} or specifying <tt>layout:'form'</tt>) and either a
      * <tt>{@link #fieldLabel}</tt> is specified or <tt>isFormField=true</tt> is specified.</p><br>
      * <p>See {@link Ext.layout.FormLayout}.{@link Ext.layout.FormLayout#fieldTpl fieldTpl} also.</p>
      */
@@ -1089,7 +1089,7 @@ var myGrid = new Ext.grid.EditorGridPanel({
      * removing the component from its {@link Ext.Container} (if applicable) and unregistering it from
      * {@link Ext.ComponentMgr}.  Destruction is generally handled automatically by the framework and this method
      * should usually not need to be called directly.
-     * 
+     *
      */
     destroy : function(){
         if(this.fireEvent('beforedestroy', this) !== false){
@@ -1266,7 +1266,7 @@ new Ext.Panel({
      * Hide this component.  Listen to the '{@link #beforehide}' event and return
      * <tt>false</tt> to cancel hiding the component.  Fires the '{@link #hide}'
      * event after hiding the component. Note this method is called internally if
-     * the component is configured to be <code>{@link #hidden}</code>. 
+     * the component is configured to be <code>{@link #hidden}</code>.
      * @return {Ext.Component} this
      */
     hide : function(){
@@ -1276,7 +1276,7 @@ new Ext.Panel({
         }
         return this;
     },
-    
+
     // private
     doHide: function(){
         this.hidden = true;
@@ -1360,7 +1360,7 @@ var isBoxInstance = t.isXType('box', true); // false, not a direct BoxComponent 
     isXType : function(xtype, shallow){
         //assume a string by default
         if (Ext.isFunction(xtype)){
-            xtype = xtype.xtype; //handle being passed the class, eg. Ext.Component
+            xtype = xtype.xtype; //handle being passed the class, e.g. Ext.Component
         }else if (Ext.isObject(xtype)){
             xtype = xtype.constructor.xtype; //handle being passed an instance
         }
@@ -1396,8 +1396,8 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
 
     /**
      * Find a container above this component at any level by a custom function. If the passed function returns
-     * true, the container will be returned. 
-     * @param {Function} fn The custom function to call with the arguments (container, this component). 
+     * true, the container will be returned.
+     * @param {Function} fn The custom function to call with the arguments (container, this component).
      * @return {Ext.Container} The first Container for which the custom function returns true
      */
     findParentBy : function(fn) {

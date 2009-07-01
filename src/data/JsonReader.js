@@ -146,7 +146,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
         var re = /[\[\.]/;
         return function(expr) {
             try {
-                return(re.test(expr)) ? 
+                return(re.test(expr)) ?
                 new Function("obj", "return obj." + expr) :
                 function(obj){
                     return obj[expr];
@@ -299,7 +299,7 @@ Ext.apply(Ext.data.JsonReader.Error.prototype, {
         'successProperty-response': 'Could not locate your "successProperty" in your server response.  Please review your JsonReader config to ensure the config-property "successProperty" matches the property in your server-response.  See the JsonReader docs.',
         'root-undefined-response': 'Could not locate your "root" property in your server response.  Please review your JsonReader config to ensure the config-property "root" matches the property your server-response.  See the JsonReader docs.',
         'root-undefined-config': 'Your JsonReader was configured without a "root" property.  Please review your JsonReader config and make sure to define the root property.  See the JsonReader docs.',
-        'idProperty-undefined' : 'Your JsonReader was configured without an "idProperty"  Please review your JsonReader configuration and ensure the "idProperty" is set (eg: "id").  See the JsonReader docs.',
+        'idProperty-undefined' : 'Your JsonReader was configured without an "idProperty"  Please review your JsonReader configuration and ensure the "idProperty" is set (e.g.: "id").  See the JsonReader docs.',
         'root-emtpy': 'Data was expected to be returned by the server in the "root" property of the response.  Please review your JsonReader configuration to ensure the "root" property matches that returned in the server-response.  See JsonReader docs.'
     }
 });

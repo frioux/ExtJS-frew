@@ -19,11 +19,11 @@
  * generate a subclass of Ext.data.Record configured with information about its constituent fields.
  * @param {Object} data (Optional) An object, the properties of which provide values for the new Record's
  * fields. If not specified the <code>{@link Ext.data.Field#defaultValue defaultValue}</code>
- * for each field will be assigned. 
+ * for each field will be assigned.
  * @param {Object} id (Optional) The id of the Record. This id should be unique, and is used by the
  * {@link Ext.data.Store} object which owns the Record to index its collection of Records. If
  * an <code>id</code> is not specified a <b><code>{@link #phantom}</code></b> Record will be created
- * with an {@link #Record.id automatically generated id}. 
+ * with an {@link #Record.id automatically generated id}.
  */
 Ext.data.Record = function(data, id){
     // if no id, call the auto id method
@@ -247,9 +247,9 @@ rec.{@link #commit}(); // updates the view
     },
 
     /**
-     * Begin an edit. While in edit mode, no events (eg. the <code>update</code> event)
-     * are relayed to the containing store.  
-     * See also: <code>{@link #endEdit}</code> and <code>{@link #cancelEdit}</code>. 
+     * Begin an edit. While in edit mode, no events (e.g.. the <code>update</code> event)
+     * are relayed to the containing store.
+     * See also: <code>{@link #endEdit}</code> and <code>{@link #cancelEdit}</code>.
      */
     beginEdit : function(){
         this.editing = true;

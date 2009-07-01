@@ -5,12 +5,12 @@
  */
  Ext.layout.MenuLayout = Ext.extend(Ext.layout.ContainerLayout, {
     monitorResize: true,
-    
+
     setContainer : function(ct){
         this.monitorResize = !ct.floating;
         Ext.layout.MenuLayout.superclass.setContainer.call(this, ct);
     },
-    
+
     renderItem : function(c, position, target){
         if (!this.itemTpl) {
             this.itemTpl = Ext.layout.MenuLayout.prototype.itemTpl = new Ext.XTemplate(
@@ -98,7 +98,7 @@ Ext.Container.LAYOUTS['menu'] = Ext.layout.MenuLayout;
  * for an example.</p>
  * <p>By default, Menus are absolutely positioned, floating Components. By configuring a Menu with
  * <b><tt>{@link #floating}:false</tt></b>, a Menu may be used as child of a Container.</p>
- * 
+ *
  * @xtype menu
  */
 Ext.menu.Menu = Ext.extend(Ext.Container, {
@@ -217,7 +217,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
              * @param {Ext.EventObject} e
              */
             'itemclick'
-        );    
+        );
         Ext.menu.MenuMgr.register(this);
         if(this.floating){
             Ext.EventManager.onWindowResize(this.hide, this);
@@ -244,7 +244,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
 
     // private
     onRender : function(ct, position){
-        if(!ct){ 
+        if(!ct){
             ct = Ext.getBody();
         }
 
@@ -444,7 +444,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         }
         this.el.setXY(xy);
         if(this.enableScrolling){
-            this.constrainScroll(xy[1]);     
+            this.constrainScroll(xy[1]);
         }
         this.el.show();
         Ext.menu.Menu.superclass.onShow.call(this);
@@ -507,7 +507,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
             });
         }
     },
-    
+
     onLayout: function(){
         if(this.isVisible()){
             if(this.enableScrolling){
@@ -569,7 +569,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
          }
          return c;
     },
-    
+
     applyDefaults : function(c){
         if(!Ext.isString(c)){
             c = Ext.menu.Menu.superclass.applyDefaults.call(this, c);
@@ -585,7 +585,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         }
         return c;
     },
-    
+
     // private
     getMenuItem: function(config){
        if(!config.isXType){
@@ -594,7 +594,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
             }
             return Ext.create(config, this.defaultType);
         }
-        return config; 
+        return config;
     },
 
     /**
@@ -651,7 +651,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         }
         var s = this.scroller;
         if(s){
-            Ext.destroy(s.topRepeater, s.bottomRepeater, s.top, s.bottom);    
+            Ext.destroy(s.topRepeater, s.bottomRepeater, s.top, s.bottom);
         }
     }
 });
@@ -678,7 +678,7 @@ Ext.menu.MenuNav = Ext.extend(Ext.KeyNav, function(){
 
         doRelay : function(e, h){
             var k = e.getKey();
-//          Keystrokes within a form Field (eg: down in a Combo) do not navigate. Allow only TAB
+//          Keystrokes within a form Field (e.g.: down in a Combo) do not navigate. Allow only TAB
             if (this.menu.activeItem && this.menu.activeItem.isFormField && k != e.TAB) {
                 return false;
             }

@@ -4,12 +4,12 @@
  * <p>After the data has been read into the client side cache (<b>{@link Ext.data.Store Store}</b>),
  * the ColumnModel is used to configure how and what parts of that data will be displayed in the
  * vertical slices (columns) of the grid. The Ext.grid.ColumnModel Class is the default implementation
- * of a ColumnModel used by implentations of {@link Ext.grid.GridPanel GridPanel}.</p> 
+ * of a ColumnModel used by implentations of {@link Ext.grid.GridPanel GridPanel}.</p>
  * <p>Data is mapped into the store's records and then indexed into the ColumnModel using the
  * <tt>{@link Ext.grid.Column#dataIndex dataIndex}</tt>:</p>
  * <pre><code>
 {data source} == mapping ==> {data store} == <b><tt>{@link Ext.grid.Column#dataIndex dataIndex}</tt></b> ==> {ColumnModel}
- * </code></pre> 
+ * </code></pre>
  * <p>Each {@link Ext.grid.Column Column} in the grid's ColumnModel is configured with a
  * <tt>{@link Ext.grid.Column#dataIndex dataIndex}</tt> to specify how the data within
  * each record in the store is indexed into the ColumnModel.</p>
@@ -40,7 +40,7 @@
  * <p>In order to use configuration options from <tt>Ext.grid.ColumnModel</tt>, an Object may be used to
  * initialize the ColumnModel.  The column configuration Array will be specified in the <tt><b>{@link #columns}</b></tt>
  * config property. The <tt><b>{@link #defaults}</b></tt> config property can be used to apply defaults
- * for all columns, eg:</p><pre><code>
+ * for all columns, e.g.:</p><pre><code>
  var colModel = new Ext.grid.ColumnModel({
     columns: [
         { header: "Ticker", width: 60, menuDisabled: false},
@@ -70,8 +70,8 @@
 }
 // modify the header row only, adding an icon to the column header
 .x-grid3-hd-company {
-    background: transparent 
-        url(../../resources/images/icons/silk/building.png) 
+    background: transparent
+        url(../../resources/images/icons/silk/building.png)
         no-repeat 3px 3px ! important;
         padding-left:20px;
 }
@@ -179,10 +179,10 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
     },
 
     /**
-     * <p>Reconfigures this column model according to the passed Array of column definition objects. 
-     * For a description of the individual properties of a column definition object, see the 
+     * <p>Reconfigures this column model according to the passed Array of column definition objects.
+     * For a description of the individual properties of a column definition object, see the
      * <a href="#Ext.grid.ColumnModel-configs">Config Options</a>.</p>
-     * <p>Causes the {@link #configchange} event to be fired. A {@link Ext.grid.GridPanel GridPanel} 
+     * <p>Causes the {@link #configchange} event to be fired. A {@link Ext.grid.GridPanel GridPanel}
      * using this ColumnModel will listen for this event and refresh its UI automatically.</p>
      * @param {Array} config Array of Column definition objects.
      * @param {Boolean} initial Specify <tt>true</tt> to bypass cleanup which deletes the <tt>totalWidth</tt>
@@ -366,7 +366,7 @@ var columns = grid.getColumnModel().getColumnsBy(function(c){
      * @param {Number} col The column index
      * @param {Number} width The new width
      * @param {Boolean} suppressEvent True to suppress firing the <code>{@link #widthchange}</code>
-     * event. Defaults to false. 
+     * event. Defaults to false.
      */
     setColumnWidth : function(col, width, suppressEvent){
         this.config[col].width = width;
@@ -542,7 +542,7 @@ var grid = new Ext.grid.GridPanel({
     /**
      * Sets if a column is hidden.
 <pre><code>
-myGrid.getColumnModel().setHidden(0, true); // hide column 0 (0 = the first column).  
+myGrid.getColumnModel().setHidden(0, true); // hide column 0 (0 = the first column).
 </code></pre>
      * @param {Number} colIndex The column index
      * @param {Boolean} hidden True if the column is hidden
@@ -565,7 +565,7 @@ myGrid.getColumnModel().setHidden(0, true); // hide column 0 (0 = the first colu
         Ext.destroy(this.config[col].editor);
         this.config[col].editor = editor;
     },
-    
+
     /**
      * Destroys this column model by purging any event listeners, and removing any editors.
      */

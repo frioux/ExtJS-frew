@@ -10,7 +10,7 @@
 Ext.data.Api = (function() {
 
     // private validActions.  validActions is essentially an inverted hash of Ext.data.Api.actions, where value becomes the key.
-    // Some methods in this singleton (eg: getActions, getVerb) will loop through actions with the code <code>for (var verb in this.actions)</code>
+    // Some methods in this singleton (e.g.: getActions, getVerb) will loop through actions with the code <code>for (var verb in this.actions)</code>
     // For efficiency, some methods will first check this hash for a match.  Those methods which do acces validActions will cache their result here.
     // We cannot pre-define this hash since the developer may over-ride the actions at runtime.
     var validActions = {};

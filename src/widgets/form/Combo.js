@@ -81,7 +81,7 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
      */
     /**
      * @cfg {Boolean} lazyRender <tt>true</tt> to prevent the ComboBox from rendering until requested
-     * (should always be used when rendering into an {@link Ext.Editor} (eg. {@link Ext.grid.EditorGridPanel Grids}),
+     * (should always be used when rendering into an {@link Ext.Editor} (e.g. {@link Ext.grid.EditorGridPanel Grids}),
      * defaults to <tt>false</tt>).
      */
     /**
@@ -857,11 +857,11 @@ var menu = new Ext.menu.Menu({
             this.fireEvent('select', this, record, index);
         }
     },
-    
+
     // inherit docs
     getName: function(){
         var hf = this.hiddenField;
-        return hf && hf.name ? hf.name : this.hiddenName || Ext.form.ComboBox.superclass.getName.call(this);    
+        return hf && hf.name ? hf.name : this.hiddenName || Ext.form.ComboBox.superclass.getName.call(this);
     },
 
     /**

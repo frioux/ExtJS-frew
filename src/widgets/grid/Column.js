@@ -1,6 +1,6 @@
 /**
  * @class Ext.grid.Column
- * <p>This class encapsulates column configuration data to be used in the initialization of a 
+ * <p>This class encapsulates column configuration data to be used in the initialization of a
  * {@link Ext.grid.ColumnModel ColumnModel}.</p>
  * <p>While subclasses are provided to render data in different ways, this class renders a passed
  * data field unchanged and is usually used for textual columns.</p>
@@ -46,7 +46,7 @@ Ext.grid.Column.prototype = {
     /**
      * @cfg {String} header Optional. The header text to be used as innerHTML
      * (html tags are accepted) to display in the Grid view.  <b>Note</b>: to
-     * have a clickable header with no text displayed use <tt>'&#160;'</tt>. 
+     * have a clickable header with no text displayed use <tt>'&#160;'</tt>.
      */
     /**
      * @cfg {Boolean} groupable Optional. If the grid is being rendered by an {@link Ext.grid.GroupingView}, this option
@@ -62,7 +62,7 @@ Ext.grid.Column.prototype = {
      */
     /**
      * @cfg {Function} groupRenderer <p>Optional. If the grid is being rendered by an {@link Ext.grid.GroupingView}, this option
-     * may be used to specify the function used to format the grouping field value for display in the group 
+     * may be used to specify the function used to format the grouping field value for display in the group
      * {@link #groupName header}.  If a <tt><b>groupRenderer</b></tt> is not specified, the configured
      * <tt><b>{@link #renderer}</b></tt> will be called; if a <tt><b>{@link #renderer}</b></tt> is also not specified
      * the new value of the group field will be used.</p>
@@ -83,7 +83,7 @@ Ext.grid.Column.prototype = {
      * @cfg {String} emptyGroupText Optional. If the grid is being rendered by an {@link Ext.grid.GroupingView}, this option
      * may be used to specify the text to display when there is an empty group value. Defaults to the
      * {@link Ext.grid.GroupingView}.{@link Ext.grid.GroupingView#emptyGroupText emptyGroupText}.
-     */    
+     */
     /**
      * @cfg {String} dataIndex <p><b>Required</b>. The name of the field in the
      * grid's {@link Ext.data.Store}'s {@link Ext.data.Record} definition from
@@ -140,7 +140,7 @@ Ext.grid.Column.prototype = {
      * <li>A string which references a property name of the {@link Ext.util.Format} class which
      * provides a renderer function.</li>
      * <li>An object specifying both the renderer function, and its execution scope (<tt><b>this</b></tt>
-     * reference) eg:<pre style="margin-left:1.2em"><code>
+     * reference) e.g.:<pre style="margin-left:1.2em"><code>
 {
     fn: this.gridRenderer,
     scope: this
@@ -148,26 +148,26 @@ Ext.grid.Column.prototype = {
 </code></pre></li></ul></div>
      * If not specified, the default renderer uses the raw data value.</p>
      * <p>For information about the renderer function (passed parameters, etc.), see
-     * {@link Ext.grid.ColumnModel#setRenderer}. An example of specifying renderer function inline:</p><pre><code>     
+     * {@link Ext.grid.ColumnModel#setRenderer}. An example of specifying renderer function inline:</p><pre><code>
 var companyColumn = {
    header: 'Company Name',
    dataIndex: 'company',
    renderer: function(value, metaData, record, rowIndex, colIndex, store) {
-      // provide the logic depending on business rules 
+      // provide the logic depending on business rules
       // name of your own choosing to manipulate the cell depending upon
       // the data in the underlying Record object.
       if (value == 'whatever') {
           //metaData.css : String : A CSS class name to add to the TD element of the cell.
           //metaData.attr : String : An html attribute definition string to apply to
           //                         the data container element within the table
-          //                         cell (e.g. 'style="color:red;"').      
+          //                         cell (e.g. 'style="color:red;"').
           metaData.css = 'name-of-css-class-you-will-define';
       }
       return value;
    }
-}     
+}
      * </code></pre>
-     * See also {@link #scope}.     
+     * See also {@link #scope}.
      */
     /**
      * @cfg {String} xtype Optional. A String which references a predefined {@link Ext.grid.Column} subclass
@@ -190,9 +190,9 @@ var grid = new Ext.grid.GridPanel({
         dataIndex: 'lastChange',
         width: 85,
         sortable: true,
-        //renderer: Ext.util.Format.dateRenderer('m/d/Y'), 
+        //renderer: Ext.util.Format.dateRenderer('m/d/Y'),
         xtype: 'datecolumn', // use xtype instead of renderer
-        format: 'M/d/Y' // configuration property for {@link Ext.grid.DateColumn} 
+        format: 'M/d/Y' // configuration property for {@link Ext.grid.DateColumn}
     }, {
         ...
     }]
@@ -277,7 +277,7 @@ var grid = new Ext.grid.GridPanel({
 /**
  * @class Ext.grid.BooleanColumn
  * @extends Ext.grid.Column
- * <p>A Column definition class which renders boolean data fields.  See the {@link Ext.grid.ColumnModel#xtype xtype} 
+ * <p>A Column definition class which renders boolean data fields.  See the {@link Ext.grid.ColumnModel#xtype xtype}
  * config option of {@link Ext.grid.ColumnModel} for more details.</p>
  */
 Ext.grid.BooleanColumn = Ext.extend(Ext.grid.Column, {
@@ -355,7 +355,7 @@ Ext.grid.DateColumn = Ext.extend(Ext.grid.Column, {
 /**
  * @class Ext.grid.TemplateColumn
  * @extends Ext.grid.Column
- * <p>A Column definition class which renders a value by processing a {@link Ext.data.Record Record}'s 
+ * <p>A Column definition class which renders a value by processing a {@link Ext.data.Record Record}'s
  * {@link Ext.data.Record#data data} using a {@link #tpl configured} {@link Ext.XTemplate XTemplate}.
  * See the {@link Ext.grid.ColumnModel#xtype xtype} config option of {@link Ext.grid.ColumnModel} for more
  * details.</p>
