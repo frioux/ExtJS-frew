@@ -411,7 +411,7 @@ Ext.extend(T, Ext.Container, {
 
     // private
     lookupComponent : function(c){
-        if(typeof c == 'string'){
+        if(Ext.isString(c)){
             if(c == '-'){
                 c = new T.Separator();
             }else if(c == ' '){
@@ -438,7 +438,7 @@ Ext.extend(T, Ext.Container, {
 
     // private
     applyDefaults : function(c){
-        if(typeof c != 'string'){
+        if(!Ext.isString(c)){
             c = Ext.Toolbar.superclass.applyDefaults.call(this, c);
             var d = this.internalDefaults;
             if(c.events){
@@ -452,8 +452,8 @@ Ext.extend(T, Ext.Container, {
     },
 
     // private
-    constructItem : function(item){
-        return Ext.create(item, 'button');
+    constructItem : function(item, type){
+        return Ext.create(item, type || this.defaultType);
     },
 
     /**
@@ -573,7 +573,7 @@ Ext.extend(T, Ext.Container, {
 
     // private
     constructButton : function(item){
-        var b = item.events ? item : this.constructItem(item);
+        var b = item.events ? item : this.constructItem(item, item.split ? 'splitbutton' : this.defaultType);
         this.initMenuTracking(b);
         return b;
     },
@@ -745,7 +745,7 @@ new Ext.Panel({
  */
 T.TextItem = Ext.extend(T.Item, {
     constructor: function(config){
-        if (typeof config == 'string') {
+        if (Ext.isString(config)) {
             config = { autoEl: {cls: 'xtb-text', html: config }};
         } else {
             config.autoEl = {cls: 'xtb-text', html: config.text || ''};
