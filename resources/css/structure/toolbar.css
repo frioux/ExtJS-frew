@@ -210,7 +210,7 @@ div.x-toolbar-no-items {
     top:-1px;
 }
 
-.ext-ie8 .x-toolbar-cell .x-form-field-trigger-wrap .x-form-text, .ext-strict .ext-ie .x-toolbar-cell .x-form-text {
+.ext-strict .ext-ie8 .x-toolbar-cell .x-form-field-trigger-wrap .x-form-text, .ext-strict .ext-ie .x-toolbar-cell .x-form-text {
     top: 0px;
 }
 
