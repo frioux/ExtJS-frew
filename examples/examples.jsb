@@ -395,6 +395,13 @@
   <file name="organizer\organizer.css" path="organizer" />
   <file name="organizer\organizer.html" path="organizer" />
   <file name="organizer\organizer.js" path="organizer" />
+  <file name="panel\bubble-panel.html" path="panel" />
+  <file name="panel\bubble-panel.js" path="panel" />
+  <file name="panel\BubblePanel.js" path="panel" />
+  <file name="panel\css\bubble.css" path="panel\css" />
+  <file name="panel\images\bubble-cs.gif" path="panel\images" />
+  <file name="panel\images\bubble-lr.gif" path="panel\images" />
+  <file name="panel\images\bubble-tb.gif" path="panel\images" />
   <file name="panel\panels.html" path="panel" />
   <file name="panel\panels.js" path="panel" />
   <file name="portal\portal.html" path="portal" />
