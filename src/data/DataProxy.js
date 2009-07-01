@@ -187,15 +187,15 @@ myStore.on({
         'exception',
         /**
          * @event beforeload
-         * Fires before a network request is made to retrieve a data object.
-         * @param {DataProxy} this The proxy that sent the request
+         * Fires before a request to retrieve a data object.
+         * @param {DataProxy} this The proxy for the request
          * @param {Object} params The params object passed to the {@link #request} function
          */
         'beforeload',
         /**
          * @event load
          * Fires before the load method's callback is called.
-         * @param {DataProxy} this The proxy that sent the request
+         * @param {DataProxy} this The proxy for the request
          * @param {Object} o The request transaction object
          * @param {Object} options The callback's <tt>options</tt> property as passed to the {@link #request} function
          */
@@ -211,18 +211,18 @@ myStore.on({
         'loadexception',
         /**
          * @event beforewrite
-         * Fires before a network request is generated for one of the actions Ext.data.Api.actions.create|update|destroy
-         * @param {DataProxy} this The proxy that sent the request
+         * Fires before a request is generated for one of the actions Ext.data.Api.actions.create|update|destroy
+         * @param {DataProxy} this The proxy for the request
          * @param {String} action [Ext.data.Api.actions.create|update|destroy]
-         * @param {Record/Array[Record]} rs
-         * @param {Object} params HTTP request-params object.  Edit <code>params</code> to add Http parameters to the request.
+         * @param {Record/Array[Record]} rs The Record(s) to create|update|destroy.
+         * @param {Object} params The request <code>params</code> object.  Edit <code>params</code> to add parameters to the request.
          */
         'beforewrite',
         /**
          * @event write
          * Fires before the request-callback is called
          * @param {DataProxy} this The proxy that sent the request
-         * @param {String} action [Ext.data.Api.actions.create|read|upate|destroy]
+         * @param {String} action [Ext.data.Api.actions.create|upate|destroy]
          * @param {Object} data The data object extracted from the server-response
          * @param {Object} response The decoded response from server
          * @param {Record/Record{}} rs The records from Store
