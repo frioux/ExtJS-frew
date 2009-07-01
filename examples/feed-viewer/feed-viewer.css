@@ -200,9 +200,10 @@ body.x-border-layout-ct {
     border-top:0 none;
 }*/
 .reading-menu .x-menu-item-checked {
-   border:1px dotted #a3bae9 !important;
+    border:1px dotted #a3bae9 !important;
     background:#DFE8F6;
-	padding:0;
+    padding:0;
+    margin: 0;
 }
 .x-tab-panel-header {
     border-bottom-width:0 !important;
