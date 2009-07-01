@@ -165,6 +165,13 @@ ul.x-tab-strip li.x-tab-edge {
     margin-bottom:-1px;
 }
 
+/*
+ * Horrible hack for IE8 in quirks mode
+ */
+.ext-border-box .ext-ie8 .x-tab-strip .x-tab-right{
+    top: 1px;
+}
+
 .x-tab-strip-top .x-tab-strip-active .x-tab-right span.x-tab-strip-text {
     padding-bottom:5px;
 }
