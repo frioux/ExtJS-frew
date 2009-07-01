@@ -535,6 +535,7 @@ viewConfig: {
         var tw = this.getTotalWidth(),
             clen = this.cm.getColumnCount(),
             ws = [],
+            len,
             i;
         for(i = 0; i < clen; i++){
             ws[i] = this.getColumnWidth(i);
@@ -990,7 +991,7 @@ viewConfig: {
         ctop -= this.mainHd.dom.offsetHeight;
 
         var cbot = ctop + rowEl.offsetHeight,
-            ch = c.clientHeight;
+            ch = c.clientHeight,
             sbot = stop + ch;
             
         stop = parseInt(c.scrollTop, 10);
