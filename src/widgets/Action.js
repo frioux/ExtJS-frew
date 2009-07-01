@@ -185,8 +185,7 @@ Ext.Action.prototype = {
     },
 
     /**
-     * Returns true if the components using this action are currently hidden, else returns false.  Read-only.
-     * @property
+     * Returns true if the components using this action are currently hidden, else returns false.  
      */
     isHidden : function(){
         return this.initialConfig.hidden;
