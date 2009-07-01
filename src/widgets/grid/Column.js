@@ -39,7 +39,7 @@ Ext.grid.Column.prototype = {
      * table cells (including headers) in that column (in this context the <tt>id</tt> does not need to be
      * unique). The class name takes the form of <pre>x-grid3-td-<b>id</b></pre>
      * Header cells will also receive this class name, but will also have the class <pre>x-grid3-hd</pre>
-     * So, to target header cells, use CSS selectors such as:<pre>.x-grid3-hd.x-grid3-td-<b>id</b></pre>
+     * So, to target header cells, use CSS selectors such as:<pre>.x-grid3-hd-row .x-grid3-td-<b>id</b></pre>
      * The {@link Ext.grid.GridPanel#autoExpandColumn} grid config option references the column via this
      * unique identifier.
      */
