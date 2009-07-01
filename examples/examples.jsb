@@ -520,11 +520,9 @@
   <file name="shared\icons\fam\user_red.png" path="shared\icons\fam" />
   <file name="shared\icons\fam\user_suit.gif" path="shared\icons\fam" />
   <file name="shared\icons\fam\user_suit.png" path="shared\icons\fam" />
-  <file name="shared\screens\absolute.gif" path="shared\screens" />
-  <file name="shared\screens\acc-key.gif" path="shared\screens" />
+  <file name="shared\screens\acc-tree.gif" path="shared\screens" />
   <file name="shared\screens\air.gif" path="shared\screens" />
   <file name="shared\screens\anchor.gif" path="shared\screens" />
-  <file name="shared\screens\anchor-panel.gif" path="shared\screens" />
   <file name="shared\screens\blank.gif" path="shared\screens" />
   <file name="shared\screens\border-layout.gif" path="shared\screens" />
   <file name="shared\screens\buttons.gif" path="shared\screens" />
@@ -543,8 +541,6 @@
   <file name="shared\screens\debug-console.gif" path="shared\screens" />
   <file name="shared\screens\desktop.gif" path="shared\screens" />
   <file name="shared\screens\direct.gif" path="shared\screens" />
-  <file name="shared\screens\direct-form.gif" path="shared\screens" />
-  <file name="shared\screens\direct-tree.gif" path="shared\screens" />
   <file name="shared\screens\docs.gif" path="shared\screens" />
   <file name="shared\screens\feeds.gif" path="shared\screens" />
   <file name="shared\screens\form-adv-vtypes.gif" path="shared\screens" />
@@ -565,7 +561,6 @@
   <file name="shared\screens\grid-filter.gif" path="shared\screens" />
   <file name="shared\screens\grid-from-markup.gif" path="shared\screens" />
   <file name="shared\screens\grid-grouping.gif" path="shared\screens" />
-  <file name="shared\screens\grid-hybrid.gif" path="shared\screens" />
   <file name="shared\screens\grid-paging.gif" path="shared\screens" />
   <file name="shared\screens\grid-plugins.gif" path="shared\screens" />
   <file name="shared\screens\grid-property.gif" path="shared\screens" />
@@ -573,12 +568,15 @@
   <file name="shared\screens\grid-summary.gif" path="shared\screens" />
   <file name="shared\screens\grid-xml.gif" path="shared\screens" />
   <file name="shared\screens\group-tabs.gif" path="shared\screens" />
-  <file name="shared\screens\hbox.gif" path="shared\screens" />
   <file name="shared\screens\history.gif" path="shared\screens" />
   <file name="shared\screens\image-organizer.gif" path="shared\screens" />
+  <file name="shared\screens\keyboard.gif" path="shared\screens" />
+  <file name="shared\screens\layout-absolute.gif" path="shared\screens" />
   <file name="shared\screens\layout-accordion.gif" path="shared\screens" />
+  <file name="shared\screens\layout-anchor.gif" path="shared\screens" />
   <file name="shared\screens\layout-browser.gif" path="shared\screens" />
   <file name="shared\screens\layout-column.gif" path="shared\screens" />
+  <file name="shared\screens\layout-form.gif" path="shared\screens" />
   <file name="shared\screens\layout-table.gif" path="shared\screens" />
   <file name="shared\screens\list-view.gif" path="shared\screens" />
   <file name="shared\screens\locale-dutch.gif" path="shared\screens" />
@@ -612,7 +610,6 @@
   <file name="shared\screens\tree-reorder.gif" path="shared\screens" />
   <file name="shared\screens\tree-two.gif" path="shared\screens" />
   <file name="shared\screens\tree-xml-loader.gif" path="shared\screens" />
-  <file name="shared\screens\vbox.gif" path="shared\screens" />
   <file name="shared\screens\window.gif" path="shared\screens" />
   <file name="shared\screens\window-layout.gif" path="shared\screens" />
   <file name="shared\screens\writer-thumb.gif" path="shared\screens" />
