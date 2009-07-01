@@ -3,7 +3,7 @@
 if (!Array.prototype.map) {
     Array.prototype.map = function(fun){
         var len = this.length;
-        if (typeof fun != "function") {
+        if (typeof fun != 'function') {
             throw new TypeError();
         }
         var res = new Array(len);
@@ -37,7 +37,7 @@ Ext.ux.data.PagingMemoryProxy = Ext.extend(Ext.data.MemoryProxy, {
             result = reader.readRecords(this.data);
         } 
         catch (e) {
-            this.fireEvent("loadexception", this, options, null, e);
+            this.fireEvent('loadexception', this, options, null, e);
             callback.call(scope, null, options, false);
             return;
         }
@@ -45,7 +45,7 @@ Ext.ux.data.PagingMemoryProxy = Ext.extend(Ext.data.MemoryProxy, {
         // filtering
         if (params.filter !== undefined) {
             result.records = result.records.filter(function(el){
-                if (typeof(el) == "object") {
+                if (typeof(el) == 'object') {
                     var att = params.filterCol || 0;
                     return String(el.data[att]).match(params.filter) ? true : false;
                 }
@@ -60,13 +60,13 @@ Ext.ux.data.PagingMemoryProxy = Ext.extend(Ext.data.MemoryProxy, {
         if (params.sort !== undefined) {
             // use integer as params.sort to specify column, since arrays are not named
             // params.sort=0; would also match a array without columns
-            var dir = String(params.dir).toUpperCase() == "DESC" ? -1 : 1;
+            var dir = String(params.dir).toUpperCase() == 'DESC' ? -1 : 1;
             var fn = function(r1, r2){
                 return r1 < r2;
             };
             result.records.sort(function(a, b){
                 var v = 0;
-                if (typeof(a) == "object") {
+                if (typeof(a) == 'object') {
                     v = fn(a.data[params.sort], b.data[params.sort]) * dir;
                 }
                 else {
