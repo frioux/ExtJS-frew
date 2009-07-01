@@ -16,7 +16,7 @@ Ext.onReady(function(){
             nodeType: 'async',
             text: 'Ext JS',
             draggable: false,
-            id: 'source'
+            id: 'src'
         }
     });
 

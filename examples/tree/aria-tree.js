@@ -22,7 +22,7 @@ var TreeTest = function(){
             var root = new Tree.AsyncTreeNode({
                 text: 'Ext JS',
                 draggable:false, // disable root node dragging
-                id:'source'
+                id:'src'
             });
             tree.setRootNode(root);
 
