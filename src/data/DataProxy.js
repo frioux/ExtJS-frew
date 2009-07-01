@@ -176,7 +176,7 @@ myStore.on({
          * <div class="mdetail-params"><ul>
          * <li><b><tt>'response'</tt></b> : Error<div class="sub-desc">
          * <p>The JavaScript Error object caught if the configured Reader could not read the data.
-         * If the load call returned success===false, this parameter will be null.</p>
+         * If the remote request returns success===false, this parameter will be null.</p>
          * </div></li>
          * <li><b><tt>'remote'</tt></b> : Record/Record[]<div class="sub-desc">
          * <p>This parameter will only exist if the <tt>action</tt> was a <b>write</b> action

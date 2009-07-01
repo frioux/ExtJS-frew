@@ -46,6 +46,7 @@ Ext.data.ScriptTagProxy = function(config){
 
     /**
      * @event loadexception
+     * <b>Deprecated</b> in favor of 'exception' event.
      * Fires if an exception occurs in the Proxy during data loading.  This event can be fired for one of two reasons:
      * <ul><li><b>The load call timed out.</b>  This means the load callback did not execute within the time limit
      * specified by {@link #timeout}.  In this case, this event will be raised and the
@@ -60,7 +61,7 @@ Ext.data.ScriptTagProxy = function(config){
      * call timed out, this parameter will be null.
      * @param {Object} arg The callback's arg object passed to the {@link #load} function
      * @param {Error} e The JavaScript Error object caught if the configured Reader could not read the data.
-     * If the load call returned success: false, this parameter will be null.
+     * If the remote request returns success: false, this parameter will be null.
      */
 };
 
