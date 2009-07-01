@@ -530,7 +530,7 @@ Ext.samples.samplesCatalog = [{
         url: 'panel/bubble-panel.html',
         icon: 'panel-bubble.gif',
         desc: 'An example illustrating customization of a standard panel.',
-        status: 'updated'
+        status: 'new'
     },{
         text: 'Resizable',
         url: 'resizable/basic.html',
