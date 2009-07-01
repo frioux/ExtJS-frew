@@ -13,7 +13,7 @@ Ext.ux.tree.ColumnTree = Ext.extend(Ext.tree.TreePanel, {
 
     onRender : function(){
         Ext.tree.ColumnTree.superclass.onRender.apply(this, arguments);
-        this.headers = this.bwrap.createChild({cls:'x-tree-headers'});
+        this.headers = this.header.createChild({cls:'x-tree-headers'});
 
         var cols = this.columns, c;
         var totalWidth = 0;
