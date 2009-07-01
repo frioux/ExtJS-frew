@@ -84,16 +84,6 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
         return (Ext.isIE6 && Ext.isStrict && target.dom == document.body) ? target.getStyleSize() : target.getViewSize();
     },
     
-    // private
-    checkSize: function(w, h){
-        if((Ext.isIE && !Ext.isStrict) && (w < 1 || h < 1)){
-            return false;
-        }else if(w < 1 && h < 1){
-            return false;
-        }
-        return true;
-    },
-    
     getItems: function(ct){
         var items = [];
         ct.items.each(function(c){
@@ -172,10 +162,6 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             totalFlex = 0,
             flexHeight = 0,
             usedHeight = 0;
-           
-        if(!this.checkSize()){
-            return;
-        }
             
         Ext.each(cs, function(c){
             cm = c.margins;
@@ -202,12 +188,12 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                 break;
         }
 
-        var availHeight = h - this.padding.top - this.padding.bottom - flexHeight,
+        var availHeight = Math.max(0, h - this.padding.top - this.padding.bottom - flexHeight),
             leftOver = availHeight,
             heights = [],
             restore = [],
             idx = 0,
-            availableWidth = w - this.padding.left - this.padding.right;
+            availableWidth = Math.max(0, w - this.padding.left - this.padding.right);
             
 
         Ext.each(cs, function(c){
@@ -329,10 +315,6 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             totalFlex = 0,
             flexWidth = 0,
             usedWidth = 0;
-            
-        if(!this.checkSize()){
-            return;
-        }
         
         Ext.each(cs, function(c){
             cm = c.margins;
@@ -360,12 +342,12 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         }
         
 
-        var availWidth = w - this.padding.left - this.padding.right - flexWidth,
+        var availWidth = Math.max(0, w - this.padding.left - this.padding.right - flexWidth),
             leftOver = availWidth,
             widths = [],
             restore = [],
             idx = 0,
-            availableHeight = h - this.padding.top - this.padding.bottom;
+            availableHeight = Math.max(0, h - this.padding.top - this.padding.bottom);
             
 
         Ext.each(cs, function(c){
