@@ -131,7 +131,9 @@ Ext.DataView.DragSelector = function(cfg){
     }
 
     function onEnd(e){
-        view.un('containerclick', cancelClick, view);
+        if (!Ext.isIE) {
+            view.un('containerclick', cancelClick, view);    
+        }        
         if(proxy){
             proxy.setDisplayed(false);
         }
