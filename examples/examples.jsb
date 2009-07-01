@@ -775,6 +775,7 @@
   <file name="ux\SpinnerField.js" path="ux" />
   <file name="ux\Spinner.js" path="ux" />
   <file name="ux\Spinner.css" path="ux" />
+  <file name="ux\css\Spinner.css" path="ux\css" />
   <file name="ux\Spotlight.js" path="ux" />
   <file name="ux\TabCloseMenu.js" path="ux" />
   <file name="ux\TableGrid.js" path="ux" />
