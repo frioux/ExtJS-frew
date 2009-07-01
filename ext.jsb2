@@ -72,6 +72,24 @@
             path: 'src/adapter/'
         }]
     },{
+        name: 'Prototype Adapter',
+        file: 'adapter/prototype/ext-prototype-adapter.js',
+        type: 'js',
+        isDebug: true,
+        fileIncludes: [{
+            text: 'Ext.js',
+            path: 'src/core/core/'
+        },{
+            text: 'Ext-more.js',
+            path: 'src/core/'
+        },{
+            text: 'TaskMgr.js',
+            path: 'src/util/core/'
+        },{
+            text: 'prototype-bridge.js',
+            path: 'src/adapter/'
+        }]
+    },{
         name: 'jQuery Adapter',
         file: 'adapter/jquery/ext-jquery-adapter.js',
         type: 'js',
