@@ -30,7 +30,7 @@
  */
 Ext.form.BasicForm = function(el, config){
     Ext.apply(this, config);
-    if(typeof this.paramOrder == 'string'){
+    if(Ext.isString(this.paramOrder)){
         this.paramOrder = this.paramOrder.split(/[\s,|]/);
     }
     /*
@@ -368,7 +368,7 @@ new Ext.FormPanel({
      * @return {BasicForm} this
      */
     doAction : function(action, options){
-        if(typeof action == 'string'){
+        if(Ext.isString(action)){
             action = new Ext.form.Action.ACTION_TYPES[action](this, options);
         }
         if(this.fireEvent('beforeaction', this, action) !== false){
