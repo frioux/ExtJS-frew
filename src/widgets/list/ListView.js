@@ -224,11 +224,11 @@ Ext.ListView = Ext.extend(Ext.DataView, {
             var c = cs[i];
             if(!c.tpl){
                 c.tpl = new Ext.XTemplate('{' + c.dataIndex + '}');
-            }else if(typeof c.tpl == 'string'){
+            }else if(Ext.isString(c.tpl)){
                 c.tpl = new Ext.XTemplate(c.tpl);
             }
             c.align = c.align || 'left';
-            if(typeof c.width == 'number'){
+            if(Ext.isNumber(c.width)){
                 c.width *= 100;
                 allocatedWidth += c.width;
                 colsWithWidth++;
@@ -241,7 +241,7 @@ Ext.ListView = Ext.extend(Ext.DataView, {
                 var perCol = ((100-allocatedWidth) / remaining);
                 for(var j = 0; j < len; j++){
                     var c = cs[j];
-                    if(typeof c.width != 'number'){
+                    if(!Ext.isNumber(c.width)){
                         c.width = perCol;
                     }
                 }
@@ -303,7 +303,7 @@ Ext.ListView = Ext.extend(Ext.DataView, {
             return;
         }
         var bdp = bd.parentNode;
-        if(typeof w == 'number'){
+        if(Ext.isNumber(w)){
             var sw = w - this.scrollOffset;
             if(this.reserveScrollOffset || ((bdp.offsetWidth - bdp.clientWidth) > 10)){
                 bd.style.width = sw + 'px';
@@ -319,7 +319,7 @@ Ext.ListView = Ext.extend(Ext.DataView, {
                 }, 10);
             }
         }
-        if(typeof h == 'number'){
+        if(Ext.isNumber(h == 'number')){
             bdp.style.height = (h - hd.parentNode.offsetHeight) + 'px';
         }
     },

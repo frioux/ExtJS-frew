@@ -78,6 +78,7 @@
             'itemdrag',
             'itemdragend'
         );
+        this.store = Ext.StoreMgr.lookup(this.store);
     },
 
     /**

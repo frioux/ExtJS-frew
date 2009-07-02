@@ -123,7 +123,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
     // private
     initComponent : function(){
         Ext.DataView.superclass.initComponent.call(this);
-        if(typeof this.tpl == "string" || Ext.isArray(this.tpl)){
+        if(Ext.isString(this.tpl) || Ext.isArray(this.tpl)){
             this.tpl = new Ext.XTemplate(this.tpl);
         }
 
@@ -214,6 +214,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
             "beforeselect"
         );
 
+        this.store = Ext.StoreMgr.lookup(this.store);
         this.all = new Ext.CompositeElementLite();
         this.selected = new Ext.CompositeElementLite();
     },
@@ -674,9 +675,9 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
      * @return {HTMLElement} The node or null if it wasn't found
      */
     getNode : function(nodeInfo){
-        if(typeof nodeInfo == "string"){
+        if(Ext.isString(nodeInfo)){
             return document.getElementById(nodeInfo);
-        }else if(typeof nodeInfo == "number"){
+        }else if(Ext.isNumber(nodeInfo)){
             return this.all.elements[nodeInfo];
         }
         return nodeInfo;
@@ -691,7 +692,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
     getNodes : function(start, end){
         var ns = this.all.elements;
         start = start || 0;
-        end = typeof end == "undefined" ? Math.max(ns.length - 1, 0) : end;
+        end = !Ext.isDefined(end) ? Math.max(ns.length - 1, 0) : end;
         var nodes = [], i;
         if(start <= end){
             for(i = start; i <= end && ns[i]; i++){
@@ -712,7 +713,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
      */
     indexOf : function(node){
         node = this.getNode(node);
-        if(typeof node.viewIndex == "number"){
+        if(Ext.isNumber(node.viewIndex)){
             return node.viewIndex;
         }
         return this.all.indexOf(node);
