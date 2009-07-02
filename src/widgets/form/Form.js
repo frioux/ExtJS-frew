@@ -140,7 +140,7 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
 
     // private
     createForm : function(){
-        var config = Ext.apply({listeners: {}}, this.initialConfig);
+        var config = Ext.applyIf({listeners: {}}, this.initialConfig);
         return new Ext.form.BasicForm(null, config);
     },
 
