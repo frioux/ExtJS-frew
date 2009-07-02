@@ -289,7 +289,7 @@ viewConfig: {
 
         for(var k in ts){
             var t = ts[k];
-            if(t && typeof t.compile == 'function' && !t.compiled){
+            if(t && Ext.isFunction(t.compile) && !t.compiled){
                 t.disableFormats = true;
                 t.compile();
             }
@@ -632,7 +632,7 @@ viewConfig: {
                 if(Ext.isEmpty(p.value)){
                     p.value = "&#160;";
                 }
-                if(this.markDirty && r.dirty && typeof r.modified[c.name] !== 'undefined'){
+                if(this.markDirty && r.dirty && Ext.isDefined(r.modified[c.name])){
                     p.css += ' x-grid3-dirty-cell';
                 }
                 cb[cb.length] = ct.apply(p);
@@ -932,7 +932,7 @@ viewConfig: {
     },
 
     resolveCell : function(row, col, hscroll){
-        if(typeof row != "number"){
+        if(!Ext.isNumber(row)){
             row = row.rowIndex;
         }
         if(!this.ds){
@@ -1083,7 +1083,7 @@ viewConfig: {
     // private
     getColumnWidth : function(col){
         var w = this.cm.getColumnWidth(col);
-        if(typeof w == 'number'){
+        if(Ext.isNumber(w)){
             return (Ext.isBorderBox ? w : (w-this.borderWidth > 0 ? w-this.borderWidth:0)) + 'px';
         }
         return w;
@@ -1110,7 +1110,7 @@ viewConfig: {
         }
 
         var vc = cm.getColumnCount(true);
-        var ac = vc-(typeof omitColumn == 'number' ? 1 : 0);
+        var ac = vc-(Ext.isNumber(omitColumn) ? 1 : 0);
         if(ac === 0){
             ac = 1;
             omitColumn = undefined;
@@ -1177,7 +1177,7 @@ viewConfig: {
         for(var i = 0; i < colCount; i++){
             var name = cm.getDataIndex(i);
             cs[i] = {
-                name : (typeof name == 'undefined' ? this.ds.fields.get(i).name : name),
+                name : (!Ext.isDefined(name) ? this.ds.fields.get(i).name : name),
                 renderer : cm.getRenderer(i),
                 id : cm.getColumnId(i),
                 style : this.getColumnStyle(i)
@@ -1199,7 +1199,7 @@ viewConfig: {
         var cs = this.getColumnData();
 
         startRow = startRow || 0;
-        endRow = typeof endRow == "undefined"? ds.getCount()-1 : endRow;
+        endRow = !Ext.isDefined(endRow) ? ds.getCount()-1 : endRow;
 
         // records to render
         var rs = ds.getRange(startRow, endRow);
@@ -1216,7 +1216,7 @@ viewConfig: {
     // private
     refreshRow : function(record){
         var ds = this.ds, index;
-        if(typeof record == 'number'){
+        if(Ext.isNumber(record)){
             index = record;
             record = ds.getAt(index);
             if(!record){

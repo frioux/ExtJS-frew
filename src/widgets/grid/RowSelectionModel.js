@@ -73,13 +73,6 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
 
         if(!this.grid.enableDragDrop && !this.grid.enableDrag){
             this.grid.on("rowmousedown", this.handleMouseDown, this);
-        }else{ // allow click to work like normal
-            this.grid.on("rowclick", function(grid, rowIndex, e) {
-                if(e.button === 0 && !e.shiftKey && !e.ctrlKey) {
-                    this.selectRow(rowIndex, false);
-                    grid.view.focusRow(rowIndex);
-                }
-            }, this);
         }
 
         this.rowNav = new Ext.KeyNav(this.grid.getGridEl(), {
@@ -319,7 +312,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
      * @return {Boolean}
      */
     isSelected : function(index){
-        var r = typeof index == "number" ? this.grid.store.getAt(index) : index;
+        var r = Ext.isNumber(index) ? this.grid.store.getAt(index) : index;
         return (r && this.selections.key(r.id) ? true : false);
     },
 
