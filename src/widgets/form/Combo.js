@@ -425,8 +425,8 @@ var combo = new Ext.form.ComboBox({
             if(!this.lazyRender){
                 this.target = true;
                 this.el = Ext.DomHelper.insertBefore(s, this.autoCreate || this.defaultAutoCreate);
+                this.render(this.el.parentNode, s);
                 Ext.removeNode(s); // remove it
-                this.render(this.el.parentNode);
             }else{
                 Ext.removeNode(s); // remove it
             }
