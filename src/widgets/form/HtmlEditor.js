@@ -206,6 +206,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                 handler:handler||editor.relayBtnCmd,
                 clickEvent:'mousedown',
                 tooltip: tipsEnabled ? editor.buttonTips[id] || undefined : undefined,
+                overflowText: editor.buttonTips[id].title || undefined,
                 tabIndex:-1
             };
         }
