@@ -135,14 +135,14 @@ Ext.data.Record.prototype = {
      */
     dirty : false,
     editing : false,
-    error: null,
+    error : null,
     /**
      * This object contains a key and value storing the original values of all modified
      * fields or is null if no fields have been modified.
      * @property modified
      * @type {Object}
      */
-    modified: null,
+    modified : null,
     /**
      * <tt>false</tt> when the record does not yet exist in a server-side database (see
      * {@link #markDirty}).  Any record which has a real database pk set as its id property
@@ -217,21 +217,21 @@ rec.{@link #commit}(); // updates the view
     },
 
     // private
-    afterEdit: function(){
+    afterEdit : function(){
         if(this.store){
             this.store.afterEdit(this);
         }
     },
 
     // private
-    afterReject: function(){
+    afterReject : function(){
         if(this.store){
             this.store.afterReject(this);
         }
     },
 
     // private
-    afterCommit: function(){
+    afterCommit : function(){
         if(this.store){
             this.store.afterCommit(this);
         }
