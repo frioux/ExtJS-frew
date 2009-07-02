@@ -194,7 +194,7 @@ rec.{@link #commit}(); // updates the view
      * event fire.</li>
      * </ul></div>
      * @param {String} name The {@link Ext.data.Field#name name of the field} to set.
-     * @param {Object} value The value to set the field to.
+     * @param {String/Object/Array} value The value to set the field to.
      */
     set : function(name, value){
         var isObj = (typeof value === 'object');
