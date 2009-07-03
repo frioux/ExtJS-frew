@@ -261,7 +261,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
     },
     
     // private
-    onDisable: function(){
+    onDisable : function(){
         Ext.DatePicker.superclass.onDisable.call(this);   
         this.doDisabled(true);
         if(Ext.isIE && !Ext.isIE8){
@@ -276,7 +276,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
     },
     
     // private
-    doDisabled: function(disabled){
+    doDisabled : function(disabled){
         this.keyNav.setDisabled(disabled);
         this.prevRepeater.setDisabled(disabled);
         this.nextRepeater.setDisabled(disabled);
