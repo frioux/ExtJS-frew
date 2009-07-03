@@ -82,6 +82,20 @@ cp.colors = ["000000", "993300", "333300"];
         "FF99CC", "FFCC99", "FFFF99", "CCFFCC", "CCFFFF", "99CCFF", "CC99FF", "FFFFFF"
     ],
 
+    /**
+     * @cfg {Function} handler
+     * Optional. A function that will handle the select event of this palette.
+     * The handler is passed the following parameters:<div class="mdetail-params"><ul>
+     * <li><code>palette</code> : ColorPalette<div class="sub-desc">The {@link #palette Ext.ColorPalette}.</div></li>
+     * <li><code>color</code> : String<div class="sub-desc">The 6-digit color hex code (without the # symbol).</div></li>
+     * </ul></div>
+     */
+    /**
+     * @cfg {Object} scope
+     * The scope (<tt><b>this</b></tt> reference) in which the <code>{@link #handler}</code>
+     * function will be called.  Defaults to this ColorPalette instance.
+     */
+
     // private
     onRender : function(container, position){
         var t = this.tpl || new Ext.XTemplate(
