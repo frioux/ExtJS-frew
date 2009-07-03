@@ -1,7 +1,15 @@
 /**
  * @class Ext.menu.ColorMenu
  * @extends Ext.menu.Menu
- * A menu containing a {@link Ext.ColorPalette} Component.
+ * <p>A menu containing a {@link Ext.ColorPalette} Component.</p>
+ * <p>Notes:</p><div class="mdetail-params"><ul>
+ * <li>Although not listed here, the <b>constructor</b> for this class
+ * accepts all of the configuration options of <b>{@link Ext.ColorPalette}</b>.</li>
+ * <li>If subclassing ColorMenu, any configuration options for the ColorPalette must be
+ * applied to the <tt><b>initialConfig</b></tt> property of the ColorMenu.
+ * Applying {@link Ext.ColorPalette ColorPalette} configuration settings to
+ * <b><tt>this</tt></b> will <b>not</b> affect the ColorPalette's configuration.</li>
+ * </ul></div> * 
  * @xtype colormenu
  */
  Ext.menu.ColorMenu = Ext.extend(Ext.menu.Menu, {
