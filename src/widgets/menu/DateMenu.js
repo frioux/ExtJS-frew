@@ -1,7 +1,15 @@
 /**
  * @class Ext.menu.DateMenu
  * @extends Ext.menu.Menu
- * A menu containing an {@link Ext.DatePicker} Component.
+ * <p>A menu containing an {@link Ext.DatePicker} Component.</p>
+ * <p>Notes:</p><div class="mdetail-params"><ul>
+ * <li>Although not listed here, the <b>constructor</b> for this class
+ * accepts all of the configuration options of <b>{@link Ext.DatePicker}</b>.</li>
+ * <li>If subclassing DateMenu, any configuration options for the DatePicker must be
+ * applied to the <tt><b>initialConfig</b></tt> property of the DateMenu.
+ * Applying {@link Ext.DatePicker DatePicker} configuration settings to
+ * <b><tt>this</tt></b> will <b>not</b> affect the DatePicker's configuration.</li>
+ * </ul></div>
  * @xtype datemenu
  */
  Ext.menu.DateMenu = Ext.extend(Ext.menu.Menu, {
