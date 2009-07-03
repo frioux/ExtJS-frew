@@ -1,7 +1,7 @@
 /**
  * @class Ext.menu.DateMenu
  * @extends Ext.menu.Menu
- * A menu containing a {@link Ext.DatePicker} Component.
+ * A menu containing an {@link Ext.DatePicker} Component.
  * @xtype datemenu
  */
  Ext.menu.DateMenu = Ext.extend(Ext.menu.Menu, {
@@ -10,7 +10,19 @@
      * @hide 
      */
     enableScrolling : false,
-    
+    /**
+     * @cfg {Function} handler
+     * Optional. A function that will handle the select event of this menu.
+     * The handler is passed the following parameters:<div class="mdetail-params"><ul>
+     * <li><code>picker</code> : DatePicker<div class="sub-desc">The Ext.DatePicker.</div></li>
+     * <li><code>date</code> : Date<div class="sub-desc">The selected date.</div></li>
+     * </ul></div>
+     */
+    /**
+     * @cfg {Object} scope
+     * The scope (<tt><b>this</b></tt> reference) in which the <code>{@link #handler}</code>
+     * function will be called.  Defaults to this DateMenu instance.
+     */    
     /** 
      * @cfg {Boolean} hideOnClick
      * False to continue showing the menu after a date is selected, defaults to true.
@@ -26,9 +38,9 @@
      * @hide 
      */
     /**
+     * The {@link Ext.DatePicker} instance for this DateMenu
      * @property picker
      * @type DatePicker
-     * The {@link Ext.DatePicker} instance for this DateMenu
      */
     cls : 'x-date-menu',
     
@@ -57,6 +69,12 @@
         });
         this.picker.purgeListeners();
         Ext.menu.DateMenu.superclass.initComponent.call(this);
+        /**
+         * @event select
+         * Fires when a date is selected from the {@link #picker Ext.DatePicker}
+         * @param {DatePicker} picker The {@link #picker Ext.DatePicker}
+         * @param {Date} date The selected date
+         */
         this.relayEvents(this.picker, ['select']);
         this.on('select', this.menuHide, this);
         if(this.handler){
