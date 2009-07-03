@@ -9,13 +9,13 @@
      * @cfg {Boolean} enableScrolling
      * @hide 
      */
-    enableScrolling: false,
+    enableScrolling : false,
     
     /** 
      * @cfg {Boolean} hideOnClick
      * False to continue showing the menu after a color is selected, defaults to true.
      */
-    hideOnClick: true,
+    hideOnClick : true,
     
     /** 
      * @cfg {Number} maxHeight
@@ -42,7 +42,7 @@
      * @hide
      */
     
-    initComponent: function(){
+    initComponent : function(){
         Ext.apply(this, {
             plain: true,
             showSeparator: false,
@@ -53,11 +53,11 @@
         this.relayEvents(this.palette, ['select']);
         this.on('select', this.menuHide, this);
         if(this.handler){
-            this.on('select', this.handler, this.scope || this)
+            this.on('select', this.handler, this.scope || this);
         }
     },
 
-    menuHide: function(){
+    menuHide : function(){
         if(this.hideOnClick){
             this.hide(true);
         }
