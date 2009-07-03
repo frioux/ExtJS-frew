@@ -9,13 +9,13 @@
      * @cfg {Boolean} enableScrolling
      * @hide 
      */
-    enableScrolling: false,
+    enableScrolling : false,
     
     /** 
      * @cfg {Boolean} hideOnClick
      * False to continue showing the menu after a date is selected, defaults to true.
      */
-    hideOnClick: true,
+    hideOnClick : true,
     
     /** 
      * @cfg {Number} maxHeight
@@ -30,7 +30,7 @@
      * @type DatePicker
      * The {@link Ext.DatePicker} instance for this DateMenu
      */
-    cls: 'x-date-menu',
+    cls : 'x-date-menu',
     
     /**
      * @event click
@@ -42,7 +42,7 @@
      * @hide
      */
 
-    initComponent: function(){
+    initComponent : function(){
         this.on('beforeshow', this.onBeforeShow, this);
         if(this.strict = (Ext.isIE7 && Ext.isStrict)){
             this.on('show', this.onShow, this, {single: true, delay: 20});
@@ -57,28 +57,29 @@
         });
         this.picker.purgeListeners();
         Ext.menu.DateMenu.superclass.initComponent.call(this);
-        this.relayEvents(this.picker, ["select"]);
+        this.relayEvents(this.picker, ['select']);
         this.on('select', this.menuHide, this);
         if(this.handler){
             this.on('select', this.handler, this.scope || this);
         }
     },
 
-    menuHide: function() {
+    menuHide : function() {
         if(this.hideOnClick){
             this.hide(true);
         }
     },
 
-    onBeforeShow: function(){
+    onBeforeShow : function(){
         if(this.picker){
             this.picker.hideMonthPicker(true);
         }
     },
 
-    onShow: function(){
+    onShow : function(){
         var el = this.picker.getEl();
         el.setWidth(el.getWidth()); //nasty hack for IE7 strict mode
     }
  });
  Ext.reg('datemenu', Ext.menu.DateMenu);
+ 
