@@ -24,6 +24,19 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
      */
     cancelText : 'Cancel',
     /**
+     * @cfg {Function} handler
+     * Optional. A function that will handle the select event of this picker.
+     * The handler is passed the following parameters:<div class="mdetail-params"><ul>
+     * <li><code>picker</code> : DatePicker<div class="sub-desc">The Ext.DatePicker.</div></li>
+     * <li><code>date</code> : Date<div class="sub-desc">The selected date.</div></li>
+     * </ul></div>
+     */
+    /**
+     * @cfg {Object} scope
+     * The scope (<tt><b>this</b></tt> reference) in which the <code>{@link #handler}</code>
+     * function will be called.  Defaults to this DatePicker instance.
+     */ 
+    /**
      * @cfg {String} todayTip
      * The tooltip to display for the button that selects the current date (defaults to <tt>'{current date} (Spacebar)'</tt>)
      */
