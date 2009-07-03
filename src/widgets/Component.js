@@ -763,17 +763,17 @@ new Ext.Panel({
     /**
      * True if this component is hidden. Read-only.
      * @type Boolean
-     * @property
+     * @property hidden
      */
     /**
      * True if this component is disabled. Read-only.
      * @type Boolean
-     * @property
+     * @property disabled
      */
     /**
      * True if this component has been rendered. Read-only.
      * @type Boolean
-     * @property
+     * @property rendered
      */
     rendered : false,
 
