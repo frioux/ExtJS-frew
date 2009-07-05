@@ -66,18 +66,18 @@ Ext.MessageBox = function(){
     var updateButtons = function(b){
         var width = 0;
         if(!b){
-            buttons["ok"].hide();
-            buttons["cancel"].hide();
-            buttons["yes"].hide();
-            buttons["no"].hide();
+            buttons['ok'].hide();
+            buttons['cancel'].hide();
+            buttons['yes'].hide();
+            buttons['no'].hide();
             return width;
         }
         dlg.footer.dom.style.display = '';
         for(var k in buttons){
-            if(typeof buttons[k] != "function"){
+            if(typeof buttons[k] != 'function'){
                 if(b[k]){
                     buttons[k].show();
-                    buttons[k].setText(typeof b[k] == "string" ? b[k] : Ext.MessageBox.buttonText[k]);
+                    buttons[k].setText(typeof b[k] == 'string' ? b[k] : Ext.MessageBox.buttonText[k]);
                     width += buttons[k].el.getWidth()+15;
                 }else{
                     buttons[k].hide();
@@ -105,7 +105,7 @@ Ext.MessageBox = function(){
                     stateful: false,
                     modal: true,
                     shim:true,
-                    buttonAlign:"center",
+                    buttonAlign:'center',
                     width:400,
                     height:100,
                     minHeight: 80,
@@ -114,20 +114,20 @@ Ext.MessageBox = function(){
                     closable:true,
                     close : function(){
                         if(opt && opt.buttons && opt.buttons.no && !opt.buttons.cancel){
-                            handleButton("no");
+                            handleButton('no');
                         }else{
-                            handleButton("cancel");
+                            handleButton('cancel');
                         }
                     }
                 });
                 buttons = {};
                 var bt = this.buttonText;
                 //TODO: refactor this block into a buttons config to pass into the Window constructor
-                buttons["ok"] = dlg.addButton(bt["ok"], handleButton.createCallback("ok"));
-                buttons["yes"] = dlg.addButton(bt["yes"], handleButton.createCallback("yes"));
-                buttons["no"] = dlg.addButton(bt["no"], handleButton.createCallback("no"));
-                buttons["cancel"] = dlg.addButton(bt["cancel"], handleButton.createCallback("cancel"));
-                buttons["ok"].hideMode = buttons["yes"].hideMode = buttons["no"].hideMode = buttons["cancel"].hideMode = 'offsets';
+                buttons['ok'] = dlg.addButton(bt['ok'], handleButton.createCallback('ok'));
+                buttons['yes'] = dlg.addButton(bt['yes'], handleButton.createCallback('yes'));
+                buttons['no'] = dlg.addButton(bt['no'], handleButton.createCallback('no'));
+                buttons['cancel'] = dlg.addButton(bt['cancel'], handleButton.createCallback('cancel'));
+                buttons['ok'].hideMode = buttons['yes'].hideMode = buttons['no'].hideMode = buttons['cancel'].hideMode = 'offsets';
                 dlg.render(document.body);
                 dlg.getEl().addClass('x-window-dlg');
                 mask = dlg.mask;
@@ -142,9 +142,9 @@ Ext.MessageBox = function(){
                 textboxEl.addKeyListener([10,13], function(){
                     if(dlg.isVisible() && opt && opt.buttons){
                         if(opt.buttons.ok){
-                            handleButton("ok");
+                            handleButton('ok');
                         }else if(opt.buttons.yes){
-                            handleButton("yes");
+                            handleButton('yes');
                         }
                     }
                 });
@@ -315,9 +315,9 @@ Ext.Msg.show({
                 this.hide();
             }
             opt = options;
-            var d = this.getDialog(opt.title || "&#160;");
+            var d = this.getDialog(opt.title || '&#160;');
 
-            d.setTitle(opt.title || "&#160;");
+            d.setTitle(opt.title || '&#160;');
             var allowClose = (opt.closable !== false && opt.progress !== true && opt.wait !== true);
             d.tools.close.setDisplayed(allowClose);
             activeTextEl = textboxEl;
@@ -326,7 +326,7 @@ Ext.Msg.show({
                 if(opt.multiline){
                     textboxEl.hide();
                     textareaEl.show();
-                    textareaEl.setHeight(typeof opt.multiline == "number" ?
+                    textareaEl.setHeight(typeof opt.multiline == 'number' ?
                         opt.multiline : this.defaultTextHeight);
                     activeTextEl = textareaEl;
                 }else{
@@ -337,16 +337,16 @@ Ext.Msg.show({
                 textboxEl.hide();
                 textareaEl.hide();
             }
-            activeTextEl.dom.value = opt.value || "";
+            activeTextEl.dom.value = opt.value || '';
             if(opt.prompt){
                 d.focusEl = activeTextEl;
             }else{
                 var bs = opt.buttons;
                 var db = null;
                 if(bs && bs.ok){
-                    db = buttons["ok"];
+                    db = buttons['ok'];
                 }else if(bs && bs.yes){
-                    db = buttons["yes"];
+                    db = buttons['yes'];
                 }
                 if (db){
                     d.focusEl = db;
@@ -604,14 +604,14 @@ Ext.MessageBox.ERROR
          * An object containing the default button text strings that can be overriden for localized language support.
          * Supported properties are: ok, cancel, yes and no.  Generally you should include a locale-specific
          * resource file for handling language support across the framework.
-         * Customize the default text like so: Ext.MessageBox.buttonText.yes = "oui"; //french
+         * Customize the default text like so: Ext.MessageBox.buttonText.yes = 'oui'; //french
          * @type Object
          */
         buttonText : {
-            ok : "OK",
-            cancel : "Cancel",
-            yes : "Yes",
-            no : "No"
+            ok : 'OK',
+            cancel : 'Cancel',
+            yes : 'Yes',
+            no : 'No'
         }
     };
 }();
