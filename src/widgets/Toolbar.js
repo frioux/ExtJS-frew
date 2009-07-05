@@ -365,6 +365,15 @@ Ext.extend(T, Ext.Container, {
     internalDefaults: {removeMode: 'container', hideParent: true},
     toolbarCls: 'x-toolbar',
 
+    /**
+     * @cfg {String/Object} layout
+     * @hide
+     */
+    /** 
+     * @cfg {Object} layoutConfig
+     * @hide
+     */
+
     initComponent : function(){
         T.superclass.initComponent.call(this);
 
