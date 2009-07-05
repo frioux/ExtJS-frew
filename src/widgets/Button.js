@@ -60,7 +60,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      * @cfg {Boolean} enableToggle
      * True to enable pressed/not pressed toggling (defaults to false)
      */
-    enableToggle: false,
+    enableToggle : false,
     /**
      * @cfg {Function} toggleHandler
      * Function called when a Button with {@link #enableToggle} set to true is clicked. Two arguments are passed:<ul class="mdetail-params">
@@ -94,7 +94,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     type : 'button',
 
     // private
-    menuClassTarget: 'tr:nth(2)',
+    menuClassTarget : 'tr:nth(2)',
 
     /**
      * @cfg {String} clickEvent
@@ -120,7 +120,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      * DOM structure created.</p>
      * <p>When a custom {@link #template} is used, you  must ensure that this selector results in the selection of
      * a focussable element.</p>
-     * <p>Defaults to <b><tt>"button:first-child"</tt></b>.</p>
+     * <p>Defaults to <b><tt>'button:first-child'</tt></b>.</p>
      */
     buttonSelector : 'button:first-child',
 
@@ -134,7 +134,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      * </ul>
      * <p>Defaults to <b><tt>'small'</tt></b>.</p>
      */
-    scale: 'small',
+    scale : 'small',
 
     /**
      * @cfg {Object} scope The scope (<tt><b>this</b></tt> reference) in which the
@@ -350,7 +350,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
                 mouseover: this.onMouseOver,
                 mousedown: this.onMouseDown
             });
-            
+
             // new functionality for monitoring on the document level
             //this.mon(btn, 'mouseout', this.onMouseOut, this);
         }
@@ -367,7 +367,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
             var repeater = new Ext.util.ClickRepeater(btn, Ext.isObject(this.repeat) ? this.repeat : {});
             this.mon(repeater, 'click', this.onClick, this);
         }
-        
+
         this.mon(btn, this.clickEvent, this.onClick, this);
     },
 
@@ -417,16 +417,16 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         }
         return this;
     },
-    
+
     // private
-    clearTip: function(){
+    clearTip : function(){
         if(Ext.isObject(this.tooltip)){
             Ext.QuickTips.unregister(this.btnEl);
         }
     },
-    
+
     // private
-    beforeDestroy: function(){
+    beforeDestroy : function(){
         if(this.rendered){
             this.clearTip();
         }
@@ -533,7 +533,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     onEnable : function(){
         this.onDisableChange(false);
     },
-    
+
     onDisableChange : function(disabled){
         if(this.el){
             if(!Ext.isIE6 || !this.text){
