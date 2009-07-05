@@ -174,11 +174,12 @@ Ext.Container = Ext.extend(Ext.BoxComponent, {
      */
     /**
      * @cfg {String/Object} layout
-     * When creating complex UIs, it is important to remember that sizing and
-     * positioning of child items is the responsibility of the Container's
-     * layout manager. If you expect child items to be sized in response to
-     * user interactions, <b>you must specify a layout manager</b> which
-     * creates and manages the type of layout you have in mind.  For example:<pre><code>
+     * <p><b>*Important</b>: In order for child items to be correctly sized and
+     * positioned, typically a layout manager <b>must</b> be specified through
+     * the <code>layout</code> configuration option.</p>
+     * <br><p>The sizing and positioning of child {@link items} is the responsibility of
+     * the Container's layout manager which creates and manages the type of layout
+     * you have in mind.  For example:</p><pre><code>
 new Ext.Window({
     width:300, height: 300,
     layout: 'fit', // explicitly set layout manager: override the default (layout:'auto')
@@ -187,13 +188,17 @@ new Ext.Window({
     }]
 }).show();
      * </code></pre>
-     * <p>Omitting the {@link #layout} config means that the
-     * {@link Ext.layout.ContainerLayout default layout manager} will be used which does
-     * nothing but render child components sequentially into the Container (no sizing or
-     * positioning will be performed in this situation).</p>
-     * <p>The layout manager class for this container may be specified as either as an
-     * Object or as a String:</p>
-     * <div><ul class="mdetail-params">
+     * <p>If the {@link #layout} configuration is not explicitly specified for
+     * a general purpose container (e.g. Container or Panel) the 
+     * {@link Ext.layout.ContainerLayout default layout manager} will be used
+     * which does nothing but render child components sequentially into the
+     * Container (no sizing or positioning will be performed in this situation).
+     * Some container classes implicitly specify a default layout
+     * (e.g. FormPanel specifies <code>layout:'form'</code>). Other specific
+     * purpose classes internally specify/manage their internal layout (e.g.
+     * GridPanel, TabPanel, TreePanel, Toolbar, Menu, etc.).</p>
+     * <br><p><b><code>layout</code></b> may be specified as either as an Object or
+     * as a String:</p><div><ul class="mdetail-params">
      *
      * <li><u>Specify as an Object</u></li>
      * <div><ul class="mdetail-params">
@@ -276,7 +281,7 @@ layoutConfig: {
      */
     /**
      * @cfg {Object/Array} items
-     * <pre><b>** IMPORTANT</b>: be sure to specify a <b><code>{@link #layout}</code> ! **</b></pre>
+     * <pre><b>** IMPORTANT</b>: be sure to <b>{@link #layout specify a <code>layout</code>} if needed ! **</b></pre>
      * <p>A single item, or an array of child Components to be added to this container,
      * for example:</p>
      * <pre><code>
