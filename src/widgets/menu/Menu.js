@@ -4,7 +4,7 @@
  * <p>Layout manager used by {@link Ext.menu.Menu}. Generally this class should not need to be used directly.</p>
  */
  Ext.layout.MenuLayout = Ext.extend(Ext.layout.ContainerLayout, {
-    monitorResize: true,
+    monitorResize : true,
 
     setContainer : function(ct){
         this.monitorResize = !ct.floating;
@@ -49,7 +49,7 @@
         }
     },
 
-    getItemArgs: function(c) {
+    getItemArgs : function(c) {
         var isMenuItem = c instanceof Ext.menu.Item;
         return {
             isMenuItem: isMenuItem,
@@ -62,7 +62,7 @@
     },
 
 //  Valid if the Component is in a <li> which is part of our target <ul>
-    isValidParent: function(c, target) {
+    isValidParent : function(c, target) {
         return c.el.up('li.x-menu-list-item', 5).dom.parentNode === (target.dom || target);
     },
 
@@ -145,19 +145,19 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
     /**
      * @cfg {Boolean} enableScrolling True to allow the menu container to have scroller controls if the menu is too long (defaults to true).
      */
-    enableScrolling: true,
+    enableScrolling : true,
     /**
      * @cfg {Number} maxHeight The maximum height of the menu. Only applies when enableScrolling is set to True (defaults to null).
      */
-    maxHeight: null,
+    maxHeight : null,
     /**
      * @cfg {Number} scrollIncrement The amount to scroll the menu. Only applies when enableScrolling is set to True (defaults to 24).
      */
-    scrollIncrement: 24,
+    scrollIncrement : 24,
     /**
      * @cfg {Boolean} showSeparator True to show the icon separator. (defaults to true).
      */
-    showSeparator: true,
+    showSeparator : true,
     /**
      * @cfg {Array} defaultOffsets An array specifying the [x, y] offset in pixels by which to
      * change the default Menu popup position after aligning according to the {@link #defaultAlign}
@@ -171,26 +171,26 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
      * May be specified as false to create a Menu which may be used as a child item of another Container
      * instead of a free-floating {@link Ext.Layer Layer}. (defaults to true).
      */
-    floating: true,         // Render as a Layer by default
+    floating : true,         // Render as a Layer by default
 
     // private
-    hidden: true,
+    hidden : true,
 
     /**
      * @cfg {String/Object} layout
      * @hide
      */
-    layout: 'menu',
-    /** 
+    layout : 'menu',
+    /**
      * @cfg {Object} layoutConfig
      * @hide
-     */    
-    hideMode: 'offsets',    // Important for laying out Components
-    scrollerHeight: 8,
-    autoLayout: true,       // Provided for backwards compat
-    defaultType: 'menuitem',
+     */
+    hideMode : 'offsets',    // Important for laying out Components
+    scrollerHeight : 8,
+    autoLayout : true,       // Provided for backwards compat
+    defaultType : 'menuitem',
 
-    initComponent: function(){
+    initComponent : function(){
         if(Ext.isArray(this.initialConfig)){
             Ext.apply(this, {items:this.initialConfig});
         }
@@ -341,7 +341,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         }
     },
 
-    deactivateActive: function(){
+    deactivateActive : function(){
         var a = this.activeItem;
         if(a){
             if(a.isFormField){
@@ -395,7 +395,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
     },
 
     // private
-    onScroll: function(e, t){
+    onScroll : function(e, t){
         if(e){
             e.stopEvent();
         }
@@ -407,7 +407,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
     },
 
     // private
-    onScrollerIn: function(e, t){
+    onScrollerIn : function(e, t){
         var ul = this.ul.dom, top = Ext.fly(t).is('.x-menu-scroller-top');
         if(top ? ul.scrollTop > 0 : ul.scrollTop + this.activeMax < ul.scrollHeight){
             Ext.fly(t).addClass(['x-menu-item-active', 'x-menu-scroller-active']);
@@ -415,7 +415,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
     },
 
     // private
-    onScrollerOut: function(e, t){
+    onScrollerOut : function(e, t){
         Ext.fly(t).removeClass(['x-menu-item-active', 'x-menu-scroller-active']);
     },
 
@@ -468,7 +468,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         this.fireEvent("show", this);
     },
 
-    constrainScroll: function(y){
+    constrainScroll : function(y){
         var max, full = this.ul.setHeight('auto').getHeight();
         if(this.floating){
             max = this.maxHeight ? this.maxHeight : Ext.fly(this.el.dom.parentNode).getViewSize().height - y;
@@ -487,7 +487,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         this.ul.dom.scrollTop = 0;
     },
 
-    createScrollers: function(){
+    createScrollers : function(){
         if(!this.scroller){
             this.scroller = {
                 pos: 0,
@@ -517,7 +517,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         }
     },
 
-    onLayout: function(){
+    onLayout : function(){
         if(this.isVisible()){
             if(this.enableScrolling){
                 this.constrainScroll(this.el.getTop());
@@ -551,7 +551,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
     },
 
     // private
-    onHide: function(){
+    onHide : function(){
         Ext.menu.Menu.superclass.onHide.call(this);
         this.deactivateActive();
         if(this.el && this.floating){
@@ -563,7 +563,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
     },
 
     // private
-    lookupComponent: function(c){
+    lookupComponent : function(c){
          if(Ext.isString(c)){
             c = (c == 'separator' || c == '-') ? new Ext.menu.Separator() : new Ext.menu.TextItem(c);
              this.applyDefaults(c);
@@ -596,7 +596,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
     },
 
     // private
-    getMenuItem: function(config){
+    getMenuItem : function(config){
        if(!config.isXType){
             if(!config.xtype && Ext.isBoolean(config.checked)){
                 return new Ext.menu.CheckItem(config)
