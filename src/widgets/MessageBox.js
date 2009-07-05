@@ -252,8 +252,6 @@ Ext.MessageBox = function(){
          * progress and wait dialogs will ignore this property and always hide the close button as they can only
          * be closed programmatically.</div></li>
          * <li><b>cls</b> : String<div class="sub-desc">A custom CSS class to apply to the message box's container element</div></li>
-         * <li><b>defaultTextHeight</b> : Number<div class="sub-desc">The default height in pixels of the message box's multiline textarea
-         * if displayed (defaults to 75)</div></li>
          * <li><b>fn</b> : Function<div class="sub-desc">A callback function which is called when the dialog is dismissed either
          * by clicking on the configured buttons, or on the dialog close button, or by pressing
          * the return button to enter input.
@@ -281,11 +279,15 @@ Ext.MessageBox = function(){
          * displayed (defaults to true)</div></li>
          * <li><b>msg</b> : String<div class="sub-desc">A string that will replace the existing message box body text (defaults to the
          * XHTML-compliant non-breaking space character '&amp;#160;')</div></li>
-         * <li><a id="show-option-multiline"></a><b>multiline</b> : Boolean<div class="sub-desc">
-         * True to prompt the user to enter multi-line text (defaults to false)</div></li>
+         * <li><a id="show-option-multiline"></a><b>multiline</b> : Boolean/Number<div class="sub-desc">
+         * If <code>prompt</code> is true, instead of prompting the user with a single line textbox,
+         * specify <code>multiline = true</code> to prompt the user with a multiline textarea
+         * using the <code>{@link #defaultTextHeight}</code> property, or specify a height in pixels
+         * to create the textarea (defaults to false creating a single-line textbox)</div></li>
          * <li><b>progress</b> : Boolean<div class="sub-desc">True to display a progress bar (defaults to false)</div></li>
          * <li><b>progressText</b> : String<div class="sub-desc">The text to display inside the progress bar if progress = true (defaults to '')</div></li>
-         * <li><a id="show-option-prompt"></a><b>prompt</b> : Boolean<div class="sub-desc">True to prompt the user to enter single-line text (defaults to false)</div></li>
+         * <li><a id="show-option-prompt"></a><b>prompt</b> : Boolean<div class="sub-desc">
+         * True to prompt the user with a textbox or textarea (defaults to false)</div></li>
          * <li><b>proxyDrag</b> : Boolean<div class="sub-desc">True to display a lightweight proxy while dragging (defaults to false)</div></li>
          * <li><b>title</b> : String<div class="sub-desc">The title text</div></li>
          * <li><b>value</b> : String<div class="sub-desc">The string value to set into the active textbox element if displayed</div></li>
@@ -300,7 +302,7 @@ Ext.Msg.show({
    msg: 'Please enter your address:',
    width: 300,
    buttons: Ext.MessageBox.OKCANCEL,
-   multiline: true,
+   multiline: true, // show a multiline textarea using the {@link #defaultTextHeight}
    fn: saveAddress,
    animEl: 'addAddressBtn',
    icon: Ext.MessageBox.INFO
