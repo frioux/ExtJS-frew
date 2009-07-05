@@ -175,7 +175,16 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
 
     // private
     hidden: true,
+
+    /**
+     * @cfg {String/Object} layout
+     * @hide
+     */
     layout: 'menu',
+    /** 
+     * @cfg {Object} layoutConfig
+     * @hide
+     */    
     hideMode: 'offsets',    // Important for laying out Components
     scrollerHeight: 8,
     autoLayout: true,       // Provided for backwards compat
