@@ -178,13 +178,11 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
 
     /**
      * @cfg {String/Object} layout
-     * @hide
+     * This class assigns a default layout (<code>layout:'<b>menu</b>'</code>).
+     * Developers <i>may</i> override this configuration option if another layout is required.
+     * See {@link Ext.Container#layout} for additional information.
      */
     layout : 'menu',
-    /**
-     * @cfg {Object} layoutConfig
-     * @hide
-     */
     hideMode : 'offsets',    // Important for laying out Components
     scrollerHeight : 8,
     autoLayout : true,       // Provided for backwards compat
