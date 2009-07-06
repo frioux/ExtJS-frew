@@ -1191,6 +1191,14 @@
         src: 'resources/',
         dest: 'resources/',
         filters: ".*"
+    },{
+        src: 'license.txt',
+        dest: 'license.txt',
+        filters: ".*"
+    },{
+        src: 'INCLUDE_ORDER.txt',
+        dest: 'INCLUDE_ORDER.txt',
+        filters: ".*"
     }]   
 }
 
