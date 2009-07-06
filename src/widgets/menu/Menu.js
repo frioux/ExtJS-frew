@@ -165,13 +165,16 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
      */
     defaultOffsets : [0, 0],
 
-
     /**
      * @cfg {Boolean} floating
-     * May be specified as false to create a Menu which may be used as a child item of another Container
-     * instead of a free-floating {@link Ext.Layer Layer}. (defaults to true).
+     * <p>By default, a Menu configured as <b><code>floating:true</code></b> 
+     * will be rendered as an {@link Ext.Layer} (an absolutely positioned,
+     * floating Component with zindex=15000).
+     * If configured as <b><code>floating:false</code></b>, the Menu may be
+     * used as child item of another Container instead of a free-floating
+     * {@link Ext.Layer Layer}.
      */
-    floating : true,         // Render as a Layer by default
+    floating : true,
 
     // private
     hidden : true,
@@ -418,7 +421,8 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
     },
 
     /**
-     * Displays this menu relative to another element
+     * If <code>{@link #floating}=true</code>, shows this menu relative to
+     * another element, otherwise uses {@link Ext.Component#show}.
      * @param {Mixed} element The element to align to
      * @param {String} position (optional) The {@link Ext.Element#alignTo} anchor position to use in aligning to
      * the element (defaults to this.defaultAlign)
