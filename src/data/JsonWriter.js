@@ -51,7 +51,9 @@ Ext.extend(Ext.data.JsonWriter, Ext.data.DataWriter, {
      * @param {Ext.data.Record} rec
      */
     createRecord : function(rec) {
-        return this.toHash(rec);
+       var data = this.toHash(rec);
+       delete data[this.meta.idProperty];
+       return data;
     },
     /**
      * updateRecord
