@@ -1,17 +1,10 @@
 {
     projectName: 'Ext JS',
-    deployDir: 'ext-3.0-rc3',
-    licenseText: "Ext JS Library {version}\nCopyright(c) 2006-{[new Date().format('Y')]}, {company}\n{contactEmail}\n{site}",
-    variables: {
-        "company":"Ext JS, LLC.",
-        "version":"3.0 RC3",
-        "contactEmail":"licensing@extjs.com",
-        "site":"http://www.extjs.com/license"        
-    },
+    deployDir: 'ext-3.0.0',
+    licenseText: "Ext JS Library 3.0.0\nCopyright(c) 2006-2009 Ext JS, LLC\nlicensing@extjs.com\nhttp://www.extjs.com/license",
     pkgs: [{
         name: 'Ext Base',
         file: 'adapter/ext/ext-base.js',
-        type: 'js',
         isDebug: true,
         fileIncludes: [{
             text: 'Ext.js',
@@ -56,7 +49,6 @@
     },{
         name: 'YUI Adapter',
         file: 'adapter/yui/ext-yui-adapter.js',
-        type: 'js',
         isDebug: true,
         fileIncludes: [{
             text: 'Ext.js',
@@ -74,7 +66,6 @@
     },{
         name: 'Prototype Adapter',
         file: 'adapter/prototype/ext-prototype-adapter.js',
-        type: 'js',
         isDebug: true,
         fileIncludes: [{
             text: 'Ext.js',
@@ -92,7 +83,6 @@
     },{
         name: 'jQuery Adapter',
         file: 'adapter/jquery/ext-jquery-adapter.js',
-        type: 'js',
         isDebug: true,
         fileIncludes: [{
             text: 'Ext.js',
@@ -110,7 +100,6 @@
     },{
         name: 'Ext Foundation',
         file: 'pkgs/ext-foundation.js',
-        type: 'js',
         isDebug: true,
         pkgDeps: ['ext-base.js'],
         fileIncludes: [{
@@ -246,7 +235,6 @@
     },{
         name: 'Drag Drop',
         file: 'pkgs/ext-dd.js',
-        type: 'js',
         isDebug: true,
         pkgDeps: ['pkgs/ext-foundation.js'],
         fileIncludes: [{
@@ -283,7 +271,6 @@
     },{
         name: 'Data Foundation',
         file: 'pkgs/data-foundation.js',
-        type: 'js',
         isDebug: true,
         pkgDeps: ['pkgs/ext-foundation'],
         fileIncludes: [{
@@ -326,7 +313,6 @@
     },{
         name: 'Data - Json',
         file: 'pkgs/data-json.js',
-        type: 'js',
         isDebug: true,
         pkgDeps: ['pkgs/data-foundation.js'],
         fileIncludes: [{
@@ -348,7 +334,6 @@
     },{
         name: 'Data - XML',
         file: 'pkgs/data-xml.js',
-        type: 'js',
         isDebug: true,
         pkgDeps: ['pkgs/data-foundation.js'],
         fileIncludes: [{
@@ -364,7 +349,6 @@
     },{
         name: 'Data - GroupingStore',
         file: 'pkgs/data-grouping.js',
-        type: 'js',
         isDebug: true,
         pkgDeps: ['pkgs/data-foundation.js'],
         fileIncludes: [{
@@ -374,7 +358,6 @@
     },{
         name: 'Direct',
         file: 'pkgs/direct.js',
-        type: 'js',
         isDebug: true,
         pkgDeps: ['pkgs/ext-foundation.js'],
         fileIncludes: [{
@@ -408,7 +391,6 @@
     },{
         name: 'Component Foundation',
         file: 'pkgs/cmp-foundation.js',
-        type: 'js',
         isDebug: true,
         pkgDeps: ['pkgs/ext-foundation.js'],
         fileIncludes: [{
@@ -496,7 +478,6 @@
     },{
         name: 'Window',
         file: 'pkgs/window.js',
-        type: 'js',
         isDebug: true,
         pkgDeps: ['pkgs/cmp-foundation.js'],
         fileIncludes: [{
@@ -515,7 +496,6 @@
     },{
         name: 'State',
         file: 'pkgs/state.js',
-        type: 'js',
         isDebug: true,
         pkgDeps: ['pkgs/cmp-foundation.js'],
         fileIncludes: [{
@@ -531,7 +511,6 @@
     },{
         name: 'Data and ListViews',
         file: 'pkgs/data-list-views.js',
-        type: 'js',
         isDebug: true,
         pkgDeps: ['pkgs/cmp-foundation.js','pkgs/data-foundation.js'],
         fileIncludes: [{
@@ -550,7 +529,6 @@
     },{
         name: 'Resizable',
         file: 'pkgs/resizable.js',
-        type: 'js',
         isDebug: true,
         pkgs: ['pkgs/ext-foundation.js'],
         fileIncludes: [{
@@ -561,7 +539,6 @@
     },{
         name: 'TabPanel',
         file: 'pkgs/pkg-tabs.js',
-        type: 'js',
         isDebug: true,
         pkgs: ['pkgs/cmp-foundation.js'],
         fileIncludes: [{
@@ -571,7 +548,6 @@
     },{
         name: 'Buttons',
         file: 'pkgs/pkg-buttons.js',
-        type: 'js',
         isDebug: true,
         pkgs: ['pkgs/cmp-foundation.js'],
         fileIncludes: [{
@@ -603,7 +579,6 @@
     },{
         name: 'History',
         file: 'pkgs/pkg-history.js',
-        type: 'js',
         isDebug: true,
         pkgs: ['pkgs/ext-foundation.js'],
         fileIncludes: [{
@@ -613,7 +588,6 @@
     },{
         name: 'Tooltips',
         file: 'pkgs/pkg-tips.js',
-        type: 'js',
         isDebug: true,
         pkgs: ['pkgs/cmp-foundation.js'],
         fileIncludes: [{
@@ -632,7 +606,6 @@
     },{
         name: 'Trees',
         file: 'pkgs/pkg-tree.js',
-        type: 'js',
         isDebug: true,
         pkgs: ['pkgs/cmp-foundation.js'],
         fileIncludes: [{
@@ -678,7 +651,6 @@
     },{
         name: 'Charts',
         file: 'pkgs/pkg-charts.js',
-        type: 'js',
         isDebug: true,
         pkgs: ['pkgs/cmp-foundation.js'],
         fileIncludes: [{
@@ -697,7 +669,6 @@
     },{
         name: 'Menu',
         file: 'pkgs/pkg-menu.js',
-        type: 'js',
         isDebug: true,
         pkgs: ['pkgs/cmp-foundation.js'],
         fileIncludes: [{
@@ -731,7 +702,6 @@
     },{
         name: 'Forms',
         file: 'pkgs/pkg-forms.js',
-        type: 'js',
         isDebug: true,
         pkgs: ['pkgs/cmp-foundation.js'],
         fileIncludes: [{
@@ -801,7 +771,6 @@
     },{
         name: 'Grid Foundation',
         file: 'pkgs/pkg-grid-foundation.js',
-        type: 'js',
         isDebug: true,
         pkgs: ['pkgs/cmp-foundation.js'],
         fileIncludes: [{
@@ -841,7 +810,6 @@
     },{
         name: 'Grid Editor',
         file: 'pkgs/pkg-grid-editor.js',
-        type: 'js',
         isDebug: true,
         pkgs: ['pkgs/pkg-grid-foundation.js'],
         fileIncludes: [{
@@ -857,7 +825,6 @@
     },{
         name: 'Grid - Property Grid',
         file: 'pkgs/pkg-grid-property.js',
-        type: 'js',
         isDebug: true,
         pkgs: ['pkgs/pkg-grid-foundation.js'],
         fileIncludes: [{
@@ -867,7 +834,6 @@
     },{
         name: 'Grid - GroupingView',
         file: 'pkgs/pkg-grid-grouping.js',
-        type: 'js',
         isDebug: true,
         pkgs: ['pkgs/pkg-grid-foundation.js', 'pkgs/data-grouping.js'],
         fileIncludes: [{
@@ -877,7 +843,6 @@
     },{
         name: 'Ext All',
         file: 'ext-all.js',
-        type: 'js',
         isDebug: true,
 	includeDeps: true,
         pkgDeps: [
@@ -909,10 +874,143 @@
 	],
 	fileIncludes: []
     },{
+       name: 'User Extension JS Pack',
+       file: 'examples/ux/ux-all.js',
+       isDebug: true,
+       fileIncludes: [{
+          text: 'BufferView.js',
+          path: 'examples/ux/'
+       },{
+          text: 'CenterLayout.js',
+          path: 'examples/ux/'
+       },{
+          text: 'CheckColumn.js',
+          path: 'examples/ux/'
+       },{
+          text: 'ColumnNodeUI.js',
+          path: 'examples/ux/'
+       },{
+          text: 'DataView-more.js',
+          path: 'examples/ux/'
+       },{
+          text: 'FileUploadField.js',
+          path: 'examples/ux/'
+       },{
+          text: 'Focus.js',
+          path: 'examples/ux/'
+       },{
+          text: 'GMapPanel.js',
+          path: 'examples/ux/'
+       },{
+          text: 'GroupSummary.js',
+          path: 'examples/ux/'
+       },{
+          text: 'GroupTab.js',
+          path: 'examples/ux/'
+       },{
+          text: 'GroupTabPanel.js',
+          path: 'examples/ux/'
+       },{
+          text: 'ItemSelector.js',
+          path: 'examples/ux/'
+       },{
+          text: 'MultiSelect.js',
+          path: 'examples/ux/'
+       },{
+          text: 'PagingMemoryProxy.js',
+          path: 'examples/ux/'
+       },{
+          text: 'PanelResizer.js',
+          path: 'examples/ux/'
+       },{
+          text: 'Portal.js',
+          path: 'examples/ux/'
+       },{
+          text: 'PortalColumn.js',
+          path: 'examples/ux/'
+       },{
+          text: 'Portlet.js',
+          path: 'examples/ux/'
+       },{
+          text: 'ProgressBarPager.js',
+          path: 'examples/ux/'
+       },{
+          text: 'RowEditor.js',
+          path: 'examples/ux/'
+       },{
+          text: 'RowExpander.js',
+          path: 'examples/ux/'
+       },{
+          text: 'RowLayout.js',
+          path: 'examples/ux/'
+       },{
+          text: 'SearchField.js',
+          path: 'examples/ux/'
+       },{
+          text: 'SelectBox.js',
+          path: 'examples/ux/'
+       },{
+          text: 'SliderTip.js',
+          path: 'examples/ux/'
+       },{
+          text: 'SlidingPager.js',
+          path: 'examples/ux/'
+       },{
+          text: 'SpinnerField.js',
+          path: 'examples/ux/'
+       },{
+          text: 'Spinner.js',
+          path: 'examples/ux/'
+       },{
+          text: 'Spotlight.js',
+          path: 'examples/ux/'
+       },{
+          text: 'TabCloseMenu.js',
+          path: 'examples/ux/'
+       },{
+          text: 'TableGrid.js',
+          path: 'examples/ux/'
+       },{
+          text: 'TabScrollerMenu.js',
+          path: 'examples/ux/'
+       },{
+          text: 'XmlTreeLoader.js',
+          path: 'examples/ux/'
+       }]
+    },{
+       name: 'User Extension CSS Pack',
+       file: 'examples/ux/css/ux-all.css',
+       fileIncludes: [{
+          text: 'CenterLayout.css',
+          path: 'examples/ux/css/'
+       },{
+          text: 'ColumnNodeUI.css',
+          path: 'examples/ux/css/'
+       },{
+          text: 'GroupSummary.css',
+          path: 'examples/ux/css/'
+       },{
+          text: 'GroupTab.css',
+          path: 'examples/ux/css/'
+       },{
+          text: 'MultiSelect.css',
+          path: 'examples/ux/css/'
+       },{
+          text: 'PanelResizer.css',
+          path: 'examples/ux/css/'
+       },{
+          text: 'Portal.css',
+          path: 'examples/ux/css/'
+       },{
+          text: 'RowEditor.css',
+          path: 'examples/ux/css/'
+       },{
+          text: 'Spinner.css',
+          path: 'examples/ux/css/'
+       }]
+    },{
        name: 'Ext All CSS',
        file: 'resources/css/ext-all.css',
-       type: 'css',
-       isDebug: true,
        fileIncludes: [],
        includeDeps: true,
        pkgDeps: [
@@ -922,8 +1020,6 @@
     },{
        name: 'Ext All CSS No theme',
        file: 'resources/css/ext-all-notheme.css',
-       type: 'css',
-       isDebug: true,
        fileIncludes: [{
            text: 'reset.css',
            path: 'resources/css/structure/'
@@ -1009,8 +1105,6 @@
     },{
        name: 'Ext Blue Theme',
        file: 'resources/css/xtheme-blue.css',
-       type: 'css',
-       isDebug: true,
        fileIncludes: [{
            text: 'core.css',
            path: 'resources/css/visual/'
@@ -1088,15 +1182,15 @@
     resources: [{
         src: 'src/',
         dest: 'src/',
-        filters: '*.js'
+        filters: ".*\\.js"
     },{
         src: 'examples/',
         dest: 'examples/',
-        filters: '*.html;*.jpg;*.png;*.gif;*.css;*.js'        
+        filters: ".*[\\.html|\\.jpg|\\.png|\\.gif|\\.css|\\.js|\\.php]"
     },{
         src: 'resources/',
         dest: 'resources/',
-        filters: '*.*'        
+        filters: ".*"
     }]   
 }
 
