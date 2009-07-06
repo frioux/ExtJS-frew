@@ -10,7 +10,7 @@
  * approprate data.</p>
  * <p><b>Ext.PagingToolbar</b> is a specialized toolbar that is bound to a {@link Ext.data.Store}
  * and provides automatic paging control. This Component {@link Ext.data.Store#load load}s blocks
- * of data into the <tt>{@link #store}</tt> by passing {@link #paramNames parameters} used for
+ * of data into the <tt>{@link #store}</tt> by passing {@link Ext.data.Store#paramNames paramNames} used for
  * paging criteria.</p>
  * <p>PagingToolbar is typically used as one of the Grid's toolbars:</p>
  * <pre><code>
@@ -139,11 +139,11 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
     refreshText : "Refresh",
 
     /**
-     * Object mapping of parameter names used for load calls.  This property is affected by
-     * See also {@link Ext.data.Store#paramNames}, but is initially set to:
+     * @deprecated
+     * <b>The defaults for these should be set in the data store.</b>
+     * Object mapping of parameter names used for load calls, initially set to:
      * <pre>{start: 'start', limit: 'limit'}</pre>
      */
-    paramNames : {start: 'start', limit: 'limit'},
 
     /**
      * The number of records to display per page.  See also <tt>{@link #cursor}</tt>.
@@ -167,14 +167,14 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
             overflowText: this.firstText,
             iconCls: "x-tbar-page-first",
             disabled: true,
-            handler: this.onFirstClick,
+            handler: this.moveFirst,
             scope: this
         }), this.prev = new T.Button({
             tooltip: this.prevText,
             overflowText: this.prevText,
             iconCls: "x-tbar-page-prev",
             disabled: true,
-            handler: this.onPrevClick,
+            handler: this.movePrevious,
             scope: this
         }), '-', this.beforePageText,
         this.inputItem = new Ext.form.NumberField({
@@ -195,20 +195,20 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
             overflowText: this.nextText,
             iconCls: "x-tbar-page-next",
             disabled: true,
-            handler: this.onNextClick,
+            handler: this.moveNext,
             scope: this
         }), this.last = new T.Button({
             tooltip: this.lastText,
             overflowText: this.lastText,
             iconCls: "x-tbar-page-last",
             disabled: true,
-            handler: this.onLastClick,
+            handler: this.moveLast,
             scope: this
         }), '-', this.refresh = new T.Button({
             tooltip: this.refreshText,
             overflowText: this.refreshText,
             iconCls: "x-tbar-loading",
-            handler: this.onRefreshClick,
+            handler: this.refresh,
             scope: this
         })];
 
@@ -288,7 +288,8 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
             this.dsLoaded = [store, r, o];
             return;
         }
-        this.cursor = (o.params && o.params[this.paramNames.start]) ? o.params[this.paramNames.start] : 0;
+        var p = this.getParams();
+        this.cursor = (o.params && o.params[p.start]) ? o.params[p.start] : 0;
         var d = this.getPageData(), ap = d.activePage, ps = d.pages;
 
         this.afterTextItem.setText(String.format(this.afterPageText, d.pages));
@@ -375,6 +376,12 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
             }
         }
     },
+    
+    // private
+    getParams: function(){
+        //retain backwards compat, allow params on the toolbar itself, if they exist.
+        return this.paramNames || this.store.paramNames;    
+    },
 
     // private
     beforeLoad : function(){
@@ -385,7 +392,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
 
     // private
     doLoad : function(start){
-        var o = {}, pn = this.paramNames;
+        var o = {}, pn = this.getParams();
         o[pn.start] = start;
         o[pn.limit] = this.pageSize;
         if(this.fireEvent('beforechange', this, o) !== false){
@@ -393,27 +400,41 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         }
     },
     
-    // private
-    onFirstClick: function(){
+    /**
+     * Move to the first page, has the same effect as clicking the "first" button.
+     */
+    moveFirst: function(){
         this.doLoad(0);    
     },
     
-    onPrevClick: function(){
+    /**
+     * Move to the previous page, has the same effect as clicking the "previous" button.
+     */
+    movePrevious: function(){
         this.doLoad(Math.max(0, this.cursor-this.pageSize));
     },
     
-    onNextClick: function(){
+    /**
+     * Move to the next page, has the same effect as clicking the "next" button.
+     */
+    moveNext: function(){
         this.doLoad(this.cursor+this.pageSize);
     },
     
-    onLastClick: function(){
+    /**
+     * Move to the last page, has the same effect as clicking the "last" button.
+     */
+    moveLast: function(){
         var total = this.store.getTotalCount(),
             extra = total % this.pageSize;
             
         this.doLoad(extra ? (total - extra) : total - this.pageSize);    
     },
     
-    onRefreshClick: function(){
+    /**
+     * Refresh the current page, has the same effect as clicking the "refresh" button.
+     */
+    refresh: function(){
         this.doLoad(this.cursor);    
     },
 
@@ -442,9 +463,6 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
                 loadexception: this.onLoadError,
                 exception: this.onLoadError
             });
-            this.paramNames.start = store.paramNames.start;
-            this.paramNames.limit = store.paramNames.limit;
-
             doLoad = store.getCount() > 0;
         }
         this.store = store;
