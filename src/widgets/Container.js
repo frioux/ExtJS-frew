@@ -88,7 +88,6 @@ myTabPanel.{@link Ext.TabPanel#setActiveTab setActiveTab}(myNewGrid);
  * Component which can be added directly to a Container. If the wrapping Panel
  * has no <tt><b>{@link #layout}</b></tt> configuration, then the overnested
  * GridPanel will not be sized as expected.<p>
-</code></pre>
  *
  * <p><u><b>Adding via remote configuration</b></u></p>
  *
