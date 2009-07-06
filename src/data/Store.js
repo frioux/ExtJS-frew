@@ -924,6 +924,7 @@ sortInfo: {
 
     // Clears records from modified array after an exception event.
     // NOTE:  records are left marked dirty.  Do we want to commit them even though they were not updated/realized?
+    // TODO remove this method?
     clearModified : function(rs) {
         if (Ext.isArray(rs)) {
             for (var n=rs.length-1;n>=0;n--) {
@@ -1424,6 +1425,12 @@ sortInfo: {
         var m = this.modified.slice(0);
         this.modified = [];
         for(var i = 0, len = m.length; i < len; i++){
+            m[i].reject();
+        }
+        var m = this.removed.slice(0).reverse();
+        this.removed = [];
+        for(var i = 0, len = m.length; i < len; i++){
+            this.insert(m[i].lastIndex||0, m[i]);
             m[i].reject();
         }
     },

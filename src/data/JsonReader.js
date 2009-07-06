@@ -180,8 +180,6 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
         var s = this.meta, Record = this.recordType,
             f = Record.prototype.fields, fi = f.items, fl = f.length, v;
 
-        // Generate extraction functions for the totalProperty, the root, the id, and for each field
-        this.buildExtractors();
         var root = this.getRoot(o), c = root.length, totalRecords = c, success = true;
         if(s.totalProperty){
             v = parseInt(this.getTotal(o), 10);
@@ -268,7 +266,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             throw new Ext.data.JsonReader.Error('successProperty-response', this.meta.successProperty);
         }
         // TODO, separate empty and undefined exceptions.
-        if ((action === Ext.data.Api.actions.create || action === Ext.data.Api.actions.update)) {
+        if (action === Ext.data.Api.actions.create) {
             if (Ext.isEmpty(o[this.meta.root])) {
                 throw new Ext.data.JsonReader.Error('root-emtpy', this.meta.root);
             }
@@ -276,8 +274,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
                 throw new Ext.data.JsonReader.Error('root-undefined-response', this.meta.root);
             }
         }
-        // make sure extraction functions are defined.
-        this.ef = this.buildExtractors();
+
         return o;
     }
 });

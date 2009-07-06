@@ -178,6 +178,35 @@ new Ext.data.HttpProxy({
             for (var verb in this.restActions) {
                 proxy.api[this.actions[verb]].method = this.restActions[verb];
             }
+            // TODO: perhaps move this interceptor elsewhere?  like into DataProxy, perhaps?  Placed here
+            // to satisfy initial 3.0 final release of REST features.
+            proxy.onWrite = proxy.onWrite.createInterceptor(function(action, o, response, rs) {
+                var reader = o.reader;
+                var res = {};
+                switch (response.status) {
+                    case 200:   // standard 200 response, send control back to HttpProxy#onWrite
+                        return true;
+                        break;
+                    case 201:   // entity created but no response returned
+                        res[reader.meta.successProperty] = true;
+                        break;
+                    case 204:  // no-content.  Create a fake response.
+                        res[reader.meta.successProperty] = true;
+                        res[reader.meta.root] = null;
+                        break;
+                    default:
+                        return true;
+                        break;
+                }
+                if (res[reader.meta.successProperty] === true) {
+                    this.fireEvent("write", this, action, res[reader.meta.root], res, rs, o.request.arg);
+                } else {
+                    this.fireEvent('exception', this, 'remote', action, o, res, rs);
+                }
+                o.request.callback.call(o.request.scope, res[reader.meta.root], res, res[reader.meta.successProperty]);
+
+                return false;   // <-- false to prevent intercepted function from running.
+            }, proxy);
         }
     };
 })();

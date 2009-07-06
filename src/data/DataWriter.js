@@ -108,7 +108,7 @@ Ext.data.DataWriter.prototype = {
             params[this.meta.root] = data;
         }
         else if (rs instanceof Ext.data.Record) {
-            params[this.meta.idProperty] = rs.id;
+            //params[this.meta.idProperty] = rs.id; // <-- removed, un-neccessary.
             params[this.meta.root] = this.updateRecord(rs);
         }
         return params;

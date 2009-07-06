@@ -27,6 +27,9 @@ Ext.data.DataReader = function(meta, recordType){
      */
     this.recordType = Ext.isArray(recordType) ?
         Ext.data.Record.create(recordType) : recordType;
+
+    // make sure extraction functions are defined.
+    this.buildExtractors();
 };
 
 Ext.data.DataReader.prototype = {
@@ -69,7 +72,6 @@ Ext.data.DataReader.prototype = {
                 //rs.commit();
                 throw new Ext.data.DataReader.Error('realize', rs);
             }
-            this.buildExtractors();
             var values = this.extractValues(data, rs.fields.items, rs.fields.items.length);
             rs.phantom = false; // <-- That's what it's all about
             rs._phid = rs.id;  // <-- copy phantom-id -> _phid, so we can remap in Store#onCreateRecords
@@ -81,12 +83,9 @@ Ext.data.DataReader.prototype = {
 
     /**
      * Used for updating a non-phantom or "real" record's data with fresh data from server after remote-save.
-     * You <b>must</b> return a complete new record from the server.  If you don't, your local record's missing fields
-     * will be populated with the default values specified in your Ext.data.Record.create specification.  Without a defaultValue,
-     * local fields will be populated with empty string "".  So return your entire record's data after both remote create and update.
-     * In addition, you <b>must</b> return record-data from the server in the same order received.
-     * Will perform a commit as well, un-marking dirty-fields.  Store's "update" event will be suppressed as the record receives
-     * a fresh new data-hash.
+     * If returning data from multiple-records after a batch-update, you <b>must</b> return record-data from the server in
+     * the same order received.  Will perform a commit as well, un-marking dirty-fields.  Store's "update" event will be
+     * suppressed as the record receives fresh new data-hash
      * @param {Record/Record[]} rs
      * @param {Object/Object[]} data
      */
@@ -104,18 +103,13 @@ Ext.data.DataReader.prototype = {
             }
         }
         else {
-                     // If rs is NOT an array but data IS, see if data contains just 1 record.  If so extract it and carry on.
+            // If rs is NOT an array but data IS, see if data contains just 1 record.  If so extract it and carry on.
             if (Ext.isArray(data) && data.length == 1) {
                 data = data.shift();
             }
-            if (!this.isData(data)) {
-                // TODO: create custom Exception class to return record in thrown exception.  Allow exception-handler the choice
-                // to commit or not rather than blindly rs.commit() here.
-                rs.commit();
-                throw new Ext.data.DataReader.Error('update', rs);
+            if (this.isData(data)) {
+                rs.data = this.extractValues(Ext.apply(rs.data, data), rs.fields.items, rs.fields.items.length);
             }
-            this.buildExtractors();
-            rs.data = this.extractValues(Ext.apply(rs.data, data), rs.fields.items, rs.fields.items.length);
             rs.commit();
         }
     },

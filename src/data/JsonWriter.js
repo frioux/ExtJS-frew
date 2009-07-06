@@ -5,7 +5,9 @@
  */
 Ext.data.JsonWriter = function(config) {
     Ext.data.JsonWriter.superclass.constructor.call(this, config);
+
     // careful to respect "returnJson", renamed to "encode"
+    // TODO: remove after v3 final release
     if (this.returnJson != undefined) {
         this.encode = this.returnJson;
     }
