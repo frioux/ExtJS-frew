@@ -364,12 +364,12 @@ viewConfig: {
         return this.fly(el).findParent(this.cellSelector, this.cellSelectorDepth);
     },
 
-/**
- * <p>Return the index of the grid column which contains the passed element.</p>
- * See also {@link #findRowIndex}
- * @param {Element} el The target element
- * @return The column index, or <b>false</b> if the target element is not within a row of this GridView.
- */
+    /**
+     * <p>Return the index of the grid column which contains the passed HTMLElement.</p>
+     * See also {@link #findRowIndex}
+     * @param {HTMLElement} el The target element
+     * @return The column index, or <b>false</b> if the target element is not within a row of this GridView.
+     */
     findCellIndex : function(el, requiredCls){
         var cell = this.findCell(el);
         if(cell && (!requiredCls || this.fly(cell).hasClass(requiredCls))){
@@ -400,11 +400,11 @@ viewConfig: {
         return this.findCellIndex(el, this.hdCls);
     },
 
-/**
- * Return the HtmlElement representing the grid row which contains the passed element.
- * @param {Element} el The target element
- * @return The row element, or null if the target element is not within a row of this GridView.
- */
+    /**
+     * Return the HtmlElement representing the grid row which contains the passed element.
+     * @param {HTMLElement} el The target HTMLElement
+     * @return The row element, or null if the target element is not within a row of this GridView.
+     */
     findRow : function(el){
         if(!el){
             return false;
@@ -412,12 +412,12 @@ viewConfig: {
         return this.fly(el).findParent(this.rowSelector, this.rowSelectorDepth);
     },
 
-/**
- * <p>Return the index of the grid row which contains the passed element.</p>
- * See also {@link #findCellIndex}
- * @param {Element} el The target element
- * @return The row index, or <b>false</b> if the target element is not within a row of this GridView.
- */
+    /**
+     * <p>Return the index of the grid row which contains the passed HTMLElement.</p>
+     * See also {@link #findCellIndex}
+     * @param {HTMLElement} el The target HTMLElement
+     * @return The row index, or <b>false</b> if the target element is not within a row of this GridView.
+     */
     findRowIndex : function(el){
         var r = this.findRow(el);
         return r ? r.rowIndex : false;
@@ -425,30 +425,30 @@ viewConfig: {
 
     // getter methods for fetching elements dynamically in the grid
 
-/**
- * Return the <tt>&lt;div></tt> HtmlElement which represents a Grid row for the specified index.
- * @param {Number} index The row index
- * @return {HtmlElement} The div element.
- */
+    /**
+     * Return the <tt>&lt;div></tt> HtmlElement which represents a Grid row for the specified index.
+     * @param {Number} index The row index
+     * @return {HtmlElement} The div element.
+     */
     getRow : function(row){
         return this.getRows()[row];
     },
 
-/**
- * Returns the grid's <tt>&lt;td></tt> HtmlElement at the specified coordinates.
- * @param {Number} row The row index in which to find the cell.
- * @param {Number} col The column index of the cell.
- * @return {HtmlElement} The td at the specified coordinates.
- */
+    /**
+     * Returns the grid's <tt>&lt;td></tt> HtmlElement at the specified coordinates.
+     * @param {Number} row The row index in which to find the cell.
+     * @param {Number} col The column index of the cell.
+     * @return {HtmlElement} The td at the specified coordinates.
+     */
     getCell : function(row, col){
         return this.getRow(row).getElementsByTagName('td')[col];
     },
 
-/**
- * Return the <tt>&lt;td></tt> HtmlElement which represents the Grid's header cell for the specified column index.
- * @param {Number} index The column index
- * @return {HtmlElement} The td element.
- */
+    /**
+     * Return the <tt>&lt;td></tt> HtmlElement which represents the Grid's header cell for the specified column index.
+     * @param {Number} index The column index
+     * @return {HtmlElement} The td element.
+     */
     getHeaderCell : function(index){
       return this.mainHd.dom.getElementsByTagName('td')[index];
     },
