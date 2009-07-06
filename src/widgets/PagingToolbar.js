@@ -82,7 +82,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
      */
     /**
      * @cfg {String} displayMsg
-     * The paging status message to display (defaults to <tt>"Displaying {0} - {1} of {2}"</tt>).
+     * The paging status message to display (defaults to <tt>'Displaying {0} - {1} of {2}'</tt>).
      * Note that this string is formatted using the braced numbers <tt>{0}-{2}</tt> as tokens
      * that are replaced by the values for start, end and total respectively. These tokens should
      * be preserved when overriding this string if showing those values is desired.
@@ -90,52 +90,52 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
     displayMsg : 'Displaying {0} - {1} of {2}',
     /**
      * @cfg {String} emptyMsg
-     * The message to display when no records are found (defaults to "No data to display")
+     * The message to display when no records are found (defaults to 'No data to display')
      */
     emptyMsg : 'No data to display',
     /**
      * @cfg {String} beforePageText
-     * The text displayed before the input item (defaults to <tt>"Page"</tt>).
+     * The text displayed before the input item (defaults to <tt>'Page'</tt>).
      */
-    beforePageText : "Page",
+    beforePageText : 'Page',
     /**
      * @cfg {String} afterPageText
-     * Customizable piece of the default paging text (defaults to <tt>"of {0}"</tt>). Note that
+     * Customizable piece of the default paging text (defaults to <tt>'of {0}'</tt>). Note that
      * this string is formatted using <tt>{0}</tt> as a token that is replaced by the number of
      * total pages. This token should be preserved when overriding this string if showing the
      * total page count is desired.
      */
-    afterPageText : "of {0}",
+    afterPageText : 'of {0}',
     /**
      * @cfg {String} firstText
-     * The quicktip text displayed for the first page button (defaults to <tt>"First Page"</tt>).
+     * The quicktip text displayed for the first page button (defaults to <tt>'First Page'</tt>).
      * <b>Note</b>: quick tips must be initialized for the quicktip to show.
      */
-    firstText : "First Page",
+    firstText : 'First Page',
     /**
      * @cfg {String} prevText
-     * The quicktip text displayed for the previous page button (defaults to <tt>"Previous Page"</tt>).
+     * The quicktip text displayed for the previous page button (defaults to <tt>'Previous Page'</tt>).
      * <b>Note</b>: quick tips must be initialized for the quicktip to show.
      */
-    prevText : "Previous Page",
+    prevText : 'Previous Page',
     /**
      * @cfg {String} nextText
-     * The quicktip text displayed for the next page button (defaults to <tt>"Next Page"</tt>).
+     * The quicktip text displayed for the next page button (defaults to <tt>'Next Page'</tt>).
      * <b>Note</b>: quick tips must be initialized for the quicktip to show.
      */
-    nextText : "Next Page",
+    nextText : 'Next Page',
     /**
      * @cfg {String} lastText
-     * The quicktip text displayed for the last page button (defaults to <tt>"Last Page"</tt>).
+     * The quicktip text displayed for the last page button (defaults to <tt>'Last Page'</tt>).
      * <b>Note</b>: quick tips must be initialized for the quicktip to show.
      */
-    lastText : "Last Page",
+    lastText : 'Last Page',
     /**
      * @cfg {String} refreshText
-     * The quicktip text displayed for the Refresh button (defaults to <tt>"Refresh"</tt>).
+     * The quicktip text displayed for the Refresh button (defaults to <tt>'Refresh'</tt>).
      * <b>Note</b>: quick tips must be initialized for the quicktip to show.
      */
-    refreshText : "Refresh",
+    refreshText : 'Refresh',
 
     /**
      * <p><b>Deprecated</b>. <code>paramNames</code> should be set in the <b>data store</b>
@@ -167,14 +167,14 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         var pagingItems = [this.first = new T.Button({
             tooltip: this.firstText,
             overflowText: this.firstText,
-            iconCls: "x-tbar-page-first",
+            iconCls: 'x-tbar-page-first',
             disabled: true,
             handler: this.moveFirst,
             scope: this
         }), this.prev = new T.Button({
             tooltip: this.prevText,
             overflowText: this.prevText,
-            iconCls: "x-tbar-page-prev",
+            iconCls: 'x-tbar-page-prev',
             disabled: true,
             handler: this.movePrevious,
             scope: this
@@ -195,21 +195,21 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         }), '-', this.next = new T.Button({
             tooltip: this.nextText,
             overflowText: this.nextText,
-            iconCls: "x-tbar-page-next",
+            iconCls: 'x-tbar-page-next',
             disabled: true,
             handler: this.moveNext,
             scope: this
         }), this.last = new T.Button({
             tooltip: this.lastText,
             overflowText: this.lastText,
-            iconCls: "x-tbar-page-last",
+            iconCls: 'x-tbar-page-last',
             disabled: true,
             handler: this.moveLast,
             scope: this
         }), '-', this.refresh = new T.Button({
             tooltip: this.refreshText,
             overflowText: this.refreshText,
-            iconCls: "x-tbar-loading",
+            iconCls: 'x-tbar-loading',
             handler: this.refresh,
             scope: this
         })];
@@ -380,7 +380,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
     },
     
     // private
-    getParams: function(){
+    getParams : function(){
         //retain backwards compat, allow params on the toolbar itself, if they exist.
         return this.paramNames || this.store.paramNames;    
     },
@@ -403,30 +403,30 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
     },
     
     /**
-     * Move to the first page, has the same effect as clicking the "first" button.
+     * Move to the first page, has the same effect as clicking the 'first' button.
      */
-    moveFirst: function(){
+    moveFirst : function(){
         this.doLoad(0);    
     },
     
     /**
-     * Move to the previous page, has the same effect as clicking the "previous" button.
+     * Move to the previous page, has the same effect as clicking the 'previous' button.
      */
-    movePrevious: function(){
+    movePrevious : function(){
         this.doLoad(Math.max(0, this.cursor-this.pageSize));
     },
     
     /**
-     * Move to the next page, has the same effect as clicking the "next" button.
+     * Move to the next page, has the same effect as clicking the 'next' button.
      */
-    moveNext: function(){
+    moveNext : function(){
         this.doLoad(this.cursor+this.pageSize);
     },
     
     /**
-     * Move to the last page, has the same effect as clicking the "last" button.
+     * Move to the last page, has the same effect as clicking the 'last' button.
      */
-    moveLast: function(){
+    moveLast : function(){
         var total = this.store.getTotalCount(),
             extra = total % this.pageSize;
             
@@ -434,9 +434,9 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
     },
     
     /**
-     * Refresh the current page, has the same effect as clicking the "refresh" button.
+     * Refresh the current page, has the same effect as clicking the 'refresh' button.
      */
-    refresh: function(){
+    refresh : function(){
         this.doLoad(this.cursor);    
     },
 
@@ -448,10 +448,10 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
     bindStore : function(store, initial){
         var doLoad;
         if(!initial && this.store){
-            this.store.un("beforeload", this.beforeLoad, this);
-            this.store.un("load", this.onLoad, this);
-            this.store.un("loadexception", this.onLoadError, this);
-            this.store.un("exception", this.onLoadError, this);
+            this.store.un('beforeload', this.beforeLoad, this);
+            this.store.un('load', this.onLoad, this);
+            this.store.un('loadexception', this.onLoadError, this);
+            this.store.un('exception', this.onLoadError, this);
             if(store !== this.store && this.store.autoDestroy){
                 this.store.destroy();
             }
