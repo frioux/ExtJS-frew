@@ -53,8 +53,7 @@ store.load({
  * <li><a href="http://extjs.com/forum/showthread.php?t=57386">Ext.ux.data.PagingStore</a></li>
  * <li>Paging Memory Proxy (examples/ux/PagingMemoryProxy.js)</li>
  * </ul></div>
- * @constructor
- * Create a new PagingToolbar
+ * @constructor Create a new PagingToolbar
  * @param {Object} config The config object
  * @xtype paging
  */
@@ -139,10 +138,13 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
     refreshText : "Refresh",
 
     /**
-     * @deprecated
-     * <b>The defaults for these should be set in the data store.</b>
-     * Object mapping of parameter names used for load calls, initially set to:
+     * <p><b>Deprecated</b>. <code>paramNames</code> should be set in the <b>data store</b>
+     * (see {@link Ext.data.Store#paramNames}).</p>
+     * <br><p>Object mapping of parameter names used for load calls, initially set to:</p>
      * <pre>{start: 'start', limit: 'limit'}</pre>
+     * @type Object
+     * @property paramNames
+     * @deprecated
      */
 
     /**
