@@ -119,20 +119,20 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
      */
     minWidth : 120,
     /**
-     * @cfg {Boolean/String} shadow True or "sides" for the default effect, "frame" for 4-way shadow, and "drop"
-     * for bottom-right shadow (defaults to "sides")
+     * @cfg {Boolean/String} shadow True or 'sides' for the default effect, 'frame' for 4-way shadow, and 'drop'
+     * for bottom-right shadow (defaults to 'sides')
      */
-    shadow : "sides",
+    shadow : 'sides',
     /**
      * @cfg {String} subMenuAlign The {@link Ext.Element#alignTo} anchor position value to use for submenus of
-     * this menu (defaults to "tl-tr?")
+     * this menu (defaults to 'tl-tr?')
      */
-    subMenuAlign : "tl-tr?",
+    subMenuAlign : 'tl-tr?',
     /**
      * @cfg {String} defaultAlign The default {@link Ext.Element#alignTo} anchor position value for this menu
-     * relative to its element of origin (defaults to "tl-bl?")
+     * relative to its element of origin (defaults to 'tl-bl?')
      */
-    defaultAlign : "tl-bl?",
+    defaultAlign : 'tl-bl?',
     /**
      * @cfg {Boolean} allowOtherMenus True to allow multiple menus to be displayed at the same time (defaults to false)
      */
@@ -167,7 +167,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
 
     /**
      * @cfg {Boolean} floating
-     * <p>By default, a Menu configured as <b><code>floating:true</code></b> 
+     * <p>By default, a Menu configured as <b><code>floating:true</code></b>
      * will be rendered as an {@link Ext.Layer} (an absolutely positioned,
      * floating Component with zindex=15000).
      * If configured as <b><code>floating:false</code></b>, the Menu may be
@@ -304,7 +304,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
 
     // private
     findTargetItem : function(e){
-        var t = e.getTarget(".x-menu-list-item", this.ul, true);
+        var t = e.getTarget('.x-menu-list-item', this.ul, true);
         if(t && t.menuItemId){
             return this.items.get(t.menuItemId);
         }
@@ -322,7 +322,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
                     e.preventDefault();
                 }else if(t.onClick){
                     t.onClick(e);
-                    this.fireEvent("click", this, t, e);
+                    this.fireEvent('click', this, t, e);
                 }
             }
         }
@@ -379,7 +379,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
             }
         }
         this.over = true;
-        this.fireEvent("mouseover", this, e, t);
+        this.fireEvent('mouseover', this, e, t);
     },
 
     // private
@@ -392,7 +392,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
             }
         }
         this.over = false;
-        this.fireEvent("mouseout", this, e, t);
+        this.fireEvent('mouseout', this, e, t);
     },
 
     // private
@@ -467,7 +467,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         }
         this.hidden = false;
         this.focus();
-        this.fireEvent("show", this);
+        this.fireEvent('show', this);
     },
 
     constrainScroll : function(y){
@@ -682,7 +682,7 @@ Ext.menu.MenuNav = Ext.extend(Ext.KeyNav, function(){
         }
     }
     return {
-        constructor: function(menu){
+        constructor : function(menu){
             Ext.menu.MenuNav.superclass.constructor.call(this, menu.el);
             this.scope = this.menu = menu;
         },
@@ -730,7 +730,7 @@ Ext.menu.MenuNav = Ext.extend(Ext.KeyNav, function(){
             if(m.activeItem){
                 e.stopPropagation();
                 m.activeItem.onClick(e);
-                m.fireEvent("click", this, m.activeItem);
+                m.fireEvent('click', this, m.activeItem);
                 return true;
             }
         }
