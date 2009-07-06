@@ -505,7 +505,9 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     toggle : function(state, suppressEvent){
         state = state === undefined ? !this.pressed : !!state;
         if(state != this.pressed){
-            this.el[state ? 'addClass' : 'removeClass']('x-btn-pressed');
+            if(this.rendered){
+                this.el[state ? 'addClass' : 'removeClass']('x-btn-pressed');
+            }
             this.pressed = state;
             if(!suppressEvent){
                 this.fireEvent('toggle', this, state);
