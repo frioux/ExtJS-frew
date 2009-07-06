@@ -21,7 +21,6 @@ Ext.LoadMask = function(el, config){
     if(this.store){
         this.store.on('beforeload', this.onBeforeLoad, this);
         this.store.on('load', this.onLoad, this);
-        this.store.on('loadexception', this.onLoad, this);
         this.store.on('exception', this.onLoad, this);
         this.removeMask = Ext.value(this.removeMask, false);
     }else{
@@ -107,7 +106,6 @@ Ext.LoadMask.prototype = {
         if(this.store){
             this.store.un('beforeload', this.onBeforeLoad, this);
             this.store.un('load', this.onLoad, this);
-            this.store.un('loadexception', this.onLoad, this);
             this.store.un('exception', this.onLoad, this);
         }else{
             var um = this.el.getUpdater();

@@ -184,7 +184,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
             allowDecimals: false,
             allowNegative: false,
             enableKeyEvents: true,
-            selectOnFocus: true, 
+            selectOnFocus: true,
             listeners: {
                 scope: this,
                 keydown: this.onPagingKeyDown,
@@ -378,11 +378,11 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
             }
         }
     },
-    
+
     // private
     getParams : function(){
         //retain backwards compat, allow params on the toolbar itself, if they exist.
-        return this.paramNames || this.store.paramNames;    
+        return this.paramNames || this.store.paramNames;
     },
 
     // private
@@ -401,43 +401,43 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
             this.store.load({params:o});
         }
     },
-    
+
     /**
      * Move to the first page, has the same effect as clicking the 'first' button.
      */
     moveFirst : function(){
-        this.doLoad(0);    
+        this.doLoad(0);
     },
-    
+
     /**
      * Move to the previous page, has the same effect as clicking the 'previous' button.
      */
     movePrevious : function(){
         this.doLoad(Math.max(0, this.cursor-this.pageSize));
     },
-    
+
     /**
      * Move to the next page, has the same effect as clicking the 'next' button.
      */
     moveNext : function(){
         this.doLoad(this.cursor+this.pageSize);
     },
-    
+
     /**
      * Move to the last page, has the same effect as clicking the 'last' button.
      */
     moveLast : function(){
         var total = this.store.getTotalCount(),
             extra = total % this.pageSize;
-            
-        this.doLoad(extra ? (total - extra) : total - this.pageSize);    
+
+        this.doLoad(extra ? (total - extra) : total - this.pageSize);
     },
-    
+
     /**
      * Refresh the current page, has the same effect as clicking the 'refresh' button.
      */
     refresh : function(){
-        this.doLoad(this.cursor);    
+        this.doLoad(this.cursor);
     },
 
     /**
@@ -450,7 +450,6 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         if(!initial && this.store){
             this.store.un('beforeload', this.beforeLoad, this);
             this.store.un('load', this.onLoad, this);
-            this.store.un('loadexception', this.onLoadError, this);
             this.store.un('exception', this.onLoadError, this);
             if(store !== this.store && this.store.autoDestroy){
                 this.store.destroy();
@@ -462,7 +461,6 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
                 scope: this,
                 beforeload: this.beforeLoad,
                 load: this.onLoad,
-                loadexception: this.onLoadError,
                 exception: this.onLoadError
             });
             doLoad = store.getCount() > 0;
