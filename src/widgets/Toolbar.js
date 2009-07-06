@@ -361,18 +361,18 @@ Ext.extend(T, Ext.Container, {
 
     defaultType: 'button',
 
+    /**
+     * @cfg {String/Object} layout
+     * This class assigns a default layout (<code>layout:'<b>toolbar</b>'</code>).
+     * Developers <i>may</i> override this configuration option if another layout
+     * is required (the constructor must be passed a configuration object in this
+     * case instead of an array).
+     * See {@link Ext.Container#layout} for additional information.
+     */
+
     trackMenus : true,
     internalDefaults: {removeMode: 'container', hideParent: true},
     toolbarCls: 'x-toolbar',
-
-    /**
-     * @cfg {String/Object} layout
-     * @hide
-     */
-    /** 
-     * @cfg {Object} layoutConfig
-     * @hide
-     */
 
     initComponent : function(){
         T.superclass.initComponent.call(this);
