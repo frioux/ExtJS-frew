@@ -27,7 +27,7 @@ Ext.apply(Ext, function(){
          * For other browsers it uses an inline data URL.
          * @type String
          */
-        BLANK_IMAGE_URL : Ext.isIE6 || Ext.isIE7 ?
+        BLANK_IMAGE_URL : Ext.isIE6 || Ext.isIE7 || Ext.isAir ?
                             'http:/' + '/extjs.com/s.gif' :
                             'data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==',
 
