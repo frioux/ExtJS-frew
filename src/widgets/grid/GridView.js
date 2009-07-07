@@ -991,13 +991,13 @@ viewConfig: {
             ctop += p.offsetTop;
             p = p.offsetParent;
         }
+        
         ctop -= this.mainHd.dom.offsetHeight;
-
+        stop = parseInt(c.scrollTop, 10);
+        
         var cbot = ctop + rowEl.offsetHeight,
             ch = c.clientHeight,
             sbot = stop + ch;
-            
-        stop = parseInt(c.scrollTop, 10);
         
 
         if(ctop < stop){
