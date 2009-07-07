@@ -1199,6 +1199,10 @@
         src: 'INCLUDE_ORDER.txt',
         dest: 'INCLUDE_ORDER.txt',
         filters: ".*"
+    },{
+        src: 'ext.jsb2',
+        dest: 'ext.jsb2',
+        filters: ".*"
     }]   
 }
 
