@@ -633,37 +633,35 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
                 return;
             }
         }
-        var days = date.getDaysInMonth();
-        var firstOfMonth = date.getFirstDateOfMonth();
-        var startingPos = firstOfMonth.getDay()-this.startDay;
+        var days = date.getDaysInMonth(),
+            firstOfMonth = date.getFirstDateOfMonth(),
+            startingPos = firstOfMonth.getDay()-this.startDay;
 
-        if(startingPos <= this.startDay){
+        if(startingPos < 0){
             startingPos += 7;
         }
-
-        var pm = date.add('mo', -1);
-        var prevStart = pm.getDaysInMonth()-startingPos;
-
-        var cells = this.cells.elements;
-        var textEls = this.textNodes;
         days += startingPos;
 
-        // convert everything to numbers so it's fast
-        var day = 86400000;
-        var d = (new Date(pm.getFullYear(), pm.getMonth(), prevStart)).clearTime();
-        var today = new Date().clearTime().getTime();
-        var sel = date.clearTime().getTime();
-        var min = this.minDate ? this.minDate.clearTime() : Number.NEGATIVE_INFINITY;
-        var max = this.maxDate ? this.maxDate.clearTime() : Number.POSITIVE_INFINITY;
-        var ddMatch = this.disabledDatesRE;
-        var ddText = this.disabledDatesText;
-        var ddays = this.disabledDays ? this.disabledDays.join('') : false;
-        var ddaysText = this.disabledDaysText;
-        var format = this.format;
+        var pm = date.add('mo', -1),
+            prevStart = pm.getDaysInMonth()-startingPos,
+            cells = this.cells.elements,
+            textEls = this.textNodes,
+            // convert everything to numbers so it's fast
+            day = 86400000,
+            d = (new Date(pm.getFullYear(), pm.getMonth(), prevStart)).clearTime(),
+            today = new Date().clearTime().getTime(),
+            sel = date.clearTime().getTime(),
+            min = this.minDate ? this.minDate.clearTime() : Number.NEGATIVE_INFINITY,
+            max = this.maxDate ? this.maxDate.clearTime() : Number.POSITIVE_INFINITY,
+            ddMatch = this.disabledDatesRE,
+            ddText = this.disabledDatesText,
+            ddays = this.disabledDays ? this.disabledDays.join('') : false,
+            ddaysText = this.disabledDaysText,
+            format = this.format;
 
         if(this.showToday){
-            var td = new Date().clearTime();
-            var disable = (td < min || td > max ||
+            var td = new Date().clearTime(),
+                disable = (td < min || td > max ||
                 (ddMatch && format && ddMatch.test(td.dateFormat(format))) ||
                 (ddays && ddays.indexOf(td.getDay()) != -1));
 
@@ -738,8 +736,8 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
         this.mbtn.setText(this.monthNames[date.getMonth()] + ' ' + date.getFullYear());
 
         if(!this.internalRender){
-            var main = this.el.dom.firstChild;
-            var w = main.offsetWidth;
+            var main = this.el.dom.firstChild,
+                w = main.offsetWidth;
             this.el.setWidth(w + this.el.getBorderWidth('lr'));
             Ext.fly(main).setWidth(w);
             this.internalRender = true;
