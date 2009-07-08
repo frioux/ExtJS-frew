@@ -175,6 +175,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             delete this.ef;
             this.meta = o.metaData;
             this.recordType = Ext.data.Record.create(o.metaData.fields);
+            this.buildExtractors();
             this.onMetaChange(this.meta, this.recordType, o);
         }
         var s = this.meta, Record = this.recordType,
