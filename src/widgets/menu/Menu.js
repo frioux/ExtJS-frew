@@ -435,9 +435,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
                 this.render();
                 this.doLayout(false, true);
             }
-            if(this.fireEvent('beforeshow', this) !== false){
-                this.showAt(this.el.getAlignToXY(el, pos || this.defaultAlign, this.defaultOffsets), parentMenu, false);
-            }
+            this.showAt(this.el.getAlignToXY(el, pos || this.defaultAlign, this.defaultOffsets), parentMenu, false);
         }else{
             Ext.menu.Menu.superclass.show.call(this);
         }
@@ -449,25 +447,27 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
      * @param {Ext.menu.Menu} parentMenu (optional) This menu's parent menu, if applicable (defaults to undefined)
      */
     showAt : function(xy, parentMenu, /* private: */_e){
-        this.parentMenu = parentMenu;
-        if(!this.el){
-            this.render();
+        if(this.fireEvent('beforeshow', this) !== false){
+	        this.parentMenu = parentMenu;
+	        if(!this.el){
+	            this.render();
+	        }
+	        this.el.setXY(xy);
+	        if(this.enableScrolling){
+	            this.constrainScroll(xy[1]);
+	        }
+	        this.el.show();
+	        Ext.menu.Menu.superclass.onShow.call(this);
+	        if(Ext.isIE){
+	            this.layout.doAutoSize();
+	            if(!Ext.isIE8){
+	                this.el.repaint();
+	            }
+	        }
+	        this.hidden = false;
+	        this.focus();
+	        this.fireEvent('show', this);
         }
-        this.el.setXY(xy);
-        if(this.enableScrolling){
-            this.constrainScroll(xy[1]);
-        }
-        this.el.show();
-        Ext.menu.Menu.superclass.onShow.call(this);
-        if(Ext.isIE){
-            this.layout.doAutoSize();
-            if(!Ext.isIE8){
-                this.el.repaint();
-            }
-        }
-        this.hidden = false;
-        this.focus();
-        this.fireEvent('show', this);
     },
 
     constrainScroll : function(y){
