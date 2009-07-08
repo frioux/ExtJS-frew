@@ -422,7 +422,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
 
     /**
      * If <code>{@link #floating}=true</code>, shows this menu relative to
-     * another element, otherwise uses {@link Ext.Component#show}.
+     * another element using {@link #showat}, otherwise uses {@link Ext.Component#show}.
      * @param {Mixed} element The element to align to
      * @param {String} position (optional) The {@link Ext.Element#alignTo} anchor position to use in aligning to
      * the element (defaults to this.defaultAlign)
@@ -442,7 +442,8 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
     },
 
     /**
-     * Displays this menu at a specific xy position
+     * Displays this menu at a specific xy position and fires the 'show' event if a
+     * handler for the 'beforeshow' event does not return false cancelling the operation.
      * @param {Array} xyPosition Contains X & Y [x, y] values for the position at which to show the menu (coordinates are page-based)
      * @param {Ext.menu.Menu} parentMenu (optional) This menu's parent menu, if applicable (defaults to undefined)
      */
