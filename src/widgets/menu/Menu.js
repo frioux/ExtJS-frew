@@ -559,8 +559,13 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         if(this.el && this.floating){
             this.el.hide();
         }
-        if(this.deepHide === true && this.parentMenu){
-            this.parentMenu.hide(true);
+        var pm = this.parentMenu;
+        if(this.deepHide === true && pm){
+            if(pm.floating){
+                pm.hide(true);
+            }else{
+                pm.deactivateActive();
+            }
         }
     },
 

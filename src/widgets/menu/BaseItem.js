@@ -140,8 +140,13 @@ Ext.extend(Ext.menu.BaseItem, Ext.Component, {
 
     // private
     handleClick : function(e){
+        var pm = this.parentMenu;
         if(this.hideOnClick){
-            this.parentMenu.hide.defer(this.clickHideDelay, this.parentMenu, [true]);
+            if(pm.floating){
+                pm.hide.defer(this.clickHideDelay, pm, [true]);
+            }else{
+                pm.deactivateActive();
+            }
         }
     },
 
