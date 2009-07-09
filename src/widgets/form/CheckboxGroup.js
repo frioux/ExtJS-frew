@@ -241,6 +241,23 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
     },
     
     // private
+    isDirty: function(){
+        //override the behaviour to check sub items.
+        if (this.disabled || !this.rendered) {
+            return false;
+        }
+
+        var dirty = false;
+        this.eachItem(function(item){
+            if(item.isDirty()){
+                dirty = true;
+                return false;
+            }
+        });
+        return dirty;
+    },
+    
+    // private
     onDisable : function(){
         this.eachItem(function(item){
             item.disable();
