@@ -332,7 +332,12 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         this.el = btn;
 
         if(this.id){
-            this.el.dom.id = this.el.id = this.id;
+            var d = this.el.dom,
+                c = Ext.Element.cache;
+                
+            delete c[d.id];
+            d.id = this.el.id = this.id;
+            c[d.id] = this.el;
         }
         if(this.icon){
             btnEl.setStyle('background-image', 'url(' +this.icon +')');
