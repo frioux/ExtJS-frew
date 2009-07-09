@@ -319,7 +319,7 @@ Ext.ListView = Ext.extend(Ext.DataView, {
                 }, 10);
             }
         }
-        if(Ext.isNumber(h == 'number')){
+        if(Ext.isNumber(h)){
             bdp.style.height = (h - hd.parentNode.offsetHeight) + 'px';
         }
     },
