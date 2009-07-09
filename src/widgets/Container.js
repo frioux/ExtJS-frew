@@ -427,11 +427,7 @@ items: [
         var items = this.items;
         if(items){
             delete this.items;
-            if(Ext.isArray(items) && items.length > 0){
-                this.add.apply(this, items);
-            }else{
-                this.add(items);
-            }
+            this.add(items);
         }
     },
 
