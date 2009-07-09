@@ -131,10 +131,19 @@ Ext.ux.grid.RowExpander = Ext.extend(Ext.util.Observable, {
     
     // @private    
     onDestroy: function() {
-        this.keyNav.disable();
-        delete this.keyNav;
+        if(this.keyNav){
+            this.keyNav.disable();
+            delete this.keyNav;
+        }
+        /*
+         * A majority of the time, the plugin will be destroyed along with the grid,
+         * which means the mainBody won't be available. On the off chance that the plugin
+         * isn't destroyed with the grid, take care of removing the listener.
+         */
         var mainBody = this.grid.getView().mainBody;
-        mainBody.un('mousedown', this.onMouseDown, this);
+        if(mainBody){
+            mainBody.un('mousedown', this.onMouseDown, this);
+        }
     },
     // @private
     onRowDblClick: function(grid, rowIdx, e) {
