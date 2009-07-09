@@ -83,6 +83,7 @@ Ext.ux.form.SelectBox = Ext.extend(Ext.form.ComboBox, {
 		this.store.on('load', this.calcRowsPerPage, this);
 		Ext.ux.form.SelectBox.superclass.onRender.apply(this, arguments);
 		if( this.mode == 'local' ) {
+            this.initList();
 			this.calcRowsPerPage();
 		}
 	},
