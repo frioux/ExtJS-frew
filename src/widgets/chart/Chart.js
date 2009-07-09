@@ -250,7 +250,10 @@
     
     onDestroy: function(){
         Ext.chart.Chart.superclass.onDestroy.call(this);
-        delete window[this.tipFnName];
+        var tip = this.tipFnName;
+        if(!Ext.isEmpty(tip)){
+            delete window[tip];
+        }
     }
 });
 Ext.reg('chart', Ext.chart.Chart);
