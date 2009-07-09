@@ -39,7 +39,7 @@ Ext.form.BasicForm = function(el, config){
      * @type MixedCollection
      */
     this.items = new Ext.util.MixedCollection(false, function(o){
-        return o.itemId || o.id || (o.id = Ext.id());
+        return o.getItemId();
     });
     this.addEvents(
         /**

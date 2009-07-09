@@ -456,7 +456,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             this.fontSelect.dom.disabled = disabled;
         }
         this.tb.items.each(function(item){
-            if(item.itemId != 'sourceedit'){
+            if(item.getItemId() != 'sourceedit'){
                 item.setDisabled(disabled);
             }
         });
@@ -748,7 +748,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
 
     // private
     adjustFont: function(btn){
-        var adjust = btn.itemId == 'increasefontsize' ? 1 : -1;
+        var adjust = btn.getItemId() == 'increasefontsize' ? 1 : -1;
 
         var v = parseInt(this.doc.queryCommandValue('FontSize') || 2, 10);
         if((Ext.isSafari && !Ext.isSafari2) || Ext.isChrome || Ext.isAir){
@@ -824,7 +824,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
 
     // private
     relayBtnCmd : function(btn){
-        this.relayCmd(btn.itemId);
+        this.relayCmd(btn.getItemId());
     },
 
     /**

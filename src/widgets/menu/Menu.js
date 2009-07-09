@@ -34,7 +34,7 @@
                 this.itemTpl.append(target, a, true));
 
 //          Link the containing <li> to the item.
-            c.positionEl.menuItemId = c.itemId || c.id;
+            c.positionEl.menuItemId = c.getItemId();
 
 //          If rendering a regular Component, and it needs an icon,
 //          move the Component rightwards.

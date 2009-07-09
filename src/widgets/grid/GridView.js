@@ -1562,9 +1562,11 @@ viewConfig: {
 
     // private
     handleHdMenuClick : function(item){
-        var index = this.hdCtxIndex;
-        var cm = this.cm, ds = this.ds;
-        switch(item.itemId){
+        var index = this.hdCtxIndex,
+            cm = this.cm, 
+            ds = this.ds,
+            id = item.getItemId();
+        switch(id){
             case "asc":
                 ds.sort(cm.getDataIndex(index), "ASC");
                 break;
@@ -1572,7 +1574,7 @@ viewConfig: {
                 ds.sort(cm.getDataIndex(index), "DESC");
                 break;
             default:
-                index = cm.getIndexById(item.itemId.substr(4));
+                index = cm.getIndexById(id.substr(4));
                 if(index != -1){
                     if(item.checked && cm.getColumnsBy(this.isHideableColumn, this).length <= 1){
                         this.onDenyColumnHide();
