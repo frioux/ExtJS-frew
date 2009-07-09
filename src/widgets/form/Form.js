@@ -151,19 +151,8 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
         var fn = function(c){
             if(formPanel.isField(c)){
                 f.add(c);
-            }if(c.isFieldWrap){
-                Ext.applyIf(c, {
-                    labelAlign: c.ownerCt.labelAlign,
-                    labelWidth: c.ownerCt.labelWidth,
-                    itemCls: c.ownerCt.itemCls
-                });
-                f.add(c.field);
-            }else if(c.doLayout && c != formPanel){
-                Ext.applyIf(c, {
-                    labelAlign: c.ownerCt.labelAlign,
-                    labelWidth: c.ownerCt.labelWidth,
-                    itemCls: c.ownerCt.itemCls
-                });
+            }else if(c.findBy && c != formPanel){
+                formPanel.applySettings(c);
                 //each check required for check/radio groups.
                 if(c.items && c.items.each){
                     c.items.each(fn, this);
@@ -171,6 +160,16 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
             }
         };
         this.items.each(fn, this);
+    },
+    
+    // private
+    applySettings: function(c){
+        var ct = c.ownerCt;
+        Ext.applyIf(c, {
+            labelAlign: ct.labelAlign,
+            labelWidth: ct.labelWidth,
+            itemCls: ct.itemCls
+        });
     },
 
     // private
@@ -224,15 +223,11 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
     // private
     onAdd : function(ct, c) {
 		// If a single form Field, add it
-        if (this.isField(c)) {
+        if(this.isField(c)){
             this.form.add(c);
 		// If a Container, add any Fields it might contain
-        } else if (c.findBy) {
-            Ext.applyIf(c, {
-                labelAlign: c.ownerCt.labelAlign,
-                labelWidth: c.ownerCt.labelWidth,
-                itemCls: c.ownerCt.itemCls
-            });
+        }else if(c.findBy){
+            this.applySettings(c);
             this.form.add.apply(this.form, c.findBy(this.isField));
         }
     },
@@ -240,11 +235,11 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
     // private
     onRemove : function(ct, c) {
 		// If a single form Field, remove it
-        if (this.isField(c)) {
+        if(this.isField(c)){
             Ext.destroy(c.container.up('.x-form-item'));
         	this.form.remove(c);
 		// If a Container, remove any Fields it might contain
-        } else if (c.findByType) {
+        }else if(c.findBy){
             Ext.each(c.findBy(this.isField), this.form.remove, this.form);
         }
     },
