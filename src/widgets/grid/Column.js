@@ -8,7 +8,7 @@
 Ext.grid.Column = function(config){
     Ext.apply(this, config);
 
-    if(typeof this.renderer == 'string'){
+    if(Ext.isString(this.renderer)){
         this.renderer = Ext.util.Format[this.renderer];
     } else if(Ext.isObject(this.renderer)){
         this.scope = this.renderer.scope;
@@ -241,7 +241,7 @@ var grid = new Ext.grid.GridPanel({
      * @type Function
      */
     renderer : function(value){
-        if(typeof value == 'string' && value.length < 1){
+        if(Ext.isString(value) && value.length < 1){
             return '&#160;';
         }
         return value;
@@ -368,7 +368,7 @@ Ext.grid.TemplateColumn = Ext.extend(Ext.grid.Column, {
      */
     constructor: function(cfg){
         Ext.grid.TemplateColumn.superclass.constructor.call(this, cfg);
-        var tpl = typeof Ext.isObject(this.tpl) ? this.tpl : new Ext.XTemplate(this.tpl);
+        var tpl = Ext.isObject(this.tpl) ? this.tpl : new Ext.XTemplate(this.tpl);
         this.renderer = function(value, p, r){
             return tpl.apply(r.data);
         };
