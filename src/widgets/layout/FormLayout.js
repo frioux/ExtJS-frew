@@ -233,7 +233,7 @@ new Ext.Template(
         return {
             id: field.id,
             label: field.fieldLabel,
-            labelStyle: field.labelStyle||this.labelStyle||'',
+            labelStyle: this.getLabelStyle(field.labelStyle),
             elementStyle: this.elementStyle||'',
             labelSeparator: noLabelSep ? '' : (typeof field.labelSeparator == 'undefined' ? this.labelSeparator : field.labelSeparator),
             itemCls: (field.itemCls||this.container.itemCls||'') + (field.hideLabel ? ' x-hide-label' : ''),
