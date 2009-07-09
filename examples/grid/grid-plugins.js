@@ -48,8 +48,7 @@ Ext.onReady(function(){
         }),
         viewConfig: {
             forceFit:true
-        },
-        columnLines: true,
+        },        
         width: 600,
         height: 300,
         plugins: expander,
