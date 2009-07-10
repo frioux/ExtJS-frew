@@ -16,7 +16,7 @@
  * <p>Example usage:</p>
  * <pre><code>
 var grid = new Ext.grid.GridPanel({
-    {@link #store}: new (@link Ext.data.Store}({
+    {@link #store}: new {@link Ext.data.Store}({
         {@link Ext.data.Store#autoDestroy autoDestroy}: true,
         {@link Ext.data.Store#reader reader}: reader,
         {@link Ext.data.Store#data data}: xg.dummyData
