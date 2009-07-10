@@ -251,6 +251,9 @@ Ext.ListView = Ext.extend(Ext.DataView, {
     },
 
     onRender : function(){
+        this.autoEl = {
+            cls: 'x-list-wrap'  
+        };
         Ext.ListView.superclass.onRender.apply(this, arguments);
 
         this.internalTpl.overwrite(this.el, {columns: this.columns});
