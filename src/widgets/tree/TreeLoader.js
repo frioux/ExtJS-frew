@@ -265,7 +265,7 @@ paramOrder: 'param1|param2|param'
     * Example:<pre><code>
 new Ext.tree.TreePanel({
     ...
-    new Ext.tree.TreeLoader({
+    loader: new Ext.tree.TreeLoader({
         url: 'dataUrl',
         createNode: function(attr) {
 //          Allow consolidation consignments to have
@@ -274,7 +274,7 @@ new Ext.tree.TreePanel({
                 attr.iconCls = 'x-consol',
                 attr.allowDrop = true;
             }
-            return Ext.tree.TreeLoader.prototype.call(this, attr);
+            return Ext.tree.TreeLoader.prototype.createNode.call(this, attr);
         }
     }),
     ...
