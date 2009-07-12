@@ -210,7 +210,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
             tooltip: this.refreshText,
             overflowText: this.refreshText,
             iconCls: 'x-tbar-loading',
-            handler: this.refresh,
+            handler: this.doRefresh,
             scope: this
         })];
 
