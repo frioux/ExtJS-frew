@@ -20,7 +20,7 @@ Ext.util.MixedCollection = function(allowFunctions, keyFn){
          * @event clear
          * Fires when the collection is cleared.
          */
-        "clear",
+        'clear',
         /**
          * @event add
          * Fires when an item is added to the collection.
@@ -28,7 +28,7 @@ Ext.util.MixedCollection = function(allowFunctions, keyFn){
          * @param {Object} o The item added.
          * @param {String} key The key associated with the added item.
          */
-        "add",
+        'add',
         /**
          * @event replace
          * Fires when an item is replaced in the collection.
@@ -36,15 +36,15 @@ Ext.util.MixedCollection = function(allowFunctions, keyFn){
          * @param {Object} old The item being replaced.
          * @param {Object} new The new item.
          */
-        "replace",
+        'replace',
         /**
          * @event remove
          * Fires when an item is removed from the collection.
          * @param {Object} o The item being removed.
          * @param {String} key (optional) The key associated with the removed item.
          */
-        "remove",
-        "sort"
+        'remove',
+        'sort'
     );
     this.allowFunctions = allowFunctions === true;
     if(keyFn){
@@ -135,13 +135,13 @@ mc.add(otherEl);
             key = this.getKey(o);
         }
         var old = this.map[key];
-        if(typeof key == "undefined" || key === null || typeof old == "undefined"){
+        if(typeof key == 'undefined' || key === null || typeof old == 'undefined'){
              return this.add(key, o);
         }
         var index = this.indexOfKey(key);
         this.items[index] = o;
         this.map[key] = o;
-        this.fireEvent("replace", key, old, o);
+        this.fireEvent('replace', key, old, o);
         return o;
     },
 
@@ -158,7 +158,7 @@ mc.add(otherEl);
             }
         }else{
             for(var key in objs){
-                if(this.allowFunctions || typeof objs[key] != "function"){
+                if(this.allowFunctions || typeof objs[key] != 'function'){
                     this.add(key, objs[key]);
                 }
             }
@@ -235,11 +235,11 @@ mc.add(otherEl);
         }
         this.length++;
         this.items.splice(index, 0, o);
-        if(typeof key != "undefined" && key !== null){
+        if(typeof key != 'undefined' && key !== null){
             this.map[key] = o;
         }
         this.keys.splice(index, 0, key);
-        this.fireEvent("add", index, o, key);
+        this.fireEvent('add', index, o, key);
         return o;
     },
 
@@ -263,11 +263,11 @@ mc.add(otherEl);
             var o = this.items[index];
             this.items.splice(index, 1);
             var key = this.keys[index];
-            if(typeof key != "undefined"){
+            if(typeof key != 'undefined'){
                 delete this.map[key];
             }
             this.keys.splice(index, 1);
-            this.fireEvent("remove", o, key);
+            this.fireEvent('remove', o, key);
             return o;
         }
         return false;
@@ -354,7 +354,7 @@ mc.add(otherEl);
  * @return {Boolean} True if the collection contains the Object as a key.
  */
     containsKey : function(key){
-        return typeof this.map[key] != "undefined";
+        return typeof this.map[key] != 'undefined';
     },
 
 /**
@@ -365,7 +365,7 @@ mc.add(otherEl);
         this.items = [];
         this.keys = [];
         this.map = {};
-        this.fireEvent("clear");
+        this.fireEvent('clear');
     },
 
 /**
@@ -388,7 +388,7 @@ mc.add(otherEl);
     _sort : function(property, dir, fn){
         var i,
             len,
-            dsc = String(dir).toUpperCase() == "DESC" ? -1 : 1,
+            dsc = String(dir).toUpperCase() == 'DESC' ? -1 : 1,
             c = [], k = this.keys, items = this.items;
             
         fn = fn || function(a, b){
@@ -408,25 +408,25 @@ mc.add(otherEl);
             items[i] = c[i].value;
             k[i] = c[i].key;
         }
-        this.fireEvent("sort", this);
+        this.fireEvent('sort', this);
     },
 
     /**
      * Sorts this collection with the passed comparison function
-     * @param {String} direction (optional) "ASC" or "DESC"
+     * @param {String} direction (optional) 'ASC' or 'DESC'
      * @param {Function} fn (optional) comparison function
      */
     sort : function(dir, fn){
-        this._sort("value", dir, fn);
+        this._sort('value', dir, fn);
     },
 
     /**
      * Sorts this collection by keys
-     * @param {String} direction (optional) "ASC" or "DESC"
+     * @param {String} direction (optional) 'ASC' or 'DESC'
      * @param {Function} fn (optional) a comparison function (defaults to case insensitive string)
      */
     keySort : function(dir, fn){
-        this._sort("key", dir, fn || function(a, b){
+        this._sort('key', dir, fn || function(a, b){
             var v1 = String(a).toUpperCase(), v2 = String(b).toUpperCase();
             return v1 > v2 ? 1 : (v1 < v2 ? -1 : 0);
         });
@@ -444,7 +444,7 @@ mc.add(otherEl);
             return [];
         }
         start = start || 0;
-        end = Math.min(typeof end == "undefined" ? this.length-1 : end, this.length-1);
+        end = Math.min(typeof end == 'undefined' ? this.length-1 : end, this.length-1);
         var i, r = [];
         if(start <= end){
             for(i = start; i <= end; i++) {
