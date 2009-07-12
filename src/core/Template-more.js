@@ -12,8 +12,10 @@ var t = new Ext.Template(
     '&lt;div name="{id}"&gt;',
         '&lt;span class="{cls}"&gt;{name} {value}&lt;/span&gt;',
     '&lt;/div&gt;',
-    {compiled: true},      // {@link #compile} immediately
-    {disableFormats: true} // reduce <code>{@link #apply}</code> time since no formatting
+    {
+        compiled: true,      // {@link #compile} immediately
+        disableFormats: true // reduce <code>{@link #apply}</code> time since no formatting
+    }    
 );
      * </code></pre>
      * For a list of available format functions, see {@link Ext.util.Format}.
