@@ -7,6 +7,7 @@ Ext.ns('Ext.ux.form');
  * @xtype spinnerfield
  */
 Ext.ux.form.SpinnerField = Ext.extend(Ext.form.NumberField, {
+    actionMode: 'wrap',
     deferHeight: true,
     autoSize: Ext.emptyFn,
     onBlur: Ext.emptyFn,
@@ -25,17 +26,6 @@ Ext.ux.form.SpinnerField = Ext.extend(Ext.form.NumberField, {
 
 		Ext.ux.form.SpinnerField.superclass.constructor.call(this, Ext.apply(config, {plugins: plugins}));
 	},
-
-    onShow: function(){
-        if (this.wrap) {
-            this.wrap.dom.style.display = '';
-            this.wrap.dom.style.visibility = 'visible';
-        }
-    },
-
-    onHide: function(){
-        this.wrap.dom.style.display = 'none';
-    },
 
     // private
     getResizeEl: function(){
