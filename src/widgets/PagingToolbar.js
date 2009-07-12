@@ -436,7 +436,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
     /**
      * Refresh the current page, has the same effect as clicking the 'refresh' button.
      */
-    refresh : function(){
+    doRefresh : function(){
         this.doLoad(this.cursor);
     },
 
