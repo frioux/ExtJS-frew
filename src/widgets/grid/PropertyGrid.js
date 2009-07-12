@@ -122,7 +122,7 @@ Ext.grid.PropertyColumnModel = function(grid, store){
             {tag: 'option', value: 'false', html: 'false'}
         ]},
         getValue : function(){
-            return this.el.value == 'true';
+            return this.el.dom.value == 'true';
         }
     });
     this.editors = {
