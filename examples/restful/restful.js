@@ -20,7 +20,9 @@ var reader = new Ext.data.JsonReader({
 ]);
 
 // The new DataWriter component.
-var writer = new Ext.data.JsonWriter();
+var writer = new Ext.data.JsonWriter({
+    encode: false   // <-- don't return encoded JSON -- causes Ext.Ajax#request to send data using jsonData config rather than HTTP params
+});
 
 // Typical Store collecting the Proxy, Reader and Writer together.
 var store = new Ext.data.Store({
