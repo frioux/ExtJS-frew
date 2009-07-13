@@ -274,6 +274,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
     updateInfo : function(){
         if(this.displayItem){
             var count = this.store.getCount();
+            console.log(count);
             var msg = count == 0 ?
                 this.emptyMsg :
                 String.format(
@@ -463,7 +464,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
                 load: this.onLoad,
                 exception: this.onLoadError
             });
-            doLoad = store.getCount() > 0;
+            doLoad = true;
         }
         this.store = store;
         if(doLoad){
