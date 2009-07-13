@@ -1196,11 +1196,11 @@ new Ext.Panel({
         }
     },
 
-    onLayout : function(){
+    onLayout : function(shallow, force){
         if(this.toolbars.length > 0){
             this.duringLayout = true;
             Ext.each(this.toolbars, function(tb){
-                tb.doLayout();
+                tb.doLayout(undefined, force);
             });
             delete this.duringLayout;
             this.syncHeight();
