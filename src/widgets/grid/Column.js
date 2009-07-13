@@ -277,8 +277,8 @@ var grid = new Ext.grid.GridPanel({
 /**
  * @class Ext.grid.BooleanColumn
  * @extends Ext.grid.Column
- * <p>A Column definition class which renders boolean data fields.  See the {@link Ext.grid.ColumnModel#xtype xtype}
- * config option of {@link Ext.grid.ColumnModel} for more details.</p>
+ * <p>A Column definition class which renders boolean data fields.  See the {@link Ext.grid.Column#xtype xtype}
+ * config option of {@link Ext.grid.Column} for more details.</p>
  */
 Ext.grid.BooleanColumn = Ext.extend(Ext.grid.Column, {
     /**
@@ -317,7 +317,7 @@ Ext.grid.BooleanColumn = Ext.extend(Ext.grid.Column, {
  * @class Ext.grid.NumberColumn
  * @extends Ext.grid.Column
  * <p>A Column definition class which renders a numeric data field according to a {@link #format} string.  See the
- * {@link Ext.grid.ColumnModel#xtype xtype} config option of {@link Ext.grid.ColumnModel} for more details.</p>
+ * {@link Ext.grid.Column#xtype xtype} config option of {@link Ext.grid.Column} for more details.</p>
  */
 Ext.grid.NumberColumn = Ext.extend(Ext.grid.Column, {
     /**
@@ -336,7 +336,7 @@ Ext.grid.NumberColumn = Ext.extend(Ext.grid.Column, {
  * @class Ext.grid.DateColumn
  * @extends Ext.grid.Column
  * <p>A Column definition class which renders a passed date according to the default locale, or a configured
- * {@link #format}. See the {@link Ext.grid.ColumnModel#xtype xtype} config option of {@link Ext.grid.ColumnModel}
+ * {@link #format}. See the {@link Ext.grid.Column#xtype xtype} config option of {@link Ext.grid.Column}
  * for more details.</p>
  */
 Ext.grid.DateColumn = Ext.extend(Ext.grid.Column, {
@@ -357,7 +357,7 @@ Ext.grid.DateColumn = Ext.extend(Ext.grid.Column, {
  * @extends Ext.grid.Column
  * <p>A Column definition class which renders a value by processing a {@link Ext.data.Record Record}'s
  * {@link Ext.data.Record#data data} using a {@link #tpl configured} {@link Ext.XTemplate XTemplate}.
- * See the {@link Ext.grid.ColumnModel#xtype xtype} config option of {@link Ext.grid.ColumnModel} for more
+ * See the {@link Ext.grid.Column#xtype xtype} config option of {@link Ext.grid.Column} for more
  * details.</p>
  */
 Ext.grid.TemplateColumn = Ext.extend(Ext.grid.Column, {
