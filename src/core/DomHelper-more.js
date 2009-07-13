@@ -88,33 +88,6 @@ function(){
 	    useDom : false,
 
 	    /**
-	     * Applies a style specification to an element.
-	     * @param {String/HTMLElement} el The element to apply styles to
-	     * @param {String/Object/Function} styles A style specification string e.g. 'width:100px', or object in the form {width:'100px'}, or
-	     * a function which returns such a specification.
-	     */
-	    applyStyles : function(el, styles){
-		    if(styles){
-				var i = 0,
-	    			len,
-	    			style;
-
-	    		el = Ext.fly(el);
-				if(Ext.isFunction(styles)){
-   					styles = styles.call();
-				}
-				if(Ext.isString(styles)){
-					styles = styles.trim().split(/\s*(?::|;)\s*/);
-					for(len = styles.length; i < len;){
-						el.setStyle(styles[i++], styles[i++]);
-					}
-				}else if (Ext.isObject(styles)){
-					el.setStyle(styles);
-				}
-			}
-	    },
-
-	    /**
 	     * Creates new DOM element(s) and inserts them before el.
 	     * @param {Mixed} el The context element
 	     * @param {Object/String} o The DOM object spec (and children) or raw HTML blob
