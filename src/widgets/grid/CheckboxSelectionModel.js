@@ -22,24 +22,24 @@ Ext.grid.CheckboxSelectionModel = Ext.extend(Ext.grid.RowSelectionModel, {
      * <tt>'Select Rows'</tt>), but the automatic check all/none behavior will only work if the
      * <tt>'x-grid3-hd-checker'</tt> class is supplied.
      */
-    header: '<div class="x-grid3-hd-checker">&#160;</div>',
+    header : '<div class="x-grid3-hd-checker">&#160;</div>',
     /**
      * @cfg {Number} width The default width in pixels of the checkbox column (defaults to <tt>20</tt>).
      */
-    width: 20,
+    width : 20,
     /**
      * @cfg {Boolean} sortable <tt>true</tt> if the checkbox column is sortable (defaults to
      * <tt>false</tt>).
      */
-    sortable: false,
+    sortable : false,
 
     // private
-    menuDisabled:true,
-    fixed:true,
-    dataIndex: '',
-    id: 'checker',
+    menuDisabled : true,
+    fixed : true,
+    dataIndex : '',
+    id : 'checker',
 
-    constructor: function(){
+    constructor : function(){
         Ext.grid.CheckboxSelectionModel.superclass.constructor.apply(this, arguments);
 
         if(this.checkOnly){
