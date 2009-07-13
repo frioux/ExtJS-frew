@@ -38,10 +38,7 @@ Ext.extend(Ext.data.JsonWriter, Ext.data.DataWriter, {
     render : function(action, rs, params, data) {
         Ext.apply(params, data);
 
-        if (this.encode === true) { // <-- @deprecated returnJson
-            if (Ext.isArray(rs) && data[this.meta.idProperty]) {
-                params[this.meta.idProperty] = Ext.encode(params[this.meta.idProperty]);
-            }
+        if (this.encode === true) {
             params[this.meta.root] = Ext.encode(params[this.meta.root]);
         }
     },

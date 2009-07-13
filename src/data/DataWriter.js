@@ -98,25 +98,21 @@ Ext.data.DataWriter.prototype = {
     update : function(rs) {
         var params = {};
         if (Ext.isArray(rs)) {
-            var data = [],
-                ids = [];
+            var data = [];
             Ext.each(rs, function(val){
-                ids.push(val.id);
                 data.push(this.updateRecord(val));
             }, this);
-            params[this.meta.idProperty] = ids;
             params[this.meta.root] = data;
         }
         else if (rs instanceof Ext.data.Record) {
-            //params[this.meta.idProperty] = rs.id; // <-- removed, un-neccessary.
             params[this.meta.root] = this.updateRecord(rs);
         }
         return params;
     },
 
     /**
-     * @cfg {Function} saveRecord Abstract method that should be implemented in all subclasses
-     * (e.g.: {@link Ext.data.JsonWriter#saveRecord JsonWriter.saveRecord}
+     * @cfg {Function} updateRecord Abstract method that should be implemented in all subclasses
+     * (e.g.: {@link Ext.data.JsonWriter#updateRecord JsonWriter.updateRecord}
      */
     updateRecord : Ext.emptyFn,
 

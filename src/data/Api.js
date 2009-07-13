@@ -212,6 +212,39 @@ new Ext.data.HttpProxy({
 })();
 
 /**
+ * Ext.data.Response
+ * Experimental.  Do not use directly.
+ */
+Ext.data.Response = function(params, response) {
+    Ext.apply(this, params, {
+        raw: response
+    });
+};
+Ext.data.Response.prototype = {
+    message : null,
+    success : false,
+    status : null,
+    root : null,
+    raw : null,
+
+    getMessage : function() {
+        return this.message;
+    },
+    getSuccess : function() {
+        return this.success;
+    },
+    getStatus : function() {
+        return this.status
+    },
+    getRoot : function() {
+        return this.root;
+    },
+    getRawResponse : function() {
+        return this.raw;
+    }
+};
+
+/**
  * @class Ext.data.Api.Error
  * @extends Ext.Error
  * Error class for Ext.data.Api errors
@@ -231,3 +264,5 @@ Ext.apply(Ext.data.Api.Error.prototype, {
         'execute': 'Attempted to execute an unknown action.  Valid API actions are defined in Ext.data.Api.actions"'
     }
 });
+
+

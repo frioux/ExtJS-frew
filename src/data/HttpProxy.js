@@ -245,12 +245,12 @@ api: {
             o.request.callback.call(o.request.scope, null, o.request.arg, false);
             return;
         }
-        if (res[reader.meta.successProperty] === false) {
+        if (reader.getSuccess(res) === false) {
             this.fireEvent('exception', this, 'remote', action, o, res, rs);
         } else {
-            this.fireEvent('write', this, action, res[reader.meta.root], res, rs, o.request.arg);
+            this.fireEvent('write', this, action, reader.getRoot(res), res, rs, o.request.arg);
         }
-        o.request.callback.call(o.request.scope, res[reader.meta.root], res, res[reader.meta.successProperty]);
+        o.request.callback.call(o.request.scope, reader.getRoot(res), res, reader.getSuccess(res));
     },
 
     // inherit docs

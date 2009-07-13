@@ -206,13 +206,13 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
             trans.callback.call(trans.scope||window, null, res, false);
             return;
         }
-        if(!res[reader.meta.successProperty] === true){
+        if(!reader.getSuccess(res) === true){
             this.fireEvent('exception', this, 'remote', action, trans, res, rs);
             trans.callback.call(trans.scope||window, null, res, false);
             return;
         }
-        this.fireEvent("write", this, action, res[reader.meta.root], res, rs, trans.arg );
-        trans.callback.call(trans.scope||window, res[reader.meta.root], res, true);
+        this.fireEvent("write", this, action, reader.getRoot(res), res, rs, trans.arg );
+        trans.callback.call(trans.scope||window, reader.getRoot(res), res, true);
     },
 
     // private

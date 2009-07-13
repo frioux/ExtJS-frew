@@ -89,7 +89,7 @@ Ext.data.Store = function(config){
     }
 
     Ext.apply(this, config);
-    
+
     this.paramNames = Ext.applyIf(this.paramNames || {}, this.defaultParamNames);
 
     if(this.url && !this.proxy){
@@ -107,7 +107,8 @@ Ext.data.Store = function(config){
             this.recordType = this.reader.recordType;
         }
         if(this.reader.onMetaChange){
-            this.reader.onMetaChange = this.onMetaChange.createDelegate(this);
+            //this.reader.onMetaChange = this.onMetaChange.createDelegate(this);
+            this.reader.onMetaChange = this.reader.onMetaChange.createSequence(this.onMetaChange, this);
         }
         if (this.writer) { // writer passed
             this.writer.meta = this.reader.meta;
@@ -489,7 +490,7 @@ sortInfo: {
      * internally be set to <tt>false</tt>.</p>
      */
     restful: false,
-    
+
     /**
      * @cfg {Object} paramNames
      * <p>An object containing properties which specify the names of the paging and
@@ -509,7 +510,7 @@ sortInfo: {
      * the parameter names to use in its {@link #load requests}.
      */
     paramNames : undefined,
-    
+
     /**
      * @cfg {Object} defaultParamNames
      * Provides the default values for the {@link #paramNames} property. To globally modify the parameters
@@ -1436,15 +1437,16 @@ sortInfo: {
     },
 
     // private
-    onMetaChange : function(meta, rtype, o){
-        this.recordType = rtype;
-        this.fields = rtype.prototype.fields;
+    onMetaChange : function(meta){
+        this.recordType = this.reader.recordType;
+        this.fields = this.recordType.prototype.fields;
         delete this.snapshot;
-        if(meta.sortInfo){
-            this.sortInfo = meta.sortInfo;
+        if(this.reader.meta.sortInfo){
+            this.sortInfo = this.reader.meta.sortInfo;
         }else if(this.sortInfo  && !this.fields.get(this.sortInfo.field)){
             delete this.sortInfo;
         }
+        this.writer.meta = this.reader.meta;
         this.modified = [];
         this.fireEvent('metachange', this, this.reader.meta);
     },

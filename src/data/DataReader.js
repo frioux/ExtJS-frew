@@ -75,7 +75,7 @@ Ext.data.DataReader.prototype = {
             var values = this.extractValues(data, rs.fields.items, rs.fields.items.length);
             rs.phantom = false; // <-- That's what it's all about
             rs._phid = rs.id;  // <-- copy phantom-id -> _phid, so we can remap in Store#onCreateRecords
-            rs.id = data[this.meta.idProperty];
+            rs.id = this.getId(data);
             rs.data = values;
             rs.commit();
         }
@@ -121,7 +121,7 @@ Ext.data.DataReader.prototype = {
      * @return {Boolean}
      */
     isData : function(data) {
-        return (data && Ext.isObject(data) && !Ext.isEmpty(data[this.meta.idProperty])) ? true : false;
+        return (data && Ext.isObject(data) && !Ext.isEmpty(this.getId(data))) ? true : false;
     }
 };
 

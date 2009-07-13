@@ -127,9 +127,12 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
         return this.readRecords(o);
     },
 
-    // private function a store will implement
-    onMetaChange : function(meta, recordType, o){
-
+    // private function a store will createSequence upon
+    onMetaChange : function(meta){
+        delete this.ef;
+        this.meta = meta;
+        this.recordType = Ext.data.Record.create(meta.fields);
+        this.buildExtractors();
     },
 
     /**
@@ -172,11 +175,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
          */
         this.jsonData = o;
         if(o.metaData){
-            delete this.ef;
-            this.meta = o.metaData;
-            this.recordType = Ext.data.Record.create(o.metaData.fields);
-            this.buildExtractors();
-            this.onMetaChange(this.meta, this.recordType, o);
+            this.onMetaChange(o.metaData);
         }
         var s = this.meta, Record = this.recordType,
             f = Record.prototype.fields, fi = f.items, fl = f.length, v;
@@ -263,19 +262,19 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
         if(!o) {
             throw new Ext.data.JsonReader.Error('response');
         }
-        if (Ext.isEmpty(o[this.meta.successProperty])) {
+        if (Ext.isEmpty(this.getSuccess(o))) {
             throw new Ext.data.JsonReader.Error('successProperty-response', this.meta.successProperty);
         }
         // TODO, separate empty and undefined exceptions.
         if (action === Ext.data.Api.actions.create) {
-            if (Ext.isEmpty(o[this.meta.root])) {
+            var root = this.getRoot(o);
+            if (Ext.isEmpty(root)) {
                 throw new Ext.data.JsonReader.Error('root-emtpy', this.meta.root);
             }
-            else if (o[this.meta.root] === undefined) {
+            else if (root === undefined) {
                 throw new Ext.data.JsonReader.Error('root-undefined-response', this.meta.root);
             }
         }
-
         return o;
     }
 });
