@@ -44,15 +44,6 @@ Ext.apply(Ext, function(){
         },
 
         /**
-         * Returns true if the passed object is a JavaScript date object, otherwise false.
-         * @param {Object} object The object to test
-         * @return {Boolean}
-         */
-        isDate : function(v){
-            return Object.prototype.toString.apply(v) === '[object Date]';
-        },
-
-        /**
          * Utility method for validating that a value is numeric, returning the specified default value if it is not.
          * @param {Mixed} value Should be a number, but any type will be handled appropriately
          * @param {Number} defaultValue The value to return if the original value is non-numeric
