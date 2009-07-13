@@ -58,8 +58,7 @@ paramOrder: 'param1|param2|param'
                 }
                 break;
             case Ext.data.Api.actions.update:
-                args.push(params[reader.meta.idProperty]);  // <-- save(Integer/Integer[], Hash/Hash[])
-                args.push(params[reader.meta.root]);
+                args.push(params[reader.meta.root]);        // <-- update(Hash/Hash[])
                 break;
             case Ext.data.Api.actions.destroy:
                 args.push(params[reader.meta.root]);        // <-- destroy(Int/Int[])
