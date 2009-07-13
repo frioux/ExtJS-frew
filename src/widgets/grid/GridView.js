@@ -239,7 +239,7 @@ viewConfig: {
         var ts = this.templates || {};
         if(!ts.master){
             ts.master = new Ext.Template(
-                    '<div class='x-grid3" hidefocus="true">',
+                    '<div class="x-grid3" hidefocus="true">',
                         '<div class="x-grid3-viewport">',
                             '<div class="x-grid3-header"><div class="x-grid3-header-inner"><div class="x-grid3-header-offset" style="{ostyle}">{header}</div></div><div class="x-clear"></div></div>',
                             '<div class="x-grid3-scroller"><div class="x-grid3-body" style="{bstyle}">{body}</div><a href="#" class="x-grid3-focus" tabIndex="-1"></a></div>',
