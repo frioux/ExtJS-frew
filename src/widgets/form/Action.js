@@ -416,7 +416,7 @@ myFormPanel.{@link Ext.form.FormPanel#getForm getForm}().{@link Ext.form.BasicFo
     params: {
         consignmentRef: myConsignmentRef
     },
-    failure: function(form, action() {
+    failure: function(form, action) {
         Ext.Msg.alert("Load failed", action.result.errorMessage);
     }
 });
@@ -509,12 +509,12 @@ var myFormPanel = new Ext.form.FormPanel({
         name: 'name'
     },{
         fieldLabel: 'Email',
-        name: 'email'        
+        name: 'email'
     },{
         fieldLabel: 'Company',
         name: 'company'
     }],
-    
+
     // configs for BasicForm
     api: {
         // The server-side method to call for load() requests
@@ -522,7 +522,7 @@ var myFormPanel = new Ext.form.FormPanel({
         // The server-side must mark the submit handler as a 'formHandler'
         submit: Profile.updateBasicInfo
     },
-    // specify the order for the passed params    
+    // specify the order for the passed params
     paramOrder: ['uid', 'foo']
 });
 
@@ -531,7 +531,7 @@ myFormPanel.getForm().load({
     // pass 2 arguments to server side getBasicInfo method (len=2)
     params: {
         foo: 'bar',
-        uid: 34 
+        uid: 34
     }
 });
  * </code></pre>
@@ -559,21 +559,21 @@ myFormPanel.getForm().load({
             }
         }
     }
-] 
+]
  * </code></pre>
  */
 Ext.form.Action.DirectLoad = Ext.extend(Ext.form.Action.Load, {
-    constructor: function(form, opts) {        
+    constructor: function(form, opts) {
         Ext.form.Action.DirectLoad.superclass.constructor.call(this, form, opts);
     },
     type : 'directload',
-    
+
     run : function(){
         var args = this.getParams();
-        args.push(this.success, this);                
+        args.push(this.success, this);
         this.form.api.load.apply(window, args);
     },
-    
+
     getParams : function() {
         var buf = [], o = {};
         var bp = this.form.baseParams;
@@ -594,7 +594,7 @@ Ext.form.Action.DirectLoad = Ext.extend(Ext.form.Action.Load, {
     // a this.response property.
     processResponse : function(result) {
         this.result = result;
-        return result;          
+        return result;
     }
 });
 
@@ -616,12 +616,12 @@ var myFormPanel = new Ext.form.FormPanel({
             myFormPanel.getForm().submit({
                 params: {
                     foo: 'bar',
-                    uid: 34 
+                    uid: 34
                 }
             });
         }
     }],
-    
+
     // configs apply to child items
     defaults: {anchor: '100%'},
     defaultType: 'textfield',
@@ -630,12 +630,12 @@ var myFormPanel = new Ext.form.FormPanel({
         name: 'name'
     },{
         fieldLabel: 'Email',
-        name: 'email'        
+        name: 'email'
     },{
         fieldLabel: 'Company',
         name: 'company'
     }],
-    
+
     // configs for BasicForm
     api: {
         // The server-side method to call for load() requests
@@ -643,7 +643,7 @@ var myFormPanel = new Ext.form.FormPanel({
         // The server-side must mark the submit handler as a 'formHandler'
         submit: Profile.updateBasicInfo
     },
-    // specify the order for the passed params    
+    // specify the order for the passed params
     paramOrder: ['uid', 'foo']
 });
  * </code></pre>
@@ -672,7 +672,7 @@ var myFormPanel = new Ext.form.FormPanel({
             "success":true
         }
     }
-] 
+]
 
 // sample failure packet (one request)
 {
@@ -706,20 +706,20 @@ Ext.form.Action.DirectSubmit = Ext.extend(Ext.form.Action.Submit, {
             this.form.afterAction(this, false);
         }
     },
-    
+
     getParams : function() {
         var o = {};
         var bp = this.form.baseParams;
         var p = this.options.params;
         Ext.apply(o, p, bp);
         return o;
-    },    
+    },
     // Direct actions have already been processed and therefore
     // we can directly set the result; Direct Actions do not have
     // a this.response property.
     processResponse : function(result) {
         this.result = result;
-        return result;          
+        return result;
     }
 });
 
