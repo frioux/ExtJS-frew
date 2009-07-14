@@ -269,7 +269,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
         if (action === Ext.data.Api.actions.create) {
             var root = this.getRoot(o);
             if (Ext.isEmpty(root)) {
-                throw new Ext.data.JsonReader.Error('root-emtpy', this.meta.root);
+                throw new Ext.data.JsonReader.Error('root-empty', this.meta.root);
             }
             else if (root === undefined) {
                 throw new Ext.data.JsonReader.Error('root-undefined-response', this.meta.root);
@@ -297,6 +297,6 @@ Ext.apply(Ext.data.JsonReader.Error.prototype, {
         'root-undefined-response': 'Could not locate your "root" property in your server response.  Please review your JsonReader config to ensure the config-property "root" matches the property your server-response.  See the JsonReader docs.',
         'root-undefined-config': 'Your JsonReader was configured without a "root" property.  Please review your JsonReader config and make sure to define the root property.  See the JsonReader docs.',
         'idProperty-undefined' : 'Your JsonReader was configured without an "idProperty"  Please review your JsonReader configuration and ensure the "idProperty" is set (e.g.: "id").  See the JsonReader docs.',
-        'root-emtpy': 'Data was expected to be returned by the server in the "root" property of the response.  Please review your JsonReader configuration to ensure the "root" property matches that returned in the server-response.  See JsonReader docs.'
+        'root-empty': 'Data was expected to be returned by the server in the "root" property of the response.  Please review your JsonReader configuration to ensure the "root" property matches that returned in the server-response.  See JsonReader docs.'
     }
 });
