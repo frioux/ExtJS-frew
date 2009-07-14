@@ -274,7 +274,6 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
     updateInfo : function(){
         if(this.displayItem){
             var count = this.store.getCount();
-            console.log(count);
             var msg = count == 0 ?
                 this.emptyMsg :
                 String.format(
