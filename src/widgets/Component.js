@@ -385,7 +385,11 @@ new Ext.FormPanel({
      * <p>See {@link Ext.layout.FormLayout}.{@link Ext.layout.FormLayout#fieldTpl fieldTpl} also.</p>
      */
     /**
-     * @cfg {String} itemCls <p>An additional CSS class to apply to the div wrapping the form item
+     * @cfg {String} itemCls
+     * <p><b>Note</b>: this config is only used when this Component is rendered by a Container which
+     * has been configured to use the <b>{@link Ext.layout.FormLayout FormLayout}</b> layout manager (e.g.
+     * {@link Ext.form.FormPanel} or specifying <tt>layout:'form'</tt>).</p><br>
+     * <p>An additional CSS class to apply to the div wrapping the form item
      * element of this field.  If supplied, <tt>itemCls</tt> at the <b>field</b> level will override
      * the default <tt>itemCls</tt> supplied at the <b>container</b> level. The value specified for
      * <tt>itemCls</tt> will be added to the default class (<tt>'x-form-item'</tt>).</p>
@@ -395,7 +399,7 @@ new Ext.FormPanel({
      * any other element within the markup for the field.</p>
      * <br><p><b>Note</b>: see the note for <tt>{@link #fieldLabel}</tt>.</p><br>
      * Example use:<pre><code>
-// Apply a style to the field's label:
+// Apply a style to the field&#39;s label:
 &lt;style>
     .required .x-form-item-label {font-weight:bold;color:red;}
 &lt;/style>
