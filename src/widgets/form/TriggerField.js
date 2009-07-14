@@ -301,6 +301,12 @@ Ext.form.TwinTriggerField = Ext.extend(Ext.form.TriggerField, {
         }, this);
         this.triggers = ts.elements;
     },
+    
+    // private
+    onDestroy : function() {
+        Ext.destroy(this.triggers);
+        Ext.form.TwinTriggerField.superclass.onDestroy.call(this);
+    },
 
     /**
      * The function that should handle the trigger's click event.  This method does nothing by default
