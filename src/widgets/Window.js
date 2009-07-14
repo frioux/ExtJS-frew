@@ -4,7 +4,7 @@
  * <p>A specialized panel intended for use as an application window.  Windows are floated, {@link #resizable}, and
  * {@link #draggable} by default.  Windows can be {@link #maximizable maximized} to fill the viewport,
  * restored to their prior size, and can be {@link #minimize}d.</p>
- * <p>Windows can also be linked to a {@link Ext.WindowGroup} or managed by the {@link Ext.WindowMgr} to provide 
+ * <p>Windows can also be linked to a {@link Ext.WindowGroup} or managed by the {@link Ext.WindowMgr} to provide
  * grouping, activation, to front, to back and other application-specific behavior.</p>
  * <p>By default, Windows will be rendered to document.body. To {@link #constrain} a Window to another element
  * specify {@link Ext.Component#renderTo renderTo}.</p>
@@ -56,15 +56,15 @@ Ext.Window = Ext.extend(Ext.Panel, {
     */
     /**
      * @cfg {Boolean} collapsed
-     * True to render the window collapsed, false to render it expanded (defaults to false). Note that if 
-     * {@link #expandOnShow} is true (the default) it will override the <tt>collapsed</tt> config and the window 
+     * True to render the window collapsed, false to render it expanded (defaults to false). Note that if
+     * {@link #expandOnShow} is true (the default) it will override the <tt>collapsed</tt> config and the window
      * will always be expanded when shown.
      */
     /**
      * @cfg {Boolean} maximized
      * True to initially display the window in a maximized state. (Defaults to false).
      */
-    
+
     /**
     * @cfg {String} baseCls
     * The base CSS class to apply to this panel's element (defaults to 'x-window').
@@ -116,15 +116,15 @@ Ext.Window = Ext.extend(Ext.Panel, {
     /**
      * @cfg {Boolean} constrain
      * True to constrain the window within its containing element, false to allow it to fall outside of its
-     * containing element. By default the window will be rendered to document.body.  To render and constrain the 
+     * containing element. By default the window will be rendered to document.body.  To render and constrain the
      * window within another element specify {@link #renderTo}.
      * (defaults to false).  Optionally the header only can be constrained using {@link #constrainHeader}.
      */
     constrain : false,
     /**
      * @cfg {Boolean} constrainHeader
-     * True to constrain the window header within its containing element (allowing the window body to fall outside 
-     * of its containing element) or false to allow the header to fall outside its containing element (defaults to 
+     * True to constrain the window header within its containing element (allowing the window body to fall outside
+     * of its containing element) or false to allow the header to fall outside its containing element (defaults to
      * false). Optionally the entire window can be constrained using {@link #constrain}.
      */
     constrainHeader : false,
@@ -199,12 +199,12 @@ Ext.Window = Ext.extend(Ext.Panel, {
         this.addEvents(
             /**
              * @event activate
-             * Fires after the window has been visually activated via {@link setActive}.
+             * Fires after the window has been visually activated via {@link #setActive}.
              * @param {Ext.Window} this
              */
             /**
              * @event deactivate
-             * Fires after the window has been visually deactivated via {@link setActive}.
+             * Fires after the window has been visually deactivated via {@link #setActive}.
              * @param {Ext.Window} this
              */
             /**
@@ -834,7 +834,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
           this.alignTo(el, alignment, offsets);
       };
       Ext.EventManager.onWindowResize(this.doAnchor, this);
-      
+
       var tm = typeof monitorScroll;
       if(tm != 'undefined'){
           Ext.EventManager.on(window, 'scroll', this.doAnchor, this,
@@ -860,7 +860,8 @@ Ext.Window = Ext.extend(Ext.Panel, {
 
     /**
      * Makes this the active window by showing its shadow, or deactivates it by hiding its shadow.  This method also
-     * fires the {@link #activate} or {@link #deactivate} event depending on which action occurred.
+     * fires the {@link #activate} or {@link #deactivate} event depending on which action occurred. This method is
+     * called internally by {@link Ext.WindowMgr}.
      * @param {Boolean} active True to activate the window, false to deactivate it (defaults to false)
      */
     setActive : function(active){
