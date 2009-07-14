@@ -368,7 +368,7 @@ viewConfig: {
      * <p>Return the index of the grid column which contains the passed HTMLElement.</p>
      * See also {@link #findRowIndex}
      * @param {HTMLElement} el The target element
-     * @return The column index, or <b>false</b> if the target element is not within a row of this GridView.
+     * @return {Number} The column index, or <b>false</b> if the target element is not within a row of this GridView.
      */
     findCellIndex : function(el, requiredCls){
         var cell = this.findCell(el);
@@ -403,7 +403,7 @@ viewConfig: {
     /**
      * Return the HtmlElement representing the grid row which contains the passed element.
      * @param {HTMLElement} el The target HTMLElement
-     * @return The row element, or null if the target element is not within a row of this GridView.
+     * @return {HTMLElement} The row element, or null if the target element is not within a row of this GridView.
      */
     findRow : function(el){
         if(!el){
@@ -416,7 +416,7 @@ viewConfig: {
      * <p>Return the index of the grid row which contains the passed HTMLElement.</p>
      * See also {@link #findCellIndex}
      * @param {HTMLElement} el The target HTMLElement
-     * @return The row index, or <b>false</b> if the target element is not within a row of this GridView.
+     * @return {Number} The row index, or <b>false</b> if the target element is not within a row of this GridView.
      */
     findRowIndex : function(el){
         var r = this.findRow(el);
