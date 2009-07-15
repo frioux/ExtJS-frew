@@ -1,11 +1,3 @@
-/*
- * Ext JS Library 2.2
- * Copyright(c) 2006-2008, Ext JS, LLC.
- * licensing@extjs.com
- * 
- * http://extjs.com/license
- */
-
 /**
  * @class Ext.ux.ValidationStatus
  * A {@link Ext.StatusBar} plugin that provides automatic error notification when the
@@ -16,17 +8,42 @@
  * @param {Object} config A config object
  */
 Ext.ux.ValidationStatus = Ext.extend(Ext.Component, {
-    
+    /**
+     * @cfg {String} errorIconCls
+     * The {@link #iconCls} value to be applied to the status message when there is a
+     * validation error. Defaults to <tt>'x-status-error'</tt>.
+     */
     errorIconCls : 'x-status-error',
-    
+    /**
+     * @cfg {String} errorListCls
+     * The css class to be used for the error list when there are validation errors.
+     * Defaults to <tt>'x-status-error-list'</tt>.
+     */
     errorListCls : 'x-status-error-list',
-    
+    /**
+     * @cfg {String} validIconCls
+     * The {@link #iconCls} value to be applied to the status message when the form
+     * validates. Defaults to <tt>'x-status-valid'</tt>.
+     */
     validIconCls : 'x-status-valid',
     
+    /**
+     * @cfg {String} showText
+     * The {@link #text} value to be applied when there is a form validation error.
+     * Defaults to <tt>'The form has errors (click for details...)'</tt>.
+     */
     showText : 'The form has errors (click for details...)',
-    
+    /**
+     * @cfg {String} showText
+     * The {@link #text} value to display when the error list is displayed.
+     * Defaults to <tt>'Click again to hide the error list'</tt>.
+     */
     hideText : 'Click again to hide the error list',
-    
+    /**
+     * @cfg {String} submitText
+     * The {@link #text} value to be applied when the form is being submitted.
+     * Defaults to <tt>'Saving...'</tt>.
+     */
     submitText : 'Saving...',
     
     // private
@@ -49,15 +66,25 @@ Ext.ux.ValidationStatus = Ext.extend(Ext.Component, {
                 }, this);
                 var startMonitor = function(){
                     this.monitor = true;
-                }
+                };
                 this.form.on('actioncomplete', startMonitor, this);
                 this.form.on('actionfailed', startMonitor, this);
             }
         }, this, {single:true});
-        sb.on('afterlayout', function(){
-            // Grab the statusEl after the first layout.
-            sb.statusEl.getEl().on('click', this.onStatusClick, this, {buffer:200});
-        }, this, {single: true});
+        sb.on({
+            scope: this,
+            afterlayout:{
+                single: true,
+                fn: function(){
+                    // Grab the statusEl after the first layout.
+                    sb.statusEl.getEl().on('click', this.onStatusClick, this, {buffer:200});
+                } 
+            }, 
+            beforedestroy:{
+                single: true,
+                fn: this.onDestroy
+            } 
+        });
     },
     
     // private
@@ -137,7 +164,7 @@ Ext.ux.ValidationStatus = Ext.extend(Ext.Component, {
     // private
     showErrors : function(){
         this.updateErrorList();
-        this.getMsgEl().alignTo(this.statusBar.getEl(), this.listAlign).slideIn('b', {duration:.3, easing:'easeOut'});
+        this.getMsgEl().alignTo(this.statusBar.getEl(), this.listAlign).slideIn('b', {duration:0.3, easing:'easeOut'});
         this.statusBar.setText(this.hideText);
         this.form.getEl().on('click', this.hideErrors, this, {single:true}); // hide if the user clicks directly into the form
     },
@@ -146,7 +173,7 @@ Ext.ux.ValidationStatus = Ext.extend(Ext.Component, {
     hideErrors : function(){
         var el = this.getMsgEl();
         if(el.isVisible()){
-	        el.slideOut('b', {duration:.2, easing:'easeIn'});
+	        el.slideOut('b', {duration:0.2, easing:'easeIn'});
 	        this.statusBar.setText(this.showText);
         }
         this.form.getEl().un('click', this.hideErrors, this);

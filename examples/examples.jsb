@@ -630,6 +630,11 @@
   <file name="slider\images\ticks.gif" path="slider\images" />
   <file name="spinner\spinner.html" path="spinner" />
   <file name="spinner\spinner.js" path="spinner" />
+  <file name="statusbar\fake.php" path="statusbar" />
+  <file name="statusbar\statusbar-advanced.html" path="statusbar" />
+  <file name="statusbar\statusbar-advanced.js" path="statusbar" />
+  <file name="statusbar\statusbar-demo.html" path="statusbar" />
+  <file name="statusbar\statusbar-demo.js" path="statusbar" />
   <file name="state\get-state.php" path="state" />
   <file name="state\README.txt" path="state" />
   <file name="state\save-state.php" path="state" />
@@ -797,6 +802,14 @@
   <file name="ux\Spinner.css" path="ux" />
   <file name="ux\css\Spinner.css" path="ux\css" />
   <file name="ux\Spotlight.js" path="ux" />
+  <file name="ux\statusbar\StatusBar.js" path="ux\statusbar" />
+  <file name="ux\statusbar\ValidationStatus.js" path="ux\statusbar" />
+  <file name="ux\statusbar\css\StatusBar.css" path="ux\statusbar\css" />
+  <file name="ux\statusbar\images\accept.png" path="ux\statusbar\images" />
+  <file name="ux\statusbar\images\exclamation.gif" path="ux\statusbar\images" />
+  <file name="ux\statusbar\images\loading.gif" path="ux\statusbar\images" />
+  <file name="ux\statusbar\images\saved.png" path="ux\statusbar\images" />
+  <file name="ux\statusbar\images\saving.gif" path="ux\statusbar\images" />
   <file name="ux\TabCloseMenu.js" path="ux" />
   <file name="ux\TableGrid.js" path="ux" />
   <file name="ux\TabScrollerMenu.js" path="ux" />
@@ -847,6 +860,8 @@
     <include name="ux\SpinnerField.js" />
     <include name="ux\Spinner.js" />
     <include name="ux\Spotlight.js" />
+    <include name="ux\statusbar\StatusBar.js" />
+    <include name="ux\statusbar\ValidationStatus.js" />
     <include name="ux\TabCloseMenu.js" />
     <include name="ux\TableGrid.js" />
     <include name="ux\TabScrollerMenu.js" />
