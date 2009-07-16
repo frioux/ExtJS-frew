@@ -70,14 +70,20 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
     mimicing : false,
     
     actionMode: 'wrap',
+    
+    defaultTriggerWidth: 17,
 
     // private
     onResize : function(w, h){
         Ext.form.TriggerField.superclass.onResize.call(this, w, h);
-        if(typeof w == 'number'){
-            this.el.setWidth(this.adjustWidth('input', w - this.trigger.getWidth()));
+        var tw = this.trigger.getWidth();
+        if(!this.hideTrigger && tw === 0){
+            tw = this.defaultTriggerWidth;
         }
-        this.wrap.setWidth(this.el.getWidth()+this.trigger.getWidth());
+        if(typeof w == 'number'){
+            this.el.setWidth(this.adjustWidth('input', w - tw));
+        }
+        this.wrap.setWidth(this.el.getWidth() + tw);
     },
 
     // private
