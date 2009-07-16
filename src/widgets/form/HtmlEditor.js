@@ -898,12 +898,9 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                 this.syncValue();
                 this.deferFocus();
             }
-        }else if(Ext.isGecko || Ext.isOpera){
+        }else{
             this.win.focus();
             this.execCmd('InsertHTML', text);
-            this.deferFocus();
-        }else if(Ext.isWebKit){
-            this.execCmd('InsertText', text);
             this.deferFocus();
         }
     },
