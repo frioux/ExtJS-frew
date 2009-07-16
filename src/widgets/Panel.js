@@ -1080,12 +1080,12 @@ new Ext.Panel({
                 this.header.addClass('x-panel-icon');
                 this.header.replaceClass(old, this.iconCls);
             }else{
-                var hd = this.header.dom;
-                var img = hd.firstChild && String(hd.firstChild.tagName).toLowerCase() == 'img' ? hd.firstChild : null;
+                var hd = this.header,
+                    img = hd.child('img.x-panel-inline-icon');
                 if(img){
                     Ext.fly(img).replaceClass(old, this.iconCls);
                 }else{
-                    Ext.DomHelper.insertBefore(hd.firstChild, {
+                    Ext.DomHelper.insertBefore(hd.dom.firstChild, {
                         tag:'img', src: Ext.BLANK_IMAGE_URL, cls:'x-panel-inline-icon '+this.iconCls
                     });
                  }
