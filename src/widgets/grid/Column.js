@@ -110,8 +110,8 @@ Ext.grid.Column.prototype = {
      */
     /**
      * @cfg {Boolean} sortable Optional. <tt>true</tt> if sorting is to be allowed on this column.
-     * Defaults to the value of the {@link #defaultSortable} property.
-     * Whether local/remote sorting is used is specified in {@link Ext.data.Store#remoteSort}.
+     * Defaults to the value of the <code>{@link Ext.grid.ColumnModel#defaultSortable}</code> property.
+     * Whether local/remote sorting is used is specified in <code>{@link Ext.data.Store#remoteSort}</code>.
      */
     /**
      * @cfg {Boolean} fixed Optional. <tt>true</tt> if the column width cannot be changed.  Defaults to <tt>false</tt>.
