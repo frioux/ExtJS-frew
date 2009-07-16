@@ -536,15 +536,15 @@ Ext.Window = Ext.extend(Ext.Panel, {
         this.proxy.show();
         this.proxy.setBox(this.animateTarget.getBox());
         this.proxy.setOpacity(0);
-        var b = this.getBox(false);
-        b.callback = this.afterShow.createDelegate(this, [true], false);
-        b.scope = this;
-        b.duration = 0.25;
-        b.easing = 'easeNone';
-        b.opacity = 0.5;
-        b.block = true;
+        var b = this.getBox();
         this.el.setStyle('display', 'none');
-        this.proxy.shift(b);
+        this.proxy.shift(Ext.apply(b, {
+            callback: this.afterShow.createDelegate(this, [true], false),
+            scope: this,
+            easing: 'easeNone',
+            duration: 0.25,
+            opacity: 0.5
+        }));
     },
 
     /**
@@ -598,14 +598,13 @@ Ext.Window = Ext.extend(Ext.Panel, {
         var tb = this.getBox(false);
         this.proxy.setBox(tb);
         this.el.hide();
-        var b = this.animateTarget.getBox();
-        b.callback = this.afterHide;
-        b.scope = this;
-        b.duration = 0.25;
-        b.easing = 'easeNone';
-        b.block = true;
-        b.opacity = 0;
-        this.proxy.shift(b);
+        this.proxy.shift(Ext.apply(this.animateTarget.getBox(), {
+            callback: this.afterHide,
+            scope: this,
+            duration: 0.25,
+            easing: 'easeNone',
+            opacity: 0
+        }));
     },
 
     // private
