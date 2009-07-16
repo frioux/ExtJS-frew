@@ -234,7 +234,7 @@ textarea {
     zoom:1;
 }
 
-.x-form-item label {
+.x-form-item label.x-form-item-label {
     display:block;
     float:left;
     width:100px;
@@ -258,15 +258,15 @@ textarea {
     width:200px;
 }
 
-.x-form-label-left label {
+.x-form-label-left label.x-form-item-label {
    text-align:left;
 }
 
-.x-form-label-right label {
+.x-form-label-right label.x-form-item-label {
    text-align:right;
 }
 
-.x-form-label-top .x-form-item label {
+.x-form-label-top .x-form-item label.x-form-item-label {
     width:auto;
     float:none;
     clear:none;
@@ -343,10 +343,9 @@ textarea {
 }
 
 .x-form-cb-label {
-    width:auto !important;
-    float:none !important;
-    clear:none !important;
-    display:inline !important;
+    padding:3px;
+    padding-left:0;
+    position: relative;
     margin-left:4px;
     top: -2px;
 }
