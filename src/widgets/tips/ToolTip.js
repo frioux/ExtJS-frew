@@ -159,6 +159,9 @@ myGrid.on('render', function(grid) {
 
     // private
     getTargetXY : function(){
+        if(this.delegate){
+            this.anchorTarget = this.triggerElement;
+        }
         if(this.anchor){
             this.targetCounter++;
             var offsets = this.getOffsets();
