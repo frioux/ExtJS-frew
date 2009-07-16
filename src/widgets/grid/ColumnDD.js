@@ -169,7 +169,6 @@ Ext.extend(Ext.grid.HeaderDropZone, Ext.dd.DropZone, {
                 newIndex--;
             }
             cm.moveColumn(oldIndex, newIndex);
-            this.grid.fireEvent("columnmove", oldIndex, newIndex);
             return true;
         }
         return false;
