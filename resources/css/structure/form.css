@@ -350,6 +350,10 @@ textarea {
     top: -2px;
 }
 
+.x-form-display-field{
+    padding-top: 3px;
+}
+
 .ext-gecko2 .x-form-cb-label{
     top: -1px;
 }
