@@ -59,7 +59,7 @@ function(){
 	                }
                 }
             });
-            pub.applyStyles(el, o.style);
+            Ext.DomHelper.applyStyles(el, o.style);
 
             if ((cn = o.children || o.cn)) {
                 createDom(cn, el);
