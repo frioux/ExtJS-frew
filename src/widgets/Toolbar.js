@@ -764,6 +764,10 @@ new Ext.Panel({
  * @xtype tbtext
  */
 T.TextItem = Ext.extend(T.Item, {
+    /**
+     * @cfg {String} text The text to be used as innerHTML (html tags are accepted)
+     */ 
+
     constructor: function(config){
         if (Ext.isString(config)) {
             config = { autoEl: {cls: 'xtb-text', html: config }};
