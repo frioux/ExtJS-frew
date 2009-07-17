@@ -21,14 +21,23 @@ var grid = new Ext.grid.GridPanel({
         {@link Ext.data.Store#reader reader}: reader,
         {@link Ext.data.Store#data data}: xg.dummyData
     }),
-    {@link #columns}: [
-        {id: 'company', header: 'Company', width: 200, sortable: true, dataIndex: 'company'},
-        {header: 'Price', width: 120, sortable: true, renderer: Ext.util.Format.usMoney, dataIndex: 'price'},
-        {header: 'Change', width: 120, sortable: true, dataIndex: 'change'},
-        {header: '% Change', width: 120, sortable: true, dataIndex: 'pctChange'},
-        // instead of specifying renderer: Ext.util.Format.dateRenderer('m/d/Y') use xtype
-        {header: 'Last Updated', width: 135, sortable: true, dataIndex: 'lastChange', xtype: 'datecolumn', format: 'M d, Y'}
-    ],
+    {@link #colModel}: new {@link Ext.grid.ColumnModel}({
+        {@link Ext.grid.ColumnModel#defaults defaults}: {
+            width: 120,
+            sortable: true
+        },
+        {@link Ext.grid.ColumnModel#columns columns}: [
+            {id: 'company', header: 'Company', width: 200, sortable: true, dataIndex: 'company'},
+            {header: 'Price', renderer: Ext.util.Format.usMoney, dataIndex: 'price'},
+            {header: 'Change', dataIndex: 'change'},
+            {header: '% Change', dataIndex: 'pctChange'},
+            // instead of specifying renderer: Ext.util.Format.dateRenderer('m/d/Y') use xtype
+            {
+                header: 'Last Updated', width: 135, dataIndex: 'lastChange',
+                xtype: 'datecolumn', format: 'M d, Y'
+            }
+        ],
+    }),
     {@link #viewConfig}: {
         {@link Ext.grid.GridView#forceFit forceFit}: true,
 
@@ -134,7 +143,9 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
      * @cfg {Boolean} enableColumnResize <tt>false</tt> to turn off column resizing for the whole grid. Defaults to <tt>true</tt>.
      */
     /**
-     * @cfg {Boolean} enableColumnHide Defaults to <tt>true</tt> to enable hiding of columns with the header context menu.
+     * @cfg {Boolean} enableColumnHide
+     * Defaults to <tt>true</tt> to enable {@link Ext.grid.Column#hidden hiding of columns}
+     * with the {@link #enableHdMenu header menu}.
      */
     enableColumnHide : true,
     /**
