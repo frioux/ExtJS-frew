@@ -123,7 +123,10 @@ Ext.grid.Column.prototype = {
      * @cfg {Boolean} menuDisabled Optional. <tt>true</tt> to disable the column menu. Defaults to <tt>false</tt>.
      */
     /**
-     * @cfg {Boolean} hidden Optional. <tt>true</tt> to hide the column. Defaults to <tt>false</tt>.
+     * @cfg {Boolean} hidden
+     * Optional. <tt>true</tt> to initially hide this column. Defaults to <tt>false</tt>.
+     * A hidden column {@link Ext.grid.GridPanel#enableColumnHide may be shown via the header row menu}.
+     * If a column is never to be shown, simply do not include this column in the Column Model at all. 
      */
     /**
      * @cfg {String} tooltip Optional. A text string to use as the column header's tooltip.  If Quicktips
