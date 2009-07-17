@@ -243,11 +243,11 @@ var data = record.get(fieldName);
             }
             e.stopEvent();
         }else if(k == e.ENTER){
-            ed.completeEdit();
+            g.stopEditing();
             e.stopEvent();
         }else if(k == e.ESC){
         	e.stopEvent();
-            ed.cancelEdit();
+            g.stopEditing(true);
         }
         if(newCell){
             g.startEditing(newCell[0], newCell[1]);

@@ -276,8 +276,10 @@ grid.on('validateedit', function(e) {
      * @param {Boolean} cancel (optional) True to cancel any changes
      */
     stopEditing : function(cancel){
-        if(this.activeEditor){
-            this.activeEditor[cancel === true ? 'cancelEdit' : 'completeEdit']();
+        var ae = this.activeEditor;
+        if(ae){
+            ae[cancel === true ? 'cancelEdit' : 'completeEdit']();
+            this.view.focusCell(ae.row, ae.col);
         }
         this.activeEditor = null;
     }
