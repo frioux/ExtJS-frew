@@ -171,7 +171,7 @@ new Ext.Panel({
      * <p>The bottom toolbar of the panel. This can be a {@link Ext.Toolbar} object, a toolbar config, or an array of
      * buttons/button configs to be added to the toolbar.  Note that this is not available as a property after render.
      * To access the bottom toolbar after render, use {@link #getBottomToolbar}.</p>
-     * <p><b>Note:</b> Although a Toolbar may contain Field components, these will <b>not<b> be updated by a load
+     * <p><b>Note:</b> Although a Toolbar may contain Field components, these will <b>not</b> be updated by a load
      * of an ancestor FormPanel. A Panel's toolbars are not part of the standard Container->Component hierarchy, and
      * so are not scanned to collect form items. However, the values <b>will</b> be submitted because form
      * submission parameters are collected from the DOM tree.</p>
@@ -193,7 +193,7 @@ var w = new Ext.Window({
             text: 'bbar Right'
         }]
     }),
-    {@link #buttonAlign}: 'left', // anything but 'center' or 'right' and you can use "-", and "->"
+    {@link #buttonAlign}: 'left', // anything but 'center' or 'right' and you can use '-', and '->'
                                   // to control the alignment of fbar items
     fbar: [{
         text: 'fbar Left'
@@ -202,7 +202,7 @@ var w = new Ext.Window({
     }]
 }).show();
      * </code></pre>
-     * <p><b>Note:</b> Although a Toolbar may contain Field components, these will <b>not<b> be updated by a load
+     * <p><b>Note:</b> Although a Toolbar may contain Field components, these will <b>not</b> be updated by a load
      * of an ancestor FormPanel. A Panel's toolbars are not part of the standard Container->Component hierarchy, and
      * so are not scanned to collect form items. However, the values <b>will</b> be submitted because form
      * submission parameters are collected from the DOM tree.</p>
@@ -419,7 +419,7 @@ var win = new Ext.Window({
     height:300,
     closeAction:'hide'
 });</code></pre>
-     * <p>Note that the CSS class "x-tool-pdf" should have an associated style rule which provides an
+     * <p>Note that the CSS class 'x-tool-pdf' should have an associated style rule which provides an
      * appropriate background image, something like:</p>
     <pre><code>
     a.x-tool-pdf {background-image: url(../shared/extjs/images/pdf.gif)!important;}
@@ -1139,7 +1139,7 @@ new Ext.Panel({
             minWidth: this.minButtonWidth,
             hideParent:true
         };
-        if(typeof config == "string"){
+        if(typeof config == 'string'){
             bc.text = config;
         }else{
             Ext.apply(bc, config);
@@ -1653,13 +1653,13 @@ new Ext.Panel({
      * @param {Object/String/Function} config A config object containing any of the following options:
 <pre><code>
 panel.load({
-    url: "your-url.php",
-    params: {param1: "foo", param2: "bar"}, // or a URL encoded string
+    url: 'your-url.php',
+    params: {param1: 'foo', param2: 'bar'}, // or a URL encoded string
     callback: yourFunction,
     scope: yourObject, // optional scope for the callback
     discardUrl: false,
     nocache: false,
-    text: "Loading...",
+    text: 'Loading...',
     timeout: 30,
     scripts: false
 });
