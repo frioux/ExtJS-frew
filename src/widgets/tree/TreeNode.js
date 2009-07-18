@@ -127,7 +127,7 @@ Ext.tree.TreeNode = function(attributes){
         * @param {Node} this This node
         * @param {Ext.EventObject} e The event object
         */
-        "beforeclick",
+        "beforedblclick",
         /**
         * @event dblclick
         * Fires when this node is double clicked
