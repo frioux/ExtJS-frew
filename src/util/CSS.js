@@ -85,7 +85,7 @@ Ext.util.CSS = function(){
        try{// try catch for cross domain access issue
            var ssRules = ss.cssRules || ss.rules;
            for(var j = ssRules.length-1; j >= 0; --j){
-               rules[ssRules[j].selectorText] = ssRules[j];
+               rules[ssRules[j].selectorText.toLowerCase()] = ssRules[j];
            }
        }catch(e){}
    },
@@ -117,11 +117,11 @@ Ext.util.CSS = function(){
    getRule : function(selector, refreshCache){
    		var rs = this.getRules(refreshCache);
    		if(!Ext.isArray(selector)){
-   		    return rs[selector];
+   		    return rs[selector.toLowerCase()];
    		}
    		for(var i = 0; i < selector.length; i++){
 			if(rs[selector[i]]){
-				return rs[selector[i]];
+				return rs[selector[i].toLowerCase()];
 			}
 		}
 		return null;
