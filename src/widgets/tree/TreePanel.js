@@ -302,6 +302,13 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
             */
             "checkchange",
             /**
+            * @event beforedblclick
+            * Fires before double click processing on a node. Return false to cancel the default action.
+            * @param {Node} node The node
+            * @param {Ext.EventObject} e The event object
+            */
+            "beforedblclick",
+            /**
             * @event dblclick
             * Fires when a node is double clicked
             * @param {Node} node The node

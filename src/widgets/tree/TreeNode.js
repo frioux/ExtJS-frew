@@ -122,6 +122,13 @@ Ext.tree.TreeNode = function(attributes){
         */
         "checkchange",
         /**
+        * @event befordbleclick
+        * Fires before double click processing. Return false to cancel the default action.
+        * @param {Node} this This node
+        * @param {Ext.EventObject} e The event object
+        */
+        "beforeclick",
+        /**
         * @event dblclick
         * Fires when this node is double clicked
         * @param {Node} this This node

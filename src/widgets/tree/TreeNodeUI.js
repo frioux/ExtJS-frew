@@ -216,13 +216,15 @@ Ext.tree.TreeNodeUI.prototype = {
         if(this.disabled){
             return;
         }
-        if(this.checkbox){
-            this.toggleCheck();
+        if(this.fireEvent("beforedblclick", this.node, e) !== false){
+            if(this.checkbox){
+                this.toggleCheck();
+            }
+            if(!this.animating && this.node.isExpandable()){
+                this.node.toggle();
+            }
+            this.fireEvent("dblclick", this.node, e);
         }
-        if(!this.animating && this.node.isExpandable()){
-            this.node.toggle();
-        }
-        this.fireEvent("dblclick", this.node, e);
     },
 
     onOver : function(e){
