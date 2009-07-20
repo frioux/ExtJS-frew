@@ -208,12 +208,16 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
 
         this.config = config;
         this.lookup = {};
-        // if no id, create one
+
         for(i = 0, len = config.length; i < len; i++){
             c = Ext.applyIf(config[i], this.defaults);
             if(!c.isColumn){
-                var cls = Ext.grid.Column.types[c.xtype || 'gridcolumn'];
-                c = new cls(c);
+                var Cls = Ext.grid.Column.types[c.xtype || 'gridcolumn'];
+                // if no id, create one using column's ordinal position
+                if(typeof c.id == 'undefined'){
+                    c.id = i;
+                }
+                c = new Cls(c);
                 config[i] = c;
             }
             this.lookup[c.id] = c;

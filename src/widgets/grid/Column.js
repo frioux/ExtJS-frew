@@ -16,15 +16,10 @@ Ext.grid.Column = function(config){
     }
     this.renderer = this.renderer.createDelegate(this.scope || config);
 
-    if(this.id === undefined){
-        this.id = ++Ext.grid.Column.AUTO_ID;
-    }
     if(this.editor){
         this.editor = Ext.create(this.editor, 'textfield');
     }
 };
-
-Ext.grid.Column.AUTO_ID = 0;
 
 Ext.grid.Column.prototype = {
     /**
