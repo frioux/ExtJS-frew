@@ -193,7 +193,7 @@ var myField = new Ext.form.NumberField({
             this.validationTask = new Ext.util.DelayedTask(this.validate, this);
             this.mon(this.el, 'keyup', this.filterValidation, this);
         }
-        else if(this.validationEvent !== false){
+        else if(this.validationEvent !== false && this.validationEvent != 'blur'){
         	this.mon(this.el, this.validationEvent, this.validate, this, {buffer: this.validationDelay});
         }
         if(this.selectOnFocus || this.emptyText){
