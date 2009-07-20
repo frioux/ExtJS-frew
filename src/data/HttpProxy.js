@@ -48,40 +48,6 @@ Ext.data.HttpProxy = function(conn){
 
 Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
     /**
-     * @cfg {Boolean} restful
-     * <p>If set to <tt>true</tt>, a {@link Ext.data.Record#phantom non-phantom} record's
-     * {@link Ext.data.Record#id id} will be appended to the url (defaults to <tt>false</tt>).</p><br>
-     * <p>The url is built based upon the action being executed <tt>[load|create|save|destroy]</tt>
-     * using the commensurate <tt>{@link #api}</tt> property, or if undefined default to the
-     * configured {@link Ext.data.Store}.{@link Ext.data.Store#url url}.</p><br>
-     * <p>Some MVC (e.g., Ruby on Rails, Merb and Django) support this style of segment based urls
-     * where the segments in the URL follow the Model-View-Controller approach.</p><pre><code>
-     * someSite.com/controller/action/id
-     * </code></pre>
-     * Where the segments in the url are typically:<div class="mdetail-params"><ul>
-     * <li>The first segment : represents the controller class that should be invoked.</li>
-     * <li>The second segment : represents the class function, or method, that should be called.</li>
-     * <li>The third segment : represents the ID (a variable typically passed to the method).</li>
-     * </ul></div></p>
-     * <p>For example:</p>
-     * <pre><code>
-api: {
-    load :    '/controller/load',
-    create :  '/controller/new',  // Server MUST return idProperty of new record
-    save :    '/controller/update',
-    destroy : '/controller/destroy_action'
-}
-
-// Alternatively, one can use the object-form to specify each API-action
-api: {
-    load: {url: 'read.php', method: 'GET'},
-    create: 'create.php',
-    destroy: 'destroy.php',
-    save: 'update.php'
-}
-     */
-
-    /**
      * Return the {@link Ext.data.Connection} object being used by this Proxy.
      * @return {Connection} The Connection object. This object may be used to subscribe to events on
      * a finer-grained basis than the DataProxy events.

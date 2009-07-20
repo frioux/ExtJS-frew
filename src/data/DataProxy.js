@@ -61,7 +61,27 @@ api: {
     update  : undefined,
     destroy : undefined
 }
-</code></pre>
+     * </code></pre>
+     * <p>The url is built based upon the action being executed <tt>[load|create|save|destroy]</tt>
+     * using the commensurate <tt>{@link #api}</tt> property, or if undefined default to the
+     * configured {@link Ext.data.Store}.{@link Ext.data.Store#url url}.</p><br>
+     * <p>For example:</p>
+     * <pre><code>
+api: {
+    load :    '/controller/load',
+    create :  '/controller/new',  // Server MUST return idProperty of new record
+    save :    '/controller/update',
+    destroy : '/controller/destroy_action'
+}
+
+// Alternatively, one can use the object-form to specify each API-action
+api: {
+    load: {url: 'read.php', method: 'GET'},
+    create: 'create.php',
+    destroy: 'destroy.php',
+    save: 'update.php'
+}
+     * </code></pre>
      * <p>If the specific URL for a given CRUD action is undefined, the CRUD action request
      * will be directed to the configured <tt>{@link Ext.data.Connection#url url}</tt>.</p>
      * <br><p><b>Note</b>: To modify the URL for an action dynamically the appropriate API
@@ -249,7 +269,7 @@ store: new Ext.data.Store({
     ...
 )}
      * </code></pre>
-     * There is no <code>{@link #api}</code> specified in the configuration of the proxy,
+     * If there is no <code>{@link #api}</code> specified in the configuration of the proxy,
      * all requests will be marshalled to a single RESTful url (/users) so the serverside
      * framework can inspect the HTTP Method and act accordingly:
      * <pre>
@@ -259,6 +279,18 @@ GET      /users     read
 PUT      /users/23  update
 DESTROY  /users/23  delete
      * </pre></p>
+     * <p>If set to <tt>true</tt>, a {@link Ext.data.Record#phantom non-phantom} record's
+     * {@link Ext.data.Record#id id} will be appended to the url. Some MVC (e.g., Ruby on Rails,
+     * Merb and Django) support segment based urls where the segments in the URL follow the
+     * Model-View-Controller approach:<pre><code>
+     * someSite.com/controller/action/id
+     * </code></pre>
+     * Where the segments in the url are typically:<div class="mdetail-params"><ul>
+     * <li>The first segment : represents the controller class that should be invoked.</li>
+     * <li>The second segment : represents the class function, or method, that should be called.</li>
+     * <li>The third segment : represents the ID (a variable typically passed to the method).</li>
+     * </ul></div></p>
+     * <br><p>Refer to <code>{@link Ext.data.DataProxy#api}</code> for additional information.</p>
      */
     restful: false,
 
