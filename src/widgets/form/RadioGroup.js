@@ -77,6 +77,13 @@ Ext.form.RadioGroup = Ext.extend(Ext.form.CheckboxGroup, {
         return this;
     },
     
+    setValueForItem : function(val){
+        val = String(val).split(',')[0];
+        this.eachItem(function(item){
+            item.setValue(val == item.inputValue);
+        });
+    },
+    
     // private
     fireChecked : function(){
         if(!this.checkTask){
