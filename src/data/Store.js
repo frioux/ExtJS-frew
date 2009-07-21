@@ -1446,7 +1446,9 @@ sortInfo: {
         }else if(this.sortInfo  && !this.fields.get(this.sortInfo.field)){
             delete this.sortInfo;
         }
-        this.writer.meta = this.reader.meta;
+        if(this.writer){
+            this.writer.meta = this.reader.meta;
+        }
         this.modified = [];
         this.fireEvent('metachange', this, this.reader.meta);
     },
