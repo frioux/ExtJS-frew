@@ -95,6 +95,9 @@ Ext.DataView.DragSelector = function(cfg){
         if(!proxy){
             proxy = view.el.createChild({cls:'x-view-selector'});
         }else{
+            if(proxy.dom.parentNode !== view.el.dom){
+                view.el.dom.appendChild(proxy.dom);
+            }
             proxy.setDisplayed('block');
         }
         fillRegions();
