@@ -211,12 +211,12 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
 
         for(i = 0, len = config.length; i < len; i++){
             c = Ext.applyIf(config[i], this.defaults);
+            // if no id, create one using column's ordinal position
+            if(typeof c.id == 'undefined'){
+                c.id = i;
+            }
             if(!c.isColumn){
                 var Cls = Ext.grid.Column.types[c.xtype || 'gridcolumn'];
-                // if no id, create one using column's ordinal position
-                if(typeof c.id == 'undefined'){
-                    c.id = i;
-                }
                 c = new Cls(c);
                 config[i] = c;
             }
