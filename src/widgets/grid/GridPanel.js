@@ -564,11 +564,13 @@ function(grid, rowIndex, columnIndex, e) {
     // private
     afterRender : function(){
         Ext.grid.GridPanel.superclass.afterRender.call(this);
-        this.view.layout();
+        var v = this.view;
+        this.on('bodyresize', v.layout, v);
+        v.layout();
         if(this.deferRowRender){
-            this.view.afterRender.defer(10, this.view);
+            v.afterRender.defer(10, this.view);
         }else{
-            this.view.afterRender();
+            v.afterRender();
         }
         this.viewReady = true;
     },
