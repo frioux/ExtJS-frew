@@ -28,8 +28,10 @@ Ext.data.DataReader = function(meta, recordType){
     this.recordType = Ext.isArray(recordType) ?
         Ext.data.Record.create(recordType) : recordType;
 
-    // make sure extraction functions are defined.
-    this.buildExtractors();
+    // if recordType defined make sure extraction functions are defined
+    if (this.recordType){
+        this.buildExtractors();
+    }
 };
 
 Ext.data.DataReader.prototype = {
