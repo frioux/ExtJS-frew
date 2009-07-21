@@ -316,7 +316,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         if(t){
             if(t.isFormField){
                 this.setActiveItem(t);
-            }else{
+            }else if(t instanceof Ext.menu.BaseItem){
                 if(t.menu && this.ignoreParentClicks){
                     t.expandMenu();
                     e.preventDefault();
