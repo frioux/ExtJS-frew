@@ -67,17 +67,19 @@ Ext.extend(Ext.state.Provider, Ext.util.Observable, {
                 return (v == "1");
             case "a":
                 var all = [];
-                var values = v.split("^");
-                for(var i = 0, len = values.length; i < len; i++){
-                    all.push(this.decodeValue(values[i]));
+                if(v != ''){
+                    Ext.each(v.split('^'), function(val){
+                        all.push(this.decodeValue(val));
+                    }, this);
                 }
                 return all;
            case "o":
                 var all = {};
-                var values = v.split("^");
-                for(var i = 0, len = values.length; i < len; i++){
-                    var kv = values[i].split("=");
-                    all[kv[0]] = this.decodeValue(kv[1]);
+                if(v != ''){
+                    Ext.each(v.split('^'), function(val){
+                        var kv = val.split('=');
+                        all[kv[0]] = this.decodeValue(kv[1]);
+                    }, this);
                 }
                 return all;
            default:
