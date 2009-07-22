@@ -530,6 +530,7 @@ sortInfo: {
         if(this.storeId){
             Ext.StoreMgr.unregister(this);
         }
+        this.clearData();
         this.data = null;
         Ext.destroy(this.proxy);
         this.reader = this.writer = null;
@@ -576,6 +577,7 @@ sortInfo: {
     remove : function(record){
         var index = this.data.indexOf(record);
         if(index > -1){
+            record.join(null);
             this.data.removeAt(index);
             if(this.pruneModifiedRecords){
                 this.modified.remove(record);
@@ -599,7 +601,7 @@ sortInfo: {
      * Remove all Records from the Store and fires the {@link #clear} event.
      */
     removeAll : function(){
-        this.data.clear();
+        this.clearData();
         if(this.snapshot){
             this.snapshot.clear();
         }
@@ -676,6 +678,14 @@ sortInfo: {
         delete o.callback;
         delete o.scope;
         this.lastOptions = o;
+    },
+    
+    // private
+    clearData: function(){
+        this.data.each(function(rec) {
+            rec.join(null);
+        });
+        this.data.clear();
     },
 
     /**
@@ -1041,7 +1051,7 @@ sortInfo: {
                 this.data = this.snapshot;
                 delete this.snapshot;
             }
-            this.data.clear();
+            this.clearData();
             this.data.addAll(r);
             this.totalLength = t;
             this.applySort();
