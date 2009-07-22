@@ -17,10 +17,14 @@
 Ext.QuickTips.init(); // to display button quicktips
 
 var myStore = new Ext.data.Store({
+    reader: new Ext.data.JsonReader({
+        {@link Ext.data.JsonReader#totalProperty totalProperty}: 'results', 
+        ...
+    }),
     ...
 });
 
-var myPageSize = 25;  // server script should only send back 25 items
+var myPageSize = 25;  // server script should only send back 25 items at a time
 
 var grid = new Ext.grid.GridPanel({
     ...
@@ -41,16 +45,40 @@ var grid = new Ext.grid.GridPanel({
  * <pre><code>
 store.load({
     params: {
-        start: 0,          // specify params for the first page load if using paging
+        // specify params for the first page load if using paging
+        start: 0,          
         limit: myPageSize,
+        // other params
         foo:   'bar'
     }
 });
  * </code></pre>
+ * 
+ * <p>If using {@link Ext.data.Store#autoLoad store's autoLoad} configuration:</p>
+ * <pre><code>
+var myStore = new Ext.data.Store({
+    {@link Ext.data.Store#autoLoad autoLoad}: {params:{start: 0, limit: 25}},
+    ...
+});
+ * </code></pre>
+ * 
+ * <p>The packet sent back from the server would have this form:</p>
+ * <pre><code>
+{
+    "success": true,
+    "results": 2000, 
+    "rows": [ // <b>*Note:</b> this must be an Array 
+        { "id":  1, "name": "Bill", "occupation": "Gardener" },
+        { "id":  2, "name":  "Ben", "occupation": "Horticulturalist" },
+        ...
+        { "id": 25, "name":  "Sue", "occupation": "Botanist" }
+    ]
+}
+ * </code></pre>
  * <p><u>Paging with Local Data</u></p>
  * <p>Paging can also be accomplished with local data using extensions:</p>
  * <div class="mdetail-params"><ul>
- * <li><a href="http://extjs.com/forum/showthread.php?t=57386">Ext.ux.data.PagingStore</a></li>
+ * <li><a href="http://extjs.com/forum/showthread.php?t=71532">Ext.ux.data.PagingStore</a></li>
  * <li>Paging Memory Proxy (examples/ux/PagingMemoryProxy.js)</li>
  * </ul></div>
  * @constructor Create a new PagingToolbar
