@@ -989,7 +989,7 @@ var myGrid = new Ext.grid.EditorGridPanel({
     },
 
     // private
-    applyState : function(state, config){
+    applyState : function(state){
         if(state){
             Ext.apply(this, state);
         }

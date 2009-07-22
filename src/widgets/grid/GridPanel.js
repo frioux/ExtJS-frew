@@ -517,8 +517,8 @@ function(grid, rowIndex, columnIndex, e) {
     },
 
     applyState : function(state){
-        var cm = this.colModel;
-        var cs = state.columns;
+        var cm = this.colModel,
+            cs = state.columns;
         if(cs){
             for(var i = 0, len = cs.length; i < len; i++){
                 var s = cs[i];
@@ -536,9 +536,10 @@ function(grid, rowIndex, columnIndex, e) {
         if(state.sort && this.store){
             this.store[this.store.remoteSort ? 'setDefaultSort' : 'sort'](state.sort.field, state.sort.direction);
         }
-        delete state.columns;
-        delete state.sort;
-        Ext.grid.GridPanel.superclass.applyState.call(this, state);
+        var o = Ext.apply({}, state);
+        delete o.columns;
+        delete o.sort;
+        Ext.grid.GridPanel.superclass.applyState.call(this, o);
     },
 
     getState : function(){
