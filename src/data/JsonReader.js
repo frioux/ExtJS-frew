@@ -1,90 +1,100 @@
 /**
  * @class Ext.data.JsonReader
  * @extends Ext.data.DataReader
- * <p>Data reader class to create an Array of {@link Ext.data.Record} objects from a JSON response
- * based on mappings in a provided {@link Ext.data.Record} constructor.</p>
+ * <p>Data reader class to create an Array of {@link Ext.data.Record} objects
+ * from a JSON packet based on mappings in a provided {@link Ext.data.Record}
+ * constructor.</p>
  * <p>Example code:</p>
  * <pre><code>
-var Employee = Ext.data.Record.create([
-    {name: 'firstname'},                  // map the Record's "firstname" field to the row object's key of the same name
-    {name: 'job', mapping: 'occupation'}  // map the Record's "job" field to the row object's "occupation" key
-]);
-var myReader = new Ext.data.JsonReader(
-    {                             // The metadata property, with configuration options:
-        totalProperty: "results", //   the property which contains the total dataset size (optional)
-        root: "rows",             //   the property which contains an Array of record data objects
-        idProperty: "id"          //   the property within each row object that provides an ID for the record (optional)
-    },
-    Employee  // {@link Ext.data.Record} constructor that provides mapping for JSON object
-);
+var myReader = new Ext.data.JsonReader({
+    // metadata configuration options:
+    {@link #idProperty}: 'id'          
+    {@link #root}: 'rows',             
+    {@link #totalProperty}: 'results', 
+    
+    // the fields config option will internally create an {@link Ext.data.Record}
+    // constructor that provides mapping for reading the record data objects
+    {@link Ext.data.DataReader#fields fields}: [
+        // map Record&#39;s 'firstname' field to data object&#39;s key of same name    
+        {name: 'name'},
+        // map Record&#39;s 'job' field to data object&#39;s 'occupation' key
+        {name: 'job', mapping: 'occupation'}
+    ]    
+});
 </code></pre>
  * <p>This would consume a JSON data object of the form:</p><pre><code>
 {
-    results: 2,  // Reader's configured totalProperty
-    rows: [      // Reader's configured root
-        { id: 1, firstname: 'Bill', occupation: 'Gardener' },         // a row object
-        { id: 2, firstname: 'Ben' , occupation: 'Horticulturalist' }  // another row object
+    results: 2000, // Reader&#39;s configured {@link #totalProperty}
+    rows: [        // Reader&#39;s configured {@link #root}
+        // record data objects:
+        { {@link #idProperty id}: 1, firstname: 'Bill', occupation: 'Gardener' },         
+        { {@link #idProperty id}: 2, firstname: 'Ben' , occupation: 'Horticulturalist' },
+        ...
     ]
 }
 </code></pre>
  * <p><b><u>Automatic configuration using metaData</u></b></p>
- * <p>It is possible to change a JsonReader's metadata at any time by including a <b><tt>metaData</tt></b>
- * property in the JSON data object. If the JSON data object has a <b><tt>metaData</tt></b> property, a
- * {@link Ext.data.Store Store} object using this Reader will reconfigure itself to use the newly provided
- * field definition and fire its {@link Ext.data.Store#metachange metachange} event. The metachange event
- * handler may interrogate the <b><tt>metaData</tt></b> property to perform any configuration required.
- * Note that reconfiguring a Store potentially invalidates objects which may refer to Fields or Records
- * which no longer exist.</p>
- * <p>The <b><tt>metaData</tt></b> property in the JSON data object may contain:</p>
- * <div class="mdetail-params"><ul>
- * <li>any of the configuration options for this class</li>
- * <li>a <b><tt>{@link Ext.data.Record#fields fields}</tt></b> property which the JsonReader will
- * use as an argument to the {@link Ext.data.Record#create data Record create method} in order to
- * configure the layout of the Records it will produce.</li>
- * <li>a <b><tt>{@link Ext.data.Store#sortInfo sortInfo}</tt></b> property which the JsonReader will
- * use to set the {@link Ext.data.Store}'s {@link Ext.data.Store#sortInfo sortInfo} property</li>
- * <li>any user-defined properties needed</li>
- * </ul></div>
- * <p>To use this facility to send the same data as the example above (without having to code the creation
- * of the Record constructor), you would create the JsonReader like this:</p><pre><code>
+ * <p>It is possible to change a JsonReader's metadata at any time by including
+ * a <b><tt>metaData</tt></b> property in the JSON data object. If the JSON data
+ * object has a <b><tt>metaData</tt></b> property, a {@link Ext.data.Store Store}
+ * object using this Reader will reconfigure itself to use the newly provided
+ * field definition and fire its {@link Ext.data.Store#metachange metachange}
+ * event. The metachange event handler may interrogate the <b><tt>metaData</tt></b>
+ * property to perform any configuration required.</p>
+ * <p>Note that reconfiguring a Store potentially invalidates objects which may
+ * refer to Fields or Records which no longer exist.</p>
+ * <p>To use this facility you would create the JsonReader like this:</p><pre><code>
 var myReader = new Ext.data.JsonReader();
 </code></pre>
- * <p>The first data packet from the server would configure the reader by containing a
- * <b><tt>metaData</tt></b> property <b>and</b> the data. For example, the JSON data object might take
- * the form:</p>
-<pre><code>
+ * <p>The first data packet from the server would configure the reader by
+ * containing a <b><tt>metaData</tt></b> property <b>and</b> the data. For
+ * example, the JSON data object might take the form:</p><pre><code>
 {
     metaData: {
-        idProperty: 'id',
-        root: 'rows',
-        totalProperty: 'results',
-        fields: [
-            {name: 'name'},
-            {name: 'job', mapping: 'occupation'}
+        "{@link #idProperty}": "id",
+        "{@link #root}": "rows",
+        "{@link #totalProperty}": "results"
+        "{@link #successProperty}": "success",
+        "{@link Ext.data.DataReader#fields fields}": [
+            {"name": "name"},
+            {"name": "job", "mapping": "occupation"}
         ],
-        sortInfo: {field: 'name', direction:'ASC'}, // used by store to set its sortInfo
-        foo: 'bar' // custom property
+        // used by store to set its sortInfo
+        "sortInfo":{
+           "field": "name",
+           "direction": "ASC"
+        },
+        // {@link Ext.PagingToolbar paging data} (if applicable)
+        "start": 0,
+        "limit": 2,
+        // custom property 
+        "foo": "bar" 
     },
-    results: 2,
-    rows: [ // an Array
-        { 'id': 1, 'name': 'Bill', occupation: 'Gardener' },
-        { 'id': 2, 'name': 'Ben', occupation: 'Horticulturalist' }
+    // Reader&#39;s configured {@link #successProperty}
+    "success": true,
+    // Reader&#39;s configured {@link #totalProperty}
+    "results": 2000, 
+    // Reader&#39;s configured {@link #root}
+    // (this data simulates 2 results {@link Ext.PagingToolbar per page})
+    "rows": [ // <b>*Note:</b> this must be an Array 
+        { "id": 1, "name": "Bill", "occupation": "Gardener" },
+        { "id": 2, "name":  "Ben", "occupation": "Horticulturalist" }
     ]
 }
-</code></pre>
- * @cfg {String} totalProperty [total] Name of the property from which to retrieve the total number of records
- * in the dataset. This is only needed if the whole dataset is not passed in one go, but is being
- * paged from the remote server.  Defaults to <tt>total</tt>.
- * @cfg {String} successProperty [success] Name of the property from which to
- * retrieve the success attribute. Defaults to <tt>success</tt>.  See
- * {@link Ext.data.DataProxy}.{@link Ext.data.DataProxy#exception exception}
- * for additional information.
- * @cfg {String} root [undefined] <b>Required</b>.  The name of the property
- * which contains the Array of row objects.  Defaults to <tt>undefined</tt>.
- * An exception will be thrown if the root property is undefined. The data packet
- * value for this property should be an empty array to clear the data or show
- * no data.
- * @cfg {String} idProperty [id] Name of the property within a row object that contains a record identifier value.  Defaults to <tt>id</tt>
+ * </code></pre>
+ * <p>The <b><tt>metaData</tt></b> property in the JSON data object should contain:</p>
+ * <div class="mdetail-params"><ul>
+ * <li>any of the configuration options for this class</li>
+ * <li>a <b><tt>{@link Ext.data.Record#fields fields}</tt></b> property which
+ * the JsonReader will use as an argument to the
+ * {@link Ext.data.Record#create data Record create method} in order to
+ * configure the layout of the Records it will produce.</li>
+ * <li>a <b><tt>{@link Ext.data.Store#sortInfo sortInfo}</tt></b> property
+ * which the JsonReader will use to set the {@link Ext.data.Store}'s
+ * {@link Ext.data.Store#sortInfo sortInfo} property</li>
+ * <li>any custom properties needed</li>
+ * </ul></div>
+ * 
  * @constructor
  * Create a new JsonReader
  * @param {Object} meta Metadata configuration options.
@@ -96,7 +106,29 @@ var myReader = new Ext.data.JsonReader();
 Ext.data.JsonReader = function(meta, recordType){
     meta = meta || {};
 
-    // default idProperty, successProperty & totalProperty -> "id", "success", "total"
+    /**
+     * @cfg {String} idProperty [id] Name of the property within a row object
+     * that contains a record identifier value.  Defaults to <tt>id</tt>
+     */
+    /**
+     * @cfg {String} successProperty [success] Name of the property from which to
+     * retrieve the success attribute. Defaults to <tt>success</tt>.  See
+     * {@link Ext.data.DataProxy}.{@link Ext.data.DataProxy#exception exception}
+     * for additional information.
+     */
+    /**
+     * @cfg {String} totalProperty [total] Name of the property from which to
+     * retrieve the total number of records in the dataset. This is only needed
+     * if the whole dataset is not passed in one go, but is being paged from
+     * the remote server.  Defaults to <tt>total</tt>.
+     */
+    /**
+     * @cfg {String} root [undefined] <b>Required</b>.  The name of the property
+     * which contains the Array of row objects.  Defaults to <tt>undefined</tt>.
+     * An exception will be thrown if the root property is undefined. The data
+     * packet value for this property should be an empty array to clear the data
+     * or show no data.
+     */
     Ext.applyIf(meta, {
         idProperty: 'id',
         successProperty: 'success',
@@ -122,7 +154,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
         var json = response.responseText;
         var o = Ext.decode(json);
         if(!o) {
-            throw {message: "JsonReader.read: Json object not found"};
+            throw {message: 'JsonReader.read: Json object not found'};
         }
         return this.readRecords(o);
     },
@@ -138,19 +170,19 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
     /**
      * @ignore
      */
-    simpleAccess: function(obj, subsc) {
+    simpleAccess : function(obj, subsc) {
         return obj[subsc];
     },
 
     /**
      * @ignore
      */
-    getJsonAccessor: function(){
+    getJsonAccessor : function(){
         var re = /[\[\.]/;
         return function(expr) {
             try {
                 return(re.test(expr)) ?
-                new Function("obj", "return obj." + expr) :
+                new Function('obj', 'return obj.' + expr) :
                 function(obj){
                     return obj[expr];
                 };
@@ -227,7 +259,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             var g = this.getJsonAccessor(s.id || s.idProperty);
             this.getId = function(rec) {
                 var r = g(rec);
-                return (r === undefined || r === "") ? null : r;
+                return (r === undefined || r === '') ? null : r;
             };
         } else {
             this.getId = function(){return null;};
@@ -242,7 +274,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
     },
 
     // private extractValues
-    extractValues: function(data, items, len) {
+    extractValues : function(data, items, len) {
         var f, values = {};
         for(var j = 0; j < len; j++){
             f = items[j];
@@ -292,7 +324,7 @@ Ext.data.JsonReader.Error = Ext.extend(Ext.Error, {
 });
 Ext.apply(Ext.data.JsonReader.Error.prototype, {
     lang: {
-        'response': "An error occurred while json-decoding your server response",
+        'response': 'An error occurred while json-decoding your server response',
         'successProperty-response': 'Could not locate your "successProperty" in your server response.  Please review your JsonReader config to ensure the config-property "successProperty" matches the property in your server-response.  See the JsonReader docs.',
         'root-undefined-response': 'Could not locate your "root" property in your server response.  Please review your JsonReader config to ensure the config-property "root" matches the property your server-response.  See the JsonReader docs.',
         'root-undefined-config': 'Your JsonReader was configured without a "root" property.  Please review your JsonReader config and make sure to define the root property.  See the JsonReader docs.',
