@@ -116,11 +116,11 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
             this.showTooltip('You need to commit or cancel your changes');
             return;
         }
-        this.editing = true;
-        if(typeof rowIndex == 'object'){
+        if(Ext.isObject(rowIndex)){
             rowIndex = this.grid.getStore().indexOf(rowIndex);
         }
         if(this.fireEvent('beforeedit', this, rowIndex) !== false){
+            this.editing = true;
             var g = this.grid, view = g.getView();
             var row = view.getRow(rowIndex);
             var record = g.store.getAt(rowIndex);
@@ -140,7 +140,7 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
                 val = this.preEditValue(record, cm.getDataIndex(i));
                 f = fields[i];
                 f.setValue(val);
-                this.values[f.id] = val || '';
+                this.values[f.id] = Ext.isEmpty(val) ? '' : val;
             }
             this.verifyLayout(true);
             if(!this.isVisible()){
@@ -451,14 +451,23 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
                 mouseOffset: [40,0]
             });
         }
-        t.initTarget(this.items.last().getEl());
-        if(!t.rendered){
+        var v = this.grid.getView(),
+            top = parseInt(this.el.dom.style.top, 10),
+            scroll = v.scroller.dom.scrollTop,
+            h = this.el.getHeight();
+                
+        if(top + h >= scroll){
+            t.initTarget(this.items.last().getEl());
+            if(!t.rendered){
+                t.show();
+                t.hide();
+            }
+            t.body.update(msg);
+            t.doAutoWidth();
             t.show();
+        }else if(t.rendered){
             t.hide();
         }
-        t.body.update(msg);
-        t.doAutoWidth();
-        t.show();
     },
 
     getErrorText: function(){
