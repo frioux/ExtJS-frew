@@ -133,6 +133,13 @@ var grid = new Ext.grid.GridPanel({
      * </code></pre>
      */
     groupTextTpl : '{text}',
+    
+    /**
+     * @cfg {String} groupMode Indicates how to construct the group identifier. <tt>'value'</tt> constructs the id using
+     * raw value, <tt>'display'</tt> constructs the id using the rendered value. Defaults to <tt>'value'</tt>.
+     */
+    groupMode: 'value',
+    
     /**
      * @cfg {Function} groupRenderer This property must be configured in the {@link Ext.grid.Column} for
      * each column.
@@ -369,15 +376,14 @@ var grid = new Ext.grid.GridPanel({
             return Ext.grid.GroupingView.superclass.doRender.apply(
                     this, arguments);
         }
-        var gstyle = 'width:'+this.getTotalWidth()+';';
+        var gstyle = 'width:' + this.getTotalWidth() + ';',
+            gidPrefix = this.grid.getGridEl().id,
+            cfg = this.cm.config[colIndex],
+            groupRenderer = cfg.groupRenderer || cfg.renderer,
+            prefix = this.showGroupName ? (cfg.groupName || cfg.header)+': ' : '',
+            groups = [],
+            curGroup, i, len, gid;
 
-        var gidPrefix = this.grid.getGridEl().id;
-        var cfg = this.cm.config[colIndex];
-        var groupRenderer = cfg.groupRenderer || cfg.renderer;
-        var prefix = this.showGroupName ?
-                     (cfg.groupName || cfg.header)+': ' : '';
-
-        var groups = [], curGroup, i, len, gid;
         for(i = 0, len = rs.length; i < len; i++){
             var rowIndex = startRow + i,
                 r = rs[i],
@@ -385,7 +391,7 @@ var grid = new Ext.grid.GridPanel({
                 
                 g = this.getGroup(gvalue, r, groupRenderer, rowIndex, colIndex, ds);
             if(!curGroup || curGroup.group != g){
-                gid = gidPrefix + '-gp-' + groupField + '-' + Ext.util.Format.htmlEncode(g);
+                gid = this.constructId(gvalue, gidPrefix, groupField, colIndex);
                	// if state is defined use it, however state is in terms of expanded
 				// so negate it, otherwise use the default.
 				var isCollapsed  = typeof this.state[gid] !== 'undefined' ? !this.state[gid] : this.startCollapsed;
@@ -425,13 +431,17 @@ var grid = new Ext.grid.GridPanel({
      * @return {String} The group id
      */
     getGroupId : function(value){
-        var gidPrefix = this.grid.getGridEl().id;
-        var groupField = this.getGroupField();
-        var colIndex = this.cm.findColumnIndex(groupField);
-        var cfg = this.cm.config[colIndex];
-        var groupRenderer = cfg.groupRenderer || cfg.renderer;
-        var gtext = this.getGroup(value, {data:{}}, groupRenderer, 0, colIndex, this.ds);
-        return gidPrefix + '-gp-' + groupField + '-' + Ext.util.Format.htmlEncode(value);
+        var field = this.getGroupField();
+        return this.constructId(value, this.grid.getGridEl().id, field, this.cm.findColumnIndex(field));
+    },
+    
+    // private
+    constructId : function(value, prefix, field, idx){
+        var cfg = this.cm.config[idx],
+            groupRenderer = cfg.groupRenderer || cfg.renderer,
+            val = (this.groupMode == 'value') ? value : this.getGroup(value, {data:{}}, groupRenderer, 0, idx, this.ds);
+            
+        return prefix + '-gp-' + field + '-' + Ext.util.Format.htmlEncode(val);
     },
 
     // private
