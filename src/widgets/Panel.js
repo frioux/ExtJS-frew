@@ -1139,7 +1139,7 @@ new Ext.Panel({
             minWidth: this.minButtonWidth,
             hideParent:true
         };
-        if(typeof config == 'string'){
+        if(Ext.isString(config)){
             bc.text = config;
         }else{
             Ext.apply(bc, config);
@@ -1321,21 +1321,25 @@ new Ext.Panel({
          * @type Ext.dd.DragSource.
          * @property dd
          */
-        this.dd = new Ext.Panel.DD(this, typeof this.draggable == 'boolean' ? null : this.draggable);
+        this.dd = new Ext.Panel.DD(this, Ext.isBoolean(this.draggable) ? null : this.draggable);
     },
 
     // private
-    beforeEffect : function(){
+    beforeEffect : function(anim){
         if(this.floating){
             this.el.beforeAction();
         }
-        this.el.addClass('x-panel-animated');
+        if(anim !== false){
+            this.el.addClass('x-panel-animated');
+        }
     },
 
     // private
-    afterEffect : function(){
+    afterEffect : function(anim){
         this.syncShadow();
-        this.el.removeClass('x-panel-animated');
+        if(anim !== false){
+            this.el.removeClass('x-panel-animated');
+        }
     },
 
     // private - wraps up an animation param with internal callbacks
@@ -1370,7 +1374,7 @@ new Ext.Panel({
             return;
         }
         var doAnim = animate === true || (animate !== false && this.animCollapse);
-        this.beforeEffect();
+        this.beforeEffect(doAnim);
         this.onCollapse(doAnim, animate);
         return this;
     },
@@ -1383,15 +1387,15 @@ new Ext.Panel({
                         this.collapseDefaults));
         }else{
             this[this.collapseEl].hide();
-            this.afterCollapse();
+            this.afterCollapse(false);
         }
     },
 
     // private
-    afterCollapse : function(){
+    afterCollapse : function(anim){
         this.collapsed = true;
         this.el.addClass(this.collapsedCls);
-        this.afterEffect();
+        this.afterEffect(anim);
         this.fireEvent('collapse', this);
     },
 
@@ -1408,7 +1412,7 @@ new Ext.Panel({
         }
         var doAnim = animate === true || (animate !== false && this.animCollapse);
         this.el.removeClass(this.collapsedCls);
-        this.beforeEffect();
+        this.beforeEffect(doAnim);
         this.onExpand(doAnim, animate);
         return this;
     },
@@ -1421,14 +1425,14 @@ new Ext.Panel({
                         this.expandDefaults));
         }else{
             this[this.collapseEl].show();
-            this.afterExpand();
+            this.afterExpand(false);
         }
     },
 
     // private
-    afterExpand : function(){
+    afterExpand : function(anim){
         this.collapsed = false;
-        this.afterEffect();
+        this.afterEffect(anim);
         if(this.deferLayout !== undefined){
             this.doLayout(true);
         }
@@ -1466,7 +1470,7 @@ new Ext.Panel({
     onResize : function(w, h){
         if(w !== undefined || h !== undefined){
             if(!this.collapsed){
-                if(typeof w == 'number'){
+                if(Ext.isNumber(w)){
                     w = this.adjustBodyWidth(w - this.getFrameWidth());
                     if(this.tbar){
                         this.tbar.setWidth(w);
@@ -1509,7 +1513,7 @@ new Ext.Panel({
                     this.body.setWidth(w);
                 }
 
-                if(typeof h == 'number'){
+                if(Ext.isNumber(h)){
                     h = Math.max(0, this.adjustBodyHeight(h - this.getFrameHeight()));
                     this.body.setHeight(h);
                 }else if(h == 'auto'){
