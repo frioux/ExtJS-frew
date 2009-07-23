@@ -1096,19 +1096,22 @@ var myGrid = new Ext.grid.EditorGridPanel({
      *
      */
     destroy : function(){
-        if(this.fireEvent('beforedestroy', this) !== false){
-            this.beforeDestroy();
-            if(this.rendered){
-                this.el.removeAllListeners();
-                this.el.remove();
-                if(this.actionMode == 'container' || this.removeMode == 'container'){
-                    this.container.remove();
-                }
-            }
-            this.onDestroy();
-            Ext.ComponentMgr.unregister(this);
-            this.fireEvent('destroy', this);
-            this.purgeListeners();
+        if(!this.isDestroyed){
+	        if(this.fireEvent('beforedestroy', this) !== false){
+	            this.beforeDestroy();
+	            if(this.rendered){
+	                this.el.removeAllListeners();
+	                this.el.remove();
+	                if(this.actionMode == 'container' || this.removeMode == 'container'){
+	                    this.container.remove();
+	                }
+	            }
+	            this.onDestroy();
+	            Ext.ComponentMgr.unregister(this);
+	            this.fireEvent('destroy', this);
+	            this.purgeListeners();
+	            this.isDestroyed = true;
+	        }
         }
     },
 
