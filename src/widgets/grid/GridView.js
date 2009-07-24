@@ -1647,17 +1647,19 @@ viewConfig: {
     // private
     handleHdMove : function(e, t){
         if(this.activeHd && !this.headersDisabled){
-            var hw = this.splitHandleWidth || 5;
-            var r = this.activeHdRegion;
-            var x = e.getPageX();
-            var ss = this.activeHd.style;
-            if(x - r.left <= hw && this.cm.isResizable(this.activeHdIndex-1)){
-                ss.cursor = Ext.isAir ? 'move' : Ext.isWebKit ? 'e-resize' : 'col-resize'; // col-resize not always supported
-            }else if(r.right - x <= (!this.activeHdBtn ? hw : 2) && this.cm.isResizable(this.activeHdIndex)){
-                ss.cursor = Ext.isAir ? 'move' : Ext.isWebKit ? 'w-resize' : 'col-resize';
-            }else{
-                ss.cursor = '';
+            var hw = this.splitHandleWidth || 5,
+                r = this.activeHdRegion,
+                x = e.getPageX(),
+                ss = this.activeHd.style,
+                cur = '';
+            if(this.grid.enableColumnResize !== false){
+                if(x - r.left <= hw && this.cm.isResizable(this.activeHdIndex-1)){
+                    cur = Ext.isAir ? 'move' : Ext.isWebKit ? 'e-resize' : 'col-resize'; // col-resize not always supported
+                }else if(r.right - x <= (!this.activeHdBtn ? hw : 2) && this.cm.isResizable(this.activeHdIndex)){
+                    cur = Ext.isAir ? 'move' : Ext.isWebKit ? 'w-resize' : 'col-resize';
+                }
             }
+            ss.cursor = cur;
         }
     },
 
