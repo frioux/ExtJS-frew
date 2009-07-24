@@ -182,6 +182,11 @@ Ext.ListView = Ext.extend(Ext.DataView, {
      * The template to be used for the header row.  See {@link #tpl} for more details.
      */
 
+    /*
+     * IE has issues when setting percentage based widths to 100%. Default to 99.
+     */
+    maxWidth: Ext.isIE ? 99 : 100,
+    
     initComponent : function(){
         if(this.columnResize){
             this.colResizer = new Ext.ListView.ColumnResizer(this.colResizer);
@@ -237,8 +242,8 @@ Ext.ListView = Ext.extend(Ext.DataView, {
         // auto calculate missing column widths
         if(colsWithWidth < len){
             var remaining = len - colsWithWidth;
-            if(allocatedWidth < 100){
-                var perCol = ((100-allocatedWidth) / remaining);
+            if(allocatedWidth < this.maxWidth){
+                var perCol = ((this.maxWidth-allocatedWidth) / remaining);
                 for(var j = 0; j < len; j++){
                     var c = cs[j];
                     if(!Ext.isNumber(c.width)){
