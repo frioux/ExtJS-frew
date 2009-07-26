@@ -18,14 +18,14 @@ Ext.onReady(function(){
 
 	// Generic fields array to use in both store defs.
 	var fields = [
-	   {name: 'name', mapping : 'name'},
-	   {name: 'column1', mapping : 'column1'},
-	   {name: 'column2', mapping : 'column2'}
+		{name: 'name', mapping : 'name'},
+		{name: 'column1', mapping : 'column1'},
+		{name: 'column2', mapping : 'column2'}
 	];
 
     // create the data store
     var firstGridStore = new Ext.data.JsonStore({
-        fields : fields,
+        	fields : fields,
 		data   : myData,
 		root   : 'records'
     });
@@ -46,8 +46,6 @@ Ext.onReady(function(){
 	enableDragDrop   : true,
         stripeRows       : true,
         autoExpandColumn : 'name',
-        width            : 325,
-	region           : 'west',
         title            : 'First Grid'
     });
 
@@ -64,19 +62,19 @@ Ext.onReady(function(){
 	enableDragDrop   : true,
         stripeRows       : true,
         autoExpandColumn : 'name',
-        width            : 325,
-	region           : 'center',
         title            : 'Second Grid'
     });
 
 
 	//Simple 'border layout' panel to house both grids
 	var displayPanel = new Ext.Panel({
-		width    : 650,
-		height   : 300,
-		layout   : 'border',
-		renderTo : 'panel',
-		items    : [
+		width        : 650,
+		height       : 300,
+		layout       : 'hbox',
+		renderTo     : 'panel',
+		defaults     : { flex : 1 }, //auto stretch
+		layoutConfig : { align : 'stretch' },
+		items        : [
 			firstGrid,
 			secondGrid
 		],
@@ -101,11 +99,10 @@ Ext.onReady(function(){
 	/****
 	* Setup Drop Targets
 	***/
-	// This will make sure we only drop to the view container
-	var firstGridDropTargetEl =  firstGrid.getView().el.dom.childNodes[0].childNodes[1];
+	// This will make sure we only drop to the  view scroller element
+	var firstGridDropTargetEl =  firstGrid.getView().scroller.dom;
 	var firstGridDropTarget = new Ext.dd.DropTarget(firstGridDropTargetEl, {
 		ddGroup    : 'firstGridDDGroup',
-		copy       : true,
 		notifyDrop : function(ddSource, e, data){
 
 			// Generic function to add records.
@@ -127,17 +124,17 @@ Ext.onReady(function(){
 
 			// Loop through the selections
 			Ext.each(ddSource.dragData.selections ,addRow);
-			return(true);
-		}
+			return true 
+		},
+
 	});
 
 
-	// This will make sure we only drop to the view container
-	var secondGridDropTargetEl = secondGrid.getView().el.dom.childNodes[0].childNodes[1]
+	// This will make sure we only drop to the view scroller element
+	var secondGridDropTargetEl = secondGrid.getView().scroller.dom;
 
 	var destGridDropTarget = new Ext.dd.DropTarget(secondGridDropTargetEl, {
 		ddGroup    : 'secondGridDDGroup',
-		copy       : false,
 		notifyDrop : function(ddSource, e, data){
 
 			// Generic function to add records.
@@ -157,7 +154,7 @@ Ext.onReady(function(){
 			}
 			// Loop through the selections
 			Ext.each(ddSource.dragData.selections ,addRow);
-			return(true);
+			return true 
 		}
 	});
 });
