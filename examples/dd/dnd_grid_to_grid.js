@@ -96,65 +96,34 @@ Ext.onReady(function(){
 	// used to add records to the destination stores
 	var blankRecord =  Ext.data.Record.create(fields);
 
-	/****
-	* Setup Drop Targets
-	***/
-	// This will make sure we only drop to the  view scroller element
-	var firstGridDropTargetEl =  firstGrid.getView().scroller.dom;
-	var firstGridDropTarget = new Ext.dd.DropTarget(firstGridDropTargetEl, {
-		ddGroup    : 'firstGridDDGroup',
-		notifyDrop : function(ddSource, e, data){
-
-			// Generic function to add records.
-			function addRow(record, index, allItems) {
-
-				// Search for duplicates
-				var foundItem = firstGridStore.findExact('name', record.data.name);
-				// if not found
-				if (foundItem  == -1) {
-					firstGridStore.add(record);
-
-					// Call a sort dynamically
-					firstGridStore.sort('name', 'ASC');
-
-					//Remove Record from the source
-					ddSource.grid.store.remove(record);
-				}
-			}
-
-			// Loop through the selections
-			Ext.each(ddSource.dragData.selections ,addRow);
-			return true 
-		},
-
-	});
+        /****
+        * Setup Drop Targets
+        ***/
+        // This will make sure we only drop to the  view scroller element
+        var firstGridDropTargetEl =  firstGrid.getView().scroller.dom;
+        var firstGridDropTarget = new Ext.dd.DropTarget(firstGridDropTargetEl, {
+                ddGroup    : 'firstGridDDGroup',
+                notifyDrop : function(ddSource, e, data){
+                        var records =  ddSource.dragData.selections;
+                        Ext.each(records, ddSource.grid.store.remove, ddSource.grid.store);
+                        firstGrid.store.add(records);
+                        firstGrid.store.sort('name', 'ASC');
+                        return true
+                }
+        });
 
 
-	// This will make sure we only drop to the view scroller element
-	var secondGridDropTargetEl = secondGrid.getView().scroller.dom;
+        // This will make sure we only drop to the view scroller element
+        var secondGridDropTargetEl = secondGrid.getView().scroller.dom;
+        var secondGridDropTarget = new Ext.dd.DropTarget(secondGridDropTargetEl, {
+                ddGroup    : 'secondGridDDGroup',
+                notifyDrop : function(ddSource, e, data){
+                        var records =  ddSource.dragData.selections;
+                        Ext.each(records, ddSource.grid.store.remove, ddSource.grid.store);
+                        secondGrid.store.add(records);
+                        secondGrid.store.sort('name', 'ASC');
+                        return true
+                }
+        });
 
-	var destGridDropTarget = new Ext.dd.DropTarget(secondGridDropTargetEl, {
-		ddGroup    : 'secondGridDDGroup',
-		notifyDrop : function(ddSource, e, data){
-
-			// Generic function to add records.
-			function addRow(record, index, allItems) {
-
-				// Search for duplicates
-				var foundItem = secondGridStore.findExact('name', record.data.name);
-				// if not found
-				if (foundItem  == -1) {
-					secondGridStore.add(record);
-					// Call a sort dynamically
-					secondGridStore.sort('name', 'ASC');
-
-					//Remove Record from the source
-					ddSource.grid.store.remove(record);
-				}
-			}
-			// Loop through the selections
-			Ext.each(ddSource.dragData.selections ,addRow);
-			return true 
-		}
-	});
 });
