@@ -813,7 +813,7 @@ new Ext.Panel({
         if(this.header === true){
             this.elements += ',header';
             delete this.header;
-        }else if(this.headerCfg || (this.title && this.header !== false)){
+        }else if(this.headerCfg || ((this.title || this.tools) && this.header !== false)){
             this.elements += ',header';
         }
 
@@ -832,15 +832,15 @@ new Ext.Panel({
              * @property buttons
              */
             this.buttons = [];
-            for(var i = 0, len = btns.length; i < len; i++) {
-                if(btns[i].render){ // button instance
-                    this.buttons.push(btns[i]);
-                }else if(btns[i].xtype){
-                    this.buttons.push(Ext.create(btns[i], 'button'));
+            Ext.each(btns, function(btn){
+                if(btn.render){ // button instance
+                    this.buttons.push(btn);
+                }else if(btn.xtype){
+                    this.buttons.push(Ext.create(btn, 'button'));
                 }else{
-                    this.addButton(btns[i]);
+                    this.addButton(btn);
                 }
-            }
+            }, this);
         }
         if(this.fbar){
             this.elements += ',footer';
@@ -882,6 +882,7 @@ new Ext.Panel({
         var el = this.el,
             d = el.dom,
             bw;
+            
         el.addClass(this.baseCls);
         if(d.firstChild){ // existing markup
             this.header = el.down('.'+this.headerCls);
@@ -947,7 +948,7 @@ new Ext.Panel({
             }
         }
 
-        if(this.padding !== undefined) {
+        if(Ext.isDefined(this.padding)){
             this.body.setStyle('padding', this.body.addUnits(this.padding));
         }
 
@@ -1099,7 +1100,7 @@ new Ext.Panel({
         this.floating = true;
         this.el = new Ext.Layer(
             Ext.isObject(cfg) ? cfg : {
-                shadow: this.shadow !== undefined ? this.shadow : 'sides',
+                shadow: Ext.isDefined(this.shadow) ? this.shadow : 'sides',
                 shadowOffset: this.shadowOffset,
                 constrain:false,
                 shim: this.shim === false ? false : undefined
@@ -1433,7 +1434,7 @@ new Ext.Panel({
     afterExpand : function(anim){
         this.collapsed = false;
         this.afterEffect(anim);
-        if(this.deferLayout !== undefined){
+        if(Ext.isDefined(this.deferLayout)){
             this.doLayout(true);
         }
         this.fireEvent('expand', this);
@@ -1468,7 +1469,7 @@ new Ext.Panel({
 
     // private
     onResize : function(w, h){
-        if(w !== undefined || h !== undefined){
+        if(Ext.isDefined(w) || Ext.isDefined(h)){
             if(!this.collapsed){
                 if(Ext.isNumber(w)){
                     w = this.adjustBodyWidth(w - this.getFrameWidth());
