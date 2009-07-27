@@ -33,7 +33,7 @@ Ext.samples.samplesCatalog = [{
         url:  '../docs/index.html',
         icon: 'docs.gif',
         desc: 'API Documentation application.',
-        status: 'modified'
+        status: 'updated'
     },{
         text: 'Ext JS Forum Browser',
         url:  'forum/forum.html',
@@ -127,12 +127,13 @@ Ext.samples.samplesCatalog = [{
         url: 'grid/grid-plugins.html',
         icon: 'grid-plugins.gif',
         desc: 'Multiple grids customized via plugins: expander rows, checkbox selection and row numbering.'
-    }/*,{
+    },{
         text: 'Grid Filtering',
-        url: 'grid-filtering/grid-filter.html',
+        url: 'grid-filtering/grid-filter-local.html',
         icon: 'grid-filter.gif',
-        desc: 'Grid plugins providing custom data filtering menus that support various data types.'
-    }*/,{
+        desc: 'Grid plugins providing custom data filtering menus that support various data types.',
+        status: 'updated'
+    },{
         text: 'Grid From Markup',
         url: 'grid/from-markup.html',
         icon: 'grid-from-markup.gif',
@@ -418,13 +419,13 @@ Ext.samples.samplesCatalog = [{
         url:  'statusbar/statusbar-demo.html',
         icon: 'statusbar-demo.gif',
         desc: 'A simple StatusBar that can be dropped into the bottom of any panel to display status text and icons.',
-        status: 'modified'
+        status: 'updated'
     },{
         text: 'Status Bar (Advanced)',
         url:  'statusbar/statusbar-advanced.html',
         icon: 'statusbar-adv.gif',
         desc: 'Customizing the StatusBar via a plugin to provide automatic form validation monitoring and error linking.',
-        status: 'modified'
+        status: 'updated'
     }]
 },{
     title: 'Templates and DataView',

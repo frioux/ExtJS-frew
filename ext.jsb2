@@ -902,6 +902,33 @@
           text: 'GMapPanel.js',
           path: 'examples/ux/'
        },{
+          text: 'GridFilters.js',
+          path: 'examples/ux/gridfilters/'
+       },{
+          text: 'BooleanFilter.js',
+          path: 'examples/ux/gridfilters/filter/'
+       },{
+          text: 'DateFilter.js',
+          path: 'examples/ux/gridfilters/filter/'
+       },{
+          text: 'Filter.js',
+          path: 'examples/ux/gridfilters/filter/'
+       },{
+          text: 'ListFilter.js',
+          path: 'examples/ux/gridfilters/filter/'
+       },{
+          text: 'NumericFilter.js',
+          path: 'examples/ux/gridfilters/filter/'
+       },{
+          text: 'StringFilter.js',
+          path: 'examples/ux/gridfilters/filter/'
+       },{
+          text: 'ListMenu.js',
+          path: 'examples/ux/gridfilters/menu/'
+       },{
+          text: 'RangeMenu.js',
+          path: 'examples/ux/gridfilters/menu/'
+       },{
           text: 'GroupSummary.js',
           path: 'examples/ux/'
        },{
@@ -992,6 +1019,12 @@
        },{
           text: 'ColumnNodeUI.css',
           path: 'examples/ux/css/'
+       },{
+          text: 'GridFilters.css',
+          path: 'examples/ux/gridfilters/css/'
+       },{
+          text: 'RangeMenu.css',
+          path: 'examples/ux/gridfilters/css/'
        },{
           text: 'GroupSummary.css',
           path: 'examples/ux/css/'

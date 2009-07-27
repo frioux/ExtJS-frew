@@ -238,6 +238,11 @@
   <file name="grid\totals-hybrid.js" path="grid" />
   <file name="grid\xml-grid.html" path="grid" />
   <file name="grid\xml-grid.js" path="grid" />
+  <file name="grid-filtering\grid-demo.sql" path="grid-filtering" />
+  <file name="grid-filtering\grid-filter.json" path="grid-filtering" />
+  <file name="grid-filtering\grid-filter.php" path="grid-filtering" />
+  <file name="grid-filtering\grid-filter-local.html" path="grid-filtering" />
+  <file name="grid-filtering\grid-filter-local.js" path="grid-filtering" />
   <file name="grouptabs\grouptabs.html" path="grouptabs" />
   <file name="grouptabs\grouptabs.js" path="grouptabs" />
   <file name="grouptabs\images\group.png" path="grouptabs\images" />
@@ -773,6 +778,23 @@
   <file name="ux\FileUploadField.js" path="ux" />
   <file name="ux\Focus.js" path="ux" />
   <file name="ux\GMapPanel.js" path="ux" />
+  <file name="ux\gridfilters\GridFilters.js" path="ux\gridfilters" />
+  <file name="ux\gridfilters\css\GridFilters.css" path="ux\gridfilters\css" />
+  <file name="ux\gridfilters\css\RangeMenu.css" path="ux\gridfilters\css" />
+  <file name="ux\gridfilters\filter\BooleanFilter.js" path="ux\gridfilters\filter" />
+  <file name="ux\gridfilters\filter\DateFilter.js" path="ux\gridfilters\filter" />
+  <file name="ux\gridfilters\filter\Filter.js" path="ux\gridfilters\filter" />
+  <file name="ux\gridfilters\filter\ListFilter.js" path="ux\gridfilters\filter" />
+  <file name="ux\gridfilters\filter\NumericFilter.js" path="ux\gridfilters\filter" />
+  <file name="ux\gridfilters\filter\StringFilter.js" path="ux\gridfilters\filter" />
+  <file name="ux\gridfilters\images\equals.png" path="ux\gridfilters\images" />
+  <file name="ux\gridfilters\images\find.png" path="ux\gridfilters\images" />
+  <file name="ux\gridfilters\images\greater_than.png" path="ux\gridfilters\images" />
+  <file name="ux\gridfilters\images\less_than.png" path="ux\gridfilters\images" />
+  <file name="ux\gridfilters\images\sort_filtered_asc.gif" path="ux\gridfilters\images" />
+  <file name="ux\gridfilters\images\sort_filtered_desc.gif" path="ux\gridfilters\images" />
+  <file name="ux\gridfilters\menu\ListMenu.js" path="ux\gridfilters\menu" />
+  <file name="ux\gridfilters\menu\RangeMenu.js" path="ux\gridfilters\menu" />
   <file name="ux\GroupSummary.js" path="ux" />
   <file name="ux\css\GroupSummary.css" path="ux\css" />
   <file name="ux\GroupTab.js" path="ux" />
@@ -839,6 +861,15 @@
     <include name="ux\FileUploadField.js" />
     <include name="ux\Focus.js" />
     <include name="ux\GMapPanel.js" />
+    <include name="ux\gridfilters\GridFilters.js" />
+    <include name="ux\gridfilters\filter\BooleanFilter.js" />
+    <include name="ux\gridfilters\filter\DateFilter.js" />
+    <include name="ux\gridfilters\filter\Filter.js" />
+    <include name="ux\gridfilters\filter\ListFilter.js" />
+    <include name="ux\gridfilters\filter\NumericFilter.js" />
+    <include name="ux\gridfilters\filter\StringFilter.js" />
+    <include name="ux\gridfilters\menu\ListMenu.js" />
+    <include name="ux\gridfilters\menu\RangeMenu.js" />
     <include name="ux\GroupSummary.js" />
     <include name="ux\GroupTab.js" />
     <include name="ux\GroupTabPanel.js" />
@@ -870,6 +901,8 @@
   <target name="User Extension CSS Pack" file="$output\ux\css\ux-all.css" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="ux\css\CenterLayout.css" />
     <include name="ux\css\ColumnNodeUI.css" />
+    <include name="ux\gridfilters\css\GridFilters.css" />
+    <include name="ux\gridfilters\css\RangeMenu.css" />
     <include name="ux\css\GroupSummary.css" />
     <include name="ux\css\GroupTab.css" />
     <include name="ux\css\MultiSelect.css" />
