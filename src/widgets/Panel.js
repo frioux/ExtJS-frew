@@ -810,6 +810,16 @@ new Ext.Panel({
             delete this.bbar;
         }
 
+        if(this.collapsible){
+            this.tools = this.tools ? this.tools.slice(0) : [];
+            if(!this.hideCollapseTool){
+                this.tools[this.collapseFirst?'unshift':'push']({
+                    id: 'toggle',
+                    handler : this.toggleCollapse,
+                    scope: this
+                });
+            }
+        }
         if(this.header === true){
             this.elements += ',header';
             delete this.header;
@@ -993,19 +1003,9 @@ new Ext.Panel({
             this.makeFloating(this.floating);
         }
 
-        if(this.collapsible){
-            this.tools = this.tools ? this.tools.slice(0) : [];
-            if(!this.hideCollapseTool){
-                this.tools[this.collapseFirst?'unshift':'push']({
-                    id: 'toggle',
-                    handler : this.toggleCollapse,
-                    scope: this
-                });
-            }
-            if(this.titleCollapse && this.header){
-                this.mon(this.header, 'click', this.toggleCollapse, this);
-                this.header.setStyle('cursor', 'pointer');
-            }
+        if(this.collapsible && this.titleCollapse && this.header){
+            this.mon(this.header, 'click', this.toggleCollapse, this);
+            this.header.setStyle('cursor', 'pointer');
         }
         if(this.tools){
             var ts = this.tools;
@@ -1155,7 +1155,17 @@ new Ext.Panel({
 
     // private
     addTool : function(){
-        if(!this[this.toolTarget]) { // no where to render tools!
+        if(!this.rendered){
+            if(!this.tools){
+                this.tools = [];
+            }
+            Ext.each(arguments, function(arg){
+                this.tools.push(arg)
+            }, this);
+            return;
+        }
+         // nowhere to render tools!
+        if(!this[this.toolTarget]){
             return;
         }
         if(!this.toolTemplate){

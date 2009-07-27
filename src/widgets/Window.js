@@ -195,6 +195,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
 
     // private
     initComponent : function(){
+        this.initTools();
         Ext.Window.superclass.initComponent.call(this);
         this.addEvents(
             /**
@@ -269,7 +270,9 @@ Ext.Window = Ext.extend(Ext.Panel, {
             this.mask.hide();
             this.mon(this.mask, 'click', this.focus, this);
         }
-        this.initTools();
+        if(this.maximizable){
+            this.mon(this.header, 'dblclick', this.toggleMaximize, this);
+        }
     },
 
     // private
@@ -368,7 +371,6 @@ Ext.Window = Ext.extend(Ext.Panel, {
                 handler: this.restore.createDelegate(this, []),
                 hidden:true
             });
-            this.mon(this.header, 'dblclick', this.toggleMaximize, this);
         }
         if(this.closable){
             this.addTool({
