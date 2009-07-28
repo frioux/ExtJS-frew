@@ -33,7 +33,7 @@ Ext.form.BasicForm = function(el, config){
     if(Ext.isString(this.paramOrder)){
         this.paramOrder = this.paramOrder.split(/[\s,|]/);
     }
-    /*
+    /**
      * @property items
      * A {@link Ext.util.MixedCollection MixedCollection) containing all the Ext.form.Fields in this form.
      * @type MixedCollection
