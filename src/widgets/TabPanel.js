@@ -1024,7 +1024,7 @@ new Ext.TabPanel({
      * @hide
      */
     /**
-     * @property title
+     * @cfg title
      * @hide
      */
     /**
