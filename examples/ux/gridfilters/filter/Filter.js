@@ -8,13 +8,13 @@ Ext.namespace('Ext.ux.grid.filter');
 Ext.ux.grid.filter.Filter = Ext.extend(Ext.util.Observable, {
     /**
      * @cfg {Boolean} active
-     * Indicates the default status of the filter (defaults to false).
+     * Indicates the initial status of the filter (defaults to false).
      */
     active : false,
     /**
      * True if this filter is active.  Use setActive() to alter after configuration.
      * @type Boolean
-     * @property
+     * @property active
      */
     /**
      * @cfg {String} dataIndex 

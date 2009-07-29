@@ -37,7 +37,6 @@ fieldCfg : {
 },
      * </code></pre>
      */
-    fieldCfg : {},
     /**
      * @cfg {Object} fields
      * The field items may be configured individually
@@ -72,6 +71,13 @@ iconCls : {
     /**
      * @cfg {Object} menuItemCfgs
      * Default configuration options for each menu item
+     * Defaults to:<pre>
+menuItemCfgs : {
+    emptyText: 'Enter Filter Text...',
+    selectOnFocus: true,
+    width: 125
+}
+     * </pre>
      */
     menuItemCfgs : {
         emptyText: 'Enter Filter Text...',
@@ -81,8 +87,8 @@ iconCls : {
 
     /**
      * @cfg {Array} menuItems
-     * The items to be shown in this menu
-     * Defaults to:<pre>
+     * The items to be shown in this menu.  Items are added to the menu
+     * according to their position within this array. Defaults to:<pre>
      * menuItems : ['lt','gt','-','eq']
      * </pre>
      */
@@ -99,7 +105,7 @@ iconCls : {
         }        
         this.menu = new Ext.ux.menu.RangeMenu(Ext.apply(config, {
             // pass along filter configs to the menu
-            fieldCfg : this.fieldCfg,
+            fieldCfg : this.fieldCfg || {},
             fieldCls : this.fieldCls,
             fields : this.fields || {},
             iconCls: this.iconCls,

@@ -19,20 +19,21 @@ Ext.namespace('Ext.ux.grid');
  * </div></li>
  * <li><b>Graphical indicators</b> :
  * <div class="sub-desc">
- * Columns that are filtered have a configurable css class applied to the column headers.
+ * Columns that are filtered have {@link #filterCls a configurable css class}
+ * applied to the column headers.
  * </div></li>
  * <li><b>Paging</b> :
  * <div class="sub-desc">
  * If specified as a plugin to the grid's configured PagingToolbar, the current page
  * will be reset to page 1 whenever you update the filters.
- * Grid configuration information can be persisted across page loads by passing a
- * string value for the config option 'stateId'.
  * </div></li>
  * <li><b>Automatic Reconfiguration</b> :
  * <div class="sub-desc">
  * Filters automatically reconfigure when the grid 'reconfigure' event fires.
  * </div></li>
  * <li><b>Stateful</b> :
+ * Filter information will be persisted across page loads by specifying a
+ * <code>stateId</code> in the Grid configuration.
  * <div class="sub-desc">
  * The filter collection binds to the
  * <code>{@link Ext.grid.GridPanel#beforestaterestore beforestaterestore}</code>
@@ -46,8 +47,6 @@ Ext.namespace('Ext.ux.grid');
  * <li>A <code>filterupdate</code> <i>event</i> is added to the grid and is
  * fired upon onStateChange completion.</li>
  * </ul></div></li>
- * </ul></div>
- * <li><b><a href="http://extjs.com/forum/showthread.php?p=149052#post149052">Localization support</a></b> :
  * <li><b>Server side code examples</b> :
  * <div class="sub-desc"><ul>
  * <li><a href="http://www.vinylfox.com/extjs/grid-filter-php-backend-code.php">PHP</a> - (Thanks VinylFox)</li>
