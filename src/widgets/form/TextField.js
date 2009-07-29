@@ -110,11 +110,22 @@ var myField = new Ext.form.NumberField({
      */
     blankText : 'This field is required',
     /**
-     * @cfg {Function} validator A custom validation function to be called during field validation
+     * @cfg {Function} validator
+     * <p>A custom validation function to be called during field validation ({@link #validateValue})
      * (defaults to <tt>null</tt>). If specified, this function will be called first, allowing the
-     * developer to override the default validation process. This function will be passed the current
-     * field value and expected to return boolean <tt>true</tt> if the value is valid or a string
-     * error message if invalid.
+     * developer to override the default validation process.</p>
+     * <br><p>This function will be passed the following Parameters:</p>
+     * <div class="mdetail-params"><ul>
+     * <li><code>value</code>: <i>Mixed</i>
+     * <div class="sub-desc">The current field value</div></li>
+     * </ul></div>
+     * <br><p>This function is to Return:</p>
+     * <div class="mdetail-params"><ul>
+     * <li><code>true</code>: <i>Boolean</i>
+     * <div class="sub-desc"><code>true</code> if the value is valid</div></li>
+     * <li><code>msg</code>: <i>String</i>
+     * <div class="sub-desc">An error message if the value is invalid</div></li>
+     * </ul></div>
      */
     validator : null,
     /**
