@@ -775,11 +775,19 @@ var menu = new Ext.menu.Menu({
     // private
     onResize : function(w, h){
         Ext.form.ComboBox.superclass.onResize.apply(this, arguments);
+        if(this.isVisible()){
+            this.doResize(w);
+        }else{
+            this.bufferSize = w;
+        }
+    },
+    
+    doResize: function(w){
         if(this.list && !Ext.isDefined(this.listWidth)){
             var lw = Math.max(w, this.minListWidth);
             this.list.setWidth(lw);
             this.innerList.setWidth(lw - this.list.getFrameWidth('lr'));
-        }
+        }    
     },
 
     // private
@@ -1173,6 +1181,10 @@ var menu = new Ext.menu.Menu({
     expand : function(){
         if(this.isExpanded() || !this.hasFocus){
             return;
+        }
+        if(this.bufferSize){
+            this.doResize(this.bufferSize);
+            delete this.bufferSize;
         }
         this.list.alignTo(this.wrap, this.listAlign);
         this.list.show();
