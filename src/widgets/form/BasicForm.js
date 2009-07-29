@@ -424,7 +424,11 @@ myFormPanel.getForm().submit({
         if(this.standardSubmit){
             var v = this.isValid();
             if(v){
-                this.el.dom.submit();
+                var el = this.el.dom;
+                if(this.url && Ext.isEmpty(el.action)){
+                    el.action = this.url;
+                }
+                el.submit();
             }
             return v;
         }
