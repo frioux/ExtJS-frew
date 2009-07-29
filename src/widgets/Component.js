@@ -286,7 +286,7 @@ Ext.Component = function(config){
 Ext.Component.AUTO_ID = 1000;
 
 Ext.extend(Ext.Component, Ext.util.Observable, {
-	// Configs below are used for all Components when rendered by FormLayout.
+    // Configs below are used for all Components when rendered by FormLayout.
     /**
      * @cfg {String} fieldLabel <p>The label text to display next to this Component (defaults to '').</p>
      * <br><p><b>Note</b>: this config is only used when this Component is rendered by a Container which
@@ -405,21 +405,21 @@ new Ext.FormPanel({
 &lt;/style>
 
 new Ext.FormPanel({
-	height: 100,
-	renderTo: Ext.getBody(),
-	items: [{
-		xtype: 'textfield',
-		fieldLabel: 'Name',
-		itemCls: 'required' //this label will be styled
-	},{
-		xtype: 'textfield',
-		fieldLabel: 'Favorite Color'
-	}]
+    height: 100,
+    renderTo: Ext.getBody(),
+    items: [{
+        xtype: 'textfield',
+        fieldLabel: 'Name',
+        itemCls: 'required' //this label will be styled
+    },{
+        xtype: 'textfield',
+        fieldLabel: 'Favorite Color'
+    }]
 });
 </code></pre>
      */
 
-	// Configs below are used for all Components when rendered by AnchorLayout.
+    // Configs below are used for all Components when rendered by AnchorLayout.
     /**
      * @cfg {String} anchor <p><b>Note</b>: this config is only used when this Component is rendered
      * by a Container which has been configured to use an <b>{@link Ext.layout.AnchorLayout AnchorLayout}</b>
@@ -1097,21 +1097,21 @@ var myGrid = new Ext.grid.EditorGridPanel({
      */
     destroy : function(){
         if(!this.isDestroyed){
-	        if(this.fireEvent('beforedestroy', this) !== false){
-	            this.beforeDestroy();
-	            if(this.rendered){
-	                this.el.removeAllListeners();
-	                this.el.remove();
-	                if(this.actionMode == 'container' || this.removeMode == 'container'){
-	                    this.container.remove();
-	                }
-	            }
-	            this.onDestroy();
-	            Ext.ComponentMgr.unregister(this);
-	            this.fireEvent('destroy', this);
-	            this.purgeListeners();
-	            this.isDestroyed = true;
-	        }
+            if(this.fireEvent('beforedestroy', this) !== false){
+                this.beforeDestroy();
+                if(this.rendered){
+                    this.el.removeAllListeners();
+                    this.el.remove();
+                    if(this.actionMode == 'container' || this.removeMode == 'container'){
+                        this.container.remove();
+                    }
+                }
+                this.onDestroy();
+                Ext.ComponentMgr.unregister(this);
+                this.fireEvent('destroy', this);
+                this.purgeListeners();
+                this.isDestroyed = true;
+            }
         }
     },
 
@@ -1455,7 +1455,7 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
         }
 
         if(Ext.isObject(ename)){
-        	var propRe = /^(?:scope|delay|buffer|single|stopEvent|preventDefault|stopPropagation|normalized|args|delegate)$/;
+            var propRe = /^(?:scope|delay|buffer|single|stopEvent|preventDefault|stopPropagation|normalized|args|delegate)$/;
 
             var o = ename;
             for(var e in o){
@@ -1464,21 +1464,20 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
                 }
                 if(Ext.isFunction(o[e])){
                     // shared options
-			        this.mons.push({
-			            item: item, ename: e, fn: o[e], scope: o.scope
-			        });
-			        item.on(e, o[e], o.scope, o);
+                    this.mons.push({
+                        item: item, ename: e, fn: o[e], scope: o.scope
+                    });
+                    item.on(e, o[e], o.scope, o);
                 }else{
                     // individual options
-			        this.mons.push({
-			            item: item, ename: e, fn: o[e], scope: o.scope
-			        });
-			        item.on(e, o[e]);
+                    this.mons.push({
+                        item: item, ename: e, fn: o[e], scope: o.scope
+                    });
+                    item.on(e, o[e]);
                 }
             }
             return;
         }
-
 
         this.mons.push({
             item: item, ename: ename, fn: fn, scope: scope
