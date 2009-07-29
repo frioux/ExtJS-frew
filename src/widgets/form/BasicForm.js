@@ -189,23 +189,21 @@ paramOrder: 'param1|param2|param'
     trackResetOnLoad : false,
 
     /**
-     * @cfg {Boolean} standardSubmit If set to true, standard HTML form submits are used instead of XHR (Ajax) style
-     * form submissions. (defaults to false)<br>
-     * <p><b>Note:</b> When using standardSubmit, the options to {@link #submit} are ignored because Ext's
-     * Ajax infrastracture is bypassed. To pass extra parameters (baseParams and params), you will need to
-     * create hidden fields within the form.</p>
-     * <p>The url config option is also bypassed, so set the action as well:</p>
-     * <pre><code>
-PANEL.getForm().getEl().dom.action = 'URL'
-     * </code></pre>
-     * An example encapsulating the above:
+     * @cfg {Boolean} standardSubmit
+     * <p>If set to <tt>true</tt>, standard HTML form submits are used instead
+     * of XHR (Ajax) style form submissions. Defaults to <tt>false</tt>.</p>
+     * <br><p><b>Note:</b> When using <code>standardSubmit</code>, the
+     * <code>options</code> to <code>{@link #submit}</code> are ignored because
+     * Ext's Ajax infrastracture is bypassed. To pass extra parameters (e.g.
+     * <code>baseParams</code> and <code>params</code>), utilize hidden fields
+     * to submit extra data, for example:</p>
      * <pre><code>
 new Ext.FormPanel({
     standardSubmit: true,
     baseParams: {
         foo: 'bar'
     },
-    url: 'myProcess.php',
+    {@link url}: 'myProcess.php',
     items: [{
         xtype: 'textfield',
         name: 'userName'
@@ -213,21 +211,25 @@ new Ext.FormPanel({
     buttons: [{
         text: 'Save',
         handler: function(){
-            var O = this.ownerCt;
-            if (O.getForm().isValid()) {
-                if (O.url)
-                    O.getForm().getEl().dom.action = O.url;
-                if (O.baseParams) {
-                    for (i in O.baseParams) {
-                        O.add({
+            var fp = this.ownerCt.ownerCt,
+                form = fp.getForm();
+            if (form.isValid()) {
+                // check if there are baseParams and if
+                // hiddent items have been added already
+                if (fp.baseParams && !fp.paramsAdded) {
+                    // add hidden items for all baseParams
+                    for (i in fp.baseParams) {
+                        fp.add({
                             xtype: 'hidden',
                             name: i,
-                            value: O.baseParams[i]
-                        })
+                            value: fp.baseParams[i]
+                        });
                     }
-                    O.doLayout();
+                    fp.doLayout();
+                    // set a custom flag to prevent re-adding
+                    fp.paramsAdded = true;
                 }
-                O.getForm().submit();
+                form.{@link #submit}();
             }
         }
     }]
