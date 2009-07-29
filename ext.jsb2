@@ -894,7 +894,7 @@
           path: 'examples/ux/'
        },{
           text: 'FileUploadField.js',
-          path: 'examples/ux/'
+          path: 'examples/ux/fileuploadfield/'
        },{
           text: 'Focus.js',
           path: 'examples/ux/'
@@ -1019,6 +1019,9 @@
        },{
           text: 'ColumnNodeUI.css',
           path: 'examples/ux/css/'
+       },{
+          text: 'fileuploadfield.css',
+          path: 'examples/ux/fileuploadfield/css/'
        },{
           text: 'GridFilters.css',
           path: 'examples/ux/gridfilters/css/'

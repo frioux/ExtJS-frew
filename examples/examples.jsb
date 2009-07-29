@@ -172,7 +172,6 @@
   <file name="form\custom.js" path="form" />
   <file name="form\dynamic.html" path="form" />
   <file name="form\dynamic.js" path="form" />
-  <file name="form\file-upload.css" path="form" />
   <file name="form\file-upload.html" path="form" />
   <file name="form\file-upload.php" path="form" />
   <file name="form\file-upload.js" path="form" />
@@ -775,7 +774,8 @@
   <file name="ux\ColumnNodeUI.js" path="ux" />
   <file name="ux\css\ColumnNodeUI.css" path="ux\css" />
   <file name="ux\DataView-more.js" path="ux" />
-  <file name="ux\FileUploadField.js" path="ux" />
+  <file name="ux\fileuploadfield\FileUploadField.js" path="ux\fileuploadfield" />
+  <file name="ux\fileuploadfield\css\fileuploadfield.css" path="ux\fileuploadfield\css" />
   <file name="ux\Focus.js" path="ux" />
   <file name="ux\GMapPanel.js" path="ux" />
   <file name="ux\gridfilters\GridFilters.js" path="ux\gridfilters" />
@@ -858,7 +858,7 @@
     <include name="ux\CheckColumn.js" />
     <include name="ux\ColumnNodeUI.js" />
     <include name="ux\DataView-more.js" />
-    <include name="ux\FileUploadField.js" />
+    <include name="ux\fileuploadfield\FileUploadField.js" />
     <include name="ux\Focus.js" />
     <include name="ux\GMapPanel.js" />
     <include name="ux\gridfilters\GridFilters.js" />
@@ -901,6 +901,7 @@
   <target name="User Extension CSS Pack" file="$output\ux\css\ux-all.css" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="ux\css\CenterLayout.css" />
     <include name="ux\css\ColumnNodeUI.css" />
+    <include name="ux\fileuploadfield\css\fileuploadfield.css" />
     <include name="ux\gridfilters\css\GridFilters.css" />
     <include name="ux\gridfilters\css\RangeMenu.css" />
     <include name="ux\css\GroupSummary.css" />
