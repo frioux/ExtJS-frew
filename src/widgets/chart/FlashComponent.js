@@ -22,6 +22,12 @@ Ext.FlashComponent = Ext.extend(Ext.BoxComponent, {
      * The wmode of the flash object. This can be used to control layering. Defaults to <tt>'opaque'</tt>.
      */
     wmode: 'opaque',
+    
+    /**
+     * @cfg {Object} flashVars
+     * A set of key value pairs to be passed to the flash object. Defaults to <tt>undefined</tt>.
+     */
+    flashVars: undefined,
 
     /**
      * @cfg {String} url
@@ -52,11 +58,11 @@ Ext.FlashComponent = Ext.extend(Ext.BoxComponent, {
             allowScriptAccess: 'always',
             bgcolor: this.backgroundColor,
             wmode: this.wmode
-        }, vars = {
+        }, vars = Ext.apply(this.flashVars || {}, {
             allowedDomain: document.location.hostname,
             elementID: this.getId(),
             eventHandler: 'Ext.FlashEventProxy.onEvent'
-        };
+        });
 
         new swfobject.embedSWF(this.url, this.id, this.swfWidth, this.swfHeight, this.flashVersion,
             this.expressInstall ? Ext.FlashComponent.EXPRESS_INSTALL_URL : undefined, vars, params);
