@@ -299,11 +299,12 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
         }
         // TODO, separate empty and undefined exceptions.
         if (action === Ext.data.Api.actions.create) {
-            var root = this.getRoot(o);
-            if (Ext.isEmpty(root)) {
+            var root = this.getRoot(o),
+                def = Ext.isDefined(root);
+            if (def && Ext.isEmpty(root)) {
                 throw new Ext.data.JsonReader.Error('root-empty', this.meta.root);
             }
-            else if (root === undefined) {
+            else if (!def) {
                 throw new Ext.data.JsonReader.Error('root-undefined-response', this.meta.root);
             }
         }
