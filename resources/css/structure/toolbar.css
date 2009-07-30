@@ -219,14 +219,18 @@ div.x-toolbar-no-items {
 }
 
 .x-toolbar-cell .x-form-checkbox, .x-toolbar-cell .x-form-radio{
-    vertical-align: top;
     margin-top: 5px;
+}
+
+.x-toolbar-cell .x-form-cb-label{
+    vertical-align: bottom;
+    top: 1px;
 }
 
 .ext-ie .x-toolbar-cell .x-form-checkbox, .ext-ie .x-toolbar-cell .x-form-radio{
     margin-top: 4px;
 }
 
-.x-toolbar-cell .x-form-check-wrap label{
-    vertical-align: bottom;
+.ext-ie .x-toolbar-cell .x-form-cb-label{
+    top: 0;
 }

@@ -72,8 +72,11 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
     // private
     initEvents : function(){
         Ext.form.Checkbox.superclass.initEvents.call(this);
-        this.mon(this.el, 'click', this.onClick, this);
-        this.mon(this.el, 'change', this.onClick, this);
+        this.mon(this.el, {
+            scope: this,
+            click: this.onClick,
+            change: this.onClick
+        });
     },
 
 	// private
@@ -113,6 +116,10 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
             this.setValue(true);
         }else{
             this.checked = this.el.dom.checked;
+        }
+        // Need to repaint for IE, otherwise positioning is broken
+        if(Ext.isIE){
+            this.wrap.repaint();
         }
     },
 
