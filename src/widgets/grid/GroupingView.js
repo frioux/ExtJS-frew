@@ -475,7 +475,7 @@ var grid = new Ext.grid.GridPanel({
         if(!this.enableGrouping || !this.hasRows()){
             return;
         }
-        var tw = Math.max(this.cm.getTotalWidth(), this.el.dom.offsetWidth-this.scrollOffset) +'px';
+        var tw = Math.max(this.cm.getTotalWidth(), this.el.dom.offsetWidth-this.getScrollOffset()) +'px';
         var gs = this.getGroups();
         for(var i = 0, len = gs.length; i < len; i++){
             gs[i].firstChild.style.width = tw;

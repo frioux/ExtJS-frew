@@ -132,9 +132,10 @@ Ext.ListView = Ext.extend(Ext.DataView, {
      */
     /**
      * @cfg {Number} scrollOffset The amount of space to reserve for the scrollbar (defaults to
-     * <tt>19</tt> pixels)
+     * <tt>undefined</tt>). If an explicit value isn't specified, this will be automatically
+     * calculated.
      */
-    scrollOffset : 19,
+    scrollOffset : undefined,
     /**
      * @cfg {Boolean/Object} columnResize
      * Specify <tt>true</tt> or specify a configuration object for {@link Ext.ListView.ColumnResizer}
@@ -318,7 +319,7 @@ Ext.ListView = Ext.extend(Ext.DataView, {
         }
         var bdp = bd.parentNode;
         if(Ext.isNumber(w)){
-            var sw = w - this.scrollOffset;
+            var sw = w - Ext.isDefined(this.scrollOffset) ? this.scrollOffset : Ext.getScrollBarWidth();
             if(this.reserveScrollOffset || ((bdp.offsetWidth - bdp.clientWidth) > 10)){
                 bd.style.width = sw + 'px';
                 hd.style.width = sw + 'px';

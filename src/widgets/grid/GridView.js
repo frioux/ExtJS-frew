@@ -147,9 +147,10 @@ viewConfig: {
     deferEmptyText : true,
     /**
      * @cfg {Number} scrollOffset The amount of space to reserve for the vertical scrollbar
-     * (defaults to <tt>19</tt> pixels).
+     * (defaults to <tt>undefined</tt>). If an explicit value isn't specified, this will be automatically
+     * calculated.
      */
-    scrollOffset : 19,
+    scrollOffset : undefined,
     /**
      * @cfg {Boolean} autoFill
      * Defaults to <tt>false</tt>.  Specify <tt>true</tt> to have the column widths re-proportioned
@@ -855,7 +856,11 @@ viewConfig: {
     
     // private 
     getOffsetWidth : function() {
-        return (this.cm.getTotalWidth() + this.scrollOffset) + 'px';
+        return (this.cm.getTotalWidth() + this.getScrollOffset()) + 'px';
+    },
+    
+    getScrollOffset: function(){
+        return Ext.isDefined(this.scrollOffset) ? this.scrollOffset : Ext.getScrollBarWidth();    
     },
 
     // private
@@ -1101,7 +1106,7 @@ viewConfig: {
     fitColumns : function(preventRefresh, onlyExpand, omitColumn){
         var cm = this.cm, i;
         var tw = cm.getTotalWidth(false);
-        var aw = this.grid.getGridEl().getWidth(true)-this.scrollOffset;
+        var aw = this.grid.getGridEl().getWidth(true)-this.getScrollOffset();
 
         if(aw < 20){ // not initialized, so don't screw up the default widths
             return;
@@ -1158,7 +1163,7 @@ viewConfig: {
         var g = this.grid, cm = this.cm;
         if(!this.userResized && g.autoExpandColumn){
             var tw = cm.getTotalWidth(false);
-            var aw = this.grid.getGridEl().getWidth(true)-this.scrollOffset;
+            var aw = this.grid.getGridEl().getWidth(true)-this.getScrollOffset();
             if(tw != aw){
                 var ci = cm.getIndexById(g.autoExpandColumn);
                 var currentWidth = cm.getColumnWidth(ci);
