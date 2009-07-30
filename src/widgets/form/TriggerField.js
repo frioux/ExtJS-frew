@@ -173,7 +173,7 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
 
     // private
     mimicBlur : function(e){
-        if(!this.wrap.contains(e.target) && this.validateBlur(e)){
+        if(!this.isDestroyed && !this.wrap.contains(e.target) && this.validateBlur(e)){
             this.triggerBlur();
         }
     },
