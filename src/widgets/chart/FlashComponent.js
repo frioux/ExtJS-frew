@@ -25,9 +25,16 @@ Ext.FlashComponent = Ext.extend(Ext.BoxComponent, {
     
     /**
      * @cfg {Object} flashVars
-     * A set of key value pairs to be passed to the flash object. Defaults to <tt>undefined</tt>.
+     * A set of key value pairs to be passed to the flash object as flash variables. Defaults to <tt>undefined</tt>.
      */
     flashVars: undefined,
+    
+    /**
+     * @cfg {Object} flashParams
+     * A set of key value pairs to be passed to the flash object as parameters. Possible parameters can be found here:
+     * http://kb2.adobe.com/cps/127/tn_12701.html Defaults to <tt>undefined</tt>.
+     */
+    flashParams: undefined,
 
     /**
      * @cfg {String} url
@@ -54,11 +61,11 @@ Ext.FlashComponent = Ext.extend(Ext.BoxComponent, {
     onRender : function(){
         Ext.FlashComponent.superclass.onRender.apply(this, arguments);
 
-        var params = {
+        var params = Ext.apply(this.flashParams || {}, {
             allowScriptAccess: 'always',
             bgcolor: this.backgroundColor,
             wmode: this.wmode
-        }, vars = Ext.apply(this.flashVars || {}, {
+        }), vars = Ext.apply(this.flashVars || {}, {
             allowedDomain: document.location.hostname,
             elementID: this.getId(),
             eventHandler: 'Ext.FlashEventProxy.onEvent'
