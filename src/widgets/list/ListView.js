@@ -224,9 +224,13 @@ Ext.ListView = Ext.extend(Ext.DataView, {
                 '</tpl>'
             );
         };
-        var cs = this.columns, allocatedWidth = 0, colsWithWidth = 0, len = cs.length;
+        var cs = this.columns, 
+            allocatedWidth = 0, 
+            colsWithWidth = 0, 
+            len = cs.length, 
+            columns = [];
         for(var i = 0; i < len; i++){
-            var c = cs[i];
+            var c = Ext.apply({}, cs[i]);
             if(!c.tpl){
                 c.tpl = new Ext.XTemplate('{' + c.dataIndex + '}');
             }else if(Ext.isString(c.tpl)){
@@ -238,7 +242,9 @@ Ext.ListView = Ext.extend(Ext.DataView, {
                 allocatedWidth += c.width;
                 colsWithWidth++;
             }
+            columns.push(c);
         }
+        this.columns = columns;
         // auto calculate missing column widths
         if(colsWithWidth < len){
             var remaining = len - colsWithWidth;
