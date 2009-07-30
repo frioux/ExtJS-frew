@@ -1087,9 +1087,6 @@
            text: 'toolbar.css',
            path: 'resources/css/structure/'
        },{
-           text: 'toolbar.css',
-           path: 'resources/css/structure/'
-       },{
            text: 'grid.css',
            path: 'resources/css/structure/'
        },{
