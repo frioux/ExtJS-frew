@@ -644,16 +644,20 @@ var menu = new Ext.menu.Menu({
     // private
     bindStore : function(store, initial){
         if(this.store && !initial){
-            this.store.un('beforeload', this.onBeforeLoad, this);
-            this.store.un('load', this.onLoad, this);
-            this.store.un('exception', this.collapse, this);
             if(this.store !== store && this.store.autoDestroy){
                 this.store.destroy();
+            }else{
+                this.store.un('beforeload', this.onBeforeLoad, this);
+                this.store.un('load', this.onLoad, this);
+                this.store.un('exception', this.collapse, this);
             }
             if(!store){
                 this.store = null;
                 if(this.view){
                     this.view.bindStore(null);
+                }
+                if(this.pageTb){
+                    this.pageTb.bindStore(null);
                 }
             }
         }

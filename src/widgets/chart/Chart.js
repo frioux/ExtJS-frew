@@ -137,13 +137,14 @@
      */
     bindStore : function(store, initial){
         if(!initial && this.store){
-            this.store.un("datachanged", this.refresh, this);
-            this.store.un("add", this.delayRefresh, this);
-            this.store.un("remove", this.delayRefresh, this);
-            this.store.un("update", this.delayRefresh, this);
-            this.store.un("clear", this.refresh, this);
             if(store !== this.store && this.store.autoDestroy){
                 this.store.destroy();
+            }else{
+                this.store.un("datachanged", this.refresh, this);
+                this.store.un("add", this.delayRefresh, this);
+                this.store.un("remove", this.delayRefresh, this);
+                this.store.un("update", this.delayRefresh, this);
+                this.store.un("clear", this.refresh, this);
             }
         }
         if(store){
@@ -250,6 +251,7 @@
     
     onDestroy: function(){
         Ext.chart.Chart.superclass.onDestroy.call(this);
+        this.bindStore(null);
         var tip = this.tipFnName;
         if(!Ext.isEmpty(tip)){
             delete window[tip];

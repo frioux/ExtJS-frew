@@ -384,14 +384,18 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
      */
     bindStore : function(store, initial){
         if(!initial && this.store){
-            this.store.un("beforeload", this.onBeforeLoad, this);
-            this.store.un("datachanged", this.refresh, this);
-            this.store.un("add", this.onAdd, this);
-            this.store.un("remove", this.onRemove, this);
-            this.store.un("update", this.onUpdate, this);
-            this.store.un("clear", this.refresh, this);
             if(store !== this.store && this.store.autoDestroy){
                 this.store.destroy();
+            }else{
+                this.store.un("beforeload", this.onBeforeLoad, this);
+                this.store.un("datachanged", this.refresh, this);
+                this.store.un("add", this.onAdd, this);
+                this.store.un("remove", this.onRemove, this);
+                this.store.un("update", this.onUpdate, this);
+                this.store.un("clear", this.refresh, this);
+            }
+            if(!store){
+                this.store = null;
             }
         }
         if(store){

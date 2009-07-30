@@ -527,14 +527,17 @@ sortInfo: {
      * Destroys the store.
      */
     destroy : function(){
-        if(this.storeId){
-            Ext.StoreMgr.unregister(this);
+        if(!this.isDestroyed){
+            if(this.storeId){
+                Ext.StoreMgr.unregister(this);
+            }
+            this.clearData();
+            this.data = null;
+            Ext.destroy(this.proxy);
+            this.reader = this.writer = null;
+            this.purgeListeners();
+            this.isDestroyed = true;
         }
-        this.clearData();
-        this.data = null;
-        Ext.destroy(this.proxy);
-        this.reader = this.writer = null;
-        this.purgeListeners();
     },
 
     /**
