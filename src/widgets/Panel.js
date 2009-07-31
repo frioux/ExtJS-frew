@@ -810,15 +810,13 @@ new Ext.Panel({
             delete this.bbar;
         }
 
-        if(this.collapsible){
+        if(this.collapsible && !this.hideCollapseTool){
             this.tools = this.tools ? this.tools.slice(0) : [];
-            if(!this.hideCollapseTool){
-                this.tools[this.collapseFirst?'unshift':'push']({
-                    id: 'toggle',
-                    handler : this.toggleCollapse,
-                    scope: this
-                });
-            }
+            this.tools[this.collapseFirst?'unshift':'push']({
+                id: 'toggle',
+                handler : this.toggleCollapse,
+                scope: this
+            });
         }
         if(this.header === true){
             this.elements += ',header';
