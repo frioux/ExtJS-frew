@@ -670,7 +670,7 @@ viewConfig: {
             if (!skipStripe && (idx + 1) % 2 === 0) {
                 row.className += ' x-grid3-row-alt';
             }
-        });
+        }, this);
         // add first/last-row classes
         if(startRow === 0){
             Ext.fly(rows[0]).addClass(this.firstRowCls);
