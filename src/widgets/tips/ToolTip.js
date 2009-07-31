@@ -2,6 +2,7 @@
  * @class Ext.ToolTip
  * @extends Ext.Tip
  * A standard tooltip implementation for providing additional information when hovering over a target element.
+ * @xtype tooltip
  * @constructor
  * Create a new Tooltip
  * @param {Object} config The configuration options
@@ -505,3 +506,5 @@ myGrid.on('render', function(grid) {
         Ext.ToolTip.superclass.onDestroy.call(this);
     }
 });
+
+Ext.reg('tooltip', Ext.ToolTip);

@@ -1,6 +1,7 @@
 /**
  * @class Ext.QuickTip
  * @extends Ext.ToolTip
+ * @xtype quicktip
  * A specialized tooltip class for tooltips that can be specified in markup and automatically managed by the global
  * {@link Ext.QuickTips} instance.  See the QuickTips class header for additional usage details and examples.
  * @constructor
@@ -199,3 +200,4 @@ Ext.QuickTip = Ext.extend(Ext.ToolTip, {
         Ext.QuickTip.superclass.hide.call(this);
     }
 });
+Ext.reg('quicktip', Ext.QuickTip);
