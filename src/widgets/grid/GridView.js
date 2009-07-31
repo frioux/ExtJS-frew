@@ -1447,7 +1447,7 @@ viewConfig: {
 
     // private
     onLoad : function(){
-        this.scrollToTop();
+        this.scrollToTop.defer(Ext.isGecko ? 1 : 0, this);
     },
 
     // private
