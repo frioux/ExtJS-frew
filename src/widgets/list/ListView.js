@@ -319,7 +319,7 @@ Ext.ListView = Ext.extend(Ext.DataView, {
         }
         var bdp = bd.parentNode;
         if(Ext.isNumber(w)){
-            var sw = w - (Ext.isDefined(this.scrollOffset) ? this.scrollOffset : Ext.getScrollBarWidth());
+            var sw = w - Ext.num(this.scrollOffset, Ext.getScrollBarWidth());
             if(this.reserveScrollOffset || ((bdp.offsetWidth - bdp.clientWidth) > 10)){
                 bd.style.width = sw + 'px';
                 hd.style.width = sw + 'px';

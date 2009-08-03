@@ -860,7 +860,7 @@ viewConfig: {
     },
     
     getScrollOffset: function(){
-        return Ext.isDefined(this.scrollOffset) ? this.scrollOffset : Ext.getScrollBarWidth();    
+        return Ext.num(this.scrollOffset, Ext.getScrollBarWidth());
     },
 
     // private
