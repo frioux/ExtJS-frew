@@ -826,7 +826,7 @@ var menu = new Ext.menu.Menu({
         if(!this.hasFocus){
             return;
         }
-        if(this.store.getCount() > 0){
+        if(this.store.getCount() > 0 || this.listEmptyText){
             this.expand();
             this.restrictHeight();
             if(this.lastQuery == this.allQuery){
@@ -962,10 +962,13 @@ var menu = new Ext.menu.Menu({
 
     // private
     onViewClick : function(doFocus){
-        var index = this.view.getSelectedIndexes()[0];
-        var r = this.store.getAt(index);
+        var index = this.view.getSelectedIndexes()[0],
+            s = this.store,
+            r = s.getAt(index);
         if(r){
             this.onSelect(r, index);
+        }else if(s.getCount() === 0){
+            this.onEmptyResults();
         }
         if(doFocus !== false){
             this.el.focus();
@@ -975,12 +978,13 @@ var menu = new Ext.menu.Menu({
     // private
     restrictHeight : function(){
         this.innerList.dom.style.height = '';
-        var inner = this.innerList.dom;
-        var pad = this.list.getFrameWidth('tb')+(this.resizable?this.handleHeight:0)+this.assetHeight;
-        var h = Math.max(inner.clientHeight, inner.offsetHeight, inner.scrollHeight);
-        var ha = this.getPosition()[1]-Ext.getBody().getScroll().top;
-        var hb = Ext.lib.Dom.getViewHeight()-ha-this.getSize().height;
-        var space = Math.max(ha, hb, this.minHeight || 0)-this.list.shadowOffset-pad-5;
+        var inner = this.innerList.dom,
+            pad = this.list.getFrameWidth('tb') + (this.resizable ? this.handleHeight : 0) + this.assetHeight,
+            h = Math.max(inner.clientHeight, inner.offsetHeight, inner.scrollHeight),
+            ha = this.getPosition()[1]-Ext.getBody().getScroll().top,
+            hb = Ext.lib.Dom.getViewHeight()-ha-this.getSize().height,
+            space = Math.max(ha, hb, this.minHeight || 0)-this.list.shadowOffset-pad-5;
+            
         h = Math.min(h, space, this.maxHeight);
 
         this.innerList.setHeight(h);
