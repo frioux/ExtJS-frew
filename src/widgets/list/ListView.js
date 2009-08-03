@@ -245,7 +245,7 @@ Ext.ListView = Ext.extend(Ext.DataView, {
             }
             columns.push(c);
         }
-        this.columns = columns;
+        cs = this.columns = columns;
         // auto calculate missing column widths
         if(colsWithWidth < len){
             var remaining = len - colsWithWidth;
