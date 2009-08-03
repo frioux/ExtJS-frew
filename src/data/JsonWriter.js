@@ -49,7 +49,14 @@ Ext.extend(Ext.data.JsonWriter, Ext.data.DataWriter, {
      */
     createRecord : function(rec) {
        var data = this.toHash(rec);
-       delete data[this.meta.idProperty];
+       // here we check to see if the developer has defined a field for the record PK.  If they have AND
+       // rec.data[idProperty] is NOT empty, the pk is probably not an autoincrement field so we send the
+       // idProperty value to server.
+       if (rec.fields.containsKey(this.meta.idProperty) && !Ext.isEmpty(rec.data[this.meta.idProperty])) {
+           data[this.meta.idProperty] = rec.data[this.meta.idProperty];
+       } else {
+           delete data[this.meta.idProperty];
+       }
        return data;
     },
     /**
