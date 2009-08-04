@@ -197,14 +197,11 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
     verifyLayout: function(force){
         if(this.el && (this.isVisible() || force === true)){
             var row = this.grid.getView().getRow(this.rowIndex);
-            this.setSize(Ext.fly(row).getWidth(), Ext.isIE ? Ext.fly(row).getHeight() + (Ext.isBorderBox ? 9 : 0) : undefined);
+            this.setSize(Ext.fly(row).getWidth(), Ext.isIE ? Ext.fly(row).getHeight() + 9 : undefined);
             var cm = this.grid.colModel, fields = this.items.items;
             for(var i = 0, len = cm.getColumnCount(); i < len; i++){
                 if(!cm.isHidden(i)){
                     var adjust = 0;
-                    if(i === 0){
-                        adjust += 0; // outer padding
-                    }
                     if(i === (len - 1)){
                         adjust += 3; // outer padding
                     } else{
