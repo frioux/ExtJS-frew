@@ -509,7 +509,7 @@ Ext.extend(T, Ext.Container, {
      * @return {Ext.Toolbar.Item} The item
      */
     addItem : function(item){
-        return Ext.Toolbar.superclass.add.apply(this, arguments);
+        return this.add.apply(this, arguments);
     },
 
     /**

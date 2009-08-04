@@ -452,7 +452,7 @@ Ext.override(Ext.Panel, {
     getFocusItems: function(){
         // items gets all the items inside the body
         var items = Ext.Panel.superclass.getFocusItems.call(this), bodyFocus = null;
-        
+
         if (!items) {
             items = new Ext.util.MixedCollection();
             this.bodyFocus = this.bodyFocus || new Ext.a11y.FocusItem(this.body, this.enableTabbing);
