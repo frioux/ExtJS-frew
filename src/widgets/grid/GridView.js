@@ -666,9 +666,11 @@ viewConfig: {
         startRow = startRow || 0;
         Ext.each(rows, function(row, idx){
             row.rowIndex = idx;
-            row.className = row.className.replace(this.rowClsRe, ' ');
-            if (!skipStripe && (idx + 1) % 2 === 0) {
-                row.className += ' x-grid3-row-alt';
+            if(!skipStripe){
+                row.className = row.className.replace(this.rowClsRe, ' ');
+                if ((idx + 1) % 2 === 0){
+                    row.className += ' x-grid3-row-alt';
+                }
             }
         }, this);
         // add first/last-row classes
