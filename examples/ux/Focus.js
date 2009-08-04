@@ -1,3 +1,10 @@
+/*
+ * Ext JS Library 3.0+
+ * Copyright(c) 2006-2009, Ext JS, LLC.
+ * licensing@extjs.com
+ * 
+ * http://extjs.com/license
+ */
 (function(){
 Ext.ns('Ext.a11y');
 
@@ -398,10 +405,10 @@ Ext.override(Ext.Container, {
     
     getFocusItems: function(){
         return this.items &&
-        this.items.filterBy(function(o){
-            return o.isFocusable;
-        }) ||
-        null;
+            this.items.filterBy(function(o){
+                return o.isFocusable;
+            }) ||
+            null;
     },
     
     getEnterItem: function(){
@@ -410,10 +417,9 @@ Ext.override(Ext.Container, {
         if (length === 1) {
             return ci.first().getEnterItem && ci.first().getEnterItem() || ci.first();
         }
-        else 
-            if (length > 1) {
-                return ci.first();
-            }
+        else if (length > 1) {
+            return ci.first();
+        }
     },
     
     getNextFocus: function(current){
@@ -602,8 +608,11 @@ Ext.override(Ext.Toolbar, {
         });
     },
     
-    addItem: function(item){
-        Ext.Toolbar.superclass.add.apply(this, arguments);
+    add: function(){
+        var item = Ext.Toolbar.superclass.add.apply(this, arguments);
+        if(!item || !item.events) {
+            return item;
+        }
         if (item.rendered && item.fi !== undefined) {
             item.fi.setRelayTo(this.el);
             this.relayEvents(item.fi, ['focus']);
