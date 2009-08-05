@@ -99,22 +99,9 @@ myStore.on({
             // permanent, applying this URL for all subsequent requests.
             store.proxy.setUrl('changed1.php', true);
 
-            // manually set the <b>private</b> connection URL.
-            // <b>Warning:</b>  Accessing the private URL property should be avoided.
-            // Use the public method <tt>{@link Ext.data.HttpProxy#setUrl setUrl}</tt> instead, shown above.
-            // It should be noted that changing the URL like this will affect
-            // the URL for just this request.  Subsequent requests will use the
-            // API or URL defined in your initial proxy configuration.
-            store.proxy.conn.url = 'changed1.php';
-
-            // proxy URL will be superseded by API (only if proxy created to use ajax):
-            // It should be noted that proxy API changes are permanent and will
-            // be used for all subsequent requests.
-            store.proxy.api.load = 'changed2.php';
-
-            // However, altering the proxy API should be done using the public
-            // method <tt>{@link Ext.data.DataProxy#setApi setApi}</tt> instead.
-            store.proxy.setApi('load', 'changed2.php');
+            // Altering the proxy API should be done using the public
+            // method <tt>{@link Ext.data.DataProxy#setApi setApi}</tt>.
+            store.proxy.setApi('read', 'changed2.php');
 
             // Or set the entire API with a config-object.
             // When using the config-object option, you must redefine the <b>entire</b>
@@ -407,7 +394,7 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
         }
 
         var format = null;
-        var m = url.match(/(.*)(\.\w+)$/);  // <-- look for urls with "provides" suffix, e.g.: /users.json, /users.xml, etc
+        var m = url.match(/(.*)(\.json|xml|html)$/);  // <-- look for urls with "provides" suffix, e.g.: /users.json, /users.xml, etc
         if (m) {
             format = m[2];
             url = m[1];
