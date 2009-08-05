@@ -218,8 +218,12 @@ var grid = new Ext.grid.GridPanel({
      * if editing is supported by the grid. See <tt>{@link #editable}</tt> also.
      */
 
-    // private. Used by ColumnModel to avoid reprocessing
+    /**
+     * @private
+     * Used by ColumnModel::setConfig to avoid reprocessing a Column
+     */
     isColumn : true,
+
     /**
      * Optional. A function which returns displayable data when passed the following parameters:
      * <div class="mdetail-params"><ul>
