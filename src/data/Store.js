@@ -281,7 +281,7 @@ var grid = new Ext.grid.EditorGridPanel({
         'loadexception',
         /**
          * @event beforewrite
-         * @param {DataProxy} this
+         * @param {Ext.data.Store} store
          * @param {String} action [Ext.data.Api.actions.create|update|destroy]
          * @param {Record/Array[Record]} rs
          * @param {Object} options The loading options that were specified. Edit <code>options.params</code> to add Http parameters to the request.  (see {@link #save} for details)
