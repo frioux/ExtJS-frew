@@ -108,9 +108,12 @@ side          Add an error icon to the right of the field with a popup on hover
      * disabled Fields will not be {@link Ext.form.BasicForm#submit submitted}.</p>
      */
     disabled : false,
-
+    
     // private
     isFormField : true,
+    
+    // private
+    msgDisplay: '',
 
     // private
     hasFocus : false,
