@@ -213,14 +213,32 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
     // private
     initEvents : function(){
         Ext.FormPanel.superclass.initEvents.call(this);
+        // Listeners are required here to catch bubbling events from children.
+        this.on({
+            scope: this,
+            add: this.onAddEvent,
+            remove: this.onRemoveEvent
+        });
         if(this.monitorValid){ // initialize after render
             this.startMonitoring();
         }
     },
     
     // private
-    onAdd : function(c){
-        Ext.FormPanel.superclass.onAdd.call(this, c);
+    onAdd: function(c){
+        Ext.FormPanel.superclass.onAdd.call(this, c);  
+        this.processAdd(c);
+    },
+    
+    // private
+    onAddEvent: function(ct, c){
+        if(ct !== this){
+            this.processAdd(c);
+        }
+    },
+    
+    // private
+    processAdd : function(c){
 		// If a single form Field, add it
         if(this.isField(c)){
             this.form.add(c);
@@ -230,10 +248,21 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
             this.form.add.apply(this.form, c.findBy(this.isField));
         }
     },
+    
+    // private
+    onRemove: function(c){
+        Ext.FormPanel.superclass.onRemove.call(this, c);
+        this.processRemove(c);
+    },
+    
+    onRemoveEvent: function(ct, c){
+        if(ct !== this){
+            this.processRemove(c);
+        }
+    },
 	
     // private
-    onRemove : function(c){
-        Ext.FormPanel.superclass.onRemove.call(this, c);
+    processRemove : function(c){
 		// If a single form Field, remove it
         if(this.isField(c)){
         	this.form.remove(c);
