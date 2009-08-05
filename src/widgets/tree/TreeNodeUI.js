@@ -128,10 +128,7 @@ Ext.tree.TreeNodeUI.prototype = {
         this.node.on("move", this.onMove, this);
 
         if(this.node.disabled){
-            this.addClass("x-tree-node-disabled");
-			if (this.checkbox) {
-				this.checkbox.disabled = true;
-			}            
+            this.onDisableChange(this.node, true);            
         }
         if(this.node.hidden){
             this.hide();
