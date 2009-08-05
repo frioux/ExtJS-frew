@@ -221,7 +221,7 @@ var grid = new Ext.grid.GridPanel({
     /**
      * @private
      * @cfg {Boolean} isColumn
-     * Used by ColumnModel::setConfig method to avoid reprocessing a Column
+     * Used by ColumnModel setConfig method to avoid reprocessing a Column
      * if isColumn is not set ColumnModel will recreate a new Ext.grid.Column
      * Defaults to true.
      */
