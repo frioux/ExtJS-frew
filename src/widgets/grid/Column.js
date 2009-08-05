@@ -220,7 +220,7 @@ var grid = new Ext.grid.GridPanel({
 
     /**
      * @private
-     * Used by ColumnModel::setConfig to avoid reprocessing a Column
+     * Used by ColumnModel::setConfig method to avoid reprocessing a Column
      */
     isColumn : true,
 
