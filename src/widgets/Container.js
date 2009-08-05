@@ -457,7 +457,7 @@ items: [
                 this.layoutConfig = this.layout;
                 this.layout = this.layoutConfig.type;
             }
-            if(typeof this.layout == 'string'){
+            if(Ext.isString(this.layout)){
                 this.layout = new Ext.Container.LAYOUTS[this.layout.toLowerCase()](this.layoutConfig);
             }
             this.setLayout(this.layout);
@@ -540,9 +540,14 @@ tb.{@link #doLayout}();             // refresh the layout
         if(this.fireEvent('beforeadd', this, c, pos) !== false && this.onBeforeAdd(c) !== false){
             this.items.add(c);
             c.ownerCt = this;
+            this.onAdd(c);
             this.fireEvent('add', this, c, pos);
         }
         return c;
+    },
+    
+    onAdd : function(c){
+        // Empty template method  
     },
 
     /**
@@ -573,14 +578,14 @@ tb.{@link #doLayout}();             // refresh the layout
             return;
         }
         var c = this.lookupComponent(this.applyDefaults(comp));
-
-        if(c.ownerCt == this && this.items.indexOf(c) < index){
-            --index;
-        }
-
+        index = Math.min(index, this.items.length);
         if(this.fireEvent('beforeadd', this, c, index) !== false && this.onBeforeAdd(c) !== false){
+            if(c.ownerCt == this){
+                this.items.remove(c);
+            }
             this.items.insert(index, c);
             c.ownerCt = this;
+            this.onAdd(c);
             this.fireEvent('add', this, c, index);
         }
         return c;
@@ -589,7 +594,7 @@ tb.{@link #doLayout}();             // refresh the layout
     // private
     applyDefaults : function(c){
         if(this.defaults){
-            if(typeof c == 'string'){
+            if(Ext.isString(c)){
                 c = Ext.ComponentMgr.get(c);
                 Ext.apply(c, this.defaults);
             }else if(!c.events){
@@ -625,15 +630,20 @@ tb.{@link #doLayout}();             // refresh the layout
         if(c && this.fireEvent('beforeremove', this, c) !== false){
             this.items.remove(c);
             delete c.ownerCt;
+            if(this.layout){
+                this.layout.onRemove(c);
+            }
+            this.onRemove(c);
             if(autoDestroy === true || (autoDestroy !== false && this.autoDestroy)){
                 c.destroy();
-            }
-            if(this.layout && this.layout.activeItem == c){
-                delete this.layout.activeItem;
             }
             this.fireEvent('remove', this, c);
         }
         return c;
+    },
+    
+    onRemove: function(c){
+        // Empty template method    
     },
 
     /**
@@ -680,7 +690,7 @@ tb.{@link #doLayout}();             // refresh the layout
 
     // private
     lookupComponent : function(comp){
-        if(typeof comp == 'string'){
+        if(Ext.isString(comp)){
             return Ext.ComponentMgr.get(comp);
         }else if(!comp.events){
             return this.createComponent(comp);

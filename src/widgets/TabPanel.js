@@ -419,11 +419,11 @@ new Ext.TabPanel({
     // private
     initEvents : function(){
         Ext.TabPanel.superclass.initEvents.call(this);
-        this.on('add', this.onAdd, this, {target: this});
-        this.on('remove', this.onRemove, this, {target: this});
-
-        this.mon(this.strip, 'mousedown', this.onStripMouseDown, this);
-        this.mon(this.strip, 'contextmenu', this.onStripContextMenu, this);
+        this.mon(this.strip, {
+            scope: this,
+            mousedown: this.onStripMouseDown,
+            contextmenu: this.onStripContextMenu
+        });
         if(this.enableTabScroll){
             this.mon(this.strip, 'mousewheel', this.onWheel, this);
         }
@@ -557,12 +557,16 @@ new Ext.TabPanel({
     },
 
     // private
-    onAdd : function(tp, item, index){
-        this.initTab(item, index);
-        if(this.items.getCount() == 1){
-            this.syncSize();
+    onAdd : function(c){
+        Ext.TabPanel.superclass.onAdd.call(this, c);
+        if(this.rendered){
+            var items = this.items;
+            this.initTab(c, items.indexOf(c));
+            if(items.getCount() == 1){
+                this.syncSize();
+            }
+            this.delegateUpdates();
         }
-        this.delegateUpdates();
     },
 
     // private
@@ -579,15 +583,16 @@ new Ext.TabPanel({
     },
 
     // private
-    onRemove : function(tp, item){
-        Ext.destroy(Ext.get(this.getTabEl(item)));
-        this.stack.remove(item);
-        item.un('disable', this.onItemDisabled, this);
-        item.un('enable', this.onItemEnabled, this);
-        item.un('titlechange', this.onItemTitleChanged, this);
-        item.un('iconchange', this.onItemIconChanged, this);
-        item.un('beforeshow', this.onBeforeShowItem, this);
-        if(item == this.activeTab){
+    onRemove : function(c){
+        Ext.TabPanel.superclass.onRemove.call(this, c);
+        Ext.destroy(Ext.get(this.getTabEl(c)));
+        this.stack.remove(c);
+        c.un('disable', this.onItemDisabled, this);
+        c.un('enable', this.onItemEnabled, this);
+        c.un('titlechange', this.onItemTitleChanged, this);
+        c.un('iconchange', this.onItemIconChanged, this);
+        c.un('beforeshow', this.onBeforeShowItem, this);
+        if(c == this.activeTab){
             var next = this.stack.next();
             if(next){
                 this.setActiveTab(next);

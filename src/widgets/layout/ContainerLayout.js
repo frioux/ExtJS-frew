@@ -87,7 +87,7 @@ Ext.layout.ContainerLayout.prototype = {
             c.render(target, position);
             this.configureItem(c, position);
         }else if(c && !this.isValidParent(c, target)){
-            if(typeof position == 'number'){
+            if(Ext.isNumber(position)){
                 position = target.dom.childNodes[position];
             }
             target.dom.insertBefore(c.getDomPositionEl().dom, position || null);
@@ -109,6 +109,16 @@ Ext.layout.ContainerLayout.prototype = {
             c.doLayout(false, this.forceLayout);
         }
     },
+    
+    onRemove: function(c){
+         if(this.activeItem == c){
+            delete this.activeItem;
+         }
+         if(this.extraCls){
+            var t = c.getPositionEl ? c.getPositionEl() : c;
+            t.removeClass(this.extraCls);
+        }
+    },
 
     // private
     onResize: function(){
@@ -119,7 +129,7 @@ Ext.layout.ContainerLayout.prototype = {
         if(b){
             if(!this.resizeTask){
                 this.resizeTask = new Ext.util.DelayedTask(this.runLayout, this);
-                this.resizeBuffer = typeof b == 'number' ? b : 100;
+                this.resizeBuffer = Ext.isNumber(b) ? b : 100;
             }
             this.resizeTask.delay(this.resizeBuffer);
         }else{
@@ -153,7 +163,7 @@ Ext.layout.ContainerLayout.prototype = {
 
     // private
     parseMargins : function(v){
-        if(typeof v == 'number'){
+        if(Ext.isNumber(v)){
             v = v.toString();
         }
         var ms = v.split(' ');

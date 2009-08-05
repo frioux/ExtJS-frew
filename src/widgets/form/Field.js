@@ -235,7 +235,7 @@ var form = new Ext.form.FormPanel({
 
     // private
     getItemCt : function(){
-        return this.el.up('.x-form-item', 4);
+        return this.itemCt;
     },
 
     // private

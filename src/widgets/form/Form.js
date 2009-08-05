@@ -213,15 +213,14 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
     // private
     initEvents : function(){
         Ext.FormPanel.superclass.initEvents.call(this);
-        this.on('remove', this.onRemove, this);
-        this.on('add', this.onAdd, this);
         if(this.monitorValid){ // initialize after render
             this.startMonitoring();
         }
     },
     
     // private
-    onAdd : function(ct, c) {
+    onAdd : function(c){
+        Ext.FormPanel.superclass.onAdd.call(this, c);
 		// If a single form Field, add it
         if(this.isField(c)){
             this.form.add(c);
@@ -233,10 +232,10 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
     },
 	
     // private
-    onRemove : function(ct, c) {
+    onRemove : function(c){
+        Ext.FormPanel.superclass.onRemove.call(this, c);
 		// If a single form Field, remove it
         if(this.isField(c)){
-            Ext.destroy(c.container.up('.x-form-item'));
         	this.form.remove(c);
 		// If a Container, remove any Fields it might contain
         }else if(c.findBy){

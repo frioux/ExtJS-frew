@@ -111,6 +111,12 @@ Ext.layout.AccordionLayout = Ext.extend(Ext.layout.FitLayout, {
         c.header.addClass('x-accordion-hd');
         c.on('beforeexpand', this.beforeExpand, this);
     },
+    
+    onRemove: function(c){
+        Ext.layout.AccordionLayout.superclass.onRemove.call(this, c);
+        c.header.removeClass('x-accordion-hd');
+        c.un('beforeexpand', this.beforeExpand, this);
+    },
 
     // private
     beforeExpand : function(p, anim){
