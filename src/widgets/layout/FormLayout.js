@@ -250,6 +250,7 @@ new Ext.Template(
                     hide: this.onFieldHide
                 });
             }
+            this.configureItem(c);
         }else {
             Ext.layout.FormLayout.superclass.renderItem.apply(this, arguments);
         }
