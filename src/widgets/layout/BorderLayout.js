@@ -98,8 +98,8 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
                 }
                 c.collapsed = false;
                 if(!c.rendered){
-                    c.cls = c.cls ? c.cls +' x-border-panel' : 'x-border-panel';
                     c.render(target, i);
+                    c.getDomPositionEl().addClass('x-border-panel');
                 }
                 this[pos] = pos != 'center' && c.split ?
                     new Ext.layout.BorderLayout.SplitRegion(this, c.initialConfig, pos) :
