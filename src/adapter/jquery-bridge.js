@@ -426,6 +426,11 @@ Ext.lib.Anim = function(){
                         if (args.top.from)
                             e.setTop(args.top.from);
                     break;
+                    case 'callback':
+                    case 'scope':
+                        // jQuery can't handle callback and scope arguments, so break here
+                    break;
+
                     default:
                         o[k] = args[k].to;
                         if (args[k].from)
