@@ -630,7 +630,7 @@ tb.{@link #doLayout}();             // refresh the layout
         if(c && this.fireEvent('beforeremove', this, c) !== false){
             this.items.remove(c);
             delete c.ownerCt;
-            if(this.layout){
+            if(this.layout && this.rendered){
                 this.layout.onRemove(c);
             }
             this.onRemove(c);
