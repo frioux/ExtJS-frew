@@ -45,7 +45,11 @@ Ext.extend(Ext.tree.DefaultSelectionModel, Ext.util.Observable, {
      * @param {TreeNode} node The node to select
      * @return {TreeNode} The selected node
      */
-    select : function(node){
+    select : function(node, /* private*/ selectNextNode){
+        // If node is hidden, select the next node in whatever direction was being moved in.
+        if (!Ext.fly(node.ui.wrap).isVisible() && selectNextNode) {
+            return selectNextNode.call(this, node);
+        }
         var last = this.selNode;
         if(node == last){
             node.ui.onSelectedChange(true);
@@ -104,24 +108,24 @@ Ext.extend(Ext.tree.DefaultSelectionModel, Ext.util.Observable, {
      * Selects the node above the selected node in the tree, intelligently walking the nodes
      * @return TreeNode The new selection
      */
-    selectPrevious : function(){
-        var s = this.selNode || this.lastSelNode;
-        if(!s){
+    selectPrevious : function(/* private */ s){
+        if(!(s = s || this.selNode || this.lastSelNode)){
             return null;
         }
+        // Here we pass in the current function to select to indicate the direction we're moving
         var ps = s.previousSibling;
         if(ps){
             if(!ps.isExpanded() || ps.childNodes.length < 1){
-                return this.select(ps);
+                return this.select(ps, this.selectPrevious);
             } else{
                 var lc = ps.lastChild;
-                while(lc && lc.isExpanded() && lc.childNodes.length > 0){
+                while(lc && lc.isExpanded() && Ext.fly(lc.ui.wrap).isVisible() && lc.childNodes.length > 0){
                     lc = lc.lastChild;
                 }
-                return this.select(lc);
+                return this.select(lc, this.selectPrevious);
             }
         } else if(s.parentNode && (this.tree.rootVisible || !s.parentNode.isRoot)){
-            return this.select(s.parentNode);
+            return this.select(s.parentNode, this.selectPrevious);
         }
         return null;
     },
@@ -130,20 +134,20 @@ Ext.extend(Ext.tree.DefaultSelectionModel, Ext.util.Observable, {
      * Selects the node above the selected node in the tree, intelligently walking the nodes
      * @return TreeNode The new selection
      */
-    selectNext : function(){
-        var s = this.selNode || this.lastSelNode;
-        if(!s){
+    selectNext : function(/* private */ s){
+        if(!(s = s || this.selNode || this.lastSelNode)){
             return null;
         }
-        if(s.firstChild && s.isExpanded()){
-             return this.select(s.firstChild);
+        // Here we pass in the current function to select to indicate the direction we're moving
+        if(s.firstChild && s.isExpanded() && Ext.fly(s.ui.wrap).isVisible()){
+             return this.select(s.firstChild, this.selectNext);
          }else if(s.nextSibling){
-             return this.select(s.nextSibling);
+             return this.select(s.nextSibling, this.selectNext);
          }else if(s.parentNode){
             var newS = null;
             s.parentNode.bubble(function(){
                 if(this.nextSibling){
-                    newS = this.getOwnerTree().selModel.select(this.nextSibling);
+                    newS = this.getOwnerTree().selModel.select(this.nextSibling, this.selectNext);
                     return false;
                 }
             });
