@@ -23,11 +23,6 @@
 	 color:#444444;
 }
 
-.ext-ie .x-tree-node-el input {
-    width:15px;
-    height:15px;
-}
-
 .x-tree-lines .x-tree-elbow{
 	background-image:url(../images/default/tree/elbow.gif);
 }
