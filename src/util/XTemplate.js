@@ -402,7 +402,8 @@ Ext.extend(Ext.XTemplate, Ext.Template, {
         }
 
         function codeFn(m, code){
-            return "'"+ sep +'('+code+')'+sep+"'";
+            // Single quotes get escaped when the template is compiled, however we want to undo this when running code.
+            return "'" + sep + '(' + code.replace(/\\'/g, "'") + ')' + sep + "'";
         }
 
         // branched to use + in gecko and [].join() in others
