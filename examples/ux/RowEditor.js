@@ -40,6 +40,13 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
              */
             'beforeedit',
             /**
+             * @event canceledit
+             * Fired when the editor is cancelled.
+             * @param {Ext.ux.grid.RowEditor} roweditor This object
+             * @param {Boolean} forced True if the cancel button is pressed, false is the editor was invalid. 
+             */
+            'canceledit',
+            /**
              * @event validateedit
              * Fired after a row is edited and passes validation.
              * If the listener returns <tt>false</tt> changes to the record will not be set.
@@ -164,6 +171,7 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
         }
         if(saveChanges === false || !this.isValid()){
             this.hide();
+            this.fireEvent('canceledit', this, saveChanges === false);
             return;
         }
         var changes = {}, r = this.record, hasChange = false;
