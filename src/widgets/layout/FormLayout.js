@@ -311,7 +311,7 @@ new Ext.Template(
 
     // private
     isValidParent : function(c, target){
-        return target && c.getDomPositionEl().up('form.x-panel-body') == this.container.body;
+        return target && this.container.getEl().contains(c.getDomPositionEl());
     }
 
     /**
