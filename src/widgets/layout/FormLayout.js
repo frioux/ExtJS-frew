@@ -129,6 +129,10 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
         Ext.destroy(ct);
         delete c.label;
         delete c.itemCt;
+        if(c.customItemCt){
+            delete c.getItemCt;
+            delete c.customItemCt;
+        }
     },
     
     // private
@@ -241,6 +245,16 @@ new Ext.Template(
                 c.render('x-form-el-' + c.id);
             }else if(!this.isValidParent(c, target)){
                 Ext.fly('x-form-el-' + c.id).appendChild(c.getPositionEl());
+            }
+            if(!c.getItemCt){
+                // Non form fields don't have getItemCt, apply it here
+                // This will get cleaned up in onRemove
+                Ext.apply(c, {
+                    getItemCt: function(){
+                        return c.itemCt;
+                    },
+                    customItemCt: true
+                });
             }
             c.label = c.getItemCt().child('label.x-form-item-label');
             if(this.trackLabels && !this.isHide(c)){
