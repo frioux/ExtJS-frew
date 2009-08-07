@@ -450,8 +450,8 @@ items: [
     },
 
     // private
-    render : function(){
-        Ext.Container.superclass.render.apply(this, arguments);
+    onRender : function(){
+        Ext.Container.superclass.onRender.apply(this, arguments);
         if(this.layout){
             if(Ext.isObject(this.layout) && !this.layout.layout){
                 this.layoutConfig = this.layout;
@@ -467,7 +467,11 @@ items: [
                 delete this.activeItem;
                 this.layout.setActiveItem(item);
             }
-        }
+        }        
+    },
+    
+    afterRender: function(){
+        Ext.Container.superclass.afterRender.call(this);
         if(!this.ownerCt){
             // force a layout if no ownerCt is set
             this.doLayout(false, true);
