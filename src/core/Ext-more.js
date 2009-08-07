@@ -79,7 +79,7 @@ Ext.apply(Ext, function(){
          * @return {String}
          */
         escapeRe : function(s) {
-            return s.replace(/([.*+?^${}()|[\]\/\\])/g, "\\$1");
+            return s.replace(/([-.*+?^${}()|[\]\/\\])/g, "\\$1");
         },
 
         sequence : function(o, name, fn, scope){
