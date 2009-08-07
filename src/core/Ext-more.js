@@ -560,7 +560,8 @@ var sayGoodbye = sayHi.createSequence(function(name){
 sayGoodbye('Fred'); // both alerts show
 </code></pre>
      * @param {Function} fcn The function to sequence
-     * @param {Object} scope (optional) The scope of the passed fcn (Defaults to scope of original function or window)
+     * @param {Object} scope (optional) The scope (<code><b>this</b></code> reference) in which the passed function is executed.
+     * <b>If omitted, defaults to the scope in which the original function is called or the browser window.</b>
      * @return {Function} The new function
      */
     createSequence : function(fcn, scope){
