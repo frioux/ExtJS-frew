@@ -1012,7 +1012,7 @@ sortInfo: {
     // @protected onDestroyRecords proxy callback for destroy action
     onDestroyRecords : function(success, rs, data) {
         // splice each rec out of this.removed
-        rs = (rs instanceof Ext.data.Record) ? [rs] : rs;
+        rs = (rs instanceof Ext.data.Record) ? [rs] : [].concat(rs);
         for (var i=0,len=rs.length;i<len;i++) {
             this.removed.splice(this.removed.indexOf(rs[i]), 1);
         }
