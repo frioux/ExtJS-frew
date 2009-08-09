@@ -810,18 +810,10 @@ new Ext.Panel({
             delete this.bbar;
         }
 
-        if(this.collapsible && !this.hideCollapseTool){
-            this.tools = this.tools ? this.tools.slice(0) : [];
-            this.tools[this.collapseFirst?'unshift':'push']({
-                id: 'toggle',
-                handler : this.toggleCollapse,
-                scope: this
-            });
-        }
         if(this.header === true){
             this.elements += ',header';
             delete this.header;
-        }else if(this.headerCfg || ((this.title || this.tools) && this.header !== false)){
+        }else if(this.headerCfg || (this.title && this.header !== false)){
             this.elements += ',header';
         }
 
@@ -889,7 +881,24 @@ new Ext.Panel({
 
         var el = this.el,
             d = el.dom,
-            bw;
+            bw,
+            ts;
+            
+            
+        if(this.collapsible && !this.hideCollapseTool){
+            this.tools = this.tools ? this.tools.slice(0) : [];
+            this.tools[this.collapseFirst?'unshift':'push']({
+                id: 'toggle',
+                handler : this.toggleCollapse,
+                scope: this
+            });   
+        }
+        
+        if(this.tools){
+            ts = this.tools;
+            this.elements += (this.header !== false) ? ',header' : '';
+        }
+        this.tools = {};
             
         el.addClass(this.baseCls);
         if(d.firstChild){ // existing markup
@@ -1005,12 +1014,8 @@ new Ext.Panel({
             this.mon(this.header, 'click', this.toggleCollapse, this);
             this.header.setStyle('cursor', 'pointer');
         }
-        if(this.tools){
-            var ts = this.tools;
-            this.tools = {};
+        if(ts){
             this.addTool.apply(this, ts);
-        }else{
-            this.tools = {};
         }
 
         if(this.buttons && this.buttons.length > 0){
