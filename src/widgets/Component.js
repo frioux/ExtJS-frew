@@ -1266,7 +1266,7 @@ new Ext.Panel({
 
     // private
     onShow : function(){
-        this.getVisibiltyEl().removeClass('x-hide-' + this.hideMode);
+        this.getVisibilityEl().removeClass('x-hide-' + this.hideMode);
     },
 
     /**
@@ -1294,11 +1294,11 @@ new Ext.Panel({
 
     // private
     onHide : function(){
-        this.getVisibiltyEl().addClass('x-hide-' + this.hideMode);
+        this.getVisibilityEl().addClass('x-hide-' + this.hideMode);
     },
 
     // private
-    getVisibiltyEl : function(){
+    getVisibilityEl : function(){
         return this.hideParent ? this.container : this.getActionEl();
     },
 
@@ -1316,7 +1316,7 @@ new Ext.Panel({
      * @return {Boolean} True if this component is visible, false otherwise.
      */
     isVisible : function(){
-        return this.rendered && this.getVisibiltyEl().isVisible();
+        return this.rendered && this.getVisibilityEl().isVisible();
     },
 
     /**

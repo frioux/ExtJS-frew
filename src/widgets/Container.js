@@ -702,6 +702,13 @@ tb.{@link #doLayout}();             // refresh the layout
         return Ext.create(config, this.defaultType);
     },
 
+    // private
+    canLayout: function() {
+        var el = this.getVisibilityEl();
+        return el && !el.isStyle("display", "none");
+    },
+
+
     /**
      * Force this container's layout to be recalculated. A call to this function is required after adding a new component
      * to an already rendered container, or possibly after changing sizing/position properties of child components.
@@ -714,7 +721,7 @@ tb.{@link #doLayout}();             // refresh the layout
         var rendered = this.rendered,
             forceLayout = this.forceLayout;
 
-        if(!this.isVisible() || this.collapsed){
+        if(!this.canLayout() || this.collapsed){
             this.deferLayout = this.deferLayout || !shallow;
             if(!(force || forceLayout)){
                 return;
