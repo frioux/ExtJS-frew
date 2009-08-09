@@ -92,7 +92,41 @@ Ext.onReady(function(){
             text:'Button w/ Menu',
             iconCls: 'bmenu',  // <-- icon
             menu: menu  // assign menu by instance
-        }, 
+        }, {
+            text: 'Users',
+            iconCls: 'user',
+            menu: {
+                xtype: 'menu',
+                items: {
+                    xtype: 'buttongroup',
+                    title: 'User options',
+                    autoWidth: true,
+                    columns: 2,
+                    defaults: {
+                        xtype: 'button',
+                        scale: 'large',
+                        width: '100%',
+                        iconAlign: 'left'
+                    },
+                    items: [{
+                        text: 'User<br/>manager',
+                        iconCls: 'edit'
+                    },{
+                        iconCls: 'add',
+                        width: 'auto',
+                        tooltip: 'Add user'
+                    },{
+                        colspan: 2,
+                        text: 'Import',
+                        scale: 'small'
+                    },{
+                        colspan: 2,
+                        text: 'Who is online?',
+                        scale: 'small'
+                    }]
+                }
+            }
+        },
         new Ext.Toolbar.SplitButton({
             text: 'Split Button',
             handler: onButtonClick,

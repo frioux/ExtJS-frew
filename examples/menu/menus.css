@@ -27,3 +27,13 @@
     display:block;
     padding:3px;
 }
+
+.user {
+    background-image:url(../shared/icons/fam/user.gif) !important
+}
+.edit {
+    background-image:url(../desktop/images/im32x32.gif) !important;
+}
+.add {
+    background-image:url(../button/images/add.gif) !important;
+}
