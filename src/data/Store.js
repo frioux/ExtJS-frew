@@ -240,6 +240,7 @@ var grid = new Ext.grid.EditorGridPanel({
          * @event clear
          * Fires when the data cache has been cleared.
          * @param {Store} this
+         * @param {Record[]} The records that were cleared.
          */
         'clear',
         /**
@@ -312,7 +313,8 @@ var grid = new Ext.grid.EditorGridPanel({
             scope: this,
             add: this.createRecords,
             remove: this.destroyRecord,
-            update: this.updateRecord
+            update: this.updateRecord,
+            clear: this.onClear
         });
     }
 
@@ -604,6 +606,10 @@ sortInfo: {
      * Remove all Records from the Store and fires the {@link #clear} event.
      */
     removeAll : function(){
+        var items = [];
+        this.each(function(rec){
+            items.push(rec);
+        });
         this.clearData();
         if(this.snapshot){
             this.snapshot.clear();
@@ -611,7 +617,14 @@ sortInfo: {
         if(this.pruneModifiedRecords){
             this.modified = [];
         }
-        this.fireEvent('clear', this);
+        this.fireEvent('clear', this, items);
+    },
+    
+    // private
+    onClear: function(store, records){
+        Ext.each(records, function(rec, index){
+            this.destroyRecord(this, rec, index);
+        }, this);    
     },
 
     /**
