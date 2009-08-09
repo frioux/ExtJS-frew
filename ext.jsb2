@@ -905,13 +905,13 @@
           text: 'GridFilters.js',
           path: 'examples/ux/gridfilters/'
        },{
+          text: 'Filter.js',
+          path: 'examples/ux/gridfilters/filter/'
+       },{
           text: 'BooleanFilter.js',
           path: 'examples/ux/gridfilters/filter/'
        },{
           text: 'DateFilter.js',
-          path: 'examples/ux/gridfilters/filter/'
-       },{
-          text: 'Filter.js',
           path: 'examples/ux/gridfilters/filter/'
        },{
           text: 'ListFilter.js',

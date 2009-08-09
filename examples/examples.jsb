@@ -781,9 +781,9 @@
   <file name="ux\gridfilters\GridFilters.js" path="ux\gridfilters" />
   <file name="ux\gridfilters\css\GridFilters.css" path="ux\gridfilters\css" />
   <file name="ux\gridfilters\css\RangeMenu.css" path="ux\gridfilters\css" />
+  <file name="ux\gridfilters\filter\Filter.js" path="ux\gridfilters\filter" />
   <file name="ux\gridfilters\filter\BooleanFilter.js" path="ux\gridfilters\filter" />
   <file name="ux\gridfilters\filter\DateFilter.js" path="ux\gridfilters\filter" />
-  <file name="ux\gridfilters\filter\Filter.js" path="ux\gridfilters\filter" />
   <file name="ux\gridfilters\filter\ListFilter.js" path="ux\gridfilters\filter" />
   <file name="ux\gridfilters\filter\NumericFilter.js" path="ux\gridfilters\filter" />
   <file name="ux\gridfilters\filter\StringFilter.js" path="ux\gridfilters\filter" />
@@ -862,9 +862,9 @@
     <include name="ux\Focus.js" />
     <include name="ux\GMapPanel.js" />
     <include name="ux\gridfilters\GridFilters.js" />
+    <include name="ux\gridfilters\filter\Filter.js" />
     <include name="ux\gridfilters\filter\BooleanFilter.js" />
     <include name="ux\gridfilters\filter\DateFilter.js" />
-    <include name="ux\gridfilters\filter\Filter.js" />
     <include name="ux\gridfilters\filter\ListFilter.js" />
     <include name="ux\gridfilters\filter\NumericFilter.js" />
     <include name="ux\gridfilters\filter\StringFilter.js" />
