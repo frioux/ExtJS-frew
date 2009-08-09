@@ -395,6 +395,7 @@ Ext.extend(T, Ext.Container, {
                 };
             }
             this.el = ct.createChild(Ext.apply({ id: this.id },this.autoCreate), position);
+            Ext.Toolbar.superclass.onRender.apply(this, arguments);
         }
     },
 
