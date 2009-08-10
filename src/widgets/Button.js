@@ -98,7 +98,8 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
 
     /**
      * @cfg {String} clickEvent
-     * The type of event to map to the button's event handler (defaults to 'click')
+     * The DOM event that will fire the handler of the button. 
+     * Defaults to <tt>'click'</tt>.
      */
     clickEvent : 'click',
 
