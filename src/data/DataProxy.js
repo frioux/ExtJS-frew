@@ -118,14 +118,6 @@ myStore.on({
      * </code></pre>
      * </p>
      */
-    // Prepare the proxy api.  Ensures all API-actions are defined with the Object-form.
-    try {
-        Ext.data.Api.prepare(this);
-    } catch (e) {
-        if (e instanceof Ext.data.Api.Error) {
-            e.toConsole();
-        }
-    }
 
     this.addEvents(
         /**
@@ -238,6 +230,15 @@ myStore.on({
         'write'
     );
     Ext.data.DataProxy.superclass.constructor.call(this);
+
+    // Prepare the proxy api.  Ensures all API-actions are defined with the Object-form.
+    try {
+        Ext.data.Api.prepare(this);
+    } catch (e) {
+        if (e instanceof Ext.data.Api.Error) {
+            e.toConsole();
+        }
+    }
 };
 
 Ext.extend(Ext.data.DataProxy, Ext.util.Observable, {
@@ -395,6 +396,7 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
 
         var format = null;
         var m = url.match(/(.*)(\.json|xml|html)$/);  // <-- look for urls with "provides" suffix, e.g.: /users.json, /users.xml, etc
+
         if (m) {
             format = m[2];
             url = m[1];

@@ -1,3 +1,4 @@
+
 /**
  * @class Ext.data.Api
  * @extends Object
@@ -14,6 +15,12 @@ Ext.data.Api = (function() {
     // For efficiency, some methods will first check this hash for a match.  Those methods which do acces validActions will cache their result here.
     // We cannot pre-define this hash since the developer may over-ride the actions at runtime.
     var validActions = {};
+
+    // An private observable for listening to DataProxy events beforewrite, write and exception
+    var antenna = new Ext.util.Observable();
+
+    // A simple hash of registered proxies
+    var proxies = {};
 
     return {
         /**
@@ -166,6 +173,13 @@ new Ext.data.HttpProxy({
                     };
                 }
             }
+            // tag the proxy as relayed so we don't re-relay the events.  This is for the Api hooks onBeforeWrite, onWrite, onException.
+            // TODO:  Register each proxy into a hash...we'll need some way of uniquely
+            // identifying the proxies though.  url?
+            if (!proxy._isRelayed === true) {
+                antenna.relayEvents(proxy, ['beforewrite', 'write', 'exception']);
+                proxy._isRelayed = true;
+            }
         },
 
         /**
@@ -207,6 +221,56 @@ new Ext.data.HttpProxy({
 
                 return false;   // <-- false to prevent intercepted function from running.
             }, proxy);
+        },
+
+        /**
+         * Fires before a write action is sent to server with the same signature as {@link Ext.data.DataProxy#beforewrite}
+         * Provides a centralized listening-post for all beforewrite events fired by all proxies.
+         * @param {Function} handler
+         * @param {Object} scope
+         * @param {Object} options
+<code><pre>
+Ext.data.Api.onBeforeWrite(function(proxy, type, action) {
+    console.info('onBeforeWrite: ', arguments);
+});
+</pre></code>
+         */
+        onBeforeWrite : function(handler, scope, options) {
+            antenna.on('beforewrite', handler, scope||this, options);
+        },
+
+        /**
+         * Fires after a successful write action has returned from the server with the same signature as {@link Ext.data.DataProxy#write}
+         * Provides a centralized listening-post for all write events fired by all proxies.  This hook is a great place
+         * to implement user-feedback messaging.
+         * @param {Function} handler
+         * @param {Object} scope
+         * @param {Object} options
+<code><pre>
+Ext.data.Api.onWrite(function(proxy, type, action) {
+    console.info('onBeforeWrite: ', arguments);
+});
+</pre></code>
+         */
+        onWrite : function(handler, scope, options) {
+            antenna.on('write', handler, scope||this, options);
+        },
+
+        /**
+         * Fires after a write action failed on the server with the same signature as {@link Ext.data.DataProxy#exception}
+         * Provides a centralized listening-post for all exception events fired by all proxies.  This hook is a great place
+         * to implement user-feedback messaging.
+         * @param {Function} handler
+         * @param {Object} scope
+         * @param {Object} options
+<code><pre>
+Ext.data.Api.onException(function(proxy, type, action) {
+    console.info('Something bad happened on server: ', arguments);
+});
+</pre></code>
+         */
+        onException : function(handler, scope, options) {
+            antenna.on('exception', handler, scope||this, options);
         }
     };
 })();
