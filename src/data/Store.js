@@ -292,9 +292,8 @@ var grid = new Ext.grid.EditorGridPanel({
         /**
          * @event write
          * Fires if the server returns 200 after an Ext.data.Api.actions CRUD action.
-         * Success or failure of the action is available in the <code>result['successProperty']</code> property.
-         * The server-code might set the <code>successProperty</code> to <tt>false</tt> if a database validation
-         * failed, for example.
+         * Success of the action is determined in the <code>result['successProperty']</code>property (<b>NOTE</b> for RESTful stores,
+         * a simple 20x response is sufficient for the actions "destroy" and "update".  The "create" action should should return 200 along with a database pk).
          * @param {Ext.data.Store} store
          * @param {String} action [Ext.data.Api.actions.create|update|destroy]
          * @param {Object} result The 'data' picked-out out of the response for convenience.
@@ -619,12 +618,12 @@ sortInfo: {
         }
         this.fireEvent('clear', this, items);
     },
-    
+
     // private
     onClear: function(store, records){
         Ext.each(records, function(rec, index){
             this.destroyRecord(this, rec, index);
-        }, this);    
+        }, this);
     },
 
     /**
@@ -695,7 +694,7 @@ sortInfo: {
         delete o.scope;
         this.lastOptions = o;
     },
-    
+
     // private
     clearData: function(){
         this.data.each(function(rec) {
@@ -941,7 +940,7 @@ sortInfo: {
         var actions = Ext.data.Api.actions;
         return (action == 'read') ? this.loadRecords : function(data, response, success) {
             // calls: onCreateRecords | onUpdateRecords | onDestroyRecords
-            this['on' + Ext.util.Format.capitalize(action) + 'Records'](success, rs, data);
+            this['on' + Ext.util.Format.capitalize(action) + 'Records'](success, rs, [].concat(data));
             // If success === false here, exception will have been called in DataProxy
             if (success === true) {
                 this.fireEvent('write', this, action, data, response, rs);
