@@ -79,16 +79,6 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
         });
     },
 
-	// private
-    getResizeEl : function(){
-        return this.wrap;
-    },
-
-    // private
-    getPositionEl : function(){
-        return this.wrap;
-    },
-
     /**
      * @hide
      * Overridden and disabled. The editor element does not support standard valid/invalid marking.
@@ -121,6 +111,7 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
         if(Ext.isIE){
             this.wrap.repaint();
         }
+        this.resizeEl = this.positionEl = this.wrap;
     },
 
     // private

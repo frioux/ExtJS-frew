@@ -122,16 +122,18 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
             c.un('show', this.onFieldShow, this);
             c.un('hide', this.onFieldHide, this);
         }
-        var el = c.getPositionEl(),
-            ct = c.getItemCt();
+        if(c.rendered){
+            var el = c.getPositionEl(),
+                ct = c.getItemCt();
             
-        el.insertAfter(ct);
-        Ext.destroy(ct);
-        delete c.label;
-        delete c.itemCt;
-        if(c.customItemCt){
-            delete c.getItemCt;
-            delete c.customItemCt;
+            el.insertAfter(ct);
+            Ext.destroy(ct);
+            delete c.label;
+            delete c.itemCt;
+            if(c.customItemCt){
+                delete c.getItemCt;
+                delete c.customItemCt;
+            }
         }
     },
     
@@ -311,16 +313,17 @@ new Ext.Template(
     // private
     adjustWidthAnchor: function(value, c){
         if(c.label && !this.isHide(c) && (this.container.labelAlign != 'top')){
-            return value - this.labelAdjust;
+            var adjust = Ext.isIE6 || (Ext.isIE && !Ext.isStrict);
+            return value - this.labelAdjust + (adjust ? -3 : 0);
         }
-        return 0;
+        return value;
     },
     
     adjustHeightAnchor : function(value, c){
         if(c.label && !this.isHide(c) && (this.container.labelAlign == 'top')){
             return value - c.label.getHeight();
         }
-        return 0;
+        return value;
     },
 
     // private

@@ -114,7 +114,9 @@ Ext.layout.AccordionLayout = Ext.extend(Ext.layout.FitLayout, {
     
     onRemove: function(c){
         Ext.layout.AccordionLayout.superclass.onRemove.call(this, c);
-        c.header.removeClass('x-accordion-hd');
+        if(c.rendered){
+            c.header.removeClass('x-accordion-hd');
+        }
         c.un('beforeexpand', this.beforeExpand, this);
     },
 

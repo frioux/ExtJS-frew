@@ -536,6 +536,10 @@ fieldset.x-panel-collapsed .x-fieldset-bwrap {
      padding-left: 0 !important;
 }
 
+.x-form-label-top .x-hide-label label.x-form-item-label{
+    display: none;
+}
+
 .x-fieldset {
     overflow:hidden;
 }

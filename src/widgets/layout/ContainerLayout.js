@@ -114,7 +114,7 @@ Ext.layout.ContainerLayout.prototype = {
          if(this.activeItem == c){
             delete this.activeItem;
          }
-         if(this.extraCls){
+         if(c.rendered && this.extraCls){
             var t = c.getPositionEl ? c.getPositionEl() : c;
             t.removeClass(this.extraCls);
         }

@@ -505,26 +505,6 @@ var form = new Ext.form.FormPanel({
     // private, does not work for all fields
     append : function(v){
          this.setValue([this.getValue(), v].join(''));
-    },
-
-    // private
-    adjustSize : function(w, h){
-        var s = Ext.form.Field.superclass.adjustSize.call(this, w, h);
-        s.width = this.adjustWidth(this.el.dom.tagName, s.width);
-        if(this.offsetCt){
-            var ct = this.getItemCt();
-            s.width -= ct.getFrameWidth('lr');
-            s.height -= ct.getFrameWidth('tb');
-        }
-        return s;
-    },
-
-    // private
-    adjustWidth : function(tag, w){
-        if(typeof w == 'number' && (Ext.isIE && (Ext.isIE6 || !Ext.isStrict)) && /input|textarea/i.test(tag) && !this.inEditor){
-            return w - 3;
-        }
-        return w;
     }
 
     /**

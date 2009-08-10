@@ -427,19 +427,14 @@ var myPanel = new Ext.Panel({
     },
 
     // private
-    onRender : function(ct, position){
-        Ext.BoxComponent.superclass.onRender.call(this, ct, position);
+    afterRender : function(){
+        Ext.BoxComponent.superclass.afterRender.call(this);
         if(this.resizeEl){
             this.resizeEl = Ext.get(this.resizeEl);
         }
         if(this.positionEl){
             this.positionEl = Ext.get(this.positionEl);
         }
-    },
-
-    // private
-    afterRender : function(){
-        Ext.BoxComponent.superclass.afterRender.call(this);
         this.boxReady = true;
         this.setSize(this.width, this.height);
         if(this.x || this.y){

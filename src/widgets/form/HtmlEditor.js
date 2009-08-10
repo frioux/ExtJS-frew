@@ -396,6 +396,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             var sz = this.el.getSize();
             this.setSize(sz.width, this.height || sz.height);
         }
+        this.resizeEl = this.positionEl = this.wrap;
     },
 
     createIFrame: function(){
@@ -466,15 +467,15 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
     onResize : function(w, h){
         Ext.form.HtmlEditor.superclass.onResize.apply(this, arguments);
         if(this.el && this.iframe){
-            if(typeof w == 'number'){
+            if(Ext.isNumber(w)){
                 var aw = w - this.wrap.getFrameWidth('lr');
-                this.el.setWidth(this.adjustWidth('textarea', aw));
+                this.el.setWidth(aw);
                 this.tb.setWidth(aw);
                 this.iframe.style.width = Math.max(aw, 0) + 'px';
             }
-            if(typeof h == 'number'){
+            if(Ext.isNumber(h)){
                 var ah = h - this.wrap.getFrameWidth('tb') - this.tb.el.getHeight();
-                this.el.setHeight(this.adjustWidth('textarea', ah));
+                this.el.setHeight(ah);
                 this.iframe.style.height = Math.max(ah, 0) + 'px';
                 if(this.doc){
                     this.getEditorBody().style.height = Math.max((ah - (this.iframePad*2)), 0) + 'px';
@@ -530,19 +531,6 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         if(url && url != 'http:/'+'/'){
             this.relayCmd('createlink', url);
         }
-    },
-
-    // private (for BoxComponent)
-    adjustSize : Ext.BoxComponent.prototype.adjustSize,
-
-    // private (for BoxComponent)
-    getResizeEl : function(){
-        return this.wrap;
-    },
-
-    // private (for BoxComponent)
-    getPositionEl : function(){
-        return this.wrap;
     },
 
     // private

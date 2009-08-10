@@ -78,7 +78,7 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
         Ext.form.TriggerField.superclass.onResize.call(this, w, h);
         var tw = this.getTriggerWidth();
         if(Ext.isNumber(w)){
-            this.el.setWidth(this.adjustWidth('input', w - tw));
+            this.el.setWidth(w - tw);
         }
         this.wrap.setWidth(this.el.getWidth() + tw);
     },
@@ -89,19 +89,6 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
             tw = this.defaultTriggerWidth;
         }
         return tw;
-    },
-
-    // private
-    adjustSize : Ext.BoxComponent.prototype.adjustSize,
-
-    // private
-    getResizeEl : function(){
-        return this.wrap;
-    },
-
-    // private
-    getPositionEl : function(){
-        return this.wrap;
     },
 
     // private
@@ -129,6 +116,7 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
             this.editable = true;
             this.setEditable(false);
         }
+        this.resizeEl = this.positionEl = this.wrap;
     },
 
     afterRender : function(){
