@@ -1,8 +1,9 @@
 /**
  * @class Ext.layout.AccordionLayout
  * @extends Ext.layout.FitLayout
- * <p>This is a layout that contains multiple panels in an expandable accordion style such that only
- * <b>one panel can be open at any given time</b>.  Each panel has built-in support for expanding and collapsing.
+ * <p>This is a layout that manages multiple Panels in an expandable accordion style such that only
+ * <b>one Panel can be expanded at any given time</b>. Each Panel has built-in support for expanding and collapsing.</p>
+ * <p>Note: Only Ext.Panels <b>and all subclasses of Ext.Panel</b> may be used in an accordion layout Container.</p>
  * <p>This class is intended to be extended or created via the <tt><b>{@link Ext.Container#layout layout}</b></tt>
  * configuration property.  See <tt><b>{@link Ext.Container#layout}</b></tt> for additional details.</p>
  * <p>Example usage:</p>
