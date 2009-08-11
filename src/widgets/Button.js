@@ -98,7 +98,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
 
     /**
      * @cfg {String} clickEvent
-     * The DOM event that will fire the handler of the button. 
+     * The DOM event that will fire the handler of the button. This can be any valid event name (dblclick, contextmenu). 
      * Defaults to <tt>'click'</tt>.
      */
     clickEvent : 'click',
