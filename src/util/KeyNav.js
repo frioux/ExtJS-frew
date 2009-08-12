@@ -107,7 +107,7 @@ Ext.KeyNav.prototype = {
             // *** (note: this bugfix sacrifices the "keyup" event originating from keyNav elements in Safari 2)
             e.stopEvent();
         }
-    }
+    },
 
 	/**
 	 * Enable this KeyNav
