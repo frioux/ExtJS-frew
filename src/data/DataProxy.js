@@ -239,6 +239,8 @@ myStore.on({
             e.toConsole();
         }
     }
+    // relay each proxy's events onto Ext.data.DataProxy class for centralized Proxy-listening
+    Ext.data.DataProxy.relayEvents(this, ['beforewrite', 'write', 'exception']);
 };
 
 Ext.extend(Ext.data.DataProxy, Ext.util.Observable, {
@@ -419,6 +421,8 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
     }
 });
 
+// Apply the Observable prototype to the DataProxy class so that proxy instances can relay their
+// events to the class.  Allows for centralized listening of all proxy instances upon the DataProxy class.
 Ext.apply(Ext.data.DataProxy, Ext.util.Observable.prototype);
 Ext.util.Observable.call(Ext.data.DataProxy);
 
