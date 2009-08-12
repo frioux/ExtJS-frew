@@ -84,8 +84,8 @@ Ext.ux.FieldLabeler = (function(){
                 if (!Ext.isDefined(this.labelWidth)) {
                     this.labelWidth = getParentProperty.call(this, "labelWidth") || 100;
                 }
-                this.labelWidth += 'px';
                 this.resizeEl.setStyle('padding-left', (this.labelWidth + (this.labelPad || 5)) + 'px');
+                this.labelWidth += 'px';
             }
 
             this.label = this.itemCt.insertFirst({
