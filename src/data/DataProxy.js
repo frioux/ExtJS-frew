@@ -122,11 +122,13 @@ myStore.on({
     this.addEvents(
         /**
          * @event exception
-         * <p>Fires if an exception occurs in the Proxy during a remote request.
-         * This event is relayed through a corresponding
-         * {@link Ext.data.Store}.{@link Ext.data.Store#exception exception},
-         * so any Store instance may observe this event.
-         * This event can be fired for one of two reasons:</p>
+         * <p>Fires if an exception occurs in the Proxy during a remote request. This event is relayed
+         * through a corresponding {@link Ext.data.Store}.{@link Ext.data.Store#exception exception},
+         * so any Store instance may observe this event.</p>
+         * <p>In addition to being fired through the DataProxy instance that raised the event, this event is also fired
+         * through the Ext.data.DataProxy <i>class</i> to allow for centralized processing of exception events from <b>all</b>
+         * DataProxies by attaching a listener to the Ext.data.Proxy class itself.</p>
+         * <p>This event can be fired for one of two reasons:</p>
          * <div class="mdetail-params"><ul>
          * <li>remote-request <b>failed</b> : <div class="sub-desc">
          * The server did not return status === 200.
@@ -210,7 +212,10 @@ myStore.on({
         'loadexception',
         /**
          * @event beforewrite
-         * Fires before a request is generated for one of the actions Ext.data.Api.actions.create|update|destroy
+         * <p>Fires before a request is generated for one of the actions Ext.data.Api.actions.create|update|destroy</p>
+         * <p>In addition to being fired through the DataProxy instance that raised the event, this event is also fired
+         * through the Ext.data.DataProxy <i>class</i> to allow for centralized processing of beforewrite events from <b>all</b>
+         * DataProxies by attaching a listener to the Ext.data.Proxy class itself.</p>
          * @param {DataProxy} this The proxy for the request
          * @param {String} action [Ext.data.Api.actions.create|update|destroy]
          * @param {Record/Array[Record]} rs The Record(s) to create|update|destroy.
@@ -219,7 +224,10 @@ myStore.on({
         'beforewrite',
         /**
          * @event write
-         * Fires before the request-callback is called
+         * <p>Fires before the request-callback is called</p>
+         * <p>In addition to being fired through the DataProxy instance that raised the event, this event is also fired
+         * through the Ext.data.DataProxy <i>class</i> to allow for centralized processing of write events from <b>all</b>
+         * DataProxies by attaching a listener to the Ext.data.Proxy class itself.</p>
          * @param {DataProxy} this The proxy that sent the request
          * @param {String} action [Ext.data.Api.actions.create|upate|destroy]
          * @param {Object} data The data object extracted from the server-response
