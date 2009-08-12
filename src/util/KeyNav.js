@@ -98,6 +98,16 @@ Ext.KeyNav.prototype = {
         27 : "esc",
         9  : "tab"
     },
+    
+    stopKeyUp: function(e) {
+        var k = e.getKey();
+
+        if (k >= 37 && k <= 40) {
+            // *** bugfix - safari 2.x fires 2 keyup events on cursor keys
+            // *** (note: this bugfix sacrifices the "keyup" event originating from keyNav elements in Safari 2)
+            e.stopEvent();
+        }
+    }
 
 	/**
 	 * Enable this KeyNav
