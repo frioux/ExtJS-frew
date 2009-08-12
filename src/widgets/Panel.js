@@ -557,12 +557,6 @@ new Ext.Panel({
 </code></pre>
      */
     /**
-     * @cfg {String} tabTip
-     * A string to be used as innerHTML (html tags are accepted) to show in a tooltip when mousing over
-     * the tab of a Ext.Panel which is an item of a {@link Ext.TabPanel}. {@link Ext.QuickTips}.init()
-     * must be called in order for the tips to render.
-     */
-    /**
      * @cfg {Boolean} disabled
      * Render this panel disabled (default is <code>false</code>). An important note when using the disabled
      * config on panels is that IE will often fail to initialize the disabled mask element correectly if

@@ -28,6 +28,14 @@ var myImage = new Ext.BoxComponent({
  */
 Ext.BoxComponent = Ext.extend(Ext.Component, {
 
+    // tabTip config is used when a BoxComponent is a child of a TabPanel
+    /**
+     * @cfg {String} tabTip
+     * <p><b>Note</b>: this config is only used when this BoxComponent is a child item of a TabPanel.</p>
+     * A string to be used as innerHTML (html tags are accepted) to show in a tooltip when mousing over
+     * the associated tab selector element. {@link Ext.QuickTips}.init()
+     * must be called in order for the tips to render.
+     */
     // Configs below are used for all Components when rendered by BorderLayout.
     /**
      * @cfg {String} region <p><b>Note</b>: this config is only used when this BoxComponent is rendered

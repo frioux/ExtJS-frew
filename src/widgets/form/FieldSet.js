@@ -232,14 +232,6 @@ Ext.form.FieldSet = Ext.extend(Ext.Panel, {
      * @hide
      */
     /**
-     * @cfg {String} tabTip
-     * @hide
-     */
-    /**
-     * @cfg {Boolean} titleCollapse
-     * @hide
-     */
-    /**
      * @cfg {Array} tools
      * @hide
      */
