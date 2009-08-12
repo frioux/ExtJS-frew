@@ -181,7 +181,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
     clearMenu : function(){
         var m = this.moreMenu;
         if(m && m.items){
-            this.moreMenu.items.each(function(item){
+            m.items.each(function(item){
                 delete item.menu;
             });
         }
@@ -224,6 +224,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
                     scope: this
                 }
             });
+            this.moreMenu.ownerCt = this.container;
             this.more = new Ext.Button({
                 iconCls: 'x-toolbar-more-icon',
                 cls: 'x-toolbar-more',
