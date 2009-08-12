@@ -479,26 +479,24 @@ function(grid, rowIndex, columnIndex, e) {
     onRender : function(ct, position){
         Ext.grid.GridPanel.superclass.onRender.apply(this, arguments);
 
-        var c = this.body;
+        var c = this.getGridEl();
 
         this.el.addClass('x-grid-panel');
 
-        var view = this.getView();
-        view.init(this);
-
         this.mon(c, {
+            scope: this,
             mousedown: this.onMouseDown,
             click: this.onClick,
             dblclick: this.onDblClick,
-            contextmenu: this.onContextMenu,
-            keydown: this.onKeyDown,
-            scope: this
+            contextmenu: this.onContextMenu
         });
 
-        this.relayEvents(c, ['mousedown','mouseup','mouseover','mouseout','keypress']);
+        this.relayEvents(c, ['mousedown','mouseup','mouseover','mouseout','keypress', 'keydown']);
 
+        var view = this.getView();
+        view.init(this);
+        view.render();
         this.getSelectionModel().init(this);
-        this.view.render();
     },
 
     // private
@@ -601,11 +599,6 @@ function(grid, rowIndex, columnIndex, e) {
             this.view.refresh(true);
         }
         this.fireEvent('reconfigure', this, store, colModel);
-    },
-
-    // private
-    onKeyDown : function(e){
-        this.fireEvent('keydown', e);
     },
 
     // private

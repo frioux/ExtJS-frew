@@ -207,19 +207,10 @@ var myField = new Ext.form.NumberField({
         else if(this.validationEvent !== false && this.validationEvent != 'blur'){
         	this.mon(this.el, this.validationEvent, this.validate, this, {buffer: this.validationDelay});
         }
-        if(this.selectOnFocus || this.emptyText){
-            this.on('focus', this.preFocus, this);
-            
-            this.mon(this.el, 'mousedown', function(){
-                if(!this.hasFocus){
-                    this.el.on('mouseup', function(e){
-                        e.preventDefault();
-                    }, this, {single:true});
-                }
-            }, this);
+        if(this.selectOnFocus || this.emptyText){            
+            this.mon(this.el, 'mousedown', this.onMouseDown, this);
             
             if(this.emptyText){
-                this.on('blur', this.postBlur, this);
                 this.applyEmptyText();
             }
         }
@@ -231,9 +222,18 @@ var myField = new Ext.form.NumberField({
 			this.mon(this.el, 'click', this.autoSize, this);
         }
         if(this.enableKeyEvents){
-        	this.mon(this.el, 'keyup', this.onKeyUp, this);
-        	this.mon(this.el, 'keydown', this.onKeyDown, this);
-        	this.mon(this.el, 'keypress', this.onKeyPress, this);
+            this.mon(this.el, {
+                scope: this,
+                keyup: this.onKeyUp,
+                keydown: this.onKeyDown,
+                keypress: this.onKeyPress
+            });
+        }
+    },
+    
+    onMouseDown: function(e){
+        if(!this.hasFocus){
+            this.mon(this.el, 'mouseup', Ext.emptyFn, this, { single: true, preventDefault: true });
         }
     },
 
@@ -319,9 +319,7 @@ var myField = new Ext.form.NumberField({
             el.removeClass(this.emptyClass);
         }
         if(this.selectOnFocus){
-            (function(){
-                el.dom.select();
-            }).defer(this.inEditor && Ext.isIE ? 50 : 0);    
+            el.dom.select();
         }
     },
 

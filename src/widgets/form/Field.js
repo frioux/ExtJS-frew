@@ -299,14 +299,16 @@ var form = new Ext.form.FormPanel({
     initEvents : function(){
         this.mon(this.el, Ext.EventManager.useKeydown ? 'keydown' : 'keypress', this.fireKey,  this);
         this.mon(this.el, 'focus', this.onFocus, this);
-
-        // fix weird FF/Win editor issue when changing OS window focus
-        var o = this.inEditor && Ext.isWindows && Ext.isGecko ? {buffer:10} : null;
-        this.mon(this.el, 'blur', this.onBlur, this, o);
+        // standardise buffer across all browsers + OS-es for consistent event order.
+        this.mon(this.el, 'blur', this.onBlur, this, this.inEditor ? {buffer:10} : null);
     },
+    
+    // private
+    preFocus: Ext.emptyFn,
 
     // private
     onFocus : function(){
+        this.preFocus();
         if(this.focusClass){
             this.el.addClass(this.focusClass);
         }
@@ -335,7 +337,11 @@ var form = new Ext.form.FormPanel({
             this.fireEvent('change', this, v, this.startValue);
         }
         this.fireEvent('blur', this);
+        this.postBlur();
     },
+    
+    // private
+    postBlur : Ext.emptyFn,
 
     /**
      * Returns whether or not the field value is currently valid by

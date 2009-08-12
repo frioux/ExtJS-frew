@@ -100,6 +100,7 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
 
     // private
     onRender : function(ct, position){
+        this.doc = Ext.isIE ? Ext.getBody() : Ext.getDoc();
         Ext.form.TriggerField.superclass.onRender.call(this, ct, position);
 
         this.wrap = this.el.wrap({cls: 'x-form-field-wrap x-form-field-trigger-wrap'});
@@ -134,7 +135,7 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
     onDestroy : function(){
         Ext.destroy(this.trigger, this.wrap);
         if (this.mimicing){
-            Ext.get(Ext.isIE ? document.body : document).un("mousedown", this.mimicBlur, this);
+            this.doc.un('mousedown', this.mimicBlur, this);
         }
         Ext.form.TriggerField.superclass.onDestroy.call(this);
     },
@@ -145,24 +146,22 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
         if(!this.mimicing){
             this.wrap.addClass(this.wrapFocusClass);
             this.mimicing = true;
-            Ext.get(Ext.isIE ? document.body : document).on("mousedown", this.mimicBlur, this, {delay: 10});
+            this.doc.on('mousedown', this.mimicBlur, this, {delay: 10});
             if(this.monitorTab){
-                this.el.on('keydown', this.checkTab, this);
+                this.on('specialkey', this.checkTab, this);
             }
         }
     },
 
     // private
-    checkTab : function(e){
+    checkTab : function(me, e){
         if(e.getKey() == e.TAB){
             this.triggerBlur();
         }
     },
 
     // private
-    onBlur : function(){
-        // do nothing
-    },
+    onBlur : Ext.emptyFn,
 
     // private
     mimicBlur : function(e){
@@ -174,9 +173,9 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
     // private
     triggerBlur : function(){
         this.mimicing = false;
-        Ext.get(Ext.isIE ? document.body : document).un("mousedown", this.mimicBlur, this);
+        this.doc.un('mousedown', this.mimicBlur, this);
         if(this.monitorTab && this.el){
-            this.el.un("keydown", this.checkTab, this);
+            this.un('specialkey', this.checkTab, this);
         }
         Ext.form.TriggerField.superclass.onBlur.call(this);
         if(this.wrap){

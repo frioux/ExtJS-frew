@@ -704,8 +704,6 @@ var menu = new Ext.menu.Menu({
 
             "enter" : function(e){
                 this.onViewClick();
-                this.delayedCheck = true;
-                this.unsetDelayCheck.defer(10, this);
             },
 
             "esc" : function(e){
@@ -719,14 +717,20 @@ var menu = new Ext.menu.Menu({
 
             scope : this,
 
-            doRelay : function(foo, bar, hname){
+            doRelay : function(e, h, hname){
                 if(hname == 'down' || this.scope.isExpanded()){
-                   return Ext.KeyNav.prototype.doRelay.apply(this, arguments);
+                    // this MUST be called before ComboBox#fireKey()
+                    var relay = Ext.KeyNav.prototype.doRelay.apply(this, arguments);
+                    if(!Ext.isIE && Ext.EventManager.useKeydown){
+                        // call Combo#fireKey() for browsers which use keydown event (except IE)
+                        this.scope.fireKey(e);
+                    }
+                    return relay;
                 }
-                return true;
             },
 
-            forceKeyDown : true
+            forceKeyDown : true,
+            defaultEventAction: 'stopEvent'
         });
         this.queryDelay = Math.max(this.queryDelay || 10,
                 this.mode == 'local' ? 10 : 250);
@@ -756,23 +760,9 @@ var menu = new Ext.menu.Menu({
     },
 
     // private
-    unsetDelayCheck : function(){
-        delete this.delayedCheck;
-    },
-
-    // private
     fireKey : function(e){
-        var fn = function(ev){
-            if (ev.isNavKeyPress() && !this.isExpanded() && !this.delayedCheck) {
-                this.fireEvent("specialkey", this, ev);
-            }
-        };
-        //For some reason I can't track down, the events fire in a different order in webkit.
-        //Need a slight delay here
-        if(this.inEditor && Ext.isWebKit && e.getKey() == e.TAB){
-            fn.defer(10, this, [new Ext.EventObjectImpl(e)]);
-        }else{
-            fn.call(this, e);
+        if (!this.isExpanded()) {
+            Ext.form.ComboBox.superclass.fireKey.call(this, e);
         }
     },
 

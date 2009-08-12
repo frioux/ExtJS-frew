@@ -54,15 +54,6 @@ Ext.KeyNav.prototype = {
     forceKeyDown : false,
 
     // private
-    prepareEvent : function(e){
-        var k = e.getKey();
-        var h = this.keyToHandler[k];
-        if(Ext.isSafari2 && h && k >= 37 && k <= 40){
-            e.stopEvent();
-        }
-    },
-
-    // private
     relay : function(e){
         var k = e.getKey();
         var h = this.keyToHandler[k];
@@ -111,34 +102,32 @@ Ext.KeyNav.prototype = {
 	/**
 	 * Enable this KeyNav
 	 */
-	enable: function(){
-		if(this.disabled){
-            // ie won't do special keys on keypress, no one else will repeat keys with keydown
-            // the EventObject will normalize Safari automatically
-            if(this.isKeydown()){
-                this.el.on("keydown", this.relay,  this);
-            }else{
-                this.el.on("keydown", this.prepareEvent,  this);
-                this.el.on("keypress", this.relay,  this);
+	enable: function() {
+        if (this.disabled) {
+            if (Ext.isSafari2) {
+                // call stopKeyUp() on "keyup" event
+                this.el.on('keyup', this.stopKeyUp, this);
             }
-		    this.disabled = false;
-		}
-	},
+
+            this.el.on(this.isKeydown()? 'keydown' : 'keypress', this.relay, this);
+            this.disabled = false;
+        }
+    },
 
 	/**
 	 * Disable this KeyNav
 	 */
-	disable: function(){
-		if(!this.disabled){
-		    if(this.isKeydown()){
-                this.el.un("keydown", this.relay, this);
-            }else{
-                this.el.un("keydown", this.prepareEvent, this);
-                this.el.un("keypress", this.relay, this);
+	disable: function() {
+        if (!this.disabled) {
+            if (Ext.isSafari2) {
+                // remove "keyup" event handler
+                this.el.un('keyup', this.stopKeyUp, this);
             }
-		    this.disabled = true;
-		}
-	},
+
+            this.el.un(this.isKeydown()? 'keydown' : 'keypress', this.relay, this);
+            this.disabled = true;
+        }
+    },
     
     /**
      * Convenience function for setting disabled/enabled by boolean.

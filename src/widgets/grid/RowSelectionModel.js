@@ -107,10 +107,12 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
             scope: this
         });
 
-        var view = this.grid.view;
-        view.on('refresh', this.onRefresh, this);
-        view.on('rowupdated', this.onRowUpdated, this);
-        view.on('rowremoved', this.onRemove, this);
+        this.grid.getView().on({
+            scope: this,
+            refresh: this.onRefresh,
+            rowupdated: this.onRowUpdated,
+            rowremoved: this.onRemove
+        });
     },
 
     // private
@@ -490,20 +492,29 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
                 newCell = g.walkCells(ed.row, ed.col+1, 1, this.acceptsNav, this);
             }
         }else if(k == e.ENTER){
-            e.stopEvent();
-            ed.completeEdit();
             if(this.moveEditorOnEnter !== false){
+                var last = g.lastEdit;
                 if(shift){
-                    newCell = g.walkCells(ed.row - 1, ed.col, -1, this.acceptsNav, this);
+                    newCell = g.walkCells(last.row - 1, last.col, -1, this.acceptsNav, this);
                 }else{
-                    newCell = g.walkCells(ed.row + 1, ed.col, 1, this.acceptsNav, this);
+                    newCell = g.walkCells(last.row + 1, last.col, 1, this.acceptsNav, this);
                 }
             }
-        }else if(k == e.ESC){
-            ed.cancelEdit();
         }
         if(newCell){
-            g.startEditing(newCell[0], newCell[1]);
+            r = newCell[0];
+            c = newCell[1];
+
+            this.selectRow(r); // *** highlight newly-selected cell and update selection
+
+            if(g.isEditor && g.editing){ // *** handle tabbing while editorgrid is in edit mode
+                ae = g.activeEditor;
+                if(ae && ae.field.triggerBlur){
+                    // *** if activeEditor is a TriggerField, explicitly call its triggerBlur() method
+                    ae.field.triggerBlur();
+                }
+            }
+            g.startEditing.defer(10, g, [r, c]);
         }
     },
     
