@@ -108,10 +108,10 @@ side          Add an error icon to the right of the field with a popup on hover
      * disabled Fields will not be {@link Ext.form.BasicForm#submit submitted}.</p>
      */
     disabled : false,
-    
+
     // private
     isFormField : true,
-    
+
     // private
     msgDisplay: '',
 
@@ -195,7 +195,7 @@ var form = new Ext.form.FormPanel({
     /**
      * Returns the {@link Ext.form.Field#name name} or {@link Ext.form.ComboBox#hiddenName hiddenName}
      * attribute of the field if available.
-     * @return {String} name The field {@link Ext.form.Field#name name} or {@link Ext.form.ComboBox#hiddenName hiddenName}  
+     * @return {String} name The field {@link Ext.form.Field#name name} or {@link Ext.form.ComboBox#hiddenName hiddenName}
      */
     getName : function(){
         return this.rendered && this.el.dom.name ? this.el.dom.name : this.name || this.id || '';
@@ -215,7 +215,7 @@ var form = new Ext.form.FormPanel({
             this.autoEl = cfg;
         }
         Ext.form.Field.superclass.onRender.call(this, ct, position);
-        
+
         var type = this.el.dom.type;
         if(type){
             if(type == 'password'){
@@ -299,10 +299,12 @@ var form = new Ext.form.FormPanel({
     initEvents : function(){
         this.mon(this.el, Ext.EventManager.useKeydown ? 'keydown' : 'keypress', this.fireKey,  this);
         this.mon(this.el, 'focus', this.onFocus, this);
+
         // standardise buffer across all browsers + OS-es for consistent event order.
+        // (the 10ms buffer for Editors fixes a weird FF/Win editor issue when changing OS window focus)
         this.mon(this.el, 'blur', this.onBlur, this, this.inEditor ? {buffer:10} : null);
     },
-    
+
     // private
     preFocus: Ext.emptyFn,
 
@@ -339,7 +341,7 @@ var form = new Ext.form.FormPanel({
         this.fireEvent('blur', this);
         this.postBlur();
     },
-    
+
     // private
     postBlur : Ext.emptyFn,
 
