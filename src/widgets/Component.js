@@ -758,9 +758,9 @@ new Ext.Panel({
      * @property el
      */
     /**
-     * The component's owner {@link Ext.Container} (defaults to undefined, and is set automatically when
-     * the component is added to a container).  Read-only.
-     * <p><b>Note</b>: to access items within the container see <tt>{@link #itemId}</tt>.</p>
+     * This Component's owner {@link Ext.Container Container} (defaults to undefined, and is set automatically when
+     * this Component is added to a Container).  Read-only.
+     * <p><b>Note</b>: to access items within the Container see <tt>{@link #itemId}</tt>.</p>
      * @type Ext.Container
      * @property ownerCt
      */

@@ -40,12 +40,6 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      * @type Boolean
      */
     pressed : false,
-    /**
-     * The Button's owner {@link Ext.Panel} (defaults to undefined, and is set automatically when
-     * the Button is added to a container).  Read-only.
-     * @type Ext.Panel
-     * @property ownerCt
-     */
 
     /**
      * @cfg {Number} tabIndex Set a DOM tabIndex for this button (defaults to undefined)
