@@ -419,6 +419,9 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
     }
 });
 
+Ext.apply(Ext.data.DataProxy, Ext.util.Observable.prototype);
+Ext.util.Observable.call(Ext.data.DataProxy);
+
 /**
  * @class Ext.data.DataProxy.Error
  * @extends Ext.Error

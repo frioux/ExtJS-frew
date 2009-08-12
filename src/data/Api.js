@@ -16,10 +16,8 @@ Ext.data.Api = (function() {
     // We cannot pre-define this hash since the developer may over-ride the actions at runtime.
     var validActions = {};
 
-    // An private observable for listening to DataProxy events beforewrite, write and exception
-    var antenna = new Ext.util.Observable();
-
-    // A simple hash of registered proxies
+    // A simple hash of registered proxies @see Ext.data.Api#prepare
+    // TODO: NOT IMPLEMENTED
     var proxies = {};
 
     return {
@@ -173,12 +171,14 @@ new Ext.data.HttpProxy({
                     };
                 }
             }
-            // tag the proxy as relayed so we don't re-relay the events.  This is for the Api hooks onBeforeWrite, onWrite, onException.
+            // relay each proxy's events onto Ext.data.DataProxy class.
+            // We must tag the proxy relayed so we don't re-relay the events.
+            // This is for the Api hooks onBeforeWrite, onWrite, onException.
             // TODO:  Register each proxy into a hash...we'll need some way of uniquely
             // identifying the proxies though.  url?
             if (!proxy._isRelayed === true) {
-                antenna.relayEvents(proxy, ['beforewrite', 'write', 'exception']);
                 proxy._isRelayed = true;
+                Ext.data.DataProxy.relayEvents(proxy, ['beforewrite', 'write', 'exception']);
             }
         },
 
@@ -236,7 +236,7 @@ Ext.data.Api.onBeforeWrite(function(proxy, type, action) {
 </pre></code>
          */
         onBeforeWrite : function(handler, scope, options) {
-            antenna.on('beforewrite', handler, scope||this, options);
+            Ext.data.DataProxy.on('beforewrite', handler, scope||this, options);
         },
 
         /**
@@ -253,7 +253,7 @@ Ext.data.Api.onWrite(function(proxy, type, action) {
 </pre></code>
          */
         onWrite : function(handler, scope, options) {
-            antenna.on('write', handler, scope||this, options);
+            Ext.data.DataProxy.on('write', handler, scope||this, options);
         },
 
         /**
@@ -270,7 +270,7 @@ Ext.data.Api.onException(function(proxy, type, action) {
 </pre></code>
          */
         onException : function(handler, scope, options) {
-            antenna.on('exception', handler, scope||this, options);
+            Ext.data.DataProxy.on('exception', handler, scope||this, options);
         }
     };
 })();
