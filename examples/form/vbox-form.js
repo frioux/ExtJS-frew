@@ -4,14 +4,13 @@ Ext.onReady(function() {
     var form = new Ext.form.FormPanel({
         baseCls: 'x-plain',
         labelWidth: 55,
-        url:'save-form.php',
+        url: 'save-form.php',
         layout: {
             type: 'vbox',
-            align: 'stretch'
+            align: 'stretch'  // Child items are stretched to full width
         },
         defaults: {
-            xtype: 'textfield',
-            anchor: '100%'  // anchor width by percentage
+            xtype: 'textfield'
         },
 
         items: [{
