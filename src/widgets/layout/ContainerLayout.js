@@ -133,7 +133,7 @@ Ext.layout.ContainerLayout.prototype = {
             if(ct.shouldBufferLayout()){
                 if(!this.resizeTask){
                     this.resizeTask = new Ext.util.DelayedTask(this.runLayout, this);
-                    this.resizeBuffer = Ext.isNumber(b) ? b : 100;
+                    this.resizeBuffer = Ext.isNumber(b) ? b : 50;
                 }
                 ct.layoutPending = true;
                 this.resizeTask.delay(this.resizeBuffer);

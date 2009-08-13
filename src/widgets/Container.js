@@ -266,11 +266,11 @@ layoutConfig: {
      */
     /**
      * @cfg {Boolean/Number} bufferResize
-     * When set to true (100 milliseconds) or a number of milliseconds, the layout assigned for this container will buffer
+     * When set to true (50 milliseconds) or a number of milliseconds, the layout assigned for this container will buffer
      * the frequency it calculates and does a re-layout of components. This is useful for heavy containers or containers
-     * with a large quantity of sub-components for which frequent layout calls would be expensive. Defaults to <tt>100</tt>.
+     * with a large quantity of sub-components for which frequent layout calls would be expensive. Defaults to <tt>50</tt>.
      */
-    bufferResize: 100,
+    bufferResize: 50,
     
     /**
      * @cfg {String/Number} activeItem
@@ -723,8 +723,8 @@ tb.{@link #doLayout}();             // refresh the layout
      * @return {Ext.Container} this
      */
     doLayout: function(shallow, force){
-        var rendered = this.rendered,
-            forceLayout = force || this.forceLayout;
+        var rendered = this.rendered;
+        forceLayout = force || this.forceLayout;
 
         if(!this.canLayout() || this.collapsed){
             this.deferLayout = this.deferLayout || !shallow;
@@ -771,7 +771,7 @@ tb.{@link #doLayout}();             // refresh the layout
             return hl ? !this.hasLayoutPending() : false;
         }
         // Never buffer initial layout
-        return !hl;
+        return hl;
     },
     
     // private
