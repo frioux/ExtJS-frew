@@ -29,7 +29,7 @@
  * {@link Ext.grid.Column} column configuration object within the specified Array defines the initial
  * order of the column display.  A Column's display may be initially hidden using the
  * <tt>{@link Ext.grid.Column#hidden hidden}</tt></b> config property (and then shown using the column
- * header menu).  Field's that are not included in the ColumnModel will not be displayable at all.</p>
+ * header menu).  Fields that are not included in the ColumnModel will not be displayable at all.</p>
  * <p>How each column in the grid correlates (maps) to the {@link Ext.data.Record} field in the
  * {@link Ext.data.Store Store} the column draws its data from is configured through the
  * <b><tt>{@link Ext.grid.Column#dataIndex dataIndex}</tt></b>.  If the
