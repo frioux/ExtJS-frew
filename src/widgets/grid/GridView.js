@@ -1671,7 +1671,7 @@ viewConfig: {
     handleHdOver : function(e, t){
         var hd = this.findHeaderCell(t);
         if(hd && !this.headersDisabled){
-            this.activeHd = hd;
+            this.activeHdRef = t;
             this.activeHdIndex = this.getCellIndex(hd);
             var fly = this.fly(hd);
             this.activeHdRegion = fly.getRegion();
@@ -1687,11 +1687,12 @@ viewConfig: {
 
     // private
     handleHdMove : function(e, t){
-        if(this.activeHd && !this.headersDisabled){
+        var hd = this.findHeaderCell(this.activeHdRef);
+        if(hd && !this.headersDisabled){
             var hw = this.splitHandleWidth || 5,
                 r = this.activeHdRegion,
                 x = e.getPageX(),
-                ss = this.activeHd.style,
+                ss = hd.style,
                 cur = '';
             if(this.grid.enableColumnResize !== false){
                 if(x - r.left <= hw && this.cm.isResizable(this.activeHdIndex-1)){
@@ -1708,7 +1709,7 @@ viewConfig: {
     handleHdOut : function(e, t){
         var hd = this.findHeaderCell(t);
         if(hd && (!Ext.isIE || !e.within(hd, true))){
-            this.activeHd = null;
+            this.activeHdRef = null;
             this.fly(hd).removeClass('x-grid3-hd-over');
             hd.style.cursor = '';
         }
