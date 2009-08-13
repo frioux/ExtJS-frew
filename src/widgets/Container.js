@@ -268,7 +268,7 @@ layoutConfig: {
      * @cfg {Boolean/Number} bufferResize
      * When set to true (100 milliseconds) or a number of milliseconds, the layout assigned for this container will buffer
      * the frequency it calculates and does a re-layout of components. This is useful for heavy containers or containers
-     * with a large quantity of sub-components for which frequent layout calls would be expensive.
+     * with a large quantity of sub-components for which frequent layout calls would be expensive. Defaults to <tt>100</tt>.
      */
     bufferResize: 100,
     
@@ -368,6 +368,11 @@ items: [
      * and {@link Ext.Toolbar} and {@link Ext.ButtonGroup} which default to <tt>'button'</tt>.</p>
      */
     defaultType : 'panel',
+    
+    /** @cfg {String} resizeEvent
+     * The event to listen to for resizing in layouts. Defaults to <tt>'bodyresize'</tt>.
+     */
+    resizeEvent: 'resize',
 
     // private
     initComponent : function(){
@@ -719,11 +724,11 @@ tb.{@link #doLayout}();             // refresh the layout
      */
     doLayout: function(shallow, force){
         var rendered = this.rendered,
-            forceLayout = this.forceLayout;
+            forceLayout = force || this.forceLayout;
 
         if(!this.canLayout() || this.collapsed){
             this.deferLayout = this.deferLayout || !shallow;
-            if(!(force || forceLayout)){
+            if(!forceLayout){
                 return;
             }
             shallow = shallow && !this.deferLayout;
@@ -738,19 +743,49 @@ tb.{@link #doLayout}();             // refresh the layout
             for(var i = 0, len = cs.length; i < len; i++){
                 var c = cs[i];
                 if(c.doLayout){
-                    c.forceLayout = forceLayout;
-                    c.doLayout();
+                    c.doLayout(false, forceLayout);
                 }
             }
         }
         if(rendered){
-            this.onLayout(shallow, force);
+            this.onLayout(shallow, forceLayout);
         }
+        // Initial layout completed
+        this.hasLayout = true;
         delete this.forceLayout;
     },
 
     //private
     onLayout : Ext.emptyFn,
+    
+    // private
+    shouldBufferLayout: function(){
+        /*
+         * Returns true if the container should buffer a layout.
+         * This is true only if the container has previously been laid out
+         * and has a parent container that is pending a layout.
+         */
+        var hl = this.hasLayout;
+        if(this.ownerCt){
+            // Only ever buffer if we've laid out the first time and we have one pending.
+            return hl ? !this.hasLayoutPending() : false;
+        }
+        // Never buffer initial layout
+        return !hl;
+    },
+    
+    // private
+    hasLayoutPending: function(){
+        // Traverse hierarchy to see if any parent container has a pending layout.
+        var pending = false;
+        this.ownerCt.bubble(function(c){
+            if(c.layoutPending){
+                pending = true;
+                return false;
+            }
+        });
+        return pending;
+    },
 
     onShow : function(){
         Ext.Container.superclass.onShow.call(this);

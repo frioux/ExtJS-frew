@@ -105,8 +105,8 @@ Ext.layout.ContainerLayout.prototype = {
         if (this.renderHidden && c != this.activeItem) {
             c.hide();
         }
-        if(c.doLayout){
-            c.doLayout(false, this.forceLayout);
+        if(c.doLayout && this.forceLayout){
+            c.doLayout(false, true);
         }
     },
     
@@ -122,40 +122,43 @@ Ext.layout.ContainerLayout.prototype = {
 
     // private
     onResize: function(){
-        if(this.container.collapsed){
+        var ct = this.container,
+            b;
+            
+        if(ct.collapsed){
             return;
         }
-        var b = this.container.bufferResize;
-        if(b){
-            if(!this.resizeTask){
-                this.resizeTask = new Ext.util.DelayedTask(this.runLayout, this);
-                this.resizeBuffer = Ext.isNumber(b) ? b : 100;
+        if(b = ct.bufferResize){
+            // Only allow if we should buffer the layout
+            if(ct.shouldBufferLayout()){
+                if(!this.resizeTask){
+                    this.resizeTask = new Ext.util.DelayedTask(this.runLayout, this);
+                    this.resizeBuffer = Ext.isNumber(b) ? b : 100;
+                }
+                ct.layoutPending = true;
+                this.resizeTask.delay(this.resizeBuffer);
             }
-            this.resizeTask.delay(this.resizeBuffer);
         }else{
-            this.runLayout();
+            ct.doLayout();
         }
     },
     
     // private
     runLayout: function(){
-        this.layout();
-        this.container.onLayout();
+        var ct = this.container;
+        ct.doLayout();
+        delete ct.layoutPending;
     },
 
     // private
     setContainer : function(ct){
         if(this.monitorResize && ct != this.container){
-            if(this.container){
-                this.container.un('resize', this.onResize, this);
-                this.container.un('bodyresize', this.onResize, this);
+            var old = this.container;
+            if(old){
+                old.un(old.resizeEvent, this.onResize, this);
             }
             if(ct){
-                ct.on({
-                    scope: this,
-                    resize: this.onResize,
-                    bodyresize: this.onResize
-                });
+                ct.on(ct.resizeEvent, this.onResize, this);
             }
         }
         this.container = ct;

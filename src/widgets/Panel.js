@@ -674,6 +674,11 @@ new Ext.Panel({
      * footer, etc.).
      */
     preventBodyReset : false,
+    
+    /** @cfg {String} resizeEvent
+     * The event to listen to for resizing in layouts. Defaults to <tt>'bodyresize'</tt>.
+     */
+    resizeEvent: 'bodyresize',
 
     // protected - these could be used to customize the behavior of the window,
     // but changing them would not be useful without further mofifications and
@@ -1204,31 +1209,24 @@ new Ext.Panel({
 
     onLayout : function(shallow, force){
         if(this.toolbars.length > 0){
-            this.duringLayout = true;
             Ext.each(this.toolbars, function(tb){
                 tb.doLayout(undefined, force);
             });
-            delete this.duringLayout;
             this.syncHeight();
         }
     },
 
     syncHeight : function(){
-        if(!(this.autoHeight || this.duringLayout)){
-            var last = this.lastSize;
-            if(last && !Ext.isEmpty(last.height)){
-                var old = last.height, h = this.el.getHeight();
-                if(old != 'auto' && old != h){
-                    var bd = this.body, bdh = bd.getHeight();
-                    h = Math.max(bdh + old - h, 0);
-                    if(bdh > 0 && bdh != h){
-                        bd.setHeight(h);
-                        if(Ext.isIE && h <= 0){
-                            return;
-                        }
-                        var sz = bd.getSize();
-                        this.fireEvent('bodyresize', sz.width, sz.height);
-                    }
+        if(!(this.autoHeight || this.layoutInProgress)){
+            var h = this.toolbarHeight,
+                bd = this.body,
+                sz;
+            if(h > 0){
+                if(h != this.getToolbarHeight()){
+                    h = Math.max(0, this.adjustBodyHeight(this.lastSize.height - this.getFrameHeight()));
+                    bd.setHeight(h);
+                    sz = bd.getSize();
+                    this.onBodyResize(sz.width, sz.height);
                 }
             }
         }
@@ -1542,9 +1540,26 @@ new Ext.Panel({
                     }, this, {single:true});
                 }
             }
-            this.fireEvent('bodyresize', this, w, h);
+            this.onBodyResize(w, h);
         }
         this.syncShadow();
+    },
+    
+    // private
+    onBodyResize: function(w, h){
+        this.toolbarHeight = this.getToolbarHeight();
+        this.fireEvent('bodyresize', this, w, h);
+    },
+    
+    // private
+    getToolbarHeight: function(){
+        var h = 0;
+        if(this.rendered){
+            Ext.each(this.toolbars, function(tb){
+                h += tb.getHeight();
+            }, this);
+        }
+        return h;
     },
 
     // private
