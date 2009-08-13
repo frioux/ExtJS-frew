@@ -174,8 +174,17 @@ Ext.Window = Ext.extend(Ext.Panel, {
     /**
      * @cfg {Boolean} initHidden
      * True to hide the window until show() is explicitly called (defaults to true).
+     * @deprecated
      */
-    initHidden : true,
+    initHidden : undefined,
+    
+    /**
+     * @cfg {Boolean} hidden
+     * Render this component hidden (default is <tt>true</tt>). If <tt>true</tt>, the
+     * {@link #hide} method will be called internally.
+     */
+    hidden : true,
+    
     /**
     * @cfg {Boolean} monitorResize @hide
     * This is automatically managed based on the value of constrain and constrainToHeader
@@ -235,10 +244,13 @@ Ext.Window = Ext.extend(Ext.Panel, {
              */
             'restore'
         );
-        if(this.initHidden === false){
-            this.show();
-        }else{
+        // for backwards compat, this should be removed at some point
+        if(Ext.isDefined(this.initHidden)){
+            this.hidden = this.initHidden;
+        }
+        if(this.hidden === false){
             this.hidden = true;
+            this.show();
         }
     },
 
@@ -415,7 +427,6 @@ Ext.Window = Ext.extend(Ext.Panel, {
         this.updateHandles();
         this.saveState();
         this.doLayout();
-        this.fireEvent('resize', this, box.width, box.height);
     },
 
     /**
@@ -424,10 +435,10 @@ Ext.Window = Ext.extend(Ext.Panel, {
      */
     focus : function(){
         var f = this.focusEl, db = this.defaultButton, t = typeof db;
-        if(t != 'undefined'){
-            if(t == 'number' && this.fbar){
+        if(Ext.isDefined(db)){
+            if(Ext.isNumber(db) && this.fbar){
                 f = this.fbar.items.get(db);
-            }else if(t == 'string'){
+            }else if(Ext.isString(db)){
                 f = Ext.getCmp(db);
             }else{
                 f = db;
@@ -492,7 +503,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
             this.on('show', cb, scope, {single:true});
         }
         this.hidden = false;
-        if(animateTarget !== undefined){
+        if(Ext.isDefined(animateTarget)){
             this.setAnimateTarget(animateTarget);
         }
         this.beforeShow();
