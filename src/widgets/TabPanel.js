@@ -460,6 +460,7 @@ new Ext.TabPanel({
         if(t.close){
             if (t.item.fireEvent('beforeclose', t.item) !== false) {
                 t.item.fireEvent('close', t.item);
+                delete t.item.tabEl;
                 this.remove(t.item);
             }
             return;
