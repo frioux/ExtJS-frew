@@ -288,7 +288,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
         );
         this.on('afterlayout', this.onFirstLayout, this, {single: true});
         this.cursor = 0;
-        this.bindStore(this.store);
+        this.bindStore(this.store, true);
     },
 
     // private
