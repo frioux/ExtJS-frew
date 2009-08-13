@@ -1300,41 +1300,75 @@ viewConfig: {
             this.hmenu.destroy();
             delete this.hmenu;
         }
-        if(this.grid.enableColumnMove){
-            var dds = Ext.dd.DDM.ids['gridHeader' + this.grid.getGridEl().id];
-            if(dds){
-                for(var dd in dds){
-                    if(!dds[dd].config.isTarget && dds[dd].dragElId){
-                        var elid = dds[dd].dragElId;
-                        dds[dd].unreg();
-                        Ext.get(elid).remove();
-                    } else if(dds[dd].config.isTarget){
-                        dds[dd].proxyTop.remove();
-                        dds[dd].proxyBottom.remove();
-                        dds[dd].unreg();
-                    }
-                    if(Ext.dd.DDM.locationCache[dd]){
-                        delete Ext.dd.DDM.locationCache[dd];
-                    }
-                }
-                delete Ext.dd.DDM.ids['gridHeader' + this.grid.getGridEl().id];
-            }
-        }
-
-        if(this.dragZone){
-            this.dragZone.unreg();
-        }
-        
-        Ext.fly(this.innerHd).removeAllListeners();
-        Ext.removeNode(this.innerHd);
-        
-        Ext.destroy(this.resizeMarker, this.resizeProxy, this.focusEl, this.mainBody, 
-                    this.scroller, this.mainHd, this.mainWrap, this.dragZone, 
-                    this.splitZone, this.columnDrag, this.columnDrop);
 
         this.initData(null, null);
-        Ext.EventManager.removeResizeListener(this.onWindowResize, this);
         this.purgeListeners();
+        Ext.fly(this.innerHd).un("click", this.handleHdDown, this);
+
+        if(this.grid.enableColumnMove){
+            Ext.destroy(
+                this.columnDrag.el,
+                this.columnDrag.proxy.ghost,
+                this.columnDrag.proxy.el,
+                this.columnDrop.el,
+                this.columnDrop.proxyTop,
+                this.columnDrop.proxyBottom,
+                this.columnDrag.dragData.ddel,
+                this.columnDrag.dragData.header
+            );
+            if (this.columnDrag.proxy.anim) {
+                Ext.destroy(this.columnDrag.proxy.anim);
+            }
+            delete this.columnDrag.proxy.ghost;
+            delete this.columnDrag.dragData.ddel;
+            delete this.columnDrag.dragData.header;
+            this.columnDrag.destroy();
+            delete Ext.dd.DDM.locationCache[this.columnDrag.id];
+            delete this.columnDrag._domRef;
+
+            delete this.columnDrop.proxyTop;
+            delete this.columnDrop.proxyBottom;
+            this.columnDrop.destroy();
+            delete Ext.dd.DDM.locationCache["gridHeader" + this.grid.getGridEl().id];
+            delete this.columnDrop._domRef;
+            delete Ext.dd.DDM.ids[this.columnDrop.ddGroup];
+        }
+
+        if (this.splitone){ // enableColumnResize
+            this.splitone.destroy();
+            delete this.splitone._domRef;
+            delete Ext.dd.DDM.ids["gridSplitters" + this.grid.getGridEl().id];
+        }
+
+        Ext.fly(this.innerHd).removeAllListeners();
+        Ext.removeNode(this.innerHd);
+        delete this.innerHd;
+
+        Ext.destroy(
+            this.el,
+            this.mainWrap,
+            this.mainHd,
+            this.scroller,
+            this.mainBody,
+            this.focusEl,
+            this.resizeMarker,
+            this.resizeProxy,
+            this.activeHdBtn,
+            this.dragZone,
+            this.splitZone,
+            this._flyweight
+        );
+
+        delete this.grid.container;
+
+        if(this.dragZone){
+            this.dragZone.destroy();
+        }
+
+        Ext.dd.DDM.currentTarget = null;
+        delete Ext.dd.DDM.locationCache[this.grid.getGridEl().id];
+
+        Ext.EventManager.removeResizeListener(this.onWindowResize, this);
     },
 
     // private
