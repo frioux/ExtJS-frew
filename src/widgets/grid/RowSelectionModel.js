@@ -481,7 +481,11 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
 
     // private
     onEditorKey : function(field, e){
-        var k = e.getKey(), newCell, g = this.grid, ed = g.activeEditor;
+        var k = e.getKey(), 
+            newCell, 
+            g = this.grid, 
+            ed = g.activeEditor,
+            ae, last, r, c;
         var shift = e.shiftKey;
         if(k == e.TAB){
             e.stopEvent();
@@ -493,7 +497,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
             }
         }else if(k == e.ENTER){
             if(this.moveEditorOnEnter !== false){
-                var last = g.lastEdit;
+                last = g.lastEdit;
                 if(shift){
                     newCell = g.walkCells(last.row - 1, last.col, -1, this.acceptsNav, this);
                 }else{
