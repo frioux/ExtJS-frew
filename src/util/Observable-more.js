@@ -116,8 +116,41 @@ Ext.apply(Ext.util.Observable.prototype, function(){
         },
         
         /**
-         * Used to enable bubbling of events
-         * @param {Object} events
+         * <p>Enables events fired by this Observable to bubble up an owner hierarchy by calling
+         * <code>this.getBubbleTarget()</code> if present. There is no implementation in the Observable base class.</p>
+         * <p>This is commonly used by Ext.Components to bubble events to owner Containers. See {@link Ext.Component.getBubbleTarget}. The default
+         * implementation in Ext.Component returns the Component's immediate owner. But if a known target is required, this can be overridden to
+         * access the required target more quickly.</p>
+         * <p>Example:</p><pre><code>
+Ext.override(Ext.form.Field, {
+//  Add functionality to Field's initComponent to enable the change event to bubble
+    initComponent: Ext.form.Field.prototype.initComponent.createSequence(function() {
+        this.enableBubble('change');
+    }),
+
+//  We know that we want Field's events to bubble directly to the FormPanel.
+    getBubbleTarget: function() {
+        if (!this.formPanel) {
+            this.formPanel = this.findParentByType('form');
+        }
+        return this.formPanel;
+    }
+});
+
+var myForm = new Ext.formPanel({
+    title: 'User Details',
+    items: [{
+        ...
+    }],
+    listeners: {
+        change: function() {
+//          Title goes red if form has been modified.
+            myForm.header.setStyle("color", "red");
+        }
+    }
+});
+</code></pre>
+         * @param {Object} events The event name to bubble, or an Array of event names.
          */
         enableBubble: function(events){
             var me = this;
