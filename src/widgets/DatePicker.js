@@ -142,7 +142,7 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
         Ext.DatePicker.superclass.initComponent.call(this);
 
         this.value = this.value ?
-                 this.value.clearTime() : new Date().clearTime();
+                 this.value.clearTime(true) : new Date().clearTime();
 
         this.addEvents(
             /**
@@ -649,9 +649,9 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
             day = 86400000,
             d = (new Date(pm.getFullYear(), pm.getMonth(), prevStart)).clearTime(),
             today = new Date().clearTime().getTime(),
-            sel = date.clearTime().getTime(),
-            min = this.minDate ? this.minDate.clearTime() : Number.NEGATIVE_INFINITY,
-            max = this.maxDate ? this.maxDate.clearTime() : Number.POSITIVE_INFINITY,
+            sel = date.clearTime(true).getTime(),
+            min = this.minDate ? this.minDate.clearTime(true) : Number.NEGATIVE_INFINITY,
+            max = this.maxDate ? this.maxDate.clearTime(true) : Number.POSITIVE_INFINITY,
             ddMatch = this.disabledDatesRE,
             ddText = this.disabledDatesText,
             ddays = this.disabledDays ? this.disabledDays.join('') : false,
