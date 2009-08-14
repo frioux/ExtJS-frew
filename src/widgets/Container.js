@@ -188,7 +188,7 @@ new Ext.Window({
 }).show();
      * </code></pre>
      * <p>If the {@link #layout} configuration is not explicitly specified for
-     * a general purpose container (e.g. Container or Panel) the 
+     * a general purpose container (e.g. Container or Panel) the
      * {@link Ext.layout.ContainerLayout default layout manager} will be used
      * which does nothing but render child components sequentially into the
      * Container (no sizing or positioning will be performed in this situation).
@@ -271,7 +271,7 @@ layoutConfig: {
      * with a large quantity of sub-components for which frequent layout calls would be expensive. Defaults to <tt>50</tt>.
      */
     bufferResize: 50,
-    
+
     /**
      * @cfg {String/Number} activeItem
      * A string component id or the numeric index of the component that should be initially activated within the
@@ -368,9 +368,9 @@ items: [
      * and {@link Ext.Toolbar} and {@link Ext.ButtonGroup} which default to <tt>'button'</tt>.</p>
      */
     defaultType : 'panel',
-    
+
     /** @cfg {String} resizeEvent
-     * The event to listen to for resizing in layouts. Defaults to <tt>'bodyresize'</tt>.
+     * The event to listen to for resizing in layouts. Defaults to <tt>'resize'</tt>.
      */
     resizeEvent: 'resize',
 
@@ -422,7 +422,7 @@ items: [
             'remove'
         );
 
-		this.enableBubble('add', 'remove');
+        this.enableBubble('add', 'remove');
 
         /**
          * The collection of components in this container as a {@link Ext.util.MixedCollection}
@@ -453,7 +453,7 @@ items: [
         this.layout = layout;
         layout.setContainer(this);
     },
-    
+
     afterRender: function(){
         Ext.Container.superclass.afterRender.call(this);
         if(this.layout){
@@ -549,9 +549,9 @@ tb.{@link #doLayout}();             // refresh the layout
         }
         return c;
     },
-    
+
     onAdd : function(c){
-        // Empty template method  
+        // Empty template method
     },
 
     /**
@@ -645,9 +645,9 @@ tb.{@link #doLayout}();             // refresh the layout
         }
         return c;
     },
-    
+
     onRemove: function(c){
-        // Empty template method    
+        // Empty template method
     },
 
     /**
@@ -757,7 +757,7 @@ tb.{@link #doLayout}();             // refresh the layout
 
     //private
     onLayout : Ext.emptyFn,
-    
+
     // private
     shouldBufferLayout: function(){
         /*
@@ -773,7 +773,7 @@ tb.{@link #doLayout}();             // refresh the layout
         // Never buffer initial layout
         return hl;
     },
-    
+
     // private
     hasLayoutPending: function(){
         // Traverse hierarchy to see if any parent container has a pending layout.
