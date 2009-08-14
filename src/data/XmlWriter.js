@@ -61,7 +61,7 @@ Ext.data.XmlWriter = Ext.extend(Ext.data.DataWriter, {
                 output.push(this.element(k, v));
             }
         },this);
-        if (!rec.phantom) {
+        if (!rec.phantom) { // <-- if not a phantom, tack-on the <id>69</id>
             output.push(this.element(this.meta.idProperty, rec.id));
         }
         return this.element(this.meta.record, output.join(''));
@@ -98,6 +98,7 @@ Ext.data.XmlWriter = Ext.extend(Ext.data.DataWriter, {
 
     /**
      * Simple Xml element builder
+     * TODO do we want the ability to specify element attributes?
      * @param {String} tag
      * @param {Mixed} data
      * @return {String} xml element

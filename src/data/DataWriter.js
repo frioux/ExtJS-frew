@@ -70,7 +70,17 @@ Ext.data.DataWriter.prototype = {
      * @param {Record/Record[]} rs The recordset write.
      */
     write : function(action, params, rs) {
-        this.render(action, rs, params, this[action](rs));
+        var data    = [],
+        renderer    = action + 'Record';
+        if (Ext.isArray(rs)) {
+            Ext.each(rs, function(val){
+                data.push(this[renderer](val));
+            }, this);
+        }
+        else if (rs instanceof Ext.data.Record) {
+            data = this[renderer](rs);
+        }
+        this.render(action, rs, params, data);
     },
 
     /**
@@ -84,73 +94,16 @@ Ext.data.DataWriter.prototype = {
     render : Ext.emptyFn,
 
     /**
-     * update
-     * @param {Object} p Params-hash to apply result to.
-     * @param {Record/Record[]} rs Record(s) to write
-     * @private
-     */
-    update : function(rs) {
-        if (Ext.isArray(rs)) {
-            var data = [];
-            Ext.each(rs, function(val){
-                data.push(this.updateRecord(val));
-            }, this);
-            return data;
-        }
-        else if (rs instanceof Ext.data.Record) {
-            return this.updateRecord(rs);
-        }
-    },
-
-    /**
      * @cfg {Function} updateRecord Abstract method that should be implemented in all subclasses
      * (e.g.: {@link Ext.data.JsonWriter#updateRecord JsonWriter.updateRecord}
      */
     updateRecord : Ext.emptyFn,
 
     /**
-     * create
-     * @param {Object} p Params-hash to apply result to.
-     * @param {Record/Record[]} rs Record(s) to write
-     * @private
-     */
-    create : function(rs) {
-        if (Ext.isArray(rs)) {
-            var data = [];
-            Ext.each(rs, function(val){
-                data.push(this.createRecord(val));
-            }, this);
-            return data;
-        }
-        else if (rs instanceof Ext.data.Record) {
-            return this.createRecord(rs);
-        }
-    },
-
-    /**
      * @cfg {Function} createRecord Abstract method that should be implemented in all subclasses
      * (e.g.: {@link Ext.data.JsonWriter#createRecord JsonWriter.createRecord})
      */
     createRecord : Ext.emptyFn,
-
-    /**
-     * destroy
-     * @param {Object} p Params-hash to apply result to.
-     * @param {Record/Record[]} rs Record(s) to write
-     * @private
-     */
-    destroy : function(rs) {
-        if (Ext.isArray(rs)) {
-            var data = [],
-                ids = [];
-            Ext.each(rs, function(val){
-                data.push(this.destroyRecord(val));
-            }, this);
-            return data;
-        } else if (rs instanceof Ext.data.Record) {
-            return this.destroyRecord(rs);
-        }
-    },
 
     /**
      * @cfg {Function} destroyRecord Abstract method that should be implemented in all subclasses

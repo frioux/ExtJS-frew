@@ -226,6 +226,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             }
         }
 
+        // TODO return Ext.data.Response instance instead.  @see #readResponse
         return {
             success : success,
             records : this.extractData(root, true), // <-- true to return [Ext.data.Record]

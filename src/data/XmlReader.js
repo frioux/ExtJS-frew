@@ -146,7 +146,14 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
         };
     }(),
 
-    // private extractData.  Extracts rows of record-data from server.  iterates and calls #extractValues
+    /**
+     * Extracts rows of record-data from server.  iterates and calls #extractValues
+     * TODO I don't care much for method-names of #extractData, #extractValues.
+     * @param {Array} root
+     * @param {Boolean} returnRecords When true, will return instances of Ext.data.Record; otherwise just hashes.
+     * @private
+     * @ignore
+     */
     extractData : function(root, returnRecords) {
         var Record  = this.recordType,
         records     = [],
@@ -160,14 +167,20 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
             }
         } else {
             for (var i = 0, len = root.length; i < len; i++) {
-                var data = root[i];
-                records.push(this.extractValues(data, fi, fl));
+                records.push(this.extractValues(root[i], fi, fl));
             }
         }
         return records;
     },
 
-    // private extractValues
+    /**
+     * extracts values and type-casts a row-of-data from server.
+     * @param {Hash} data
+     * @param {Ext.data.Field[]} items
+     * @param {Number} len
+     * @private
+     * @ignore
+     */
     extractValues : function(data, items, len) {
         var f, values = {};
         for(var j = 0; j < len; j++){
@@ -191,10 +204,8 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
          */
         this.xmlData = doc;
 
-        var s = this.meta,
-            root    = doc.documentElement || doc,
+        var root    = doc.documentElement || doc,
             q       = Ext.DomQuery,
-            Record  = this.recordType,
             totalRecords = 0,
             success = true;
 
@@ -205,7 +216,9 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
             success = this.getSuccess(root);
         }
 
-        var records = this.extractData(q.select(this.meta.record, root), true); // <-- true to return [Ext.data.Record]
+        var records = this.extractData(q.select(this.meta.record, root), true); // <-- true to return Ext.data.Record[]
+
+        // TODO return Ext.data.Response instance.  @see #readResponse
         return {
             success : success,
             records : records,
@@ -215,13 +228,14 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
 
     /**
      * Decode a json response from server.
-     * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
-     * @param {Object} response
+     * @param {String} action [{@link Ext.data.Api#actions} create|read|update|destroy]
+     * @param {Ext.data.Response} response Returns an instance of {@link Ext.data.Response}
      */
     readResponse : function(action, response) {
-        var q = Ext.DomQuery,
-        doc = response.responseXML;
-        res = new Ext.data.Response({
+        var q   = Ext.DomQuery,
+        doc     = response.responseXML;
+
+        var res = new Ext.data.Response({
             success : this.getSuccess(doc),
             action: action,
             message: this.getMessage(doc),
@@ -243,5 +257,13 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
             }
         }
         return res;
+    },
+
+    // private function a store will createSequence upon
+    onMetaChange : function(meta){
+        delete this.ef;
+        this.meta = meta;
+        this.recordType = Ext.data.Record.create(meta.fields);
+        this.buildExtractors();
     }
 });
