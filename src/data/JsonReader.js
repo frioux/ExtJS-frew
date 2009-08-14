@@ -8,18 +8,19 @@
  * <pre><code>
 var myReader = new Ext.data.JsonReader({
     // metadata configuration options:
-    {@link #idProperty}: 'id'          
-    {@link #root}: 'rows',             
-    {@link #totalProperty}: 'results', 
-    
+    {@link #idProperty}: 'id'
+    {@link #root}: 'rows',
+    {@link #totalProperty}: 'results',
+    {@link Ext.data.DataReader#messageProperty}: "msg"  // The element within the response that provides a user-feedback message (optional)
+
     // the fields config option will internally create an {@link Ext.data.Record}
     // constructor that provides mapping for reading the record data objects
     {@link Ext.data.DataReader#fields fields}: [
-        // map Record&#39;s 'firstname' field to data object&#39;s key of same name    
+        // map Record&#39;s 'firstname' field to data object&#39;s key of same name
         {name: 'name'},
         // map Record&#39;s 'job' field to data object&#39;s 'occupation' key
         {name: 'job', mapping: 'occupation'}
-    ]    
+    ]
 });
 </code></pre>
  * <p>This would consume a JSON data object of the form:</p><pre><code>
@@ -27,7 +28,7 @@ var myReader = new Ext.data.JsonReader({
     results: 2000, // Reader&#39;s configured {@link #totalProperty}
     rows: [        // Reader&#39;s configured {@link #root}
         // record data objects:
-        { {@link #idProperty id}: 1, firstname: 'Bill', occupation: 'Gardener' },         
+        { {@link #idProperty id}: 1, firstname: 'Bill', occupation: 'Gardener' },
         { {@link #idProperty id}: 2, firstname: 'Ben' , occupation: 'Horticulturalist' },
         ...
     ]
@@ -67,16 +68,16 @@ var myReader = new Ext.data.JsonReader();
         // {@link Ext.PagingToolbar paging data} (if applicable)
         "start": 0,
         "limit": 2,
-        // custom property 
-        "foo": "bar" 
+        // custom property
+        "foo": "bar"
     },
     // Reader&#39;s configured {@link #successProperty}
     "success": true,
     // Reader&#39;s configured {@link #totalProperty}
-    "results": 2000, 
+    "results": 2000,
     // Reader&#39;s configured {@link #root}
     // (this data simulates 2 results {@link Ext.PagingToolbar per page})
-    "rows": [ // <b>*Note:</b> this must be an Array 
+    "rows": [ // <b>*Note:</b> this must be an Array
         { "id": 1, "name": "Bill", "occupation": "Gardener" },
         { "id": 2, "name":  "Ben", "occupation": "Horticulturalist" }
     ]
@@ -94,7 +95,7 @@ var myReader = new Ext.data.JsonReader();
  * {@link Ext.data.Store#sortInfo sortInfo} property</li>
  * <li>any custom properties needed</li>
  * </ul></div>
- * 
+ *
  * @constructor
  * Create a new JsonReader
  * @param {Object} meta Metadata configuration options.
@@ -105,7 +106,6 @@ var myReader = new Ext.data.JsonReader();
  */
 Ext.data.JsonReader = function(meta, recordType){
     meta = meta || {};
-
     /**
      * @cfg {String} idProperty [id] Name of the property within a row object
      * that contains a record identifier value.  Defaults to <tt>id</tt>
@@ -177,7 +177,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
     /**
      * @ignore
      */
-    getJsonAccessor : function(){
+    createAccessor : function(){
         var re = /[\[\.]/;
         return function(expr) {
             try {
@@ -226,16 +226,9 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             }
         }
 
-        var records = [];
-        for(var i = 0; i < c; i++){
-            var n = root[i];
-            var record = new Record(this.extractValues(n, fi, fl), this.getId(n));
-            record.json = n;
-            records[i] = record;
-        }
         return {
             success : success,
-            records : records,
+            records : this.extractData(root, true), // <-- true to return [Ext.data.Record]
             totalRecords : totalRecords
         };
     },
@@ -249,14 +242,17 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             f = Record.prototype.fields, fi = f.items, fl = f.length;
 
         if(s.totalProperty) {
-            this.getTotal = this.getJsonAccessor(s.totalProperty);
+            this.getTotal = this.createAccessor(s.totalProperty);
         }
         if(s.successProperty) {
-            this.getSuccess = this.getJsonAccessor(s.successProperty);
+            this.getSuccess = this.createAccessor(s.successProperty);
         }
-        this.getRoot = s.root ? this.getJsonAccessor(s.root) : function(p){return p;};
+        if (s.messageProperty) {
+            this.getMessage = this.createAccessor(s.messageProperty);
+        }
+        this.getRoot = s.root ? this.createAccessor(s.root) : function(p){return p;};
         if (s.id || s.idProperty) {
-            var g = this.getJsonAccessor(s.id || s.idProperty);
+            var g = this.createAccessor(s.id || s.idProperty);
             this.getId = function(rec) {
                 var r = g(rec);
                 return (r === undefined || r === '') ? null : r;
@@ -268,12 +264,52 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
         for(var i = 0; i < fl; i++){
             f = fi[i];
             var map = (f.mapping !== undefined && f.mapping !== null) ? f.mapping : f.name;
-            ef.push(this.getJsonAccessor(map));
+            ef.push(this.createAccessor(map));
         }
         this.ef = ef;
     },
 
-    // private extractValues
+    /**
+     * returns extracted, type-cast rows of data.  Iterates to call #extractValues for each row
+     * @param {Object[]/Object} data-root from server response
+     * @param {Boolean} returnRecords [false] Set true to return instances of Ext.data.Record
+     * @private
+     */
+    extractData : function(root, returnRecords) {
+        var rs = undefined;
+        if (this.isData(root)) {
+            root = [root];
+        }
+        if (Ext.isArray(root)) {
+            var f       = this.recordType.prototype.fields,
+                fi      = f.items,
+                fl      = f.length,
+                rs      = []
+            if (returnRecords === true) {
+                var Record = this.recordType;
+                for (var i = 0; i < root.length; i++) {
+                    var n = root[i];
+                    var record = new Record(this.extractValues(n, fi, fl), this.getId(n));
+                    record.json = n;
+                    rs.push(record);
+                }
+            }
+            else {
+                for (var i = 0; i < root.length; i++) {
+                    rs.push(this.extractValues(root[i], fi, fl));
+                }
+            }
+        }
+        return rs;
+    },
+
+    /**
+     * type-casts a single row of raw-data from server
+     * @param {Object} data
+     * @param {Array} items
+     * @param {Integer} len
+     * @private
+     */
     extractValues : function(data, items, len) {
         var f, values = {};
         for(var j = 0; j < len; j++){
@@ -288,6 +324,8 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
      * Decode a json response from server.
      * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
      * @param {Object} response
+     * TODO: refactor code between JsonReader#readRecords, #readResponse into 1 method.
+     * there's ugly duplication going on due to maintaining backwards compat. with 2.0.  It's time to do this.
      */
     readResponse : function(action, response) {
         var o = (response.responseText !== undefined) ? Ext.decode(response.responseText) : response;
@@ -298,9 +336,9 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             throw new Ext.data.JsonReader.Error('successProperty-response', this.meta.successProperty);
         }
         // TODO, separate empty and undefined exceptions.
+        var root = this.getRoot(o);
         if (action === Ext.data.Api.actions.create) {
-            var root = this.getRoot(o),
-                def = Ext.isDefined(root);
+            var def = Ext.isDefined(root);
             if (def && Ext.isEmpty(root)) {
                 throw new Ext.data.JsonReader.Error('root-empty', this.meta.root);
             }
@@ -308,7 +346,15 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
                 throw new Ext.data.JsonReader.Error('root-undefined-response', this.meta.root);
             }
         }
-        return o;
+
+        // instantiate response object
+        return new Ext.data.Response({
+            success: this.getSuccess(o),
+            action: action,
+            message: this.getMessage(o),
+            raw: o,
+            data: this.extractData(root)
+        });
     }
 });
 
@@ -327,7 +373,6 @@ Ext.apply(Ext.data.JsonReader.Error.prototype, {
     lang: {
         'response': 'An error occurred while json-decoding your server response',
         'successProperty-response': 'Could not locate your "successProperty" in your server response.  Please review your JsonReader config to ensure the config-property "successProperty" matches the property in your server-response.  See the JsonReader docs.',
-        'root-undefined-response': 'Could not locate your "root" property in your server response.  Please review your JsonReader config to ensure the config-property "root" matches the property your server-response.  See the JsonReader docs.',
         'root-undefined-config': 'Your JsonReader was configured without a "root" property.  Please review your JsonReader config and make sure to define the root property.  See the JsonReader docs.',
         'idProperty-undefined' : 'Your JsonReader was configured without an "idProperty"  Please review your JsonReader configuration and ensure the "idProperty" is set (e.g.: "id").  See the JsonReader docs.',
         'root-empty': 'Data was expected to be returned by the server in the "root" property of the response.  Please review your JsonReader configuration to ensure the "root" property matches that returned in the server-response.  See JsonReader docs.'

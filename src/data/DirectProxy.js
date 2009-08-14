@@ -46,7 +46,7 @@ paramOrder: 'param1|param2|param'
 
         switch (action) {
             case Ext.data.Api.actions.create:
-                args.push(params[reader.meta.root]);		// <-- create(Hash)
+                args.push(params.jsonData[reader.meta.root]);		// <-- create(Hash)
                 break;
             case Ext.data.Api.actions.read:
                 if(this.paramOrder){
@@ -58,10 +58,10 @@ paramOrder: 'param1|param2|param'
                 }
                 break;
             case Ext.data.Api.actions.update:
-                args.push(params[reader.meta.root]);        // <-- update(Hash/Hash[])
+                args.push(params.jsonData[reader.meta.root]);        // <-- update(Hash/Hash[])
                 break;
             case Ext.data.Api.actions.destroy:
-                args.push(params[reader.meta.root]);        // <-- destroy(Int/Int[])
+                args.push(params.jsonData[reader.meta.root]);        // <-- destroy(Int/Int[])
                 break;
         }
 
@@ -129,8 +129,9 @@ paramOrder: 'param1|param2|param'
      * @private
      */
     onWrite : function(action, trans, result, res, rs) {
-        this.fireEvent("write", this, action, result, res, rs, trans.request.arg);
-        trans.request.callback.call(trans.request.scope, result, res, true);
+        var data = trans.reader.extractData(result);
+        this.fireEvent("write", this, action, data, res, rs, trans.request.arg);
+        trans.request.callback.call(trans.request.scope, data, res, true);
     }
 });
 

@@ -70,6 +70,7 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
         this.conn.url = url;
         if (makePermanent === true) {
             this.url = url;
+            this.api = null;
             Ext.data.Api.prepare(this);
         }
     },
@@ -105,8 +106,10 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
         };
         // Sample the request data:  If it's an object, then it hasn't been json-encoded yet.
         // Transmit data using jsonData config of Ext.Ajax.request
-        if (typeof(params[reader.meta.root]) === 'object') {
-            o.jsonData = params;
+        if (params.jsonData) {
+            o.jsonData = params.jsonData;
+        } else if (params.xmlData) {
+            o.xmlData = params.xmlData;
         } else {
             o.params = params || {};
         }
@@ -211,12 +214,12 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
             o.request.callback.call(o.request.scope, null, o.request.arg, false);
             return;
         }
-        if (reader.getSuccess(res) === false) {
+        if (res.success === false) {
             this.fireEvent('exception', this, 'remote', action, o, res, rs);
         } else {
-            this.fireEvent('write', this, action, reader.getRoot(res), res, rs, o.request.arg);
+            this.fireEvent('write', this, action, res.data, res, rs, o.request.arg);
         }
-        o.request.callback.call(o.request.scope, reader.getRoot(res), res, reader.getSuccess(res));
+        o.request.callback.call(o.request.scope, res.data, res, res.success);
     },
 
     // inherit docs

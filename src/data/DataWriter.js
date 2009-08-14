@@ -44,14 +44,8 @@ var store = new Ext.data.Store({
  * using {@link Ext.data.Record#create}.
  */
 Ext.data.DataWriter = function(config){
-    /**
-     * This DataWriter's configured metadata as passed to the constructor.
-     * @type Mixed
-     * @property meta
-     */
     Ext.apply(this, config);
 };
-
 Ext.data.DataWriter.prototype = {
 
     /**
@@ -96,18 +90,16 @@ Ext.data.DataWriter.prototype = {
      * @private
      */
     update : function(rs) {
-        var params = {};
         if (Ext.isArray(rs)) {
             var data = [];
             Ext.each(rs, function(val){
                 data.push(this.updateRecord(val));
             }, this);
-            params[this.meta.root] = data;
+            return data;
         }
         else if (rs instanceof Ext.data.Record) {
-            params[this.meta.root] = this.updateRecord(rs);
+            return this.updateRecord(rs);
         }
-        return params;
     },
 
     /**
@@ -123,18 +115,16 @@ Ext.data.DataWriter.prototype = {
      * @private
      */
     create : function(rs) {
-        var params = {};
         if (Ext.isArray(rs)) {
             var data = [];
             Ext.each(rs, function(val){
                 data.push(this.createRecord(val));
             }, this);
-            params[this.meta.root] = data;
+            return data;
         }
         else if (rs instanceof Ext.data.Record) {
-            params[this.meta.root] = this.createRecord(rs);
+            return this.createRecord(rs);
         }
-        return params;
     },
 
     /**
@@ -150,18 +140,16 @@ Ext.data.DataWriter.prototype = {
      * @private
      */
     destroy : function(rs) {
-        var params = {};
         if (Ext.isArray(rs)) {
             var data = [],
                 ids = [];
             Ext.each(rs, function(val){
                 data.push(this.destroyRecord(val));
             }, this);
-            params[this.meta.root] = data;
+            return data;
         } else if (rs instanceof Ext.data.Record) {
-            params[this.meta.root] = this.destroyRecord(rs);
+            return this.destroyRecord(rs);
         }
-        return params;
     },
 
     /**

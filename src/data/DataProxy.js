@@ -405,7 +405,7 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
         }
 
         var format = null;
-        var m = url.match(/(.*)(\.json|xml|html)$/);  // <-- look for urls with "provides" suffix, e.g.: /users.json, /users.xml, etc
+        var m = url.match(/(.*)(\.json|\.xml|\.html)$/);  // <-- look for urls with "provides" suffix, e.g.: /users.json, /users.xml, etc
 
         if (m) {
             format = m[2];
@@ -455,3 +455,5 @@ Ext.apply(Ext.data.DataProxy.Error.prototype, {
         'api-invalid': 'Recieved an invalid API-configuration.  Please ensure your proxy API-configuration contains only the actions from Ext.data.Api.actions.'
     }
 });
+
+

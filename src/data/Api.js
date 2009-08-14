@@ -183,28 +183,42 @@ new Ext.data.HttpProxy({
             // to satisfy initial 3.0 final release of REST features.
             proxy.onWrite = proxy.onWrite.createInterceptor(function(action, o, response, rs) {
                 var reader = o.reader;
-                var res = {};
+                var res = new Ext.data.Response({
+                    action: action,
+                    raw: response
+                });
+
                 switch (response.status) {
                     case 200:   // standard 200 response, send control back to HttpProxy#onWrite
                         return true;
                         break;
                     case 201:   // entity created but no response returned
-                        res[reader.meta.successProperty] = true;
+                        //res[reader.meta.successProperty] = true;
+                        res.success = true;
                         break;
                     case 204:  // no-content.  Create a fake response.
-                        res[reader.meta.successProperty] = true;
-                        res[reader.meta.root] = null;
+                        //res[reader.meta.successProperty] = true;
+                        //res[reader.meta.root] = null;
+                        res.success = true;
+                        res.data = null;
                         break;
                     default:
                         return true;
                         break;
                 }
+                /*
                 if (res[reader.meta.successProperty] === true) {
                     this.fireEvent("write", this, action, res[reader.meta.root], res, rs, o.request.arg);
                 } else {
                     this.fireEvent('exception', this, 'remote', action, o, res, rs);
                 }
-                o.request.callback.call(o.request.scope, res[reader.meta.root], res, res[reader.meta.successProperty]);
+                */
+                if (res.success === true) {
+                    this.fireEvent("write", this, action, res.data, res, rs, o.request.arg);
+                } else {
+                    this.fireEvent('exception', this, 'remote', action, o, res, rs);
+                }
+                o.request.callback.call(o.request.scope, res.data, res, res.success);
 
                 return false;   // <-- false to prevent intercepted function from running.
             }, proxy);

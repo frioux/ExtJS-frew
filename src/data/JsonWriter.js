@@ -36,16 +36,18 @@ Ext.extend(Ext.data.JsonWriter, Ext.data.DataWriter, {
      * @param {Object} data object populated according to DataReader meta-data "root" and "idProperty"
      */
     render : function(action, rs, params, data) {
-        Ext.apply(params, data);
-
         if (this.encode === true) {
-            params[this.meta.root] = Ext.encode(params[this.meta.root]);
+            params[this.meta.root] = Ext.encode(data);
+        } else {
+            params.jsonData = {};
+            params.jsonData[this.meta.root] = data;
         }
     },
     /**
      * createRecord
      * @protected
      * @param {Ext.data.Record} rec
+     * @return {Object}
      */
     createRecord : function(rec) {
        var data = this.toHash(rec);
@@ -63,6 +65,7 @@ Ext.extend(Ext.data.JsonWriter, Ext.data.DataWriter, {
      * updateRecord
      * @protected
      * @param {Ext.data.Record} rec
+     * @return {Object}
      */
     updateRecord : function(rec) {
         return this.toHash(rec);
@@ -72,6 +75,7 @@ Ext.extend(Ext.data.JsonWriter, Ext.data.DataWriter, {
      * destroyRecord
      * @protected
      * @param {Ext.data.Record} rec
+     * @return {Object}
      */
     destroyRecord : function(rec) {
         return rec.id;

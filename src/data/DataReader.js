@@ -35,11 +35,45 @@ Ext.data.DataReader = function(meta, recordType){
 };
 
 Ext.data.DataReader.prototype = {
-
     /**
-     * Abstract method, overridden in {@link Ext.data.JsonReader}
+     * @cfg {String} messageProperty [undefined] Optional name of a property within a server-response that represents a user-feedback message.
+     */
+    /**
+     * Abstract method created in extension's buildExtractors impl.
+     */
+    getTotal: Ext.emptyFn,
+    /**
+     * Abstract method created in extension's buildExtractors impl.
+     */
+    getRoot: Ext.emptyFn,
+    /**
+     * Abstract method created in extension's buildExtractors impl.
+     */
+    getMessage: Ext.emptyFn,
+    /**
+     * Abstract method created in extension's buildExtractors impl.
+     */
+    getRoot: Ext.emptyFn,
+    /**
+     * Abstract method created in extension's buildExtractors impl.
+     */
+    getSuccess: Ext.emptyFn,
+    /**
+     * Abstract method created in extension's buildExtractors impl.
+     */
+    getId: Ext.emptyFn,
+    /**
+     * Abstract method, overridden in DataReader extensions such as {@link Ext.data.JsonReader} and {@link Ext.data.XmlReader}
      */
     buildExtractors : Ext.emptyFn,
+    /**
+     * Abstract method overridden in DataReader extensions such as {@link Ext.data.JsonReader} and {@link Ext.data.XmlReader}
+     */
+    extractData : Ext.emptyFn,
+    /**
+     * Abstract method overridden in DataReader extensions such as {@link Ext.data.JsonReader} and {@link Ext.data.XmlReader}
+     */
+    extractValues : Ext.emptyFn,
 
     /**
      * Used for un-phantoming a record after a successful database insert.  Sets the records pk along with new data from server.
@@ -74,11 +108,10 @@ Ext.data.DataReader.prototype = {
                 //rs.commit();
                 throw new Ext.data.DataReader.Error('realize', rs);
             }
-            var values = this.extractValues(data, rs.fields.items, rs.fields.items.length);
             rs.phantom = false; // <-- That's what it's all about
             rs._phid = rs.id;  // <-- copy phantom-id -> _phid, so we can remap in Store#onCreateRecords
             rs.id = this.getId(data);
-            rs.data = values;
+            rs.data = data;
             rs.commit();
         }
     },
@@ -110,7 +143,7 @@ Ext.data.DataReader.prototype = {
                 data = data.shift();
             }
             if (this.isData(data)) {
-                rs.data = this.extractValues(Ext.apply(rs.data, data), rs.fields.items, rs.fields.items.length);
+                rs.data = Ext.apply(rs.data, data);
             }
             rs.commit();
         }
@@ -147,4 +180,16 @@ Ext.apply(Ext.data.DataReader.Error.prototype, {
     }
 });
 
-
+/**
+ * Ext.data.Response
+ */
+Ext.data.Response = function(params) {
+    Ext.apply(this, params);
+};
+Ext.data.Response.prototype = {
+    success : undefined,
+    message : undefined,
+    data: undefined,
+    raw: undefined,
+    records: undefined
+}

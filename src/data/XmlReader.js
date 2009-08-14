@@ -12,9 +12,10 @@ var Employee = Ext.data.Record.create([
    {name: 'occupation'}                 // This field will use "occupation" as the mapping.
 ]);
 var myReader = new Ext.data.XmlReader({
-   totalRecords: "results", // The element which contains the total dataset size (optional)
+   totalProperty: "results", // The element which contains the total dataset size (optional)
    record: "row",           // The repeated element which contains row information
-   id: "id"                 // The element within the row that provides an ID for the record (optional)
+   idProperty: "id"         // The element within the row that provides an ID for the record (optional)
+   messageProperty: "msg"   // The element within the response that provides a user-feedback message (optional)
 }, Employee);
 </code></pre>
  * <p>
@@ -35,11 +36,12 @@ var myReader = new Ext.data.XmlReader({
  &lt;/row>
 &lt;/dataset>
 </code></pre>
- * @cfg {String} totalRecords The DomQuery path from which to retrieve the total number of records
+ * @cfg {String} totalProperty The DomQuery path from which to retrieve the total number of records
  * in the dataset. This is only needed if the whole dataset is not passed in one go, but is being
  * paged from the remote server.
  * @cfg {String} record The DomQuery path to the repeated element which contains record information.
- * @cfg {String} success The DomQuery path to the success attribute used by forms.
+ * @cfg {String} record The DomQuery path to the repeated element which contains record information.
+ * @cfg {String} successProperty The DomQuery path to the success attribute used by forms.
  * @cfg {String} idPath The DomQuery path relative from the record element to the element that contains
  * a record identifier value.
  * @constructor
@@ -50,6 +52,10 @@ var myReader = new Ext.data.XmlReader({
  */
 Ext.data.XmlReader = function(meta, recordType){
     meta = meta || {};
+
+    // backwards compat, convert idPath to idProperty
+    meta.idProperty = meta.idProperty || meta.idPath;
+
     Ext.data.XmlReader.superclass.constructor.call(this, meta, recordType || meta.fields);
 };
 Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
@@ -68,6 +74,110 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
         return this.readRecords(doc);
     },
 
+    getSuccess : function() {
+        return true;
+    },
+
+    buildExtractors : function() {
+        if(this.ef){
+            return;
+        }
+        var s       = this.meta,
+            Record  = this.recordType,
+            f       = Record.prototype.fields,
+            fi      = f.items,
+            fl      = f.length;
+
+        if(s.totalProperty) {
+            this.getTotal = this.createAccessor(s.totalProperty);
+        }
+        if(s.successProperty) {
+            this.getSuccess = this.createAccessor(s.successProperty);
+        }
+        if (s.messageProperty) {
+            this.getMessage = this.createAccessor(s.messageProperty);
+        }
+        this.getRoot = function(res) {
+            return (!Ext.isEmpty(res[this.meta.record])) ? res[this.meta.record] : res[this.meta.root];
+        }
+        if (s.idPath || s.idProperty) {
+            var g = this.createAccessor(s.idPath || s.idProperty);
+            this.getId = function(rec) {
+                var id = g(rec) || rec.id;
+                return (id === undefined || id === '') ? null : id;
+            };
+        } else {
+            this.getId = function(){return null;};
+        }
+        var ef = [];
+        for(var i = 0; i < fl; i++){
+            f = fi[i];
+            var map = (f.mapping !== undefined && f.mapping !== null) ? f.mapping : f.name;
+            ef.push(this.createAccessor(map));
+        }
+        this.ef = ef;
+    },
+
+    /**
+     * @ignore
+     */
+    createAccessor : function(){
+        var q = Ext.DomQuery;
+        return function(key) {
+            switch(key) {
+                case this.meta.totalProperty:
+                    return function(root, def){
+                        q.selectNumber(key, root, def);
+                    }
+                    break;
+                case this.meta.successProperty:
+                    return function(root, def) {
+                        var sv = q.selectValue(key, root, true);
+                        var success = sv !== false && sv !== 'false';
+                        return success;
+                    }
+                    break;
+                default:
+                    return function(root, def) {
+                        return q.selectValue(key, root, def);
+                    }
+                    break;
+            }
+        };
+    }(),
+
+    // private extractData.  Extracts rows of record-data from server.  iterates and calls #extractValues
+    extractData : function(root, returnRecords) {
+        var Record  = this.recordType,
+        records     = [],
+        f           = Record.prototype.fields,
+        fi          = f.items,
+        fl          = f.length;
+        if (returnRecords === true) {
+            for (var i = 0, len = root.length; i < len; i++) {
+                var data = root[i];
+                records.push(new Record(this.extractValues(data, fi, fl), this.getId(data)));
+            }
+        } else {
+            for (var i = 0, len = root.length; i < len; i++) {
+                var data = root[i];
+                records.push(this.extractValues(data, fi, fl));
+            }
+        }
+        return records;
+    },
+
+    // private extractValues
+    extractValues : function(data, items, len) {
+        var f, values = {};
+        for(var j = 0; j < len; j++){
+            f = items[j];
+            var v = this.ef[j](data);
+            values[f.name] = f.convert((v !== undefined) ? v : f.defaultValue, data);
+        }
+        return values;
+    },
+
     /**
      * Create a data block containing Ext.data.Records from an XML document.
      * @param {Object} doc A parsed XML document.
@@ -80,36 +190,22 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
          * @type XMLDocument
          */
         this.xmlData = doc;
-        var root = doc.documentElement || doc;
-        var q = Ext.DomQuery;
-        var recordType = this.recordType, fields = recordType.prototype.fields;
-        var sid = this.meta.idPath || this.meta.id;
-        var totalRecords = 0, success = true;
-        if(this.meta.totalRecords){
-            totalRecords = q.selectNumber(this.meta.totalRecords, root, 0);
+
+        var s = this.meta,
+            root    = doc.documentElement || doc,
+            q       = Ext.DomQuery,
+            Record  = this.recordType,
+            totalRecords = 0,
+            success = true;
+
+        if(this.meta.totalProperty){
+            totalRecords = this.getTotal(root, 0);
+        }
+        if(this.meta.successProperty){
+            success = this.getSuccess(root);
         }
 
-        if(this.meta.success){
-            var sv = q.selectValue(this.meta.success, root, true);
-            success = sv !== false && sv !== 'false';
-        }
-        var records = [];
-        var ns = q.select(this.meta.record, root);
-        for(var i = 0, len = ns.length; i < len; i++) {
-            var n = ns[i];
-            var values = {};
-            var id = sid ? q.selectValue(sid, n) : undefined;
-            for(var j = 0, jlen = fields.length; j < jlen; j++){
-                var f = fields.items[j];
-                var v = q.selectValue(Ext.value(f.mapping, f.name, true), n, f.defaultValue);
-                v = f.convert(v, n);
-                values[f.name] = v;
-            }
-            var record = new recordType(values, id);
-            record.node = n;
-            records[records.length] = record;
-        }
-
+        var records = this.extractData(q.select(this.meta.record, root), true); // <-- true to return [Ext.data.Record]
         return {
             success : success,
             records : records,
@@ -117,6 +213,35 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
         };
     },
 
-    // TODO: implement readResponse for XmlReader
-    readResponse : Ext.emptyFn
+    /**
+     * Decode a json response from server.
+     * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
+     * @param {Object} response
+     */
+    readResponse : function(action, response) {
+        var q = Ext.DomQuery,
+        doc = response.responseXML;
+        res = new Ext.data.Response({
+            success : this.getSuccess(doc),
+            action: action,
+            message: this.getMessage(doc),
+            raw: doc,
+            data: this.extractData(q.select(this.meta.record, doc) || q.select(this.meta.root, doc))
+        });
+
+        if (Ext.isEmpty(res.success)) {
+            throw new Ext.data.DataReader.Error('successProperty-response', this.meta.successProperty);
+        }
+
+        if (action === Ext.data.Api.actions.create) {
+            var def = Ext.isDefined(res.data);
+            if (def && Ext.isEmpty(res.data)) {
+                throw new Ext.data.JsonReader.Error('root-empty', this.meta.root);
+            }
+            else if (!def) {
+                throw new Ext.data.JsonReader.Error('root-undefined-response', this.meta.root);
+            }
+        }
+        return res;
+    }
 });
