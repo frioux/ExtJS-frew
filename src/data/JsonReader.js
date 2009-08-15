@@ -159,37 +159,45 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
         return this.readRecords(o);
     },
 
-    // private function a store will createSequence upon
-    onMetaChange : function(meta){
-        delete this.ef;
-        this.meta = meta;
-        this.recordType = Ext.data.Record.create(meta.fields);
-        this.buildExtractors();
-    },
-
     /**
-     * @ignore
+     * Decode a json response from server.
+     * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
+     * @param {Object} response
+     * TODO: refactor code between JsonReader#readRecords, #readResponse into 1 method.
+     * there's ugly duplication going on due to maintaining backwards compat. with 2.0.  It's time to do this.
      */
-    simpleAccess : function(obj, subsc) {
-        return obj[subsc];
-    },
+    readResponse : function(action, response) {
+        var o = (response.responseText !== undefined) ? Ext.decode(response.responseText) : response;
+        if(!o) {
+            throw new Ext.data.JsonReader.Error('response');
+        }
 
-    /**
-     * @ignore
-     */
-    createAccessor : function(){
-        var re = /[\[\.]/;
-        return function(expr) {
-            try {
-                return(re.test(expr)) ?
-                new Function('obj', 'return obj.' + expr) :
-                function(obj){
-                    return obj[expr];
-                };
-            } catch(e){}
-            return Ext.emptyFn;
-        };
-    }(),
+        var root = this.getRoot(o);
+        if (action === Ext.data.Api.actions.create) {
+            var def = Ext.isDefined(root);
+            if (def && Ext.isEmpty(root)) {
+                throw new Ext.data.JsonReader.Error('root-empty', this.meta.root);
+            }
+            else if (!def) {
+                throw new Ext.data.JsonReader.Error('root-undefined-response', this.meta.root);
+            }
+        }
+
+        // instantiate response object
+        var res = new Ext.data.Response({
+            action: action,
+            success: this.getSuccess(o),
+            data: this.extractData(root),
+            message: this.getMessage(o),
+            raw: o
+        });
+
+        // blow up if no successProperty
+        if (Ext.isEmpty(res.success)) {
+            throw new Ext.data.JsonReader.Error('successProperty-response', this.meta.successProperty);
+        }
+        return res;
+    },
 
     /**
      * Create a data block containing Ext.data.Records from a JSON object.
@@ -271,6 +279,31 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
     },
 
     /**
+     * @ignore
+     * TODO This isn't used anywhere??  Don't we want to use this where possible instead of complex #createAccessor?
+     */
+    simpleAccess : function(obj, subsc) {
+        return obj[subsc];
+    },
+
+    /**
+     * @ignore
+     */
+    createAccessor : function(){
+        var re = /[\[\.]/;
+        return function(expr) {
+            try {
+                return(re.test(expr)) ?
+                new Function('obj', 'return obj.' + expr) :
+                function(obj){
+                    return obj[expr];
+                };
+            } catch(e){}
+            return Ext.emptyFn;
+        };
+    }(),
+
+    /**
      * returns extracted, type-cast rows of data.  Iterates to call #extractValues for each row
      * @param {Object[]/Object} data-root from server response
      * @param {Boolean} returnRecords [false] Set true to return instances of Ext.data.Record
@@ -319,45 +352,6 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             values[f.name] = f.convert((v !== undefined) ? v : f.defaultValue, data);
         }
         return values;
-    },
-
-    /**
-     * Decode a json response from server.
-     * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
-     * @param {Object} response
-     * TODO: refactor code between JsonReader#readRecords, #readResponse into 1 method.
-     * there's ugly duplication going on due to maintaining backwards compat. with 2.0.  It's time to do this.
-     */
-    readResponse : function(action, response) {
-        var o = (response.responseText !== undefined) ? Ext.decode(response.responseText) : response;
-        if(!o) {
-            throw new Ext.data.JsonReader.Error('response');
-        }
-
-        var root = this.getRoot(o);
-        if (action === Ext.data.Api.actions.create) {
-            var def = Ext.isDefined(root);
-            if (def && Ext.isEmpty(root)) {
-                throw new Ext.data.JsonReader.Error('root-empty', this.meta.root);
-            }
-            else if (!def) {
-                throw new Ext.data.JsonReader.Error('root-undefined-response', this.meta.root);
-            }
-        }
-
-        // instantiate response object
-        var res = new Ext.data.Response({
-            success: this.getSuccess(o),
-            action: action,
-            message: this.getMessage(o),
-            raw: o,
-            data: this.extractData(root)
-        });
-
-        if (Ext.isEmpty(res.success)) {
-            throw new Ext.data.JsonReader.Error('successProperty-response', this.meta.successProperty);
-        }
-        return res;
     }
 });
 

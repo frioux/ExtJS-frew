@@ -74,10 +74,83 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
         return this.readRecords(doc);
     },
 
+    /**
+     * Create a data block containing Ext.data.Records from an XML document.
+     * @param {Object} doc A parsed XML document.
+     * @return {Object} records A data block which is used by an {@link Ext.data.Store} as
+     * a cache of Ext.data.Records.
+     */
+    readRecords : function(doc){
+        /**
+         * After any data loads/reads, the raw XML Document is available for further custom processing.
+         * @type XMLDocument
+         */
+        this.xmlData = doc;
+
+        var root    = doc.documentElement || doc,
+            q       = Ext.DomQuery,
+            totalRecords = 0,
+            success = true;
+
+        if(this.meta.totalProperty){
+            totalRecords = this.getTotal(root, 0);
+        }
+        if(this.meta.successProperty){
+            success = this.getSuccess(root);
+        }
+
+        var records = this.extractData(q.select(this.meta.record, root), true); // <-- true to return Ext.data.Record[]
+
+        // TODO return Ext.data.Response instance.  @see #readResponse
+        return {
+            success : success,
+            records : records,
+            totalRecords : totalRecords || records.length
+        };
+    },
+
+    /**
+     * Decode a json response from server.
+     * @param {String} action [{@link Ext.data.Api#actions} create|read|update|destroy]
+     * @param {Ext.data.Response} response Returns an instance of {@link Ext.data.Response}
+     */
+    readResponse : function(action, response) {
+        var q   = Ext.DomQuery,
+        doc     = response.responseXML;
+
+        var res = new Ext.data.Response({
+            action: action,
+            success : this.getSuccess(doc),
+            message: this.getMessage(doc),
+            data: this.extractData(q.select(this.meta.record, doc) || q.select(this.meta.root, doc)),
+            raw: doc
+        });
+
+        if (Ext.isEmpty(res.success)) {
+            throw new Ext.data.DataReader.Error('successProperty-response', this.meta.successProperty);
+        }
+
+        if (action === Ext.data.Api.actions.create) {
+            var def = Ext.isDefined(res.data);
+            if (def && Ext.isEmpty(res.data)) {
+                throw new Ext.data.JsonReader.Error('root-empty', this.meta.root);
+            }
+            else if (!def) {
+                throw new Ext.data.JsonReader.Error('root-undefined-response', this.meta.root);
+            }
+        }
+        return res;
+    },
+
     getSuccess : function() {
         return true;
     },
 
+    /**
+     * build response-data extractor functions.
+     * @private
+     * @ignore
+     */
     buildExtractors : function() {
         if(this.ef){
             return;
@@ -119,6 +192,10 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
     },
 
     /**
+     * Creates a function to return some particular key of data from a response.
+     * @param {String} key
+     * @return {Function}
+     * @private
      * @ignore
      */
     createAccessor : function(){
@@ -174,7 +251,7 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
     },
 
     /**
-     * extracts values and type-casts a row-of-data from server.
+     * extracts values and type-casts a row of data from server, extracted by #extractData
      * @param {Hash} data
      * @param {Ext.data.Field[]} items
      * @param {Number} len
@@ -189,81 +266,5 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
             values[f.name] = f.convert((v !== undefined) ? v : f.defaultValue, data);
         }
         return values;
-    },
-
-    /**
-     * Create a data block containing Ext.data.Records from an XML document.
-     * @param {Object} doc A parsed XML document.
-     * @return {Object} records A data block which is used by an {@link Ext.data.Store} as
-     * a cache of Ext.data.Records.
-     */
-    readRecords : function(doc){
-        /**
-         * After any data loads/reads, the raw XML Document is available for further custom processing.
-         * @type XMLDocument
-         */
-        this.xmlData = doc;
-
-        var root    = doc.documentElement || doc,
-            q       = Ext.DomQuery,
-            totalRecords = 0,
-            success = true;
-
-        if(this.meta.totalProperty){
-            totalRecords = this.getTotal(root, 0);
-        }
-        if(this.meta.successProperty){
-            success = this.getSuccess(root);
-        }
-
-        var records = this.extractData(q.select(this.meta.record, root), true); // <-- true to return Ext.data.Record[]
-
-        // TODO return Ext.data.Response instance.  @see #readResponse
-        return {
-            success : success,
-            records : records,
-            totalRecords : totalRecords || records.length
-        };
-    },
-
-    /**
-     * Decode a json response from server.
-     * @param {String} action [{@link Ext.data.Api#actions} create|read|update|destroy]
-     * @param {Ext.data.Response} response Returns an instance of {@link Ext.data.Response}
-     */
-    readResponse : function(action, response) {
-        var q   = Ext.DomQuery,
-        doc     = response.responseXML;
-
-        var res = new Ext.data.Response({
-            success : this.getSuccess(doc),
-            action: action,
-            message: this.getMessage(doc),
-            raw: doc,
-            data: this.extractData(q.select(this.meta.record, doc) || q.select(this.meta.root, doc))
-        });
-
-        if (Ext.isEmpty(res.success)) {
-            throw new Ext.data.DataReader.Error('successProperty-response', this.meta.successProperty);
-        }
-
-        if (action === Ext.data.Api.actions.create) {
-            var def = Ext.isDefined(res.data);
-            if (def && Ext.isEmpty(res.data)) {
-                throw new Ext.data.JsonReader.Error('root-empty', this.meta.root);
-            }
-            else if (!def) {
-                throw new Ext.data.JsonReader.Error('root-undefined-response', this.meta.root);
-            }
-        }
-        return res;
-    },
-
-    // private function a store will createSequence upon
-    onMetaChange : function(meta){
-        delete this.ef;
-        this.meta = meta;
-        this.recordType = Ext.data.Record.create(meta.fields);
-        this.buildExtractors();
     }
 });

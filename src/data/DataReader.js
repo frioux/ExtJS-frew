@@ -153,6 +153,14 @@ Ext.data.DataReader.prototype = {
      */
     isData : function(data) {
         return (data && Ext.isObject(data) && !Ext.isEmpty(this.getId(data))) ? true : false;
+    },
+
+    // private function a store will createSequence upon
+    onMetaChange : function(meta){
+        delete this.ef;
+        this.meta = meta;
+        this.recordType = Ext.data.Record.create(meta.fields);
+        this.buildExtractors();
     }
 };
 
