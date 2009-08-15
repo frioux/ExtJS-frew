@@ -32,13 +32,13 @@ Ext.data.HttpProxy = function(conn){
 
     // nullify the connection url.  The url param has been copied to 'this' above.  The connection
     // url will be set during each execution of doRequest when buildUrl is called.  This makes it easier for users to override the
-    // connection url during beforeaction events (ie: beforeload, beforesave, etc).  The connection url will be nullified
-    // after each request as well.  Url is always re-defined during doRequest.
+    // connection url during beforeaction events (ie: beforeload, beforewrite, etc).
+    // Url is always re-defined during doRequest.
     this.conn.url = null;
 
     this.useAjax = !conn || !conn.events;
 
-    //private.  A hash containing active requests, keyed on action [Ext.data.Api.actions.create|read|update|destroy]
+    // A hash containing active requests, keyed on action [Ext.data.Api.actions.create|read|update|destroy]
     var actions = Ext.data.Api.actions;
     this.activeRequest = {};
     for (var verb in actions) {
@@ -157,6 +157,7 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
             if (!success) {
                 if (action === Ext.data.Api.actions.read) {
                     // @deprecated: fire loadexception for backwards compat.
+                    // TODO remove in 3.1
                     this.fireEvent('loadexception', this, o, response);
                 }
                 this.fireEvent('exception', this, 'response', action, o, response);
@@ -187,13 +188,16 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
             result = o.reader.read(response);
         }catch(e){
             // @deprecated: fire old loadexception for backwards-compat.
+            // TODO remove in 3.1
             this.fireEvent('loadexception', this, o, response, e);
+
             this.fireEvent('exception', this, 'response', action, o, response, e);
             o.request.callback.call(o.request.scope, null, o.request.arg, false);
             return;
         }
         if (result.success === false) {
             // @deprecated: fire old loadexception for backwards-compat.
+            // TODO remove in 3.1
             this.fireEvent('loadexception', this, o, response);
 
             // Get DataReader read-back a response-object to pass along to exception event
