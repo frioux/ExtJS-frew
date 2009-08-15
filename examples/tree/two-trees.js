@@ -33,14 +33,14 @@ var TreeTest = function(){
             
             //-------------------------------------------------------------
             
-            // YUI tree            
+            // ExtJS tree            
             var tree2 = new Tree.TreePanel({
                 animate:true,
                 autoScroll:true,
                 //rootVisible: false,
                 loader: new Ext.tree.TreeLoader({
                     dataUrl:'get-nodes.php',
-                    baseParams: {lib:'yui'} // custom http params
+                    baseParams: {path:'extjs'} // custom http params
                 }),
                 containerScroll: true,
                 border: false,
@@ -53,9 +53,9 @@ var TreeTest = function(){
             
             // add the root node
             var root2 = new Tree.AsyncTreeNode({
-                text: 'My Files', 
+                text: 'Extensions', 
                 draggable:false, 
-                id:'yui'
+                id:'ux'
             });
             tree2.setRootNode(root2);
             tree2.render('tree2');
