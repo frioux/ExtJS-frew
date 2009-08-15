@@ -17,17 +17,6 @@ Ext.apply(Ext.CompositeElementLite.prototype, {
     },
     
     /**
-    * Clears this composite and adds the elements returned by the passed selector.
-    * @param {String/Array} els A string CSS selector, an array of elements or an element
-    * @return {CompositeElement} this
-    */
-    fill : function(els){
-        this.elements = [];
-        this.add(els);
-        return this;
-    },
-    
-    /**
      * Returns the first Element
      * @return {Ext.Element}
      */
@@ -50,22 +39,6 @@ Ext.apply(Ext.CompositeElementLite.prototype, {
      */
     contains : function(el){
         return this.indexOf(el) != -1;
-    },
-
-    /**
-    * Filters this composite to only elements that match the passed selector.
-    * @param {String} selector A string CSS selector
-    * @return {CompositeElement} this
-    */
-    filter : function(selector){
-        var els = [];
-        this.each(function(el){
-            if(el.is(selector)){
-                els[els.length] = el.dom;
-            }
-        });
-        this.fill(els);
-        return this;
     },
     
     /**
