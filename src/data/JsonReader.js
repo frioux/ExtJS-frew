@@ -285,7 +285,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             var f       = this.recordType.prototype.fields,
                 fi      = f.items,
                 fl      = f.length,
-                rs      = []
+                rs      = [];
             if (returnRecords === true) {
                 var Record = this.recordType;
                 for (var i = 0; i < root.length; i++) {
@@ -333,10 +333,7 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
         if(!o) {
             throw new Ext.data.JsonReader.Error('response');
         }
-        if (Ext.isEmpty(this.getSuccess(o))) {
-            throw new Ext.data.JsonReader.Error('successProperty-response', this.meta.successProperty);
-        }
-        // TODO, separate empty and undefined exceptions.
+
         var root = this.getRoot(o);
         if (action === Ext.data.Api.actions.create) {
             var def = Ext.isDefined(root);
@@ -349,13 +346,18 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
         }
 
         // instantiate response object
-        return new Ext.data.Response({
+        var res = new Ext.data.Response({
             success: this.getSuccess(o),
             action: action,
             message: this.getMessage(o),
             raw: o,
             data: this.extractData(root)
         });
+
+        if (Ext.isEmpty(res.success)) {
+            throw new Ext.data.JsonReader.Error('successProperty-response', this.meta.successProperty);
+        }
+        return res;
     }
 });
 

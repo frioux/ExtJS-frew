@@ -404,12 +404,16 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
             throw new Ext.data.Api.Error('invalid-url', action);
         }
 
+        // look for urls having "provides" suffix (from Rails/Merb and others...),
+        // e.g.: /users.json, /users.xml, etc
+        // with restful routes, we need urls like:
+        // PUT /users/1.json
+        // DELETE /users/1.json
         var format = null;
-        var m = url.match(/(.*)(\.json|\.xml|\.html)$/);  // <-- look for urls with "provides" suffix, e.g.: /users.json, /users.xml, etc
-
+        var m = url.match(/(.*)(\.json|\.xml|\.html)$/);
         if (m) {
-            format = m[2];
-            url = m[1];
+            format = m[2];  // eg ".json"
+            url = m[1];     // eg: "/users"
         }
         // prettyUrls is deprectated in favor of restful-config
         if ((this.prettyUrls === true || this.restful === true) && record instanceof Ext.data.Record && !record.phantom) {

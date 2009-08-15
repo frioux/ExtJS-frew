@@ -837,7 +837,8 @@ sortInfo: {
             doRequest = this.fireEvent('beforeload', this, options);
         }
         else {
-            // if Writer is configured as listful, force single-recoord rs to be [{}} instead of {}
+            // if Writer is configured as listful, force single-record rs to be [{}] instead of {}
+            // TODO Move listful rendering into DataWriter where the @cfg is defined.  Should be easy now.
             if (this.writer.listful === true && this.restful !== true) {
                 rs = (Ext.isArray(rs)) ? rs : [rs];
             }
@@ -854,10 +855,11 @@ sortInfo: {
             // Send request to proxy.
             var params = Ext.apply({}, options.params, this.baseParams);
             if (this.writer && this.proxy.url && !this.proxy.restful && !Ext.data.Api.hasUniqueUrl(this.proxy, action)) {
-                params.xaction = action;
+                params.xaction = action;    // <-- really old, probaby unecessary.
             }
-            // Note:  Up until this point we've been dealing with 'action' as a key from Ext.data.Api.actions.  We'll flip it now
-            // and send the value into DataProxy#request, since it's the value which maps to the DataProxy#api
+            // Note:  Up until this point we've been dealing with 'action' as a key from Ext.data.Api.actions.
+            // We'll flip it now and send the value into DataProxy#request, since it's the value which maps to
+            // the user's configured DataProxy#api
             this.proxy.request(Ext.data.Api.actions[action], rs, params, this.reader, this.createCallback(action, rs), this, options);
         }
         return doRequest;

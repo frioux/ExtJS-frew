@@ -104,8 +104,10 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
             callback : this.createCallback(action, rs),
             scope: this
         };
-        // Sample the request data:  If it's an object, then it hasn't been json-encoded yet.
-        // Transmit data using jsonData config of Ext.Ajax.request
+
+        // If possible, transmit data using jsonData || xmlData on Ext.Ajax.request (An installed DataWriter would have written it there.).
+        // Use std HTTP params otherwise.
+        // TODO wrap into 1 Ext.apply now?
         if (params.jsonData) {
             o.jsonData = params.jsonData;
         } else if (params.xmlData) {
@@ -119,7 +121,7 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
         if (this.conn.url === null) {
             this.conn.url = this.buildUrl(action, rs);
         }
-        else if (this.restful === true && rs instanceof Ext.data.Record && !rs.phantom) {
+        else if (this.restful === true && rs instanceof Ext.data.Record && !rs.phantom) { // <-- user must have intervened with #setApi or #setUrl
             this.conn.url += '/' + rs.id;
         }
         if(this.useAjax){
@@ -128,7 +130,10 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
 
             // If a currently running request is found for this action, abort it.
             if (this.activeRequest[action]) {
+                ////
                 // Disabled aborting activeRequest while implementing REST.  activeRequest[action] will have to become an array
+                // TODO ideas anyone?
+                //
                 //Ext.Ajax.abort(this.activeRequest[action]);
             }
             this.activeRequest[action] = Ext.Ajax.request(o);
@@ -171,6 +176,9 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
      * @param {String} action Action name as per {@link Ext.data.Api.actions#read}.
      * @param {Object} o The request transaction object
      * @param {Object} res The server response
+     * @fires loadexception (deprecated)
+     * @fires exception
+     * @fires load
      * @private
      */
     onRead : function(action, o, response) {
@@ -195,6 +203,9 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
         else {
             this.fireEvent('load', this, o, o.request.arg);
         }
+        // TODO refactor onRead, onWrite to be more generalized now that we're dealing with Ext.data.Response instance
+        // the calls to request.callback(...) in each will have to be made identical.
+        // NOTE reader.readResponse does not currently return Ext.data.Response
         o.request.callback.call(o.request.scope, result, o.request.arg, result.success);
     },
     /**
@@ -202,6 +213,8 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
      * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
      * @param {Object} trans The request transaction object
      * @param {Object} res The server response
+     * @fires exception
+     * @fires write
      * @private
      */
     onWrite : function(action, o, response, rs) {
@@ -219,6 +232,9 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
         } else {
             this.fireEvent('write', this, action, res.data, res, rs, o.request.arg);
         }
+        // TODO refactor onRead, onWrite to be more generalized now that we're dealing with Ext.data.Response instance
+        // the calls to request.callback(...) in each will have to be made similar.
+        // NOTE reader.readResponse does not currently return Ext.data.Response
         o.request.callback.call(o.request.scope, res.data, res, res.success);
     },
 
