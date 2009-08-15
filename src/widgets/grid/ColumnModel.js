@@ -518,16 +518,15 @@ var grid = new Ext.grid.GridPanel({
         this.config[col].editable = editable;
     },
 
-
     /**
-     * Returns true if the column is hidden.
+     * Returns <tt>true</tt> if the column is <code>{@link Ext.grid.Column#hidden hidden}</code>,
+     * <tt>false</tt> otherwise.
      * @param {Number} colIndex The column index
      * @return {Boolean}
      */
     isHidden : function(colIndex){
-        return this.config[colIndex].hidden;
+        return !!this.config[colIndex].hidden; // ensure returns boolean
     },
-
 
     /**
      * Returns true if the column width cannot be changed
