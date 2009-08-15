@@ -14,7 +14,7 @@ Ext.data.JsonWriter = function(config) {
 }
 Ext.extend(Ext.data.JsonWriter, Ext.data.DataWriter, {
     /**
-     * @cfg {Boolean} returnJson <b>Deprecated.  Use {@link Ext.data.JsonWriter#encode} instead.
+     * @cfg {Boolean} returnJson <b>Deprecated</b>.  Use {@link Ext.data.JsonWriter#encode} instead.
      */
     returnJson : undefined,
     /**
@@ -24,7 +24,8 @@ Ext.extend(Ext.data.JsonWriter, Ext.data.DataWriter, {
      * its own json-encoding.  In addition, if you're using {@link Ext.data.HttpProxy}, setting to <tt>false</tt>
      * will cause HttpProxy to transmit data using the <b>jsonData</b> configuration-params of {@link Ext.Ajax#request}
      * instead of <b>params</b>.  When using a {@link Ext.data.Store#restful} Store, some serverside frameworks are
-     * tuned to expect data through the jsonData mechanism.  In those cases, one will want to set <b>encode: <tt>false</tt></b>
+     * tuned to expect data through the jsonData mechanism.  In those cases, one will want to set <b>encode: <tt>false</tt></b>, as in
+     * let the lower-level connection object (eg: Ext.Ajax) do the encoding.
      */
     encode : true,
 
@@ -44,25 +45,16 @@ Ext.extend(Ext.data.JsonWriter, Ext.data.DataWriter, {
         }
     },
     /**
-     * createRecord
+     * Implements abstract Ext.data.DataWriter#createRecord
      * @protected
      * @param {Ext.data.Record} rec
      * @return {Object}
      */
     createRecord : function(rec) {
-       var data = this.toHash(rec);
-       // here we check to see if the developer has defined a field for the record PK.  If they have AND
-       // rec.data[idProperty] is NOT empty, the pk is probably not an autoincrement field so we send the
-       // idProperty value to server.
-       if (rec.fields.containsKey(this.meta.idProperty) && !Ext.isEmpty(rec.data[this.meta.idProperty])) {
-           data[this.meta.idProperty] = rec.data[this.meta.idProperty];
-       } else {
-           delete data[this.meta.idProperty];
-       }
-       return data;
+       return this.toHash(rec);
     },
     /**
-     * updateRecord
+     * Implements abstract Ext.data.DataWriter#updateRecord
      * @protected
      * @param {Ext.data.Record} rec
      * @return {Object}
@@ -72,7 +64,7 @@ Ext.extend(Ext.data.JsonWriter, Ext.data.DataWriter, {
 
     },
     /**
-     * destroyRecord
+     * Implements abstract Ext.data.DataWriter#destroyRecord
      * @protected
      * @param {Ext.data.Record} rec
      * @return {Object}

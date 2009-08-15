@@ -72,9 +72,10 @@ Ext.data.DataWriter.prototype = {
     write : function(action, params, rs) {
         var data    = [],
         renderer    = action + 'Record';
+        // TODO implement @cfg listful here
         if (Ext.isArray(rs)) {
-            Ext.each(rs, function(val){
-                data.push(this[renderer](val));
+            Ext.each(rs, function(rec){
+                data.push(this[renderer](rec));
             }, this);
         }
         else if (rs instanceof Ext.data.Record) {
@@ -112,7 +113,7 @@ Ext.data.DataWriter.prototype = {
     destroyRecord : Ext.emptyFn,
 
     /**
-     * Converts a Record to a hash
+     * Converts a Record to a hash.
      * @param {Record}
      * @private
      */
@@ -126,7 +127,16 @@ Ext.data.DataWriter.prototype = {
                 data[m.mapping ? m.mapping : m.name] = value;
             }
         });
-        data[this.meta.idProperty] = rec.id;
+        // we don't want to write Ext auto-generated id to hash.  Careful not to remove it on Models not having auto-increment pk though.
+        // We can tell its not auto-increment if the user defined a DataReader field for it *and* that field's value is non-empty.
+        // we could also do a RegExp here for the Ext.data.Record AUTO_ID prefix.
+        if (rec.phantom) {
+            if (rec.fields.containsKey(this.meta.idProperty) && Ext.isEmpty(rec.data[this.meta.idProperty])) {
+                delete data[this.meta.idProperty];
+            }
+        } else {
+            data[this.meta.idProperty] = rec.id
+        }
         return data;
     }
 };

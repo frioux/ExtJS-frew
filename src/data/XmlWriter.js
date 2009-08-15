@@ -3,7 +3,11 @@
  * @extends Ext.data.DataWriter
  * DataWriter extension for writing an array or single {@link Ext.data.Record} object(s) in preparation for executing a remote CRUD action via XML.
  */
-Ext.data.XmlWriter = Ext.extend(Ext.data.DataWriter, {
+Ext.data.XmlWriter = function(params) {
+    Ext.data.XmlWriter.superclass.constructor.apply(this, arguments);
+    this.tpl = new Ext.XTemplate(this.tpl).compile();
+};
+Ext.extend(Ext.data.XmlWriter, Ext.data.DataWriter, {
     /**
      * @cfg {String} root [records] The name of the root element when writing <b>multiple</b> records to the server.  Each
      * xml-record written to the server will be wrapped in an element named after {@link Ext.data.XmlReader#record} property.
@@ -25,11 +29,32 @@ Ext.data.XmlWriter = Ext.extend(Ext.data.DataWriter, {
      * Defaults to <tt>records</tt>
      */
     root: 'records',
-
     /**
-     * @cfg {String} xmlHeader [<?xml version="1.0" encoding="ISO-8859-15"?>]
+     * @cfg {String} xmlVersion [1.0] The <tt>version</tt> written to header of xml documents.
+<code><pre>&lt;?xml version="1.0" encoding="ISO-8859-15"?></pre></code>
      */
-    xmlHeader: '<?xml version="1.0" encoding="ISO-8859-15"?>',
+    xmlVersion : '1.0',
+    /**
+     * @cfg {String} xmlEncoding [ISO-8859-15] The <tt>encoding</tt> written to header of xml documents.
+<code><pre>&lt;?xml version="1.0" encoding="ISO-8859-15"?></pre></code>
+     */
+    xmlEncoding: 'ISO-8859-15',
+    /**
+     * @cfg {String} tpl The xml template.  Defaults to
+<code><pre>
+&lt;?xml version="{version}" encoding="{encoding}"?>
+    &lt;tpl if="{[values.nodes.length>1]}">&lt;{root}}>',
+    &lt;tpl for="records">
+        &lt;{parent.record}>
+        &lt;tpl for="fields">
+            &lt;{name}>{value}&lt;/{name}>
+        &lt;/tpl>
+        &lt;/{parent.record}>
+    &lt;/tpl>
+    &lt;tpl if="{[values.records.length>1]}">&lt;/{root}}>&lt;/tpl>
+</pre></code>
+     */
+    tpl: '<tpl for="."><?xml version="{version}" encoding="{encoding}"?><tpl if="records.length&gt;1"><{root}></tpl><tpl for="records"><{parent.record}><tpl for="fields"><{name}>{value}</{name}></tpl></{parent.record}></tpl><tpl if="records.length&gt;1"></{root}></tpl></tpl>',
 
     /**
      * Final action of a write event.  Apply the written data-object to params.
@@ -39,13 +64,13 @@ Ext.data.XmlWriter = Ext.extend(Ext.data.DataWriter, {
      * @param {Object/Object[]} rendered data.
      */
     render : function(action, rs, params, data) {
-        var doc = [this.xmlHeader];
-        if (Ext.isArray(rs)) {
-            doc.push(this.element(this.root, data.join('')));
-        } else {
-            doc.push(data);
-        }
-        params.xmlData = doc.join('');
+        params.xmlData = this.tpl.applyTemplate({
+            version: this.xmlVersion,
+            encoding: this.xmlEncoding,
+            record: this.meta.record,
+            root: this.root,
+            records: (Ext.isArray(rs)) ? data : [data]
+        });
     },
 
     /**
@@ -54,17 +79,17 @@ Ext.data.XmlWriter = Ext.extend(Ext.data.DataWriter, {
      * @return {String} rendered xml-element
      * @private
      */
-    toXml : function(rec) {
-        var output = [];
-        Ext.iterate(this.toHash(rec), function(k, v) {
-            if (k != this.meta.idProperty) {
-                output.push(this.element(k, v));
-            }
+    toXml : function(data) {
+        var fields = [];
+        Ext.iterate(data, function(k, v) {
+            fields.push({
+                name: k,
+                value: v
+            });
         },this);
-        if (!rec.phantom) { // <-- if not a phantom, tack-on the <id>69</id>
-            output.push(this.element(this.meta.idProperty, rec.id));
-        }
-        return this.element(this.meta.record, output.join(''));
+        return {
+            fields: fields
+        };
     },
 
     /**
@@ -74,7 +99,7 @@ Ext.data.XmlWriter = Ext.extend(Ext.data.DataWriter, {
      * @private
      */
     createRecord : function(rec) {
-        return this.toXml(rec);
+        return this.toXml(this.toHash(rec));
     },
 
     /**
@@ -84,7 +109,7 @@ Ext.data.XmlWriter = Ext.extend(Ext.data.DataWriter, {
      * @private
      */
     updateRecord : function(rec) {
-        return this.toXml(rec);
+        return this.toXml(this.toHash(rec));
 
     },
     /**
@@ -93,18 +118,9 @@ Ext.data.XmlWriter = Ext.extend(Ext.data.DataWriter, {
      * @return {String} xml element
      */
     destroyRecord : function(rec) {
-        return this.element(this.meta.record, this.element(this.meta.idProperty, rec.id));
-    },
-
-    /**
-     * Simple Xml element builder
-     * TODO do we want the ability to specify element attributes?
-     * @param {String} tag
-     * @param {Mixed} data
-     * @return {String} xml element
-     * @private
-     */
-    element : function(tag, data) {
-        return ['<',tag,'>',data,'</',tag,'>'].join('');
+        var data = {};
+        data[this.meta.idProperty] = rec.id;
+        return this.toXml(data);
     }
 });
+
