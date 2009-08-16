@@ -311,7 +311,7 @@ var columns = grid.getColumnModel().getColumnsBy(function(c){
      * @return {Boolean}
      */
     isSortable : function(col){
-        return this.config[col].sortable;
+        return !!this.config[col].sortable;
     },
 
     /**
@@ -529,10 +529,13 @@ var grid = new Ext.grid.GridPanel({
     },
 
     /**
-     * Returns true if the column width cannot be changed
+     * Returns <tt>true</tt> if the column is <code>{@link Ext.grid.Column#fixed fixed}</code>,
+     * <tt>false</tt> otherwise.
+     * @param {Number} colIndex The column index
+     * @return {Boolean}
      */
     isFixed : function(colIndex){
-        return this.config[colIndex].fixed;
+        return !!this.config[colIndex].fixed;
     },
 
     /**
