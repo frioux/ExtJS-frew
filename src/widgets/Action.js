@@ -90,7 +90,8 @@ Ext.Action.prototype = {
      * See {@link Ext.Component}.{@link Ext.Component#itemId itemId}.
      */
     /**
-     * @cfg {Object} scope The scope in which the {@link #handler} function will execute.
+     * @cfg {Object} scope The scope (<tt><b>this</b></tt> reference) in which the
+     * <code>{@link #handler}</code> is executed. Defaults to this Button.
      */
 
     // private
