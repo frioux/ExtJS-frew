@@ -439,6 +439,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         doc.un('mouseover', this.monitorMouseOver, this);
         doc.un('mouseup', this.onMouseUp, this);
         if(this.rendered){
+            delete this.btnEl;
             Ext.ButtonToggleMgr.unregister(this);
         }
     },
