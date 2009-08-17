@@ -518,7 +518,7 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
                     ae.field.triggerBlur();
                 }
             }
-            g.startEditing.defer(10, g, [r, c]);
+            g.startEditing(r, c);
         }
     },
     
