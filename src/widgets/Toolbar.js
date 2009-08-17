@@ -237,6 +237,9 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
     destroy : function(){
         Ext.destroy(this.more, this.moreMenu);
+        delete this.leftTr;
+        delete this.rightTr;
+        delete this.extrasTr;
         Ext.layout.ToolbarLayout.superclass.destroy.call(this);
     }
     /**
