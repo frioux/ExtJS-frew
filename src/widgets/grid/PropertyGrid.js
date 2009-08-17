@@ -129,7 +129,9 @@ Ext.grid.PropertyColumnModel = function(grid, store){
         'date' : new g.GridEditor(new f.DateField({selectOnFocus:true})),
         'string' : new g.GridEditor(new f.TextField({selectOnFocus:true})),
         'number' : new g.GridEditor(new f.NumberField({selectOnFocus:true, style:'text-align:left;'})),
-        'boolean' : new g.GridEditor(bfield)
+        'boolean' : new g.GridEditor(bfield, {
+            autoSize: 'both'
+        })
     };
     this.renderCellDelegate = this.renderCell.createDelegate(this);
     this.renderPropDelegate = this.renderProp.createDelegate(this);
