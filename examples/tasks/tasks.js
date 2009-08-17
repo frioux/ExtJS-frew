@@ -169,6 +169,7 @@ Ext.onReady(function(){
     	split:true,
     	collapsible: true,
     	collapseMode: 'mini',
+        header: false,
     	width:200,
     	minWidth: 150,
     	border: false,
