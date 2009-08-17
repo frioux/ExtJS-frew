@@ -38,6 +38,12 @@
     hideOnClick : true,
     
     /** 
+     * @cfg {String} pickerId
+     * An id to assign to the underlying date picker. Defaults to <tt>null</tt>.
+     */
+    pickerId : null,
+    
+    /** 
      * @cfg {Number} maxHeight
      * @hide 
      */
@@ -70,9 +76,10 @@
         Ext.apply(this, {
             plain: true,
             showSeparator: false,
-            items: this.picker = new Ext.DatePicker(Ext.apply({
+            items: this.picker = new Ext.DatePicker(Ext.applyIf({
                 internalRender: this.strict || !Ext.isIE,
-                ctCls: 'x-menu-date-item'
+                ctCls: 'x-menu-date-item',
+                id: this.pickerId
             }, this.initialConfig))
         });
         this.picker.purgeListeners();

@@ -39,6 +39,12 @@
     hideOnClick : true,
     
     /** 
+     * @cfg {String} paletteId
+     * An id to assign to the underlying color palette. Defaults to <tt>null</tt>.
+     */
+    paletteId : null,
+    
+    /** 
      * @cfg {Number} maxHeight
      * @hide 
      */
@@ -67,7 +73,9 @@
         Ext.apply(this, {
             plain: true,
             showSeparator: false,
-            items: this.palette = new Ext.ColorPalette(this.initialConfig)
+            items: this.palette = new Ext.ColorPalette(Ext.applyIf({
+                id: this.paletteId
+            }, this.initialConfig))
         });
         this.palette.purgeListeners();
         Ext.menu.ColorMenu.superclass.initComponent.call(this);
