@@ -859,7 +859,6 @@
     <include name="ux\ColumnNodeUI.js" />
     <include name="ux\DataView-more.js" />
     <include name="ux\fileuploadfield\FileUploadField.js" />
-    <include name="ux\Focus.js" />
     <include name="ux\GMapPanel.js" />
     <include name="ux\gridfilters\GridFilters.js" />
     <include name="ux\gridfilters\filter\Filter.js" />

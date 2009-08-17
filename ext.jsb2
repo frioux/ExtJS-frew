@@ -896,9 +896,6 @@
           text: 'FileUploadField.js',
           path: 'examples/ux/fileuploadfield/'
        },{
-          text: 'Focus.js',
-          path: 'examples/ux/'
-       },{
           text: 'GMapPanel.js',
           path: 'examples/ux/'
        },{
