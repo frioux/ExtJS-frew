@@ -116,14 +116,10 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
             o.params = params || {};
         }
         // Set the connection url.  If this.conn.url is not null here,
-        // the user may have overridden the url during a beforeaction event-handler.
+        // the user must have overridden the url during a beforewrite/beforeload event-handler.
         // this.conn.url is nullified after each request.
-        if (this.conn.url === null) {
-            this.conn.url = this.buildUrl(action, rs);
-        }
-        else if (this.restful === true && rs instanceof Ext.data.Record && !rs.phantom) { // <-- user must have intervened with #setApi or #setUrl
-            this.conn.url += '/' + rs.id;
-        }
+        this.conn.url = this.buildUrl(action, rs);
+
         if(this.useAjax){
 
             Ext.applyIf(o, this.conn);
