@@ -1729,9 +1729,19 @@ panel.load({
             }
         }
         if(this.rendered){
-            Ext.destroy(this.toolbars);
+            Ext.destroy(
+                this.header,
+                this.footer,
+                this.bwrap,
+                this.toolbars,
+                this.tbar,
+                this.bbar
+            );
         }else{
-            Ext.destroy(this.topToolbar, this.bottomToolbar);
+            Ext.destroy(
+                this.topToolbar,
+                this.bottomToolbar
+            );
         }
         Ext.Panel.superclass.beforeDestroy.call(this);
     },
