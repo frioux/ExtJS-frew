@@ -1325,10 +1325,10 @@ sortInfo: {
     },
 
     /**
-     * Finds the index of the first matching record in this store by a specific property/value.
-     * @param {String} property A property on your objects
-     * @param {String/RegExp} value Either a string that the property value
-     * should begin with, or a RegExp to test against the property.
+     * Finds the index of the first matching Record in this store by a specific field value.
+     * @param {String} fieldName The name of the Record field to test.
+     * @param {String/RegExp} value Either a string that the field value
+     * should begin with, or a RegExp to test against the field.
      * @param {Number} startIndex (optional) The index to start searching at
      * @param {Boolean} anyMatch (optional) True to match any part of the string, not just the beginning
      * @param {Boolean} caseSensitive (optional) True for case sensitive comparison
@@ -1340,9 +1340,9 @@ sortInfo: {
     },
 
     /**
-     * Finds the index of the first matching record in this store by a specific property/value.
-     * @param {String} property A property on your objects
-     * @param {String/RegExp} value The value to match against
+     * Finds the index of the first matching Record in this store by a specific field value.
+     * @param {String} fieldName The name of the Record field to test.
+     * @param {Mixed} value The value to match the field against.
      * @param {Number} startIndex (optional) The index to start searching at
      * @return {Number} The matched index or -1
      */
