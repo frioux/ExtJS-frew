@@ -1737,6 +1737,12 @@ panel.load({
                 this.tbar,
                 this.bbar
             );
+            if (this.fbar) {
+                Ext.destroy(
+                    this.fbar.container,
+                    this.fbar
+                );
+            }
         }else{
             Ext.destroy(
                 this.topToolbar,
