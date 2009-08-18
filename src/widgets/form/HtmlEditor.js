@@ -96,7 +96,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
     /**
      * @cfg {String} defaultValue A default value to be put into the editor to resolve focus issues (defaults to &#8203; (Zero-width space), &nbsp; (Non-breaking space) in Opera and IE6).
      */
-    defaultValue: (Ext.isOpera || Ext.isIE6) ? '&nbsp;' : '&#8203;',
+    defaultValue: (Ext.isOpera || Ext.isIE6) ? '&#160;' : '&#8203;',
 
     // private properties
     actionMode: 'wrap',
@@ -581,15 +581,19 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
      * @param {String} html The HTML to be cleaned
      * @return {String} The cleaned HTML
      */
-    cleanHtml : function(html){
+    cleanHtml: function(html) {
         html = String(html);
-        if(html.length > 5){
-            if(Ext.isWebKit){ // strip safari nonsense
-                html = html.replace(/\sclass="(?:Apple-style-span|khtml-block-placeholder)"/gi, '');
-            }
+        if(Ext.isWebKit){ // strip safari nonsense
+            html = html.replace(/\sclass="(?:Apple-style-span|khtml-block-placeholder)"/gi, '');
         }
-        if(html == this.defaultValue){
-            html = '';
+        
+        /*
+         * Neat little hack. Strips out all the non-digit characters from the default
+         * value and compares it to the character code of the first character in the string
+         * because it can cause encoding issues when posted to the server.
+         */
+        if(html.charCodeAt(0) == this.defaultValue.replace(/\D/g, '')){
+            html = html.substring(1);
         }
         return html;
     },
