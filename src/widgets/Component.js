@@ -1108,10 +1108,6 @@ var myGrid = new Ext.grid.EditorGridPanel({
                     this.el.remove();
                     if(this.actionMode == 'container' || this.removeMode == 'container'){
                         this.container.remove();
-                    } else {
-                        if (this.container) {
-                            delete this.container.dom;
-                        }
                     }
                 }
                 this.onDestroy();
