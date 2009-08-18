@@ -31,17 +31,20 @@ Ext.extend(Ext.data.JsonWriter, Ext.data.DataWriter, {
 
     /**
      * Final action of a write event.  Apply the written data-object to params.
-     * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
-     * @param {Record[]} rs
-     * @param {Object} http params
-     * @param {Object} data object populated according to DataReader meta-data "root" and "idProperty"
+     * @param {Object} http params-object to write-to.
+     * @param {Object} baseParams as defined by {@link Ext.data.Store#baseParams}.  The baseParms must be encoded by the extending class, eg: {@link Ext.data.JsonWriter}, {@link Ext.data.XmlWriter}.
+     * @param {Object/Object[]} data Data-object representing compiled Store-recordset.
      */
-    render : function(action, rs, params, data) {
+    render : function(params, baseParams, data) {
         if (this.encode === true) {
+            // Encode here now.
+            Ext.apply(params, baseParams);
             params[this.meta.root] = Ext.encode(data);
         } else {
-            params.jsonData = {};
-            params.jsonData[this.meta.root] = data;
+            // defer encoding for some other layer, probably in {@link Ext.Ajax#request}.  Place everything into "jsonData" key.
+            var jdata = Ext.apply({}, baseParams);
+            jdata[this.meta.root] = data;
+            params.jsonData = jdata;
         }
     },
     /**

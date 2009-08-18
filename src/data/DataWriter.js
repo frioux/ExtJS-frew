@@ -63,13 +63,14 @@ Ext.data.DataWriter.prototype = {
     listful : false,    // <-- listful is actually not used internally here in DataWriter.  @see Ext.data.Store#execute.
 
     /**
-     * Writes data in preparation for server-write action.  Simply proxies to DataWriter#update, DataWriter#create
-     * DataWriter#destroy.
-     * @param {String} action [CREATE|UPDATE|DESTROY]
-     * @param {Object} params The params-hash to write-to
-     * @param {Record/Record[]} rs The recordset write.
+     * Compiles a Store recordset into a data-format defined by an extension such as {@link Ext.data.JsonWriter} or {@link Ext.data.XmlWriter} in preparation for a server-write action.  The first two params are similar similar in nature to {@link Ext#apply},
+     * Where the first parameter is the receiver of paramaters and the second, baseParams, the source.
+     * @param {Object} params The request-params receiver.
+     * @param {Object} baseParams as defined by {@link Ext.data.Store#baseParams}.  The baseParms must be encoded by the extending class, eg: {@link Ext.data.JsonWriter}, {@link Ext.data.XmlWriter}.
+     * @param {String} action [{@link Ext.data.Api#action} create|update|destroy]
+     * @param {Record/Record[]} rs The recordset to write, the subject(s) of the write action.
      */
-    write : function(action, params, rs) {
+    apply : function(params, baseParams, action, rs) {
         var data    = [],
         renderer    = action + 'Record';
         // TODO implement @cfg listful here
@@ -81,7 +82,7 @@ Ext.data.DataWriter.prototype = {
         else if (rs instanceof Ext.data.Record) {
             data = this[renderer](rs);
         }
-        this.render(action, rs, params, data);
+        this.render(params, baseParams, data);
     },
 
     /**

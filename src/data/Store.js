@@ -824,7 +824,7 @@ sortInfo: {
         if (!Ext.data.Api.isAction(action)) {
             throw new Ext.data.Api.Error('execute', action);
         }
-        // make sure options has a params key
+        // make sure options has a fresh, new params hash
         options = Ext.applyIf(options||{}, {
             params: {}
         });
@@ -834,6 +834,7 @@ sortInfo: {
         var doRequest = true;
 
         if (action === 'read') {
+            Ext.apply(options.params, this.baseParams);
             doRequest = this.fireEvent('beforeload', this, options);
         }
         else {
@@ -848,19 +849,20 @@ sortInfo: {
             }
             // Write the action to options.params
             if ((doRequest = this.fireEvent('beforewrite', this, action, rs, options)) !== false) {
-                this.writer.write(action, options.params, rs);
+                this.writer.apply(options.params, this.baseParams, action, rs);
             }
         }
         if (doRequest !== false) {
             // Send request to proxy.
-            var params = Ext.apply({}, options.params, this.baseParams);
             if (this.writer && this.proxy.url && !this.proxy.restful && !Ext.data.Api.hasUniqueUrl(this.proxy, action)) {
-                params.xaction = action;    // <-- really old, probaby unecessary.
+                options.params.xaction = action;    // <-- really old, probaby unecessary.
             }
             // Note:  Up until this point we've been dealing with 'action' as a key from Ext.data.Api.actions.
             // We'll flip it now and send the value into DataProxy#request, since it's the value which maps to
             // the user's configured DataProxy#api
-            this.proxy.request(Ext.data.Api.actions[action], rs, params, this.reader, this.createCallback(action, rs), this, options);
+            // TODO Refactor all Proxies to accept an instance of Ext.data.Request (not yet defined) instead of this looooooong list
+            // of params.  This method is an artifact from Ext2.
+            this.proxy.request(Ext.data.Api.actions[action], rs, options.params, this.reader, this.createCallback(action, rs), this, options);
         }
         return doRequest;
     },
