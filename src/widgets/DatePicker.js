@@ -754,9 +754,8 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
     // private
     beforeDestroy : function() {
         if(this.rendered){
-            this.keyNav.disable();
-            this.keyNav = null;
             Ext.destroy(
+                this.keyNav,
                 this.leftClickRpt,
                 this.rightClickRpt,
                 this.monthPicker,

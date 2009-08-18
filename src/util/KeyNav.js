@@ -108,6 +108,13 @@ Ext.KeyNav.prototype = {
             e.stopEvent();
         }
     },
+    
+    /**
+     * Destroy this KeyNav (this is the same as calling disable).
+     */
+    destroy: function(){
+        this.disable();    
+    },
 
 	/**
 	 * Enable this KeyNav
