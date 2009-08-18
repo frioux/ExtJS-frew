@@ -760,7 +760,7 @@ sortInfo: {
      * @private
      */
     updateRecord : function(store, record, action) {
-        if (action == Ext.data.Record.EDIT && this.autoSave === true && (!record.phantom || (record.phantom && record.isValid))) {
+        if (action == Ext.data.Record.EDIT && this.autoSave === true && (!record.phantom || (record.phantom && record.isValid()))) {
             this.save();
         }
     },
