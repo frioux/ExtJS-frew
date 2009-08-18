@@ -110,7 +110,7 @@ Ext.extend(Ext.data.XmlWriter, Ext.data.DataWriter, {
     },
 
     /**
-     * Converts a Hashed (@see Ext.data.DataWriter#toHash) Ext.data.Record to fields-array array suitable
+     * Converts a Hashed {@see Ext.data.DataWriter#toHash) Ext.data.Record to fields-array array suitable
      * for encoding to xml via XTemplate, eg:
 <code><pre>&lt;tpl for="fields">&lt;{name}>{value}&lt;/{name}&lt;/tpl></pre></code>
      * eg:  {id: 1, first: 'foo', last: 'bar'} --> [{name: 'first', value: 'foo'}, {name: 'last', value: 'bar'}]
