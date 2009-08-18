@@ -678,6 +678,11 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         if(s){
             Ext.destroy(s.topRepeater, s.bottomRepeater, s.top, s.bottom);
         }
+        Ext.destroy(
+            this.el,
+            this.focusEl,
+            this.ul
+        );
     }
 });
 
