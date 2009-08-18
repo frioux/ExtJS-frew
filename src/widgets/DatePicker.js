@@ -761,8 +761,13 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
                 this.monthPicker,
                 this.eventEl,
                 this.mbtn,
+                this.nextRepeater,
+                this.prevRepeater,
+                this.cells.el,
                 this.todayBtn
             );
+            delete this.textNodes;
+            delete this.cells.elements;
         }
     }
 
