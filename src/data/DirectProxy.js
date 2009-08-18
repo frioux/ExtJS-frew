@@ -46,22 +46,22 @@ paramOrder: 'param1|param2|param'
 
         switch (action) {
             case Ext.data.Api.actions.create:
-                args.push(params.jsonData[reader.meta.root]);		// <-- create(Hash)
+                args.push(params.jsonData);		// <-- create(Hash)
                 break;
             case Ext.data.Api.actions.read:
                 if(this.paramOrder){
                     for(var i = 0, len = this.paramOrder.length; i < len; i++){
-                        args.push(params[this.paramOrder[i]]);
+                        args.push(params.jsonData[this.paramOrder[i]]);
                     }
                 }else if(this.paramsAsHash){
-                    args.push(params);
+                    args.push(params.jsonData);
                 }
                 break;
             case Ext.data.Api.actions.update:
-                args.push(params.jsonData[reader.meta.root]);        // <-- update(Hash/Hash[])
+                args.push(params.jsonData);        // <-- update(Hash/Hash[])
                 break;
             case Ext.data.Api.actions.destroy:
-                args.push(params.jsonData[reader.meta.root]);        // <-- destroy(Int/Int[])
+                args.push(params.jsonData);        // <-- destroy(Int/Int[])
                 break;
         }
 
