@@ -97,6 +97,7 @@
     <include name="data\DataReader.js" />
     <include name="data\DataWriter.js" />
     <include name="data\JsonWriter.js" />
+    <include name="data\XmlWriter.js" />
     <include name="data\DataProxy.js" />
     <include name="data\MemoryProxy.js" />
     <include name="data\HttpProxy.js" />
@@ -104,6 +105,8 @@
     <include name="data\DirectProxy.js" />
     <include name="data\JsonReader.js" />
     <include name="data\XmlReader.js" />
+    <include name="data\Request.js" />
+    <include name="data\Response.js" />
     <include name="data\ArrayReader.js" />
     <include name="direct\Direct.js" />
     <include name="direct\Transaction.js" />
@@ -463,6 +466,9 @@
     <include name="data\ArrayReader.js" />
     <include name="data\DataWriter.js" />
     <include name="data\JsonWriter.js" />
+    <include name="data\XmlWriter.js" />
+    <include name="data\Request.js" />
+    <include name="data\Response.js" />
   </target>
   <target name="Widget Core" file="$output\package\widget-core.js" debug="False" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
     <include name="widgets\ComponentMgr.js" />
@@ -666,6 +672,7 @@
   <file name="data\DataReader.js" path="data" />
   <file name="data\DataWriter.js" path="data" />
   <file name="data\JsonWriter.js" path="data" />
+  <file name="data\XmlWriter.js" path="data" />
   <file name="data\DirectProxy.js" path="data" />
   <file name="data\DirectStore.js" path="data" />
   <file name="data\GroupingStore.js" path="data" />
@@ -681,6 +688,8 @@
   <file name="data\Tree.js" path="data" />
   <file name="data\XmlReader.js" path="data" />
   <file name="data\XmlStore.js" path="data" />
+  <file name="data\Request.js" path="data" />
+  <file name="data\Response.js" path="data" />
   <file name="dd\DDCore.js" path="dd" />
   <file name="dd\DragSource.js" path="dd" />
   <file name="dd\DragTracker.js" path="dd" />
