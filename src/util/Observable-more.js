@@ -154,16 +154,18 @@ var myForm = new Ext.formPanel({
          */
         enableBubble: function(events){
             var me = this;
-            events = Ext.isArray(events) ? events : Ext.toArray(arguments);
-            Ext.each(events, function(ename){
-                ename = ename.toLowerCase();
-                var ce = me.events[ename] || true;
-                if (typeof ce == "boolean") {
-                    ce = new Ext.util.Event(me, ename);
-                    me.events[ename] = ce;
-                }
-                ce.bubble = true;
-            });
+            if(!Ext.isEmpty(events)){
+                events = Ext.isArray(events) ? events : Ext.toArray(arguments);
+                Ext.each(events, function(ename){
+                    ename = ename.toLowerCase();
+                    var ce = me.events[ename] || true;
+                    if (Ext.isBoolean(ce)) {
+                        ce = new Ext.util.Event(me, ename);
+                        me.events[ename] = ce;
+                    }
+                    ce.bubble = true;
+                });
+            }
         }
     };
 }());

@@ -117,6 +117,13 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
     enableDD : false,
     hlDrop : Ext.enableFx,
     pathSeparator: "/",
+    
+    /**
+     * @cfg {Array} bubbleEvents
+     * <p>An array of events that, when fired, should be bubbled to any parent container.
+     * Defaults to <tt>['add', 'remove']</tt>.
+     */
+    bubbleEvents: [],
 
     initComponent : function(){
         Ext.tree.TreePanel.superclass.initComponent.call(this);

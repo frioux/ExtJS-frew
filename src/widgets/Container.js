@@ -373,6 +373,13 @@ items: [
      * The event to listen to for resizing in layouts. Defaults to <tt>'resize'</tt>.
      */
     resizeEvent: 'resize',
+    
+    /**
+     * @cfg {Array} bubbleEvents
+     * <p>An array of events that, when fired, should be bubbled to any parent container.
+     * Defaults to <tt>['add', 'remove']</tt>.
+     */
+    bubbleEvents: ['add', 'remove'],
 
     // private
     initComponent : function(){
@@ -422,7 +429,7 @@ items: [
             'remove'
         );
 
-        this.enableBubble('add', 'remove');
+        this.enableBubble(this.bubbleEvents);
 
         /**
          * The collection of components in this container as a {@link Ext.util.MixedCollection}

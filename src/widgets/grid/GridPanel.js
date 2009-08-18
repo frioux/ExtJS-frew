@@ -224,6 +224,14 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
      * before a call to {@link Ext.Component#render render()}.
      */
     view : null,
+    
+    /**
+     * @cfg {Array} bubbleEvents
+     * <p>An array of events that, when fired, should be bubbled to any parent container.
+     * Defaults to <tt>[]</tt>.
+     */
+    bubbleEvents: [],
+    
     /**
      * @cfg {Object} viewConfig A config object that will be applied to the grid's UI view.  Any of
      * the config options available for {@link Ext.grid.GridView} can be specified here. This option
