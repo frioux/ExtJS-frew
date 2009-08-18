@@ -247,6 +247,23 @@ var grid = new Ext.grid.GridPanel({
             this.hmenu.on('beforeshow', this.beforeMenuShow, this);
         }
     },
+    
+    processEvent: function(name, e){
+        var hd = e.getTarget('.x-grid-group-hd', this.mainBody);
+        if(hd){
+            // group value is at the end of the string
+            var field = this.getGroupField(),
+                prefix = this.getPrefix(field),
+                groupValue = hd.id.substring(prefix.length);
+            
+            // remove trailing '-hd'
+            groupValue = groupValue.substr(0, groupValue.length - 3);
+            if(groupValue){
+                this.grid.fireEvent('group' + name, this.grid, field, groupValue, e);
+            }
+        }
+
+    },
 
     // private
     onGroupByClick : function(){
@@ -377,7 +394,6 @@ var grid = new Ext.grid.GridPanel({
                     this, arguments);
         }
         var gstyle = 'width:' + this.getTotalWidth() + ';',
-            gidPrefix = this.grid.getGridEl().id,
             cfg = this.cm.config[colIndex],
             groupRenderer = cfg.groupRenderer || cfg.renderer,
             prefix = this.showGroupName ? (cfg.groupName || cfg.header)+': ' : '',
@@ -391,7 +407,7 @@ var grid = new Ext.grid.GridPanel({
                 
                 g = this.getGroup(gvalue, r, groupRenderer, rowIndex, colIndex, ds);
             if(!curGroup || curGroup.group != g){
-                gid = this.constructId(gvalue, gidPrefix, groupField, colIndex);
+                gid = this.constructId(gvalue, groupField, colIndex);
                	// if state is defined use it, however state is in terms of expanded
 				// so negate it, otherwise use the default.
 				var isCollapsed  = typeof this.state[gid] !== 'undefined' ? !this.state[gid] : this.startCollapsed;
@@ -432,16 +448,21 @@ var grid = new Ext.grid.GridPanel({
      */
     getGroupId : function(value){
         var field = this.getGroupField();
-        return this.constructId(value, this.grid.getGridEl().id, field, this.cm.findColumnIndex(field));
+        return this.constructId(value, field, this.cm.findColumnIndex(field));
     },
     
     // private
-    constructId : function(value, prefix, field, idx){
+    constructId : function(value, field, idx){
         var cfg = this.cm.config[idx],
             groupRenderer = cfg.groupRenderer || cfg.renderer,
             val = (this.groupMode == 'value') ? value : this.getGroup(value, {data:{}}, groupRenderer, 0, idx, this.ds);
             
-        return prefix + '-gp-' + field + '-' + Ext.util.Format.htmlEncode(val);
+        return this.getPrefix(field) + Ext.util.Format.htmlEncode(val);
+    },
+    
+    // private
+    getPrefix: function(field){
+        return this.grid.getGridEl().id + '-gp-' + field + '-';
     },
 
     // private

@@ -358,6 +358,16 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
              * @param {Ext.EventObject} e
              */
             'headermousedown',
+            
+            /**
+             * @event groupmousedown
+             * Fires before a group header is clicked. <b>Only applies for grids with a {@link Ext.grid.GroupingView GroupingView}</b>.
+             * @param {Grid} this
+             * @param {String} groupField
+             * @param {String} groupValue
+             * @param {Ext.EventObject} e
+             */
+            'groupmousedown',
 
             /**
              * @event cellclick
@@ -420,6 +430,24 @@ function(grid, rowIndex, columnIndex, e) {
              */
             'headerdblclick',
             /**
+             * @event groupclick
+             * Fires when group header is clicked. <b>Only applies for grids with a {@link Ext.grid.GroupingView GroupingView}</b>.
+             * @param {Grid} this
+             * @param {String} groupField
+             * @param {String} groupValue
+             * @param {Ext.EventObject} e
+             */
+            'groupclick',
+            /**
+             * @event groupdblclick
+             * Fires when group header is double clicked. <b>Only applies for grids with a {@link Ext.grid.GroupingView GroupingView}</b>.
+             * @param {Grid} this
+             * @param {String} groupField
+             * @param {String} groupValue
+             * @param {Ext.EventObject} e
+             */
+            'groupdblclick',
+            /**
              * @event rowcontextmenu
              * Fires when a row is right clicked
              * @param {Grid} this
@@ -444,6 +472,15 @@ function(grid, rowIndex, columnIndex, e) {
              * @param {Ext.EventObject} e
              */
             'headercontextmenu',
+            /**
+             * @event groupcontextmenu
+             * Fires when group header is right clicked. <b>Only applies for grids with a {@link Ext.grid.GroupingView GroupingView}</b>.
+             * @param {Grid} this
+             * @param {String} groupField
+             * @param {String} groupValue
+             * @param {Ext.EventObject} e
+             */
+            'groupcontextmenu',
             /**
              * @event bodyscroll
              * Fires when the body element is scrolled
@@ -642,6 +679,7 @@ function(grid, rowIndex, columnIndex, e) {
                 }
             }
         }
+        this.view.processEvent(name, e);
     },
 
     // private

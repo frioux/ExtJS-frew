@@ -772,6 +772,9 @@ viewConfig: {
         this.updateHeaderSortState();
 
     },
+    
+    // private
+    processEvent: Ext.emptyFn,
 
     // private
     layout : function(){
