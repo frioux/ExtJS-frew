@@ -368,6 +368,14 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
              * @param {Ext.EventObject} e
              */
             'groupmousedown',
+            
+            /**
+             * @event containermousedown
+             * Fires before the container is clicked. The container consists of any part of the grid body that is not covered by a row.
+             * @param {Grid} this
+             * @param {Ext.EventObject} e
+             */
+            'containermousedown',
 
             /**
              * @event cellclick
@@ -448,6 +456,20 @@ function(grid, rowIndex, columnIndex, e) {
              */
             'groupdblclick',
             /**
+             * @event containerclick
+             * Fires when the container is clicked. The container consists of any part of the grid body that is not covered by a row.
+             * @param {Grid} this
+             * @param {Ext.EventObject} e
+             */
+            'containerclick',
+            /**
+             * @event containerdblclick
+             * Fires when the container is double clicked. The container consists of any part of the grid body that is not covered by a row.
+             * @param {Grid} this
+             * @param {Ext.EventObject} e
+             */
+            'containerdblclick',
+            /**
              * @event rowcontextmenu
              * Fires when a row is right clicked
              * @param {Grid} this
@@ -481,6 +503,13 @@ function(grid, rowIndex, columnIndex, e) {
              * @param {Ext.EventObject} e
              */
             'groupcontextmenu',
+            /**
+             * @event containercontextmenu
+             * Fires when the container is right clicked. The container consists of any part of the grid body that is not covered by a row.
+             * @param {Grid} this
+             * @param {Ext.EventObject} e
+             */
+            'containercontextmenu',
             /**
              * @event bodyscroll
              * Fires when the body element is scrolled
@@ -677,6 +706,8 @@ function(grid, rowIndex, columnIndex, e) {
                 if(cell !== false){
                     this.fireEvent('cell' + name, this, row, cell, e);
                 }
+            }else{
+                this.fireEvent('container' + name, this, e);
             }
         }
         this.view.processEvent(name, e);
