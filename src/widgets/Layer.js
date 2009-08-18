@@ -168,6 +168,7 @@ Ext.extend(Ext.Layer, Ext.Element, {
         }
         this.removeAllListeners();
         Ext.removeNode(this.dom);
+        delete this.dom;
         Ext.Element.uncache(this.id);
     },
 
