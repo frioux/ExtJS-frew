@@ -209,7 +209,7 @@ Ext.extend(Ext.grid.PropertyColumnModel, Ext.grid.ColumnModel, {
     destroy : function(){
         Ext.grid.PropertyColumnModel.superclass.destroy.call(this);
         for(var ed in this.editors){
-            Ext.destroy(ed);
+            Ext.destroy(this.editors[ed]);
         }
     }
 });
