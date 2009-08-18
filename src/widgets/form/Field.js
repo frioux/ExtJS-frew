@@ -224,7 +224,7 @@ var form = new Ext.form.FormPanel({
             this.el.addClass('x-form-'+type);
         }
         if(this.readOnly){
-            this.el.dom.readOnly = true;
+            this.setReadOnly(true);
         }
         if(this.tabIndex !== undefined){
             this.el.dom.setAttribute('tabIndex', this.tabIndex);
@@ -270,6 +270,17 @@ var form = new Ext.form.FormPanel({
             return false;
         }
         return String(this.getValue()) !== String(this.originalValue);
+    },
+    
+    /**
+     * Sets the read only state of this field.
+     * @param {Boolean} readOnly Whether the field should be read only.
+     */
+    setReadOnly : function(readOnly){
+        if(this.rendered){
+            this.el.dom.readOnly = readOnly;
+        }
+        this.readOnly = readOnly;
     },
 
     // private

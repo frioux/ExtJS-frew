@@ -346,6 +346,24 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
 
         this.tb = tb;
     },
+    
+    onDisable: function(){
+        this.wrap.mask();
+        Ext.form.HtmlEditor.superclass.onDisable.call(this);
+    },
+    
+    onEnable: function(){
+        this.wrap.unmask();
+        Ext.form.HtmlEditor.superclass.onEnable.call(this);
+    },
+    
+    setReadOnly: function(readOnly){
+        if(this.initialized){
+            this.doc.designMode = readOnly ? 'off' : 'on';
+            this.disableItems(readOnly);
+        }
+        Ext.form.HtmlEditor.superclass.setReadOnly.call(this, readOnly);
+    },
 
     /**
      * Protected method that will not generally be called directly. It
@@ -508,7 +526,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             this.el.dom.removeAttribute('tabIndex');
             this.el.focus();
         }else{
-            if(this.initialized){
+            if(this.initialized && !this.readOnly){
                 this.disableItems(false);
             }
             this.pushValue();
@@ -678,10 +696,11 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             if(Ext.isIE || Ext.isWebKit || Ext.isOpera){
                 Ext.EventManager.on(this.doc, 'keydown', this.fixKeys, this);
             }
-            this.initialized = true;
-            this.fireEvent('initialize', this);
             this.doc.editorInitialized = true;
+            this.initialized = true;
             this.pushValue();
+            this.setReadOnly(this.readOnly);
+            this.fireEvent('initialize', this);
         }catch(e){}
     },
 
@@ -777,6 +796,10 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
      */
     updateToolbar: function(){
 
+        if(this.readOnly){
+            return;
+        }
+        
         if(!this.activated){
             this.onFirstFocus();
             return;

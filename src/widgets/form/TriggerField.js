@@ -50,8 +50,9 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
     /**
      * @cfg {Boolean} editable <tt>false</tt> to prevent the user from typing text directly into the field,
      * the field will only respond to a click on the trigger to set the value. (defaults to <tt>true</tt>)
+     * @deprecated
      */
-    editable: true,
+    editable: true, //This property should be removed for 4.0
     /**
      * @cfg {String} wrapFocusClass The class added to the to the wrap of the trigger element. Defaults to
      * <tt>x-trigger-wrap-focus</tt>.
@@ -114,8 +115,8 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
             this.wrap.setWidth(this.el.getWidth()+this.trigger.getWidth());
         }
         if(!this.editable){
-            this.editable = true;
-            this.setEditable(false);
+            this.readOnly = false;
+            this.setReadOnly(true);
         }
         this.resizeEl = this.positionEl = this.wrap;
     },
@@ -190,16 +191,22 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
      * the user will only be able to modify the field using the trigger.  This method
      * is the runtime equivalent of setting the 'editable' config option at config time.
      * @param {Boolean} value True to allow the user to directly edit the field text
+     * @deprecated
      */
     setEditable : function(value){
-        if(value == this.editable){
-            return;
-        }
-        this.editable = value;
-        if(!value){
-            this.el.addClass('x-trigger-noedit').on('click', this.onTriggerClick, this).dom.setAttribute('readOnly', true);
-        }else{
-            this.el.removeClass('x-trigger-noedit').un('click', this.onTriggerClick,  this).dom.removeAttribute('readOnly');
+        // This method should be removed for the 4.0 release.
+        this.setReadOnly(!value);
+    },
+    
+    setReadOnly : function(readOnly){
+        if(readOnly != this.readOnly){
+            if(readOnly){
+                this.el.addClass('x-trigger-noedit').on('click', this.onTriggerClick, this);
+            }else{
+                this.el.removeClass('x-trigger-noedit').un('click', this.onTriggerClick,  this);
+            }
+            Ext.form.TriggerField.superclass.setReadOnly.call(this, readOnly);
+            this.editable = !readOnly;
         }
     },
 
