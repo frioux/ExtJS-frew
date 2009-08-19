@@ -302,10 +302,10 @@
             path: 'src/data/'
         },{
             text: 'Request.js',
-            path: 'src/data'
+            path: 'src/data/'
         }, {
             text: 'Response.js',
-            path: 'src/data'
+            path: 'src/data/'
         }, {
         text: 'ScriptTagProxy.js',
         path: 'src/data/'
