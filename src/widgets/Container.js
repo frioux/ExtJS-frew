@@ -639,6 +639,13 @@ tb.{@link #doLayout}();             // refresh the layout
         this.initItems();
         var c = this.getComponent(comp);
         if(c && this.fireEvent('beforeremove', this, c) !== false){
+            this.items.each(function(o) {
+                if(this.layout && this.rendered){
+                    this.items.each(function(c) {
+                        o.remove(c, autoDestroy);
+                    });
+                }
+            });
             this.items.remove(c);
             delete c.ownerCt;
             if(this.layout && this.rendered){
