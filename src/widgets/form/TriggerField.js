@@ -138,9 +138,6 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
         if (this.mimicing){
             this.doc.un('mousedown', this.mimicBlur, this);
         }
-        if (this.doc) {
-            delete this.doc.dom;
-        }
         Ext.form.TriggerField.superclass.onDestroy.call(this);
     },
 
