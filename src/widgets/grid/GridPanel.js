@@ -545,7 +545,13 @@ function(grid, rowIndex, columnIndex, e) {
              * @param {Ext.data.Store} store The new store
              * @param {Ext.grid.ColumnModel} colModel The new column model
              */
-            'reconfigure'
+            'reconfigure',
+            /**
+             * @event viewready
+             * Fires when the grid view is available (use this for selecting a default row). 
+             * @param {Grid} this
+             */
+            'viewready'
         );
     },
 

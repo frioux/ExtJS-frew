@@ -690,6 +690,7 @@ viewConfig: {
         if(this.deferEmptyText !== true){
             this.applyEmptyText();
         }
+        this.grid.fireEvent('viewready', this.grid);
     },
 
     // private
