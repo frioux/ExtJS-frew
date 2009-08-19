@@ -128,11 +128,9 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
             
             el.insertAfter(ct);
             Ext.destroy(ct);
-            delete c.label;
-            delete c.itemCt;
+            Ext.destroyMembers(c, 'label', 'itemCt');
             if(c.customItemCt){
-                delete c.getItemCt;
-                delete c.customItemCt;
+                Ext.destroyMembers(c, 'getItemCt', 'customItemCt');
             }
         }
     },
