@@ -87,7 +87,8 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
                 cls: this.groupCls,
                 layout: 'column',
                 border: false,
-                renderTo: ct
+                renderTo: ct,
+                bufferResize: false // Default this to false, since it doesn't really have a proper ownerCt.
             };
             var colCfg = {
                 defaultType: this.defaultType,
