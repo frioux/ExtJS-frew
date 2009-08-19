@@ -98,6 +98,7 @@ Ext.data.Store = function(config){
     // If Store is RESTful, so too is the DataProxy
     if (this.restful === true && this.proxy) {
         // When operating RESTfully, a unique transaction is generated for each record.
+        // TODO might want to allow implemention of faux REST where batch is possible using RESTful routes only.
         this.batch = false;
         Ext.data.Api.restify(this.proxy);
     }
@@ -107,7 +108,6 @@ Ext.data.Store = function(config){
             this.recordType = this.reader.recordType;
         }
         if(this.reader.onMetaChange){
-            //this.reader.onMetaChange = this.onMetaChange.createDelegate(this);
             this.reader.onMetaChange = this.reader.onMetaChange.createSequence(this.onMetaChange, this);
         }
         if (this.writer) { // writer passed
@@ -304,6 +304,7 @@ var grid = new Ext.grid.EditorGridPanel({
     );
 
     if(this.proxy){
+        // TODO remove deprecated loadexception with ext-3.0.1
         this.relayEvents(this.proxy,  ['loadexception', 'exception']);
     }
     // With a writer set for the Store, we want to listen to add/remove events to remotely create/destroy records.

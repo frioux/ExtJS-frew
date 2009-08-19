@@ -107,7 +107,6 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
 
         // If possible, transmit data using jsonData || xmlData on Ext.Ajax.request (An installed DataWriter would have written it there.).
         // Use std HTTP params otherwise.
-        // TODO wrap into 1 Ext.apply now?
         if (params.jsonData) {
             o.jsonData = params.jsonData;
         } else if (params.xmlData) {

@@ -1,5 +1,5 @@
 /**
- * Ext.data.Request
+ * @class Ext.data.Request
  * A simple Request class used internally to the data package to provide more generalized remote-requests
  * to a DataProxy.
  * TODO Not yet implemented.  Implement in Ext.data.Store#execute

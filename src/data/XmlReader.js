@@ -112,12 +112,14 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
     /**
      * Decode a json response from server.
      * @param {String} action [{@link Ext.data.Api#actions} create|read|update|destroy]
-     * @param {Ext.data.Response} response Returns an instance of {@link Ext.data.Response}
+     * @param {Object} response HTTP Response object from browser.
+     * @return {Ext.data.Response} response Returns an instance of {@link Ext.data.Response}
      */
     readResponse : function(action, response) {
         var q   = Ext.DomQuery,
         doc     = response.responseXML;
 
+        // create general Response instance.
         var res = new Ext.data.Response({
             action: action,
             success : this.getSuccess(doc),
@@ -130,6 +132,7 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
             throw new Ext.data.DataReader.Error('successProperty-response', this.meta.successProperty);
         }
 
+        // Create actions from a response having status 200 must return pk
         if (action === Ext.data.Api.actions.create) {
             var def = Ext.isDefined(res.data);
             if (def && Ext.isEmpty(res.data)) {

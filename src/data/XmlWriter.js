@@ -57,16 +57,18 @@ Ext.extend(Ext.data.XmlWriter, Ext.data.DataWriter, {
      */
     xmlEncoding: 'ISO-8859-15',
     /**
-     * @cfg {String/Ext.XTemplate} tpl The xml template.  Defaults to
+     * @cfg {String/Ext.XTemplate} tpl The XML template used to render {@link Ext.data.Api#actions write-actions} to your server.
+     * <p>One can easily provide his/her own custom {@link Ext.XTemplate#constructor template-definition} if the default does not suffice.</p>
+     * <p>Defaults to:</p>
 <code><pre>
 &lt;?xml version="{version}" encoding="{encoding}"?>
-    &lt;tpl if="documentRoot">&lt;{documentRoot}
+    &lt;tpl if="documentRoot">&lt;{documentRoot}>
     &lt;tpl for="baseParams">
         &lt;tpl for=".">
             &lt;{name}>{value}&lt;/{name}>
-        &lt;/tpl?
+        &lt;/tpl>
     &lt;/tpl>
-    &lt;tpl if="records.length &gt; 1">&lt;{root}}>',
+    &lt;tpl if="records.length &gt; 1">&lt;{root}>',
     &lt;tpl for="records">
         &lt;{parent.record}>
         &lt;tpl for=".">
@@ -74,27 +76,32 @@ Ext.extend(Ext.data.XmlWriter, Ext.data.DataWriter, {
         &lt;/tpl>
         &lt;/{parent.record}>
     &lt;/tpl>
-    &lt;tpl if="records.length &gt; 1">&lt;/{root}}>&lt;/tpl>
-    &lt;tpl if="documentRoot">{documentRoot}&lt;/tpl>
+    &lt;tpl if="records.length &gt; 1">&lt;/{root}>&lt;/tpl>
+    &lt;tpl if="documentRoot">&lt;/{documentRoot}>&lt;/tpl>
 </pre></code>
-     * Templates will be called with the following data:
-     * @param {String} version [1.0] The xml version.
-     * @param {String} encoding [ISO-8859-15] The xml encoding.
-     * @param {String/false} documentRoot The XML document root-node name or <tt>false</tt> if not required.  See {@link #documentRoot} and {@link #forceDocumentRoot}.
-     * @param {String} record The meta-data parameter defined on your {@link Ext.data.XmlReader#record} configuration represents the name of the xml-tag containing each record.
-     * @param {String} root The meta-data parameter defined by {@link Ext.data.XmlWriter#root} configuration-parameter.  Represents the name of the xml root-tag when sending <b>multiple</b> records to the server.
-     * @param {Array} records The records being sent to the server, ie: the subject of the write-action being performed.  The records parameter will be always be an array, even when only a single record is being acted upon.
-     * Each item within the records array will contain an array of field objects having the following properties:
-     *   @param {String} name The field-name of the record as defined by your {@link Ext.data.Record#create Ext.data.Record definition}.  The "mapping" property will be used, otherwise it will match the "name" property.  Use this parameter to define the XML tag-name of the property.
-     *   @param {Mixed} value The record value of the field enclosed within XML tags specified by name property above.
-     * @param {Array} baseParams.  The baseParams as defined upon {@link Ext.data.Store#baseParams}.  Note that the baseParams have been converted into an array of [{name : "foo", value: "bar"}, ...] pairs in the same manner as the <b>records</b> parameter above.  See {@link #documentRoot} and {@link #forceDocumentRoot}.
+     * <p>Templates will be called with the following API</p>
+     * <ul>
+     * <li>{String} version [1.0] The xml version.</li>
+     * <li>{String} encoding [ISO-8859-15] The xml encoding.</li>
+     * <li>{String/false} documentRoot The XML document root-node name or <tt>false</tt> if not required.  See {@link #documentRoot} and {@link #forceDocumentRoot}.</li>
+     * <li>{String} record The meta-data parameter defined on your {@link Ext.data.XmlReader#record} configuration represents the name of the xml-tag containing each record.</li>
+     * <li>{String} root The meta-data parameter defined by {@link Ext.data.XmlWriter#root} configuration-parameter.  Represents the name of the xml root-tag when sending <b>multiple</b> records to the server.</li>
+     * <li>{Array} records The records being sent to the server, ie: the subject of the write-action being performed.  The records parameter will be always be an array, even when only a single record is being acted upon.
+     *     Each item within the records array will contain an array of field objects having the following properties:
+     *     <ul>
+     *         <li>{String} name The field-name of the record as defined by your {@link Ext.data.Record#create Ext.data.Record definition}.  The "mapping" property will be used, otherwise it will match the "name" property.  Use this parameter to define the XML tag-name of the property.</li>
+     *         <li>{Mixed} value The record value of the field enclosed within XML tags specified by name property above.</li>
+     *     </ul></li>
+     * <li>{Array} baseParams.  The baseParams as defined upon {@link Ext.data.Store#baseParams}.  Note that the baseParams have been converted into an array of [{name : "foo", value: "bar"}, ...] pairs in the same manner as the <b>records</b> parameter above.  See {@link #documentRoot} and {@link #forceDocumentRoot}.</li>
+     * </ul>
      */
     tpl: '<tpl for="."><?xml version="{version}" encoding="{encoding}"?><tpl if="documentRoot"><{documentRoot}><tpl for="baseParams"><tpl for="."><{name}>{value}</{name}</tpl></tpl></tpl><tpl if="records.length&gt;1"><{root}></tpl><tpl for="records"><{parent.record}><tpl for="."><{name}>{value}</{name}></tpl></{parent.record}></tpl><tpl if="records.length&gt;1"></{root}></tpl><tpl if="documentRoot"></{documentRoot}></tpl></tpl>',
 
     /**
-     * @param {Object} http params-object to write-to.
+     * XmlWriter implementation of the final stage of a write action.
+     * @param {Object} params Transport-proxy's (eg: {@link Ext.Ajax#request}) params-object to write-to.
      * @param {Object} baseParams as defined by {@link Ext.data.Store#baseParams}.  The baseParms must be encoded by the extending class, eg: {@link Ext.data.JsonWriter}, {@link Ext.data.XmlWriter}.
-     * @param {Object/Object[]} data Data-object representing compiled Store-recordset.
+     * @param {Object/Object[]} data Data-object representing the compiled Store-recordset.
      */
     render : function(params, baseParams, data) {
         baseParams = this.toArray(baseParams);
@@ -104,36 +111,16 @@ Ext.extend(Ext.data.XmlWriter, Ext.data.DataWriter, {
             documentRoot: (baseParams.length > 0 || this.forceDocumentRoot === true) ? this.documentRoot : false,
             record: this.meta.record,
             root: this.root,
-            baseParams: baseParams,   // <-- TODO: No support for baseParams in default template.  Requires a <root> node.
+            baseParams: baseParams,
             records: (Ext.isArray(data[0])) ? data : [data]
         });
     },
 
     /**
-     * Converts a Hashed {@see Ext.data.DataWriter#toHash) Ext.data.Record to fields-array array suitable
-     * for encoding to xml via XTemplate, eg:
-<code><pre>&lt;tpl for="fields">&lt;{name}>{value}&lt;/{name}&lt;/tpl></pre></code>
-     * eg:  {id: 1, first: 'foo', last: 'bar'} --> [{name: 'first', value: 'foo'}, {name: 'last', value: 'bar'}]
-     * @param {Hash} data Hashed by Ext.data.DataWriter#toHash
-     * @return {Object} Object containing fields array.
-     * @private
-     */
-    toArray : function(data) {
-        var fields = [];
-        Ext.iterate(data, function(k, v) {
-            fields.push({
-                name: k,
-                value: v
-            });
-        },this);
-        return fields;
-    },
-
-    /**
      * createRecord
+     * @protected
      * @param {Ext.data.Record} rec
-     * @return {String} xml element
-     * @private
+     * @return {Array} Array of <tt>name:value</tt> pairs for attributes of the {@link Ext.data.Record}.  See {@link Ext.data.DataWriter#toHash}.
      */
     createRecord : function(rec) {
         return this.toArray(this.toHash(rec));
@@ -141,9 +128,9 @@ Ext.extend(Ext.data.XmlWriter, Ext.data.DataWriter, {
 
     /**
      * updateRecord
+     * @protected
      * @param {Ext.data.Record} rec
-     * @return {String} xml element
-     * @private
+     * @return {Array} Array of {name:value} pairs for attributes of the {@link Ext.data.Record}.  See {@link Ext.data.DataWriter#toHash}.
      */
     updateRecord : function(rec) {
         return this.toArray(this.toHash(rec));
@@ -151,8 +138,9 @@ Ext.extend(Ext.data.XmlWriter, Ext.data.DataWriter, {
     },
     /**
      * destroyRecord
+     * @protected
      * @param {Ext.data.Record} rec
-     * @return {String} xml element
+     * @return {Array} Array containing a attribute-object (name/value pair) representing the {@link Ext.data.DataReader#idProperty idProperty}.
      */
     destroyRecord : function(rec) {
         var data = {};

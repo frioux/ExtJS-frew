@@ -7,14 +7,14 @@ Ext.data.JsonWriter = function(config) {
     Ext.data.JsonWriter.superclass.constructor.call(this, config);
 
     // careful to respect "returnJson", renamed to "encode"
-    // TODO: remove after v3 final release
+    // TODO: remove after Ext-3.0.1 release
     if (this.returnJson != undefined) {
         this.encode = this.returnJson;
     }
 }
 Ext.extend(Ext.data.JsonWriter, Ext.data.DataWriter, {
     /**
-     * @cfg {Boolean} returnJson <b>Deprecated</b>.  Use {@link Ext.data.JsonWriter#encode} instead.
+     * @cfg {Boolean} returnJson <b>Deprecated, will be removed in Ext-3.0.1</b>.  Use {@link Ext.data.JsonWriter#encode} instead.
      */
     returnJson : undefined,
     /**

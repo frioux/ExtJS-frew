@@ -403,7 +403,7 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
         // conn.url gets nullified after each request.  If it's NOT null here, that means the user must have intervened with a call
         // to DataProxy#setUrl or DataProxy#setApi and changed it before the request was executed.  If that's the case, use conn.url,
         // otherwise, build the url from the api or this.url.
-        var url = (this.conn.url) ? this.conn.url : (this.api[action]) ? this.api[action].url : this.url;
+        var url = (this.conn && this.conn.url) ? this.conn.url : (this.api[action]) ? this.api[action].url : this.url;
         if (!url) {
             throw new Ext.data.Api.Error('invalid-url', action);
         }
