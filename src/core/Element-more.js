@@ -96,6 +96,9 @@ Ext.Element.addMethods({
     * @return {Ext.Element} this
      */
     update : function(html, loadScripts, callback){
+        if (!this.dom) {
+            return this;
+        }
         html = html || "";
 	    
         if(loadScripts !== true){
