@@ -1,9 +1,9 @@
 /**
  * @class Ext.form.HtmlEditor
  * @extends Ext.form.Field
- * Provides a lightweight HTML Editor component. Some toolbar features are not supported by Safari and will be 
+ * Provides a lightweight HTML Editor component. Some toolbar features are not supported by Safari and will be
  * automatically hidden when needed.  These are noted in the config options where appropriate.
- * <br><br>The editor's toolbar buttons have tooltips defined in the {@link #buttonTips} property, but they are not 
+ * <br><br>The editor's toolbar buttons have tooltips defined in the {@link #buttonTips} property, but they are not
  * enabled by default unless the global {@link Ext.QuickTips} singleton is {@link Ext.QuickTips#init initialized}.
  * <br><br><b>Note: The focus/blur and validation marking functionality inherited from Ext.form.Field is NOT
  * supported by this editor.</b>
@@ -94,7 +94,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
     ],
     defaultFont: 'tahoma',
     /**
-     * @cfg {String} defaultValue A default value to be put into the editor to resolve focus issues (defaults to &#8203; (Zero-width space), &nbsp; (Non-breaking space) in Opera and IE6).
+     * @cfg {String} defaultValue A default value to be put into the editor to resolve focus issues (defaults to &#160; (Non-breaking space) in Opera and IE6, &#8203; (Zero-width space) in all other browsers).
      */
     defaultValue: (Ext.isOpera || Ext.isIE6) ? '&#160;' : '&#8203;',
 
@@ -185,7 +185,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         }
         return buf.join('');
     },
-    
+
     /*
      * Protected method that will not generally be called directly. It
      * is called when the editor creates its toolbar. Override this method if you need to
@@ -193,9 +193,9 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
      * @param {HtmlEditor} editor
      */
     createToolbar : function(editor){
-        
+
         var tipsEnabled = Ext.QuickTips && Ext.QuickTips.isEnabled();
-        
+
         function btn(id, toggle, handler){
             return {
                 itemId : id,
@@ -346,17 +346,17 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
 
         this.tb = tb;
     },
-    
+
     onDisable: function(){
         this.wrap.mask();
         Ext.form.HtmlEditor.superclass.onDisable.call(this);
     },
-    
+
     onEnable: function(){
         this.wrap.unmask();
         Ext.form.HtmlEditor.superclass.onEnable.call(this);
     },
-    
+
     setReadOnly: function(readOnly){
         if(this.initialized){
             this.doc.designMode = readOnly ? 'off' : 'on';
@@ -469,7 +469,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             }
         }
     },
-    
+
     disableItems: function(disabled){
         if(this.fontSelect){
             this.fontSelect.dom.disabled = disabled;
@@ -561,7 +561,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
      * @method
      */
     markInvalid : Ext.emptyFn,
-    
+
     /**
      * Overridden and disabled. The editor element does not support standard valid/invalid marking. @hide
      * @method
@@ -586,7 +586,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         if(Ext.isWebKit){ // strip safari nonsense
             html = html.replace(/\sclass="(?:Apple-style-span|khtml-block-placeholder)"/gi, '');
         }
-        
+
         /*
          * Neat little hack. Strips out all the non-digit characters from the default
          * value and compares it to the character code of the first character in the string
@@ -620,7 +620,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             }
         }
     },
-    
+
     //docs inherit from Field
     getValue : function() {
         this[this.sourceEditMode ? 'pushValue' : 'syncValue']();
@@ -643,7 +643,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                     // Gecko hack, see: https://bugzilla.mozilla.org/show_bug.cgi?id=232791#c8
                     var d = this.doc,
                         mode = d.designMode.toLowerCase();
-                    
+
                     d.designMode = mode.toggle('on', 'off');
                     d.designMode = mode;
                 }
@@ -724,7 +724,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             this.el.removeAllListeners();
             this.el.remove();
         }
- 
+
         if(this.doc){
             try{
                 Ext.EventManager.removeAll(this.doc);
@@ -803,7 +803,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         if(this.readOnly){
             return;
         }
-        
+
         if(!this.activated){
             this.onFirstFocus();
             return;
@@ -831,7 +831,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             btns.insertorderedlist.toggle(doc.queryCommandState('insertorderedlist'));
             btns.insertunorderedlist.toggle(doc.queryCommandState('insertunorderedlist'));
         }
-        
+
         Ext.menu.MenuMgr.hideAll();
 
         this.syncValue();
