@@ -1741,6 +1741,7 @@ panel.load({
             Ext.destroy(
                 this.header,
                 this.footer,
+                this.body,
                 this.bwrap,
                 this.toolbars,
                 this.tbar,
