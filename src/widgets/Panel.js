@@ -675,6 +675,15 @@ new Ext.Panel({
      */
     preventBodyReset : false,
     
+    /**
+     * @cfg {Number/String} padding
+     * A shortcut for setting a padding style on the body element. The value can either be
+     * a number to be applied to all sides, or a normal css string describing padding.
+     * Defaults to <tt>undefined</tt>. 
+     * 
+     */
+    padding: undefined,
+    
     /** @cfg {String} resizeEvent
      * The event to listen to for resizing in layouts. Defaults to <tt>'bodyresize'</tt>.
      */
