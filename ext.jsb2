@@ -10,9 +10,9 @@
             text: 'Ext.js',
             path: 'src/core/core/'
         },{
-	    text: 'Ext-more.js',
-    	    path: 'src/core/'
-	},{
+        text: 'Ext-more.js',
+            path: 'src/core/'
+    },{
             text: 'TaskMgr.js',
             path: 'src/util/core/'
         },{
@@ -24,7 +24,7 @@
         },{
             text: 'ext-base-dom-more.js',
             path: 'src/adapter/'
-	},{
+    },{
             text: 'ext-base-event.js',
             path: 'src/adapter/core/'
         },{
@@ -33,10 +33,10 @@
         },{
             text: 'ext-base-region.js',
             path: 'src/adapter/core/'
-	},{
+    },{
             text: 'ext-base-point.js',
             path: 'src/adapter/core/'
-	},{
+    },{
             text: 'ext-base-anim.js',
             path: 'src/adapter/core/'
         },{
@@ -230,8 +230,8 @@
             path: 'src/util/'
         },{
             text: 'Error.js',
-	    path: 'src/core/'
-	}]
+        path: 'src/core/'
+    }]
     },{
         name: 'Drag Drop',
         file: 'pkgs/ext-dd.js',
@@ -253,9 +253,9 @@
             text: 'StatusProxy.js',
             path: 'src/dd/'
         },{
-	    text: 'DragSource.js',
+        text: 'DragSource.js',
             path: 'src/dd/'
-	},{
+    },{
             text: 'DropTarget.js',
             path: 'src/dd/'
         },{
@@ -301,15 +301,21 @@
             text: 'DataProxy.js',
             path: 'src/data/'
         },{
-	    text: 'ScriptTagProxy.js',
-	    path: 'src/data/'
-	},{
+            text: 'Request.js',
+            path: 'src/data'
+        }, {
+            text: 'Response.js',
+            path: 'src/data'
+        }, {
+        text: 'ScriptTagProxy.js',
+        path: 'src/data/'
+    },{
             text: 'HttpProxy.js',
             path: 'src/data/'
         },{
             text: 'MemoryProxy.js',
             path: 'src/data/'
-        }]    
+        }]
     },{
         name: 'Data - Json',
         file: 'pkgs/data-json.js',
@@ -330,7 +336,7 @@
         },{
             text: 'JsonStore.js',
             path: 'src/data/'
-        }]    
+        }]
     },{
         name: 'Data - XML',
         file: 'pkgs/data-xml.js',
@@ -345,7 +351,7 @@
         },{
             text: 'XmlStore.js',
             path: 'src/data/'
-        }]    
+        }]
     },{
         name: 'Data - GroupingStore',
         file: 'pkgs/data-grouping.js',
@@ -354,7 +360,7 @@
         fileIncludes: [{
             text: 'GroupingStore.js',
             path: 'src/data/'
-        }]    
+        }]
     },{
         name: 'Direct',
         file: 'pkgs/direct.js',
@@ -387,7 +393,7 @@
         },{
             text: 'RemotingProvider.js',
             path: 'src/direct/'
-        }]    
+        }]
     },{
         name: 'Component Foundation',
         file: 'pkgs/cmp-foundation.js',
@@ -466,7 +472,7 @@
             text: 'DatePicker.js',
             path: 'src/widgets/'
         },{
-	    text: 'LoadMask.js',
+        text: 'LoadMask.js',
             path: 'src/widgets/'
         },{
             text: 'Slider.js',
@@ -474,7 +480,7 @@
         },{
             text: 'ProgressBar.js',
             path: 'src/widgets/'
-        }]    
+        }]
     },{
         name: 'Window',
         file: 'pkgs/window.js',
@@ -533,9 +539,9 @@
         pkgs: ['pkgs/ext-foundation.js'],
         fileIncludes: [{
             text: 'Resizable.js',
-            path: 'src/widgets/'        
+            path: 'src/widgets/'
         }]
-    
+
     },{
         name: 'TabPanel',
         file: 'pkgs/pkg-tabs.js',
@@ -543,8 +549,8 @@
         pkgs: ['pkgs/cmp-foundation.js'],
         fileIncludes: [{
             text: 'TabPanel.js',
-            path: 'src/widgets/'        
-        }]    
+            path: 'src/widgets/'
+        }]
     },{
         name: 'Buttons',
         file: 'pkgs/pkg-buttons.js',
@@ -552,14 +558,14 @@
         pkgs: ['pkgs/cmp-foundation.js'],
         fileIncludes: [{
             text: 'Button.js',
-            path: 'src/widgets/'        
+            path: 'src/widgets/'
         },{
             text: 'SplitButton.js',
-            path: 'src/widgets/'        
+            path: 'src/widgets/'
         },{
             text: 'CycleButton.js',
-            path: 'src/widgets/'        
-        }]    
+            path: 'src/widgets/'
+        }]
     },{
         name: 'Toolbars',
         file: 'pkgs/pkg-toolbars.js',
@@ -568,14 +574,14 @@
         pkgs: ['pkgs/cmp-foundation.js'],
         fileIncludes: [{
             text: 'Toolbar.js',
-            path: 'src/widgets/'        
+            path: 'src/widgets/'
         },{
             text: 'ButtonGroup.js',
-            path: 'src/widgets/'        
+            path: 'src/widgets/'
         },{
             text: 'PagingToolbar.js',
-            path: 'src/widgets/'        
-        }]    
+            path: 'src/widgets/'
+        }]
     },{
         name: 'History',
         file: 'pkgs/pkg-history.js',
@@ -583,8 +589,8 @@
         pkgs: ['pkgs/ext-foundation.js'],
         fileIncludes: [{
             text: 'History.js',
-            path: 'src/util/'        
-        }]    
+            path: 'src/util/'
+        }]
     },{
         name: 'Tooltips',
         file: 'pkgs/pkg-tips.js',
@@ -595,14 +601,14 @@
             path: 'src/widgets/tips/'
         },{
             text: 'ToolTip.js',
-            path: 'src/widgets/tips/'        
+            path: 'src/widgets/tips/'
         },{
             text: 'QuickTip.js',
-            path: 'src/widgets/tips/'        
+            path: 'src/widgets/tips/'
         },{
             text: 'QuickTips.js',
-            path: 'src/widgets/tips/'        
-        }]    
+            path: 'src/widgets/tips/'
+        }]
     },{
         name: 'Trees',
         file: 'pkgs/pkg-tree.js',
@@ -613,41 +619,41 @@
             path: 'src/widgets/tree/'
         },{
             text: 'TreeEventModel.js',
-            path: 'src/widgets/tree/'        
+            path: 'src/widgets/tree/'
         },{
             text: 'TreeSelectionModel.js',
-            path: 'src/widgets/tree/'        
+            path: 'src/widgets/tree/'
         },{
-	    text: 'Tree.js',
-	    path: 'src/data/'
-	},{
+        text: 'Tree.js',
+        path: 'src/data/'
+    },{
             text: 'TreeNode.js',
-            path: 'src/widgets/tree/'        
+            path: 'src/widgets/tree/'
         },{
             text: 'AsyncTreeNode.js',
             path: 'src/widgets/tree/'
         },{
             text: 'TreeNodeUI.js',
-            path: 'src/widgets/tree/'        
+            path: 'src/widgets/tree/'
         },{
             text: 'TreeLoader.js',
-            path: 'src/widgets/tree/'        
+            path: 'src/widgets/tree/'
         },{
             text: 'TreeFilter.js',
-            path: 'src/widgets/tree/'        
+            path: 'src/widgets/tree/'
         },{
             text: 'TreeSorter.js',
             path: 'src/widgets/tree/'
         },{
             text: 'TreeDropZone.js',
-            path: 'src/widgets/tree/'        
+            path: 'src/widgets/tree/'
         },{
             text: 'TreeDragZone.js',
-            path: 'src/widgets/tree/'        
+            path: 'src/widgets/tree/'
         },{
             text: 'TreeEditor.js',
-            path: 'src/widgets/tree/'        
-        }]    
+            path: 'src/widgets/tree/'
+        }]
     },{
         name: 'Charts',
         file: 'pkgs/pkg-charts.js',
@@ -658,14 +664,14 @@
             path: 'src/widgets/chart/'
         },{
             text: 'FlashComponent.js',
-            path: 'src/widgets/chart/'        
+            path: 'src/widgets/chart/'
         },{
             text: 'EventProxy.js',
-            path: 'src/widgets/chart/'        
+            path: 'src/widgets/chart/'
         },{
             text: 'Chart.js',
-            path: 'src/widgets/chart/'        
-        }]    
+            path: 'src/widgets/chart/'
+        }]
     },{
         name: 'Menu',
         file: 'pkgs/pkg-menu.js',
@@ -676,29 +682,29 @@
             path: 'src/widgets/menu/'
         },{
             text: 'MenuMgr.js',
-            path: 'src/widgets/menu/'        
+            path: 'src/widgets/menu/'
         },{
             text: 'BaseItem.js',
-            path: 'src/widgets/menu/'        
+            path: 'src/widgets/menu/'
         },{
             text: 'TextItem.js',
-            path: 'src/widgets/menu/'        
+            path: 'src/widgets/menu/'
         },{
             text: 'Separator.js',
-            path: 'src/widgets/menu/'        
+            path: 'src/widgets/menu/'
         },{
             text: 'Item.js',
-            path: 'src/widgets/menu/'        
+            path: 'src/widgets/menu/'
         },{
             text: 'CheckItem.js',
-            path: 'src/widgets/menu/'        
+            path: 'src/widgets/menu/'
         },{
             text: 'DateMenu.js',
-            path: 'src/widgets/menu/'        
+            path: 'src/widgets/menu/'
         },{
             text: 'ColorMenu.js',
-            path: 'src/widgets/menu/'        
-        }]    
+            path: 'src/widgets/menu/'
+        }]
     },{
         name: 'Forms',
         file: 'pkgs/pkg-forms.js',
@@ -709,65 +715,65 @@
             path: 'src/widgets/form/'
         },{
             text: 'TextField.js',
-            path: 'src/widgets/form/'        
+            path: 'src/widgets/form/'
         },{
             text: 'TriggerField.js',
-            path: 'src/widgets/form/'        
+            path: 'src/widgets/form/'
         },{
             text: 'TextArea.js',
-            path: 'src/widgets/form/'        
+            path: 'src/widgets/form/'
         },{
             text: 'NumberField.js',
-            path: 'src/widgets/form/'        
+            path: 'src/widgets/form/'
         },{
             text: 'DateField.js',
-            path: 'src/widgets/form/'        
+            path: 'src/widgets/form/'
         },{
             text: 'DisplayField.js',
-            path: 'src/widgets/form/'        
+            path: 'src/widgets/form/'
         },{
             text: 'Combo.js',
-            path: 'src/widgets/form/'        
+            path: 'src/widgets/form/'
         },{
             text: 'Checkbox.js',
-            path: 'src/widgets/form/'        
+            path: 'src/widgets/form/'
         },{
             text: 'CheckboxGroup.js',
             path: 'src/widgets/form/'
         },{
             text: 'Radio.js',
-            path: 'src/widgets/form/'        
+            path: 'src/widgets/form/'
         },{
             text: 'RadioGroup.js',
-            path: 'src/widgets/form/'        
+            path: 'src/widgets/form/'
         },{
             text: 'Hidden.js',
-            path: 'src/widgets/form/'        
+            path: 'src/widgets/form/'
         },{
             text: 'BasicForm.js',
-            path: 'src/widgets/form/'        
+            path: 'src/widgets/form/'
         },{
             text: 'Form.js',
-            path: 'src/widgets/form/'        
+            path: 'src/widgets/form/'
         },{
             text: 'FieldSet.js',
-            path: 'src/widgets/form/'        
+            path: 'src/widgets/form/'
         },{
             text: 'HtmlEditor.js',
-            path: 'src/widgets/form/'        
+            path: 'src/widgets/form/'
         },{
             text: 'TimeField.js',
-            path: 'src/widgets/form/'        
+            path: 'src/widgets/form/'
         },{
             text: 'Label.js',
-            path: 'src/widgets/form/'        
+            path: 'src/widgets/form/'
         },{
             text: 'Action.js',
-            path: 'src/widgets/form/'        
+            path: 'src/widgets/form/'
         },{
             text: 'VTypes.js',
-            path: 'src/widgets/form/'        
-        }]    
+            path: 'src/widgets/form/'
+        }]
     },{
         name: 'Grid Foundation',
         file: 'pkgs/pkg-grid-foundation.js',
@@ -778,35 +784,35 @@
             path: 'src/widgets/grid/'
         },{
             text: 'GridView.js',
-            path: 'src/widgets/grid/'        
+            path: 'src/widgets/grid/'
         },{
             text: 'ColumnDD.js',
-            path: 'src/widgets/grid/'        
+            path: 'src/widgets/grid/'
         },{
             text: 'ColumnSplitDD.js',
-            path: 'src/widgets/grid/'        
+            path: 'src/widgets/grid/'
         },{
             text: 'GridDD.js',
-            path: 'src/widgets/grid/'        
+            path: 'src/widgets/grid/'
         },{
             text: 'ColumnModel.js',
-            path: 'src/widgets/grid/'        
+            path: 'src/widgets/grid/'
         },{
             text: 'AbstractSelectionModel.js',
-            path: 'src/widgets/grid/'        
+            path: 'src/widgets/grid/'
         },{
             text: 'RowSelectionModel.js',
-            path: 'src/widgets/grid/'        
+            path: 'src/widgets/grid/'
         },{
             text: 'Column.js',
-            path: 'src/widgets/grid/'        
+            path: 'src/widgets/grid/'
         },{
             text: 'RowNumberer.js',
             path: 'src/widgets/grid/'
         },{
             text: 'CheckboxSelectionModel.js',
             path: 'src/widgets/grid/'
-        }]    
+        }]
     },{
         name: 'Grid Editor',
         file: 'pkgs/pkg-grid-editor.js',
@@ -817,11 +823,11 @@
             path: 'src/widgets/grid/'
         },{
             text: 'EditorGrid.js',
-            path: 'src/widgets/grid/'        
+            path: 'src/widgets/grid/'
         },{
             text: 'GridEditor.js',
-            path: 'src/widgets/grid/'        
-        }]    
+            path: 'src/widgets/grid/'
+        }]
     },{
         name: 'Grid - Property Grid',
         file: 'pkgs/pkg-grid-property.js',
@@ -830,7 +836,7 @@
         fileIncludes: [{
             text: 'PropertyGrid.js',
             path: 'src/widgets/grid/'
-        }]    
+        }]
     },{
         name: 'Grid - GroupingView',
         file: 'pkgs/pkg-grid-grouping.js',
@@ -839,40 +845,40 @@
         fileIncludes: [{
             text: 'GroupingView.js',
             path: 'src/widgets/grid/'
-        }]    
+        }]
     },{
         name: 'Ext All',
         file: 'ext-all.js',
         isDebug: true,
-	includeDeps: true,
+    includeDeps: true,
         pkgDeps: [
-		'pkgs/ext-foundation.js',
-		'pkgs/cmp-foundation.js',
-		'pkgs/ext-dd.js',
-		'pkgs/data-foundation.js',
-		'pkgs/data-json.js',
-		'pkgs/data-xml.js',
-		'pkgs/data-grouping.js',
-		'pkgs/direct.js',
+        'pkgs/ext-foundation.js',
+        'pkgs/cmp-foundation.js',
+        'pkgs/ext-dd.js',
+        'pkgs/data-foundation.js',
+        'pkgs/data-json.js',
+        'pkgs/data-xml.js',
+        'pkgs/data-grouping.js',
+        'pkgs/direct.js',
                 'pkgs/resizable.js',
-		'pkgs/window.js',
-		'pkgs/state.js',
-		'pkgs/data-list-views.js',
-		'pkgs/pkg-tabs.js',
-		'pkgs/pkg-buttons.js',
-		'pkgs/pkg-toolbars.js',
-		'pkgs/pkg-history.js',
-		'pkgs/pkg-tips.js',
-		'pkgs/pkg-tree.js',
-		'pkgs/pkg-charts.js',
-		'pkgs/pkg-menu.js',
-		'pkgs/pkg-forms.js',
-		'pkgs/pkg-grid-foundation.js',
-		'pkgs/pkg-grid-editor.js',
-		'pkgs/pkg-grid-property.js',
-		'pkgs/pkg-grid-grouping.js'
-	],
-	fileIncludes: []
+        'pkgs/window.js',
+        'pkgs/state.js',
+        'pkgs/data-list-views.js',
+        'pkgs/pkg-tabs.js',
+        'pkgs/pkg-buttons.js',
+        'pkgs/pkg-toolbars.js',
+        'pkgs/pkg-history.js',
+        'pkgs/pkg-tips.js',
+        'pkgs/pkg-tree.js',
+        'pkgs/pkg-charts.js',
+        'pkgs/pkg-menu.js',
+        'pkgs/pkg-forms.js',
+        'pkgs/pkg-grid-foundation.js',
+        'pkgs/pkg-grid-editor.js',
+        'pkgs/pkg-grid-property.js',
+        'pkgs/pkg-grid-grouping.js'
+    ],
+    fileIncludes: []
     },{
        name: 'User Extension JS Pack',
        file: 'examples/ux/ux-all.js',
@@ -1217,7 +1223,7 @@
            text: 'dialog.css',
            path: 'resources/css/visual/'
        }]
-    }],    
+    }],
     resources: [{
         src: 'src/',
         dest: 'src/',
@@ -1242,6 +1248,6 @@
         src: 'ext.jsb2',
         dest: 'ext.jsb2',
         filters: ".*"
-    }]   
+    }]
 }
 
