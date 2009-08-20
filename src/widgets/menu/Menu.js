@@ -472,7 +472,6 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
             Ext.menu.Menu.superclass.onShow.call(this);
             if(Ext.isIE){
                 // internal event, used so we don't couple the layout to the menu
-                console.log('x');
                 this.fireEvent('autosize', this);
                 if(!Ext.isIE8){
                     this.el.repaint();
