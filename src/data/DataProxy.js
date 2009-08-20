@@ -33,6 +33,25 @@ proxy : new Ext.data.HttpProxy({
     }
 }),
  * </code></pre>
+ * <p>And <b>new in Ext version 3</b>, attach centralized event-listeners upon the DataProxy class itself!  This is a great place
+ * to implement a <i>messaging system</i> to centralize your application's user-feedback.</p>
+ * <pre><code>
+// Listen to all "beforewrite" event fired by all proxies.
+Ext.data.DataProxy.on('beforewrite', function(proxy, action) {
+    console.log('beforewrite: ', action);
+});
+
+// Listen to "write" event fired by all proxies
+Ext.data.DataProxy.on('write', function(proxy, action, data, res, rs) {
+    console.info('write: ', action);
+});
+
+// Listen to "exception" event fired by all proxies
+Ext.data.DataProxy.on('exception', function(proxy, type, action) {
+    console.error(type + action + ' exception);
+});
+ * </code></pre>
+ * <b>Note:</b> These three events are all fired with the signature of the corresponding <i>DataProxy instance</i> event {@link #beforewrite beforewrite}, {@link #write write} and {@link #exception exception}.
  */
 Ext.data.DataProxy = function(conn){
     // make sure we have a config object here to support ux proxies.
