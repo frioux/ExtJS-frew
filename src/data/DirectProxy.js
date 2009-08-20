@@ -39,7 +39,24 @@ paramOrder: 'param1|param2|param'
      */
     directFn : undefined,
 
-    // protected
+    /**
+     * DirectProxy implementation of {@link Ext.data.DataProxy#doRequest}
+     * @param {String} action The crud action type (create, read, update, destroy)
+     * @param {Ext.data.Record/Ext.data.Record[]} rs If action is load, rs will be null
+     * @param {Object} params An object containing properties which are to be used as HTTP parameters
+     * for the request to the remote server.
+     * @param {Ext.data.DataReader} reader The Reader object which converts the data
+     * object into a block of Ext.data.Records.
+     * @param {Function} callback
+     * <div class="sub-desc"><p>A function to be called after the request.
+     * The <tt>callback</tt> is passed the following arguments:<ul>
+     * <li><tt>r</tt> : Ext.data.Record[] The block of Ext.data.Records.</li>
+     * <li><tt>options</tt>: Options object from the action request</li>
+     * <li><tt>success</tt>: Boolean success indicator</li></ul></p></div>
+     * @param {Object} scope The scope in which to call the callback
+     * @param {Object} arg An optional argument which is passed to the callback as its second parameter.
+     * @protected
+     */
     doRequest : function(action, rs, params, reader, callback, scope, options) {
         var args = [];
         var directFn = this.api[action] || this.directFn;
@@ -102,8 +119,9 @@ paramOrder: 'param1|param2|param'
      * Callback for read actions
      * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
      * @param {Object} trans The request transaction object
+     * @param {Object} result Data object picked out of the server-response.
      * @param {Object} res The server response
-     * @private
+     * @protected
      */
     onRead : function(action, trans, result, res) {
         var records;
@@ -123,10 +141,12 @@ paramOrder: 'param1|param2|param'
     },
     /**
      * Callback for write actions
-     * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
+     * @param {String} action [{@link Ext.data.Api#actions create|read|update|destroy}]
      * @param {Object} trans The request transaction object
+     * @param {Object} result Data object picked out of the server-response.
      * @param {Object} res The server response
-     * @private
+     * @param {Ext.data.Record/[Ext.data.Record]} rs The Store resultset associated with the action.
+     * @protected
      */
     onWrite : function(action, trans, result, res, rs) {
         var data = trans.reader.extractData(result);

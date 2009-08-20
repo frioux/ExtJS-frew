@@ -91,6 +91,7 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
      * <li><tt>success</tt>: Boolean success indicator</li></ul></p></div>
      * @param {Object} scope The scope in which to call the callback
      * @param {Object} arg An optional argument which is passed to the callback as its second parameter.
+     * @protected
      */
     doRequest : function(action, rs, params, reader, cb, scope, arg) {
         var  o = {
@@ -175,7 +176,7 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
      * @fires loadexception (deprecated)
      * @fires exception
      * @fires load
-     * @private
+     * @protected
      */
     onRead : function(action, o, response) {
         var result;
@@ -214,7 +215,7 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
      * @param {Object} res The server response
      * @fires exception
      * @fires write
-     * @private
+     * @protected
      */
     onWrite : function(action, o, response, rs) {
         var reader = o.reader;

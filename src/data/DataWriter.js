@@ -21,7 +21,7 @@ var reader = new Ext.data.JsonReader({idProperty: 'id'}, [{name: 'first'}, {name
  * <pre><code>
 // Create a standard HttpProxy instance.
 var proxy = new Ext.data.HttpProxy({
-    url: 'app.php/users'    // &lt;--- Supports "provides"-type urls, such as '/users.json', '/products.xml'
+    url: 'app.php/users'    // &lt;--- Supports "provides"-type urls, such as '/users.json', '/products.xml' (Hello Rails/Merb)
 });
  * </code></pre>
  * <p>For finer grained control, the proxy may also be configured with an <code>API</code>:</p>

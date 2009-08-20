@@ -165,7 +165,7 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
      * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
      * @param {Object} trans The request transaction object
      * @param {Object} res The server response
-     * @private
+     * @protected
      */
     onRead : function(action, trans, res) {
         var result;
@@ -194,7 +194,7 @@ Ext.extend(Ext.data.ScriptTagProxy, Ext.data.DataProxy, {
      * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
      * @param {Object} trans The request transaction object
      * @param {Object} res The server response
-     * @private
+     * @protected
      */
     onWrite : function(action, trans, response, rs) {
         var reader = trans.reader;

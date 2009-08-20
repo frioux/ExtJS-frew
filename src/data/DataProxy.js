@@ -34,7 +34,7 @@ proxy : new Ext.data.HttpProxy({
 }),
  * </code></pre>
  * <p>And <b>new in Ext version 3</b>, attach centralized event-listeners upon the DataProxy class itself!  This is a great place
- * to implement a <i>messaging system</i> to centralize your application's user-feedback.</p>
+ * to implement a <i>messaging system</i> to centralize your application's user-feedback and error-handling.</p>
  * <pre><code>
 // Listen to all "beforewrite" event fired by all proxies.
 Ext.data.DataProxy.on('beforewrite', function(proxy, action) {
@@ -406,6 +406,27 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
         this.load(params, reader, callback, scope, options);
     },
 
+    /**
+     * @cfg {Function} onRead Abstract method that should be implemented in all subclasses.  Callback for read {@link Ext.data.Api#actions action}.
+     * @param {String} action Action name as per {@link Ext.data.Api.actions#read}.
+     * @param {Object} o The request transaction object
+     * @param {Object} res The server response
+     * @fires loadexception (deprecated)
+     * @fires exception
+     * @fires load
+     * @protected
+     */
+    onRead : Ext.emptyFn,
+    /**
+     * @cfg {Function} onWrite Abstract method that should be implemented in all subclasses.  Callback for <i>create, update and destroy</i> {@link Ext.data.Api#actions actions}.
+     * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
+     * @param {Object} trans The request transaction object
+     * @param {Object} res The server response
+     * @fires exception
+     * @fires write
+     * @protected
+     */
+    onWrite : Ext.emptyFn,
     /**
      * buildUrl
      * Sets the appropriate url based upon the action being executed.  If restful is true, and only a single record is being acted upon,
