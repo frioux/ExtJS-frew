@@ -8,6 +8,9 @@
 
     setContainer : function(ct){
         this.monitorResize = !ct.floating;
+        // This event is only fired by the menu in IE, used so we don't couple
+        // the menu with the layout.
+        ct.on('autosize', this.doAutoSize, this);
         Ext.layout.MenuLayout.superclass.setContainer.call(this, ct);
     },
 
@@ -468,7 +471,9 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
             this.el.show();
             Ext.menu.Menu.superclass.onShow.call(this);
             if(Ext.isIE){
-                this.layout.doAutoSize();
+                // internal event, used so we don't couple the layout to the menu
+                console.log('x');
+                this.fireEvent('autosize', this);
                 if(!Ext.isIE8){
                     this.el.repaint();
                 }
