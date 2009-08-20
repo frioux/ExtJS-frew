@@ -463,21 +463,22 @@ items: [
 
     afterRender: function(){
         Ext.Container.superclass.afterRender.call(this);
-        if(this.layout){
-            if(Ext.isObject(this.layout) && !this.layout.layout){
-                this.layoutConfig = this.layout;
-                this.layout = this.layoutConfig.type;
-            }
-            if(Ext.isString(this.layout)){
-                this.layout = new Ext.Container.LAYOUTS[this.layout.toLowerCase()](this.layoutConfig);
-            }
-            this.setLayout(this.layout);
+        if(!this.layout){
+            this.layout = 'auto';
+        }
+        if(Ext.isObject(this.layout) && !this.layout.layout){
+            this.layoutConfig = this.layout;
+            this.layout = this.layoutConfig.type;
+        }
+        if(Ext.isString(this.layout)){
+            this.layout = new Ext.Container.LAYOUTS[this.layout.toLowerCase()](this.layoutConfig);
+        }
+        this.setLayout(this.layout);
 
-            if(this.activeItem !== undefined){
-                var item = this.activeItem;
-                delete this.activeItem;
-                this.layout.setActiveItem(item);
-            }
+        if(this.activeItem !== undefined){
+            var item = this.activeItem;
+            delete this.activeItem;
+            this.layout.setActiveItem(item);
         }
         if(!this.ownerCt){
             // force a layout if no ownerCt is set
