@@ -61,6 +61,8 @@ var recId = 100; // provide unique id for the record
 var r = new myStore.recordType(defaultData, ++recId); // create new record
 myStore.{@link #insert}(0, r); // insert a new record into the store (also see {@link #add})
  * </code></pre>
+ * <p>And <b>new in Ext version 3</b>, use the new {@link Ext.data.DataWriter DataWriter} to create an automated, <a href="http://extjs.com/deploy/dev/examples/writer/writer.html">Writable Store</a>
+ * along with <a href="http://extjs.com/deploy/dev/examples/restful/restful.html">RESTful features.</a>
  * @constructor
  * Creates a new Store.
  * @param {Object} config A config object containing the objects needed for the Store to access data,
