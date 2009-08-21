@@ -1219,17 +1219,21 @@ new Ext.Panel({
     },
 
     syncHeight : function(){
-        if(!this.autoHeight){
-            var h = this.toolbarHeight,
-                bd = this.body;
+        var h = this.toolbarHeight,
+                bd = this.body,
+                ls = this.lastSize;
+                
+        if(this.autoHeight || ls.height == 'auto'){
+            return;
+        }
+            
            
-            if(h != this.getToolbarHeight()){
-                h = Math.max(0, this.adjustBodyHeight(this.lastSize.height - this.getFrameHeight()));
-                bd.setHeight(h);
-                sz = bd.getSize();
-                this.toolbarHeight = this.getToolbarHeight();
-                this.onBodyResize(sz.width, sz.height);
-            }
+        if(h != this.getToolbarHeight()){
+            h = Math.max(0, this.adjustBodyHeight(this.lastSize.height - this.getFrameHeight()));
+            bd.setHeight(h);
+            sz = bd.getSize();
+            this.toolbarHeight = this.getToolbarHeight();
+            this.onBodyResize(sz.width, sz.height);
         }
     },
 
