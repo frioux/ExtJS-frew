@@ -1098,7 +1098,7 @@ viewConfig: {
     getColumnWidth : function(col){
         var w = this.cm.getColumnWidth(col);
         if(Ext.isNumber(w)){
-            return (Ext.isBorderBox ? w : (w-this.borderWidth > 0 ? w-this.borderWidth:0)) + 'px';
+            return (Ext.isBorderBox || (Ext.isWebKit && !Ext.isSafari2) ? w : (w - this.borderWidth > 0 ? w - this.borderWidth : 0)) + 'px';
         }
         return w;
     },
