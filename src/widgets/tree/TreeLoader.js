@@ -68,7 +68,7 @@ Ext.tree.TreeLoader = function(config){
         "loadexception"
     );
     Ext.tree.TreeLoader.superclass.constructor.call(this);
-    if(typeof this.paramOrder == 'string'){
+    if(Ext.isString(this.paramOrder)){
         this.paramOrder = this.paramOrder.split(/[\s,|]/);
     }
 };
@@ -133,6 +133,12 @@ paramOrder: 'param1|param2|param'
      * <tt>{@link #paramOrder}</tt> nullifies this configuration.
      */
     paramsAsHash: false,
+    
+    /**
+     * @cfg {String} nodeParameter The name of the parameter sent to the server which contains
+     * the identifier of the node. Defaults to <tt>'node'</tt>.
+     */
+    nodeParameter: 'node',
 
     /**
      * @cfg {Function} directFn
@@ -194,13 +200,9 @@ paramOrder: 'param1|param2|param'
             }
             return buf;
         }else{
-            for(var key in bp){
-                if(!Ext.isFunction(bp[key])){
-                    buf.push(encodeURIComponent(key), "=", encodeURIComponent(bp[key]), "&");
-                }
-            }
-            buf.push("node=", encodeURIComponent(node.id));
-            return buf.join("");
+            var o = Ext.apply({}, bp);
+            o[this.nodeParameter] = node.id;
+            return o;
         }
     },
 
@@ -290,7 +292,7 @@ new Ext.tree.TreePanel({
         if(this.applyLoader !== false){
             attr.loader = this;
         }
-        if(typeof attr.uiProvider == 'string'){
+        if(Ext.isString(attr.uiProvider)){
            attr.uiProvider = this.uiProviders[attr.uiProvider] || eval(attr.uiProvider);
         }
         if(attr.nodeType){
