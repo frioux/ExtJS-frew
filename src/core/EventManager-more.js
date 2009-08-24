@@ -31,10 +31,11 @@ Ext.apply(Ext.EventManager, function(){
 	    },
 	    
 	    /**
-	     * Fires when the window is resized and provides resize event buffering (50 milliseconds), passes new viewport width and height to handlers.
-	     * @param {Function} fn        The method the event invokes
-	     * @param {Object}   scope    An object that becomes the scope of the handler
-	     * @param {boolean}  options
+	     * Adds a listener to be notified when the browser window is resized and provides resize event buffering (50 milliseconds),
+	     * passes new viewport width and height to handlers.
+	     * @param {Function} fn      The handler function the window resize event invokes.
+	     * @param {Object}   scope   The scope (<code>this</code> reference) in which the handler function executes. Defaults to the browser window.
+	     * @param {boolean}  options Options object as passed to {@link Ext.Element#addListener}
 	     */
 	    onWindowResize : function(fn, scope, options){
 	        if(!resizeEvent){
@@ -57,10 +58,10 @@ Ext.apply(Ext.EventManager, function(){
 	    },
 	
 	    /**
-	     * Fires when the user changes the active text size. Handler gets called with 2 params, the old size and the new size.
-	     * @param {Function} fn        The method the event invokes
-	     * @param {Object}   scope    An object that becomes the scope of the handler
-	     * @param {boolean}  options
+	     * Adds a listener to be notified when the user changes the active text size. Handler gets called with 2 params, the old size and the new size.
+	     * @param {Function} fn      The function the event invokes.
+	     * @param {Object}   scope   The scope (<code>this</code> reference) in which the handler function executes. Defaults to the browser window.
+	     * @param {boolean}  options Options object as passed to {@link Ext.Element#addListener}
 	     */
 	    onTextResize : function(fn, scope, options){
 	        if(!textEvent){
