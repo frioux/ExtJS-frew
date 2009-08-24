@@ -165,8 +165,8 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         
         var cs = this.getItems(ct), cm, ch, margin,
             size = this.getTargetSize(target),
-            w = size.width - target.getPadding('lr') - this.scrollOffset,
-            h = size.height - target.getPadding('tb'),
+            w = size.width - target.getPadding('lr'),
+            h = size.height - target.getPadding('tb') - this.scrollOffset,
             l = this.padding.left, t = this.padding.top,
             isStart = this.pack == 'start',
             isRestore = ['stretch', 'stretchmax'].indexOf(this.align) == -1,
