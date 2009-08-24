@@ -770,7 +770,7 @@ var menu = new Ext.menu.Menu({
     // private
     onResize : function(w, h){
         Ext.form.ComboBox.superclass.onResize.apply(this, arguments);
-        if(this.isVisible()){
+        if(this.isVisible() && this.list){
             this.doResize(w);
         }else{
             this.bufferSize = w;
@@ -778,7 +778,7 @@ var menu = new Ext.menu.Menu({
     },
     
     doResize: function(w){
-        if(this.list && !Ext.isDefined(this.listWidth)){
+        if(!Ext.isDefined(this.listWidth)){
             var lw = Math.max(w, this.minListWidth);
             this.list.setWidth(lw);
             this.innerList.setWidth(lw - this.list.getFrameWidth('lr'));
