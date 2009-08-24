@@ -410,11 +410,6 @@ myCheckboxGroup.setValue('cb-col-1,cb-col-3');
      */
     initValue : Ext.emptyFn,
     /**
-     * @method getValue
-     * @hide
-     */
-    getValue : Ext.emptyFn,
-    /**
      * @method getRawValue
      * @hide
      */
