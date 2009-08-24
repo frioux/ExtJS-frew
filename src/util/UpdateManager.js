@@ -485,7 +485,7 @@ Ext.Updater.defaults = {
     * Blank page URL to use with SSL file uploads (defaults to {@link Ext#SSL_SECURE_URL} if set, or "javascript:false").
     * @type String
     */
-    sslBlankUrl : (Ext.SSL_SECURE_URL || "javascript:false")      
+    sslBlankUrl : Ext.SSL_SECURE_URL      
 };
 
 

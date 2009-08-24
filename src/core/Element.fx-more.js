@@ -135,9 +135,7 @@ function(){
 	        	shim;
 	        el.frameBorder = '0';
 	        el.className = 'ext-shim';
-	        if(Ext.isIE && Ext.isSecure){
-	            el.src = Ext.SSL_SECURE_URL;
-	        }
+	        el.src = Ext.SSL_SECURE_URL;
 	        shim = Ext.get(this.dom.parentNode.insertBefore(el, this.dom));
 	        shim.autoBoxAdjust = false;
 	        return shim;
