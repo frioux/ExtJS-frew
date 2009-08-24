@@ -68,10 +68,10 @@ paramOrder: 'param1|param2|param'
             case Ext.data.Api.actions.read:
                 if(this.paramOrder){
                     for(var i = 0, len = this.paramOrder.length; i < len; i++){
-                        args.push(params.jsonData[this.paramOrder[i]]);
+                        args.push(params[this.paramOrder[i]]);
                     }
                 }else if(this.paramsAsHash){
-                    args.push(params.jsonData);
+                    args.push(params);
                 }
                 break;
             case Ext.data.Api.actions.update:
