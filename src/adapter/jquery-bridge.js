@@ -253,19 +253,42 @@ Ext.lib.Ajax = function(){
     var createComplete = function(cb){
          return function(xhr, status){
             if((status == 'error' || status == 'timeout') && cb.failure){
-                cb.failure.call(cb.scope||window, {
-                    responseText: xhr.responseText,
-                    responseXML : xhr.responseXML,
-                    argument: cb.argument
-                });
+                cb.failure.call(cb.scope||window, createResponse(cb, xhr));
             }else if(cb.success){
-                cb.success.call(cb.scope||window, {
-                    responseText: xhr.responseText,
-                    responseXML : xhr.responseXML,
-                    argument: cb.argument
-                });
+                cb.success.call(cb.scope||window, createResponse(cb, xhr));
             }
          };
+    };
+    
+    var createResponse = function(cb, xhr){
+        var headerObj = {},
+            headerStr,              
+            t,
+            s;
+
+        try {
+            headerStr = xhr.getAllResponseHeaders();   
+            Ext.each(headerStr.replace(/\r\n/g, '\n').split('\n'), function(v){
+                t = v.indexOf(':');
+                if(t >= 0){
+                    s = v.substr(0, t).toLowerCase();
+                    if(v.charAt(t + 1) == ' '){
+                        ++t;
+                    }
+                    headerObj[s] = v.substr(t + 1);
+                }
+            });
+        } catch(e) {}
+        
+        return {
+            responseText: xhr.responseText,
+            responseXML : xhr.responseXML,
+            argument: cb.argument,
+            status: xhr.status,
+            statusText: xhr.statusText,
+            getResponseHeader : function(header){return headerObj[header.toLowerCase()];},
+            getAllResponseHeaders : function(){return headerStr}
+        };
     };
     return {
         request : function(method, uri, cb, data, options){
