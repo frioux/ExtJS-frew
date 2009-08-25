@@ -374,6 +374,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     // private
     afterRender : function(){
         Ext.Button.superclass.afterRender.call(this);
+        this.doc = Ext.getDoc();
         this.doAutoWidth();
     },
 
@@ -435,10 +436,10 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
 
     // private
     onDestroy : function(){
-        var doc = Ext.getDoc();
-        doc.un('mouseover', this.monitorMouseOver, this);
-        doc.un('mouseup', this.onMouseUp, this);
         if(this.rendered){
+            this.doc.un('mouseover', this.monitorMouseOver, this);
+            this.doc.un('mouseup', this.onMouseUp, this);
+            delete this.doc;
             delete this.btnEl;
             Ext.ButtonToggleMgr.unregister(this);
         }
@@ -618,7 +619,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
             if(!internal){
                 this.el.addClass('x-btn-over');
                 if(!this.monitoringMouseOver){
-                    Ext.getDoc().on('mouseover', this.monitorMouseOver, this);
+                    this.doc.on('mouseover', this.monitorMouseOver, this);
                     this.monitoringMouseOver = true;
                 }
                 this.fireEvent('mouseover', this, e);
@@ -633,7 +634,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     monitorMouseOver : function(e){
         if(e.target != this.el.dom && !e.within(this.el)){
             if(this.monitoringMouseOver){
-                Ext.getDoc().un('mouseover', this.monitorMouseOver, this);
+                this.doc.un('mouseover', this.monitorMouseOver, this);
                 this.monitoringMouseOver = false;
             }
             this.onMouseOut(e);
@@ -669,14 +670,14 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     onMouseDown : function(e){
         if(!this.disabled && e.button === 0){
             this.getClickEl(e).addClass('x-btn-click');
-            Ext.getDoc().on('mouseup', this.onMouseUp, this);
+            this.doc.on('mouseup', this.onMouseUp, this);
         }
     },
     // private
     onMouseUp : function(e){
         if(e.button === 0){
             this.getClickEl(e, true).removeClass('x-btn-click');
-            Ext.getDoc().un('mouseup', this.onMouseUp, this);
+            this.doc.un('mouseup', this.onMouseUp, this);
         }
     },
     // private
