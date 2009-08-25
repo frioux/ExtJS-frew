@@ -96,7 +96,7 @@ Ext.ux.Spinner = Ext.extend(Ext.util.Observable, {
 
     doResize: function(w, h){
         if (typeof w == 'number') {
-            this.el.setWidth(this.field.adjustWidth('input', w - this.trigger.getWidth()));
+            this.el.setWidth(w - this.trigger.getWidth());
         }
         this.wrap.setWidth(this.el.getWidth() + this.trigger.getWidth());
     },
