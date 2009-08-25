@@ -1221,15 +1221,15 @@ new Ext.Panel({
     syncHeight : function(){
         var h = this.toolbarHeight,
                 bd = this.body,
-                ls = this.lastSize;
+                lsh = this.lastSize.height;
                 
-        if(this.autoHeight || ls.height == 'auto'){
+        if(this.autoHeight || !Ext.isDefined(lsh) || lsh == 'auto'){
             return;
         }
             
            
         if(h != this.getToolbarHeight()){
-            h = Math.max(0, this.adjustBodyHeight(this.lastSize.height - this.getFrameHeight()));
+            h = Math.max(0, this.adjustBodyHeight(lsh - this.getFrameHeight()));
             bd.setHeight(h);
             sz = bd.getSize();
             this.toolbarHeight = this.getToolbarHeight();
