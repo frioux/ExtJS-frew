@@ -517,11 +517,14 @@ new Ext.TabPanel({
         }
         item.tabEl = el;
 
-        item.on('disable', this.onItemDisabled, this);
-        item.on('enable', this.onItemEnabled, this);
-        item.on('titlechange', this.onItemTitleChanged, this);
-        item.on('iconchange', this.onItemIconChanged, this);
-        item.on('beforeshow', this.onBeforeShowItem, this);
+        item.on({
+            scope: this,
+            disable: this.onItemDisabled,
+            enable: this.onItemEnabled,
+            titlechange: this.onItemTitleChanged,
+            iconchange: this.onItemIconChanged,
+            beforeshow: this.onBeforeShowItem
+        });
     },
 
     /**
@@ -643,7 +646,9 @@ new Ext.TabPanel({
     onItemIconChanged : function(item, iconCls, oldCls){
         var el = this.getTabEl(item);
         if(el){
-            Ext.fly(el).child('span.x-tab-strip-text').replaceClass(oldCls, iconCls);
+            el = Ext.get(el);
+            el.child('span.x-tab-strip-text').replaceClass(oldCls, iconCls);
+            el[Ext.isEmpty(iconCls) ? 'removeClass' : 'addClass']('x-tab-with-icon');
         }
     },
 
