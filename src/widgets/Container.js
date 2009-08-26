@@ -542,22 +542,24 @@ tb.{@link #doLayout}();             // refresh the layout
         this.initItems();
         var args = arguments.length > 1;
         if(args || Ext.isArray(comp)){
+            var result = [];
             Ext.each(args ? arguments : comp, function(c){
-                this.add(c);
+                result.push(this.add(c));
             }, this);
-            return;
+            return result;
         }
         var c = this.lookupComponent(this.applyDefaults(comp));
-        var pos = this.items.length;
-        if(this.fireEvent('beforeadd', this, c, pos) !== false && this.onBeforeAdd(c) !== false){
+        var index = this.items.length;
+        if(this.fireEvent('beforeadd', this, c, index) !== false && this.onBeforeAdd(c) !== false){        
             this.items.add(c);
-            c.ownerCt = this;
+            // *onAdded
+            c.onAdded(this, index);
             this.onAdd(c);
-            this.fireEvent('add', this, c, pos);
+            this.fireEvent('add', this, c, index);
         }
         return c;
     },
-
+    
     onAdd : function(c){
         // Empty template method
     },
@@ -584,8 +586,9 @@ tb.{@link #doLayout}();             // refresh the layout
         this.initItems();
         var a = arguments, len = a.length;
         if(len > 2){
+            var result = [];
             for(var i = len-1; i >= 1; --i) {
-                this.insert(index, a[i]);
+                result.push(this.insert(index, a[i]));
             }
             return;
         }
@@ -596,13 +599,13 @@ tb.{@link #doLayout}();             // refresh the layout
                 this.items.remove(c);
             }
             this.items.insert(index, c);
-            c.ownerCt = this;
+            c.onAdded(this, index);
             this.onAdd(c);
             this.fireEvent('add', this, c, index);
         }
         return c;
     },
-
+    
     // private
     applyDefaults : function(c){
         if(this.defaults){
@@ -645,6 +648,7 @@ tb.{@link #doLayout}();             // refresh the layout
             if(this.layout && this.rendered){
                 this.layout.onRemove(c);
             }
+            c.onRemoved();
             this.onRemove(c);
             if(autoDestroy === true || (autoDestroy !== false && this.autoDestroy)){
                 c.destroy();

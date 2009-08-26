@@ -137,6 +137,14 @@ Ext.Component = function(config){
     Ext.apply(this, config);
     this.addEvents(
         /**
+         * @event added
+         * Fires when a component is added to an Ext.Container
+         * @param {Ext.Component} this
+         * @param {Ext.Container} ownerCt Container which holds the component
+         * @param {number} index Position at which the component was added
+         */
+        'added',		
+        /**
          * @event disable
          * Fires after the component is disabled.
          * @param {Ext.Component} this
@@ -175,6 +183,13 @@ Ext.Component = function(config){
          * @param {Ext.Component} this
          */
         'hide',
+        /**
+         * @event removed
+         * Fires when a component is removed from an Ext.Container
+         * @param {Ext.Component} this
+         * @param {Ext.Container} ownerCt Container which holds the component
+         */
+        'removed',			
         /**
          * @event beforerender
          * Fires before the component is {@link #rendered}. Return false from an
@@ -909,41 +924,24 @@ Ext.Foo = Ext.extend(Ext.Bar, {
             if(this.stateful !== false){
                 this.initStateEvents();
             }
-            this.initRef();
             this.fireEvent('afterrender', this);
         }
         return this;
     },
+    
+    onAdded: function(container, pos) {
+        this.ownerCt = container;
+        this.initRef();
+        this.fireEvent('added', this, container, pos);
+    },
 
-    initRef : function(){
-        /**
-         * @cfg {String} ref
-         * <p>A path specification, relative to the Component's {@link #ownerCt} specifying into which
-         * ancestor Container to place a named reference to this Component.</p>
-         * <p>The ancestor axis can be traversed by using '/' characters in the path.
-         * For example, to put a reference to a Toolbar Button into <i>the Panel which owns the Toolbar</i>:</p><pre><code>
-var myGrid = new Ext.grid.EditorGridPanel({
-    title: 'My EditorGridPanel',
-    store: myStore,
-    colModel: myColModel,
-    tbar: [{
-        text: 'Save',
-        handler: saveChanges,
-        disabled: true,
-        ref: '../saveButton'
-    }],
-    listeners: {
-        afteredit: function() {
-//          The button reference is in the GridPanel
-            myGrid.saveButton.enable();
-        }
-    }
-});
-</code></pre>
-         * <p>In the code above, if the ref had been <code>'saveButton'</code> the reference would
-         * have been placed into the Toolbar. Each '/' in the ref moves up one level from the
-         * Component's {@link #ownerCt}.</p>
-         */
+    onRemoved: function() {
+        this.removeRef();
+        this.fireEvent('removed', this, this.ownerCt);
+        delete this.ownerCt;
+    },
+
+    initRef: function() {
         if(this.ref){
             var levels = this.ref.split('/');
             var last = levels.length, i = 0;
@@ -954,10 +952,23 @@ var myGrid = new Ext.grid.EditorGridPanel({
                 }
                 i++;
             }
-            t[levels[--i]] = this;
+            t[this.refName = levels[--i]] = this;
+            /**
+             * @type Ext.Container
+             * @property refOwner
+             * The ancestor Container into which the {@link #ref} reference was inserted if this Component
+             * is a child of a Container, and has been configured with a <code>ref</code>.
+             */
+            this.refOwner = t;
         }
     },
 
+    removeRef: function() {
+        if (this.refOwner && this.refName) {
+            delete this.refOwner[this.refName];
+        }
+    },
+    
     // private
     initState : function(config){
         if(Ext.state.Manager){
