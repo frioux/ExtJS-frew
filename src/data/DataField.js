@@ -28,6 +28,7 @@ Ext.data.Field = function(config){
                 this.sortType = st.asUCString;
                 break;
             case "date":
+            case "datetime":
                 this.sortType = st.asDate;
                 break;
             default:
@@ -52,6 +53,7 @@ Ext.data.Field = function(config){
                 cv = function(v){ return (v === undefined || v === null) ? '' : String(v); };
                 break;
             case "int":
+            case "integer":
                 cv = function(v){
                     return v !== undefined && v !== null && v !== '' ?
                            parseInt(String(v).replace(stripRe, ""), 10) : '';
@@ -68,6 +70,7 @@ Ext.data.Field = function(config){
                 cv = function(v){ return v === true || v === "true" || v == 1; };
                 break;
             case "date":
+            case "datetime":
                 cv = function(v){
                     if(!v){
                         return '';
@@ -87,7 +90,10 @@ Ext.data.Field = function(config){
                     var parsed = Date.parse(v);
                     return parsed ? new Date(parsed) : null;
                 };
-             break;
+                break;
+            default:
+                cv = function(v){ return v; };
+                break;
 
         }
         this.convert = cv;
@@ -148,7 +154,7 @@ var store = new Ext.data.Store({
     reader: new Ext.data.JsonReader(
         {
             idProperty: 'key',
-            root: 'daRoot',  
+            root: 'daRoot',
             totalProperty: 'total'
         },
         Dude  // recordType
@@ -233,11 +239,11 @@ sortType: function(value) {
      * <tt>"ASC"</tt>.
      */
     sortDir : "ASC",
-	/**
-	 * @cfg {Boolean} allowBlank 
-	 * (Optional) Used for validating a {@link Ext.data.Record record}, defaults to <tt>true</tt>.
-	 * An empty value here will cause {@link Ext.data.Record}.{@link Ext.data.Record#isValid isValid}
-	 * to evaluate to <tt>false</tt>.
-	 */
-	allowBlank : true
+    /**
+     * @cfg {Boolean} allowBlank
+     * (Optional) Used for validating a {@link Ext.data.Record record}, defaults to <tt>true</tt>.
+     * An empty value here will cause {@link Ext.data.Record}.{@link Ext.data.Record#isValid isValid}
+     * to evaluate to <tt>false</tt>.
+     */
+    allowBlank : true
 };
