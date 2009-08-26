@@ -1,23 +1,23 @@
 /**
  * @class Ext.CompositeElement
  * @extends Ext.CompositeElementLite
- * Standard composite class. Creates a Ext.Element for every element in the collection.
- * <br><br>
- * <b>NOTE: Although they are not listed, this class supports all of the set/update methods of Ext.Element. All Ext.Element
- * actions will be performed on all the elements in this collection.</b>
- * <br><br>
- * All methods return <i>this</i> and can be chained.
- <pre><code>
- var els = Ext.select("#some-el div.some-class", true);
- // or select directly from an existing element
- var el = Ext.get('some-el');
- el.select('div.some-class', true);
+ * <p>This class encapsulates a <i>collection</i> of DOM elements, providing methods to filter
+ * members, or to perform collective actions upon the whole set.</p>
+ * <p>Although they are not listed, this class supports all of the methods of {@link Ext.Element} and
+ * {@link Ext.Fx}. The methods from these classes will be performed on all the elements in this collection.</p>
+ * <p>All methods return <i>this</i> and can be chained.</p>
+ * Usage:
+<pre><code>
+var els = Ext.select("#some-el div.some-class", true);
+// or select directly from an existing element
+var el = Ext.get('some-el');
+el.select('div.some-class', true);
 
- els.setWidth(100); // all elements become 100 width
- els.hide(true); // all elements fade out and hide
- // or
- els.setWidth(100).hide(true);
- </code></pre>
+els.setWidth(100); // all elements become 100 width
+els.hide(true); // all elements fade out and hide
+// or
+els.setWidth(100).hide(true);
+</code></pre>
  */
 Ext.CompositeElement = function(els, root){
     this.elements = [];
@@ -85,16 +85,12 @@ Ext.extend(Ext.CompositeElement, Ext.CompositeElementLite, {
      * <code>element</code>. If the supplied function returns <tt>false</tt>,
      * iteration stops. This function is called with the following arguments:
      * <div class="mdetail-params"><ul>
-     * <li><code>element</code> : <i>Object</i>
-     * <div class="sub-desc">The element at the current <code>index</code>
+     * <li><code>element</code> : <i>Ext.Element</i><div class="sub-desc">The element at the current <code>index</code>
      * in the <code>composite</code></div></li>
-     * <li><code>composite</code> : <i>Object</i>
-     * <div class="sub-desc">This composite.</div></li>
-     * <li><code>index</code> : <i>Number</i>
-     * <div class="sub-desc">The current index within the <code>composite</code>
-     * </div></li>
+     * <li><code>composite</code> : <i>Object</i> <div class="sub-desc">This composite.</div></li>
+     * <li><code>index</code> : <i>Number</i> <div class="sub-desc">The current index within the <code>composite</code> </div></li>
      * </ul></div>
-     * @param {Object} scope (optional) The scope to call the specified function.
+     * @param {Object} scope (optional) The scope (<code><this</code> reference) in which the specified function is executed.
      * Defaults to the <code>element</code> at the current <code>index</code>
      * within the composite.
      * @return {CompositeElement} this
