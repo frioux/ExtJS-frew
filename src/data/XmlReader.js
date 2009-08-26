@@ -247,7 +247,9 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
             }
         } else {
             for (var i = 0, len = root.length; i < len; i++) {
-                records.push(this.extractValues(root[i], fi, fl));
+                var data = this.extractValues(root[i], fi, fl);
+                data[this.meta.idProperty] = this.getId(data);
+                records.push(data);
             }
         }
         return records;

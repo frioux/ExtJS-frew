@@ -330,7 +330,9 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
             }
             else {
                 for (var i = 0; i < root.length; i++) {
-                    rs.push(this.extractValues(root[i], fi, fl));
+                    var data = this.extractValues(root[i], fi, fl);
+                    data[this.meta.idProperty] = this.getId(root[i]);
+                    rs.push(data);
                 }
             }
         }
