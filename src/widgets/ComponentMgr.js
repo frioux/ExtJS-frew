@@ -127,7 +127,12 @@ Ext.ComponentMgr = function(){
          * @return {Ext.Component} The newly instantiated Plugin.
          */
         createPlugin : function(config, defaultType){
-            return new ptypes[config.ptype || defaultType](config);
+            var PluginCls = ptypes[config.ptype || defaultType];
+            if (PluginCls.init) {
+                return PluginCls;                
+            } else {
+                return new PluginCls(config);
+            }            
         }
     };
 }();
