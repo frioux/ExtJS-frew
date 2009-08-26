@@ -169,6 +169,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
             this.mon(this.field, "autosize", this.el.sync,  this.el, {delay:1});
         }
         this.field.render(this.el).show();
+        this.field.getEl().dom.name = '';
         if(this.swallowKeys){
             this.field.el.swallowEvent([
                 'keypress', // *** Opera
