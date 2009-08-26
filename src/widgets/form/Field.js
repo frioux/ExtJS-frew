@@ -74,17 +74,16 @@ Ext.form.Field = Ext.extend(Ext.BoxComponent,  {
      */
     fieldClass : 'x-form-field',
     /**
-     * @cfg {String} msgTarget The location where error text should display.  Should be one of the following values
-     * (defaults to 'qtip'):
-     *<pre>
-Value         Description
------------   ----------------------------------------------------------------------
-qtip          Display a quick tip when the user hovers over the field
-title         Display a default browser title attribute popup
-under         Add a block div beneath the field containing the error text
-side          Add an error icon to the right of the field with a popup on hover
-[element id]  Add the error text directly to the innerHTML of the specified element
-</pre>
+     * @cfg {String} msgTarget<p>The location where the message text set through {@link #markInvalid} should display. 
+     * Must be one of the following values:</p>
+     * <div class="mdetail-params"><ul>
+     * <li><code>qtip</code> Display a quick tip cintaining the message when the user hovers over the field. This is the default.
+     * <div class="subdesc"><b>{@link Ext.QuickTips#init Ext.QuickTips.init} must have been called for this setting to work.</b></div</li>
+     * <li><code>title</code> Display the message in a default browser title attribute popup.</li>
+     * <li><code>under</code> Add a block div beneath the field containing the error message.</li>
+     * <li><code>side</code> Add an error icon to the right of the field, displaying the message in a popup on hover.</li>
+     * <li><code>[element id]</code> Add the error message directly to the innerHTML of the specified element.</li>
+     * </ul></div>
      */
     msgTarget : 'qtip',
     /**
@@ -407,9 +406,11 @@ var form = new Ext.form.FormPanel({
     },
 
     /**
-     * Mark this field as invalid, using {@link #msgTarget} to determine how to
-     * display the error and applying {@link #invalidClass} to the field's element.
-     * <b>Note</b>: this method does not actually make the field
+     * <p>Display an error message associated with this field, using {@link #msgTarget} to determine how to
+     * display the message and applying {@link #invalidClass} to the field's UI element.</p>
+     * <p><b>Note</b>: this method does not cause the Field's {@link #validate} method to return <code>false</code>
+     * if the value does <i>pass</i> validation. So simply marking a Field as invalid will not prevent
+     * submission of forms submitted with the {@link Ext.form.Action.Submit#clientValidation} option set.</p>
      * {@link #isValid invalid}.
      * @param {String} msg (optional) The validation message (defaults to {@link #invalidText})
      */
