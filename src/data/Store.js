@@ -114,6 +114,9 @@ Ext.data.Store = function(config){
             this.reader.onMetaChange = this.reader.onMetaChange.createSequence(this.onMetaChange, this);
         }
         if (this.writer) { // writer passed
+            if (this.writer instanceof(Ext.data.DataWriter) === false) {    // <-- config-object instead of instance.
+                this.writer = this.buildWriter(this.writer);
+            }
             this.writer.meta = this.reader.meta;
             this.pruneModifiedRecords = true;
         }
@@ -526,6 +529,28 @@ sortInfo: {
         limit : 'limit',
         sort : 'sort',
         dir : 'dir'
+    },
+
+    /**
+     * builds a DataWriter instance when Store constructor is provided with a writer config-object instead of an instace.
+     * @param {Object} config Writer configuration
+     * @return {Ext.data.DataWriter}
+     * @private
+     */
+    buildWriter : function(config) {
+        type = config.format.toLowerCase() || 'json';
+        klass = undefined;
+        switch (type) {
+            case 'json':
+                klass = Ext.data.JsonWriter;
+                break;
+            case 'xml':
+                klass = Ext.data.XmlWriter;
+                break;
+            default:
+                klass = Ext.data.JsonWriter;
+        }
+        return new klass(config);
     },
 
     /**
