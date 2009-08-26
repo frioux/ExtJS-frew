@@ -1,5 +1,3 @@
-Ext.Container.prototype.bufferResize = false;
-
 Ext.onReady(function() {
     var form = new Ext.form.FormPanel({
         baseCls: 'x-plain',
@@ -14,6 +12,8 @@ Ext.onReady(function() {
         },
 
         items: [{
+            xtype: 'combo',
+            store: ['test@example.com', 'someone-else@example.com' ],
             plugins: [ Ext.ux.FieldReplicator, Ext.ux.FieldLabeler ],
             fieldLabel: 'Send To',
             name: 'to'
@@ -30,7 +30,7 @@ Ext.onReady(function() {
         }]
     });
 
-    var window = new Ext.Window({
+    var w = new Ext.Window({
         title: 'Compose message',
         collapsible: true,
         maximizable: true,
@@ -49,5 +49,5 @@ Ext.onReady(function() {
             text: 'Cancel'
         }]
     });
-    window.show();
+    w.show();
 });
