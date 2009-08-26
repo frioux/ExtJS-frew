@@ -538,7 +538,7 @@ sortInfo: {
      * @private
      */
     buildWriter : function(config) {
-        type = config.format.toLowerCase() || 'json';
+        type = (config.format || 'json').toLowerCase();
         klass = undefined;
         switch (type) {
             case 'json':
