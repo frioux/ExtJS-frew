@@ -77,7 +77,7 @@ Ext.form.Field = Ext.extend(Ext.BoxComponent,  {
      * @cfg {String} msgTarget<p>The location where the message text set through {@link #markInvalid} should display. 
      * Must be one of the following values:</p>
      * <div class="mdetail-params"><ul>
-     * <li><code>qtip</code> Display a quick tip cintaining the message when the user hovers over the field. This is the default.
+     * <li><code>qtip</code> Display a quick tip containing the message when the user hovers over the field. This is the default.
      * <div class="subdesc"><b>{@link Ext.QuickTips#init Ext.QuickTips.init} must have been called for this setting to work.</b></div</li>
      * <li><code>title</code> Display the message in a default browser title attribute popup.</li>
      * <li><code>under</code> Add a block div beneath the field containing the error message.</li>
