@@ -1489,14 +1489,18 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
         }, this);
         this.mons = [];
     },
-
-    // internal function for auto removal of assigned event handlers on destruction
-    mon : function(item, ename, fn, scope, opt){
+    
+    // private
+    createMons: function(){
         if(!this.mons){
             this.mons = [];
             this.on('beforedestroy', this.clearMons, this, {single: true});
         }
+    },
 
+    // internal function for auto removal of assigned event handlers on destruction
+    mon : function(item, ename, fn, scope, opt){
+        this.createMons();
         if(Ext.isObject(ename)){
             var propRe = /^(?:scope|delay|buffer|single|stopEvent|preventDefault|stopPropagation|normalized|args|delegate)$/;
 
@@ -1531,6 +1535,7 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
     // protected, opposite of mon
     mun : function(item, ename, fn, scope){
         var found, mon;
+        this.createMons();
         for(var i = 0, len = this.mons.length; i < len; ++i){
             mon = this.mons[i];
             if(item === mon.item && ename == mon.ename && fn === mon.fn && scope === mon.scope){

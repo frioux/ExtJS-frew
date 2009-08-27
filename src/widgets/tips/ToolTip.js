@@ -139,10 +139,10 @@ myGrid.on('render', function(grid) {
         var t;
         if((t = Ext.get(target))){
             if(this.target){
-                this.target = Ext.get(this.target);
-                this.target.un('mouseover', this.onTargetOver, this);
-                this.target.un('mouseout', this.onTargetOut, this);
-                this.target.un('mousemove', this.onMouseMove, this);
+                var tg = Ext.get(this.target);
+                this.mun(tg, 'mouseover', this.onTargetOver, this);
+                this.mun(tg, 'mouseout', this.onTargetOut, this);
+                this.mun(tg, 'mousemove', this.onMouseMove, this);
             }
             this.mon(t, {
                 mouseover: this.onTargetOver,
