@@ -135,7 +135,20 @@ Ext.History = (function () {
             if (Ext.isIE) {
                 iframe = Ext.getDom(Ext.History.iframeId);
             }
-            this.addEvents('ready', 'change');
+            this.addEvents(
+                /**
+                 * @event ready
+                 * Fires when the Ext.History singleton has been initialized and is ready for use.
+                 * @param {Ext.History} The Ext.History singleton.
+                 */
+                'ready',
+                /**
+                 * @event change
+                 * Fires when navigation back or forwards within the local page's history occurs.
+                 * @param {String} token An identifier associated with the page state at that point in its history.
+                 */
+                'change'
+            );
             if(onReady){
                 this.on('ready', onReady, scope, {single:true});
             }
