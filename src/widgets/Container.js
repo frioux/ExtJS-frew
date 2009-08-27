@@ -590,7 +590,7 @@ tb.{@link #doLayout}();             // refresh the layout
             for(var i = len-1; i >= 1; --i) {
                 result.push(this.insert(index, a[i]));
             }
-            return;
+            return result;
         }
         var c = this.lookupComponent(this.applyDefaults(comp));
         index = Math.min(index, this.items.length);
