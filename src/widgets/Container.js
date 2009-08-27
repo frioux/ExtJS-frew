@@ -715,8 +715,16 @@ tb.{@link #doLayout}();             // refresh the layout
     },
 
     // private
-    createComponent : function(config){
-        return Ext.create(config, this.defaultType);
+    createComponent : function(config, defaultType, maintainOwnership){
+        // add in ownerCt at creation time but then immediately
+        // remove so that onBeforeAdd can handle it
+        var c = Ext.create(Ext.apply({
+            ownerCt: this
+        }, config), defaultType || this.defaultType);
+        if (!maintainOwnership) {
+            delete c.ownerCt;    
+        }        
+        return c;
     },
 
     // private

@@ -802,19 +802,44 @@ new Ext.Panel({
             this.baseCls = 'x-plain';
         }
 
+
+        this.toolbars = [];
         // shortcuts
         if(this.tbar){
             this.elements += ',tbar';
-            if(Ext.isObject(this.tbar)){
+            // Convert array to proper toolbar config
+            if(Ext.isArray(this.tbar)){
+                this.tbar = {
+                    items: this.tbar
+                };
+            }
+            // tbar has not been instantiated
+            if (!this.tbar.events) {
+                this.topToolbar = this.createComponent(this.tbar, 'toolbar');
+            // tbar has already been created
+            } else {
                 this.topToolbar = this.tbar;
             }
+            this.topToolbar.ownerCt = this;
+            this.toolbars.push(this.topToolbar);        
             delete this.tbar;
         }
         if(this.bbar){
             this.elements += ',bbar';
-            if(Ext.isObject(this.bbar)){
+            // Convert array to proper toolbar config
+            if(Ext.isArray(this.bbar)){
+                this.bbar = {
+                    items: this.bbar
+                };
+            }
+            
+            if (!this.bbar.events) {
+                this.bottomToolbar = this.createComponent(this.bbar, 'toolbar');
+            } else {
                 this.bottomToolbar = this.bbar;
             }
+            this.bottomToolbar.ownerCt = this;
+            this.toolbars.push(this.bottomToolbar);            
             delete this.bbar;
         }
 
@@ -852,6 +877,15 @@ new Ext.Panel({
         }
         if(this.fbar){
             this.elements += ',footer';
+            this.fbar = this.createComponent(this.fbar, 'toolbar');
+            this.fbar.enableOverflow = false;
+            if(this.fbar.items){
+                this.fbar.items.each(function(c){
+                    c.minWidth = c.minWidth || this.minButtonWidth;
+                }, this);
+            }
+            this.fbar.toolbarCls = 'x-panel-fbar';
+            this.toolbars.push(this.fbar);
         }
         if(this.autoLoad){
             this.on('render', this.doAutoLoad, this, {delay:10});
@@ -893,7 +927,7 @@ new Ext.Panel({
             ts;
             
             
-        if(this.collapsible && !this.hideCollapseTool){
+        if(this.header && this.collapsible && !this.hideCollapseTool){
             this.tools = this.tools ? this.tools.slice(0) : [];
             this.tools[this.collapseFirst?'unshift':'push']({
                 id: 'toggle',
@@ -1032,43 +1066,18 @@ new Ext.Panel({
                 toolbarCls: 'x-panel-fbar'
             });
         }
-        this.toolbars = [];
         if(this.fbar){
-            this.fbar = Ext.create(this.fbar, 'toolbar');
-            this.fbar.enableOverflow = false;
-            if(this.fbar.items){
-                this.fbar.items.each(function(c){
-                    c.minWidth = c.minWidth || this.minButtonWidth;
-                }, this);
-            }
-            this.fbar.toolbarCls = 'x-panel-fbar';
-
             var bct = this.footer.createChild({cls: 'x-panel-btns x-panel-btns-'+this.buttonAlign});
-            this.fbar.ownerCt = this;
             this.fbar.render(bct);
-            bct.createChild({cls:'x-clear'});
-            this.toolbars.push(this.fbar);
+            bct.createChild({cls:'x-clear'});            
         }
 
         if(this.tbar && this.topToolbar){
-            if(Ext.isArray(this.topToolbar)){
-                this.topToolbar = new Ext.Toolbar(this.topToolbar);
-            }else if(!this.topToolbar.events){
-                this.topToolbar = Ext.create(this.topToolbar, 'toolbar');
-            }
-            this.topToolbar.ownerCt = this;
-            this.topToolbar.render(this.tbar);
-            this.toolbars.push(this.topToolbar);
+            this.topToolbar.render(this.tbar);            
         }
         if(this.bbar && this.bottomToolbar){
-            if(Ext.isArray(this.bottomToolbar)){
-                this.bottomToolbar = new Ext.Toolbar(this.bottomToolbar);
-            }else if(!this.bottomToolbar.events){
-                this.bottomToolbar = Ext.create(this.bottomToolbar, 'toolbar');
-            }
-            this.bottomToolbar.ownerCt = this;
             this.bottomToolbar.render(this.bbar);
-            this.toolbars.push(this.bottomToolbar);
+
         }
     },
 
