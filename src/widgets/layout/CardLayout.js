@@ -102,7 +102,7 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
             }
             this.activeItem = item;
             item.show();
-            this.container.doLayout();
+            this.layout();
             if(this.layoutOnCardChange && item.doLayout){
                 item.doLayout();
             }
