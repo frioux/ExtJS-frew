@@ -33,6 +33,21 @@ if (scriptTag) {
     out.write(");");
 }
 </code></pre>
+ * <p>Below is a PHP example to do the same thing:</p><pre><code>
+$callback = $_REQUEST['callback'];
+
+// Create the output object.
+$output = array('a' => 'Apple', 'b' => 'Banana');
+
+//start output
+if ($callback) {
+    header('Content-Type: text/javascript');
+    echo $callback . '(' . json_encode($output) . ');';
+} else {
+    header('Content-Type: application/x-json');
+    echo json_encode($output);
+}
+</code></pre>
  *
  * @constructor
  * @param {Object} config A configuration object.
