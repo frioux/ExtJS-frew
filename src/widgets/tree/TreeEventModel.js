@@ -6,13 +6,19 @@ Ext.tree.TreeEventModel = function(tree){
 Ext.tree.TreeEventModel.prototype = {
     initEvents : function(){
         var el = this.tree.getTreeEl();
-        el.on('click', this.delegateClick, this);
         if(this.tree.trackMouseOver !== false){
-            this.tree.innerCt.on('mouseover', this.delegateOver, this);
-            this.tree.innerCt.on('mouseout', this.delegateOut, this);
+            this.tree.innerCt.on({
+                scope: this,
+                mouseover: this.delegateOver,
+                mouseout: this.delegateOut
+            });
         }
-        el.on('dblclick', this.delegateDblClick, this);
-        el.on('contextmenu', this.delegateContextMenu, this);
+        el.on({
+            scope: this,
+            click: this.delegateClick,
+            dblclick: this.delegateDblClick,
+            contextmenu: this.delegateContextMenu
+        });
     },
 
     getNode : function(e){
@@ -81,31 +87,41 @@ Ext.tree.TreeEventModel.prototype = {
     },
 
     delegateClick : function(e, t){
-        if(!this.beforeEvent(e)){
-            return;
-        }
-
-        if(e.getTarget('input[type=checkbox]', 1)){
-            this.onCheckboxClick(e, this.getNode(e));
-        }
-        else if(e.getTarget('.x-tree-ec-icon', 1)){
-            this.onIconClick(e, this.getNode(e));
-        }
-        else if(this.getNodeTarget(e)){
-            this.onNodeClick(e, this.getNode(e));
+        if(this.beforeEvent(e)){
+            if(e.getTarget('input[type=checkbox]', 1)){
+                this.onCheckboxClick(e, this.getNode(e));
+            }else if(e.getTarget('.x-tree-ec-icon', 1)){
+                this.onIconClick(e, this.getNode(e));
+            }else if(this.getNodeTarget(e)){
+                this.onNodeClick(e, this.getNode(e));
+            }else{
+                this.onContainerEvent(e, 'click');
+            }
         }
     },
 
     delegateDblClick : function(e, t){
-        if(this.beforeEvent(e) && this.getNodeTarget(e)){
-            this.onNodeDblClick(e, this.getNode(e));
+        if(this.beforeEvent(e)){
+            if(this.getNodeTarget(e)){
+                this.onNodeDblClick(e, this.getNode(e));
+            }else{
+                this.onContainerEvent(e, 'dblclick');    
+            }
         }
     },
 
     delegateContextMenu : function(e, t){
-        if(this.beforeEvent(e) && this.getNodeTarget(e)){
-            this.onNodeContextMenu(e, this.getNode(e));
+        if(this.beforeEvent(e)){
+            if(this.getNodeTarget(e)){
+                this.onNodeContextMenu(e, this.getNode(e));
+            }else{
+                this.onContainerEvent(e, 'contextmenu');    
+            }
         }
+    },
+    
+    onContainerEvent: function(e, type){
+        this.tree.fireEvent('container' + type, this.tree, e); 
     },
 
     onNodeClick : function(e, node){

@@ -302,6 +302,13 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
             */
             "click",
             /**
+            * @event containerclick
+            * Fires when the tree container is clicked
+            * @param {Tree} this
+            * @param {Ext.EventObject} e The event object
+            */
+            "containerclick",
+            /**
             * @event checkchange
             * Fires when a node with a checkbox's checked property changes
             * @param {Node} this This node
@@ -322,6 +329,13 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
             * @param {Ext.EventObject} e The event object
             */
             "dblclick",
+            /**
+            * @event containerdblclick
+            * Fires when the tree container is double clicked
+            * @param {Tree} this
+            * @param {Ext.EventObject} e The event object
+            */
+            "containerdblclick",
             /**
             * @event contextmenu
             * Fires when a node is right clicked. To display a context menu in response to this
@@ -370,6 +384,13 @@ new Ext.tree.TreePanel({
             * @param {Ext.EventObject} e The event object
             */
             "contextmenu",
+            /**
+            * @event containercontextmenu
+            * Fires when the tree container is right clicked
+            * @param {Tree} this
+            * @param {Ext.EventObject} e The event object
+            */
+            "containercontextmenu",
             /**
             * @event beforechildrenrendered
             * Fires right before the child nodes for a node are rendered
