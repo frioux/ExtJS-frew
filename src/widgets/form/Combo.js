@@ -322,6 +322,12 @@ var combo = new Ext.form.ComboBox({
      * (defaults to <tt>true</tt>)
      */
     lazyInit : true,
+    
+    /**
+     * @cfg {Boolean} clearFilterOnReset <tt>true</tt> to clear any filters on the store (when in local mode) when reset is called
+     * (defaults to <tt>true</tt>)
+     */
+    clearFilterOnReset : true,
 
     /**
      * The value of the match string used to filter the store. Delete this property to force a requery.
@@ -680,6 +686,13 @@ var menu = new Ext.menu.Menu({
             if(this.view){
                 this.view.bindStore(store);
             }
+        }
+    },
+    
+    reset : function(){
+        Ext.form.ComboBox.superclass.reset.call(this);
+        if(this.clearFilterOnReset && this.mode == 'local'){
+            this.store.clearFilter();
         }
     },
 

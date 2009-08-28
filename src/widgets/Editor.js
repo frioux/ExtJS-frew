@@ -214,6 +214,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
         }
         if(this.fireEvent("beforestartedit", this, this.boundEl, v) !== false){
             this.startValue = v;
+            this.field.reset();
             this.field.setValue(v);
             this.doAutoSize();
             this.el.alignTo(this.boundEl, this.alignment);
