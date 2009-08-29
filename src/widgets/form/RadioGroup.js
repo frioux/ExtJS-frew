@@ -9,6 +9,10 @@
  */
 Ext.form.RadioGroup = Ext.extend(Ext.form.CheckboxGroup, {
     /**
+     * @cfg {Array} items An Array of {@link Ext.form.Radio Radio}s or Radio config objects
+     * to arrange in the group.
+     */
+    /**
      * @cfg {Boolean} allowBlank True to allow every item in the group to be blank (defaults to true).
      * If allowBlank = false and no items are selected at validation time, {@link @blankText} will
      * be used as the error text.
