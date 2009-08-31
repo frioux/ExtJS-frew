@@ -151,8 +151,10 @@ paramOrder: 'param1|param2|param'
      * This is called automatically when a node is expanded, but may be used to reload
      * a node (or append new children if the {@link #clearOnLoad} option is false.)
      * @param {Ext.tree.TreeNode} node
-     * @param {Function} callback
-     * @param (Object) scope
+     * @param {Function} callback Function to call after the node has been loaded. The 
+     * function is passed the TreeNode which was requested to be loaded.
+     * @param (Object) scope The cope (<code>this</code> reference) in which the callback is executed.
+     * defaults to the loaded TreeNode.
      */
     load : function(node, callback, scope){
         if(this.clearOnLoad){
