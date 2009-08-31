@@ -5,15 +5,16 @@ Ext.tree.TreeEventModel = function(tree){
 
 Ext.tree.TreeEventModel.prototype = {
     initEvents : function(){
-        var el = this.tree.getTreeEl();
-        if(this.tree.trackMouseOver !== false){
-            this.tree.innerCt.on({
+        var t = this.tree;
+            
+        if(t.trackMouseOver !== false){
+            t.mon(t.innerCt, {
                 scope: this,
                 mouseover: this.delegateOver,
                 mouseout: this.delegateOut
             });
         }
-        el.on({
+        t.mon(t.getTreeEl(), {
             scope: this,
             click: this.delegateClick,
             dblclick: this.delegateDblClick,
