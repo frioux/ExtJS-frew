@@ -17,27 +17,22 @@ Ext.lib.Dom = {
     },
 
     isAncestor : function(p, c){
+        var ret = false;
+            
         p = Ext.getDom(p);
         c = Ext.getDom(c);
-        if (!p || !c) {return false;}
-
-        if(p.contains && !Ext.isSafari) {
-            return p.contains(c);
-        }else if(p.compareDocumentPosition) {
-            return !!(p.compareDocumentPosition(c) & 16);
-        }else{
-            var parent = c.parentNode;
-            while (parent) {
-                if (parent == p) {
-                    return true;
+        if (p && c) {
+            if (p.contains) {
+                return p.contains(c);
+            } else if (p.compareDocumentPosition) {
+                return !!(p.compareDocumentPosition(c) & 16);
+            } else {
+                while (c = c.parentNode) {
+                    ret = c == p || ret;                        
                 }
-                else if (!parent.tagName || parent.tagName.toUpperCase() == "HTML") {
-                    return false;
-                }
-                parent = parent.parentNode;
-            }
-            return false;
-        }
+            }               
+        }   
+        return ret;
     },
 
     getRegion : function(el){
@@ -226,12 +221,17 @@ Ext.lib.Event = {
         var iid = setInterval(f, 50);
     },
 
-    resolveTextNode: function(node) {
-        if (node && 3 == node.nodeType) {
-            return node.parentNode;
-        } else {
-            return node;
+    resolveTextNode: Ext.isGecko ? function(node){
+        if(!node){
+            return;
         }
+        var s = HTMLElement.prototype.toString.call(node);
+        if(s == '[xpconnect wrapped native prototype]' || s == '[object XULElement]'){
+            return;
+        }
+        return node.nodeType == 3 ? node.parentNode : node;
+    } : function(node){
+        return node && node.nodeType == 3 ? node.parentNode : node;
     },
 
     getRelatedTarget: function(ev) {

@@ -4,34 +4,13 @@ var libFlyweight,
     version = Prototype.Version.split('.'),
     mouseEnterSupported = (parseInt(version[0]) >= 2) || (parseInt(version[1]) >= 7) || (parseInt(version[2]) >= 1),
     mouseCache = {},
-    isXUL = Ext.isGecko ? function(node){ 
-        return Object.prototype.toString.call(node) == '[object XULElement]';
-    } : function(){},
-    isTextNode = Ext.isGecko ? function(node){
-        try{
-            return node.nodeType == 3;
-        }catch(e) {
-            return false;
-        }
-
-    } : function(node){
-        return node.nodeType == 3;
-    },
     elContains = function(parent, child) {
        if(parent && parent.firstChild){  
          while(child) {
             if(child === parent) {
                 return true;
             }
-            try {
-                child = child.parentNode;
-            } catch(e) {
-                // In FF if you mouseout an text input element
-                // thats inside a div sometimes it randomly throws
-                // Permission denied to get property HTMLDivElement.parentNode
-                // See https://bugzilla.mozilla.org/show_bug.cgi?id=208427
-                return false;
-            }                
+            child = child.parentNode;               
             if(child && (child.nodeType != 1)) {
                 child = null;
             }
@@ -40,8 +19,7 @@ var libFlyweight,
         return false;
     },
     checkRelatedTarget = function(e) {
-        var related = Ext.lib.Event.getRelatedTarget(e);
-        return !(isXUL(related) || elContains(e.currentTarget,related));
+        return !elContains(e.currentTarget, pub.getRelatedTarget(e));
     };
 
 Ext.lib.Dom = {
@@ -89,27 +67,22 @@ Ext.lib.Dom = {
     },
 
     isAncestor : function(p, c){ // missing from prototype?
+        var ret = false;
+            
         p = Ext.getDom(p);
         c = Ext.getDom(c);
-        if (!p || !c) {return false;}
-
-        if(p.contains && !Ext.isSafari) {
-            return p.contains(c);
-        }else if(p.compareDocumentPosition) {
-            return !!(p.compareDocumentPosition(c) & 16);
-        }else{
-            var parent = c.parentNode;
-            while (parent) {
-                if (parent == p) {
-                    return true;
+        if (p && c) {
+            if (p.contains) {
+                return p.contains(c);
+            } else if (p.compareDocumentPosition) {
+                return !!(p.compareDocumentPosition(c) & 16);
+            } else {
+                while (c = c.parentNode) {
+                    ret = c == p || ret;                        
                 }
-                else if (!parent.tagName || parent.tagName.toUpperCase() == "HTML") {
-                    return false;
-                }
-                parent = parent.parentNode;
-            }
-            return false;
-        }
+            }               
+        }   
+        return ret;
     },
 
     getRegion : function(el){
@@ -232,8 +205,17 @@ Ext.lib.Event = {
         return Event.element(e.browserEvent || e);
     },
 
-    resolveTextNode: function(node) {
-        return node && !isXUL(node) && isTextNode(node) ? node.parentNode : node;
+    resolveTextNode: Ext.isGecko ? function(node){
+        if(!node){
+            return;
+        }
+        var s = HTMLElement.prototype.toString.call(node);
+        if(s == '[xpconnect wrapped native prototype]' || s == '[object XULElement]'){
+            return;
+        }
+        return node.nodeType == 3 ? node.parentNode : node;
+    } : function(node){
+        return node && node.nodeType == 3 ? node.parentNode : node;
     },
 
     getRelatedTarget: function(ev) { // missing from prototype?
