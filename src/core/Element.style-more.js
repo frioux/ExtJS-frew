@@ -95,7 +95,7 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 		* (defaults to <tt>'x-box'</tt>). Note that there are a number of CSS rules that are dependent on
 		* this name to make the overall effect work, so if you supply an alternate base class, make sure you
 		* also supply all of the necessary rules.
-		* @return {Ext.Element} this
+		* @return {Ext.Element} The outermost wrapping element of the created box structure.
 		*/
 	    boxWrap : function(cls){
 	        cls = cls || 'x-box';
