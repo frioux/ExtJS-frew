@@ -163,7 +163,7 @@ paramOrder: 'param1|param2|param'
             }
         }
         if(this.doPreload(node)){ // preloaded json children
-            this.runCallback(callback, scope || node, []);
+            this.runCallback(callback, scope || node, [node]);
         }else if(this.directFn || this.dataUrl || this.url){
             this.requestData(node, callback, scope || node);
         }
