@@ -258,6 +258,9 @@ new Ext.Template(
             }
             c.label = c.getItemCt().child('label.x-form-item-label');
             if(this.trackLabels && !this.isHide(c)){
+                if(c.hidden){
+                    this.onFieldHide(c);
+                }
                 c.on({
                     scope: this,
                     show: this.onFieldShow,
