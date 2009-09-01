@@ -245,6 +245,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         );
         if(this.menu){
             this.menu = Ext.menu.MenuMgr.get(this.menu);
+            this.menu.ownerCt = this;
         }
         if(Ext.isString(this.toggleGroup)){
             this.enableToggle = true;
@@ -430,6 +431,9 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     beforeDestroy : function(){
         if(this.rendered){
             this.clearTip();
+        }
+        if(this.menu){
+            delete this.menu.ownerCt;
         }
         Ext.destroy(this.menu, this.repeater);
     },

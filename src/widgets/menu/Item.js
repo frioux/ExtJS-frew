@@ -13,6 +13,7 @@ Ext.menu.Item = function(config){
     Ext.menu.Item.superclass.constructor.call(this, config);
     if(this.menu){
         this.menu = Ext.menu.MenuMgr.get(this.menu);
+        this.menu.ownerCt = this;
     }
 };
 Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
@@ -120,6 +121,7 @@ Ext.extend(Ext.menu.Item, Ext.menu.BaseItem, {
     //private
     beforeDestroy: function(){
         if (this.menu){
+            delete this.menu.ownerCt;
             this.menu.destroy();
         }
         Ext.menu.Item.superclass.beforeDestroy.call(this);
