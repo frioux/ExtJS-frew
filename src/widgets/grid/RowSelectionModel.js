@@ -509,7 +509,8 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
             r = newCell[0];
             c = newCell[1];
 
-            this.selectRow(r); // *** highlight newly-selected cell and update selection
+            // single selection only supported with row selection and editor
+            this.selectRow(r, true); // *** highlight newly-selected cell and update selection
 
             if(g.isEditor && g.editing){ // *** handle tabbing while editorgrid is in edit mode
                 ae = g.activeEditor;
