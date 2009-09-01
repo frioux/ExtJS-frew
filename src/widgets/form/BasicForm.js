@@ -177,7 +177,12 @@ paramOrder: 'param1|param2|param'
      * <tt>{@link #paramOrder}</tt> nullifies this configuration.
      */
     paramsAsHash: false,
-
+    
+    /**
+     * @cfg {String} waitTitle
+     * The default title to show for the waiting message box (defaults to <tt>'Please Wait...'</tt>)
+     */
+    waitTitle: 'Please Wait...',
 
     // private
     activeAction : null,
@@ -490,7 +495,7 @@ myFormPanel.getForm().submit({
                 this.waitMsgTarget = Ext.get(this.waitMsgTarget);
                 this.waitMsgTarget.mask(o.waitMsg, 'x-mask-loading');
             }else{
-                Ext.MessageBox.wait(o.waitMsg, o.waitTitle || this.waitTitle || 'Please Wait...');
+                Ext.MessageBox.wait(o.waitMsg, o.waitTitle || this.waitTitle);
             }
         }
     },

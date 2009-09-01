@@ -125,6 +125,10 @@ if(Ext.PagingToolbar){
   });
 }
 
+if(Ext.form.BasicForm){
+    Ext.form.BasicForm.prototype.waitTitle = "Please Wait..."
+}
+
 if(Ext.form.Field){
   Ext.form.Field.prototype.invalidText = "The value in this field is invalid";
 }
