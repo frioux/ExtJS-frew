@@ -52,8 +52,8 @@ Ext.apply(Ext, function(){
          * @return {Number} Value, if numeric, else defaultValue
          */
         num : function(v, defaultValue){
-            v = Number(v === null || Ext.isBoolean(v) ? NaN : v);
-            return isNaN(v)? defaultValue : v;
+            v = Number(Ext.isEmpty(v) || Ext.isBoolean(v) ? NaN : v);
+            return isNaN(v) ? defaultValue : v;
         },
 
         /**
