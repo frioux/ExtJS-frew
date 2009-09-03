@@ -643,16 +643,7 @@ tb.{@link #doLayout}();             // refresh the layout
         this.initItems();
         var c = this.getComponent(comp);
         if(c && this.fireEvent('beforeremove', this, c) !== false){
-            this.items.remove(c);
-            delete c.ownerCt;
-            if(this.layout && this.rendered){
-                this.layout.onRemove(c);
-            }
-            c.onRemoved();
-            this.onRemove(c);
-            if(autoDestroy === true || (autoDestroy !== false && this.autoDestroy)){
-                c.destroy();
-            }
+            this.doRemove(c, autoDestroy);
             this.fireEvent('remove', this, c);
         }
         return c;
@@ -660,6 +651,19 @@ tb.{@link #doLayout}();             // refresh the layout
 
     onRemove: function(c){
         // Empty template method
+    },
+    
+    // private
+    doRemove: function(c, autoDestroy){
+        if(this.layout && this.rendered){
+            this.layout.onRemove(c);
+        }
+        this.items.remove(c);
+        c.onRemoved();
+        this.onRemove(c);
+        if(autoDestroy === true || (autoDestroy !== false && this.autoDestroy)){
+            c.destroy();
+        }
     },
 
     /**
@@ -827,8 +831,11 @@ tb.{@link #doLayout}();             // refresh the layout
 
     // private
     beforeDestroy : function(){
+        var c;
         if(this.items){
-            Ext.destroy.apply(Ext, this.items.items);
+            while(c = this.items.first()){
+                this.doRemove(c, true);
+            }
         }
         if(this.monitorResize){
             Ext.EventManager.removeResizeListener(this.doLayout, this);

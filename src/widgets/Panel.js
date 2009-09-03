@@ -1719,6 +1719,7 @@ panel.load({
 
     // private
     beforeDestroy : function(){
+        Ext.Panel.superclass.beforeDestroy.call(this);
         if(this.header){
             this.header.removeAllListeners();
             if(this.headerAsText){
@@ -1765,7 +1766,6 @@ panel.load({
                 this.bottomToolbar
             );
         }
-        Ext.Panel.superclass.beforeDestroy.call(this);
     },
 
     // private

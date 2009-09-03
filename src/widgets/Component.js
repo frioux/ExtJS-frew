@@ -1143,7 +1143,6 @@ var myGrid = new Ext.grid.EditorGridPanel({
             if(this.fireEvent('beforedestroy', this) !== false){
                 this.beforeDestroy();
                 if(this.rendered){
-                    this.el.removeAllListeners();
                     this.el.remove();
                     if(this.actionMode == 'container' || this.removeMode == 'container'){
                         this.container.remove();
