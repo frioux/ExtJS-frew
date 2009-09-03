@@ -44,8 +44,13 @@ Ext.Window = Ext.extend(Ext.Panel, {
      * A reference to the WindowGroup that should manage this window (defaults to {@link Ext.WindowMgr}).
      */
     /**
-    * @cfg {String/Number/Button} defaultButton
-    * The id / index of a button or a button instance to focus when this window received the focus.
+    * @cfg {String/Number/Component} defaultButton
+    * <p>Specifies a Component to receive focus when this Window is focussed.</p>
+    * <p>This may be one of:</p><div class="mdetail-params"><ul>
+    * <li>The index of a footer Button.</li>
+    * <li>The id of a Component.</li>
+    * <li>A Component.</li>
+    * </ul></div>
     */
     /**
     * @cfg {Function} onEsc
