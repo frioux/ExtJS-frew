@@ -326,6 +326,13 @@ var form = new Ext.form.FormPanel({
         }
         if(!this.hasFocus){
             this.hasFocus = true;
+            /**
+             * <p>The value that the Field had at the time it was last focused. This is the value that is passed
+             * to the {@link #change} event which is fired if the value has been changed when the Field is blurred.</p>
+             * <p><b>This will be undefined until the Field has been visited.</b> Compare {@link #originalValue}.</p>
+             * @type mixed
+             * @property startValue
+             */
             this.startValue = this.getValue();
             this.fireEvent('focus', this);
         }
