@@ -807,39 +807,13 @@ new Ext.Panel({
         // shortcuts
         if(this.tbar){
             this.elements += ',tbar';
-            // Convert array to proper toolbar config
-            if(Ext.isArray(this.tbar)){
-                this.tbar = {
-                    items: this.tbar
-                };
-            }
-            // tbar has not been instantiated
-            if (!this.tbar.events) {
-                this.topToolbar = this.createComponent(this.tbar, 'toolbar');
-            // tbar has already been created
-            } else {
-                this.topToolbar = this.tbar;
-            }
-            this.topToolbar.ownerCt = this;
-            this.toolbars.push(this.topToolbar);        
-            delete this.tbar;
+            this.topToolbar = this.createToolbar(this.tbar);
+            delete this.tbar;      
+            
         }
         if(this.bbar){
             this.elements += ',bbar';
-            // Convert array to proper toolbar config
-            if(Ext.isArray(this.bbar)){
-                this.bbar = {
-                    items: this.bbar
-                };
-            }
-            
-            if (!this.bbar.events) {
-                this.bottomToolbar = this.createComponent(this.bbar, 'toolbar');
-            } else {
-                this.bottomToolbar = this.bbar;
-            }
-            this.bottomToolbar.ownerCt = this;
-            this.toolbars.push(this.bottomToolbar);            
+            this.bottomToolbar = this.createToolbar(this.bbar);          
             delete this.bbar;
         }
 
@@ -877,7 +851,7 @@ new Ext.Panel({
         }
         if(this.fbar){
             this.elements += ',footer';
-            this.fbar = this.createComponent(this.fbar, 'toolbar');
+            this.fbar = this.createToolbar(this.fbar);
             this.fbar.enableOverflow = false;
             if(this.fbar.items){
                 this.fbar.items.each(function(c){
@@ -885,11 +859,25 @@ new Ext.Panel({
                 }, this);
             }
             this.fbar.toolbarCls = 'x-panel-fbar';
-            this.toolbars.push(this.fbar);
         }
         if(this.autoLoad){
             this.on('render', this.doAutoLoad, this, {delay:10});
         }
+    },
+    
+    // private
+    createToolbar: function(tb){
+        var result;
+        // Convert array to proper toolbar config
+        if(Ext.isArray(tb)){
+            tb = {
+                items: tb
+            };
+        }
+        result = tb.events ? tb : this.createComponent(tb, 'toolbar');
+        result.ownerCt = this;
+        this.toolbars.push(result);
+        return result;
     },
 
     // private
