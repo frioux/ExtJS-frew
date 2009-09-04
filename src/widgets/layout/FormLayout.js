@@ -122,10 +122,9 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
             c.un('show', this.onFieldShow, this);
             c.un('hide', this.onFieldHide, this);
         }
-        if(c.rendered){
-            var el = c.getPositionEl(),
+        var el = c.getPositionEl(),
                 ct = c.getItemCt();
-            
+        if(c.rendered && ct){
             el.insertAfter(ct);
             Ext.destroy(ct);
             Ext.destroyMembers(c, 'label', 'itemCt');
