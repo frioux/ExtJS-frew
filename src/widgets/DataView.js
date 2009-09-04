@@ -148,7 +148,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
             "click",
             /**
              * @event mouseenter
-             * Fires when the mouse enters a template node. trackOver:true or an overCls must be set to enable this event.
+             * Fires when the mouse enters a template node. trackOver:true or an overClass must be set to enable this event.
              * @param {Ext.DataView} this
              * @param {Number} index The index of the target node
              * @param {HTMLElement} node The target node
@@ -157,7 +157,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
             "mouseenter",
             /**
              * @event mouseleave
-             * Fires when the mouse leaves a template node. trackOver:true or an overCls must be set to enable this event.
+             * Fires when the mouse leaves a template node. trackOver:true or an overClass must be set to enable this event.
              * @param {Ext.DataView} this
              * @param {Number} index The index of the target node
              * @param {HTMLElement} node The target node
