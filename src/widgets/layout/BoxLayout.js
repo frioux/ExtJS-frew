@@ -283,13 +283,13 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
      * property are:
      * <div class="mdetail-params"><ul>
      * <li><b><tt>top</tt></b> : <b>Default</b><div class="sub-desc">child items are aligned vertically
-     * at the <b>left</b> side of the container</div></li>
-     * <li><b><tt>middle</tt></b> : <div class="sub-desc">child items are aligned vertically at the
-     * <b>mid-height</b> of the container</div></li>
+     * at the <b>top</b> of the container</div></li>
+     * <li><b><tt>middle</tt></b> : <div class="sub-desc">child items are aligned vertically in the
+     * <b>middle</b> of the container</div></li>
      * <li><b><tt>stretch</tt></b> : <div class="sub-desc">child items are stretched vertically to fill
      * the height of the container</div></li>
      * <li><b><tt>stretchmax</tt></b> : <div class="sub-desc">child items are stretched vertically to
-     * the size of the largest item.</div></li>
+     * the height of the largest item.</div></li>
      */
     align : 'top', // top, middle, stretch, strechmax
     /**
