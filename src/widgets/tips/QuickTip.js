@@ -90,6 +90,22 @@ Ext.QuickTip = Ext.extend(Ext.ToolTip, {
             this.clearTimer('show');
         }
     },
+    
+    getTipCfg: function(e) {
+        var t = e.getTarget(), 
+            ttp, 
+            cfg;
+        if(this.interceptTitles && t.title){
+            ttp = t.title;
+            t.qtip = ttp;
+            t.removeAttribute("title");
+            e.preventDefault();
+        }else{
+            cfg = this.tagConfig;
+            ttp = t.qtip || Ext.fly(t).getAttribute(cfg.attribute, cfg.namespace);
+        }
+        return ttp;
+    },
 
     // private
     onTargetOver : function(e){
@@ -101,7 +117,7 @@ Ext.QuickTip = Ext.extend(Ext.ToolTip, {
         if(!t || t.nodeType !== 1 || t == document || t == document.body){
             return;
         }
-        if(this.activeTarget && t == this.activeTarget.el){
+        if(this.activeTarget && ((t == this.activeTarget.el) || Ext.fly(this.activeTarget.el).contains(t))){
             this.clearTimer('hide');
             this.show();
             return;
@@ -116,18 +132,8 @@ Ext.QuickTip = Ext.extend(Ext.ToolTip, {
             this.delayShow();
             return;
         }
-        
-        var ttp, et = Ext.fly(t), cfg = this.tagConfig;
-        var ns = cfg.namespace;
-        if(this.interceptTitles && t.title){
-            ttp = t.title;
-            t.qtip = ttp;
-            t.removeAttribute("title");
-            e.preventDefault();
-        } else{
-            ttp = t.qtip || et.getAttribute(cfg.attribute, ns);
-        }
-        if(ttp){
+        var ttp, et = Ext.fly(t), cfg = this.tagConfig, ns = cfg.namespace;
+        if(ttp = this.getTipCfg(e)){
             var autoHide = et.getAttribute(cfg.hide, ns);
             this.activeTarget = {
                 el: t,
@@ -149,6 +155,12 @@ Ext.QuickTip = Ext.extend(Ext.ToolTip, {
 
     // private
     onTargetOut : function(e){
+
+        // If moving within the current target, and it does not have a new tip, ignore the mouseout
+        if (this.activeTarget && e.within(this.activeTarget.el) && !this.getTipCfg(e)) {
+            return;
+        }
+
         this.clearTimer('show');
         if(this.autoHide !== false){
             this.delayHide();
