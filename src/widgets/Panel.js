@@ -915,7 +915,7 @@ new Ext.Panel({
             ts;
             
             
-        if(this.header && this.collapsible && !this.hideCollapseTool){
+        if(this.collapsible && !this.hideCollapseTool){
             this.tools = this.tools ? this.tools.slice(0) : [];
             this.tools[this.collapseFirst?'unshift':'push']({
                 id: 'toggle',
