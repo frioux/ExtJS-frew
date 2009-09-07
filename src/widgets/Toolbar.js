@@ -439,13 +439,13 @@ Ext.extend(T, Ext.Container, {
             this.applyDefaults(c);
         }else{
             if(c.isFormField || c.render){ // some kind of form field, some kind of Toolbar.Item
-                c = this.constructItem(c);
+                c = this.createComponent(c);
             }else if(c.tag){ // DomHelper spec
                 c = new T.Item({autoEl: c});
             }else if(c.tagName){ // element
                 c = new T.Item({el:c});
             }else if(Ext.isObject(c)){ // must be button config?
-                c = c.xtype ? this.constructItem(c) : this.constructButton(c);
+                c = c.xtype ? this.createComponent(c) : this.constructButton(c);
             }
         }
         return c;
@@ -464,11 +464,6 @@ Ext.extend(T, Ext.Container, {
             }
         }
         return c;
-    },
-
-    // private
-    constructItem : function(item, type){
-        return Ext.create(item, type || this.defaultType);
     },
 
     /**
@@ -598,7 +593,7 @@ Ext.extend(T, Ext.Container, {
 
     // private
     constructButton : function(item){
-        var b = item.events ? item : this.constructItem(item, item.split ? 'splitbutton' : this.defaultType);
+        var b = item.events ? item : this.createComponent(item, item.split ? 'splitbutton' : this.defaultType);
         this.initMenuTracking(b);
         return b;
     },
