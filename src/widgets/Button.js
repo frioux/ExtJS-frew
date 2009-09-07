@@ -59,7 +59,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      * @cfg {Function} toggleHandler
      * Function called when a Button with {@link #enableToggle} set to true is clicked. Two arguments are passed:<ul class="mdetail-params">
      * <li><b>button</b> : Ext.Button<div class="sub-desc">this Button object</div></li>
-     * <li><b>state</b> : Boolean<div class="sub-desc">The next state if the Button, true means pressed.</div></li>
+     * <li><b>state</b> : Boolean<div class="sub-desc">The next state of the Button, true means pressed.</div></li>
      * </ul>
      */
     /**
@@ -471,7 +471,8 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     /**
      * Assigns this Button's click handler
      * @param {Function} handler The function to call when the button is clicked
-     * @param {Object} scope (optional) Scope for the function passed in. Defaults to this Button.
+     * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the handler function is executed.
+     * Defaults to this Button.
      * @return {Ext.Button} this
      */
     setHandler : function(handler, scope){
