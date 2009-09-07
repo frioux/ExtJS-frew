@@ -27,6 +27,7 @@ Ext.onReady(function(){
             xtype: 'columnchart',
             store: store,
             yField: 'hits',
+	    url: '../../resources/charts.swf',
             xField: 'month',
             xAxis: new Ext.chart.CategoryAxis({
                 title: 'Month'
