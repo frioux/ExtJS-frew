@@ -32,7 +32,8 @@ Ext.Msg.show({
 Ext.MessageBox = function(){
     var dlg, opt, mask, waitTimer,
         bodyEl, msgEl, textboxEl, textareaEl, progressBar, pp, iconEl, spacerEl,
-        buttons, activeTextEl, bwidth, bufferIcon = '', iconCls = '';
+        buttons, activeTextEl, bwidth, bufferIcon = '', iconCls = '',
+        buttonNames = ['ok', 'yes', 'no', 'cancel'];
 
     // private
     var handleButton = function(button){
@@ -64,26 +65,25 @@ Ext.MessageBox = function(){
 
     // private
     var updateButtons = function(b){
-        var width = 0;
+        var width = 0,
+            cfg;
         if(!b){
-            buttons["ok"].hide();
-            buttons["cancel"].hide();
-            buttons["yes"].hide();
-            buttons["no"].hide();
+            Ext.each(buttonNames, function(name){
+                buttons[name].hide();
+            });
             return width;
         }
         dlg.footer.dom.style.display = '';
-        for(var k in buttons){
-            if(!Ext.isFunction(buttons[k])){
-                if(b[k]){
-                    buttons[k].show();
-                    buttons[k].setText(Ext.isString(b[k]) ? b[k] : Ext.MessageBox.buttonText[k]);
-                    width += buttons[k].el.getWidth()+15;
-                }else{
-                    buttons[k].hide();
-                }
+        Ext.iterate(buttons, function(name, btn){
+            cfg = b[name];
+            if(cfg){
+                btn.show();
+                btn.setText(Ext.isString(cfg) ? cfg : Ext.MessageBox.buttonText[name]);
+                width += btn.getEl().getWidth() + 15;
+            }else{
+                btn.hide();
             }
-        }
+        });
         return width;
     };
 
@@ -94,6 +94,16 @@ Ext.MessageBox = function(){
          */
         getDialog : function(titleText){
            if(!dlg){
+                var btns = [];
+                
+                buttons = {};
+                Ext.each(buttonNames, function(name){
+                    buttons.push(buttons[name] = new Ext.Button({
+                        text: this.buttonText[name],
+                        handler: handleButton.createCallback(name),
+                        hideMode: 'offsets'
+                    }));
+                }, this);
                 dlg = new Ext.Window({
                     autoCreate : true,
                     title:titleText,
@@ -118,16 +128,12 @@ Ext.MessageBox = function(){
                         }else{
                             handleButton("cancel");
                         }
-                    }
+                    },
+                    fbar: new Ext.Toolbar({
+                        items: btns,
+                        enableOverflow: false
+                    })
                 });
-                buttons = {};
-                var bt = this.buttonText;
-                //TODO: refactor this block into a buttons config to pass into the Window constructor
-                buttons["ok"] = dlg.addButton(bt["ok"], handleButton.createCallback("ok"));
-                buttons["yes"] = dlg.addButton(bt["yes"], handleButton.createCallback("yes"));
-                buttons["no"] = dlg.addButton(bt["no"], handleButton.createCallback("no"));
-                buttons["cancel"] = dlg.addButton(bt["cancel"], handleButton.createCallback("cancel"));
-                buttons["ok"].hideMode = buttons["yes"].hideMode = buttons["no"].hideMode = buttons["cancel"].hideMode = 'offsets';
                 dlg.render(document.body);
                 dlg.getEl().addClass('x-window-dlg');
                 mask = dlg.mask;

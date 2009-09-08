@@ -722,7 +722,7 @@ tb.{@link #doLayout}();             // refresh the layout
     createComponent : function(config, defaultType){
         // add in ownerCt at creation time but then immediately
         // remove so that onBeforeAdd can handle it
-        var c = Ext.create(Ext.apply({
+        var c = config.render ? config : Ext.create(Ext.apply({
             ownerCt: this
         }, config), defaultType || this.defaultType);
         delete c.ownerCt;
