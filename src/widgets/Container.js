@@ -475,7 +475,7 @@ items: [
         }
         this.setLayout(this.layout);
 
-        if(this.activeItem !== undefined){
+        if(Ext.isDefined(this.activeItem)){
             var item = this.activeItem;
             delete this.activeItem;
             this.layout.setActiveItem(item);
@@ -811,7 +811,7 @@ tb.{@link #doLayout}();             // refresh the layout
 
     onShow : function(){
         Ext.Container.superclass.onShow.call(this);
-        if(this.deferLayout !== undefined){
+        if(Ext.isDefined(this.deferLayout)){
             this.doLayout(true);
         }
     },

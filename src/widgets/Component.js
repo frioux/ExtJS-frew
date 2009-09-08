@@ -795,7 +795,33 @@ new Ext.Panel({
      * @property rendered
      */
     rendered : false,
+    
+    /**
+     * @cfg {String} contentEl
+     * <p>Optional. Specify an existing HTML element, or the <code>id</code> of an existing HTML element to use as the content
+     * for this component.</p>
+     * <ul>
+     * <li><b>Description</b> :
+     * <div class="sub-desc">This config option is used to take an existing HTML element and place it in the layout element
+     * of a new component (it simply moves the specified DOM element <i>after the Component is rendered</i> to use as the content.</div></li>
+     * <li><b>Notes</b> :
+     * <div class="sub-desc">The specified HTML element is appended to the layout element of the component <i>after any configured 
+     * {@link #html HTML} has been inserted</i>, and so the document will not contain this element at the time the {@link #render} event is fired.</div>
+     * <div class="sub-desc">The specified HTML element used will not participate in any <code><b>{@link Ext.Container#layout layout}</b></code>
+     * scheme that the Component may use. It is just HTML. Layouts operate on child <code><b>{@link Ext.Container#items items}</b></code>.</div>
+     * <div class="sub-desc">Add either the <code>x-hidden</code> or the <code>x-hide-display</code> CSS class to
+     * prevent a brief flicker of the content before it is rendered to the panel.</div></li>
+     * </ul>
+     */
+    /**
+     * @cfg {String/Object} html
+     * An HTML fragment, or a {@link Ext.DomHelper DomHelper} specification to use as the layout element
+     * content (defaults to ''). The HTML content is added after the component is rendered,
+     * so the document will not contain this HTML at the time the {@link #render} event is fired.
+     * This content is inserted into the body <i>before</i> any configured {@link #contentEl} is appended.
+     */
 
+    
     // private
     ctype : 'Ext.Component',
 
@@ -911,6 +937,17 @@ Ext.Foo = Ext.extend(Ext.Bar, {
                 this.el.addClassOnOver(this.overCls);
             }
             this.fireEvent('render', this);
+            if(this.html){
+                this.getContentTarget().update(Ext.isObject(this.html) ?
+                                 Ext.DomHelper.markup(this.html) :
+                                 this.html);
+                delete this.html;
+            }
+            if(this.contentEl){
+                var ce = Ext.getDom(this.contentEl);
+                Ext.fly(ce).removeClass(['x-hidden', 'x-hide-display']);
+                this.getContentTarget().appendChild(ce);
+            }
             this.afterRender(this.container);
             if(this.hidden){
                 // call this so we don't fire initial hide events.
@@ -1185,6 +1222,11 @@ new Ext.Panel({
      * @return {Ext.Element} The Element which encapsulates this Component.
      */
     getEl : function(){
+        return this.el;
+    },
+    
+    // private
+    getContentTarget : function(){
         return this.el;
     },
 

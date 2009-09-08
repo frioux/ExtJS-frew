@@ -438,11 +438,7 @@ var win = new Ext.Window({
      * {@link Ext.layout.BorderLayout.Region BorderLayout.Region}
      * <code>{@link Ext.layout.BorderLayout.Region#floatable floatable}</code> config option.
      */
-    /**
-     * @cfg {Boolean} autoScroll
-     * <code>true</code> to use overflow:'auto' on the panel's body element and show scroll bars automatically when
-     * necessary, <code>false</code> to clip any overflowing content (defaults to <code>false</code>).
-     */
+
     /**
      * @cfg {Mixed} floating
      * <p>This property is used to configure the underlying {@link Ext.Layer}. Acceptable values for this
@@ -477,33 +473,6 @@ var win = new Ext.Window({
      * @cfg {Boolean} shim
      * <code>false</code> to disable the iframe shim in browsers which need one (defaults to <code>true</code>).
      * Note that this option only applies when <code>{@link #floating} = true</code>.
-     */
-    /**
-     * @cfg {String/Object} html
-     * An HTML fragment, or a {@link Ext.DomHelper DomHelper} specification to use as the panel's body
-     * content (defaults to ''). The HTML content is added by the Panel's {@link #afterRender} method,
-     * and so the document will not contain this HTML at the time the {@link #render} event is fired.
-     * This content is inserted into the body <i>before</i> any configured {@link #contentEl} is appended.
-     */
-    /**
-     * @cfg {String} contentEl
-     * <p>Optional. Specify an existing HTML element, or the <code>id</code> of an existing HTML element to use as this Panel's
-     * <code><b>{@link #body}</b></code> content.</p>
-     * <ul>
-     * <li><b>Description</b> :
-     * <div class="sub-desc">This config option is used to take an existing HTML element and place it in the body
-     * of a new panel (it simply moves the specified DOM element into the body element of the Panel
-     * <i>after the Panel is rendered</i> to use as the content (it is not going to be the actual panel itself).</div></li>
-     * <li><b>Notes</b> :
-     * <div class="sub-desc">The specified HTML element is appended to the Panel's {@link #body} Element by the
-     * Panel's <code>afterRender</code> method <i>after any configured {@link #html HTML} has
-     * been inserted</i>, and so the document will not contain this element at the time the
-     * {@link #render} event is fired.</div>
-     * <div class="sub-desc">The specified HTML element used will not participate in any <code><b>{@link Ext.Container#layout layout}</b></code>
-     * scheme that the Panel may use. It is just HTML. Layouts operate on child <code><b>{@link Ext.Container#items items}</b></code>.</div>
-     * <div class="sub-desc">Add either the <code>x-hidden</code> or the <code>x-hide-display</code> CSS class to
-     * prevent a brief flicker of the content before it is rendered to the panel.</div></li>
-     * </ul>
      */
     /**
      * @cfg {Object/Array} keys
@@ -1271,34 +1240,12 @@ new Ext.Panel({
         if(this.title){
             this.setTitle(this.title);
         }
-        this.setAutoScroll();
-        if(this.html){
-            this.body.update(Ext.isObject(this.html) ?
-                             Ext.DomHelper.markup(this.html) :
-                             this.html);
-            delete this.html;
-        }
-        if(this.contentEl){
-            var ce = Ext.getDom(this.contentEl);
-            Ext.fly(ce).removeClass(['x-hidden', 'x-hide-display']);
-            this.body.dom.appendChild(ce);
-        }
         if(this.collapsed){
             this.collapsed = false;
             this.collapse(false);
         }
         Ext.Panel.superclass.afterRender.call(this); // do sizing calcs last
         this.initEvents();
-    },
-
-    // private
-    setAutoScroll : function(){
-        if(this.rendered && this.autoScroll){
-            var el = this.body || this.el;
-            if(el){
-                el.setOverflow('auto');
-            }
-        }
     },
 
     // private
@@ -1659,6 +1606,11 @@ new Ext.Panel({
 
     // private
     getLayoutTarget : function(){
+        return this.body;
+    },
+    
+    // private
+    getContentTarget : function(){
         return this.body;
     },
 

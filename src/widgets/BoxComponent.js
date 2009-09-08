@@ -170,6 +170,11 @@ var myPanel = new Ext.Panel({
 });
 </code></pre>
      */
+    /**
+     * @cfg {Boolean} autoScroll
+     * <code>true</code> to use overflow:'auto' on the components layout element and show scroll bars automatically when
+     * necessary, <code>false</code> to clip any overflowing content (defaults to <code>false</code>).
+     */
 
     /* // private internal config
      * {Boolean} deferHeight
@@ -374,6 +379,19 @@ var myPanel = new Ext.Panel({
     getPositionEl : function(){
         return this.positionEl || this.el;
     },
+    
+    /**
+     * Sets the overflow on the content element of the component.
+     * @param {Boolean} scroll True to allow the Component to auto scroll.
+     * @return {Ext.BoxComponent} this
+     */
+    setAutoScroll : function(scroll){
+        if(this.rendered){
+            this.getContentTarget().setOverflow(scroll ? 'auto' : '');
+        }
+        this.autoScroll = scroll;
+        return this;
+    },
 
     /**
      * Sets the left and top of the component.  To set the page XY position instead, use {@link #setPagePosition}.
@@ -445,6 +463,7 @@ var myPanel = new Ext.Panel({
             this.positionEl = Ext.get(this.positionEl);
         }
         this.boxReady = true;
+        this.setAutoScroll(this.autoScroll);
         this.setSize(this.width, this.height);
         if(this.x || this.y){
             this.setPosition(this.x, this.y);
