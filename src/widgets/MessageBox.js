@@ -98,7 +98,7 @@ Ext.MessageBox = function(){
                 
                 buttons = {};
                 Ext.each(buttonNames, function(name){
-                    buttons.push(buttons[name] = new Ext.Button({
+                    btns.push(buttons[name] = new Ext.Button({
                         text: this.buttonText[name],
                         handler: handleButton.createCallback(name),
                         hideMode: 'offsets'
