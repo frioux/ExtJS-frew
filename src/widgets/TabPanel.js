@@ -1015,6 +1015,7 @@ new Ext.TabPanel({
         if(this.strip){
             this.strip.removeAllListeners();
         }
+        this.activeTab = null;
         Ext.TabPanel.superclass.beforeDestroy.apply(this);
     }
 
