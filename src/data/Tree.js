@@ -607,7 +607,7 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
             if(t){
                 t.unregisterNode(this);
             }
-            this.id = id;
+            this.id = this.attributes.id = id;
             if(t){
                 t.registerNode(this);
             }
