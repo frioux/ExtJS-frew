@@ -29,7 +29,7 @@
  */
 Ext.tree.TreeNode = function(attributes){
     attributes = attributes || {};
-    if(typeof attributes == 'string'){
+    if(Ext.isString(attributes)){
         attributes = {text: attributes};
     }
     this.childrenRendered = false;
@@ -259,8 +259,7 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
      */
     setText : function(text){
         var oldText = this.text;
-        this.text = text;
-        this.attributes.text = text;
+        this.text = this.attributes.text = text;
         if(this.rendered){ // event without subscribing
             this.ui.onTextChange(this, text, oldText);
         }

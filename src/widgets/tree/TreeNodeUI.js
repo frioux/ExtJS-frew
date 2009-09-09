@@ -426,10 +426,10 @@ Ext.tree.TreeNodeUI.prototype = {
         // add some indent caching, this helps performance when rendering a large tree
         this.indentMarkup = n.parentNode ? n.parentNode.ui.getChildIndent() : '';
 
-        var cb = typeof a.checked == 'boolean';
-
-        var href = a.href ? a.href : Ext.isGecko ? "" : "#";
-        var buf = ['<li class="x-tree-node"><div ext:tree-node-id="',n.id,'" class="x-tree-node-el x-tree-node-leaf x-unselectable ', a.cls,'" unselectable="on">',
+        var cb = Ext.isBoolean(a.checked),
+            nel,
+            href = a.href ? a.href : Ext.isGecko ? "" : "#",
+            buf = ['<li class="x-tree-node"><div ext:tree-node-id="',n.id,'" class="x-tree-node-el x-tree-node-leaf x-unselectable ', a.cls,'" unselectable="on">',
             '<span class="x-tree-node-indent">',this.indentMarkup,"</span>",
             '<img src="', this.emptyIcon, '" class="x-tree-ec-icon x-tree-elbow" />',
             '<img src="', a.icon || this.emptyIcon, '" class="x-tree-node-icon',(a.icon ? " x-tree-node-inline-icon" : ""),(a.iconCls ? " "+a.iconCls : ""),'" unselectable="on" />',
@@ -439,7 +439,6 @@ Ext.tree.TreeNodeUI.prototype = {
             '<ul class="x-tree-node-ct" style="display:none;"></ul>',
             "</li>"].join('');
 
-        var nel;
         if(bulkRender !== true && n.nextSibling && (nel = n.nextSibling.ui.getEl())){
             this.wrap = Ext.DomHelper.insertHtml("beforeBegin", nel, buf);
         }else{
@@ -499,9 +498,11 @@ Ext.tree.TreeNodeUI.prototype = {
     // private
     updateExpandIcon : function(){
         if(this.rendered){
-            var n = this.node, c1, c2;
-            var cls = n.isLast() ? "x-tree-elbow-end" : "x-tree-elbow";
-            var hasChild = n.hasChildNodes();
+            var n = this.node, 
+                c1, 
+                c2,
+                cls = n.isLast() ? "x-tree-elbow-end" : "x-tree-elbow",
+                hasChild = n.hasChildNodes();
             if(hasChild || n.attributes.expandable){
                 if(n.expanded){
                     cls += "-minus";
@@ -546,8 +547,8 @@ Ext.tree.TreeNodeUI.prototype = {
     // private
     getChildIndent : function(){
         if(!this.childIndent){
-            var buf = [];
-            var p = this.node;
+            var buf = [],
+                p = this.node;
             while(p){
                 if(!p.isRoot || (p.isRoot && p.ownerTree.rootVisible)){
                     if(!p.isLast()) {
@@ -566,8 +567,8 @@ Ext.tree.TreeNodeUI.prototype = {
     // private
     renderIndent : function(){
         if(this.rendered){
-            var indent = "";
-            var p = this.node.parentNode;
+            var indent = "",
+                p = this.node.parentNode;
             if(p){
                 indent = p.ui.getChildIndent();
             }
