@@ -604,10 +604,15 @@ sortInfo: {
     },
 
     /**
-     * Remove a Record from the Store and fires the {@link #remove} event.
-     * @param {Ext.data.Record} record The Ext.data.Record object to remove from the cache.
+     * Remove Records from the Store and fires the {@link #remove} event.
+     * @param {Ext.data.Record/Ext.data.Record[]} record The record object or array of records to remove from the cache.
      */
     remove : function(record){
+        if(Ext.isArray(record)){
+            Ext.each(record, function(r){
+                this.remove(r);
+            }, this);
+        }
         var index = this.data.indexOf(record);
         if(index > -1){
             record.join(null);
