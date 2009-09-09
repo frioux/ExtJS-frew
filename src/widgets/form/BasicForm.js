@@ -628,10 +628,33 @@ myFormPanel.getForm().submit({
         return Ext.urlDecode(fs);
     },
 
-    getFieldValues : function(){
-        var o = {};
+    /**
+     * Retrieves the fields in the form as a set of key/value pairs, using the {@link Ext.form.Field#getValue getValue()} method.
+     * If multiple fields exist with the same name they are returned as an array.
+     * @param {Boolean} dirtyOnly (optional) True to return only fields that are dirty.
+     * @return {Object} The values in the form
+     */
+    getFieldValues : function(dirtyOnly){
+        var o = {},
+            n,
+            key,
+            val;
         this.items.each(function(f){
-           o[f.getName()] = f.getValue();
+            if(dirtyOnly !== true || f.isDirty()){
+                n = f.getName();
+                key = o[n];
+                val = f.getValue();
+                
+                if(Ext.isDefined(key)){
+                    if(Ext.isArray(key)){
+                        o[n].push(val);
+                    }else{
+                        o[n] = [key, val];
+                    }
+                }else{
+                    o[n] = val;
+                }
+            }
         });
         return o;
     },
