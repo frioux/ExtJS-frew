@@ -79,10 +79,10 @@ Ext.form.TimeField = Ext.extend(Ext.form.ComboBox, {
     // private
     initComponent : function(){
         if(Ext.isDefined(this.minValue)){
-            this.setMinValue(this.minValue);
+            this.setMinValue(this.minValue, true);
         }
         if(Ext.isDefined(this.maxValue)){
-            this.setMaxValue(this.maxValue);
+            this.setMaxValue(this.maxValue, true);
         }
         if(!this.store){
             this.generateStore(true);
@@ -94,8 +94,8 @@ Ext.form.TimeField = Ext.extend(Ext.form.ComboBox, {
      * Replaces any existing {@link #minValue} with the new time and refreshes the store.
      * @param {Date/String} value The minimum time that can be selected
      */
-    setMinValue: function(value){
-        this.setLimit(value, true);
+    setMinValue: function(value, /* private */ initial){
+        this.setLimit(value, true, initial);
         return this;
     },
 
@@ -103,8 +103,8 @@ Ext.form.TimeField = Ext.extend(Ext.form.ComboBox, {
      * Replaces any existing {@link #maxValue} with the new time and refreshes the store.
      * @param {Date/String} value The maximum time that can be selected
      */
-    setMaxValue: function(value){
-        this.setLimit(value, false);
+    setMaxValue: function(value, /* private */ initial){
+        this.setLimit(value, false, initial);
         return this;
     },
     
@@ -113,9 +113,7 @@ Ext.form.TimeField = Ext.extend(Ext.form.ComboBox, {
         var min = this.minValue || new Date(this.initDate).clearTime(),
             max = this.maxValue || new Date(this.initDate).clearTime().add('mi', (24 * 60) - 1),
             times = [];
-        if(!initial){
-            console.log(min, max);
-        }
+            
         while(min <= max){
             times.push(min.dateFormat(this.format));
             min = min.add('mi', this.increment);
@@ -124,7 +122,7 @@ Ext.form.TimeField = Ext.extend(Ext.form.ComboBox, {
     },
 
     // private
-    setLimit: function(value, isMin){
+    setLimit: function(value, isMin, initial){
         var d;
         if(Ext.isString(value)){
             d = this.parseDate(value);
@@ -135,7 +133,9 @@ Ext.form.TimeField = Ext.extend(Ext.form.ComboBox, {
             var val = new Date(this.initDate).clearTime();
             val.setHours(d.getHours(), d.getMinutes(), isMin ? 0 : 59, 0);
             this[isMin ? 'minValue' : 'maxValue'] = val;
-            this.generateStore();
+            if(!initial){
+                this.generateStore();
+            }
         }
     },
     
