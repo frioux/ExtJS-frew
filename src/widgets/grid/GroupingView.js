@@ -279,6 +279,23 @@ var grid = new Ext.grid.GridPanel({
             this.grid.store.clearGrouping();
         }
     },
+    
+    /**
+     * Toggle the group that contains the specific row.
+     * @param {Number} rowIndex The row inside the group
+     * @param {Boolean} expanded (optional)
+     */
+    toggleRowIndex : function(rowIndex, expanded){
+        if(!this.enableGrouping){
+            return;
+        }
+        var row = this.getRow(rowIndex);
+        if(row){
+            var g = this.findGroup(row);
+            console.log(expanded);
+            this.toggleGroup(g, expanded);
+        }    
+    },
 
     /**
      * Toggles the specified group if no value is passed, otherwise sets the expanded state of the group to the value passed.
@@ -289,8 +306,7 @@ var grid = new Ext.grid.GridPanel({
         this.grid.stopEditing(true);
         group = Ext.getDom(group);
         var gel = Ext.fly(group);
-        expanded = expanded !== undefined ?
-                expanded : gel.hasClass('x-grid-group-collapsed');
+        expanded = Ext.isDefined(expanded) ? expanded : gel.hasClass('x-grid-group-collapsed');
 
         this.state[gel.dom.id] = expanded;
         gel[expanded ? 'removeClass' : 'addClass']('x-grid-group-collapsed');
@@ -358,15 +374,16 @@ var grid = new Ext.grid.GridPanel({
         var eg = !!groupField;
         // if they turned off grouping and the last grouped field is hidden
         if(this.hideGroupedColumn) {
-            var colIndex = this.cm.findColumnIndex(groupField);
-            if(!eg && this.lastGroupField !== undefined) {
+            var colIndex = this.cm.findColumnIndex(groupField),
+                hasLastGroupField = Ext.isDefined(this.lastGroupField);
+            if(!eg && hasLastGroupField){
                 this.mainBody.update('');
                 this.cm.setHidden(this.cm.findColumnIndex(this.lastGroupField), false);
                 delete this.lastGroupField;
-            }else if (eg && this.lastGroupField === undefined) {
+            }else if (eg && !hasLastGroupField){
                 this.lastGroupField = groupField;
                 this.cm.setHidden(colIndex, true);
-            }else if (eg && this.lastGroupField !== undefined && groupField !== this.lastGroupField) {
+            }else if (eg && hasLastGroupField && groupField !== this.lastGroupField) {
                 this.mainBody.update('');
                 var oldIndex = this.cm.findColumnIndex(this.lastGroupField);
                 this.cm.setHidden(oldIndex, false);
@@ -410,7 +427,7 @@ var grid = new Ext.grid.GridPanel({
                 gid = this.constructId(gvalue, groupField, colIndex);
                	// if state is defined use it, however state is in terms of expanded
 				// so negate it, otherwise use the default.
-				var isCollapsed  = typeof this.state[gid] !== 'undefined' ? !this.state[gid] : this.startCollapsed;
+				var isCollapsed  = Ext.isDefined(this.state[gid]) ? !this.state[gid] : this.startCollapsed;
 				var gcls = isCollapsed ? 'x-grid-group-collapsed' : '';	
                 curGroup = {
                     group: g,
@@ -528,14 +545,7 @@ var grid = new Ext.grid.GridPanel({
 
     // private
     onBeforeRowSelect : function(sm, rowIndex){
-        if(!this.enableGrouping){
-            return;
-        }
-        var row = this.getRow(rowIndex);
-        if(row && !row.offsetParent){
-            var g = this.findGroup(row);
-            this.toggleGroup(g, true);
-        }
+        this.toggleRowIndex(rowIndex, true);
     }
 });
 // private
