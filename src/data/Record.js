@@ -131,6 +131,18 @@ Ext.data.Record.prototype = {
      * @type {Object}
      */
     /**
+     * <p><b>Only present if this Record was created by an {@link Ext.data.XmlReader XmlReader}</b>.</p>
+     * <p>The XML element which was the source of the data for this Record.</p>
+     * @property node
+     * @type {XMLElement}
+     */
+    /**
+     * <p><b>Only present if this Record was created by an {@link Ext.data.ArrayReader ArrayReader} or a {@link Ext.data.JsonReader JsonReader}</b>.</p>
+     * <p>The Array or object which was the source of the data for this Record.</p>
+     * @property json
+     * @type {Array|Object}
+     */
+    /**
      * Readonly flag - true if this Record has been modified.
      * @type Boolean
      */
