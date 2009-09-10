@@ -169,7 +169,7 @@
         this.swf.setType(this.type);
 
         if(this.chartStyle){
-            this.setStyles(Ext.apply(this.extraStyle || {}, this.chartStyle));
+            this.setStyles(Ext.apply({}, this.extraStyle, this.chartStyle));
         }
 
         if(this.categoryNames){
