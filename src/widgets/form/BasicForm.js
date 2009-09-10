@@ -34,9 +34,9 @@ Ext.form.BasicForm = function(el, config){
         this.paramOrder = this.paramOrder.split(/[\s,|]/);
     }
     /**
-     * @property items
      * A {@link Ext.util.MixedCollection MixedCollection) containing all the Ext.form.Fields in this form.
      * @type MixedCollection
+     * @property items
      */
     this.items = new Ext.util.MixedCollection(false, function(o){
         return o.getItemId();
