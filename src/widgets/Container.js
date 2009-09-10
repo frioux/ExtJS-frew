@@ -703,7 +703,7 @@ tb.{@link #doLayout}();             // refresh the layout
      */
     getComponent : function(comp){
         if(Ext.isObject(comp)){
-            return comp;
+            comp = comp.id;
         }
         return this.items.get(comp);
     },
