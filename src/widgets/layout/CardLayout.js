@@ -100,10 +100,11 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
             if(this.activeItem){
                 this.activeItem.hide();
             }
+            var layout = item.doLayout && (this.layoutOnCardChange || !item.rendered);
             this.activeItem = item;
             item.show();
             this.layout();
-            if(this.layoutOnCardChange && item.doLayout){
+            if(layout){
                 item.doLayout();
             }
         }
