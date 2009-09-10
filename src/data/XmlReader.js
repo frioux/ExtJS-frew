@@ -207,7 +207,7 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
             switch(key) {
                 case this.meta.totalProperty:
                     return function(root, def){
-                        q.selectNumber(key, root, def);
+                        return q.selectNumber(key, root, def);
                     }
                     break;
                 case this.meta.successProperty:
@@ -242,8 +242,11 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
         fl          = f.length;
         if (returnRecords === true) {
             for (var i = 0, len = root.length; i < len; i++) {
-                var data = root[i];
-                records.push(new Record(this.extractValues(data, fi, fl), this.getId(data)));
+                var data = root[i],
+                    record = new Record(this.extractValues(data, fi, fl), this.getId(data));
+                    
+                record.node = data;
+                records.push(record);
             }
         } else {
             for (var i = 0, len = root.length; i < len; i++) {
