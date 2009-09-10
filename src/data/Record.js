@@ -183,7 +183,7 @@ rec.{@link #commit}();
 
 // update the record in the store, bypass setting dirty flag,
 // and do not store the change in the {@link Ext.data.Store#getModifiedRecords modified records}
-rec.{@link #data}['firstname'] = 'Wilma'); // updates record, but not the view
+rec.{@link #data}['firstname'] = 'Wilma'; // updates record, but not the view
 rec.{@link #commit}(); // updates the view
      * </code></pre>
      * <b>Notes</b>:<div class="mdetail-params"><ul>
