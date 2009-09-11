@@ -248,8 +248,8 @@ Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
      * Calls the passed function with each selection. If the function returns
      * <tt>false</tt>, iteration is stopped and this function returns
      * <tt>false</tt>. Otherwise it returns <tt>true</tt>.
-     * @param {Function} fn
-     * @param {Object} scope (optional)
+     * @param {Function} fn The function to call upon each iteration. It is passed the selected {@link Ext.data.Record Record}.
+     * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the function is executed. Defaults to this RowSelectionModel.
      * @return {Boolean} true if all selections were iterated
      */
     each : function(fn, scope){

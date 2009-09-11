@@ -1250,7 +1250,8 @@ sortInfo: {
      * Calls the specified function for each of the {@link Ext.data.Record Records} in the cache.
      * @param {Function} fn The function to call. The {@link Ext.data.Record Record} is passed as the first parameter.
      * Returning <tt>false</tt> aborts and exits the iteration.
-     * @param {Object} scope (optional) The scope in which to call the function (defaults to the {@link Ext.data.Record Record}).
+     * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the function is executed.
+     * Defaults to the current {@link Ext.data.Record Record} in the iteration.
      */
     each : function(fn, scope){
         this.data.each(fn, scope);
@@ -1321,7 +1322,7 @@ sortInfo: {
      * to test for filtering. Access field values using {@link Ext.data.Record#get}.</p></li>
      * <li><b>id</b> : Object<p class="sub-desc">The ID of the Record passed.</p></li>
      * </ul>
-     * @param {Object} scope (optional) The scope of the function (defaults to this)
+     * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the function is executed. Defaults to this Store.
      */
     filterBy : function(fn, scope){
         this.snapshot = this.snapshot || this.data;
@@ -1352,7 +1353,7 @@ sortInfo: {
      * to test for filtering. Access field values using {@link Ext.data.Record#get}.</p></li>
      * <li><b>id</b> : Object<p class="sub-desc">The ID of the Record passed.</p></li>
      * </ul>
-     * @param {Object} scope (optional) The scope of the function (defaults to this)
+     * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the function is executed. Defaults to this Store.
      * @return {MixedCollection} Returns an Ext.util.MixedCollection of the matched records
      **/
     queryBy : function(fn, scope){
@@ -1396,7 +1397,7 @@ sortInfo: {
      * to test for filtering. Access field values using {@link Ext.data.Record#get}.</p></li>
      * <li><b>id</b> : Object<p class="sub-desc">The ID of the Record passed.</p></li>
      * </ul>
-     * @param {Object} scope (optional) The scope of the function (defaults to this)
+     * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the function is executed. Defaults to this Store.
      * @param {Number} startIndex (optional) The index to start searching at
      * @return {Number} The matched index or -1
      */

@@ -53,7 +53,7 @@ paramOrder: 'param1|param2|param'
      * <li><tt>r</tt> : Ext.data.Record[] The block of Ext.data.Records.</li>
      * <li><tt>options</tt>: Options object from the action request</li>
      * <li><tt>success</tt>: Boolean success indicator</li></ul></p></div>
-     * @param {Object} scope The scope in which to call the callback
+     * @param {Object} scope The scope (<code>this</code> reference) in which the callback function is executed. Defaults to the browser window.
      * @param {Object} arg An optional argument which is passed to the callback as its second parameter.
      * @protected
      */

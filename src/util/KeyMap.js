@@ -166,7 +166,7 @@ map.addBinding({
      * following options:
      * {key: (number or array), shift: (true/false), ctrl: (true/false), alt: (true/false)}
      * @param {Function} fn The function to call
-     * @param {Object} scope (optional) The scope of the function
+     * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the function is executed. Defaults to the browser window.
      */
     on : function(key, fn, scope){
         var keyCode, shift, ctrl, alt;

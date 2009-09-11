@@ -176,9 +176,9 @@ var myForm = new Ext.formPanel({
  * to the supplied function with the event name + standard signature of the event
  * <b>before</b> the event is fired. If the supplied function returns false,
  * the event will not fire.
- * @param {Observable} o The Observable to capture
- * @param {Function} fn The function to call
- * @param {Object} scope (optional) The scope (this object) for the fn
+ * @param {Observable} o The Observable to capture events from.
+ * @param {Function} fn The function to call when an event is fired.
+ * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the function is executed. Defaults to the Observable firing the event.
  * @static
  */
 Ext.util.Observable.capture = function(o, fn, scope){

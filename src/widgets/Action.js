@@ -193,10 +193,10 @@ Ext.Action.prototype = {
     },
 
     /**
-     * Sets the function that will be called by each component using this action when its primary event is triggered.
+     * Sets the function that will be called by each Component using this action when its primary event is triggered.
      * @param {Function} fn The function that will be invoked by the action's components.  The function
      * will be called with no arguments.
-     * @param {Object} scope The scope in which the function will execute
+     * @param {Object} scope The scope (<code>this</code> reference) in which the function is executed. Defaults to the Component firing the event.
      */
     setHandler : function(fn, scope){
         this.initialConfig.handler = fn;
@@ -205,10 +205,10 @@ Ext.Action.prototype = {
     },
 
     /**
-     * Executes the specified function once for each component currently tied to this action.  The function passed
+     * Executes the specified function once for each Component currently tied to this action.  The function passed
      * in should accept a single argument that will be an object that supports the basic Action config/method interface.
      * @param {Function} fn The function to execute for each component
-     * @param {Object} scope The scope in which the function will execute
+     * @param {Object} scope The scope (<code>this</code> reference) in which the function is executed.  Defaults to the Component.
      */
     each : function(fn, scope){
         Ext.each(this.items, fn, scope);

@@ -1100,7 +1100,7 @@ new Ext.Panel({
      * @param {String/Object} config A valid {@link Ext.Button} config.  A string will become the text for a default
      * button config, an object will be treated as a button config object.
      * @param {Function} handler The function to be called on button {@link Ext.Button#click}
-     * @param {Object} scope The scope to use for the button handler function
+     * @param {Object} scope The scope (<code>this</code> reference) in which the button handler function is executed. Defaults to the Button.
      * @return {Ext.Button} The button that was added
      */
     addButton : function(config, handler, scope){

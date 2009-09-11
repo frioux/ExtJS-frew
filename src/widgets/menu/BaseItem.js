@@ -96,7 +96,7 @@ Ext.extend(Ext.menu.BaseItem, Ext.Component, {
      * Sets the function that will handle click events for this item (equivalent to passing in the {@link #handler}
      * config property).  If an existing handler is already registered, it will be unregistered for you.
      * @param {Function} handler The function that should be called on click
-     * @param {Object} scope The scope that should be passed to the handler
+     * @param {Object} scope The scope (<code>this</code> reference) in which the handler function is executed. Defaults to this menu item.
      */
     setHandler : function(handler, scope){
         if(this.handler){

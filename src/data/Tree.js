@@ -636,13 +636,12 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
     },
 
     /**
-     * Bubbles up the tree from this node, calling the specified function with each node. The scope (<i>this</i>) of
-     * function call will be the scope provided or the current node. The arguments to the function
+     * Bubbles up the tree from this node, calling the specified function with each node. The arguments to the function
      * will be the args provided or the current node. If the function returns false at any point,
      * the bubble is stopped.
      * @param {Function} fn The function to call
-     * @param {Object} scope (optional) The scope of the function (defaults to current node)
-     * @param {Array} args (optional) The args to call the function with (default to passing the current node)
+     * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the function is executed. Defaults to the current Node.
+     * @param {Array} args (optional) The args to call the function with (default to passing the current Node)
      */
     bubble : function(fn, scope, args){
         var p = this;
@@ -655,13 +654,12 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
     },
 
     /**
-     * Cascades down the tree from this node, calling the specified function with each node. The scope (<i>this</i>) of
-     * function call will be the scope provided or the current node. The arguments to the function
+     * Cascades down the tree from this node, calling the specified function with each node. The arguments to the function
      * will be the args provided or the current node. If the function returns false at any point,
      * the cascade is stopped on that branch.
      * @param {Function} fn The function to call
-     * @param {Object} scope (optional) The scope of the function (defaults to current node)
-     * @param {Array} args (optional) The args to call the function with (default to passing the current node)
+     * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the function is executed. Defaults to the current Node.
+     * @param {Array} args (optional) The args to call the function with (default to passing the current Node)
      */
     cascade : function(fn, scope, args){
         if(fn.apply(scope || this, args || [this]) !== false){
@@ -673,13 +671,12 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
     },
 
     /**
-     * Interates the child nodes of this node, calling the specified function with each node. The scope (<i>this</i>) of
-     * function call will be the scope provided or the current node. The arguments to the function
+     * Interates the child nodes of this node, calling the specified function with each node. The arguments to the function
      * will be the args provided or the current node. If the function returns false at any point,
      * the iteration stops.
      * @param {Function} fn The function to call
-     * @param {Object} scope (optional) The scope of the function (defaults to current node)
-     * @param {Array} args (optional) The args to call the function with (default to passing the current node)
+     * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the function is executed. Defaults to the current Node in the iteration.
+     * @param {Array} args (optional) The args to call the function with (default to passing the current Node)
      */
     eachChild : function(fn, scope, args){
         var cs = this.childNodes;
@@ -707,10 +704,9 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
     },
 
     /**
-     * Finds the first child by a custom function. The child matches if the function passed
-     * returns true.
-     * @param {Function} fn
-     * @param {Object} scope (optional)
+     * Finds the first child by a custom function. The child matches if the function passed returns <code>true</code>.
+     * @param {Function} fn A function which must return <code>true</code> if the passed Node is the required Node.
+     * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the function is executed. Defaults to the Node being tested.
      * @return {Node} The found child or null if none was found
      */
     findChildBy : function(fn, scope){
@@ -724,9 +720,9 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
     },
 
     /**
-     * Sorts this nodes children using the supplied sort function
-     * @param {Function} fn
-     * @param {Object} scope (optional)
+     * Sorts this nodes children using the supplied sort function.
+     * @param {Function} fn A function which, when passed two Nodes, returns -1, 0 or 1 depending upon required sort order.
+     * @param {Object} scope (optional)The scope (<code>this</code> reference) in which the function is executed. Defaults to the browser window.
      */
     sort : function(fn, scope){
         var cs = this.childNodes;

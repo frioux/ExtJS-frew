@@ -118,7 +118,7 @@ Ext.History = (function () {
          * Initialize the global History instance.
          * @param {Boolean} onReady (optional) A callback function that will be called once the history
          * component is fully initialized.
-         * @param {Object} scope (optional) The callback scope
+         * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the callback is executed. Defaults to the browser window.
          */
         init: function (onReady, scope) {
             if(ready) {

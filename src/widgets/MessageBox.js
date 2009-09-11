@@ -477,7 +477,7 @@ Ext.MessageBox.ERROR
          * @param {String} title The title bar text
          * @param {String} msg The message box body text
          * @param {Function} fn (optional) The callback function invoked after the message box is closed
-         * @param {Object} scope (optional) The scope of the callback function
+         * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the callback is executed. Defaults to the browser wnidow.
          * @return {Ext.MessageBox} this
          */
         alert : function(title, msg, fn, scope){
@@ -499,7 +499,7 @@ Ext.MessageBox.ERROR
          * @param {String} title The title bar text
          * @param {String} msg The message box body text
          * @param {Function} fn (optional) The callback function invoked after the message box is closed
-         * @param {Object} scope (optional) The scope of the callback function
+         * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the callback is executed. Defaults to the browser wnidow.
          * @return {Ext.MessageBox} this
          */
         confirm : function(title, msg, fn, scope){
@@ -522,7 +522,7 @@ Ext.MessageBox.ERROR
          * @param {String} title The title bar text
          * @param {String} msg The message box body text
          * @param {Function} fn (optional) The callback function invoked after the message box is closed
-         * @param {Object} scope (optional) The scope of the callback function
+         * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the callback is executed. Defaults to the browser wnidow.
          * @param {Boolean/Number} multiline (optional) True to create a multiline textbox using the defaultTextHeight
          * property, or the height in pixels to create the textbox (defaults to false / single-line)
          * @param {String} value (optional) Default value of the text input element (defaults to '')

@@ -290,8 +290,10 @@ var columns = grid.getColumnModel().getColumnsBy(function(c){
   return c.hidden;
 });
 </code></pre>
-     * @param {Function} fn
-     * @param {Object} scope (optional)
+     * @param {Function} fn A function which, when passed a {@link Ext.grid.Column Column} object, must
+     * return <code>true</code> if the column is to be included in the returned Array.
+     * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the function
+     * is executed. Defaults to this ColumnModel.
      * @return {Array} result
      */
     getColumnsBy : function(fn, scope){

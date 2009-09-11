@@ -5,9 +5,9 @@ Ext.Element.addMethods({
     /**
      * Convenience method for constructing a KeyMap
      * @param {Number/Array/Object/String} key Either a string with the keys to listen for, the numeric key code, array of key codes or an object with the following options:
-     *                                  {key: (number or array), shift: (true/false), ctrl: (true/false), alt: (true/false)}
+     * <code>{key: (number or array), shift: (true/false), ctrl: (true/false), alt: (true/false)}</code>
      * @param {Function} fn The function to call
-     * @param {Object} scope (optional) The scope of the function
+     * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the specified function is executed. Defaults to this Element.
      * @return {Ext.KeyMap} The KeyMap created
      */
     addKeyListener : function(key, fn, scope){

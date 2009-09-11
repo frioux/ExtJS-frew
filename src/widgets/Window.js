@@ -490,7 +490,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
      * @param {String/Element} animateTarget (optional) The target element or id from which the window should
      * animate while opening (defaults to null with no animation)
      * @param {Function} callback (optional) A callback function to call after the window is displayed
-     * @param {Object} scope (optional) The scope in which to execute the callback
+     * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the callback is executed. Defaults to this Window.
      * @return {Ext.Window} this
      */
     show : function(animateTarget, cb, scope){
@@ -570,7 +570,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
      * @param {String/Element} animateTarget (optional) The target element or id to which the window should
      * animate while hiding (defaults to null with no animation)
      * @param {Function} callback (optional) A callback function to call after the window is hidden
-     * @param {Object} scope (optional) The scope in which to execute the callback
+     * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the callback is executed. Defaults to this Window.
      * @return {Ext.Window} this
      */
     hide : function(animateTarget, cb, scope){

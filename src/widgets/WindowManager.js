@@ -137,7 +137,7 @@ Ext.WindowGroup = function(){
          * The function should accept a single {@link Ext.Window} reference as its only argument and should
          * return true if the window matches the search criteria, otherwise it should return false.
          * @param {Function} fn The search function
-         * @param {Object} scope (optional) The scope in which to execute the function (defaults to the window
+         * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the function is executed. Defaults to the Window being tested.
          * that gets passed to the function if not specified)
          * @return {Array} An array of zero or more matching windows
          */
@@ -156,7 +156,7 @@ Ext.WindowGroup = function(){
          * Executes the specified function once for every window in the group, passing each
          * window as the only parameter. Returning false from the function will stop the iteration.
          * @param {Function} fn The function to execute for each item
-         * @param {Object} scope (optional) The scope in which to execute the function
+         * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the function is executed. Defaults to the current Window in the iteration.
          */
         each : function(fn, scope){
             for(var id in list){

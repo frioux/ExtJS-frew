@@ -47,10 +47,10 @@ Ext.ComponentMgr = function(){
         },
 
         /**
-         * Registers a function that will be called when a specified component is added to ComponentMgr
+         * Registers a function that will be called when a Component with the specified id is added to ComponentMgr. This will happen on instantiation.
          * @param {String} id The component {@link Ext.Component#id id}
          * @param {Function} fn The callback function
-         * @param {Object} scope The scope of the callback
+         * @param {Object} scope The scope (<code>this</code> reference) in which the callback is executed. Defaults to the Component.
          */
         onAvailable : function(id, fn, scope){
             all.on("add", function(index, o){
