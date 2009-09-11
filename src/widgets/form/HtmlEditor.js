@@ -963,6 +963,10 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                     e.stopEvent();
                     this.execCmd('InsertText','\t');
                     this.deferFocus();
+                }else if(k == e.ENTER){
+                    e.stopEvent();
+                    this.execCmd('InsertHtml','<br /><br />');
+                    this.deferFocus();
                 }
              };
         }
