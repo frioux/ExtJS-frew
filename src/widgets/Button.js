@@ -269,12 +269,19 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
   * @return {Object} Substitution data for a Template.
  */
     getTemplateArgs : function(){
-        var cls = (this.cls || '');
-        cls += (this.iconCls || this.icon) ? (this.text ? ' x-btn-text-icon' : ' x-btn-icon') : ' x-btn-noicon';
-        if(this.pressed){
-            cls += ' x-btn-pressed';
+        return [this.type, 'x-btn-' + this.scale + ' x-btn-icon-' + this.scale + '-' + this.iconAlign, this.getMenuClass()];
+    },
+    
+    // private
+    setButtonClass : function(){
+        if(this.useSetClass){
+            var cls = ['x-btn', this.cls || '', (this.iconCls || this.icon) ? (this.text ? ' x-btn-text-icon' : ' x-btn-icon') : ' x-btn-noicon'];
+            if(this.pressed){
+                cls.push('x-btn-pressed');
+            }
+            this.el.dom.className = '';
+            this.el.addClass(cls);
         }
-        return [this.text || '&#160;', this.type, this.iconCls || '', cls, 'x-btn-' + this.scale + ' x-btn-icon-' + this.scale + '-' + this.iconAlign, this.getMenuClass()];
     },
 
     // protected
@@ -288,9 +295,9 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
             if(!Ext.Button.buttonTemplate){
                 // hideous table template
                 Ext.Button.buttonTemplate = new Ext.Template(
-                    '<table cellspacing="0" class="x-btn {3}"><tbody class="{4}">',
+                    '<table cellspacing="0"><tbody class="{1}">',
                     '<tr><td class="x-btn-tl"><i>&#160;</i></td><td class="x-btn-tc"></td><td class="x-btn-tr"><i>&#160;</i></td></tr>',
-                    '<tr><td class="x-btn-ml"><i>&#160;</i></td><td class="x-btn-mc"><em class="{5}" unselectable="on"><button class="x-btn-text {2}" type="{1}">{0}</button></em></td><td class="x-btn-mr"><i>&#160;</i></td></tr>',
+                    '<tr><td class="x-btn-ml"><i>&#160;</i></td><td class="x-btn-mc"><em class="{2}" unselectable="on"><button type="{0}"></button></em></td><td class="x-btn-mr"><i>&#160;</i></td></tr>',
                     '<tr><td class="x-btn-bl"><i>&#160;</i></td><td class="x-btn-bc"></td><td class="x-btn-br"><i>&#160;</i></td></tr>',
                     "</tbody></table>");
                 Ext.Button.buttonTemplate.compile();
@@ -335,10 +342,10 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
             d.id = this.el.id = this.id;
             c[d.id] = this.el;
         }
-        if(this.icon){
-            btnEl.setStyle('background-image', 'url(' +this.icon +')');
-        }
-        if(this.tabIndex !== undefined){
+        this.setIcon(this.icon);
+        this.setText(this.text);
+        this.setIconClass(this.iconCls);
+        if(Ext.isDefined(this.tabIndex)){
             btnEl.dom.tabIndex = this.tabIndex;
         }
         if(this.tooltip){
@@ -375,6 +382,8 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     // private
     afterRender : function(){
         Ext.Button.superclass.afterRender.call(this);
+        this.useSetClass = true;
+        this.setButtonClass();
         this.doc = Ext.getDoc();
         this.doAutoWidth();
     },
@@ -386,10 +395,12 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      * @return {Ext.Button} this
      */
     setIconClass : function(cls){
-        if(this.el){
-            this.btnEl.replaceClass(this.iconCls, cls);
-        }
         this.iconCls = cls;
+        if(this.el){
+            this.btnEl.dom.className = '';
+            this.btnEl.addClass(['x-btn-text', cls || '']);
+            this.setButtonClass();
+        }
         return this;
     },
 
@@ -489,9 +500,25 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     setText : function(text){
         this.text = text;
         if(this.el){
-            this.el.child('td.x-btn-mc ' + this.buttonSelector).update(text);
+            this.btnEl.update(text || '&#160;');
+            this.setButtonClass();
         }
         this.doAutoWidth();
+        return this;
+    },
+    
+    /**
+     * Sets the background image (inline style) of the button.  This method also changes
+     * the value of the {@link icon} config internally.
+     * @param {String} icon The path to an image to display in the button
+     * @return {Ext.Button} this
+     */
+    setIcon : function(icon){
+        this.icon = icon;
+        if(this.el){
+            this.btnEl.setStyle('background-image', icon ? 'url(' + icon + ')' : '');
+            this.setButtonClass();
+        }
         return this;
     },
 

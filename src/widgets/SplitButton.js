@@ -76,8 +76,8 @@ Ext.SplitButton = Ext.extend(Ext.Button, {
 
     isClickOnArrow : function(e){
         return this.arrowAlign != 'bottom' ?
-               e.getPageX() > this.el.child(this.buttonSelector).getRegion().right :
-               e.getPageY() > this.el.child(this.buttonSelector).getRegion().bottom;
+               e.getPageX() > this.btnEl.getRegion().right :
+               e.getPageY() > this.btnEl.getRegion().bottom;
     },
 
     // private
@@ -106,12 +106,12 @@ Ext.SplitButton = Ext.extend(Ext.Button, {
 
     // private
     isMenuTriggerOver : function(e){
-        return this.menu && e.target.tagName == 'em';
+        return this.menu && e.target.tagName == this.arrowSelector;
     },
 
     // private
     isMenuTriggerOut : function(e, internal){
-        return this.menu && e.target.tagName != 'em';
+        return this.menu && e.target.tagName != this.arrowSelector;
     }
 });
 
