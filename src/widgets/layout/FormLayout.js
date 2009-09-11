@@ -122,8 +122,9 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
             c.un('show', this.onFieldShow, this);
             c.un('hide', this.onFieldHide, this);
         }
+        // check for itemCt, since we may be removing a fieldset or something similar
         var el = c.getPositionEl(),
-                ct = c.getItemCt();
+                ct = c.getItemCt && c.getItemCt();
         if(c.rendered && ct){
             el.insertAfter(ct);
             Ext.destroy(ct);
