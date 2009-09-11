@@ -139,7 +139,7 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
                 dataUrl: this.dataUrl,
                 requestMethod: this.requestMethod
             });
-        }else if(typeof l == 'object' && !l.load){
+        }else if(Ext.isObject(l) && !l.load){
             l = new Ext.tree.TreeLoader(l);
         }
         this.loader = l;
@@ -666,9 +666,9 @@ new Ext.tree.TreePanel({
      */
     selectPath : function(path, attr, callback){
         attr = attr || "id";
-        var keys = path.split(this.pathSeparator);
-        var v = keys.pop();
-        if(keys.length > 0){
+        var keys = path.split(this.pathSeparator),
+            v = keys.pop();
+        if(keys.length > 1){
             var f = function(success, node){
                 if(success && node){
                     var n = node.findChild(attr, v);
