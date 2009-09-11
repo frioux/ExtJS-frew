@@ -595,6 +595,13 @@ Ext.form.Action.DirectLoad = Ext.extend(Ext.form.Action.Load, {
     processResponse : function(result) {
         this.result = result;
         return result;
+    },
+    
+    success : function(response, trans){
+        if(trans.type == Ext.Direct.exceptions.SERVER){
+            response = {};
+        }
+        Ext.form.Action.DirectLoad.superclass.success.call(this, response);
     }
 });
 
@@ -720,6 +727,13 @@ Ext.form.Action.DirectSubmit = Ext.extend(Ext.form.Action.Submit, {
     processResponse : function(result) {
         this.result = result;
         return result;
+    },
+    
+    success : function(response, trans){
+        if(trans.type == Ext.Direct.exceptions.SERVER){
+            response = {};
+        }
+        Ext.form.Action.DirectSubmit.superclass.success.call(this, response);
     }
 });
 

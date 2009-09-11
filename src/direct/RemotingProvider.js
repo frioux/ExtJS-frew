@@ -96,9 +96,15 @@ TestAction.multiply(
     
     /**
      * @cfg {Number} maxRetries
-     * Number of times to re-attempt delivery on failure of a call.
+     * Number of times to re-attempt delivery on failure of a call. Defaults to <tt>1</tt>.
      */
     maxRetries: 1,
+    
+    /**
+     * @cfg {Number} timeout
+     * The timeout to use for each request. Defaults to <tt>undefined</tt>.
+     */
+    timeout: undefined,
 
     constructor : function(config){
         Ext.direct.RemotingProvider.superclass.constructor.call(this, config);
@@ -212,7 +218,8 @@ TestAction.multiply(
             url: this.url,
             callback: this.onData,
             scope: this,
-            ts: data
+            ts: data,
+            timeout: this.timeout
         }, callData;
 
         if(Ext.isArray(data)){
