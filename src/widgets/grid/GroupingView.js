@@ -133,13 +133,13 @@ var grid = new Ext.grid.GridPanel({
      * </code></pre>
      */
     groupTextTpl : '{text}',
-    
+
     /**
      * @cfg {String} groupMode Indicates how to construct the group identifier. <tt>'value'</tt> constructs the id using
      * raw value, <tt>'display'</tt> constructs the id using the rendered value. Defaults to <tt>'value'</tt>.
      */
     groupMode: 'value',
-    
+
     /**
      * @cfg {Function} groupRenderer This property must be configured in the {@link Ext.grid.Column} for
      * each column.
@@ -247,7 +247,7 @@ var grid = new Ext.grid.GridPanel({
             this.hmenu.on('beforeshow', this.beforeMenuShow, this);
         }
     },
-    
+
     processEvent: function(name, e){
         var hd = e.getTarget('.x-grid-group-hd', this.mainBody);
         if(hd){
@@ -255,7 +255,7 @@ var grid = new Ext.grid.GridPanel({
             var field = this.getGroupField(),
                 prefix = this.getPrefix(field),
                 groupValue = hd.id.substring(prefix.length);
-            
+
             // remove trailing '-hd'
             groupValue = groupValue.substr(0, groupValue.length - 3);
             if(groupValue){
@@ -279,7 +279,7 @@ var grid = new Ext.grid.GridPanel({
             this.grid.store.clearGrouping();
         }
     },
-    
+
     /**
      * Toggle the group that contains the specific row.
      * @param {Number} rowIndex The row inside the group
@@ -292,9 +292,8 @@ var grid = new Ext.grid.GridPanel({
         var row = this.getRow(rowIndex);
         if(row){
             var g = this.findGroup(row);
-            console.log(expanded);
             this.toggleGroup(g, expanded);
-        }    
+        }
     },
 
     /**
@@ -359,7 +358,7 @@ var grid = new Ext.grid.GridPanel({
     getGroupField : function(){
         return this.grid.store.getGroupState();
     },
-    
+
     // private
     afterRender : function(){
         Ext.grid.GroupingView.superclass.afterRender.call(this);
@@ -421,14 +420,14 @@ var grid = new Ext.grid.GridPanel({
             var rowIndex = startRow + i,
                 r = rs[i],
                 gvalue = r.data[groupField];
-                
+
                 g = this.getGroup(gvalue, r, groupRenderer, rowIndex, colIndex, ds);
             if(!curGroup || curGroup.group != g){
                 gid = this.constructId(gvalue, groupField, colIndex);
                	// if state is defined use it, however state is in terms of expanded
 				// so negate it, otherwise use the default.
 				var isCollapsed  = Ext.isDefined(this.state[gid]) ? !this.state[gid] : this.startCollapsed;
-				var gcls = isCollapsed ? 'x-grid-group-collapsed' : '';	
+				var gcls = isCollapsed ? 'x-grid-group-collapsed' : '';
                 curGroup = {
                     group: g,
                     gvalue: gvalue,
@@ -467,16 +466,16 @@ var grid = new Ext.grid.GridPanel({
         var field = this.getGroupField();
         return this.constructId(value, field, this.cm.findColumnIndex(field));
     },
-    
+
     // private
     constructId : function(value, field, idx){
         var cfg = this.cm.config[idx],
             groupRenderer = cfg.groupRenderer || cfg.renderer,
             val = (this.groupMode == 'value') ? value : this.getGroup(value, {data:{}}, groupRenderer, 0, idx, this.ds);
-            
+
         return this.getPrefix(field) + Ext.util.Format.htmlEncode(val);
     },
-    
+
     // private
     getPrefix: function(field){
         return this.grid.getGridEl().id + '-gp-' + field + '-';
