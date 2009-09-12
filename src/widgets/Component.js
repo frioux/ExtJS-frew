@@ -966,23 +966,41 @@ Ext.Foo = Ext.extend(Ext.Bar, {
         return this;
     },
     
-    onAdded: function(container, pos) {
+    /**
+     * @private
+     * Method to manage awareness of when components are added to their
+     * respective Container, firing an added event.
+     * References are established at add time rather than at render time.
+     * @param {Ext.Container} container Container which holds the component
+     * @param {number} pos Position at which the component was added
+     */
+    onAdded : function(container, pos) {
         this.ownerCt = container;
         this.initRef();
         this.fireEvent('added', this, container, pos);
     },
 
-    onRemoved: function() {
+    /**
+     * @private
+     * Method to manage awareness of when components are removed from their
+     * respective Container, firing an removed event. References are properly
+     * cleaned up after removing a component from its owning container.
+     */
+    onRemoved : function() {
         this.removeRef();
         this.fireEvent('removed', this, this.ownerCt);
         delete this.ownerCt;
     },
 
-    initRef: function() {
+    /**
+     * @private
+     * Method to establish a reference to a component.
+     */
+    initRef : function() {
         /**
          * @cfg {String} ref
-         * <p>A path specification, relative to the Component's {@link #ownerCt} specifying into which
-         * ancestor Container to place a named reference to this Component.</p>
+         * <p>A path specification, relative to the Component's <code>{@link #ownerCt}</code>
+         * specifying into which ancestor Container to place a named reference to this Component.</p>
          * <p>The ancestor axis can be traversed by using '/' characters in the path.
          * For example, to put a reference to a Toolbar Button into <i>the Panel which owns the Toolbar</i>:</p><pre><code>
 var myGrid = new Ext.grid.EditorGridPanel({
@@ -1003,9 +1021,10 @@ var myGrid = new Ext.grid.EditorGridPanel({
     }
 });
 </code></pre>
-         * <p>In the code above, if the ref had been <code>'saveButton'</code> the reference would
-         * have been placed into the Toolbar. Each '/' in the ref moves up one level from the
-         * Component's {@link #ownerCt}.</p>
+         * <p>In the code above, if the <code>ref</code> had been <code>'saveButton'</code>
+         * the reference would have been placed into the Toolbar. Each '/' in the <code>ref</code>
+         * moves up one level from the Component's <code>{@link #ownerCt}</code>.</p>
+         * <p>Also see the <code>{@link #added}</code> and <code>{@link #removed}</code> events.</p>
          */	
         if(this.ref){
             var levels = this.ref.split('/');
@@ -1028,7 +1047,7 @@ var myGrid = new Ext.grid.EditorGridPanel({
         }
     },
 
-    removeRef: function() {
+    removeRef : function() {
         if (this.refOwner && this.refName) {
             delete this.refOwner[this.refName];
         }
