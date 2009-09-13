@@ -227,38 +227,6 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
     }(),
 
     /**
-     * Extracts rows of record-data from server.  iterates and calls #extractValues
-     * TODO I don't care much for method-names of #extractData, #extractValues.
-     * @param {Array} root
-     * @param {Boolean} returnRecords When true, will return instances of Ext.data.Record; otherwise just hashes.
-     * @private
-     * @ignore
-     */
-    extractData : function(root, returnRecords) {
-        var Record  = this.recordType,
-        records     = [],
-        f           = Record.prototype.fields,
-        fi          = f.items,
-        fl          = f.length;
-        if (returnRecords === true) {
-            for (var i = 0, len = root.length; i < len; i++) {
-                var data = root[i],
-                    record = new Record(this.extractValues(data, fi, fl), this.getId(data));
-                    
-                record.node = data;
-                records.push(record);
-            }
-        } else {
-            for (var i = 0, len = root.length; i < len; i++) {
-                var data = this.extractValues(root[i], fi, fl);
-                data[this.meta.idProperty] = this.getId(data);
-                records.push(data);
-            }
-        }
-        return records;
-    },
-
-    /**
      * extracts values and type-casts a row of data from server, extracted by #extractData
      * @param {Hash} data
      * @param {Ext.data.Field[]} items

@@ -146,6 +146,46 @@ Ext.data.DataReader.prototype = {
     },
 
     /**
+     * returns extracted, type-cast rows of data.  Iterates to call #extractValues for each row
+     * @param {Object[]/Object} data-root from server response
+     * @param {Boolean} returnRecords [false] Set true to return instances of Ext.data.Record
+     * @private
+     */
+    extractData : function(root, returnRecords) {
+        // A bit ugly this, too bad the Record's raw data couldn't be saved in a common property named "raw" or something.
+        var rawName = (this instanceof Ext.data.JsonReader) ? 'json' : 'node';
+
+        var rs = [];
+
+        // Had to add Check for XmlReader, #isData returns true if root is an Xml-object.  Want to check in order to re-factor
+        // #extractData into DataReader base, since the implementations are almost identical for JsonReader, XmlReader
+        if (this.isData(root) && !this instanceof Ext.data.XmlReader) {
+            root = [root];
+        }
+        var f       = this.recordType.prototype.fields,
+            fi      = f.items,
+            fl      = f.length,
+            rs      = [];
+        if (returnRecords === true) {
+            var Record = this.recordType;
+            for (var i = 0; i < root.length; i++) {
+                var n = root[i];
+                var record = new Record(this.extractValues(n, fi, fl), this.getId(n));
+                record[rawName] = n;    // <-- There's implementation of ugly bit, setting the raw record-data.
+                rs.push(record);
+            }
+        }
+        else {
+            for (var i = 0; i < root.length; i++) {
+                var data = this.extractValues(root[i], fi, fl);
+                data[this.meta.idProperty] = this.getId(root[i]);
+                rs.push(data);
+            }
+        }
+        return rs;
+    },
+
+    /**
      * Returns true if the supplied data-hash <b>looks</b> and quacks like data.  Checks to see if it has a key
      * corresponding to idProperty defined in your DataReader config containing non-empty pk.
      * @param {Object} data

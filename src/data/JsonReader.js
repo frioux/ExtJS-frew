@@ -304,42 +304,6 @@ Ext.extend(Ext.data.JsonReader, Ext.data.DataReader, {
     }(),
 
     /**
-     * returns extracted, type-cast rows of data.  Iterates to call #extractValues for each row
-     * @param {Object[]/Object} data-root from server response
-     * @param {Boolean} returnRecords [false] Set true to return instances of Ext.data.Record
-     * @private
-     */
-    extractData : function(root, returnRecords) {
-        var rs = undefined;
-        if (this.isData(root)) {
-            root = [root];
-        }
-        if (Ext.isArray(root)) {
-            var f       = this.recordType.prototype.fields,
-                fi      = f.items,
-                fl      = f.length,
-                rs      = [];
-            if (returnRecords === true) {
-                var Record = this.recordType;
-                for (var i = 0; i < root.length; i++) {
-                    var n = root[i];
-                    var record = new Record(this.extractValues(n, fi, fl), this.getId(n));
-                    record.json = n;
-                    rs.push(record);
-                }
-            }
-            else {
-                for (var i = 0; i < root.length; i++) {
-                    var data = this.extractValues(root[i], fi, fl);
-                    data[this.meta.idProperty] = this.getId(root[i]);
-                    rs.push(data);
-                }
-            }
-        }
-        return rs;
-    },
-
-    /**
      * type-casts a single row of raw-data from server
      * @param {Object} data
      * @param {Array} items
