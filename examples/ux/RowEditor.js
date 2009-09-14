@@ -92,6 +92,7 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
             columnresize: this.verifyLayout,
             columnmove: this.refreshFields,
             reconfigure: this.refreshFields,
+	    beforedestroy : this.beforedestroy,
 	    destroy : this.destroy,
             bodyscroll: {
                 buffer: 250,
@@ -100,6 +101,14 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
         });
         grid.getColumnModel().on('hiddenchange', this.verifyLayout, this, {delay:1});
         grid.getView().on('refresh', this.stopEditing.createDelegate(this, []));
+    },
+
+    beforedestroy: function() {
+        this.grid.getStore().un('remove', this.onStoreRemove, this);
+        this.stopEditing(false);
+        if (this.btns) {
+            this.btns.destroy();
+        }
     },
 
     refreshFields: function(){
