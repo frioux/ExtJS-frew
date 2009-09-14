@@ -868,7 +868,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
      */
     toFront : function(e){
         if(this.manager.bringToFront(this)){
-            if(e && !e.getTarget().focus){
+            if(!e || !e.getTarget().focus){
                 this.focus();
             }
         }
