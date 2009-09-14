@@ -659,7 +659,11 @@ new Ext.TabPanel({
      * @return {HTMLElement} The DOM node
      */
     getTabEl : function(item){
-        return document.getElementById(this.id + this.idDelimiter + this.getComponent(item).getItemId());
+        if (this.getComponent(item)) {
+            return document.getElementById(this.id + this.idDelimiter + this.getComponent(item).getItemId());
+        } else {
+            return null;
+        }
     },
 
     // private
