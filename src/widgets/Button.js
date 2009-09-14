@@ -269,18 +269,17 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
   * @return {Object} Substitution data for a Template.
  */
     getTemplateArgs : function(){
-        return [this.type, 'x-btn-' + this.scale + ' x-btn-icon-' + this.scale + '-' + this.iconAlign, this.getMenuClass()];
+        return [this.type, 'x-btn-' + this.scale + ' x-btn-icon-' + this.scale + '-' + this.iconAlign, this.getMenuClass(), this.cls];
     },
     
     // private
     setButtonClass : function(){
         if(this.useSetClass){
-            var cls = ['x-btn', this.cls || '', (this.iconCls || this.icon) ? (this.text ? ' x-btn-text-icon' : ' x-btn-icon') : ' x-btn-noicon'];
-            if(this.pressed){
-                cls.push('x-btn-pressed');
+            if(!Ext.isEmpty(this.oldCls)){
+                this.el.removeClass([this.oldCls, 'x-btn-pressed']);
             }
-            this.el.dom.className = '';
-            this.el.addClass(cls);
+            this.oldCls = (this.iconCls || this.icon) ? (this.text ? ' x-btn-text-icon' : ' x-btn-icon') : ' x-btn-noicon';
+            this.el.addClass([this.oldCls, this.pressed ? 'x-btn-pressed' : null]);
         }
     },
 
@@ -295,11 +294,11 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
             if(!Ext.Button.buttonTemplate){
                 // hideous table template
                 Ext.Button.buttonTemplate = new Ext.Template(
-                    '<table cellspacing="0"><tbody class="{1}">',
+                    '<table cellspacing="0" class="x-btn {3}"><tbody class="{1}">',
                     '<tr><td class="x-btn-tl"><i>&#160;</i></td><td class="x-btn-tc"></td><td class="x-btn-tr"><i>&#160;</i></td></tr>',
                     '<tr><td class="x-btn-ml"><i>&#160;</i></td><td class="x-btn-mc"><em class="{2}" unselectable="on"><button type="{0}"></button></em></td><td class="x-btn-mr"><i>&#160;</i></td></tr>',
                     '<tr><td class="x-btn-bl"><i>&#160;</i></td><td class="x-btn-bc"></td><td class="x-btn-br"><i>&#160;</i></td></tr>',
-                    "</tbody></table>");
+                    '</tbody></table>');
                 Ext.Button.buttonTemplate.compile();
             }
             this.template = Ext.Button.buttonTemplate;
