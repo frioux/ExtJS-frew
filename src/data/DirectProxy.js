@@ -58,20 +58,23 @@ paramOrder: 'param1|param2|param'
      * @protected
      */
     doRequest : function(action, rs, params, reader, callback, scope, options) {
-        var args = [];
-        var directFn = this.api[action] || this.directFn;
+        var args = [],
+            directFn = this.api[action] || this.directFn;
 
         switch (action) {
             case Ext.data.Api.actions.create:
                 args.push(params.jsonData);		// <-- create(Hash)
                 break;
             case Ext.data.Api.actions.read:
-                if(this.paramOrder){
-                    for(var i = 0, len = this.paramOrder.length; i < len; i++){
-                        args.push(params[this.paramOrder[i]]);
+                // If the method has no parameters, ignore the paramOrder/paramsAsHash.
+                if(directFn.directCfg.method.len > 0){
+                    if(this.paramOrder){
+                        for(var i = 0, len = this.paramOrder.length; i < len; i++){
+                            args.push(params[this.paramOrder[i]]);
+                        }
+                    }else if(this.paramsAsHash){
+                        args.push(params);
                     }
-                }else if(this.paramsAsHash){
-                    args.push(params);
                 }
                 break;
             case Ext.data.Api.actions.update:
