@@ -34,3 +34,7 @@
 .ext-ie .x-progress-text-back {
     line-height:15px;
 }
+
+.ext-strict .ext-ie7 .x-progress-text-back{
+    width: 100%;
+}
