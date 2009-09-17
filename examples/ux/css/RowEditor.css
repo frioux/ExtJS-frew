@@ -40,6 +40,15 @@
     padding:3px;
 }
 
+/* Fixes for IE6/7 trigger fields */
+.ext-ie6 .x-row-editor .x-form-field-wrap .x-form-trigger, .ext-ie7 .x-row-editor .x-form-field-wrap .x-form-trigger {
+  top: 1px;
+}
+
+.ext-ie6 .x-row-editor .x-form-field-trigger-wrap, .ext-ie7 .x-row-editor .x-form-field-trigger-wrap {
+  margin-top: -1px;
+}
+
 .errorTip .x-tip-body ul{
     list-style-type:disc;
     margin-left:15px;
