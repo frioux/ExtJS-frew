@@ -57,21 +57,59 @@ Ext.Element.addMethods({
      */
     anchorTo : function(el, alignment, offsets, animate, monitorScroll, callback){        
 	    var me = this,
-            dom = me.dom;
-	    
-	    function action(){
-            Ext.fly(dom).alignTo(el, alignment, offsets, animate);
-            Ext.callback(callback, Ext.fly(dom));
-        }
+            dom = me.dom,
+            scroll = !Ext.isEmpty(monitorScroll),
+            action = function(){
+                Ext.fly(dom).alignTo(el, alignment, offsets, animate);
+                Ext.callback(callback, Ext.fly(dom));
+            },
+            anchor = this.getAnchor();
+            
+        // previous listener anchor, remove it
+        this.removeAnchor();
+        Ext.apply(anchor, {
+            fn: action,
+            scroll: scroll
+        });
+
+        Ext.EventManager.onWindowResize(action, null);
         
-        Ext.EventManager.onWindowResize(action, me);
-        
-        if(!Ext.isEmpty(monitorScroll)){
-            Ext.EventManager.on(window, 'scroll', action, me,
+        if(scroll){
+            Ext.EventManager.on(window, 'scroll', action, null,
                 {buffer: !isNaN(monitorScroll) ? monitorScroll : 50});
         }
         action.call(me); // align immediately
         return me;
+    },
+    
+    /**
+     * Remove any anchor to this element. See {@link #anchorTo}.
+     * @return {Ext.Element} this
+     */
+    removeAnchor : function(){
+        var me = this,
+            anchor = this.getAnchor();
+            
+        if(anchor.fn){
+            Ext.EventManager.removeResizeListener(anchor.fn);
+            if(anchor.scroll){
+                Ext.EventManager.un(window, 'scroll', anchor.fn);
+            }
+            delete anchor.fn;
+        }
+        return me;
+    },
+    
+    // private
+    getAnchor : function(){
+        var data = Ext.Element.data,
+            dom = this.dom,
+            anchor = data(dom, '_anchor');
+            
+        if(!anchor){
+            anchor = data(dom, '_anchor', {});
+        }
+        return anchor;
     },
 
     /**
