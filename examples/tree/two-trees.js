@@ -12,6 +12,8 @@ var TreeTest = function(){
                 enableDD:true,
                 containerScroll: true,
                 border: false,
+                width: 250,
+                height: 300,
                 dropConfig: {appendOnly:true}
             });
             
@@ -44,6 +46,8 @@ var TreeTest = function(){
                 }),
                 containerScroll: true,
                 border: false,
+                width: 250,
+                height: 300,
                 enableDD:true,
                 dropConfig: {appendOnly:true}
             });
