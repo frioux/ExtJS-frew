@@ -92,8 +92,8 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
             columnresize: this.verifyLayout,
             columnmove: this.refreshFields,
             reconfigure: this.refreshFields,
-	    beforedestroy : this.beforedestroy,
-	    destroy : this.destroy,
+	        beforedestroy : this.beforedestroy,
+	        destroy : this.destroy,
             bodyscroll: {
                 buffer: 250,
                 fn: this.positionButtons
@@ -106,9 +106,7 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
     beforedestroy: function() {
         this.grid.getStore().un('remove', this.onStoreRemove, this);
         this.stopEditing(false);
-        if (this.btns) {
-            this.btns.destroy();
-        }
+        Ext.destroy(this.btns);
     },
 
     refreshFields: function(){
@@ -137,9 +135,10 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
         }
         if(this.fireEvent('beforeedit', this, rowIndex) !== false){
             this.editing = true;
-            var g = this.grid, view = g.getView();
-            var row = view.getRow(rowIndex);
-            var record = g.store.getAt(rowIndex);
+            var g = this.grid, view = g.getView(),
+                row = view.getRow(rowIndex),
+                record = g.store.getAt(rowIndex);
+                
             this.record = record;
             this.rowIndex = rowIndex;
             this.values = {};
@@ -183,14 +182,17 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
             this.fireEvent('canceledit', this, saveChanges === false);
             return;
         }
-        var changes = {}, r = this.record, hasChange = false;
-        var cm = this.grid.colModel, fields = this.items.items;
+        var changes = {}, 
+            r = this.record, 
+            hasChange = false,
+            cm = this.grid.colModel, 
+            fields = this.items.items;
         for(var i = 0, len = cm.getColumnCount(); i < len; i++){
             if(!cm.isHidden(i)){
                 var dindex = cm.getDataIndex(i);
                 if(!Ext.isEmpty(dindex)){
-                    var oldValue = r.data[dindex];
-                    var value = this.postEditValue(fields[i].getValue(), oldValue, r, dindex);
+                    var oldValue = r.data[dindex],
+                        value = this.postEditValue(fields[i].getValue(), oldValue, r, dindex);
                     if(String(oldValue) !== String(value)){
                         changes[dindex] = value;
                         hasChange = true;
@@ -200,11 +202,9 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
         }
         if(hasChange && this.fireEvent('validateedit', this, changes, r, this.rowIndex) !== false){
             r.beginEdit();
-            for(var k in changes){
-                if(changes.hasOwnProperty(k)){
-                    r.set(k, changes[k]);
-                }
-            }
+            Ext.iterate(changes, function(name, value){
+                r.set(name, value);
+            });
             r.endEdit();
             this.fireEvent('afteredit', this, changes, r, this.rowIndex);
         }
@@ -214,7 +214,7 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
     verifyLayout: function(force){
         if(this.el && (this.isVisible() || force === true)){
             var row = this.grid.getView().getRow(this.rowIndex);
-            this.setSize(Ext.fly(row).getWidth(), Ext.isIE ? Ext.fly(row).getHeight() + 9 : undefined);
+            this.setSize(Ext.fly(row).getWidth(), Ext.fly(row).getHeight() + 9);
             var cm = this.grid.colModel, fields = this.items.items;
             for(var i = 0, len = cm.getColumnCount(); i < len; i++){
                 if(!cm.isHidden(i)){
@@ -243,8 +243,8 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
         var cm = this.grid.getColumnModel(), pm = Ext.layout.ContainerLayout.prototype.parseMargins;
         this.removeAll(false);
         for(var i = 0, len = cm.getColumnCount(); i < len; i++){
-            var c = cm.getColumnAt(i);
-            var ed = c.getEditor();
+            var c = cm.getColumnAt(i),
+                ed = c.getEditor();
             if(!ed){
                 ed = c.displayEditor || new Ext.form.DisplayField();
             }
@@ -356,11 +356,11 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
 
     positionButtons: function(){
         if(this.btns){
-            var h = this.el.dom.clientHeight;
-            var view = this.grid.getView();
-            var scroll = view.scroller.dom.scrollLeft;
-            var width =  view.mainBody.getWidth();
-            var bw = this.btns.getWidth();
+            var h = this.el.dom.clientHeight,
+                view = this.grid.getView(),
+                scroll = view.scroller.dom.scrollLeft,
+                width =  view.mainBody.getWidth(),
+                bw = this.btns.getWidth();
             this.btns.el.shift({left: (width/2)-(bw/2)+scroll, top: h - 2, stopFx: true, duration:0.2});
         }
     },
@@ -378,13 +378,14 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
 
     doFocus: function(pt){
         if(this.isVisible()){
-            var index = 0;
+            var index = 0,
+                cm = this.grid.getColumnModel(),
+                c;
             if(pt){
                 index = this.getTargetColumnIndex(pt);
             }
-            var cm = this.grid.getColumnModel();
             for(var i = index||0, len = cm.getColumnCount(); i < len; i++){
-                var c = cm.getColumnAt(i);
+                c = cm.getColumnAt(i);
                 if(!c.hidden && c.getEditor()){
                     c.getEditor().focus();
                     break;
@@ -394,10 +395,12 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
     },
 
     getTargetColumnIndex: function(pt){
-        var grid = this.grid, v = grid.view;
-        var x = pt.left;
-        var cms = grid.colModel.config;
-        var i = 0, match = false;
+        var grid = this.grid, 
+            v = grid.view,
+            x = pt.left,
+            cms = grid.colModel.config,
+            i = 0, 
+            match = false;
         for(var len = cms.length, c; c = cms[i]; i++){
             if(!c.hidden){
                 if(Ext.fly(v.getHeaderCell(i)).getRegion().right >= x){
