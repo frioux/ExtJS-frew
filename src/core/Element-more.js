@@ -156,6 +156,13 @@ Ext.Element.addMethods({
         return this;
     },
     
+    // inherit docs, overridden so we can add removeAnchor
+    removeAllListeners : function(){
+        this.removeAnchor();
+        Ext.EventManager.removeAll(this.dom);
+        return this;
+    },
+    
     /**
      * Creates a proxy element of this element
      * @param {String/Object} config The class name of the proxy element or a DomHelper config object
