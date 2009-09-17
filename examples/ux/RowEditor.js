@@ -356,11 +356,13 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
 
     positionButtons: function(){
         if(this.btns){
-            var h = this.el.dom.clientHeight,
-                view = this.grid.getView(),
+            var g = this.grid,
+                h = this.el.dom.clientHeight,
+                view = g.getView(),
                 scroll = view.scroller.dom.scrollLeft,
-                width =  view.mainBody.getWidth(),
-                bw = this.btns.getWidth();
+                bw = this.btns.getWidth(),
+                width = Math.min(g.getWidth(), g.getColumnModel().getTotalWidth());
+                
             this.btns.el.shift({left: (width/2)-(bw/2)+scroll, top: h - 2, stopFx: true, duration:0.2});
         }
     },
