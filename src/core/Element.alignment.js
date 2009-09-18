@@ -90,7 +90,7 @@ Ext.Element.addMethods({
         var me = this,
             anchor = this.getAnchor();
             
-        if(anchor.fn){
+        if(anchor && anchor.fn){
             Ext.EventManager.removeResizeListener(anchor.fn);
             if(anchor.scroll){
                 Ext.EventManager.un(window, 'scroll', anchor.fn);
@@ -103,8 +103,11 @@ Ext.Element.addMethods({
     // private
     getAnchor : function(){
         var data = Ext.Element.data,
-            dom = this.dom,
-            anchor = data(dom, '_anchor');
+            dom = this.dom;
+            if (!dom) {
+                return;
+            }
+            var anchor = data(dom, '_anchor');
             
         if(!anchor){
             anchor = data(dom, '_anchor', {});
