@@ -1558,7 +1558,26 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
         }
     },
 
-    // internal function for auto removal of assigned event handlers on destruction
+    /**
+     * <p>Adds listeners to any Observable object (or Elements) which are automatically removed when this Component
+     * is destroyed. Usage:</p><code><pre>
+myGridPanel.mon(myGridPanel.getSelectionModel(), 'selectionchange', handleSelectionChange, null, {buffer: 50});
+</pre></code>
+     * <p>or:</p><code><pre>
+myGridPanel.mon(myGridPanel.getSelectionModel(), {
+    selectionchange: handleSelectionChange,
+    buffer: 50
+});
+</pre></code>
+     * @param {Observable|Element} item The item to which to add a listener/listeners.
+     * @param {Object|String} ename The event name, or an object containing event name properties.
+     * @param {Function} fn Optional. If the <code>ename</code> parameter was an event name, this
+     * is the handler function.
+     * @param {Object} scope Optional. If the <code>ename</code> parameter was an event name, this
+     * is the scope (<code>this</code> reference) in which the handler function is executed.
+     * @param {Object} opt Optional. If the <code>ename</code> parameter was an event name, this
+     * is the {@link Ext.util.Observable#addListener addListener} options.
+     */
     mon : function(item, ename, fn, scope, opt){
         this.createMons();
         if(Ext.isObject(ename)){
@@ -1592,7 +1611,15 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
         item.on(ename, fn, scope, opt);
     },
 
-    // protected, opposite of mon
+    /**
+     * Removes listeners that were added by the {@link #mon} method.
+     * @param {Observable|Element} item The item from which to remove a listener/listeners.
+     * @param {Object|String} ename The event name, or an object containing event name properties.
+     * @param {Function} fn Optional. If the <code>ename</code> parameter was an event name, this
+     * is the handler function.
+     * @param {Object} scope Optional. If the <code>ename</code> parameter was an event name, this
+     * is the scope (<code>this</code> reference) in which the handler function is executed.
+     */
     mun : function(item, ename, fn, scope){
         var found, mon;
         this.createMons();
