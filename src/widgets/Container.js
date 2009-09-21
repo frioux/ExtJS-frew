@@ -7,12 +7,12 @@
  * <p>The most commonly used Container classes are {@link Ext.Panel}, {@link Ext.Window} and {@link Ext.TabPanel}.
  * If you do not need the capabilities offered by the aforementioned classes you can create a lightweight
  * Container to be encapsulated by an HTML element to your specifications by using the
- * <tt><b>{@link Ext.Component#autoEl autoEl}</b></tt> config option. This is a useful technique when creating
+ * <code><b>{@link Ext.Component#autoEl autoEl}</b></code> config option. This is a useful technique when creating
  * embedded {@link Ext.layout.ColumnLayout column} layouts inside {@link Ext.form.FormPanel FormPanels}
  * for example.</p>
  *
  * <p>The code below illustrates both how to explicitly create a Container, and how to implicitly
- * create one using the <b><tt>'container'</tt></b> xtype:<pre><code>
+ * create one using the <b><code>'container'</code></b> xtype:<pre><code>
 // explicitly create a Container
 var embeddedColumns = new Ext.Container({
     autoEl: 'div',  // This is the default
@@ -57,7 +57,7 @@ var embeddedColumns = new Ext.Container({
  * Container, and <b>does not apply any sizing</b> at all.</p>
  * <p>A common mistake is when a developer neglects to specify a
  * <b><code>{@link #layout}</code></b> (e.g. widgets like GridPanels or
- * TreePanels are added to Containers for which no <tt><b>{@link #layout}</b></tt>
+ * TreePanels are added to Containers for which no <code><b>{@link #layout}</b></code>
  * has been specified). If a Container is left to use the default
  * {@link Ext.layout.ContainerLayout ContainerLayout} scheme, none of its
  * child components will be resized, or changed in any way when the Container
@@ -83,10 +83,10 @@ myTabPanel.{@link Ext.TabPanel#setActiveTab setActiveTab}(myNewGrid);
  * <p><b><u>Overnesting is a common problem</u></b>.
  * An example of overnesting occurs when a GridPanel is added to a TabPanel
  * by wrapping the GridPanel <i>inside</i> a wrapping Panel (that has no
- * <tt><b>{@link #layout}</b></tt> specified) and then add that wrapping Panel
+ * <code><b>{@link #layout}</b></code> specified) and then add that wrapping Panel
  * to the TabPanel. The point to realize is that a GridPanel <b>is</b> a
  * Component which can be added directly to a Container. If the wrapping Panel
- * has no <tt><b>{@link #layout}</b></tt> configuration, then the overnested
+ * has no <code><b>{@link #layout}</b></code> configuration, then the overnested
  * GridPanel will not be sized as expected.<p>
  *
  * <p><u><b>Adding via remote configuration</b></u></p>
@@ -115,7 +115,7 @@ Ext.Ajax.request({
 });
 </code></pre>
  * <p>The server script needs to return an executable Javascript statement which, when processed
- * using <tt>eval()</tt>, will return either a config object with an {@link Ext.Component#xtype xtype},
+ * using <code>eval()</code>, will return either a config object with an {@link Ext.Component#xtype xtype},
  * or an instantiated Component. The server might return this for example:</p><pre><code>
 (function() {
     function formatDate(value){
@@ -155,10 +155,10 @@ Ext.Ajax.request({
     return grid;  // return instantiated component
 })();
 </code></pre>
- * <p>When the above code fragment is passed through the <tt>eval</tt> function in the success handler
+ * <p>When the above code fragment is passed through the <code>eval</code> function in the success handler
  * of the Ajax request, the code is executed by the Javascript processor, and the anonymous function
  * runs, and returns the instantiated grid component.</p>
- * <p>Note: since the code above is <i>generated</i> by a server script, the <tt>baseParams</tt> for
+ * <p>Note: since the code above is <i>generated</i> by a server script, the <code>baseParams</code> for
  * the Store, the metadata to allow generation of the Record layout, and the ColumnModel
  * can all be generated into the code since these are all known on the server.</p>
  *
@@ -210,31 +210,31 @@ layout: {
 }
 </code></pre>
      *
-     * <li><tt><b>type</b></tt></li>
+     * <li><code><b>type</b></code></li>
      * <br/><p>The layout type to be used for this container.  If not specified,
      * a default {@link Ext.layout.ContainerLayout} will be created and used.</p>
-     * <br/><p>Valid layout <tt>type</tt> values are:</p>
+     * <br/><p>Valid layout <code>type</code> values are:</p>
      * <div class="sub-desc"><ul class="mdetail-params">
-     * <li><tt><b>{@link Ext.layout.AbsoluteLayout absolute}</b></tt></li>
-     * <li><tt><b>{@link Ext.layout.AccordionLayout accordion}</b></tt></li>
-     * <li><tt><b>{@link Ext.layout.AnchorLayout anchor}</b></tt></li>
-     * <li><tt><b>{@link Ext.layout.ContainerLayout auto}</b></tt> &nbsp;&nbsp;&nbsp; <b>Default</b></li>
-     * <li><tt><b>{@link Ext.layout.BorderLayout border}</b></tt></li>
-     * <li><tt><b>{@link Ext.layout.CardLayout card}</b></tt></li>
-     * <li><tt><b>{@link Ext.layout.ColumnLayout column}</b></tt></li>
-     * <li><tt><b>{@link Ext.layout.FitLayout fit}</b></tt></li>
-     * <li><tt><b>{@link Ext.layout.FormLayout form}</b></tt></li>
-     * <li><tt><b>{@link Ext.layout.HBoxLayout hbox}</b></tt></li>
-     * <li><tt><b>{@link Ext.layout.MenuLayout menu}</b></tt></li>
-     * <li><tt><b>{@link Ext.layout.TableLayout table}</b></tt></li>
-     * <li><tt><b>{@link Ext.layout.ToolbarLayout toolbar}</b></tt></li>
-     * <li><tt><b>{@link Ext.layout.VBoxLayout vbox}</b></tt></li>
+     * <li><code><b>{@link Ext.layout.AbsoluteLayout absolute}</b></code></li>
+     * <li><code><b>{@link Ext.layout.AccordionLayout accordion}</b></code></li>
+     * <li><code><b>{@link Ext.layout.AnchorLayout anchor}</b></code></li>
+     * <li><code><b>{@link Ext.layout.ContainerLayout auto}</b></code> &nbsp;&nbsp;&nbsp; <b>Default</b></li>
+     * <li><code><b>{@link Ext.layout.BorderLayout border}</b></code></li>
+     * <li><code><b>{@link Ext.layout.CardLayout card}</b></code></li>
+     * <li><code><b>{@link Ext.layout.ColumnLayout column}</b></code></li>
+     * <li><code><b>{@link Ext.layout.FitLayout fit}</b></code></li>
+     * <li><code><b>{@link Ext.layout.FormLayout form}</b></code></li>
+     * <li><code><b>{@link Ext.layout.HBoxLayout hbox}</b></code></li>
+     * <li><code><b>{@link Ext.layout.MenuLayout menu}</b></code></li>
+     * <li><code><b>{@link Ext.layout.TableLayout table}</b></code></li>
+     * <li><code><b>{@link Ext.layout.ToolbarLayout toolbar}</b></code></li>
+     * <li><code><b>{@link Ext.layout.VBoxLayout vbox}</b></code></li>
      * </ul></div>
      *
      * <li>Layout specific configuration properties</li>
      * <br/><p>Additional layout specific configuration properties may also be
      * specified. For complete details regarding the valid config options for
-     * each layout type, see the layout class corresponding to the <tt>type</tt>
+     * each layout type, see the layout class corresponding to the <code>type</code>
      * specified.</p>
      *
      * </ul></div>
@@ -249,13 +249,13 @@ layoutConfig: {
     align: 'left'
 }
 </code></pre>
-     * <li><tt><b>layout</b></tt></li>
-     * <br/><p>The layout <tt>type</tt> to be used for this container (see list
+     * <li><code><b>layout</b></code></li>
+     * <br/><p>The layout <code>type</code> to be used for this container (see list
      * of valid layout type values above).</p><br/>
-     * <li><tt><b>{@link #layoutConfig}</b></tt></li>
+     * <li><code><b>{@link #layoutConfig}</b></code></li>
      * <br/><p>Additional layout specific configuration properties. For complete
      * details regarding the valid config options for each layout type, see the
-     * layout class corresponding to the <tt>layout</tt> specified.</p>
+     * layout class corresponding to the <code>layout</code> specified.</p>
      * </ul></div></ul></div>
      */
     /**
@@ -268,7 +268,7 @@ layoutConfig: {
      * @cfg {Boolean/Number} bufferResize
      * When set to true (50 milliseconds) or a number of milliseconds, the layout assigned for this container will buffer
      * the frequency it calculates and does a re-layout of components. This is useful for heavy containers or containers
-     * with a large quantity of sub-components for which frequent layout calls would be expensive. Defaults to <tt>50</tt>.
+     * with a large quantity of sub-components for which frequent layout calls would be expensive. Defaults to <code>50</code>.
      */
     bufferResize: 50,
 
@@ -319,14 +319,18 @@ layout: 'anchor', // specify a layout!
      * </ul></div>
      */
     /**
-     * @cfg {Object} defaults
-     * <p>A config object that will be applied to all components added to this container either via the {@link #items}
-     * config or via the {@link #add} or {@link #insert} methods.  The <tt>defaults</tt> config can contain any
-     * number of name/value property pairs to be added to each item, and should be valid for the types of items
-     * being added to the container.  For example, to automatically apply padding to the body of each of a set of
-     * contained {@link Ext.Panel} items, you could pass: <tt>defaults: {bodyStyle:'padding:15px'}</tt>.</p><br/>
-     * <p><b>Note</b>: <tt>defaults</tt> will not be applied to config objects if the option is already specified.
-     * For example:</p><pre><code>
+     * @cfg {Object|Function} defaults
+     * <p>This option is a means of applying default settings to all added items whether added through the {@link #items}
+     * config or via the {@link #add} or {@link #insert} methods.</p>
+     * <p>If an added item is a config object, and <b>not</b> an instantiated Component, then the default properties are
+     * unconditionally applied. If the added item <b>is</b> an instantiated Component, then the default properties are
+     * applied conditionally so as not to override existing properties in the item.</p>
+     * <p>If the defaults option is specified as a function, then the function will be called using this Container as the
+     * scope (<code>this</code> reference) and passing the added item as the first parameter. Any resulting object
+     * from that call is then applied to the item as default properties.</p>
+     * <p>For example, to automatically apply padding to the body of each of a set of
+     * contained {@link Ext.Panel} items, you could pass: <code>defaults: {bodyStyle:'padding:15px'}</code>.</p>
+     * <p>Usage:</p><pre><code>
 defaults: {               // defaults are applied to items, not the container
     autoScroll:true
 },
@@ -364,20 +368,20 @@ items: [
     /** @cfg {String} defaultType
      * <p>The default {@link Ext.Component xtype} of child Components to create in this Container when
      * a child item is specified as a raw configuration object, rather than as an instantiated Component.</p>
-     * <p>Defaults to <tt>'panel'</tt>, except {@link Ext.menu.Menu} which defaults to <tt>'menuitem'</tt>,
-     * and {@link Ext.Toolbar} and {@link Ext.ButtonGroup} which default to <tt>'button'</tt>.</p>
+     * <p>Defaults to <code>'panel'</code>, except {@link Ext.menu.Menu} which defaults to <code>'menuitem'</code>,
+     * and {@link Ext.Toolbar} and {@link Ext.ButtonGroup} which default to <code>'button'</code>.</p>
      */
     defaultType : 'panel',
 
     /** @cfg {String} resizeEvent
-     * The event to listen to for resizing in layouts. Defaults to <tt>'resize'</tt>.
+     * The event to listen to for resizing in layouts. Defaults to <code>'resize'</code>.
      */
     resizeEvent: 'resize',
     
     /**
      * @cfg {Array} bubbleEvents
      * <p>An array of events that, when fired, should be bubbled to any parent container.
-     * Defaults to <tt>['add', 'remove']</tt>.
+     * Defaults to <code>['add', 'remove']</code>.
      */
     bubbleEvents: ['add', 'remove'],
 
@@ -516,10 +520,10 @@ items: [
      * </ul></div>
      * <br><p><b>Notes</b></u> :
      * <div><ul class="mdetail-params">
-     * <li>If the Container is <i>already rendered</i> when <tt>add</tt>
+     * <li>If the Container is <i>already rendered</i> when <code>add</code>
      * is called, you may need to call {@link #doLayout} to refresh the view which causes
      * any unrendered child Components to be rendered. This is required so that you can
-     * <tt>add</tt> multiple child components if needed while only refreshing the layout
+     * <code>add</code> multiple child components if needed while only refreshing the layout
      * once. For example:<pre><code>
 var tb = new {@link Ext.Toolbar}();
 tb.render(document.body);  // toolbar is rendered
@@ -697,9 +701,9 @@ tb.{@link #doLayout}();             // refresh the layout
      * and gets a direct child component of this container.
      * @param {String/Number} comp This parameter may be any of the following:
      * <div><ul class="mdetail-params">
-     * <li>a <b><tt>String</tt></b> : representing the <code>{@link Ext.Component#itemId itemId}</code>
+     * <li>a <b><code>String</code></b> : representing the <code>{@link Ext.Component#itemId itemId}</code>
      * or <code>{@link Ext.Component#id id}</code> of the child component </li>
-     * <li>a <b><tt>Number</tt></b> : representing the position of the child component
+     * <li>a <b><code>Number</code></b> : representing the position of the child component
      * within the <code>{@link #items}</code> <b>property</b></li>
      * </ul></div>
      * <p>For additional information see {@link Ext.util.MixedCollection#get}.
