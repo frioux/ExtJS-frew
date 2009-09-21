@@ -55,7 +55,14 @@ Ext.FlashComponent = Ext.extend(Ext.BoxComponent, {
     initComponent : function(){
         Ext.FlashComponent.superclass.initComponent.call(this);
 
-        this.addEvents('initialize');
+        this.addEvents(
+            /**
+             * @event initialize
+             * 
+             * @param {Chart} this
+             */
+            'initialize'
+        );
     },
 
     onRender : function(){
