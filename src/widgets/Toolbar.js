@@ -12,17 +12,18 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
     // private
     onLayout : function(ct, target){
         if(!this.leftTr){
+            var align = ct.buttonAlign == 'center' ? 'center' : 'left';
             target.addClass('x-toolbar-layout-ct');
             target.insertHtml('beforeEnd',
-                 '<table cellspacing="0" class="x-toolbar-ct"><tbody><tr><td class="x-toolbar-left" align="left"><table cellspacing="0"><tbody><tr class="x-toolbar-left-row"></tr></tbody></table></td><td class="x-toolbar-right" align="right"><table cellspacing="0" class="x-toolbar-right-ct"><tbody><tr><td><table cellspacing="0"><tbody><tr class="x-toolbar-right-row"></tr></tbody></table></td><td><table cellspacing="0"><tbody><tr class="x-toolbar-extras-row"></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table>');
+                 '<table cellspacing="0" class="x-toolbar-ct"><tbody><tr><td class="x-toolbar-left" align="' + align + '"><table cellspacing="0"><tbody><tr class="x-toolbar-left-row"></tr></tbody></table></td><td class="x-toolbar-right" align="right"><table cellspacing="0" class="x-toolbar-right-ct"><tbody><tr><td><table cellspacing="0"><tbody><tr class="x-toolbar-right-row"></tr></tbody></table></td><td><table cellspacing="0"><tbody><tr class="x-toolbar-extras-row"></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table>');
             this.leftTr = target.child('tr.x-toolbar-left-row', true);
             this.rightTr = target.child('tr.x-toolbar-right-row', true);
             this.extrasTr = target.child('tr.x-toolbar-extras-row', true);
         }
-        var side = this.leftTr;
-        var pos = 0;
-
-        var items = ct.items.items;
+        var side = ct.buttonAlign == 'right' ? this.rightTr : this.leftTr,
+            pos = 0,
+            items = ct.items.items;
+            
         for(var i = 0, len = items.length, c; i < len; i++, pos++) {
             c = items[i];
             if(c.isFill){

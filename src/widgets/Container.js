@@ -608,14 +608,18 @@ tb.{@link #doLayout}();             // refresh the layout
     
     // private
     applyDefaults : function(c){
-        if(this.defaults){
+        var d = this.defaults;
+        if(d){
+            if(Ext.isFunction(d)){
+                d = d.call(this, c);
+            }
             if(Ext.isString(c)){
                 c = Ext.ComponentMgr.get(c);
-                Ext.apply(c, this.defaults);
+                Ext.apply(c, d);
             }else if(!c.events){
-                Ext.applyIf(c, this.defaults);
+                Ext.applyIf(c, d);
             }else{
-                Ext.apply(c, this.defaults);
+                Ext.apply(c, d);
             }
         }
         return c;

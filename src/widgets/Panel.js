@@ -799,35 +799,11 @@ new Ext.Panel({
         }
 
         if(this.buttons){
-            this.elements += ',footer';
-            var btns = this.buttons;
-            /**
-             * This Panel's Array of buttons as created from the <code>{@link #buttons}</code>
-             * config property. Read only.
-             * @type Array
-             * @property buttons
-             */
-            this.buttons = [];
-            Ext.each(btns, function(btn){
-                if(btn.render){ // button instance
-                    this.buttons.push(btn);
-                }else if(btn.xtype){
-                    this.buttons.push(Ext.create(btn, 'button'));
-                }else{
-                    this.addButton(btn);
-                }
-            }, this);
+            this.fbar = this.buttons;
+            delete this.buttons;
         }
         if(this.fbar){
-            this.elements += ',footer';
-            this.fbar = this.createToolbar(this.fbar);
-            this.fbar.enableOverflow = false;
-            if(this.fbar.items){
-                this.fbar.items.each(function(c){
-                    c.minWidth = c.minWidth || this.minButtonWidth;
-                }, this);
-            }
-            this.fbar.toolbarCls = 'x-panel-fbar';
+            this.createFbar(this.fbar);
         }
         if(this.autoLoad){
             this.on('render', this.doAutoLoad, this, {delay:10});
@@ -835,7 +811,31 @@ new Ext.Panel({
     },
     
     // private
-    createToolbar: function(tb){
+    createFbar : function(fbar){
+        var min = this.minButtonWidth;
+        this.elements += ',footer'
+        this.fbar = this.createToolbar(fbar, {
+            buttonAlign: this.buttonAlign,
+            toolbarCls: 'x-panel-fbar',
+            defaults: function(c){
+                return {
+                    minWidth: c.minWidth || min
+                };
+            }
+        });
+        //@compat addButton and buttons could possibly be removed
+        //@target 4.0
+        /**
+         * This Panel's Array of buttons as created from the <code>{@link #buttons}</code>
+         * config property. Read only.
+         * @type Array
+         * @property buttons
+         */
+        this.buttons = this.fbar.items.items;
+    },
+    
+    // private
+    createToolbar: function(tb, options){
         var result;
         // Convert array to proper toolbar config
         if(Ext.isArray(tb)){
@@ -843,7 +843,7 @@ new Ext.Panel({
                 items: tb
             };
         }
-        result = tb.events ? tb : this.createComponent(tb, 'toolbar');
+        result = tb.events ? tb : this.createComponent(Ext.apply({}, tb, options), 'toolbar');
         result.ownerCt = this;
         this.toolbars.push(result);
         return result;
@@ -1016,17 +1016,9 @@ new Ext.Panel({
         if(ts){
             this.addTool.apply(this, ts);
         }
-
-        if(this.buttons && this.buttons.length > 0){
-            this.fbar = new Ext.Toolbar({
-                items: this.buttons,
-                toolbarCls: 'x-panel-fbar'
-            });
-        }
         if(this.fbar){
-            var bct = this.footer.createChild({cls: 'x-panel-btns x-panel-btns-'+this.buttonAlign});
-            this.fbar.render(bct);
-            bct.createChild({cls:'x-clear'});            
+            this.footer.addClass('x-panel-btns');
+            this.fbar.render(this.footer);           
         }
 
         if(this.tbar && this.topToolbar){
@@ -1104,23 +1096,19 @@ new Ext.Panel({
      * @return {Ext.Button} The button that was added
      */
     addButton : function(config, handler, scope){
-        var bc = {
-            handler: handler,
-            scope: scope,
-            minWidth: this.minButtonWidth,
-            hideParent:true
-        };
-        if(Ext.isString(config)){
-            bc.text = config;
-        }else{
-            Ext.apply(bc, config);
+        if(!this.fbar){
+            this.createFbar([]);
         }
-        var btn = new Ext.Button(bc);
-        if(!this.buttons){
-            this.buttons = [];
+        if(handler){
+            if(Ext.isString(config)){
+                config = {text: config};
+            }
+            config = Ext.apply({
+                handler: handler,
+                scope: scope
+            }, config)
         }
-        this.buttons.push(btn);
-        return btn;
+        return this.fbar.add(config);
     },
 
     // private
@@ -1453,29 +1441,11 @@ new Ext.Panel({
                             this.bottomToolbar.setSize(w);
                         }
                     }
-                    if(this.fbar){
-                        var f = this.fbar,
-                            fWidth = 1,
-                            strict = Ext.isStrict;
-                        if(this.buttonAlign == 'left'){
-                           fWidth = w - f.container.getFrameWidth('lr');
-                        }else{
-                            //center/right alignment off in webkit
-                            if(Ext.isIE || Ext.isWebKit){
-                                //center alignment ok on webkit.
-                                //right broken in both, center on IE
-                                if(!(this.buttonAlign == 'center' && Ext.isWebKit) && (!strict || (!Ext.isIE8 && strict))){
-                                    (function(){
-                                        f.setWidth(f.getEl().child('.x-toolbar-ct').getWidth());
-                                    }).defer(1);
-                                }else{
-                                    fWidth = 'auto';
-                                }
-                            }else{
-                                fWidth = 'auto';
-                            }
+                    if(this.footer){
+                        this.footer.setWidth(w);
+                        if(this.fbar){
+                            this.fbar.setSize(w - this.footer.getFrameWidth('lr'));
                         }
-                        f.setWidth(fWidth);
                     }
                     this.body.setWidth(w);
                 }else if(w == 'auto'){
