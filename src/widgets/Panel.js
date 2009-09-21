@@ -1020,9 +1020,9 @@ new Ext.Panel({
             this.addTool.apply(this, ts);
         }
         if(this.fbar){
-            var bct = this.footer.createChild({cls: 'x-panel-btns'});
-            this.fbar.render(bct);
-            bct.createChild({cls:'x-clear'});           
+            this.footer.addClass('x-panel-btns');
+            this.fbar.render(this.footer);
+            this.footer.createChild({cls:'x-clear'});           
         }
 
         if(this.tbar && this.topToolbar){
@@ -1448,7 +1448,7 @@ new Ext.Panel({
                     if(this.footer){
                         this.footer.setWidth(w);
                         if(this.fbar){
-                            this.fbar.setSize(w - this.footer.getFrameWidth('lr'));
+                            this.fbar.setWidth(Ext.isIE ? (w - this.footer.getFrameWidth('lr')) : 'auto');
                         }
                     }
                     this.body.setWidth(w);
