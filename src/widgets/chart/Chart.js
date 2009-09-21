@@ -125,6 +125,7 @@
      * @param styles {Array} Initializer for all Chart series styles.
      */
     setSeriesStyles: function(styles){
+        this.seriesStyles = styles;
         var s = [];
         Ext.each(styles, function(style){
             s.push(Ext.encode(style));
