@@ -394,29 +394,6 @@
     overflow:hidden;
 }
 
-.x-panel-btns-right .x-panel-fbar {
-	float:right;
-	clear:none;
-}
-
-.x-panel-btns-left .x-panel-fbar {
-	clear:none;
-}
-
-.x-panel-btns-center{
-	text-align:center; /*ie*/
-}
-
-.x-panel-btns-center .x-toolbar-ct {
-	margin:0 auto; /*everyone else*/
-    text-align:left;
-    width:auto;
-}
-
-.ext-ie .x-panel-btns-right .x-toolbar-ct, .ext-gecko2 .x-panel-btns-right .x-toolbar-ct {
-    width:auto;
-}
-
 .x-panel-btns td.x-toolbar-cell{
 	padding:3px;
 }

@@ -11,6 +11,10 @@
     overflow:hidden;
 }
 
+.x-toolbar-left {
+    width: 100%;
+}
+
 .x-toolbar .x-item-disabled .x-btn-icon {
     opacity: .35;
     -moz-opacity: .35;

@@ -831,6 +831,9 @@ new Ext.Panel({
          * @type Array
          * @property buttons
          */
+        this.fbar.items.each(function(c){
+            c.minWidth = c.minWidth || this.minButtonWidth; 
+        }, this);
         this.buttons = this.fbar.items.items;
     },
     
@@ -843,7 +846,7 @@ new Ext.Panel({
                 items: tb
             };
         }
-        result = tb.events ? tb : this.createComponent(Ext.apply({}, tb, options), 'toolbar');
+        result = tb.events ? Ext.apply(tb, options) : this.createComponent(Ext.apply({}, tb, options), 'toolbar');
         result.ownerCt = this;
         this.toolbars.push(result);
         return result;
@@ -1017,8 +1020,9 @@ new Ext.Panel({
             this.addTool.apply(this, ts);
         }
         if(this.fbar){
-            this.footer.addClass('x-panel-btns');
-            this.fbar.render(this.footer);           
+            var bct = this.footer.createChild({cls: 'x-panel-btns'});
+            this.fbar.render(bct);
+            bct.createChild({cls:'x-clear'});           
         }
 
         if(this.tbar && this.topToolbar){
