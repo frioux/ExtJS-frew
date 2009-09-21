@@ -1430,7 +1430,7 @@ Ext.dd.DragDropMgr = function() {
 
         /**
          * The number of milliseconds after the mousedown event to initiate the
-         * drag if we don't get a mouseup event. Default=1000
+         * drag if we don't get a mouseup event. Default=350
          * @property clickTimeThresh
          * @type int
          * @static
