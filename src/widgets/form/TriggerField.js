@@ -71,6 +71,8 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
     mimicing : false,
     
     actionMode: 'wrap',
+
+    removeMode: 'container',
     
     defaultTriggerWidth: 17,
 
@@ -138,6 +140,7 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
         if (this.mimicing){
             this.doc.un('mousedown', this.mimicBlur, this);
         }
+        delete this.doc;
         Ext.form.TriggerField.superclass.onDestroy.call(this);
     },
 

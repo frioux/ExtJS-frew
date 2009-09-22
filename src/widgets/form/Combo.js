@@ -770,6 +770,7 @@ var menu = new Ext.menu.Menu({
             this.pageTb,
             this.list
         );
+        Ext.destroyMembers(this, 'hiddenField');
         Ext.form.ComboBox.superclass.onDestroy.call(this);
     },
 
