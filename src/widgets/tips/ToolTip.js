@@ -411,6 +411,10 @@ myGrid.on('render', function(grid) {
         if(this.dismissDelay && this.autoHide !== false){
             this.dismissTimer = this.hide.defer(this.dismissDelay, this);
         }
+        if(this.anchor && !this.anchorEl.isVisible()){
+            this.syncAnchor();
+            this.anchorEl.show();
+        }
     },
 
     // private
