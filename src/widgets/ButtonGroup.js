@@ -38,6 +38,9 @@ var p = new Ext.Panel({
     }]
 });
  * </code></pre>
+ * @constructor
+ * Create a new ButtonGroup.
+ * @param {Object} config The config object
  * @xtype buttongroup
  */
 Ext.ButtonGroup = Ext.extend(Ext.Panel, {
