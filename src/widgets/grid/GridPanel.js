@@ -599,8 +599,8 @@ function(grid, rowIndex, columnIndex, e) {
             cs = state.columns;
         if(cs){
             for(var i = 0, len = cs.length; i < len; i++){
-                var s = cs[i];
-                var c = cm.getColumnById(s.id);
+                var s = cs[i],
+                    c = cm.getColumnById(s.id);
                 if(c){
                     c.hidden = s.hidden;
                     c.width = s.width;
@@ -684,9 +684,6 @@ function(grid, rowIndex, columnIndex, e) {
     // private
     onDestroy : function(){
         if(this.rendered){
-            var c = this.body;
-            c.removeAllListeners();
-            c.update('');
             Ext.destroy(this.view, this.loadMask);
         }else if(this.store && this.store.autoDestroy){
             this.store.destroy();
@@ -699,14 +696,14 @@ function(grid, rowIndex, columnIndex, e) {
     // private
     processEvent : function(name, e){
         this.fireEvent(name, e);
-        var t = e.getTarget();
-        var v = this.view;
-        var header = v.findHeaderIndex(t);
+        var t = e.getTarget(),
+            v = this.view,
+            header = v.findHeaderIndex(t);
         if(header !== false){
             this.fireEvent('header' + name, this, header, e);
         }else{
-            var row = v.findRowIndex(t);
-            var cell = v.findCellIndex(t);
+            var row = v.findRowIndex(t),
+                cell = v.findCellIndex(t);
             if(row !== false){
                 this.fireEvent('row' + name, this, row, e);
                 if(cell !== false){
@@ -741,8 +738,11 @@ function(grid, rowIndex, columnIndex, e) {
 
     // private
     walkCells : function(row, col, step, fn, scope){
-        var cm = this.colModel, clen = cm.getColumnCount();
-        var ds = this.store, rlen = ds.getCount(), first = true;
+        var cm = this.colModel, 
+            clen = cm.getColumnCount(),
+            ds = this.store, 
+            rlen = ds.getCount(), 
+            first = true;
         if(step < 0){
             if(col < 0){
                 row--;
