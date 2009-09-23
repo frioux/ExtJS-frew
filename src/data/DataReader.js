@@ -159,7 +159,7 @@ Ext.data.DataReader.prototype = {
 
         // Had to add Check for XmlReader, #isData returns true if root is an Xml-object.  Want to check in order to re-factor
         // #extractData into DataReader base, since the implementations are almost identical for JsonReader, XmlReader
-        if (this.isData(root) && !this instanceof Ext.data.XmlReader) {
+        if (this.isData(root) && !(this instanceof Ext.data.XmlReader)) {
             root = [root];
         }
         var f       = this.recordType.prototype.fields,
