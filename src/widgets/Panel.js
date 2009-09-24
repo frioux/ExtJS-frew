@@ -948,6 +948,13 @@ new Ext.Panel({
             if(!this.footer){
                 this.bwrap.dom.lastChild.className += ' x-panel-nofooter';
             }
+            /*
+             * Store a reference to this element so:
+             * a) We aren't looking it up all the time
+             * b) The last element is reported incorrectly when using a loadmask
+             */
+            this.ft = Ext.get(this.bwrap.dom.lastChild);
+            this.mc = Ext.get(this.bwrap.dom.firstChild.firstChild.firstChild);
         }else{
             this.createElement('header', d);
             this.createElement('bwrap', d);
@@ -1519,13 +1526,12 @@ new Ext.Panel({
      * @return {Number} The frame width
      */
     getFrameWidth : function(){
-        var w = this.el.getFrameWidth('lr')+this.bwrap.getFrameWidth('lr');
+        var w = this.el.getFrameWidth('lr') + this.bwrap.getFrameWidth('lr');
 
         if(this.frame){
             var l = this.bwrap.dom.firstChild;
             w += (Ext.fly(l).getFrameWidth('l') + Ext.fly(l.firstChild).getFrameWidth('r'));
-            var mc = this.bwrap.dom.firstChild.firstChild.firstChild;
-            w += Ext.fly(mc).getFrameWidth('lr');
+            w += this.mc.getFrameWidth('lr');
         }
         return w;
     },
@@ -1536,16 +1542,12 @@ new Ext.Panel({
      * @return {Number} The frame height
      */
     getFrameHeight : function(){
-        var h  = this.el.getFrameWidth('tb')+this.bwrap.getFrameWidth('tb');
+        var h  = this.el.getFrameWidth('tb') + this.bwrap.getFrameWidth('tb');
         h += (this.tbar ? this.tbar.getHeight() : 0) +
              (this.bbar ? this.bbar.getHeight() : 0);
 
         if(this.frame){
-            var hd = this.el.dom.firstChild;
-            var ft = this.bwrap.dom.lastChild;
-            h += (hd.offsetHeight + ft.offsetHeight);
-            var mc = this.bwrap.dom.firstChild.firstChild.firstChild;
-            h += Ext.fly(mc).getFrameWidth('tb');
+            h += this.el.dom.firstChild.offsetHeight + this.ft.dom.offsetHeight + this.mc.getFrameWidth('tb');
         }else{
             h += (this.header ? this.header.getHeight() : 0) +
                 (this.footer ? this.footer.getHeight() : 0);
@@ -1653,6 +1655,8 @@ panel.load({
             }
         }
         Ext.Element.uncache(
+            this.ft,
+            this.mc,
             this.header,
             this.tbar,
             this.bbar,
@@ -1672,6 +1676,8 @@ panel.load({
         }
         if(this.rendered){
             Ext.destroy(
+                this.ft,
+                this.mc,
                 this.header,
                 this.footer,
                 this.body,
