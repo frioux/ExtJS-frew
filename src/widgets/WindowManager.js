@@ -1,6 +1,6 @@
 /**
  * @class Ext.WindowGroup
- * An object that represents a group of {@link Ext.Window} instances and provides z-order management
+ * An object that manages a group of {@link Ext.Window} instances and provides z-order management
  * and window activation behavior.
  * @constructor
  */
@@ -57,7 +57,7 @@ Ext.WindowGroup = function(){
 
     return {
         /**
-         * The starting z-index for windows (defaults to 9000)
+         * The starting z-index for windows in this WindowGroup (defaults to 9000)
          * @type Number The z-index value
          */
         zseed : 9000,
@@ -86,7 +86,7 @@ Ext.WindowGroup = function(){
         },
 
         /**
-         * Brings the specified window to the front of any other active windows.
+         * Brings the specified window to the front of any other active windows in this WindowGroup.
          * @param {String/Object} win The id of the window or a {@link Ext.Window} instance
          * @return {Boolean} True if the dialog was brought to the front, else false
          * if it was already in front
@@ -102,7 +102,7 @@ Ext.WindowGroup = function(){
         },
 
         /**
-         * Sends the specified window to the back of other active windows.
+         * Sends the specified window to the back of other active windows in this WindowGroup.
          * @param {String/Object} win The id of the window or a {@link Ext.Window} instance
          * @return {Ext.Window} The window
          */
@@ -114,7 +114,7 @@ Ext.WindowGroup = function(){
         },
 
         /**
-         * Hides all windows in the group.
+         * Hides all windows in this WindowGroup.
          */
         hideAll : function(){
             for(var id in list){
@@ -125,7 +125,7 @@ Ext.WindowGroup = function(){
         },
 
         /**
-         * Gets the currently-active window in the group.
+         * Gets the currently-active window in this WindowGroup.
          * @return {Ext.Window} The active window
          */
         getActive : function(){
@@ -133,7 +133,7 @@ Ext.WindowGroup = function(){
         },
 
         /**
-         * Returns zero or more windows in the group using the custom search function passed to this method.
+         * Returns zero or more windows in this WindowGroup using the custom search function passed to this method.
          * The function should accept a single {@link Ext.Window} reference as its only argument and should
          * return true if the window matches the search criteria, otherwise it should return false.
          * @param {Function} fn The search function
@@ -153,7 +153,7 @@ Ext.WindowGroup = function(){
         },
 
         /**
-         * Executes the specified function once for every window in the group, passing each
+         * Executes the specified function once for every window in this WindowGroup, passing each
          * window as the only parameter. Returning false from the function will stop the iteration.
          * @param {Function} fn The function to execute for each item
          * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the function is executed. Defaults to the current Window in the iteration.
