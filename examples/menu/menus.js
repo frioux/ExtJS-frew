@@ -97,6 +97,7 @@ Ext.onReady(function(){
             iconCls: 'user',
             menu: {
                 xtype: 'menu',
+                plain: true,
                 items: {
                     xtype: 'buttongroup',
                     title: 'User options',

@@ -38,6 +38,8 @@
      */
     hideOnClick : true,
     
+    cls : 'x-color-menu',
+    
     /** 
      * @cfg {String} paletteId
      * An id to assign to the underlying color palette. Defaults to <tt>null</tt>.

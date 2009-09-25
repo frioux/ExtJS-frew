@@ -168,6 +168,12 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
      * configuration. Defaults to <tt>[0, 0]</tt>.
      */
     defaultOffsets : [0, 0],
+    
+    /**
+     * @cfg {Boolean} plain
+     * True to remove the incised line down the left side of the menu. Defaults to <tt>false</tt>.
+     */
+    plain : false,
 
     /**
      * @cfg {Boolean} floating
