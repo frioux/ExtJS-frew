@@ -1210,7 +1210,7 @@ var menu = new Ext.menu.Menu({
         if(Ext.isGecko2){
             this.innerList.setOverflow('auto'); // necessary for FF 2.0/Mac
         }
-        Ext.getDoc().on({
+        this.mon(Ext.getDoc(), { 
             scope: this,
             mousewheel: this.collapseIf,
             mousedown: this.collapseIf
