@@ -150,9 +150,9 @@ Ext.ux.form.MultiSelect = Ext.extend(Ext.form.Field,  {
             height: this.height,
             width: this.width,
             style: "padding:0;",
-            tbar: this.tbar,
-            bodyStyle: 'overflow: auto;'
+            tbar: this.tbar
         });
+        fs.body.addClass('ux-mselect');
 
         this.view = new Ext.ListView({
             multiSelect: true,
