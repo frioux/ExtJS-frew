@@ -168,12 +168,17 @@ Ext.layout.TableLayout = Ext.extend(Ext.layout.ContainerLayout, {
         if(c && !c.rendered){
             c.render(this.getNextCell(c));
             this.configureItem(c, position);
+        }else if(c && !this.isValidParent(c, target)){
+            var container = this.getNextCell(c);
+            container.insertBefore(c.getDomPositionEl().dom, null);
+            c.container = Ext.get(container);
+            this.configureItem(c, position);
         }
     },
 
     // private
     isValidParent : function(c, target){
-        return true;
+        return c.getDomPositionEl().up('table', 5).dom.parentNode === (target.dom || target);
     }
 
     /**
