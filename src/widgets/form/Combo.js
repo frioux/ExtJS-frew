@@ -328,6 +328,13 @@ var combo = new Ext.form.ComboBox({
      * (defaults to <tt>true</tt>)
      */
     clearFilterOnReset : true,
+    
+    /**
+     * @cfg {Boolean} submitValue False to clear the name attribute on the field so that it is not submitted during a form post.
+     * If a hiddenName is specified, setting this to true will cause both the hidden field and the element to be submitted.
+     * Defaults to <tt>undefined</tt>.
+     */
+    submitValue: undefined,
 
     /**
      * The value of the match string used to filter the store. Delete this property to force a requery.
@@ -435,10 +442,8 @@ var combo = new Ext.form.ComboBox({
                 this.target = true;
                 this.el = Ext.DomHelper.insertBefore(s, this.autoCreate || this.defaultAutoCreate);
                 this.render(this.el.parentNode, s);
-                Ext.removeNode(s); // remove it
-            }else{
-                Ext.removeNode(s); // remove it
             }
+            Ext.removeNode(s);
         }
         //auto-configure store from local array data
         else if(this.store){
@@ -465,13 +470,14 @@ var combo = new Ext.form.ComboBox({
 
     // private
     onRender : function(ct, position){
+        if(this.hiddenName && !Ext.isDefined(this.submitValue)){
+            this.submitValue = false;
+        }
         Ext.form.ComboBox.superclass.onRender.call(this, ct, position);
         if(this.hiddenName){
             this.hiddenField = this.el.insertSibling({tag:'input', type:'hidden', name: this.hiddenName,
                     id: (this.hiddenId||this.hiddenName)}, 'before', true);
 
-            // prevent input submission
-            this.el.dom.removeAttribute('name');
         }
         if(Ext.isGecko){
             this.el.dom.setAttribute('autocomplete', 'off');

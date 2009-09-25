@@ -107,6 +107,11 @@ Ext.form.Field = Ext.extend(Ext.BoxComponent,  {
      * disabled Fields will not be {@link Ext.form.BasicForm#submit submitted}.</p>
      */
     disabled : false,
+    /**
+     * @cfg {Boolean} submitValue False to clear the name attribute on the field so that it is not submitted during a form post.
+     * Defaults to <tt>true</tt>.
+     */
+    submitValue: true,
 
     // private
     isFormField : true,
@@ -214,7 +219,9 @@ var form = new Ext.form.FormPanel({
             this.autoEl = cfg;
         }
         Ext.form.Field.superclass.onRender.call(this, ct, position);
-
+        if(this.submitValue === false){
+            this.el.dom.removeAttribute('name');
+        }
         var type = this.el.dom.type;
         if(type){
             if(type == 'password'){

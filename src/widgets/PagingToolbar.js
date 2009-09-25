@@ -213,6 +213,7 @@ Ext.PagingToolbar = Ext.extend(Ext.Toolbar, {
             allowNegative: false,
             enableKeyEvents: true,
             selectOnFocus: true,
+            submitValue: false,
             listeners: {
                 scope: this,
                 keydown: this.onPagingKeyDown,
