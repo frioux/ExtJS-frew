@@ -241,11 +241,6 @@ new Ext.Template(
             }else{
                 c.itemCt = this.fieldTpl.append(target, args, true);
             }
-            if(!c.rendered){
-                c.render('x-form-el-' + c.id);
-            }else if(!this.isValidParent(c, target)){
-                Ext.fly('x-form-el-' + c.id).appendChild(c.getPositionEl());
-            }
             if(!c.getItemCt){
                 // Non form fields don't have getItemCt, apply it here
                 // This will get cleaned up in onRemove
@@ -257,6 +252,11 @@ new Ext.Template(
                 });
             }
             c.label = c.getItemCt().child('label.x-form-item-label');
+            if(!c.rendered){
+                c.render('x-form-el-' + c.id);
+            }else if(!this.isValidParent(c, target)){
+                Ext.fly('x-form-el-' + c.id).appendChild(c.getPositionEl());
+            }
             if(this.trackLabels && !this.isHide(c)){
                 if(c.hidden){
                     this.onFieldHide(c);
