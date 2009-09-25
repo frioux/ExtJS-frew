@@ -584,23 +584,14 @@ Ext.tree.TreeNodeUI.prototype = {
         if(this.elNode){
             Ext.dd.Registry.unregister(this.elNode.id);
         }
-        delete this.elNode;
-        delete this.ctNode;
-        delete this.indentNode;
-        delete this.ecNode;
-        delete this.iconNode;
-        delete this.checkbox;
-        delete this.anchor;
-        delete this.textNode;
         
-        if (this.holder){
-             delete this.wrap;
-             Ext.removeNode(this.holder);
-             delete this.holder;
-        }else{
-            Ext.removeNode(this.wrap);
-            delete this.wrap;
-        }
+        Ext.each(['textnode', 'anchor', 'checkbox', 'indentNode', 'ecNode', 'iconNode', 'elNode', 'ctNode', 'wrap', 'holder'], function(el){
+            if(this[el]){
+                Ext.fly(this[el]).remove();
+                delete this[el];
+            }
+        }, this);
+        delete this.node;
     }
 };
 

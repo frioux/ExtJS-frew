@@ -579,14 +579,6 @@ new Ext.tree.TreePanel({
     },
 
     /**
-     * Returns the container element for this TreePanel.
-     * @return {Element} The container element for this TreePanel.
-     */
-    getEl : function(){
-        return this.el;
-    },
-
-    /**
      * Returns the default {@link Ext.tree.TreeLoader} for this TreePanel.
      * @return {Ext.tree.TreeLoader} The TreeLoader for this TreePanel.
      */
@@ -754,7 +746,6 @@ new Ext.tree.TreePanel({
 
     onDestroy : function(){
         if(this.rendered){
-            this.body.removeAllListeners();
             Ext.dd.ScrollManager.unregister(this.body);
             if(this.dropZone){
                 this.dropZone.unreg();
@@ -763,8 +754,8 @@ new Ext.tree.TreePanel({
                this.dragZone.unreg();
             }
         }
-        this.root.destroy();
-        this.nodeHash = null;
+        Ext.destroy(this.root, this.loader);
+        this.nodeHash = this.root = this.loader = null;
         Ext.tree.TreePanel.superclass.onDestroy.call(this);
     }
 

@@ -336,5 +336,9 @@ new Ext.tree.TreePanel({
         var a = response.argument;
         this.fireEvent("loadexception", this, a.node, response);
         this.runCallback(a.callback, a.scope || a.node, [a.node]);
+    },
+    
+    destroy : function(){
+        this.purgeListeners();
     }
 });

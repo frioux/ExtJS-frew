@@ -179,8 +179,7 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
     },
 
     getLoader : function(){
-        var owner;
-        return this.loader || ((owner = this.getOwnerTree()) && owner.loader ? owner.loader : new Ext.tree.TreeLoader());
+        return this.loader || ((owner = this.getOwnerTree()) && owner.loader ? owner.loader : (this.loader = new Ext.tree.TreeLoader()));
     },
 
     // private override
@@ -222,11 +221,11 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
     },
 
     // private override
-    removeChild : function(node){
+    removeChild : function(node, destroy){
         this.ownerTree.getSelectionModel().unselect(node);
         Ext.tree.TreeNode.superclass.removeChild.apply(this, arguments);
         // if it's been rendered remove dom node
-        if(this.childrenRendered){
+        if(node.ui.rendered){
             node.ui.remove();
         }
         if(this.childNodes.length < 1){
@@ -526,15 +525,9 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
     },
 
     destroy : function(){
-        if(this.childNodes){
-            for(var i = 0,l = this.childNodes.length; i < l; i++){
-                this.childNodes[i].destroy();
-            }
-            this.childNodes = null;
-        }
-        if(this.ui.destroy){
-            this.ui.destroy();
-        }
+        Ext.tree.TreeNode.superclass.destroy.call(this);
+        Ext.destroy(this.ui, this.loader);
+        this.ui = this.loader = null;
     },
 
     // private

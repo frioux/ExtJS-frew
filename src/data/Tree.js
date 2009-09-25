@@ -411,9 +411,10 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
     /**
      * Removes a child node from this node.
      * @param {Node} node The node to remove
+     * @param {Boolean} destroy <tt>true</tt> to destroy the node upon removal. Defaults to <tt>false</tt>.
      * @return {Node} The removed node
      */
-    removeChild : function(node){
+    removeChild : function(node, destroy){
         var index = this.childNodes.indexOf(node);
         if(index == -1){
             return false;
@@ -441,13 +442,34 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
             this.setLastChild(node.previousSibling);
         }
 
-        node.setOwnerTree(null);
-        // clear any references from the node
-        node.parentNode = null;
-        node.previousSibling = null;
-        node.nextSibling = null;
+        node.clear();
         this.fireEvent("remove", this.ownerTree, this, node);
+        if(destroy){
+            node.destroy();
+        }
         return node;
+    },
+    
+    // private
+    clear : function(destroy){
+        // clear any references from the node
+        this.setOwnerTree(null, destroy);
+        this.parentNode = this.previousSibling = this.nextSibling = null
+        if(destroy){
+            this.firstChild = this.lastChild = null; 
+        }
+    },
+    
+    /**
+     * Destroys the node.
+     */
+    destroy : function(){
+        this.purgeListeners();
+        this.clear(true);  
+        Ext.each(this.childNodes, function(n){
+            n.destroy();
+        });
+        this.childNodes = null;
     },
 
     /**
@@ -508,10 +530,14 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
 
     /**
      * Removes this node from its parent
+     * @param {Boolean} destroy <tt>true</tt> to destroy the node upon removal. Defaults to <tt>false</tt>.
      * @return {Node} this
      */
-    remove : function(){
+    remove : function(destroy){
         this.parentNode.removeChild(this);
+        if(destroy === true){
+            this.destroy();
+        }
         return this;
     },
 
@@ -580,16 +606,18 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
     },
 
     // private
-    setOwnerTree : function(tree){
+    setOwnerTree : function(tree, destroy){
         // if it is a move, we need to update everyone
         if(tree != this.ownerTree){
             if(this.ownerTree){
                 this.ownerTree.unregisterNode(this);
             }
             this.ownerTree = tree;
-            var cs = this.childNodes;
-            for(var i = 0, len = cs.length; i < len; i++) {
-            	cs[i].setOwnerTree(tree);
+            // If we're destroying, we don't need to recurse since it will be called on each child node
+            if(destroy !== true){
+                Ext.each(this.childNodes, function(n){
+                    n.setOwnerTree(tree);
+                });
             }
             if(tree){
                 tree.registerNode(this);
