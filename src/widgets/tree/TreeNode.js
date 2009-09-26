@@ -179,6 +179,7 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
     },
 
     getLoader : function(){
+        var owner;
         return this.loader || ((owner = this.getOwnerTree()) && owner.loader ? owner.loader : (this.loader = new Ext.tree.TreeLoader()));
     },
 
