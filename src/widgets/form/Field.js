@@ -9,6 +9,12 @@
  */
 Ext.form.Field = Ext.extend(Ext.BoxComponent,  {
     /**
+     * <p>The label Element associated with this Field. <b>Only available after this Field has been rendered by a
+     * {@link form Ext.layout.FormLayout} layout manager.</b></p>
+     * @type Ext.Element
+     * @property label
+     */
+    /**
      * @cfg {String} inputType The type attribute for input fields -- e.g. radio, text, password, file (defaults
      * to 'text'). The types 'file' and 'password' must be used to render those field types currently -- there are
      * no separate Ext components for those. Note that if you use <tt>inputType:'file'</tt>, {@link #emptyText}
