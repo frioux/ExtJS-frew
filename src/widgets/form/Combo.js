@@ -1100,16 +1100,16 @@ var menu = new Ext.menu.Menu({
 
     // private
     beforeBlur : function(){
-        var val = this.getRawValue();
-        if(this.forceSelection){
+        var val = this.getRawValue(),
+            rec = this.findRecord(this.displayField, val);
+        if(!rec && this.forceSelection){
             if(val.length > 0 && val != this.emptyText){
-               this.el.dom.value = Ext.isDefined(this.lastSelectionText) ? this.lastSelectionText : '';
+                this.el.dom.value = Ext.isDefined(this.lastSelectionText) ? this.lastSelectionText : '';
                 this.applyEmptyText();
             }else{
                 this.clearValue();
             }
         }else{
-            var rec = this.findRecord(this.displayField, val);
             if(rec){
                 val = rec.get(this.valueField || this.displayField);
             }
