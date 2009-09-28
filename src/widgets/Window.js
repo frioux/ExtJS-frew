@@ -715,11 +715,18 @@ Ext.Window = Ext.extend(Ext.Panel, {
      */
     close : function(){
         if(this.fireEvent('beforeclose', this) !== false){
-            this.hide(null, function(){
-                this.fireEvent('close', this);
-                this.destroy();
-            }, this);
+            if(this.hidden){
+                this.doClose();
+            }else{
+                this.hide(null, this.doClose, this);
+            }
         }
+    },
+    
+    // private
+    doClose : function(){
+        this.fireEvent('close', this);
+        this.destroy();
     },
 
     /**
