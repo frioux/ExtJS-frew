@@ -618,6 +618,8 @@
   <file name="shared\screens\window-layout.gif" path="shared\screens" />
   <file name="shared\screens\writer-thumb.gif" path="shared\screens" />
   <file name="simple-widgets\ajax-tip.html" path="simple-widgets" />
+  <file name="simple-widgets\editor.html" path="simple-widgets" />
+  <file name="simple-widgets\editor.js" path="simple-widgets" />
   <file name="simple-widgets\progress-bar.css" path="simple-widgets" />
   <file name="simple-widgets\progress-bar.html" path="simple-widgets" />
   <file name="simple-widgets\progress-bar.js" path="simple-widgets" />

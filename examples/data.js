@@ -509,6 +509,12 @@ Ext.samples.samplesCatalog = [{
         icon: 'gmap-panel.gif',
         desc: 'A Google Maps wrapper class that enables easy display of dynamic maps in Ext panels and windows.'
     },{
+        text: 'Editor',
+        url: 'simple-widgets/editor.html',
+        icon: 'editor.gif',
+        desc: 'Simple inline editing of DOM elements.',
+        status: 'new'
+    },{
         text: 'Slider',
         url: 'slider/slider.html',
         icon: 'slider.gif',
