@@ -113,7 +113,7 @@ textarea {
     cursor:pointer;
 }
 
-.ext-safari .x-form-field-wrap .x-form-trigger{
+.ext-webkit .x-form-field-wrap .x-form-trigger{
     right:0;
 }
 
@@ -179,7 +179,7 @@ textarea {
 	border: 1px solid;
 }
 
-.ext-safari .x-form-invalid{
+.ext-webkit .x-form-invalid{
 	border: 1px solid;
 }
 

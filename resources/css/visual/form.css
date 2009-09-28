@@ -61,7 +61,7 @@
 	border-color:#c30;
 }
 
-.ext-safari .x-form-invalid{
+.ext-webkit .x-form-invalid{
 	background-color:#fee;
 	border-color:#ff7870;
 }
@@ -93,7 +93,7 @@
     font:normal 11px arial, tahoma, helvetica, sans-serif;
 }
 
-.ext-safari .x-small-editor .x-form-field {
+.ext-webkit .x-small-editor .x-form-field {
     font:normal 12px arial, tahoma, helvetica, sans-serif;
 }
 
