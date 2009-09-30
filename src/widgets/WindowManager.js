@@ -70,7 +70,6 @@ Ext.WindowGroup = function(){
          * to bring the Ext.MessageBox dialog under the same manager as the Desktop's
          * WindowManager in the desktop sample app:</p><code><pre>
 var msgWin = Ext.MessageBox.getDialog();
-Ext.WindowMgr.unregister(msgWin);
 MyDesktop.getDesktop().getManager().register(msgWin);
 </pre></code>
          * @param {Window} win The Window to register.
@@ -89,8 +88,7 @@ MyDesktop.getDesktop().getManager().register(msgWin);
         /**
          * <p>Unregisters a {@link Ext.Window Window} from this WindowManager. This should not
          * need to be called. Windows are automatically unregistered upon destruction.
-         * However if transferring a Window between two WindowManagers, a Window must first be
-         * unregistered from its existing manager. See {@link #register}.</p>
+         * See {@link #register}.</p>
          * @param {Window} win The Window to unregister.
          */
         unregister : function(win){
