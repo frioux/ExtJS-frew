@@ -76,6 +76,11 @@ MyDesktop.getDesktop().getManager().register(msgWin);
          * @param {Window} win The Window to register.
          */
         register : function(win){
+            if(win.manager){
+                win.manager.unregister(win);
+            }
+            win.manager = this;
+
             list[win.id] = win;
             accessList.push(win);
             win.on('hide', activateLast);
@@ -89,6 +94,7 @@ MyDesktop.getDesktop().getManager().register(msgWin);
          * @param {Window} win The Window to unregister.
          */
         unregister : function(win){
+            delete win.manager;
             delete list[win.id];
             win.un('hide', activateLast);
             accessList.remove(win);
