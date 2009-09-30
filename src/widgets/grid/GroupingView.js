@@ -303,9 +303,9 @@ var grid = new Ext.grid.GridPanel({
     toggleGroup : function(group, expanded){
         var gel = Ext.get(group);
         expanded = Ext.isDefined(expanded) ? expanded : gel.hasClass('x-grid-group-collapsed');
-        if(this.state[gel.dom.id] !== expanded){
+        if(this.state[gel.id] !== expanded){
             this.grid.stopEditing(true);
-            this.state[gel.dom.id] = expanded;
+            this.state[gel.id] = expanded;
             gel[expanded ? 'removeClass' : 'addClass']('x-grid-group-collapsed');
         }
     },
@@ -425,7 +425,7 @@ var grid = new Ext.grid.GridPanel({
                 gid = this.constructId(gvalue, groupField, colIndex);
                	// if state is defined use it, however state is in terms of expanded
 				// so negate it, otherwise use the default.
-				this.state[gid] = Ext.isDefined(this.state[gid]) ? !this.state[gid] : this.startCollapsed;
+				this.state[gid] = !(Ext.isDefined(this.state[gid]) ? !this.state[gid] : this.startCollapsed);
                 curGroup = {
                     group: g,
                     gvalue: gvalue,
@@ -433,7 +433,7 @@ var grid = new Ext.grid.GridPanel({
                     groupId: gid,
                     startRow: rowIndex,
                     rs: [r],
-                    cls: this.state[gid] ? 'x-grid-group-collapsed' : '',
+                    cls: this.state[gid] ? '' : 'x-grid-group-collapsed',
                     style: gstyle
                 };
                 groups.push(curGroup);
