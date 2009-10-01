@@ -820,6 +820,22 @@ new Ext.Panel({
      * so the document will not contain this HTML at the time the {@link #render} event is fired.
      * This content is inserted into the body <i>before</i> any configured {@link #contentEl} is appended.
      */
+    
+    /**
+     * @cfg {Mixed} tpl
+     * An Ext.Template, Ext.XTemplate or an array of strings to form an Ext.XTemplate.
+     * Used in conjunction with the data and tplWriteMode configurations.
+     */
+    
+    /**
+     * @cfg {String} tplWriteMode The Ext.(X)Template method to use when updating the content area of the Component. Defaults to 'overwrite'
+     */
+    tplWriteMode: 'overwrite',
+    
+    /**
+     * @cfg {Mixed} data
+     * The initial set of data to apply to the tpl to update the content area of the Component.
+     */
 
     
     // private
@@ -937,18 +953,33 @@ Ext.Foo = Ext.extend(Ext.Bar, {
                 this.el.addClassOnOver(this.overCls);
             }
             this.fireEvent('render', this);
-            if(this.html){
-                this.getContentTarget().update(Ext.isObject(this.html) ?
-                                 Ext.DomHelper.markup(this.html) :
-                                 this.html);
+            
+            
+            // Populate content of the component with html, contentEl or
+            // a tpl.
+            var contentTarget = this.getContentTarget();
+            if (this.html){
+                var html = Ext.isObject(this.html) ? Ext.DomHelper.markup(this.html) : this.html;
+                contentTarget.update(html);
                 delete this.html;
             }
-            if(this.contentEl){
+            if (this.contentEl){
                 var ce = Ext.getDom(this.contentEl);
                 Ext.fly(ce).removeClass(['x-hidden', 'x-hide-display']);
-                this.getContentTarget().appendChild(ce);
+                contentTarget.appendChild(ce);
             }
+            if (this.tpl) {
+                if (!this.tpl.compile) {
+                    this.tpl = new Ext.XTemplate(this.tpl);
+                }
+                if (this.data) {
+                    this.tpl[this.tplWriteMode](contentTarget, this.data);
+                    delete this.data;
+                }                
+            }            
             this.afterRender(this.container);
+            
+            
             if(this.hidden){
                 // call this so we don't fire initial hide events.
                 this.doHide();
@@ -965,6 +996,30 @@ Ext.Foo = Ext.extend(Ext.Bar, {
         }
         return this;
     },
+
+
+    /**
+     * Update the content area of a component.
+     * @param {Mixed} htmlOrData
+     * If this component has been configured with a template via the tpl config
+     * then it will use this argument as data to populate the template.
+     * If this component was not configured with a template, the components
+     * content area will be updated via Ext.Element update
+     * @param {Boolean} loadScripts
+     * (optional) Only legitimate when using the html configuration. Defaults to false
+     * @param {Function} callback
+     * (optional) Only legitimate when using the html configuration. Callback to execute when scripts have finished loading
+     */
+    update: function(htmlOrData, loadScripts, cb) {
+        var contentTarget = this.getContentTarget();
+        if (this.tpl) {
+            this.tpl[this.tplWriteMode](contentTarget, htmlOrData || {});
+        } else {
+            var html = Ext.isObject(htmlOrData) ? Ext.DomHelper.markup(htmlOrData) : htmlOrData;
+            contentTarget.update(html, loadScripts, cb);
+        }
+    },
+
     
     /**
      * @private
