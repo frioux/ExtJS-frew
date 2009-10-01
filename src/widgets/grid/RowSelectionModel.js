@@ -8,60 +8,59 @@
  * @constructor
  * @param {Object} config
  */
-Ext.grid.RowSelectionModel = function(config){
-    Ext.apply(this, config);
-    this.selections = new Ext.util.MixedCollection(false, function(o){
-        return o.id;
-    });
-
-    this.last = false;
-    this.lastActive = false;
-
-    this.addEvents(
-        /**
-         * @event selectionchange
-         * Fires when the selection changes
-         * @param {SelectionModel} this
-         */
-        'selectionchange',
-        /**
-         * @event beforerowselect
-         * Fires before a row is selected, return false to cancel the selection.
-         * @param {SelectionModel} this
-         * @param {Number} rowIndex The index to be selected
-         * @param {Boolean} keepExisting False if other selections will be cleared
-         * @param {Record} record The record to be selected
-         */
-        'beforerowselect',
-        /**
-         * @event rowselect
-         * Fires when a row is selected.
-         * @param {SelectionModel} this
-         * @param {Number} rowIndex The selected index
-         * @param {Ext.data.Record} r The selected record
-         */
-        'rowselect',
-        /**
-         * @event rowdeselect
-         * Fires when a row is deselected.  To prevent deselection
-         * {@link Ext.grid.AbstractSelectionModel#lock lock the selections}. 
-         * @param {SelectionModel} this
-         * @param {Number} rowIndex
-         * @param {Record} record
-         */
-        'rowdeselect'
-    );
-
-    Ext.grid.RowSelectionModel.superclass.constructor.call(this);
-};
-
-Ext.extend(Ext.grid.RowSelectionModel, Ext.grid.AbstractSelectionModel,  {
+Ext.grid.RowSelectionModel = Ext.extend(Ext.grid.AbstractSelectionModel,  {
     /**
      * @cfg {Boolean} singleSelect
      * <tt>true</tt> to allow selection of only one row at a time (defaults to <tt>false</tt>
      * allowing multiple selections)
      */
     singleSelect : false,
+    
+    constructor : function(config){
+        Ext.apply(this, config);
+        this.selections = new Ext.util.MixedCollection(false, function(o){
+            return o.id;
+        });
+
+        this.last = false;
+        this.lastActive = false;
+
+        this.addEvents(
+	        /**
+	         * @event selectionchange
+	         * Fires when the selection changes
+	         * @param {SelectionModel} this
+	         */
+	        'selectionchange',
+	        /**
+	         * @event beforerowselect
+	         * Fires before a row is selected, return false to cancel the selection.
+	         * @param {SelectionModel} this
+	         * @param {Number} rowIndex The index to be selected
+	         * @param {Boolean} keepExisting False if other selections will be cleared
+	         * @param {Record} record The record to be selected
+	         */
+	        'beforerowselect',
+	        /**
+	         * @event rowselect
+	         * Fires when a row is selected.
+	         * @param {SelectionModel} this
+	         * @param {Number} rowIndex The selected index
+	         * @param {Ext.data.Record} r The selected record
+	         */
+	        'rowselect',
+	        /**
+	         * @event rowdeselect
+	         * Fires when a row is deselected.  To prevent deselection
+	         * {@link Ext.grid.AbstractSelectionModel#lock lock the selections}. 
+	         * @param {SelectionModel} this
+	         * @param {Number} rowIndex
+	         * @param {Record} record
+	         */
+	        'rowdeselect'
+        );
+        Ext.grid.RowSelectionModel.superclass.constructor.call(this);
+    },
 
     /**
      * @cfg {Boolean} moveEditorOnEnter
