@@ -9,67 +9,7 @@
  * @constructor
  * @param {Object} config
  */
-Ext.grid.GridView = function(config){
-    Ext.apply(this, config);
-    // These events are only used internally by the grid components
-    this.addEvents(
-        /**
-         * @event beforerowremoved
-         * Internal UI Event. Fired before a row is removed.
-         * @param {Ext.grid.GridView} view
-         * @param {Number} rowIndex The index of the row to be removed.
-         * @param {Ext.data.Record} record The Record to be removed
-         */
-        'beforerowremoved',
-        /**
-         * @event beforerowsinserted
-         * Internal UI Event. Fired before rows are inserted.
-         * @param {Ext.grid.GridView} view
-         * @param {Number} firstRow The index of the first row to be inserted.
-         * @param {Number} lastRow The index of the last row to be inserted.
-         */
-        'beforerowsinserted',
-        /**
-         * @event beforerefresh
-         * Internal UI Event. Fired before the view is refreshed.
-         * @param {Ext.grid.GridView} view
-         */
-        'beforerefresh',
-        /**
-         * @event rowremoved
-         * Internal UI Event. Fired after a row is removed.
-         * @param {Ext.grid.GridView} view
-         * @param {Number} rowIndex The index of the row that was removed.
-         * @param {Ext.data.Record} record The Record that was removed
-         */
-        'rowremoved',
-        /**
-         * @event rowsinserted
-         * Internal UI Event. Fired after rows are inserted.
-         * @param {Ext.grid.GridView} view
-         * @param {Number} firstRow The index of the first inserted.
-         * @param {Number} lastRow The index of the last row inserted.
-         */
-        'rowsinserted',
-        /**
-         * @event rowupdated
-         * Internal UI Event. Fired after a row has been updated.
-         * @param {Ext.grid.GridView} view
-         * @param {Number} firstRow The index of the row updated.
-         * @param {Ext.data.record} record The Record backing the row updated.
-         */
-        'rowupdated',
-        /**
-         * @event refresh
-         * Internal UI Event. Fired after the GridView's body has been refreshed.
-         * @param {Ext.grid.GridView} view
-         */
-        'refresh'
-    );
-    Ext.grid.GridView.superclass.constructor.call(this);
-};
-
-Ext.extend(Ext.grid.GridView, Ext.util.Observable, {
+Ext.grid.GridView = Ext.extend(Ext.util.Observable, {
     /**
      * Override this function to apply custom CSS classes to rows during rendering.  You can also supply custom
      * parameters to the row template for the current row to customize how it is rendered using the <b>rowParams</b>
@@ -232,6 +172,66 @@ viewConfig: {
     firstRowCls: 'x-grid3-row-first',
     lastRowCls: 'x-grid3-row-last',
     rowClsRe: /(?:^|\s+)x-grid3-row-(first|last|alt)(?:\s+|$)/g,
+    
+    constructor : function(config){
+        Ext.apply(this, config);
+	    // These events are only used internally by the grid components
+	    this.addEvents(
+	        /**
+	         * @event beforerowremoved
+	         * Internal UI Event. Fired before a row is removed.
+	         * @param {Ext.grid.GridView} view
+	         * @param {Number} rowIndex The index of the row to be removed.
+	         * @param {Ext.data.Record} record The Record to be removed
+	         */
+	        'beforerowremoved',
+	        /**
+	         * @event beforerowsinserted
+	         * Internal UI Event. Fired before rows are inserted.
+	         * @param {Ext.grid.GridView} view
+	         * @param {Number} firstRow The index of the first row to be inserted.
+	         * @param {Number} lastRow The index of the last row to be inserted.
+	         */
+	        'beforerowsinserted',
+	        /**
+	         * @event beforerefresh
+	         * Internal UI Event. Fired before the view is refreshed.
+	         * @param {Ext.grid.GridView} view
+	         */
+	        'beforerefresh',
+	        /**
+	         * @event rowremoved
+	         * Internal UI Event. Fired after a row is removed.
+	         * @param {Ext.grid.GridView} view
+	         * @param {Number} rowIndex The index of the row that was removed.
+	         * @param {Ext.data.Record} record The Record that was removed
+	         */
+	        'rowremoved',
+	        /**
+	         * @event rowsinserted
+	         * Internal UI Event. Fired after rows are inserted.
+	         * @param {Ext.grid.GridView} view
+	         * @param {Number} firstRow The index of the first inserted.
+	         * @param {Number} lastRow The index of the last row inserted.
+	         */
+	        'rowsinserted',
+	        /**
+	         * @event rowupdated
+	         * Internal UI Event. Fired after a row has been updated.
+	         * @param {Ext.grid.GridView} view
+	         * @param {Number} firstRow The index of the row updated.
+	         * @param {Ext.data.record} record The Record backing the row updated.
+	         */
+	        'rowupdated',
+	        /**
+	         * @event refresh
+	         * Internal UI Event. Fired after the GridView's body has been refreshed.
+	         * @param {Ext.grid.GridView} view
+	         */
+	        'refresh'
+	    );
+	    Ext.grid.GridView.superclass.constructor.call(this);    
+    },
 
     /* -------------------------------- UI Specific ----------------------------- */
 

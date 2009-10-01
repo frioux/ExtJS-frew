@@ -15,14 +15,7 @@
  * @constructor
  * @param {Object} config The configuration options
  */
-Ext.grid.RowNumberer = function(config){
-    Ext.apply(this, config);
-    if(this.rowspan){
-        this.renderer = this.renderer.createDelegate(this);
-    }
-};
-
-Ext.grid.RowNumberer.prototype = {
+Ext.grid.RowNumberer = Ext.extend(Object, {
     /**
      * @cfg {String} header Any valid text or HTML fragment to display in the header cell for the row
      * number column (defaults to '').
@@ -37,6 +30,13 @@ Ext.grid.RowNumberer.prototype = {
      * @hide
      */
     sortable: false,
+    
+    constructor : function(config){
+        Ext.apply(this, config);
+        if(this.rowspan){
+            this.renderer = this.renderer.createDelegate(this);
+        }
+    },
 
     // private
     fixed:true,
@@ -52,4 +52,4 @@ Ext.grid.RowNumberer.prototype = {
         }
         return rowIndex+1;
     }
-};
+});

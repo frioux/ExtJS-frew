@@ -82,66 +82,7 @@
  * @param {Mixed} config Specify either an Array of {@link Ext.grid.Column} configuration objects or specify
  * a configuration Object (see introductory section discussion utilizing Initialization Method 2 above).
  */
-Ext.grid.ColumnModel = function(config){
-    /**
-     * An Array of {@link Ext.grid.Column Column definition} objects representing the configuration
-     * of this ColumnModel.  See {@link Ext.grid.Column} for the configuration properties that may
-     * be specified.
-     * @property config
-     * @type Array
-     */
-    if(config.columns){
-        Ext.apply(this, config);
-        this.setConfig(config.columns, true);
-    }else{
-        this.setConfig(config, true);
-    }
-    this.addEvents(
-        /**
-         * @event widthchange
-         * Fires when the width of a column is programmaticially changed using
-         * <code>{@link #setColumnWidth}</code>.
-         * Note internal resizing suppresses the event from firing. See also
-         * {@link Ext.grid.GridPanel}.<code>{@link #columnresize}</code>.
-         * @param {ColumnModel} this
-         * @param {Number} columnIndex The column index
-         * @param {Number} newWidth The new width
-         */
-        "widthchange",
-        /**
-         * @event headerchange
-         * Fires when the text of a header changes.
-         * @param {ColumnModel} this
-         * @param {Number} columnIndex The column index
-         * @param {String} newText The new header text
-         */
-        "headerchange",
-        /**
-         * @event hiddenchange
-         * Fires when a column is hidden or "unhidden".
-         * @param {ColumnModel} this
-         * @param {Number} columnIndex The column index
-         * @param {Boolean} hidden true if hidden, false otherwise
-         */
-        "hiddenchange",
-        /**
-         * @event columnmoved
-         * Fires when a column is moved.
-         * @param {ColumnModel} this
-         * @param {Number} oldIndex
-         * @param {Number} newIndex
-         */
-        "columnmoved",
-        /**
-         * @event configchange
-         * Fires when the configuration is changed
-         * @param {ColumnModel} this
-         */
-        "configchange"
-    );
-    Ext.grid.ColumnModel.superclass.constructor.call(this);
-};
-Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
+Ext.grid.ColumnModel = Ext.extend(Ext.util.Observable, {
     /**
      * @cfg {Number} defaultWidth (optional) The width of columns which have no <tt>{@link #width}</tt>
      * specified (defaults to <tt>100</tt>).  This property shall preferably be configured through the
@@ -164,6 +105,66 @@ Ext.extend(Ext.grid.ColumnModel, Ext.util.Observable, {
      * configuration options to all <tt><b>{@link #columns}</b></tt>.  Configuration options specified with
      * individual {@link Ext.grid.Column column} configs will supersede these <tt><b>{@link #defaults}</b></tt>.
      */
+    
+    constructor : function(config){
+        /**
+	     * An Array of {@link Ext.grid.Column Column definition} objects representing the configuration
+	     * of this ColumnModel.  See {@link Ext.grid.Column} for the configuration properties that may
+	     * be specified.
+	     * @property config
+	     * @type Array
+	     */
+	    if(config.columns){
+	        Ext.apply(this, config);
+	        this.setConfig(config.columns, true);
+	    }else{
+	        this.setConfig(config, true);
+	    }
+	    this.addEvents(
+	        /**
+	         * @event widthchange
+	         * Fires when the width of a column is programmaticially changed using
+	         * <code>{@link #setColumnWidth}</code>.
+	         * Note internal resizing suppresses the event from firing. See also
+	         * {@link Ext.grid.GridPanel}.<code>{@link #columnresize}</code>.
+	         * @param {ColumnModel} this
+	         * @param {Number} columnIndex The column index
+	         * @param {Number} newWidth The new width
+	         */
+	        "widthchange",
+	        /**
+	         * @event headerchange
+	         * Fires when the text of a header changes.
+	         * @param {ColumnModel} this
+	         * @param {Number} columnIndex The column index
+	         * @param {String} newText The new header text
+	         */
+	        "headerchange",
+	        /**
+	         * @event hiddenchange
+	         * Fires when a column is hidden or "unhidden".
+	         * @param {ColumnModel} this
+	         * @param {Number} columnIndex The column index
+	         * @param {Boolean} hidden true if hidden, false otherwise
+	         */
+	        "hiddenchange",
+	        /**
+	         * @event columnmoved
+	         * Fires when a column is moved.
+	         * @param {ColumnModel} this
+	         * @param {Number} oldIndex
+	         * @param {Number} newIndex
+	         */
+	        "columnmoved",
+	        /**
+	         * @event configchange
+	         * Fires when the configuration is changed
+	         * @param {ColumnModel} this
+	         */
+	        "configchange"
+	    );
+	    Ext.grid.ColumnModel.superclass.constructor.call(this);
+    },
 
     /**
      * Returns the id of the column at the specified index.
