@@ -51,13 +51,7 @@ aRef.setText('New text');
  * @constructor
  * @param {Object} config The configuration options
  */
-Ext.Action = function(config){
-    this.initialConfig = config;
-    this.itemId = config.itemId = (config.itemId || config.id || Ext.id());
-    this.items = [];
-}
-
-Ext.Action.prototype = {
+Ext.Action = Ext.extend(Object, {
     /**
      * @cfg {String} text The text to set for all components using this action (defaults to '').
      */
@@ -94,6 +88,12 @@ Ext.Action.prototype = {
      * <code>{@link #handler}</code> is executed. Defaults to this Button.
      */
 
+    constructor : function(config){
+        this.initialConfig = config;
+        this.itemId = config.itemId = (config.itemId || config.id || Ext.id());
+        this.items = [];
+    },
+    
     // private
     isAction : true,
 
@@ -244,4 +244,4 @@ Ext.Action.prototype = {
     execute : function(){
         this.initialConfig.handler.apply(this.initialConfig.scope || window, arguments);
     }
-};
+});
