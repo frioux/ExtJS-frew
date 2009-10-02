@@ -807,8 +807,10 @@ new Ext.TabPanel({
     },
 
     /**
-     * Gets the currently active tab.
-     * @return {Panel} The active tab
+     * Returns the Component which is the currently active tab. <b>Note that before the TabPanel
+     * first activates a child Component, this method will return whatever was configured in the
+     * {@link #activeTab} config option.</b>
+     * @return {BoxComponent} The currently active child Component if one <i>is</i> active, or the {@link #activeTab} config value.
      */
     getActiveTab : function(){
         return this.activeTab || null;
