@@ -1012,7 +1012,7 @@ Ext.Foo = Ext.extend(Ext.Bar, {
      */
     update: function(htmlOrData, loadScripts, cb) {
         var contentTarget = this.getContentTarget();
-        if (this.tpl) {
+        if (this.tpl && typeof htmlOrData !== "string") {
             this.tpl[this.tplWriteMode](contentTarget, htmlOrData || {});
         } else {
             var html = Ext.isObject(htmlOrData) ? Ext.DomHelper.markup(htmlOrData) : htmlOrData;
