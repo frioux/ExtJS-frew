@@ -959,8 +959,7 @@ Ext.Foo = Ext.extend(Ext.Bar, {
             // a tpl.
             var contentTarget = this.getContentTarget();
             if (this.html){
-                var html = Ext.isObject(this.html) ? Ext.DomHelper.markup(this.html) : this.html;
-                contentTarget.update(html);
+                contentTarget.update(Ext.DomHelper.markup(this.html));
                 delete this.html;
             }
             if (this.contentEl){
