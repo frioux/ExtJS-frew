@@ -1,0 +1,47 @@
+{
+    projectName: "Ext - JS Lib", 
+    deployDir: 'build',
+    licenseText: "Ext JS Library 3.0+\nCopyright(c) 2006-2009 Ext JS, LLC\nlicensing@extjs.com\nhttp://www.extjs.com/license",
+    pkgs: [{
+        name: 'Ext Air',
+        file: 'ext-air.js',
+        isDebug: true,
+        fileIncludes: [{
+            text: 'ext-air-adapter.js',
+            path: ''
+        },{
+            text: 'FileProvider.js',
+            path: ''
+        },{
+            text: 'NativeObservable.js',
+            path: ''
+        },{
+            text: 'NativeWindow.js',
+            path: ''
+        },{
+            text: 'Connection.js',
+            path: 'sql/'
+        },{
+            text: 'Table.js',
+            path: 'sql/'
+        },{
+            text: 'Proxy.js',
+            path: 'sql/'
+        },{
+            text: 'AirConnection.js',
+            path: 'sql/'
+        },{
+            text: 'SystemTray.js',
+            path: ''
+        },{
+            text: 'NativeDD.js',
+            path: ''
+        },{
+            text: 'Sound.js',
+            path: '',
+        },{
+            text: 'SystemMenu.js',
+            path: ''
+        }]
+    }]
+}

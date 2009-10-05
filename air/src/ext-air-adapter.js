@@ -771,7 +771,7 @@ Ext.query = Ext.DomQuery.select;
 Date.precompileFormats = function(s){
 	var formats = s.split('|');
 	for(var i = 0, len = formats.length;i < len;i++){
-		Date.createNewFormat(formats[i]);
+		Date.createFormat(formats[i]);
 		Date.createParser(formats[i]);
 	}
 }
@@ -789,7 +789,48 @@ Ext.grid.GroupingView.prototype.startTpl = new Ext.XTemplate(
         '<div id="{groupId}-bd" class="x-grid-group-body">'
 );
 
+Ext.layout.MenuLayout.itemTpl = Ext.layout.MenuLayout.prototype.itemTpl = new Ext.XTemplate(
+    '<li id="{itemId}" class="{itemCls}">',
+        '<tpl if="needsIcon">',
+            '<img src="{icon}" class="{iconCls}">',
+        '</tpl>',
+    '</li>'
+);
 
+Ext.menu.Item.prototype.itemTpl = new Ext.XTemplate(
+    '<a id="{id}" class="{cls}" hidefocus="true" unselectable="on" href="{href}"',
+        '<tpl if="hrefTarget">',
+            ' target="{hrefTarget}"',
+        '</tpl>',
+     '>',
+         '<img src="{icon}" class="x-menu-item-icon {iconCls}">',
+         '<span class="x-menu-item-text">{text}</span>',
+     '</a>'
+ );
 
+Ext.ListView.prototype.internalTpl = new Ext.XTemplate(
+    '<div class="x-list-header"><div class="x-list-header-inner">',
+        '<tpl for="columns">',
+        '<div style="width:{width}%;text-align:{align};"><em unselectable="on" id="',this.id, '-xlhd-{#}">',
+            '{header}',
+        '</em></div>',
+        '</tpl>',
+        '<div class="x-clear"></div>',
+    '</div></div>',
+    '<div class="x-list-body"><div class="x-list-body-inner">',
+    '</div></div>'
+);
 
+Ext.ListView.prototype.tpl = new Ext.XTemplate(
+	'<tpl for="rows">',
+	    '<dl>',
+	        '<tpl for="parent.columns">',
+	        '<dt style="width:{width}%;text-align:{align};"><em unselectable="on">',
+	            '{[values.tpl.apply(parent)]}',
+	        '</em></dt>',
+	        '</tpl>',
+	        '<div class="x-clear"></div>',
+	    '</dl>',
+	'</tpl>'
+);
 
