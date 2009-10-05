@@ -374,9 +374,6 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
             var repeater = new Ext.util.ClickRepeater(btn, Ext.isObject(this.repeat) ? this.repeat : {});
             this.mon(repeater, 'click', this.onClick, this);
         }
-
-        this.mc = btnEl.up('td.x-btn-mc');
-        this.ieResize = (Ext.isIE6 || Ext.isIE7) && Ext.isStrict;
         this.mon(btn, this.clickEvent, this.onClick, this);
     },
 
@@ -387,16 +384,6 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         this.setButtonClass();
         this.doc = Ext.getDoc();
         this.doAutoWidth();
-    },
-    
-    // private
-    onResize : function(adjWidth, adjHeight, rawWidth, rawHeight){
-        Ext.Button.superclass.onResize.apply(this, arguments);
-        // Ugly hack for IE6/7 in strict mode, where the td size of the button template
-        // gets set incorrectly.
-        if(this.ieResize && this.rendered && Ext.isNumber(adjHeight)){
-            this.mc.setHeight(adjHeight - 6);
-        }
     },
 
     /**
@@ -457,7 +444,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         if(this.menu){
             delete this.menu.ownerCt;
         }
-        Ext.destroy(this.mc, this.menu, this.repeater);
+        Ext.destroy(this.menu, this.repeater);
     },
 
     // private

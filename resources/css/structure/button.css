@@ -208,6 +208,11 @@
 	white-space:nowrap;
 }
 
+/* Fixes an issue with the button height */
+.ext-strict .ext-ie6 .x-btn-mc, .ext-strict .ext-ie7 .x-btn-mc {
+    height: 100%;
+}
+
 .x-btn-bl{
 	width:3px;
 	height:3px;
