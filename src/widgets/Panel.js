@@ -817,6 +817,7 @@ new Ext.Panel({
         this.fbar = this.createToolbar(fbar, {
             buttonAlign: this.buttonAlign,
             toolbarCls: 'x-panel-fbar',
+            enableOverflow: false,
             defaults: function(c){
                 return {
                     minWidth: c.minWidth || min
