@@ -23,6 +23,11 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
     monitorValid: true,
     focusDelay: 250,
     errorSummary: true,
+    
+    saveText: 'Save',
+    cancelText: 'Cancel',
+    commitChangesText: 'You need to commit or cancel your changes',
+    errorText: 'Errors',
 
     defaults: {
         normalWidth: true
@@ -127,7 +132,7 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
 
     startEditing: function(rowIndex, doFocus){
         if(this.editing && this.isDirty()){
-            this.showTooltip('You need to commit or cancel your changes');
+            this.showTooltip(this.commitChangesText);
             return;
         }
         if(Ext.isObject(rowIndex)){
@@ -320,12 +325,12 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
                 ref: 'saveBtn',
                 itemId: 'saveBtn',
                 xtype: 'button',
-                text: this.saveText || 'Save',
+                text: this.saveText,
                 width: this.minButtonWidth,
                 handler: this.stopEditing.createDelegate(this, [true])
             }, {
                 xtype: 'button',
-                text: this.cancelText || 'Cancel',
+                text: this.cancelText,
                 width: this.minButtonWidth,
                 handler: this.stopEditing.createDelegate(this, [false])
             }]
@@ -463,7 +468,7 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
                 maxWidth: 600,
                 cls: 'errorTip',
                 width: 300,
-                title: 'Errors',
+                title: this.errorText,
                 autoHide: false,
                 anchor: 'left',
                 anchorToTarget: true,
