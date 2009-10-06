@@ -9,11 +9,7 @@
  * <p>This class is intended to be extended or created via the <tt><b>{@link Ext.Container#layout layout}</b></tt>
  * configuration property.  See <tt><b>{@link Ext.Container#layout}</b></tt> for additional details.</p>
  */
-Ext.layout.ContainerLayout = function(config){
-    Ext.apply(this, config);
-};
-
-Ext.layout.ContainerLayout.prototype = {
+Ext.layout.ContainerLayout = Ext.extend(Object, {
     /**
      * @cfg {String} extraCls
      * <p>An optional extra CSS class that will be added to the container. This can be useful for adding
@@ -52,6 +48,10 @@ Ext.layout.ContainerLayout.prototype = {
     monitorResize:false,
     // private
     activeItem : null,
+    
+    constructor : function(config){
+        Ext.apply(this, config);    
+    },
 
     // private
     layout : function(){
@@ -218,5 +218,5 @@ Ext.layout.ContainerLayout.prototype = {
      * @protected
      */
     destroy : Ext.emptyFn
-};
+});
 Ext.Container.LAYOUTS['auto'] = Ext.layout.ContainerLayout;
