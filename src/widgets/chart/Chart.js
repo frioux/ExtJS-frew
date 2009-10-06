@@ -9,6 +9,11 @@
  
  Ext.chart.Chart = Ext.extend(Ext.FlashComponent, {
     refreshBuffer: 100,
+    
+    /**
+     * @cfg {String} backgroundColor
+     * @hide
+     */
 
     /**
      * @cfg {Object} chartStyle
