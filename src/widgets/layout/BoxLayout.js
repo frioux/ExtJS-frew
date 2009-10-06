@@ -61,6 +61,13 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
     extraCls : 'x-box-item',
     ctCls : 'x-box-layout-ct',
     innerCls : 'x-box-inner',
+    
+    constructor : function(config){
+        Ext.layout.BoxLayout.superclass.constructor.call(this, config);
+        if(Ext.isString(this.defaultMargins)){
+            this.defaultMargins = this.parseMargins(this.defaultMargins);
+        }
+    },
 
     // private
     isValidParent : function(c, target){
@@ -84,7 +91,7 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
     // private
     renderItem : function(c){
-        if(typeof c.margins == 'string'){
+        if(Ext.isString(c.margins)){
             c.margins = this.parseMargins(c.margins);
         }else if(!c.margins){
             c.margins = this.defaultMargins;
