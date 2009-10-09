@@ -492,8 +492,8 @@ new Ext.TabPanel({
         }
         var tabs = this.el.query(this.autoTabSelector);
         for(var i = 0, len = tabs.length; i < len; i++){
-            var tab = tabs[i];
-            var title = tab.getAttribute('title');
+            var tab = tabs[i],
+                title = tab.getAttribute('title');
             tab.removeAttribute('title');
             this.add({
                 title: title,
@@ -504,9 +504,9 @@ new Ext.TabPanel({
 
     // private
     initTab : function(item, index){
-        var before = this.strip.dom.childNodes[index];
-        var p = this.getTemplateArgs(item);
-        var el = before ?
+        var before = this.strip.dom.childNodes[index],
+            p = this.getTemplateArgs(item),
+            el = before ?
                  this.itemTpl.insertBefore(before, p) :
                  this.itemTpl.append(this.strip, p);
 
@@ -729,10 +729,10 @@ new Ext.TabPanel({
 
     // private
     autoSizeTabs : function(){
-        var count = this.items.length;
-        var ce = this.tabPosition != 'bottom' ? 'header' : 'footer';
-        var ow = this[ce].dom.offsetWidth;
-        var aw = this[ce].dom.clientWidth;
+        var count = this.items.length,
+            ce = this.tabPosition != 'bottom' ? 'header' : 'footer',
+            ow = this[ce].dom.offsetWidth,
+            aw = this[ce].dom.clientWidth;
 
         if(!this.resizeTabs || count < 1 || !aw){ // !aw for display:none
             return;
@@ -742,10 +742,10 @@ new Ext.TabPanel({
         this.lastTabWidth = each;
         var lis = this.strip.query("li:not([className^=x-tab-edge])");
         for(var i = 0, len = lis.length; i < len; i++) {
-            var li = lis[i];
-            var inner = Ext.fly(li).child('.x-tab-strip-inner', true);
-            var tw = li.offsetWidth;
-            var iw = inner.offsetWidth;
+            var li = lis[i],
+                inner = Ext.fly(li).child('.x-tab-strip-inner', true),
+                tw = li.offsetWidth,
+                iw = inner.offsetWidth;
             inner.style.width = (each - (tw-iw)) + 'px';
         }
     },
@@ -828,15 +828,14 @@ new Ext.TabPanel({
     // private
     autoScrollTabs : function(){
         this.pos = this.tabPosition=='bottom' ? this.footer : this.header;
-        var count = this.items.length;
-        var ow = this.pos.dom.offsetWidth;
-        var tw = this.pos.dom.clientWidth;
-
-        var wrap = this.stripWrap;
-        var wd = wrap.dom;
-        var cw = wd.offsetWidth;
-        var pos = this.getScrollPos();
-        var l = this.edge.getOffsetsTo(this.stripWrap)[0] + pos;
+        var count = this.items.length,
+            ow = this.pos.dom.offsetWidth,
+            tw = this.pos.dom.clientWidth,
+            wrap = this.stripWrap,
+            wd = wrap.dom,
+            cw = wd.offsetWidth,
+            pos = this.getScrollPos(),
+            l = this.edge.getOffsetsTo(this.stripWrap)[0] + pos;
 
         if(!this.enableTabScroll || count < 1 || cw < 20){ // 20 to prevent display:none issues
             return;
@@ -948,11 +947,14 @@ new Ext.TabPanel({
      */
 
     scrollToTab : function(item, animate){
-        if(!item){ return; }
-        var el = this.getTabEl(item);
-        var pos = this.getScrollPos(), area = this.getScrollArea();
-        var left = Ext.fly(el).getOffsetsTo(this.stripWrap)[0] + pos;
-        var right = left + el.offsetWidth;
+        if(!item){ 
+            return; 
+        }
+        var el = this.getTabEl(item),
+            pos = this.getScrollPos(), 
+            area = this.getScrollArea(),
+            left = Ext.fly(el).getOffsetsTo(this.stripWrap)[0] + pos,
+            right = left + el.offsetWidth;
         if(left < pos){
             this.scrollTo(left, animate);
         }else if(right > (pos + area)){
@@ -972,9 +974,9 @@ new Ext.TabPanel({
         var d = e.getWheelDelta()*this.wheelIncrement*-1;
         e.stopEvent();
 
-        var pos = this.getScrollPos();
-        var newpos = pos + d;
-        var sw = this.getScrollWidth()-this.getScrollArea();
+        var pos = this.getScrollPos(),
+            newpos = pos + d,
+            sw = this.getScrollWidth()-this.getScrollArea();
 
         var s = Math.max(0, Math.min(sw, newpos));
         if(s != pos){
@@ -984,9 +986,9 @@ new Ext.TabPanel({
 
     // private
     onScrollRight : function(){
-        var sw = this.getScrollWidth()-this.getScrollArea();
-        var pos = this.getScrollPos();
-        var s = Math.min(sw, pos + this.getScrollIncrement());
+        var sw = this.getScrollWidth()-this.getScrollArea(),
+            pos = this.getScrollPos(),
+            s = Math.min(sw, pos + this.getScrollIncrement());
         if(s != pos){
             this.scrollTo(s, this.animScroll);
         }
@@ -994,8 +996,8 @@ new Ext.TabPanel({
 
     // private
     onScrollLeft : function(){
-        var pos = this.getScrollPos();
-        var s = Math.max(0, pos - this.getScrollIncrement());
+        var pos = this.getScrollPos(),
+            s = Math.max(0, pos - this.getScrollIncrement());
         if(s != pos){
             this.scrollTo(s, this.animScroll);
         }
