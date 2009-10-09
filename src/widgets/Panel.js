@@ -955,7 +955,7 @@ new Ext.Panel({
              * b) The last element is reported incorrectly when using a loadmask
              */
             this.ft = Ext.get(this.bwrap.dom.lastChild);
-            this.mc = Ext.get(this.bwrap.dom.firstChild.firstChild.firstChild);
+            this.mc = Ext.get(mc);
         }else{
             this.createElement('header', d);
             this.createElement('bwrap', d);
@@ -1678,14 +1678,14 @@ panel.load({
         if(this.rendered){
             Ext.destroy(
                 this.ft,
-                this.mc,
                 this.header,
                 this.footer,
-                this.body,
-                this.bwrap,
                 this.toolbars,
                 this.tbar,
-                this.bbar
+                this.bbar,
+                this.body,
+                this.mc,
+                this.bwrap
             );
             if (this.fbar) {
                 Ext.destroy(
