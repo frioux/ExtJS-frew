@@ -347,7 +347,7 @@ var grid = new Ext.grid.GridPanel({
     // private
     getGroup : function(v, r, groupRenderer, rowIndex, colIndex, ds){
         var g = groupRenderer ? groupRenderer(v, {}, r, rowIndex, colIndex, ds) : String(v);
-        if(g === ''){
+        if(g === '' || g === '&#160;'){
             g = this.cm.config[colIndex].emptyGroupText || this.emptyGroupText;
         }
         return g;
