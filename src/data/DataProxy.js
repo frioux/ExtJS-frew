@@ -395,7 +395,7 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
     load : null,
 
     /**
-     * @cfg {Function} doRequest Abstract method that should be implemented in all subclasses
+     * @cfg {Function} doRequest Abstract method that should be implemented in all subclasses.  <b>Note:</b> Should only be used by custom-proxy developers.
      * (e.g.: {@link Ext.data.HttpProxy#doRequest HttpProxy.doRequest},
      * {@link Ext.data.DirectProxy#doRequest DirectProxy.doRequest}).
      */
@@ -407,7 +407,7 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
     },
 
     /**
-     * @cfg {Function} onRead Abstract method that should be implemented in all subclasses.  Callback for read {@link Ext.data.Api#actions action}.
+     * @cfg {Function} onRead Abstract method that should be implemented in all subclasses.  <b>Note:</b> Should only be used by custom-proxy developers.  Callback for read {@link Ext.data.Api#actions action}.
      * @param {String} action Action name as per {@link Ext.data.Api.actions#read}.
      * @param {Object} o The request transaction object
      * @param {Object} res The server response
@@ -418,7 +418,7 @@ proxy.setApi(Ext.data.Api.actions.read, '/users/new_load_url');
      */
     onRead : Ext.emptyFn,
     /**
-     * @cfg {Function} onWrite Abstract method that should be implemented in all subclasses.  Callback for <i>create, update and destroy</i> {@link Ext.data.Api#actions actions}.
+     * @cfg {Function} onWrite Abstract method that should be implemented in all subclasses.  <b>Note:</b> Should only be used by custom-proxy developers.  Callback for <i>create, update and destroy</i> {@link Ext.data.Api#actions actions}.
      * @param {String} action [Ext.data.Api.actions.create|read|update|destroy]
      * @param {Object} trans The request transaction object
      * @param {Object} res The server response
