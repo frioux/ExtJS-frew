@@ -107,7 +107,12 @@ Ext.data.DataReader.prototype = {
             rs.phantom = false; // <-- That's what it's all about
             rs._phid = rs.id;  // <-- copy phantom-id -> _phid, so we can remap in Store#onCreateRecords
             rs.id = this.getId(data);
-            rs.data = data;
+
+            rs.fields.each(function(f) {
+                if (data[f.name] !== f.defaultValue) {
+                    rs.data[f.name] = data[f.name];
+                }
+            });
             rs.commit();
         }
     },
@@ -139,7 +144,11 @@ Ext.data.DataReader.prototype = {
                 data = data.shift();
             }
             if (this.isData(data)) {
-                rs.data = Ext.apply(rs.data, data);
+                rs.fields.each(function(f) {
+                    if (data[f.name] !== f.defaultValue) {
+                        rs.data[f.name] = data[f.name];
+                    }
+                });
             }
             rs.commit();
         }

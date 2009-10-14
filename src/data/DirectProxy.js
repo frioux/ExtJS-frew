@@ -152,7 +152,7 @@ paramOrder: 'param1|param2|param'
      * @protected
      */
     onWrite : function(action, trans, result, res, rs) {
-        var data = trans.reader.extractData(result);
+        var data = trans.reader.extractData(result, false);
         this.fireEvent("write", this, action, data, res, rs, trans.request.arg);
         trans.request.callback.call(trans.request.scope, data, res, true);
     }

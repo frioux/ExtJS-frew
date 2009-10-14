@@ -124,7 +124,7 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
             action: action,
             success : this.getSuccess(doc),
             message: this.getMessage(doc),
-            data: this.extractData(q.select(this.meta.record, doc) || q.select(this.meta.root, doc)),
+            data: this.extractData(q.select(this.meta.record, doc) || q.select(this.meta.root, doc), false),
             raw: doc
         });
 

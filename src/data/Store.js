@@ -95,8 +95,8 @@ Ext.data.Store = function(config){
 
     this.paramNames = Ext.applyIf(this.paramNames || {}, this.defaultParamNames);
 
-    if(this.url && !this.proxy){
-        this.proxy = new Ext.data.HttpProxy({url: this.url});
+    if((this.url || this.api) && !this.proxy){
+        this.proxy = new Ext.data.HttpProxy({url: this.url, api: this.api});
     }
     // If Store is RESTful, so too is the DataProxy
     if (this.restful === true && this.proxy) {
@@ -637,8 +637,9 @@ sortInfo: {
 
     /**
      * Remove all Records from the Store and fires the {@link #clear} event.
+     * @param {Boolean} silent [false] Defaults to <tt>false</tt>.  Set <tt>true</tt> to not fire clear event.
      */
-    removeAll : function(){
+    removeAll : function(silent){
         var items = [];
         this.each(function(rec){
             items.push(rec);
@@ -650,7 +651,9 @@ sortInfo: {
         if(this.pruneModifiedRecords){
             this.modified = [];
         }
-        this.fireEvent('clear', this, items);
+        if (silent !== true) {  // <-- prevents write-actions when we just want to clear a store.
+            this.fireEvent('clear', this, items);
+        }
     },
 
     // private
@@ -977,6 +980,7 @@ sortInfo: {
     createCallback : function(action, rs) {
         var actions = Ext.data.Api.actions;
         return (action == 'read') ? this.loadRecords : function(data, response, success) {
+
             // calls: onCreateRecords | onUpdateRecords | onDestroyRecords
             this['on' + Ext.util.Format.capitalize(action) + 'Records'](success, rs, [].concat(data));
             // If success === false here, exception will have been called in DataProxy
