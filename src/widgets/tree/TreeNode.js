@@ -526,6 +526,7 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
     },
 
     destroy : function(){
+        this.unselect();
         Ext.tree.TreeNode.superclass.destroy.call(this);
         Ext.destroy(this.ui, this.loader);
         this.ui = this.loader = null;
