@@ -373,18 +373,16 @@ Ext.Msg.show({
                 // force it to the end of the z-index stack so it gets a cursor in FF
                 document.body.appendChild(dlg.el.dom);
                 d.setAnimateTarget(opt.animEl);
+                //workaround for window internally enabling keymap in afterShow
+                d.on('show', function(){
+                    if(allowClose === true){
+                        d.keyMap.enable();
+                    }else{
+                        d.keyMap.disable();
+                    }
+                }, this, {single:true});
                 d.show(opt.animEl);
             }
-
-            //workaround for window internally enabling keymap in afterShow
-            d.on('show', function(){
-                if(allowClose === true){
-                    d.keyMap.enable();
-                }else{
-                    d.keyMap.disable();
-                }
-            }, this, {single:true});
-
             if(opt.wait === true){
                 progressBar.wait(opt.waitConfig);
             }
