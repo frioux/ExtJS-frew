@@ -667,15 +667,18 @@ function(grid, rowIndex, columnIndex, e) {
      * @param {Ext.grid.ColumnModel} colModel The new {@link Ext.grid.ColumnModel} object
      */
     reconfigure : function(store, colModel){
-        if(this.loadMask){
-            this.loadMask.destroy();
-            this.loadMask = new Ext.LoadMask(this.bwrap,
-                    Ext.apply({}, {store:store}, this.initialConfig.loadMask));
+        var rendered = this.rendered;
+        if(rendered){
+            if(this.loadMask){
+                this.loadMask.destroy();
+                this.loadMask = new Ext.LoadMask(this.bwrap,
+                        Ext.apply({}, {store:store}, this.initialConfig.loadMask));
+            }
+            this.view.initData(store, colModel);
         }
-        this.view.initData(store, colModel);
         this.store = store;
         this.colModel = colModel;
-        if(this.rendered){
+        if(rendered){
             this.view.refresh(true);
         }
         this.fireEvent('reconfigure', this, store, colModel);
