@@ -203,10 +203,12 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
     
     setReadOnly : function(readOnly){
         if(readOnly != this.readOnly){
-            if(readOnly){
-                this.el.addClass('x-trigger-noedit').on('click', this.onTriggerClick, this);
-            }else{
-                this.el.removeClass('x-trigger-noedit').un('click', this.onTriggerClick,  this);
+            if (this.rendered){
+                if(readOnly){
+                    this.el.addClass('x-trigger-noedit').on('click', this.onTriggerClick, this);
+                }else{
+                    this.el.removeClass('x-trigger-noedit').un('click', this.onTriggerClick,  this);
+                }
             }
             Ext.form.TriggerField.superclass.setReadOnly.call(this, readOnly);
             this.editable = !readOnly;
