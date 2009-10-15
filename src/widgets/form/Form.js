@@ -266,9 +266,12 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
 		// If a single form Field, remove it
         if(this.isField(c)){
         	this.form.remove(c);
-		// If a Container, remove any Fields it might contain
+		// If a Container, its already destroyed by the time it gets here.  Remove any references to destroyed fields.
         }else if(c.findBy){
-            Ext.each(c.findBy(this.isField), this.form.remove, this.form);
+            var isDestroyed = function(o) {
+                return !!o.isDestroyed;
+            }
+            this.form.items.filterBy(isDestroyed, this.form).each(this.form.remove, this.form);
         }
     },
 
