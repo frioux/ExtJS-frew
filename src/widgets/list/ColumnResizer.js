@@ -1,11 +1,11 @@
 /**
- * @class Ext.ListView.ColumnResizer
+ * @class Ext.list.ColumnResizer
  * @extends Ext.util.Observable
- * <p>Supporting Class for Ext.ListView.</p>
+ * <p>Supporting Class for Ext.list.ListView</p>
  * @constructor
  * @param {Object} config
  */
-Ext.ListView.ColumnResizer = Ext.extend(Ext.util.Observable, {
+Ext.list.ColumnResizer = Ext.extend(Ext.util.Observable, {
     /**
      * @cfg {Number} minPct The minimum percentage to allot for any column (defaults to <tt>.05</tt>)
      */
@@ -13,7 +13,7 @@ Ext.ListView.ColumnResizer = Ext.extend(Ext.util.Observable, {
 
     constructor: function(config){
         Ext.apply(this, config);
-        Ext.ListView.ColumnResizer.superclass.constructor.call(this);
+        Ext.list.ColumnResizer.superclass.constructor.call(this);
     },
     init : function(listView){
         this.view = listView;
@@ -117,3 +117,6 @@ Ext.ListView.ColumnResizer = Ext.extend(Ext.util.Observable, {
         }, 100);
     }
 });
+
+// Backwards compatibility alias
+Ext.ListView.ColumnResizer = Ext.list.ColumnResizer;

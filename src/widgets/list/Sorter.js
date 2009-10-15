@@ -1,11 +1,11 @@
 /**
- * @class Ext.ListView.Sorter
+ * @class Ext.list.Sorter
  * @extends Ext.util.Observable
- * <p>Supporting Class for Ext.ListView.</p>
+ * <p>Supporting Class for Ext.list.ListView</p>
  * @constructor
  * @param {Object} config
  */
-Ext.ListView.Sorter = Ext.extend(Ext.util.Observable, {
+Ext.list.Sorter = Ext.extend(Ext.util.Observable, {
     /**
      * @cfg {Array} sortClasses
      * The CSS classes applied to a header when it is sorted. (defaults to <tt>["sort-asc", "sort-desc"]</tt>)
@@ -14,7 +14,7 @@ Ext.ListView.Sorter = Ext.extend(Ext.util.Observable, {
 
     constructor: function(config){
         Ext.apply(this, config);
-        Ext.ListView.Sorter.superclass.constructor.call(this);
+        Ext.list.Sorter.superclass.constructor.call(this);
     },
 
     init : function(listView){
@@ -62,3 +62,6 @@ Ext.ListView.Sorter = Ext.extend(Ext.util.Observable, {
         }
     }
 });
+
+// Backwards compatibility alias
+Ext.ListView.Sorter = Ext.list.Sorter;

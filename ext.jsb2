@@ -526,6 +526,9 @@
             text: 'ListView.js',
             path: 'src/widgets/list/'
         },{
+            text: 'Column.js',
+            path: 'src/widgets/list/'
+        },{
             text: 'ColumnResizer.js',
             path: 'src/widgets/list/'
         },{
