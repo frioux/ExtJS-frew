@@ -758,7 +758,7 @@ var menu = new Ext.menu.Menu({
         if(this.typeAhead){
             this.taTask = new Ext.util.DelayedTask(this.onTypeAhead, this);
         }
-        if(this.editable !== false && !this.enableKeyEvents){
+        if(!this.enableKeyEvents){
             this.mon(this.el, 'keyup', this.onKeyUp, this);
         }
     },
