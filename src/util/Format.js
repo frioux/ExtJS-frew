@@ -4,7 +4,10 @@
  * @singleton
  */
 Ext.util.Format = function(){
-    var trimRe = /^\s+|\s+$/g;
+    var trimRe = /^\s+|\s+$/g,
+        stripTagsRE = /<\/?[^>]+>/gi,
+        stripScriptsRe = /(?:<script.*?>)((\n|\r|.)*?)(?:<\/script>)/ig;
+        
     return {
         /**
          * Truncate a string and add an ellipsis ('...') to the end if it exceeds the specified length
@@ -16,8 +19,8 @@ Ext.util.Format = function(){
         ellipsis : function(value, len, word){
             if(value && value.length > len){
                 if(word){
-                    var vs = value.substr(0, len - 2);
-                    var index = Math.max(vs.lastIndexOf(' '), vs.lastIndexOf('.'), vs.lastIndexOf('!'), vs.lastIndexOf('?'));
+                    var vs = value.substr(0, len - 2),
+                        index = Math.max(vs.lastIndexOf(' '), vs.lastIndexOf('.'), vs.lastIndexOf('!'), vs.lastIndexOf('?'));
                     if(index == -1 || index < (len - 15)){
                         return value.substr(0, len - 3) + "...";
                     }else{
@@ -134,10 +137,10 @@ Ext.util.Format = function(){
             v = (Math.round((v-0)*100))/100;
             v = (v == Math.floor(v)) ? v + ".00" : ((v*10 == Math.floor(v*10)) ? v + "0" : v);
             v = String(v);
-            var ps = v.split('.');
-            var whole = ps[0];
-            var sub = ps[1] ? '.'+ ps[1] : '.00';
-            var r = /(\d+)(\d{3})/;
+            var ps = v.split('.'),
+                whole = ps[0],
+                sub = ps[1] ? '.'+ ps[1] : '.00',
+                r = /(\d+)(\d{3})/;
             while (r.test(whole)) {
                 whole = whole.replace(r, '$1' + ',' + '$2');
             }
@@ -174,9 +177,6 @@ Ext.util.Format = function(){
                 return Ext.util.Format.date(v, format);
             };
         },
-
-        // private
-        stripTagsRE : /<\/?[^>]+>/gi,
         
         /**
          * Strips all HTML tags
@@ -184,10 +184,8 @@ Ext.util.Format = function(){
          * @return {String} The stripped text
          */
         stripTags : function(v){
-            return !v ? v : String(v).replace(this.stripTagsRE, "");
+            return !v ? v : String(v).replace(stripTagsRE, "");
         },
-
-        stripScriptsRe : /(?:<script.*?>)((\n|\r|.)*?)(?:<\/script>)/ig,
 
         /**
          * Strips all script tags
@@ -195,7 +193,7 @@ Ext.util.Format = function(){
          * @return {String} The stripped text
          */
         stripScripts : function(v){
-            return !v ? v : String(v).replace(this.stripScriptsRe, "");
+            return !v ? v : String(v).replace(stripScriptsRe, "");
         },
 
         /**
