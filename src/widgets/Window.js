@@ -772,9 +772,14 @@ Ext.Window = Ext.extend(Ext.Panel, {
      */
     restore : function(){
         if(this.maximized){
+            var t = this.tools;
             this.el.removeClass('x-window-maximized');
-            this.tools.restore.hide();
-            this.tools.maximize.show();
+            if(t.restore){
+                t.restore.hide();
+            }
+            if(t.maximize){
+                t.maximize.show();
+            }
             this.setPosition(this.restorePos[0], this.restorePos[1]);
             this.setSize(this.restoreSize.width, this.restoreSize.height);
             delete this.restorePos;
@@ -785,8 +790,8 @@ Ext.Window = Ext.extend(Ext.Panel, {
             if(this.dd){
                 this.dd.unlock();
             }
-            if(this.collapsible){
-                this.tools.toggle.show();
+            if(this.collapsible && t.toggle){
+                t.toggle.show();
             }
             this.container.removeClass('x-window-maximized-ct');
 
