@@ -1240,12 +1240,13 @@ new Ext.Panel({
         if(this.title){
             this.setTitle(this.title);
         }
-        if(this.collapsed){
-            this.collapsed = false;
-            this.collapse(false);
-        }
+        var collapsed = this.collapsed;
+        this.collapsed = false;
         Ext.Panel.superclass.afterRender.call(this); // do sizing calcs last
         this.initEvents();
+        if(collapsed){
+            this.collapse(false);
+        }
     },
 
     // private
