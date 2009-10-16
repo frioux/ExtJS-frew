@@ -487,7 +487,6 @@ Ext.layout.BorderLayout.Region.prototype = {
     // private
     onExpandClick : function(e){
         if(this.isSlid){
-            this.afterSlideIn();
             this.panel.expand(false);
         }else{
             this.panel.expand();
@@ -525,6 +524,9 @@ Ext.layout.BorderLayout.Region.prototype = {
 
     // private
     beforeExpand : function(animate){
+        if(this.isSlid){
+            this.afterSlideIn();
+        }
         var c = this.getCollapsedEl();
         this.el.show();
         if(this.position == 'east' || this.position == 'west'){
