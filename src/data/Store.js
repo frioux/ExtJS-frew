@@ -70,286 +70,7 @@ myStore.{@link #insert}(0, r); // insert a new record into the store (also see {
  * and read the data into Records.
  * @xtype store
  */
-Ext.data.Store = function(config){
-    this.data = new Ext.util.MixedCollection(false);
-    this.data.getKey = function(o){
-        return o.id;
-    };
-    /**
-     * See the <code>{@link #baseParams corresponding configuration option}</code>
-     * for a description of this property.
-     * To modify this property see <code>{@link #setBaseParam}</code>.
-     * @property
-     */
-    this.baseParams = {};
-
-    // temporary removed-records cache
-    this.removed = [];
-
-    if(config && config.data){
-        this.inlineData = config.data;
-        delete config.data;
-    }
-
-    Ext.apply(this, config);
-
-    this.paramNames = Ext.applyIf(this.paramNames || {}, this.defaultParamNames);
-
-    if((this.url || this.api) && !this.proxy){
-        this.proxy = new Ext.data.HttpProxy({url: this.url, api: this.api});
-    }
-    // If Store is RESTful, so too is the DataProxy
-    if (this.restful === true && this.proxy) {
-        // When operating RESTfully, a unique transaction is generated for each record.
-        // TODO might want to allow implemention of faux REST where batch is possible using RESTful routes only.
-        this.batch = false;
-        Ext.data.Api.restify(this.proxy);
-    }
-
-    if(this.reader){ // reader passed
-        if(!this.recordType){
-            this.recordType = this.reader.recordType;
-        }
-        if(this.reader.onMetaChange){
-            this.reader.onMetaChange = this.reader.onMetaChange.createSequence(this.onMetaChange, this);
-        }
-        if (this.writer) { // writer passed
-            if (this.writer instanceof(Ext.data.DataWriter) === false) {    // <-- config-object instead of instance.
-                this.writer = this.buildWriter(this.writer);
-            }
-            this.writer.meta = this.reader.meta;
-            this.pruneModifiedRecords = true;
-        }
-    }
-
-    /**
-     * The {@link Ext.data.Record Record} constructor as supplied to (or created by) the
-     * {@link Ext.data.DataReader Reader}. Read-only.
-     * <p>If the Reader was constructed by passing in an Array of {@link Ext.data.Field} definition objects,
-     * instead of a Record constructor, it will implicitly create a Record constructor from that Array (see
-     * {@link Ext.data.Record}.{@link Ext.data.Record#create create} for additional details).</p>
-     * <p>This property may be used to create new Records of the type held in this Store, for example:</p><pre><code>
-// create the data store
-var store = new Ext.data.ArrayStore({
-    autoDestroy: true,
-    fields: [
-       {name: 'company'},
-       {name: 'price', type: 'float'},
-       {name: 'change', type: 'float'},
-       {name: 'pctChange', type: 'float'},
-       {name: 'lastChange', type: 'date', dateFormat: 'n/j h:ia'}
-    ]
-});
-store.loadData(myData);
-
-// create the Grid
-var grid = new Ext.grid.EditorGridPanel({
-    store: store,
-    colModel: new Ext.grid.ColumnModel({
-        columns: [
-            {id:'company', header: 'Company', width: 160, dataIndex: 'company'},
-            {header: 'Price', renderer: 'usMoney', dataIndex: 'price'},
-            {header: 'Change', renderer: change, dataIndex: 'change'},
-            {header: '% Change', renderer: pctChange, dataIndex: 'pctChange'},
-            {header: 'Last Updated', width: 85,
-                renderer: Ext.util.Format.dateRenderer('m/d/Y'),
-                dataIndex: 'lastChange'}
-        ],
-        defaults: {
-            sortable: true,
-            width: 75
-        }
-    }),
-    autoExpandColumn: 'company', // match the id specified in the column model
-    height:350,
-    width:600,
-    title:'Array Grid',
-    tbar: [{
-        text: 'Add Record',
-        handler : function(){
-            var defaultData = {
-                change: 0,
-                company: 'New Company',
-                lastChange: (new Date()).clearTime(),
-                pctChange: 0,
-                price: 10
-            };
-            var recId = 3; // provide unique id
-            var p = new store.recordType(defaultData, recId); // create new record
-            grid.stopEditing();
-            store.{@link #insert}(0, p); // insert a new record into the store (also see {@link #add})
-            grid.startEditing(0, 0);
-        }
-    }]
-});
-     * </code></pre>
-     * @property recordType
-     * @type Function
-     */
-
-    if(this.recordType){
-        /**
-         * A {@link Ext.util.MixedCollection MixedCollection} containing the defined {@link Ext.data.Field Field}s
-         * for the {@link Ext.data.Record Records} stored in this Store. Read-only.
-         * @property fields
-         * @type Ext.util.MixedCollection
-         */
-        this.fields = this.recordType.prototype.fields;
-    }
-    this.modified = [];
-
-    this.addEvents(
-        /**
-         * @event datachanged
-         * Fires when the data cache has changed in a bulk manner (e.g., it has been sorted, filtered, etc.) and a
-         * widget that is using this Store as a Record cache should refresh its view.
-         * @param {Store} this
-         */
-        'datachanged',
-        /**
-         * @event metachange
-         * Fires when this store's reader provides new metadata (fields). This is currently only supported for JsonReaders.
-         * @param {Store} this
-         * @param {Object} meta The JSON metadata
-         */
-        'metachange',
-        /**
-         * @event add
-         * Fires when Records have been {@link #add}ed to the Store
-         * @param {Store} this
-         * @param {Ext.data.Record[]} records The array of Records added
-         * @param {Number} index The index at which the record(s) were added
-         */
-        'add',
-        /**
-         * @event remove
-         * Fires when a Record has been {@link #remove}d from the Store
-         * @param {Store} this
-         * @param {Ext.data.Record} record The Record that was removed
-         * @param {Number} index The index at which the record was removed
-         */
-        'remove',
-        /**
-         * @event update
-         * Fires when a Record has been updated
-         * @param {Store} this
-         * @param {Ext.data.Record} record The Record that was updated
-         * @param {String} operation The update operation being performed.  Value may be one of:
-         * <pre><code>
- Ext.data.Record.EDIT
- Ext.data.Record.REJECT
- Ext.data.Record.COMMIT
-         * </code></pre>
-         */
-        'update',
-        /**
-         * @event clear
-         * Fires when the data cache has been cleared.
-         * @param {Store} this
-         * @param {Record[]} The records that were cleared.
-         */
-        'clear',
-        /**
-         * @event exception
-         * <p>Fires if an exception occurs in the Proxy during a remote request.
-         * This event is relayed through the corresponding {@link Ext.data.DataProxy}.
-         * See {@link Ext.data.DataProxy}.{@link Ext.data.DataProxy#exception exception}
-         * for additional details.
-         * @param {misc} misc See {@link Ext.data.DataProxy}.{@link Ext.data.DataProxy#exception exception}
-         * for description.
-         */
-        'exception',
-        /**
-         * @event beforeload
-         * Fires before a request is made for a new data object.  If the beforeload handler returns
-         * <tt>false</tt> the {@link #load} action will be canceled.
-         * @param {Store} this
-         * @param {Object} options The loading options that were specified (see {@link #load} for details)
-         */
-        'beforeload',
-        /**
-         * @event load
-         * Fires after a new set of Records has been loaded.
-         * @param {Store} this
-         * @param {Ext.data.Record[]} records The Records that were loaded
-         * @param {Object} options The loading options that were specified (see {@link #load} for details)
-         */
-        'load',
-        /**
-         * @event loadexception
-         * <p>This event is <b>deprecated</b> in favor of the catch-all <b><code>{@link #exception}</code></b>
-         * event instead.</p>
-         * <p>This event is relayed through the corresponding {@link Ext.data.DataProxy}.
-         * See {@link Ext.data.DataProxy}.{@link Ext.data.DataProxy#loadexception loadexception}
-         * for additional details.
-         * @param {misc} misc See {@link Ext.data.DataProxy}.{@link Ext.data.DataProxy#loadexception loadexception}
-         * for description.
-         */
-        'loadexception',
-        /**
-         * @event beforewrite
-         * @param {Ext.data.Store} store
-         * @param {String} action [Ext.data.Api.actions.create|update|destroy]
-         * @param {Record/Array[Record]} rs
-         * @param {Object} options The loading options that were specified. Edit <code>options.params</code> to add Http parameters to the request.  (see {@link #save} for details)
-         * @param {Object} arg The callback's arg object passed to the {@link #request} function
-         */
-        'beforewrite',
-        /**
-         * @event write
-         * Fires if the server returns 200 after an Ext.data.Api.actions CRUD action.
-         * Success of the action is determined in the <code>result['successProperty']</code>property (<b>NOTE</b> for RESTful stores,
-         * a simple 20x response is sufficient for the actions "destroy" and "update".  The "create" action should should return 200 along with a database pk).
-         * @param {Ext.data.Store} store
-         * @param {String} action [Ext.data.Api.actions.create|update|destroy]
-         * @param {Object} result The 'data' picked-out out of the response for convenience.
-         * @param {Ext.Direct.Transaction} res
-         * @param {Record/Record[]} rs Store's records, the subject(s) of the write-action
-         */
-        'write'
-    );
-
-    if(this.proxy){
-        // TODO remove deprecated loadexception with ext-3.0.1
-        this.relayEvents(this.proxy,  ['loadexception', 'exception']);
-    }
-    // With a writer set for the Store, we want to listen to add/remove events to remotely create/destroy records.
-    if (this.writer) {
-        this.on({
-            scope: this,
-            add: this.createRecords,
-            remove: this.destroyRecord,
-            update: this.updateRecord,
-            clear: this.onClear
-        });
-    }
-
-    this.sortToggle = {};
-    if(this.sortField){
-        this.setDefaultSort(this.sortField, this.sortDir);
-    }else if(this.sortInfo){
-        this.setDefaultSort(this.sortInfo.field, this.sortInfo.direction);
-    }
-
-    Ext.data.Store.superclass.constructor.call(this);
-
-    if(this.id){
-        this.storeId = this.id;
-        delete this.id;
-    }
-    if(this.storeId){
-        Ext.StoreMgr.register(this);
-    }
-    if(this.inlineData){
-        this.loadData(this.inlineData);
-        delete this.inlineData;
-    }else if(this.autoLoad){
-        this.load.defer(10, this, [
-            typeof this.autoLoad == 'object' ?
-                this.autoLoad : undefined]);
-    }
-};
-Ext.extend(Ext.data.Store, Ext.util.Observable, {
+Ext.data.Store = Ext.extend(Ext.util.Observable, {
     /**
      * @cfg {String} storeId If passed, the id to use to register with the <b>{@link Ext.StoreMgr StoreMgr}</b>.
      * <p><b>Note</b>: if a (deprecated) <tt>{@link #id}</tt> is specified it will supersede the <tt>storeId</tt>
@@ -529,6 +250,310 @@ sortInfo: {
         limit : 'limit',
         sort : 'sort',
         dir : 'dir'
+    },
+    
+    // private
+    batchKey : '_ext_batch_',
+    
+    constructor : function(config){
+        this.data = new Ext.util.MixedCollection(false);
+	    this.data.getKey = function(o){
+	        return o.id;
+	    };
+	    /**
+	     * See the <code>{@link #baseParams corresponding configuration option}</code>
+	     * for a description of this property.
+	     * To modify this property see <code>{@link #setBaseParam}</code>.
+	     * @property
+	     */
+	    this.baseParams = {};
+	
+	    // temporary removed-records cache
+	    this.removed = [];
+	
+	    if(config && config.data){
+	        this.inlineData = config.data;
+	        delete config.data;
+	    }
+	
+	    Ext.apply(this, config);
+	
+	    this.paramNames = Ext.applyIf(this.paramNames || {}, this.defaultParamNames);
+	
+	    if((this.url || this.api) && !this.proxy){
+	        this.proxy = new Ext.data.HttpProxy({url: this.url, api: this.api});
+	    }
+	    // If Store is RESTful, so too is the DataProxy
+	    if (this.restful === true && this.proxy) {
+	        // When operating RESTfully, a unique transaction is generated for each record.
+	        // TODO might want to allow implemention of faux REST where batch is possible using RESTful routes only.
+	        this.batch = false;
+	        Ext.data.Api.restify(this.proxy);
+	    }
+	
+	    if(this.reader){ // reader passed
+	        if(!this.recordType){
+	            this.recordType = this.reader.recordType;
+	        }
+	        if(this.reader.onMetaChange){
+	            this.reader.onMetaChange = this.reader.onMetaChange.createSequence(this.onMetaChange, this);
+	        }
+	        if (this.writer) { // writer passed
+	            if (this.writer instanceof(Ext.data.DataWriter) === false) {    // <-- config-object instead of instance.
+	                this.writer = this.buildWriter(this.writer);
+	            }
+	            this.writer.meta = this.reader.meta;
+	            this.pruneModifiedRecords = true;
+	        }
+	    }
+	
+	    /**
+	     * The {@link Ext.data.Record Record} constructor as supplied to (or created by) the
+	     * {@link Ext.data.DataReader Reader}. Read-only.
+	     * <p>If the Reader was constructed by passing in an Array of {@link Ext.data.Field} definition objects,
+	     * instead of a Record constructor, it will implicitly create a Record constructor from that Array (see
+	     * {@link Ext.data.Record}.{@link Ext.data.Record#create create} for additional details).</p>
+	     * <p>This property may be used to create new Records of the type held in this Store, for example:</p><pre><code>
+	// create the data store
+	var store = new Ext.data.ArrayStore({
+	    autoDestroy: true,
+	    fields: [
+	       {name: 'company'},
+	       {name: 'price', type: 'float'},
+	       {name: 'change', type: 'float'},
+	       {name: 'pctChange', type: 'float'},
+	       {name: 'lastChange', type: 'date', dateFormat: 'n/j h:ia'}
+	    ]
+	});
+	store.loadData(myData);
+	
+	// create the Grid
+	var grid = new Ext.grid.EditorGridPanel({
+	    store: store,
+	    colModel: new Ext.grid.ColumnModel({
+	        columns: [
+	            {id:'company', header: 'Company', width: 160, dataIndex: 'company'},
+	            {header: 'Price', renderer: 'usMoney', dataIndex: 'price'},
+	            {header: 'Change', renderer: change, dataIndex: 'change'},
+	            {header: '% Change', renderer: pctChange, dataIndex: 'pctChange'},
+	            {header: 'Last Updated', width: 85,
+	                renderer: Ext.util.Format.dateRenderer('m/d/Y'),
+	                dataIndex: 'lastChange'}
+	        ],
+	        defaults: {
+	            sortable: true,
+	            width: 75
+	        }
+	    }),
+	    autoExpandColumn: 'company', // match the id specified in the column model
+	    height:350,
+	    width:600,
+	    title:'Array Grid',
+	    tbar: [{
+	        text: 'Add Record',
+	        handler : function(){
+	            var defaultData = {
+	                change: 0,
+	                company: 'New Company',
+	                lastChange: (new Date()).clearTime(),
+	                pctChange: 0,
+	                price: 10
+	            };
+	            var recId = 3; // provide unique id
+	            var p = new store.recordType(defaultData, recId); // create new record
+	            grid.stopEditing();
+	            store.{@link #insert}(0, p); // insert a new record into the store (also see {@link #add})
+	            grid.startEditing(0, 0);
+	        }
+	    }]
+	});
+	     * </code></pre>
+	     * @property recordType
+	     * @type Function
+	     */
+	
+	    if(this.recordType){
+	        /**
+	         * A {@link Ext.util.MixedCollection MixedCollection} containing the defined {@link Ext.data.Field Field}s
+	         * for the {@link Ext.data.Record Records} stored in this Store. Read-only.
+	         * @property fields
+	         * @type Ext.util.MixedCollection
+	         */
+	        this.fields = this.recordType.prototype.fields;
+	    }
+	    this.modified = [];
+	
+	    this.addEvents(
+	        /**
+	         * @event datachanged
+	         * Fires when the data cache has changed in a bulk manner (e.g., it has been sorted, filtered, etc.) and a
+	         * widget that is using this Store as a Record cache should refresh its view.
+	         * @param {Store} this
+	         */
+	        'datachanged',
+	        /**
+	         * @event metachange
+	         * Fires when this store's reader provides new metadata (fields). This is currently only supported for JsonReaders.
+	         * @param {Store} this
+	         * @param {Object} meta The JSON metadata
+	         */
+	        'metachange',
+	        /**
+	         * @event add
+	         * Fires when Records have been {@link #add}ed to the Store
+	         * @param {Store} this
+	         * @param {Ext.data.Record[]} records The array of Records added
+	         * @param {Number} index The index at which the record(s) were added
+	         */
+	        'add',
+	        /**
+	         * @event remove
+	         * Fires when a Record has been {@link #remove}d from the Store
+	         * @param {Store} this
+	         * @param {Ext.data.Record} record The Record that was removed
+	         * @param {Number} index The index at which the record was removed
+	         */
+	        'remove',
+	        /**
+	         * @event update
+	         * Fires when a Record has been updated
+	         * @param {Store} this
+	         * @param {Ext.data.Record} record The Record that was updated
+	         * @param {String} operation The update operation being performed.  Value may be one of:
+	         * <pre><code>
+	 Ext.data.Record.EDIT
+	 Ext.data.Record.REJECT
+	 Ext.data.Record.COMMIT
+	         * </code></pre>
+	         */
+	        'update',
+	        /**
+	         * @event clear
+	         * Fires when the data cache has been cleared.
+	         * @param {Store} this
+	         * @param {Record[]} The records that were cleared.
+	         */
+	        'clear',
+	        /**
+	         * @event exception
+	         * <p>Fires if an exception occurs in the Proxy during a remote request.
+	         * This event is relayed through the corresponding {@link Ext.data.DataProxy}.
+	         * See {@link Ext.data.DataProxy}.{@link Ext.data.DataProxy#exception exception}
+	         * for additional details.
+	         * @param {misc} misc See {@link Ext.data.DataProxy}.{@link Ext.data.DataProxy#exception exception}
+	         * for description.
+	         */
+	        'exception',
+	        /**
+	         * @event beforeload
+	         * Fires before a request is made for a new data object.  If the beforeload handler returns
+	         * <tt>false</tt> the {@link #load} action will be canceled.
+	         * @param {Store} this
+	         * @param {Object} options The loading options that were specified (see {@link #load} for details)
+	         */
+	        'beforeload',
+	        /**
+	         * @event load
+	         * Fires after a new set of Records has been loaded.
+	         * @param {Store} this
+	         * @param {Ext.data.Record[]} records The Records that were loaded
+	         * @param {Object} options The loading options that were specified (see {@link #load} for details)
+	         */
+	        'load',
+	        /**
+	         * @event loadexception
+	         * <p>This event is <b>deprecated</b> in favor of the catch-all <b><code>{@link #exception}</code></b>
+	         * event instead.</p>
+	         * <p>This event is relayed through the corresponding {@link Ext.data.DataProxy}.
+	         * See {@link Ext.data.DataProxy}.{@link Ext.data.DataProxy#loadexception loadexception}
+	         * for additional details.
+	         * @param {misc} misc See {@link Ext.data.DataProxy}.{@link Ext.data.DataProxy#loadexception loadexception}
+	         * for description.
+	         */
+	        'loadexception',
+	        /**
+	         * @event beforewrite
+	         * @param {Ext.data.Store} store
+	         * @param {String} action [Ext.data.Api.actions.create|update|destroy]
+	         * @param {Record/Array[Record]} rs
+	         * @param {Object} options The loading options that were specified. Edit <code>options.params</code> to add Http parameters to the request.  (see {@link #save} for details)
+	         * @param {Object} arg The callback's arg object passed to the {@link #request} function
+	         */
+	        'beforewrite',
+	        /**
+	         * @event write
+	         * Fires if the server returns 200 after an Ext.data.Api.actions CRUD action.
+	         * Success of the action is determined in the <code>result['successProperty']</code>property (<b>NOTE</b> for RESTful stores,
+	         * a simple 20x response is sufficient for the actions "destroy" and "update".  The "create" action should should return 200 along with a database pk).
+	         * @param {Ext.data.Store} store
+	         * @param {String} action [Ext.data.Api.actions.create|update|destroy]
+	         * @param {Object} result The 'data' picked-out out of the response for convenience.
+	         * @param {Ext.Direct.Transaction} res
+	         * @param {Record/Record[]} rs Store's records, the subject(s) of the write-action
+	         */
+	        'write',
+            /**
+             * @event beforesave
+             * Fires before a save action is called. A save encompasses destroying records, updating records and creating records.
+             * @param {Ext.data.Store} store
+             * @param {Object} data An object containing the data that is to be saved. The object will contain a key for each appropriate action,
+             * with an array of records for each action.
+             */
+            'beforesave',
+            /**
+             * @event save
+             * Fires after a save is completed. A save encompasses destroying records, updating records and creating records.
+             * @param {Ext.data.Store} store
+             * @param {Number} batch The identifier for the batch that was saved.
+             * @param {Object} data An object containing the data that is to be saved. The object will contain a key for each appropriate action,
+             * with an array of records for each action.
+             */
+            'save'
+            
+	    );
+	
+	    if(this.proxy){
+	        // TODO remove deprecated loadexception with ext-3.0.1
+	        this.relayEvents(this.proxy,  ['loadexception', 'exception']);
+	    }
+	    // With a writer set for the Store, we want to listen to add/remove events to remotely create/destroy records.
+	    if (this.writer) {
+	        this.on({
+	            scope: this,
+	            add: this.createRecords,
+	            remove: this.destroyRecord,
+	            update: this.updateRecord,
+	            clear: this.onClear
+	        });
+	    }
+	
+	    this.sortToggle = {};
+	    if(this.sortField){
+	        this.setDefaultSort(this.sortField, this.sortDir);
+	    }else if(this.sortInfo){
+	        this.setDefaultSort(this.sortInfo.field, this.sortInfo.direction);
+	    }
+	
+	    Ext.data.Store.superclass.constructor.call(this);
+	
+	    if(this.id){
+	        this.storeId = this.id;
+	        delete this.id;
+	    }
+	    if(this.storeId){
+	        Ext.StoreMgr.register(this);
+	    }
+	    if(this.inlineData){
+	        this.loadData(this.inlineData);
+	        delete this.inlineData;
+	    }else if(this.autoLoad){
+	        this.load.defer(10, this, [
+	            typeof this.autoLoad == 'object' ?
+	                this.autoLoad : undefined]);
+	    }
+        // used internally to uniquely identify a batch
+        this.batchCounter = 0;
+        this.batches = {};
     },
 
     /**
@@ -856,7 +881,7 @@ sortInfo: {
      * @throws Error
      * @private
      */
-    execute : function(action, rs, options) {
+    execute : function(action, rs, options, /* private */ batch) {
         // blow up if action not Ext.data.CREATE, READ, UPDATE, DESTROY
         if (!Ext.data.Api.isAction(action)) {
             throw new Ext.data.Api.Error('execute', action);
@@ -865,7 +890,9 @@ sortInfo: {
         options = Ext.applyIf(options||{}, {
             params: {}
         });
-
+        if(batch !== undefined){
+            this.addToBatch(batch);
+        }
         // have to separate before-events since load has a different signature than create,destroy and save events since load does not
         // include the rs (record resultset) parameter.  Capture return values from the beforeaction into doRequest flag.
         var doRequest = true;
@@ -899,7 +926,7 @@ sortInfo: {
             // the user's configured DataProxy#api
             // TODO Refactor all Proxies to accept an instance of Ext.data.Request (not yet defined) instead of this looooooong list
             // of params.  This method is an artifact from Ext2.
-            this.proxy.request(Ext.data.Api.actions[action], rs, options.params, this.reader, this.createCallback(action, rs), this, options);
+            this.proxy.request(Ext.data.Api.actions[action], rs, options.params, this.reader, this.createCallback(action, rs, batch), this, options);
         }
         return doRequest;
     },
@@ -916,77 +943,134 @@ sortInfo: {
      * </pre>
      * @TODO:  Create extensions of Error class and send associated Record with thrown exceptions.
      * e.g.:  Ext.data.DataReader.Error or Ext.data.Error or Ext.data.DataProxy.Error, etc.
+     * @return {Number} batch Returns a number to uniquely identify the "batch" of saves occurring. -1 will be returned
+     * if there are no items to save or the save was cancelled.
      */
     save : function() {
         if (!this.writer) {
             throw new Ext.data.Store.Error('writer-undefined');
         }
 
+        var queue = [],
+            len,
+            trans,
+            batch,
+            data = {};
         // DESTROY:  First check for removed records.  Records in this.removed are guaranteed non-phantoms.  @see Store#remove
-        if (this.removed.length) {
-            this.doTransaction('destroy', this.removed);
+        if(this.removed.length){
+            queue.push(['destroy', this.removed]);
         }
 
         // Check for modified records. Use a copy so Store#rejectChanges will work if server returns error.
         var rs = [].concat(this.getModifiedRecords());
-        if (!rs.length) { // Bail-out if empty...
-            return true;
-        }
-
-        // CREATE:  Next check for phantoms within rs.  splice-off and execute create.
-        var phantoms = [];
-        for (var i = rs.length-1; i >= 0; i--) {
-            if (rs[i].phantom === true) {
-                var rec = rs.splice(i, 1).shift();
-                if (rec.isValid()) {
-                    phantoms.push(rec);
+        if(rs.length){
+            // CREATE:  Next check for phantoms within rs.  splice-off and execute create.
+            var phantoms = [];
+            for(var i = rs.length-1; i >= 0; i--){
+                if(rs[i].phantom === true){
+                    var rec = rs.splice(i, 1).shift();
+                    if(rec.isValid()){
+                        phantoms.push(rec);
+                    }
+                }else if(!rs[i].isValid()){ // <-- while we're here, splice-off any !isValid real records
+                    rs.splice(i,1);
                 }
-            } else if (!rs[i].isValid()) { // <-- while we're here, splice-off any !isValid real records
-                rs.splice(i,1);
+            }
+            // If we have valid phantoms, create them...
+            if(phantoms.length){
+                queue.push(['create', phantoms]);
+            }
+
+            // UPDATE:  And finally, if we're still here after splicing-off phantoms and !isValid real records, update the rest...
+            if(rs.length){
+                queue.push(['update', rs]);
             }
         }
-        // If we have valid phantoms, create them...
-        if (phantoms.length) {
-            this.doTransaction('create', phantoms);
+        len = queue.length;
+        if(len){
+            batch = ++this.batchCounter;
+            for(var i = 0; i < len; ++i){
+                trans = queue[i];
+                data[trans[0]] = trans[1];
+            }
+            if(this.fireEvent('beforesave', this, data) !== false){
+                for(var i = 0; i < len; ++i){
+                    trans = queue[i];
+                    this.doTransaction(trans[0], trans[1], batch);
+                }
+                return batch;
+            }
         }
-
-        // UPDATE:  And finally, if we're still here after splicing-off phantoms and !isValid real records, update the rest...
-        if (rs.length) {
-            this.doTransaction('update', rs);
-        }
-        return true;
+        return -1;
     },
 
     // private.  Simply wraps call to Store#execute in try/catch.  Defers to Store#handleException on error.  Loops if batch: false
-    doTransaction : function(action, rs) {
+    doTransaction : function(action, rs, batch) {
         function transaction(records) {
-            try {
-                this.execute(action, records);
-            } catch (e) {
+            try{
+                this.execute(action, records, undefined, batch);
+            }catch (e){
                 this.handleException(e);
             }
         }
-        if (this.batch === false) {
-            for (var i = 0, len = rs.length; i < len; i++) {
+        if(this.batch === false){
+            for(var i = 0, len = rs.length; i < len; i++){
                 transaction.call(this, rs[i]);
             }
-        } else {
+        }else{
             transaction.call(this, rs);
+        }
+    },
+    
+    // private
+    addToBatch : function(batch){
+        var b = this.batches,
+            key = this.batchKey + batch,
+            o = b[key];
+            
+        if(!o){
+            b[key] = o = {
+                id: batch,
+                count: 0,
+                data: {}
+            }
+        }
+        ++o.count;
+    },
+    
+    removeFromBatch : function(batch, action, data){
+        var b = this.batches,
+            key = this.batchKey + batch,
+            o = b[key],
+            data,
+            arr;
+            
+
+        if(o){
+            arr = o.data[action] || [];
+            o.data[action] = arr.concat(data);
+            if(o.count === 1){
+                data = o.data;
+                delete b[key];
+                this.fireEvent('save', this, batch, data);
+            }else{
+                --o.count;
+            }
         }
     },
 
     // @private callback-handler for remote CRUD actions
     // Do not override -- override loadRecords, onCreateRecords, onDestroyRecords and onUpdateRecords instead.
-    createCallback : function(action, rs) {
+    createCallback : function(action, rs, batch) {
         var actions = Ext.data.Api.actions;
         return (action == 'read') ? this.loadRecords : function(data, response, success) {
-
             // calls: onCreateRecords | onUpdateRecords | onDestroyRecords
             this['on' + Ext.util.Format.capitalize(action) + 'Records'](success, rs, [].concat(data));
             // If success === false here, exception will have been called in DataProxy
             if (success === true) {
                 this.fireEvent('write', this, action, data, response, rs);
             }
+            this.removeFromBatch(batch, action, data);
         };
     },
 
