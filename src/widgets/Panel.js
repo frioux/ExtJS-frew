@@ -813,7 +813,7 @@ new Ext.Panel({
     // private
     createFbar : function(fbar){
         var min = this.minButtonWidth;
-        this.elements += ',footer'
+        this.elements += ',footer';
         this.fbar = this.createToolbar(fbar, {
             buttonAlign: this.buttonAlign,
             toolbarCls: 'x-panel-fbar',
