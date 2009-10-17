@@ -112,18 +112,19 @@ new Ext.Viewport({
  */
 Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
     rootVisible : true,
-    animate: Ext.enableFx,
+    animate : Ext.enableFx,
     lines : true,
     enableDD : false,
     hlDrop : Ext.enableFx,
-    pathSeparator: "/",
-    
+    pathSeparator : '/',
+
     /**
      * @cfg {Array} bubbleEvents
      * <p>An array of events that, when fired, should be bubbled to any parent container.
-     * Defaults to <tt>['add', 'remove']</tt>.
+     * See {@link Ext.util.Observable#enableBubble}.
+     * Defaults to <tt>[]</tt>.
      */
-    bubbleEvents: [],
+    bubbleEvents : [],
 
     initComponent : function(){
         Ext.tree.TreePanel.superclass.initComponent.call(this);
@@ -168,7 +169,7 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
             * @param {Node} node The newly appended node
             * @param {Number} index The index of the newly appended node
             */
-           "append",
+           'append',
            /**
             * @event remove
             * Fires when a child node is removed from a node in this tree.
@@ -176,7 +177,7 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
             * @param {Node} parent The parent node
             * @param {Node} node The child node removed
             */
-           "remove",
+           'remove',
            /**
             * @event movenode
             * Fires when a node is moved to a new location in the tree
@@ -186,7 +187,7 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
             * @param {Node} newParent The new parent of this node
             * @param {Number} index The index it was moved to
             */
-           "movenode",
+           'movenode',
            /**
             * @event insert
             * Fires when a new child node is inserted in a node in this tree.
@@ -195,7 +196,7 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
             * @param {Node} node The child node inserted
             * @param {Node} refNode The child node the node was inserted before
             */
-           "insert",
+           'insert',
            /**
             * @event beforeappend
             * Fires before a new child is appended to a node in this tree, return false to cancel the append.
@@ -203,7 +204,7 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
             * @param {Node} parent The parent node
             * @param {Node} node The child node to be appended
             */
-           "beforeappend",
+           'beforeappend',
            /**
             * @event beforeremove
             * Fires before a child is removed from a node in this tree, return false to cancel the remove.
@@ -211,7 +212,7 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
             * @param {Node} parent The parent node
             * @param {Node} node The child node to be removed
             */
-           "beforeremove",
+           'beforeremove',
            /**
             * @event beforemovenode
             * Fires before a node is moved to a new location in the tree. Return false to cancel the move.
@@ -221,7 +222,7 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
             * @param {Node} newParent The new parent the node is moving to
             * @param {Number} index The index it is being moved to
             */
-           "beforemovenode",
+           'beforemovenode',
            /**
             * @event beforeinsert
             * Fires before a new child is inserted in a node in this tree, return false to cancel the insert.
@@ -230,20 +231,20 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
             * @param {Node} node The child node to be inserted
             * @param {Node} refNode The child node the node is being inserted before
             */
-            "beforeinsert",
+            'beforeinsert',
 
             /**
             * @event beforeload
             * Fires before a node is loaded, return false to cancel
             * @param {Node} node The node being loaded
             */
-            "beforeload",
+            'beforeload',
             /**
             * @event load
             * Fires when a node is loaded
             * @param {Node} node The node that was loaded
             */
-            "load",
+            'load',
             /**
             * @event textchange
             * Fires when the text for a node is changed
@@ -251,7 +252,7 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
             * @param {String} text The new text
             * @param {String} oldText The old text
             */
-            "textchange",
+            'textchange',
             /**
             * @event beforeexpandnode
             * Fires before a node is expanded, return false to cancel.
@@ -259,7 +260,7 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
             * @param {Boolean} deep
             * @param {Boolean} anim
             */
-            "beforeexpandnode",
+            'beforeexpandnode',
             /**
             * @event beforecollapsenode
             * Fires before a node is collapsed, return false to cancel.
@@ -267,75 +268,75 @@ Ext.tree.TreePanel = Ext.extend(Ext.Panel, {
             * @param {Boolean} deep
             * @param {Boolean} anim
             */
-            "beforecollapsenode",
+            'beforecollapsenode',
             /**
             * @event expandnode
             * Fires when a node is expanded
             * @param {Node} node The node
             */
-            "expandnode",
+            'expandnode',
             /**
             * @event disabledchange
             * Fires when the disabled status of a node changes
             * @param {Node} node The node
             * @param {Boolean} disabled
             */
-            "disabledchange",
+            'disabledchange',
             /**
             * @event collapsenode
             * Fires when a node is collapsed
             * @param {Node} node The node
             */
-            "collapsenode",
+            'collapsenode',
             /**
             * @event beforeclick
             * Fires before click processing on a node. Return false to cancel the default action.
             * @param {Node} node The node
             * @param {Ext.EventObject} e The event object
             */
-            "beforeclick",
+            'beforeclick',
             /**
             * @event click
             * Fires when a node is clicked
             * @param {Node} node The node
             * @param {Ext.EventObject} e The event object
             */
-            "click",
+            'click',
             /**
             * @event containerclick
             * Fires when the tree container is clicked
             * @param {Tree} this
             * @param {Ext.EventObject} e The event object
             */
-            "containerclick",
+            'containerclick',
             /**
             * @event checkchange
             * Fires when a node with a checkbox's checked property changes
             * @param {Node} this This node
             * @param {Boolean} checked
             */
-            "checkchange",
+            'checkchange',
             /**
             * @event beforedblclick
             * Fires before double click processing on a node. Return false to cancel the default action.
             * @param {Node} node The node
             * @param {Ext.EventObject} e The event object
             */
-            "beforedblclick",
+            'beforedblclick',
             /**
             * @event dblclick
             * Fires when a node is double clicked
             * @param {Node} node The node
             * @param {Ext.EventObject} e The event object
             */
-            "dblclick",
+            'dblclick',
             /**
             * @event containerdblclick
             * Fires when the tree container is double clicked
             * @param {Tree} this
             * @param {Ext.EventObject} e The event object
             */
-            "containerdblclick",
+            'containerdblclick',
             /**
             * @event contextmenu
             * Fires when a node is right clicked. To display a context menu in response to this
@@ -383,20 +384,20 @@ new Ext.tree.TreePanel({
             * @param {Node} node The node
             * @param {Ext.EventObject} e The event object
             */
-            "contextmenu",
+            'contextmenu',
             /**
             * @event containercontextmenu
             * Fires when the tree container is right clicked
             * @param {Tree} this
             * @param {Ext.EventObject} e The event object
             */
-            "containercontextmenu",
+            'containercontextmenu',
             /**
             * @event beforechildrenrendered
             * Fires right before the child nodes for a node are rendered
             * @param {Node} node The node
             */
-            "beforechildrenrendered",
+            'beforechildrenrendered',
            /**
              * @event startdrag
              * Fires when a node starts being dragged
@@ -404,7 +405,7 @@ new Ext.tree.TreePanel({
              * @param {Ext.tree.TreeNode} node
              * @param {event} e The raw browser event
              */
-            "startdrag",
+            'startdrag',
             /**
              * @event enddrag
              * Fires when a drag operation is complete
@@ -412,7 +413,7 @@ new Ext.tree.TreePanel({
              * @param {Ext.tree.TreeNode} node
              * @param {event} e The raw browser event
              */
-            "enddrag",
+            'enddrag',
             /**
              * @event dragdrop
              * Fires when a dragged node is dropped on a valid DD target
@@ -421,7 +422,7 @@ new Ext.tree.TreePanel({
              * @param {DD} dd The dd it was dropped on
              * @param {event} e The raw browser event
              */
-            "dragdrop",
+            'dragdrop',
             /**
              * @event beforenodedrop
              * Fires when a DD object is dropped on a node in this tree for preprocessing. Return false to cancel the drop. The dropEvent
@@ -437,11 +438,11 @@ new Ext.tree.TreePanel({
              * to be inserted by setting them on this object.</li>
              * <li>cancel - Set this to true to cancel the drop.</li>
              * <li>dropStatus - If the default drop action is cancelled but the drop is valid, setting this to true
-             * will prevent the animated "repair" from appearing.</li>
+             * will prevent the animated 'repair' from appearing.</li>
              * </ul>
              * @param {Object} dropEvent
              */
-            "beforenodedrop",
+            'beforenodedrop',
             /**
              * @event nodedrop
              * Fires after a DD object is dropped on a node in this tree. The dropEvent
@@ -457,7 +458,7 @@ new Ext.tree.TreePanel({
              * </ul>
              * @param {Object} dropEvent
              */
-            "nodedrop",
+            'nodedrop',
              /**
              * @event nodedragover
              * Fires when a tree node is being targeted for a drag drop, return false to signal drop not allowed. The dragOverEvent
@@ -474,10 +475,10 @@ new Ext.tree.TreePanel({
              * </ul>
              * @param {Object} dragOverEvent
              */
-            "nodedragover"
+            'nodedragover'
         );
         if(this.singleExpand){
-            this.on("beforeexpandnode", this.restrictExpand, this);
+            this.on('beforeexpandnode', this.restrictExpand, this);
         }
     },
 
@@ -546,7 +547,7 @@ new Ext.tree.TreePanel({
 
     // private
     toString : function(){
-        return "[Tree"+(this.id?" "+this.id:"")+"]";
+        return '[Tree'+(this.id?' '+this.id:'')+']';
     },
 
     // private
@@ -561,7 +562,7 @@ new Ext.tree.TreePanel({
     },
 
     /**
-     * Retrieve an array of checked nodes, or an array of a specific attribute of checked nodes (e.g. "id")
+     * Retrieve an array of checked nodes, or an array of a specific attribute of checked nodes (e.g. 'id')
      * @param {String} attribute (optional) Defaults to null (return the actual nodes)
      * @param {TreeNode} startNode (optional) The node to start from, defaults to the root
      * @return {Array}
@@ -619,7 +620,7 @@ new Ext.tree.TreePanel({
      * (bSuccess, oLastNode) where bSuccess is if the expand was successful and oLastNode is the last node that was expanded.
      */
     expandPath : function(path, attr, callback){
-        attr = attr || "id";
+        attr = attr || 'id';
         var keys = path.split(this.pathSeparator);
         var curNode = this.root;
         if(curNode.attributes[attr] != keys[1]){ // invalid root
@@ -657,7 +658,7 @@ new Ext.tree.TreePanel({
      * (bSuccess, oSelNode) where bSuccess is if the selection was successful and oSelNode is the selected node.
      */
     selectPath : function(path, attr, callback){
-        attr = attr || "id";
+        attr = attr || 'id';
         var keys = path.split(this.pathSeparator),
             v = keys.pop();
         if(keys.length > 1){
@@ -699,9 +700,9 @@ new Ext.tree.TreePanel({
     onRender : function(ct, position){
         Ext.tree.TreePanel.superclass.onRender.call(this, ct, position);
         this.el.addClass('x-tree');
-        this.innerCt = this.body.createChild({tag:"ul",
-               cls:"x-tree-root-ct " +
-               (this.useArrows ? 'x-tree-arrows' : this.lines ? "x-tree-lines" : "x-tree-no-lines")});
+        this.innerCt = this.body.createChild({tag:'ul',
+               cls:'x-tree-root-ct ' +
+               (this.useArrows ? 'x-tree-arrows' : this.lines ? 'x-tree-lines' : 'x-tree-no-lines')});
     },
 
     // private
@@ -718,7 +719,7 @@ new Ext.tree.TreePanel({
             * @type Ext.tree.TreeDropZone
             */
              this.dropZone = new Ext.tree.TreeDropZone(this, this.dropConfig || {
-               ddGroup: this.ddGroup || "TreeDD", appendOnly: this.ddAppendOnly === true
+               ddGroup: this.ddGroup || 'TreeDD', appendOnly: this.ddAppendOnly === true
            });
         }
         if((this.enableDD || this.enableDrag) && !this.dragZone){
@@ -728,7 +729,7 @@ new Ext.tree.TreePanel({
             * @type Ext.tree.TreeDragZone
             */
             this.dragZone = new Ext.tree.TreeDragZone(this, this.dragConfig || {
-               ddGroup: this.ddGroup || "TreeDD",
+               ddGroup: this.ddGroup || 'TreeDD',
                scroll: this.ddScroll
            });
         }
