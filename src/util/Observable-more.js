@@ -62,7 +62,7 @@ Ext.apply(Ext.util.Observable.prototype, function(){
     return {
         // these are considered experimental
         // allows for easier interceptor and sequences, including cancelling and overwriting the return value of the call
-        // adds an "interceptor" called before the original method
+        // adds an 'interceptor' called before the original method
         beforeMethod : function(method, fn, scope){
             getMethodEvent.call(this, method).before.push({
                 fn: fn,
@@ -70,7 +70,7 @@ Ext.apply(Ext.util.Observable.prototype, function(){
             });
         },
 
-        // adds a "sequence" called after the original method
+        // adds a 'sequence' called after the original method
         afterMethod : function(method, fn, scope){
             getMethodEvent.call(this, method).after.push({
                 fn: fn,
@@ -123,13 +123,13 @@ Ext.apply(Ext.util.Observable.prototype, function(){
          * access the required target more quickly.</p>
          * <p>Example:</p><pre><code>
 Ext.override(Ext.form.Field, {
-//  Add functionality to Field's initComponent to enable the change event to bubble
-    initComponent: Ext.form.Field.prototype.initComponent.createSequence(function() {
+    //  Add functionality to Field&#39;s initComponent to enable the change event to bubble
+    initComponent : Ext.form.Field.prototype.initComponent.createSequence(function() {
         this.enableBubble('change');
     }),
 
-//  We know that we want Field's events to bubble directly to the FormPanel.
-    getBubbleTarget: function() {
+    //  We know that we want Field&#39;s events to bubble directly to the FormPanel.
+    getBubbleTarget : function() {
         if (!this.formPanel) {
             this.formPanel = this.findParentByType('form');
         }
@@ -144,13 +144,13 @@ var myForm = new Ext.formPanel({
     }],
     listeners: {
         change: function() {
-//          Title goes red if form has been modified.
-            myForm.header.setStyle("color", "red");
+            // Title goes red if form has been modified.
+            myForm.header.setStyle('color', 'red');
         }
     }
 });
 </code></pre>
-         * @param {Object} events The event name to bubble, or an Array of event names.
+         * @param {String/Array} events The event name to bubble, or an Array of event names.
          */
         enableBubble : function(events){
             var me = this;
@@ -193,7 +193,7 @@ Ext.util.Observable.capture = function(o, fn, scope){
  * <p>Usage:</p><pre><code>
 Ext.util.Observable.observeClass(Ext.data.Connection);
 Ext.data.Connection.on('beforerequest', function(con, options) {
-    console.log("Ajax request made to " + options.url);
+    console.log('Ajax request made to ' + options.url);
 });</code></pre>
  * @param {Function} c The class constructor to make observable.
  * @static
