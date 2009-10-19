@@ -54,7 +54,7 @@ Ext.extend(Ext.tree.DefaultSelectionModel, Ext.util.Observable, {
         if(node == last){
             node.ui.onSelectedChange(true);
         }else if(this.fireEvent('beforeselect', this, node, last) !== false){
-            if(last){
+            if(last && last.ui){
                 last.ui.onSelectedChange(false);
             }
             this.selNode = node;

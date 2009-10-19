@@ -270,14 +270,20 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
      * Triggers selection of this node
      */
     select : function(){
-        this.getOwnerTree().getSelectionModel().select(this);
+        var t = this.getOwnerTree();
+        if(t){
+            t.getSelectionModel().select(this);
+        }
     },
 
     /**
      * Triggers deselection of this node
      */
     unselect : function(){
-        this.getOwnerTree().getSelectionModel().unselect(this);
+        var t = this.getOwnerTree();
+        if(t){
+            t.getSelectionModel().unselect(this);
+        }
     },
 
     /**
@@ -285,7 +291,8 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
      * @return {Boolean}
      */
     isSelected : function(){
-        return this.getOwnerTree().getSelectionModel().isSelected(this);
+        var t = this.getOwnerTree();
+        return t ? t.getSelectionModel().isSelected(this) : false;
     },
 
     /**

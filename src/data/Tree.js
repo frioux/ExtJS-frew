@@ -534,10 +534,7 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
      * @return {Node} this
      */
     remove : function(destroy){
-        this.parentNode.removeChild(this);
-        if(destroy === true){
-            this.destroy();
-        }
+        this.parentNode.removeChild(this, destroy);
         return this;
     },
 
