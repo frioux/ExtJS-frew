@@ -581,22 +581,31 @@ Ext.extend(T, Ext.Container, {
     },
 
     // private
-    initMenuTracking : function(item){
+    trackMenu : function(item, remove){
         if(this.trackMenus && item.menu){
-            this.mon(item, {
-                'menutriggerover' : this.onButtonTriggerOver,
-                'menushow' : this.onButtonMenuShow,
-                'menuhide' : this.onButtonMenuHide,
-                scope: this
-            });
+            var method = remove ? 'mun' : 'mon';
+            this[method](item, 'menutriggerover', this.onButtonTriggerOver, this);
+            this[method](item, 'menushow', this.onButtonMenuShow, this);
+            this[method](item, 'menuhide', this.onButtonMenuHide, this);
         }
     },
 
     // private
     constructButton : function(item){
         var b = item.events ? item : this.createComponent(item, item.split ? 'splitbutton' : this.defaultType);
-        this.initMenuTracking(b);
         return b;
+    },
+    
+    // private
+    onAdd : function(c){
+        Ext.Toolbar.superclass.onAdd.call(this);
+        this.trackMenu(c);
+    },
+    
+    // private
+    onRemove : function(c){
+        Ext.Toolbar.superclass.onRemove.call(this);
+        this.trackMenu(c, true);
     },
 
     // private
