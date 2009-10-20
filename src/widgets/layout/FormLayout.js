@@ -118,7 +118,7 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
 
     onRemove: function(c){
         Ext.layout.FormLayout.superclass.onRemove.call(this, c);
-        if(this.trackLabels && !this.isHide(c)){
+        if(this.trackLabels){
             c.un('show', this.onFieldShow, this);
             c.un('hide', this.onFieldHide, this);
         }
@@ -169,6 +169,7 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
         }
     },
     
+    // private
     isHide: function(c){
         return c.hideLabel || this.container.hideLabels;
     },
@@ -257,7 +258,7 @@ new Ext.Template(
             }else if(!this.isValidParent(c, target)){
                 Ext.fly('x-form-el-' + c.id).appendChild(c.getPositionEl());
             }
-            if(this.trackLabels && !this.isHide(c)){
+            if(this.trackLabels){
                 if(c.hidden){
                     this.onFieldHide(c);
                 }
