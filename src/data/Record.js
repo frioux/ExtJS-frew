@@ -21,10 +21,11 @@
  * @param {Object} data (Optional) An object, the properties of which provide values for the new Record's
  * fields. If not specified the <code>{@link Ext.data.Field#defaultValue defaultValue}</code>
  * for each field will be assigned.
- * @param {Object} id (Optional) The id of the Record. This id should be unique, and is used by the
- * {@link Ext.data.Store} object which owns the Record to index its collection of Records. If
- * an <code>id</code> is not specified a <b><code>{@link #phantom}</code></b> Record will be created
- * with an {@link #Record.id automatically generated id}.
+ * @param {Object} id (Optional) The id of the Record. The id is used by the
+ * {@link Ext.data.Store} object which owns the Record to index its collection
+ * of Records (therefore this id should be unique within each store). If an
+ * <code>id</code> is not specified a <b><code>{@link #phantom}</code></b>
+ * Record will be created with an {@link #Record.id automatically generated id}.
  */
 Ext.data.Record = function(data, id){
     // if no id, call the auto id method
@@ -354,10 +355,13 @@ rec.{@link #commit}(); // updates the view
     },
 
     /**
-     * Creates a copy of this Record.
-     * @param {String} id (optional) A new Record id, defaults to {@link #Record.id autogenerating an id}.
-     * Note: if an <code>id</code> is not specified the copy created will be a
-     * <code>{@link #phantom}</code> Record.
+     * Creates a copy (clone) of this Record.
+     * @param {String} id (optional) A new Record id, defaults to the id
+     * of the record being copied. See <code>{@link #id}</code>. 
+     * To generate a phantom record with a new id use:<pre><code>
+var rec = record.copy(); // clone the record
+Ext.data.Record.id(rec); // automatically generate a unique sequential id
+     * </code></pre>
      * @return {Record}
      */
     copy : function(newId) {
