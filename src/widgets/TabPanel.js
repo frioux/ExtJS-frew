@@ -351,9 +351,9 @@ new Ext.TabPanel({
     itemTpl: new Ext.XTemplate(
     '&lt;li class="{cls}" id="{id}" style="overflow:hidden">',
          '&lt;tpl if="closable">',
-            '&lt;a class="x-tab-strip-close" onclick="return false;">&lt;/a>',
+            '&lt;a class="x-tab-strip-close">&lt;/a>',
          '&lt;/tpl>',
-         '&lt;a class="x-tab-right" href="#" onclick="return false;" style="padding-left:6px">',
+         '&lt;a class="x-tab-right" href="#" style="padding-left:6px">',
             '&lt;em class="x-tab-left">',
                 '&lt;span class="x-tab-strip-inner">',
                     '&lt;img src="{src}" style="float:left;margin:3px 3px 0 0">',
@@ -390,8 +390,8 @@ new Ext.TabPanel({
          */
         if(!this.itemTpl){
             var tt = new Ext.Template(
-                 '<li class="{cls}" id="{id}"><a class="x-tab-strip-close" onclick="return false;"></a>',
-                 '<a class="x-tab-right" href="#" onclick="return false;"><em class="x-tab-left">',
+                 '<li class="{cls}" id="{id}"><a class="x-tab-strip-close"></a>',
+                 '<a class="x-tab-right" href="#"><em class="x-tab-left">',
                  '<span class="x-tab-strip-inner"><span class="x-tab-strip-text {iconCls}">{text}</span></span>',
                  '</em></a></li>'
             );
@@ -517,6 +517,8 @@ new Ext.TabPanel({
         }
         item.tabEl = el;
 
+        Ext.get(el).select('a').on('click', Ext.emptyFn, null, { stopEvent: true });
+
         item.on({
             scope: this,
             disable: this.onItemDisabled,
@@ -588,8 +590,11 @@ new Ext.TabPanel({
 
     // private
     onRemove : function(c){
+        var te = Ext.get(this.getTabEl(c));
+        te.removeAllListeners();
+        te.select('a').removeAllListeners();
         Ext.TabPanel.superclass.onRemove.call(this, c);
-        Ext.destroy(Ext.get(this.getTabEl(c)));
+        Ext.destroy(te);
         this.stack.remove(c);
         c.un('disable', this.onItemDisabled, this);
         c.un('enable', this.onItemEnabled, this);
@@ -1015,7 +1020,10 @@ new Ext.TabPanel({
         if(this.items){
             this.items.each(function(item){
                 if(item && item.tabEl){
-                    Ext.get(item.tabEl).removeAllListeners();
+                    var te = Ext.get(item.tabEl);
+                    te.removeAllListeners();
+                    te.select('a').removeAllListeners();
+
                     item.tabEl = null;
                 }
             }, this);
