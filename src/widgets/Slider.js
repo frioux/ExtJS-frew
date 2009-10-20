@@ -156,12 +156,13 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
             autoStart: 300
         });
         this.tracker.initEl(this.thumb);
-        this.on('beforedestroy', this.tracker.destroy, this.tracker);
     },
 
 	// private override
     onMouseDown : function(e){
-        if(this.disabled) {return;}
+        if(this.disabled){
+            return;
+        }
         if(this.clickToChange && e.target != this.thumb.dom){
             var local = this.innerEl.translatePoints(e.getXY());
             this.onClickChange(local);
@@ -206,11 +207,12 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
 
 	// private
     doSnap : function(value){
-        if(!this.increment || this.increment == 1 || !value) {
+        if(!(this.increment && value)){
             return value;
         }
-        var newValue = value, inc = this.increment;
-        var m = value % inc;
+        var newValue = value, 
+            inc = this.increment,
+            m = value % inc;
         if(m != 0){
             newValue -= m;
             if(m * 2 > inc){
@@ -238,8 +240,8 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
 
 	// private
     getRatio : function(){
-        var w = this.innerEl.getWidth();
-        var v = this.maxValue - this.minValue;
+        var w = this.innerEl.getWidth(),
+            v = this.maxValue - this.minValue;
         return v == 0 ? w : (w/v);
     },
 
@@ -272,12 +274,12 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
 	// private
     translateValue : function(v){
         var ratio = this.getRatio();
-        return (v * ratio)-(this.minValue * ratio)-this.halfThumb;
+        return (v * ratio) - (this.minValue * ratio) - this.halfThumb;
     },
 
 	reverseValue : function(pos){
         var ratio = this.getRatio();
-        return (pos+this.halfThumb+(this.minValue * ratio))/ratio;
+        return (pos + this.halfThumb + (this.minValue * ratio)) / ratio;
     },
 
 	// private
@@ -353,7 +355,7 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
         this.thumb.removeClass(this.disabledClass);
         if(Ext.isIE){
             this.innerEl.removeClass(this.disabledClass).dom.disabled = false;
-            if (this.thumbHolder){
+            if(this.thumbHolder){
                 this.thumbHolder.hide();
             }
             this.thumb.show();
@@ -379,6 +381,12 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
 	 */
     getValue : function(){
         return this.value;
+    },
+    
+    // private
+    beforeDestroy : function(){
+        Ext.destroyMembers(this, 'endEl', 'innerEl', 'thumb', 'halfThumb', 'focusEl', 'tracker', 'thumbHolder');
+        Ext.Slider.superclass.beforeDestroy.call(this);
     }
 });
 Ext.reg('slider', Ext.Slider);
@@ -391,8 +399,8 @@ Ext.Slider.Vertical = {
     },
 
     getRatio : function(){
-        var h = this.innerEl.getHeight();
-        var v = this.maxValue - this.minValue;
+        var h = this.innerEl.getHeight(),
+            v = this.maxValue - this.minValue;
         return h/v;
     },
 
@@ -405,15 +413,15 @@ Ext.Slider.Vertical = {
     },
 
     onDrag: function(e){
-        var pos = this.innerEl.translatePoints(this.tracker.getXY());
-        var bottom = this.innerEl.getHeight()-pos.top;
+        var pos = this.innerEl.translatePoints(this.tracker.getXY()),
+            bottom = this.innerEl.getHeight()-pos.top;
         this.setValue(this.minValue + Ext.util.Format.round(bottom/this.getRatio(), this.decimalPrecision), false);
         this.fireEvent('drag', this, e);
     },
 
     onClickChange : function(local){
         if(local.left > this.clickRange[0] && local.left < this.clickRange[1]){
-            var bottom = this.innerEl.getHeight()-local.top;
+            var bottom = this.innerEl.getHeight() - local.top;
             this.setValue(this.minValue + Ext.util.Format.round(bottom/this.getRatio(), this.decimalPrecision), undefined, true);
         }
     }
