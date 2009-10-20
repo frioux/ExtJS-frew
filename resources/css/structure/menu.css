@@ -40,11 +40,14 @@
 
 .x-menu-list-item{
     white-space: nowrap;
+	display:block;
+	padding:1px;
+}
+
+.x-menu-item{
     -moz-user-select: none;
     -khtml-user-select:none;
     -webkit-user-select:ignore;
-	display:block;
-	padding:1px;
 }
 
 .x-menu-item-arrow{
