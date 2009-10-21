@@ -1157,12 +1157,22 @@ sortInfo: {
     },
 
     /**
-     * <p>Reloads the Record cache from the configured Proxy using the configured {@link Ext.data.Reader Reader} and
-     * the options from the last load operation performed.</p>
+     * <p>Reloads the Record cache from the configured Proxy using the configured
+     * {@link Ext.data.Reader Reader} and the options from the last load operation
+     * performed.</p>
      * <p><b>Note</b>: see the Important note in {@link #load}.</p>
-     * @param {Object} options (optional) An <tt>Object</tt> containing {@link #load loading options} which may
-     * override the options used in the last {@link #load} operation. See {@link #load} for details (defaults to
-     * <tt>null</tt>, in which case the {@link #lastOptions} are used).
+     * @param {Object} options <p>(optional) An <tt>Object</tt> containing
+     * {@link #load loading options} which may override the {@link #lastOptions options}
+     * used in the last {@link #load} operation. See {@link #load} for details
+     * (defaults to <tt>null</tt>, in which case the {@link #lastOptions} are
+     * used).</p>
+     * <br><p>To add new params to the existing params:</p><pre><code>
+lastOptions = myStore.lastOptions;
+Ext.apply(lastOptions.params, {
+    myNewParam: true
+});
+myStore.reload(lastOptions);
+     * </code></pre>
      */
     reload : function(options){
         this.load(Ext.applyIf(options||{}, this.lastOptions));
