@@ -1225,7 +1225,7 @@ var menu = new Ext.menu.Menu({
     // private
     // Implements the default empty TriggerField.onTriggerClick function
     onTriggerClick : function(){
-        if(this.disabled){
+        if(this.readOnly || this.disabled){
             return;
         }
         if(this.isExpanded()){

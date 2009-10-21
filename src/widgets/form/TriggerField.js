@@ -116,7 +116,7 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
         if(!this.width){
             this.wrap.setWidth(this.el.getWidth()+this.trigger.getWidth());
         }
-        if(!this.editable){
+        if(!this.editable || this.readOnly){
             this.readOnly = false;
             this.setReadOnly(true);
         }
