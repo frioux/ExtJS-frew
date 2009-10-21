@@ -228,6 +228,7 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
     /**
      * @cfg {Array} bubbleEvents
      * <p>An array of events that, when fired, should be bubbled to any parent container.
+     * See {@link Ext.util.Observable#enableBubble}. 
      * Defaults to <tt>[]</tt>.
      */
     bubbleEvents: [],
