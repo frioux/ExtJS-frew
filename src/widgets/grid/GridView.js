@@ -1293,6 +1293,16 @@ viewConfig: {
     },
 
     // private
+    clearHeaderSortState : function(){
+        if(!this.sortState){
+            return;
+        }
+        this.grid.fireEvent('sortchange', this.grid, null);
+        this.mainHd.select('td').removeClass(this.sortClasses);
+        delete this.sortState;
+    },
+
+    // private
     destroy : function(){
         if(this.colMenu){
             Ext.menu.MenuMgr.unregister(this.colMenu);
