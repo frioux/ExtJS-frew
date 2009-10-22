@@ -183,18 +183,17 @@ myGrid.on('render', function(grid) {
         }
         if(this.anchor){
             this.targetCounter++;
-            var offsets = this.getOffsets();
-            var xy = (this.anchorToTarget && !this.trackMouse) ?
-                this.el.getAlignToXY(this.anchorTarget, this.getAnchorAlign()) :
-                this.targetXY;
-
-            var dw = Ext.lib.Dom.getViewWidth()-5;
-            var dh = Ext.lib.Dom.getViewHeight()-5;
-            var scrollX = (document.documentElement.scrollLeft || document.body.scrollLeft || 0)+5;
-            var scrollY = (document.documentElement.scrollTop || document.body.scrollTop || 0)+5;
-
-            var axy = [xy[0] + offsets[0], xy[1] + offsets[1]];
-            var sz = this.getSize();
+            var offsets = this.getOffsets(),
+                xy = (this.anchorToTarget && !this.trackMouse) ? this.el.getAlignToXY(this.anchorTarget, this.getAnchorAlign()) : this.targetXY,
+                dw = Ext.lib.Dom.getViewWidth() - 5,
+                dh = Ext.lib.Dom.getViewHeight() - 5,
+                de = document.documentElement,
+                bd = document.body,
+                scrollX = (de.scrollLeft || db.scrollLeft || 0) + 5,
+                scrollY = (de.scrollTop || db.scrollTop || 0) + 5,
+                axy = [xy[0] + offsets[0], xy[1] + offsets[1]]
+                sz = this.getSize();
+                
             this.anchorEl.removeClass(this.anchorCls);
 
             if(this.targetCounter < 2){
@@ -283,7 +282,8 @@ myGrid.on('render', function(grid) {
 
     // private
     getOffsets : function(){
-        var offsets, ap = this.getAnchorPosition().charAt(0);
+        var offsets, 
+            ap = this.getAnchorPosition().charAt(0);
         if(this.anchorToTarget && !this.trackMouse){
             switch(ap){
                 case 't':
@@ -502,6 +502,16 @@ myGrid.on('render', function(grid) {
             }
         }
         return {x : x, y: y};
+    },
+    
+    beforeDestroy : function(){
+        this.onDisable();
+        Ext.destroy(this.anchorEl);
+        delete this.anchorEl;
+        delete this.target;
+        delete this.anchorTarget;
+        delete this.triggerElement;
+        Ext.ToolTip.superclass.beforeDestroy.call(this);    
     },
 
     // private
