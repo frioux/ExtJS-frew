@@ -378,9 +378,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
     beforeDestroy : function(){
         Ext.destroyMembers(this, 'field');
         delete this.parentEl;
-        if (this.boundEl) {
-            delete this.boundEl.dom;
-        }
+        delete this.boundEl;
     }
 });
 Ext.reg('editor', Ext.Editor);
