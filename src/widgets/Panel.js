@@ -1187,7 +1187,8 @@ new Ext.Panel({
     syncHeight : function(){
         var h = this.toolbarHeight,
                 bd = this.body,
-                lsh = this.lastSize.height;
+                lsh = this.lastSize.height,
+                sz;
                 
         if(this.autoHeight || !Ext.isDefined(lsh) || lsh == 'auto'){
             return;

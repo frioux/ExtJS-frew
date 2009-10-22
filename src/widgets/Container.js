@@ -754,8 +754,8 @@ tb.{@link #doLayout}();             // refresh the layout
      * @return {Ext.Container} this
      */
     doLayout: function(shallow, force){
-        var rendered = this.rendered;
-        forceLayout = force || this.forceLayout;
+        var rendered = this.rendered,
+            forceLayout = force || this.forceLayout;
 
         if(!this.canLayout() || this.collapsed){
             this.deferLayout = this.deferLayout || !shallow;
