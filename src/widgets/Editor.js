@@ -377,6 +377,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
 
     beforeDestroy : function(){
         Ext.destroyMembers(this, 'field');
+        
         delete this.parentEl;
         delete this.boundEl;
     }
