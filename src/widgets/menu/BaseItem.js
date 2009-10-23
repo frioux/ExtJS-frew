@@ -8,37 +8,7 @@
  * @param {Object} config Configuration options
  * @xtype menubaseitem
  */
-Ext.menu.BaseItem = function(config){
-    Ext.menu.BaseItem.superclass.constructor.call(this, config);
-
-    this.addEvents(
-        /**
-         * @event click
-         * Fires when this item is clicked
-         * @param {Ext.menu.BaseItem} this
-         * @param {Ext.EventObject} e
-         */
-        'click',
-        /**
-         * @event activate
-         * Fires when this item is activated
-         * @param {Ext.menu.BaseItem} this
-         */
-        'activate',
-        /**
-         * @event deactivate
-         * Fires when this item is deactivated
-         * @param {Ext.menu.BaseItem} this
-         */
-        'deactivate'
-    );
-
-    if(this.handler){
-        this.on("click", this.handler, this.scope);
-    }
-};
-
-Ext.extend(Ext.menu.BaseItem, Ext.Component, {
+Ext.menu.BaseItem = Ext.extend(Ext.Component, {
     /**
      * @property parentMenu
      * @type Ext.menu.Menu
@@ -78,6 +48,34 @@ Ext.extend(Ext.menu.BaseItem, Ext.Component, {
 
     // private
     actionMode : "container",
+    
+    initComponent : function(){
+        Ext.menu.BaseItem.superclass.initComponent.call(this);
+        this.addEvents(
+	        /**
+	         * @event click
+	         * Fires when this item is clicked
+	         * @param {Ext.menu.BaseItem} this
+	         * @param {Ext.EventObject} e
+	         */
+	        'click',
+	        /**
+	         * @event activate
+	         * Fires when this item is activated
+	         * @param {Ext.menu.BaseItem} this
+	         */
+	        'activate',
+	        /**
+	         * @event deactivate
+	         * Fires when this item is deactivated
+	         * @param {Ext.menu.BaseItem} this
+	         */
+	        'deactivate'
+	    );
+	    if(this.handler){
+	        this.on("click", this.handler, this.scope);
+	    }
+    },
 
     // private
     onRender : function(container, position){
@@ -86,9 +84,12 @@ Ext.extend(Ext.menu.BaseItem, Ext.Component, {
             this.parentMenu = this.ownerCt;
         }else{
             this.container.addClass('x-menu-list-item');
-            this.mon(this.el, 'click', this.onClick, this);
-            this.mon(this.el, 'mouseenter', this.activate, this);
-            this.mon(this.el, 'mouseleave', this.deactivate, this);
+            this.mon(this.el, {
+                scope: this,
+                click: this.onClick,
+                mouseenter: this.activate,
+                mouseleave: this.deactivate
+            });
         }
     },
 
