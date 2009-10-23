@@ -505,7 +505,7 @@ myGrid.on('render', function(grid) {
     },
     
     beforeDestroy : function(){
-        this.onDisable();
+        this.clearTimers();
         Ext.destroy(this.anchorEl);
         delete this.anchorEl;
         delete this.target;
