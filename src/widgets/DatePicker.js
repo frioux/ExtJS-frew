@@ -141,6 +141,10 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
      * In order to support regular expressions, if you are using a date format that has '.' in it, you will have to
      * escape the dot when restricting dates. For example: ['03\\.08\\.03'].
      */
+    
+    // private
+    // Set by other components to stop the picker focus being updated when the value changes.
+    focusOnSelect: true,
 
     // private
     initComponent : function(){
@@ -600,7 +604,9 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
     handleDateClick : function(e, t){
         e.stopEvent();
         if(!this.disabled && t.dateValue && !Ext.fly(t.parentNode).hasClass('x-date-disabled')){
+            this.cancelFocus = this.focusOnSelect === false;
             this.setValue(new Date(t.dateValue));
+            delete this.cancelFocus;
             this.fireEvent('select', this, this.value);
         }
     },
@@ -625,12 +631,12 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
 	                this.cells.each(function(c){
 	                   if(c.dom.firstChild.dateValue == t){
 	                       c.addClass('x-date-selected');
-	                       if(vis){
+	                       if(vis && !this.cancelFocus){
 	                           Ext.fly(c.dom.firstChild).focus(50);
 	                       }
 	                       return false;
 	                   }
-	                });
+	                }, this);
 	                return;
 	            }
 	        }
