@@ -1,3 +1,9 @@
+/*!
+ * Ext JS Library 3.0+
+ * Copyright(c) 2006-2009 Ext JS, LLC
+ * licensing@extjs.com
+ * http://www.extjs.com/license
+ */
 /**
  * @class Ext.form.Field
  * @extends Ext.BoxComponent
@@ -80,7 +86,7 @@ Ext.form.Field = Ext.extend(Ext.BoxComponent,  {
      */
     fieldClass : 'x-form-field',
     /**
-     * @cfg {String} msgTarget<p>The location where the message text set through {@link #markInvalid} should display. 
+     * @cfg {String} msgTarget<p>The location where the message text set through {@link #markInvalid} should display.
      * Must be one of the following values:</p>
      * <div class="mdetail-params"><ul>
      * <li><code>qtip</code> Display a quick tip containing the message when the user hovers over the field. This is the default.
@@ -283,7 +289,7 @@ var form = new Ext.form.FormPanel({
         }
         return String(this.getValue()) !== String(this.originalValue);
     },
-    
+
     /**
      * Sets the read only state of this field.
      * @param {Boolean} readOnly Whether the field should be read only.
@@ -361,7 +367,7 @@ var form = new Ext.form.FormPanel({
             this.el.removeClass(this.focusClass);
         }
         this.hasFocus = false;
-        if(this.validationEvent !== false && (this.validateOnBlur || this.validationEvent != 'blur')){
+        if(this.validationEvent !== false || (this.validateOnBlur || this.validationEvent === "blur")){
             this.validate();
         }
         var v = this.getValue();
@@ -537,7 +543,10 @@ var form = new Ext.form.FormPanel({
         this.value = v;
         if(this.rendered){
             this.el.dom.value = (Ext.isEmpty(v) ? '' : v);
-            this.validate();
+            if(this.validationEvent !== false ||
+               ((this.validateOnBlur || this.validationEvent === "blur") & this.hasFocus !== true ) ){
+                this.validate();
+            }
         }
         return this;
     },
