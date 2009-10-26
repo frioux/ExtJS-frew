@@ -679,7 +679,16 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         if(this.isMenuTriggerOut(e, internal)){
             this.fireEvent('menutriggerout', this, this.menu, e);
         }
+    },    
+    
+    focus : function() {
+        this.btnEl.focus();
     },
+
+    blur : function() {
+        this.btnEl.blur();
+    },
+    
     // private
     onFocus : function(e){
         if(!this.disabled){
@@ -727,8 +736,6 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     restoreClick : function(){
         this.ignoreNextClick = 0;
     }
-
-
 
     /**
      * @cfg {String} autoEl @hide

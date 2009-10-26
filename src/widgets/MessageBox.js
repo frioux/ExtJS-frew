@@ -37,6 +37,7 @@ Ext.MessageBox = function(){
 
     // private
     var handleButton = function(button){
+        buttons[button].blur();
         if(dlg.isVisible()){
             dlg.hide();
             handleHide();
@@ -49,7 +50,7 @@ Ext.MessageBox = function(){
         if(opt && opt.cls){
             dlg.el.removeClass(opt.cls);
         }
-        progressBar.reset();
+        progressBar.reset();        
     };
 
     // private
