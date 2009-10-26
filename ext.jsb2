@@ -1114,9 +1114,6 @@
            text: 'box.css',
            path: 'resources/css/structure/'
        },{
-           text: 'debug.css',
-           path: 'resources/css/structure/'
-       },{
            text: 'combo.css',
            path: 'resources/css/structure/'
        },{
@@ -1193,9 +1190,6 @@
            text: 'box.css',
            path: 'resources/css/visual/'
        },{
-           text: 'debug.css',
-           path: 'resources/css/visual/'
-       },{
            text: 'combo.css',
            path: 'resources/css/visual/'
        },{
@@ -1226,6 +1220,16 @@
            text: 'dialog.css',
            path: 'resources/css/visual/'
        }]
+    },{
+       name: 'Ext Debug CSS',
+       file: 'resources/css/debug.css',
+       fileIncludes: [{
+           text: 'debug.css',
+           path: 'resources/css/structure/'
+       },{
+           text: 'debug.css',
+           path: 'resources/css/visual/'
+        }]
     }],
     resources: [{
         src: 'src/',
@@ -1253,4 +1257,3 @@
         filters: ".*"
     }]
 }
-
