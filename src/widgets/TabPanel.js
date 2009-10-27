@@ -508,16 +508,24 @@ new Ext.TabPanel({
             p = this.getTemplateArgs(item),
             el = before ?
                  this.itemTpl.insertBefore(before, p) :
-                 this.itemTpl.append(this.strip, p);
+                 this.itemTpl.append(this.strip, p),
+            cls = 'x-tab-strip-over',
+            tabEl = Ext.get(el);
 
-        Ext.fly(el).addClassOnOver('x-tab-strip-over');
+        tabEl.hover(function(){
+            if(!item.disabled){
+                tabEl.addClass(cls);
+            }
+        }, function(){
+            tabEl.removeClass(cls);
+        });
 
         if(item.tabTip){
-            Ext.fly(el).child('span.x-tab-strip-text', true).qtip = item.tabTip;
+            tabEl.child('span.x-tab-strip-text', true).qtip = item.tabTip;
         }
         item.tabEl = el;
 
-        Ext.get(el).select('a').on('click', Ext.emptyFn, null, { stopEvent: true });
+        tabEl.select('a').on('click', Ext.emptyFn, null, { stopEvent: true });
 
         item.on({
             scope: this,
@@ -528,6 +536,8 @@ new Ext.TabPanel({
             beforeshow: this.onBeforeShowItem
         });
     },
+    
+    
 
     /**
      * <p>Provides template arguments for rendering a tab selector item in the tab strip.</p>
