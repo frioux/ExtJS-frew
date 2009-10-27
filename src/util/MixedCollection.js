@@ -1,3 +1,9 @@
+/*!
+ * Ext JS Library 3.0+
+ * Copyright(c) 2006-2009 Ext JS, LLC
+ * licensing@extjs.com
+ * http://www.extjs.com/license
+ */
 /**
  * @class Ext.util.MixedCollection
  * @extends Ext.util.Observable
@@ -297,7 +303,7 @@ mc.add(otherEl);
     getCount : function(){
         return this.length;
     },
-    
+
     /**
      * Returns index within the collection of the passed Object.
      * @param {Object} o The item to find the index of.
@@ -398,14 +404,14 @@ mc.add(otherEl);
      * @param {String} property Property to sort by ('key', 'value', or 'index')
      * @param {String} dir (optional) Direction to sort 'ASC' or 'DESC'. Defaults to 'ASC'.
      * @param {Function} fn (optional) Comparison function that defines the sort order.
-     * Defaults to sorting by numeric value.  
+     * Defaults to sorting by numeric value.
      */
     _sort : function(property, dir, fn){
         var i,
             len,
             dsc = String(dir).toUpperCase() == 'DESC' ? -1 : 1,
             c = [], k = this.keys, items = this.items;
-            
+
         fn = fn || function(a, b){
             return a-b;
         };
@@ -430,7 +436,7 @@ mc.add(otherEl);
      * Sorts this collection by <b>item</b> value with the passed comparison function.
      * @param {String} direction (optional) 'ASC' or 'DESC'. Defaults to 'ASC'.
      * @param {Function} fn (optional) Comparison function that defines the sort order.
-     * Defaults to sorting by numeric value.  
+     * Defaults to sorting by numeric value.
      */
     sort : function(dir, fn){
         this._sort('value', dir, fn);
@@ -440,7 +446,7 @@ mc.add(otherEl);
      * Sorts this collection by <b>key</b>s.
      * @param {String} direction (optional) 'ASC' or 'DESC'. Defaults to 'ASC'.
      * @param {Function} fn (optional) Comparison function that defines the sort order.
-     * Defaults to sorting by case insensitive string.  
+     * Defaults to sorting by case insensitive string.
      */
     keySort : function(dir, fn){
         this._sort('key', dir, fn || function(a, b){
@@ -554,12 +560,13 @@ mc.add(otherEl);
     },
 
     // private
-    createValueMatcher : function(value, anyMatch, caseSensitive){
-        if(!value.exec){ // not a regex
+    createValueMatcher : function(value, anyMatch, caseSensitive) {
+        if (!value.exec) { // not a regex
+            var er = Ext.escapeRe;
             value = String(value);
-            value = new RegExp((anyMatch === true ? '' : '^') + Ext.escapeRe(value), caseSensitive ? '' : 'i');
-        }
-        return value;
+            value = new RegExp(anyMatch === true ? er(value) : '^' + er(value) + '$', caseSensitive ? '' : 'i');
+         }
+         return value;
     },
 
     /**
