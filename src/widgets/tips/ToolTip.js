@@ -189,8 +189,8 @@ myGrid.on('render', function(grid) {
                 dh = Ext.lib.Dom.getViewHeight() - 5,
                 de = document.documentElement,
                 bd = document.body,
-                scrollX = (de.scrollLeft || db.scrollLeft || 0) + 5,
-                scrollY = (de.scrollTop || db.scrollTop || 0) + 5,
+                scrollX = (de.scrollLeft || bd.scrollLeft || 0) + 5,
+                scrollY = (de.scrollTop || bd.scrollTop || 0) + 5,
                 axy = [xy[0] + offsets[0], xy[1] + offsets[1]]
                 sz = this.getSize();
                 
