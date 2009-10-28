@@ -157,6 +157,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
                 }
             });
         }
+        delete cfg.ownerCt;
         delete cfg.xtype;
         delete cfg.id;
         return cfg;
