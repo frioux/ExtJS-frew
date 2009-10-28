@@ -343,7 +343,6 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                 );
             }
         }
-
         this.tb = tb;
     },
 
@@ -359,8 +358,11 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
 
     setReadOnly: function(readOnly){
         if(this.initialized){
-            this.doc.designMode = readOnly ? 'off' : 'on';
-            this.disableItems(readOnly);
+            var newDM = readOnly ? 'off' : 'on';
+            if(String(this.doc.designMode).toLowerCase() != newDM){
+                this.doc.designMode = newDM;
+            }
+            this.disableItems(!readOnly);
         }
         Ext.form.HtmlEditor.superclass.setReadOnly.call(this, readOnly);
     },
@@ -511,7 +513,8 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             sourceEditMode = !this.sourceEditMode;
         }
         this.sourceEditMode = sourceEditMode === true;
-        var btn = this.tb.items.get('sourceedit');
+        var btn = this.tb.getComponent('sourceedit');
+        
         if(btn.pressed !== this.sourceEditMode){
             btn.toggle(this.sourceEditMode);
             if(!btn.xtbHidden){
@@ -908,7 +911,6 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             this.win.focus();
             var r = this.doc.selection.createRange();
             if(r){
-                r.collapse(true);
                 r.pasteHTML(text);
                 this.syncValue();
                 this.deferFocus();
