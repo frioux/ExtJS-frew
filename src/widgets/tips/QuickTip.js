@@ -95,7 +95,7 @@ Ext.QuickTip = Ext.extend(Ext.ToolTip, {
         var t = e.getTarget(), 
             ttp, 
             cfg;
-        if(this.interceptTitles && t.title){
+        if(this.interceptTitles && Ext.isString(t.title)){
             ttp = t.title;
             t.qtip = ttp;
             t.removeAttribute("title");
