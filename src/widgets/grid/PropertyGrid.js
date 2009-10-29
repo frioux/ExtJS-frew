@@ -81,10 +81,7 @@ Ext.grid.PropertyStore = Ext.extend(Ext.util.Observable, {
 
     // private
     isEditableValue: function(val){
-        if(Ext.isDate(val)){
-            return true;
-        }
-        return !(Ext.isObject(val) || Ext.isFunction(val));
+        return Ext.isPrimitive(val) || Ext.isDate(val);
     },
 
     // private

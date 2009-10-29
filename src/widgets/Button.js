@@ -245,7 +245,6 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         );
         if(this.menu){
             this.menu = Ext.menu.MenuMgr.get(this.menu);
-            this.menu.ownerCt = this;
         }
         if(Ext.isString(this.toggleGroup)){
             this.enableToggle = true;
@@ -441,10 +440,10 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         if(this.rendered){
             this.clearTip();
         }
-        if(this.menu){
-            delete this.menu.ownerCt;
+        if(this.menu && this.menu.autoDestroy) {
+            Ext.destroy(this.menu);
         }
-        Ext.destroy(this.menu, this.repeater);
+        Ext.destroy(this.repeater);
     },
 
     // private
@@ -721,6 +720,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     },
     // private
     onMenuShow : function(e){
+        this.menu.ownerCt = this;
         this.ignoreNextClick = 0;
         this.el.addClass('x-btn-menu-active');
         this.fireEvent('menushow', this, this.menu);
@@ -730,6 +730,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         this.el.removeClass('x-btn-menu-active');
         this.ignoreNextClick = this.restoreClick.defer(250, this);
         this.fireEvent('menuhide', this, this.menu);
+        delete this.menu.ownerCt;
     },
 
     // private

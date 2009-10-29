@@ -373,7 +373,7 @@ Ext.grid.TemplateColumn = Ext.extend(Ext.grid.Column, {
      */
     constructor: function(cfg){
         Ext.grid.TemplateColumn.superclass.constructor.call(this, cfg);
-        var tpl = Ext.isObject(this.tpl) ? this.tpl : new Ext.XTemplate(this.tpl);
+        var tpl = (!Ext.isPrimitive(this.tpl) && this.tpl.compile) ? this.tpl : new Ext.XTemplate(this.tpl);
         this.renderer = function(value, p, r){
             return tpl.apply(r.data);
         };
