@@ -546,6 +546,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
             var sz = this.getSize();
             this.onResize(sz.width, sz.height);
         }
+        this.onShow();
         this.fireEvent('show', this);
     },
 
@@ -606,6 +607,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
         if(this.keyMap){
             this.keyMap.disable();
         }
+        this.onHide();
         this.fireEvent('hide', this);
     },
 
@@ -624,6 +626,9 @@ Ext.Window = Ext.extend(Ext.Panel, {
             opacity: 0
         }));
     },
+    
+    onShow : Ext.emptyFn,
+    onHide : Ext.emptyFn,
 
     // private
     onWindowResize : function(){
