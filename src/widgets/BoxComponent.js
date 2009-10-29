@@ -248,8 +248,8 @@ var myPanel = new Ext.Panel({
         }
         this.lastSize = {width: w, height: h};
         var adj = this.adjustSize(w, h);
-        var aw = adj.width, ah = adj.height;
-        if(aw !== undefined || ah !== undefined){ // this code is nasty but performs better with floaters
+        var aw = adj.width, ah = adj.height, rz = this.getResizeEl();
+        if(rz && aw !== undefined || ah !== undefined){ // this code is nasty but performs better with floaters
             var rz = this.getResizeEl();
             if(!this.deferHeight && aw !== undefined && ah !== undefined){
                 rz.setSize(aw, ah);

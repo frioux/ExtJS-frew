@@ -9,7 +9,7 @@ Ext.FlashComponent = Ext.extend(Ext.BoxComponent, {
      * @cfg {String} flashVersion
      * Indicates the version the flash content was published for. Defaults to <tt>'9.0.45'</tt>.
      */
-    flashVersion : '9.0.45',
+    flashVersion : '9.0.115',
 
     /**
      * @cfg {String} backgroundColor
