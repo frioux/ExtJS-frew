@@ -643,16 +643,16 @@ new Ext.Panel({
      * footer, etc.).
      */
     preventBodyReset : false,
-    
+
     /**
      * @cfg {Number/String} padding
      * A shortcut for setting a padding style on the body element. The value can either be
      * a number to be applied to all sides, or a normal css string describing padding.
-     * Defaults to <tt>undefined</tt>. 
-     * 
+     * Defaults to <tt>undefined</tt>.
+     *
      */
     padding: undefined,
-    
+
     /** @cfg {String} resizeEvent
      * The event to listen to for resizing in layouts. Defaults to <tt>'bodyresize'</tt>.
      */
@@ -777,12 +777,12 @@ new Ext.Panel({
         if(this.tbar){
             this.elements += ',tbar';
             this.topToolbar = this.createToolbar(this.tbar);
-            delete this.tbar;      
-            
+            delete this.tbar;
+
         }
         if(this.bbar){
             this.elements += ',bbar';
-            this.bottomToolbar = this.createToolbar(this.bbar);          
+            this.bottomToolbar = this.createToolbar(this.bbar);
             delete this.bbar;
         }
 
@@ -809,7 +809,7 @@ new Ext.Panel({
             this.on('render', this.doAutoLoad, this, {delay:10});
         }
     },
-    
+
     // private
     createFbar : function(fbar){
         var min = this.minButtonWidth;
@@ -833,11 +833,11 @@ new Ext.Panel({
          * @property buttons
          */
         this.fbar.items.each(function(c){
-            c.minWidth = c.minWidth || this.minButtonWidth; 
+            c.minWidth = c.minWidth || this.minButtonWidth;
         }, this);
         this.buttons = this.fbar.items.items;
     },
-    
+
     // private
     createToolbar: function(tb, options){
         var result;
@@ -886,23 +886,23 @@ new Ext.Panel({
             d = el.dom,
             bw,
             ts;
-            
-            
+
+
         if(this.collapsible && !this.hideCollapseTool){
             this.tools = this.tools ? this.tools.slice(0) : [];
             this.tools[this.collapseFirst?'unshift':'push']({
                 id: 'toggle',
                 handler : this.toggleCollapse,
                 scope: this
-            });   
+            });
         }
-        
+
         if(this.tools){
             ts = this.tools;
             this.elements += (this.header !== false) ? ',header' : '';
         }
         this.tools = {};
-            
+
         el.addClass(this.baseCls);
         if(d.firstChild){ // existing markup
             this.header = el.down('.'+this.headerCls);
@@ -1030,11 +1030,11 @@ new Ext.Panel({
         if(this.fbar){
             this.footer.addClass('x-panel-btns');
             this.fbar.render(this.footer);
-            this.footer.createChild({cls:'x-clear'});           
+            this.footer.createChild({cls:'x-clear'});
         }
 
         if(this.tbar && this.topToolbar){
-            this.topToolbar.render(this.tbar);            
+            this.topToolbar.render(this.tbar);
         }
         if(this.bbar && this.bottomToolbar){
             this.bottomToolbar.render(this.bbar);
@@ -1189,12 +1189,12 @@ new Ext.Panel({
                 bd = this.body,
                 lsh = this.lastSize.height,
                 sz;
-                
+
         if(this.autoHeight || !Ext.isDefined(lsh) || lsh == 'auto'){
             return;
         }
-            
-           
+
+
         if(h != this.getToolbarHeight()){
             h = Math.max(0, this.adjustBodyHeight(lsh - this.getFrameHeight()));
             bd.setHeight(h);
@@ -1279,7 +1279,7 @@ new Ext.Panel({
                 this.syncHeight();
             }
         }
-        
+
     },
 
     // private
@@ -1491,12 +1491,12 @@ new Ext.Panel({
         }
         this.syncShadow();
     },
-    
+
     // private
     onBodyResize: function(w, h){
         this.fireEvent('bodyresize', this, w, h);
     },
-    
+
     // private
     getToolbarHeight: function(){
         var h = 0;
@@ -1587,7 +1587,7 @@ new Ext.Panel({
     getLayoutTarget : function(){
         return this.body;
     },
-    
+
     // private
     getContentTarget : function(){
         return this.body;
@@ -1653,20 +1653,7 @@ panel.load({
         Ext.Panel.superclass.beforeDestroy.call(this);
         if(this.header){
             this.header.removeAllListeners();
-            if(this.headerAsText){
-                Ext.Element.uncache(this.header.child('span'));
-            }
         }
-        Ext.Element.uncache(
-            this.ft,
-            this.mc,
-            this.header,
-            this.tbar,
-            this.bbar,
-            this.footer,
-            this.body,
-            this.bwrap
-        );
         if(this.tools){
             for(var k in this.tools){
                 Ext.destroy(this.tools[k]);
