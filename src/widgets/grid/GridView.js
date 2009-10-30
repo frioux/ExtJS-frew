@@ -1036,7 +1036,9 @@ viewConfig: {
     insertRows : function(dm, firstRow, lastRow, isUpdate){
         var last = dm.getCount() - 1;
         if(!isUpdate && firstRow === 0 && lastRow >= last){
+	    this.fireEvent('beforerowsinserted', this, firstRow, lastRow);
             this.refresh();
+	    this.fireEvent('rowsinserted', this, firstRow, lastRow);
         }else{
             if(!isUpdate){
                 this.fireEvent('beforerowsinserted', this, firstRow, lastRow);
@@ -1479,6 +1481,7 @@ viewConfig: {
 
     // private
     onAdd : function(ds, records, index){
+	
         this.insertRows(ds, index, index + (records.length-1));
     },
 
