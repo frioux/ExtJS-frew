@@ -92,7 +92,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
 
     /**
      * @cfg {String} clickEvent
-     * The DOM event that will fire the handler of the button. This can be any valid event name (dblclick, contextmenu). 
+     * The DOM event that will fire the handler of the button. This can be any valid event name (dblclick, contextmenu).
      * Defaults to <tt>'click'</tt>.
      */
     clickEvent : 'click',
@@ -270,7 +270,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     getTemplateArgs : function(){
         return [this.type, 'x-btn-' + this.scale + ' x-btn-icon-' + this.scale + '-' + this.iconAlign, this.getMenuClass(), this.cls];
     },
-    
+
     // private
     setButtonClass : function(){
         if(this.useSetClass){
@@ -333,12 +333,8 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         this.el = btn;
 
         if(this.id){
-            var d = this.el.dom,
-                c = Ext.Element.cache;
-                
-            delete c[d.id];
+            var d = this.el.dom;
             d.id = this.el.id = this.id;
-            c[d.id] = this.el;
         }
         this.setIcon(this.icon);
         this.setText(this.text);
@@ -503,7 +499,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         this.doAutoWidth();
         return this;
     },
-    
+
     /**
      * Sets the background image (inline style) of the button.  This method also changes
      * the value of the {@link icon} config internally.
@@ -678,8 +674,8 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         if(this.isMenuTriggerOut(e, internal)){
             this.fireEvent('menutriggerout', this, this.menu, e);
         }
-    },    
-    
+    },
+
     focus : function() {
         this.btnEl.focus();
     },
@@ -687,7 +683,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     blur : function() {
         this.btnEl.blur();
     },
-    
+
     // private
     onFocus : function(e){
         if(!this.disabled){
