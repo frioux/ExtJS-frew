@@ -1072,14 +1072,12 @@ new Ext.Panel({
     // private
     makeFloating : function(cfg){
         this.floating = true;
-        this.el = new Ext.Layer(
-            Ext.isObject(cfg) ? cfg : {
-                shadow: Ext.isDefined(this.shadow) ? this.shadow : 'sides',
-                shadowOffset: this.shadowOffset,
-                constrain:false,
-                shim: this.shim === false ? false : undefined
-            }, this.el
-        );
+        this.el = new Ext.Layer(Ext.apply({}, cfg, {
+            shadow: Ext.isDefined(this.shadow) ? this.shadow : 'sides',
+            shadowOffset: this.shadowOffset,
+            constrain:false,
+            shim: this.shim === false ? false : undefined
+        }), this.el);
     },
 
     /**
