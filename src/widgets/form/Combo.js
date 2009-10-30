@@ -509,7 +509,8 @@ var combo = new Ext.form.ComboBox({
                 parentEl: this.getListParent(),
                 shadow: this.shadow,
                 cls: [cls, this.listClass].join(' '),
-                constrain:false
+                constrain:false,
+                zindex: 12000
             });
 
             var lw = this.listWidth || Math.max(this.wrap.getWidth(), this.minListWidth);
