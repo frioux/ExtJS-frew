@@ -627,7 +627,16 @@ Ext.Window = Ext.extend(Ext.Panel, {
         }));
     },
     
+    /**
+     * Method that is called immediately before the <code>show</code> event is fired.
+     * Defaults to <code>Ext.emptyFn</code>.
+     */
     onShow : Ext.emptyFn,
+    
+    /**
+     * Method that is called immediately before the <code>hide</code> event is fired.
+     * Defaults to <code>Ext.emptyFn</code>.
+     */
     onHide : Ext.emptyFn,
 
     // private
