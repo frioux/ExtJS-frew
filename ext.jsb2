@@ -896,6 +896,9 @@
           text: 'CheckColumn.js',
           path: 'examples/ux/'
        },{
+          text: 'ColumnHeaderGroup.js',
+          path: 'examples/ux/'
+       },{
           text: 'ColumnNodeUI.js',
           path: 'examples/ux/'
        },{
@@ -945,6 +948,9 @@
           path: 'examples/ux/'
        },{
           text: 'ItemSelector.js',
+          path: 'examples/ux/'
+       },{
+          text: 'LockingGridView.js',
           path: 'examples/ux/'
        },{
           text: 'MultiSelect.js',
@@ -1023,6 +1029,9 @@
           text: 'CenterLayout.css',
           path: 'examples/ux/css/'
        },{
+          text: 'ColumnHeaderGroup.css',
+          path: 'examples/ux/css/' 
+       },{
           text: 'ColumnNodeUI.css',
           path: 'examples/ux/css/'
        },{
@@ -1039,6 +1048,9 @@
           path: 'examples/ux/css/'
        },{
           text: 'GroupTab.css',
+          path: 'examples/ux/css/'
+       },{
+          text: 'LockingGridView.css',
           path: 'examples/ux/css/'
        },{
           text: 'MultiSelect.css',
