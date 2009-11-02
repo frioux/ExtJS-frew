@@ -1350,9 +1350,9 @@ viewConfig: {
             delete Ext.dd.DDM.ids[this.columnDrop.ddGroup];
         }
 
-        if (this.splitone){ // enableColumnResize
-            this.splitone.destroy();
-            delete this.splitone._domRef;
+        if (this.splitZone){ // enableColumnResize
+            this.splitZone.destroy();
+            delete this.splitZone._domRef;
             delete Ext.dd.DDM.ids["gridSplitters" + this.grid.getGridEl().id];
         }
 
@@ -1778,11 +1778,15 @@ Ext.extend(Ext.grid.GridView.SplitDragZone, Ext.dd.DDProxy, {
         this.startPos = x;
         Ext.dd.DDProxy.prototype.b4StartDrag.call(this, x, y);
     },
+    
+    allowHeaderDrag : function(e){
+        return true;
+    },
 
 
     handleMouseDown : function(e){
         var t = this.view.findHeaderCell(e.getTarget());
-        if(t){
+        if(t && this.allowHeaderDrag(e)){
             var xy = this.view.fly(t).getXY(), x = xy[0], y = xy[1];
             var exy = e.getXY(), ex = exy[0];
             var w = t.offsetWidth, adjust = false;
