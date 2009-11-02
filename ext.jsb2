@@ -10,9 +10,9 @@
             text: 'Ext.js',
             path: 'src/core/core/'
         },{
-        text: 'Ext-more.js',
+            text: 'Ext-more.js',
             path: 'src/core/'
-    },{
+        },{
             text: 'TaskMgr.js',
             path: 'src/util/core/'
         },{
@@ -24,7 +24,7 @@
         },{
             text: 'ext-base-dom-more.js',
             path: 'src/adapter/'
-    },{
+        },{
             text: 'ext-base-event.js',
             path: 'src/adapter/core/'
         },{
@@ -33,10 +33,10 @@
         },{
             text: 'ext-base-region.js',
             path: 'src/adapter/core/'
-    },{
+        },{
             text: 'ext-base-point.js',
             path: 'src/adapter/core/'
-    },{
+        },{
             text: 'ext-base-anim.js',
             path: 'src/adapter/core/'
         },{
@@ -230,8 +230,8 @@
             path: 'src/util/'
         },{
             text: 'Error.js',
-        path: 'src/core/'
-    }]
+            path: 'src/core/'
+        }]
     },{
         name: 'Drag Drop',
         file: 'pkgs/ext-dd.js',
@@ -253,9 +253,9 @@
             text: 'StatusProxy.js',
             path: 'src/dd/'
         },{
-        text: 'DragSource.js',
+            text: 'DragSource.js',
             path: 'src/dd/'
-    },{
+        },{
             text: 'DropTarget.js',
             path: 'src/dd/'
         },{
@@ -307,9 +307,9 @@
             text: 'Response.js',
             path: 'src/data/'
         }, {
-        text: 'ScriptTagProxy.js',
-        path: 'src/data/'
-    },{
+            text: 'ScriptTagProxy.js',
+            path: 'src/data/'
+        },{
             text: 'HttpProxy.js',
             path: 'src/data/'
         },{
@@ -472,7 +472,7 @@
             text: 'DatePicker.js',
             path: 'src/widgets/'
         },{
-        text: 'LoadMask.js',
+            text: 'LoadMask.js',
             path: 'src/widgets/'
         },{
             text: 'Slider.js',
@@ -627,9 +627,9 @@
             text: 'TreeSelectionModel.js',
             path: 'src/widgets/tree/'
         },{
-        text: 'Tree.js',
-        path: 'src/data/'
-    },{
+            text: 'Tree.js',
+            path: 'src/data/'
+        },{
             text: 'TreeNode.js',
             path: 'src/widgets/tree/'
         },{
@@ -853,35 +853,35 @@
         name: 'Ext All',
         file: 'ext-all.js',
         isDebug: true,
-    includeDeps: true,
+        includeDeps: true,
         pkgDeps: [
-        'pkgs/ext-foundation.js',
-        'pkgs/cmp-foundation.js',
-        'pkgs/ext-dd.js',
-        'pkgs/data-foundation.js',
-        'pkgs/data-json.js',
-        'pkgs/data-xml.js',
-        'pkgs/data-grouping.js',
-        'pkgs/direct.js',
-                'pkgs/resizable.js',
-        'pkgs/window.js',
-        'pkgs/state.js',
-        'pkgs/data-list-views.js',
-        'pkgs/pkg-tabs.js',
-        'pkgs/pkg-buttons.js',
-        'pkgs/pkg-toolbars.js',
-        'pkgs/pkg-history.js',
-        'pkgs/pkg-tips.js',
-        'pkgs/pkg-tree.js',
-        'pkgs/pkg-charts.js',
-        'pkgs/pkg-menu.js',
-        'pkgs/pkg-forms.js',
-        'pkgs/pkg-grid-foundation.js',
-        'pkgs/pkg-grid-editor.js',
-        'pkgs/pkg-grid-property.js',
-        'pkgs/pkg-grid-grouping.js'
-    ],
-    fileIncludes: []
+            'pkgs/ext-foundation.js',
+            'pkgs/cmp-foundation.js',
+            'pkgs/ext-dd.js',
+            'pkgs/data-foundation.js',
+            'pkgs/data-json.js',
+            'pkgs/data-xml.js',
+            'pkgs/data-grouping.js',
+            'pkgs/direct.js',
+            'pkgs/resizable.js',
+            'pkgs/window.js',
+            'pkgs/state.js',
+            'pkgs/data-list-views.js',
+            'pkgs/pkg-tabs.js',
+            'pkgs/pkg-buttons.js',
+            'pkgs/pkg-toolbars.js',
+            'pkgs/pkg-history.js',
+            'pkgs/pkg-tips.js',
+            'pkgs/pkg-tree.js',
+            'pkgs/pkg-charts.js',
+            'pkgs/pkg-menu.js',
+            'pkgs/pkg-forms.js',
+            'pkgs/pkg-grid-foundation.js',
+            'pkgs/pkg-grid-editor.js',
+            'pkgs/pkg-grid-property.js',
+            'pkgs/pkg-grid-grouping.js'
+        ],
+        fileIncludes: []
     },{
        name: 'User Extension JS Pack',
        file: 'examples/ux/ux-all.js',
