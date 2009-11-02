@@ -89,6 +89,8 @@ Ext.onReady(function() {
                 '</tbody></table></div>' +
              '</tpl>',
         itemSelector: 'div.patient-source',
+        overClass: 'patient-over',
+        selectedClass: 'patient-selected',
         store: patientStore,
         listeners: {
             render: initializePatientDragZone
