@@ -211,10 +211,10 @@ rec.{@link #commit}(); // updates the view
      * @param {String/Object/Array} value The value to set the field to.
      */
     set : function(name, value){
-        var encode = Ext.isPrimitive(v) ? String : Ext.encode;
+        var encode = Ext.isPrimitive(value) ? String : Ext.encode;
         if(encode(this.data[name]) == encode(value)) {
             return;
-        }
+        }        
         this.dirty = true;
         if(!this.modified){
             this.modified = {};
