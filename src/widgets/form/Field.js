@@ -361,7 +361,7 @@ var form = new Ext.form.FormPanel({
             this.el.removeClass(this.focusClass);
         }
         this.hasFocus = false;
-        if(this.validationEvent !== false && (this.validateOnBlur || this.validationEvent != 'blur')){
+        if(this.validationEvent !== false && (this.validateOnBlur || this.validationEvent == 'blur')){
             this.validate();
         }
         var v = this.getValue();
