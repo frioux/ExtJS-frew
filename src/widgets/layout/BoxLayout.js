@@ -59,7 +59,7 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
     monitorResize : true,
     scrollOffset : 0,
     extraCls : 'x-box-item',
-    ctCls : 'x-box-layout-ct',
+    targetCls : 'x-box-layout-ct',
     innerCls : 'x-box-inner',
     
     constructor : function(config){
@@ -79,8 +79,6 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
         var cs = ct.items.items, len = cs.length, c, i, last = len-1, cm;
 
         if(!this.innerCt){
-            target.addClass(this.ctCls);
-
             // the innerCt prevents wrapping and shuffling while
             // the container is resizing
             this.innerCt = target.createChild({cls:this.innerCls});

@@ -82,12 +82,13 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
     monitorResize:true,
     // private
     rendered : false,
+    
+    targetCls: 'x-border-layout-ct',
 
     // private
     onLayout : function(ct, target){
         var collapsed;
         if(!this.rendered){
-            target.addClass('x-border-layout-ct');
             var items = ct.items.items;
             collapsed = [];
             for(var i = 0, len = items.length; i < len; i++) {

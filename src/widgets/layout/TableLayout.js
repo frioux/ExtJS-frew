@@ -66,6 +66,8 @@ Ext.layout.TableLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
     // private
     monitorResize:false,
+    
+    targetCls: 'x-table-layout-ct',
 
     /**
      * @cfg {Object} tableAttrs
@@ -100,8 +102,6 @@ Ext.layout.TableLayout = Ext.extend(Ext.layout.ContainerLayout, {
         var cs = ct.items.items, len = cs.length, c, i;
 
         if(!this.table){
-            target.addClass('x-table-layout-ct');
-
             this.table = target.createChild(
                 Ext.apply({tag:'table', cls:'x-table-layout', cellspacing: 0, cn: {tag: 'tbody'}}, this.tableAttrs), null, true);
         }

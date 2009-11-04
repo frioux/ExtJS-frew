@@ -56,8 +56,12 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
     // private
     layout : function(){
         var target = this.container.getLayoutTarget();
+        if(!(this.hasLayout || Ext.isEmpty(this.targetCls))){
+            target.addClass(this.targetCls)
+        }
         this.onLayout(this.container, target);
         this.container.fireEvent('afterlayout', this.container, this);
+        this.hasLayout = true;
     },
 
     // private
@@ -217,6 +221,13 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
      * by subclasses that require explicit destruction to purge event handlers or remove DOM nodes.
      * @protected
      */
-    destroy : Ext.emptyFn
+    destroy : function(){
+        if(!Ext.isEmpty(this.targetCls)){
+            var target = this.container.getLayoutTarget();
+            if(target){
+                target.removeClass(this.targetCls);
+            }
+        }
+    }
 });
 Ext.Container.LAYOUTS['auto'] = Ext.layout.ContainerLayout;

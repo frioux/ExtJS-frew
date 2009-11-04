@@ -65,6 +65,9 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
     scrollOffset : 0,
 
     // private
+    
+    targetCls: 'x-column-layout-ct',
+    
     isValidParent : function(c, target){
         return (c.getPositionEl ? c.getPositionEl() : c.getEl()).dom.parentNode == this.innerCt.dom;
     },
@@ -74,8 +77,6 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
         var cs = ct.items.items, len = cs.length, c, i;
 
         if(!this.innerCt){
-            target.addClass('x-column-layout-ct');
-
             // the innerCt prevents wrapping and shuffling while
             // the container is resizing
             this.innerCt = target.createChild({cls:'x-column-inner'});
