@@ -278,11 +278,12 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
 
     /**
      * Triggers deselection of this node
+     * @param {Boolean} silent (optional) True to stop selection change events from firing.
      */
-    unselect : function(){
+    unselect : function(silent){
         var t = this.getOwnerTree();
         if(t){
-            t.getSelectionModel().unselect(this);
+            t.getSelectionModel().unselect(this, silent);
         }
     },
 
@@ -533,7 +534,7 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
     },
 
     destroy : function(){
-        this.unselect();
+        this.unselect(true);
         Ext.tree.TreeNode.superclass.destroy.call(this);
         Ext.destroy(this.ui, this.loader);
         this.ui = this.loader = null;
