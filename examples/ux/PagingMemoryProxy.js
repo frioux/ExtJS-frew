@@ -62,7 +62,7 @@ Ext.ux.data.PagingMemoryProxy = Ext.extend(Ext.data.MemoryProxy, {
             // params.sort=0; would also match a array without columns
             var dir = String(params.dir).toUpperCase() == 'DESC' ? -1 : 1;
             var fn = function(r1, r2){
-                return r1 < r2;
+                return v1 > v2 ? 1 : (v1 < v2 ? -1 : 0);
             };
             result.records.sort(function(a, b){
                 var v = 0;
