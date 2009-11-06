@@ -119,7 +119,7 @@ Ext.Element.addMethods({
      * Gets the x,y coordinates to align this element with another element. See {@link #alignTo} for more info on the
      * supported position values.
      * @param {Mixed} element The element to align to.
-     * @param {String} position The position to align to.
+     * @param {String} position (optional, defaults to "tl-bl?") The position to align to.
      * @param {Array} offsets (optional) Offset the positioning by [x, y]
      * @return {Array} [x, y]
      */
@@ -254,7 +254,7 @@ el.alignTo("other-el", "br-l?");
 el.alignTo("other-el", "c-bl", [-6, 0]);
 </code></pre>
      * @param {Mixed} element The element to align to.
-     * @param {String} position The position to align to.
+     * @param {String} position (optional, defaults to "tl-bl?") The position to align to.
      * @param {Array} offsets (optional) Offset the positioning by [x, y]
      * @param {Boolean/Object} animate (optional) true for the default animation or a standard Element animation config object
      * @return {Ext.Element} this
