@@ -667,9 +667,9 @@ tb.{@link #doLayout}();             // refresh the layout
         if(this.layout && this.rendered){
             this.layout.onRemove(c);
         }
+        this.items.remove(c);
         c.onRemoved();
         this.onRemove(c);
-        this.items.remove(c);
         if(autoDestroy === true || (autoDestroy !== false && this.autoDestroy)){
             c.destroy();
         }

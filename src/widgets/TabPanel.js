@@ -318,7 +318,7 @@ var tabs = new Ext.TabPanel({
             tag:'ul', cls:'x-tab-strip x-tab-strip-'+this.tabPosition}});
 
         var beforeEl = (this.tabPosition=='bottom' ? this.stripWrap : null);
-        this.stripSpacer = st.createChild({cls:'x-tab-strip-spacer'}, beforeEl);
+        st.createChild({cls:'x-tab-strip-spacer'}, beforeEl);
         this.strip = new Ext.Element(this.stripWrap.dom.firstChild);
 
         this.edge = this.strip.createChild({tag:'li', cls:'x-tab-edge'});
@@ -460,7 +460,6 @@ new Ext.TabPanel({
         if(t.close){
             if (t.item.fireEvent('beforeclose', t.item) !== false) {
                 t.item.fireEvent('close', t.item);
-                delete t.item.tabEl;
                 this.remove(t.item);
             }
             return;
@@ -525,7 +524,7 @@ new Ext.TabPanel({
         }
         item.tabEl = el;
 
-        tabEl.select('a').on('click', Ext.emptyFn, null, { stopEvent: true });
+        tabEl.select('a').on('click', this.onStripMouseDown, this, {preventDefault: true});
 
         item.on({
             scope: this,
@@ -600,12 +599,12 @@ new Ext.TabPanel({
 
     // private
     onRemove : function(c){
-        var te = Ext.get(this.getTabEl(c));
-        te.removeAllListeners();
+        var te = Ext.get(c.tabEl);
         te.select('a').removeAllListeners();
         Ext.TabPanel.superclass.onRemove.call(this, c);
         Ext.destroy(te);
         this.stack.remove(c);
+        delete c.tabEl;
         c.un('disable', this.onItemDisabled, this);
         c.un('enable', this.onItemEnabled, this);
         c.un('titlechange', this.onItemTitleChanged, this);
@@ -674,11 +673,8 @@ new Ext.TabPanel({
      * @return {HTMLElement} The DOM node
      */
     getTabEl : function(item){
-        if (this.getComponent(item)) {
-            return document.getElementById(this.id + this.idDelimiter + this.getComponent(item).getItemId());
-        } else {
-            return null;
-        }
+        var c = this.getComponent(item);
+        return c ? c.tabEl : null;
     },
 
     // private
@@ -1027,20 +1023,9 @@ new Ext.TabPanel({
 
     // private
     beforeDestroy : function() {
-        if(this.items){
-            this.items.each(function(item){
-                if(item && item.tabEl){
-                    var te = Ext.get(item.tabEl);
-                    te.removeAllListeners();
-                    te.select('a').removeAllListeners();
-
-                    item.tabEl = null;
-                }
-            }, this);
-        }
-        if(this.strip){
-            this.strip.removeAllListeners();
-        }
+        delete this.stripWrap;
+        delete this.strip;
+        delete this.edge;
         this.activeTab = null;
         Ext.TabPanel.superclass.beforeDestroy.apply(this);
     }
