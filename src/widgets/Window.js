@@ -849,7 +849,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
     /**
      * Aligns the window to the specified element
      * @param {Mixed} element The element to align to.
-     * @param {String} position The position to align to (see {@link Ext.Element#alignTo} for more details).
+     * @param {String} position (optional, defaults to "tl-bl?") The position to align to (see {@link Ext.Element#alignTo} for more details).
      * @param {Array} offsets (optional) Offset the positioning by [x, y]
      * @return {Ext.Window} this
      */
