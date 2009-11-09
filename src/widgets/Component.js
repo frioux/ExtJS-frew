@@ -143,7 +143,7 @@ Ext.Component = function(config){
          * @param {Ext.Container} ownerCt Container which holds the component
          * @param {number} index Position at which the component was added
          */
-        'added',		
+        'added',
         /**
          * @event disable
          * Fires after the component is disabled.
@@ -189,7 +189,7 @@ Ext.Component = function(config){
          * @param {Ext.Component} this
          * @param {Ext.Container} ownerCt Container which holds the component
          */
-        'removed',			
+        'removed',
         /**
          * @event beforerender
          * Fires before the component is {@link #rendered}. Return false from an
@@ -795,7 +795,7 @@ new Ext.Panel({
      * @property rendered
      */
     rendered : false,
-    
+
     /**
      * @cfg {String} contentEl
      * <p>Optional. Specify an existing HTML element, or the <code>id</code> of an existing HTML element to use as the content
@@ -805,7 +805,7 @@ new Ext.Panel({
      * <div class="sub-desc">This config option is used to take an existing HTML element and place it in the layout element
      * of a new component (it simply moves the specified DOM element <i>after the Component is rendered</i> to use as the content.</div></li>
      * <li><b>Notes</b> :
-     * <div class="sub-desc">The specified HTML element is appended to the layout element of the component <i>after any configured 
+     * <div class="sub-desc">The specified HTML element is appended to the layout element of the component <i>after any configured
      * {@link #html HTML} has been inserted</i>, and so the document will not contain this element at the time the {@link #render} event is fired.</div>
      * <div class="sub-desc">The specified HTML element used will not participate in any <code><b>{@link Ext.Container#layout layout}</b></code>
      * scheme that the Component may use. It is just HTML. Layouts operate on child <code><b>{@link Ext.Container#items items}</b></code>.</div>
@@ -820,24 +820,24 @@ new Ext.Panel({
      * so the document will not contain this HTML at the time the {@link #render} event is fired.
      * This content is inserted into the body <i>before</i> any configured {@link #contentEl} is appended.
      */
-    
+
     /**
      * @cfg {Mixed} tpl
      * An Ext.Template, Ext.XTemplate or an array of strings to form an Ext.XTemplate.
      * Used in conjunction with the data and tplWriteMode configurations.
      */
-    
+
     /**
      * @cfg {String} tplWriteMode The Ext.(X)Template method to use when updating the content area of the Component. Defaults to 'overwrite'
      */
     tplWriteMode: 'overwrite',
-    
+
     /**
      * @cfg {Mixed} data
      * The initial set of data to apply to the tpl to update the content area of the Component.
      */
 
-    
+
     // private
     ctype : 'Ext.Component',
 
@@ -953,8 +953,8 @@ Ext.Foo = Ext.extend(Ext.Bar, {
                 this.el.addClassOnOver(this.overCls);
             }
             this.fireEvent('render', this);
-            
-            
+
+
             // Populate content of the component with html, contentEl or
             // a tpl.
             var contentTarget = this.getContentTarget();
@@ -974,11 +974,11 @@ Ext.Foo = Ext.extend(Ext.Bar, {
                 if (this.data) {
                     this.tpl[this.tplWriteMode](contentTarget, this.data);
                     delete this.data;
-                }                
-            }            
+                }
+            }
             this.afterRender(this.container);
-            
-            
+
+
             if(this.hidden){
                 // call this so we don't fire initial hide events.
                 this.doHide();
@@ -1019,7 +1019,7 @@ Ext.Foo = Ext.extend(Ext.Bar, {
         }
     },
 
-    
+
     /**
      * @private
      * Method to manage awareness of when components are added to their
@@ -1079,7 +1079,7 @@ var myGrid = new Ext.grid.EditorGridPanel({
          * the reference would have been placed into the Toolbar. Each '/' in the <code>ref</code>
          * moves up one level from the Component's <code>{@link #ownerCt}</code>.</p>
          * <p>Also see the <code>{@link #added}</code> and <code>{@link #removed}</code> events.</p>
-         */	
+         */
         if(this.ref){
             var levels = this.ref.split('/');
             var last = levels.length, i = 0;
@@ -1106,7 +1106,7 @@ var myGrid = new Ext.grid.EditorGridPanel({
             delete this.refOwner[this.refName];
         }
     },
-    
+
     // private
     initState : function(config){
         if(Ext.state.Manager){
@@ -1249,6 +1249,10 @@ var myGrid = new Ext.grid.EditorGridPanel({
      *
      */
     destroy : function(){
+        if(this.ownerCt){
+            this.ownerCt.remove(this, true);
+            return;
+        }
         if(!this.isDestroyed){
             if(this.fireEvent('beforedestroy', this) !== false){
                 this.beforeDestroy();
@@ -1297,7 +1301,7 @@ new Ext.Panel({
     getEl : function(){
         return this.el;
     },
-    
+
     // private
     getContentTarget : function(){
         return this.el;
@@ -1603,7 +1607,7 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
         }, this);
         this.mons = [];
     },
-    
+
     // private
     createMons: function(){
         if(!this.mons){
