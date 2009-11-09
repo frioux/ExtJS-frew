@@ -1249,7 +1249,7 @@ var myGrid = new Ext.grid.EditorGridPanel({
      *
      */
     destroy : function(){
-        if(this.ownerCt){
+        if(this.ownerCt && this.ownerCt.remove){
             this.ownerCt.remove(this, true);
             return;
         }
