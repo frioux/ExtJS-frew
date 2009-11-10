@@ -206,6 +206,7 @@ Ext.ux.GroupTabPanel = Ext.extend(Ext.TabPanel, {
             tl = this.createCorner(el, 'top-' + this.tabPosition),
             bl = this.createCorner(el, 'bottom-' + this.tabPosition);
 
+        group.tabEl = el;
         if (group.expanded) {
             this.expandGroup(el);
         }
