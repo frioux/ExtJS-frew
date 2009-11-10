@@ -161,5 +161,9 @@ Ext.dd.StatusProxy.prototype = {
         }
         this.callback = null;
         this.scope = null;
+    },
+    
+    destroy: function(){
+        Ext.destroy(this.ghost, this.el);    
     }
 };

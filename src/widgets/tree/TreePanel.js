@@ -745,19 +745,14 @@ new Ext.tree.TreePanel({
         }
     },
 
-    onDestroy : function(){
+    beforeDestroy : function(){
         if(this.rendered){
             Ext.dd.ScrollManager.unregister(this.body);
-            if(this.dropZone){
-                this.dropZone.unreg();
-            }
-            if(this.dragZone){
-               this.dragZone.unreg();
-            }
+            Ext.destroy(this.dropZone, this.dragZone);
         }
         Ext.destroy(this.root, this.loader);
         this.nodeHash = this.root = this.loader = null;
-        Ext.tree.TreePanel.superclass.onDestroy.call(this);
+        Ext.tree.TreePanel.superclass.beforeDestroy.call(this);
     }
 
     /**

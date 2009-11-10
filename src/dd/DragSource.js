@@ -355,5 +355,10 @@ Ext.extend(Ext.dd.DragSource, Ext.dd.DDProxy, {
     // private - pin to cursor
     autoOffset : function(x, y) {
         this.setDelta(-12, -20);
-    }    
+    },
+    
+    destroy: function(){
+        Ext.dd.DragSource.superclass.destroy.call(this);
+        Ext.destroy(this.proxy);
+    }
 });
