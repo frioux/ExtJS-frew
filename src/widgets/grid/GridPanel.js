@@ -675,6 +675,8 @@ function(grid, rowIndex, columnIndex, e) {
                 this.loadMask = new Ext.LoadMask(this.bwrap,
                         Ext.apply({}, {store:store}, this.initialConfig.loadMask));
             }
+        }
+        if(this.view){
             this.view.initData(store, colModel);
         }
         this.store = store;
