@@ -3,6 +3,7 @@
  * @extends Ext.FlashComponent
  * The Ext.chart package provides the capability to visualize data with flash based charting.
  * Each chart binds directly to an Ext.data.Store enabling automatic updates of the chart.
+ * To change the look and feel of a chart, see the {@link #chartStyle} config option.
  * @constructor
  * @xtype chart
  */
@@ -18,7 +19,66 @@
     /**
      * @cfg {Object} chartStyle
      * Sets styles for this chart. Contains a number of default values. Modifying this property will override
-     * the base styles on the chart.
+     * the base styles on the chart. <br/>For a detailed list of the options available, visit the YUI Charts site 
+     * at <a href="http://developer.yahoo.com/yui/charts/#basicstyles">http://developer.yahoo.com/yui/charts/#basicstyles</a><br/>
+     * Some of the options availabe:<br />
+     * <ul style="padding:5px;padding-left:16px;list-style-type:inherit;">
+     * <li><b>padding</b> - The space around the edge of the chart's contents. Padding does not increase the size of the chart.</li>
+     * <li><b>animationEnabled</b> - A Boolean value that specifies whether marker animations are enabled or not. Enabled by default.</li>
+     * <li><b>font</b> - An Object defining the font style to be used in the chart. Defaults to <tt>{ name: 'Tahoma', color: 0x444444, size: 11 }</tt><br/>
+     *  <ul style="padding:5px;padding-left:26px;list-style-type:circle;">
+     *      <li><b>name</b> - font name</li>
+     *      <li><b>color</b> - font color (hex code, ie: "#ff0000", "ff0000" or 0xff0000)</li>
+     *      <li><b>size</b> - font size in points (numeric portion only, ie: 11)</li>
+     *      <li><b>bold</b> - boolean</li>
+     *      <li><b>italic</b> - boolean</li>
+     *      <li><b>underline</b> - boolean</li>
+     *  </ul>
+     * </li>
+     * <li><b>border</b> - An object defining the border style around the chart. The chart itself will decrease in dimensions to accomodate the border.<br/>
+     *  <ul style="padding:5px;padding-left:26px;list-style-type:circle;">
+     *      <li><b>color</b> - border color (hex code, ie: "#ff0000", "ff0000" or 0xff0000)</li>
+     *      <li><b>size</b> - border size in pixels (numeric portion only, ie: 1)</li>
+     *  </ul>
+     * </li>
+     * <li><b>background</b> - An object defining the background style of the chart.<br/>
+     *  <ul style="padding:5px;padding-left:26px;list-style-type:circle;">
+     *      <li><b>color</b> - border color (hex code, ie: "#ff0000", "ff0000" or 0xff0000)</li>
+     *      <li><b>image</b> - an image URL. May be relative to the current document or absolute.</li>
+     *  </ul>
+     * </li>
+     * <li><b>legend</b> - An object defining the legend style<br/>
+     *  <ul style="padding:5px;padding-left:26px;list-style-type:circle;">
+     *      <li><b>display</b> - location of the legend. Possible values are "none", "left", "right", "top", and "bottom".</li>
+     *      <li><b>spacing</b> - an image URL. May be relative to the current document or absolute.</li>
+     *      <li><b>padding, border, background, font</b> - same options as described above.</li>
+     *  </ul></li>
+     * <li><b>dataTip</b> - An object defining the style of the data tip (tooltip).<br/>
+     *  <ul style="padding:5px;padding-left:26px;list-style-type:circle;">
+     *      <li><b>padding, border, background, font</b> - same options as described above.</li>
+     *  </ul></li>
+     * <li><b>xAxis and yAxis</b> - An object defining the style of the style of either axis.<br/>
+     *  <ul style="padding:5px;padding-left:26px;list-style-type:circle;">
+     *      <li><b>color</b> - same option as described above.</li>
+     *      <li><b>size</b> - same option as described above.</li>
+     *      <li><b>showLabels</b> - boolean</li>
+     *      <li><b>labelRotation</b> - a value in degrees from -90 through 90. Default is zero.</li>
+     *  </ul></li>
+     * <li><b>majorGridLines and minorGridLines</b> - An object defining the style of the style of the grid lines.<br/>
+     *  <ul style="padding:5px;padding-left:26px;list-style-type:circle;">
+     *      <li><b>color, size</b> - same options as described above.</li>
+     *  </ul></li></li>
+     * <li><b>zeroGridLine</b> - An object defining the style of the style of the zero grid line.<br/>
+     *  <ul style="padding:5px;padding-left:26px;list-style-type:circle;">
+     *      <li><b>color, size</b> - same options as described above.</li>
+     *  </ul></li></li>
+     * <li><b>majorTicks and minorTicks</b> - An object defining the style of the style of ticks in the chart.<br/>
+     *  <ul style="padding:5px;padding-left:26px;list-style-type:circle;">
+     *      <li><b>color, size</b> - same options as described above.</li>
+     *      <li><b>length</b> - the length of each tick in pixels extending from the axis.</li>
+     *      <li><b>display</b> - how the ticks are drawn. Possible values are "none", "inside", "outside", and "cross".</li>
+     *  </ul></li></li>
+     * </ul>
      */
     chartStyle: {
         padding: 10,
