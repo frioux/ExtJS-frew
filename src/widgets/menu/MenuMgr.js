@@ -108,18 +108,12 @@ Ext.menu.MenuMgr = function(){
                init();
            }
            menus[menu.id] = menu;
-           menu.on("beforehide", onBeforeHide);
-           menu.on("hide", onHide);
-           menu.on("beforeshow", onBeforeShow);
-           menu.on("show", onShow);
-           var g = menu.group;
-           if(g && menu.events["checkchange"]){
-               if(!groups[g]){
-                   groups[g] = [];
-               }
-               groups[g].push(menu);
-               menu.on("checkchange", onCheck);
-           }
+           menu.on({
+               beforehide: onBeforeHide,
+               hide: onHide,
+               beforeshow: onBeforeShow,
+               show: onShow
+           });
        },
 
         /**
@@ -150,11 +144,6 @@ Ext.menu.MenuMgr = function(){
            menu.un("hide", onHide);
            menu.un("beforeshow", onBeforeShow);
            menu.un("show", onShow);
-           var g = menu.group;
-           if(g && menu.events["checkchange"]){
-               groups[g].remove(menu);
-               menu.un("checkchange", onCheck);
-           }
        },
 
        // private
