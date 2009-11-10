@@ -71,7 +71,6 @@ Ext.ux.GroupTab = Ext.extend(Ext.Container, {
                 if(oldEl){
                     Ext.fly(oldEl).removeClass('x-grouptabs-strip-active');
                 }
-                this.activeTab.fireEvent('deactivate', this.activeTab);
             }
             var el = this.getTabEl(item);
             Ext.fly(el).addClass('x-grouptabs-strip-active');
@@ -86,7 +85,6 @@ Ext.ux.GroupTab = Ext.extend(Ext.Container, {
                 this.scrollToTab(item, this.animScroll);
             }
 
-            item.fireEvent('activate', item);
             this.fireEvent('tabchange', this, item);
         }
     },

@@ -240,7 +240,6 @@ Ext.ux.GroupTabPanel = Ext.extend(Ext.TabPanel, {
                 if(oldEl){
                     Ext.fly(oldEl).removeClass('x-grouptabs-strip-active');
                 }
-                this.activeGroup.fireEvent('deactivate', this.activeGroup);
             }
 
             var groupEl = this.getGroupEl(group);
@@ -252,7 +251,6 @@ Ext.ux.GroupTabPanel = Ext.extend(Ext.TabPanel, {
             this.layout.setActiveItem(group);
             this.syncTabJoint(groupEl);
 
-            group.fireEvent('activate', group);
             this.fireEvent('groupchange', this, group);
         }        
     },

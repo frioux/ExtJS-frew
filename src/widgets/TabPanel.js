@@ -800,7 +800,6 @@ new Ext.TabPanel({
                 if(oldEl){
                     Ext.fly(oldEl).removeClass('x-tab-strip-active');
                 }
-                this.activeTab.fireEvent('deactivate', this.activeTab);
             }
             var el = this.getTabEl(item);
             Ext.fly(el).addClass('x-tab-strip-active');
@@ -811,8 +810,6 @@ new Ext.TabPanel({
             if(this.scrolling){
                 this.scrollToTab(item, this.animScroll);
             }
-
-            item.fireEvent('activate', item);
             this.fireEvent('tabchange', this, item);
         }
     },
