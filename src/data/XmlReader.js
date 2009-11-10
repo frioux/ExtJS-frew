@@ -53,8 +53,11 @@ var myReader = new Ext.data.XmlReader({
 Ext.data.XmlReader = function(meta, recordType){
     meta = meta || {};
 
-    // backwards compat, convert idPath to idProperty
-    meta.idProperty = meta.idProperty || meta.idPath;
+    // backwards compat, convert idPath or id / success
+    Ext.applyIf(meta, {
+        idProperty: meta.idProperty || meta.idPath || meta.id,
+        successProperty: meta.successProperty || meta.success
+    });
 
     Ext.data.XmlReader.superclass.constructor.call(this, meta, recordType || meta.fields);
 };
