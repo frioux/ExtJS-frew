@@ -53,7 +53,7 @@ Ext.menu.Item = Ext.extend(Ext.menu.BaseItem, {
 
     // private
     ctype: 'Ext.menu.Item',
-    
+
     initComponent : function(){
         Ext.menu.Item.superclass.initComponent.call(this);
         if(this.menu){
@@ -80,6 +80,9 @@ Ext.menu.Item = Ext.extend(Ext.menu.BaseItem, {
         this.el = position ? this.itemTpl.insertBefore(position, a, true) : this.itemTpl.append(container, a, true);
         this.iconEl = this.el.child('img.x-menu-item-icon');
         this.textEl = this.el.child('.x-menu-item-text');
+        if(!this.href) { // if no link defined, prevent the default the anchor event
+            this.mon(this.el, 'click', Ext.emptyFn, null, { preventDefault: true });
+        }
         Ext.menu.Item.superclass.onRender.call(this, container, position);
     },
 
@@ -118,7 +121,7 @@ Ext.menu.Item = Ext.extend(Ext.menu.BaseItem, {
             this.iconEl.replaceClass(oldCls, this.iconCls);
         }
     },
-    
+
     //private
     beforeDestroy: function(){
         if (this.menu){
