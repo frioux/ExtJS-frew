@@ -23,7 +23,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
         var side = ct.buttonAlign == 'right' ? this.rightTr : this.leftTr,
             pos = 0,
             items = ct.items.items;
-            
+
         for(var i = 0, len = items.length, c; i < len; i++, pos++) {
             c = items[i];
             if(c.isFill){
@@ -235,6 +235,13 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
             var td = this.insertCell(this.more, this.extrasTr, 100);
             this.more.render(td);
         }
+    },
+
+    onRemove : function(c){
+        delete this.leftTr;
+        delete this.rightTr;
+        delete this.extrasTr;
+        Ext.layout.ToolbarLayout.superclass.onRemove.call(this, c);
     },
 
     destroy : function(){
@@ -601,13 +608,13 @@ Ext.extend(T, Ext.Container, {
         var b = item.events ? item : this.createComponent(item, item.split ? 'splitbutton' : this.defaultType);
         return b;
     },
-    
+
     // private
     onAdd : function(c){
         Ext.Toolbar.superclass.onAdd.call(this);
         this.trackMenu(c);
     },
-    
+
     // private
     onRemove : function(c){
         Ext.Toolbar.superclass.onRemove.call(this);
@@ -782,18 +789,18 @@ new Ext.Panel({
 T.TextItem = Ext.extend(T.Item, {
     /**
      * @cfg {String} text The text to be used as innerHTML (html tags are accepted)
-     */ 
+     */
 
     constructor: function(config){
         T.TextItem.superclass.constructor.call(this, Ext.isString(config) ? {text: config} : config);
     },
-    
+
     // private
     onRender : function(ct, position) {
         this.autoEl = {cls: 'xtb-text', html: this.text || ''};
         T.TextItem.superclass.onRender.call(this, ct, position);
     },
-    
+
     /**
      * Updates this item's text, setting the text to be used as innerHTML.
      * @param {String} t The text to display (html accepted).
