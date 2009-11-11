@@ -1657,9 +1657,9 @@ panel.load({
                 Ext.destroy(this.tools[k]);
             }
         }
-        if(this.buttons){
-            for(var b in this.buttons){
-                Ext.destroy(this.buttons[b]);
+        if(Ext.isArray(this.buttons)){
+            while(this.buttons.length) {
+                Ext.destroy(this.buttons[0]);
             }
         }
         if(this.rendered){
@@ -1676,8 +1676,8 @@ panel.load({
             );
             if (this.fbar) {
                 Ext.destroy(
-                    this.fbar.container,
-                    this.fbar
+                    this.fbar,
+                    this.fbar.el
                 );
             }
         }else{
