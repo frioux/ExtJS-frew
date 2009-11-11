@@ -27,7 +27,7 @@ Ext.History = (function () {
     }
 
     function updateIFrame (token) {
-        var html = ['<html><body><div id="state">',token,'</div></body></html>'].join('');
+        var html = ['<html><body><div id="state">',Ext.util.Format.htmlEncode(token),'</div></body></html>'].join('');
         try {
             var doc = iframe.contentWindow.document;
             doc.open();
@@ -111,7 +111,7 @@ Ext.History = (function () {
          * @property
          */
         iframeId: 'x-history-frame',
-        
+
         events:{},
 
         /**
