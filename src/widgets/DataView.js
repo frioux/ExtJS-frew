@@ -735,6 +735,8 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
     },
 
     onDestroy : function(){
+        this.all.clear();
+        this.selected.clear();
         Ext.DataView.superclass.onDestroy.call(this);
         this.bindStore(null);
     }
