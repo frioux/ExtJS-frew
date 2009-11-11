@@ -279,6 +279,17 @@ myAction.on('complete', function(){
             this.hide();
         }
         return this;
+    },
+    
+    onDestroy: function(){
+        if(this.rendered){
+            if(this.textEl.isComposite){
+                this.textEl.clear();
+            }
+            Ext.destroyMembers(this, 'textEl', 'progressBar', 'textTopEl');
+        }
+        alert('c');
+        Ext.ProgressBar.superclass.onDestroy.call(this);
     }
 });
 Ext.reg('progress', Ext.ProgressBar);
