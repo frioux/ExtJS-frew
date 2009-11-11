@@ -620,7 +620,9 @@ new Ext.TabPanel({
                 this.activeTab = null;
             }
         }
-        this.delegateUpdates();
+        if(!this.destroying){
+            this.delegateUpdates();
+        }
     },
 
     // private
@@ -1020,9 +1022,8 @@ new Ext.TabPanel({
 
     // private
     beforeDestroy : function() {
-        delete this.stripWrap;
-        delete this.strip;
-        delete this.edge;
+        Ext.destroy(this.leftRepeater, this.rightRepeater);
+        this.deleteMembers('strip', 'edge', 'scrollLeft', 'scrollRight', 'stripWrap');
         this.activeTab = null;
         Ext.TabPanel.superclass.beforeDestroy.apply(this);
     }

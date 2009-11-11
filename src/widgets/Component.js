@@ -1255,6 +1255,7 @@ var myGrid = new Ext.grid.EditorGridPanel({
         }
         if(!this.isDestroyed){
             if(this.fireEvent('beforedestroy', this) !== false){
+                this.destroying = true;
                 this.beforeDestroy();
                 if(this.rendered){
                     this.el.remove();
@@ -1266,8 +1267,16 @@ var myGrid = new Ext.grid.EditorGridPanel({
                 Ext.ComponentMgr.unregister(this);
                 this.fireEvent('destroy', this);
                 this.purgeListeners();
+                this.destroying = false;
                 this.isDestroyed = true;
             }
+        }
+    },
+    
+    deleteMembers : function(){
+        var args = arguments;
+        for(var i = 0, len = args.length; i < len; ++i){
+            delete this[args[i]];
         }
     },
 
