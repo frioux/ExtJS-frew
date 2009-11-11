@@ -288,7 +288,6 @@ myAction.on('complete', function(){
             }
             Ext.destroyMembers(this, 'textEl', 'progressBar', 'textTopEl');
         }
-        alert('c');
         Ext.ProgressBar.superclass.onDestroy.call(this);
     }
 });
