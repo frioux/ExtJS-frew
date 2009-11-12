@@ -3,7 +3,7 @@
  * @extends Ext.FlashComponent
  * The Ext.chart package provides the capability to visualize data with flash based charting.
  * Each chart binds directly to an Ext.data.Store enabling automatic updates of the chart.
- * To change the look and feel of a chart, see the {@link #chartStyle} config option.
+ * To change the look and feel of a chart, see the {@link #chartStyle} and {@link #extraStyle} config options.
  * @constructor
  * @xtype chart
  */
@@ -18,8 +18,46 @@
 
     /**
      * @cfg {Object} chartStyle
-     * Sets styles for this chart. Contains a number of default values. Modifying this property will override
-     * the base styles on the chart. <br/>For a detailed list of the options available, visit the YUI Charts site 
+     * Sets styles for this chart. This contains default styling, so modifying this property will <b>override</b>
+     * the built in styles of the chart. Use {@link #extraStyle} to add customizations to the default styling. 
+     */
+    chartStyle: {
+        padding: 10,
+        animationEnabled: true,
+        font: {
+            name: 'Tahoma',
+            color: 0x444444,
+            size: 11
+        },
+        dataTip: {
+            padding: 5,
+            border: {
+                color: 0x99bbe8,
+                size:1
+            },
+            background: {
+                color: 0xDAE7F6,
+                alpha: .9
+            },
+            font: {
+                name: 'Tahoma',
+                color: 0x15428B,
+                size: 10,
+                bold: true
+            }
+        }
+    },
+    
+    /**
+     * @cfg {String} url
+     * The url to load the chart from. This defaults to Ext.chart.Chart.CHART_URL, which should
+     * be modified to point to the local charts resource.
+     */
+    
+    /**
+     * @cfg {Object} extraStyle
+     * Contains extra styles that will be added or overwritten to the default chartStyle. Defaults to <tt>null</tt>.
+     * For a detailed list of the options available, visit the YUI Charts site 
      * at <a href="http://developer.yahoo.com/yui/charts/#basicstyles">http://developer.yahoo.com/yui/charts/#basicstyles</a><br/>
      * Some of the options availabe:<br />
      * <ul style="padding:5px;padding-left:16px;list-style-type:inherit;">
@@ -79,43 +117,6 @@
      *      <li><b>display</b> - how the ticks are drawn. Possible values are "none", "inside", "outside", and "cross".</li>
      *  </ul></li></li>
      * </ul>
-     */
-    chartStyle: {
-        padding: 10,
-        animationEnabled: true,
-        font: {
-            name: 'Tahoma',
-            color: 0x444444,
-            size: 11
-        },
-        dataTip: {
-            padding: 5,
-            border: {
-                color: 0x99bbe8,
-                size:1
-            },
-            background: {
-                color: 0xDAE7F6,
-                alpha: .9
-            },
-            font: {
-                name: 'Tahoma',
-                color: 0x15428B,
-                size: 10,
-                bold: true
-            }
-        }
-    },
-    
-    /**
-     * @cfg {String} url
-     * The url to load the chart from. This defaults to Ext.chart.Chart.CHART_URL, which should
-     * be modified to point to the local charts resource.
-     */
-    
-    /**
-     * @cfg {Object} extraStyle
-     * Contains extra styles that will be added or overwritten to the default chartStyle. Defaults to <tt>null</tt>.
      */
     extraStyle: null,
     
