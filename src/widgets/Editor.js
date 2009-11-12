@@ -221,8 +221,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
             this.startValue = v;
             this.field.reset();
             this.field.setValue(v);
-            this.doAutoSize();
-            this.el.alignTo(this.boundEl, this.alignment, this.offsets);
+            this.realign(true);
             this.editing = true;
             this.show();
         }
@@ -269,8 +268,12 @@ Ext.extend(Ext.Editor, Ext.Component, {
 
     /**
      * Realigns the editor to the bound field based on the current alignment config value.
+     * @param {Boolean} autoSize (optional) True to size the field to the dimensions of the bound element.
      */
-    realign : function(){
+    realign : function(autoSize){
+        if(autoSize === true){
+            this.doAutoSize();
+        }
         this.el.alignTo(this.boundEl, this.alignment, this.offsets);
     },
 
