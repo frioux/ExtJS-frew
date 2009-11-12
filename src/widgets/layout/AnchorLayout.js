@@ -125,14 +125,15 @@ anchor: '-50 75%'
             if(c.anchor){
                 a = c.anchorSpec;
                 if(!a){ // cache all anchor values
-                    var vs = c.anchor.split(' ');
+                    var vs = c.anchor.split(' '),
+                        el = c.getEl();
                     c.anchorSpec = a = {
                         right: this.parseAnchor(vs[0], c.initialConfig.width, aw),
                         bottom: this.parseAnchor(vs[1], c.initialConfig.height, ah)
                     };
                 }
-                cw = a.right ? this.adjustWidthAnchor(a.right(w), c) : undefined;
-                ch = a.bottom ? this.adjustHeightAnchor(a.bottom(h), c) : undefined;
+                cw = a.right ? this.adjustWidthAnchor(a.right(w) - el.getMargins('lr'), c) : undefined;
+                ch = a.bottom ? this.adjustHeightAnchor(a.bottom(h) - el.getMargins('tb'), c) : undefined;
 
                 if(cw || ch){
                     c.setSize(cw || undefined, ch || undefined);
