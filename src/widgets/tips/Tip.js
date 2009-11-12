@@ -88,12 +88,13 @@ tip.showAt([50,100]);
     },
 
     // protected
-    doAutoWidth : function(){
+    doAutoWidth : function(adjust){
+        adjust = adjust || 0;
         var bw = this.body.getTextWidth();
         if(this.title){
             bw = Math.max(bw, this.header.child('span').getTextWidth(this.title));
         }
-        bw += this.getFrameWidth() + (this.closable ? 20 : 0) + this.body.getPadding("lr");
+        bw += this.getFrameWidth() + (this.closable ? 20 : 0) + this.body.getPadding("lr") + adjust;
         this.setWidth(bw.constrain(this.minWidth, this.maxWidth));
         
         // IE7 repaint bug on initial show

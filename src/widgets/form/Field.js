@@ -424,6 +424,14 @@ var form = new Ext.form.FormPanel({
     validateValue : function(value){
         return true;
     },
+    
+    /**
+     * Gets the active error message for this field.
+     * @return {String} Returns the active error message on the field, if there is no error, an empty string is returned.
+     */
+    getActiveError : function(){
+        return this.activeError || '';    
+    },
 
     /**
      * <p>Display an error message associated with this field, using {@link #msgTarget} to determine how to
@@ -451,6 +459,7 @@ var form = new Ext.form.FormPanel({
                 t.style.display = this.msgDisplay;
             }
         }
+        this.activeError = msg;
         this.fireEvent('invalid', this, msg);
     },
 
@@ -473,6 +482,7 @@ var form = new Ext.form.FormPanel({
                 t.style.display = 'none';
             }
         }
+        delete this.activeError;
         this.fireEvent('valid', this);
     },
 
