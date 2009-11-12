@@ -371,6 +371,15 @@ Ext.grid.GridPanel = Ext.extend(Ext.Panel, {
             'groupmousedown',
             
             /**
+             * @event rowbodymousedown
+             * Fires before the row body is clicked. <b>Only applies for grids with {@link Ext.grid.GridView#enableRowBody enableRowBody} configured.</b>
+             * @param {Grid} this
+             * @param {Number} rowIndex
+             * @param {Ext.EventObject} e
+             */
+            'rowbodymousedown',
+            
+            /**
              * @event containermousedown
              * Fires before the container is clicked. The container consists of any part of the grid body that is not covered by a row.
              * @param {Grid} this
@@ -470,6 +479,24 @@ function(grid, rowIndex, columnIndex, e) {
              * @param {Ext.EventObject} e
              */
             'containerdblclick',
+            
+            /**
+             * @event rowbodyclick
+             * Fires when the row body is clicked. <b>Only applies for grids with {@link Ext.grid.GridView#enableRowBody enableRowBody} configured.</b>
+             * @param {Grid} this
+             * @param {Number} rowIndex
+             * @param {Ext.EventObject} e
+             */
+            'rowbodyclick',
+            /**
+             * @event rowbodydblclick
+             * Fires when the row body is double clicked. <b>Only applies for grids with {@link Ext.grid.GridView#enableRowBody enableRowBody} configured.</b>
+             * @param {Grid} this
+             * @param {Number} rowIndex
+             * @param {Ext.EventObject} e
+             */
+            'rowbodydblclick',
+            
             /**
              * @event rowcontextmenu
              * Fires when a row is right clicked
@@ -511,6 +538,14 @@ function(grid, rowIndex, columnIndex, e) {
              * @param {Ext.EventObject} e
              */
             'containercontextmenu',
+            /**
+             * @event rowbodycontextmenu
+             * Fires when the row body is right clicked. <b>Only applies for grids with {@link Ext.grid.GridView#enableRowBody enableRowBody} configured.</b>
+             * @param {Grid} this
+             * @param {Number} rowIndex
+             * @param {Ext.EventObject} e
+             */
+            'rowbodycontextmenu',
             /**
              * @event bodyscroll
              * Fires when the body element is scrolled
@@ -705,15 +740,22 @@ function(grid, rowIndex, columnIndex, e) {
         var t = e.getTarget(),
             v = this.view,
             header = v.findHeaderIndex(t);
+            
         if(header !== false){
             this.fireEvent('header' + name, this, header, e);
         }else{
             var row = v.findRowIndex(t),
-                cell = v.findCellIndex(t);
+                cell,
+                body;
             if(row !== false){
                 this.fireEvent('row' + name, this, row, e);
+                cell = v.findCellIndex(t);
+                body = v.findRowBody(t);
                 if(cell !== false){
                     this.fireEvent('cell' + name, this, row, cell, e);
+                }
+                if(body){
+                    this.fireEvent('rowbody' + name, this, row, e);
                 }
             }else{
                 this.fireEvent('container' + name, this, e);

@@ -158,6 +158,11 @@ viewConfig: {
      * @cfg {Number} rowSelectorDepth The number of levels to search for rows in event delegation (defaults to <tt>10</tt>)
      */
     rowSelectorDepth : 10,
+    
+    /**
+     * @cfg {Number} rowBodySelectorDepth The number of levels to search for row bodies in event delegation (defaults to <tt>10</tt>)
+     */
+    rowBodySelectorDepth : 10,
 
     /**
      * @cfg {String} cellSelector The selector used to find cells internally (defaults to <tt>'td.x-grid3-cell'</tt>)
@@ -167,6 +172,11 @@ viewConfig: {
      * @cfg {String} rowSelector The selector used to find rows internally (defaults to <tt>'div.x-grid3-row'</tt>)
      */
     rowSelector : 'div.x-grid3-row',
+    
+    /**
+     * @cfg {String} rowBodySelector The selector used to find row bodies internally (defaults to <tt>'div.x-grid3-row'</tt>)
+     */
+    rowBodySelector : 'div.x-grid3-row-body',
     
     // private
     firstRowCls: 'x-grid3-row-first',
@@ -422,6 +432,18 @@ viewConfig: {
     findRowIndex : function(el){
         var r = this.findRow(el);
         return r ? r.rowIndex : false;
+    },
+    
+    /**
+     * Return the HtmlElement representing the grid row body which contains the passed element.
+     * @param {HTMLElement} el The target HTMLElement
+     * @return {HTMLElement} The row body element, or null if the target element is not within a row body of this GridView.
+     */
+    findRowBody : function(el){
+        if(!el){
+            return false;
+        }
+        return this.fly(el).findParent(this.rowBodySelector, this.rowBodySelectorDepth);
     },
 
     // getter methods for fetching elements dynamically in the grid
