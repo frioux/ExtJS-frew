@@ -296,7 +296,7 @@ new Ext.Template(
      * <li><b><tt>clearCls</tt></b> : String<div class="sub-desc">The CSS class to apply to the special clearing div
      * rendered directly after each form field wrapper (defaults to <tt>'x-form-clear-left'</tt>)</div></li>
      * </ul></div>
-     * @param field The {@link Field Ext.form.Field} being rendered.
+     * @param (Ext.form.Field} field The {@link Ext.form.Field Field} being rendered.
      * @return An object hash containing the properties required to render the Field.
      */
     getTemplateArgs: function(field) {
