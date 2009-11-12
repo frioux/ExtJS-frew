@@ -119,14 +119,16 @@ anchor: '-50 75%'
             ah = ct.initialConfig.height;
         }
 
-        var cs = ct.items.items, len = cs.length, i, c, a, cw, ch;
+        var cs = ct.items.items, len = cs.length, i, c, a, cw, ch, el, vs;
         for(i = 0; i < len; i++){
             c = cs[i];
+            el = c.getEl();
             if(c.anchor){
                 a = c.anchorSpec;
                 if(!a){ // cache all anchor values
-                    var vs = c.anchor.split(' '),
-                        el = c.getEl();
+                    vs = c.anchor.split(' ');
+                        
+                    console.log(c, c.el);
                     c.anchorSpec = a = {
                         right: this.parseAnchor(vs[0], c.initialConfig.width, aw),
                         bottom: this.parseAnchor(vs[1], c.initialConfig.height, ah)
