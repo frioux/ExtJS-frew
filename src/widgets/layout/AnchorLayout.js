@@ -127,8 +127,6 @@ anchor: '-50 75%'
                 a = c.anchorSpec;
                 if(!a){ // cache all anchor values
                     vs = c.anchor.split(' ');
-                        
-                    console.log(c, c.el);
                     c.anchorSpec = a = {
                         right: this.parseAnchor(vs[0], c.initialConfig.width, aw),
                         bottom: this.parseAnchor(vs[1], c.initialConfig.height, ah)
