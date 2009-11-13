@@ -218,7 +218,7 @@ var grid = new Ext.grid.GridPanel({
         }
         if((item = items.get('showGroups'))){
             item.setDisabled(disabled);
-		    item.setChecked(!!this.getGroupField(), true);
+	    item.setChecked(this.enableGrouping, true);
         }
     },
 
@@ -239,7 +239,7 @@ var grid = new Ext.grid.GridPanel({
                 this.hmenu.add({
                     itemId:'showGroups',
                     text: this.showGroupsText,
-                    checked: true,
+		    checked: true,
                     checkHandler: this.onShowGroupsClick,
                     scope: this
                 });
@@ -267,12 +267,15 @@ var grid = new Ext.grid.GridPanel({
 
     // private
     onGroupByClick : function(){
+	this.enableGrouping = true;
         this.grid.store.groupBy(this.cm.getDataIndex(this.hdCtxIndex));
         this.beforeMenuShow(); // Make sure the checkboxes get properly set when changing groups
+	this.refresh();
     },
 
     // private
     onShowGroupsClick : function(mi, checked){
+	this.enableGrouping = checked;
         if(checked){
             this.onGroupByClick();
         }else{
@@ -402,7 +405,7 @@ var grid = new Ext.grid.GridPanel({
             colIndex = this.cm.findColumnIndex(groupField),
             g;
 
-        this.enableGrouping = !!groupField;
+        this.enableGrouping = (this.enableGrouping === false) ? false : !!groupField;
 
         if(!this.enableGrouping || this.isUpdating){
             return Ext.grid.GroupingView.superclass.doRender.apply(
