@@ -108,13 +108,13 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
      * @type String
      * @property labelStyle
      */
-    
+
     /**
      * @cfg {Boolean} trackLabels
      * True to show/hide the field label when the field is hidden. Defaults to <tt>false</tt>.
      */
     trackLabels: false,
-    
+
 
     onRemove: function(c){
         Ext.layout.FormLayout.superclass.onRemove.call(this, c);
@@ -126,7 +126,9 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
         var el = c.getPositionEl(),
                 ct = c.getItemCt && c.getItemCt();
         if(c.rendered && ct){
-            el.insertAfter(ct);
+            if (el && el.dom) {
+                el.insertAfter(ct);
+            }
             Ext.destroy(ct);
             Ext.destroyMembers(c, 'label', 'itemCt');
             if(c.customItemCt){
@@ -134,7 +136,7 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
             }
         }
     },
-    
+
     // private
     setContainer : function(ct){
         Ext.layout.FormLayout.superclass.setContainer.call(this, ct);
@@ -168,18 +170,18 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
             }
         }
     },
-    
+
     // private
     isHide: function(c){
         return c.hideLabel || this.container.hideLabels;
     },
-    
+
     onFieldShow: function(c){
         c.getItemCt().removeClass('x-hide-' + c.hideMode);
     },
-    
+
     onFieldHide: function(c){
-        c.getItemCt().addClass('x-hide-' + c.hideMode);   
+        c.getItemCt().addClass('x-hide-' + c.hideMode);
     },
 
     //private
@@ -320,7 +322,7 @@ new Ext.Template(
         }
         return value;
     },
-    
+
     adjustHeightAnchor : function(value, c){
         if(c.label && !this.isHide(c) && (this.container.labelAlign == 'top')){
             return value - c.label.getHeight();
