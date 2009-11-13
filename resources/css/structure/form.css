@@ -25,7 +25,7 @@ textarea.x-form-field {
 }
 
 .ext-ie6 .x-form-text {
-    margin:-1px 0; /* ie bogus margin bug */
+    margin:-2px 0 0; /* ie bogus margin bug */
     height:22px; /* ie quirks */
     line-height:18px;
 }
