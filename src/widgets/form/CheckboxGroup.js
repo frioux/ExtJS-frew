@@ -33,7 +33,7 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
      * checkbox/radio controls using automatic layout.  This config can take several types of values:
      * <ul><li><b>'auto'</b> : <p class="sub-desc">The controls will be rendered one per column on one row and the width
      * of each column will be evenly distributed based on the width of the overall field container. This is the default.</p></li>
-     * <li><b>Number</b> : <p class="sub-desc">If you specific a number (e.g., 3) that number of columns will be 
+     * <li><b>Number</b> : <p class="sub-desc">If you specific a number (e.g., 3) that number of columns will be
      * created and the contained controls will be automatically distributed based on the value of {@link #vertical}.</p></li>
      * <li><b>Array</b> : Object<p class="sub-desc">You can also specify an array of column widths, mixing integer
      * (fixed width) and float (percentage width) values as needed (e.g., [100, .25, .75]). Any integer values will
@@ -43,7 +43,7 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
      */
     columns : 'auto',
     /**
-     * @cfg {Boolean} vertical True to distribute contained controls across columns, completely filling each column 
+     * @cfg {Boolean} vertical True to distribute contained controls across columns, completely filling each column
      * top to bottom before starting on the next column.  The number of controls in each column will be automatically
      * calculated to keep columns as even as possible.  The default value is false, so that controls will be added
      * to columns one at a time, completely filling each row left to right before starting on the next row.
@@ -55,17 +55,17 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
      */
     allowBlank : true,
     /**
-     * @cfg {String} blankText Error text to display if the {@link #allowBlank} validation fails (defaults to "You must 
+     * @cfg {String} blankText Error text to display if the {@link #allowBlank} validation fails (defaults to "You must
      * select at least one item in this group")
      */
     blankText : "You must select at least one item in this group",
-    
+
     // private
     defaultType : 'checkbox',
-    
+
     // private
     groupCls : 'x-form-check-group',
-    
+
     // private
     initComponent: function(){
         this.addEvents(
@@ -76,37 +76,36 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
              * @param {Array} checked An array containing the checked boxes.
              */
             'change'
-        );   
+        );
         Ext.form.CheckboxGroup.superclass.initComponent.call(this);
     },
-    
+
     // private
     onRender : function(ct, position){
         if(!this.el){
             var panelCfg = {
                 autoEl: {
-                    id: this.id    
+                    id: this.id
                 },
                 cls: this.groupCls,
                 layout: 'column',
-                border: false,
                 renderTo: ct,
                 bufferResize: false // Default this to false, since it doesn't really have a proper ownerCt.
             };
             var colCfg = {
+                xtype: 'container',
                 defaultType: this.defaultType,
                 layout: 'form',
-                border: false,
                 defaults: {
                     hideLabel: true,
                     anchor: '100%'
                 }
             };
-            
+
             if(this.items[0].items){
-                
+
                 // The container has standard ColumnLayout configs, so pass them in directly
-                
+
                 Ext.apply(panelCfg, {
                     layoutConfig: {columns: this.items.length},
                     defaults: this.defaults,
@@ -115,14 +114,14 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
                 for(var i=0, len=this.items.length; i<len; i++){
                     Ext.applyIf(this.items[i], colCfg);
                 }
-                
+
             }else{
-                
+
                 // The container has field item configs, so we have to generate the column
                 // panels first then move the items into the columns as needed.
-                
+
                 var numCols, cols = [];
-                
+
                 if(typeof this.columns == 'string'){ // 'auto' so create a col per item
                     this.columns = this.items.length;
                 }
@@ -133,9 +132,9 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
                     }
                     this.columns = cs;
                 }
-                
+
                 numCols = this.columns.length;
-                
+
                 // Generate the column configs with the correct width setting
                 for(var i=0; i<numCols; i++){
                     var cc = Ext.apply({items:[]}, colCfg);
@@ -145,7 +144,7 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
                     }
                     cols.push(cc);
                 };
-                
+
                 // Distribute the original items into the columns
                 if(this.vertical){
                     var rows = Math.ceil(this.items.length / numCols), ri = 0;
@@ -167,34 +166,34 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
                         cols[ci].items.push(this.items[i]);
                     };
                 }
-                
+
                 Ext.apply(panelCfg, {
                     layoutConfig: {columns: numCols},
                     items: cols
                 });
             }
-            
-            this.panel = new Ext.Panel(panelCfg);
+
+            this.panel = new Ext.Container(panelCfg);
             this.panel.ownerCt = this;
             this.el = this.panel.getEl();
-            
+
             if(this.forId && this.itemCls){
                 var l = this.el.up(this.itemCls).child('label', true);
                 if(l){
                     l.setAttribute('htmlFor', this.forId);
                 }
             }
-            
+
             var fields = this.panel.findBy(function(c){
                 return c.isFormField;
             }, this);
-            
+
             this.items = new Ext.util.MixedCollection();
             this.items.addAll(fields);
         }
         Ext.form.CheckboxGroup.superclass.onRender.call(this, ct, position);
     },
-    
+
     initValue : function(){
         if(this.value){
             this.setValue.apply(this, this.buffered ? this.value : [this.value]);
@@ -202,7 +201,7 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
             delete this.value;
         }
     },
-    
+
     afterRender : function(){
         Ext.form.CheckboxGroup.superclass.afterRender.call(this);
         this.eachItem(function(item){
@@ -210,7 +209,7 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
             item.inGroup = true;
         });
     },
-    
+
     // private
     doLayout: function(){
         //ugly method required to layout hidden items
@@ -219,7 +218,7 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
             this.panel.doLayout();
         }
     },
-    
+
     // private
     fireChecked: function(){
         var arr = [];
@@ -230,7 +229,7 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
         });
         this.fireEvent('change', this, arr);
     },
-    
+
     // private
     validateValue : function(value){
         if(!this.allowBlank){
@@ -247,7 +246,7 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
         }
         return true;
     },
-    
+
     // private
     isDirty: function(){
         //override the behaviour to check sub items.
@@ -264,7 +263,7 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
         });
         return dirty;
     },
-    
+
     // private
     onDisable : function(){
         this.eachItem(function(item){
@@ -278,7 +277,7 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
             item.enable();
         });
     },
-    
+
     // private
     doLayout: function(){
         if(this.rendered){
@@ -286,13 +285,13 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
             this.panel.doLayout();
         }
     },
-    
+
     // private
     onResize : function(w, h){
         this.panel.setSize(w, h);
         this.panel.doLayout();
     },
-    
+
     // inherit docs from Field
     reset : function(){
         Ext.form.CheckboxGroup.superclass.reset.call(this);
@@ -302,14 +301,14 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
             }
         });
     },
-    
+
     /**
      * {@link Ext.form.Checkbox#setValue Set the value(s)} of an item or items
      * in the group. Examples illustrating how this method may be called:
      * <pre><code>
 // call with name and value
 myCheckboxGroup.setValue('cb-col-1', true);
-// call with an array of boolean values 
+// call with an array of boolean values
 myCheckboxGroup.setValue([true, false, false]);
 // call with an object literal specifying item:value pairs
 myCheckboxGroup.setValue({
@@ -333,7 +332,7 @@ myCheckboxGroup.setValue('cb-col-1,cb-col-3');
         }
         return this;
     },
-    
+
     onSetValue: function(id, value){
         if(arguments.length == 1){
             if(Ext.isArray(id)){
@@ -362,14 +361,14 @@ myCheckboxGroup.setValue('cb-col-1,cb-col-3');
             }
         }
     },
-    
+
     // private
     beforeDestroy: function(){
         Ext.destroy(this.panel);
         Ext.form.CheckboxGroup.superclass.beforeDestroy.call(this);
 
     },
-    
+
     setValueForItem : function(val){
         val = String(val).split(',');
         this.eachItem(function(item){
@@ -378,7 +377,7 @@ myCheckboxGroup.setValue('cb-col-1,cb-col-3');
             }
         });
     },
-    
+
     // private
     getBox : function(id){
         var box = null;
@@ -390,7 +389,7 @@ myCheckboxGroup.setValue('cb-col-1,cb-col-3');
         });
         return box;
     },
-    
+
     /**
      * Gets an array of the selected {@link Ext.form.Checkbox} in the group.
      * @return {Array} An array of the selected checkboxes.
@@ -404,14 +403,14 @@ myCheckboxGroup.setValue('cb-col-1,cb-col-3');
         });
         return out;
     },
-    
+
     // private
     eachItem: function(fn){
         if(this.items && this.items.each){
             this.items.each(fn, this);
         }
     },
-    
+
     /**
      * @cfg {String} name
      * @hide
@@ -422,13 +421,13 @@ myCheckboxGroup.setValue('cb-col-1,cb-col-3');
      * @hide
      */
     getRawValue : Ext.emptyFn,
-    
+
     /**
      * @method setRawValue
      * @hide
      */
     setRawValue : Ext.emptyFn
-    
+
 });
 
 Ext.reg('checkboxgroup', Ext.form.CheckboxGroup);
