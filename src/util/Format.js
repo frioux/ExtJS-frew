@@ -6,7 +6,8 @@
 Ext.util.Format = function(){
     var trimRe = /^\s+|\s+$/g,
         stripTagsRE = /<\/?[^>]+>/gi,
-        stripScriptsRe = /(?:<script.*?>)((\n|\r|.)*?)(?:<\/script>)/ig;
+        stripScriptsRe = /(?:<script.*?>)((\n|\r|.)*?)(?:<\/script>)/ig,
+        nl2brRe = /\r?\n/g;
         
     return {
         /**
@@ -342,7 +343,7 @@ Ext.util.Format = function(){
          * @return {String} The string with embedded &lt;br/> tags in place of newlines.
          */
         nl2br : function(v){
-            return v === undefined || v === null ? '' : v.replace(/\n/g, '<br/>');
+            return Ext.isEmpty(v) ? '' : v.replace(nl2brRe, '<br/>');
         }
     }
 }();
