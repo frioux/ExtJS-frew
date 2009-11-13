@@ -85,6 +85,7 @@ Ext.list.ColumnResizer = Ext.extend(Ext.util.Observable, {
     },
 
     onEnd: function(e){
+	/* calculate desired width by measuring proxy and then remove it */	
         var nw = this.proxy.getWidth();
         this.proxy.remove();
 
@@ -95,20 +96,20 @@ Ext.list.ColumnResizer = Ext.extend(Ext.util.Observable, {
             w = this.view.innerHd.getWidth(), 
             minPct = this.minPct * 100;
             pct = Math.ceil((nw * vw.maxWidth) / w),
-            diff = cs[index].width - pct,
+            diff = (cs[index].width * 100) - pct,
             each = Math.floor(diff / (len-1-index)),
             mod = diff - (each * (len-1-index));
 
         for(var i = index+1; i < len; i++){
-            var cw = cs[i].width + each,
+            var cw = (cs[i].width * 100) + each,
                 ncw = Math.max(minPct, cw);
             if(cw != ncw){
                 mod += cw - ncw;
             }
-            cs[i].width = ncw;
+            cs[i].width = ncw / 100;
         }
-        cs[index].width = pct;
-        cs[index+1].width += mod;
+        cs[index].width = pct / 100;
+        cs[index+1].width += (mod / 100);
         delete this.dragHd;
         vw.setHdWidths();
         vw.refresh();
