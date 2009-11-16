@@ -49,17 +49,10 @@ Ext.data.ArrayReader = Ext.extend(Ext.data.JsonReader, {
         this.arrayData = o;
         var s = this.meta,
             sid = s ? Ext.num(s.idIndex, s.id) : null,
-            recordType = this.recordType, 
+            recordType = this.recordType,
             fields = recordType.prototype.fields,
             records = [],
             v;
-
-        if(!this.getRoot) {
-            this.getRoot = s.root ? this.getJsonAccessor(s.root) : function(p) {return p;};
-            if(s.totalProperty) {
-                this.getTotal = this.getJsonAccessor(s.totalProperty);
-            }
-        }
 
         var root = this.getRoot(o);
 
