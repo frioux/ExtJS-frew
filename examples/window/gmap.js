@@ -18,7 +18,6 @@ Ext.onReady(function(){
                 y: 60,
                 items: {
                     xtype: 'gmappanel',
-                    region: 'center',
                     zoomLevel: 14,
                     gmapType: 'map',
                     mapConfOpts: ['enableScrollWheelZoom','enableDoubleClickZoom','enableDragging'],
