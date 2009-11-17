@@ -77,6 +77,7 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
              */
             'change'
         );
+        this.on('change', this.validate, this);
         Ext.form.CheckboxGroup.superclass.initComponent.call(this);
     },
 
