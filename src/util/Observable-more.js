@@ -196,12 +196,18 @@ Ext.data.Connection.on('beforerequest', function(con, options) {
     console.log('Ajax request made to ' + options.url);
 });</code></pre>
  * @param {Function} c The class constructor to make observable.
+ * @param {Object} listeners An object containing a series of listeners to add. See {@link #addListener}. 
  * @static
  */
-Ext.util.Observable.observeClass = function(c){
-    Ext.apply(c, new Ext.util.Observable());
-    c.prototype.fireEvent = function(){
-        return (c.fireEvent.apply(c, arguments) !== false) &&
-        (Ext.util.Observable.prototype.fireEvent.apply(this, arguments) !== false);
-    };
+Ext.util.Observable.observeClass = function(c, listeners){
+    if(c){
+      if(!c.fireEvent){
+          Ext.apply(c, new Ext.util.Observable());
+          Ext.util.Observable.capture(c.prototype, c.fireEvent, c);
+      }
+      if(Ext.isObject(listeners)){
+          c.on(listeners);
+      }
+      return c;
+   }
 };
