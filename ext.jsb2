@@ -142,6 +142,10 @@
             text: 'Element.traversal.js',
             path: 'src/core/core/'
         },{
+        	text: 'Element.traversal-more.js',
+        	path: 'src/core/'
+        },
+        {
             text: 'Element.insertion.js',
             path: 'src/core/core/'
         },{
