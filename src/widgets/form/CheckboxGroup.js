@@ -295,12 +295,16 @@ Ext.form.CheckboxGroup = Ext.extend(Ext.form.Field, {
 
     // inherit docs from Field
     reset : function(){
-        Ext.form.CheckboxGroup.superclass.reset.call(this);
         this.eachItem(function(c){
             if(c.reset){
                 c.reset();
             }
         });
+        // Defer the clearInvalid so if BaseForm's collection is being iterated it will be called AFTER it is complete.
+        // Important because reset is being called on both the group and the individual items.
+        (function() {
+            this.clearInvalid();
+        }).defer(50, this);
     },
 
     /**
