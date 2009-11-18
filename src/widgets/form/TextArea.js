@@ -59,7 +59,7 @@ Ext.form.TextArea = Ext.extend(Ext.form.TextField,  {
     },
 
     onDestroy : function(){
-        Ext.destroy(this.textSizeEl);
+        Ext.removeNode(this.textSizeEl);
         Ext.form.TextArea.superclass.onDestroy.call(this);
     },
 
@@ -68,13 +68,10 @@ Ext.form.TextArea = Ext.extend(Ext.form.TextField,  {
             this.fireEvent("specialkey", this, e);
         }
     },
-
+    
     // private
-    onKeyUp : function(e){
-        if(!e.isNavKeyPress() || e.getKey() == e.ENTER){
-            this.autoSize();
-        }
-        Ext.form.TextArea.superclass.onKeyUp.call(this, e);
+    doAutoSize : function(e){
+        return !e.isNavKeyPress() || e.getKey() == e.ENTER;
     },
 
     /**
@@ -85,19 +82,17 @@ Ext.form.TextArea = Ext.extend(Ext.form.TextField,  {
         if(!this.grow || !this.textSizeEl){
             return;
         }
-        var el = this.el;
-        var v = el.dom.value;
-        var ts = this.textSizeEl;
-        ts.innerHTML = '';
-        ts.appendChild(document.createTextNode(v));
-        v = ts.innerHTML;
+        var el = this.el,
+            v = Ext.util.Format.htmlEncode(el.dom.value),
+            ts = this.textSizeEl;
+            
         Ext.fly(ts).setWidth(this.el.getWidth());
         if(v.length < 1){
             v = "&#160;&#160;";
         }else{
             v += this.growAppend;
             if(Ext.isIE){
-                v = v.replace(/\n/g, '<br />');
+                v = v.replace(/\n/g, '&#160;<br />');
             }
         }
         ts.innerHTML = v;

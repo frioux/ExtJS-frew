@@ -272,9 +272,14 @@ var myField = new Ext.form.NumberField({
 
     // private
     onKeyUpBuffered : function(e){
-        if(!e.isNavKeyPress()){
+        if(this.doAutoSize(e)){
             this.autoSize();
         }
+    },
+    
+    // private
+    doAutoSize : function(e){
+        return !e.isNavKeyPress();
     },
 
     // private
