@@ -22,6 +22,9 @@
             text: 'Connection.js',
             path: 'sql/'
         },{
+            text: 'SQLiteStore.js',
+            path: 'sql/'
+        },{
             text: 'Table.js',
             path: 'sql/'
         },{
@@ -41,6 +44,27 @@
             path: '',
         },{
             text: 'SystemMenu.js',
+            path: ''
+        },{
+            text: 'MusicPlayer.js',
+            path: ''
+        },{
+            text: 'Notify.js',
+            path: ''
+        },{
+            text: 'Clipboard.js',
+            path: ''
+        },{
+            text: 'App.js',
+            path: ''
+        },{
+            text: 'Debug.js',
+            path: ''
+        },{
+            text: 'FileTreeLoader.js',
+            path: ''
+        },{
+            text: 'VideoPanel.js',
             path: ''
         }]
     }]

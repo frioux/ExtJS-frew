@@ -1,4 +1,4 @@
-// Asbtract base class for Connection classes
+// Abstract base class for Connection classes
 Ext.sql.Connection = function(config){
 	Ext.apply(this, config);
 	Ext.sql.Connection.superclass.constructor.call(this);
