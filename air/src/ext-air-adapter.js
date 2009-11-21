@@ -783,7 +783,7 @@ Ext.ColorPalette.prototype.tpl = new Ext.XTemplate(
     '<tpl for="."><a href="#" class="color-{.}" hidefocus="on"><em><span style="background:#{.}" unselectable="on">&#160;</span></em></a></tpl>'
 );
 
-Ext.grid.GroupingView.prototype.startTpl = new Ext.XTemplate(
+Ext.grid.GroupingView.prototype.startGroup = new Ext.XTemplate(
     '<div id="{groupId}" class="x-grid-group {cls}">',
         '<div id="{groupId}-hd" class="x-grid-group-hd" style="{style}"><div>{text}</div></div>',
         '<div id="{groupId}-bd" class="x-grid-group-body">'
