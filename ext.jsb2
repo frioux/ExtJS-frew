@@ -1264,6 +1264,10 @@
         dest: 'license.txt',
         filters: ".*"
     },{
+        src: 'gpl-3.0.txt',
+        dest: 'gpl-3.0.txt',
+        filters: ".*"
+    },{
         src: 'INCLUDE_ORDER.txt',
         dest: 'INCLUDE_ORDER.txt',
         filters: ".*"
