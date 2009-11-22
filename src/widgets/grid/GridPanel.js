@@ -1008,7 +1008,7 @@ function(grid, rowIndex, columnIndex, e) {
      * @hide 
      */
     /** 
-     * @event afterLayout 
+     * @event afterlayout 
      * @hide 
      */
     /** 
