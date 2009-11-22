@@ -361,5 +361,22 @@ grid.setSource({
     getSource : function(){
         return this.propStore.getSource();
     }
+
+    /**
+     * @cfg store
+     * @hide
+     */
+    /**
+     * @cfg colModel
+     * @hide
+     */
+    /**
+     * @cfg cm
+     * @hide
+     */
+    /**
+     * @cfg columns
+     * @hide
+     */
 });
 Ext.reg("propertygrid", Ext.grid.PropertyGrid);
