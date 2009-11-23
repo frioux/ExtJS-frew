@@ -560,11 +560,19 @@ mc.add(otherEl);
     },
 
     // private
-    createValueMatcher : function(value, anyMatch, caseSensitive) {
+    createValueMatcher : function(value, anyMatch, caseSensitive, exactMatch) {
         if (!value.exec) { // not a regex
             var er = Ext.escapeRe;
             value = String(value);
-            value = new RegExp(anyMatch === true ? er(value) : '^' + er(value) + '$', caseSensitive ? '' : 'i');
+            if (anyMatch === true) {
+                value = er(value);
+            } else {
+                value = '^' + er(value);
+                if (exactMatch === true) {
+                    value += '$';
+                }
+            }
+            value = new RegExp(value, caseSensitive ? '' : 'i');
          }
          return value;
     },
