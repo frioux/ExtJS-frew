@@ -1,0 +1,42 @@
+<html>
+	<head>
+        <title>ExtPlayer</title>        
+		<link rel="stylesheet" href="../extjs/resources/css/ext-all.css" />
+		<link rel="stylesheet" href="../extjs/resources/ext-air.css" />
+		<link rel="stylesheet" href="../css/xplayer.css" />
+
+		
+        <!-- Uncomment the following line to add introspection.  When running the application hit F12 to bring up the introspector -->
+        <!-- <script type="text/javascript" src="../air/AIRIntrospector.js"></script> -->
+        <script type="text/javascript" src="../air/AIRAliases.js"></script>
+		
+        <!-- Debug Versions -->
+        <script src="../extjs/adapter/ext/ext-base-debug.js"></script>
+		<script src="../extjs/ext-all-debug.js"></script>
+		<script src="../extjs/ext-air-debug.js"></script>
+        <!--
+        <script src="../extjs/adapter/ext/ext-base.js"></script>
+		<script src="../extjs/ext-all.js"></script>
+		<script src="../extjs/ext-air.js"></script>
+        -->
+		<script src="../js/Debug.js"></script>
+		<script src="../js/ChromeViewport.js"></script>
+		<script src="../js/Xp.ui.Templates.js"></script>
+		<script src="../js/Xp.ui.CurrentInfo.js"></script>
+		<script src="../js/Xp.ui.Main.js"></script>		
+		<script>			
+			Ext.onReady(function() {
+				Ext.BLANK_IMAGE_URL = '../extjs/resources/images/s.gif';				
+				Ext.QuickTips.init();
+				var vp = new Ext.air.ChromeViewport({
+					panel: {
+						id: 'xpm',
+						xtype: 'xp:ui:main'
+					}
+				});
+			});			
+		</script>
+	</head>
+
+    <body></body>
+</html>

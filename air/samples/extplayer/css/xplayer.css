@@ -1,0 +1,39 @@
+.xplayer-current .x-panel-body {
+	border: #c0c0c0 solid 1px;
+	background-color: #eee;
+	padding: 4px;
+}
+
+.xplayer-current .xplayer-current-artist {
+	
+}
+
+.xplayer-current .xplayer-current-title {
+	float: left;
+}
+
+
+.xplayer-current .xplayer-current-time {
+	float: right;
+}
+
+.xplayer-current .xplayer-current-desc {
+	float: left;
+	width: 40px;
+}
+
+
+.xplayer-main .x-panel-bbar .x-toolbar {
+	background-position: 0 -1px;
+	border: none;
+}
+
+.xplayer-main span.x-panel-header-text {
+	white-space: nowrap;
+}
+
+.xplayer-current-content {
+	overflow: hidden;
+	width: 175px;
+	height: 14px;
+}
