@@ -28,7 +28,6 @@ Ext.data.Field = function(config){
                 this.sortType = st.asUCString;
                 break;
             case "date":
-            case "datetime":
                 this.sortType = st.asDate;
                 break;
             default:
@@ -53,24 +52,21 @@ Ext.data.Field = function(config){
                 cv = function(v){ return (v === undefined || v === null) ? '' : String(v); };
                 break;
             case "int":
-            case "integer":
                 cv = function(v){
                     return v !== undefined && v !== null && v !== '' ?
-                           parseInt(String(v).replace(stripRe, ""), 10) : '';
+                        parseInt(String(v).replace(stripRe, ""), 10) : '';
                     };
                 break;
             case "float":
                 cv = function(v){
                     return v !== undefined && v !== null && v !== '' ?
-                           parseFloat(String(v).replace(stripRe, ""), 10) : '';
+                        parseFloat(String(v).replace(stripRe, ""), 10) : '';
                     };
                 break;
             case "bool":
-            case "boolean":
                 cv = function(v){ return v === true || v === "true" || v == 1; };
                 break;
             case "date":
-            case "datetime":
                 cv = function(v){
                     if(!v){
                         return '';
