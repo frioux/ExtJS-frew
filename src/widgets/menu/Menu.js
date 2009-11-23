@@ -678,6 +678,11 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
 
     //private
     onDestroy : function(){
+        var pm = this.parentMenu;
+        if(pm && pm.activeChild == this){
+            delete pm.activeChild;
+        }
+        delete this.parentMenu;
         Ext.menu.Menu.superclass.onDestroy.call(this);
         Ext.menu.MenuMgr.unregister(this);
         Ext.EventManager.removeResizeListener(this.hide, this);

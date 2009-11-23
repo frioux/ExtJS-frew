@@ -24,7 +24,9 @@ Ext.menu.MenuMgr = function(){
            c.each(function(m){
                m.hide();
            });
+           return true;
        }
+       return false;
    }
 
    // private
@@ -97,9 +99,10 @@ Ext.menu.MenuMgr = function(){
 
        /**
         * Hides all menus that are currently visible
+        * @return {Boolean} success True if any active menus were hidden.
         */
        hideAll : function(){
-            hideAll();  
+            return hideAll();  
        },
 
        // private
