@@ -25,58 +25,29 @@ Ext.CompositeElement = function(els, root){
 };
 
 Ext.extend(Ext.CompositeElement, Ext.CompositeElementLite, {
-    invoke : function(fn, args){
-	    Ext.each(this.elements, function(e) {
-        	Ext.Element.prototype[fn].apply(e, args);
-        });
-        return this;
+    
+    // private
+    getElement : function(el){
+        // In this case just return it, since we already have a reference to it
+        return el;
     },
+    
+    // private
+    transformElement : function(el){
+        return Ext.get(el);
+    }
 
     /**
     * Adds elements to this composite.
     * @param {String/Array} els A string CSS selector, an array of elements or an element
     * @return {CompositeElement} this
     */
-    add : function(els, root){
-	    if(!els){
-            return this;
-        }
-        if(typeof els == "string"){
-            els = Ext.Element.selectorFunction(els, root);
-        }
-        var yels = this.elements;
-	    Ext.each(els, function(e) {
-        	yels.push(Ext.get(e));
-        });
-        return this;
-    },
 
     /**
      * Returns the Element object at the specified index
      * @param {Number} index
      * @return {Ext.Element}
      */
-    item : function(index){
-        return this.elements[index] || null;
-    },
-
-
-    indexOf : function(el){
-        return this.elements.indexOf(Ext.get(el));
-    },
-
-    filter : function(selector){
-		var me = this,
-			out = [];
-
-		Ext.each(me.elements, function(el) {
-			if(el.is(selector)){
-				out.push(Ext.get(el));
-			}
-		});
-		me.elements = out;
-		return me;
-	},
 
     /**
      * Iterates each <code>element</code> in this <code>composite</code>
@@ -95,12 +66,6 @@ Ext.extend(Ext.CompositeElement, Ext.CompositeElementLite, {
      * within the composite.
      * @return {CompositeElement} this
      */
-    each : function(fn, scope){
-        Ext.each(this.elements, function(e, i){
-            return fn.call(scope || e, e, this, i);
-        }, this);
-        return this;
-    }
 });
 
 /**
