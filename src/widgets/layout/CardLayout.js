@@ -104,9 +104,11 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
             }
             var layout = item.doLayout && (this.layoutOnCardChange || !item.rendered);
             this.activeItem = item;
-            item.show();
+            if(item){
+                item.show();
+            }
             this.layout();
-            if(layout){
+            if(item && layout){
                 item.doLayout();
             }
             item.fireEvent('activate', item);

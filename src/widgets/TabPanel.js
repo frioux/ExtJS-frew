@@ -213,9 +213,9 @@ var tabs = new Ext.TabPanel({
     autoTabSelector : 'div.x-tab',
     /**
      * @cfg {String/Number} activeTab A string id or the numeric index of the tab that should be initially
-     * activated on render (defaults to none).
+     * activated on render (defaults to undefined).
      */
-    activeTab : null,
+    activeTab : undefined,
     /**
      * @cfg {Number} tabMargin The number of pixels of space to calculate into the sizing and scrolling of
      * tabs. If you change the margin in CSS, you will need to update this value so calculations are correct
@@ -321,7 +321,8 @@ var tabs = new Ext.TabPanel({
         st.createChild({cls:'x-tab-strip-spacer'}, beforeEl);
         this.strip = new Ext.Element(this.stripWrap.dom.firstChild);
 
-        this.edge = this.strip.createChild({tag:'li', cls:'x-tab-edge'});
+        // create an empty span with class x-tab-strip-text to force the height of the header element when there's no tabs.
+        this.edge = this.strip.createChild({tag:'li', cls:'x-tab-edge', cn: [{tag: 'span', cls: 'x-tab-strip-text', cn: '&#160;'}]});
         this.strip.createChild({cls:'x-clear'});
 
         this.body.addClass('x-tab-panel-body-'+this.tabPosition);
@@ -617,7 +618,7 @@ new Ext.TabPanel({
             }else if(this.items.getCount() > 0){
                 this.setActiveTab(0);
             }else{
-                this.activeTab = null;
+                this.setActiveTab(null);
             }
         }
         if(!this.destroying){
@@ -789,7 +790,7 @@ new Ext.TabPanel({
      */
     setActiveTab : function(item){
         item = this.getComponent(item);
-        if(!item || this.fireEvent('beforetabchange', this, item, this.activeTab) === false){
+        if(this.fireEvent('beforetabchange', this, item, this.activeTab) === false){
             return;
         }
         if(!this.rendered){
@@ -803,14 +804,16 @@ new Ext.TabPanel({
                     Ext.fly(oldEl).removeClass('x-tab-strip-active');
                 }
             }
-            var el = this.getTabEl(item);
-            Ext.fly(el).addClass('x-tab-strip-active');
-            this.activeTab = item;
-            this.stack.add(item);
+            if(item){
+                var el = this.getTabEl(item);
+                Ext.fly(el).addClass('x-tab-strip-active');
+                this.activeTab = item;
+                this.stack.add(item);
 
-            this.layout.setActiveItem(item);
-            if(this.scrolling){
-                this.scrollToTab(item, this.animScroll);
+                this.layout.setActiveItem(item);
+                if(this.scrolling){
+                    this.scrollToTab(item, this.animScroll);
+                }
             }
             this.fireEvent('tabchange', this, item);
         }
