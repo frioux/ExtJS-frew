@@ -506,7 +506,9 @@ Ext.layout.BorderLayout.Region.prototype = {
             this.splitEl.hide();
         }
         this.getCollapsedEl().show();
-        this.panel.el.setStyle('z-index', 100);
+        var el = this.panel.getEl();
+        this.originalZIndex = el.getStyle('z-index');
+        el.setStyle('z-index', 100);
         this.isCollapsed = true;
         this.layout.layout();
     },
@@ -547,7 +549,7 @@ Ext.layout.BorderLayout.Region.prototype = {
             this.splitEl.show();
         }
         this.layout.layout();
-        this.panel.el.setStyle('z-index', 1);
+        this.panel.el.setStyle('z-index', this.originalZIndex);
         this.state.collapsed = false;
         this.panel.saveState();
     },
