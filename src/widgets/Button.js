@@ -252,20 +252,19 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     },
 
 /**
-  * <p>This method returns an object which provides substitution parameters for the {@link #template Template} used
+  * <p>This method returns an Array which provides substitution parameters for the {@link #template Template} used
   * to create this Button's DOM structure.</p>
   * <p>Instances or subclasses which use a different Template to create a different DOM structure may need to provide their
   * own implementation of this method.</p>
   * <p>The default implementation which provides data for the default {@link #template} returns an Array containing the
   * following items:</p><div class="mdetail-params"><ul>
-  * <li>The Button's {@link #text}</li>
   * <li>The &lt;button&gt;'s {@link #type}</li>
-  * <li>The {@link iconCls} applied to the &lt;button&gt; {@link #btnEl element}</li>
-  * <li>The {@link #cls} applied to the Button's main {@link #getEl Element}</li>
-  * <li>A CSS class name controlling the Button's {@link #scale} and {@link #iconAlign icon alignment}</li>
-  * <li>A CSS class name which applies an arrow to the Button if configured with a {@link #menu}</li>
+  * <li>A CSS class name applied to the Button's main &lt;tbody&gt; element which determines the button's scale and icon alignment.</li>
+  * <li>A CSS class to determine the presence and position of an arrow icon. (<code>'x-btn-arrow'</code> or <code>'x-btn-arrow-bottom'</code> or <code>''</code>)</li>
+  * <li>The {@link #cls} CSS class name applied to the button's wrapping &lt;table&gt; element.</li>
+  * <li>The Component id which is applied to the button's wrapping &lt;table&gt; element.</li>
   * </ul></div>
-  * @return {Object} Substitution data for a Template.
+  * @return {Array} Substitution data for a Template.
  */
     getTemplateArgs : function(){
         return [this.type, 'x-btn-' + this.scale + ' x-btn-icon-' + this.scale + '-' + this.iconAlign, this.getMenuClass(), this.cls, this.id];
