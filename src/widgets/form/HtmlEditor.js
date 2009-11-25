@@ -358,9 +358,10 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
 
     setReadOnly: function(readOnly){
         if(this.initialized){
-            var newDM = readOnly ? 'off' : 'on';
-            if(String(this.doc.designMode).toLowerCase() != newDM){
-                this.doc.designMode = newDM;
+            var newDM = readOnly ? 'off' : 'on',
+                doc = this.getDoc();
+            if(String(doc.designMode).toLowerCase() != newDM){
+                doc.designMode = newDM;
             }
             this.disableItems(!readOnly);
         }
@@ -378,7 +379,8 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
 
     // private
     getEditorBody : function(){
-        return this.doc.body || this.doc.documentElement;
+        var doc = this.getDoc();
+        return doc.body || doc.documentElement;
     },
 
     // private
@@ -423,7 +425,8 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         var iframe = document.createElement('iframe');
         iframe.name = Ext.id();
         iframe.frameBorder = '0';
-        iframe.src = Ext.SSL_SECURE_URL
+        iframe.src = Ext.SSL_SECURE_URL;
+        iframe.foo = 'woo';
         this.wrap.dom.appendChild(iframe);
 
         this.iframe = iframe;
@@ -437,18 +440,19 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
 
     initFrame : function(){
         Ext.TaskMgr.stop(this.monitorTask);
-        this.doc = this.getDoc();
+        var doc = this.getDoc();
         this.win = this.getWin();
 
-        this.doc.open();
-        this.doc.write(this.getDocMarkup());
-        this.doc.close();
+        doc.open();
+        doc.write(this.getDocMarkup());
+        doc.close();
 
         var task = { // must defer to wait for browser to be ready
             run : function(){
-                if(this.doc.body || this.doc.readyState == 'complete'){
+                var doc = this.getDoc();
+                if(doc.body || doc.readyState == 'complete'){
                     Ext.TaskMgr.stop(task);
-                    this.doc.designMode="on";
+                    doc.designMode="on";
                     this.initEditor.defer(10, this);
                 }
             },
@@ -497,8 +501,9 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                 var ah = h - this.wrap.getFrameWidth('tb') - this.tb.el.getHeight();
                 this.el.setHeight(ah);
                 this.iframe.style.height = Math.max(ah, 0) + 'px';
-                if(this.doc){
-                    this.getEditorBody().style.height = Math.max((ah - (this.iframePad*2)), 0) + 'px';
+                var bd = this.getEditorBody();
+                if(bd){
+                    bd.style.height = Math.max((ah - (this.iframePad*2)), 0) + 'px';
                 }
             }
         }
@@ -644,7 +649,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                 this.getEditorBody().innerHTML = v;
                 if(Ext.isGecko){
                     // Gecko hack, see: https://bugzilla.mozilla.org/show_bug.cgi?id=232791#c8
-                    var d = this.doc,
+                    var d = this.getDoc(),
                         mode = d.designMode.toLowerCase();
 
                     d.designMode = mode.toggle('on', 'off');
@@ -679,16 +684,16 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             dbody.bgProperties = 'fixed'; // ie
 
             Ext.DomHelper.applyStyles(dbody, ss);
+            
+            var doc = this.getDoc();
 
-            if(this.doc){
+            if(doc){
                 try{
-                    Ext.EventManager.removeAll(this.doc);
+                    Ext.EventManager.removeAll(doc);
                 }catch(e){}
             }
 
-            this.doc = this.getDoc();
-
-            Ext.EventManager.on(this.doc, {
+            Ext.EventManager.on(doc, {
                 'mousedown': this.onEditorEvent,
                 'dblclick': this.onEditorEvent,
                 'click': this.onEditorEvent,
@@ -698,12 +703,12 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             });
 
             if(Ext.isGecko){
-                Ext.EventManager.on(this.doc, 'keypress', this.applyCommand, this);
+                Ext.EventManager.on(doc, 'keypress', this.applyCommand, this);
             }
             if(Ext.isIE || Ext.isWebKit || Ext.isOpera){
-                Ext.EventManager.on(this.doc, 'keydown', this.fixKeys, this);
+                Ext.EventManager.on(doc, 'keydown', this.fixKeys, this);
             }
-            this.doc.editorInitialized = true;
+            doc.editorInitialized = true;
             this.initialized = true;
             this.pushValue();
             this.setReadOnly(this.readOnly);
@@ -718,23 +723,24 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         }
         if(this.rendered){
             Ext.destroy(this.tb);
+            var doc = this.getDoc();
+            if(doc){
+                try{
+                    Ext.EventManager.removeAll(doc);
+                    for (var prop in doc){
+                        delete doc[prop];
+                    }
+                }catch(e){}
+            }
             if(this.wrap){
                 this.wrap.dom.innerHTML = '';
                 this.wrap.remove();
             }
         }
+        
         if(this.el){
             this.el.removeAllListeners();
             this.el.remove();
-        }
-
-        if(this.doc){
-            try{
-                Ext.EventManager.removeAll(this.doc);
-                for (var prop in this.doc){
-                   delete this.doc[prop];
-                }
-            }catch(e){}
         }
         this.purgeListeners();
     },
@@ -762,9 +768,9 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
 
     // private
     adjustFont: function(btn){
-        var adjust = btn.getItemId() == 'increasefontsize' ? 1 : -1;
-
-        var v = parseInt(this.doc.queryCommandValue('FontSize') || 2, 10);
+        var adjust = btn.getItemId() == 'increasefontsize' ? 1 : -1,
+            doc = this.getDoc(),
+            v = parseInt(doc.queryCommandValue('FontSize') || 2, 10);
         if((Ext.isSafari && !Ext.isSafari2) || Ext.isChrome || Ext.isAir){
             // Safari 3 values
             // 1 = 10px, 2 = 13px, 3 = 16px, 4 = 18px, 5 = 24px, 6 = 32px
@@ -812,10 +818,11 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             return;
         }
 
-        var btns = this.tb.items.map, doc = this.doc;
+        var btns = this.tb.items.map, 
+            doc = this.getDoc();
 
         if(this.enableFont && !Ext.isSafari2){
-            var name = (this.doc.queryCommandValue('FontName')||this.defaultFont).toLowerCase();
+            var name = (doc.queryCommandValue('FontName')||this.defaultFont).toLowerCase();
             if(name != this.fontSelect.dom.value){
                 this.fontSelect.dom.value = name;
             }
@@ -867,7 +874,8 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
      * @param {String/Boolean} value (optional) The value to pass to the command (defaults to null)
      */
     execCmd : function(cmd, value){
-        this.doc.execCommand(cmd, false, value === undefined ? null : value);
+        var doc = this.getDoc();
+        doc.execCommand(cmd, false, value === undefined ? null : value);
         this.syncValue();
     },
 
@@ -909,7 +917,8 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         }
         if(Ext.isIE){
             this.win.focus();
-            var r = this.doc.selection.createRange();
+            var doc = this.getDoc(),
+                r = doc.selection.createRange();
             if(r){
                 r.pasteHTML(text);
                 this.syncValue();
@@ -926,17 +935,19 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
     fixKeys : function(){ // load time branching for fastest keydown performance
         if(Ext.isIE){
             return function(e){
-                var k = e.getKey(), r;
+                var k = e.getKey(), 
+                    doc = this.getDoc(),
+                        r;
                 if(k == e.TAB){
                     e.stopEvent();
-                    r = this.doc.selection.createRange();
+                    r = doc.selection.createRange();
                     if(r){
                         r.collapse(true);
                         r.pasteHTML('&nbsp;&nbsp;&nbsp;&nbsp;');
                         this.deferFocus();
                     }
                 }else if(k == e.ENTER){
-                    r = this.doc.selection.createRange();
+                    r = doc.selection.createRange();
                     if(r){
                         var target = r.parentElement();
                         if(!target || target.tagName.toLowerCase() != 'li'){
