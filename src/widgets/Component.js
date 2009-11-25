@@ -285,7 +285,7 @@ Ext.Component = function(config){
     }
 
     if(this.stateful !== false){
-        this.initState(config);
+        this.initState();
     }
 
     if(this.applyTo){
@@ -1108,14 +1108,14 @@ var myGrid = new Ext.grid.EditorGridPanel({
     },
 
     // private
-    initState : function(config){
+    initState : function(){
         if(Ext.state.Manager){
             var id = this.getStateId();
             if(id){
                 var state = Ext.state.Manager.get(id);
                 if(state){
                     if(this.fireEvent('beforestaterestore', this, state) !== false){
-                        this.applyState(state);
+                        this.applyState(Ext.apply({}, state));
                         this.fireEvent('staterestore', this, state);
                     }
                 }
