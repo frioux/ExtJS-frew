@@ -131,6 +131,9 @@ Ext.Resizable = function(el, config){
         this.dd = this.dynamic ? 
             this.el.initDD(null) : this.el.initDDProxy(null, {dragElId: this.proxy.id});
         this.dd.setHandleElId(this.resizeChild ? this.resizeChild.id : this.el.id);
+        if(this.constrainTo){
+            this.dd.constrainTo(this.constrainTo);
+        }
     }
     
     this.addEvents(
@@ -450,6 +453,10 @@ new Ext.Panel({
         this.updateChildSize();
         if(!this.dynamic){
             this.proxy.hide();
+        }
+        if(this.draggable && this.constrainTo){
+            this.dd.resetConstraints();
+            this.dd.constrainTo(this.constrainTo);
         }
         return box;
     },
