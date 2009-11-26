@@ -456,6 +456,7 @@ new Ext.TabPanel({
         if(e.button !== 0){
             return;
         }
+        console.log('md');
         e.preventDefault();
         var t = this.findTargets(e);
         if(t.close){
@@ -525,7 +526,12 @@ new Ext.TabPanel({
         }
         item.tabEl = el;
 
-        tabEl.select('a').on('click', this.onStripMouseDown, this, {preventDefault: true});
+        // Route *keyboard triggered* click events to the tab strip mouse handler.
+        tabEl.select('a').on('click', function(e){
+            if(!e.getPageX()){
+                this.onStripMouseDown(e);
+            }
+        }, this, {preventDefault: true});
 
         item.on({
             scope: this,
@@ -601,9 +607,12 @@ new Ext.TabPanel({
     // private
     onRemove : function(c){
         var te = Ext.get(c.tabEl);
-        te.select('a').removeAllListeners();
+        // check if the tabEl exists, it won't if the tab isn't rendered
+        if(te){
+            te.select('a').removeAllListeners();
+            Ext.destroy(te);
+        }
         Ext.TabPanel.superclass.onRemove.call(this, c);
-        Ext.destroy(te);
         this.stack.remove(c);
         delete c.tabEl;
         c.un('disable', this.onItemDisabled, this);
