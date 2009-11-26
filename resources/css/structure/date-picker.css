@@ -78,10 +78,13 @@
 }
 
 table.x-date-inner {
-    /* 11/13/09 EAC Changed from auto to fixed width to fix Chrome/Safari. */
-    /* this width relates to the 130px below. */
-    width: 175px;
+    width: 100%;
     table-layout:fixed;
+}
+
+.ext-webkit table.x-date-inner{
+    /* Fix for webkit browsers */
+    width: 175px;
 }
 
 

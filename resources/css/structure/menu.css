@@ -176,6 +176,25 @@ a.x-menu-item {
    padding:0 !important;
 }
 
+/*
+ * Ugly mess to remove the white border under the picker
+ */
+.ext-ie .x-date-menu{
+    height: 199px;
+}
+
+.ext-strict .ext-ie .x-date-menu, .ext-border-box .ext-ie8 .x-date-menu{
+    height: 197px;
+}
+
+.ext-strict .ext-ie7 .x-date-menu{
+    height: 195px;
+}
+
+.ext-strict .ext-ie8 .x-date-menu{
+    height: auto;
+}
+
 .x-cycle-menu .x-menu-item-checked {
     border:1px dotted !important;
 	padding:0;
