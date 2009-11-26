@@ -456,7 +456,6 @@ new Ext.TabPanel({
         if(e.button !== 0){
             return;
         }
-        console.log('md');
         e.preventDefault();
         var t = this.findTargets(e);
         if(t.close){
