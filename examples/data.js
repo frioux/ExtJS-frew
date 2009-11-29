@@ -166,6 +166,12 @@ Ext.samples.samplesCatalog = [{
         icon: 'restful-thumb.gif',
         desc: 'A RESTful Store with JsonWriter which automatically generates CRUD requests to the server.',
         status: 'new'
+    },{
+        text: 'A Grid Panel with the LockingGridView plugin',
+        url: 'grid/locking-grid.html',
+        icon: 'restful-thumb.gif',
+        desc: 'An example plugin that introduces the ability to add locking columns.'
+        status: 'new'
     }]
 },{
     title: 'Tabs',
