@@ -174,9 +174,9 @@ Ext.samples.samplesCatalog = [{
         status: 'new'
     },{
         text: 'Grouping GridView extension',
-        url: 'grid/locking-grid.html',
+        url: 'grid/ColumnLockingGrid.html',
         icon: 'restful-thumb.gif',
-        desc: 'An extension that adds the capability of grouping Columns with the GridPanel'
+        desc: 'An extension that adds the capability of grouping Columns with the GridPanel',
         status: 'new'
     }]
 },{
@@ -400,6 +400,12 @@ Ext.samples.samplesCatalog = [{
         url:  'multiselect/multiselect-demo.html',
         icon: 'form-multiselect.gif',
         desc: 'Example controls for selecting a list of items in forms.'
+    },{
+        text: 'Forms with vBox layout',
+        url:  'form/form-vbox.html',
+        icon: 'for-vbox.gif',
+        desc: 'Example usage of the vBox layout with forms. An added bonus is the FieldReplicator plugin.',
+	status : 'new'
     }]
 },{
     title: 'Toolbars and Menus',
