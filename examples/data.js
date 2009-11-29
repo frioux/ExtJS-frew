@@ -330,7 +330,7 @@ Ext.samples.samplesCatalog = [{
     },{
         text: 'VBox Layout',
         url:  'layout/vbox.html',
-        icon: 'blank.gif',
+        icon: 'layout-vbox.gif',
         desc: 'Interactive layout illustrating the capabilities of the VBox Layout.',
         status: 'new'
     },{
