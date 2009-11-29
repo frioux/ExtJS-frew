@@ -163,20 +163,20 @@ Ext.samples.samplesCatalog = [{
     }, {
         text: 'RESTful Store with GridPanel and RowEditor',
         url: 'restful/restful.html',
-        icon: 'restful-thumb.gif',
+        icon: 'grid-row-editor.gif',
         desc: 'A RESTful Store with JsonWriter which automatically generates CRUD requests to the server.',
         status: 'new'
     },{
         text: 'Locking GridView extension',
         url: 'grid/locking-grid.html',
-        icon: 'restful-thumb.gif',
+        icon: 'grid-locking.gif',
         desc: 'An example extension that introduces the ability to add locking columns to the GridPanel',
         status: 'new'
     },{
         text: 'Grouping GridView extension',
-        url: 'grid/ColumnLockingGrid.html',
-        icon: 'restful-thumb.gif',
-        desc: 'An extension that adds the capability of grouping Columns with the GridPanel',
+        url: 'grid/ColumnHeaderGroup.html',
+        icon: 'grid-columnlocking.gif',
+        desc: 'An extension that adds the capability of grouping Column headers in the GridPanel',
         status: 'new'
     }]
 },{
@@ -402,8 +402,8 @@ Ext.samples.samplesCatalog = [{
         desc: 'Example controls for selecting a list of items in forms.'
     },{
         text: 'Forms with vBox layout',
-        url:  'form/form-vbox.html',
-        icon: 'for-vbox.gif',
+        url:  'form/vbox-form.html',
+        icon: 'form-vbox.gif',
         desc: 'Example usage of the vBox layout with forms. An added bonus is the FieldReplicator plugin.',
 	status : 'new'
     }]
