@@ -175,7 +175,7 @@ Ext.samples.samplesCatalog = [{
     },{
         text: 'Grouping GridView extension',
         url: 'grid/ColumnHeaderGroup.html',
-        icon: 'grid-columnlocking.gif',
+        icon: 'grid-columngrouping.gif',
         desc: 'An extension that adds the capability of grouping Column headers in the GridPanel',
         status: 'new'
     }]
