@@ -530,7 +530,7 @@ Ext.samples.samplesCatalog = [{
         text: 'Editor',
         url: 'simple-widgets/editor.html',
         icon: 'editor.gif',
-        desc: 'Simple inline editing of DOM elements.',
+        desc: 'An example demonstrating the ease of use of the Ext.editor class to modify DOM elements',
         status: 'new'
     },{
         text: 'Slider',
