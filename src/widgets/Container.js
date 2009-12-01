@@ -807,11 +807,6 @@ tb.{@link #doLayout}();             // refresh the layout
     //private
     onLayout : Ext.emptyFn,
 
-    canLayout: function() {
-        var el = this.getVisibilityEl();
-        return el && !el.isStyle("display", "none");
-    },
-
     onResize: function(adjWidth, adjHeight, rawWidth, rawHeight){
         Ext.Container.superclass.onResize.apply(this, arguments);
         if ((this.rendered && this.layout && this.layout.monitorResize) && !this.suspendLayoutResize) {
