@@ -97,6 +97,26 @@ Ext.BoxComponent = Ext.extend(Ext.Component, {
      * <b>Note</b> to express this dimension as a percentage or offset see {@link Ext.Component#anchor}.
      */
     /**
+     * @cfg {Number} minHeight
+     * <p>The minimum value in pixels which this BoxComponent will set its height to.</p>
+     * <p><b>Warning:</b> This will override any size management applied by layout managers.</p>
+     */
+    /**
+     * @cfg {Number} minWidth
+     * <p>The minimum value in pixels which this BoxComponent will set its width to.</p>
+     * <p><b>Warning:</b> This will override any size management applied by layout managers.</p>
+     */
+    /**
+     * @cfg {Number} maxHeight
+     * <p>The maximum value in pixels which this BoxComponent will set its height to.</p>
+     * <p><b>Warning:</b> This will override any size management applied by layout managers.</p>
+     */
+    /**
+     * @cfg {Number} maxWidth
+     * <p>The maximum value in pixels which this BoxComponent will set its width to.</p>
+     * <p><b>Warning:</b> This will override any size management applied by layout managers.</p>
+     */
+    /**
      * @cfg {Boolean} autoHeight
      * <p>True to use height:'auto', false to use fixed height (or allow it to be managed by its parent
      * Container's {@link Ext.Container#layout layout manager}. Defaults to false.</p>
