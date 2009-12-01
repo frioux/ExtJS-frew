@@ -1488,6 +1488,7 @@ new Ext.Panel({
             this.onBodyResize(w, h);
         }
         this.syncShadow();
+        Ext.Panel.superclass.onResize.call(this);
     },
 
     // private

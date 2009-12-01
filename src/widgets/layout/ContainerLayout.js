@@ -48,9 +48,9 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
     monitorResize:false,
     // private
     activeItem : null,
-    
+
     constructor : function(config){
-        Ext.apply(this, config);    
+        Ext.apply(this, config);
     },
 
     // private
@@ -99,7 +99,7 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
             this.configureItem(c, position);
         }
     },
-    
+
     // private
     configureItem: function(c, position){
         if(this.extraCls){
@@ -113,7 +113,7 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
             c.doLayout(false, true);
         }
     },
-    
+
     onRemove: function(c){
          if(this.activeItem == c){
             delete this.activeItem;
@@ -128,7 +128,7 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
     onResize: function(){
         var ct = this.container,
             b;
-            
+
         if(ct.collapsed){
             return;
         }
@@ -146,7 +146,7 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
             ct.doLayout();
         }
     },
-    
+
     // private
     runLayout: function(){
         var ct = this.container;
@@ -156,6 +156,8 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
 
     // private
     setContainer : function(ct){
+        // No longer use events to handle resize. Instead this will be handled through a direct function call.
+        /*
         if(this.monitorResize && ct != this.container){
             var old = this.container;
             if(old){
@@ -165,6 +167,7 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
                 ct.on(ct.resizeEvent, this.onResize, this);
             }
         }
+        */
         this.container = ct;
     },
 
@@ -215,7 +218,7 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
         t.disableFormats = true;
         return t.compile();
     })(),
-	
+
     /*
      * Destroys this layout. This is a template method that is empty by default, but should be implemented
      * by subclasses that require explicit destruction to purge event handlers or remove DOM nodes.

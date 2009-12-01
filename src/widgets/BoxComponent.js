@@ -230,15 +230,26 @@ var myPanel = new Ext.Panel({
      * @return {Ext.BoxComponent} this
      */
     setSize : function(w, h){
+
         // support for standard size objects
         if(typeof w == 'object'){
-            h = w.height;
-            w = w.width;
+            h = w.height, w = w.width;
+        }
+        if (Ext.isDefined(w) && Ext.isDefined(this.minWidth) && (w < this.minWidth)) {
+            w = this.minWidth;
+        }
+        if (Ext.isDefined(h) && Ext.isDefined(this.minHeight) && (h < this.minHeight)) {
+            h = this.minHeight;
+        }
+        if (Ext.isDefined(w) && Ext.isDefined(this.maxWidth) && (w > this.maxWidth)) {
+            w = this.maxWidth;
+        }
+        if (Ext.isDefined(h) && Ext.isDefined(this.maxHeight) && (h > this.maxHeight)) {
+            h = this.maxHeight;
         }
         // not rendered
         if(!this.boxReady){
-            this.width = w;
-            this.height = h;
+            this.width = w, this.height = h;
             return this;
         }
 
@@ -247,10 +258,12 @@ var myPanel = new Ext.Panel({
             return this;
         }
         this.lastSize = {width: w, height: h};
-        var adj = this.adjustSize(w, h);
-        var aw = adj.width, ah = adj.height, rz = this.getResizeEl();
-        if(rz && aw !== undefined || ah !== undefined){ // this code is nasty but performs better with floaters
-            var rz = this.getResizeEl();
+        var adj = this.adjustSize(w, h),
+            aw = adj.width,
+            ah = adj.height,
+            rz;
+        if(aw !== undefined || ah !== undefined){ // this code is nasty but performs better with floaters
+            rz = this.getResizeEl();
             if(!this.deferHeight && aw !== undefined && ah !== undefined){
                 rz.setSize(aw, ah);
             }else if(!this.deferHeight && ah !== undefined){
@@ -259,7 +272,6 @@ var myPanel = new Ext.Panel({
                 rz.setWidth(aw);
             }
             this.onResize(aw, ah, w, h);
-            this.fireEvent('resize', this, aw, ah, w, h);
         }
         return this;
     },
@@ -379,7 +391,7 @@ var myPanel = new Ext.Panel({
     getPositionEl : function(){
         return this.positionEl || this.el;
     },
-    
+
     /**
      * Sets the overflow on the content element of the component.
      * @param {Boolean} scroll True to allow the Component to auto scroll.
@@ -491,7 +503,7 @@ var myPanel = new Ext.Panel({
      * @param {Number} rawHeight The height that was originally specified
      */
     onResize : function(adjWidth, adjHeight, rawWidth, rawHeight){
-
+        this.fireEvent('resize', this, adjWidth, adjHeight, rawWidth, rawHeight);
     },
 
     /* // protected

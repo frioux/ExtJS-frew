@@ -377,11 +377,11 @@ items: [
      * The event to listen to for resizing in layouts. Defaults to <code>'resize'</code>.
      */
     resizeEvent: 'resize',
-    
+
     /**
      * @cfg {Array} bubbleEvents
      * <p>An array of events that, when fired, should be bubbled to any parent container.
-     * See {@link Ext.util.Observable#enableBubble}. 
+     * See {@link Ext.util.Observable#enableBubble}.
      * Defaults to <code>['add', 'remove']</code>.
      */
     bubbleEvents: ['add', 'remove'],
@@ -555,7 +555,7 @@ tb.{@link #doLayout}();             // refresh the layout
         }
         var c = this.lookupComponent(this.applyDefaults(comp));
         var index = this.items.length;
-        if(this.fireEvent('beforeadd', this, c, index) !== false && this.onBeforeAdd(c) !== false){        
+        if(this.fireEvent('beforeadd', this, c, index) !== false && this.onBeforeAdd(c) !== false){
             this.items.add(c);
             // *onAdded
             c.onAdded(this, index);
@@ -564,7 +564,7 @@ tb.{@link #doLayout}();             // refresh the layout
         }
         return c;
     },
-    
+
     onAdd : function(c){
         // Empty template method
     },
@@ -610,7 +610,7 @@ tb.{@link #doLayout}();             // refresh the layout
         }
         return c;
     },
-    
+
     // private
     applyDefaults : function(c){
         var d = this.defaults;
@@ -661,7 +661,7 @@ tb.{@link #doLayout}();             // refresh the layout
     onRemove: function(c){
         // Empty template method
     },
-    
+
     // private
     doRemove: function(c, autoDestroy){
         if(this.layout && this.rendered){
@@ -755,7 +755,8 @@ tb.{@link #doLayout}();             // refresh the layout
      */
     doLayout: function(shallow, force){
         var rendered = this.rendered,
-            forceLayout = force || this.forceLayout;
+            forceLayout = force || this.forceLayout,
+            cs, i, len, c;
 
         if(!this.canLayout() || this.collapsed){
             this.deferLayout = this.deferLayout || !shallow;
@@ -766,16 +767,26 @@ tb.{@link #doLayout}();             // refresh the layout
         } else {
             delete this.deferLayout;
         }
+
+        cs = (shallow !== true && this.items) ? this.items.items : [];
+
+//      Inhibit child Containers from relaying on resize since we are about to to explicitly call doLayout on them all!
+        for(i = 0, len = cs.length; i < len; i++){
+            if ((c = cs[i]).layout) {
+                c.suspendLayoutResize = true;
+            }
+        }
+
+//      Tell the layout manager to ensure all child items are rendered, and sized according to their rules.
+//      Will not cause the child items to relayout.
         if(rendered && this.layout){
             this.layout.layout();
         }
-        if(shallow !== true && this.items){
-            var cs = this.items.items;
-            for(var i = 0, len = cs.length; i < len; i++){
-                var c = cs[i];
-                if(c.doLayout){
-                    c.doLayout(false, forceLayout);
-                }
+
+//      Explicitly lay out all child items
+        for(i = 0; i < len; i++){
+            if((c = cs[i]).doLayout){
+                c.doLayout(false, forceLayout);
             }
         }
         if(rendered){
@@ -784,10 +795,29 @@ tb.{@link #doLayout}();             // refresh the layout
         // Initial layout completed
         this.hasLayout = true;
         delete this.forceLayout;
+
+//      Re-enable child layouts relaying on resize.
+        for(i = 0; i < len; i++){
+            if ((c = cs[i]).layout) {
+                delete c.suspendLayoutResize;
+            }
+        }
     },
 
     //private
     onLayout : Ext.emptyFn,
+
+    canLayout: function() {
+        var el = this.getVisibilityEl();
+        return el && !el.isStyle("display", "none");
+    },
+
+    onResize: function(adjWidth, adjHeight, rawWidth, rawHeight){
+        Ext.Container.superclass.onResize.apply(this, arguments);
+        if ((this.rendered && this.layout && this.layout.monitorResize) && !this.suspendLayoutResize) {
+            this.layout.onResize();
+        }
+    },
 
     // private
     shouldBufferLayout: function(){
