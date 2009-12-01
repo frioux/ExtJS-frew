@@ -1,32 +1,33 @@
 Ext.ns('Ext.samples');
 
+
 Ext.samples.samplesCatalog = [{
-    title: 'Combination Samples',
+    title: 'Combination Examples',
     samples: [{
         text: 'Feed Viewer',
         url:  'feed-viewer/view.html',
         icon: 'feeds.gif',
-        desc: 'RSS feed reader sample application that features a swappable reader panel layout.'
+        desc: 'RSS feed reader example application that features a swappable reader panel layout.'
     },{
         text: 'Simple Tasks',
         url:  'http://extjs.com/blog/2008/02/24/tasks2/',
         icon: 'air.gif',
-        desc: 'Complete personal task management application sample that runs on <a href="http://labs.adobe.com/technologies/air/" target="_blank">Adobe AIR</a>.'
+        desc: 'Complete personal task management application example that runs on <a href="http://labs.adobe.com/technologies/air/" target="_blank">Adobe AIR</a>.'
     },{
         text: 'Simple Tasks',
         url:  'tasks/tasks.html',
         icon: 'tasks.gif',
-        desc: 'Personal task management application sample that uses <a href="http://gears.google.com" target="_blank">Google Gears</a> for data storage.'
+        desc: 'Personal task management application example that uses <a href="http://gears.google.com" target="_blank">Google Gears</a> for data storage.'
     },{
         text: 'Image Viewer',
         url:  'organizer/organizer.html',
         icon: 'organizer.gif',
-        desc: 'DataView and TreePanel sample that demonstrates dragging data items from a DataView into a TreePanel.'
+        desc: 'DataView and TreePanel example that demonstrates dragging data items from a DataView into a TreePanel.'
     }/*,{
         text: 'Image Organizer',
         url:  'image-organizer/index.html',
         icon: 'image-organizer.gif',
-        desc: 'Image management application sample utilizing MySQL lite and Ext.Direct.',
+        desc: 'Image management application example utilizing MySQL lite and Ext.Direct.',
         status: 'new'
     }*/,{
         text: 'Ext JS API Documentation',
