@@ -97,22 +97,22 @@ Ext.BoxComponent = Ext.extend(Ext.Component, {
      * <b>Note</b> to express this dimension as a percentage or offset see {@link Ext.Component#anchor}.
      */
     /**
-     * @cfg {Number} minHeight
+     * @cfg {Number} boxMinHeight
      * <p>The minimum value in pixels which this BoxComponent will set its height to.</p>
      * <p><b>Warning:</b> This will override any size management applied by layout managers.</p>
      */
     /**
-     * @cfg {Number} minWidth
+     * @cfg {Number} boxMinWidth
      * <p>The minimum value in pixels which this BoxComponent will set its width to.</p>
      * <p><b>Warning:</b> This will override any size management applied by layout managers.</p>
      */
     /**
-     * @cfg {Number} maxHeight
+     * @cfg {Number} boxMaxHeight
      * <p>The maximum value in pixels which this BoxComponent will set its height to.</p>
      * <p><b>Warning:</b> This will override any size management applied by layout managers.</p>
      */
     /**
-     * @cfg {Number} maxWidth
+     * @cfg {Number} boxMaxWidth
      * <p>The maximum value in pixels which this BoxComponent will set its width to.</p>
      * <p><b>Warning:</b> This will override any size management applied by layout managers.</p>
      */
@@ -255,17 +255,17 @@ var myPanel = new Ext.Panel({
         if(typeof w == 'object'){
             h = w.height, w = w.width;
         }
-        if (Ext.isDefined(w) && Ext.isDefined(this.minWidth) && (w < this.minWidth)) {
-            w = this.minWidth;
+        if (Ext.isDefined(w) && Ext.isDefined(this.boxMinWidth) && (w < this.boxMinWidth)) {
+            w = this.boxMinWidth;
         }
-        if (Ext.isDefined(h) && Ext.isDefined(this.minHeight) && (h < this.minHeight)) {
-            h = this.minHeight;
+        if (Ext.isDefined(h) && Ext.isDefined(this.boxMinHeight) && (h < this.boxMinHeight)) {
+            h = this.boxMinHeight;
         }
-        if (Ext.isDefined(w) && Ext.isDefined(this.maxWidth) && (w > this.maxWidth)) {
-            w = this.maxWidth;
+        if (Ext.isDefined(w) && Ext.isDefined(this.boxMaxWidth) && (w > this.boxMaxWidth)) {
+            w = this.boxMaxWidth;
         }
-        if (Ext.isDefined(h) && Ext.isDefined(this.maxHeight) && (h > this.maxHeight)) {
-            h = this.maxHeight;
+        if (Ext.isDefined(h) && Ext.isDefined(this.boxMaxHeight) && (h > this.boxMaxHeight)) {
+            h = this.boxMaxHeight;
         }
         // not rendered
         if(!this.boxReady){
