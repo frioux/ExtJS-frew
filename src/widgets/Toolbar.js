@@ -87,29 +87,29 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
         if(this.container.enableOverflow === false){
             return;
         }
-        var w = t.dom.clientWidth;
-        var lw = this.lastWidth || 0;
+        var w = t.dom.clientWidth,
+            lw = this.lastWidth || 0,
+            iw = t.dom.firstChild.offsetWidth,
+            clipWidth = w - this.triggerWidth,
+            hideIndex = -1;
+        
         this.lastWidth = w;
-        var iw = t.dom.firstChild.offsetWidth;
-
-        var clipWidth = w - this.triggerWidth;
-        var hideIndex = -1;
 
         if(iw > w || (this.hiddens && w >= lw)){
-            var i, items = this.container.items.items, len = items.length, c;
-            var loopWidth = 0;
+            var i, items = this.container.items.items, 
+                len = items.length, c,
+                loopWidth = 0;
+                
             for(i = 0; i < len; i++) {
                 c = items[i];
                 if(!c.isFill){
                     loopWidth += this.getItemWidth(c);
                     if(loopWidth > clipWidth){
-                        if(!c.xtbHidden){
+                        if(!(c.hidden || c.xtbHidden)){
                             this.hideItem(c);
                         }
-                    }else{
-                        if(c.xtbHidden){
-                            this.unhideItem(c);
-                        }
+                    }else if(c.xtbHidden){
+                        this.unhideItem(c);
                     }
                 }
             }
