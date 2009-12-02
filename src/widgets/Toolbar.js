@@ -34,7 +34,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
             }else{
                 if(!c.xtbHidden && !this.isValidParent(c, side.childNodes[pos])){
                     var td = this.insertCell(c, side, pos);
-                    td.appendChild(c.getDomPositionEl().dom);
+                    td.appendChild(c.getPositionEl().dom);
                     c.container = Ext.get(td);
                 }
             }
@@ -66,7 +66,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
         var h = (this.hiddens = this.hiddens || []);
         h.push(item);
         item.xtbHidden = true;
-        item.xtbWidth = item.getDomPositionEl().dom.parentNode.offsetWidth;
+        item.xtbWidth = item.getPositionEl().dom.parentNode.offsetWidth;
         item.hide();
     },
 
@@ -80,7 +80,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
     },
 
     getItemWidth : function(c){
-        return c.hidden ? (c.xtbWidth || 0) : c.getDomPositionEl().dom.parentNode.offsetWidth;
+        return c.hidden ? (c.xtbWidth || 0) : c.getPositionEl().dom.parentNode.offsetWidth;
     },
 
     fitToSize : function(t){
