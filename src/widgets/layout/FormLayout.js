@@ -332,7 +332,7 @@ new Ext.Template(
 
     // private
     isValidParent : function(c, target){
-        return target && this.container.getEl().contains(c.getDomPositionEl());
+        return target && this.container.getEl().contains(c.getPositionEl());
     }
 
     /**

@@ -71,7 +71,7 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
 
     // private
     isValidParent : function(c, target){
-        return target && c.getDomPositionEl().dom.parentNode == (target.dom || target);
+        return target && c.getPositionEl().dom.parentNode == (target.dom || target);
     },
 
     // private
@@ -94,7 +94,7 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
             if(Ext.isNumber(position)){
                 position = target.dom.childNodes[position];
             }
-            target.dom.insertBefore(c.getDomPositionEl().dom, position || null);
+            target.dom.insertBefore(c.getPositionEl().dom, position || null);
             c.container = target;
             this.configureItem(c, position);
         }

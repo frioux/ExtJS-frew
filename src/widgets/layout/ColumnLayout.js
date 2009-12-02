@@ -69,7 +69,7 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
     targetCls: 'x-column-layout-ct',
     
     isValidParent : function(c, target){
-        return (c.getPositionEl ? c.getPositionEl() : c.getEl()).dom.parentNode == this.innerCt.dom;
+        return c.getPositionEl().dom.parentNode == this.innerCt.dom;
     },
 
     // private

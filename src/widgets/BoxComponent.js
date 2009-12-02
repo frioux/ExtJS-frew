@@ -407,11 +407,6 @@ var myPanel = new Ext.Panel({
         return this.resizeEl || this.el;
     },
 
-    // protected
-    getPositionEl : function(){
-        return this.positionEl || this.el;
-    },
-
     /**
      * Sets the overflow on the content element of the component.
      * @param {Boolean} scroll True to allow the Component to auto scroll.

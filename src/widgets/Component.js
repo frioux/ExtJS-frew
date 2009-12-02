@@ -1596,8 +1596,9 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
             });
     },
 
-    getDomPositionEl : function(){
-        return this.getPositionEl ? this.getPositionEl() : this.getEl();
+    // protected
+    getPositionEl : function(){
+        return this.positionEl || this.el;
     },
 
     // private

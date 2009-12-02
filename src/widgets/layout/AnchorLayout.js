@@ -122,7 +122,7 @@ anchor: '-50 75%'
         var cs = ct.items.items, len = cs.length, i, c, a, cw, ch, el, vs;
         for(i = 0; i < len; i++){
             c = cs[i];
-            el = c.getDomPositionEl();
+            el = c.getPositionEl();
             if(c.anchor){
                 a = c.anchorSpec;
                 if(!a){ // cache all anchor values
