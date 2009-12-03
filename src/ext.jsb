@@ -11,6 +11,7 @@
     <include name="adapter\core\ext-base-anim.js" />
     <include name="adapter\core\ext-base-anim-extra.js" />
     <include name="adapter\core\ext-base-end.js" />
+    <include name="util\core\DelayedTask.js" />
     <include name="util\core\Observable.js" />
     <include name="core\core\DomHelper.js" />
     <include name="core\core\Template.js" />
@@ -26,7 +27,6 @@
     <include name="core\core\Fx.js" />
     <include name="core\core\CompositeElementLite.js" />
     <include name="data\core\Connection.js" />
-    <include name="util\core\DelayedTask.js" />
     <include name="util\core\JSON.js" />
   </target>
   <target name="Everything" file="$output\ext-all.js" debug="True" shorthand="False" shorthand-list="YAHOO.util.Dom.setStyle&#xD;&#xA;YAHOO.util.Dom.getStyle&#xD;&#xA;YAHOO.util.Dom.getRegion&#xD;&#xA;YAHOO.util.Dom.getViewportHeight&#xD;&#xA;YAHOO.util.Dom.getViewportWidth&#xD;&#xA;YAHOO.util.Dom.get&#xD;&#xA;YAHOO.util.Dom.getXY&#xD;&#xA;YAHOO.util.Dom.setXY&#xD;&#xA;YAHOO.util.CustomEvent&#xD;&#xA;YAHOO.util.Event.addListener&#xD;&#xA;YAHOO.util.Event.getEvent&#xD;&#xA;YAHOO.util.Event.getTarget&#xD;&#xA;YAHOO.util.Event.preventDefault&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Event.stopPropagation&#xD;&#xA;YAHOO.util.Event.stopEvent&#xD;&#xA;YAHOO.util.Anim&#xD;&#xA;YAHOO.util.Motion&#xD;&#xA;YAHOO.util.Connect.asyncRequest&#xD;&#xA;YAHOO.util.Connect.setForm&#xD;&#xA;YAHOO.util.Dom&#xD;&#xA;YAHOO.util.Event">
@@ -35,6 +35,7 @@
     <include name="core\core\Template.js" />
     <include name="core\Template-more.js" />
     <include name="core\core\DomQuery.js" />
+    <include name="util\core\DelayedTask.js" />
     <include name="util\core\Observable.js" />
     <include name="util\Observable-more.js" />
     <include name="core\core\EventManager.js" />
@@ -64,7 +65,6 @@
     <include name="data\core\Connection.js" />
     <include name="util\UpdateManager.js" />
     <include name="util\Date.js" />
-    <include name="util\core\DelayedTask.js" />
     <include name="util\MixedCollection.js" />
     <include name="widgets\ComponentMgr.js" />
     <include name="util\core\JSON.js" />

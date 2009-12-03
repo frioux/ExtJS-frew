@@ -118,6 +118,9 @@
             text: 'DomQuery.js',
             path: 'src/core/core/'
         },{
+            text: 'DelayedTask.js',
+            path: 'src/util/core/'
+        },{
             text: 'Observable.js',
             path: 'src/util/core/'
         },{
@@ -142,10 +145,9 @@
             text: 'Element.traversal.js',
             path: 'src/core/core/'
         },{
-        	text: 'Element.traversal-more.js',
-        	path: 'src/core/'
-        },
-        {
+            text: 'Element.traversal-more.js',
+            path: 'src/core/'
+        },{
             text: 'Element.insertion.js',
             path: 'src/core/core/'
         },{
@@ -199,9 +201,6 @@
         },{
             text: 'Date.js',
             path: 'src/util/'
-        },{
-            text: 'DelayedTask.js',
-            path: 'src/util/core/'
         },{
             text: 'MixedCollection.js',
             path: 'src/util/'
@@ -1034,7 +1033,7 @@
           path: 'examples/ux/css/'
        },{
           text: 'ColumnHeaderGroup.css',
-          path: 'examples/ux/css/' 
+          path: 'examples/ux/css/'
        },{
           text: 'ColumnNodeUI.css',
           path: 'examples/ux/css/'
