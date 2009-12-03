@@ -102,7 +102,7 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
         for(i = 0; i < len; i++){
             c = cs[i];
             if(!c.columnWidth){
-                pw -= (c.getSize().width + c.getEl().getMargins('lr'));
+                pw -= (c.getSize().width + c.getPositionEl().getMargins('lr'));
             }
         }
 
@@ -111,7 +111,7 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
         for(i = 0; i < len; i++){
             c = cs[i];
             if(c.columnWidth){
-                c.setSize(Math.floor(c.columnWidth*pw) - c.getEl().getMargins('lr'));
+                c.setSize(Math.floor(c.columnWidth * pw) - c.getPositionEl().getMargins('lr'));
             }
         }
     }

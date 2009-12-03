@@ -71,7 +71,7 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
     // private
     isValidParent : function(c, target){
-        return c.getEl().dom.parentNode == this.innerCt.dom;
+        return c.getPositionEl().dom.parentNode == this.innerCt.dom;
     },
 
     // private
