@@ -1186,6 +1186,9 @@ myStore.reload(lastOptions);
     // private
     // Called as a callback by the Reader during a load operation.
     loadRecords : function(o, options, success){
+        if (this.isDestroyed === true) {
+            return;
+        }
         if(!o || success === false){
             if(success !== false){
                 this.fireEvent('load', this, [], options);
