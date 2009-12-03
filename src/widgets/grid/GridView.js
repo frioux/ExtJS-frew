@@ -650,7 +650,7 @@ viewConfig: {
                 p.id = c.id;
                 p.css = i === 0 ? 'x-grid3-cell-first ' : (i == last ? 'x-grid3-cell-last ' : '');
                 p.attr = p.cellAttr = '';
-                p.value = c.renderer(r.data[c.name], p, r, rowIndex, i, ds);
+                p.value = c.renderer.call(c.scope, r.data[c.name], p, r, rowIndex, i, ds);
                 p.style = c.style;
                 if(Ext.isEmpty(p.value)){
                     p.value = '&#160;';
@@ -1217,6 +1217,7 @@ viewConfig: {
             cs[i] = {
                 name : (!Ext.isDefined(name) ? this.ds.fields.get(i).name : name),
                 renderer : cm.getRenderer(i),
+                scope: cm.getRendererScope(i),
                 id : cm.getColumnId(i),
                 style : this.getColumnStyle(i)
             };

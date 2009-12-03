@@ -220,7 +220,9 @@ var grid = new Ext.grid.GridPanel({
             this.scope = this.renderer.scope;
             this.renderer = this.renderer.fn;
         }
-        this.renderer = this.renderer.createDelegate(this.scope || config);
+        if(!this.scope){
+            this.scope = this;
+        }
 
         if(this.editor){
             this.editor = Ext.create(this.editor, 'textfield');

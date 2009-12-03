@@ -337,6 +337,10 @@ var columns = grid.getColumnModel().getColumnsBy(function(c){
         }
         return this.config[col].renderer;
     },
+    
+    getRendererScope : function(col){
+        return this.config[col].scope;
+    },
 
     /**
      * Sets the rendering (formatting) function for a column.  See {@link Ext.util.Format} for some
