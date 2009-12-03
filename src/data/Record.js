@@ -158,7 +158,7 @@ Ext.data.Record.prototype = {
      */
     modified : null,
     /**
-     * <tt>false</tt> when the record does not yet exist in a server-side database (see
+     * <tt>true</tt> when the record does not yet exist in a server-side database (see
      * {@link #markDirty}).  Any record which has a real database pk set as its id property
      * is NOT a phantom -- it's real.
      * @property phantom
