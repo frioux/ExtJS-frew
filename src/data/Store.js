@@ -788,14 +788,14 @@ sortInfo: {
      * parameters to a remote data source. <b>Note</b>: <code>params</code> will override any
      * <code>{@link #baseParams}</code> of the same name.</p>
      * <p>Parameters are encoded as standard HTTP parameters using {@link Ext#urlEncode}.</p></div></li>
-     * <li><b><tt>callback</tt></b> : Function<div class="sub-desc"><p>A function to be called after the Records
-     * have been loaded. The <tt>callback</tt> is called after the load event and is passed the following arguments:<ul>
-     * <li><tt>r</tt> : Ext.data.Record[]</li>
-     * <li><tt>options</tt>: Options object from the load call</li>
-     * <li><tt>success</tt>: Boolean success indicator</li></ul></p></div></li>
-     * <li><b><tt>scope</tt></b> : Object<div class="sub-desc"><p>Scope with which to call the callback (defaults
+     * <li><b>callback</b> : Function<div class="sub-desc"><p>A function to be called after the Records
+     * have been loaded. The callback is called after the load event is fired, and is passed the following arguments:<ul>
+     * <li>r : Ext.data.Record[] An Array of Records loaded.</li>
+     * <li>options : Options object from the load call.</li>
+     * <li>success : Boolean success indicator.</li></ul></p></div></li>
+     * <li><b>scope</b> : Object<div class="sub-desc"><p>Scope with which to call the callback (defaults
      * to the Store object)</p></div></li>
-     * <li><b><tt>add</tt></b> : Boolean<div class="sub-desc"><p>Indicator to append loaded records rather than
+     * <li><b>add</b> : Boolean<div class="sub-desc"><p>Indicator to append loaded records rather than
      * replace the current cache.  <b>Note</b>: see note for <tt>{@link #loadData}</tt></p></div></li>
      * </ul>
      * @return {Boolean} If the <i>developer</i> provided <tt>{@link #beforeload}</tt> event handler returns
