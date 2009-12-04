@@ -45,10 +45,10 @@ Ext.list.ColumnResizer = Ext.extend(Ext.util.Observable, {
 
             if(x - r.left <= hw && pn != pn.parentNode.firstChild){
                 this.activeHd = Ext.get(pn.previousSibling.firstChild);
-				ss.cursor = Ext.isWebKit ? 'e-resize' : 'col-resize';
+                ss.cursor = Ext.isWebKit ? 'e-resize' : 'col-resize';
             } else if(r.right - x <= hw && pn != pn.parentNode.lastChild.previousSibling){
                 this.activeHd = hd;
-				ss.cursor = Ext.isWebKit ? 'w-resize' : 'col-resize';
+                ss.cursor = Ext.isWebKit ? 'w-resize' : 'col-resize';
             } else{
                 delete this.activeHd;
                 ss.cursor = '';
@@ -85,16 +85,16 @@ Ext.list.ColumnResizer = Ext.extend(Ext.util.Observable, {
     },
 
     onEnd: function(e){
-	/* calculate desired width by measuring proxy and then remove it */	
+        /* calculate desired width by measuring proxy and then remove it */
         var nw = this.proxy.getWidth();
         this.proxy.remove();
 
         var index = this.hdIndex,
-            vw = this.view, 
-            cs = vw.columns, 
+            vw = this.view,
+            cs = vw.columns,
             len = cs.length,
-            w = this.view.innerHd.getWidth(), 
-            minPct = this.minPct * 100;
+            w = this.view.innerHd.getWidth(),
+            minPct = this.minPct * 100,
             pct = Math.ceil((nw * vw.maxWidth) / w),
             diff = (cs[index].width * 100) - pct,
             each = Math.floor(diff / (len-1-index)),
