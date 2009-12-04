@@ -1,0 +1,165 @@
+[{
+    task:'Project: TreeGrid',
+    duration:19,
+    user:'Tommy Maintz',
+    iconCls:'task-folder',
+    expanded: true,
+    children:[{
+        task:'Column Dragging',
+        duration:3,
+        user:'Tommy Maintz',
+        iconCls:'task-folder',
+        children:[{
+            task:'Create DragZone',
+            duration:.25,
+            user:'Tommy Maintz',
+            leaf:true,
+            iconCls:'task'
+        },{
+            task:'Reinsert Column into Tree',
+            duration:.5,
+            user:'Tommy Maintz',
+            leaf:true,
+            iconCls:'task'
+        },{
+            task:'Create DropTarget',
+            duration:.25,
+            user:'Tommy Maintz',
+            leaf:true,
+            iconCls:'task'
+        },{
+            task: 'Make it work cross-browser',
+            duration: 2,
+            user: 'Tommy Maintz',
+            leaf: true,
+            iconCls: 'task'
+        }]
+    }, {
+        task:'Rendering',
+        duration:16,
+        user:'Tommy Maintz',
+        iconCls:'task-folder',
+        expanded: true,
+        children:[{
+            task:'Come up with markup',
+            duration:4,
+            user:'Tommy Maintz',
+            leaf:true,
+            iconCls:'task'
+        },{
+            task:'Implement TreeNodes',
+            duration: 2,
+            user:'Tommy Maintz',
+            iconCls:'task-folder',
+            children: [{
+                task: 'TreeGridNodeUI',
+                duration: 1,
+                user: 'Tommy Maintz',
+                iconCls: 'task',
+                leaf: true
+            }, {
+                task: 'RootTreeGridNodeUI',
+                duration: 1,
+                user: 'Tommy Maintz',
+                iconCls: 'task',
+                leaf: true
+            }]
+        },{
+            task:'Create CSS (fix cross browser)',
+            duration:6,
+            user:'Tommy Maintz',
+            leaf:true,
+            iconCls:'task'
+        },{
+            task: 'Render headers',
+            duration: 3,
+            user: 'Tommy Maintz',
+            leaf: true,
+            iconCls: 'task'
+        }, {
+            task: 'Fix body scrolling',
+            duration: 1,
+            user: 'Tommy Maintz',
+            leaf: true,
+            iconCls: 'task'
+        }]
+    }]
+},{
+    task:'Project: Testing',
+    duration:2,
+    user:'Core Team',
+    iconCls:'task-folder',
+    children:[{
+        task: 'Mac OSX',
+        duration: 0.75,
+        user: 'Tommy Maintz',
+        iconCls: 'task-folder',
+        children: [{
+            task: 'FireFox',
+            duration: 0.25,
+            user: 'Tommy Maintz',
+            iconCls: 'task',
+            leaf: true
+        }, {
+            task: 'Safari',
+            duration: 0.25,
+            user: 'Tommy Maintz',
+            iconCls: 'task',
+            leaf: true
+        }, {
+            task: 'Chrome',
+            duration: 0.25,
+            user: 'Tommy Maintz',
+            iconCls: 'task',
+            leaf: true
+        }]
+    },{
+        task: 'Windows',
+        duration: 3.75,
+        user: 'Darrell Meyer',
+        iconCls: 'task-folder',
+        children: [{
+            task: 'FireFox',
+            duration: 0.25,
+            user: 'Darrell Meyer',
+            iconCls: 'task',
+            leaf: true
+        }, {
+            task: 'Safari',
+            duration: 0.25,
+            user: 'Darrell Meyer',
+            iconCls: 'task',
+            leaf: true
+        }, {
+            task: 'Chrome',
+            duration: 0.25,
+            user: 'Darrell Meyer',
+            iconCls: 'task',
+            leaf: true
+        },{
+            task: 'Internet Exploder',
+            duration: 3,
+            user: 'Darrell Meyer',
+            iconCls: 'task',
+            leaf: true
+        }]
+    },{
+        task: 'Linux',
+        duration: 0.5,
+        user: 'Aaron Conran',
+        iconCls: 'task',
+        children: [{
+            task: 'FireFox',
+            duration: 0.25,
+            user: 'Aaron Conran',
+            iconCls: 'task',
+            leaf: true
+        }, {
+            task: 'Chrome',
+            duration: 0.25,
+            user: 'Aaron Conran',
+            iconCls: 'task',
+            leaf: true
+        }]
+    }]
+}]

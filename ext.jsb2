@@ -1024,6 +1024,24 @@
        },{
           text: 'ValidationStatus.js',
           path: 'examples/ux/statusbar/'
+       }, {
+          text: 'TreeGridColumns.js',
+          path: 'examples/ux/treegrid/'
+       },{
+          text: 'TreeGridNodeUI.js',
+          path: 'examples/ux/treegrid/'
+       },{
+          text: 'TreeGridColumnResizer.js',
+          path: 'examples/ux/treegrid/'
+       },{
+          text: 'TreeGridSorter.js',
+          path: 'examples/ux/treegrid/'
+       },{
+          text: 'TreeGridLoader.js',
+          path: 'examples/ux/treegrid/'
+       },{
+          text: 'TreeGrid.js',
+          path: 'examples/ux/treegrid/'
        }]
     },{
        name: 'User Extension CSS Pack',
@@ -1073,6 +1091,9 @@
        },{
           text: 'statusbar.css',
           path: 'examples/ux/statusbar/css/'
+       },{
+          text: 'treegrid.css',
+          path: 'examples/ux/treegrid/'
        }]
     },{
        name: 'Ext All CSS',

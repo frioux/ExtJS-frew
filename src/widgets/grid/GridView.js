@@ -683,18 +683,24 @@ viewConfig: {
         if(!this.ds || this.ds.getCount() < 1){
             return;
         }
-        var rows = this.getRows();
+        var rows = this.getRows(),
+            len = rows.length,
+            i, r;
+            
         skipStripe = skipStripe || !this.grid.stripeRows;
         startRow = startRow || 0;
-        Ext.each(rows, function(row, idx){
-            row.rowIndex = idx;
-            if(!skipStripe){
-                row.className = row.className.replace(this.rowClsRe, ' ');
-                if ((idx + 1) % 2 === 0){
-                    row.className += ' x-grid3-row-alt';
-                }
-            }
-        }, this);
+        for(i = 0; i<len; i++) {
+            r = rows[i];
+            if(r) {
+                r.rowIndex = i;
+                if(!skipStripe){
+                    r.className = r.className.replace(this.rowClsRe, ' ');
+                    if ((idx + 1) % 2 === 0){
+                        r.className += ' x-grid3-row-alt';
+                    }
+                }   
+            }          
+        }
         // add first/last-row classes
         if(startRow === 0){
             Ext.fly(rows[0]).addClass(this.firstRowCls);
