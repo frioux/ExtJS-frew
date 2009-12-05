@@ -134,10 +134,9 @@ Ext.onReady(function(){
                 title:'Company Data',
                 border: true,
                 listeners: {
-                    render: function(g) {
+                    viewready: function(g) {
                         g.getSelectionModel().selectRow(0);
-                    },
-                    delay: 10 // Allow rows to be rendered.
+                    } // Allow rows to be rendered.
                 }
             }
         },{
@@ -168,53 +167,24 @@ Ext.onReady(function(){
                 fieldLabel: 'Last Updated',
                 name: 'lastChange'
             }, {
-                xtype: 'panel',
-                layout: 'table',
-                layoutConfig: {
-                    columns: 4
-                },
-                anchor: '100%',
-                defaults: {
-                    border: false,
-                    layout: 'form',
-                    labelWidth: 15,
-                    style: {
-                        paddingRight: '10px'
-                    }
-                },
-
+                xtype: 'radiogroup',
+                columns: 'auto',
+                fieldLabel: 'Rating',
+                name: 'rating',
 // A radio group: A setValue on any of the following 'radio' inputs using the numeric
 // 'rating' field checks the radio instance which has the matching inputValue.
                 items: [{
-                    cellCls: 'x-form-item',
-                    xtype: 'label',
-                    text: 'Rating',
-                       width: 98
+                    inputValue: '0',
+                    boxLabel: 'A'
                 }, {
-                    items: {    
-                        xtype: 'radio',
-                        name: 'rating',
-                        inputValue: '0',
-                        fieldLabel: 'A'
-                    }
+                    inputValue: '1',
+                    boxLabel: 'B'
                 }, {
-                    items: {
-                        xtype: 'radio',
-                        name: 'rating',
-                        inputValue: '1',
-                        fieldLabel: 'B'
-                    }
-                }, {
-                    items: {
-                        xtype: 'radio',
-                        name: 'rating',
-                        inputValue: '2',
-                        fieldLabel: 'C'
-                    }
+                    inputValue: '2',
+                    boxLabel: 'C'
                 }]
             }]
         }],
         renderTo: bd
     });
-    
 });
