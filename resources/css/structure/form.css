@@ -24,13 +24,13 @@ textarea.x-form-field {
     vertical-align:middle;
 }
 
-.ext-ie6 .x-form-text {
+.ext-ie6 .x-form-text, .ext-ie7 .x-form-text {
     margin:-2px 0 0; /* ie bogus margin bug */
     height:22px; /* ie quirks */
     line-height:18px;
 }
 
-.ext-ie6 textarea.x-form-field {
+.ext-ie6 textarea.x-form-field, .ext-ie7 textarea.x-form-field {
     margin:-1px 0; /* ie bogus margin bug */
 }
 
@@ -279,7 +279,7 @@ textarea {
     vertical-align:middle;
 }
 
-.ext-ie6 .x-small-editor .x-form-text {
+.ext-ie6 .x-small-editor .x-form-text, .ext-ie7 .x-small-editor .x-form-text {
     margin-top:-1px !important; /* ie bogus margin bug */
     margin-bottom:-1px !important;
     height:20px !important; /* ie quirks */
