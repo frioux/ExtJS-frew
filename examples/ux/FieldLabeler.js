@@ -30,8 +30,13 @@ Ext.ux.FieldLabeler = (function(){
 
 //      Add behaviour at important points in the Field's lifecycle.
         init: function(f) {
+//          Replace the Field's onRender method with a sequence that calls the plugin's onRender after the Field's onRender
             f.onRender = f.onRender.createSequence(this.onRender);
+
+//          We need to completely override the onResize method because of the complexity
             f.onResize = this.onResize;
+
+//          Replace the Field's onDestroy method with a sequence that calls the plugin's onDestroy after the Field's onRender
             f.onDestroy = f.onDestroy.createSequence(this.onDestroy);
         },
 
@@ -44,13 +49,19 @@ Ext.ux.FieldLabeler = (function(){
             }
 
             this.resizeEl = (this.wrap || this.el).wrap({
-                cls: 'x-form-element'
+                cls: 'x-form-element',
+                style: Ext.isIE ? 'position:absolute;top:0;left:0;overflow:visible' : ''
             });
             this.positionEl = this.itemCt = this.resizeEl.wrap({
                 cls: 'x-form-item '
             });
             if (this.nextSibling()) {
-                this.margins = '0 0 ' + this.positionEl.getMargins('b') + ' 0';
+                this.margins = {
+                    top: 0,
+                    right: 0,
+                    bottom: this.positionEl.getMargins('b'),
+                    left: 0
+                };
             }
             this.actionMode = 'itemCt';
 
