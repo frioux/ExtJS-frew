@@ -52,7 +52,7 @@ a:hover {
     background: #f9f9f9;
 }
 .x-tab-panel-header-plain .x-tab-strip-top {
-    background: #DFE8F6 url(../images/default/tabs/tab-strip-bg.gif) repeat-x scroll center bottom !important;
+    background: #DFE8F6 url(../../resources/images/default/tabs/tab-strip-bg.gif) repeat-x scroll center bottom !important;
 }
 .custom-accordion .x-panel-body {
     font-family:georgia,serif;
