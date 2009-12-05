@@ -1,84 +1,84 @@
 [{
-    task:'Project: TreeGrid',
-    duration:19,
+    task:'Project: Shopping',
+    duration:13.25,
     user:'Tommy Maintz',
     iconCls:'task-folder',
     expanded: true,
     children:[{
-        task:'Column Dragging',
-        duration:3,
+        task:'Housewares',
+        duration:1.25,
         user:'Tommy Maintz',
         iconCls:'task-folder',
         children:[{
-            task:'Create DragZone',
-            duration:.25,
+            task:'Kitchen supplies',
+            duration:0.25,
             user:'Tommy Maintz',
             leaf:true,
             iconCls:'task'
         },{
-            task:'Reinsert Column into Tree',
-            duration:.5,
+            task:'Groceries',
+            duration:.4,
             user:'Tommy Maintz',
             leaf:true,
             iconCls:'task'
         },{
-            task:'Create DropTarget',
-            duration:.25,
+            task:'Cleaning supplies',
+            duration:.4,
             user:'Tommy Maintz',
             leaf:true,
             iconCls:'task'
         },{
-            task: 'Make it work cross-browser',
-            duration: 2,
+            task: 'Office supplies',
+            duration: .2,
             user: 'Tommy Maintz',
             leaf: true,
             iconCls: 'task'
         }]
     }, {
-        task:'Rendering',
-        duration:16,
+        task:'Remodeling',
+        duration:12,
         user:'Tommy Maintz',
         iconCls:'task-folder',
         expanded: true,
         children:[{
-            task:'Come up with markup',
-            duration:4,
+            task:'Retile kitchen',
+            duration:6.5,
             user:'Tommy Maintz',
             leaf:true,
             iconCls:'task'
         },{
-            task:'Implement TreeNodes',
-            duration: 2,
+            task:'Paint bedroom',
+            duration: 2.75,
             user:'Tommy Maintz',
             iconCls:'task-folder',
             children: [{
-                task: 'TreeGridNodeUI',
-                duration: 1,
+                task: 'Ceiling',
+                duration: 1.25,
                 user: 'Tommy Maintz',
                 iconCls: 'task',
                 leaf: true
             }, {
-                task: 'RootTreeGridNodeUI',
-                duration: 1,
+                task: 'Walls',
+                duration: 1.5,
                 user: 'Tommy Maintz',
                 iconCls: 'task',
                 leaf: true
             }]
         },{
-            task:'Create CSS (fix cross browser)',
-            duration:6,
+            task:'Decorate living room',
+            duration:2.75,
             user:'Tommy Maintz',
             leaf:true,
             iconCls:'task'
         },{
-            task: 'Render headers',
-            duration: 3,
+            task: 'Fix lights',
+            duration: .75,
             user: 'Tommy Maintz',
             leaf: true,
             iconCls: 'task'
         }, {
-            task: 'Fix body scrolling',
-            duration: 1,
+            task: 'Reattach screen door',
+            duration: 2,
             user: 'Tommy Maintz',
             leaf: true,
             iconCls: 'task'
