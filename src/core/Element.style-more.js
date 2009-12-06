@@ -247,11 +247,13 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 	     */
 	    getViewSize : function(){
 	        var doc = document,
-	        	d = this.dom,
+				m = this,
+	        	d = me.dom,
 	        	extdom = Ext.lib.Dom,
 	        	isDoc = (d == doc || d == doc.body);
-	        return { width : (isDoc ? extdom.getViewWidth() : d.clientWidth),
-	        		 height : (isDoc ? extdom.getViewHeight() : d.clientHeight) };
+			return { width  : (isDoc ? extdom.getViewWidth()  : d.clientWidth  || (d.offsetWidth  - (me.isBorderBox() ? me.getFrameWidth('lr') : 0))),
+					height : (isDoc ? extdom.getViewHeight() : d.clientHeight || (d.offsetHeight - (me.isBorderBox() ? me.getFrameWidth('tb') : 0))) };
+
 	    },
 
 	    /**

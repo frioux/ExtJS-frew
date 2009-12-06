@@ -182,14 +182,14 @@ Ext.Window = Ext.extend(Ext.Panel, {
      * @deprecated
      */
     initHidden : undefined,
-    
+
     /**
      * @cfg {Boolean} hidden
      * Render this component hidden (default is <tt>true</tt>). If <tt>true</tt>, the
      * {@link #hide} method will be called internally.
      */
     hidden : true,
-    
+
     /**
     * @cfg {Boolean} monitorResize @hide
     * This is automatically managed based on the value of constrain and constrainToHeader
@@ -431,7 +431,6 @@ Ext.Window = Ext.extend(Ext.Panel, {
         this.focus();
         this.updateHandles();
         this.saveState();
-        this.doLayout();
     },
 
     /**
@@ -626,13 +625,13 @@ Ext.Window = Ext.extend(Ext.Panel, {
             opacity: 0
         }));
     },
-    
+
     /**
      * Method that is called immediately before the <code>show</code> event is fired.
      * Defaults to <code>Ext.emptyFn</code>.
      */
     onShow : Ext.emptyFn,
-    
+
     /**
      * Method that is called immediately before the <code>hide</code> event is fired.
      * Defaults to <code>Ext.emptyFn</code>.
@@ -736,7 +735,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
             }
         }
     },
-    
+
     // private
     doClose : function(){
         this.fireEvent('close', this);

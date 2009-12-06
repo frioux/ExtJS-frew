@@ -129,7 +129,7 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
         var ct = this.container,
             b = ct.bufferResize;
 
-        if(ct.collapsed || ct.hasLayoutPending()){
+        if (ct.collapsed){
             return;
         }
 
