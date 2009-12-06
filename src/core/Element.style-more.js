@@ -247,7 +247,7 @@ Ext.get("foo").boxWrap().addClass("x-box-blue");
 	     */
 	    getViewSize : function(){
 	        var doc = document,
-				m = this,
+				me = this,
 	        	d = me.dom,
 	        	extdom = Ext.lib.Dom,
 	        	isDoc = (d == doc || d == doc.body);
