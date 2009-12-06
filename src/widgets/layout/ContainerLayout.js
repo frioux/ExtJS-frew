@@ -127,21 +127,20 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
     // private
     onResize: function(){
         var ct = this.container,
-            b;
+            b = ct.bufferResize;
 
-        if(ct.collapsed){
+        if(ct.collapsed || ct.hasLayoutPending()){
             return;
         }
-        if(b = ct.bufferResize){
-            // Only allow if we should buffer the layout
-            if(ct.shouldBufferLayout()){
-                if(!this.resizeTask){
-                    this.resizeTask = new Ext.util.DelayedTask(this.runLayout, this);
-                    this.resizeBuffer = Ext.isNumber(b) ? b : 50;
-                }
-                ct.layoutPending = true;
-                this.resizeTask.delay(this.resizeBuffer);
+
+        // Container determines whether it needs to buffer a layout or whether it should take place immediately
+        if (ct.shouldBufferLayout()){
+            if(!this.resizeTask){
+                this.resizeTask = new Ext.util.DelayedTask(this.runLayout, this);
+                this.resizeBuffer = Ext.isNumber(b) ? b : 50;
             }
+            ct.layoutPending = true;
+            this.resizeTask.delay(this.resizeBuffer);
         }else{
             ct.doLayout();
         }

@@ -96,6 +96,9 @@ Ext.Viewport = Ext.extend(Ext.Container, {
     /**
      * @cfg {Boolean} monitorResize @hide
      */
+
+    bufferResize: false,
+
     initComponent : function() {
         Ext.Viewport.superclass.initComponent.call(this);
         document.getElementsByTagName('html')[0].className += ' x-viewport';

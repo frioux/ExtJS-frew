@@ -467,7 +467,6 @@ items: [
     },
 
     afterRender: function(){
-        Ext.Container.superclass.afterRender.call(this);
         if(!this.layout){
             this.layout = 'auto';
         }
@@ -480,15 +479,22 @@ items: [
         }
         this.setLayout(this.layout);
 
+        // BoxComponent's afterRender will set the size.
+        // This will will trigger a layout if the layout is configured to monitor resize
+        Ext.Container.superclass.afterRender.call(this);
+
         if(Ext.isDefined(this.activeItem)){
             var item = this.activeItem;
             delete this.activeItem;
             this.layout.setActiveItem(item);
         }
-        if(!this.ownerCt){
-            // force a layout if no ownerCt is set
+
+        // If the BoxComponent's sizing did not trigger a layout
+        // and we have no ownerCt, force a layout.
+        if(!this.ownerCt && !this.layout.monitorResize){
             this.doLayout(false, true);
         }
+
         if(this.monitorResize === true){
             Ext.EventManager.onWindowResize(this.doLayout, this, [false]);
         }
@@ -814,20 +820,13 @@ tb.{@link #doLayout}();             // refresh the layout
         }
     },
 
-    // private
     shouldBufferLayout: function(){
         /*
          * Returns true if the container should buffer a layout.
-         * This is true only if the container has previously been laid out
-         * and has a parent container that is pending a layout.
+         * A layout should be buffered if we are set to buffer resizes, and
+         * there is an owning Container, but no ancestor Container has a layout pending.
          */
-        var hl = this.hasLayout;
-        if(this.ownerCt){
-            // Only ever buffer if we've laid out the first time and we have one pending.
-            return hl ? !this.hasLayoutPending() : false;
-        }
-        // Never buffer initial layout
-        return hl;
+        return this.bufferResize && this.ownerCt && !this.hasLayoutPending();
     },
 
     // private
