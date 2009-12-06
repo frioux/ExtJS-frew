@@ -1,7 +1,7 @@
 {
-    projectName: "Ext - JS Lib", 
+    projectName: "Ext - JS Lib",
     deployDir: 'build',
-    licenseText: "Ext JS Library 3.0+\nCopyright(c) 2006-2009 Ext JS, LLC\nlicensing@extjs.com\nhttp://www.extjs.com/license",
+    licenseText: "Ext JS Library 3.1+\nCopyright(c) 2006-2009 Ext JS, LLC\nlicensing@extjs.com\nhttp://www.extjs.com/license",
     pkgs: [{
         name: 'Ext Air',
         file: 'ext-air.js',

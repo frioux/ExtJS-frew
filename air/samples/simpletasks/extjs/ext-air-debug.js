@@ -1,11 +1,11 @@
 /*!
- * Ext JS Library 3.0+
+ * Ext JS Library 3.1+
  * Copyright(c) 2006-2009 Ext JS, LLC
  * licensing@extjs.com
  * http://www.extjs.com/license
  */
 /*
- * This file corrects air eval issues and other issues found in the AIR application sandbox 
+ * This file corrects air eval issues and other issues found in the AIR application sandbox
  */
 Ext.namespace('Ext.air', 'Ext.sql');
 
@@ -35,18 +35,18 @@ Ext.Template.prototype.compile = function() {
 				}
 			if(format.substr(0, 5) != "this."){
 				var action = {type: 3, value:name, format: fm[format], args: args, scope: fm};
-				arr.push(action);					
+				arr.push(action);
 			}else{
 				var action = {type: 3, value:name, format:tpl[format.substr(5)], args:args, scope: tpl};
-				arr.push(action);					
+				arr.push(action);
 			}
 		}else{
 			var action  = {type: 2, value: name};
-			arr.push(action);				
+			arr.push(action);
 		}
 		return m;
 	};
-	
+
 	var s = this.html.replace(this.re, fn);
 	if (prevOffset != (s.length - 1)) {
 		var action = {type: 1, value: s.substr(prevOffset, s.length - prevOffset)};
@@ -64,7 +64,7 @@ Ext.Template.prototype.compile = function() {
 							el.args[0] = values[el.value];
 							return el.format.apply(el.scope, el.args);
 			}
-		}	
+		}
 		return arr.map(applyValues).join('');
 	}
 	return this;
@@ -269,7 +269,7 @@ Ext.DomQuery = function(){
         return Ext.DomQuery.pseudos[name](cs, value);
     };
 
- 
+
     // this eval is stop the compressor from
     // renaming the variable to something shorter
     eval("var batch = 30803;");
@@ -396,7 +396,7 @@ Ext.DomQuery = function(){
                                     break;
                                 case 4:
                                     return {firstChild:{nodeValue:attrValue(n, m[1])}};
-                                    
+
                             }
                             q = q.replace(m[0], "");
                             matched = true;
@@ -414,13 +414,13 @@ Ext.DomQuery = function(){
                 }
             }
             return nodup(n);
-        }		
+        }
 
      return {
         getStyle : function(el, name){
              return Ext.fly(el).getStyle(name);
         },
-		
+
 		compile: function(path, type) {
 			return function(root) {
 					return search(path, root, type);
@@ -843,16 +843,16 @@ Ext.ListView.prototype.tpl = new Ext.XTemplate(
 /**
  * @class Ext.air.FileProvider
  * @extends Ext.state.Provider
- * 
- * An Ext state provider implementation for Adobe AIR that stores state in the application 
+ *
+ * An Ext state provider implementation for Adobe AIR that stores state in the application
  * storage directory.
- * 
+ *
  * @constructor
  * @param {Object} config
  */
 Ext.air.FileProvider = function(config){
     Ext.air.FileProvider.superclass.constructor.call(this);
-	
+
 	this.defaultState = {
 		mainWindow : {
 			width:780,
@@ -861,10 +861,10 @@ Ext.air.FileProvider = function(config){
 			y:10
 		}
 	};
-	
+
     Ext.apply(this, config);
     this.state = this.readState();
-	
+
 	var provider = this;
 	air.NativeApplication.nativeApplication.addEventListener('exiting', function(){
 		provider.saveState();
@@ -877,7 +877,7 @@ Ext.extend(Ext.air.FileProvider, Ext.state.Provider, {
 	 * The file name to use for the state file in the application storage directory
 	 */
 	file: 'extstate.data',
-	
+
 	/**
 	 * @cfg {Object} defaultState
 	 * The default state if no state file can be found
@@ -888,13 +888,13 @@ Ext.extend(Ext.air.FileProvider, Ext.state.Provider, {
 		if(!stateFile.exists){
 			return this.defaultState || {};
 		}
-		
+
 		var stream = new air.FileStream();
 		stream.open(stateFile, air.FileMode.READ);
-		
+
 		var stateData = stream.readObject();
 		stream.close();
-		
+
 		return stateData || this.defaultState || {};
     },
 
@@ -909,9 +909,9 @@ Ext.extend(Ext.air.FileProvider, Ext.state.Provider, {
 });/**
  * @class Ext.air.NativeObservable
  * @extends Ext.util.Observable
- * 
+ *
  * Adds ability for Ext Observable functionality to proxy events for native (AIR) object wrappers
- * 
+ *
  * @constructor
  */
 
@@ -935,31 +935,31 @@ Ext.air.NativeObservable = Ext.extend(Ext.util.Observable, {
 Ext.air.NativeObservable.prototype.on = Ext.air.NativeObservable.prototype.addListener;/**
  * @class Ext.air.NativeWindow
  * @extends Ext.air.NativeObservable
- * 
- * Wraps the AIR NativeWindow class to give an Ext friendly API. <br/><br/>This class also adds 
- * automatic state management (position and size) for the window (by id) and it can be used 
+ *
+ * Wraps the AIR NativeWindow class to give an Ext friendly API. <br/><br/>This class also adds
+ * automatic state management (position and size) for the window (by id) and it can be used
  * for easily creating "minimize to system tray" for the main window in your application.<br/><br/>
- * 
- * Note: Many of the config options for this class can only be applied to NEW windows. Passing 
+ *
+ * Note: Many of the config options for this class can only be applied to NEW windows. Passing
  * in an existing instance of a window along with those config options will have no effect.
- * 
+ *
  * @constructor
  * @param {Object} config
  */
 Ext.air.NativeWindow = function(config){
 	Ext.apply(this, config);
-	
+
 	/**
 	 * @type String
 	 */
 	this.id = this.id || Ext.uniqueId();
-	
+
 	this.addEvents(
 		/**
 		 * @event close
 		 * @param {Object} e The air event object
 		 */
-		'close', 
+		'close',
 		/**
 		 * @event closing
 		 * @param {Object} e The air event object
@@ -996,9 +996,9 @@ Ext.air.NativeWindow = function(config){
 		 */
 		'displayStateChanging'
 	);
-	
+
 	Ext.air.NativeWindow.superclass.constructor.call(this);
-	
+
 	if(!this.instance){
 		var options = new air.NativeWindowInitOptions();
 		options.systemChrome = this.chrome;
@@ -1007,96 +1007,96 @@ Ext.air.NativeWindow = function(config){
 		options.minimizable = this.minimizable;
 		options.maximizable = this.maximizable;
 		options.transparent = this.transparent;
-		
+
 		this.loader = window.runtime.flash.html.HTMLLoader.createRootWindow(false, options, false);
 		if (this.file) {
-			this.loader.load(new air.URLRequest(this.file));	
+			this.loader.load(new air.URLRequest(this.file));
 		} else {
 			this.loader.loadString(this.html || '');
 		}
-		
-	
+
+
 		this.instance = this.loader.window.nativeWindow;
 	}else{
 		this.loader = this.instance.stage.getChildAt(0);
 	}
-	
+
 	var provider = Ext.state.Manager;
 	var b = air.Screen.mainScreen.visibleBounds;
-	
+
 	var state = provider.get(this.id) || {};
 	provider.set(this.id, state);
-		
+
 	var win = this.instance;
-	
+
 	var width = Math.max(state.width || this.width, 100);
 	var height = Math.max(state.height || this.height, 100);
-	
+
 	var centerX = b.x + ((b.width/2)-(width/2));
 	var centerY = b.y + ((b.height/2)-(height/2));
-	
+
 	var x = !Ext.isEmpty(state.x, false) ? state.x : (!Ext.isEmpty(this.x, false) ? this.x : centerX);
 	var y = !Ext.isEmpty(state.y, false) ? state.y : (!Ext.isEmpty(this.y, false) ? this.y : centerY);
-	
+
 	win.width = width;
 	win.height = height;
 	win.x = x;
 	win.y = y;
-	
+
 	win.addEventListener('move', function(){
 		if(win.displayState != air.NativeWindowDisplayState.MINIMIZED && win.width > 100 && win.height > 100) {
 			state.x = win.x;
 			state.y = win.y;
 		}
-	});	
+	});
 	win.addEventListener('resize', function(){
 		if (win.displayState != air.NativeWindowDisplayState.MINIMIZED && win.width > 100 && win.height > 100) {
 			state.width = win.width;
 			state.height = win.height;
 		}
 	});
-	
+
 	Ext.air.NativeWindowManager.register(this);
 	this.on('close', this.unregister, this);
-	
+
 	/**
-	 * @cfg {Boolean} minimizeToTray 
+	 * @cfg {Boolean} minimizeToTray
 	 * True to enable minimizing to the system tray. Note: this should only be applied
 	 * to the primary window in your application. A trayIcon is required.
 	 */
 	if(this.minimizeToTray){
 		this.initMinimizeToTray(this.trayIcon, this.trayMenu);
 	}
-	
+
 };
 
 Ext.extend(Ext.air.NativeWindow, Ext.air.NativeObservable, {
-	
+
 	/**
-	 * @cfg {air.NativeWindow} instance 
+	 * @cfg {air.NativeWindow} instance
 	 * The native window instance to wrap. If undefined, a new window will be created.
 	 */
-	
+
 	/**
-	 * @cfg {String} trayIcon 
+	 * @cfg {String} trayIcon
 	 * The icon to display when minimized in the system tray
 	 */
 	/**
-	 * @cfg {NativeMenu} trayMenu 
+	 * @cfg {NativeMenu} trayMenu
 	 * Menu to display when the tray icon is right clicked
 	 */
 	/**
-	 * @cfg {String} trayTip 
+	 * @cfg {String} trayTip
 	 * Tooltip for the tray icon
-	 */	
-	
+	 */
+
 	/**
-	 * @cfg {String} chrome 
+	 * @cfg {String} chrome
 	 * The native window chrome (defaults to 'standard', can also be 'none').
 	 */
 	chrome: 'standard', // can also be none
 	/**
-	 * @cfg {String} type 
+	 * @cfg {String} type
 	 * The native window type - normal, utility or lightweight. (defaults to normal)
 	 */
 	type: 'normal',	// can be normal, utility or lightweight
@@ -1105,26 +1105,26 @@ Ext.extend(Ext.air.NativeWindow, Ext.air.NativeObservable, {
 	 */
 	width:600,
 	/**
-	 * @cfg {Number} height 
+	 * @cfg {Number} height
 	 */
 	height:400,
 	/**
-	 * @cfg {Boolean} resizable 
+	 * @cfg {Boolean} resizable
 	 */
 	resizable: true,
 	/**
-	 * @cfg {Boolean} minimizable 
+	 * @cfg {Boolean} minimizable
 	 */
 	minimizable: true,
 	/**
-	 * @cfg {Boolean} maximizable 
+	 * @cfg {Boolean} maximizable
 	 */
 	maximizable: true,
 	/**
 	 * @cfg {Boolean} transparent
 	 */
 	transparent: false,
-	
+
 	/**
 	 * Returns the air.NativeWindow instance
 	 * @return air.NativeWindow
@@ -1132,7 +1132,7 @@ Ext.extend(Ext.air.NativeWindow, Ext.air.NativeObservable, {
 	getNative : function(){
 		return this.instance;
 	},
-	
+
 	/**
 	 * Returns the x/y coordinates for centering the windw on the screen
 	 * @return {x: Number, y: Number}
@@ -1144,7 +1144,7 @@ Ext.extend(Ext.air.NativeWindow, Ext.air.NativeObservable, {
 			y: b.y + ((b.height/2)-(this.height/2))
 		};
 	},
-	
+
 	/**
 	 * Shows the window
 	 */
@@ -1155,7 +1155,7 @@ Ext.extend(Ext.air.NativeWindow, Ext.air.NativeObservable, {
 		}
 		this.instance.visible = true;
 	},
-	
+
 	/**
 	 * Shows and activates the window
 	 */
@@ -1163,21 +1163,21 @@ Ext.extend(Ext.air.NativeWindow, Ext.air.NativeObservable, {
 		this.show();
 		this.instance.activate();
 	},
-	
+
 	/**
 	 * Hides the window
 	 */
 	hide :function(){
 		this.instance.visible = false;
 	},
-	
+
 	/**
 	 * Closes the window
 	 */
 	close : function(){
-		this.instance.close();	
+		this.instance.close();
 	},
-	
+
 	/**
 	 * Returns true if this window is minimized
 	 * @return Boolean
@@ -1185,7 +1185,7 @@ Ext.extend(Ext.air.NativeWindow, Ext.air.NativeObservable, {
 	isMinimized :function(){
 		return this.instance.displayState == air.NativeWindowDisplayState.MINIMIZED;
 	},
-	
+
 	/**
 	 * Returns true if this window is maximized
 	 * @return Boolean
@@ -1193,7 +1193,7 @@ Ext.extend(Ext.air.NativeWindow, Ext.air.NativeObservable, {
 	isMaximized :function(){
 		return this.instance.displayState == air.NativeWindowDisplayState.MAXIMIZED;
 	},
-	
+
 	/**
 	 * Moves the window to the passed xy and y coordinates
 	 * @param {Number} x
@@ -1201,7 +1201,7 @@ Ext.extend(Ext.air.NativeWindow, Ext.air.NativeObservable, {
 	 */
 	moveTo : function(x, y){
 		this.x = this.instance.x = x;
-		this.y = this.instance.y = y;	
+		this.y = this.instance.y = y;
 	},
 	/**
 	 * Enter full-screen mode for the window.
@@ -1212,42 +1212,42 @@ Ext.extend(Ext.air.NativeWindow, Ext.air.NativeObservable, {
 	 */
 	fullscreen: function(nonInteractive) {
 		var SDS = runtime.flash.display.StageDisplayState;
-		this.instance.stage.displayState = nonInteractive ? SDS.FULL_SCREEN : SDS.FULL_SCREEN_INTERACTIVE; 
+		this.instance.stage.displayState = nonInteractive ? SDS.FULL_SCREEN : SDS.FULL_SCREEN_INTERACTIVE;
 	},
-	
+
 	bringToFront: function() {
 		this.instance.orderToFront();
 	},
-	
+
 	bringInFrontOf: function(win) {
 		this.instance.orderInFrontOf(win.instance ? win.instance : win);
 	},
-	
+
 	sendToBack: function() {
 		this.instance.orderToBack();
 	},
-	
+
 	sendBehind: function(win) {
 		this.instance.orderInBackOf(win.instance ? win.instance : win);
 	},
-	
-	
+
+
 	/**
 	 * @param {Number} width
 	 * @param {Number} height
 	 */
 	resize : function(width, height){
 		this.width = this.instance.width = width;
-		this.height = this.instance.height = height;	
+		this.height = this.instance.height = height;
 	},
-	
+
 	unregister : function(){
 		Ext.air.NativeWindowManager.unregister(this);
 	},
-	
+
 	initMinimizeToTray : function(icon, menu){
 		var tray = Ext.air.SystemTray;
-		
+
 		tray.setIcon(icon, this.trayTip);
 		this.on('displayStateChanging', function(e){
 			if(e.afterDisplayState == 'minimized'){
@@ -1257,11 +1257,11 @@ Ext.extend(Ext.air.NativeWindow, Ext.air.NativeObservable, {
 				this.trayed = true;
 			}
 		}, this);
-		
+
 		tray.on('click', function(){
 			this.activate();
 		}, this);
-		
+
 		if(menu){
 			tray.setMenu(menu);
 		}
@@ -1288,7 +1288,7 @@ Ext.air.NativeWindow.getRootHtmlWindow = function(){
 
 /**
  * @class Ext.air.NativeWindowGroup
- * 
+ *
  * A collection of NativeWindows.
  */
 Ext.air.NativeWindowGroup = function(){
@@ -1348,9 +1348,9 @@ Ext.air.NativeWindowGroup = function(){
 /**
  * @class Ext.air.NativeWindowManager
  * @extends Ext.air.NativeWindowGroup
- * 
+ *
  * Collection of all NativeWindows created.
- * 
+ *
  * @singleton
  */
 Ext.air.NativeWindowManager = new Ext.air.NativeWindowGroup();// Abstract base class for Connection classes
@@ -1470,7 +1470,7 @@ Ext.sql.SQLiteStore = Ext.extend(Ext.data.Store, {
             fields: config.fields
         });
         var conn = Ext.sql.Connection.getInstance();
-        
+
         conn.open(config.dbFile);
         // Create the database table if it does
         // not exist
@@ -1478,9 +1478,9 @@ Ext.sql.SQLiteStore = Ext.extend(Ext.data.Store, {
             name: config.tableName,
             key: config.key,
             fields: config.reader.recordType.prototype.fields
-        });                
+        });
         Ext.sql.SQLiteStore.superclass.constructor.call(this, config);
-        this.proxy = new Ext.sql.Proxy(conn, config.tableName, config.key, this, false);        
+        this.proxy = new Ext.sql.Proxy(conn, config.tableName, config.key, this, false);
     }
 });
 Ext.sql.Table = function(conn, name, keyName){
@@ -1754,24 +1754,24 @@ Ext.extend(Ext.sql.Proxy, Ext.data.DataProxy, {
  * @class Ext.air.SystemTray
  * @singleton
  *
- * 
+ *
  *
  */
 Ext.air.SystemTray = function(){
 	var app = air.NativeApplication.nativeApplication;
 	var icon, isWindows = false, bitmaps;
-	
+
 	// windows
 	if(air.NativeApplication.supportsSystemTrayIcon) {
                 icon = app.icon;
                 isWindows = true;
         }
-    
+
 	// mac
         if(air.NativeApplication.supportsDockIcon) {
             icon = app.icon;
         }
-	
+
 	return {
 		/**
                  * Sets the Icon and tooltip for the currently running application in the
@@ -1791,13 +1791,13 @@ Ext.air.SystemTray = function(){
 					icon.bitmaps = bitmaps;
 				}
 			});
-                        
+
                         loader.load(new air.URLRequest(icon));
 			if(tooltip && air.NativeApplication.supportsSystemTrayIcon) {
 				app.icon.tooltip = tooltip;
 			}
 		},
-		
+
                 /**
                  * Bounce the OS X dock icon. Accepts a priority to notify the user
                  * whether the event which has just occurred is informational (single bounce)
@@ -1807,13 +1807,13 @@ Ext.air.SystemTray = function(){
 		bounce : function(priority){
 			icon.bounce(priority);
 		},
-		
+
 		on : function(eventName, fn, scope){
 			icon.addEventListener(eventName, function(){
 				fn.apply(scope || this, arguments);
 			});
 		},
-		
+
                 /**
                  * Hide the custom icon
                  */
@@ -1823,7 +1823,7 @@ Ext.air.SystemTray = function(){
 			}
 			icon.bitmaps = [];
 		},
-		
+
                 /**
                  * Show the custom icon
                  */
@@ -1833,7 +1833,7 @@ Ext.air.SystemTray = function(){
 			}
 			icon.bitmaps = bitmaps;
 		},
-		
+
                 /**
                  * Sets a menu for the icon
                  * @param {Array} actions Configurations for Ext.air.MenuItem's
@@ -1843,7 +1843,7 @@ Ext.air.SystemTray = function(){
 				return;
 			}
 			var menu = new air.NativeMenu();
-			
+
 			for (var i = 0, len = actions.length; i < len; i++) {
 				var a = actions[i];
 				if(a == '-'){
@@ -1854,21 +1854,21 @@ Ext.air.SystemTray = function(){
 						item.submenu = Ext.air.SystemTray.setMenu(a.menu || a.initialConfig.menu, menu);
 					}
 				}
-				
+
 				if(!_parentMenu){
 					icon.menu = menu;
 				}
 			}
-			
+
 			return menu;
 		}
-	};	
+	};
 }();
 /**
  * @class Ext.air.DragType
- * 
+ *
  * Drag drop type constants
- * 
+ *
  * @singleton
  */
 Ext.air.DragType = {
@@ -1908,7 +1908,7 @@ Ext.apply(Ext.EventObjectImpl.prototype, {
 		}
 		return false;
 	},
-	
+
 	getData : function(type){
 		return this.browserEvent.dataTransfer.getData(type);
 	}
@@ -1917,14 +1917,14 @@ Ext.apply(Ext.EventObjectImpl.prototype, {
 
 /**
  * @class Ext.air.Sound
- * 
+ *
  * @singleton
  */
 Ext.air.Sound = {
 	/**
 	 * Play a sound.
 	 * @param {String} file The file to be played. The path is resolved against applicationDirectory
-	 * @param {Number} startAt (optional) A time in the sound file to skip to before playing 
+	 * @param {Number} startAt (optional) A time in the sound file to skip to before playing
 	 */
 	play : function(file, startAt){
 		var soundFile = air.File.applicationDirectory.resolvePath(file);
@@ -1935,12 +1935,12 @@ Ext.air.Sound = {
 };
 /**
  * @class Ext.air.SystemMenu
- * 
- * Provides platform independent handling of adding item to the application menu, creating the menu or 
+ *
+ * Provides platform independent handling of adding item to the application menu, creating the menu or
  * items as needed. <br/><br/>
- * 
+ *
  * This class also provides the ability to bind standard Ext.Action instances with NativeMenuItems
- * 
+ *
  * @singleton
  */
 Ext.air.SystemMenu = function(){
@@ -1950,7 +1950,7 @@ Ext.air.SystemMenu = function(){
         menu = new air.NativeMenu();
         nativeWindow.menu = menu;
     }
-    
+
 	// mac
     if(air.NativeApplication.supportsMenu) {
 		menu = air.NativeApplication.nativeApplication.menu;
@@ -1970,7 +1970,7 @@ Ext.air.SystemMenu = function(){
 		 * Add items to one of the application menus
 		 * @param {String} text The application menu to add the actions to (e.g. 'File' or 'Edit').
 		 * @param {Array} actions An array of Ext.Action objects or menu item configs
-		 * @param {Number} mindex The index of the character in "text" which should be used for 
+		 * @param {Number} mindex The index of the character in "text" which should be used for
 		 * keyboard access
 		 * @return air.NativeMenu The raw submenu
 		 */
@@ -1988,14 +1988,14 @@ Ext.air.SystemMenu = function(){
 			}
             return item.submenu;
         },
-		
+
 		/**
 		 * Returns the application menu
 		 */
 		get : function(){
 			return menu;
 		}
-	};	
+	};
 }();
 
 // ability to bind native menu items to an Ext.Action
@@ -2005,7 +2005,7 @@ Ext.air.MenuItem = function(action){
 	}
 	var cfg = action.initialConfig;
 	var nativeItem = new air.NativeMenuItem(cfg.itemText || cfg.text);
-	
+
 	nativeItem.enabled = !cfg.disabled;
 
     if(!Ext.isEmpty(cfg.checked)){
@@ -2014,25 +2014,25 @@ Ext.air.MenuItem = function(action){
 
     var handler = cfg.handler;
 	var scope = cfg.scope;
-	
+
 	nativeItem.addEventListener(air.Event.SELECT, function(){
 		handler.call(scope || window, cfg);
 	});
-	
+
 	action.addComponent({
 		setDisabled : function(v){
 			nativeItem.enabled = !v;
 		},
-		
+
 		setText : function(v){
 			nativeItem.label = v;
 		},
-		
+
 		setVisible : function(v){
 			// could not find way to hide in air so disable?
 			nativeItem.enabled = !v;
 		},
-		
+
 		setHandler : function(newHandler, newScope){
 			handler = newHandler;
 			scope = newScope;
@@ -2040,7 +2040,7 @@ Ext.air.MenuItem = function(action){
 		// empty function
 		on : function(){}
 	});
-	
+
 	return nativeItem;
 }
 Ext.ns('Ext.air');
@@ -2064,7 +2064,7 @@ Ext.air.MusicPlayer = Ext.extend(Ext.util.Observable, {
 	 * @property activeTransform
 	 */
 	activeTransform: new air.SoundTransform(1, 0),
-	// private 
+	// private
 	pausePosition: 0,
 	/**
 	 * @cfg {Number} progressInterval
@@ -2072,11 +2072,11 @@ Ext.air.MusicPlayer = Ext.extend(Ext.util.Observable, {
 	 * Defaults to 500.
 	 */
 	progressInterval: 500,
-	
+
 	constructor: function(config) {
 		config = config || {};
 		Ext.apply(this, config);
-		
+
 		this.addEvents(
 			/**
 			 * @event stop
@@ -2111,7 +2111,7 @@ Ext.air.MusicPlayer = Ext.extend(Ext.util.Observable, {
 			 */
 			'skip'
 		);
-		
+
 		Ext.air.MusicPlayer.superclass.constructor.call(this, config);
 		this.onSoundFinishedDelegate = this.onSoundFinished.createDelegate(this);
 		this.onSoundLoadDelegate = this.onSoundLoad.createDelegate(this);
@@ -2121,8 +2121,8 @@ Ext.air.MusicPlayer = Ext.extend(Ext.util.Observable, {
 			run: this.notifyProgress,
 			scope: this,
 			interval: this.progressInterval
-		});		
-	},	
+		});
+	},
 
 	/**
 	 * Adjust the volume
@@ -2131,23 +2131,23 @@ Ext.air.MusicPlayer = Ext.extend(Ext.util.Observable, {
 	 */
 	adjustVolume: function(percent) {
 		this.activeTransform.volume = percent;
-		if (this.activeChannel) {		
-			this.activeChannel.soundTransform = this.activeTransform;		
-		}		
+		if (this.activeChannel) {
+			this.activeChannel.soundTransform = this.activeTransform;
+		}
 	},
 	/**
 	 * Stop the player
 	 */
 	stop: function() {
-		this.pausePosition = 0;		
+		this.pausePosition = 0;
 		if (this.activeChannel) {
-			this.activeChannel.stop();			
-			this.activeChannel = null;			
-		}		
+			this.activeChannel.stop();
+			this.activeChannel = null;
+		}
 		if (this.activeSound) {
 			this.activeSound.removeEventListener(air.Event.COMPLETE, this.onSoundLoadDelegate);
 			this.activeSound.removeEventListener(air.Event.ID3, this.onSoundID3LoadDelegate);
-			this.activeSound.removeEventListener(air.Event.SOUND_COMPLETE, this.onSoundFinishedDelegate);						
+			this.activeSound.removeEventListener(air.Event.SOUND_COMPLETE, this.onSoundFinishedDelegate);
 		}
 	},
 	/**
@@ -2156,8 +2156,8 @@ Ext.air.MusicPlayer = Ext.extend(Ext.util.Observable, {
 	pause: function() {
 		if (this.activeChannel) {
 			this.pausePosition = this.activeChannel.position;
-			this.activeChannel.stop();			
-		}		
+			this.activeChannel.stop();
+		}
 	},
 	/**
 	 * Play a sound, if no url is specified will attempt to resume the activeSound
@@ -2165,39 +2165,39 @@ Ext.air.MusicPlayer = Ext.extend(Ext.util.Observable, {
 	 * Url resource to play
 	 */
 	play: function(url) {
-		if (url) {			
-			this.stop();			
+		if (url) {
+			this.stop();
 			var req = new air.URLRequest(url);
 			this.activeSound = new air.Sound();
-			this.activeSound.addEventListener(air.Event.SOUND_COMPLETE, this.onSoundFinishedDelegate);						
-			this.activeSound.addEventListener(air.Event.COMPLETE, this.onSoundLoadDelegate);			
+			this.activeSound.addEventListener(air.Event.SOUND_COMPLETE, this.onSoundFinishedDelegate);
+			this.activeSound.addEventListener(air.Event.COMPLETE, this.onSoundLoadDelegate);
 			this.activeSound.addEventListener(air.Event.ID3, this.onSoundID3LoadDelegate);
-			this.activeSound.load(req);						
+			this.activeSound.load(req);
 		} else {
-			this.onSoundLoad();	
-		}	
+			this.onSoundLoad();
+		}
 	},
-	
+
 	/**
 	 * Skip to a specific position in the song currently playing.
 	 * @param {Object} pos
 	 */
 	skipTo: function(pos) {
 		if (this.activeChannel) {
-			this.activeChannel.stop();		
-			this.activeChannel = this.activeSound.play(pos);	
-			this.activeChannel.soundTransform = this.activeTransform;		
+			this.activeChannel.stop();
+			this.activeChannel = this.activeSound.play(pos);
+			this.activeChannel.soundTransform = this.activeTransform;
 			this.fireEvent('skip', this.activeChannel, this.activeSound, pos);
 		}
 	},
-	
+
 	/**
 	 * Returns whether or not there is an active SoundChannel.
 	 */
 	hasActiveChannel: function() {
 		return !!this.activeChannel;
 	},
-	
+
 	// private
 	onSoundLoad: function(event) {
 		if (this.activeSound) {
@@ -2207,7 +2207,7 @@ Ext.air.MusicPlayer = Ext.extend(Ext.util.Observable, {
 			this.activeChannel = this.activeSound.play(this.pausePosition);
 			this.activeChannel.soundTransform = this.activeTransform;
 			this.fireEvent('load', this.activeChannel, this.activeSound);
-		}		
+		}
 	},
 	// private
 	onSoundFinished: function(event) {
@@ -2216,22 +2216,22 @@ Ext.air.MusicPlayer = Ext.extend(Ext.util.Observable, {
 	},
 	// private
 	onSoundID3Load: function(event) {
-		this.activeSound.removeEventListener(air.Event.ID3, this.onSoundID3LoadDelegate);		
-		var id3 = event.target.id3;		
+		this.activeSound.removeEventListener(air.Event.ID3, this.onSoundID3LoadDelegate);
+		var id3 = event.target.id3;
 		this.fireEvent('id3info', id3);
 	},
 	// private
 	notifyProgress: function() {
 		if (this.activeChannel && this.activeSound) {
-			var playbackPercent = 100 * (this.activeChannel.position / this.activeSound.length);			
+			var playbackPercent = 100 * (this.activeChannel.position / this.activeSound.length);
 			// SOUND_COMPLETE does not seem to work consistently.
 			if (playbackPercent > 99.7) {
-				this.onSoundFinished();				
+				this.onSoundFinished();
 			} else {
 				this.fireEvent('progress', this.activeChannel, this.activeSound);
-			}	
-		}		
-	}		
+			}
+		}
+	}
 });Ext.air.Notify = Ext.extend(Ext.air.NativeWindow, {
 	winType: 'notify',
 	type: 'lightweight',
@@ -2270,14 +2270,14 @@ Ext.air.MusicPlayer = Ext.extend(Ext.util.Observable, {
 	},
 	onComplete: function(event) {
 		this.loader.removeEventListener(air.Event.COMPLETE, this.onCompleteDelegate);
-		this.show(event);												
-	}, 
+		this.show(event);
+	},
 	show: function(event) {
 		var h = event.target.window.document.getElementById(this.msgId).clientHeight + this.extraHeight;
 		var main = air.Screen.mainScreen;
-		var xy = [0,0];						
+		var xy = [0,0];
 		xy[0] = main.visibleBounds.bottomRight.x - this.width;
-		xy[1] = main.visibleBounds.bottomRight.y - this.height;	
+		xy[1] = main.visibleBounds.bottomRight.y - this.height;
 		this.moveTo(xy[0], xy[1]);
 		Ext.air.Notify.superclass.show.call(this);
 		this.close.defer(this.hideDelay, this);
@@ -2300,7 +2300,7 @@ Ext.air.MusicPlayer = Ext.extend(Ext.util.Observable, {
  */
 Ext.air.Clipboard = function() {
     var clipboard = air.Clipboard.generalClipboard;
-    
+
     return {
         /**
          * Determine if there is any data in a particular format clipboard.
@@ -2312,7 +2312,7 @@ Ext.air.Clipboard = function() {
         /**
          * Set the data for a particular format clipboard.
          * @param {String} format Use the air.ClipboardFormats CONSTANT or the string value
-         * @param {Mixed} data Data to set 
+         * @param {Mixed} data Data to set
          */
         setData: function(format, data) {
             clipboard.setData(format, data);
@@ -2328,7 +2328,7 @@ Ext.air.Clipboard = function() {
         /**
          * Get the data for a particular format.
          * @param {String} format Use the air.ClipboardFormats CONSTANT or the string value
-         * @param {String} transferMode 
+         * @param {String} transferMode
          */
         getData: function(format, transferMode) {
             clipboard.getData(format, transferMode);
@@ -2362,7 +2362,7 @@ Ext.air.Clipboard = function() {
             var p = Ext.urlDecode(this.getParams(node));
             var response = this.dataFn(node);
             this.processResponse(response, node, callback);
-            this.fireEvent("load", this, node, response);			
+            this.fireEvent("load", this, node, response);
         }else{
             // if the load is cancelled, make sure we notify
             // the node that we are done
@@ -2370,7 +2370,7 @@ Ext.air.Clipboard = function() {
                 callback();
             }
         }
-    },	
+    },
     processResponse : function(o, node, callback){
         try {
             node.beginUpdate();
@@ -2401,7 +2401,7 @@ Ext.air.Clipboard = function() {
         }else if(this.dataFn||this.fn){
             this.requestData(node, callback);
         }
-    }		
+    }
 });
 
 /**
@@ -2417,7 +2417,7 @@ Ext.air.FileTreeLoader = Ext.extend(Ext.tree.LocalTreeLoader, {
         } else {
                 currDir = this.directory;
         }
-        var files = []; 
+        var files = [];
         var c = currDir.getDirectoryListing();
         for (i = 0; i < c.length; i++) {
             if (c[i].isDirectory || this.extensionFilter === false || this.extensionFilter === c[i].extension)
@@ -2428,7 +2428,7 @@ Ext.air.FileTreeLoader = Ext.extend(Ext.tree.LocalTreeLoader, {
                 leaf: !c[i].isDirectory
             });
         }
-        return files;			
+        return files;
     }
 });/**
  * @class Ext.air.VideoPanel
@@ -2447,11 +2447,11 @@ Ext.air.VideoPanel = Ext.extend(Ext.Panel, {
 	this.stream.client = {
 	    onMetaData: Ext.emptyFn
 	};
-	
+
         Ext.air.VideoPanel.superclass.initComponent.call(this);
 	this.on('bodyresize', this.onVideoResize, this);
     },
-    
+
     afterRender: function() {
         Ext.air.VideoPanel.superclass.afterRender.call(this);
 	(function() {
@@ -2466,7 +2466,7 @@ Ext.air.VideoPanel = Ext.extend(Ext.Panel, {
             this.video.y = box.y;
 	}).defer(500, this);
     },
-    
+
     // Custom Methods
     onVideoResize: function(pnl, w, h) {
 	if (this.video && this.autoResize) {
@@ -2483,13 +2483,13 @@ Ext.air.VideoPanel = Ext.extend(Ext.Panel, {
             }
 	}
     },
-    
+
     loadVideo: function(url) {
 	this.stream.close();
 	this.video.attachNetStream(this.stream);
-	this.stream.play(url);		
+	this.stream.play(url);
     }
-    
+
 });
 Ext.reg('videopanel', Ext.air.VideoPanel);
 

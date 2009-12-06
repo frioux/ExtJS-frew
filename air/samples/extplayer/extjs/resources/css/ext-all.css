@@ -1,5 +1,5 @@
 /*!
- * Ext JS Library 3.0+
+ * Ext JS Library 3.1+
  * Copyright(c) 2006-2009 Ext JS, LLC
  * licensing@extjs.com
  * http://www.extjs.com/license
@@ -8,7 +8,7 @@
  * Ext JS Library 3.0 Pre-alpha
  * Copyright(c) 2006-2008, Ext JS, LLC.
  * licensing@extjs.com
- * 
+ *
  * http://extjs.com/license
  */
 
@@ -674,7 +674,7 @@ ul.x-tab-strip li.x-tab-edge {
 }
 
 .x-tab-scrolling {
-    position:relative;    
+    position:relative;
 }
 
 .x-tab-panel-bbar .x-toolbar {
@@ -711,25 +711,25 @@ textarea.x-form-field {
     vertical-align:middle;
 }
 .ext-ie .x-form-text {
-    margin:-1px 0; 
-    height:22px; 
+    margin:-1px 0;
+    height:22px;
     line-height:18px;
 }
 .ext-ie textarea.x-form-field {
-    margin:-1px 0; 
+    margin:-1px 0;
 }
 .ext-strict .x-form-text {
     height:18px;
 }
 .ext-safari.ext-mac textarea.x-form-field {
-    margin-bottom:-2px; 
+    margin-bottom:-2px;
 }
 .ext-gecko .x-form-text {
-    padding-top:2px; 
+    padding-top:2px;
     padding-bottom:0;
 }
 textarea {
-    resize: none;  
+    resize: none;
 }
 
 
@@ -738,7 +738,7 @@ textarea {
     height:20px;
     line-height:18px;
     vertical-align:middle;
-    background-color:#fff; 
+    background-color:#fff;
     border: 1px solid #B5B8C8;
 }
 
@@ -758,11 +758,11 @@ textarea {
     padding: 3px 0 0 0;
     line-height:18px;
 }
-.x-form-check-group .x-form-check-wrap, 
+.x-form-check-group .x-form-check-wrap,
 .x-form-radio-group .x-form-radio-wrap {
     height: 18px;
 }
-.ext-ie .x-form-check-group .x-form-check-wrap, 
+.ext-ie .x-form-check-group .x-form-check-wrap,
 .ext-ie .x-form-radio-group .x-form-radio-wrap {
     height: 21px;
 }
@@ -775,7 +775,7 @@ textarea {
 	height: 13px;
 	width: 13px;
     vertical-align: bottom;
-} 
+}
 .x-form-radio {
     margin-bottom: 3px;
 }
@@ -796,18 +796,18 @@ textarea {
 .x-form-check-focus .x-form-radio, .x-form-check-over .x-form-radio {
 	background-position: -13px 0;
 }
-.x-form-check-down .x-form-check, 
+.x-form-check-down .x-form-check,
 .x-form-check-down .x-form-radio {
 	background-position:-26px 0;
 }
-.x-form-check-checked .x-form-check-focus .x-form-check, 
+.x-form-check-checked .x-form-check-focus .x-form-check,
 .x-form-check-checked .x-form-check-over .x-form-check {
 	background-position:-13px -13px;
 }
 .x-form-check-checked .x-form-check-down .x-form-check {
 	background-position:-26px -13px;
 }
-.x-form-check-checked .x-form-check, 
+.x-form-check-checked .x-form-check,
 .x-form-check-checked .x-form-radio {
 	background-position:0 -13px;
 }
@@ -836,7 +836,7 @@ textarea {
 }
 
 .ext-safari .x-form-field-wrap .x-form-trigger{
-    height:21px; 
+    height:21px;
 }
 
 .x-form-field-wrap .x-form-date-trigger{
@@ -1028,9 +1028,9 @@ textarea {
     vertical-align:middle;
 }
 .ext-ie .x-small-editor .x-form-text {
-    margin-top:-1px !important; 
+    margin-top:-1px !important;
     margin-bottom:-1px !important;
-    height:20px !important; 
+    height:20px !important;
     line-height:16px !important;
 }
 .ext-strict .x-small-editor .x-form-text {
@@ -1038,7 +1038,7 @@ textarea {
 }
 
 .ext-safari .x-small-editor .x-form-field {
-    
+
     font:normal 12px arial, tahoma, helvetica, sans-serif;
 }
 .ext-ie .x-small-editor .x-form-text {
@@ -1112,10 +1112,10 @@ textarea {
 	clear:none;
 }
 .x-form .x-form-btns-ct .x-form-btns-center{
-	text-align:center; 
+	text-align:center;
 }
 .x-form .x-form-btns-ct .x-form-btns-center table{
-	margin:0 auto; 
+	margin:0 auto;
 }
 .x-form .x-form-btns-ct table td.x-form-btn-td{
 	padding:3px;
@@ -1156,7 +1156,7 @@ textarea {
     border:1px solid #B5B8C8;
     padding:10px;
     margin-bottom:10px;
-    display:block; 
+    display:block;
 }
 .x-fieldset legend {
     font:bold 11px tahoma, arial, helvetica, sans-serif;
@@ -1212,7 +1212,7 @@ fieldset.x-panel-collapsed .x-fieldset-bwrap {
     position: absolute;
     left:-5px;
 }
-        
+
 .ext-gecko .x-window-body .x-form-item {
     -moz-outline: none;
     overflow: auto;
@@ -1934,7 +1934,7 @@ div.x-toolbar-no-items {
 .x-resizable-handle {
     position:absolute;
     z-index:100;
-    
+
     font-size:1px;
     line-height:6px;
     overflow:hidden;
@@ -1951,7 +1951,7 @@ div.x-toolbar-no-items {
     height:100%;
 }
 .ext-ie .x-resizable-handle-east {
-      margin-right:-1px; 
+      margin-right:-1px;
 }
 .x-resizable-handle-south{
     width:100%;
@@ -1961,7 +1961,7 @@ div.x-toolbar-no-items {
     height:6px;
 }
 .ext-ie .x-resizable-handle-south {
-     margin-bottom:-1px; 
+     margin-bottom:-1px;
 }
 .x-resizable-handle-west{
     width:6px;
@@ -2148,7 +2148,7 @@ div.x-toolbar-no-items {
 }
 
 .x-grid3-col {
-	
+
 }
 
 .x-grid-row-loading {
@@ -2161,7 +2161,7 @@ div.x-toolbar-no-items {
 	cursor: default;
     border:1px solid #ededed;
     border-top-color:#fff;
-    
+
     width:100%;
 }
 .x-grid3-row-alt{
@@ -2236,7 +2236,7 @@ div.x-toolbar-no-items {
     width:15px;
 }
 .ext-strict .x-grid3-header-pop-inner {
-    width:14px; 
+    width:14px;
 }
 .x-grid3-header-inner {
     overflow:hidden;
@@ -2999,7 +2999,7 @@ input.x-tree-node-cb {
 }
 .x-date-middle {
     padding-top:2px;padding-bottom:2px;
-    width:130px; 
+    width:130px;
 }
 .x-date-right a, .x-date-left a{
     display:block;
@@ -3600,7 +3600,7 @@ td.x-date-mp-sep {
 .x-combo-list-inner {
     overflow:auto;
     background:white;
-    position:relative; 
+    position:relative;
     zoom:1;
     overflow-x:hidden;
 }
@@ -3660,7 +3660,7 @@ td.x-date-mp-sep {
     border-top:0 none;
     overflow:hidden;
     background:white;
-    position: relative; 
+    position: relative;
 }
 
 .x-panel-bbar .x-toolbar {
@@ -4007,10 +4007,10 @@ td.x-date-mp-sep {
 	clear:none;
 }
 .x-panel-btns-center{
-	text-align:center; 
+	text-align:center;
 }
 .x-panel-btns-center .x-toolbar-ct {
-	margin:0 auto; 
+	margin:0 auto;
     text-align:left;
     width:auto;
 }
@@ -4520,7 +4520,7 @@ body.x-body-masked .x-window-plain .x-window-mc {
 
 .x-column-layout-ct {
     overflow:hidden;
-    
+
     zoom:1;
 }
 
@@ -4530,7 +4530,7 @@ body.x-body-masked .x-window-plain .x-window-mc {
     margin:0;
     overflow:hidden;
     zoom:1;
-    
+
 }
 .x-column-inner {
     overflow:hidden;
@@ -4793,7 +4793,7 @@ body.x-body-masked .x-window-plain .x-window-mc {
     -moz-user-select: text;
     -khtml-user-select: text;
 	display:block;
-	overflow:hidden;  
+	overflow:hidden;
 }
 
 
@@ -4897,7 +4897,7 @@ body.x-body-masked .x-window-plain .x-window-mc {
     height:32px;
 }
 .ext-ie .x-window-dlg .ext-mb-icon {
-    width:44px; 
+    width:44px;
 }
 .x-window-dlg .ext-mb-info {
     background:transparent url(../images/default/window/icon-info.gif) no-repeat top left;
