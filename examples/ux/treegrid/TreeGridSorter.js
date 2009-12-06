@@ -1,4 +1,10 @@
-Ext.tree.TreeGridSorter = Ext.extend(Ext.tree.TreeSorter, {
+Ext.ns('Ext.ux.tree');
+
+/**
+ * @class Ext.ux.tree.TreeGridSorter
+ * @extends Ext.tree.TreeSorter
+ */
+Ext.ux.tree.TreeGridSorter = Ext.extend(Ext.tree.TreeSorter, {
     /**
      * @cfg {Array} sortClasses The CSS classes applied to a header when it is sorted. (defaults to <tt>['sort-asc', 'sort-desc']</tt>)
      */
@@ -11,7 +17,7 @@ Ext.tree.TreeGridSorter = Ext.extend(Ext.tree.TreeSorter, {
      * @cfg {String} sortDescText The text displayed in the 'Sort Descending' menu item (defaults to <tt>'Sort Descending'</tt>)
      */
     sortDescText : 'Sort Descending',
-    
+
     constructor : function(tree, config) {
         if(!Ext.isObject(config)) {
             config = {
@@ -19,23 +25,23 @@ Ext.tree.TreeGridSorter = Ext.extend(Ext.tree.TreeSorter, {
                 folderSort: true
             }
         }
-        
-        Ext.tree.TreeGridSorter.superclass.constructor.apply(this, arguments);
-        
+
+        Ext.ux.tree.TreeGridSorter.superclass.constructor.apply(this, arguments);
+
         this.tree = tree;
         tree.on('headerclick', this.onHeaderClick, this);
         tree.ddAppendOnly = true;
-        
+
         me = this;
-        this.defaultSortFn = function(n1, n2){       
-                 
-            var dsc = me.dir && me.dir.toLowerCase() == "desc";
-            var p = me.property || "text";
+        this.defaultSortFn = function(n1, n2){
+
+            var dsc = me.dir && me.dir.toLowerCase() == 'desc';
+            var p = me.property || 'text';
             var sortType = me.sortType;
             var fs = me.folderSort;
             var cs = me.caseSensitive === true;
             var leafAttr = me.leafAttr || 'leaf';
-            
+
             if(fs){
                 if(n1.attributes[leafAttr] && !n2.attributes[leafAttr]){
                     return 1;
@@ -54,7 +60,7 @@ Ext.tree.TreeGridSorter = Ext.extend(Ext.tree.TreeSorter, {
     	    	return 0;
             }
         };
-        
+
         tree.on('afterrender', this.onAfterTreeRender, this, {single: true});
         tree.on('headermenuclick', this.onHeaderMenuClick, this);
     },
@@ -67,18 +73,18 @@ Ext.tree.TreeGridSorter = Ext.extend(Ext.tree.TreeSorter, {
         );
         this.updateSortIcon(0, 'asc');
     },
-    
+
     onHeaderMenuClick : function(c, id, index) {
         if(id === 'asc' || id === 'desc') {
             this.onHeaderClick(c, null, index);
             return false;
         }
     },
-    
+
     onHeaderClick : function(c, el, i) {
         if(c && !this.tree.headersDisabled){
             var me = this;
-            
+
             me.property = c.dataIndex;
             me.dir = c.dir = (c.dir === 'desc' ? 'asc' : 'desc');
             me.sortType = c.sortType;
@@ -90,7 +96,7 @@ Ext.tree.TreeGridSorter = Ext.extend(Ext.tree.TreeSorter, {
                     me.updateSort(me.tree, n);
                 }
             });
-            
+
             this.updateSortIcon(i, c.dir);
         }
     },

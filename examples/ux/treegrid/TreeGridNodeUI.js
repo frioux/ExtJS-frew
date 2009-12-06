@@ -1,5 +1,9 @@
-Ext.tree.TreeGridNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
-    renderElements : function(n, a, targetNode, bulkRender){    
+/**
+ * @class Ext.ux.tree.TreeGridNodeUI
+ * @extends Ext.tree.TreeNodeUI
+ */
+Ext.ux.tree.TreeGridNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
+    renderElements : function(n, a, targetNode, bulkRender){
         var t = n.getOwnerTree(),
             cols = t.columns,
             c = cols[0],
@@ -19,7 +23,7 @@ Ext.tree.TreeGridNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
                         '<span unselectable="on">', (c.tpl ? c.tpl.apply(a) : a[c.dataIndex] || c.text), '</span></a>',
                     '</td>'
         ];
-                
+
         for(i = 1, len = cols.length; i < len; i++){
             c = cols[i];
             buf.push(
@@ -30,16 +34,16 @@ Ext.tree.TreeGridNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
                     '</td>'
             );
         }
-        
+
         buf.push(
             '</tr><tr class="x-tree-node-ct"><td colspan="', cols.length, '">',
             '<table class="x-treegrid-node-ct-table" cellpadding="0" cellspacing="0" style="display: none; width: ', t.innerCt.getWidth() ,'px;"><colgroup>'
-        );                    
+        );
         for(i = 0, len = cols.length; i<len; i++) {
             buf.push('<col style="width: ', (cols[i].hidden ? 0 : cols[i].width) ,'px;" />');
-        }                    
+        }
         buf.push('</colgroup></table></td></tr></tbody>');
-                            
+
         if(bulkRender !== true && n.nextSibling && n.nextSibling.ui.getEl()){
             this.wrap = Ext.DomHelper.insertHtml("beforeBegin", n.nextSibling.ui.getEl(), buf.join(''));
         }else{
@@ -55,18 +59,18 @@ Ext.tree.TreeGridNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
         this.anchor = cs[3];
         this.textNode = cs[3].firstChild;
     },
-    
+
     // private
-    animExpand : function(cb){                
+    animExpand : function(cb){
         this.ctNode.style.display = "";
-        Ext.tree.TreeGridNodeUI.superclass.animExpand.call(this, cb);
+        Ext.ux.tree.TreeGridNodeUI.superclass.animExpand.call(this, cb);
     }
 });
 
-Ext.tree.TreeGridRootNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
+Ext.ux.tree.TreeGridRootNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
     // private
     render : function(){
-        if(!this.rendered){          
+        if(!this.rendered){
             this.wrap = this.ctNode = this.node.ownerTree.innerCt.dom;
             this.node.expanded = true;
         }

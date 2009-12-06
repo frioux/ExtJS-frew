@@ -1,41 +1,47 @@
-Ext.tree.TreeGrid = Ext.extend(Ext.tree.TreePanel, {
-    rootVisible: false,
-    useArrows: true,
-    lines: false,
+/**
+ * @class Ext.ux.tree.TreeGrid
+ * @extends Ext.tree.TreePanel
+ * 
+ * @xtype treegrid
+ */
+Ext.ux.tree.TreeGrid = Ext.extend(Ext.tree.TreePanel, {
+    rootVisible : false,
+    useArrows : true,
+    lines : false,
     borderWidth : Ext.isBorderBox ? 0 : 2, // the combined left/right border for each cell
     cls : 'x-treegrid',
 
-    columnResize: true,
-    enableSort: true,
-    reserveScrollOffset: true,
-    enableHdMenu: true,
+    columnResize : true,
+    enableSort : true,
+    reserveScrollOffset : true,
+    enableHdMenu : true,
     
     columnsText : 'Columns',
 
     initComponent : function() {        
         if(!this.root) {
-            this.root = new Ext.tree.AsyncTreeNode({text: 'Root', uiProvider: Ext.tree.TreeGridRootNodeUI});
+            this.root = new Ext.tree.AsyncTreeNode({text: 'Root', uiProvider: Ext.ux.tree.TreeGridRootNodeUI});
         }
 
         // initialize the loader
         var l = this.loader;
         if(!l){
-            l = new Ext.tree.TreeGridLoader({
+            l = new Ext.ux.tree.TreeGridLoader({
                 dataUrl: this.dataUrl,
                 requestMethod: this.requestMethod,
                 store: this.store
             });
         }else if(Ext.isObject(l) && !l.load){
-            l = new Ext.tree.TreeGridLoader(l);
+            l = new Ext.ux.tree.TreeGridLoader(l);
         }
         this.loader = l;
                             
-        Ext.tree.TreeGrid.superclass.initComponent.call(this);                    
+        Ext.ux.tree.TreeGrid.superclass.initComponent.call(this);                    
         
         this.initColumns();
         
         if(this.enableSort) {
-            this.treeGridSorter = new Ext.tree.TreeGridSorter(this, this.enableSort);
+            this.treeGridSorter = new Ext.ux.tree.TreeGridSorter(this, this.enableSort);
         }
         
         if(this.columnResize){
@@ -136,7 +142,7 @@ Ext.tree.TreeGrid = Ext.extend(Ext.tree.TreePanel, {
     },
 
     initEvents : function() {
-        Ext.tree.TreeGrid.superclass.initEvents.apply(this, arguments);
+        Ext.ux.tree.TreeGrid.superclass.initEvents.apply(this, arguments);
 
         this.mon(this.innerBody, 'scroll', this.syncScroll, this);
         this.mon(this.innerHd, 'click', this.handleHdDown, this);
@@ -148,7 +154,7 @@ Ext.tree.TreeGrid = Ext.extend(Ext.tree.TreePanel, {
     },
     
     onResize : function(w, h) {
-        Ext.tree.TreeGrid.superclass.onResize.apply(this, arguments);
+        Ext.ux.tree.TreeGrid.superclass.onResize.apply(this, arguments);
         
         var bd = this.innerBody.dom;
         var hd = this.innerHd.dom;

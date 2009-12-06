@@ -1,4 +1,12 @@
+/**
+ * @class Ext.tree.ColumnResizer
+ * @extends Ext.util.Observable
+ */
 Ext.tree.ColumnResizer = Ext.extend(Ext.util.Observable, {
+    /**
+     * @cfg {Number} minWidth The minimum width the column can be dragged to.
+     * Defaults to <tt>14</tt>.
+     */
     minWidth: 14,
 
     constructor: function(config){
@@ -65,7 +73,7 @@ Ext.tree.ColumnResizer = Ext.extend(Ext.util.Observable, {
         return !!this.dragHd;
     },
 
-    onStart: function(e){
+    onStart : function(e){
         this.tree.headersDisabled = true;
         this.proxy = this.tree.body.createChild({cls:'x-treegrid-resizer'});
         this.proxy.setHeight(this.tree.body.getHeight());
@@ -81,12 +89,12 @@ Ext.tree.ColumnResizer = Ext.extend(Ext.util.Observable, {
         this.maxWidth = this.tree.outerCt.getWidth() - this.tree.innerBody.translatePoints(this.hdX).left;
     },
 
-    onDrag: function(e){
+    onDrag : function(e){
         var cursorX = this.tracker.getXY()[0];
         this.proxy.setWidth((cursorX-this.hdX).constrain(this.minWidth, this.maxWidth));
     },
 
-    onEnd: function(e){
+    onEnd : function(e){
         var nw = this.proxy.getWidth(),
             tree = this.tree;
         
