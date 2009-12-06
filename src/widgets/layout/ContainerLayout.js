@@ -133,14 +133,20 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
             return;
         }
 
-        // Container determines whether it needs to buffer a layout or whether it should take place immediately
-        if (ct.shouldBufferLayout()){
-            if(!this.resizeTask){
-                this.resizeTask = new Ext.util.DelayedTask(this.runLayout, this);
-                this.resizeBuffer = Ext.isNumber(b) ? b : 50;
+        // Not having an ownerCt negates the buffering: floating and top level
+        // Containers (Viewport, Window, ToolTip, Menu) need to lay out ASAP.
+        if (b && ct.ownerCt) {
+            // If we do NOT already have a layout pending from an ancestor, schedule one.
+            // If there is a layout pending, we do nothing here.
+            // buffering to be deprecated soon
+            if (!ct.hasLayoutPending()){
+                if(!this.resizeTask){
+                    this.resizeTask = new Ext.util.DelayedTask(this.runLayout, this);
+                    this.resizeBuffer = Ext.isNumber(b) ? b : 50;
+                }
+                ct.layoutPending = true;
+                this.resizeTask.delay(this.resizeBuffer);
             }
-            ct.layoutPending = true;
-            this.resizeTask.delay(this.resizeBuffer);
         }else{
             ct.doLayout();
         }

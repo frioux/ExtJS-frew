@@ -467,6 +467,7 @@ items: [
     },
 
     afterRender: function(){
+        this.layoutDone = false;
         if(!this.layout){
             this.layout = 'auto';
         }
@@ -489,9 +490,8 @@ items: [
             this.layout.setActiveItem(item);
         }
 
-        // If the BoxComponent's sizing did not trigger a layout
-        // and we have no ownerCt, force a layout.
-        if(!this.ownerCt && !this.layout.monitorResize){
+        // If we have no ownerCt and the BoxComponent's sizing did not trigger a layout, force a layout
+        if(!this.ownerCt && !this.layoutDone){
             this.doLayout(false, true);
         }
 
@@ -744,12 +744,14 @@ tb.{@link #doLayout}();             // refresh the layout
         return c;
     },
 
-    // private
+    /**
+    * We can only lay out if there is a view area in which to layout.
+    * display:none on the layout target, *or any of its parent elements* will mean it has no view area.
+    */
     canLayout: function() {
-        var el = this.getVisibilityEl();
-        return el && !el.isStyle("display", "none");
+        var el = this.getLayoutTarget(), vs;
+        return !!(el && ((vs = el.getViewSize()).width || vs.height));
     },
-
 
     /**
      * Force this container's layout to be recalculated. A call to this function is required after adding a new component
@@ -764,6 +766,7 @@ tb.{@link #doLayout}();             // refresh the layout
             forceLayout = force || this.forceLayout,
             cs, i, len, c;
 
+        this.layoutDone = true;
         if(!this.canLayout() || this.collapsed){
             this.deferLayout = this.deferLayout || !shallow;
             if(!forceLayout){
@@ -820,26 +823,15 @@ tb.{@link #doLayout}();             // refresh the layout
         }
     },
 
-    shouldBufferLayout: function(){
-        /*
-         * Returns true if the container should buffer a layout.
-         * A layout should be buffered if we are set to buffer resizes, and
-         * there is an owning Container, but no ancestor Container has a layout pending.
-         */
-        return this.bufferResize && this.ownerCt && !this.hasLayoutPending();
-    },
-
     // private
     hasLayoutPending: function(){
         // Traverse hierarchy to see if any parent container has a pending layout.
-        var pending = false;
+        var pending = this.layoutPending;
         this.ownerCt.bubble(function(c){
-            if(c.layoutPending){
-                pending = true;
-                return false;
-            }
+            return !(pending = c.layoutPending);
         });
         return pending;
+
     },
 
     onShow : function(){
