@@ -1,21 +1,21 @@
 Ext.onReady(function() {
     Ext.QuickTips.init();
 
-    var tree = new Ext.tree.TreeGrid({
+    var tree = new Ext.ux.tree.TreeGrid({
         title: 'Core Team Projects',
         width: 500,
         height: 300,
         renderTo: Ext.getBody(),
         enableDD: true,
-        
+
         columns:[{
-            header:'Task',
-            dataIndex:'task',
+            header: 'Task',
+            dataIndex: 'task',
             width: 230
         },{
-            header:'Duration',
+            header: 'Duration',
             width: 100,
-            dataIndex:'duration',
+            dataIndex: 'duration',
             align: 'center',
             sortType: 'asFloat',
             tpl: new Ext.XTemplate('{duration:this.formatHours}', {
@@ -29,13 +29,13 @@ Ext.onReady(function() {
                         return v + ' hour' + (v === 1 ? '' : 's');
                     }
                 }
-            })             
+            })
         },{
-            header:'Assigned To',
+            header: 'Assigned To',
             width: 150,
-            dataIndex:'user'
+            dataIndex: 'user'
         }],
 
-        dataUrl:'treegrid-data.json'
+        dataUrl: 'treegrid-data.json'
     });
 });
