@@ -849,6 +849,7 @@ new Ext.Panel({
         }
         result = tb.events ? Ext.apply(tb, options) : this.createComponent(Ext.apply({}, tb, options), 'toolbar');
         result.ownerCt = this;
+        result.bufferResize = false;
         this.toolbars.push(result);
         return result;
     },
@@ -1439,31 +1440,36 @@ new Ext.Panel({
     onResize : function(w, h){
         if(Ext.isDefined(w) || Ext.isDefined(h)){
             if(!this.collapsed){
+                // First, set the the Panel's body width.
+                // If we have auto-widthed it, get the resulting view width so we can size the Toolbars
+                // The Toolbars must not buffer this resize operation because we need to know their heights.
+
                 if(Ext.isNumber(w)){
-                    w = this.adjustBodyWidth(w - this.getFrameWidth());
-                    if(this.tbar){
-                        this.tbar.setWidth(w);
-                        if(this.topToolbar){
-                            this.topToolbar.setSize(w);
-                        }
-                    }
-                    if(this.bbar){
-                        this.bbar.setWidth(w);
-                        if(this.bottomToolbar){
-                            this.bottomToolbar.setSize(w);
-                        }
-                    }
-                    if(this.footer){
-                        this.footer.setWidth(w);
-                        if(this.fbar){
-                            this.fbar.setWidth(Ext.isIE ? (w - this.footer.getFrameWidth('lr')) : 'auto');
-                        }
-                    }
-                    this.body.setWidth(w);
-                }else if(w == 'auto'){
-                    this.body.setWidth(w);
+                    this.body.setWidth(w = this.adjustBodyWidth(w - this.getFrameWidth()));
+                } else {
+                    w = this.body.setWidth('auto').getViewSize().width;
                 }
 
+                if(this.tbar){
+                    this.tbar.setWidth(w);
+                    if(this.topToolbar){
+                        this.topToolbar.setSize(w);
+                    }
+                }
+                if(this.bbar){
+                    this.bbar.setWidth(w);
+                    if(this.bottomToolbar){
+                        this.bottomToolbar.setSize(w);
+                    }
+                }
+                if(this.footer){
+                    this.footer.setWidth(w);
+                    if(this.fbar){
+                        this.fbar.setSize(Ext.isIE ? (w - this.footer.getFrameWidth('lr')) : 'auto');
+                    }
+                }
+
+                // At this point, the Toolbars must be layed out for getFrameHeight to find a result.
                 if(Ext.isNumber(h)){
                     h = Math.max(0, this.adjustBodyHeight(h - this.getFrameHeight()));
                     this.body.setHeight(h);
@@ -1481,7 +1487,6 @@ new Ext.Panel({
                     this.on('expand', function(){
                         delete this.queuedExpand;
                         this.onResize(this.queuedBodySize.width, this.queuedBodySize.height);
-                        this.doLayout();
                     }, this, {single:true});
                 }
             }
