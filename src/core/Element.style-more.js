@@ -232,8 +232,9 @@ Ext.Element.addMethods(function(){
         },
 
         /**
-         * Returns the width and height of the viewport.
-        * <pre><code>
+         * <p>Returns the dimensions of the element available to lay content out in.<p>
+         * <p>If the element (or any ancestor element) has CSS style <code>display : none</code>, the dimensions will be zero.</p>
+         * example:<pre><code>
         var vpSize = Ext.getBody().getViewSize();
 
         // all Windows created afterwards will have a default value of 90% height and 95% width
@@ -243,7 +244,7 @@ Ext.Element.addMethods(function(){
         });
         // To handle window resizing you would have to hook onto onWindowResize.
         </code></pre>
-         * @return {Object} An object containing the viewport's size {width: (viewport width), height: (viewport height)}
+         * @return {Object} An object containing the elements's area: <code>{width: &lt;element width>, height: &lt;element height>}</code>
          */
         getViewSize : function(){
             var doc = document,
