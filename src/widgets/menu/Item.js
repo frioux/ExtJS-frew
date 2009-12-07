@@ -80,7 +80,7 @@ Ext.menu.Item = Ext.extend(Ext.menu.BaseItem, {
         this.el = position ? this.itemTpl.insertBefore(position, a, true) : this.itemTpl.append(container, a, true);
         this.iconEl = this.el.child('img.x-menu-item-icon');
         this.textEl = this.el.child('.x-menu-item-text');
-        if(!this.href) { // if no link defined, prevent the default the anchor event
+        if(!this.href) { // if no link defined, prevent the default anchor event
             this.mon(this.el, 'click', Ext.emptyFn, null, { preventDefault: true });
         }
         Ext.menu.Item.superclass.onRender.call(this, container, position);
