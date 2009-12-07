@@ -527,7 +527,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
         if(this.maximized){
             this.fitContainer();
         }
-        if(Ext.isMac && Ext.isGecko){ // work around stupid FF 2.0/Mac scroll bar bug
+        if(Ext.isMac && Ext.isGecko2){ // work around stupid FF 2.0/Mac scroll bar bug
             this.cascade(this.setAutoScroll);
         }
 
@@ -695,7 +695,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
         if(show !== false){
             this.el.show();
             this.focus();
-            if(Ext.isMac && Ext.isGecko){ // work around stupid FF 2.0/Mac scroll bar bug
+            if(Ext.isMac && Ext.isGecko2){ // work around stupid FF 2.0/Mac scroll bar bug
                 this.cascade(this.setAutoScroll);
             }
         }
