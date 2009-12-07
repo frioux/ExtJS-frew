@@ -20,7 +20,6 @@ Ext.form.TextArea = Ext.extend(Ext.form.TextField,  {
      */
     growMax: 1000,
     growAppend : '&#160;\n&#160;',
-    growPad : Ext.isWebKit ? -6 : 0,
 
     enterIsSpecial : false,
 
@@ -84,7 +83,8 @@ Ext.form.TextArea = Ext.extend(Ext.form.TextField,  {
         }
         var el = this.el,
             v = Ext.util.Format.htmlEncode(el.dom.value),
-            ts = this.textSizeEl;
+            ts = this.textSizeEl,
+            h;
             
         Ext.fly(ts).setWidth(this.el.getWidth());
         if(v.length < 1){
@@ -96,7 +96,7 @@ Ext.form.TextArea = Ext.extend(Ext.form.TextField,  {
             }
         }
         ts.innerHTML = v;
-        var h = Math.min(this.growMax, Math.max(ts.offsetHeight, this.growMin) + this.growPad);
+        h = Math.min(this.growMax, Math.max(ts.offsetHeight, this.growMin));
         if(h != this.lastHeight){
             this.lastHeight = h;
             this.el.setHeight(h);
