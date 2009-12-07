@@ -165,6 +165,10 @@ var grid = new Ext.grid.GridPanel({
             );
         }
         this.startGroup.compile();
+        if(!this.endGroup){
+            this.endGroup = '</div></div>';
+        }
+
         this.endGroup = '</div></div>';
     },
 
@@ -218,7 +222,7 @@ var grid = new Ext.grid.GridPanel({
         }
         if((item = items.get('showGroups'))){
             item.setDisabled(disabled);
-	    item.setChecked(this.enableGrouping, true);
+        item.setChecked(this.enableGrouping, true);
         }
     },
 
@@ -239,7 +243,7 @@ var grid = new Ext.grid.GridPanel({
                 this.hmenu.add({
                     itemId:'showGroups',
                     text: this.showGroupsText,
-		    checked: true,
+            checked: true,
                     checkHandler: this.onShowGroupsClick,
                     scope: this
                 });
@@ -267,15 +271,15 @@ var grid = new Ext.grid.GridPanel({
 
     // private
     onGroupByClick : function(){
-	this.enableGrouping = true;
+    this.enableGrouping = true;
         this.grid.store.groupBy(this.cm.getDataIndex(this.hdCtxIndex));
         this.beforeMenuShow(); // Make sure the checkboxes get properly set when changing groups
-	this.refresh();
+    this.refresh();
     },
 
     // private
     onShowGroupsClick : function(mi, checked){
-	this.enableGrouping = checked;
+    this.enableGrouping = checked;
         if(checked){
             this.onGroupByClick();
         }else{
@@ -426,9 +430,9 @@ var grid = new Ext.grid.GridPanel({
                 g = this.getGroup(gvalue, r, groupRenderer, rowIndex, colIndex, ds);
             if(!curGroup || curGroup.group != g){
                 gid = this.constructId(gvalue, groupField, colIndex);
-               	// if state is defined use it, however state is in terms of expanded
-				// so negate it, otherwise use the default.
-				this.state[gid] = !(Ext.isDefined(this.state[gid]) ? !this.state[gid] : this.startCollapsed);
+                // if state is defined use it, however state is in terms of expanded
+                // so negate it, otherwise use the default.
+                this.state[gid] = !(Ext.isDefined(this.state[gid]) ? !this.state[gid] : this.startCollapsed);
                 curGroup = {
                     group: g,
                     gvalue: gvalue,
