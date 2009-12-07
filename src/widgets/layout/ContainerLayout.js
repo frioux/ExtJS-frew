@@ -106,11 +106,12 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
             var t = c.getPositionEl ? c.getPositionEl() : c;
             t.addClass(this.extraCls);
         }
-        if (this.renderHidden && c != this.activeItem) {
-            c.hide();
-        }
+        // If we are forcing a layout, do so *before* we hide so elements have height/width
         if(c.doLayout && this.forceLayout){
             c.doLayout(false, true);
+        }
+        if (this.renderHidden && c != this.activeItem) {
+            c.hide();
         }
     },
 
@@ -148,7 +149,7 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
                 this.resizeTask.delay(this.resizeBuffer);
             }
         }else{
-            ct.doLayout();
+            ct.doLayout(false, this.forceLayout);
         }
     },
 
