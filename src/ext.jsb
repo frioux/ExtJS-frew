@@ -147,6 +147,7 @@
     <include name="widgets\list\ListView.js" />
     <include name="widgets\list\ColumnResizer.js" />
     <include name="widgets\list\Sorter.js" />
+    <include name="widgets\list\Column.js" />
     <include name="widgets\ColorPalette.js" />
     <include name="widgets\DatePicker.js" />
     <include name="widgets\TabPanel.js" />
@@ -827,6 +828,7 @@
   <file name="widgets\list\ColumnResizer.js" path="widgets\list" />
   <file name="widgets\list\ListView.js" path="widgets\list" />
   <file name="widgets\list\Sorter.js" path="widgets\list" />
+  <file name="widgets\list\Column.js" path="widgets\list" />
   <file name="widgets\menu\BaseItem.js" path="widgets\menu" />
   <file name="widgets\menu\CheckItem.js" path="widgets\menu" />
   <file name="widgets\menu\ColorMenu.js" path="widgets\menu" />
