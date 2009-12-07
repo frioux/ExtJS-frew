@@ -1446,8 +1446,10 @@ new Ext.Panel({
 
                 if(Ext.isNumber(w)){
                     this.body.setWidth(w = this.adjustBodyWidth(w - this.getFrameWidth()));
-                } else {
+                } else if (w == 'auto') {
                     w = this.body.setWidth('auto').getViewSize().width;
+                } else {
+                    w = this.body.getViewSize().width;
                 }
 
                 if(this.tbar){
