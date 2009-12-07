@@ -7,6 +7,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
     monitorResize : true,
     triggerWidth : 18,
     lastOverflow : false,
+    forceLayout: true,
 
     noItemsMenuText : '<div class="x-toolbar-no-items">(None)</div>',
     // private
@@ -92,14 +93,14 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
             iw = t.dom.firstChild.offsetWidth,
             clipWidth = w - this.triggerWidth,
             hideIndex = -1;
-        
+
         this.lastWidth = w;
 
         if(iw > w || (this.hiddens && w >= lw)){
-            var i, items = this.container.items.items, 
+            var i, items = this.container.items.items,
                 len = items.length, c,
                 loopWidth = 0;
-                
+
             for(i = 0; i < len; i++) {
                 c = items[i];
                 if(!c.isFill){
