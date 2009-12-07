@@ -695,7 +695,7 @@ viewConfig: {
                 r.rowIndex = i;
                 if(!skipStripe){
                     r.className = r.className.replace(this.rowClsRe, ' ');
-                    if ((idx + 1) % 2 === 0){
+                    if ((i + 1) % 2 === 0){
                         r.className += ' x-grid3-row-alt';
                     }
                 }   
