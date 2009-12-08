@@ -159,11 +159,10 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
      */
 
     // private
-
     onLayout : function(ct, target){
         Ext.layout.VBoxLayout.superclass.onLayout.call(this, ct, target);
 
-        var cs = this.getItems(ct), cm, ch, margin,
+        var cs = this.getItems(ct), cm, ch, margin, cl, diff, aw,
             size = this.getTargetSize(target),
             w = size.width - target.getPadding('lr'),
             h = size.height - target.getPadding('tb') - this.scrollOffset,
@@ -215,17 +214,10 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             }else if(this.align == 'stretchmax'){
                 c.setWidth((maxWidth - (cm.left + cm.right)).constrain(
                     c.minWidth || 0, c.maxWidth || 1000000));
-            }else{
-                if(this.align == 'center'){
-                    var diff = availableWidth - (c.getWidth() + cm.left + cm.right);
-                    if(diff > 0){
-                        c.setPosition(l + cm.left + (diff/2), c.y);
-                    }
-                }
-                if(isStart && c.flex){
-                    c.setWidth(restore[idx++]);
-                }
+            }else if(isStart && c.flex){
+                c.setWidth(restore[idx++]);
             }
+
         }
 
         // Do height calculations
@@ -261,13 +253,24 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             c = cs[i];
             cm = c.margins;
             t += cm.top;
-            c.setPosition(l + cm.left, t);
+            aw = availableWidth;
+            cl = l + cm.left // default left pos
+
+//          Adjust left pos for centering
+            if(this.align == 'center'){
+                if((diff = availableWidth - (c.getWidth() + cm.left + cm.right)) > 0){
+                    cl += (diff/2);
+                    aw -= diff;
+                }
+            }
+
+            c.setPosition(cl, t);
             if(isStart && c.flex){
                 ch = Math.max(0, heights[idx++] + (leftOver-- > 0 ? 1 : 0));
                 if(isRestore){
                     restore.push(c.getWidth());
                 }
-                c.setSize(availableWidth, ch);
+                c.setSize(aw, ch);
             }else{
                 ch = c.getHeight();
             }
