@@ -1441,15 +1441,15 @@ new Ext.Panel({
         if(Ext.isDefined(w) || Ext.isDefined(h)){
             if(!this.collapsed){
                 // First, set the the Panel's body width.
-                // If we have auto-widthed it, get the resulting view width so we can size the Toolbars
+                // If we have auto-widthed it, get the resulting full offset width so we can size the Toolbars to match
                 // The Toolbars must not buffer this resize operation because we need to know their heights.
 
                 if(Ext.isNumber(w)){
                     this.body.setWidth(w = this.adjustBodyWidth(w - this.getFrameWidth()));
                 } else if (w == 'auto') {
-                    w = this.body.setWidth('auto').getViewSize().width;
+                    w = this.body.setWidth('auto').dom.offsetWidth;
                 } else {
-                    w = this.body.getViewSize().width;
+                    w = this.body.dom.offsetWidth;
                 }
 
                 if(this.tbar){
@@ -1462,6 +1462,11 @@ new Ext.Panel({
                     this.bbar.setWidth(w);
                     if(this.bottomToolbar){
                         this.bottomToolbar.setSize(w);
+                        // The bbar does not move on resize without this.
+                        if (Ext.isIE) {
+                            this.bbar.setStyle('position', 'static');
+                            this.bbar.setStyle('position', '');
+                        }
                     }
                 }
                 if(this.footer){
