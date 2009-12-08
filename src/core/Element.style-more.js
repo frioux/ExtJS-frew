@@ -252,18 +252,44 @@ Ext.Element.addMethods(function(){
                 d = me.dom,
                 extdom = Ext.lib.Dom,
                 isDoc = (d == doc || d == doc.body),
-                isBB, w, h;
+                isBB, w, h, tbBorder = 0, lrBorder = 0;
             if (isDoc) {
                 return { width: extdom.getViewWidth(), height: extdom.getViewHeight() };
             }
             isBB = me.isBorderBox();
+            tbBorder = me.getBorderWidth('tb');
+            lrBorder = me.getBorderWidth('lr');
 
-            // If there is no clientHeight, fall back to using offsetHeight, and if it's non-zero, correct for border-box
-            if (!(w = d.clientWidth) && (w = d.offsetWidth) && isBB) {
-                w -= me.getFrameWidth('lr');
+            // Width calcs
+            // Try the style first, then clientWidth, then offsetWidth
+            if (w = me.getStyle('width').match(/(\d+)px/)){
+                if ((w = parseInt(w[1], 10)) && isBB){
+                    w -= lrBorder;
+                }
+            } else if (!(w = d.clientWidth)){
+                if ((w = d.offsetWidth) && !isBB){
+                    w -= lrBorder;
+                }
             }
-            if (!(h = d.clientHeight) && (h = d.offsetHeight) & isBB) {
-                h -= me.getFrameWidth('tb');
+            // Account for left+right padding
+            if (w){
+                w -= me.getPadding('lr');
+            }
+
+            // Height calcs
+            // Try the style first, then clientHeight, then offsetHeight
+            if (h = me.getStyle('height').match(/(\d+)px/)){
+                if ((h = parseInt(h[1], 10)) && isBB){
+                    w -= tbBorder;
+                }
+            } else if (!(h = d.clientHeight)){
+                if ((h = d.offsetHeight) && !isBB){
+                    h -= tbBorder;
+                }
+            }
+            // Account for top+bottom padding
+            if (h){
+                h -= me.getPadding('tb');
             }
             return {
                 width : w,
