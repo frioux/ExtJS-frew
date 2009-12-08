@@ -765,8 +765,6 @@ Ext.DatePicker = Ext.extend(Ext.BoxComponent, {
         if(this.rendered){
             Ext.destroy(
                 this.keyNav,
-                this.leftClickRpt,
-                this.rightClickRpt,
                 this.monthPicker,
                 this.eventEl,
                 this.mbtn,
