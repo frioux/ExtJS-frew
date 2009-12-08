@@ -330,7 +330,7 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
     onLayout : function(ct, target){
         Ext.layout.HBoxLayout.superclass.onLayout.call(this, ct, target);
 
-        var cs = this.getItems(ct), cm, cw, margin,
+        var cs = this.getItems(ct), cm, cw, margin, ch, diff,
             size = this.getTargetSize(target),
             w = size.width - target.getPadding('lr') - this.scrollOffset,
             h = size.height - target.getPadding('tb'),
@@ -409,7 +409,11 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
 
         idx = 0;
         Ext.each(cs, function(c){
-            var cm = c.margins;
+            cm = c.margins;
+            ch = c.getHeight();
+            if(isStart && c.flex){
+                ch = restore[idx++];
+            }
             if(this.align == 'stretch'){
                 c.setHeight((stretchHeight - (cm.top + cm.bottom)).constrain(
                     c.minHeight || 0, c.maxHeight || 1000000));
@@ -418,13 +422,14 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                     c.minHeight || 0, c.maxHeight || 1000000));
             }else{
                 if(this.align == 'middle'){
-                    var diff = availableHeight - (c.getHeight() + cm.top + cm.bottom);
+                    diff = availableHeight - (ch + cm.top + cm.bottom);
+                    ch = t + cm.top + (diff/2);
                     if(diff > 0){
-                        c.setPosition(c.x, t + cm.top + (diff/2));
+                        c.setPosition(c.x, ch);
                     }
                 }
                 if(isStart && c.flex){
-                    c.setHeight(restore[idx++]);
+                    c.setHeight(ch);
                 }
             }
         }, this);
