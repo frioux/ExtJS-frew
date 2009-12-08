@@ -37,7 +37,7 @@ Ext.ux.CellFieldDropZone = Ext.extend(Ext.dd.DropZone, {
                     node: t,
                     record: this.store.getAt(rowIndex),
                     fieldName: this.grid.getColumnModel().getDataIndex(columnIndex)
-                }
+                };
             }
         }
     },
