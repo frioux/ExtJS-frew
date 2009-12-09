@@ -263,10 +263,10 @@ Ext.samples.samplesCatalog = [{
         icon: 'tree-two.gif',
         desc: 'Drag and drop between two different sorted TreePanels.'
     },{
-        text: 'Column Tree',
-        url: 'tree/column-tree.html',
+        text: 'TreeGrid',
+        url: 'treegrid/treegrid.html',
         icon: 'tree-columns.gif',
-        desc: 'A custom TreePanel implementation that demonstrates extending an existing component.'
+        desc: 'The TreeGrid component'
     },{
         text: 'Check Tree',
         url: 'tree/check-tree.html',
