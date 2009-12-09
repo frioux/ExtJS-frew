@@ -493,7 +493,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
     constrainScroll : function(y){
         var max, full = this.ul.setHeight('auto').getHeight();
         if(this.floating){
-            max = this.maxHeight ? this.maxHeight : Ext.fly(this.el.dom.parentNode).getViewSize().height - y;
+            max = this.maxHeight ? this.maxHeight : Ext.fly(this.el.dom.parentNode).getViewSize(false).height - y;
         }else{
             max = this.getHeight();
         }

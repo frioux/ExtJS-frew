@@ -27,7 +27,7 @@ var p = new Ext.Panel({
     layout:'column',
     items: [{
         title: 'Column 1',
-        columnWidth: .25 
+        columnWidth: .25
     },{
         title: 'Column 2',
         columnWidth: .6
@@ -59,15 +59,15 @@ var p = new Ext.Panel({
 Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
     // private
     monitorResize:true,
-    
+
     extraCls: 'x-column',
 
     scrollOffset : 0,
 
     // private
-    
+
     targetCls: 'x-column-layout-ct',
-    
+
     isValidParent : function(c, target){
         return c.getPositionEl().dom.parentNode == this.innerCt.dom;
     },
@@ -84,18 +84,18 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
         }
         this.renderAll(ct, this.innerCt);
 
-        var size = Ext.isIE && target.dom != Ext.getBody().dom ? target.getStyleSize() : target.getViewSize();
+        var size = target.getViewSize(true);
 
         if(size.width < 1 && size.height < 1){ // display none?
             return;
         }
 
-        var w = size.width - target.getPadding('lr') - this.scrollOffset,
-            h = size.height - target.getPadding('tb'),
+        var w = size.width - this.scrollOffset,
+            h = size.height,
             pw = w;
 
         this.innerCt.setWidth(w);
-        
+
         // some columns can be percentages while others are fixed
         // so we need to make 2 passes
 
@@ -115,7 +115,7 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
             }
         }
     }
-    
+
     /**
      * @property activeItem
      * @hide

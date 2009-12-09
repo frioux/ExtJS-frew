@@ -40,12 +40,12 @@ Ext.layout.AnchorLayout = Ext.extend(Ext.layout.ContainerLayout, {
      * @cfg {String} anchor
      * <p>This configuation option is to be applied to <b>child <tt>items</tt></b> of a container managed by
      * this layout (ie. configured with <tt>layout:'anchor'</tt>).</p><br/>
-     * 
+     *
      * <p>This value is what tells the layout how an item should be anchored to the container. <tt>items</tt>
      * added to an AnchorLayout accept an anchoring-specific config property of <b>anchor</b> which is a string
      * containing two values: the horizontal anchor value and the vertical anchor value (for example, '100% 50%').
      * The following types of anchor values are supported:<div class="mdetail-params"><ul>
-     * 
+     *
      * <li><b>Percentage</b> : Any value between 1 and 100, expressed as a percentage.<div class="sub-desc">
      * The first anchor is the percentage width that the item should take up within the container, and the
      * second is the percentage height.  For example:<pre><code>
@@ -55,7 +55,7 @@ anchor: '100% 50%' // render item complete width of the container and
 // one value specified
 anchor: '100%'     // the width value; the height will default to auto
      * </code></pre></div></li>
-     * 
+     *
      * <li><b>Offsets</b> : Any positive or negative integer value.<div class="sub-desc">
      * This is a raw adjustment where the first anchor is the offset from the right edge of the container,
      * and the second is the offset from the bottom edge. For example:<pre><code>
@@ -67,7 +67,7 @@ anchor: '-50 -100' // render item the complete width of the container
 anchor: '-50'      // anchor value is assumed to be the right offset value
                    // bottom offset will default to 0
      * </code></pre></div></li>
-     * 
+     *
      * <li><b>Sides</b> : Valid values are <tt>'right'</tt> (or <tt>'r'</tt>) and <tt>'bottom'</tt>
      * (or <tt>'b'</tt>).<div class="sub-desc">
      * Either the container must have a fixed size or an anchorSize config value defined at render time in
@@ -77,27 +77,28 @@ anchor: '-50'      // anchor value is assumed to be the right offset value
      * Anchor values can also be mixed as needed.  For example, to render the width offset from the container
      * right edge by 50 pixels and 75% of the container's height use:
      * <pre><code>
-anchor: '-50 75%' 
+anchor: '-50 75%'
      * </code></pre></div></li>
-     * 
-     * 
+     *
+     *
      * </ul></div>
      */
-    
+
     // private
     monitorResize:true,
 
     // private
+    // deprecate
     getAnchorViewSize : function(ct, target){
         return target.dom == document.body ?
-                   target.getViewSize() : target.getStyleSize();
+                   target.getViewSize(true) : target.getStyleSize();
     },
 
     // private
     onLayout : function(ct, target){
         Ext.layout.AnchorLayout.superclass.onLayout.call(this, ct, target);
 
-        var size = this.getAnchorViewSize(ct, target);
+        var size = target.getViewSize(true);
 
         var w = size.width, h = size.height;
 
@@ -186,7 +187,7 @@ anchor: '-50 75%'
     adjustHeightAnchor : function(value, comp){
         return value;
     }
-    
+
     /**
      * @property activeItem
      * @hide

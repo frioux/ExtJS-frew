@@ -825,7 +825,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
 
     // private
     fitContainer : function(){
-        var vs = this.container.getViewSize();
+        var vs = this.container.getViewSize(false);
         this.setSize(vs.width, vs.height);
     },
 

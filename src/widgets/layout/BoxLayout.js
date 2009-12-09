@@ -97,8 +97,9 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
         Ext.layout.BoxLayout.superclass.renderItem.apply(this, arguments);
     },
 
+    // deprecate
     getTargetSize : function(target){
-        return (Ext.isIE6 && Ext.isStrict && target.dom == document.body) ? target.getStyleSize() : target.getViewSize();
+        return (Ext.isIE6 && Ext.isStrict && target.dom == document.body) ? target.getStyleSize() : target.getViewSize(true);
     },
 
     getItems: function(ct){
@@ -163,12 +164,11 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         Ext.layout.VBoxLayout.superclass.onLayout.call(this, ct, target);
 
         var cs = this.getItems(ct), cm, ch, margin, cl, diff, aw,
-            size = this.getTargetSize(target),
-            w = size.width - target.getPadding('lr'),
-            h = size.height - target.getPadding('tb') - this.scrollOffset,
+            size = target.getViewSize(true),
+            w = size.width,
+            h = size.height - this.scrollOffset,
             l = this.padding.left, t = this.padding.top,
             isStart = this.pack == 'start',
-            isRestore = ['stretch', 'stretchmax'].indexOf(this.align) == -1,
             stretchWidth = w - (this.padding.left + this.padding.right),
             extraHeight = 0,
             maxWidth = 0,
@@ -215,7 +215,7 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                 c.setWidth((maxWidth - (cm.left + cm.right)).constrain(
                     c.minWidth || 0, c.maxWidth || 1000000));
             }else if(isStart && c.flex){
-                c.setWidth(restore[idx++]);
+                c.setWidth();
             }
 
         }
@@ -267,9 +267,6 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             c.setPosition(cl, t);
             if(isStart && c.flex){
                 ch = Math.max(0, heights[idx++] + (leftOver-- > 0 ? 1 : 0));
-                if(isRestore){
-                    restore.push(c.getWidth());
-                }
                 c.setSize(aw, ch);
             }else{
                 ch = c.getHeight();
@@ -331,9 +328,9 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         Ext.layout.HBoxLayout.superclass.onLayout.call(this, ct, target);
 
         var cs = this.getItems(ct), cm, cw, margin, ch, diff,
-            size = this.getTargetSize(target),
-            w = size.width - target.getPadding('lr') - this.scrollOffset,
-            h = size.height - target.getPadding('tb'),
+            size = target.getViewSize(true),
+            w = size.width - this.scrollOffset,
+            h = size.height,
             l = this.padding.left, t = this.padding.top,
             isStart = this.pack == 'start',
             isRestore = ['stretch', 'stretchmax'].indexOf(this.align) == -1,

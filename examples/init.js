@@ -103,7 +103,7 @@ Ext.onReady(function(){
         titleEl   = bodyEl.child('h3:first-child');
 
     var doResize = function() {
-        var windowHeight = Ext.getDoc().getViewSize().height;
+        var windowHeight = Ext.getDoc().getViewSize(false).height;
 
         var footerHeight  = footerEl.getHeight() + footerEl.getMargins().top,
             titleElHeight = titleEl.getHeight() + titleEl.getMargins().top,

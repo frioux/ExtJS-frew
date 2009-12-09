@@ -6,7 +6,8 @@
 Ext.Element.boxMarkup = '<div class="{0}-tl"><div class="{0}-tr"><div class="{0}-tc"></div></div></div><div class="{0}-ml"><div class="{0}-mr"><div class="{0}-mc"></div></div></div><div class="{0}-bl"><div class="{0}-br"><div class="{0}-bc"></div></div></div>';
 
 Ext.Element.addMethods(function(){
-    var INTERNAL = "_internal";
+    var INTERNAL = "_internal",
+        pxMatch = /(\d+)px/;
     return {
         /**
          * More flexible version of {@link #setStyle} for setting style properties.
@@ -37,6 +38,7 @@ Ext.Element.addMethods(function(){
             return ret;
         },
 
+        // deprecated
         getStyleSize : function(){
             var me = this,
                 w,
@@ -244,53 +246,65 @@ Ext.Element.addMethods(function(){
         });
         // To handle window resizing you would have to hook onto onWindowResize.
         </code></pre>
+         * @param {Boolean} contentBox True to return the W3 content box <i>within</i> the padding area of the element. False
+         * or omitted to return the full area of the element within the border. See <a href="http://www.w3.org/TR/CSS2/box.html">http://www.w3.org/TR/CSS2/box.html</a>
          * @return {Object} An object containing the elements's area: <code>{width: &lt;element width>, height: &lt;element height>}</code>
          */
-        getViewSize : function(){
+        getViewSize : function(contentBox){
             var doc = document,
                 me = this,
                 d = me.dom,
                 extdom = Ext.lib.Dom,
                 isDoc = (d == doc || d == doc.body),
-                isBB, w, h, tbBorder = 0, lrBorder = 0;
+                isBB, w, h, tbBorder = 0, lrBorder = 0,
+                tbPadding = 0, lrPadding = 0;
             if (isDoc) {
                 return { width: extdom.getViewWidth(), height: extdom.getViewHeight() };
             }
             isBB = me.isBorderBox();
             tbBorder = me.getBorderWidth('tb');
             lrBorder = me.getBorderWidth('lr');
+            tbPadding = me.getPadding('tb');
+            lrPadding = me.getPadding('lr');
 
             // Width calcs
             // Try the style first, then clientWidth, then offsetWidth
-            if (w = me.getStyle('width').match(/(\d+)px/)){
+            if (w = me.getStyle('width').match(pxMatch)){
                 if ((w = parseInt(w[1], 10)) && isBB){
+                    // Style includes the padding and border if isBB
+                    w -= (lrBorder + lrPadding);
+                }
+                if (!contentBox){
+                    w += lrPadding;
+                }
+            } else {
+                if (!(w = d.clientWidth) && (w = d.offsetWidth)){
                     w -= lrBorder;
                 }
-            } else if (!(w = d.clientWidth)){
-                if ((w = d.offsetWidth) && !isBB){
-                    w -= lrBorder;
+                if (w && contentBox){
+                    w -= lrPadding;
                 }
-            }
-            // Account for left+right padding
-            if (w){
-                w -= me.getPadding('lr');
             }
 
             // Height calcs
             // Try the style first, then clientHeight, then offsetHeight
-            if (h = me.getStyle('height').match(/(\d+)px/)){
+            if (h = me.getStyle('height').match(pxMatch)){
                 if ((h = parseInt(h[1], 10)) && isBB){
-                    w -= tbBorder;
+                    // Style includes the padding and border if isBB
+                    h -= (tbBorder + tbPadding);
                 }
-            } else if (!(h = d.clientHeight)){
-                if ((h = d.offsetHeight) && !isBB){
+                if (!contentBox){
+                    h += tbPadding;
+                }
+            } else {
+                if (!(h = d.clientHeight) && (h = d.offsetHeight)){
                     h -= tbBorder;
                 }
+                if (h && contentBox){
+                    h -= tbPadding;
+                }
             }
-            // Account for top+bottom padding
-            if (h){
-                h -= me.getPadding('tb');
-            }
+
             return {
                 width : w,
                 height : h

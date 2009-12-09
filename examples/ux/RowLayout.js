@@ -82,13 +82,13 @@ Ext.ux.layout.RowLayout = Ext.extend(Ext.layout.ContainerLayout, {
         }
         this.renderAll(ct, this.innerCt);
 
-        var size = target.getViewSize();
+        var size = target.getViewSize(true);
 
         if(size.width < 1 && size.height < 1){ // display none?
             return;
         }
 
-        var h = size.height - target.getPadding('tb'),
+        var h = size.height,
             ph = h;
 
         this.innerCt.setSize({height:h});

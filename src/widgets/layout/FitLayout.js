@@ -27,8 +27,7 @@ Ext.layout.FitLayout = Ext.extend(Ext.layout.ContainerLayout, {
     onLayout : function(ct, target){
         Ext.layout.FitLayout.superclass.onLayout.call(this, ct, target);
         if(!this.container.collapsed){
-            var sz = (Ext.isIE6 && Ext.isStrict && target.dom == document.body) ? target.getViewSize() : target.getStyleSize();
-            this.setItemSize(this.activeItem || ct.items.itemAt(0), sz);
+            this.setItemSize(this.activeItem || ct.items.itemAt(0), target.getViewSize(true));
         }
     },
 
