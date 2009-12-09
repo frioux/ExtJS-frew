@@ -535,6 +535,15 @@ a.x-grid3-hd-btn:hover {
     position:relative;
 }
 
+
+/* Reset position to static when Grid Panel has been framed */
+/* to resolve 'snapping' from top to bottom behavior. */
+/* @forumThread 86656 */
+.ext-ie7 .x-grid-panel .x-panel-mc .x-panel-bbar {
+    position: static;
+}
+
+
 .ext-ie6 .x-grid3-header {
     position: relative;
 }
