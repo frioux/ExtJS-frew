@@ -750,7 +750,7 @@ tb.{@link #doLayout}();             // refresh the layout
     */
     canLayout: function() {
         var el = this.getLayoutTarget(), vs;
-        return !!(el && ((vs = el.getViewSize()).width || vs.height));
+        return !!(el && (vs = el.dom.offsetWidth || el.dom.offsetHeight));
     },
 
     /**
