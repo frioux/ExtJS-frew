@@ -145,6 +145,7 @@ Ext.ux.GroupTabPanel = Ext.extend(Ext.TabPanel, {
             groupEl = this.getGroupEl(groupEl);
         }
         Ext.fly(groupEl).addClass('x-grouptabs-expanded');
+		this.syncTabJoint();
     },
     
     toggleGroup: function(groupEl){
@@ -154,7 +155,15 @@ Ext.ux.GroupTabPanel = Ext.extend(Ext.TabPanel, {
         Ext.fly(groupEl).toggleClass('x-grouptabs-expanded');
 		this.syncTabJoint();
     },    
-    
+
+    collapseGroup: function(groupEl){
+        if(groupEl.isXType) {
+            groupEl = this.getGroupEl(groupEl);
+        }
+        Ext.fly(groupEl).removeClass('x-grouptabs-expanded');
+		this.syncTabJoint();
+    },
+        
     syncTabJoint: function(groupEl){
         if (!this.tabJoint) {
             return;
@@ -227,14 +236,14 @@ Ext.ux.GroupTabPanel = Ext.extend(Ext.TabPanel, {
     
     setActiveGroup : function(group) {
         group = this.getComponent(group);
-        if(!group || this.fireEvent('beforegroupchange', this, group, this.activeGroup) === false){
-            return;
+        if(!group){
+            return false;
         }
         if(!this.rendered){
             this.activeGroup = group;
-            return;
+            return true;
         }
-        if(this.activeGroup != group){
+        if(this.activeGroup != group && this.fireEvent('beforegroupchange', this, group, this.activeGroup) !== false){
             if(this.activeGroup){
                 var oldEl = this.getGroupEl(this.activeGroup);
                 if(oldEl){
@@ -252,16 +261,19 @@ Ext.ux.GroupTabPanel = Ext.extend(Ext.TabPanel, {
             this.syncTabJoint(groupEl);
 
             this.fireEvent('groupchange', this, group);
-        }        
+            return true;
+        }
+        return false; 
     },
     
     onGroupBeforeTabChange: function(group, newTab, oldTab){
         if(group !== this.activeGroup || newTab !== oldTab) {
             this.strip.select('.x-grouptabs-sub > li.x-grouptabs-strip-active', true).removeClass('x-grouptabs-strip-active');
         } 
-        
         this.expandGroup(this.getGroupEl(group));
-        this.setActiveGroup(group);
+        if(group !== this.activeGroup) {
+            return this.setActiveGroup(group);
+        }        
     },
     
     getFrameHeight: function(){
