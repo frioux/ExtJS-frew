@@ -37,7 +37,7 @@ Ext.ux.tree.TreeGridNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
 
         buf.push(
             '</tr><tr class="x-tree-node-ct"><td colspan="', cols.length, '">',
-            '<table class="x-treegrid-node-ct-table" cellpadding="0" cellspacing="0" style="display: none; width: ', t.innerCt.getWidth() ,'px;"><colgroup>'
+            '<table class="x-treegrid-node-ct-table" cellpadding="0" cellspacing="0" style="table-layout: fixed; display: none; width: ', t.innerCt.getWidth() ,'px;"><colgroup>'
         );
         for(i = 0, len = cols.length; i<len; i++) {
             buf.push('<col style="width: ', (cols[i].hidden ? 0 : cols[i].width) ,'px;" />');
@@ -74,7 +74,24 @@ Ext.ux.tree.TreeGridRootNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
             this.wrap = this.ctNode = this.node.ownerTree.innerCt.dom;
             this.node.expanded = true;
         }
+        
+        if(Ext.isWebKit) {
+            // weird table-layout: fixed issue in webkit
+            var ct = this.ctNode;
+            ct.style.tableLayout = null;
+            (function() {
+                ct.style.tableLayout = 'fixed';
+            }).defer(1);
+        }
     },
+
+    destroy : function(){
+        if(this.elNode){
+            Ext.dd.Registry.unregister(this.elNode.id);
+        }
+        delete this.node;
+    },
+    
     collapse : Ext.emptyFn,
     expand : Ext.emptyFn
 });

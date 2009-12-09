@@ -1,13 +1,15 @@
+/*!
+ * Ext JS Library 3.1+
+ * Copyright(c) 2006-2009 Ext JS, LLC
+ * licensing@extjs.com
+ * http://www.extjs.com/license
+ */
 .x-treegrid-root-table {
     border-right: 1px solid;
 }
 
 .x-treegrid-root-node {
     overflow: auto;
-}
-
-.x-treegrid-ct table {
-    table-layout: fixed;
 }
 
 .x-treegrid-hd-hidden {
@@ -27,6 +29,7 @@
 }
 
 .x-treegrid-text {
+    padding-left: 4px;
     -moz-user-select: none;
     -khtml-user-select: none;
 }

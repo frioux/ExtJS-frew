@@ -18,11 +18,11 @@ Ext.ux.tree.TreeGrid = Ext.extend(Ext.tree.TreePanel, {
     
     columnsText : 'Columns',
 
-    initComponent : function() {        
+    initComponent : function() {
         if(!this.root) {
-            this.root = new Ext.tree.AsyncTreeNode({text: 'Root', uiProvider: Ext.ux.tree.TreeGridRootNodeUI});
+            this.root = new Ext.tree.AsyncTreeNode({text: 'Root'});
         }
-
+        
         // initialize the loader
         var l = this.loader;
         if(!l){
@@ -33,6 +33,14 @@ Ext.ux.tree.TreeGrid = Ext.extend(Ext.tree.TreePanel, {
             });
         }else if(Ext.isObject(l) && !l.load){
             l = new Ext.ux.tree.TreeGridLoader(l);
+        }
+        else if(l) {
+            l.createNode = function(attr) {
+                if (!attr.uiProvider) {
+                    attr.uiProvider = Ext.ux.tree.TreeGridNodeUI;
+                }
+                return Ext.tree.TreeLoader.prototype.createNode.call(this, attr);
+            }
         }
         this.loader = l;
                             
@@ -69,14 +77,18 @@ Ext.ux.tree.TreeGrid = Ext.extend(Ext.tree.TreePanel, {
                     '</div></div>',
                 '</div>',
                 '<div class="x-treegrid-root-node">',
-                    '<table class="x-treegrid-root-table" cellpadding="0" cellspacing="0"><colgroup>',
-                        '<tpl for="columns"><col style="width: {width}px"/></tpl>',
-                    '</colgroup></table>',
+                    '<table class="x-treegrid-root-table" cellpadding="0" cellspacing="0" style="table-layout: fixed;"></table>',
                 '</div>'
             );
         }
+        
+        if(!this.colgroupTpl) {
+            this.colgroupTpl = new Ext.XTemplate(
+                '<colgroup><tpl for="columns"><col style="width: {width}px"/></tpl></colgroup>'
+            );
+        }
     },
-    
+
     initColumns : function() {
         var cs = this.columns,
             len = cs.length, 
@@ -117,6 +129,8 @@ Ext.ux.tree.TreeGrid = Ext.extend(Ext.tree.TreePanel, {
         this.innerBody = Ext.get(this.outerCt.dom.lastChild);
         this.innerCt = Ext.get(this.innerBody.dom.firstChild);
         
+        this.colgroupTpl.insertFirst(this.innerCt, {columns: this.columns});
+        
         if(this.hideHeaders){
             this.header.dom.style.display = 'none';
         }
@@ -141,6 +155,15 @@ Ext.ux.tree.TreeGrid = Ext.extend(Ext.tree.TreePanel, {
         }
     },
 
+    setRootNode : function(node){
+        node.attributes.uiProvider = Ext.ux.tree.TreeGridRootNodeUI;        
+        node = Ext.ux.tree.TreeGrid.superclass.setRootNode.call(this, node);
+        if(this.innerCt) {
+            this.colgroupTpl.insertFirst(this.innerCt, {columns: this.columns});
+        }
+        return node;
+    },
+    
     initEvents : function() {
         Ext.ux.tree.TreeGrid.superclass.initEvents.apply(this, arguments);
 
