@@ -388,5 +388,14 @@ Ext.ux.tree.TreeGrid = Ext.extend(Ext.tree.TreePanel, {
         var mb = this.innerBody.dom;
         this.innerHd.dom.scrollLeft = mb.scrollLeft;
         this.innerHd.dom.scrollLeft = mb.scrollLeft; // second time for IE (1/2 time first fails, other browsers ignore)
+    },
+    
+    registerNode : function(n) {
+        Ext.ux.tree.TreeGrid.superclass.registerNode.call(this, n);
+        if(!n.uiProvider && !n.isRoot && !n.ui.isTreeGridNodeUI) {
+            n.ui = new Ext.ux.tree.TreeGridNodeUI(n);
+        }
     }
 });
+
+Ext.reg('treegrid', Ext.ux.tree.TreeGrid);
