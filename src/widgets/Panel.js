@@ -1232,7 +1232,7 @@ new Ext.Panel({
         };
     },
 
-    // private
+    // private    
     afterRender : function(){
         if(this.floating && !this.hidden){
             this.el.show();
@@ -1240,14 +1240,13 @@ new Ext.Panel({
         if(this.title){
             this.setTitle(this.title);
         }
-        var collapsed = this.collapsed;
-        this.collapsed = false;
-        Ext.Panel.superclass.afterRender.call(this); // do sizing calcs last
-        this.initEvents();
-        if(collapsed){
+        if(this.collapsed){
+            this.collapsed = false;
             this.collapse(false);
         }
-    },
+        Ext.Panel.superclass.afterRender.call(this); // do sizing calcs last
+        this.initEvents();
+    },    
 
     // private
     getKeyMap : function(){

@@ -87,7 +87,7 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
     
     constructor: function(config){
         Ext.layout.CardLayout.superclass.constructor.call(this, config);
-        this.forceLayout = (this.deferredRender === false);
+      //  this.forceLayout = (this.deferredRender === false);
     },
 
     /**
