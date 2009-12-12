@@ -823,18 +823,23 @@ new Ext.Panel({
 
     /**
      * @cfg {Mixed} tpl
-     * An Ext.Template, Ext.XTemplate or an array of strings to form an Ext.XTemplate.
-     * Used in conjunction with the data and tplWriteMode configurations.
+     * An <bold>{@link Ext.Template}</bold>, <bold>{@link Ext.XTemplate}</bold>
+     * or an array of strings to form an Ext.XTemplate.
+     * Used in conjunction with the <code>{@link #data}</code> and 
+     * <code>{@link #tplWriteMode}</code> configurations.
      */
 
     /**
-     * @cfg {String} tplWriteMode The Ext.(X)Template method to use when updating the content area of the Component. Defaults to 'overwrite'
+     * @cfg {String} tplWriteMode The Ext.(X)Template method to use when
+     * updating the content area of the Component. Defaults to <tt>'overwrite'</tt>
+     * (see <code>{@link Ext.XTemplate#overwrite}</code>).
      */
-    tplWriteMode: 'overwrite',
+    tplWriteMode : 'overwrite',
 
     /**
      * @cfg {Mixed} data
-     * The initial set of data to apply to the tpl to update the content area of the Component.
+     * The initial set of data to apply to the <code>{@link #tpl}</code> to
+     * update the content area of the Component.
      */
 
 
