@@ -266,7 +266,8 @@ Ext.samples.samplesCatalog = [{
         text: 'TreeGrid',
         url: 'treegrid/treegrid.html',
         icon: 'tree-columns.gif',
-        desc: 'The TreeGrid component'
+        desc: 'The TreeGrid component',
+        status: 'new'
     },{
         text: 'Check Tree',
         url: 'tree/check-tree.html',
