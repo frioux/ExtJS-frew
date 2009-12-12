@@ -574,6 +574,18 @@ tb.{@link #doLayout}();             // refresh the layout
     onAdd : function(c){
         // Empty template method
     },
+    
+    // private
+    onAdded : function(container, pos) {
+        //overridden here so we can cascade down, not worth creating a template method.
+        this.ownerCt = container;
+        this.initRef();
+        //initialize references for child items
+        this.cascade(function(c){
+            c.initRef();
+        });
+        this.fireEvent('added', this, container, pos);
+    },
 
     /**
      * Inserts a Component into this Container at a specified index. Fires the

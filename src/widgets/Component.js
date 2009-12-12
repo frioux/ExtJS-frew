@@ -1080,30 +1080,33 @@ var myGrid = new Ext.grid.EditorGridPanel({
          * moves up one level from the Component's <code>{@link #ownerCt}</code>.</p>
          * <p>Also see the <code>{@link #added}</code> and <code>{@link #removed}</code> events.</p>
          */
-        if(this.ref){
-            var levels = this.ref.split('/');
-            var last = levels.length, i = 0;
-            var t = this;
-            while(i < last){
-                if(t.ownerCt){
-                    t = t.ownerCt;
-                }
-                i++;
+        if(this.ref && !this.refOwner){
+            var levels = this.ref.split('/'),
+                last = levels.length, 
+                i = 0,
+                t = this;
+                
+            while(t && i < last){
+                t = t.ownerCt;
+                ++i;
             }
-            t[this.refName = levels[--i]] = this;
-            /**
-             * @type Ext.Container
-             * @property refOwner
-             * The ancestor Container into which the {@link #ref} reference was inserted if this Component
-             * is a child of a Container, and has been configured with a <code>ref</code>.
-             */
-            this.refOwner = t;
+            if(t){
+                t[this.refName = levels[--i]] = this;
+                /**
+                 * @type Ext.Container
+                 * @property refOwner
+                 * The ancestor Container into which the {@link #ref} reference was inserted if this Component
+                 * is a child of a Container, and has been configured with a <code>ref</code>.
+                 */
+                this.refOwner = t;
+            }
         }
     },
 
     removeRef : function() {
         if (this.refOwner && this.refName) {
             delete this.refOwner[this.refName];
+            delete this.refOwner;
         }
     },
 
