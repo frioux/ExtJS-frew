@@ -48,9 +48,9 @@ Ext.tree.TreeNodeUI.prototype = {
     // private
     onDisableChange : function(node, state){
         this.disabled = state;
-		if (this.checkbox) {
-			this.checkbox.disabled = state;
-		}        
+        if (this.checkbox) {
+            this.checkbox.disabled = state;
+        }        
         if(state){
             this.addClass("x-tree-node-disabled");
         }else{
@@ -235,8 +235,8 @@ Ext.tree.TreeNodeUI.prototype = {
     // private
     onCheckChange : function(){
         var checked = this.checkbox.checked;
-		// fix for IE6
-		this.checkbox.defaultChecked = checked;		
+        // fix for IE6
+        this.checkbox.defaultChecked = checked;        
         this.node.attributes.checked = checked;
         this.fireEvent('checkchange', this.node, checked);
     },
@@ -363,7 +363,10 @@ Ext.tree.TreeNodeUI.prototype = {
         return this.ctNode;  
     },
 
-    // private
+/**
+ * Returns the element which encapsulates this node.
+ * @return {HtmlElement} The DOM element. The default implementation uses a <code>&lt;li></code>.
+ */
     getEl : function(){
         return this.wrap;  
     },
@@ -454,8 +457,8 @@ Ext.tree.TreeNodeUI.prototype = {
         var index = 3;
         if(cb){
             this.checkbox = cs[3];
-			// fix for IE6
-			this.checkbox.defaultChecked = this.checkbox.checked;						
+            // fix for IE6
+            this.checkbox.defaultChecked = this.checkbox.checked;
             index++;
         }
         this.anchor = cs[index];
