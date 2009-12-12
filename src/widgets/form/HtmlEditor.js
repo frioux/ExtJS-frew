@@ -677,14 +677,17 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
     initEditor : function(){
         //Destroying the component during/before initEditor can cause issues.
         try{
-            var dbody = this.getEditorBody();
-            var ss = this.el.getStyles('font-size', 'font-family', 'background-image', 'background-repeat');
+            var dbody = this.getEditorBody(),
+                ss = this.el.getStyles('font-size', 'font-family', 'background-image', 'background-repeat'),
+                doc,
+                fn;
+                
             ss['background-attachment'] = 'fixed'; // w3c
             dbody.bgProperties = 'fixed'; // ie
 
             Ext.DomHelper.applyStyles(dbody, ss);
             
-            var doc = this.getDoc();
+            doc = this.getDoc();
 
             if(doc){
                 try{
@@ -692,13 +695,19 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                 }catch(e){}
             }
 
+            /*
+             * We need to use createDelegate here, because when using buffer, the delayed task is added
+             * as a property to the function. When the listener is removed, the task is deleted from the function.
+             * Since onEditorEvent is shared on the prototype, if we have multiple html editors, the first time one of the editors
+             * is destroyed, it causes the fn to be deleted from the prototype, which causes errors. Essentially, we're just anonymizing the function.
+             */
+            fn = this.onEditorEvent.createDelegate(this);
             Ext.EventManager.on(doc, {
-                'mousedown': this.onEditorEvent,
-                'dblclick': this.onEditorEvent,
-                'click': this.onEditorEvent,
-                'keyup': this.onEditorEvent,
-                buffer:100,
-                scope: this
+                mousedown: fn,
+                dblclick: fn,
+                click: fn,
+                keyup: fn,
+                buffer:100
             });
 
             if(Ext.isGecko){
