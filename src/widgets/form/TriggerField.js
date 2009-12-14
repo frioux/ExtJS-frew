@@ -119,7 +119,6 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
             this.wrap.setWidth(this.el.getWidth()+this.trigger.getWidth());
         }
         this.resizeEl = this.positionEl = this.wrap;
-        this.updateEditState();
     },
 
     updateEditState: function(){
@@ -182,6 +181,7 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
 
     afterRender : function(){
         Ext.form.TriggerField.superclass.afterRender.call(this);
+        this.updateEditState();
     },
 
     // private
