@@ -614,6 +614,9 @@ Ext.extend(T, Ext.Container, {
     onAdd : function(c){
         Ext.Toolbar.superclass.onAdd.call(this);
         this.trackMenu(c);
+        if(this.disabled){
+            c.disable();
+        }
     },
 
     // private
