@@ -193,8 +193,9 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
      * @param {HtmlEditor} editor
      */
     createToolbar : function(editor){
-
+        var items = [];
         var tipsEnabled = Ext.QuickTips && Ext.QuickTips.isEnabled();
+        
 
         function btn(id, toggle, handler){
             return {
@@ -211,36 +212,24 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             };
         }
 
-        // build the toolbar
-        var tb = new Ext.Toolbar({
-            renderTo:this.wrap.dom.firstChild
-        });
-
-        // stop form submits
-        this.mon(tb.el, 'click', function(e){
-            e.preventDefault();
-        });
 
         if(this.enableFont && !Ext.isSafari2){
-            this.fontSelect = tb.el.createChild({
-                tag:'select',
-                cls:'x-font-select',
-                html: this.createFontOptions()
+            var fontSelectItem = new Ext.Toolbar.Item({
+               autoEl: {
+                    tag:'select',
+                    cls:'x-font-select',
+                    html: this.createFontOptions()
+               }
             });
-            this.mon(this.fontSelect, 'change', function(){
-                var font = this.fontSelect.dom.value;
-                this.relayCmd('fontname', font);
-                this.deferFocus();
-            }, this);
-
-            tb.add(
-                this.fontSelect.dom,
+            
+            items.push(
+                fontSelectItem,
                 '-'
             );
         }
 
         if(this.enableFormat){
-            tb.add(
+            items.push(
                 btn('bold'),
                 btn('italic'),
                 btn('underline')
@@ -248,7 +237,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         }
 
         if(this.enableFontSize){
-            tb.add(
+            items.push(
                 '-',
                 btn('increasefontsize', false, this.adjustFont),
                 btn('decreasefontsize', false, this.adjustFont)
@@ -256,7 +245,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         }
 
         if(this.enableColors){
-            tb.add(
+            items.push(
                 '-', {
                     itemId:'forecolor',
                     cls:'x-btn-icon',
@@ -311,7 +300,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         }
 
         if(this.enableAlignments){
-            tb.add(
+            items.push(
                 '-',
                 btn('justifyleft'),
                 btn('justifycenter'),
@@ -321,21 +310,21 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
 
         if(!Ext.isSafari2){
             if(this.enableLinks){
-                tb.add(
+                items.push(
                     '-',
                     btn('createlink', false, this.createLink)
                 );
             }
 
             if(this.enableLists){
-                tb.add(
+                items.push(
                     '-',
                     btn('insertorderedlist'),
                     btn('insertunorderedlist')
                 );
             }
             if(this.enableSourceEdit){
-                tb.add(
+                items.push(
                     '-',
                     btn('sourceedit', true, function(btn){
                         this.toggleSourceEdit(!this.sourceEditMode);
@@ -343,6 +332,31 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                 );
             }
         }
+ 
+        // build the toolbar
+        var tb = new Ext.Toolbar({
+            renderTo: this.wrap.dom.firstChild,
+            items: items
+        });
+        
+        if (fontSelectItem) {
+            this.fontSelect = fontSelectItem.el;
+            
+            this.mon(this.fontSelect, 'change', function(){
+                var font = this.fontSelect.dom.value;
+                this.relayCmd('fontname', font);
+                this.deferFocus();
+            }, this);
+        }
+
+
+        // stop form submits
+        this.mon(tb.el, 'click', function(e){
+            e.preventDefault();
+        });
+       
+        
+        
         this.tb = tb;
     },
 
