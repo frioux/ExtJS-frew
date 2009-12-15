@@ -279,7 +279,9 @@ if(Ext.grid.PropertyColumnModel){
   Ext.apply(Ext.grid.PropertyColumnModel.prototype, {
     nameText   : "Name",
     valueText  : "Value",
-    dateFormat : "m/j/Y"
+    dateFormat : "m/j/Y",
+    trueText: "true",
+    falseText: "false"
   });
 }
 
