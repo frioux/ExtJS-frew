@@ -339,7 +339,8 @@ Ext.Window = Ext.extend(Ext.Panel, {
     },
 
    // private
-    onEsc : function(){
+    onEsc : function(k, e){
+        e.stopEvent();
         this[this.closeAction]();
     },
 
