@@ -388,6 +388,13 @@ Ext.extend(T, Ext.Container, {
      * Defaults to false. Configure <code>true<code> to make the toolbar provide a button
      * which activates a dropdown Menu to show items which overflow the Toolbar's width.
      */
+    /**
+     * @cfg {String} buttonAlign
+     * <p>The default position at which to align child items. Defaults to <code>"left"</code></p>
+     * <p>May be specified as <code>"center"</code> to cause items added before a Fill (A <code>"->"</code>) item
+     * to be centered in the Toolbar. Items added after a Fill are still right-aligned.</p>
+     * <p>Specify as <code>"right"</code> to right align all child items.</p>
+     */
 
     trackMenus : true,
     internalDefaults: {removeMode: 'container', hideParent: true},
