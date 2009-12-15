@@ -69,6 +69,12 @@ Ext.ComponentMgr = function(){
         all : all,
         
         /**
+         * The xtypes that have been registered with the component manager.
+         * @type {Object}
+         */
+        types : types,
+        
+        /**
          * Checks if a Component type is registered.
          * @param {Ext.Component} xtype The mnemonic string by which the Component class may be looked up
          * @return {Boolean} Whether the type is registered.
