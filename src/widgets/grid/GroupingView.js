@@ -222,7 +222,7 @@ var grid = new Ext.grid.GridPanel({
         }
         if((item = items.get('showGroups'))){
             item.setDisabled(disabled);
-        item.setChecked(this.enableGrouping, true);
+            item.setChecked(this.enableGrouping, true);
         }
     },
 
@@ -243,7 +243,7 @@ var grid = new Ext.grid.GridPanel({
                 this.hmenu.add({
                     itemId:'showGroups',
                     text: this.showGroupsText,
-            checked: true,
+                    checked: true,
                     checkHandler: this.onShowGroupsClick,
                     scope: this
                 });
@@ -271,10 +271,11 @@ var grid = new Ext.grid.GridPanel({
 
     // private
     onGroupByClick : function(){
-    this.enableGrouping = true;
+        this.enableGrouping = true;
         this.grid.store.groupBy(this.cm.getDataIndex(this.hdCtxIndex));
+        this.grid.fireEvent('groupchange', this, this.grid.store.getGroupState());
         this.beforeMenuShow(); // Make sure the checkboxes get properly set when changing groups
-    this.refresh();
+        this.refresh();
     },
 
     // private
@@ -284,6 +285,7 @@ var grid = new Ext.grid.GridPanel({
             this.onGroupByClick();
         }else{
             this.grid.store.clearGrouping();
+            this.grid.fireEvent('groupchange', this, null);
         }
     },
 
