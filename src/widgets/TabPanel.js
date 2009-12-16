@@ -27,6 +27,9 @@
  * the active tab.</li>
  * <li><tt><b>{@link Ext.Panel#deactivate deactivate}</b></tt> : Fires when the Component that
  * was the active tab becomes deactivated.</li>
+ * <li><tt><b>{@link Ext.Panel#beforeclose beforeclose}</b></tt> : Fires when the user clicks on the close tool of a closeable tab.
+ * May be vetoed by returning <code>false</code> from a handler.</li>
+ * <li><tt><b>{@link Ext.Panel#close close}</b></tt> : Fires a closeable tab has been closed by the user.</li>
  * </ul></div>
  * <p><b><u>Creating TabPanels from Code</u></b></p>
  * <p>TabPanels can be created and rendered completely in code, as in this example:</p>
