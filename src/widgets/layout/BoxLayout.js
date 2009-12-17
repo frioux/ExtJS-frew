@@ -179,7 +179,7 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             heights = [],
             restore = [],
             c,
-            csLen = cs.length;
+            csLen = cs.length, i;
 
         // Do only width calculations and apply those first, as they can affect height
         for (i = 0 ; i < csLen; i++) {

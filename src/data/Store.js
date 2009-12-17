@@ -563,8 +563,8 @@ sortInfo: {
      * @private
      */
     buildWriter : function(config) {
-        var klass = undefined;
-        type = (config.format || 'json').toLowerCase();
+        var klass = undefined,
+            type = (config.format || 'json').toLowerCase();
         switch (type) {
             case 'json':
                 klass = Ext.data.JsonWriter;
