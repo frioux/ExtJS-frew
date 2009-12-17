@@ -434,10 +434,18 @@ a.x-grid3-hd-btn:hover {
 }
 
 .x-grid3-hd-checker {
+    background-position:2px 1px;
+}
+
+.ext-border-box .x-grid3-hd-checker {
     background-position:2px 3px;
 }
 
 .x-grid3-hd-checker-on .x-grid3-hd-checker {
+    background-position:-23px 1px;
+}
+
+.ext-border-box .x-grid3-hd-checker-on .x-grid3-hd-checker {
     background-position:-23px 3px;
 }
 
