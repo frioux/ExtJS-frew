@@ -245,6 +245,7 @@ Ext.ux.GroupTabPanel = Ext.extend(Ext.TabPanel, {
         }
         if(this.activeGroup != group && this.fireEvent('beforegroupchange', this, group, this.activeGroup) !== false){
             if(this.activeGroup){
+                this.activeGroup.activeTab = null;
                 var oldEl = this.getGroupEl(this.activeGroup);
                 if(oldEl){
                     Ext.fly(oldEl).removeClass('x-grouptabs-strip-active');
