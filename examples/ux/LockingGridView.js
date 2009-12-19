@@ -295,7 +295,7 @@ Ext.ux.grid.LockingGridView = Ext.extend(Ext.grid.GridView, {
             if(!skipStripe){
                 row.className = row.className.replace(this.rowClsRe, ' ');
                 lrow.className = lrow.className.replace(this.rowClsRe, ' ');
-                if ((idx + 1) % 2 === 0){
+                if ((i + 1) % 2 === 0){
                     row.className += ' x-grid3-row-alt';
                     lrow.className += ' x-grid3-row-alt';
                 }
