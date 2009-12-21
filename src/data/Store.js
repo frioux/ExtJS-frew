@@ -260,13 +260,7 @@ sortInfo: {
         this.data.getKey = function(o){
             return o.id;
         };
-        /**
-         * See the <code>{@link #baseParams corresponding configuration option}</code>
-         * for a description of this property.
-         * To modify this property see <code>{@link #setBaseParam}</code>.
-         * @property
-         */
-        this.baseParams = {};
+
 
         // temporary removed-records cache
         this.removed = [];
@@ -277,6 +271,14 @@ sortInfo: {
         }
 
         Ext.apply(this, config);
+
+        /**
+         * See the <code>{@link #baseParams corresponding configuration option}</code>
+         * for a description of this property.
+         * To modify this property see <code>{@link #setBaseParam}</code>.
+         * @property
+         */
+        this.baseParams = Ext.isObject(this.baseParams) ? this.baseParams : {};
 
         this.paramNames = Ext.applyIf(this.paramNames || {}, this.defaultParamNames);
 
@@ -903,8 +905,8 @@ sortInfo: {
         var doRequest = true;
 
         if (action === 'read') {
-            Ext.applyIf(options.params, this.baseParams);
             doRequest = this.fireEvent('beforeload', this, options);
+            Ext.applyIf(options.params, this.baseParams);
         }
         else {
             // if Writer is configured as listful, force single-record rs to be [{}] instead of {}
