@@ -686,8 +686,8 @@ new Ext.Panel({
              * @event bodyresize
              * Fires after the Panel has been resized.
              * @param {Ext.Panel} p the Panel which has been resized.
-             * @param {Number} width The Panel's new width.
-             * @param {Number} height The Panel's new height.
+             * @param {Number} width The Panel body's new width.
+             * @param {Number} height The Panel body's new height.
              */
             'bodyresize',
             /**
@@ -1436,7 +1436,10 @@ new Ext.Panel({
     },
 
     // private
-    onResize : function(w, h, rw, rh){
+    onResize : function(adjWidth, adjHeight, rawWidth, rawHeight){
+        var w = adjWidth,
+            h = adjHeight;
+
         if(Ext.isDefined(w) || Ext.isDefined(h)){
             if(!this.collapsed){
                 // First, set the the Panel's body width.
@@ -1499,7 +1502,7 @@ new Ext.Panel({
             this.onBodyResize(w, h);
         }
         this.syncShadow();
-        Ext.Panel.superclass.onResize.call(this, w, h, rw, rh);
+        Ext.Panel.superclass.onResize.call(this, adjWidth, adjHeight, rawWidth, rawHeight);
 
     },
 
