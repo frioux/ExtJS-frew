@@ -63,6 +63,9 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
     extraCls: 'x-column',
 
     scrollOffset : 0,
+    
+    // private
+    allowContainerRemove: false,
 
     // private
 

@@ -66,6 +66,9 @@ var p = new Ext.Panel({
 Ext.ux.layout.RowLayout = Ext.extend(Ext.layout.ContainerLayout, {
     // private
     monitorResize:true,
+    
+    // private
+    allowContainerRemove: false,
 
     // private
     isValidParent : function(c, target){

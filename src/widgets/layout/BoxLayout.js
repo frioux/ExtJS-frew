@@ -54,6 +54,9 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
     padding : '0',
     // documented in subclasses
     pack : 'start',
+    
+    // private
+    allowContainerRemove: false,
 
     // private
     monitorResize : true,

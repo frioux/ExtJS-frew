@@ -119,9 +119,28 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
          if(this.activeItem == c){
             delete this.activeItem;
          }
+         /*
+          * When removing items with removeMode = 'container' from certain layouts (box, column), the container is set
+          * to the innerCt of the layout. As such, removing a single item from these layouts causes all of the other components
+          * in the layout to be removed from the DOM. In this case, we should cancel the removeMode and restore it at a later
+          * point.
+          */
+         if(this.allowContainerRemove === false && c.removeMode == 'container'){
+            Ext.apply(c, {
+                removeMode: undefined,
+                removeRestore: true
+            });
+         }
          if(c.rendered && this.extraCls){
             var t = c.getPositionEl ? c.getPositionEl() : c;
             t.removeClass(this.extraCls);
+        }
+    },
+    
+    afterRemove: function(c){
+        if(c.removeRestore){
+            c.removeMode = 'container';
+            delete c.removeRestore;
         }
     },
 
