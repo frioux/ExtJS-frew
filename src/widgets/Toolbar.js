@@ -222,16 +222,18 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
     initMore : function(){
         if(!this.more){
             this.moreMenu = new Ext.menu.Menu({
+                ownerCt : this.container,
                 listeners: {
                     beforeshow: this.beforeMoreShow,
                     scope: this
                 }
+
             });
-            this.moreMenu.ownerCt = this.container;
             this.more = new Ext.Button({
-                iconCls: 'x-toolbar-more-icon',
-                cls: 'x-toolbar-more',
-                menu: this.moreMenu
+                iconCls : 'x-toolbar-more-icon',
+                cls     : 'x-toolbar-more',
+                menu    : this.moreMenu,
+                ownerCt : this.container
             });
             var td = this.insertCell(this.more, this.extrasTr, 100);
             this.more.render(td);
