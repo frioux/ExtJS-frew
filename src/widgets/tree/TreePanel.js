@@ -521,9 +521,17 @@ new Ext.tree.TreePanel({
         }
         if (this.innerCt) {
             this.innerCt.update('');
-            this.afterRender();
+            this.renderRoot();
         }
         return node;
+    },
+    
+    // private
+    renderRoot : function(){
+        this.root.render();
+        if(!this.rootVisible){
+            this.root.renderChildren();
+        }
     },
 
     /**
@@ -739,10 +747,7 @@ new Ext.tree.TreePanel({
     // private
     afterRender : function(){
         Ext.tree.TreePanel.superclass.afterRender.call(this);
-        this.root.render();
-        if(!this.rootVisible){
-            this.root.renderChildren();
-        }
+        this.renderRoot();
     },
 
     beforeDestroy : function(){
