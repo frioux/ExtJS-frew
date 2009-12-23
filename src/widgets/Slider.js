@@ -16,20 +16,20 @@ new Ext.Slider({
 </code></pre>
  */
 Ext.Slider = Ext.extend(Ext.BoxComponent, {
-	/**
-	 * @cfg {Number} value The value to initialize the slider with. Defaults to minValue.
-	 */
-	/**
-	 * @cfg {Boolean} vertical Orient the Slider vertically rather than horizontally, defaults to false.
-	 */
+    /**
+     * @cfg {Number} value The value to initialize the slider with. Defaults to minValue.
+     */
+    /**
+     * @cfg {Boolean} vertical Orient the Slider vertically rather than horizontally, defaults to false.
+     */
     vertical: false,
-	/**
-	 * @cfg {Number} minValue The minimum value for the Slider. Defaults to 0.
-	 */
+    /**
+     * @cfg {Number} minValue The minimum value for the Slider. Defaults to 0.
+     */
     minValue: 0,
-	/**
-	 * @cfg {Number} maxValue The maximum value for the Slider. Defaults to 100.
-	 */
+    /**
+     * @cfg {Number} maxValue The maximum value for the Slider. Defaults to 100.
+     */
     maxValue: 100,
     /**
      * @cfg {Number/Boolean} decimalPrecision.
@@ -37,23 +37,23 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
      * <p>To disable rounding, configure as <tt><b>false</b></tt>.</p>
      */
     decimalPrecision: 0,
-	/**
-	 * @cfg {Number} keyIncrement How many units to change the Slider when adjusting with keyboard navigation. Defaults to 1. If the increment config is larger, it will be used instead.
-	 */
+    /**
+     * @cfg {Number} keyIncrement How many units to change the Slider when adjusting with keyboard navigation. Defaults to 1. If the increment config is larger, it will be used instead.
+     */
     keyIncrement: 1,
-	/**
-	 * @cfg {Number} increment How many units to change the slider when adjusting by drag and drop. Use this option to enable 'snapping'.
-	 */
+    /**
+     * @cfg {Number} increment How many units to change the slider when adjusting by drag and drop. Use this option to enable 'snapping'.
+     */
     increment: 0,
-	// private
+    // private
     clickRange: [5,15],
-	/**
-	 * @cfg {Boolean} clickToChange Determines whether or not clicking on the Slider axis will change the slider. Defaults to true
-	 */
+    /**
+     * @cfg {Boolean} clickToChange Determines whether or not clicking on the Slider axis will change the slider. Defaults to true
+     */
     clickToChange : true,
-	/**
-	 * @cfg {Boolean} animate Turn on or off animation. Defaults to true
-	 */
+    /**
+     * @cfg {Boolean} animate Turn on or off animation. Defaults to true
+     */
     animate: true,
 
     /**
@@ -74,54 +74,54 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
              * @event beforechange
              * Fires before the slider value is changed. By returning false from an event handler,
              * you can cancel the event and prevent the slider from changing.
-			 * @param {Ext.Slider} slider The slider
-			 * @param {Number} newValue The new value which the slider is being changed to.
-			 * @param {Number} oldValue The old value which the slider was previously.
+             * @param {Ext.Slider} slider The slider
+             * @param {Number} newValue The new value which the slider is being changed to.
+             * @param {Number} oldValue The old value which the slider was previously.
              */
-			'beforechange',
-			/**
-			 * @event change
-			 * Fires when the slider value is changed.
-			 * @param {Ext.Slider} slider The slider
-			 * @param {Number} newValue The new value which the slider has been changed to.
-			 */
-			'change',
-			/**
-			 * @event changecomplete
-			 * Fires when the slider value is changed by the user and any drag operations have completed.
-			 * @param {Ext.Slider} slider The slider
-			 * @param {Number} newValue The new value which the slider has been changed to.
-			 */
-			'changecomplete',
-			/**
-			 * @event dragstart
+            'beforechange',
+            /**
+             * @event change
+             * Fires when the slider value is changed.
+             * @param {Ext.Slider} slider The slider
+             * @param {Number} newValue The new value which the slider has been changed to.
+             */
+            'change',
+            /**
+             * @event changecomplete
+             * Fires when the slider value is changed by the user and any drag operations have completed.
+             * @param {Ext.Slider} slider The slider
+             * @param {Number} newValue The new value which the slider has been changed to.
+             */
+            'changecomplete',
+            /**
+             * @event dragstart
              * Fires after a drag operation has started.
-			 * @param {Ext.Slider} slider The slider
-			 * @param {Ext.EventObject} e The event fired from Ext.dd.DragTracker
-			 */
-			'dragstart',
-			/**
-			 * @event drag
+             * @param {Ext.Slider} slider The slider
+             * @param {Ext.EventObject} e The event fired from Ext.dd.DragTracker
+             */
+            'dragstart',
+            /**
+             * @event drag
              * Fires continuously during the drag operation while the mouse is moving.
-			 * @param {Ext.Slider} slider The slider
-			 * @param {Ext.EventObject} e The event fired from Ext.dd.DragTracker
-			 */
-			'drag',
-			/**
-			 * @event dragend
+             * @param {Ext.Slider} slider The slider
+             * @param {Ext.EventObject} e The event fired from Ext.dd.DragTracker
+             */
+            'drag',
+            /**
+             * @event dragend
              * Fires after the drag operation has completed.
-			 * @param {Ext.Slider} slider The slider
-			 * @param {Ext.EventObject} e The event fired from Ext.dd.DragTracker
-			 */
-			'dragend'
-		);
+             * @param {Ext.Slider} slider The slider
+             * @param {Ext.EventObject} e The event fired from Ext.dd.DragTracker
+             */
+            'dragend'
+        );
 
         if(this.vertical){
             Ext.apply(this, Ext.Slider.Vertical);
         }
     },
 
-	// private override
+    // private override
     onRender : function(){
         this.autoEl = {
             cls: 'x-slider ' + (this.vertical ? 'x-slider-vert' : 'x-slider-horz'),
@@ -136,7 +136,7 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
         this.initEvents();
     },
 
-	// private override
+    // private override
     initEvents : function(){
         this.thumb.addClassOnOver('x-slider-thumb-over');
         this.mon(this.el, {
@@ -158,7 +158,7 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
         this.tracker.initEl(this.thumb);
     },
 
-	// private override
+    // private override
     onMouseDown : function(e){
         if(this.disabled){
             return;
@@ -170,14 +170,14 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
         this.focus();
     },
 
-	// private
+    // private
     onClickChange : function(local){
         if(local.top > this.clickRange[0] && local.top < this.clickRange[1]){
             this.setValue(Ext.util.Format.round(this.reverseValue(local.left), this.decimalPrecision), undefined, true);
         }
     },
 
-	// private
+    // private
     onKeyDown : function(e){
         if(this.disabled){e.preventDefault();return;}
         var k = e.getKey();
@@ -205,12 +205,12 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
         }
     },
 
-	// private
+    // private
     doSnap : function(value){
         if(!(this.increment && value)){
             return value;
         }
-        var newValue = value, 
+        var newValue = value,
             inc = this.increment,
             m = value % inc;
         if(m != 0){
@@ -224,7 +224,7 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
         return newValue.constrain(this.minValue,  this.maxValue);
     },
 
-	// private
+    // private
     afterRender : function(){
         Ext.Slider.superclass.afterRender.apply(this, arguments);
         if(this.value !== undefined){
@@ -238,14 +238,14 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
         }
     },
 
-	// private
+    // private
     getRatio : function(){
         var w = this.innerEl.getWidth(),
             v = this.maxValue - this.minValue;
         return v == 0 ? w : (w/v);
     },
 
-	// private
+    // private
     normalizeValue : function(v){
         v = this.doSnap(v);
         v = Ext.util.Format.round(v, this.decimalPrecision);
@@ -253,12 +253,12 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
         return v;
     },
 
-	/**
-	 * Programmatically sets the value of the Slider. Ensures that the value is constrained within
-	 * the minValue and maxValue.
-	 * @param {Number} value The value to set the slider to. (This will be constrained within minValue and maxValue)
-	 * @param {Boolean} animate Turn on or off animation, defaults to true
-	 */
+    /**
+     * Programmatically sets the value of the Slider. Ensures that the value is constrained within
+     * the minValue and maxValue.
+     * @param {Number} value The value to set the slider to. (This will be constrained within minValue and maxValue)
+     * @param {Boolean} animate Turn on or off animation, defaults to true
+     */
     setValue : function(v, animate, changeComplete){
         v = this.normalizeValue(v);
         if(v !== this.value && this.fireEvent('beforechange', this, v, this.value) !== false){
@@ -271,18 +271,18 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
         }
     },
 
-	// private
+    // private
     translateValue : function(v){
         var ratio = this.getRatio();
         return (v * ratio) - (this.minValue * ratio) - this.halfThumb;
     },
 
-	reverseValue : function(pos){
+    reverseValue : function(pos){
         var ratio = this.getRatio();
-        return (pos + this.halfThumb + (this.minValue * ratio)) / ratio;
+        return (pos + (this.minValue * ratio)) / ratio;
     },
 
-	// private
+    // private
     moveThumb: function(v, animate){
         if(!animate || this.animate === false){
             this.thumb.setLeft(v);
@@ -291,17 +291,17 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
         }
     },
 
-	// private
+    // private
     focus : function(){
         this.focusEl.focus(10);
     },
 
-	// private
+    // private
     onBeforeDragStart : function(e){
         return !this.disabled;
     },
 
-	// private
+    // private
     onDragStart: function(e){
         this.thumb.addClass('x-slider-thumb-drag');
         this.dragging = true;
@@ -309,14 +309,14 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
         this.fireEvent('dragstart', this, e);
     },
 
-	// private
+    // private
     onDrag: function(e){
         var pos = this.innerEl.translatePoints(this.tracker.getXY());
         this.setValue(Ext.util.Format.round(this.reverseValue(pos.left), this.decimalPrecision), false);
         this.fireEvent('drag', this, e);
     },
 
-	// private
+    // private
     onDragEnd: function(e){
         this.thumb.removeClass('x-slider-thumb-drag');
         this.dragging = false;
@@ -326,12 +326,12 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
         }
     },
 
-	// private
+    // private
     onResize : function(w, h){
         this.innerEl.setWidth(w - (this.el.getPadding('l') + this.endEl.getPadding('r')));
         this.syncThumb();
     },
-    
+
     //private
     onDisable: function(){
         Ext.Slider.superclass.onDisable.call(this);
@@ -343,12 +343,12 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
             this.thumb.hide();
             this.innerEl.addClass(this.disabledClass).dom.disabled = true;
             if (!this.thumbHolder){
-                this.thumbHolder = this.endEl.createChild({cls: 'x-slider-thumb ' + this.disabledClass});    
+                this.thumbHolder = this.endEl.createChild({cls: 'x-slider-thumb ' + this.disabledClass});
             }
             this.thumbHolder.show().setXY(xy);
         }
     },
-    
+
     //private
     onEnable: function(){
         Ext.Slider.superclass.onEnable.call(this);
@@ -362,7 +362,7 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
             this.syncThumb();
         }
     },
-    
+
     /**
      * Synchronizes the thumb position to the proper proportion of the total component width based
      * on the current slider {@link #value}.  This will be called automatically when the Slider
@@ -375,14 +375,14 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
         }
     },
 
-	/**
-	 * Returns the current value of the slider
-	 * @return {Number} The current value of the slider
-	 */
+    /**
+     * Returns the current value of the slider
+     * @return {Number} The current value of the slider
+     */
     getValue : function(){
         return this.value;
     },
-    
+
     // private
     beforeDestroy : function(){
         Ext.destroyMembers(this, 'endEl', 'innerEl', 'thumb', 'halfThumb', 'focusEl', 'tracker', 'thumbHolder');
