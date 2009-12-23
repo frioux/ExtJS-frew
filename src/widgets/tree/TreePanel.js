@@ -904,6 +904,15 @@ new Ext.tree.TreePanel({
      * @cfg {String} contentEl  @hide
      */
     /**
+     * @cfg {Mixed} data  @hide
+     */
+    /**
+     * @cfg {Mixed} tpl  @hide
+     */
+    /**
+     * @cfg {String} tplWriteMode  @hide
+     */
+    /**
      * @cfg {String} disabledClass  @hide
      */
     /**

@@ -731,6 +731,21 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
     /**
      * @cfg {String} autoEl @hide
      */
+    /**
+     * @cfg {String/Object} html @hide
+     */
+    /**
+     * @cfg {String} contentEl  @hide
+     */
+    /**
+     * @cfg {Mixed} data  @hide
+     */
+    /**
+     * @cfg {Mixed} tpl  @hide
+     */
+    /**
+     * @cfg {String} tplWriteMode  @hide
+     */
 });
 Ext.reg('button', Ext.Button);
 
