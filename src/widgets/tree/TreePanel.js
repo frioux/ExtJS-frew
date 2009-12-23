@@ -519,11 +519,15 @@ new Ext.tree.TreePanel({
             var uiP = node.attributes.uiProvider;
             node.ui = uiP ? new uiP(node) : new Ext.tree.RootTreeNodeUI(node);
         }
-        if (this.innerCt) {
-            this.innerCt.update('');
+        if(this.innerCt){
+            this.clearInnerCt();
             this.renderRoot();
         }
         return node;
+    },
+    
+    clearInnerCt : function(){
+        this.innerCt.update('');    
     },
     
     // private

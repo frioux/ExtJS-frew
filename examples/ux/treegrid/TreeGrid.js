@@ -164,6 +164,17 @@ Ext.ux.tree.TreeGrid = Ext.extend(Ext.tree.TreePanel, {
         return node;
     },
     
+    clearInnerCt : function(){
+        if(Ext.isIE){
+            var dom = this.innerCt.dom;
+            while(dom.firstChild){
+                dom.removeChild(dom.firstChild);
+            }
+        }else{
+            Ext.ux.tree.TreeGrid.superclass.clearInnerCt.call(this);
+        }
+    },
+    
     initEvents : function() {
         Ext.ux.tree.TreeGrid.superclass.initEvents.apply(this, arguments);
 
