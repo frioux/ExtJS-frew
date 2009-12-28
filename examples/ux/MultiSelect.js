@@ -12,7 +12,7 @@ Ext.ns('Ext.ux.form');
  * @constructor
  * Create a new MultiSelect
  * @param {Object} config Configuration options
- * @xtype multiselect 
+ * @xtype multiselect
  */
 Ext.ux.form.MultiSelect = Ext.extend(Ext.form.Field,  {
     /**
@@ -345,7 +345,7 @@ Ext.extend(Ext.ux.form.MultiSelect.DragZone, Ext.dd.DragZone, {
         this.onStartDrag(x, y);
         return true;
     },
-    
+
     // private
     collectSelection: function(data) {
         data.repairXY = Ext.fly(this.view.getSelectedNodes()[0]).getXY();
@@ -434,9 +434,9 @@ Ext.ux.form.MultiSelect.DropZone = function(ms, config){
 
 Ext.extend(Ext.ux.form.MultiSelect.DropZone, Ext.dd.DropZone, {
     /**
-	 * Part of the Ext.dd.DropZone interface. If no target node is found, the
-	 * whole Element becomes the target, and this causes the drop gesture to append.
-	 */
+     * Part of the Ext.dd.DropZone interface. If no target node is found, the
+     * whole Element becomes the target, and this causes the drop gesture to append.
+     */
     getTargetFromEvent : function(e) {
         var target = e.getTarget();
         return target;
@@ -519,9 +519,14 @@ Ext.extend(Ext.ux.form.MultiSelect.DropZone, Ext.dd.DropZone, {
         var pt = this.getDropPoint(e, n, dd);
         if (n != this.ms.fs.body.dom)
             n = this.view.findItemFromChild(n);
-        var insertAt = (this.ms.appendOnly || (n == this.ms.fs.body.dom)) ? this.view.store.getCount() : this.view.indexOf(n);
-        if (pt == "below") {
-            insertAt++;
+
+        if(this.ms.appendOnly) {
+            insertAt = this.view.store.getCount();
+        } else {
+            insertAt = n == this.ms.fs.body.dom ? this.view.store.getCount() - 1 : this.view.indexOf(n);
+            if (pt == "below") {
+                insertAt++;
+            }
         }
 
         var dir = false;
