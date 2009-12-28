@@ -178,7 +178,8 @@ new Ext.data.HttpProxy({
         restify : function(proxy) {
             proxy.restful = true;
             for (var verb in this.restActions) {
-                proxy.api[this.actions[verb]].method = this.restActions[verb];
+                proxy.api[this.actions[verb]].method ||
+                    (proxy.api[this.actions[verb]].method = this.restActions[verb]);
             }
             // TODO: perhaps move this interceptor elsewhere?  like into DataProxy, perhaps?  Placed here
             // to satisfy initial 3.0 final release of REST features.
