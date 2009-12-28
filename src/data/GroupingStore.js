@@ -11,13 +11,13 @@
  * @xtype groupingstore
  */
 Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
-    
+
     //inherit docs
     constructor: function(config){
         Ext.data.GroupingStore.superclass.constructor.call(this, config);
         this.applyGroupField();
     },
-    
+
     /**
      * @cfg {String} groupField
      * The field name by which to sort the store's data (defaults to '').
@@ -36,8 +36,8 @@ Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
      */
     groupOnSort:false,
 
-	groupDir : 'ASC',
-	
+    groupDir : 'ASC',
+
     /**
      * Clears any existing grouping and refreshes the data using the default sort.
      */
@@ -65,12 +65,12 @@ Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
      * in is the same as the current grouping field, false to skip grouping on the same field (defaults to false)
      */
     groupBy : function(field, forceRegroup, direction){
-		direction = direction ? (String(direction).toUpperCase() == 'DESC' ? 'DESC' : 'ASC') : this.groupDir;
+        direction = direction ? (String(direction).toUpperCase() == 'DESC' ? 'DESC' : 'ASC') : this.groupDir;
         if(this.groupField == field && this.groupDir == direction && !forceRegroup){
             return; // already grouped by this field
         }
         this.groupField = field;
-		this.groupDir = direction;
+        this.groupDir = direction;
         this.applyGroupField();
         if(this.groupOnSort){
             this.sort(field, direction);
@@ -88,7 +88,7 @@ Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
             this.fireEvent('datachanged', this);
         }
     },
-    
+
     // private
     applyGroupField: function(){
         if(this.remoteGroup){
@@ -97,6 +97,10 @@ Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
             }
             this.baseParams.groupBy = this.groupField;
             this.baseParams.groupDir = this.groupDir;
+            var lo = this.lastOptions;
+            if(lo && lo.params){
+                delete lo.params.groupBy;
+            }
         }
     },
 
