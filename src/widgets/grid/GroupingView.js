@@ -369,6 +369,9 @@ var grid = new Ext.grid.GridPanel({
 
     // private
     afterRender : function(){
+        if(!this.ds || !this.cm){
+            return;
+        }
         Ext.grid.GroupingView.superclass.afterRender.call(this);
         if(this.grid.deferRowRender){
             this.updateGroupWidths();
