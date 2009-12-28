@@ -2,11 +2,11 @@ Ext.ns('Ext.ux.grid');
 
 /**
  * @class Ext.ux.grid.RowEditor
- * @extends Ext.Panel 
+ * @extends Ext.Panel
  * Plugin (ptype = 'roweditor') that adds the ability to rapidly edit full rows in a grid.
  * A validation mode may be enabled which uses AnchorTips to notify the user of all
  * validation errors at once.
- * 
+ *
  * @ptype roweditor
  */
 Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
@@ -23,7 +23,7 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
     monitorValid: true,
     focusDelay: 250,
     errorSummary: true,
-    
+
     saveText: 'Save',
     cancelText: 'Cancel',
     commitChangesText: 'You need to commit or cancel your changes',
@@ -48,7 +48,7 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
              * @event canceledit
              * Fired when the editor is cancelled.
              * @param {Ext.ux.grid.RowEditor} roweditor This object
-             * @param {Boolean} forced True if the cancel button is pressed, false is the editor was invalid. 
+             * @param {Boolean} forced True if the cancel button is pressed, false is the editor was invalid.
              */
             'canceledit',
             /**
@@ -97,8 +97,8 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
             columnresize: this.verifyLayout,
             columnmove: this.refreshFields,
             reconfigure: this.refreshFields,
-	        beforedestroy : this.beforedestroy,
-	        destroy : this.destroy,
+            beforedestroy : this.beforedestroy,
+            destroy : this.destroy,
             bodyscroll: {
                 buffer: 250,
                 fn: this.positionButtons
@@ -143,7 +143,7 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
             var g = this.grid, view = g.getView(),
                 row = view.getRow(rowIndex),
                 record = g.store.getAt(rowIndex);
-                
+
             this.record = record;
             this.rowIndex = rowIndex;
             this.values = {};
@@ -187,10 +187,10 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
             this.fireEvent('canceledit', this, saveChanges === false);
             return;
         }
-        var changes = {}, 
-            r = this.record, 
+        var changes = {},
+            r = this.record,
             hasChange = false,
-            cm = this.grid.colModel, 
+            cm = this.grid.colModel,
             fields = this.items.items;
         for(var i = 0, len = cm.getColumnCount(); i < len; i++){
             if(!cm.isHidden(i)){
@@ -219,7 +219,7 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
     verifyLayout: function(force){
         if(this.el && (this.isVisible() || force === true)){
             var row = this.grid.getView().getRow(this.rowIndex);
-            this.setSize(Ext.fly(row).getWidth(), Ext.fly(row).getHeight() + 9);
+            this.setSize(Ext.fly(row).getWidth(), Ext.isIE ? Ext.fly(row).getHeight() + 9 : undefined);
             var cm = this.grid.colModel, fields = this.items.items;
             for(var i = 0, len = cm.getColumnCount(); i < len; i++){
                 if(!cm.isHidden(i)){
@@ -367,7 +367,7 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
                 scroll = view.scroller.dom.scrollLeft,
                 bw = this.btns.getWidth(),
                 width = Math.min(g.getWidth(), g.getColumnModel().getTotalWidth());
-                
+
             this.btns.el.shift({left: (width/2)-(bw/2)+scroll, top: h - 2, stopFx: true, duration:0.2});
         }
     },
@@ -402,11 +402,11 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
     },
 
     getTargetColumnIndex: function(pt){
-        var grid = this.grid, 
+        var grid = this.grid,
             v = grid.view,
             x = pt.left,
             cms = grid.colModel.config,
-            i = 0, 
+            i = 0,
             match = false;
         for(var len = cms.length, c; c = cms[i]; i++){
             if(!c.hidden){
@@ -479,7 +479,7 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
             top = parseInt(this.el.dom.style.top, 10),
             scroll = v.scroller.dom.scrollTop,
             h = this.el.getHeight();
-                
+
         if(top + h >= scroll){
             t.initTarget(this.items.last().getEl());
             if(!t.rendered){
