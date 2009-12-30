@@ -58,14 +58,12 @@
             text: 'App.js',
             path: ''
         },{
-            text: 'Debug.js',
-            path: ''
-        },{
             text: 'FileTreeLoader.js',
             path: ''
         },{
             text: 'VideoPanel.js',
             path: ''
         }]
-    }]
+    }],
+    resources: []
 }
