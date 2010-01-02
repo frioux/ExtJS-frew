@@ -7,7 +7,7 @@ Ext.Element.boxMarkup = '<div class="{0}-tl"><div class="{0}-tr"><div class="{0}
 
 Ext.Element.addMethods(function(){
     var INTERNAL = "_internal",
-        pxMatch = /(\d+)px/;
+        pxMatch = /(\d+\.?\d+)px/;
     return {
         /**
          * More flexible version of {@link #setStyle} for setting style properties.
@@ -46,13 +46,13 @@ Ext.Element.addMethods(function(){
                 d = this.dom,
                 s = d.style;
             if(s.width && s.width != 'auto'){
-                w = parseInt(s.width, 10);
+                w = parseFloat(s.width);
                 if(me.isBorderBox()){
                    w -= me.getFrameWidth('lr');
                 }
             }
             if(s.height && s.height != 'auto'){
-                h = parseInt(s.height, 10);
+                h = parseFloat(s.height);
                 if(me.isBorderBox()){
                    h -= me.getFrameWidth('tb');
                 }
@@ -147,7 +147,7 @@ Ext.Element.addMethods(function(){
             var me = this,
                 h = Math.max(me.dom.offsetHeight, me.dom.clientHeight);
             if(!h){
-                h = parseInt(me.getStyle('height'), 10) || 0;
+                h = parseFloat(me.getStyle('height')) || 0;
                 if(!me.isBorderBox()){
                     h += me.getFrameWidth('tb');
                 }
@@ -164,7 +164,7 @@ Ext.Element.addMethods(function(){
         getComputedWidth : function(){
             var w = Math.max(this.dom.offsetWidth, this.dom.clientWidth);
             if(!w){
-                w = parseInt(this.getStyle('width'), 10) || 0;
+                w = parseFloat(this.getStyle('width')) || 0;
                 if(!this.isBorderBox()){
                     w += this.getFrameWidth('lr');
                 }
@@ -270,7 +270,7 @@ Ext.Element.addMethods(function(){
             // Width calcs
             // Try the style first, then clientWidth, then offsetWidth
             if (w = me.getStyle('width').match(pxMatch)){
-                if ((w = parseInt(w[1], 10)) && isBB){
+                if ((w = parseFloat(w[1])) && isBB){
                     // Style includes the padding and border if isBB
                     w -= (lrBorder + lrPadding);
                 }
@@ -289,7 +289,7 @@ Ext.Element.addMethods(function(){
             // Height calcs
             // Try the style first, then clientHeight, then offsetHeight
             if (h = me.getStyle('height').match(pxMatch)){
-                if ((h = parseInt(h[1], 10)) && isBB){
+                if ((h = parseFloat(h[1])) && isBB){
                     // Style includes the padding and border if isBB
                     h -= (tbBorder + tbPadding);
                 }
@@ -358,7 +358,7 @@ Ext.Element.addMethods(function(){
 
             if (!side) {
                 for (key in me.margins){
-                    o[hash[key]] = parseInt(me.getStyle(me.margins[key]), 10) || 0;
+                    o[hash[key]] = parseFloat(me.getStyle(me.margins[key])) || 0;
                 }
                 return o;
             } else {
