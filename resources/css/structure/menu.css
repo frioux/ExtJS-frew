@@ -177,6 +177,17 @@ a.x-menu-item {
 }
 
 /*
+ * fixes separator visibility problem in IE 6
+ */
+.ext-strict .ext-ie6 .x-menu-sep-li {
+    padding: 3px 4px;
+}
+.ext-strict .ext-ie6 .x-menu-sep {
+    margin: 0;
+    height: 1px;
+}
+
+/*
  * Ugly mess to remove the white border under the picker
  */
 .ext-ie .x-date-menu{
