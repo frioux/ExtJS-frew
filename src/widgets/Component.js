@@ -229,7 +229,7 @@ Ext.Component = function(config){
          * Fires before the state of the component is restored. Return false from an event handler to stop the restore.
          * @param {Ext.Component} this
          * @param {Object} state The hash of state values returned from the StateProvider. If this
-         * event is not vetoed, then the state object is passed to <b><tt>applyState</tt></b>. By default,
+         * event is not vetoed, then the state object is passed to <b><code>applyState</code></b>. By default,
          * that simply copies property values into this Component. The method maybe overriden to
          * provide custom state restoration.
          */
@@ -239,7 +239,7 @@ Ext.Component = function(config){
          * Fires after the state of the component is restored.
          * @param {Ext.Component} this
          * @param {Object} state The hash of state values returned from the StateProvider. This is passed
-         * to <b><tt>applyState</tt></b>. By default, that simply copies property values into this
+         * to <b><code>applyState</code></b>. By default, that simply copies property values into this
          * Component. The method maybe overriden to provide custom state restoration.
          */
         'staterestore',
@@ -248,7 +248,7 @@ Ext.Component = function(config){
          * Fires before the state of the component is saved to the configured state provider. Return false to stop the save.
          * @param {Ext.Component} this
          * @param {Object} state The hash of state values. This is determined by calling
-         * <b><tt>getState()</tt></b> on the Component. This method must be provided by the
+         * <b><code>getState()</code></b> on the Component. This method must be provided by the
          * developer to return whetever representation of state is required, by default, Ext.Component
          * has a null implementation.
          */
@@ -258,7 +258,7 @@ Ext.Component = function(config){
          * Fires after the state of the component is saved to the configured state provider.
          * @param {Ext.Component} this
          * @param {Object} state The hash of state values. This is determined by calling
-         * <b><tt>getState()</tt></b> on the Component. This method must be provided by the
+         * <b><code>getState()</code></b> on the Component. This method must be provided by the
          * developer to return whetever representation of state is required, by default, Ext.Component
          * has a null implementation.
          */
@@ -306,8 +306,8 @@ Ext.extend(Ext.Component, Ext.util.Observable, {
      * @cfg {String} fieldLabel <p>The label text to display next to this Component (defaults to '').</p>
      * <br><p><b>Note</b>: this config is only used when this Component is rendered by a Container which
      * has been configured to use the <b>{@link Ext.layout.FormLayout FormLayout}</b> layout manager (e.g.
-     * {@link Ext.form.FormPanel} or specifying <tt>layout:'form'</tt>).</p><br>
-     * <p>Also see <tt>{@link #hideLabel}</tt> and
+     * {@link Ext.form.FormPanel} or specifying <code>layout:'form'</code>).</p><br>
+     * <p>Also see <code>{@link #hideLabel}</code> and
      * {@link Ext.layout.FormLayout}.{@link Ext.layout.FormLayout#fieldTpl fieldTpl}.</p>
      * Example use:<pre><code>
 new Ext.FormPanel({
@@ -323,7 +323,7 @@ new Ext.FormPanel({
     /**
      * @cfg {String} labelStyle <p>A CSS style specification string to apply directly to this field's
      * label.  Defaults to the container's labelStyle value if set (e.g.,
-     * <tt>{@link Ext.layout.FormLayout#labelStyle}</tt> , or '').</p>
+     * <code>{@link Ext.layout.FormLayout#labelStyle}</code> , or '').</p>
      * <br><p><b>Note</b>: see the note for <code>{@link #clearCls}</code>.</p><br>
      * <p>Also see <code>{@link #hideLabel}</code> and
      * <code>{@link Ext.layout.FormLayout}.{@link Ext.layout.FormLayout#fieldTpl fieldTpl}.</code></p>
@@ -341,16 +341,16 @@ new Ext.FormPanel({
      */
     /**
      * @cfg {String} labelSeparator <p>The separator to display after the text of each
-     * <tt>{@link #fieldLabel}</tt>.  This property may be configured at various levels.
+     * <code>{@link #fieldLabel}</code>.  This property may be configured at various levels.
      * The order of precedence is:
      * <div class="mdetail-params"><ul>
      * <li>field / component level</li>
      * <li>container level</li>
-     * <li>{@link Ext.layout.FormLayout#labelSeparator layout level} (defaults to colon <tt>':'</tt>)</li>
+     * <li>{@link Ext.layout.FormLayout#labelSeparator layout level} (defaults to colon <code>':'</code>)</li>
      * </ul></div>
      * To display no separator for this field's label specify empty string ''.</p>
-     * <br><p><b>Note</b>: see the note for <tt>{@link #clearCls}</tt>.</p><br>
-     * <p>Also see <tt>{@link #hideLabel}</tt> and
+     * <br><p><b>Note</b>: see the note for <code>{@link #clearCls}</code>.</p><br>
+     * <p>Also see <code>{@link #hideLabel}</code> and
      * {@link Ext.layout.FormLayout}.{@link Ext.layout.FormLayout#fieldTpl fieldTpl}.</p>
      * Example use:<pre><code>
 new Ext.FormPanel({
@@ -372,12 +372,12 @@ new Ext.FormPanel({
 </code></pre>
      */
     /**
-     * @cfg {Boolean} hideLabel <p><tt>true</tt> to completely hide the label element
-     * ({@link #fieldLabel label} and {@link #labelSeparator separator}). Defaults to <tt>false</tt>.
-     * By default, even if you do not specify a <tt>{@link #fieldLabel}</tt> the space will still be
+     * @cfg {Boolean} hideLabel <p><code>true</code> to completely hide the label element
+     * ({@link #fieldLabel label} and {@link #labelSeparator separator}). Defaults to <code>false</code>.
+     * By default, even if you do not specify a <code>{@link #fieldLabel}</code> the space will still be
      * reserved so that the field will line up with other fields that do have labels.
-     * Setting this to <tt>true</tt> will cause the field to not reserve that space.</p>
-     * <br><p><b>Note</b>: see the note for <tt>{@link #clearCls}</tt>.</p><br>
+     * Setting this to <code>true</code> will cause the field to not reserve that space.</p>
+     * <br><p><b>Note</b>: see the note for <code>{@link #clearCls}</code>.</p><br>
      * Example use:<pre><code>
 new Ext.FormPanel({
     height: 100,
@@ -392,27 +392,27 @@ new Ext.FormPanel({
     /**
      * @cfg {String} clearCls <p>The CSS class used to to apply to the special clearing div rendered
      * directly after each form field wrapper to provide field clearing (defaults to
-     * <tt>'x-form-clear-left'</tt>).</p>
+     * <code>'x-form-clear-left'</code>).</p>
      * <br><p><b>Note</b>: this config is only used when this Component is rendered by a Container
      * which has been configured to use the <b>{@link Ext.layout.FormLayout FormLayout}</b> layout
-     * manager (e.g. {@link Ext.form.FormPanel} or specifying <tt>layout:'form'</tt>) and either a
-     * <tt>{@link #fieldLabel}</tt> is specified or <tt>isFormField=true</tt> is specified.</p><br>
+     * manager (e.g. {@link Ext.form.FormPanel} or specifying <code>layout:'form'</code>) and either a
+     * <code>{@link #fieldLabel}</code> is specified or <code>isFormField=true</code> is specified.</p><br>
      * <p>See {@link Ext.layout.FormLayout}.{@link Ext.layout.FormLayout#fieldTpl fieldTpl} also.</p>
      */
     /**
      * @cfg {String} itemCls
      * <p><b>Note</b>: this config is only used when this Component is rendered by a Container which
      * has been configured to use the <b>{@link Ext.layout.FormLayout FormLayout}</b> layout manager (e.g.
-     * {@link Ext.form.FormPanel} or specifying <tt>layout:'form'</tt>).</p><br>
+     * {@link Ext.form.FormPanel} or specifying <code>layout:'form'</code>).</p><br>
      * <p>An additional CSS class to apply to the div wrapping the form item
-     * element of this field.  If supplied, <tt>itemCls</tt> at the <b>field</b> level will override
-     * the default <tt>itemCls</tt> supplied at the <b>container</b> level. The value specified for
-     * <tt>itemCls</tt> will be added to the default class (<tt>'x-form-item'</tt>).</p>
+     * element of this field.  If supplied, <code>itemCls</code> at the <b>field</b> level will override
+     * the default <code>itemCls</code> supplied at the <b>container</b> level. The value specified for
+     * <code>itemCls</code> will be added to the default class (<code>'x-form-item'</code>).</p>
      * <p>Since it is applied to the item wrapper (see
      * {@link Ext.layout.FormLayout}.{@link Ext.layout.FormLayout#fieldTpl fieldTpl}), it allows
      * you to write standard CSS rules that can apply to the field, the label (if specified), or
      * any other element within the markup for the field.</p>
-     * <br><p><b>Note</b>: see the note for <tt>{@link #fieldLabel}</tt>.</p><br>
+     * <br><p><b>Note</b>: see the note for <code>{@link #fieldLabel}</code>.</p><br>
      * Example use:<pre><code>
 // Apply a style to the field&#39;s label:
 &lt;style>
@@ -454,17 +454,17 @@ new Ext.FormPanel({
      * that is rendered to the page for this component. This allows you to write id-based CSS
      * rules to style the specific instance of this component uniquely, and also to select
      * sub-elements using this component's id as the parent.</p>
-     * <p><b>Note</b>: to avoid complications imposed by a unique <tt>id</tt> also see
+     * <p><b>Note</b>: to avoid complications imposed by a unique <code>id</code> also see
      * <code>{@link #itemId}</code> and <code>{@link #ref}</code>.</p>
      * <p><b>Note</b>: to access the container of an item see <code>{@link #ownerCt}</code>.</p>
      */
     /**
      * @cfg {String} itemId
-     * <p>An <tt>itemId</tt> can be used as an alternative way to get a reference to a component
+     * <p>An <code>itemId</code> can be used as an alternative way to get a reference to a component
      * when no object reference is available.  Instead of using an <code>{@link #id}</code> with
      * {@link Ext}.{@link Ext#getCmp getCmp}, use <code>itemId</code> with
      * {@link Ext.Container}.{@link Ext.Container#getComponent getComponent} which will retrieve
-     * <code>itemId</code>'s or <tt>{@link #id}</tt>'s. Since <code>itemId</code>'s are an index to the
+     * <code>itemId</code>'s or <code>{@link #id}</code>'s. Since <code>itemId</code>'s are an index to the
      * container's internal MixedCollection, the <code>itemId</code> is scoped locally to the container --
      * avoiding potential conflicts with {@link Ext.ComponentMgr} which requires a <b>unique</b>
      * <code>{@link #id}</code>.</p>
@@ -489,16 +489,16 @@ var c = new Ext.Panel({ //
 p1 = c.{@link Ext.Container#getComponent getComponent}('p1'); // not the same as {@link Ext#getCmp Ext.getCmp()}
 p2 = p1.{@link #ownerCt}.{@link Ext.Container#getComponent getComponent}('p2'); // reference via a sibling
      * </code></pre>
-     * <p>Also see <tt>{@link #id}</tt> and <code>{@link #ref}</code>.</p>
-     * <p><b>Note</b>: to access the container of an item see <tt>{@link #ownerCt}</tt>.</p>
+     * <p>Also see <code>{@link #id}</code> and <code>{@link #ref}</code>.</p>
+     * <p><b>Note</b>: to access the container of an item see <code>{@link #ownerCt}</code>.</p>
      */
     /**
      * @cfg {String} xtype
-     * The registered <tt>xtype</tt> to create. This config option is not used when passing
+     * The registered <code>xtype</code> to create. This config option is not used when passing
      * a config object into a constructor. This config option is used only when
      * lazy instantiation is being used, and a child item of a Container is being
      * specified not as a fully instantiated Component, but as a <i>Component config
-     * object</i>. The <tt>xtype</tt> will be looked up at render time up to determine what
+     * object</i>. The <code>xtype</code> will be looked up at render time up to determine what
      * type of child Component to create.<br><br>
      * The predefined xtypes are listed {@link Ext.Component here}.
      * <br><br>
@@ -508,11 +508,11 @@ p2 = p1.{@link #ownerCt}.{@link Ext.Container#getComponent getComponent}('p2'); 
      */
     /**
      * @cfg {String} ptype
-     * The registered <tt>ptype</tt> to create. This config option is not used when passing
+     * The registered <code>ptype</code> to create. This config option is not used when passing
      * a config object into a constructor. This config option is used only when
      * lazy instantiation is being used, and a Plugin is being
      * specified not as a fully instantiated Component, but as a <i>Component config
-     * object</i>. The <tt>ptype</tt> will be looked up at render time up to determine what
+     * object</i>. The <code>ptype</code> will be looked up at render time up to determine what
      * type of Plugin to create.<br><br>
      * If you create your own Plugins, you may register them using
      * {@link Ext.ComponentMgr#registerPlugin} in order to be able to
@@ -562,10 +562,10 @@ new Ext.Panel({
      * <p>An optional extra CSS class that will be added to this component's container. This can be useful for
      * adding customized styles to the container or any of its children using standard CSS rules.  See
      * {@link Ext.layout.ContainerLayout}.{@link Ext.layout.ContainerLayout#extraCls extraCls} also.</p>
-     * <p><b>Note</b>: <tt>ctCls</tt> defaults to <tt>''</tt> except for the following class
+     * <p><b>Note</b>: <code>ctCls</code> defaults to <code>''</code> except for the following class
      * which assigns a value by default:
      * <div class="mdetail-params"><ul>
-     * <li>{@link Ext.layout.Box Box Layout} : <tt>'x-box-layout-ct'</tt></li>
+     * <li>{@link Ext.layout.Box Box Layout} : <code>'x-box-layout-ct'</code></li>
      * </ul></div>
      * To configure the above Class with an extra CSS class append to the default.  For example,
      * for BoxLayout (Hbox and Vbox):<pre><code>
@@ -580,7 +580,7 @@ new Ext.Panel({
     disabled : false,
     /**
      * @cfg {Boolean} hidden
-     * Render this component hidden (default is false). If <tt>true</tt>, the
+     * Render this component hidden (default is false). If <code>true</code>, the
      * {@link #hide} method will be called internally.
      */
     hidden : false,
@@ -598,7 +598,7 @@ new Ext.Panel({
      * that is already present in the document that specifies some structural markup for this
      * component.</p><div><ul>
      * <li><b>Description</b> : <ul>
-     * <div class="sub-desc">When <tt>applyTo</tt> is used, constituent parts of the component can also be specified
+     * <div class="sub-desc">When <code>applyTo</code> is used, constituent parts of the component can also be specified
      * by id or CSS class name within the main element, and the component being created may attempt
      * to create its subcomponents from that markup if applicable.</div>
      * </ul></li>
@@ -621,7 +621,7 @@ new Ext.Panel({
      * <div class="sub-desc">When using this config, a call to render() is not required.</div>
      * </ul></li>
      * </ul></div>
-     * <p>See <tt>{@link #render}</tt> also.</p>
+     * <p>See <code>{@link #render}</code> also.</p>
      */
     /**
      * @cfg {Boolean} stateful
@@ -677,7 +677,7 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider({
      * <p>An array of events that, when fired, should trigger this component to
      * save its state (defaults to none). <code>stateEvents</code> may be any type
      * of event supported by this component, including browser or custom events
-     * (e.g., <tt>['click', 'customerchange']</tt>).</p>
+     * (e.g., <code>['click', 'customerchange']</code>).</p>
      * <p>See <code>{@link #stateful}</code> for an explanation of saving and
      * restoring Component state.</p>
      */
@@ -686,7 +686,7 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider({
      * <p>A tag name or {@link Ext.DomHelper DomHelper} spec used to create the {@link #getEl Element} which will
      * encapsulate this Component.</p>
      * <p>You do not normally need to specify this. For the base classes {@link Ext.Component}, {@link Ext.BoxComponent},
-     * and {@link Ext.Container}, this defaults to <b><tt>'div'</tt></b>. The more complex Ext classes use a more complex
+     * and {@link Ext.Container}, this defaults to <b><code>'div'</code></b>. The more complex Ext classes use a more complex
      * DOM structure created by their own onRender methods.</p>
      * <p>This is intended to allow the developer to create application-specific utility Components encapsulated by
      * different DOM elements. Example usage:</p><pre><code>
@@ -734,10 +734,10 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider({
     autoShow : false,
     /**
      * @cfg {String} hideMode
-     * <p>How this component should be hidden. Supported values are <tt>'visibility'</tt>
-     * (css visibility), <tt>'offsets'</tt> (negative offset position) and <tt>'display'</tt>
+     * <p>How this component should be hidden. Supported values are <code>'visibility'</code>
+     * (css visibility), <code>'offsets'</code> (negative offset position) and <code>'display'</code>
      * (css display).</p>
-     * <br><p><b>Note</b>: the default of <tt>'display'</tt> is generally preferred
+     * <br><p><b>Note</b>: the default of <code>'display'</code> is generally preferred
      * since items are automatically laid out when they are first shown (no sizing
      * is done while hidden).</p>
      */
@@ -768,14 +768,14 @@ new Ext.Panel({
     }
 });
 </code></pre>
-     * <p>See also <tt>{@link #getEl getEl}</p>
+     * <p>See also <code>{@link #getEl getEl}</p>
      * @type Ext.Element
      * @property el
      */
     /**
      * This Component's owner {@link Ext.Container Container} (defaults to undefined, and is set automatically when
      * this Component is added to a Container).  Read-only.
-     * <p><b>Note</b>: to access items within the Container see <tt>{@link #itemId}</tt>.</p>
+     * <p><b>Note</b>: to access items within the Container see <code>{@link #itemId}</code>.</p>
      * @type Ext.Container
      * @property ownerCt
      */
@@ -788,6 +788,14 @@ new Ext.Panel({
      * True if this component is disabled. Read-only.
      * @type Boolean
      * @property disabled
+     */
+    /**
+     * <p>The label Element.</p>
+     * <p><b>Only present when this Component has been rendered by a Container which
+     * is configured to use the {@link Ext.layout.FormLayout FormLayout} layout manager (e.g.
+     * {@link Ext.form.FormPanel} or specifying <code>layout: 'form'</code>).</b><p>
+     * @type Element
+     * @property label
      */
     /**
      * True if this component has been rendered. Read-only.
@@ -831,7 +839,7 @@ new Ext.Panel({
 
     /**
      * @cfg {String} tplWriteMode The Ext.(X)Template method to use when
-     * updating the content area of the Component. Defaults to <tt>'overwrite'</tt>
+     * updating the content area of the Component. Defaults to <code>'overwrite'</code>
      * (see <code>{@link Ext.XTemplate#overwrite}</code>).
      */
     tplWriteMode : 'overwrite',
@@ -1423,7 +1431,7 @@ new Ext.Panel({
 
     /**
      * Show this component.  Listen to the '{@link #beforeshow}' event and return
-     * <tt>false</tt> to cancel showing the component.  Fires the '{@link #show}'
+     * <code>false</code> to cancel showing the component.  Fires the '{@link #show}'
      * event after showing the component.
      * @return {Ext.Component} this
      */
@@ -1448,7 +1456,7 @@ new Ext.Panel({
 
     /**
      * Hide this component.  Listen to the '{@link #beforehide}' event and return
-     * <tt>false</tt> to cancel hiding the component.  Fires the '{@link #hide}'
+     * <code>false</code> to cancel hiding the component.  Fires the '{@link #hide}'
      * event after hiding the component. Note this method is called internally if
      * the component is configured to be <code>{@link #hidden}</code>.
      * @return {Ext.Component} this
