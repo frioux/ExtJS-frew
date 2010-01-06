@@ -313,7 +313,7 @@ ul.x-tab-strip-bottom{
 }
 
 .x-btn-tl, .x-btn-tr, .x-btn-tc, .x-btn-ml, .x-btn-mr, .x-btn-mc, .x-btn-bl, .x-btn-br, .x-btn-bc{
-	background-image:url(../images/default/button/btn.gif);
+	background-image:url(../images/gray/button/btn.gif);
 }
 
 .x-btn-click .x-btn-text, .x-btn-menu-active .x-btn-text, .x-btn-pressed .x-btn-text{
@@ -1092,18 +1092,18 @@ td.x-date-mp-sel a {
 }
 
 .x-date-mp-ybtn a {
-    background-image:url(../images/default/panel/tool-sprites.gif);
+    background-image:url(../images/gray/panel/tool-sprites.gif);
 }
 
 td.x-date-mp-sep {
    border-right-color:#c5d2df;
 }
 .x-tip .x-tip-close{
-	background-image: url(../images/default/qtip/close.gif);
+	background-image: url(../images/gray/qtip/close.gif);
 }
 
 .x-tip .x-tip-tc, .x-tip .x-tip-tl, .x-tip .x-tip-tr, .x-tip .x-tip-bc, .x-tip .x-tip-bl, .x-tip .x-tip-br, .x-tip .x-tip-ml, .x-tip .x-tip-mr {
-	background-image: url(../images/default/qtip/tip-sprite.gif);
+	background-image: url(../images/gray/qtip/tip-sprite.gif);
 }
 
 .x-tip .x-tip-mc {
@@ -1535,12 +1535,12 @@ body.x-body-masked .x-window-plain .x-window-mc {
 }
 
 .x-layout-collapsed{
-    background-color:#d2e0f2;
-	border-color:#98c0f4;
+    background-color:#dfdfdf;
+	border-color:#d0d0d0;
 }
 
 .x-layout-collapsed-over{
-    background-color:#d9e8fb;
+    background-color:#e7e7e7;
 }
 
 .x-layout-split-west .x-layout-mini {
@@ -1577,7 +1577,7 @@ body.x-body-masked .x-window-plain .x-window-mc {
 
 .x-progress-inner {
     background-color:#e0e8f3;
-    background-image:url(../images/default/qtip/bg.gif);
+    background-image:url(../images/gray/qtip/bg.gif);
 }
 
 .x-progress-bar {
@@ -1657,17 +1657,17 @@ body.x-body-masked .x-window-plain .x-window-mc {
 }
 
 .x-window-dlg .ext-mb-info {
-    background-image:url(../images/default/window/icon-info.gif);
+    background-image:url(../images/gray/window/icon-info.gif);
 }
 
 .x-window-dlg .ext-mb-warning {
-    background-image:url(../images/default/window/icon-warning.gif);
+    background-image:url(../images/gray/window/icon-warning.gif);
 }
 
 .x-window-dlg .ext-mb-question {
-    background-image:url(../images/default/window/icon-question.gif);
+    background-image:url(../images/gray/window/icon-question.gif);
 }
 
 .x-window-dlg .ext-mb-error {
-    background-image:url(../images/default/window/icon-error.gif);
+    background-image:url(../images/gray/window/icon-error.gif);
 }
