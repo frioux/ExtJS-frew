@@ -77,8 +77,6 @@ Ext.form.TriggerField = Ext.extend(Ext.form.TextField,  {
 
     actionMode: 'wrap',
 
-    removeMode: 'container',
-
     defaultTriggerWidth: 17,
 
     // private
