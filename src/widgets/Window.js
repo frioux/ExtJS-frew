@@ -536,7 +536,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
             Ext.EventManager.onWindowResize(this.onWindowResize, this);
         }
         this.doConstrain();
-        this.doLayout();
+        this.deepLayout();
         if(this.keyMap){
             this.keyMap.enable();
         }
@@ -883,7 +883,6 @@ Ext.Window = Ext.extend(Ext.Panel, {
           Ext.EventManager.on(window, 'scroll', this.doAnchor, this,
               {buffer: tm == 'number' ? monitorScroll : 50});
       }
-      this.doAnchor();
       return this;
     },
 

@@ -53,6 +53,40 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
         Ext.apply(this, config);
     },
 
+    /* Workaround for how IE measures autoWidth elements.  It prefers bottom-up measurements over
+      whereas other browser prefer top-down.  We will hide all target child elements before we measure and
+      put them back to get an accurate measurement.
+    */
+    IEMeasureHack : function(target, viewFlag) {
+        var tChildren = target.dom.childNodes, tLen = tChildren.length, c, d = [], e, i, ret;
+        for (i = 0 ; i < tLen ; i++) {
+            c = tChildren[i];
+            e = Ext.get(c);
+            if (e) {
+                d[i] = e.getStyle('display');
+                e.setStyle({display: 'none'});
+            }
+        }
+        ret = target ? target.getViewSize(viewFlag) : {};
+        for (i = 0 ; i < tLen ; i++) {
+            c = tChildren[i];
+            e = Ext.get(c);
+            if (e) {
+                e.setStyle({display: d[i]});
+            }
+        }
+        return ret;
+    },
+
+    getLayoutTargetSize : function() {
+        var target = this.container.getLayoutTarget();
+        if (Ext.isIE && target && target.dom && target.getStyle('width') == 'auto') {
+            return this.IEMeasureHack(target, true);
+        } else {
+            return target ? target.getViewSize(true) : {};
+        }
+    },
+
     // private
     layout : function(){
         var target = this.container.getLayoutTarget();
@@ -60,14 +94,11 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
             target.addClass(this.targetCls)
         }
         this.onLayout(this.container, target);
-        this.container.fireEvent('afterlayout', this.container, this);
         this.hasLayout = true;
     },
 
-    // private
-    onLayout : function(ct, target){
-        this.renderAll(ct, target);
-    },
+    // Placeholder for the derived layouts
+    onLayout : Ext.emptyFn,
 
     // private
     isValidParent : function(c, target){
@@ -76,9 +107,9 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
 
     // private
     renderAll : function(ct, target){
-        var items = ct.items.items;
-        for(var i = 0, len = items.length; i < len; i++) {
-            var c = items[i];
+        var items = ct.items.items, i, c, len = items.length;
+        for(i = 0; i < len; i++) {
+            c = items[i];
             if(c && (!c.rendered || !this.isValidParent(c, target))){
                 this.renderItem(c, i, target);
             }
@@ -87,17 +118,31 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
 
     // private
     renderItem : function(c, position, target){
-        if(c && !c.rendered){
-            c.render(target, position);
-            this.configureItem(c, position);
-        }else if(c && !this.isValidParent(c, target)){
-            if(Ext.isNumber(position)){
-                position = target.dom.childNodes[position];
+        if(c){
+            if(!c.rendered){
+                c.render(target, position);
+                this.configureItem(c, position);
+            }else if(!this.isValidParent(c, target)){
+                if(Ext.isNumber(position)){
+                    position = target.dom.childNodes[position];
+                }
+                target.dom.insertBefore(c.getPositionEl().dom, position || null);
+                c.container = target;
+                this.configureItem(c, position);
             }
-            target.dom.insertBefore(c.getPositionEl().dom, position || null);
-            c.container = target;
-            this.configureItem(c, position);
         }
+    },
+
+    // private.
+    // Get all rendered items to lay out.
+    getRenderedItems: function(ct){
+        var t = ct.getLayoutTarget(), cti = ct.items.items, len = cti.length, i, c, items = [];
+        for (i = 0; i < len; i++) {
+            if((c = cti[i]).rendered && this.isValidParent(c, t)){
+                items.push(c);
+            }
+        };
+        return items;
     },
 
     // private
@@ -107,8 +152,8 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
             t.addClass(this.extraCls);
         }
         // If we are forcing a layout, do so *before* we hide so elements have height/width
-        if(c.doLayout && this.forceLayout){
-            c.doLayout(false, true);
+        if(c.deepLayout && this.forceLayout){
+            c.deepLayout(true);
         }
         if (this.renderHidden && c != this.activeItem) {
             c.hide();
@@ -119,24 +164,12 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
          if(this.activeItem == c){
             delete this.activeItem;
          }
-         /*
-          * When removing items with removeMode = 'container' from certain layouts (box, column), the container is set
-          * to the innerCt of the layout. As such, removing a single item from these layouts causes all of the other components
-          * in the layout to be removed from the DOM. In this case, we should cancel the removeMode and restore it at a later
-          * point.
-          */
-         if(this.allowContainerRemove === false && c.removeMode == 'container'){
-            Ext.apply(c, {
-                removeMode: undefined,
-                removeRestore: true
-            });
-         }
          if(c.rendered && this.extraCls){
             var t = c.getPositionEl ? c.getPositionEl() : c;
             t.removeClass(this.extraCls);
         }
     },
-    
+
     afterRemove: function(c){
         if(c.removeRestore){
             c.removeMode = 'container';
@@ -144,35 +177,12 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
         }
     },
 
-    // private
+    // private DEPRECATE
     onResize: function(){
-        var ct = this.container,
-            b = ct.bufferResize;
-
-        if (ct.collapsed){
-            return;
-        }
-
-        // Not having an ownerCt negates the buffering: floating and top level
-        // Containers (Viewport, Window, ToolTip, Menu) need to lay out ASAP.
-        if (b && ct.ownerCt) {
-            // If we do NOT already have a layout pending from an ancestor, schedule one.
-            // If there is a layout pending, we do nothing here.
-            // buffering to be deprecated soon
-            if (!ct.hasLayoutPending()){
-                if(!this.resizeTask){
-                    this.resizeTask = new Ext.util.DelayedTask(this.runLayout, this);
-                    this.resizeBuffer = Ext.isNumber(b) ? b : 50;
-                }
-                ct.layoutPending = true;
-                this.resizeTask.delay(this.resizeBuffer);
-            }
-        }else{
-            ct.doLayout(false, this.forceLayout);
-        }
+        //this.layout();
     },
 
-    // private
+    // private DEPRECATE
     runLayout: function(){
         var ct = this.container;
         ct.doLayout();
@@ -181,18 +191,6 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
 
     // private
     setContainer : function(ct){
-        // No longer use events to handle resize. Instead this will be handled through a direct function call.
-        /*
-        if(this.monitorResize && ct != this.container){
-            var old = this.container;
-            if(old){
-                old.un(old.resizeEvent, this.onResize, this);
-            }
-            if(ct){
-                ct.on(ct.resizeEvent, this.onResize, this);
-            }
-        }
-        */
         this.container = ct;
     },
 
@@ -204,15 +202,11 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
         var ms = v.split(' ');
         var len = ms.length;
         if(len == 1){
-            ms[1] = ms[0];
-            ms[2] = ms[0];
-            ms[3] = ms[0];
-        }
-        if(len == 2){
+            ms[1] = ms[2] = ms[3] = ms[0];
+        } else if(len == 2){
             ms[2] = ms[0];
             ms[3] = ms[1];
-        }
-        if(len == 3){
+        } else if(len == 3){
             ms[3] = ms[1];
         }
         return {

@@ -72,7 +72,7 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
      * true might improve performance.
      */
     deferredRender : false,
-    
+
     /**
      * @cfg {Boolean} layoutOnCardChange
      * True to force a layout of the active item when the active card is changed. Defaults to false.
@@ -84,10 +84,9 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
      */
     // private
     renderHidden : true,
-    
+
     constructor: function(config){
         Ext.layout.CardLayout.superclass.constructor.call(this, config);
-      //  this.forceLayout = (this.deferredRender === false);
     },
 
     /**
@@ -97,19 +96,34 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
     setActiveItem : function(item){
         var ai = this.activeItem;
         item = this.container.getComponent(item);
-        if(ai != item){
+
+        // Is this a valid, different card?
+        if(item && ai != item){
+
+            // Changing cards, hide the current one
             if(ai){
                 ai.hide();
                 ai.fireEvent('deactivate', ai);
             }
-            var layout = item.doLayout && (this.layoutOnCardChange || !item.rendered);
+
+            // Change activeItem reference
             this.activeItem = item;
-            if(item){
-                item.show();
-            }
+
+            // Shallow layout the card
+            item.show();
             this.layout();
-            if(item && layout){
-                item.doLayout();
+
+            // Render if needed
+            if(!item.rendered){
+                 if(item.render){
+                    // Shallow render the item
+                    this.renderAll(item, this.container.getLayoutTarget());
+                    // Now we can deepRender the item's children as normal and deepLayout
+                    item.deepRender(true);
+                 }
+            // Layout if 1st time (no lastLayoutTargetSize) or layoutOnCardChange set
+            } else if (item.deepLayout && (!item.layout.lastLayoutTargetSize || this.layoutOnCardChange)){
+                item.deepLayout();
             }
             item.fireEvent('activate', item);
         }

@@ -848,8 +848,6 @@ new Ext.Panel({
             };
         }
         result = tb.events ? Ext.apply(tb, options) : this.createComponent(Ext.apply({}, tb, options), 'toolbar');
-        result.ownerCt = this;
-        result.bufferResize = false;
         this.toolbars.push(result);
         return result;
     },
@@ -1028,18 +1026,21 @@ new Ext.Panel({
         if(ts){
             this.addTool.apply(this, ts);
         }
+
+        // Render Toolbars. These must lay out immediately, so poke an ownerCt in them after they render
         if(this.fbar){
             this.footer.addClass('x-panel-btns');
             this.fbar.render(this.footer);
+            this.fbar.ownerCt = this;
             this.footer.createChild({cls:'x-clear'});
         }
-
         if(this.tbar && this.topToolbar){
             this.topToolbar.render(this.tbar);
+            this.topToolbar.ownerCt = this;
         }
         if(this.bbar && this.bottomToolbar){
             this.bottomToolbar.render(this.bbar);
-
+            this.bottomToolbar.ownerCt = this;
         }
     },
 
@@ -1175,6 +1176,7 @@ new Ext.Panel({
     },
 
     onLayout : function(shallow, force){
+        Ext.Panel.superclass.onLayout.apply(this, arguments);
         if(this.hasLayout && this.toolbars.length > 0){
             Ext.each(this.toolbars, function(tb){
                 tb.doLayout(undefined, force);
@@ -1240,11 +1242,11 @@ new Ext.Panel({
         if(this.title){
             this.setTitle(this.title);
         }
-        if(this.collapsed){
+        Ext.Panel.superclass.afterRender.call(this); // do sizing calcs last
+        if (this.collapsed) {
             this.collapsed = false;
             this.collapse(false);
         }
-        Ext.Panel.superclass.afterRender.call(this); // do sizing calcs last
         this.initEvents();
     },
 
@@ -1266,16 +1268,12 @@ new Ext.Panel({
         }
         if(this.toolbars.length > 0){
             Ext.each(this.toolbars, function(tb){
-                tb.doLayout();
                 tb.on({
                     scope: this,
                     afterlayout: this.syncHeight,
                     remove: this.syncHeight
                 });
             }, this);
-            if(!this.ownerCt){
-                this.syncHeight();
-            }
         }
 
     },
@@ -1402,8 +1400,9 @@ new Ext.Panel({
     afterExpand : function(anim){
         this.collapsed = false;
         this.afterEffect(anim);
-        if(Ext.isDefined(this.deferLayout)){
-            this.doLayout(true);
+        if (this.deferResize) {
+            delete this.deferResize;
+            this.deepLayout();
         }
         this.fireEvent('expand', this);
     },
@@ -1436,10 +1435,7 @@ new Ext.Panel({
     },
 
     // private
-    onResize : function(adjWidth, adjHeight, rawWidth, rawHeight){
-        var w = adjWidth,
-            h = adjHeight;
-
+    onResize : function(w, h){
         if(Ext.isDefined(w) || Ext.isDefined(h)){
             if(!this.collapsed){
                 // First, set the the Panel's body width.
@@ -1490,20 +1486,13 @@ new Ext.Panel({
                     this.el._mask.setSize(this.el.dom.clientWidth, this.el.getHeight());
                 }
             }else{
-                this.queuedBodySize = {width: w, height: h};
-                if(!this.queuedExpand && this.allowQueuedExpand !== false){
-                    this.queuedExpand = true;
-                    this.on('expand', function(){
-                        delete this.queuedExpand;
-                        this.onResize(this.queuedBodySize.width, this.queuedBodySize.height);
-                    }, this, {single:true});
-                }
+                this.deferResize = true;
+                return;
             }
             this.onBodyResize(w, h);
         }
         this.syncShadow();
-        Ext.Panel.superclass.onResize.call(this, adjWidth, adjHeight, rawWidth, rawHeight);
-
+        Ext.Panel.superclass.onResize.call(this);
     },
 
     // private

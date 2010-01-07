@@ -88,17 +88,8 @@ anchor: '-50 75%'
     monitorResize:true,
 
     // private
-    // deprecate
-    getAnchorViewSize : function(ct, target){
-        return target.dom == document.body ?
-                   target.getViewSize(true) : target.getStyleSize();
-    },
-
-    // private
     onLayout : function(ct, target){
-        Ext.layout.AnchorLayout.superclass.onLayout.call(this, ct, target);
-
-        var size = target.getViewSize(true);
+        var size = this.layoutTargetSize;
 
         var w = size.width, h = size.height;
 
@@ -120,7 +111,7 @@ anchor: '-50 75%'
             ah = ct.initialConfig.height;
         }
 
-        var cs = ct.items.items, len = cs.length, i, c, a, cw, ch, el, vs;
+        var cs = this.getRenderedItems(ct), len = cs.length, i, c, a, cw, ch, el, vs;
         for(i = 0; i < len; i++){
             c = cs[i];
             el = c.getPositionEl();

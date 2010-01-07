@@ -85,38 +85,61 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
     targetCls: 'x-border-layout-ct',
 
+    extraCls: 'x-border-panel',
+
+    getLayoutTargetSize : function() {
+        var target = this.container.getLayoutTarget();
+        if (Ext.isIE && target && target.dom && target.getStyle('width') == 'auto') {
+            return this.IEMeasureHack(target, false);
+        } else {
+            return target ? target.getViewSize(false) : {};
+        }
+    },
+
     // private
     onLayout : function(ct, target){
-        var collapsed;
-        if(!this.rendered){
-            var items = ct.items.items;
-            collapsed = [];
-            for(var i = 0, len = items.length; i < len; i++) {
-                var c = items[i];
-                var pos = c.region;
-                if(c.collapsed){
-                    collapsed.push(c);
+        var i, len, items = this.getRenderedItems(ct), len = items.length, collapsed = [], r, c, pos, size;
+        if (!len) {
+            return;
+        }
+
+        size = this.layoutTargetSize;
+        if(size.width < 20 || size.height < 20){ // display none?
+            return;
+        }
+
+        //Ensure each visible child item has a Region managing it.
+        for(i = 0; i < len; i++) {
+            c = items[i];
+            if(c.collapsed){
+                collapsed.push(c);
+            }
+            c.collapsed = false;
+            if (!c.regionManager) {
+                pos = c.region;
+
+                // We used to have another Component at that position. Destroy that Region
+                if (r = this[pos]) {
+                    Ext.destroy(r);
                 }
-                c.collapsed = false;
-                if(!c.rendered){
-                    c.render(target, i);
-                    c.getPositionEl().addClass('x-border-panel');
-                }
-                this[pos] = pos != 'center' && c.split ?
+
+                c.regionManager = this[pos] = (pos != 'center' && c.split) ?
                     new Ext.layout.BorderLayout.SplitRegion(this, c.initialConfig, pos) :
                     new Ext.layout.BorderLayout.Region(this, c.initialConfig, pos);
                 this[pos].render(target, c);
             }
-            this.rendered = true;
         }
 
-        var size = target.getViewSize(false);
-        if(size.width < 20 || size.height < 20){ // display none?
-            if(collapsed){
-                this.restoreCollapsed = collapsed;
+        if(Ext.layout.BorderLayout.WARN !== false){
+            for (i = 0, ct = ct.items.items, len = ct.length; i < len; i++) {
+                if (ct[i].region == 'center') {
+                    c = ct[i];
+                }
             }
-            return;
-        }else if(this.restoreCollapsed){
+            if (!c) throw 'No center region defined in BorderLayout ' + ct.id;
+        }
+
+        if(this.restoreCollapsed){
             collapsed = this.restoreCollapsed;
             delete this.restoreCollapsed;
         }
@@ -125,9 +148,6 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
         var centerW = w, centerH = h, centerY = 0, centerX = 0;
 
         var n = this.north, s = this.south, west = this.west, e = this.east, c = this.center;
-        if(!c && Ext.layout.BorderLayout.WARN !== false){
-            throw 'No center region defined in BorderLayout ' + ct.id;
-        }
 
         if(n && n.isVisible()){
             var b = n.getSize();
@@ -170,7 +190,7 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
             centerW -= totalWidth;
             e.applyLayout(b);
         }
-        if(c){
+        if(c && c.isVisible()){
             var m = c.getMargins();
             var centerBox = {
                 x: centerX + m.left,
@@ -510,7 +530,7 @@ Ext.layout.BorderLayout.Region.prototype = {
         this.originalZIndex = el.getStyle('z-index');
         el.setStyle('z-index', 100);
         this.isCollapsed = true;
-        this.layout.layout();
+        this.layout.container.deepLayout(true);
     },
 
     // private
@@ -548,7 +568,7 @@ Ext.layout.BorderLayout.Region.prototype = {
         if(this.splitEl){
             this.splitEl.show();
         }
-        this.layout.layout();
+        this.layout.container.deepLayout(true);
         this.panel.el.setStyle('z-index', this.originalZIndex);
         this.state.collapsed = false;
         this.panel.saveState();
@@ -588,7 +608,7 @@ Ext.layout.BorderLayout.Region.prototype = {
      * @return {Boolean}
      */
     isVisible : function(){
-        return !this.panel.hidden;
+        return (this.panel && !this.panel.hidden);
     },
 
     /**
@@ -870,6 +890,9 @@ Ext.layout.BorderLayout.Region.prototype = {
     },
 
     destroy : function(){
+        delete this.layout[this.position];
+        delete this.panel.regionManager;
+        delete this.panel;
         Ext.destroy(this.miniCollapsedEl, this.collapsedEl);
     }
 };
@@ -1088,7 +1111,7 @@ Ext.extend(Ext.layout.BorderLayout.SplitRegion, Ext.layout.BorderLayout.Region, 
             this.panel.setSize(newSize, s.height);
             this.state.width = newSize;
         }
-        this.layout.layout();
+        this.layout.container.deepLayout(true);
         this.panel.saveState();
         return false;
     },

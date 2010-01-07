@@ -63,16 +63,13 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
     extraCls: 'x-column',
 
     scrollOffset : 0,
-    
-    // private
-    allowContainerRemove: false,
 
     // private
 
     targetCls: 'x-column-layout-ct',
 
     isValidParent : function(c, target){
-        return c.getPositionEl().dom.parentNode == this.innerCt.dom;
+        return this.innerCt && c.getPositionEl().dom.parentNode == this.innerCt.dom;
     },
 
     // private
@@ -87,7 +84,7 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
         }
         this.renderAll(ct, this.innerCt);
 
-        var size = target.getViewSize(true);
+        var size = this.layoutTargetSize;
 
         if(size.width < 1 && size.height < 1){ // display none?
             return;

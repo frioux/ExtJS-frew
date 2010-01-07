@@ -7,11 +7,11 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
     monitorResize : true,
     triggerWidth : 18,
     lastOverflow : false,
-    forceLayout: true,
+    forceLayout : true,
 
     noItemsMenuText : '<div class="x-toolbar-no-items">(None)</div>',
     // private
-    onLayout : function(ct, target){
+    renderAll : function(ct, target){
         if(!this.leftTr){
             var align = ct.buttonAlign == 'center' ? 'center' : 'left';
             target.addClass('x-toolbar-layout-ct');
@@ -21,11 +21,16 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
             this.rightTr = target.child('tr.x-toolbar-right-row', true);
             this.extrasTr = target.child('tr.x-toolbar-extras-row', true);
         }
+    },
+
+    onLayout : function(ct, target){
         var side = ct.buttonAlign == 'right' ? this.rightTr : this.leftTr,
             pos = 0,
-            items = ct.items.items;
+            i, c, td,
+            items = ct.items.items,
+            len = items.length;
 
-        for(var i = 0, len = items.length, c; i < len; i++, pos++) {
+        for(i = 0; i < len; i++, pos++) {
             c = items[i];
             if(c.isFill){
                 side = this.rightTr;
@@ -34,7 +39,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
                 c.render(this.insertCell(c, side, pos));
             }else{
                 if(!c.xtbHidden && !this.isValidParent(c, side.childNodes[pos])){
-                    var td = this.insertCell(c, side, pos);
+                    td = this.insertCell(c, side, pos);
                     td.appendChild(c.getPositionEl().dom);
                     c.container = Ext.get(td);
                 }
@@ -48,8 +53,8 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
     },
 
     cleanup : function(row){
-        var cn = row.childNodes;
-        for(var i = cn.length-1, c; i >= 0 && (c = cn[i]); i--){
+        var cn = row.childNodes, i, c;
+        for(i = cn.length-1; i >= 0 && (c = cn[i]); i--){
             if(!c.firstChild){
                 row.removeChild(c);
             }
@@ -254,10 +259,6 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
         delete this.extrasTr;
         Ext.layout.ToolbarLayout.superclass.destroy.call(this);
     }
-    /**
-     * @property activeItem
-     * @hide
-     */
 });
 
 Ext.Container.LAYOUTS.toolbar = Ext.layout.ToolbarLayout;

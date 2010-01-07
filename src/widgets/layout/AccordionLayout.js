@@ -112,7 +112,7 @@ Ext.layout.AccordionLayout = Ext.extend(Ext.layout.FitLayout, {
         c.header.addClass('x-accordion-hd');
         c.on('beforeexpand', this.beforeExpand, this);
     },
-    
+
     onRemove: function(c){
         Ext.layout.AccordionLayout.superclass.onRemove.call(this, c);
         if(c.rendered){
@@ -147,12 +147,12 @@ Ext.layout.AccordionLayout = Ext.extend(Ext.layout.FitLayout, {
     // private
     setItemSize : function(item, size){
         if(this.fill && item){
-            var hh = 0;
-            this.container.items.each(function(p){
-                if(p != item){
+            var hh = 0, i, ct = this.getRenderedItems(this.container), len = ct.length, p;
+            for (i = 0; i < len; i++) {
+                if((p = ct[i]) != item){
                     hh += p.header.getHeight();
-                }    
-            });
+                }
+            };
             size.height -= hh;
             item.setSize(size);
         }
@@ -165,7 +165,7 @@ Ext.layout.AccordionLayout = Ext.extend(Ext.layout.FitLayout, {
     setActiveItem : function(item){
         this.setActive(item, true);
     },
-    
+
     // private
     setActive : function(item, expand){
         var ai = this.activeItem;
