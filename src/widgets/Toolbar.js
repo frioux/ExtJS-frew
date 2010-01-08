@@ -4,12 +4,16 @@
  * Layout manager implicitly used by Ext.Toolbar.
  */
 Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
-    monitorResize : true,
     triggerWidth : 18,
     lastOverflow : false,
-    forceLayout : true,
 
     noItemsMenuText : '<div class="x-toolbar-no-items">(None)</div>',
+
+    // private
+    // This is not a sizing layout. Layout is a no-op.
+    // Container.doLayout calls renderAll to ensure all child items are rendered, so all laying out code is in there
+    layout: Ext.emptyFn,
+
     // private
     renderAll : function(ct, target){
         if(!this.leftTr){
@@ -21,27 +25,29 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
             this.rightTr = target.child('tr.x-toolbar-right-row', true);
             this.extrasTr = target.child('tr.x-toolbar-extras-row', true);
         }
-    },
-
-    onLayout : function(ct, target){
-        var side = ct.buttonAlign == 'right' ? this.rightTr : this.leftTr,
+        var side,
+            defaultSide = this.leftTr,
             pos = 0,
-            i, c, td,
-            items = ct.items.items,
-            len = items.length;
+            items = ct.items.items;
 
-        for(i = 0; i < len; i++, pos++) {
+        for(var i = 0, len = items.length, c; i < len; i++, pos++) {
             c = items[i];
+
+//          Fill changes the *default* side.
+//          Individual align configs may override without changing the default.
             if(c.isFill){
-                side = this.rightTr;
-                pos = -1;
-            }else if(!c.rendered){
-                c.render(this.insertCell(c, side, pos));
-            }else{
-                if(!c.xtbHidden && !this.isValidParent(c, side.childNodes[pos])){
-                    td = this.insertCell(c, side, pos);
-                    td.appendChild(c.getPositionEl().dom);
-                    c.container = Ext.get(td);
+                defaultSide = this.rightTr;
+                pos = 0;
+            } else {
+                side = this[c.align + 'Tr'] || defaultSide;
+                if(!c.rendered){
+                    c.render(this.insertCell(c, side, pos));
+                }else{
+                    if(!c.xtbHidden && !this.isValidParent(c, side.childNodes[pos])){
+                        var td = this.insertCell(c, side, pos);
+                        td.appendChild(c.getPositionEl().dom);
+                        c.container = Ext.get(td);
+                    }
                 }
             }
         }
