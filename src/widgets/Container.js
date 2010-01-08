@@ -869,7 +869,7 @@ tb.{@link #doLayout}();             // refresh the layout
 
     //private. Here's the ambiguous event "afterlayout". It means deep render, AND/OR resize!
     onLayout : function() {
-        this.fireEvent('afterlayout', this);
+        this.fireEvent('afterlayout', this, this.layout);
     },
 
     onResize : function(adjWidth, adjHeight, rawWidth, rawHeight){
