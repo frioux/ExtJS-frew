@@ -1092,7 +1092,9 @@ var myGrid = new Ext.grid.EditorGridPanel({
                 t = this;
 
             while(t && i < last){
-                t = t.ownerCt;
+                if (t.ownerCt) {
+                    t = t.ownerCt;
+                }
                 ++i;
             }
             if(t){
