@@ -28,6 +28,26 @@ var myImage = new Ext.BoxComponent({
  */
 Ext.BoxComponent = Ext.extend(Ext.Component, {
 
+    // Configs below are used for all Components when rendered by BoxLayout.
+    /**
+     * @cfg {Number} flex
+     * <p><b>Note</b>: this config is only used when this Component is rendered
+     * by a Container which has been configured to use a <b>{@link Ext.layout.BoxLayout BoxLayout}.</b>
+     * Each child Component with a <code>flex</code> property will be flexed either vertically (by a VBoxLayout)
+     * or horizontally (by an HBoxLayout) according to the item's <b>relative</b> <code>flex</code> value
+     * compared to the sum of all Components with <code>flex</flex> value specified. Any child items that have
+     * either a <code>flex = 0</code> or <code>flex = undefined</code> will not be 'flexed' (the initial size will not be changed).
+     */
+    // Configs below are used for all Components when rendered by AnchorLayout.
+    /**
+     * @cfg {String} anchor <p><b>Note</b>: this config is only used when this Component is rendered
+     * by a Container which has been configured to use an <b>{@link Ext.layout.AnchorLayout AnchorLayout} (or subclass thereof).</b>
+     * based layout manager, for example:<div class="mdetail-params"><ul>
+     * <li>{@link Ext.form.FormPanel}</li>
+     * <li>specifying <code>layout: 'anchor' // or 'form', or 'absolute'</code></li>
+     * </ul></div></p>
+     * <p>See {@link Ext.layout.AnchorLayout}.{@link Ext.layout.AnchorLayout#anchor anchor} also.</p>
+     */
     // tabTip config is used when a BoxComponent is a child of a TabPanel
     /**
      * @cfg {String} tabTip

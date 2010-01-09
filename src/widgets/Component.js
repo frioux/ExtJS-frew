@@ -434,17 +434,6 @@ new Ext.FormPanel({
 </code></pre>
      */
 
-    // Configs below are used for all Components when rendered by AnchorLayout.
-    /**
-     * @cfg {String} anchor <p><b>Note</b>: this config is only used when this Component is rendered
-     * by a Container which has been configured to use an <b>{@link Ext.layout.AnchorLayout AnchorLayout}</b>
-     * based layout manager, for example:<div class="mdetail-params"><ul>
-     * <li>{@link Ext.form.FormPanel}</li>
-     * <li>specifying <code>layout: 'anchor' // or 'form', or 'absolute'</code></li>
-     * </ul></div></p>
-     * <p>See {@link Ext.layout.AnchorLayout}.{@link Ext.layout.AnchorLayout#anchor anchor} also.</p>
-     */
-
     /**
      * @cfg {String} id
      * <p>The <b>unique</b> id of this component (defaults to an {@link #getId auto-assigned id}).
