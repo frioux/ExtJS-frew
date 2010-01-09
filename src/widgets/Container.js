@@ -486,8 +486,15 @@ items: [
             this.activeItem = this.layout.activeItem = this.getComponent(ai);
         }
 
+        // Disable onResize when rendering this container for the first time, BoxComponent triggers onResize
+        // which will start a needless layout storm.
+        this.suspendLayoutResize = true;
+
         // Render this Container. No child items will be rendered by this call.
         Ext.Container.superclass.afterRender.call(this);
+
+        // Re-enable onResize
+        delete this.suspendLayoutResize;
 
         // If we have no ownerCt, render and size all children
         if(!this.ownerCt){
@@ -850,6 +857,7 @@ tb.{@link #doLayout}();             // refresh the layout
                         ch.deepLayout();
                     }
                 }
+
                 // Measure twice, this will now include changes the child elements may have made
                 c.lastLayoutTargetSize = c.getLayoutTargetSize();
             }
