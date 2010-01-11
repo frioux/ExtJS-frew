@@ -82,11 +82,12 @@ Ext.ux.tree.TreeGridSorter = Ext.extend(Ext.tree.TreeSorter, {
     },
 
     onAfterTreeRender : function() {
-        var hmenu = this.tree.hmenu;
-        hmenu.insert(0,
-            {itemId:'asc', text: this.sortAscText, cls: 'xg-hmenu-sort-asc'},
-            {itemId:'desc', text: this.sortDescText, cls: 'xg-hmenu-sort-desc'}
-        );
+        if(this.tree.hmenu){
+            this.tree.hmenu.insert(0,
+                {itemId:'asc', text: this.sortAscText, cls: 'xg-hmenu-sort-asc'},
+                {itemId:'desc', text: this.sortDescText, cls: 'xg-hmenu-sort-desc'}
+            );
+        }
         this.updateSortIcon(0, 'asc');
     },
 
