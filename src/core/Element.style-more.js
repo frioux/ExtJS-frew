@@ -250,39 +250,36 @@ Ext.Element.addMethods(function(){
          * or omitted to return the full area of the element within the border. See <a href="http://www.w3.org/TR/CSS2/box.html">http://www.w3.org/TR/CSS2/box.html</a>
          * @return {Object} An object containing the elements's area: <code>{width: &lt;element width>, height: &lt;element height>}</code>
          */
+
         getViewSize : function(contentBox){
             var doc = document,
                 me = this,
                 d = me.dom,
                 extdom = Ext.lib.Dom,
                 isDoc = (d == doc || d == doc.body),
-                isBB, w, h, tbBorder = 0, lrBorder = 0,
-                tbPadding = 0, lrPadding = 0;
+                isBB, w, h, tb, lr;
             if (isDoc) {
                 return { width: extdom.getViewWidth(), height: extdom.getViewHeight() };
             }
             isBB = me.isBorderBox();
-            tbBorder = me.getBorderWidth('tb');
-            lrBorder = me.getBorderWidth('lr');
-            tbPadding = me.getPadding('tb');
-            lrPadding = me.getPadding('lr');
 
             // Width calcs
             // Try the style first, then clientWidth, then offsetWidth
             if (w = me.getStyle('width').match(pxMatch)){
                 if ((w = parseFloat(w[1])) && isBB){
                     // Style includes the padding and border if isBB
-                    w -= (lrBorder + lrPadding);
+                    lr = me.getPadding('lr');
+                    w -= (me.getBorderWidth('lr') + lr);
                 }
                 if (!contentBox){
-                    w += lrPadding;
+                    w += lr || me.getPadding('lr');
                 }
             } else {
                 if (!(w = d.clientWidth) && (w = d.offsetWidth)){
-                    w -= lrBorder;
+                    w -= me.getBorderWidth('lr');
                 }
                 if (w && contentBox){
-                    w -= lrPadding;
+                    w -= me.getPadding('lr');
                 }
             }
 
@@ -291,17 +288,18 @@ Ext.Element.addMethods(function(){
             if (h = me.getStyle('height').match(pxMatch)){
                 if ((h = parseFloat(h[1])) && isBB){
                     // Style includes the padding and border if isBB
-                    h -= (tbBorder + tbPadding);
+                    tb = me.getPadding('tb');
+                    h -= (me.getBorderWidth('tb') + tb);
                 }
                 if (!contentBox){
-                    h += tbPadding;
+                    h += tb || me.getPadding('tb');
                 }
             } else {
                 if (!(h = d.clientHeight) && (h = d.offsetHeight)){
-                    h -= tbBorder;
+                    h -= me.getBorderWidth('tb');
                 }
                 if (h && contentBox){
-                    h -= tbPadding;
+                    h -= me.getPadding('tb');
                 }
             }
 
