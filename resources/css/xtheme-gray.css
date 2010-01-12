@@ -228,7 +228,7 @@ ul.x-tab-strip-bottom{
 }
 
 .x-trigger-wrap-focus .x-form-trigger{
-    border-bottom-color:#7eadd9;
+    border-bottom-color: #7eadd9;
 }
 
 .x-item-disabled .x-form-trigger-over{
@@ -961,13 +961,14 @@ td.x-grid3-hd-over .x-grid3-hd-inner, td.sort-desc .x-grid3-hd-inner, td.sort-as
 .x-tree-drop-ok-between .x-dd-drop-icon{
   background-image: url(../images/default/tree/drop-between.gif);
 }
+
 .x-date-picker {
-    border-color: #1b376c;
+    border-color:#585858;
     background-color:#fff;
 }
 
 .x-date-middle,.x-date-left,.x-date-right {
-	background-image: url(../images/default/shared/hd-sprite.gif);
+	background-image: url(../images/gray/hd-sprite.gif);
 	color:#fff;
 	font:bold 11px "sans serif", tahoma, verdana, helvetica;
 }
@@ -981,19 +982,19 @@ td.x-grid3-hd-over .x-grid3-hd-inner, td.sort-desc .x-grid3-hd-inner, td.sort-as
 }
 
 .x-date-right a {
-    background-image: url(../images/default/shared/right-btn.gif);
+    background-image: url(../images/gray/right-btn.gif);
 }
 
 .x-date-left a{
-	background-image: url(../images/default/shared/left-btn.gif);
+	background-image: url(../images/gray/left-btn.gif);
 }
 
 .x-date-inner th {
-    background-color:#dfecfb;
-    background-image:url(../images/default/shared/glass-bg.gif);
-	border-bottom-color:#a3bad9;
+    background-color:#D8D8D8;
+    background-image: url(../images/gray/panel/white-top-bottom.gif);
+	border-bottom-color:#AFAFAF;
     font:normal 10px arial, helvetica,tahoma,sans-serif;
-	color:#233d6d;
+	color:#595959;
 }
 
 .x-date-inner td {
@@ -1010,9 +1011,9 @@ td.x-grid3-hd-over .x-grid3-hd-inner, td.sort-desc .x-grid3-hd-inner, td.sort-as
 }
 
 .x-date-inner .x-date-selected a{
-    background-color:#dfecfb;
-	background-image:url(../images/default/shared/glass-bg.gif);
-	border-color:#8db2e3;
+    background-color:#D8D8D8;
+    background-image:url(../images/gray/glass-bg.gif);
+	border-color:#DCDCDC;
 }
 
 .x-date-inner .x-date-today a{
@@ -1028,14 +1029,14 @@ td.x-grid3-hd-over .x-grid3-hd-inner, td.sort-desc .x-grid3-hd-inner, td.sort-as
 }
 
 .x-date-bottom {
-    border-top-color:#a3bad9;
-    background-color:#dfecfb;
-    background-image:url(../images/default/shared/glass-bg.gif);
+    border-top-color:#AFAFAF;
+    background-color:#D8D8D8;
+    background:#D8D8D8 url(../images/gray/panel/white-top-bottom.gif) 0 -2px;
 }
 
 .x-date-inner a:hover, .x-date-inner .x-date-disabled a:hover{
     color:#000;
-    background-color:#ddecfe;
+    background-color:#D8D8D8;
 }
 
 .x-date-inner .x-date-disabled a {
@@ -1061,34 +1062,34 @@ td.x-grid3-hd-over .x-grid3-hd-inner, td.sort-desc .x-grid3-hd-inner, td.sort-as
 }
 
 .x-date-mp-btns button {
-	background-color:#083772;
+	background-color:#4E565F;
 	color:#fff;
-	border-color: #3366cc #000055 #000055 #3366cc;
+	border-color:#C0C0C0 #434343 #434343 #C0C0C0;
 	font:normal 11px arial, helvetica,tahoma,sans-serif;
 }
 
 .x-date-mp-btns {
-    background-color: #dfecfb;
-	background-image: url(../images/default/shared/glass-bg.gif);
+    background-color:#D8D8D8;
+    background:#D8D8D8 url(../images/gray/panel/white-top-bottom.gif) 0 -2px;
 }
 
 .x-date-mp-btns td {
-	border-top-color: #c5d2df;
+	border-top-color:#AFAFAF;
 }
 
 td.x-date-mp-month a,td.x-date-mp-year a {
-	color:#333;
+	color: #333;
 }
 
 td.x-date-mp-month a:hover,td.x-date-mp-year a:hover {
 	color:#333;
-	background-color: #ddecfe;
+	background-color:#FDFDFD;
 }
 
 td.x-date-mp-sel a {
-    background-color: #dfecfb;
-	background-image: url(../images/default/shared/glass-bg.gif);
-	border-color:#8db2e3;
+    background-color:#D8D8D8;
+    background:#D8D8D8 url(../images/gray/panel/white-top-bottom.gif) 0 -2px;
+	border-color:#DCDCDC;
 }
 
 .x-date-mp-ybtn a {
@@ -1096,8 +1097,9 @@ td.x-date-mp-sel a {
 }
 
 td.x-date-mp-sep {
-   border-right-color:#c5d2df;
+   border-right-color:#D7D7D7;
 }
+
 .x-tip .x-tip-close{
 	background-image: url(../images/gray/qtip/close.gif);
 }
@@ -1142,7 +1144,7 @@ td.x-date-mp-sep {
 }
 
 .x-menu-floating{
-    border-color:#718bb7;
+    border-color:#7D7D7D;
 }
 
 .x-menu-nosep {
@@ -1197,7 +1199,7 @@ a.x-menu-item {
 }
 
 .x-menu .x-date-picker{
-    border-color:#a3bad9;
+    border-color:#AFAFAF;
 }
 
 .x-cycle-menu .x-menu-item-checked {
