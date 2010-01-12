@@ -510,14 +510,15 @@ var combo = new Ext.form.ComboBox({
     // private
     initList : function(){
         if(!this.list){
-            var cls = 'x-combo-list';
+            var cls = 'x-combo-list',
+                listParent = Ext.getDom(this.getListParent() || Ext.getBody());
 
             this.list = new Ext.Layer({
-                parentEl: this.getListParent(),
+                parentEl: listParent,
                 shadow: this.shadow,
                 cls: [cls, this.listClass].join(' '),
                 constrain:false,
-                zindex: 12000
+                zindex: (parseInt(Ext.fly(listParent).getStyle('z-index') ,10) || 12000) + 5
             });
 
             var lw = this.listWidth || Math.max(this.wrap.getWidth(), this.minListWidth);
