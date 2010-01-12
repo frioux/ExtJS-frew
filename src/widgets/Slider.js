@@ -330,6 +330,7 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
     onResize : function(w, h){
         this.innerEl.setWidth(w - (this.el.getPadding('l') + this.endEl.getPadding('r')));
         this.syncThumb();
+        Ext.Slider.superclass.onResize.apply(this, arguments);
     },
 
     //private
