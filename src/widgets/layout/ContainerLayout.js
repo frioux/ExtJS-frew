@@ -78,13 +78,11 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
         return ret;
     },
 
+    // Default getViewSize based measurement (clientHeight/clientWidth)
+    // Leave padding included
     getLayoutTargetSize : function() {
         var target = this.container.getLayoutTarget();
-        if (Ext.isIE && target && target.dom && target.getStyle('width') == 'auto') {
-            return this.IEMeasureHack(target, true);
-        } else {
-            return target ? target.getViewSize(true) : {};
-        }
+        return target ? target.getViewSize() : {};
     },
 
     // private

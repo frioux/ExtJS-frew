@@ -23,6 +23,15 @@ Ext.layout.FitLayout = Ext.extend(Ext.layout.ContainerLayout, {
     // private
     monitorResize:true,
 
+    getLayoutTargetSize : function() {
+        var target = this.container.getLayoutTarget();
+        if (!target) {
+            return {};
+        }
+        // Style Sized (scrollbars not included)
+        return target.getStyleSize();
+    },
+
     // private
     onLayout : function(ct, target){
         this.setItemSize(this.activeItem || ct.items.itemAt(0), this.layoutTargetSize);

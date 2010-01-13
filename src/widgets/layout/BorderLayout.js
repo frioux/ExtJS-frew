@@ -87,20 +87,17 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
     extraCls: 'x-border-panel',
 
-    getLayoutTargetSize : function() {
-        var target = this.container.getLayoutTarget();
-        if (Ext.isIE && target && target.dom && target.getStyle('width') == 'auto') {
-            return this.IEMeasureHack(target, false);
-        } else {
-            return target ? target.getViewSize(false) : {};
-        }
-    },
-
     // private
     onLayout : function(ct, target){
         var i, len, items = this.getRenderedItems(ct), len = items.length, collapsed = [], r, c, pos, size;
         if (!len) {
             return;
+        }
+
+        // Putting a border layout into an overflowed container is NOT permitted.
+        if (i = target.getStyle('overflow') && i != 'hidden') {
+            target.setStyle({overflow: 'hidden'});
+            this.layoutTargetSize = this.getLayoutTargetSize();
         }
 
         size = this.layoutTargetSize;

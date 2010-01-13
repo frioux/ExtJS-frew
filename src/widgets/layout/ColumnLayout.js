@@ -72,6 +72,16 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
         return this.innerCt && c.getPositionEl().dom.parentNode == this.innerCt.dom;
     },
 
+    getLayoutTargetSize : function() {
+        var target = this.container.getLayoutTarget(), ret;
+        if (target) {
+            ret = Ext.layout.ColumnLayout.superclass.getLayoutTargetSize.call(this);
+            ret.width -= target.getPadding('lr');
+            ret.height -= target.getPadding('tb');
+        }
+        return ret;
+    },
+
     // private
     onLayout : function(ct, target){
         var cs = ct.items.items, len = cs.length, c, i;
@@ -102,7 +112,7 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
         for(i = 0; i < len; i++){
             c = cs[i];
             if(!c.columnWidth){
-                pw -= (c.getSize().width + c.getPositionEl().getMargins('lr'));
+                pw -= (c.getWidth() + c.getPositionEl().getMargins('lr'));
             }
         }
 
@@ -114,6 +124,18 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
                 c.setSize(Math.floor(c.columnWidth * pw) - c.getPositionEl().getMargins('lr'));
             }
         }
+
+        // Browsers differ as to when they account for scrollbars.  We need to re-measure to see if the scrollbar
+        // spaces were accounted for properly.  If not, re-layout.
+        if (ct.autoScroll && !this.adjustmentPass) {
+            var ts = this.getLayoutTargetSize();
+            if (ts.width != size.width){
+                this.adjustmentPass = true;
+                this.layoutTargetSize = ts;
+                this.onLayout(ct, target);
+            }
+        }
+        delete this.adjustmentPass;
     }
 
     /**

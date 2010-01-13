@@ -849,7 +849,7 @@ tb.{@link #doLayout}();             // refresh the layout
             // Only layout if the size actually changes (or 1st time)
             if (!(lts = c.lastLayoutTargetSize) || lts.height != ts.height || lts.width != ts.width){
                 // Cut once
-                this.layout.layout();
+                c.layout();
 
                 // Recurse child Containers
                 for(i = 0; i < len; i++){

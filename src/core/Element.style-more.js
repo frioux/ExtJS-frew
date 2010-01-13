@@ -38,28 +38,6 @@ Ext.Element.addMethods(function(){
             return ret;
         },
 
-        // deprecated
-        getStyleSize : function(){
-            var me = this,
-                w,
-                h,
-                d = this.dom,
-                s = d.style;
-            if(s.width && s.width != 'auto'){
-                w = parseFloat(s.width);
-                if(me.isBorderBox()){
-                   w -= me.getFrameWidth('lr');
-                }
-            }
-            if(s.height && s.height != 'auto'){
-                h = parseFloat(s.height);
-                if(me.isBorderBox()){
-                   h -= me.getFrameWidth('tb');
-                }
-            }
-            return {width: w || me.getWidth(true), height: h || me.getHeight(true)};
-        },
-
         // private  ==> used by ext full
         setOverflow : function(v){
             var dom = this.dom;
@@ -251,62 +229,60 @@ Ext.Element.addMethods(function(){
          * @return {Object} An object containing the elements's area: <code>{width: &lt;element width>, height: &lt;element height>}</code>
          */
 
-        getViewSize : function(contentBox){
+        getViewSize : function(){
             var doc = document,
-                me = this,
-                d = me.dom,
-                extdom = Ext.lib.Dom,
-                isDoc = (d == doc || d == doc.body),
-                isBB, w, h, tb, lr;
+                d = this.dom,
+                isDoc = (d == doc || d == doc.body);
+
+            // If the body, use Ext.lib.Dom
             if (isDoc) {
-                return { width: extdom.getViewWidth(), height: extdom.getViewHeight() };
-            }
-            isBB = me.isBorderBox();
+                var extdom = Ext.lib.Dom;
+                return {
+                    width : extdom.getViewWidth(),
+                    height : extdom.getViewHeight()
+                }
 
-            // Width calcs
-            // Try the style first, then clientWidth, then offsetWidth
-            if (w = me.getStyle('width').match(pxMatch)){
-                if ((w = parseFloat(w[1])) && isBB){
-                    // Style includes the padding and border if isBB
-                    lr = me.getPadding('lr');
-                    w -= (me.getBorderWidth('lr') + lr);
-                }
-                if (!contentBox){
-                    w += lr || me.getPadding('lr');
-                }
+            // Else use clientHeight/clientWidth
             } else {
-                if (!(w = d.clientWidth) && (w = d.offsetWidth)){
-                    w -= me.getBorderWidth('lr');
-                }
-                if (w && contentBox){
-                    w -= me.getPadding('lr');
+                return {
+                    width : d.clientWidth,
+                    height : d.clientHeight
                 }
             }
+        },
 
-            // Height calcs
-            // Try the style first, then clientHeight, then offsetHeight
-            if (h = me.getStyle('height').match(pxMatch)){
-                if ((h = parseFloat(h[1])) && isBB){
-                    // Style includes the padding and border if isBB
-                    tb = me.getPadding('tb');
-                    h -= (me.getBorderWidth('tb') + tb);
-                }
-                if (!contentBox){
-                    h += tb || me.getPadding('tb');
-                }
-            } else {
-                if (!(h = d.clientHeight) && (h = d.offsetHeight)){
-                    h -= me.getBorderWidth('tb');
-                }
-                if (h && contentBox){
-                    h -= me.getPadding('tb');
+        getStyleSize : function(){
+            var me = this,
+                w, h,
+                doc = document,
+                d = this.dom,
+                isDoc = (d == doc || d == doc.body),
+                s = d.style;
+
+            // If the body, use Ext.lib.Dom
+            if (isDoc) {
+                var extdom = Ext.lib.Dom;
+                return {
+                    width : extdom.getViewWidth(),
+                    height : extdom.getViewHeight()
                 }
             }
-
-            return {
-                width : w,
-                height : h
-            };
+            // Use Styles if they are set
+            if(s.width && s.width != 'auto'){
+                w = parseFloat(s.width);
+                if(me.isBorderBox()){
+                   w -= me.getFrameWidth('lr');
+                }
+            }
+            // Use Styles if they are set
+            if(s.height && s.height != 'auto'){
+                h = parseFloat(s.height);
+                if(me.isBorderBox()){
+                   h -= me.getFrameWidth('tb');
+                }
+            }
+            // Use getWidth/getHeight if style not set.
+            return {width: w || me.getWidth(true), height: h || me.getHeight(true)};
         },
 
         /**

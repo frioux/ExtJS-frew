@@ -87,6 +87,15 @@ anchor: '-50 75%'
     // private
     monitorResize:true,
 
+    getLayoutTargetSize : function() {
+        var target = this.container.getLayoutTarget();
+        if (!target) {
+            return {};
+        }
+        // Style Sized (scrollbars not included)
+        return target.getStyleSize();
+    },
+
     // private
     onLayout : function(ct, target){
         var size = this.layoutTargetSize;

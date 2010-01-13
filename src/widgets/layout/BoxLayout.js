@@ -77,13 +77,30 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
     // private
     onLayout : function(ct, target){
         if(!this.innerCt){
+            var o;
             // the innerCt prevents wrapping and shuffling while
             // the container is resizing
             this.innerCt = target.createChild({cls:this.innerCls});
             this.padding = this.parseMargins(this.padding);
+
+            // Putting a box layout into an overflowed container is NOT permitted.
+            if (o = target.getStyle('overflow') && o != 'hidden') {
+                target.setStyle({overflow: 'hidden'});
+                this.layoutTargetSize = this.getLayoutTargetSize();
+            }
         }
         // Ensure all items are rendered
         this.renderAll(ct, this.innerCt);
+    },
+
+    getLayoutTargetSize : function() {
+        var target = this.container.getLayoutTarget(), ret;
+        if (target) {
+            ret = Ext.layout.ColumnLayout.superclass.getLayoutTargetSize.call(this);
+            ret.width -= target.getPadding('lr');
+            ret.height -= target.getPadding('tb');
+        }
+        return ret;
     },
 
     // private
@@ -322,7 +339,7 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         Ext.layout.HBoxLayout.superclass.onLayout.call(this, ct, target);
 
         var cs = this.getRenderedItems(ct), csLen = cs.length,
-            c, i, cm, cw, margin, ch, diff,
+            c, i, cm, cw, ch, diff, availWidth,
             size = this.layoutTargetSize,
             w = size.width - this.scrollOffset,
             h = size.height,
@@ -351,12 +368,13 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                 cw = 0;
             }
             cm = c.margins;
-            // Determine how much width is available to flex
+            // Determine how much static width there is (calculated and set)
             extraWidth += cw + cm.left + cm.right;
             // Max height for align
             maxHeight = Math.max(maxHeight, c.getHeight() + cm.top + cm.bottom);
         }
-        extraWidth = w - extraWidth - this.padding.left - this.padding.right;
+        // Calculate how much width is left to 'flex' into
+        availWidth = Math.max(0, (w - extraWidth - this.padding.left - this.padding.right));
 
         var innerCtHeight = maxHeight + this.padding.top + this.padding.bottom;
         switch(this.align){
@@ -372,8 +390,7 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                 break;
         }
 
-        var availWidth = Math.max(0, extraWidth),
-            leftOver = availWidth,
+        var leftOver = availWidth,
             widths = [],
             restore = [],
             idx = 0,

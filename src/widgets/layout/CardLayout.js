@@ -111,6 +111,8 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
 
             // Shallow layout the card
             item.show();
+            // Since this layout is shallow, we need to get a fresh card size
+            this.layoutTargetSize = this.getLayoutTargetSize();
             this.layout();
 
             // Render if needed
