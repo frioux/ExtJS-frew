@@ -119,7 +119,7 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
             if(!item.rendered){
                  if(item.render){
                     // Shallow render the item
-                    this.renderAll(item, this.container.getLayoutTarget());
+                    this.renderItem(item, this.container.items.indexOf(item), this.container.getLayoutTarget());
                     // Now we can deepRender the item's children as normal and deepLayout
                     item.deepRender(true);
                  }
