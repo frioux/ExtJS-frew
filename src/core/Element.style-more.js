@@ -224,9 +224,11 @@ Ext.Element.addMethods(function(){
         });
         // To handle window resizing you would have to hook onto onWindowResize.
         </code></pre>
-         * @param {Boolean} contentBox True to return the W3 content box <i>within</i> the padding area of the element. False
-         * or omitted to return the full area of the element within the border. See <a href="http://www.w3.org/TR/CSS2/box.html">http://www.w3.org/TR/CSS2/box.html</a>
-         * @return {Object} An object containing the elements's area: <code>{width: &lt;element width>, height: &lt;element height>}</code>
+
+        getViewSize utilizes clientHeight/clientWidth which excludes sizing of scrollbars.
+        To obtain the size including scrollbars, use getStyleSize
+
+        Sizing of the document body is handled at the adapter level which handles special cases for IE and strict modes, etc.
          */
 
         getViewSize : function(){
@@ -250,6 +252,16 @@ Ext.Element.addMethods(function(){
                 }
             }
         },
+
+        /**
+         * <p>Returns the dimensions of the element available to lay content out in.<p>
+        </code></pre>
+
+        getStyleSize utilizes prefers style sizing if present, otherwise it chooses the larger of offsetHeight/clientHeight and offsetWidth/clientWidth.
+        To obtain the size excluding scrollbars, use getViewSize
+
+        Sizing of the document body is handled at the adapter level which handles special cases for IE and strict modes, etc.
+         */
 
         getStyleSize : function(){
             var me = this,
