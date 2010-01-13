@@ -66,13 +66,23 @@ var p = new Ext.Panel({
 Ext.ux.layout.RowLayout = Ext.extend(Ext.layout.ContainerLayout, {
     // private
     monitorResize:true,
-    
+
     // private
     allowContainerRemove: false,
 
     // private
     isValidParent : function(c, target){
-        return c.getEl().dom.parentNode == this.innerCt.dom;
+        return this.innerCt && c.getPositionEl().dom.parentNode == this.innerCt.dom;
+    },
+
+    getLayoutTargetSize : function() {
+        var target = this.container.getLayoutTarget(), ret;
+        if (target) {
+            ret = Ext.layout.ColumnLayout.superclass.getLayoutTargetSize.call(this);
+            ret.width -= target.getPadding('lr');
+            ret.height -= target.getPadding('tb');
+        }
+        return ret;
     },
 
     // private
@@ -85,7 +95,7 @@ Ext.ux.layout.RowLayout = Ext.extend(Ext.layout.ContainerLayout, {
         }
         this.renderAll(ct, this.innerCt);
 
-        var size = target.getViewSize(true);
+        var size = this.layoutTargetSize;
 
         if(size.width < 1 && size.height < 1){ // display none?
             return;
@@ -102,7 +112,7 @@ Ext.ux.layout.RowLayout = Ext.extend(Ext.layout.ContainerLayout, {
         for(i = 0; i < len; i++){
             r = rs[i];
             if(!r.rowHeight){
-                ph -= (r.getSize().height + r.getEl().getMargins('tb'));
+                ph -= (r.getHeight() + r.getEl().getMargins('tb'));
             }
         }
 
@@ -114,6 +124,18 @@ Ext.ux.layout.RowLayout = Ext.extend(Ext.layout.ContainerLayout, {
                 r.setSize({height: Math.floor(r.rowHeight*ph) - r.getEl().getMargins('tb')});
             }
         }
+
+        // Browsers differ as to when they account for scrollbars.  We need to re-measure to see if the scrollbar
+        // spaces were accounted for properly.  If not, re-layout.
+        if (ct.autoScroll && !this.adjustmentPass) {
+            var ts = this.getLayoutTargetSize();
+            if (ts.width != size.width){
+                this.adjustmentPass = true;
+                this.layoutTargetSize = ts;
+                this.onLayout(ct, target);
+            }
+        }
+        delete this.adjustmentPass;
     }
 
     /**
