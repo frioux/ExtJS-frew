@@ -223,13 +223,13 @@ Ext.Element.addMethods(function(){
             height: vpSize.height * 0.95
         });
         // To handle window resizing you would have to hook onto onWindowResize.
-        </code></pre>
-
-        getViewSize utilizes clientHeight/clientWidth which excludes sizing of scrollbars.
-        To obtain the size including scrollbars, use getStyleSize
-
-        Sizing of the document body is handled at the adapter level which handles special cases for IE and strict modes, etc.
-         */
+        * </code></pre>
+        *
+        * getViewSize utilizes clientHeight/clientWidth which excludes sizing of scrollbars.
+        * To obtain the size including scrollbars, use getStyleSize
+        *
+        * Sizing of the document body is handled at the adapter level which handles special cases for IE and strict modes, etc.
+        */
 
         getViewSize : function(){
             var doc = document,
@@ -254,14 +254,13 @@ Ext.Element.addMethods(function(){
         },
 
         /**
-         * <p>Returns the dimensions of the element available to lay content out in.<p>
-        </code></pre>
-
-        getStyleSize utilizes prefers style sizing if present, otherwise it chooses the larger of offsetHeight/clientHeight and offsetWidth/clientWidth.
-        To obtain the size excluding scrollbars, use getViewSize
-
-        Sizing of the document body is handled at the adapter level which handles special cases for IE and strict modes, etc.
-         */
+        * <p>Returns the dimensions of the element available to lay content out in.<p>
+        *
+        * getStyleSize utilizes prefers style sizing if present, otherwise it chooses the larger of offsetHeight/clientHeight and offsetWidth/clientWidth.
+        * To obtain the size excluding scrollbars, use getViewSize
+        *
+        * Sizing of the document body is handled at the adapter level which handles special cases for IE and strict modes, etc.
+        */
 
         getStyleSize : function(){
             var me = this,
