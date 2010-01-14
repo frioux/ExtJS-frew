@@ -94,15 +94,9 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
     // private
     onLayout : function(ct, target){
-        var i, len, items = this.getRenderedItems(ct), len = items.length, collapsed = [], r, c, pos, size;
+        var i, len, items = this.getRenderedItems(ct), len = items.length, collapsed = [], r, c, pos, size, cs;
         if (!len) {
             return;
-        }
-
-        // Putting a border layout into an overflowed container is NOT permitted.
-        if (i = target.getStyle('overflow') && i != 'hidden') {
-            target.setStyle({overflow: 'hidden'});
-            this.layoutTargetSize = this.getLayoutTargetSize();
         }
 
         size = this.layoutTargetSize;
@@ -133,9 +127,9 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
         }
 
         if(Ext.layout.BorderLayout.WARN !== false){
-            for (i = 0, ct = ct.items.items, len = ct.length; i < len; i++) {
-                if (ct[i].region == 'center') {
-                    c = ct[i];
+            for (i = 0, cs = ct.items.items, len = cs.length; i < len; i++) {
+                if (cs[i].region == 'center') {
+                    c = cs[i];
                 }
             }
             if (!c) throw 'No center region defined in BorderLayout ' + ct.id;
@@ -210,6 +204,17 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
         if(Ext.isIE && Ext.isStrict){ // workaround IE strict repainting issue
             target.repaint();
         }
+
+        // Putting a border layout into an overflowed container is NOT correct and will make a second layout pass necessary.
+        if (i = target.getStyle('overflow') && i != 'hidden' && !this.adjustmentPass) {
+            var ts = this.getLayoutTargetSize();
+            if (ts.width != size.width || ts.height != size.height){
+                this.adjustmentPass = true;
+                this.layoutTargetSize = ts;
+                this.onLayout(ct, target);
+            }
+        }
+        delete this.adjustmentPass;
     },
 
     destroy: function() {

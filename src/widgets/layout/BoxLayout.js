@@ -82,12 +82,13 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
             // the container is resizing
             this.innerCt = target.createChild({cls:this.innerCls});
             this.padding = this.parseMargins(this.padding);
-
+/*
             // Putting a box layout into an overflowed container is NOT permitted.
             if (o = target.getStyle('overflow') && o != 'hidden') {
                 target.setStyle({overflow: 'hidden'});
                 this.layoutTargetSize = this.getLayoutTargetSize();
             }
+*/
         }
         // Ensure all items are rendered
         this.renderAll(ct, this.innerCt);
@@ -284,6 +285,16 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             }
             t += ch + cm.bottom;
         }
+        // Putting a box layout into an overflowed container is NOT correct and will make a second layout pass necessary.
+        if (i = target.getStyle('overflow') && i != 'hidden' && !this.adjustmentPass) {
+            var ts = this.getLayoutTargetSize();
+            if (ts.width != size.width || ts.height != size.height){
+                this.adjustmentPass = true;
+                this.layoutTargetSize = ts;
+                this.onLayout(ct, target);
+            }
+        }
+        delete this.adjustmentPass;
     }
 });
 
@@ -454,6 +465,16 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                 }
             }
         }
+        // Putting a box layout into an overflowed container is NOT correct and will make a second layout pass necessary.
+        if (i = target.getStyle('overflow') && i != 'hidden' && !this.adjustmentPass) {
+            var ts = this.getLayoutTargetSize();
+            if (ts.width != size.width || ts.height != size.height){
+                this.adjustmentPass = true;
+                this.layoutTargetSize = ts;
+                this.onLayout(ct, target);
+            }
+        }
+        delete this.adjustmentPass;
     }
 });
 
