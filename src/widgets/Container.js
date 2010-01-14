@@ -480,11 +480,13 @@ items: [
         }
         this.setLayout(this.layout);
 
-        // If a CardLayout, the active item set // JCA Move this into the layouts
+        // If a CardLayout, the active item set
         var ai = Ext.isDefined(this.activeItem) ? this.activeItem : this.activeTab;
         if (Ext.isDefined(ai)) {
+            this.activeItem = this.layout.activeItem = this.getComponent(ai);
+            var item = this.activeItem;
             delete this.activeItem;
-            this.layout.setActiveItem(ai);
+            this.layout.setActiveItem(item);
         }
 
         // Disable onResize when rendering this container for the first time, BoxComponent triggers onResize
@@ -842,9 +844,8 @@ tb.{@link #doLayout}();             // refresh the layout
         if (!this.hidden && !this.collapsed) {
             delete this.deferLayout; // Remove just in case it's there
             c = this.layout;
-            ft = c.hasLayout;
 
-            // Measure target size, and cache the measurement into the layout's layoutTargetSize.
+            // Measure target view size, and cache the measurement into the layout's layoutTargetSize.
             ts = c.layoutTargetSize = c.getLayoutTargetSize();
 
             // Only layout if the size actually changes (or 1st time)
