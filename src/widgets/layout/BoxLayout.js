@@ -166,7 +166,7 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         Ext.layout.VBoxLayout.superclass.onLayout.call(this, ct, target);
 
         var cs = this.getRenderedItems(ct), csLen = cs.length,
-            c, i, m, ch, margin, cl, diff, aw,
+            c, i, m, ch, margin, cl, diff, aw, availHeight,
             size = this.layoutTargetSize,
             w = size.width,
             h = size.height - this.scrollOffset,
@@ -242,10 +242,10 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             // Determine how much height is available to flex
             extraHeight += ch + cm.top + cm.bottom;
         }
-        extraHeight = h - extraHeight - this.padding.top - this.padding.bottom;
+        // Final avail height calc
+        availHeight = Math.max(0, (h - extraHeight - this.padding.top - this.padding.bottom));
 
-        var availHeight = Math.max(0, extraHeight),
-            leftOver = availHeight;
+        var leftOver = availHeight;
         for (i = 0 ; i < csLen; i++) {
             c = cs[i];
             if(isStart && c.flex){
@@ -255,9 +255,9 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             }
         }
         if(this.pack == 'center'){
-            t += extraHeight ? extraHeight / 2 : 0;
+            t += availHeight ? availHeight / 2 : 0;
         }else if(this.pack == 'end'){
-            t += extraHeight;
+            t += availHeight;
         }
         idx = 0;
         // Apply heights
@@ -379,12 +379,12 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                 cw = 0;
             }
             cm = c.margins;
-            // Determine how much static width there is (calculated and set)
+            // Determine how much width is available to flex
             extraWidth += cw + cm.left + cm.right;
             // Max height for align
             maxHeight = Math.max(maxHeight, c.getHeight() + cm.top + cm.bottom);
         }
-        // Calculate how much width is left to 'flex' into
+        // Final avail width calc
         availWidth = Math.max(0, (w - extraWidth - this.padding.left - this.padding.right));
 
         var innerCtHeight = maxHeight + this.padding.top + this.padding.bottom;
@@ -417,9 +417,9 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         }
 
         if(this.pack == 'center'){
-            l += extraWidth ? extraWidth / 2 : 0;
+            l += availWidth ? availWidth / 2 : 0;
         }else if(this.pack == 'end'){
-            l += extraWidth;
+            l += availWidth;
         }
         for (i = 0 ; i < csLen; i++) {
             c = cs[i];
