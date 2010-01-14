@@ -13,7 +13,7 @@ Ext.onReady(function(){
             Ext.example.msg('Color Selected', 'You chose {0}.', color);
         }
     });
-    
+
     var store = new Ext.data.ArrayStore({
         fields: ['abbr', 'state'],
         data : Ext.exampledata.states // from states.js
@@ -28,6 +28,7 @@ Ext.onReady(function(){
         emptyText: 'Select a state...',
         selectOnFocus: true,
         width: 135,
+        listAlign  : [ 'tl-bl?',  [27, 0]],  //adjust list offsets for use as a menuItem
         getListParent: function() {
             return this.el.up('.x-menu');
         },
@@ -195,7 +196,7 @@ Ext.onReady(function(){
         cls: 'x-btn-icon',
         tooltip: '<b>Quick Tips</b><br/>Icon only button with tooltip'
     }, '-');
-    
+
     var scrollMenu = new Ext.menu.Menu();
     for (var i = 0; i < 50; ++i){
         scrollMenu.add({

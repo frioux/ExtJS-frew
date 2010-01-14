@@ -183,8 +183,10 @@ Ext.form.ComboBox = Ext.extend(Ext.form.TriggerField, {
      */
     shadow : 'sides',
     /**
-     * @cfg {String} listAlign A valid anchor position value. See <tt>{@link Ext.Element#alignTo}</tt> for details
-     * on supported anchor positions (defaults to <tt>'tl-bl?'</tt>)
+     * @cfg {String/Array} listAlign A valid anchor position value. See <tt>{@link Ext.Element#alignTo}</tt> for details
+     * on supported anchor positions and offsets. To specify x/y offsets as well, this value
+     * may be specified as an Array of <tt>{@link Ext.Element#alignTo}</tt> method arguments.</p>
+     * <pre><code>[ 'tl-bl?', [6,0] ]</code></pre>(defaults to <tt>'tl-bl?'</tt>)
      */
     listAlign : 'tl-bl?',
     /**
@@ -511,14 +513,22 @@ var combo = new Ext.form.ComboBox({
     initList : function(){
         if(!this.list){
             var cls = 'x-combo-list',
-                listParent = Ext.getDom(this.getListParent() || Ext.getBody());
+                listParent = Ext.getDom(this.getListParent() || Ext.getBody()),
+                zindex = parseInt(Ext.fly(listParent).getStyle('z-index') ,10);
+
+            if (this.ownerCt && !zindex){
+                this.findParentBy(function(ct){
+                    zindex = parseInt(ct.getPositionEl().getStyle('z-index'), 10);
+                    return !!zindex;
+                });
+            }
 
             this.list = new Ext.Layer({
                 parentEl: listParent,
                 shadow: this.shadow,
                 cls: [cls, this.listClass].join(' '),
                 constrain:false,
-                zindex: (parseInt(Ext.fly(listParent).getStyle('z-index') ,10) || 12000) + 5
+                zindex: (zindex || 12000) + 5
             });
 
             var lw = this.listWidth || Math.max(this.wrap.getWidth(), this.minListWidth);
@@ -1043,7 +1053,7 @@ var menu = new Ext.menu.Menu({
         this.innerList.setHeight(h);
         this.list.beginUpdate();
         this.list.setHeight(h+pad);
-        this.list.alignTo(this.wrap, this.listAlign);
+        this.list.alignTo.apply(this.list, [this.wrap].concat(this.listAlign));
         this.list.endUpdate();
     },
 
@@ -1237,7 +1247,7 @@ var menu = new Ext.menu.Menu({
             this.doResize(this.bufferSize);
             delete this.bufferSize;
         }
-        this.list.alignTo(this.wrap, this.listAlign);
+        this.list.alignTo.apply(this.list, [this.wrap].concat(this.listAlign));
         this.list.show();
         if(Ext.isGecko2){
             this.innerList.setOverflow('auto'); // necessary for FF 2.0/Mac
