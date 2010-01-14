@@ -1662,6 +1662,12 @@ panel.load({
                 Ext.destroy(this.tools[k]);
             }
         }
+        if(this.toolbars.length > 0){
+            Ext.each(this.toolbars, function(tb){
+                tb.un('afterlayout', this.syncHeight, this);
+                tb.un('remove', this.syncHeight, this);
+            }, this);
+        }
         if(Ext.isArray(this.buttons)){
             while(this.buttons.length) {
                 Ext.destroy(this.buttons[0]);
