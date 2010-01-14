@@ -849,7 +849,7 @@ tb.{@link #doLayout}();             // refresh the layout
             ts = c.layoutTargetSize = c.getLayoutTargetSize();
 
             // Only layout if the size actually changes (or 1st time)
-            if (!(lts = c.lastLayoutTargetSize) || lts.height != ts.height || lts.width != ts.width){
+            //if (!(lts = c.lastLayoutTargetSize) || lts.height != ts.height || lts.width != ts.width){
                 // Cut once
                 c.layout();
 
@@ -861,8 +861,8 @@ tb.{@link #doLayout}();             // refresh the layout
                 }
 
                 // Measure twice, this will now include changes the child elements may have made
-                c.lastLayoutTargetSize = c.getLayoutTargetSize();
-            }
+                //c.lastLayoutTargetSize = c.getLayoutTargetSize();
+            //}
         } else {
             this.deferLayout = true;
         }

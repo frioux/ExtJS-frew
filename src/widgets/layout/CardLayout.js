@@ -113,9 +113,8 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
             // Change activeItem reference
             this.activeItem = item;
 
-            // Shallow layout the card
+            // Show the new component
             item.show();
-            // Since this layout is shallow, we need to get a fresh card size
 
             // If the container is hidden, we need to show it to get good measurements before the sizing process.
             // Needs edge case testing - JCA

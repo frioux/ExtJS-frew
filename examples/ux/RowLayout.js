@@ -127,12 +127,14 @@ Ext.ux.layout.RowLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
         // Browsers differ as to when they account for scrollbars.  We need to re-measure to see if the scrollbar
         // spaces were accounted for properly.  If not, re-layout.
-        if (i = target.getStyle('overflow') && i != 'hidden' && !this.adjustmentPass) {
-            var ts = this.getLayoutTargetSize();
-            if (ts.width != size.width){
-                this.adjustmentPass = true;
-                this.layoutTargetSize = ts;
-                this.onLayout(ct, target);
+        if (Ext.isIE) {
+            if (i = target.getStyle('overflow') && i != 'hidden' && !this.adjustmentPass) {
+                var ts = this.getLayoutTargetSize();
+                if (ts.width != size.width){
+                    this.adjustmentPass = true;
+                    this.layoutTargetSize = ts;
+                    this.onLayout(ct, target);
+                }
             }
         }
         delete this.adjustmentPass;
