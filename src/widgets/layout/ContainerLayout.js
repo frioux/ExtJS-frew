@@ -78,8 +78,11 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
         return ret;
     },
 
-    // Default getViewSize based measurement (clientHeight/clientWidth)
-    // Leave padding included
+    // Placeholder for the derived layouts
+    getLayoutTargetSize : function() {
+        return {};
+    },
+
     getLayoutTargetSize : function() {
         var target = this.container.getLayoutTarget();
         return target ? target.getViewSize() : {};

@@ -94,8 +94,9 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
      * @param {String/Number} item The string component id or numeric index of the item to activate
      */
     setActiveItem : function(item){
-        var ai = this.activeItem;
-        item = this.container.getComponent(item);
+        var ai = this.activeItem,
+            ct = this.container;
+        item = ct.getComponent(item);
 
         // Is this a valid, different card?
         if(item && ai != item){
@@ -103,6 +104,9 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
             // Changing cards, hide the current one
             if(ai){
                 ai.hide();
+                if (ai.hidden !== true) {
+                    return false;
+                }
                 ai.fireEvent('deactivate', ai);
             }
 
@@ -112,21 +116,13 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
             // Shallow layout the card
             item.show();
             // Since this layout is shallow, we need to get a fresh card size
-            this.layoutTargetSize = this.getLayoutTargetSize();
-            this.layout();
 
-            // Render if needed
-            if(!item.rendered){
-                 if(item.render){
-                    // Shallow render the item
-                    this.renderItem(item, this.container.items.indexOf(item), this.container.getLayoutTarget());
-                    // Now we can deepRender the item's children as normal and deepLayout
-                    item.deepRender(true);
-                 }
-            // Layout if 1st time (no lastLayoutTargetSize) or layoutOnCardChange set
-            } else if (item.deepLayout && (!item.layout.lastLayoutTargetSize || this.layoutOnCardChange)){
-                item.deepLayout();
+            // If the container is hidden, we need to show it to get good measurements before the sizing process.
+            // Needs edge case testing - JCA
+            if (ct.hidden === true){
+                ct.show();
             }
+            ct.deepRender(true);
             item.fireEvent('activate', item);
         }
     },

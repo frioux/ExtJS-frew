@@ -87,6 +87,11 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
     extraCls: 'x-border-panel',
 
+    getLayoutTargetSize : function() {
+        var target = this.container.getLayoutTarget();
+        return target ? target.getViewSize() : {};
+    },
+
     // private
     onLayout : function(ct, target){
         var i, len, items = this.getRenderedItems(ct), len = items.length, collapsed = [], r, c, pos, size;

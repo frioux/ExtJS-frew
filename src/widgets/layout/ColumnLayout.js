@@ -75,7 +75,7 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
     getLayoutTargetSize : function() {
         var target = this.container.getLayoutTarget(), ret;
         if (target) {
-            ret = Ext.layout.ColumnLayout.superclass.getLayoutTargetSize.call(this);
+            ret = target.getViewSize();
             ret.width -= target.getPadding('lr');
             ret.height -= target.getPadding('tb');
         }
@@ -127,7 +127,7 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
         // Browsers differ as to when they account for scrollbars.  We need to re-measure to see if the scrollbar
         // spaces were accounted for properly.  If not, re-layout.
-        if (ct.autoScroll && !this.adjustmentPass) {
+        if (i = target.getStyle('overflow') && i != 'hidden' && !this.adjustmentPass) {
             var ts = this.getLayoutTargetSize();
             if (ts.width != size.width){
                 this.adjustmentPass = true;

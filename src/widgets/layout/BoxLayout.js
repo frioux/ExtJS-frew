@@ -96,7 +96,7 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
     getLayoutTargetSize : function() {
         var target = this.container.getLayoutTarget(), ret;
         if (target) {
-            ret = Ext.layout.ColumnLayout.superclass.getLayoutTargetSize.call(this);
+            ret = target.getViewSize();
             ret.width -= target.getPadding('lr');
             ret.height -= target.getPadding('tb');
         }
