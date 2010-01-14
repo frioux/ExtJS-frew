@@ -247,16 +247,26 @@ div#jobs p strong {
 <!--[if lte IE 6]>
 <style type="text/css">
 
-* html img,
-* html .png {
-    position:relative;
-    behavior: expression((this.runtimeStyle.behavior="none")&&(this.pngSet?this.pngSet=true:(this.nodeName == "IMG" && this.src.toLowerCase().indexOf('.png')>-1?(this.runtimeStyle.backgroundImage = "none",
-        this.runtimeStyle.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + this.src + "', sizingMethod='image')",
-        this.src = "transparent.gif"):(this.origBg = this.origBg? this.origBg :this.currentStyle.backgroundImage.toString().replace('url("','').replace('")',''),
-        this.runtimeStyle.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + this.origBg + "', sizingMethod='crop')",
-        this.runtimeStyle.backgroundImage = "none")),this.pngSet=true)
-    );
+body {
+	background: #f7f7f7;
 }
+
+#page {
+	background: url(welcome/images/header_ie6.png) no-repeat 50% 0;
+}
+
+#learn h2 {
+	background: url(welcome/images/h_learn_ie6.png) no-repeat 0 0;
+}
+
+#engage h2 {
+	background: url(welcome/images/h_engage_ie6.png) no-repeat 0 0;
+}
+
+#license h2 {
+	background: url(welcome/images/h_license_ie6.png) no-repeat 0 0;
+}
+
   
 </style>  
 <![endif]-->
