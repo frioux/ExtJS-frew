@@ -28,7 +28,6 @@ Ext.onReady(function(){
         emptyText: 'Select a state...',
         selectOnFocus: true,
         width: 135,
-        listAlign  : [ 'tl-bl?',  [27, 0]],  //adjust list offsets for use as a menuItem
         getListParent: function() {
             return this.el.up('.x-menu');
         },

@@ -1053,7 +1053,7 @@ var menu = new Ext.menu.Menu({
         this.innerList.setHeight(h);
         this.list.beginUpdate();
         this.list.setHeight(h+pad);
-        this.list.alignTo.apply(this.list, [this.wrap].concat(this.listAlign));
+        this.list.alignTo.apply(this.list, [this.el].concat(this.listAlign));
         this.list.endUpdate();
     },
 
@@ -1247,7 +1247,7 @@ var menu = new Ext.menu.Menu({
             this.doResize(this.bufferSize);
             delete this.bufferSize;
         }
-        this.list.alignTo.apply(this.list, [this.wrap].concat(this.listAlign));
+        this.list.alignTo.apply(this.list, [this.el].concat(this.listAlign));
         this.list.show();
         if(Ext.isGecko2){
             this.innerList.setOverflow('auto'); // necessary for FF 2.0/Mac
