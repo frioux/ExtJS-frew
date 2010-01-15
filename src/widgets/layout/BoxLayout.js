@@ -75,26 +75,23 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
     },
 
     // private
-    onLayout : function(ct, target){
+    renderAll : function(ct, target){
         if(!this.innerCt){
-            var o;
             // the innerCt prevents wrapping and shuffling while
             // the container is resizing
             this.innerCt = target.createChild({cls:this.innerCls});
             this.padding = this.parseMargins(this.padding);
-/*
-            // Putting a box layout into an overflowed container is NOT permitted.
-            if (o = target.getStyle('overflow') && o != 'hidden') {
-                target.setStyle({overflow: 'hidden'});
-                this.layoutTargetSize = this.getLayoutTargetSize();
-            }
-*/
         }
-        // Ensure all items are rendered
-        this.renderAll(ct, this.innerCt);
+        Ext.layout.BoxLayout.superclass.renderAll.call(this, ct, this.innerCt);
     },
 
-    getLayoutTargetSize : function() {
+    onLayout : function(ct, target){
+        if(!this.innerCt){
+            this.renderAll(ct, target);
+        }
+    },
+
+    getLayoutTargetSize : function(){
         var target = this.container.getLayoutTarget(), ret;
         if (target) {
             ret = target.getViewSize();
@@ -166,7 +163,7 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         Ext.layout.VBoxLayout.superclass.onLayout.call(this, ct, target);
 
         var cs = this.getRenderedItems(ct), csLen = cs.length,
-            c, i, m, ch, margin, cl, diff, aw, availHeight,
+            c, i, cm, ch, margin, cl, diff, aw, availHeight,
             size = this.layoutTargetSize,
             w = size.width,
             h = size.height - this.scrollOffset,
@@ -229,9 +226,8 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             // Don't run height calculations on flexed items
             if (!c.flex) {
                 // Render and layout sub-containers without a flex or height, once
-                if (!c.height && !c.hasLayout && c.deepRender && !c.deepRendered) {
-                    c.deepRendered = true;
-                    c.deepRender(true);
+                if (!c.height && !c.hasLayout && c.doLayout) {
+                    c.doLayout();
                 }
                 ch = c.getHeight();
             } else {
@@ -370,9 +366,8 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             // Don't run width calculations on flexed items
             if (!c.flex) {
                 // Render and layout sub-containers without a flex or width, once
-                if (!c.width && !c.hasLayout && c.deepRender && !c.deepRendered) {
-                    c.deepRendered = true;
-                    c.deepRender(true);
+                if (!c.width && !c.hasLayout && c.doLayout) {
+                    c.doLayout();
                 }
                 cw = c.getWidth();
             } else {

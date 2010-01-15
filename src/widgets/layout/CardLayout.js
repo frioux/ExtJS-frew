@@ -121,7 +121,7 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
             if (ct.hidden === true){
                 ct.show();
             }
-            ct.deepRender(true);
+            ct.doLayout();
             item.fireEvent('activate', item);
         }
     },

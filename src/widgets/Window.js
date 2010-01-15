@@ -536,7 +536,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
             Ext.EventManager.onWindowResize(this.onWindowResize, this);
         }
         this.doConstrain();
-        this.deepLayout();
+        this.doLayout();
         if(this.keyMap){
             this.keyMap.enable();
         }

@@ -82,17 +82,23 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
         return ret;
     },
 
-    // private
-    onLayout : function(ct, target){
-        var cs = ct.items.items, len = cs.length, c, i;
-
+    renderAll : function(ct, target) {
         if(!this.innerCt){
             // the innerCt prevents wrapping and shuffling while
             // the container is resizing
             this.innerCt = target.createChild({cls:'x-column-inner'});
             this.innerCt.createChild({cls:'x-clear'});
         }
-        this.renderAll(ct, this.innerCt);
+        Ext.layout.ColumnLayout.superclass.renderAll.call(this, ct, this.innerCt);
+    },
+
+    // private
+    onLayout : function(ct, target){
+        var cs = ct.items.items, len = cs.length, c, i;
+
+        if(!this.innerCt){
+            this.renderAll(ct, target);
+        }
 
         var size = this.layoutTargetSize;
 

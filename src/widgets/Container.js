@@ -501,7 +501,7 @@ items: [
 
         // If we have no ownerCt, render and size all children
         if(!this.ownerCt){
-            this.deepRender(true);
+            this.doLayout();
             /* Be more intelligent about when to monitor a window resize.
                Only top level containers which have monitorResize set should be fired.
                This will trigger a deepLayout down to all it's children.
@@ -790,39 +790,55 @@ tb.{@link #doLayout}();             // refresh the layout
      * @param {Boolean} force (optional) True to force a layout to occur, even if the item is hidden.
      * @return {Ext.Container} this
      */
-    doLayout: function(shallow){
-        if (shallow) {
-            this.layout.renderAll(this, this.getLayoutTarget());
-            this.layout.layout();
-        } else {
-            this.deepRender(true);
+
+    doLayout: function(shallow) {
+        var cs = this.items ? this.items.items : [], len = cs.length, i, c, ch;
+
+        // Disable onResize for all children while in the cascade
+        for(i = 0; i < len; i++){
+            if ((ch = cs[i]).layout) {
+                ch.suspendLayoutResize = true;
+            }
         }
-    },
 
-    // private. Recursively renders all unrendered descendant Components.
-    // Optionally performs sizing (Only needed if the Container is to be made visible)
-    deepRender: function(doSizing) {
-        var cs, len, i, c;
+        // Process layout's layout
+        if (!this.hidden && !this.collapsed) {
+            delete this.deferLayout; // Remove just in case it's there
+            c = this.layout;
 
-        if (this.rendered && this.layout && this.layout.renderAll) {
-            doSizing = doSizing && !this.hidden && !this.collapsed;
+            // Measure target view size, and cache the measurement into the layout's layoutTargetSize.
 
-            // Render all our child Components. No sizing done.
-            this.layout.renderAll(this, this.getLayoutTarget());
+            // Only layout if the size actually changes (or 1st time)
+            //if (!(lts = c.lastLayoutTargetSize) || lts.height != ts.height || lts.width != ts.width){
+                // Cut once
+                c.renderAll(this, this.getLayoutTarget());
+                c.layoutTargetSize = c.getLayoutTargetSize();
+                c.layout();
 
-            // Require that all child Containers also perform a deep render
-            cs = this.items ? this.items.items : [];
-            for(i = 0, len = cs.length; i < len; i++){
-                if ((c = cs[i]).deepRender) {
-                    c.deepRender();
+                if (!shallow) {
+                    // Recurse child Containers
+                    for(i = 0; i < len; i++){
+                        if ((ch = cs[i]).rendered && ch.doLayout){
+                            ch.doLayout();
+                        }
+                    }
                 }
-            }
-            if (doSizing) {
-                this.deepLayout(true);
-            } else {
-                this.onLayout(); // fire "afterlayout" event (misnomer, it's a render...)
+
+                // Measure twice, this will now include changes the child elements may have made
+                //c.lastLayoutTargetSize = c.getLayoutTargetSize();
+            //}
+        } else {
+            this.deferLayout = true;
+        }
+
+        // Enable onResize
+        for(i = 0; i < len; i++){
+            if ((ch = cs[i]).layout) {
+                delete ch.suspendLayoutResize;
             }
         }
+
+        this.onLayout();
     },
 
     // private. Recursively resizes all Components in Containers.

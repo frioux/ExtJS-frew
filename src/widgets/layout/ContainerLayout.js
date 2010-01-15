@@ -124,6 +124,7 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
                 c.render(target, position);
                 this.configureItem(c, position);
             }else if(!this.isValidParent(c, target)){
+                console.log('move');
                 if(Ext.isNumber(position)){
                     position = target.dom.childNodes[position];
                 }

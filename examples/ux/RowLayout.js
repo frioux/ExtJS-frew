@@ -85,15 +85,23 @@ Ext.ux.layout.RowLayout = Ext.extend(Ext.layout.ContainerLayout, {
         return ret;
     },
 
+    renderAll : function(ct, target) {
+        if(!this.innerCt){
+            // the innerCt prevents wrapping and shuffling while
+            // the container is resizing
+            this.innerCt = target.createChild({cls:'x-column-inner'});
+            this.innerCt.createChild({cls:'x-clear'});
+        }
+        Ext.layout.ColumnLayout.superclass.renderAll.call(this, ct, this.innerCt);
+    },
+
     // private
     onLayout : function(ct, target){
         var rs = ct.items.items, len = rs.length, r, i;
 
         if(!this.innerCt){
-            target.addClass('ux-row-layout-ct');
-            this.innerCt = target.createChild({cls:'x-row-inner'});
+            this.renderAll(ct, target);
         }
-        this.renderAll(ct, this.innerCt);
 
         var size = this.layoutTargetSize;
 
