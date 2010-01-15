@@ -1276,6 +1276,14 @@
         "dest": "examples/",
         "filters": ".*[\\.html|\\.jpg|\\.png|\\.gif|\\.css|\\.js|\\.php]"
     },{
+        "src": "welcome/",
+        "dest": "welcome/",
+        "filters": ".*"
+    },{
+        "src": "index.html",
+        "dest": "index.html",
+        "filters": ".*"
+    },{
         "src": "resources/",
         "dest": "resources/",
         "filters": ".*"
