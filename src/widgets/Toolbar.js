@@ -25,29 +25,23 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
             this.rightTr = target.child('tr.x-toolbar-right-row', true);
             this.extrasTr = target.child('tr.x-toolbar-extras-row', true);
         }
-        var side,
-            defaultSide = this.leftTr,
+
+        var side = ct.buttonAlign == 'right' ? this.rightTr : this.leftTr,
             pos = 0,
             items = ct.items.items;
 
         for(var i = 0, len = items.length, c; i < len; i++, pos++) {
             c = items[i];
-
-//          Fill changes the *default* side.
-//          Individual align configs may override without changing the default.
             if(c.isFill){
-                defaultSide = this.rightTr;
-                pos = 0;
-            } else {
-                side = this[c.align + 'Tr'] || defaultSide;
-                if(!c.rendered){
-                    c.render(this.insertCell(c, side, pos));
-                }else{
-                    if(!c.xtbHidden && !this.isValidParent(c, side.childNodes[pos])){
-                        var td = this.insertCell(c, side, pos);
-                        td.appendChild(c.getPositionEl().dom);
-                        c.container = Ext.get(td);
-                    }
+                side = this.rightTr;
+                pos = -1;
+            }else if(!c.rendered){
+                c.render(this.insertCell(c, side, pos));
+            }else{
+                if(!c.xtbHidden && !this.isValidParent(c, side.childNodes[pos])){
+                    var td = this.insertCell(c, side, pos);
+                    td.appendChild(c.getPositionEl().dom);
+                    c.container = Ext.get(td);
                 }
             }
         }
