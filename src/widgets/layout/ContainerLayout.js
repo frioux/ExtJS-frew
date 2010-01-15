@@ -83,11 +83,6 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
         return {};
     },
 
-    getLayoutTargetSize : function() {
-        var target = this.container.getLayoutTarget();
-        return target ? target.getViewSize() : {};
-    },
-
     // private
     layout : function(){
         var target = this.container.getLayoutTarget();
