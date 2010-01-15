@@ -501,7 +501,7 @@ items: [
 
         // If we have no ownerCt, render and size all children
         if(!this.ownerCt){
-            this.doLayout();
+            this.doLayout(false, true);
             /* Be more intelligent about when to monitor a window resize.
                Only top level containers which have monitorResize set should be fired.
                This will trigger a deepLayout down to all it's children.
@@ -791,20 +791,20 @@ tb.{@link #doLayout}();             // refresh the layout
      * @return {Ext.Container} this
      */
 
-    doLayout: function(shallow) {
-        var cs = this.items ? this.items.items : [], len = cs.length, i, c, ch;
+    doLayout: function(shallow, force){
+        var cs = this.items ? this.items.items : [], len = cs.length, i, c, ch,
+            forceLayout = force || this.forceLayout;
 
-        // Disable onResize for all children while in the cascade
-        for(i = 0; i < len; i++){
-            if ((ch = cs[i]).layout) {
-                ch.suspendLayoutResize = true;
-            }
-        }
-
-        // Process layout's layout
-        if (!this.hidden && !this.collapsed) {
+        if ((!this.hidden && !this.collapsed) || forceLayout) {
             delete this.deferLayout; // Remove just in case it's there
             c = this.layout;
+
+            // Disable onResize for all children while in the cascade
+            for(i = 0; i < len; i++){
+                if ((ch = cs[i]).layout) {
+                    ch.suspendLayoutResize = true;
+                }
+            }
 
             // Measure target view size, and cache the measurement into the layout's layoutTargetSize.
 
@@ -819,7 +819,7 @@ tb.{@link #doLayout}();             // refresh the layout
                     // Recurse child Containers
                     for(i = 0; i < len; i++){
                         if ((ch = cs[i]).rendered && ch.doLayout){
-                            ch.doLayout();
+                            ch.doLayout(false, shallow);
                         }
                     }
                 }
@@ -827,18 +827,22 @@ tb.{@link #doLayout}();             // refresh the layout
                 // Measure twice, this will now include changes the child elements may have made
                 //c.lastLayoutTargetSize = c.getLayoutTargetSize();
             //}
+
+            // Enable onResize
+            for(i = 0; i < len; i++){
+                if ((ch = cs[i]).layout) {
+                    delete ch.suspendLayoutResize;
+                }
+            }
         } else {
+            // Hidden or collapsed, I can't size correctly... but I can still render
+            // This may supplant forced layouts
+            if (this.rendered && this.layout && this.layout.renderAll) {
+                this.layout.renderAll(this, this.getLayoutTarget());
+            }
             this.deferLayout = true;
         }
-
-        // Enable onResize
-        for(i = 0; i < len; i++){
-            if ((ch = cs[i]).layout) {
-                delete ch.suspendLayoutResize;
-            }
-        }
-
-        this.onLayout();
+        this.onLayout(shallow, forceLayout);
     },
 
     // private. Recursively resizes all Components in Containers.
@@ -849,17 +853,17 @@ tb.{@link #doLayout}();             // refresh the layout
             delete this.layout.lastLayoutTargetSize;
         }
 
-        // Disable onResize for all children while in the cascade
-        for(i = 0; i < len; i++){
-            if ((ch = cs[i]).layout) {
-                ch.suspendLayoutResize = true;
-            }
-        }
-
         // Process layout's layout
         if (!this.hidden && !this.collapsed) {
             delete this.deferLayout; // Remove just in case it's there
             c = this.layout;
+
+            // Disable onResize for all children while in the cascade
+            for(i = 0; i < len; i++){
+                if ((ch = cs[i]).layout) {
+                    ch.suspendLayoutResize = true;
+                }
+            }
 
             // Measure target view size, and cache the measurement into the layout's layoutTargetSize.
             ts = c.layoutTargetSize = c.getLayoutTargetSize();
@@ -879,24 +883,20 @@ tb.{@link #doLayout}();             // refresh the layout
                 // Measure twice, this will now include changes the child elements may have made
                 //c.lastLayoutTargetSize = c.getLayoutTargetSize();
             //}
+
+            // Enable onResize
+            for(i = 0; i < len; i++){
+                if ((ch = cs[i]).layout) {
+                    delete ch.suspendLayoutResize;
+                }
+            }
         } else {
             this.deferLayout = true;
         }
-
-        // Enable onResize
-        for(i = 0; i < len; i++){
-            if ((ch = cs[i]).layout) {
-                delete ch.suspendLayoutResize;
-            }
-        }
-
         this.onLayout();
     },
 
-    //private. Here's the ambiguous event "afterlayout". It means deep render, AND/OR resize!
-    onLayout : function() {
-        this.fireEvent('afterlayout', this, this.layout);
-    },
+    onLayout : Ext.emptyFn,
 
     onResize : function(adjWidth, adjHeight, rawWidth, rawHeight){
         if (this.hidden || this.collapsed) {
