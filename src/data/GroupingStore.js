@@ -43,14 +43,18 @@ Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
      */
     clearGrouping : function(){
         this.groupField = false;
+
         if(this.remoteGroup){
             if(this.baseParams){
                 delete this.baseParams.groupBy;
+                delete this.baseParams.groupDir;
             }
             var lo = this.lastOptions;
             if(lo && lo.params){
                 delete lo.params.groupBy;
+                delete lo.params.groupDir;
             }
+
             this.reload();
         }else{
             this.applySort();
@@ -80,7 +84,7 @@ Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
             this.reload();
         }else{
             var si = this.sortInfo || {};
-            if(si.field != field || si.direction != direction){
+            if(forceRegroup || si.field != field || si.direction != direction){
                 this.applySort();
             }else{
                 this.sortData(field, direction);
@@ -95,11 +99,17 @@ Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
             if(!this.baseParams){
                 this.baseParams = {};
             }
-            this.baseParams.groupBy = this.groupField;
-            this.baseParams.groupDir = this.groupDir;
+            Ext.apply(this.baseParams, {
+                groupBy : this.groupField,
+                groupDir : this.groupDir
+            });
+
             var lo = this.lastOptions;
             if(lo && lo.params){
-                delete lo.params.groupBy;
+                Ext.apply(lo.params, {
+                    groupBy : this.groupField,
+                    groupDir : this.groupDir
+                });
             }
         }
     },

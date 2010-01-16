@@ -1,8 +1,9 @@
 Ext.onReady(function(){
 
     Ext.QuickTips.init();
-    
+
     var xg = Ext.grid;
+
 
     // shared reader
     var reader = new Ext.data.ArrayReader({}, [
@@ -15,14 +16,15 @@ Ext.onReady(function(){
        {name: 'desc'}
     ]);
 
-    var grid = new xg.GridPanel({
-        store: new Ext.data.GroupingStore({
+    var store = new Ext.data.GroupingStore({
             reader: reader,
             data: xg.dummyData,
             sortInfo:{field: 'company', direction: "ASC"},
             groupField:'industry'
-        }),
+        });
 
+    var grid = new xg.GridPanel({
+        store: store,
         columns: [
             {id:'company',header: "Company", width: 60, sortable: true, dataIndex: 'company'},
             {header: "Price", width: 20, sortable: true, renderer: Ext.util.Format.usMoney, dataIndex: 'price'},
@@ -43,6 +45,13 @@ Ext.onReady(function(){
         animCollapse: false,
         title: 'Grouping Example',
         iconCls: 'icon-grid',
+        fbar  : ['->', {
+            text:'Clear Grouping',
+            iconCls: 'icon-clear-group',
+            handler : function(){
+                store.clearGrouping();
+            }
+        }],
         renderTo: document.body
     });
 });
