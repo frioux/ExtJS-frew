@@ -65,13 +65,12 @@
         };
     },
 
-//  Valid if the Component is in a <li> which is part of our target <ul>
+    //  Valid if the Component is in a <li> which is part of our target <ul>
     isValidParent : function(c, target) {
         return c.el.up('li.x-menu-list-item', 5).dom.parentNode === (target.dom || target);
     },
 
     onLayout : function(ct, target){
-        this.renderAll(ct, target);
         this.doAutoSize();
     },
 
@@ -81,9 +80,15 @@
             if(w){
                 ct.setWidth(w);
             }else if(Ext.isIE){
+                // Stop container onResize since we are about to manually tweak the width multiple times
+                // without this, an infinite resize loop will occur
+                var slr = ct.suspendLayoutResize;
+                ct.suspendLayoutResize = true;
                 ct.setWidth(Ext.isStrict && (Ext.isIE7 || Ext.isIE8) ? 'auto' : ct.minWidth);
                 var el = ct.getEl(), t = el.dom.offsetWidth; // force recalc
                 ct.setWidth(ct.getLayoutTarget().getWidth() + el.getFrameWidth('lr'));
+                // Set container suspendLayoutResize back
+                ct.suspendLayoutResize = slr;
             }
         }
     }
