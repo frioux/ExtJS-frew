@@ -231,14 +231,15 @@ ul.x-tab-strip li.x-tab-edge {
 }
 
 .x-tab-strip-bottom .x-tab-strip-active .x-tab-right {
-	background: no-repeat bottom left;
-}
-
-.x-tab-strip-bottom .x-tab-strip-active .x-tab-left {
 	background: no-repeat bottom right;
 }
 
+.x-tab-strip-bottom .x-tab-strip-active .x-tab-left {
+	background: no-repeat bottom left;
+}
+
 .x-tab-strip-bottom .x-tab-left {
+    margin-right: 3px;
     padding:0 10px;
 }
 
