@@ -1400,8 +1400,8 @@ new Ext.Panel({
     afterExpand : function(anim){
         this.collapsed = false;
         this.afterEffect(anim);
-        if (this.deferResize) {
-            delete this.deferResize;
+        if (this.deferLayout) {
+            delete this.deferLayout;
             this.doLayout();
         }
         this.fireEvent('expand', this);
@@ -1486,7 +1486,7 @@ new Ext.Panel({
                     this.el._mask.setSize(this.el.dom.clientWidth, this.el.getHeight());
                 }
             }else{
-                this.deferResize = true;
+                this.deferLayout = true;
                 return;
             }
             this.onBodyResize(w, h);

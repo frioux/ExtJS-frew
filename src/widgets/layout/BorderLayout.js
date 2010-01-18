@@ -537,7 +537,7 @@ Ext.layout.BorderLayout.Region.prototype = {
         this.originalZIndex = el.getStyle('z-index');
         el.setStyle('z-index', 100);
         this.isCollapsed = true;
-        this.layout.container.deepLayout(true);
+        this.layout.container.doLayout();
     },
 
     // private
@@ -575,7 +575,7 @@ Ext.layout.BorderLayout.Region.prototype = {
         if(this.splitEl){
             this.splitEl.show();
         }
-        this.layout.container.deepLayout(true);
+        this.layout.container.doLayout();
         this.panel.el.setStyle('z-index', this.originalZIndex);
         this.state.collapsed = false;
         this.panel.saveState();
@@ -1118,7 +1118,7 @@ Ext.extend(Ext.layout.BorderLayout.SplitRegion, Ext.layout.BorderLayout.Region, 
             this.panel.setSize(newSize, s.height);
             this.state.width = newSize;
         }
-        this.layout.container.deepLayout(true);
+        this.layout.container.doLayout();
         this.panel.saveState();
         return false;
     },

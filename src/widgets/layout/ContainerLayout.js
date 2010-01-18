@@ -148,8 +148,8 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
             t.addClass(this.extraCls);
         }
         // If we are forcing a layout, do so *before* we hide so elements have height/width
-        if(c.deepLayout && this.forceLayout){
-            c.deepLayout(true);
+        if(c.doLayout && this.forceLayout){
+            c.doLayout();
         }
         if (this.renderHidden && c != this.activeItem) {
             c.hide();

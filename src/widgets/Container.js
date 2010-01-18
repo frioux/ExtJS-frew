@@ -837,7 +837,7 @@ tb.{@link #doLayout}();             // refresh the layout
                 }
             } else {
                 // Hidden or collapsed, I can't size correctly... but I can still render
-                // This may supplant forced layouts
+                // This may supplant forced layouts and DeepLayout
                 if (this.layout && this.layout.renderAll) {
                     this.layout.renderAll(this, this.getLayoutTarget());
                 }
@@ -847,8 +847,9 @@ tb.{@link #doLayout}();             // refresh the layout
         }
     },
 
+    /*
     // private. Recursively resizes all Components in Containers.
-    deepLayout: function(overrideLastSize /* perform the layout even if view size has not changed */) {
+    deepLayout: function(overrideLastSize) {
         var cs = this.items ? this.items.items : [], len = cs.length, i, c, ts, lts, ch;
 
         if (overrideLastSize) {
@@ -897,15 +898,16 @@ tb.{@link #doLayout}();             // refresh the layout
         }
         this.onLayout();
     },
+    */
 
     onLayout : Ext.emptyFn,
 
     onResize : function(adjWidth, adjHeight, rawWidth, rawHeight){
         if (this.hidden || this.collapsed) {
-            this.deferResize = true;
+            this.deferLayout = true;
         } else {
             if (this.rendered && this.layout && !this.suspendLayoutResize) {
-                this.deepLayout();
+                this.doLayout();
                 Ext.Container.superclass.onResize.apply(this, arguments);
             }
         }
@@ -914,10 +916,10 @@ tb.{@link #doLayout}();             // refresh the layout
     // The window resize does not fire the resize event in the superclass
     onWindowResize : function(adjWidth, adjHeight, rawWidth, rawHeight){
         if (this.hidden || this.collapsed) {
-            this.deferResize = true;
+            this.deferLayout = true;
         } else {
             if (this.rendered && this.layout && !this.suspendLayoutResize) {
-                this.deepLayout();
+                this.doLayout();
             }
         }
     },
@@ -929,10 +931,10 @@ tb.{@link #doLayout}();             // refresh the layout
     onShow : function(){
         // removes css classes that were added to hide
         Ext.Container.superclass.onShow.call(this);
-        // If we were sized during the time we were hidden, apply changes now.
-        if(Ext.isDefined(this.deferResize)){
-            delete this.deferResize;
-            this.deepLayout();
+        // If we were sized during the time we were hidden, layout.
+        if(Ext.isDefined(this.deferLayout)){
+            delete this.deferLayout;
+            this.doLayout();
         }
     },
 
