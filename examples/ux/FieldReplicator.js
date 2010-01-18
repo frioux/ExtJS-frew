@@ -37,6 +37,10 @@ Ext.ux.FieldReplicator = {
 
 //  Handle the field either being changed to blank or from blank.
     onChange: function(f, n, o) {
+
+//		Ensure that "change" is only fired once.
+    	f.startValue = n;
+
         var c = f.ownerCt, l,
             ps = f.previousSibling(),
             ns = f.nextSibling();
