@@ -1402,7 +1402,7 @@ new Ext.Panel({
         this.afterEffect(anim);
         if (this.deferResize) {
             delete this.deferResize;
-            this.deepLayout();
+            this.doLayout();
         }
         this.fireEvent('expand', this);
     },
