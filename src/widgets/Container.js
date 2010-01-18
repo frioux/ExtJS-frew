@@ -795,54 +795,56 @@ tb.{@link #doLayout}();             // refresh the layout
         var cs = this.items ? this.items.items : [], len = cs.length, i, c, ch,
             forceLayout = force || this.forceLayout;
 
-        if ((!this.hidden && !this.collapsed) || forceLayout) {
-            delete this.deferLayout; // Remove just in case it's there
-            c = this.layout;
+        if (this.rendered) {
+            if ((!this.hidden && !this.collapsed) || forceLayout) {
+                delete this.deferLayout; // Remove just in case it's there
+                c = this.layout;
 
-            // Disable onResize for all children while in the cascade
-            for(i = 0; i < len; i++){
-                if ((ch = cs[i]).layout) {
-                    ch.suspendLayoutResize = true;
-                }
-            }
-
-            // Measure target view size, and cache the measurement into the layout's layoutTargetSize.
-
-            // Only layout if the size actually changes (or 1st time)
-            //if (!(lts = c.lastLayoutTargetSize) || lts.height != ts.height || lts.width != ts.width){
-                // Cut once
-                c.renderAll(this, this.getLayoutTarget());
-                c.layoutTargetSize = c.getLayoutTargetSize();
-                c.layout();
-
-                if (!shallow) {
-                    // Recurse child Containers
-                    for(i = 0; i < len; i++){
-                        if ((ch = cs[i]).rendered && ch.doLayout){
-                            ch.doLayout(false, shallow);
-                        }
+                // Disable onResize for all children while in the cascade
+                for(i = 0; i < len; i++){
+                    if ((ch = cs[i]).layout) {
+                        ch.suspendLayoutResize = true;
                     }
                 }
 
-                // Measure twice, this will now include changes the child elements may have made
-                //c.lastLayoutTargetSize = c.getLayoutTargetSize();
-            //}
+                // Measure target view size, and cache the measurement into the layout's layoutTargetSize.
 
-            // Enable onResize
-            for(i = 0; i < len; i++){
-                if ((ch = cs[i]).layout) {
-                    delete ch.suspendLayoutResize;
+                // Only layout if the size actually changes (or 1st time)
+                //if (!(lts = c.lastLayoutTargetSize) || lts.height != ts.height || lts.width != ts.width){
+                    // Cut once
+                    c.renderAll(this, this.getLayoutTarget());
+                    c.layoutTargetSize = c.getLayoutTargetSize();
+                    c.layout();
+
+                    if (!shallow) {
+                        // Recurse child Containers
+                        for(i = 0; i < len; i++){
+                            if ((ch = cs[i]).rendered && ch.doLayout){
+                                ch.doLayout(false, shallow);
+                            }
+                        }
+                    }
+
+                    // Measure twice, this will now include changes the child elements may have made
+                    //c.lastLayoutTargetSize = c.getLayoutTargetSize();
+                //}
+
+                // Enable onResize
+                for(i = 0; i < len; i++){
+                    if ((ch = cs[i]).layout) {
+                        delete ch.suspendLayoutResize;
+                    }
                 }
+            } else {
+                // Hidden or collapsed, I can't size correctly... but I can still render
+                // This may supplant forced layouts
+                if (this.layout && this.layout.renderAll) {
+                    this.layout.renderAll(this, this.getLayoutTarget());
+                }
+                this.deferLayout = true;
             }
-        } else {
-            // Hidden or collapsed, I can't size correctly... but I can still render
-            // This may supplant forced layouts
-            if (this.rendered && this.layout && this.layout.renderAll) {
-                this.layout.renderAll(this, this.getLayoutTarget());
-            }
-            this.deferLayout = true;
+            this.onLayout(shallow, forceLayout);
         }
-        this.onLayout(shallow, forceLayout);
     },
 
     // private. Recursively resizes all Components in Containers.
