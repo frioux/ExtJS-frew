@@ -445,6 +445,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
             delete this.btnEl;
             Ext.ButtonToggleMgr.unregister(this);
         }
+        Ext.Button.superclass.onDestroy.call(this);
     },
 
     // private
