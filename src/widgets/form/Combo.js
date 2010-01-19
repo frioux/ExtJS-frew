@@ -504,8 +504,7 @@ var combo = new Ext.form.ComboBox({
         Ext.form.ComboBox.superclass.initValue.call(this);
         if(this.hiddenField){
             this.hiddenField.value =
-                Ext.isDefined(this.hiddenValue) ? this.hiddenValue :
-                Ext.isDefined(this.value) ? this.value : '';
+                Ext.value(Ext.isDefined(this.hiddenValue) ? this.hiddenValue : this.value, '');
         }
     },
 
@@ -984,7 +983,7 @@ var menu = new Ext.menu.Menu({
         }
         this.lastSelectionText = text;
         if(this.hiddenField){
-            this.hiddenField.value = v;
+            this.hiddenField.value = Ext.value(v, '');
         }
         Ext.form.ComboBox.superclass.setValue.call(this, text);
         this.value = v;
