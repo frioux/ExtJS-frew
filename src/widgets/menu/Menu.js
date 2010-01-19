@@ -190,6 +190,13 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
      * {@link Ext.Layer Layer}.
      */
     floating : true,
+    
+    
+    /**
+     * @cfg {Number} zIndex
+     * zIndex to use when the menu is floating.
+     */
+    zIndex: 15000,
 
     // private
     hidden : true,
@@ -289,7 +296,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
                 dh: dh,
                 constrain: false,
                 parentEl: ct,
-                zindex:15000
+                zindex: this.zIndex
             });
         }else{
             this.el = ct.createChild(dh);
