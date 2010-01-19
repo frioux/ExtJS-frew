@@ -435,8 +435,9 @@ new Ext.TabPanel({
 
     // private
     findTargets : function(e){
-        var item = null;
-        var itemEl = e.getTarget('li', this.strip);
+        var item = null,
+            itemEl = e.getTarget('li:not(.x-tab-edge)', this.strip);
+            
         if(itemEl){
             item = this.getComponent(itemEl.id.split(this.idDelimiter)[1]);
             if(item.disabled){
@@ -765,7 +766,7 @@ new Ext.TabPanel({
 
         var each = Math.max(Math.min(Math.floor((aw-4) / count) - this.tabMargin, this.tabWidth), this.minTabWidth); // -4 for float errors in IE
         this.lastTabWidth = each;
-        var lis = this.strip.query("li:not([className^=x-tab-edge])");
+        var lis = this.strip.query('li:not(.x-tab-edge)');
         for(var i = 0, len = lis.length; i < len; i++) {
             var li = lis[i],
                 inner = Ext.fly(li).child('.x-tab-strip-inner', true),
