@@ -1486,8 +1486,15 @@ new Ext.Panel({
                     this.el._mask.setSize(this.el.dom.clientWidth, this.el.getHeight());
                 }
             }else{
-                this.deferLayout = true;
-                return;
+                // Adds an event to set the correct height afterExpand.  This accounts for the deferHeight flag in panel
+                this.queuedBodySize = {width: w, height: h};
+                if(!this.queuedExpand && this.allowQueuedExpand !== false){
+                    this.queuedExpand = true;
+                    this.on('expand', function(){
+                        delete this.queuedExpand;
+                        this.onResize(this.queuedBodySize.width, this.queuedBodySize.height);
+                    }, this, {single:true});
+                }
             }
             this.onBodyResize(w, h);
         }

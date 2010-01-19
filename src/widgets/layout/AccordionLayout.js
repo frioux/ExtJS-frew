@@ -141,6 +141,8 @@ Ext.layout.AccordionLayout = Ext.extend(Ext.layout.FitLayout, {
         if(this.activeOnTop){
             p.el.dom.parentNode.insertBefore(p.el.dom, p.el.dom.parentNode.firstChild);
         }
+        // Items have been hidden an possibly rearranged, we need to get the container size again.
+        this.layoutTargetSize = this.getLayoutTargetSize();
         this.layout();
     },
 
@@ -148,12 +150,16 @@ Ext.layout.AccordionLayout = Ext.extend(Ext.layout.FitLayout, {
     setItemSize : function(item, size){
         if(this.fill && item){
             var hh = 0, i, ct = this.getRenderedItems(this.container), len = ct.length, p;
+            // Add up all the header heights
             for (i = 0; i < len; i++) {
                 if((p = ct[i]) != item){
                     hh += p.header.getHeight();
                 }
             };
+            // Subtract the header heights from the container size
             size.height -= hh;
+            // Call setSize on the container to set the correct height.  For Panels, deferedHeight
+            // will simply store this size for when the expansion is done.
             item.setSize(size);
         }
     },
