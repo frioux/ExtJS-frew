@@ -190,8 +190,8 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
      * {@link Ext.Layer Layer}.
      */
     floating : true,
-    
-    
+
+
     /**
      * @cfg {Number} zIndex
      * zIndex to use when the menu is floating.
@@ -579,9 +579,11 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
      * @param {Boolean} deep (optional) True to hide all parent menus recursively, if any (defaults to false)
      */
     hide : function(deep){
-        this.deepHide = deep;
-        Ext.menu.Menu.superclass.hide.call(this);
-        delete this.deepHide;
+        if (!this.isDestroyed) {
+            this.deepHide = deep;
+            Ext.menu.Menu.superclass.hide.call(this);
+            delete this.deepHide;
+        }
     },
 
     // private
@@ -691,6 +693,8 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
 
     //private
     onDestroy : function(){
+        Ext.EventManager.removeResizeListener(this.onWindowResize, this);
+        Ext.EventManager.removeResizeListener(this.hide, this);
         var pm = this.parentMenu;
         if(pm && pm.activeChild == this){
             delete pm.activeChild;
@@ -698,7 +702,6 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         delete this.parentMenu;
         Ext.menu.Menu.superclass.onDestroy.call(this);
         Ext.menu.MenuMgr.unregister(this);
-        Ext.EventManager.removeResizeListener(this.hide, this);
         if(this.keyNav) {
             this.keyNav.disable();
         }
