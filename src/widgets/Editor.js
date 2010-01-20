@@ -196,7 +196,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
                 this.cancelEdit();
             }
             if(field.triggerBlur){
-                field.triggerBlur(); 
+                field.triggerBlur();
             }
         }
         this.fireEvent('specialkey', field, e);
@@ -330,7 +330,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
             this.fireEvent("canceledit", this, v, this.startValue);
         }
     },
-    
+
     // private
     hideEdit: function(remainVisible){
         if(remainVisible !== true){
@@ -341,7 +341,8 @@ Ext.extend(Ext.Editor, Ext.Component, {
 
     // private
     onBlur : function(){
-        if(this.allowBlur !== true && this.editing){
+        // selectSameEditor flag allows the same editor to be started without onBlur firing on itself
+        if(this.allowBlur !== true && this.editing && this.selectSameEditor !== true){
             this.completeEdit();
         }
     },
@@ -380,7 +381,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
 
     beforeDestroy : function(){
         Ext.destroyMembers(this, 'field');
-        
+
         delete this.parentEl;
         delete this.boundEl;
     }
