@@ -67,6 +67,8 @@ Ext.ux.layout.RowLayout = Ext.extend(Ext.layout.ContainerLayout, {
     // private
     monitorResize:true,
 
+    type: 'row',
+
     // private
     allowContainerRemove: false,
 
@@ -103,7 +105,7 @@ Ext.ux.layout.RowLayout = Ext.extend(Ext.layout.ContainerLayout, {
             this.renderAll(ct, target);
         }
 
-        var size = this.layoutTargetSize;
+        var size = this.getLayoutTargetSize();
 
         if(size.width < 1 && size.height < 1){ // display none?
             return;
