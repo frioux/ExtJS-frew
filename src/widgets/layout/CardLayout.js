@@ -85,6 +85,8 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
     // private
     renderHidden : true,
 
+    type: 'card',
+
     constructor: function(config){
         Ext.layout.CardLayout.superclass.constructor.call(this, config);
     },
@@ -113,14 +115,13 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
             // Change activeItem reference
             this.activeItem = item;
 
+            // The container is about to get a recursive layout, remove any deferLayout reference
+            // because it will trigger a redundant layout.
+            delete item.deferLayout;
+
             // Show the new component
             item.show();
 
-            // If the container is hidden, we need to show it to get good measurements before the sizing process.
-            // Needs edge case testing - JCA
-            if (ct.hidden === true){
-                ct.show();
-            }
             ct.doLayout();
             item.fireEvent('activate', item);
         }
@@ -130,6 +131,11 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
     renderAll : function(ct, target){
         if(this.deferredRender){
             this.renderItem(this.activeItem, undefined, target);
+            // A new child container has entered, if it is a containers and this was during a layout
+            // it should suspend the onResize event
+            if (ct.suspendLayoutResize && this.activeItem.layout) {
+                this.activeItem.suspendLayoutResize = true;
+            }
         }else{
             Ext.layout.CardLayout.superclass.renderAll.call(this, ct, target);
         }

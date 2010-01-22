@@ -50,8 +50,11 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
     activeItem : null,
 
     constructor : function(config){
+        this.id = Ext.id(null, 'ext-layout-');
         Ext.apply(this, config);
     },
+
+    type: 'container',
 
     /* Workaround for how IE measures autoWidth elements.  It prefers bottom-up measurements over
       whereas other browser prefer top-down.  We will hide all target child elements before we measure and
@@ -79,22 +82,22 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
     },
 
     // Placeholder for the derived layouts
-    getLayoutTargetSize : function() {
-        return {};
-    },
+    getLayoutTargetSize : Ext.EmptyFn,
 
     // private
     layout : function(){
-        var target = this.container.getLayoutTarget();
+        var ct = this.container, target = ct.getLayoutTarget();
         if(!(this.hasLayout || Ext.isEmpty(this.targetCls))){
-            target.addClass(this.targetCls)
+            target.addClass(this.targetCls);
         }
-        this.onLayout(this.container, target);
-        this.hasLayout = true;
+        this.onLayout(ct, target);
+        ct.fireEvent('afterlayout', ct, this);
     },
 
-    // Placeholder for the derived layouts
-    onLayout : Ext.emptyFn,
+    // private
+    onLayout : function(ct, target){
+        this.renderAll(ct, target);
+    },
 
     // private
     isValidParent : function(c, target){
@@ -173,12 +176,29 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
         }
     },
 
-    // private DEPRECATE
+    // private
     onResize: function(){
-        //this.layout();
+        var ct = this.container,
+            b;
+        if(ct.collapsed){
+            return;
+        }
+        if(b = ct.bufferResize){
+            // Only allow if we should buffer the layout
+            if(ct.shouldBufferLayout()){
+                if(!this.resizeTask){
+                    this.resizeTask = new Ext.util.DelayedTask(this.runLayout, this);
+                    this.resizeBuffer = Ext.isNumber(b) ? b : 50;
+                }
+                ct.layoutPending = true;
+                this.resizeTask.delay(this.resizeBuffer);
+            }
+        }else{
+            ct.doLayout();
+        }
     },
 
-    // private DEPRECATE
+    // private
     runLayout: function(){
         var ct = this.container;
         ct.doLayout();
@@ -187,6 +207,18 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
 
     // private
     setContainer : function(ct){
+        if (!Ext.LayoutManager) {
+            Ext.LayoutManager = {};
+        }
+        if(this.monitorResize && ct != this.container){
+            var old = this.container;
+            if(old){
+                old.un(old.resizeEvent, this.onResize, this);
+            }
+            if(ct){
+                ct.on(ct.resizeEvent, this.onResize, this);
+            }
+        }
         this.container = ct;
     },
 

@@ -86,6 +86,8 @@ Ext.layout.AccordionLayout = Ext.extend(Ext.layout.FitLayout, {
      */
     activeOnTop : false,
 
+    type: 'accordion',
+
     renderItem : function(c){
         if(this.animate === false){
             c.animCollapse = false;
@@ -142,7 +144,6 @@ Ext.layout.AccordionLayout = Ext.extend(Ext.layout.FitLayout, {
             p.el.dom.parentNode.insertBefore(p.el.dom, p.el.dom.parentNode.firstChild);
         }
         // Items have been hidden an possibly rearranged, we need to get the container size again.
-        this.layoutTargetSize = this.getLayoutTargetSize();
         this.layout();
     },
 

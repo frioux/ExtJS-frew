@@ -60,6 +60,8 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
     // private
     monitorResize:true,
 
+    type: 'column',
+
     extraCls: 'x-column',
 
     scrollOffset : 0,
@@ -100,7 +102,7 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
             this.renderAll(ct, target);
         }
 
-        var size = this.layoutTargetSize;
+        var size = this.getLayoutTargetSize();
 
         if(size.width < 1 && size.height < 1){ // display none?
             return;
@@ -138,7 +140,6 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
                 var ts = this.getLayoutTargetSize();
                 if (ts.width != size.width){
                     this.adjustmentPass = true;
-                    this.layoutTargetSize = ts;
                     this.onLayout(ct, target);
                 }
             }

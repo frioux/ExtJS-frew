@@ -432,6 +432,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
         this.focus();
         this.updateHandles();
         this.saveState();
+        this.doLayout();
     },
 
     /**

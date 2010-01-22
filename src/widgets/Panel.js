@@ -1268,6 +1268,7 @@ new Ext.Panel({
         }
         if(this.toolbars.length > 0){
             Ext.each(this.toolbars, function(tb){
+                tb.doLayout();
                 tb.on({
                     scope: this,
                     afterlayout: this.syncHeight,
@@ -1402,7 +1403,7 @@ new Ext.Panel({
         this.afterEffect(anim);
         if (this.deferLayout) {
             delete this.deferLayout;
-            this.doLayout();
+            this.doLayout(true);
         }
         this.fireEvent('expand', this);
     },

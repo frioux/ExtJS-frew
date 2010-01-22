@@ -23,6 +23,8 @@ Ext.layout.FitLayout = Ext.extend(Ext.layout.ContainerLayout, {
     // private
     monitorResize:true,
 
+    type: 'fit',
+
     getLayoutTargetSize : function() {
         var target = this.container.getLayoutTarget();
         if (!target) {
@@ -34,7 +36,10 @@ Ext.layout.FitLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
     // private
     onLayout : function(ct, target){
-        this.setItemSize(this.activeItem || ct.items.itemAt(0), this.layoutTargetSize);
+        Ext.layout.FitLayout.superclass.onLayout.call(this, ct, target);
+        if(!ct.collapsed){
+            this.setItemSize(this.activeItem || ct.items.itemAt(0), this.getLayoutTargetSize());
+        }
     },
 
     // private

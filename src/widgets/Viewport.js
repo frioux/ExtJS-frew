@@ -98,6 +98,7 @@ Ext.Viewport = Ext.extend(Ext.Container, {
      */
 
     monitorResize: true,
+
     initComponent : function() {
         Ext.Viewport.superclass.initComponent.call(this);
         document.getElementsByTagName('html')[0].className += ' x-viewport';
@@ -109,12 +110,12 @@ Ext.Viewport = Ext.extend(Ext.Container, {
         this.allowDomMove = false;
         this.autoWidth = true;
         this.autoHeight = true;
-        //Ext.EventManager.onWindowResize(this.fireResize, this); monitorResize should be handling this now.
+        //Ext.EventManager.onWindowResize(this.fireResize, this);
         this.renderTo = this.el;
     },
 
     fireResize : function(w, h){
-        this.onResize(w, h, w, h);
+        this.fireEvent('resize', this, w, h, w, h);
     }
 });
 Ext.reg('viewport', Ext.Viewport);

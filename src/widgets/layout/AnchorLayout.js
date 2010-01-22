@@ -86,6 +86,7 @@ anchor: '-50 75%'
 
     // private
     monitorResize:true,
+    type: 'anchor',
 
     getLayoutTargetSize : function() {
         var target = this.container.getLayoutTarget();
@@ -98,7 +99,8 @@ anchor: '-50 75%'
 
     // private
     onLayout : function(ct, target){
-        var size = this.layoutTargetSize;
+        Ext.layout.AnchorLayout.superclass.onLayout.call(this, ct, target);
+        var size = this.getLayoutTargetSize();
 
         var w = size.width, h = size.height;
 

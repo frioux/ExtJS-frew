@@ -115,6 +115,8 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
      */
     trackLabels: false,
 
+    type: 'form',
+
 
     onRemove: function(c){
         Ext.layout.FormLayout.superclass.onRemove.call(this, c);

@@ -57,6 +57,7 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
     // private
     monitorResize : true,
+    type: 'box',
     scrollOffset : 0,
     extraCls : 'x-box-item',
     targetCls : 'x-box-layout-ct',
@@ -136,6 +137,7 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
      * </ul></div>
      */
     align : 'left', // left, center, stretch, strechmax
+    type: 'vbox',
     /**
      * @cfg {String} pack
      * Controls how the child items of the container are packed together. Acceptable configuration values
@@ -164,7 +166,7 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
 
         var cs = this.getRenderedItems(ct), csLen = cs.length,
             c, i, cm, ch, margin, cl, diff, aw, availHeight,
-            size = this.layoutTargetSize,
+            size = this.getLayoutTargetSize(),
             w = size.width,
             h = size.height - this.scrollOffset,
             l = this.padding.left,
@@ -286,7 +288,6 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             var ts = this.getLayoutTargetSize();
             if (ts.width != size.width || ts.height != size.height){
                 this.adjustmentPass = true;
-                this.layoutTargetSize = ts;
                 this.onLayout(ct, target);
             }
         }
@@ -319,6 +320,7 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
      * the height of the largest item.</div></li>
      */
     align : 'top', // top, middle, stretch, strechmax
+    type: 'hbox',
     /**
      * @cfg {String} pack
      * Controls how the child items of the container are packed together. Acceptable configuration values
@@ -347,7 +349,7 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
 
         var cs = this.getRenderedItems(ct), csLen = cs.length,
             c, i, cm, cw, ch, diff, availWidth,
-            size = this.layoutTargetSize,
+            size = this.getLayoutTargetSize(),
             w = size.width - this.scrollOffset,
             h = size.height,
             l = this.padding.left,
@@ -465,7 +467,6 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             var ts = this.getLayoutTargetSize();
             if (ts.width != size.width || ts.height != size.height){
                 this.adjustmentPass = true;
-                this.layoutTargetSize = ts;
                 this.onLayout(ct, target);
             }
         }

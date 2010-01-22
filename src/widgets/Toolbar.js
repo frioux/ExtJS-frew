@@ -4,18 +4,14 @@
  * Layout manager implicitly used by Ext.Toolbar.
  */
 Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
+    monitorResize : true,
     triggerWidth : 18,
     lastOverflow : false,
 
     noItemsMenuText : '<div class="x-toolbar-no-items">(None)</div>',
 
     // private
-    // This is not a sizing layout. Layout is a no-op.
-    // Container.doLayout calls renderAll to ensure all child items are rendered, so all laying out code is in there
-    layout: Ext.emptyFn,
-
-    // private
-    renderAll : function(ct, target){
+    onLayout : function(ct, target){
         if(!this.leftTr){
             var align = ct.buttonAlign == 'center' ? 'center' : 'left';
             target.addClass('x-toolbar-layout-ct');

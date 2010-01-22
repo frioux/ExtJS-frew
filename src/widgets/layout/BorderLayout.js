@@ -83,6 +83,8 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
     // private
     rendered : false,
 
+    type: 'border',
+
     targetCls: 'x-border-layout-ct',
 
     extraCls: 'x-border-panel',
@@ -94,12 +96,13 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
     // private
     onLayout : function(ct, target){
+        Ext.layout.BorderLayout.superclass.onLayout.call(this, ct, target);
         var i, len, items = this.getRenderedItems(ct), len = items.length, collapsed = [], r, c, pos, size, cs;
         if (!len) {
             return;
         }
 
-        size = this.layoutTargetSize;
+        size = this.getLayoutTargetSize();
         if(size.width < 20 || size.height < 20){ // display none?
             return;
         }
@@ -210,7 +213,6 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
             var ts = this.getLayoutTargetSize();
             if (ts.width != size.width || ts.height != size.height){
                 this.adjustmentPass = true;
-                this.layoutTargetSize = ts;
                 this.onLayout(ct, target);
             }
         }
