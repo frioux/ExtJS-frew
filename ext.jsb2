@@ -1257,6 +1257,79 @@
            "path": "resources/css/visual/"
        }]
     },{
+       "name": "Ext Gray Theme",
+       "file": "resources/css/xtheme-gray.css",
+       "fileIncludes": [{
+           "text": "core.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "tabs.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "form.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "button.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "toolbar.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "resizable.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "grid.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "dd.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "tree.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "date-picker.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "qtips.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "menu.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "box.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "combo.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "panel.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "window.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "editor.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "borders.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "layout.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "progress.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "list-view.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "slider.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "dialog.css",
+           "path": "resources/css/theme-gray/"
+       }]
+    },{
        "name": "Ext Debug CSS",
        "file": "resources/css/debug.css",
        "fileIncludes": [{
