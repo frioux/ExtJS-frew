@@ -1330,6 +1330,79 @@
            "path": "resources/css/theme-gray/"
        }]
     },{
+       "name": "Ext Accessibility Theme",
+       "file": "resources/css/xtheme-access.css",
+       "fileIncludes": [{
+           "text": "core.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "tabs.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "form.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "button.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "toolbar.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "resizable.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "grid.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "dd.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "tree.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "date-picker.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "qtips.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "menu.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "box.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "combo.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "panel.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "window.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "editor.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "borders.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "layout.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "progress.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "list-view.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "slider.css",
+           "path": "resources/css/theme-access/"
+       },{
+           "text": "dialog.css",
+           "path": "resources/css/theme-access/"
+       }]
+    },{
        "name": "Ext Debug CSS",
        "file": "resources/css/debug.css",
        "fileIncludes": [{
