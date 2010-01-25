@@ -72,7 +72,7 @@ Ext.sql.Table.prototype = {
 	},
 
 	remove : function(clause){
-		this.deleteBy(clause, null);
+		this.removeBy(clause, null);
 	},
 
 	removeBy : function(clause, args){
