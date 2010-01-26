@@ -168,7 +168,7 @@ ul.x-tab-strip li.x-tab-edge {
 /*
  * Horrible hack for IE8 in quirks mode
  */
-.ext-border-box .ext-ie8 .x-tab-strip .x-tab-right{
+.ext-ie8 .x-tab-strip .x-tab-right{
     top: 1px;
 }
 
