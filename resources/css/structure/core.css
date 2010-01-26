@@ -91,6 +91,7 @@
     zoom: 1;
     background-color: transparent;
     -moz-outline: none;
+    outline: none;
 }
 
 .x-item-disabled {

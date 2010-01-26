@@ -22,6 +22,7 @@
 
 .x-grid3-hd-row td, .x-grid3-row td, .x-grid3-summary-row td{
     -moz-outline: none;
+    outline: none;
 	-moz-user-focus: normal;
 }
 
