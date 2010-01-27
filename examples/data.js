@@ -53,7 +53,7 @@ Ext.samples.samplesCatalog = [{
         text: 'Key Feed Viewer',
         url:  'key-feed-viewer/view.html',
         icon: 'keyboard.gif',
-        desc: 'Keyboard navigation within a complex layout',
+        desc: 'Keyboard navigation within a complex layout using the Accessibility theme.',
         status: 'experimental'
     },{
         text: 'ARIA Tree',
