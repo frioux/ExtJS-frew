@@ -806,7 +806,7 @@ tb.{@link #doLayout}();             // refresh the layout
         var rendered = this.rendered,
             forceLayout = force || this.forceLayout;
 
-        if(!this.canLayout() || this.collapsed){
+        if(this.collapsed || !this.canLayout()){
             this.deferLayout = this.deferLayout || !shallow;
             if(!forceLayout){
                 return;
