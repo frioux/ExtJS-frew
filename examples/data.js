@@ -53,7 +53,7 @@ Ext.samples.samplesCatalog = [{
         text: 'Key Feed Viewer',
         url:  'key-feed-viewer/view.html',
         icon: 'keyboard.gif',
-        desc: 'Keyboard navigation within a complex layout using the Accessibility theme.',
+        desc: 'Keyboard navigation within a complex layout.',
         status: 'experimental'
     },{
         text: 'ARIA Tree',
@@ -61,6 +61,17 @@ Ext.samples.samplesCatalog = [{
         icon: 'acc-tree.gif',
         desc: 'Demonstrating ARIA with a TreePanel',
         status: 'experimental'
+    },{
+        text: 'Custom Search Fields',
+        url: 'form/custom-access.html',
+        icon: 'form-custom-access.gif',
+        desc: 'A TriggerField search extension combined with an XTemplate for custom results rendering. Uses the Accessibility theme.'
+    },{
+        text: 'Binding a Grid to a Form',
+        url:  'form/form-grid-access.html',
+        icon: 'form-grid-binding-access.gif',
+        desc: 'A grid embedded within a FormPanel that uses the Accessibility theme.'
+
     }]
 },{
     title: 'Grids',
