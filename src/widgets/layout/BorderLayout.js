@@ -87,8 +87,6 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
     targetCls: 'x-border-layout-ct',
 
-    extraCls: 'x-border-panel',
-
     getLayoutTargetSize : function() {
         var target = this.container.getLayoutTarget();
         return target ? target.getViewSize() : {};
@@ -96,61 +94,50 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
     // private
     onLayout : function(ct, target){
-        Ext.layout.BorderLayout.superclass.onLayout.call(this, ct, target);
-        var i, len, items = this.getRenderedItems(ct), len = items.length, collapsed = [], r, c, pos, size, cs;
-        if (!len) {
-            return;
-        }
-
-        size = this.getLayoutTargetSize();
-        if(size.width < 20 || size.height < 20){ // display none?
-            return;
-        }
-
-        //Ensure each visible child item has a Region managing it.
-        for(i = 0; i < len; i++) {
-            c = items[i];
-            if(c.collapsed){
-                collapsed.push(c);
-            }
-            c.collapsed = false;
-            if (!c.regionManager) {
+        var collapsed, i, c, pos, items = ct.items.items, len = items.length;
+        if(!this.rendered){
+            collapsed = [];
+            for(i = 0; i < len; i++) {
+                c = items[i];
                 pos = c.region;
-
-                // We used to have another Component at that position. Destroy that Region
-                if (r = this[pos]) {
-                    Ext.destroy(r);
+                if(c.collapsed){
+                    collapsed.push(c);
                 }
-
-                c.regionManager = this[pos] = (pos != 'center' && c.split) ?
+                c.collapsed = false;
+                if(!c.rendered){
+                    c.render(target, i);
+                    c.getPositionEl().addClass('x-border-panel');
+                }
+                this[pos] = pos != 'center' && c.split ?
                     new Ext.layout.BorderLayout.SplitRegion(this, c.initialConfig, pos) :
                     new Ext.layout.BorderLayout.Region(this, c.initialConfig, pos);
                 this[pos].render(target, c);
             }
+            this.rendered = true;
         }
 
-        if(Ext.layout.BorderLayout.WARN !== false){
-            for (i = 0, cs = ct.items.items, len = cs.length; i < len; i++) {
-                if (cs[i].region == 'center') {
-                    c = cs[i];
-                }
+        var size = this.getLayoutTargetSize();
+        if(size.width < 20 || size.height < 20){ // display none?
+            if(collapsed){
+                this.restoreCollapsed = collapsed;
             }
-            if (!c) throw 'No center region defined in BorderLayout ' + ct.id;
-        }
-
-        if(this.restoreCollapsed){
+            return;
+        }else if(this.restoreCollapsed){
             collapsed = this.restoreCollapsed;
             delete this.restoreCollapsed;
         }
 
-        var w = size.width, h = size.height;
-        var centerW = w, centerH = h, centerY = 0, centerX = 0;
-
-        var n = this.north, s = this.south, west = this.west, e = this.east, c = this.center;
+        var w = size.width, h = size.height,
+            centerW = w, centerH = h, centerY = 0, centerX = 0,
+            n = this.north, s = this.south, west = this.west, e = this.east, c = this.center,
+            b, m, totalWidth, totalHeight;
+        if(!c && Ext.layout.BorderLayout.WARN !== false){
+            throw 'No center region defined in BorderLayout ' + ct.id;
+        }
 
         if(n && n.isVisible()){
-            var b = n.getSize();
-            var m = n.getMargins();
+            b = n.getSize();
+            m = n.getMargins();
             b.width = w - (m.left+m.right);
             b.x = m.left;
             b.y = m.top;
@@ -159,38 +146,38 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
             n.applyLayout(b);
         }
         if(s && s.isVisible()){
-            var b = s.getSize();
-            var m = s.getMargins();
+            b = s.getSize();
+            m = s.getMargins();
             b.width = w - (m.left+m.right);
             b.x = m.left;
-            var totalHeight = (b.height + m.top + m.bottom);
+            totalHeight = (b.height + m.top + m.bottom);
             b.y = h - totalHeight + m.top;
             centerH -= totalHeight;
             s.applyLayout(b);
         }
         if(west && west.isVisible()){
-            var b = west.getSize();
-            var m = west.getMargins();
+            b = west.getSize();
+            m = west.getMargins();
             b.height = centerH - (m.top+m.bottom);
             b.x = m.left;
             b.y = centerY + m.top;
-            var totalWidth = (b.width + m.left + m.right);
+            totalWidth = (b.width + m.left + m.right);
             centerX += totalWidth;
             centerW -= totalWidth;
             west.applyLayout(b);
         }
         if(e && e.isVisible()){
-            var b = e.getSize();
-            var m = e.getMargins();
+            b = e.getSize();
+            m = e.getMargins();
             b.height = centerH - (m.top+m.bottom);
-            var totalWidth = (b.width + m.left + m.right);
+            totalWidth = (b.width + m.left + m.right);
             b.x = w - totalWidth + m.left;
             b.y = centerY + m.top;
             centerW -= totalWidth;
             e.applyLayout(b);
         }
-        if(c && c.isVisible()){
-            var m = c.getMargins();
+        if(c){
+            m = c.getMargins();
             var centerBox = {
                 x: centerX + m.left,
                 y: centerY + m.top,
@@ -200,29 +187,19 @@ Ext.layout.BorderLayout = Ext.extend(Ext.layout.ContainerLayout, {
             c.applyLayout(centerBox);
         }
         if(collapsed){
-            for(var i = 0, len = collapsed.length; i < len; i++){
+            for(i = 0, len = collapsed.length; i < len; i++){
                 collapsed[i].collapse(false);
             }
         }
         if(Ext.isIE && Ext.isStrict){ // workaround IE strict repainting issue
             target.repaint();
         }
-
-        // Putting a border layout into an overflowed container is NOT correct and will make a second layout pass necessary.
-        if (i = target.getStyle('overflow') && i != 'hidden' && !this.adjustmentPass) {
-            var ts = this.getLayoutTargetSize();
-            if (ts.width != size.width || ts.height != size.height){
-                this.adjustmentPass = true;
-                this.onLayout(ct, target);
-            }
-        }
-        delete this.adjustmentPass;
     },
 
     destroy: function() {
-        var r = ['north', 'south', 'east', 'west'];
-        for (var i = 0; i < r.length; i++) {
-            var region = this[r[i]];
+        var r = ['north', 'south', 'east', 'west'], i, region;
+        for (i = 0; i < r.length; i++) {
+            region = this[r[i]];
             if(region){
                 if(region.destroy){
                     region.destroy();
@@ -539,7 +516,7 @@ Ext.layout.BorderLayout.Region.prototype = {
         this.originalZIndex = el.getStyle('z-index');
         el.setStyle('z-index', 100);
         this.isCollapsed = true;
-        this.layout.container.doLayout();
+        this.layout.layout();
     },
 
     // private
@@ -577,7 +554,7 @@ Ext.layout.BorderLayout.Region.prototype = {
         if(this.splitEl){
             this.splitEl.show();
         }
-        this.layout.container.doLayout();
+        this.layout.layout();
         this.panel.el.setStyle('z-index', this.originalZIndex);
         this.state.collapsed = false;
         this.panel.saveState();
@@ -617,7 +594,7 @@ Ext.layout.BorderLayout.Region.prototype = {
      * @return {Boolean}
      */
     isVisible : function(){
-        return (this.panel && !this.panel.hidden);
+        return !this.panel.hidden;
     },
 
     /**
@@ -899,9 +876,6 @@ Ext.layout.BorderLayout.Region.prototype = {
     },
 
     destroy : function(){
-        delete this.layout[this.position];
-        delete this.panel.regionManager;
-        delete this.panel;
         Ext.destroy(this.miniCollapsedEl, this.collapsedEl);
     }
 };
@@ -1120,7 +1094,7 @@ Ext.extend(Ext.layout.BorderLayout.SplitRegion, Ext.layout.BorderLayout.Region, 
             this.panel.setSize(newSize, s.height);
             this.state.width = newSize;
         }
-        this.layout.container.doLayout();
+        this.layout.layout();
         this.panel.saveState();
         return false;
     },
