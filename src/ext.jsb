@@ -817,6 +817,7 @@
   <file name="widgets\layout\AbsoluteLayout.js" path="widgets\layout" />
   <file name="widgets\layout\AccordionLayout.js" path="widgets\layout" />
   <file name="widgets\layout\AnchorLayout.js" path="widgets\layout" />
+  <file name="widgets\layout\AutoLayout.js" path="widgets\layout" />
   <file name="widgets\layout\BorderLayout.js" path="widgets\layout" />
   <file name="widgets\layout\BoxLayout.js" path="widgets\layout" />
   <file name="widgets\layout\CardLayout.js" path="widgets\layout" />

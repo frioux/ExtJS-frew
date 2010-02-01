@@ -430,6 +430,9 @@
             "text": "ContainerLayout.js",
             "path": "src/widgets/layout/"
         },{
+            "text": "AutoLayout.js",
+            "path": "src/widgets/layout/"
+        },{
             "text": "FitLayout.js",
             "path": "src/widgets/layout/"
         },{

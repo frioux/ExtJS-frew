@@ -1,11 +1,5 @@
 /**
  * @class Ext.layout.ContainerLayout
- * <p>The ContainerLayout class is the default layout manager delegated by {@link Ext.Container} to
- * render any child Components when no <tt>{@link Ext.Container#layout layout}</tt> is configured into
- * a {@link Ext.Container Container}. ContainerLayout provides the basic foundation for all other layout
- * classes in Ext. It simply renders all child Components into the Container, performing no sizing or
- * positioning services. To utilize a layout that provides sizing and positioning of child Components,
- * specify an appropriate <tt>{@link Ext.Container#layout layout}</tt>.</p>
  * <p>This class is intended to be extended or created via the <tt><b>{@link Ext.Container#layout layout}</b></tt>
  * configuration property.  See <tt><b>{@link Ext.Container#layout}</b></tt> for additional details.</p>
  */
@@ -194,14 +188,14 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
                 this.resizeTask.delay(this.resizeBuffer);
             }
         }else{
-            ct.doLayout();
+            this.runLayout();
         }
     },
 
-    // private
     runLayout: function(){
         var ct = this.container;
-        ct.doLayout();
+        this.layout();
+        ct.onLayout();
         delete ct.layoutPending;
     },
 
@@ -288,4 +282,3 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
         }
     }
 });
-Ext.Container.LAYOUTS['auto'] = Ext.layout.ContainerLayout;
