@@ -1027,20 +1027,20 @@ new Ext.Panel({
             this.addTool.apply(this, ts);
         }
 
-        // Render Toolbars. These must lay out immediately, so poke an ownerCt in them after they render
+        // Render Toolbars. These must lay out immediately, so poke an ownerCt in them
         if(this.fbar){
             this.footer.addClass('x-panel-btns');
-            this.fbar.render(this.footer);
             this.fbar.ownerCt = this;
+            this.fbar.render(this.footer);
             this.footer.createChild({cls:'x-clear'});
         }
         if(this.tbar && this.topToolbar){
-            this.topToolbar.render(this.tbar);
             this.topToolbar.ownerCt = this;
+            this.topToolbar.render(this.tbar);
         }
         if(this.bbar && this.bottomToolbar){
-            this.bottomToolbar.render(this.bbar);
             this.bottomToolbar.ownerCt = this;
+            this.bottomToolbar.render(this.bbar);
         }
     },
 
