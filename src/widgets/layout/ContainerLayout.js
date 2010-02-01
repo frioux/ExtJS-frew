@@ -210,6 +210,14 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
         if (!Ext.LayoutManager) {
             Ext.LayoutManager = {};
         }
+
+        /* This monitorResize flag will be renamed soon as to avoid confusion
+        * with the Container version which hooks onWindowResize to doLayout
+        *
+        * monitorResize flag in this context attaches the resize event between
+        * a container and it's layout
+        */
+
         if(this.monitorResize && ct != this.container){
             var old = this.container;
             if(old){

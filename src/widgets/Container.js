@@ -481,10 +481,6 @@ items: [
         if(Ext.isString(this.layout)){
             this.layout = new Ext.Container.LAYOUTS[this.layout.toLowerCase()](this.layoutConfig);
         }
-        // Hook up WindowResize now, setLayout will unhook this if it is not a top level container
-        if(this.monitorResize === true){
-            Ext.EventManager.onWindowResize(this.windowResize, this);
-        }
         this.setLayout(this.layout);
 
         // If a CardLayout, the active item set
@@ -497,6 +493,12 @@ items: [
         // If we have no ownerCt, render and size all children
         if(!this.ownerCt){
             this.doLayout(false, true);
+        }
+
+        // This is a manually configured flag set by users in conjunction with renderTo.
+        // Not to be confused with the flag by the same name used in Layouts.
+        if(this.monitorResize === true){
+            Ext.EventManager.onWindowResize(this.doLayout, this, [false]);
         }
     },
 
@@ -771,26 +773,6 @@ tb.{@link #doLayout}();             // refresh the layout
     canLayout : function() {
         var el = this.getVisibilityEl();
         return el && el.dom && !el.isStyle("display", "none");
-    },
-
-    hasMonitorResize: function(){
-        // Traverse hierarchy to see if any parent container has a pending layout.
-        return monitor;
-    },
-
-    windowResize : function() {
-        var monitor = false;
-        if (this.ownerCt) {
-            this.ownerCt.bubble(function(c){
-                if(c.monitorResize === true){
-                    monitor = true;
-                    return false;
-                }
-            });
-        }
-        if(!monitor){
-            this.doLayout(false);
-        }
     },
 
     /**
