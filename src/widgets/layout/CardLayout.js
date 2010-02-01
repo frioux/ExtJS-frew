@@ -96,7 +96,7 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
      * @param {String/Number} item The string component id or numeric index of the item to activate
      */
     setActiveItem : function(item){
-        var ai = this.activeItem,
+        var ai = this.activeItem, layout,
             ct = this.container;
         item = ct.getComponent(item);
 
@@ -111,7 +111,6 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
                 }
                 ai.fireEvent('deactivate', ai);
             }
-
             // Change activeItem reference
             this.activeItem = item;
 
@@ -122,7 +121,11 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
             // Show the new component
             item.show();
 
-            ct.doLayout();
+            this.layout();
+
+            if(item.doLayout){
+                item.doLayout();
+            }
             item.fireEvent('activate', item);
         }
     },
