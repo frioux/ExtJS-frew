@@ -100,11 +100,6 @@ Ext.TabPanel = Ext.extend(Ext.Panel,  {
      * styling to be applied.
      */
     /**
-     * @cfg {Boolean} monitorResize True to automatically monitor window resize events and rerender the layout on
-     * browser resize (defaults to true).
-     */
-    monitorResize : true,
-    /**
      * @cfg {Boolean} deferredRender
      * <p><tt>true</tt> by default to defer the rendering of child <tt>{@link Ext.Container#items items}</tt>
      * to the browsers DOM until a tab is activated. <tt>false</tt> will render all contained
@@ -437,7 +432,7 @@ new Ext.TabPanel({
     findTargets : function(e){
         var item = null,
             itemEl = e.getTarget('li:not(.x-tab-edge)', this.strip);
-            
+
         if(itemEl){
             item = this.getComponent(itemEl.id.split(this.idDelimiter)[1]);
             if(item.disabled){
@@ -545,8 +540,8 @@ new Ext.TabPanel({
             beforeshow: this.onBeforeShowItem
         });
     },
-    
-    
+
+
 
     /**
      * <p>Provides template arguments for rendering a tab selector item in the tab strip.</p>
@@ -972,11 +967,11 @@ new Ext.TabPanel({
      */
 
     scrollToTab : function(item, animate){
-        if(!item){ 
-            return; 
+        if(!item){
+            return;
         }
         var el = this.getTabEl(item),
-            pos = this.getScrollPos(), 
+            pos = this.getScrollPos(),
             area = this.getScrollArea(),
             left = Ext.fly(el).getOffsetsTo(this.stripWrap)[0] + pos,
             right = left + el.offsetWidth;

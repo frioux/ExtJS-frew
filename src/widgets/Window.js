@@ -190,12 +190,6 @@ Ext.Window = Ext.extend(Ext.Panel, {
      */
     hidden : true,
 
-    /**
-    * @cfg {Boolean} monitorResize @hide
-    * This is automatically managed based on the value of constrain and constrainToHeader
-    */
-    monitorResize : true,
-
     // The following configs are set to provide the basic functionality of a window.
     // Changing them would require additional code to handle correctly and should
     // usually only be done in subclasses that can provide custom behavior.  Changing them
