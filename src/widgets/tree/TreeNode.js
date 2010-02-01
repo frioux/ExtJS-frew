@@ -248,8 +248,8 @@ Ext.extend(Ext.tree.TreeNode, Ext.data.Node, {
         var newNode, exists;
         if(!node.render){
             node = this.getLoader().createNode(node);
-        }else{
-            exists = !node.parentNode;
+        } else {
+            exists = Ext.isObject(node.parentNode);
         }
         newNode = Ext.tree.TreeNode.superclass.insertBefore.call(this, node, refNode);
         if(newNode && refNode){
