@@ -345,6 +345,7 @@ new Ext.tree.TreePanel({
     },
 
     destroy : function(){
+        this.abort();
         this.purgeListeners();
     }
 });
