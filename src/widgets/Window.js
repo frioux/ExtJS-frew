@@ -305,7 +305,8 @@ Ext.Window = Ext.extend(Ext.Panel, {
                 minHeight:this.minHeight,
                 handles: this.resizeHandles || 'all',
                 pinned: true,
-                resizeElement : this.resizerAction
+                resizeElement : this.resizerAction,
+                handleCls: 'x-window-handle'
             });
             this.resizer.window = this;
             this.mon(this.resizer, 'beforeresize', this.beforeResize, this);
