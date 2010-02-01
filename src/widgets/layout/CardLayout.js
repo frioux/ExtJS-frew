@@ -96,7 +96,7 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
      * @param {String/Number} item The string component id or numeric index of the item to activate
      */
     setActiveItem : function(item){
-        var ai = this.activeItem, layout,
+        var ai = this.activeItem,
             ct = this.container;
         item = ct.getComponent(item);
 
