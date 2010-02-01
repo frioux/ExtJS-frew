@@ -880,7 +880,7 @@ tb.{@link #doLayout}();             // refresh the layout
             }
         }
         if(this.monitorResize){
-            Ext.EventManager.removeResizeListener(this.onWindowResize, this);
+            Ext.EventManager.removeResizeListener(this.doLayout, this);
         }
         Ext.destroy(this.layout);
         Ext.Container.superclass.beforeDestroy.call(this);
