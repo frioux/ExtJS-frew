@@ -656,7 +656,9 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
      * @return {Ext.menu.Item} The menu item that was added
      */
     addElement : function(el){
-        return this.add(new Ext.menu.BaseItem(el));
+        return this.add(new Ext.menu.BaseItem({
+            el: el
+        }));
     },
 
     /**
