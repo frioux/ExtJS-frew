@@ -475,7 +475,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
                 // set the position so we can figure out the constrain value.
                 this.el.setXY(xy);
                 //constrain the value, keep the y coordinate the same
-                this.constrainScroll(xy[1]);
+                xy[1] = this.constrainScroll(xy[1]);
                 xy = [this.el.adjustForConstraints(xy)[0], xy[1]];
             }else{
                 //constrain to the viewport.
@@ -498,9 +498,24 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
     },
 
     constrainScroll : function(y){
-        var max, full = this.ul.setHeight('auto').getHeight();
+        var max, full = this.ul.setHeight('auto').getHeight(),
+            returnY = y, normalY, parentEl, scrollTop, viewHeight;
         if(this.floating){
-            max = this.maxHeight ? this.maxHeight : Ext.fly(this.el.dom.parentNode).getViewSize(false).height - y;
+            parentEl = Ext.fly(this.el.dom.parentNode);
+            scrollTop = parentEl.getScroll().top;
+            viewHeight = parentEl.getViewSize().height;
+            //Normalize y by the scroll position for the parent element.  Need to move it into the coordinate space
+            //of the view.
+            normalY = y - scrollTop;
+            max = this.maxHeight ? this.maxHeight : viewHeight - normalY;
+            if(full > viewHeight) {
+                max = viewHeight;
+                //Set returnY equal to (0,0) in view space by reducing y by the value of normalY
+                returnY = y - normalY;
+            } else if(max < full) {
+                returnY = y - (full - max);
+                max = full;
+            }
         }else{
             max = this.getHeight();
         }
@@ -514,6 +529,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
             this.el.select('.x-menu-scroller').setDisplayed('none');
         }
         this.ul.dom.scrollTop = 0;
+        return returnY;
     },
 
     createScrollers : function(){
