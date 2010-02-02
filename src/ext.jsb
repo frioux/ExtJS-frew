@@ -825,7 +825,9 @@
   <file name="widgets\layout\ContainerLayout.js" path="widgets\layout" />
   <file name="widgets\layout\FitLayout.js" path="widgets\layout" />
   <file name="widgets\layout\FormLayout.js" path="widgets\layout" />
+  <file name="widgets\layout\MenuLayout.js" path="widgets\layout" />
   <file name="widgets\layout\TableLayout.js" path="widgets\layout" />
+  <file name="widgets\layout\ToolbarLayout.js" path="widgets\layout" />
   <file name="widgets\list\ColumnResizer.js" path="widgets\list" />
   <file name="widgets\list\ListView.js" path="widgets\list" />
   <file name="widgets\list\Sorter.js" path="widgets\list" />

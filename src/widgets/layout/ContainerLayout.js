@@ -194,8 +194,11 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
 
     runLayout: function(){
         var ct = this.container;
-        this.layout();
-        ct.onLayout();
+        // AutoLayout is known to require the recursive doLayout call, others need this currently (BorderLayout for example)
+        // but shouldn't.  A more extensive review will take place for 3.2 which requires a ContainerMgr with hierarchy lookups.
+        //this.layout();
+        //ct.onLayout();
+        ct.doLayout();
         delete ct.layoutPending;
     },
 

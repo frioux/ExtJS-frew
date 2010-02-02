@@ -463,6 +463,12 @@
             "text": "BoxLayout.js",
             "path": "src/widgets/layout/"
         },{
+            "text": "ToolbarLayout.js",
+            "path": "src/widgets/layout/"
+        },{
+            "text": "MenuLayout.js",
+            "path": "src/widgets/layout/"
+        },{
             "text": "Viewport.js",
             "path": "src/widgets/"
         },{
