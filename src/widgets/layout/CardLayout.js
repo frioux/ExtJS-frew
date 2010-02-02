@@ -134,11 +134,6 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
     renderAll : function(ct, target){
         if(this.deferredRender){
             this.renderItem(this.activeItem, undefined, target);
-            // A new child container has entered, if it is a containers and this was during a layout
-            // it should suspend the onResize event
-            if (ct.suspendLayoutResize && this.activeItem.layout) {
-                this.activeItem.suspendLayoutResize = true;
-            }
         }else{
             Ext.layout.CardLayout.superclass.renderAll.call(this, ct, target);
         }
