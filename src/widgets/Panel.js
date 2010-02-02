@@ -1027,7 +1027,7 @@ new Ext.Panel({
             this.addTool.apply(this, ts);
         }
 
-        // Render Toolbars. These must lay out immediately, so poke an ownerCt in them
+        // Render Toolbars.
         if(this.fbar){
             this.footer.addClass('x-panel-btns');
             this.fbar.ownerCt = this;
@@ -1275,6 +1275,7 @@ new Ext.Panel({
                     remove: this.syncHeight
                 });
             }, this);
+            this.syncHeight();
         }
 
     },
