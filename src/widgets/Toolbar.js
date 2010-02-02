@@ -121,6 +121,9 @@ Ext.extend(T, Ext.Container, {
      * case instead of an array).
      * See {@link Ext.Container#layout} for additional information.
      */
+
+    enableOverflow : false,
+
     /**
      * @cfg {Boolean} enableOverflow
      * Defaults to false. Configure <code>true<code> to make the toolbar provide a button
