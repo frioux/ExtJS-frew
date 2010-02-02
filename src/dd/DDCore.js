@@ -2262,7 +2262,7 @@ Ext.dd.DragDropMgr = function() {
 
         /**
          * Inner class for cached elements
-         * @class DragDropMgr.ElementWrapper
+         * @class Ext.dd.DragDropMgr.ElementWrapper
          * @for DragDropMgr
          * @private
          * @deprecated

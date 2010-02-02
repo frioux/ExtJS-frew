@@ -195,7 +195,12 @@ new Ext.data.HttpProxy({
                         return true;
                         break;
                     case 201:   // entity created but no response returned
-                        res.success = true;
+                        if (Ext.isEmpty(res.raw.responseText)) {
+                          res.success = true;
+                        } else {
+                          //if the response contains data, treat it like a 200
+                          return true;
+                        }
                         break;
                     case 204:  // no-content.  Create a fake response.
                         res.success = true;
@@ -241,7 +246,7 @@ Ext.data.Response.prototype = {
         return this.success;
     },
     getStatus : function() {
-        return this.status
+        return this.status;
     },
     getRoot : function() {
         return this.root;
