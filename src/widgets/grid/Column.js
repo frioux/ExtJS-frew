@@ -213,7 +213,7 @@ var grid = new Ext.grid.GridPanel({
     
     constructor : function(config){
         Ext.apply(this, config);
-
+        
         if(Ext.isString(this.renderer)){
             this.renderer = Ext.util.Format[this.renderer];
         }else if(Ext.isObject(this.renderer)){
@@ -223,10 +223,10 @@ var grid = new Ext.grid.GridPanel({
         if(!this.scope){
             this.scope = this;
         }
-
-        if(this.editor){
-            this.editor = Ext.create(this.editor, 'textfield');
-        }
+        
+        var ed = this.editor;
+        delete this.editor;
+        this.setEditor(ed);
     },
 
     /**
@@ -258,6 +258,32 @@ var grid = new Ext.grid.GridPanel({
     getEditor: function(rowIndex){
         return this.editable !== false ? this.editor : null;
     },
+    
+    /**
+     * Sets a new editor for this column.
+     * @param {Ext.Editor/Ext.form.Field} editor The editor to set
+     */
+    setEditor : function(editor){
+        if(this.editor){
+            this.editor.destroy();
+        }
+        this.editor = null;
+        if(editor){
+            //not an instance, create it
+            if(!editor.isXType){
+                editor = Ext.create(editor, 'textfield');
+            }
+            //check if it's wrapped in an editor
+            if(!editor.startEdit){
+                editor = new Ext.grid.GridEditor(editor);
+            }
+            this.editor = editor;
+        }
+    },
+    
+    destroy : function(){
+        this.setEditor(null);
+    },
 
     /**
      * Returns the {@link Ext.Editor editor} defined for this column that was created to wrap the {@link Ext.form.Field Field}
@@ -266,18 +292,7 @@ var grid = new Ext.grid.GridPanel({
      * @return {Ext.Editor}
      */
     getCellEditor: function(rowIndex){
-        var editor = this.getEditor(rowIndex);
-        if(editor){
-            if(!editor.startEdit){
-                if(!editor.gridEditor){
-                    editor.gridEditor = new Ext.grid.GridEditor(editor);
-                }
-                return editor.gridEditor;
-            }else if(editor.startEdit){
-                return editor;
-            }
-        }
-        return null;
+        return this.getEditor(rowIndex);
     }
 });
 
