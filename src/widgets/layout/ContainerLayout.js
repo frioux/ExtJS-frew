@@ -50,7 +50,7 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
 
     type: 'container',
 
-    /* Workaround for how IE measures autoWidth elements.  It prefers bottom-up measurements over
+    /* Workaround for how IE measures autoWidth elements.  It prefers bottom-up measurements
       whereas other browser prefer top-down.  We will hide all target child elements before we measure and
       put them back to get an accurate measurement.
     */

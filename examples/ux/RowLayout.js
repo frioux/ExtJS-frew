@@ -101,9 +101,7 @@ Ext.ux.layout.RowLayout = Ext.extend(Ext.layout.ContainerLayout, {
     onLayout : function(ct, target){
         var rs = ct.items.items, len = rs.length, r, i;
 
-        if(!this.innerCt){
-            this.renderAll(ct, target);
-        }
+        this.renderAll(ct, target);
 
         var size = this.getLayoutTargetSize();
 

@@ -98,9 +98,7 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
     onLayout : function(ct, target){
         var cs = ct.items.items, len = cs.length, c, i;
 
-        if(!this.innerCt){
-            this.renderAll(ct, target);
-        }
+        this.renderAll(ct, target);
 
         var size = this.getLayoutTargetSize();
 

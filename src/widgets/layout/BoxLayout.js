@@ -87,9 +87,7 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
     },
 
     onLayout : function(ct, target){
-        if(!this.innerCt){
-            this.renderAll(ct, target);
-        }
+        this.renderAll(ct, target);
     },
 
     getLayoutTargetSize : function(){
