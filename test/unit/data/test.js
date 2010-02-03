@@ -6,7 +6,7 @@ Ext.tests.push(new Y.Test.Case({
   },
   
   testTommyIsCrazy: function() {
-    Y.Assert.areEqual('Tommy', 'crazy');
+    Y.Assert.areNotEqual('Tommy', 'crazy');
   },
   
   testAbeIsTall: function() {
