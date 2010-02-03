@@ -13,6 +13,32 @@ Ext.tests.push(new Y.Test.Case({
 
         s = String.format( '{4}{3}{2}{1}{0}', 'a', 'b', 'c', 'd', 'e' );
         Y.Assert.areEqual( 'edcba', s );
+    },
+
+    test_leftPad: function() {
+        var s = String.leftPad( '123', 5, '0' );
+        Y.Assert.areEqual( '00123', s );
+    },
+
+    test_toggle: function() {
+        var sort = 'ASC';
+        Y.Assert.areEqual( 'ASC', sort );
+        
+        sort = sort.toggle('ASC', 'DESC');
+
+        Y.Assert.areEqual( 'DESC', sort );
+        
+        sort = sort.toggle('ASC', 'DESC');
+        
+        Y.Assert.areEqual( 'ASC', sort );
+    },
+
+    test_trim: function() {
+        var s = '  foo bar  ';
+        Y.Assert.areEqual( '  foo bar  ', s );
+
+        s = s.trim();
+        Y.Assert.areEqual( 'foo bar', s );
     }
 
 }));
