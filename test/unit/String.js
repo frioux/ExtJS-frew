@@ -22,20 +22,16 @@ Ext.tests.push(new Y.Test.Case({
 
     test_toggle: function() {
         var sort = 'ASC';
-        Y.Assert.areEqual( 'ASC', sort );
-        
-        sort = sort.toggle('ASC', 'DESC');
 
+        sort = sort.toggle('ASC', 'DESC');
         Y.Assert.areEqual( 'DESC', sort );
         
         sort = sort.toggle('ASC', 'DESC');
-        
         Y.Assert.areEqual( 'ASC', sort );
     },
 
     test_trim: function() {
         var s = '  foo bar  ';
-        Y.Assert.areEqual( '  foo bar  ', s );
 
         s = s.trim();
         Y.Assert.areEqual( 'foo bar', s );
