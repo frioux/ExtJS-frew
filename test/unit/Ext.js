@@ -2,7 +2,7 @@ Ext.tests.push(new Y.Test.Case({
 
     name: 'Ext Core Utils',
 
-    planned: 17,
+    planned: 20,
 
     // addBehaviors
 
@@ -58,12 +58,23 @@ Ext.tests.push(new Y.Test.Case({
         Y.Assert.areEqual( 'a', obj.a );
         Y.Assert.areEqual( 'b', obj.b );
         Y.Assert.isNull( obj.c );
-    }
-
+    },
+    
     // create
     // decode
     // destroy
     // destroyMembers
+
+    // 3
+    test_destroyMembers: function() {
+        var obj = { a: 'a', b: 'b', c: 'c' };
+
+        Ext.destroyMembers( obj, 'b', 'c' );
+        Y.Assert.isUndefined( obj.b );
+        Y.Assert.isUndefined( obj.c );
+        Y.Assert.areEqual( 'a', obj.a );
+    }
+
     // each
     // encode
     // escapeRe
