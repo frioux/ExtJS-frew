@@ -4,6 +4,8 @@ Ext.tests.push(new Y.Test.Case({
 
     planned: 17,
 
+    // addBehaviors
+
     // 6
     test_apply: function() {
         var obj1 = { apple: 'red' };

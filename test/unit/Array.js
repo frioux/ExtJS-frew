@@ -1,4 +1,6 @@
-Ext.tests.push(new Y.Test.Case({
+var suite = new Y.Test.Suite('Array');
+
+suite.add(new Y.Test.Case({
 
     name: 'Global Array Decorators',
 
@@ -32,3 +34,5 @@ Ext.tests.push(new Y.Test.Case({
     }
 
 }));
+
+Ext.tests.push(suite);

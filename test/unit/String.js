@@ -1,4 +1,6 @@
-Ext.tests.push(new Y.Test.Case({
+var suite = new Y.Test.Suite('String');
+
+suite.add(new Y.Test.Case({
 
     name: 'Global String Decorators',
 
@@ -46,3 +48,5 @@ Ext.tests.push(new Y.Test.Case({
     }
 
 }));
+
+Ext.tests.push(suite);

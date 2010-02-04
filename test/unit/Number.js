@@ -1,4 +1,6 @@
-Ext.tests.push(new Y.Test.Case({
+var suite = new Y.Test.Suite('Number');
+
+suite.add(new Y.Test.Case({
 
     name: 'Global Number Decorators',
 
@@ -22,3 +24,5 @@ Ext.tests.push(new Y.Test.Case({
     }
 
 }));
+
+Ext.tests.push(suite);
