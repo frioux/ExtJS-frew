@@ -252,6 +252,8 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
                 ed = c.getEditor();
             if(!ed){
                 ed = c.displayEditor || new Ext.form.DisplayField();
+            }else{
+                ed = ed.field;
             }
             if(i == 0){
                 ed.margins = pm('0 1 2 1');
@@ -387,14 +389,16 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
         if(this.isVisible()){
             var index = 0,
                 cm = this.grid.getColumnModel(),
-                c;
+                c,
+                ed;
             if(pt){
                 index = this.getTargetColumnIndex(pt);
             }
             for(var i = index||0, len = cm.getColumnCount(); i < len; i++){
                 c = cm.getColumnAt(i);
-                if(!c.hidden && c.getEditor()){
-                    c.getEditor().focus();
+                ed = c.getEditor();
+                if(!c.hidden && ed){
+                    ed.field.focus();
                     break;
                 }
             }
