@@ -252,6 +252,32 @@ Ext.Slider = Ext.extend(Ext.BoxComponent, {
         v = v.constrain(this.minValue, this.maxValue);
         return v;
     },
+    
+    /**
+     * Sets the minimum value for the slider instance. If the current value is less than the 
+     * minimum value, the current value will be changed.
+     * @param {Number} val The new minimum value
+     */
+    setMinValue : function(val){
+        this.minValue = val;
+        this.syncThumb();
+        if(this.value < val){
+            this.setValue(val);
+        }
+    },
+    
+    /**
+     * Sets the maximum value for the slider instance. If the current value is more than the 
+     * maximum value, the current value will be changed.
+     * @param {Number} val The new maximum value
+     */
+    setMaxValue : function(val){
+        this.maxValue = val;
+        this.syncThumb();
+        if(this.value > val){
+            this.setValue(val);
+        }
+    },
 
     /**
      * Programmatically sets the value of the Slider. Ensures that the value is constrained within
