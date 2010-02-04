@@ -2,11 +2,16 @@ Ext.tests.push(new Y.Test.Case({
 
     name: 'Global String Decorators',
 
+    planned: 7,
+
+    // 1
     test_escape: function() {
         var s = String.escape( "'test' \\" );
         Y.Assert.areEqual( "\\'test\\' \\\\", s );
     },
 
+
+    // 2
     test_format: function() {
         var s = String.format( '<div class="{0}">{1}</div>', 'foo', 'bar' );
         Y.Assert.areEqual( '<div class="foo">bar</div>', s );
@@ -15,11 +20,13 @@ Ext.tests.push(new Y.Test.Case({
         Y.Assert.areEqual( 'edcba', s );
     },
 
+    // 1
     test_leftPad: function() {
         var s = String.leftPad( '123', 5, '0' );
         Y.Assert.areEqual( '00123', s );
     },
 
+    // 2
     test_toggle: function() {
         var sort = 'ASC';
 
@@ -30,6 +37,7 @@ Ext.tests.push(new Y.Test.Case({
         Y.Assert.areEqual( 'ASC', sort );
     },
 
+    // 1
     test_trim: function() {
         var s = '  foo bar  ';
 

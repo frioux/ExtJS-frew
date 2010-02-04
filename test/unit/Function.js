@@ -2,6 +2,9 @@ Ext.tests.push(new Y.Test.Case({
 
     name: 'Global Function Decorators',
 
+    planned: 84,
+
+    // 3
     test_createCallback: function() {
         var fn = function( a, b ) {
             Y.Assert.areEqual( 'a', a );
@@ -14,6 +17,7 @@ Ext.tests.push(new Y.Test.Case({
         Y.Assert.areEqual( 'x', rt );
     },
 
+    // 28
     test_createDelegate: function() {
         var scope = { foo: 'bar' };
 
@@ -46,6 +50,7 @@ Ext.tests.push(new Y.Test.Case({
         Y.Assert.areEqual( 'x', rt );
     },
 
+    // 23
     test_createInterceptor: function() {
         var scope = { foo: 'bar', n: 0 };
 
@@ -59,6 +64,10 @@ Ext.tests.push(new Y.Test.Case({
             return 'x';
         };
 
+        // normal
+        var rt = fn.call( scope, 'a', 'b' ); // n 1
+        Y.Assert.areEqual( 'x', rt );
+
         var cb = fn.createDelegate( scope ).createInterceptor(function( a, b, z ) {
             Y.Assert.areEqual( scope, this );
             Y.Assert.isString( this.foo );
@@ -67,19 +76,16 @@ Ext.tests.push(new Y.Test.Case({
             Y.Assert.areEqual( 'b', b );
             return z === undefined;
         }, scope);
-
-        // normal
-        var rt = fn.call( scope, 'a', 'b' ); // n 1
-        Y.Assert.areEqual( 'x', rt );
         // intercepted, but allowed to continue
         rt = cb( 'a', 'b' ); // n 2
-
         Y.Assert.areEqual( 'x', rt );
+
         // intercepted, and cancelled
         cb( 'a', 'b', 'z' );
         Y.Assert.areEqual( 2, scope.n );
     },
 
+    // 19
     test_createSequence: function() {
         var scope = { foo: 'bar', seq: 0 };
 
@@ -93,16 +99,17 @@ Ext.tests.push(new Y.Test.Case({
             return 'x';
         };
 
-        var cb = fn.createDelegate( scope ).createSequence( fn, scope );
         var rt = fn.call( scope, 'a', 'b' ); // seq 1
         Y.Assert.areEqual( 'x', rt );
         Y.Assert.areEqual( 1, scope.seq );
 
+        var cb = fn.createDelegate( scope ).createSequence( fn, scope );
         rt = cb( 'a', 'b' ); // seq 2, 3
         Y.Assert.areEqual( 'x', rt );
         Y.Assert.areEqual( 3, scope.seq );
     },
 
+    // 11
     test_defer: function() {
         var scope = { foo: 'bar', n: 0 };
 

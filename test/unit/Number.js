@@ -2,6 +2,9 @@ Ext.tests.push(new Y.Test.Case({
 
     name: 'Global Number Decorators',
 
+    planned: 3,
+
+    // 3
     test_constrain: function() {
         var n = 5;
 
