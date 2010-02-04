@@ -1,6 +1,44 @@
 var suite = new Y.Test.Suite('JsonReader');
 
 suite.add(new Y.Test.Case({
+    name: 'buildExtractors',
+    setUp: function() {
+        this.reader = new Ext.data.JsonReader({
+            root: 'data',
+            idProperty: 'id',
+            totalProperty: 'totalProp',
+            messageProperty: 'messageProp',
+            successProperty: 'successProp',
+            fields: [
+               {mapping: 'mappy', name: 'inter', type: 'integer'}
+            ]
+        });
+        this.reader.buildExtractors();
+    },
+    tearDown: function() {
+        delete this.reader;
+    },
+    test_getTotal: function() {
+        Y.Assert.areSame(this.reader.getTotal({ totalProp: 500}), 500);
+    },
+    test_getSuccess: function() {
+        Y.Assert.areSame(this.reader.getSuccess({ successProp: false }), false);
+    },
+    test_getMessage: function() {
+        Y.Assert.areSame(this.reader.getMessage({ messageProp: 'Hello' }), 'Hello');
+    },
+    test_getRoot: function() {
+        Y.Assert.areSame(this.reader.getRoot({ data: 'data' }), 'data');
+    },
+    test_getId: function() {
+        Y.Assert.areSame(this.reader.getId({ id: 100 }), 100);
+    },
+    test_mapping: function() {
+        Y.Assert.areSame(this.reader.ef[0]({ mappy: 200 }), 200);
+    }
+}));
+
+suite.add(new Y.Test.Case({
     name: 'readRecords',
     setUp: function() {
         this.reader = new Ext.data.JsonReader({
@@ -38,21 +76,21 @@ suite.add(new Y.Test.Case({
             totalProp: 6
         });
     },
-    tearDown: function() {
+    test_tearDown: function() {
         delete this.reader;
         delete this.data1;
         delete this.rec1;
         delete this.rec2;
     },
-    testSuccessProperty: function() {
+    test_SuccessProperty: function() {
         Y.Assert.areSame(this.rec1.success, true);
         Y.Assert.areSame(this.rec2.success, false);
     },
-    testTotalRecords: function() {
+    test_TotalRecords: function() {
         Y.Assert.areSame(this.rec1.totalRecords, 2);
         Y.Assert.areSame(this.rec2.totalRecords, 6);
     },
-    testRecords: function() {
+    test_Records: function() {
         Y.Assert.areSame(this.rec1.records[0].data.id, this.data1.id);
         Y.Assert.areSame(this.rec1.records[0].data.floater, this.data1.floater);
         Y.Assert.areSame(this.rec1.records[0].data.bool, this.data1.bool);
@@ -105,23 +143,23 @@ suite.add(new Y.Test.Case({
         delete this.rec1;
         delete this.rec2;
     },
-    testSuccessProperty: function() {
+    test_SuccessProperty: function() {
         Y.Assert.areSame(this.rec1.success, true);
         Y.Assert.areSame(this.rec2.success, false);
     },
-    testRecords: function() {
+    test_Records: function() {
         Y.Assert.areSame(this.rec1.data[0].id, this.data1.id);
         Y.Assert.areSame(this.rec1.data[0].floater, this.data1.floater);
         Y.Assert.areSame(this.rec1.data[0].bool, this.data1.bool);
         Y.Assert.areSame(this.rec1.data[0].inter, this.data1.inter);
     },
-    testActionProperty: function() {
+    test_ActionProperty: function() {
         Y.Assert.areSame(this.rec1.action, 'read');
     },
-    testMessageProperty: function() {
-        Y.Assert.areSame(this.rec1.message, 'Hell');
+    test_MessageProperty: function() {
+        Y.Assert.areSame(this.rec1.message, 'Hello');
     },
-    testRawProperty: function() {
+    test_RawProperty: function() {
         Y.Assert.areSame(this.rec1.raw.data[0].id, this.data1.id);
     }
 }));
