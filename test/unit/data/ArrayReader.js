@@ -23,9 +23,6 @@ suite.add(new Y.Test.Case({
         delete this.data1;
         delete this.rec1;
     },
-    test_SuccessProperty: function() {
-        Y.Assert.areSame(this.rec1.success, true);
-    },
     test_TotalRecords: function() {
         Y.Assert.areSame(this.rec1.totalRecords, 1);
     },
