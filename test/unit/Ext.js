@@ -1,4 +1,6 @@
-Ext.tests.push(new Y.Test.Case({
+var suite = new Y.Test.Suite('Ext');
+
+suite.add(new Y.Test.Case({
 
     name: 'Ext Core Utils',
 
@@ -126,3 +128,5 @@ Ext.tests.push(new Y.Test.Case({
     // value
     // zip
 }));
+
+Ext.tests.push(suite);
