@@ -4,7 +4,7 @@ suite.add(new Y.Test.Case({
 
     name: 'Ext Core Utils',
 
-    planned: 288,
+    planned: 339,
 
     // addBehaviors
 
@@ -124,12 +124,12 @@ suite.add(new Y.Test.Case({
 
     // 6
     test_clean: function() {
-         Y.ArrayAssert.itemsAreEqual( Ext.clean( [ true, true, true ] ), [ true, true, true ], 'Test with all non-falsey' );
-         Y.Assert.areEqual( Ext.clean( [] ).length, 0, 'Test with empty' );
-         Y.Assert.areEqual( Ext.clean( [ false, false, false ] ).length, 0, 'Test with all falsey' );
-         Y.Assert.areEqual( Ext.clean( null ).length, 0, 'Test with non array parameter' ); 
-         Y.ArrayAssert.itemsAreEqual( Ext.clean( [ 1, 0, 1 ] ), [ 1, 1 ], 'Test with non booleans' );
-         Y.ArrayAssert.itemsAreEqual( Ext.clean( [ 1, 2, false, 0, 3, 1 ] ), [ 1, 2, 3, 1 ], 'Ensure order is maintained properly' );
+        Y.ArrayAssert.itemsAreEqual( Ext.clean( [ true, true, true ] ), [ true, true, true ], 'Test with all true' );
+        Y.Assert.areEqual( Ext.clean( [] ).length, 0, 'Test with empty' );
+        Y.Assert.areEqual( Ext.clean( [ false, false, false ] ).length, 0, 'Test with all false' );
+        Y.Assert.areEqual( Ext.clean( null ).length, 0, 'Test with non array parameter' ); 
+        Y.ArrayAssert.itemsAreEqual( Ext.clean( [ 1, 0, 1 ] ), [ 1, 1 ], 'Test with non booleans' );
+        Y.ArrayAssert.itemsAreEqual( Ext.clean( [ 1, 2, false, 0, 3, 1 ] ), [ 1, 2, 3, 1 ], 'Ensure order is maintained properly' );
     },
 
     // 7
@@ -354,10 +354,11 @@ suite.add(new Y.Test.Case({
         var id = Ext.id();
         var div = document.createElement( 'div' );
         div.id = id;
-        ( document.body || document.documentElement ).appendChild( div );
+        Ext.getBody().dom.appendChild( div );
 
         var div2 = Ext.fly( id );
         Y.Assert.areSame( div, div2.dom, 'Test if fly got the correct item' );
+        div2.remove();
     },
 
     // 1
@@ -365,10 +366,11 @@ suite.add(new Y.Test.Case({
         var id = Ext.id();
         var div = document.createElement( 'div' );
         div.id = id;
-        ( document.body || document.documentElement ).appendChild( div );
+        Ext.getBody().dom.appendChild( div );
 
         var div2 = Ext.get( id );
         Y.Assert.areSame( div, div2.dom, 'Test if "get" got the correct item' );
+        div2.remove();
     },
     
     // 1
@@ -390,10 +392,11 @@ suite.add(new Y.Test.Case({
         var id = Ext.id();
         var div = document.createElement( 'div' );
         div.id = id;
-        ( document.body || document.documentElement ).appendChild( div );
+        Ext.getBody().dom.appendChild( div );
 
         var div2 = Ext.getDom( id );
         Y.Assert.areSame( div, div2, 'Test if getDom returns correct element' );
+        div2.parentNode.removeChild( div2 );
     },
 
     // 1
@@ -439,7 +442,7 @@ suite.add(new Y.Test.Case({
         Y.Assert.isFalse( Ext.isArray( new Date() ), 'Test with a date' );
         Y.Assert.isFalse( Ext.isArray( {} ), 'Test with empty object' );
         Y.Assert.isFalse( Ext.isArray( document.getElementsByTagName( 'body' ) ), 'Test with node list' );
-        Y.Assert.isFalse( Ext.isArray( document.body ), 'Test with element' );
+        Y.Assert.isFalse( Ext.isArray( Ext.getBody().dom ), 'Test with element' );
         Y.Assert.isFalse( Ext.isArray( new C() ), 'Test with custom class that has a length property' );
     },
 
@@ -452,7 +455,7 @@ suite.add(new Y.Test.Case({
         Y.Assert.isFalse( Ext.isBoolean( 1 ), 'Test with number' );
         Y.Assert.isFalse( Ext.isBoolean( '' ), 'Test with empty string' );
         Y.Assert.isFalse( Ext.isBoolean( 'foo' ), 'Test with non empty string' );
-        Y.Assert.isFalse( Ext.isBoolean( document.body ), 'Test with element' );
+        Y.Assert.isFalse( Ext.isBoolean( Ext.getBody().dom ), 'Test with element' );
         Y.Assert.isFalse( Ext.isBoolean( null ), 'Test with null' );
         Y.Assert.isFalse( Ext.isBoolean( {} ), 'Test with object' );
         Y.Assert.isFalse( Ext.isBoolean( new Date() ), 'Test with date' );
@@ -468,7 +471,7 @@ suite.add(new Y.Test.Case({
         Y.Assert.isFalse( Ext.isDate( null ), 'Test with null' );
         Y.Assert.isFalse( Ext.isDate( [] ), 'Test with array' );
         Y.Assert.isFalse( Ext.isDate( {} ), 'Test with object' );
-        Y.Assert.isFalse( Ext.isDate( document.body ), 'Test with element' );
+        Y.Assert.isFalse( Ext.isDate( Ext.getBody().dom ), 'Test with element' );
     },
 
     // 10
@@ -482,12 +485,12 @@ suite.add(new Y.Test.Case({
         Y.Assert.isTrue( Ext.isDefined( false ), 'Test with boolean' );
         Y.Assert.isTrue( Ext.isDefined( '' ), 'Test with empty string' );
         Y.Assert.isTrue( Ext.isDefined( 'foo' ), 'Test with non-empty string' );
-        Y.Assert.isTrue( Ext.isDefined( document.body ), 'Test with element' );
+        Y.Assert.isTrue( Ext.isDefined( Ext.getBody().dom ), 'Test with element' );
     },
 
     // 5
     test_isElement: function() {
-        Y.Assert.isTrue( Ext.isElement( document.body ), 'Test with element' );
+        Y.Assert.isTrue( Ext.isElement( Ext.getBody().dom ), 'Test with element' );
         Y.Assert.isFalse( Ext.isElement( Ext.getBody() ), 'Test with Ext.Element' );
         Y.Assert.isFalse( Ext.isElement( null ), 'Test with null' );
         Y.Assert.isFalse( Ext.isElement( 1 ), 'Test with number' );
@@ -566,7 +569,7 @@ suite.add(new Y.Test.Case({
         Y.Assert.isFalse( Ext.isObject( new Number( 3 ) ), 'Test with new Number() syntax' );
         Y.Assert.isFalse( Ext.isObject( new String( 'foo' ) ), 'Test with new String() syntax' );
         Y.Assert.isFalse( Ext.isObject( null ), 'Test with null' );
-        Y.Assert.isFalse( Ext.isObject( undefined ), 'Test with array' );
+        Y.Assert.isFalse( Ext.isObject( undefined ), 'Test with undefined' );
     },
 
     // 14
@@ -744,68 +747,147 @@ suite.add(new Y.Test.Case({
 
     },
 
+    // 4
     test_partition: function() {
-
+        var part = Ext.partition( [ true, false, true, true, false ] );
+        Y.ArrayAssert.itemsAreEqual( [ true, true, true ], part[ 0 ], 'Test if partitioned into true values' );
+        Y.ArrayAssert.itemsAreEqual( [ false, false ], part[ 1 ], 'Test if partitioned into false values' );
+        var part2 = Ext.partition( [ 12, 1, 11, 2, 3, 50, 5, 15 ], function( v ) { return v > 10 } );
+        Y.ArrayAssert.itemsAreEqual( [ 12, 11, 50, 15 ], part2[ 0 ], 'Test if partitioned into a list of items less than 10' );
+        Y.ArrayAssert.itemsAreEqual( [ 1, 2, 3, 5 ], part2[ 1 ], 'Test if partitioned into a list of items greater than 10' );
     },
 
+    // 1
     test_pluck: function() {
-
+        var results = Ext.pluck( [ { n: 11 }, { n: 13 }, { n: 18 } ], 'n' );
+        Y.ArrayAssert.itemsAreEqual( [ 11, 13, 18 ], results, 'Test pluck results' );
     },
 
-    test_preg: function() {
+    // preg
+    // query
+    // reg
+    // removeNode
+    // select
 
-    },
-
-    test_query: function() {
-
-    },
-
-    test_reg: function() {
-
-    },
-
-    test_removeNode: function() {
-
-    },
-
-    test_select: function() {
-
-    },
-
+    // 4
     test_sum: function() {
-
+        Y.Assert.areEqual( 0, Ext.sum( [] ), 'Test with an empty list' );
+        Y.Assert.areEqual( 4, Ext.sum( [ 4 ] ), 'Test with a single item' );
+        Y.Assert.areEqual( 15, Ext.sum( [ 1, 2, 3, 4, 5 ] ), 'Test with multiple items' );
+        Y.Assert.areEqual( 6.5, Ext.sum( [ 1.1, 1.2, 1.3, 1.4, 1.5 ] ), 'Test with floats' );
     },
 
+    // 1
     test_toArray: function() {
-
+        Y.Assert.isArray( Ext.toArray( document.getElementsByTagName( 'body' ) ), 'Test with node list' );
     },
 
+    // 25
     test_type: function() {
+        Y.Assert.areEqual( 'string', Ext.type( 'foo' ), 'Test with string' );
+        Y.Assert.areEqual( 'string', Ext.type( new String( 'foo' ) ), 'Test with new String() syntax' );
 
+        Y.Assert.areEqual( 'number', Ext.type( 1 ), 'Test with number' );
+        Y.Assert.areEqual( 'number', Ext.type( new Number( 3 ) ), 'Test with new Number() syntax' );
+
+        Y.Assert.areEqual( 'boolean', Ext.type( false ), 'Test with boolean' );
+        Y.Assert.areEqual( 'boolean', Ext.type( new Boolean( false ) ), 'Test with new Boolean() syntax' );
+
+        Y.Assert.areEqual( 'date', Ext.type( new Date() ), 'Test with a date object' );
+        Y.Assert.areEqual( 'date', Ext.type( Date.parseDate( '2000', 'Y' ) ), 'Test with simple date (parsed)' );
+
+        Y.Assert.areEqual( 'function', Ext.type( function(){} ), 'Test with a function' );
+        Y.Assert.areEqual( 'function', Ext.type( Ext.emptyFn ), 'Test with Ext.emptyFn' );
+        Y.Assert.areEqual( 'function', Ext.type( new Function() ), 'Test with new Function() syntax' );
+
+        Y.Assert.areEqual( 'object', Ext.type( {} ), 'Test with empty object' );
+        Y.Assert.areEqual( 'object', Ext.type( { foo: 1 } ), 'Test with object with properties' );
+        Y.Assert.areEqual( 'object', Ext.type( new Ext.util.Observable() ), 'Test with object instance' );
+        Y.Assert.areEqual( 'object', Ext.type( new Object() ), 'Test with new Object() syntax' );
+
+        Y.Assert.areEqual( 'array', Ext.type( [] ), 'Test with array' );
+        Y.Assert.areEqual( 'array', Ext.type( new Array() ), 'Test with new Array() syntax' );
+
+        Y.Assert.areEqual( 'regexp', Ext.type( /asdf/ ), 'Test with regexp' );
+        Y.Assert.areEqual( 'regexp', Ext.type( new RegExp( 'asdf' ) ), 'Test with new Regexp() syntax' );
+
+        Y.Assert.areEqual( 'nodelist', Ext.type( document.getElementsByTagName( 'body' ) ), 'Test with node list' );
+        
+        Y.Assert.areEqual( 'textnode', Ext.type( document.createTextNode( 'test' ) ), 'Test with text node' );
+
+        Y.Assert.areEqual( 'whitespace', Ext.type( document.createTextNode( '' ) ), 'Test with empty text node' );
+        Y.Assert.areEqual( 'whitespace', Ext.type( document.createTextNode( '     ' ) ), 'Test with whitespace in text node' );
+
+        Y.Assert.areEqual( '', Ext.type( null ), 'Test with null' );
+        Y.Assert.areEqual( false, Ext.type( undefined ), 'Test with undefined' );
     },
 
+    // 7
     test_unique: function() {
-
+        var fn = function(){}, obj = {}, arr = [], date = new Date();
+        Y.ArrayAssert.itemsAreEqual( [ true, false ], Ext.unique( [ true, true, false, true, false, false ] ), 'Test with all booleans' );
+        Y.ArrayAssert.itemsAreEqual( [ 1, 2, 3 ], Ext.unique( [ 1, 2, 3, 3, 2, 1 ] ), 'Test with all numbers' );
+        Y.ArrayAssert.itemsAreEqual( [ fn ], Ext.unique( [ fn, fn, fn, fn ] ), 'Test with functions' );
+        Y.ArrayAssert.itemsAreEqual( [ arr ], Ext.unique( [ arr, arr, arr, arr ] ), 'Test with arrays' );
+        Y.ArrayAssert.itemsAreEqual( [ obj ], Ext.unique( [ obj, obj, obj, obj ] ), 'Test with objects' );
+        Y.ArrayAssert.itemsAreEqual( [ date ], Ext.unique( [ date, date, date, date ] ), 'Test with dates' );
+        Y.ArrayAssert.itemsAreEqual( [ obj, fn, arr, date ], Ext.unique( [ obj, obj, fn, obj, arr, obj, fn, arr, date, fn, arr, obj ] ), 'Test with objects, functions, arrays, and dates' );
     },
 
+    // 2
     test_urlAppend: function() {
-
+        var url = "http://example.com/";
+        Y.Assert.areEqual( 'http://example.com/?test=1', Ext.urlAppend( url, 'test=1' ), 'Test for question mark' );
+        Y.Assert.areEqual( 'http://example.com/?test=1&foo=2', Ext.urlAppend( url + '?test=1', 'foo=2' ), 'Test for ampersand' );
     },
 
+    // 3
     test_urlDecode: function() {
-
+        Y.ObjectAssert.hasKeys({
+            foo: 1,
+            bar: 2
+        }, Ext.urlDecode( 'foo=1&bar=2' ), 'Decode 2 keys' );
+        Y.ObjectAssert.hasKeys({
+            foo: 1,
+            bar: [ '2', '3', '4' ]
+        }, Ext.urlDecode( 'foo=1&bar=2&bar=3&bar=4', false ), 'Decode 2 keys, one of them an array (overwrite off)' );
+        Y.ObjectAssert.hasKeys({
+            foo: 1,
+            bar: 4
+        }, Ext.urlDecode( 'foo=1&bar=2&bar=3&bar=4', true ), 'Decode 2 keys, one of them an array (overwrite on)' );
     },
 
+    // 3
     test_urlEncode: function() {
-
+        Y.Assert.areEqual( 'foo=1&bar=2', Ext.urlEncode({
+            foo: 1,
+            bar: 2
+        }), 'Decode 2 keys' );
+        Y.Assert.areEqual( 'foo=1&bar=2&bar=3&bar=4', Ext.urlEncode({
+            foo: 1,
+            bar: [ '2', '3', '4' ]
+        }), 'Decode 2 keys, one of them an array' );
+        Y.Assert.areEqual( 'test=1&foo=1&bar=2&bar=3&bar=4', Ext.urlEncode({
+            foo: 1,
+            bar: [ '2', '3', '4' ]
+        },'test=1'), 'Decode 2 keys, one of them an array, with pre: test=1' );
     },
 
     test_value: function() {
-
+        // TBD
     },
 
+    // 1
     test_zip: function() {
-
+//        Y.ArrayAssert.itemsAreEqual( [ [ 1, 4 ], [ 2, 5 ], [ 3, 6 ] ], Ext.zip( [ 1, 2, 3 ], [ 4, 5, 6 ] ), 'Zip two arrays' );
+        Y.ArrayAssert.itemsAreEqual( [ [ '$+12.43' ], [ '$-10.15' ], [ '$+22.96' ] ], Ext.zip(
+            [ '+', '-', '+' ],
+            [  12,  10,  22 ],
+            [  43,  15,  96 ],
+            function( a, b, c ) {
+                return '$' + a + '' + b + '.' + c;
+            }
+        ), 'Zip using a function' );
     }
 
 }));
