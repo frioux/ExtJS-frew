@@ -4,7 +4,7 @@
  */
 Ext.ux.tree.TreeGridNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
     isTreeGridNodeUI: true,
-    
+
     renderElements : function(n, a, targetNode, bulkRender){
         var t = n.getOwnerTree(),
             cols = t.columns,
@@ -15,7 +15,7 @@ Ext.ux.tree.TreeGridNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
 
         buf = [
              '<tbody class="x-tree-node">',
-                '<tr ext:tree-node-id="', n.id ,'" class="x-tree-node-el ', a.cls, '">',
+                '<tr ext:tree-node-id="', n.id ,'" class="x-tree-node-el x-tree-node-leaf ', a.cls, '">',
                     '<td class="x-treegrid-col">',
                         '<span class="x-tree-node-indent">', this.indentMarkup, "</span>",
                         '<img src="', this.emptyIcon, '" class="x-tree-ec-icon x-tree-elbow">',
@@ -71,14 +71,14 @@ Ext.ux.tree.TreeGridNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
 
 Ext.ux.tree.TreeGridRootNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
     isTreeGridNodeUI: true,
-    
+
     // private
     render : function(){
         if(!this.rendered){
             this.wrap = this.ctNode = this.node.ownerTree.innerCt.dom;
             this.node.expanded = true;
         }
-        
+
         if(Ext.isWebKit) {
             // weird table-layout: fixed issue in webkit
             var ct = this.ctNode;
@@ -95,7 +95,7 @@ Ext.ux.tree.TreeGridRootNodeUI = Ext.extend(Ext.tree.TreeNodeUI, {
         }
         delete this.node;
     },
-    
+
     collapse : Ext.emptyFn,
     expand : Ext.emptyFn
 });
