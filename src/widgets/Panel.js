@@ -1437,7 +1437,7 @@ new Ext.Panel({
     },
 
     // private
-    onResize : function(w, h){
+    onResize : function(w, h, rw, rh){
         if(Ext.isDefined(w) || Ext.isDefined(h)){
             if(!this.collapsed){
                 // First, set the the Panel's body width.
@@ -1501,7 +1501,7 @@ new Ext.Panel({
             this.onBodyResize(w, h);
         }
         this.syncShadow();
-        Ext.Panel.superclass.onResize.call(this);
+        Ext.Panel.superclass.onResize.call(this, arguments);
     },
 
     // private
