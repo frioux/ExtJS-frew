@@ -1,8 +1,7 @@
 ﻿/**
- * Ext 2.2.0 - Portuguese/Portugal (pt_PT) Translation
+ * Portuguese/Portugal (pt_PT) Translation
  * by Nuno Franco da Costa - francodacosta.com
  * translated from ext-lang-en.js
- * 11 Nov 2008
  */
 
 Ext.UpdateManager.defaults.indicatorText = '<div class="loading-indicator">A carregar...</div>';
@@ -169,10 +168,10 @@ if(Ext.form.ComboBox){
 
 if(Ext.form.VTypes){
   Ext.apply(Ext.form.VTypes, {
-    emailText    : 'Este campo deve ser um endere&ccedil;o de email no formato "utilizaor@dominio.com"',
+    emailText    : 'Este campo deve ser um endere&ccedil;o de email no formato "utilizador@dominio.com"',
     urlText      : 'Este campo deve ser um URL no formato "http:/'+'/www.dominio.com"',
     alphaText    : 'Este campo deve conter apenas letras e _',
-    alphanumText : 'Este campo deve conter apenas letras, numeros e _'
+    alphanumText : 'Este campo deve conter apenas letras, n@uacute;meros e _'
   });
 }
 

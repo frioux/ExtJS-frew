@@ -1,3 +1,6 @@
+/**
+ * Plugin for PagingToolbar which replaces the textfield input with a slider 
+ */
 Ext.ux.SlidingPager = Ext.extend(Object, {
     init : function(pbar){
         var idx = pbar.items.indexOf(pbar.inputItem);
@@ -9,8 +12,8 @@ Ext.ux.SlidingPager = Ext.extend(Object, {
             minValue: 1,
             maxValue: 1,
             plugins: new Ext.ux.SliderTip({
-                getText : function(s){
-                    return String.format('Page <b>{0}</b> of <b>{1}</b>', s.value, s.maxValue);
+                getText : function(thumb) {
+                    return String.format('Page <b>{0}</b> of <b>{1}</b>', thumb.value, thumb.slider.maxValue);
                 }
             }),
             listeners: {

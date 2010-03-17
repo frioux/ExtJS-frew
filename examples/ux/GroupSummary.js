@@ -347,9 +347,16 @@ grid.on('afteredit', function(){
      * @return {Object} summaryData
      */
     getSummaryData : function(groupValue){
-        var json = this.grid.getStore().reader.jsonData;
+        var reader = this.grid.getStore().reader,
+            json = reader.jsonData,
+            fields = reader.recordType.prototype.fields,
+            v;
+            
         if(json && json.summaryData){
-            return json.summaryData[groupValue];
+            v = json.summaryData[groupValue];
+            if(v){
+                return reader.extractValues(v, fields.items, fields.length);
+            }
         }
         return null;
     }

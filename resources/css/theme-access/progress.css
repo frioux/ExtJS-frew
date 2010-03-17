@@ -13,15 +13,17 @@
     border-top-color:#a66900;
     border-bottom-color:#a66900;
     border-right-color:#ffb941;
+    height: 20px !important; /* structural override for Accessibility Theme */
 }
 
 .x-progress-text {
     font-size:14px;
     font-weight:bold;
     color:#fff;
+    padding: 0 5px !important; /* structural override for Accessibility Theme */
 }
 
 .x-progress-text-back {
     color:#aaa;
-    line-height: 11px;
+    line-height: 19px;
 }

@@ -1,4 +1,4 @@
-var suite = new Y.Test.Suite('JsonReader');
+var suite = Ext.test.session.getSuite('JsonReader');
 
 suite.add(new Y.Test.Case({
     name: 'buildExtractors',
@@ -163,5 +163,3 @@ suite.add(new Y.Test.Case({
         Y.Assert.areSame(this.rec1.raw.data[0].id, this.data1.id);
     }
 }));
-
-Ext.tests.push(suite);

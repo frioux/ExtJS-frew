@@ -541,13 +541,6 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
         return this;
     },
 
-    /**
-     * Focus the button
-     */
-    focus : function(){
-        this.btnEl.focus();
-    },
-
     // private
     onDisable : function(){
         this.onDisableChange(true);

@@ -427,6 +427,10 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         }else{
             max = this.getHeight();
         }
+        // Always respect maxHeight 
+        if (this.maxHeight){
+            max = Math.min(this.maxHeight, max);
+        }
         if(full > max && max > 0){
             this.activeMax = max - this.scrollerHeight * 2 - this.el.getFrameWidth('tb') - Ext.num(this.el.shadowOffset, 0);
             this.ul.setHeight(this.activeMax);

@@ -4,10 +4,10 @@
  * Adds the ability for single level grouping to the grid. A {@link Ext.data.GroupingStore GroupingStore}
  * must be used to enable grouping.  Some grouping characteristics may also be configured at the
  * {@link Ext.grid.Column Column level}<div class="mdetail-params"><ul>
- * <li><code>{@link Ext.grid.Column#emptyGroupText emptyGroupText}</li>
- * <li><code>{@link Ext.grid.Column#groupable groupable}</li>
- * <li><code>{@link Ext.grid.Column#groupName groupName}</li>
- * <li><code>{@link Ext.grid.Column#groupRender groupRender}</li>
+ * <li><code>{@link Ext.grid.Column#emptyGroupText emptyGroupText}</code></li>
+ * <li><code>{@link Ext.grid.Column#groupable groupable}</code></li>
+ * <li><code>{@link Ext.grid.Column#groupName groupName}</code></li>
+ * <li><code>{@link Ext.grid.Column#groupRender groupRender}</code></li>
  * </ul></div>
  * <p>Sample usage:</p>
  * <pre><code>
@@ -146,9 +146,6 @@ var grid = new Ext.grid.GridPanel({
      */
 
     // private
-    gidSeed : 1000,
-
-    // private
     initTemplates : function(){
         Ext.grid.GroupingView.superclass.initTemplates.call(this);
         this.state = {};
@@ -165,11 +162,10 @@ var grid = new Ext.grid.GridPanel({
             );
         }
         this.startGroup.compile();
-        if(!this.endGroup){
+
+        if (!this.endGroup) {
             this.endGroup = '</div></div>';
         }
-
-        this.endGroup = '</div></div>';
     },
 
     // private
@@ -183,12 +179,14 @@ var grid = new Ext.grid.GridPanel({
     },
 
     // private
-    onAdd : function(){
-        if(this.canGroup() && !this.ignoreAdd){
+    onAdd : function(ds, records, index) {
+        if (this.canGroup() && !this.ignoreAdd) {
             var ss = this.getScrollState();
+            this.fireEvent('beforerowsinserted', ds, index, index + (records.length-1));
             this.refresh();
             this.restoreScroll(ss);
-        }else if(!this.canGroup()){
+            this.fireEvent('rowsinserted', ds, index, index + (records.length-1));
+        } else if (!this.canGroup()) {
             Ext.grid.GroupingView.superclass.onAdd.apply(this, arguments);
         }
     },
@@ -253,6 +251,7 @@ var grid = new Ext.grid.GridPanel({
     },
 
     processEvent: function(name, e){
+        Ext.grid.GroupingView.superclass.processEvent.call(this, name, e);
         var hd = e.getTarget('.x-grid-group-hd', this.mainBody);
         if(hd){
             // group value is at the end of the string
@@ -280,7 +279,7 @@ var grid = new Ext.grid.GridPanel({
 
     // private
     onShowGroupsClick : function(mi, checked){
-    this.enableGrouping = checked;
+        this.enableGrouping = checked;
         if(checked){
             this.onGroupByClick();
         }else{
@@ -412,8 +411,7 @@ var grid = new Ext.grid.GridPanel({
         }
 
         if(!this.canGroup() || this.isUpdating){
-            return Ext.grid.GroupingView.superclass.doRender.apply(
-                    this, arguments);
+            return Ext.grid.GroupingView.superclass.doRender.apply(this, arguments);
         }
 
         var groupField = this.getGroupField(),

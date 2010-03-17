@@ -34,10 +34,12 @@ Ext.onReady(function(){
                 defaultType: 'textfield',
                 items: [{
                         fieldLabel: 'First Name',
+                        emptyText: 'First Name',
                         name: 'first',
                         width:190
                     }, {
                         fieldLabel: 'Last Name',
+                        emptyText: 'Last Name',
                         name: 'last',
                         width:190
                     }, {
@@ -89,7 +91,7 @@ Ext.onReady(function(){
         text: 'Submit',
         disabled:true,
         handler: function(){
-            fs.getForm().submit({url:'xml-errors.xml', waitMsg:'Saving Data...'});
+            fs.getForm().submit({url:'xml-errors.xml', waitMsg:'Saving Data...', submitEmptyText: false});
         }
     });
 

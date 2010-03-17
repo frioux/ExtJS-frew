@@ -307,7 +307,7 @@ Ext.apply(Ext.EventObjectImpl.prototype, {
        this.isNavKeyPress() ||
        (k == this.BACKSPACE) || // Backspace
        (k >= 16 && k <= 20) || // Shift, Ctrl, Alt, Pause, Caps Lock
-       (k >= 44 && k <= 45);   // Print Screen, Insert
+       (k >= 44 && k <= 46);   // Print Screen, Insert, Delete
    },
 
    getPoint : function(){

@@ -86,7 +86,7 @@ function createConsole(){
 //     handleResize();
 
     function handleResize(){
-        var b = Ext.getBody()
+        var b = Ext.getBody();
         var size = b.getViewSize();
         if(size.height < b.dom.scrollHeight) {
             size.width -= 18;
@@ -636,7 +636,7 @@ Ext.debug.ObjectInspector = Ext.extend(Ext.tree.TreePanel, {
         this.toggleFunc = function() {
             this.showFunc = !this.showFunc;
             this.refreshNodes(this.currentObject);
-        }
+        };
         this.bbar = new Ext.Toolbar([{
             text: 'Show Functions',
             enableToggle: true,

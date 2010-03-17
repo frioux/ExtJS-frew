@@ -153,7 +153,7 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
             if (!success) {
                 if (action === Ext.data.Api.actions.read) {
                     // @deprecated: fire loadexception for backwards compat.
-                    // TODO remove in 3.1
+                    // TODO remove
                     this.fireEvent('loadexception', this, o, response);
                 }
                 this.fireEvent('exception', this, 'response', action, o, response);
@@ -184,7 +184,7 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
             result = o.reader.read(response);
         }catch(e){
             // @deprecated: fire old loadexception for backwards-compat.
-            // TODO remove in 3.1
+            // TODO remove
             this.fireEvent('loadexception', this, o, response, e);
 
             this.fireEvent('exception', this, 'response', action, o, response, e);
@@ -193,7 +193,7 @@ Ext.extend(Ext.data.HttpProxy, Ext.data.DataProxy, {
         }
         if (result.success === false) {
             // @deprecated: fire old loadexception for backwards-compat.
-            // TODO remove in 3.1
+            // TODO remove
             this.fireEvent('loadexception', this, o, response);
 
             // Get DataReader read-back a response-object to pass along to exception event

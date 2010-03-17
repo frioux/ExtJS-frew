@@ -1,6 +1,4 @@
-var suite = new Y.Test.Suite('ArrayReader');
-
-suite.add(new Y.Test.Case({
+Ext.test.session.addTest( 'ArrayReader', {
     name: 'readRecords',
     setUp: function() {
         this.reader = new Ext.data.ArrayReader({
@@ -33,6 +31,4 @@ suite.add(new Y.Test.Case({
         Y.Assert.areSame(this.rec1.records[0].data.bool, this.data1[0][3]);
         Y.Assert.areSame(this.rec1.records[0].data.msg, this.data1[0][4]);
     }
-}));
-
-Ext.tests.push(suite);
+});

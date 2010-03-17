@@ -58,12 +58,21 @@ Ext.grid.CheckboxSelectionModel = Ext.extend(Ext.grid.RowSelectionModel, {
         }, this);
     },
 
+    // If handleMouseDown was called from another event (enableDragDrop), set a flag so
+    // onMouseDown does not process it a second time
+    handleMouseDown : function() {
+        Ext.grid.CheckboxSelectionModel.superclass.handleMouseDown.apply(this, arguments);
+        this.mouseHandled = true;
+    },
+
     // private
     onMouseDown : function(e, t){
         if(e.button === 0 && t.className == 'x-grid3-row-checker'){ // Only fire if left-click
             e.stopEvent();
             var row = e.getTarget('.x-grid3-row');
-            if(row){
+
+            // mouseHandled flag check for a duplicate selection (handleMouseDown) call
+            if(!this.mouseHandled && row){
                 var index = row.rowIndex;
                 if(this.isSelected(index)){
                     this.deselectRow(index);
@@ -72,6 +81,7 @@ Ext.grid.CheckboxSelectionModel = Ext.extend(Ext.grid.RowSelectionModel, {
                 }
             }
         }
+        this.mouseHandled = false;
     },
 
     // private

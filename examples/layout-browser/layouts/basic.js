@@ -182,7 +182,7 @@ var cardTabs = {
 var cardNav = function(incr){
     var l = Ext.getCmp('card-wizard-panel').getLayout();
     var i = l.activeItem.id.split('card-')[1];
-    var next = parseInt(i) + incr;
+    var next = parseInt(i, 10) + incr;
     l.setActiveItem(next);
     Ext.getCmp('card-prev').setDisabled(next==0);
     Ext.getCmp('card-next').setDisabled(next==2);

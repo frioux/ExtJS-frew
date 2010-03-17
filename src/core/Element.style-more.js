@@ -242,7 +242,7 @@ Ext.Element.addMethods(function(){
                 return {
                     width : extdom.getViewWidth(),
                     height : extdom.getViewHeight()
-                }
+                };
 
             // Else use clientHeight/clientWidth
             } else {

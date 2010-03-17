@@ -11,4 +11,4 @@ Ext.FlashEventProxy = {
             arguments.callee.defer(10, this, [id, e]);
         }
     }
-}
+};

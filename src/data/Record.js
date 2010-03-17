@@ -68,7 +68,7 @@ var myNewRecord = new TopicRecord(
 myStore.{@link Ext.data.Store#add add}(myNewRecord);
 </code></pre>
  * @method create
- * @return {function} A constructor which is used to create new Records according
+ * @return {Function} A constructor which is used to create new Records according
  * to the definition. The constructor has the same signature as {@link #Record}.
  * @static
  */
@@ -230,7 +230,7 @@ rec.{@link #commit}(); // updates the view
 
     // private
     afterEdit : function(){
-        if(this.store){
+        if (this.store != undefined && typeof this.store.afterEdit == "function") {
             this.store.afterEdit(this);
         }
     },

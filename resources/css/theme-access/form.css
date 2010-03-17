@@ -10,6 +10,10 @@
     border-width:2px;
 }
 
+.ext-webkit .x-form-text, .ext-webkit textarea.x-form-field{
+    border-width:2px;
+}
+
 .x-form-text, .ext-ie .x-form-file {
     height:26px;
 }
@@ -49,7 +53,7 @@
 }
 
 .x-small-editor .x-form-field-wrap .x-form-trigger {
-    height:20px;
+    height:24px;
 }
 
 .x-form-field-wrap .x-form-trigger-over {
@@ -100,16 +104,19 @@
 	border-color:#ff9c33;
 }
 
-.x-form-invalid, textarea.x-form-invalid{
+.x-form-invalid, textarea.x-form-invalid,
+.ext-webkit .x-form-invalid, .ext-webkit textarea.x-form-invalid{
     background-color:#15171a;
 	background-image:url(../images/access/grid/invalid_line.gif);
 	border-color:#c30;
 }
 
+/*
 .ext-safari .x-form-invalid{
 	background-color:#fee;
 	border-color:#ff7870;
 }
+*/
 
 .x-form-inner-invalid, textarea.x-form-inner-invalid{
     background-color:#fff;
@@ -135,7 +142,7 @@
 }
 
 .x-small-editor .x-form-text {
-    height: 22px;
+    height: 26px;
 }
 
 .x-small-editor .x-form-field {
@@ -159,5 +166,5 @@
 
 .x-fieldset legend {
     font:bold 14px tahoma, arial, helvetica, sans-serif;
-    color:fff;
+    color:#fff;
 }

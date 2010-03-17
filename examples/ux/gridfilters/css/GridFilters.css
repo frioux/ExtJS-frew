@@ -43,6 +43,6 @@ li.x-menu-list-item-indent {
 	padding-left:0px;
 }
 li.x-menu-list-item div {
-	display: inline;
+	display: block;
 }
 

@@ -8,6 +8,10 @@
 
 Ext.UpdateManager.defaults.indicatorText = '<div class="loading-indicator">Loading...</div>';
 
+if(Ext.data.Types){
+    Ext.data.Types.stripRe = /[\$,%]/g;
+}
+
 if(Ext.DataView){
   Ext.DataView.prototype.emptyText = "";
 }

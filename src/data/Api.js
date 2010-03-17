@@ -59,8 +59,7 @@ restActions : {
 
         /**
          * Returns true if supplied action-name is a valid API action defined in <code>{@link #actions}</code> constants
-         * @param {String} action
-         * @param {String[]}(Optional) List of available CRUD actions.  Pass in list when executing multiple times for efficiency.
+         * @param {String} action Action to test for availability.
          * @return {Boolean}
          */
         isAction : function(action) {
@@ -92,7 +91,7 @@ restActions : {
         /**
          * Returns true if the supplied API is valid; that is, check that all keys match defined actions
          * otherwise returns an array of mistakes.
-         * @return {String[]||true}
+         * @return {String[]|true}
          */
         isValid : function(api){
             var invalid = [];

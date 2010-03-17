@@ -76,11 +76,11 @@ Ext.onReady(function(){
     var grid = new Ext.grid.GridPanel({
         store: store,
         colModel: new Ext.ux.grid.LockingColumnModel([
-            {id:'company',header: 'Company', width: 160, sortable: true, dataIndex: 'company', locked: true},
-            {header: 'Price', width: 85, sortable: true, renderer: 'usMoney', dataIndex: 'price'},
-            {header: 'Change', width: 85, sortable: true, renderer: change, dataIndex: 'change'},
-            {header: '% Change', width: 85, sortable: true, renderer: pctChange, dataIndex: 'pctChange'},
-            {header: 'Last Updated', width: 95, sortable: true, renderer: Ext.util.Format.dateRenderer('m/d/Y'), dataIndex: 'lastChange'}
+            {header: 'Company',      width: 160, sortable: true, dataIndex: 'company', locked: true, id:'company'},
+            {header: 'Price',        width: 85,  sortable: true, renderer: 'usMoney',  dataIndex: 'price'},
+            {header: 'Change',       width: 85,  sortable: true, renderer: change,     dataIndex: 'change'},
+            {header: '% Change',     width: 85,  sortable: true, renderer: pctChange,  dataIndex: 'pctChange'},
+            {header: 'Last Updated', width: 95,  sortable: true, renderer: Ext.util.Format.dateRenderer('m/d/Y'), dataIndex: 'lastChange'}
         ]),
         stripeRows: true,
         height: 350,

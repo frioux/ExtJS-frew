@@ -178,7 +178,7 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
         }
         this.getRoot = function(res) {
             return (!Ext.isEmpty(res[this.meta.record])) ? res[this.meta.record] : res[this.meta.root];
-        }
+        };
         if (s.idPath || s.idProperty) {
             var g = this.createAccessor(s.idPath || s.idProperty);
             this.getId = function(rec) {
@@ -211,19 +211,19 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
                 case this.meta.totalProperty:
                     return function(root, def){
                         return q.selectNumber(key, root, def);
-                    }
+                    };
                     break;
                 case this.meta.successProperty:
                     return function(root, def) {
                         var sv = q.selectValue(key, root, true);
                         var success = sv !== false && sv !== 'false';
                         return success;
-                    }
+                    };
                     break;
                 default:
                     return function(root, def) {
                         return q.selectValue(key, root, def);
-                    }
+                    };
                     break;
             }
         };

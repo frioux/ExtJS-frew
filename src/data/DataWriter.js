@@ -155,7 +155,7 @@ Ext.data.DataWriter.prototype = {
      * Converts a Record to a hash, taking into account the state of the Ext.data.Record along with configuration properties
      * related to its rendering, such as {@link #writeAllFields}, {@link Ext.data.Record#phantom phantom}, {@link Ext.data.Record#getChanges getChanges} and
      * {@link Ext.data.DataReader#idProperty idProperty}
-     * @param {Ext.data.Record}
+     * @param {Ext.data.Record} rec The Record from which to create a hash.
      * @param {Object} config <b>NOT YET IMPLEMENTED</b>.  Will implement an exlude/only configuration for fine-control over which fields do/don't get rendered.
      * @return {Object}
      * @protected

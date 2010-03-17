@@ -712,17 +712,23 @@ filters[0][data][value]="someValue3"&
      * @return {Class} The Ext.ux.grid.filter.Class
      */
     getFilterClass : function (type) {
+        var types = Ext.data.Types;
         // map the supported Ext.data.Field type values into a supported filter
         switch(type) {
-            case 'auto':
-              type = 'string';
+            case types.INT:
+            case types.FLOAT:
+              type = 'Numeric';
               break;
-            case 'int':
-            case 'float':
-              type = 'numeric';
-              break;
+            case types.BOOL:
+                type = 'Boolean';
+                break;
+            case types.DATE:
+                type = 'Date';
+                break;
+            default:
+                type = 'String';
         }
-        return Ext.ux.grid.filter[type.substr(0, 1).toUpperCase() + type.substr(1) + 'Filter'];
+        return Ext.ux.grid.filter[type + 'Filter'];
     }
 });
 

@@ -68,7 +68,7 @@ Ext.onReady(function(){
             }]
         },{
             xtype: 'buttongroup',
-            title: 'Other Bugus Actions',
+            title: 'Other Bogus Actions',
             columns: 2,
             defaults: {
                 scale: 'small'

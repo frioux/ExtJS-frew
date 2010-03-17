@@ -18,7 +18,7 @@ Ext.lib.Dom = {
 
     isAncestor : function(p, c){
         var ret = false;
-            
+
         p = Ext.getDom(p);
         c = Ext.getDom(c);
         if (p && c) {
@@ -28,10 +28,10 @@ Ext.lib.Dom = {
                 return !!(p.compareDocumentPosition(c) & 16);
             } else {
                 while (c = c.parentNode) {
-                    ret = c == p || ret;                        
+                    ret = c == p || ret;
                 }
-            }               
-        }   
+            }
+        }
         return ret;
     },
 
@@ -259,15 +259,15 @@ Ext.lib.Ajax = function(){
             }
          };
     };
-    
+
     var createResponse = function(cb, xhr){
         var headerObj = {},
-            headerStr,              
+            headerStr,
             t,
             s;
 
         try {
-            headerStr = xhr.getAllResponseHeaders();   
+            headerStr = xhr.getAllResponseHeaders();
             Ext.each(headerStr.replace(/\r\n/g, '\n').split('\n'), function(v){
                 t = v.indexOf(':');
                 if(t >= 0){
@@ -279,7 +279,7 @@ Ext.lib.Ajax = function(){
                 }
             });
         } catch(e) {}
-        
+
         return {
             responseText: xhr.responseText,
             responseXML : xhr.responseXML,
@@ -449,9 +449,10 @@ Ext.lib.Anim = function(){
                         if (args.top.from)
                             e.setTop(args.top.from);
                     break;
+                        // jQuery can't handle callback, scope, and xy arguments, so break here
                     case 'callback':
                     case 'scope':
-                        // jQuery can't handle callback and scope arguments, so break here
+                    case 'xy':
                     break;
 
                     default:

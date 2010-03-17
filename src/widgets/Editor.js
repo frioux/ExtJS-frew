@@ -285,6 +285,10 @@ Ext.extend(Ext.Editor, Ext.Component, {
         if(!this.editing){
             return;
         }
+        // Assert combo values first
+        if (this.field.assertValue) {
+            this.field.assertValue();
+        }
         var v = this.getValue();
         if(!this.field.isValid()){
             if(this.revertInvalid !== false){

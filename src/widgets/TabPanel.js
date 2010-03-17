@@ -553,7 +553,7 @@ new Ext.TabPanel({
      * <li><b>cls</b> : String<div class="sub-desc">The CSS class name</div></li>
      * <li><b>iconCls</b> : String<div class="sub-desc">A CSS class to provide appearance for an icon.</div></li>
      * </ul></div>
-     * @param {BoxComponent} item The {@link Ext.BoxComponent BoxComponent} for which to create a selector element in the tab strip.
+     * @param {Ext.BoxComponent} item The {@link Ext.BoxComponent BoxComponent} for which to create a selector element in the tab strip.
      * @return {Object} An object hash containing the properties required to render the selector element.
      */
     getTemplateArgs : function(item) {
@@ -582,7 +582,7 @@ new Ext.TabPanel({
         if(this.rendered){
             var items = this.items;
             this.initTab(c, items.indexOf(c));
-            if(items.getCount() == 1){
+            if(items.getCount() == 1 && !this.collapsed){
                 this.syncSize();
             }
             this.delegateUpdates();

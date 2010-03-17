@@ -111,6 +111,9 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
                 }
                 ai.fireEvent('deactivate', ai);
             }
+
+            var layout = item.doLayout && (this.layoutOnCardChange || !item.rendered);
+
             // Change activeItem reference
             this.activeItem = item;
 
@@ -123,7 +126,7 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
 
             this.layout();
 
-            if(item.doLayout){
+            if(layout){
                 item.doLayout();
             }
             item.fireEvent('activate', item);

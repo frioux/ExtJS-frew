@@ -153,7 +153,7 @@ paramOrder: 'param1|param2|param|node'
      * @param {Ext.tree.TreeNode} node
      * @param {Function} callback Function to call after the node has been loaded. The
      * function is passed the TreeNode which was requested to be loaded.
-     * @param (Object) scope The cope (<code>this</code> reference) in which the callback is executed.
+     * @param {Object} scope The scope (<code>this</code> reference) in which the callback is executed.
      * defaults to the loaded TreeNode.
      */
     load : function(node, callback, scope){

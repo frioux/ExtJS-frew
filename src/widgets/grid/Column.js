@@ -105,7 +105,7 @@ Ext.grid.Column = Ext.extend(Object, {
      * @cfg {Boolean} hidden
      * Optional. <tt>true</tt> to initially hide this column. Defaults to <tt>false</tt>.
      * A hidden column {@link Ext.grid.GridPanel#enableColumnHide may be shown via the header row menu}.
-     * If a column is never to be shown, simply do not include this column in the Column Model at all. 
+     * If a column is never to be shown, simply do not include this column in the Column Model at all.
      */
     /**
      * @cfg {String} tooltip Optional. A text string to use as the column header's tooltip.  If Quicktips
@@ -210,10 +210,10 @@ var grid = new Ext.grid.GridPanel({
      * Defaults to true.
      */
     isColumn : true,
-    
+
     constructor : function(config){
         Ext.apply(this, config);
-        
+
         if(Ext.isString(this.renderer)){
             this.renderer = Ext.util.Format[this.renderer];
         }else if(Ext.isObject(this.renderer)){
@@ -223,7 +223,7 @@ var grid = new Ext.grid.GridPanel({
         if(!this.scope){
             this.scope = this;
         }
-        
+
         var ed = this.editor;
         delete this.editor;
         this.setEditor(ed);
@@ -258,14 +258,20 @@ var grid = new Ext.grid.GridPanel({
     getEditor: function(rowIndex){
         return this.editable !== false ? this.editor : null;
     },
-    
+
     /**
      * Sets a new editor for this column.
      * @param {Ext.Editor/Ext.form.Field} editor The editor to set
      */
     setEditor : function(editor){
-        if(this.editor){
-            this.editor.destroy();
+        var ed = this.editor;
+        if(ed){
+            if(ed.gridEditor){
+                ed.gridEditor.destroy();
+                delete ed.gridEditor;
+            }else{
+                ed.destroy();
+            }
         }
         this.editor = null;
         if(editor){
@@ -273,16 +279,8 @@ var grid = new Ext.grid.GridPanel({
             if(!editor.isXType){
                 editor = Ext.create(editor, 'textfield');
             }
-            //check if it's wrapped in an editor
-            if(!editor.startEdit){
-                editor = new Ext.grid.GridEditor(editor);
-            }
             this.editor = editor;
         }
-    },
-    
-    destroy : function(){
-        this.setEditor(null);
     },
 
     /**
@@ -292,7 +290,16 @@ var grid = new Ext.grid.GridPanel({
      * @return {Ext.Editor}
      */
     getCellEditor: function(rowIndex){
-        return this.getEditor(rowIndex);
+        var ed = this.getEditor(rowIndex);
+        if(ed){
+            if(!ed.startEdit){
+                if(!ed.gridEditor){
+                    ed.gridEditor = new Ext.grid.GridEditor(ed);
+                }
+                ed = ed.gridEditor;
+            }
+        }
+        return ed;
     }
 });
 

@@ -33,8 +33,8 @@ Ext.onReady(function(){
     });
 
     var tip = new Ext.ux.SliderTip({
-        getText: function(slider){
-            return String.format('<b>{0}% complete</b>', slider.getValue());
+        getText: function(thumb){
+            return String.format('<b>{0}% complete</b>', thumb.value);
         }
     });
 
@@ -54,5 +54,24 @@ Ext.onReady(function(){
         minValue: 0,
         maxValue: 100,
         plugins: new Ext.ux.SliderTip()
+    });
+    
+    new Ext.Slider({
+        renderTo: 'multi-slider-horizontal',
+        width   : 214,
+        minValue: 0,
+        maxValue: 100,
+        values  : [10, 50, 90],
+        plugins : new Ext.ux.SliderTip()
+    });
+    
+    new Ext.Slider({
+        renderTo : 'multi-slider-vertical',
+        vertical : true,
+        height   : 214,
+        minValue: 0,
+        maxValue: 100,
+        values  : [10, 50, 90],
+        plugins : new Ext.ux.SliderTip()
     });
 });

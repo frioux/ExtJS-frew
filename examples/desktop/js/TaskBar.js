@@ -26,13 +26,13 @@ Ext.extend(Ext.ux.TaskBar, Ext.util.Observable, {
             renderTo: 'ux-taskbar-start',
             clickEvent: 'mousedown',
             template: new Ext.Template(
-                '<table cellspacing="0" class="x-btn {3}"><tbody><tr>',
+                '<table cellspacing="0" class="x-btn"><tbody class="{1}"><tr>',
                 '<td class="ux-startbutton-left"><i>&#160;</i></td>',
-                '<td class="ux-startbutton-center"><em class="{5} unselectable="on">',
-                    '<button class="x-btn-text {2}" type="{1}" style="height:30px;">{0}</button>',
+                '<td class="ux-startbutton-center"><em class="{2} unselectable="on">',
+                    '<button class="x-btn-text" type="{0}" style="height:30px;"></button>',
                 '</em></td>',
                 '<td class="ux-startbutton-right"><i>&#160;</i></td>',
-                "</tr></tbody></table>")
+                '</tr></tbody></table>')
         });
 
         var width = this.startBtn.getEl().getWidth()+10;
@@ -103,6 +103,7 @@ Ext.ux.TaskBarContainer = Ext.extend(Ext.Container, {
 
     fireResize : function(w, h){
         this.onResize(w, h, w, h);
+        this.fireEvent('resize', this, w, h, w, h);
     }
 });
 

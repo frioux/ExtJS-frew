@@ -70,7 +70,7 @@ textarea {
 /* 2.0.2 style */
 .x-form-check-wrap {
     line-height:18px;
-    height: 22px;
+    height: auto;
 }
 
 .ext-ie .x-form-check-wrap input {
@@ -126,8 +126,13 @@ textarea {
 .x-form-field-wrap {
     position:relative;
     left:0;top:0;
+    text-align: left;
     zoom:1;
     white-space: nowrap;
+}
+
+.ext-strict .ext-ie8 .x-toolbar-cell .x-form-field-trigger-wrap .x-form-trigger {
+	right: 0; /* IE8 Strict mode trigger bug */
 }
 
 .x-form-field-wrap .x-form-trigger-over{
