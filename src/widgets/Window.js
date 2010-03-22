@@ -325,8 +325,12 @@ Ext.Window = Ext.extend(Ext.Panel, {
 
     initDraggable : function(){
         /**
-         * If this Window is configured {@link #draggable}, this property will contain
-         * an instance of {@link Ext.dd.DD} which handles dragging the Window's DOM Element.
+         * <p>If this Window is configured {@link #draggable}, this property will contain
+         * an instance of {@link Ext.dd.DD} which handles dragging the Window's DOM Element.</p>
+         * <p>This has implementations of <code>startDrag</code>, <code>onDrag</code> and <code>endDrag</code>
+         * which perform the dragging action. If extra logic is needed at these points, use
+         * {@link Function#createInterceptor createInterceptor} or {@link Function#createSequence createSequence} to
+         * augment the existing implementations.</p>
          * @type Ext.dd.DD
          * @property dd
          */

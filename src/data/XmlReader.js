@@ -113,10 +113,10 @@ Ext.extend(Ext.data.XmlReader, Ext.data.DataReader, {
     },
 
     /**
-     * Decode a json response from server.
+     * Decode an XML response from server.
      * @param {String} action [{@link Ext.data.Api#actions} create|read|update|destroy]
      * @param {Object} response HTTP Response object from browser.
-     * @return {Ext.data.Response} response Returns an instance of {@link Ext.data.Response}
+     * @return {Ext.data.Response} An instance of {@link Ext.data.Response}
      */
     readResponse : function(action, response) {
         var q   = Ext.DomQuery,
