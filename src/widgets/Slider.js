@@ -3,7 +3,8 @@ Ext.ns('Ext.slider');
 /**
  * @class Ext.slider.Thumb
  * @extends Object
- * Represents a single thumb element on a Slider
+ * Represents a single thumb element on a Slider. This would not usually be created manually and would instead
+ * be created internally by an {@link Ext.slider.MultiSlider Ext.Slider}.
  */
 Ext.slider.Thumb = Ext.extend(Object, {
     
@@ -158,8 +159,30 @@ Ext.slider.Thumb = Ext.extend(Object, {
 /**
  * @class Ext.slider.MultiSlider
  * @extends Ext.BoxComponent
- * Base class for Ext.slider.SingleSlider and Ext.MultiSlider. Contains most of the functionality required to render the component 
- * and manage thumbs (the handle elements on the slider).
+ * Slider which supports vertical or horizontal orientation, keyboard adjustments, configurable snapping, axis clicking and animation. Can be added as an item to any container. Example usage:
+<pre>
+new Ext.Slider({
+    renderTo: Ext.getBody(),
+    width: 200,
+    value: 50,
+    increment: 10,
+    minValue: 0,
+    maxValue: 100
+});
+<pre>
+ * Sliders can be created with more than one thumb handle by passing an array of values instead of a single one:
+<pre>
+new Ext.Slider({
+    renderTo: Ext.getBody(),
+    width: 200,
+    values: [25, 50, 75],
+    minValue: 0,
+    maxValue: 100,
+    
+    //this defaults to true, setting to false allows the thumbs to pass each other
+    {@link #constrainThumbs}: false
+});
+<pre>
  */
 Ext.slider.MultiSlider = Ext.extend(Ext.BoxComponent, {
     /**
@@ -788,15 +811,17 @@ new Ext.slider.SingleSlider({
     maxValue: 100
 });
 </code></pre>
+ * The class Ext.slider.SingleSlider is aliased to Ext.Slider for backwards compatibility.
  */
 Ext.slider.SingleSlider = Ext.extend(Ext.slider.MultiSlider, {
-    initComponent: function() {
-      Ext.slider.SingleSlider.superclass.initComponent.apply(this, arguments);
-      
-      //just add a single thumb
-      if (Ext.isEmpty(this.values)) {
-          this.addThumb(this.value);          
-      }
+    constructor: function(config) {
+      config = config || {};
+
+      Ext.applyIf(config, {
+          values: [config.value || 0]
+      });
+
+      Ext.slider.SingleSlider.superclass.constructor.call(this, config);
     },
     
     /**

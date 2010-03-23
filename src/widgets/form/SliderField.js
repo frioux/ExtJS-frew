@@ -1,7 +1,5 @@
-Ext.ns('Ext.ux.form');
-
 /**
- * @class Ext.ux.form.SliderField
+ * @class Ext.form.SliderField
  * @extends Ext.form.Field
  * Wraps a {@link Ext.Slider Slider} so it can be used as a form field.
  * @constructor
@@ -10,12 +8,11 @@ Ext.ns('Ext.ux.form');
  * as any field configuration options.
  * @xtype sliderfield
  */
-Ext.ux.form.SliderField = Ext.extend(Ext.form.Field, {
+Ext.form.SliderField = Ext.extend(Ext.form.Field, {
     
     /**
      * @cfg {Boolean} useTips
-     * True to use the ux.SliderTip plugin to display tips for the value. This will only be included if
-     * this plugin is enabled. Defaults to <tt>true</tt>.
+     * True to use an Ext.slider.Tip to display tips for the value. Defaults to <tt>true</tt>.
      */
     useTips : true,
     
@@ -39,12 +36,12 @@ Ext.ux.form.SliderField = Ext.extend(Ext.form.Field, {
         }, this.initialConfig, ['vertical', 'minValue', 'maxValue', 'decimalPrecision', 'keyIncrement', 'increment', 'clickToChange', 'animate']);
         
         // only can use it if it exists.
-        if(this.useTips && Ext.ux.SliderTip){
+        if (this.useTips) {
             var plug = this.tipText ? {getText: this.tipText} : {};
-            cfg.plugins = [new Ext.ux.SliderTip(plug)];
+            cfg.plugins = [new Ext.slider.Tip(plug)];
         }
         this.slider = new Ext.Slider(cfg);
-        Ext.ux.form.SliderField.superclass.initComponent.call(this);
+        Ext.form.SliderField.superclass.initComponent.call(this);
     },    
     
     /**
@@ -60,7 +57,7 @@ Ext.ux.form.SliderField = Ext.extend(Ext.form.Field, {
             type: 'hidden',
             tag: 'input'    
         };
-        Ext.ux.form.SliderField.superclass.onRender.call(this, ct, position);
+        Ext.form.SliderField.superclass.onRender.call(this, ct, position);
         this.wrap = this.el.wrap({cls: 'x-form-field-wrap'});
         this.slider.render(this.wrap);
     },
@@ -74,7 +71,7 @@ Ext.ux.form.SliderField = Ext.extend(Ext.form.Field, {
      * @private
      */
     onResize : function(w, h, aw, ah){
-        Ext.ux.form.SliderField.superclass.onResize.call(this, w, h, aw, ah);
+        Ext.form.SliderField.superclass.onResize.call(this, w, h, aw, ah);
         this.slider.setSize(w, h);    
     },
     
@@ -83,9 +80,8 @@ Ext.ux.form.SliderField = Ext.extend(Ext.form.Field, {
      * @private
      */
     initEvents : function(){
-        Ext.ux.form.SliderField.superclass.initEvents.call(this);
+        Ext.form.SliderField.superclass.initEvents.call(this);
         this.slider.on('change', this.onChange, this);   
-        
     },
     
     /**
@@ -103,7 +99,7 @@ Ext.ux.form.SliderField = Ext.extend(Ext.form.Field, {
      * @private
      */
     onEnable : function(){
-        Ext.ux.form.SliderField.superclass.onEnable.call(this);
+        Ext.form.SliderField.superclass.onEnable.call(this);
         this.slider.enable();
     },
     
@@ -112,7 +108,7 @@ Ext.ux.form.SliderField = Ext.extend(Ext.form.Field, {
      * @private
      */
     onDisable : function(){
-        Ext.ux.form.SliderField.superclass.onDisable.call(this);
+        Ext.form.SliderField.superclass.onDisable.call(this);
         this.slider.disable();    
     },
     
@@ -122,7 +118,7 @@ Ext.ux.form.SliderField = Ext.extend(Ext.form.Field, {
      */
     beforeDestroy : function(){
         Ext.destroy(this.slider);
-        Ext.ux.form.SliderField.superclass.beforeDestroy.call(this);
+        Ext.form.SliderField.superclass.beforeDestroy.call(this);
     },
     
     /**
@@ -136,7 +132,7 @@ Ext.ux.form.SliderField = Ext.extend(Ext.form.Field, {
     /**
      * Sets the minimum field value.
      * @param {Number} v The new minimum value.
-     * @return {Ext.ux.form.SliderField} this
+     * @return {Ext.form.SliderField} this
      */
     setMinValue : function(v){
         this.slider.setMinValue(v);
@@ -146,7 +142,7 @@ Ext.ux.form.SliderField = Ext.extend(Ext.form.Field, {
     /**
      * Sets the maximum field value.
      * @param {Number} v The new maximum value.
-     * @return {Ext.ux.form.SliderField} this
+     * @return {Ext.form.SliderField} this
      */
     setMaxValue : function(v){
         this.slider.setMaxValue(v);
@@ -157,7 +153,7 @@ Ext.ux.form.SliderField = Ext.extend(Ext.form.Field, {
      * Sets the value for this field.
      * @param {Number} v The new value.
      * @param {Boolean} animate (optional) Whether to animate the transition. If not specified, it will default to the animate config.
-     * @return {Ext.ux.form.SliderField} this
+     * @return {Ext.form.SliderField} this
      */
     setValue : function(v, animate, /* private */ silent){
         // silent is used if the setValue method is invoked by the slider
@@ -165,7 +161,7 @@ Ext.ux.form.SliderField = Ext.extend(Ext.form.Field, {
         if(!silent){
             this.slider.setValue(v, animate);
         }
-        return Ext.ux.form.SliderField.superclass.setValue.call(this, this.slider.getValue());
+        return Ext.form.SliderField.superclass.setValue.call(this, this.slider.getValue());
     },
     
     /**
@@ -176,4 +172,5 @@ Ext.ux.form.SliderField = Ext.extend(Ext.form.Field, {
         return this.slider.getValue();    
     }
 });
-Ext.reg('sliderfield', Ext.ux.form.SliderField);
+
+Ext.reg('sliderfield', Ext.form.SliderField);

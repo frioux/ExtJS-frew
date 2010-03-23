@@ -38,7 +38,7 @@ Imgorg.ImageThumbPanel = Ext.extend(Ext.Panel, {
                 width: 200,
                 style: 'margin-right:20px;',
                 value: sliderValue,
-                plugins: new Ext.ux.SliderTip({
+                plugins: new Ext.slider.Tip({
                     getText: function(slider){
                         return String.format('<b>{0}%</b>', 100+slider.getValue()*3);
                     }

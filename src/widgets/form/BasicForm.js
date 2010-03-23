@@ -272,15 +272,20 @@ new Ext.FormPanel({
         e.stopEvent();
     },
 
-    // private
-    destroy: function() {
-        this.items.each(function(f){
-            Ext.destroy(f);
-        });
-        if(this.el){
-            this.el.removeAllListeners();
-            this.el.remove();
+    /**
+     * Destroys this object.
+     * @private
+     * @param {Boolean} bound true if the object is bound to a form panel. If this is the case
+     * the FormPanel will take care of destroying certain things, so we're just doubling up.
+     */
+    destroy: function(bound){
+        if(bound !== true){
+            this.items.each(function(f){
+                Ext.destroy(f);
+            });
+            Ext.destroy(this.el);
         }
+        this.items.clear();
         this.purgeListeners();
     },
 

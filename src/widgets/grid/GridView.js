@@ -1908,29 +1908,31 @@ viewConfig: {
 
 // private
 // This is a support class used internally by the Grid components
-Ext.grid.GridView.SplitDragZone = function(grid, hd){
-    this.grid = grid;
-    this.view = grid.getView();
-    this.marker = this.view.resizeMarker;
-    this.proxy = this.view.resizeProxy;
-    Ext.grid.GridView.SplitDragZone.superclass.constructor.call(this, hd,
-        'gridSplitters' + this.grid.getGridEl().id, {
-        dragElId : Ext.id(this.proxy.dom), resizeFrame:false
-    });
-    this.scroll = false;
-    this.hw = this.view.splitHandleWidth || 5;
-};
-Ext.extend(Ext.grid.GridView.SplitDragZone, Ext.dd.DDProxy, {
+Ext.grid.GridView.SplitDragZone = Ext.extend(Ext.dd.DDProxy, {
+    
+    constructor: function(grid, hd){
+        this.grid = grid;
+        this.view = grid.getView();
+        this.marker = this.view.resizeMarker;
+        this.proxy = this.view.resizeProxy;
+        Ext.grid.GridView.SplitDragZone.superclass.constructor.call(this, hd,
+            'gridSplitters' + this.grid.getGridEl().id, {
+            dragElId : Ext.id(this.proxy.dom), resizeFrame:false
+        });
+        this.scroll = false;
+        this.hw = this.view.splitHandleWidth || 5;
+    },
 
     b4StartDrag : function(x, y){
+        this.dragHeadersDisabled = this.view.headersDisabled;
         this.view.headersDisabled = true;
         var h = this.view.mainWrap.getHeight();
         this.marker.setHeight(h);
         this.marker.show();
         this.marker.alignTo(this.view.getHeaderCell(this.cellIndex), 'tl-tl', [-2, 0]);
         this.proxy.setHeight(h);
-        var w = this.cm.getColumnWidth(this.cellIndex);
-        var minw = Math.max(w-this.grid.minColumnWidth, 0);
+        var w = this.cm.getColumnWidth(this.cellIndex),
+            minw = Math.max(w-this.grid.minColumnWidth, 0);
         this.resetConstraints();
         this.setXConstraint(minw, 1000);
         this.setYConstraint(0, 0);
@@ -1944,13 +1946,15 @@ Ext.extend(Ext.grid.GridView.SplitDragZone, Ext.dd.DDProxy, {
         return true;
     },
 
-
     handleMouseDown : function(e){
         var t = this.view.findHeaderCell(e.getTarget());
         if(t && this.allowHeaderDrag(e)){
-            var xy = this.view.fly(t).getXY(), x = xy[0], y = xy[1];
-            var exy = e.getXY(), ex = exy[0];
-            var w = t.offsetWidth, adjust = false;
+            var xy = this.view.fly(t).getXY(), 
+                x = xy[0], 
+                y = xy[1];
+                exy = e.getXY(), ex = exy[0],
+                w = t.offsetWidth, adjust = false;
+                
             if((ex - x) <= this.hw){
                 adjust = -1;
             }else if((x+w) - ex <= this.hw){
@@ -1983,12 +1987,14 @@ Ext.extend(Ext.grid.GridView.SplitDragZone, Ext.dd.DDProxy, {
 
     endDrag : function(e){
         this.marker.hide();
-        var v = this.view;
-        var endX = Math.max(this.minX, e.getPageX());
-        var diff = endX - this.startPos;
+        var v = this.view,
+            endX = Math.max(this.minX, e.getPageX()),
+            diff = endX - this.startPos,
+            disabled = this.dragHeadersDisabled;
+            
         v.onColumnSplitterMoved(this.cellIndex, this.cm.getColumnWidth(this.cellIndex)+diff);
         setTimeout(function(){
-            v.headersDisabled = false;
+            v.headersDisabled = disabled;
         }, 50);
     },
 

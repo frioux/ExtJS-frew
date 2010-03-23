@@ -830,6 +830,14 @@ new Ext.Panel({
      * The initial set of data to apply to the <code>{@link #tpl}</code> to
      * update the content area of the Component.
      */
+    
+    /**
+     * @cfg {Array} bubbleEvents
+     * <p>An array of events that, when fired, should be bubbled to any parent container.
+     * See {@link Ext.util.Observable#enableBubble}.
+     * Defaults to <tt>[]</tt>.
+     */
+    bubbleEvents: [],
 
 
     // private
@@ -884,7 +892,22 @@ Ext.Foo = Ext.extend(Ext.Bar, {
 }
 </code></pre>
      */
-    initComponent : Ext.emptyFn,
+    initComponent : function(){
+        /*
+         * this is double processing, however it allows people to be able to do
+         * Ext.apply(this, {
+         *     listeners: {
+         *         //here
+         *     }
+         * });
+         * MyClass.superclass.initComponent.call(this);
+         */
+        if(this.listeners){
+            this.on(this.listeners);
+            delete this.listeners;
+        }
+        this.enableBubble(this.bubbleEvents);
+    },
 
     /**
      * <p>Render this Component into the passed HTML element.</p>

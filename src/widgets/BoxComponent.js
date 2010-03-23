@@ -273,7 +273,8 @@ var myPanel = new Ext.Panel({
 
         // support for standard size objects
         if(typeof w == 'object'){
-            h = w.height, w = w.width;
+            h = w.height;
+            w = w.width;
         }
         if (Ext.isDefined(w) && Ext.isDefined(this.boxMinWidth) && (w < this.boxMinWidth)) {
             w = this.boxMinWidth;
@@ -289,7 +290,8 @@ var myPanel = new Ext.Panel({
         }
         // not rendered
         if(!this.boxReady){
-            this.width = w, this.height = h;
+            this.width  = w;
+            this.height = h;
             return this;
         }
 

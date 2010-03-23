@@ -508,12 +508,20 @@ var grid = new Ext.grid.GridPanel({
         if(!this.canGroup()){
             return Ext.grid.GroupingView.superclass.getRows.call(this);
         }
-        var r = [];
-        var g, gs = this.getGroups();
-        for(var i = 0, len = gs.length; i < len; i++){
-            g = gs[i].childNodes[1].childNodes;
-            for(var j = 0, jlen = g.length; j < jlen; j++){
-                r[r.length] = g[j];
+        var r = [],
+            gs = this.getGroups(),
+            g,
+            i = 0,
+            len = gs.length,
+            j,
+            jlen;
+        for(; i < len; ++i){
+            g = gs[i].childNodes[1];
+            if(g){
+                g = g.childNodes;
+                for(j = 0, jlen = g.length; j < jlen; ++j){
+                    r[r.length] = g[j];
+                }
             }
         }
         return r;

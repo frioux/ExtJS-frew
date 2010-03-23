@@ -98,9 +98,9 @@ Ext.tree.TreeEventModel.prototype = {
                 this.onIconClick(e, this.getNode(e));
             }else if(this.getNodeTarget(e)){
                 this.onNodeClick(e, this.getNode(e));
-            }else{
-                this.onContainerEvent(e, 'click');
             }
+        }else{
+            this.checkContainerEvent(e, 'click');
         }
     },
 
@@ -108,9 +108,9 @@ Ext.tree.TreeEventModel.prototype = {
         if(this.beforeEvent(e)){
             if(this.getNodeTarget(e)){
                 this.onNodeDblClick(e, this.getNode(e));
-            }else{
-                this.onContainerEvent(e, 'dblclick');
             }
+        }else{
+            this.checkContainerEvent(e, 'dblclick');
         }
     },
 
@@ -118,10 +118,18 @@ Ext.tree.TreeEventModel.prototype = {
         if(this.beforeEvent(e)){
             if(this.getNodeTarget(e)){
                 this.onNodeContextMenu(e, this.getNode(e));
-            }else{
-                this.onContainerEvent(e, 'contextmenu');
             }
+        }else{
+            this.checkContainerEvent(e, 'contextmenu');
         }
+    },
+    
+    checkContainerEvent: function(e, type){
+        if(this.disabled){
+            e.stopEvent();
+            return false;
+        }
+        this.onContainerEvent(e, type);    
     },
 
     onContainerEvent: function(e, type){

@@ -66,7 +66,7 @@ Ext.onReady(function() {
         maxValue: 500,
         values  : [80, 320],
         plugins : [
-            new Ext.ux.SliderTip({
+            new Ext.slider.Tip({
                 getText: function(thumb) {
                     var largest = Ext.max(store.collect('price', false, true));
                     

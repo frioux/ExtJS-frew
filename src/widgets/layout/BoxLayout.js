@@ -100,7 +100,7 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
          */
         this.childBoxCache = this.calculateChildBoxes(items, tSize);
 
-        this.updateInnerCtSize();
+        this.updateInnerCtSize(tSize, this.childBoxCache);
         this.updateChildBoxes(this.childBoxCache.boxes);
 
         // Putting a box layout into an overflowed container is NOT correct and will make a second layout pass necessary.
@@ -116,7 +116,9 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
             var box  = boxes[i],
                 comp = box.component;
 
-            comp.setSize(box.width, box.height);
+            if (box.dirtySize) {
+                comp.setSize(box.width, box.height);
+            }
             comp.setPosition(box.left, box.top);
         }
     },
@@ -128,6 +130,8 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
      * items are larger than the previous innerCt size the browser will insert scrollbars and then remove them
      * again immediately afterwards, giving a performance hit.
      * Subclasses should provide an implementation.
+     * @param {Object} currentSize The current height and width of the innerCt
+     * @param {Array} calculations The new box calculations of all items to be laid out
      */
     updateInnerCtSize: Ext.emptyFn,
 
@@ -159,15 +163,25 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
         return this.innerCt && c.getPositionEl().dom.parentNode == this.innerCt.dom;
     },
 
-    // private.
-    // Get all rendered and visible items
-    getVisibleItems: function(ct){
-        var t = ct.getLayoutTarget(), cti = ct.items.items, len = cti.length, i, c, items = [];
+    /**
+     * @private
+     * Returns all items that are both rendered and visible
+     * @return {Array} All matching items
+     */
+    getVisibleItems: function(ct) {
+        var ct  = ct || this.container,
+            t   = ct.getLayoutTarget(),
+            cti = ct.items.items,
+            len = cti.length,
+
+            i, c, items = [];
+
         for (i = 0; i < len; i++) {
-            if((c = cti[i]).rendered && this.isValidParent(c, t) && c.hidden !== true){
+            if((c = cti[i]).rendered && this.isValidParent(c, t) && c.hidden !== true  && c.collapsed !== true){
                 items.push(c);
             }
-        };
+        }
+
         return items;
     },
 
@@ -256,10 +270,7 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
      * @private
      * See parent documentation
      */
-    updateInnerCtSize: function() {
-        var tSize = this.layoutTargetLastSize,
-            calcs = this.childBoxCache;
-
+    updateInnerCtSize: function(tSize, calcs) {
         var innerCtHeight = tSize.height,
             innerCtWidth  = calcs.meta.maxWidth + this.padding.left + this.padding.right;
 
@@ -271,7 +282,7 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
 
         //we set the innerCt size first because if our child items are larger than the previous innerCt size
         //the browser will insert scrollbars and then remove them again immediately afterwards
-        this.innerCt.setSize(innerCtWidth, innerCtHeight);
+        this.innerCt.setSize(innerCtWidth || undefined, innerCtHeight || undefined);
     },
 
     /**
@@ -308,13 +319,15 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             boxes        = [],
 
             //used in the for loops below, just declared here for brevity
-            child, childWidth, childHeight, childMargins, canLayout, i, calcs, flexedHeight, horizMargins, stretchWidth;
+            child, childWidth, childHeight, childSize, childMargins, canLayout, i, calcs, flexedHeight, horizMargins, stretchWidth;
 
             //gather the total flex of all flexed items and the width taken up by fixed width items
             for (i = 0; i < visibleCount; i++) {
-                child       = visibleItems[i];
+                child = visibleItems[i];
                 childHeight = child.height;
+                childWidth  = child.width;
                 canLayout   = !child.hasLayout && Ext.isFunction(child.doLayout);
+
 
                 // Static height (numeric) requires no calcs
                 if (!Ext.isNumber(childHeight)) {
@@ -331,11 +344,12 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                             child.doLayout();
                         }
 
-                        childHeight = child.getHeight();
+                        childSize = child.getSize();
+                        childWidth = childSize.width;
+                        childHeight = childSize.height;
                     }
                 }
 
-                childWidth   = child.width;
                 childMargins = child.margins;
 
                 nonFlexHeight += (childHeight || 0) + childMargins.top + childMargins.bottom;
@@ -353,12 +367,12 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                 //cache the size of each child component
                 boxes.push({
                     component: child,
-                    height   : childHeight,
-                    width    : childWidth
+                    height   : childHeight || undefined,
+                    width    : childWidth || undefined
                 });
             }
 
-            //the width available to the flexed items
+            //the height available to the flexed items
             var availableHeight = Math.max(0, (height - nonFlexHeight - paddingVert));
 
             if (isCenter) {
@@ -367,11 +381,11 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                 topOffset += availableHeight;
             }
 
-            //temporary variables used in the flex width calculations below
+            //temporary variables used in the flex height calculations below
             var remainingHeight = availableHeight,
                 remainingFlex   = totalFlex;
 
-            //calculate the widths of each flexed item, and the left + top positions of every item
+            //calculate the height of each flexed item, and the left + top positions of every item
             for (i = 0; i < visibleCount; i++) {
                 child = visibleItems[i];
                 calcs = boxes[i];
@@ -387,6 +401,7 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                     remainingFlex   -= child.flex;
 
                     calcs.height = flexedHeight;
+                    calcs.dirtySize = true;
                 }
 
                 calcs.left = leftOffset + childMargins.left;
@@ -396,10 +411,12 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                     case 'stretch':
                         stretchWidth = availWidth - horizMargins;
                         calcs.width  = stretchWidth.constrain(child.minHeight || 0, child.maxWidth || 1000000);
+                        calcs.dirtySize = true;
                         break;
                     case 'stretchmax':
                         stretchWidth = maxWidth - horizMargins;
                         calcs.width  = stretchWidth.constrain(child.minHeight || 0, child.maxWidth || 1000000);
+                        calcs.dirtySize = true;
                         break;
                     case 'center':
                         var diff = availWidth - calcs.width - horizMargins;
@@ -452,10 +469,7 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
      * @private
      * See parent documentation
      */
-    updateInnerCtSize: function() {
-        var tSize = this.layoutTargetLastSize,
-            calcs = this.childBoxCache;
-
+    updateInnerCtSize: function(tSize, calcs) {
         var innerCtWidth  = tSize.width,
             innerCtHeight = calcs.meta.maxHeight + this.padding.top + this.padding.bottom;
 
@@ -465,7 +479,7 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             innerCtHeight = Math.max(tSize.height, innerCtHeight);
         }
 
-        this.innerCt.setSize(innerCtWidth, innerCtHeight);
+        this.innerCt.setSize(innerCtWidth || undefined, innerCtHeight || undefined);
     },
 
     /**
@@ -525,13 +539,14 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
             boxes        = [],
 
             //used in the for loops below, just declared here for brevity
-            child, childWidth, childHeight, childMargins, canLayout, i, calcs, flexedWidth, vertMargins, stretchHeight;
+            child, childWidth, childHeight, childSize, childMargins, canLayout, i, calcs, flexedWidth, vertMargins, stretchHeight;
 
             //gather the total flex of all flexed items and the width taken up by fixed width items
             for (i = 0; i < visibleCount; i++) {
-                child      = visibleItems[i];
-                childWidth = child.width;
-                canLayout  = !child.hasLayout && Ext.isFunction(child.doLayout);
+                child       = visibleItems[i];
+                childHeight = child.height;
+                childWidth  = child.width;
+                canLayout   = !child.hasLayout && Ext.isFunction(child.doLayout);
 
                 // Static width (numeric) requires no calcs
                 if (!Ext.isNumber(childWidth)) {
@@ -548,11 +563,12 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                             child.doLayout();
                         }
 
-                        childWidth = child.getWidth();
+                        childSize   = child.getSize();
+                        childWidth  = childSize.width;
+                        childHeight = childSize.height;
                     }
                 }
 
-                childHeight  = child.height;
                 childMargins = child.margins;
 
                 nonFlexWidth += (childWidth || 0) + childMargins.left + childMargins.right;
@@ -570,8 +586,8 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                 //cache the size of each child component
                 boxes.push({
                     component: child,
-                    height   : childHeight,
-                    width    : childWidth
+                    height   : childHeight || undefined,
+                    width    : childWidth || undefined
                 });
             }
 
@@ -604,6 +620,7 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                     remainingFlex  -= child.flex;
 
                     calcs.width = flexedWidth;
+                    calcs.dirtySize = true;
                 }
 
                 calcs.left = leftOffset;
@@ -613,10 +630,12 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                     case 'stretch':
                         stretchHeight = availHeight - vertMargins;
                         calcs.height  = stretchHeight.constrain(child.minHeight || 0, child.maxHeight || 1000000);
+                        calcs.dirtySize = true;
                         break;
                     case 'stretchmax':
                         stretchHeight = maxHeight - vertMargins;
                         calcs.height  = stretchHeight.constrain(child.minHeight || 0, child.maxHeight || 1000000);
+                        calcs.dirtySize = true;
                         break;
                     case 'middle':
                         var diff = availHeight - calcs.height - vertMargins;
@@ -624,7 +643,6 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                             calcs.top = topOffset + vertMargins + (diff / 2);
                         }
                 }
-
                 leftOffset += calcs.width + childMargins.right;
             }
 

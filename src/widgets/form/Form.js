@@ -195,12 +195,7 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
     // private
     beforeDestroy : function(){
         this.stopMonitoring();
-        /*
-         * Don't move this behaviour to BasicForm because it can be used
-         * on it's own.
-         */
-        Ext.destroy(this.form);
-        this.form.items.clear();
+        this.form.destroy(true);
         Ext.FormPanel.superclass.beforeDestroy.call(this);
     },
 

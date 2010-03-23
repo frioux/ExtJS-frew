@@ -743,30 +743,39 @@ Ext.extend(Ext.data.Node, Ext.util.Observable, {
      * Finds the first child that has the attribute with the specified value.
      * @param {String} attribute The attribute name
      * @param {Mixed} value The value to search for
+     * @param {Boolean} deep (Optional) True to search through nodes deeper than the immediate children
      * @return {Node} The found child or null if none was found
      */
-    findChild : function(attribute, value){
-        var cs = this.childNodes;
-        for(var i = 0, len = cs.length; i < len; i++) {
-            if(cs[i].attributes[attribute] == value){
-                return cs[i];
-            }
-        }
-        return null;
+    findChild : function(attribute, value, deep){
+        return this.findChildBy(function(){
+            return this.attributes[attribute] == value;
+        }, null, deep);
     },
 
     /**
      * Finds the first child by a custom function. The child matches if the function passed returns <code>true</code>.
      * @param {Function} fn A function which must return <code>true</code> if the passed Node is the required Node.
      * @param {Object} scope (optional) The scope (<code>this</code> reference) in which the function is executed. Defaults to the Node being tested.
+     * @param {Boolean} deep (Optional) True to search through nodes deeper than the immediate children
      * @return {Node} The found child or null if none was found
      */
-    findChildBy : function(fn, scope){
-        var cs = this.childNodes;
-        for(var i = 0, len = cs.length; i < len; i++) {
-            if(fn.call(scope||cs[i], cs[i]) === true){
-                return cs[i];
+    findChildBy : function(fn, scope, deep){
+        var cs = this.childNodes,
+            len = cs.length,
+            i = 0,
+            n,
+            res;
+        for(; i < len; i++){
+            n = cs[i];
+            if(fn.call(scope || n, n) === true){
+                return n;
+            }else if (deep){
+                res = n.findChildBy(fn, scope, deep);
+                if(res != null){
+                    return res;
+                }
             }
+            
         }
         return null;
     },

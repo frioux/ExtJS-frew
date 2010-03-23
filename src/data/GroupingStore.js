@@ -149,6 +149,10 @@ Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
     //GroupingStore always uses multisorting so we intercept calls to sort here to make sure that our grouping sorter object
     //is always injected first.
     sort : function(fieldName, dir) {
+        if (this.remoteSort) {
+            return Ext.data.GroupingStore.superclass.sort.call(this, fieldName, dir);
+        }
+        
         var sorters = [];
         
         //cater for any existing valid arguments to this.sort, massage them into an array of sorter objects

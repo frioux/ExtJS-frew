@@ -17,6 +17,12 @@
             getHeight: function() {
                 return 10;
             },
+            getSize: function() {
+                return {
+                    height: 10,
+                    width : 10
+                };
+            },
             margins: {
                 top   : 0,
                 right : 0,
@@ -234,10 +240,10 @@
         
         setUp: function() {
             this.items = [
-                buildFakeChild({getWidth: function() {return 10;}}),
-                buildFakeChild({getWidth: function() {return 20;}}),
-                buildFakeChild({getWidth: function() {return 30;}}),
-                buildFakeChild({getWidth: function() {return 40;}})
+                buildFakeChild({getSize: function() {return {height: 10, width: 10};}}),
+                buildFakeChild({getSize: function() {return {height: 10, width: 20};}}),
+                buildFakeChild({getSize: function() {return {height: 10, width: 30};}}),
+                buildFakeChild({getSize: function() {return {height: 10, width: 40};}})
             ];
             
             this.targetSize = {
@@ -380,12 +386,12 @@
             });
             
             //fake the values that are calculated during onLayout
-            this.layout.layoutTargetLastSize = {
+            this.layoutTargetLastSize = {
                 width : 400,
                 height: 100
             };
             
-            this.layout.childBoxCache = {
+            this.childBoxCache = {
                 meta: {
                     maxHeight: 150
                 }
@@ -404,7 +410,7 @@
                 }
             };
             
-            layout.updateInnerCtSize();
+            layout.updateInnerCtSize(this.layoutTargetLastSize, this.childBoxCache);
             
             assert.areSame(400, width);
             assert.areSame(100, height);
@@ -421,19 +427,7 @@
                     right : 0
                 }
             });
-            
-            //fake the values that are calculated during onLayout
-            this.layout.layoutTargetLastSize = {
-                width : 400,
-                height: 100
-            };
-            
-            this.layout.childBoxCache = {
-                meta: {
-                    maxHeight: 150
-                }
-            };
-            
+                        
             var layout = this.layout,
                 width, height;
             
@@ -445,7 +439,7 @@
                 }
             };
             
-            layout.updateInnerCtSize();
+            layout.updateInnerCtSize(this.layoutTargetLastSize, this.childBoxCache);
             
             assert.areSame(400, width);
             assert.areSame(180, height);

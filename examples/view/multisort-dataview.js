@@ -60,29 +60,6 @@ Ext.onReady(function() {
         autoScroll  : true
     });
     
-    var phoneSlider = new Ext.Slider({
-        width   : 300,
-        minValue: 0,
-        maxValue: 500,
-        values  : [80, 320],
-        plugins : [
-            new Ext.ux.SliderTip({
-                getText: function(thumb) {
-                    var largest = Ext.max(store.collect('price', false, true));
-                    
-                    return String.format('<b>${0}</b>', thumb.value);
-                }
-            })
-        ],
-        
-        listeners: {
-            change: {
-                buffer: 70,
-                fn    : doSort
-            }
-        }
-    });
-    
     var tbar = new Ext.Toolbar({
         items  : ['Sort on these fields:', ''],
         plugins: [new Ext.ux.ToolbarReorderer()],

@@ -26,8 +26,9 @@ Ext.extend(Ext.Editor, Ext.Component, {
     /**
      * @cfg {Boolean} allowBlur
      * True to {@link #completeEdit complete the editing process} if in edit mode when the
-     * field is blurred. Defaults to <tt>false</tt>.
+     * field is blurred. Defaults to <tt>true</tt>.
      */
+    allowBlur: true,
     /**
      * @cfg {Boolean/String} autoSize
      * True for the editor to automatically adopt the size of the underlying field, "width" to adopt the width only,
@@ -346,7 +347,7 @@ Ext.extend(Ext.Editor, Ext.Component, {
     // private
     onBlur : function(){
         // selectSameEditor flag allows the same editor to be started without onBlur firing on itself
-        if(this.allowBlur !== true && this.editing && this.selectSameEditor !== true){
+        if(this.allowBlur === true && this.editing && this.selectSameEditor !== true){
             this.completeEdit();
         }
     },

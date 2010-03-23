@@ -626,6 +626,9 @@
         },{
             "text": "QuickTips.js",
             "path": "src/widgets/tips/"
+        },{
+            "text": "SliderTip.js",
+            "path": "src/widgets/tips/"
         }]
     },{
         "name": "Trees",
@@ -784,6 +787,9 @@
             "path": "src/widgets/form/"
         },{
             "text": "TimeField.js",
+            "path": "src/widgets/form/"
+        },{
+            "text": "SliderField.js",
             "path": "src/widgets/form/"
         },{
             "text": "Label.js",
@@ -1005,12 +1011,6 @@
           "path": "examples/ux/"
        },{
           "text": "SelectBox.js",
-          "path": "examples/ux/"
-       },{
-           text: "SliderField.js",
-           path: "examples/ux/"
-       },{
-          "text": "SliderTip.js",
           "path": "examples/ux/"
        },{
           "text": "SlidingPager.js",

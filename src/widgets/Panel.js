@@ -777,30 +777,30 @@ new Ext.Panel({
         if(this.tbar){
             this.elements += ',tbar';
             this.topToolbar = this.createToolbar(this.tbar);
-            delete this.tbar;
+            this.tbar = null;
 
         }
         if(this.bbar){
             this.elements += ',bbar';
             this.bottomToolbar = this.createToolbar(this.bbar);
-            delete this.bbar;
+            this.bbar = null;
         }
 
         if(this.header === true){
             this.elements += ',header';
-            delete this.header;
+            this.header = null;
         }else if(this.headerCfg || (this.title && this.header !== false)){
             this.elements += ',header';
         }
 
         if(this.footerCfg || this.footer === true){
             this.elements += ',footer';
-            delete this.footer;
+            this.footer = null;
         }
 
         if(this.buttons){
             this.fbar = this.buttons;
-            delete this.buttons;
+            this.buttons = null;
         }
         if(this.fbar){
             this.createFbar(this.fbar);

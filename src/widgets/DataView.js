@@ -619,7 +619,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
 
     /**
      * Returns true if the passed node is selected, else false.
-     * @param {HTMLElement/Number} node The node or node index to check
+     * @param {HTMLElement/Number/Ext.data.Record} node The node, node index or record to check
      * @return {Boolean} True if selected, else false
      */
     isSelected : function(node){
@@ -628,7 +628,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
 
     /**
      * Deselects a node.
-     * @param {HTMLElement/Number} node The node to deselect
+     * @param {HTMLElement/Number/Record} node The node, node index or record to deselect
      */
     deselect : function(node){
         if(this.isSelected(node)){
@@ -644,8 +644,8 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
 
     /**
      * Selects a set of nodes.
-     * @param {Array/HTMLElement/String/Number} nodeInfo An HTMLElement template node, index of a template node,
-     * id of a template node or an array of any of those to select
+     * @param {Array/HTMLElement/String/Number/Ext.data.Record} nodeInfo An HTMLElement template node, index of a template node,
+     * id of a template node, record associated with a node or an array of any of those to select
      * @param {Boolean} keepExisting (optional) true to keep existing selections
      * @param {Boolean} suppressEvent (optional) true to skip firing of the selectionchange vent
      */
@@ -693,7 +693,8 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
 
     /**
      * Gets a template node.
-     * @param {HTMLElement/String/Number} nodeInfo An HTMLElement template node, index of a template node or the id of a template node
+     * @param {HTMLElement/String/Number/Ext.data.Record} nodeInfo An HTMLElement template node, index of a template node, 
+     * the id of a template node or the record associated with the node.
      * @return {HTMLElement} The node or null if it wasn't found
      */
     getNode : function(nodeInfo){
@@ -701,6 +702,9 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
             return document.getElementById(nodeInfo);
         }else if(Ext.isNumber(nodeInfo)){
             return this.all.elements[nodeInfo];
+        }else if(nodeInfo instanceof Ext.data.Record){
+            var idx = this.store.indexOf(nodeInfo);
+            return this.all.elements[idx];
         }
         return nodeInfo;
     },
@@ -730,7 +734,8 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
 
     /**
      * Finds the index of the passed node.
-     * @param {HTMLElement/String/Number} nodeInfo An HTMLElement template node, index of a template node or the id of a template node
+     * @param {HTMLElement/String/Number/Record} nodeInfo An HTMLElement template node, index of a template node, the id of a template node
+     * or a record associated with a node.
      * @return {Number} The index of the node or -1
      */
     indexOf : function(node){

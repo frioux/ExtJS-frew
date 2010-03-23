@@ -29,10 +29,10 @@ Ext.onReady(function(){
         width: 214,
         minValue: 0,
         maxValue: 100,
-        plugins: new Ext.ux.SliderTip()
+        plugins: new Ext.slider.Tip()
     });
 
-    var tip = new Ext.ux.SliderTip({
+    var tip = new Ext.slider.Tip({
         getText: function(thumb){
             return String.format('<b>{0}% complete</b>', thumb.value);
         }
@@ -53,7 +53,7 @@ Ext.onReady(function(){
         increment: 10,
         minValue: 0,
         maxValue: 100,
-        plugins: new Ext.ux.SliderTip()
+        plugins: new Ext.slider.Tip()
     });
     
     new Ext.Slider({
@@ -62,7 +62,7 @@ Ext.onReady(function(){
         minValue: 0,
         maxValue: 100,
         values  : [10, 50, 90],
-        plugins : new Ext.ux.SliderTip()
+        plugins : new Ext.slider.Tip()
     });
     
     new Ext.Slider({
@@ -72,6 +72,6 @@ Ext.onReady(function(){
         minValue: 0,
         maxValue: 100,
         values  : [10, 50, 90],
-        plugins : new Ext.ux.SliderTip()
+        plugins : new Ext.slider.Tip()
     });
 });

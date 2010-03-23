@@ -489,4 +489,49 @@
             assert.isTrue(fired);
         }
     }));
+    
+    suite.add(new Y.Test.Case({
+        name: 'reordering',
+        
+        setUp: function() {
+            this.mc = new Ext.util.MixedCollection(false, function(item) {
+                return item['code'];
+            });
+            
+            this.mc.addAll([
+                {id: 1, name: 'first',  code: 'C', modifier: 10},
+                {id: 2, name: 'second', code: 'A', modifier: 100},
+                {id: 3, name: 'third',  code: 'B', modifier: 5}
+            ]);
+        },
+        
+        testReordering: function() {
+            var mc = this.mc;
+            
+            mc.reorder({
+                1: 2,
+                2: 0
+            });
+            
+            assert.areEqual('B', mc.itemAt(0).code);
+            assert.areEqual('C', mc.itemAt(1).code);
+            assert.areEqual('A', mc.itemAt(2).code);
+        },
+        
+        testSortEventFired: function() {
+            var wasFired = false,
+                mc       = this.mc;
+            
+            mc.on('sort', function() {
+                wasFired = true;
+            }, this);
+            
+            mc.reorder({
+                1: 2,
+                2: 0
+            });
+            
+            assert.isTrue(wasFired);
+        }
+    }));
 })();

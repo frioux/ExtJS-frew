@@ -133,7 +133,7 @@ anchor: '-50 75%'
             ah = ct.initialConfig.height;
         }
 
-        var cs = this.getRenderedItems(ct), len = cs.length, i, c, a, cw, ch, el, vs;
+        var cs = this.getRenderedItems(ct), len = cs.length, i, c, a, cw, ch, el, vs, boxes = [];
         for(i = 0; i < len; i++){
             c = cs[i];
             el = c.getPositionEl();
@@ -156,9 +156,17 @@ anchor: '-50 75%'
                 ch = a.bottom ? this.adjustHeightAnchor(a.bottom(h) - el.getMargins('tb'), c) : undefined;
 
                 if(cw || ch){
-                    c.setSize(cw || undefined, ch || undefined);
+                    boxes.push({
+                        comp: c,
+                        width: cw || undefined,
+                        height: ch || undefined
+                    });
                 }
             }
+        }
+        for (i = 0, len = boxes.length; i < len; i++) {
+            c = boxes[i];
+            c.comp.setSize(c.width, c.height);
         }
     },
 

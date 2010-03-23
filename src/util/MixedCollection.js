@@ -453,6 +453,44 @@ mc.add(otherEl);
     sort : function(dir, fn){
         this._sort('value', dir, fn);
     },
+    
+    /**
+     * Reorders each of the items based on a mapping from old index to new index. Internally this
+     * just translates into a sort. The 'sort' event is fired whenever reordering has occured.
+     * @param {Object} mapping Mapping from old item index to new item index
+     */
+    reorder: function(mapping) {
+        this.suspendEvents();
+        
+        var items     = this.items,
+            index     = 0,
+            length    = items.length,
+            order     = [],
+            remaining = [];
+        
+        //object of {oldPosition: newPosition} reversed to {newPosition: oldPosition}
+        for (oldIndex in mapping) {
+            order[mapping[oldIndex]] = items[oldIndex];
+        } 
+        
+        for (index = 0; index < length; index++) {
+            if (mapping[index] == undefined) {
+                remaining.push(items[index]);
+            }
+        }
+        
+        for (index = 0; index < length; index++) {
+            if (order[index] == undefined) {
+                order[index] = remaining.shift();
+            }
+        }
+        
+        this.clear();
+        this.addAll(order);
+        
+        this.resumeEvents();
+        this.fireEvent('sort', this);
+    },
 
     /**
      * Sorts this collection by <b>key</b>s.

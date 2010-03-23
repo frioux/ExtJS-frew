@@ -50,7 +50,7 @@ Ext.ux.FieldLabeler = (function(){
 
             this.resizeEl = (this.wrap || this.el).wrap({
                 cls: 'x-form-element',
-                style: Ext.isIE ? 'position:absolute;top:0;left:0;overflow:visible' : ''
+                style: (Ext.isIE || Ext.isOpera) ? 'position:absolute;top:0;left:0;overflow:visible' : ''
             });
             this.positionEl = this.itemCt = this.resizeEl.wrap({
                 cls: 'x-form-item '

@@ -198,11 +198,25 @@ Ext.form.CompositeField = Ext.extend(Ext.form.Field, {
      * invalid, otherwise clearInvalid is called
      */
     updateInvalidMark: function() {
+        var ieStrict = Ext.isIE6 && Ext.isStrict;
+        
         if (this.fieldErrors.length == 0) {
             this.clearInvalid();
+            
+            //IE6 in strict mode has a layout bug when using 'under' as the error message target. This fixes it
+            if (ieStrict) {
+                this.clearInvalid.defer(50, this);
+            }
         } else {
+            var message = this.buildCombinedErrorMessage(this.fieldErrors.items);
+            
             this.sortErrors();
-            this.markInvalid(this.buildCombinedErrorMessage(this.fieldErrors.items));
+            this.markInvalid(message);
+            
+            //IE6 in strict mode has a layout bug when using 'under' as the error message target. This fixes it
+            if (ieStrict) {
+                this.markInvalid(message);                
+            }
         }
     },
 

@@ -11,7 +11,7 @@ Ext.ux.SlidingPager = Ext.extend(Object, {
             width: 114,
             minValue: 1,
             maxValue: 1,
-            plugins: new Ext.ux.SliderTip({
+            plugins: new Ext.slider.Tip({
                 getText : function(thumb) {
                     return String.format('Page <b>{0}</b> of <b>{1}</b>', thumb.value, thumb.slider.maxValue);
                 }

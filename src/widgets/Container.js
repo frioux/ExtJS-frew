@@ -435,8 +435,6 @@ items: [
             'remove'
         );
 
-        this.enableBubble(this.bubbleEvents);
-
         /**
          * The collection of components in this container as a {@link Ext.util.MixedCollection}
          * @type MixedCollection
