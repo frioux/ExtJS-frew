@@ -68,7 +68,7 @@ function(){
                 el,
                 mask;
 
-	        if(me.getStyle("position") == "static"){
+	        if(!/^body/i.test(dom.tagName) && me.getStyle('position') == 'static'){
 	            me.addClass(XMASKEDRELATIVE);
 	        }
 	        if((el = data(dom, 'maskMsg'))){
