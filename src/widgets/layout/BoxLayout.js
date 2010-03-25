@@ -119,6 +119,10 @@ Ext.layout.BoxLayout = Ext.extend(Ext.layout.ContainerLayout, {
             if (box.dirtySize) {
                 comp.setSize(box.width, box.height);
             }
+            // Don't set positions to NaN
+            if (isNaN(box.left) || isNaN(box.top)) {
+                continue;
+            }
             comp.setPosition(box.left, box.top);
         }
     },

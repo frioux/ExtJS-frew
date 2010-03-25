@@ -27,6 +27,7 @@ Ext.ux.grid.RowExpander = Ext.extend(Ext.util.Observable, {
     width : 20,
     sortable : false,
     fixed : true,
+    hideable: false,
     menuDisabled : true,
     dataIndex : '',
     id : 'expander',

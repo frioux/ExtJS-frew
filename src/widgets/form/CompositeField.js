@@ -59,7 +59,7 @@ Ext.form.CompositeField = Ext.extend(Ext.form.Field, {
      * Signifies that this is a Composite field
      */
     isComposite: true,
-    
+
     /**
      * @property combineErrors
      * @type Boolean
@@ -89,7 +89,7 @@ Ext.form.CompositeField = Ext.extend(Ext.form.Field, {
         }
 
         this.fieldLabel = this.fieldLabel || this.buildLabel(labels);
-        
+
         /**
          * @property fieldErrors
          * @type Ext.util.MixedCollection
@@ -100,7 +100,7 @@ Ext.form.CompositeField = Ext.extend(Ext.form.Field, {
         this.fieldErrors = new Ext.util.MixedCollection(true, function(item) {
             return item.field;
         });
-        
+
         this.fieldErrors.on({
             scope  : this,
             add    : this.updateInvalidMark,
@@ -143,7 +143,7 @@ Ext.form.CompositeField = Ext.extend(Ext.form.Field, {
              */
             this.items = new Ext.util.MixedCollection();
             this.items.addAll(fields);
-            
+
             //if we're combining subfield errors into a single message, override the markInvalid and clearInvalid
             //methods of each subfield and show them at the Composite level instead
             if (this.combineErrors) {
@@ -164,7 +164,7 @@ Ext.form.CompositeField = Ext.extend(Ext.form.Field, {
 
         Ext.form.CompositeField.superclass.onRender.apply(this, arguments);
     },
-    
+
     /**
      * Called if combineErrors is true and a subfield's markInvalid method is called.
      * By default this just adds the subfield's error to the internal fieldErrors MixedCollection
@@ -174,12 +174,12 @@ Ext.form.CompositeField = Ext.extend(Ext.form.Field, {
     onFieldMarkInvalid: function(field, message) {
         var name  = field.getName(),
             error = {field: name, error: message};
-        
+
         this.fieldErrors.replace(name, error);
-        
+
         field.el.addClass(field.invalidClass);
     },
-    
+
     /**
      * Called if combineErrors is true and a subfield's clearInvalid method is called.
      * By default this just updates the internal fieldErrors MixedCollection.
@@ -187,10 +187,10 @@ Ext.form.CompositeField = Ext.extend(Ext.form.Field, {
      */
     onFieldClearInvalid: function(field) {
         this.fieldErrors.removeKey(field.getName());
-        
+
         field.el.removeClass(field.invalidClass);
     },
-    
+
     /**
      * @private
      * Called after a subfield is marked valid or invalid, this checks to see if any of the subfields are
@@ -199,23 +199,23 @@ Ext.form.CompositeField = Ext.extend(Ext.form.Field, {
      */
     updateInvalidMark: function() {
         var ieStrict = Ext.isIE6 && Ext.isStrict;
-        
+
         if (this.fieldErrors.length == 0) {
             this.clearInvalid();
-            
+
             //IE6 in strict mode has a layout bug when using 'under' as the error message target. This fixes it
             if (ieStrict) {
                 this.clearInvalid.defer(50, this);
             }
         } else {
             var message = this.buildCombinedErrorMessage(this.fieldErrors.items);
-            
+
             this.sortErrors();
             this.markInvalid(message);
-            
+
             //IE6 in strict mode has a layout bug when using 'under' as the error message target. This fixes it
             if (ieStrict) {
-                this.markInvalid(message);                
+                this.markInvalid(message);
             }
         }
     },
@@ -226,14 +226,14 @@ Ext.form.CompositeField = Ext.extend(Ext.form.Field, {
      */
     validateValue: function() {
         var valid = true;
-        
+
         this.eachItem(function(field) {
             if (!field.isValid()) valid = false;
         });
-        
+
         return valid;
     },
-    
+
     /**
      * Takes an object containing error messages for contained fields, returning a combined error
      * string (defaults to just placing each item on a new line). This can be overridden to provide
@@ -244,16 +244,16 @@ Ext.form.CompositeField = Ext.extend(Ext.form.Field, {
     buildCombinedErrorMessage: function(errors) {
         var combined = [],
             error;
-        
+
         for (var i = 0, j = errors.length; i < j; i++) {
             error = errors[i];
-            
+
             combined.push(String.format("{0}: {1}", error.field, error.error));
         }
-        
+
         return combined.join("<br />");
     },
-    
+
     /**
      * Sorts the internal fieldErrors MixedCollection by the order in which the fields are defined.
      * This is called before displaying errors to ensure that the errors are presented in the expected order.
@@ -261,17 +261,17 @@ Ext.form.CompositeField = Ext.extend(Ext.form.Field, {
      */
     sortErrors: function() {
         var fields = this.items;
-        
+
         this.fieldErrors.sort("ASC", function(a, b) {
             var findByName = function(key) {
                 return function(field) {
                     return field.getName() == key;
                 };
             };
-            
+
             var aIndex = fields.findIndexBy(findByName(a.field)),
                 bIndex = fields.findIndexBy(findByName(b.field));
-            
+
             return aIndex < bIndex ? -1 : 1;
         });
     },
@@ -290,7 +290,7 @@ Ext.form.CompositeField = Ext.extend(Ext.form.Field, {
             this.clearInvalid();
         }).defer(50, this);
     },
-    
+
     /**
      * Builds a label string from an array of subfield labels.
      * By default this just joins the labels together with a comma
@@ -332,14 +332,14 @@ Ext.form.CompositeField = Ext.extend(Ext.form.Field, {
             this.items.each(fn, scope || this);
         }
     },
-    
+
     /**
      * @private
      * Passes the resize call through to the inner panel
      */
     onResize: function(adjWidth, adjHeight, rawWidth, rawHeight) {
         var innerCt = this.innerCt;
-        
+
         if (this.rendered && innerCt.rendered) {
             innerCt.setSize(adjWidth, adjHeight);
         }
@@ -354,31 +354,36 @@ Ext.form.CompositeField = Ext.extend(Ext.form.Field, {
     doLayout: function(shallow, force) {
         if (this.rendered) {
             var innerCt = this.innerCt;
-            
+
             innerCt.forceLayout = this.ownerCt.forceLayout;
             innerCt.doLayout(shallow, force);
         }
     },
-        
+
     /**
      * @private
      */
     beforeDestroy: function(){
         Ext.destroy(this.innerCt);
-        
+
         Ext.form.CompositeField.superclass.beforeDestroy.call(this);
     },
-    
+
     //override the behaviour to check sub items.
     setReadOnly : function(readOnly) {
         readOnly = readOnly || true;
-        
+
         if(this.rendered){
             this.eachItem(function(item){
                 item.setReadOnly(readOnly);
             });
         }
         this.readOnly = readOnly;
+    },
+
+    onShow : function() {
+        Ext.form.CompositeField.superclass.onShow.call(this);
+        this.doLayout();
     },
 
     //override the behaviour to check sub items.

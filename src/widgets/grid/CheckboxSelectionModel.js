@@ -36,6 +36,7 @@ Ext.grid.CheckboxSelectionModel = Ext.extend(Ext.grid.RowSelectionModel, {
     // private
     menuDisabled : true,
     fixed : true,
+    hideable: false,
     dataIndex : '',
     id : 'checker',
 

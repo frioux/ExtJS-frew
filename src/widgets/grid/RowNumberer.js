@@ -40,6 +40,7 @@ Ext.grid.RowNumberer = Ext.extend(Object, {
 
     // private
     fixed:true,
+    hideable: false,
     menuDisabled:true,
     dataIndex: '',
     id: 'numberer',
