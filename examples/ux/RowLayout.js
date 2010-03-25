@@ -107,7 +107,12 @@ Ext.ux.layout.RowLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
     // private
     onLayout : function(ct, target){
-        var rs = ct.items.items, len = rs.length, r, i;
+        var rs = ct.items.items,
+            len = rs.length,
+            r,
+            m,
+            i,
+            margins = [];
 
         this.renderAll(ct, target);
 
@@ -127,8 +132,10 @@ Ext.ux.layout.RowLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
         for(i = 0; i < len; i++){
             r = rs[i];
+            m = r.getPositionEl().getMargins('tb');
+            margins[i] = m;
             if(!r.rowHeight){
-                ph -= (r.getHeight() + r.getEl().getMargins('tb'));
+                ph -= (r.getHeight() + m);
             }
         }
 
@@ -136,8 +143,9 @@ Ext.ux.layout.RowLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
         for(i = 0; i < len; i++){
             r = rs[i];
+            m = margins[i];
             if(r.rowHeight){
-                r.setSize({height: Math.floor(r.rowHeight*ph) - r.getEl().getMargins('tb')});
+                r.setSize({height: Math.floor(r.rowHeight*ph) - m});
             }
         }
 
@@ -148,7 +156,6 @@ Ext.ux.layout.RowLayout = Ext.extend(Ext.layout.ContainerLayout, {
                 var ts = this.getLayoutTargetSize();
                 if (ts.width != size.width){
                     this.adjustmentPass = true;
-                    this.layoutTargetSize = ts;
                     this.onLayout(ct, target);
                 }
             }

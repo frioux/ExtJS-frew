@@ -270,7 +270,6 @@ layoutConfig: {
      * the frequency it calculates and does a re-layout of components. This is useful for heavy containers or containers
      * with a large quantity of sub-components for which frequent layout calls would be expensive. Defaults to <code>50</code>.
      */
-    // Deprecated - will be removed in 3.2.x
     bufferResize: 50,
 
     /**

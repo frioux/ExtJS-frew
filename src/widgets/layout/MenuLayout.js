@@ -6,6 +6,8 @@
  Ext.layout.MenuLayout = Ext.extend(Ext.layout.ContainerLayout, {
     monitorResize : true,
 
+    type: 'menu',
+
     setContainer : function(ct){
         this.monitorResize = !ct.floating;
         // This event is only fired by the menu in IE, used so we don't couple

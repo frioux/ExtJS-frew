@@ -6,14 +6,16 @@
  */
 Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
     monitorResize : true,
-    
+
+    type: 'toolbar',
+
     /**
      * @property triggerWidth
      * @type Number
      * The width allocated for the menu trigger at the extreme right end of the Toolbar
      */
     triggerWidth: 18,
-    
+
     /**
      * @property noItemsMenuText
      * @type String
@@ -28,7 +30,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
      * Used internally to record whether the last layout caused an overflow or not
      */
     lastOverflow: false,
-    
+
     /**
      * @private
      * @property tableHTML
@@ -73,7 +75,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
             '</tbody>',
         '</table>'
     ].join(""),
-    
+
     /**
      * @private
      * Create the wrapping Toolbar HTML and render/move all the items into the correct places
@@ -82,14 +84,14 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
         //render the Toolbar <table> HTML if it's not already present
         if (!this.leftTr) {
             var align = ct.buttonAlign == 'center' ? 'center' : 'left';
-            
+
             target.addClass('x-toolbar-layout-ct');
             target.insertHtml('beforeEnd', String.format(this.tableHTML, align));
-            
+
             this.leftTr   = target.child('tr.x-toolbar-left-row', true);
             this.rightTr  = target.child('tr.x-toolbar-right-row', true);
             this.extrasTr = target.child('tr.x-toolbar-extras-row', true);
-            
+
             if (this.hiddenItem == undefined) {
                 /**
                  * @property hiddenItems
@@ -108,7 +110,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
         //render each item if not already rendered, place it into the correct (left or right) target
         for (var i = 0, len = items.length, c; i < len; i++, position++) {
             c = items[i];
-            
+
             if (c.isFill) {
                 side   = this.rightTr;
                 position = -1;
@@ -122,7 +124,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
                 }
             }
         }
-        
+
         //strip extra empty cells
         this.cleanup(this.leftTr);
         this.cleanup(this.rightTr);
@@ -137,14 +139,14 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
      */
     cleanup : function(el) {
         var cn = el.childNodes, i, c;
-        
+
         for (i = cn.length-1; i >= 0 && (c = cn[i]); i--) {
             if (!c.firstChild) {
                 el.removeChild(c);
             }
         }
     },
-    
+
     /**
      * @private
      * Inserts the given Toolbar item into the given element
@@ -155,9 +157,9 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
     insertCell : function(c, target, position) {
         var td = document.createElement('td');
         td.className = 'x-toolbar-cell';
-        
+
         target.insertBefore(td, target.childNodes[position] || null);
-        
+
         return td;
     },
 
@@ -169,12 +171,12 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
      */
     hideItem : function(item) {
         this.hiddenItems.push(item);
-        
+
         item.xtbHidden = true;
         item.xtbWidth = item.getPositionEl().dom.parentNode.offsetWidth;
         item.hide();
     },
-    
+
     /**
      * @private
      * Unhides an item that was previously hidden due to there not being enough space left on the Toolbar
@@ -185,7 +187,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
         item.xtbHidden = false;
         this.hiddenItems.remove(item);
     },
-    
+
     /**
      * @private
      * Returns the width of the given toolbar item. If the item is currently hidden because there
@@ -196,7 +198,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
     getItemWidth : function(c) {
         return c.hidden ? (c.xtbWidth || 0) : c.getPositionEl().dom.parentNode.offsetWidth;
     },
-    
+
     /**
      * @private
      * Called at the end of onLayout. At this point the Toolbar has already been resized, so we need
@@ -209,12 +211,12 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
         if (this.container.enableOverflow === false) {
             return;
         }
-        
+
         var width       = target.dom.clientWidth,
             tableWidth  = target.dom.firstChild.offsetWidth,
             clipWidth   = width - this.triggerWidth,
             lastWidth   = this.lastWidth || 0,
-            
+
             hiddenItems = this.hiddenItems,
             hasHiddens  = hiddenItems.length != 0,
             isLarger    = width >= lastWidth;
@@ -242,13 +244,13 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
                 }
             }
         }
-        
+
         //test for number of hidden items again here because they may have changed above
         hasHiddens = hiddenItems.length != 0;
-        
+
         if (hasHiddens) {
             this.initMore();
-            
+
             if (!this.lastOverflow) {
                 this.container.fireEvent('overflowchange', this.container, true);
                 this.lastOverflow = true;
@@ -257,7 +259,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
             this.clearMenu();
             this.more.destroy();
             delete this.more;
-            
+
             if (this.lastOverflow) {
                 this.container.fireEvent('overflowchange', this.container, false);
                 this.lastOverflow = false;
@@ -275,16 +277,16 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
     createMenuConfig : function(component, hideOnClick){
         var config = Ext.apply({}, component.initialConfig),
             group  = component.toggleGroup;
-        
+
         Ext.copyTo(config, component, [
             'iconCls', 'icon', 'itemId', 'disabled', 'handler', 'scope', 'menu'
         ]);
-        
+
         Ext.apply(config, {
             text       : component.overflowText || component.text,
             hideOnClick: hideOnClick
         });
-        
+
         if (group || component.enableToggle) {
             Ext.apply(config, {
                 group  : group,
@@ -296,11 +298,11 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
                 }
             });
         }
-        
+
         delete config.ownerCt;
         delete config.xtype;
         delete config.id;
-        
+
         return config;
     },
 
@@ -313,14 +315,14 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
     addComponentToMenu : function(menu, component) {
         if (component instanceof Ext.Toolbar.Separator) {
             menu.add('-');
-            
+
         } else if (Ext.isFunction(component.isXType)) {
             if (component.isXType('splitbutton')) {
                 menu.add(this.createMenuConfig(component, true));
-                
+
             } else if (component.isXType('button')) {
                 menu.add(this.createMenuConfig(component, !component.menu));
-                
+
             } else if (component.isXType('buttongroup')) {
                 component.items.each(function(item){
                      this.addComponentToMenu(menu, item);
@@ -354,7 +356,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
             len   = items.length,
             item,
             prev;
-        
+
         var needsSep = function(group, item){
             return group.isXType('buttongroup') && !(item instanceof Ext.Toolbar.Separator);
         };
@@ -371,7 +373,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
                 prev = item;
             }
         }
-        
+
         // put something so the menu isn't empty if no compatible items found
         if (menu.items.length < 1) {
             menu.add(this.noItemsMenuText);
@@ -399,7 +401,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
                     scope: this
                 }
             });
-            
+
             /**
              * @private
              * @property more
@@ -412,7 +414,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
                 menu   : this.moreMenu,
                 ownerCt: this.container
             });
-            
+
             var td = this.insertCell(this.more, this.extrasTr, 100);
             this.more.render(td);
         }

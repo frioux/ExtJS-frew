@@ -51,7 +51,7 @@ Ext.layout.AbsoluteLayout = Ext.extend(Ext.layout.AnchorLayout, {
 
     extraCls: 'x-abs-layout-item',
 
-    type: 'anchor',
+    type: 'absolute',
 
     onLayout : function(ct, target){
         target.position();

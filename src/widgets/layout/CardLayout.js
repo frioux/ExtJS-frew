@@ -87,10 +87,6 @@ Ext.layout.CardLayout = Ext.extend(Ext.layout.FitLayout, {
 
     type: 'card',
 
-    constructor: function(config){
-        Ext.layout.CardLayout.superclass.constructor.call(this, config);
-    },
-
     /**
      * Sets the active (visible) item in the layout.
      * @param {String/Number} item The string component id or numeric index of the item to activate

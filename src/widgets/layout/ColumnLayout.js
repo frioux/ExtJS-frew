@@ -104,7 +104,12 @@ Ext.layout.ColumnLayout = Ext.extend(Ext.layout.ContainerLayout, {
 
     // private
     onLayout : function(ct, target){
-        var cs = ct.items.items, len = cs.length, c, i, m, margins = [];
+        var cs = ct.items.items,
+            len = cs.length,
+            c,
+            i,
+            m,
+            margins = [];
 
         this.renderAll(ct, target);
 
