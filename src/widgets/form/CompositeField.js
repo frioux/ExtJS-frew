@@ -290,6 +290,16 @@ Ext.form.CompositeField = Ext.extend(Ext.form.Field, {
             this.clearInvalid();
         }).defer(50, this);
     },
+    
+    /**
+     * Calls clearInvalid on all child fields. This is a convenience function and should not often need to be called
+     * as fields usually take care of clearing themselves
+     */
+    clearInvalidChildren: function() {
+        this.eachItem(function(item) {
+            item.clearInvalid();
+        });
+    },
 
     /**
      * Builds a label string from an array of subfield labels.

@@ -696,6 +696,17 @@ Ext.slider.MultiSlider = Ext.extend(Ext.BoxComponent, {
 
     // private
     onResize : function(w, h){
+        var thumbs = this.thumbs,
+            len = thumbs.length,
+            i = 0;
+            
+        /*
+         * If we happen to be animating during a resize, the position of the thumb will likely be off
+         * when the animation stops. As such, just stop any animations before syncing the thumbs.
+         */
+        for(; i < len; ++i){
+            thumbs[i].el.stopFx();    
+        }
         this.innerEl.setWidth(w - (this.el.getPadding('l') + this.endEl.getPadding('r')));
         this.syncThumb();
         Ext.slider.MultiSlider.superclass.onResize.apply(this, arguments);
