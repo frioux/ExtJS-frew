@@ -1100,6 +1100,14 @@ new Ext.Panel({
     getBottomToolbar : function(){
         return this.bottomToolbar;
     },
+    
+    /**
+     * Returns the {@link Ext.Toolbar toolbar} from the footer (<code>{@link #fbar}</code>) section of the panel.
+     * @return {Ext.Toolbar} The toolbar
+     */
+    getFooterToolbar : function() {
+        return this.fbar;
+    },
 
     /**
      * Adds a button to this panel.  Note that this method must be called prior to rendering.  The preferred

@@ -818,11 +818,11 @@ sortInfo: {
      * <tt>false</tt>, the load call will abort and will return <tt>false</tt>; otherwise will return <tt>true</tt>.
      */
     load : function(options) {
-        options = options || {};
+        options = Ext.apply({}, options);
         this.storeOptions(options);
         if(this.sortInfo && this.remoteSort){
             var pn = this.paramNames;
-            options.params = options.params || {};
+            options.params = Ext.apply({}, options.params);
             options.params[pn.sort] = this.sortInfo.field;
             options.params[pn.dir] = this.sortInfo.direction;
         }
