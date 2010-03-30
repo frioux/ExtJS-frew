@@ -28,21 +28,21 @@ Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
         this.hasMultiSort  = true;
         this.multiSortInfo = this.multiSortInfo || {sorters: []};
 
-        var sorters = this.multiSortInfo.sorters,
+        var sorters    = this.multiSortInfo.sorters,
             groupField = config.groupField || this.groupField,
-            sortInfo = config.sortInfo || this.sortInfo;
+            sortInfo   = config.sortInfo || this.sortInfo,
+            groupDir   = config.groupDir || this.groupDir;
 
         //add the grouping sorter object first
         if(groupField){
             sorters.push({
                 field    : groupField,
-                direction: config.groupDir || this.groupDir
+                direction: groupDir
             });
         }
 
-
         //add the sorting sorter object if it is present
-        if(sortInfo){
+        if (sortInfo) {
             sorters.push(sortInfo);
         }
 

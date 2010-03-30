@@ -105,6 +105,10 @@
     cursor: default !important;
 }
 
+.x-form-radio-group .x-item-disabled {
+    filter: none;
+}
+
 .x-splitbar-proxy {
     position: absolute;
     visibility: hidden;

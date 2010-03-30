@@ -151,7 +151,7 @@ Ext.slider.Thumb = Ext.extend(Object, {
         slider.fireEvent('dragend', slider, e);
 
         if (this.dragStartValue != value) {
-            slider.fireEvent('changecomplete', slider, value);
+            slider.fireEvent('changecomplete', slider, value, this);
         }
     }
 });
@@ -462,9 +462,8 @@ Ext.slider.MultiSlider = Ext.extend(Ext.BoxComponent, {
     onClickChange : function(local) {
         if (local.top > this.clickRange[0] && local.top < this.clickRange[1]) {
             //find the nearest thumb to the click event
-            var nearest = this.getNearest(local, 'left'),
-                thumb   = nearest.thumb,
-                index   = thumb.index;
+            var thumb = this.getNearest(local, 'left'),
+                index = thumb.index;
 
             this.setValue(index, Ext.util.Format.round(this.reverseValue(local.left), this.decimalPrecision), undefined, true);
         }
@@ -480,7 +479,9 @@ Ext.slider.MultiSlider = Ext.extend(Ext.BoxComponent, {
     getNearest: function(local, prop) {
         var localValue = prop == 'top' ? this.innerEl.getHeight() - local[prop] : local[prop],
             clickValue = this.reverseValue(localValue),
-            nearest, nearestDistance = this.maxValue, index = 0;
+            nearestDistance = (this.maxValue - this.minValue) + 5, //add a small fudge for the end of the slider 
+            index = 0,
+            nearest = null;
 
         for (var i=0; i < this.thumbs.length; i++) {
             var thumb = this.thumbs[i],
@@ -493,11 +494,7 @@ Ext.slider.MultiSlider = Ext.extend(Ext.BoxComponent, {
                 nearestDistance = dist;
             }
         }
-
-        return {
-            thumb   : nearest,
-            distance: nearestDistance
-        };
+        return nearest;
     },
 
     /**
@@ -872,6 +869,12 @@ Ext.slider.SingleSlider = Ext.extend(Ext.slider.MultiSlider, {
      */
     syncThumb : function() {
         return Ext.slider.SingleSlider.superclass.syncThumb.apply(this, [0].concat(arguments));
+    },
+    
+    // private
+    getNearest : function(){
+        // Since there's only 1 thumb, it's always the nearest
+        return this.thumbs[0];    
     }
 });
 
@@ -906,10 +909,9 @@ Ext.slider.Vertical = {
 
     onClickChange : function(local) {
         if (local.left > this.clickRange[0] && local.left < this.clickRange[1]) {
-            var nearest = this.getNearest(local, 'top'),
-                thumb   = nearest.thumb,
-                index   = thumb.index,
-                value   = this.minValue + this.reverseValue(this.innerEl.getHeight() - local.top);
+            var thumb = this.getNearest(local, 'top'),
+                index = thumb.index,
+                value = this.minValue + this.reverseValue(this.innerEl.getHeight() - local.top);
 
             this.setValue(index, Ext.util.Format.round(value, this.decimalPrecision), undefined, true);
         }

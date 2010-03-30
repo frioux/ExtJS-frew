@@ -1327,6 +1327,10 @@ myStore.reload(lastOptions);
         for (var i=0, j = sorters.length; i < j; i++) {
             sortFns.push(this.createSortFunction(sorters[i].field, sorters[i].direction));
         }
+        
+        if (sortFns.length == 0) {
+            return;
+        }
 
         //the direction modifier is multiplied with the result of the sorting functions to provide overall sort direction
         //(as opposed to direction per field)
@@ -1486,8 +1490,11 @@ myStore.reload(lastOptions);
             sorters  : sorters,
             direction: direction
         };
+        
+        if (this.remoteSort) {
+            this.singleSort(sorters[0].field, sorters[0].direction);
 
-        if (!this.remoteSort) {
+        } else {
             this.applySort();
             this.fireEvent('datachanged', this);
         }
