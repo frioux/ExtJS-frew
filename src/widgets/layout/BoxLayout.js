@@ -422,12 +422,12 @@ Ext.layout.VBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
                 switch (this.align) {
                     case 'stretch':
                         stretchWidth = availWidth - horizMargins;
-                        calcs.width  = stretchWidth.constrain(child.minHeight || 0, child.maxWidth || 1000000);
+                        calcs.width  = stretchWidth.constrain(child.minWidth || 0, child.maxWidth || 1000000);
                         calcs.dirtySize = true;
                         break;
                     case 'stretchmax':
                         stretchWidth = maxWidth - horizMargins;
-                        calcs.width  = stretchWidth.constrain(child.minHeight || 0, child.maxWidth || 1000000);
+                        calcs.width  = stretchWidth.constrain(child.minWidth || 0, child.maxWidth || 1000000);
                         calcs.dirtySize = true;
                         break;
                     case 'center':

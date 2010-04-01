@@ -653,6 +653,7 @@ sortInfo: {
             Ext.each(record, function(r){
                 this.remove(r);
             }, this);
+            return;
         }
         var index = this.data.indexOf(record);
         if(index > -1){

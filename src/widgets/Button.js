@@ -179,6 +179,13 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      * @type Menu
      * The {@link Ext.menu.Menu Menu} object associated with this Button when configured with the {@link #menu} config option.
      */
+    /**
+     * @cfg {Boolean} autoWidth
+     * By default, if a width is not specified the button will attempt to stretch horizontally to fit its content.
+     * If the button is being managed by a width sizing layout (hbox, fit, anchor), set this to false to prevent
+     * the button from doing this automatic sizing.
+     * Defaults to <tt>undefined</tt>. 
+     */
 
     initComponent : function(){
         Ext.Button.superclass.initComponent.call(this);
@@ -450,7 +457,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
 
     // private
     doAutoWidth : function(){
-        if(this.el && this.text && this.width === undefined){
+        if(this.autoWidth !== false && this.el && this.text && this.width === undefined){
             this.el.setWidth('auto');
             if(Ext.isIE7 && Ext.isStrict){
                 var ib = this.btnEl;
