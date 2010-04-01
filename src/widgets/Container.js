@@ -764,11 +764,10 @@ tb.{@link #doLayout}();             // refresh the layout
     },
 
     /**
-    * We can only lay out if there is a view area in which to layout.
-    * display:none on the layout target, *or any of its parent elements* will mean it has no view area.
-    */
-
-    // private
+     * @private
+     * We can only lay out if there is a view area in which to layout.
+     * display:none on the layout target, *or any of its parent elements* will mean it has no view area.
+     */
     canLayout : function() {
         var el = this.getVisibilityEl();
         return el && el.dom && !el.isStyle("display", "none");

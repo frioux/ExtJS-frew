@@ -103,7 +103,7 @@ Ext.Element.addMethods({
 
         if(loadScripts !== true){
             this.dom.innerHTML = html;
-            if(Ext.isFunction(callback)){
+            if(typeof callback == 'function'){
                 callback();
             }
             return this;
@@ -148,7 +148,7 @@ Ext.Element.addMethods({
             }
             el = DOC.getElementById(id);
             if(el){Ext.removeNode(el);}
-            if(Ext.isFunction(callback)){
+            if(typeof callback == 'function'){
                 callback();
             }
         });
@@ -171,7 +171,7 @@ Ext.Element.addMethods({
      * @return {Ext.Element} The new proxy element
      */
     createProxy : function(config, renderTo, matchBox){
-        config = Ext.isObject(config) ? config : {tag : "div", cls: config};
+        config = (typeof config == 'object') ? config : {tag : "div", cls: config};
 
         var me = this,
             proxy = renderTo ? Ext.DomHelper.append(renderTo, config, true) :

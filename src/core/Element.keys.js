@@ -12,7 +12,7 @@ Ext.Element.addMethods({
      */
     addKeyListener : function(key, fn, scope){
         var config;
-        if(!Ext.isObject(key) || Ext.isArray(key)){
+        if(typeof key != 'object' || Ext.isArray(key)){
             config = {
                 key: key,
                 fn: fn,

@@ -100,7 +100,7 @@ Ext.Element.addMethods(function(){
          */
         setSize : function(width, height, animate){
             var me = this;
-            if(Ext.isObject(width)){ // in case of object from getSize()
+            if(typeof width == 'object'){ // in case of object from getSize()
                 height = width.height;
                 width = width.width;
             }
