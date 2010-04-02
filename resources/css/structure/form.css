@@ -184,10 +184,6 @@ textarea {
     border: 1px solid;
 }
 
-.ext-webkit .x-form-invalid{
-    border: 1px solid;
-}
-
 .x-form-inner-invalid, textarea.x-form-inner-invalid{
     background:repeat-x bottom;
 }
