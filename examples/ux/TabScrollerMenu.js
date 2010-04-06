@@ -186,8 +186,8 @@ Ext.ux.TabScrollerMenu =  Ext.extend(Object, {
 			}
 			else {
 				this.items.each(function(item) {
-					if (item.id != curActive.id && ! item.hidden) {
-						menuItems.push(this.autoGenMenuItem(item));
+					if (item.id != curActive.id && !item.hidden) {
+                        this.tabsMenu.add(this.autoGenMenuItem(item));
 					}
 				}, this);
 			}

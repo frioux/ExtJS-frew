@@ -79,6 +79,7 @@ Ext.grid.CheckboxSelectionModel = Ext.extend(Ext.grid.RowSelectionModel, {
                     this.deselectRow(index);
                 }else{
                     this.selectRow(index, true);
+                    this.grid.getView().focusRow(index);
                 }
             }
         }

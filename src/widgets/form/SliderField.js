@@ -59,6 +59,7 @@ Ext.form.SliderField = Ext.extend(Ext.form.Field, {
         };
         Ext.form.SliderField.superclass.onRender.call(this, ct, position);
         this.wrap = this.el.wrap({cls: 'x-form-field-wrap'});
+        this.resizeEl = this.positionEl = this.wrap;
         this.slider.render(this.wrap);
     },
     

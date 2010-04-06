@@ -504,26 +504,29 @@ Ext.slider.MultiSlider = Ext.extend(Ext.BoxComponent, {
      * @param {Ext.EventObject} e The Event object
      */
     onKeyDown : function(e){
-        if(this.disabled){e.preventDefault();return;}
-        var k = e.getKey();
+        /*
+         * The behaviour for keyboard handling with multiple thumbs is currently undefined.
+         * There's no real sane default for it, so leave it like this until we come up
+         * with a better way of doing it.
+         */
+        if(this.disabled || this.thumbs.length !== 1){
+            e.preventDefault();
+            return;
+        }
+        var k = e.getKey(),
+            val;
         switch(k){
             case e.UP:
             case e.RIGHT:
                 e.stopEvent();
-                if(e.ctrlKey){
-                    this.setValue(this.maxValue, undefined, true);
-                }else{
-                    this.setValue(this.value+this.keyIncrement, undefined, true);
-                }
+                val = e.ctrlKey ? this.maxValue : this.getValue(0) + this.keyIncrement;
+                this.setValue(0, val, undefined, true);
             break;
             case e.DOWN:
             case e.LEFT:
                 e.stopEvent();
-                if(e.ctrlKey){
-                    this.setValue(this.minValue, undefined, true);
-                }else{
-                    this.setValue(this.value-this.keyIncrement, undefined, true);
-                }
+                val = e.ctrlKey ? this.minValue : this.getValue(0) - this.keyIncrement;
+                this.setValue(0, val, undefined, true);
             break;
             default:
                 e.preventDefault();
