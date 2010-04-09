@@ -551,20 +551,23 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
      * @param {Boolean} sourceEdit (optional) True for source edit, false for standard
      */
     toggleSourceEdit : function(sourceEditMode){
-        var iframeHeight, elHeight;
-        if(sourceEditMode === undefined){
+        var iframeHeight,
+            elHeight,
+            ls;
+
+        if (sourceEditMode === undefined) {
             sourceEditMode = !this.sourceEditMode;
         }
         this.sourceEditMode = sourceEditMode === true;
         var btn = this.tb.getComponent('sourceedit');
 
-        if(btn.pressed !== this.sourceEditMode){
+        if (btn.pressed !== this.sourceEditMode) {
             btn.toggle(this.sourceEditMode);
-            if(!btn.xtbHidden){
+            if (!btn.xtbHidden) {
                 return;
             }
         }
-        if(this.sourceEditMode){
+        if (this.sourceEditMode) {
             // grab the height of the containing panel before we hide the iframe
             ls = this.getSize();
 
@@ -577,9 +580,10 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
             this.el.dom.removeAttribute('tabIndex');
             this.el.focus();
             this.el.dom.style.height = iframeHeight + 'px';
-        }else{
+        }
+        else {
             elHeight = parseInt(this.el.dom.style.height, 10);
-            if(this.initialized){
+            if (this.initialized) {
                 this.disableItems(this.readOnly);
             }
             this.pushValue();
@@ -595,7 +599,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
     },
 
     // private used internally
-    createLink : function(){
+    createLink : function() {
         var url = prompt(this.createLinkText, this.defaultLinkValue);
         if(url && url != 'http:/'+'/'){
             this.relayCmd('createlink', url);

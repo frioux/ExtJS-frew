@@ -811,10 +811,10 @@ new Ext.TabPanel({
                     Ext.fly(oldEl).removeClass('x-tab-strip-active');
                 }
             }
+            this.activeTab = item;
             if(item){
                 var el = this.getTabEl(item);
                 Ext.fly(el).addClass('x-tab-strip-active');
-                this.activeTab = item;
                 this.stack.add(item);
 
                 this.layout.setActiveItem(item);

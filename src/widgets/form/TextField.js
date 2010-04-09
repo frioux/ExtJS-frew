@@ -434,10 +434,19 @@ var myField = new Ext.form.NumberField({
         
         value = value || this.processValue(this.getRawValue());        
         
-        if(Ext.isFunction(this.validator)){
+        if (Ext.isFunction(this.validator)) {
             var msg = this.validator(value);
             if (msg !== true) {
                 errors.push(msg);
+            }
+        }
+        
+        if (value.length < 1 || value === this.emptyText) {
+            if (this.allowBlank) {
+                //if value is blank and allowBlank is true, there cannot be any additional errors
+                return errors;
+            } else {
+                errors.push(this.blankText);
             }
         }
         
