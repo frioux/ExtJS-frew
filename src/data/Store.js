@@ -1359,6 +1359,7 @@ myStore.reload(lastOptions);
     },
 
     /**
+     * @private
      * Creates and returns a function which sorts an array by the given field and direction
      * @param {String} field The field to create the sorter for
      * @param {String} direction The direction to sort by (defaults to "ASC")
@@ -1565,6 +1566,7 @@ myStore.reload(lastOptions);
     },
 
     /**
+     * @private
      * Given an array of filter functions (each with optional scope), constructs and returns a single function that returns
      * the result of all of the filters ANDed together
      * @param {Array} filters The array of filter objects (each object should contain an 'fn' and optional scope)

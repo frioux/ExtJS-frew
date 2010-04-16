@@ -372,7 +372,11 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
 
         Ext.form.HtmlEditor.superclass.setReadOnly.call(this, readOnly);
         if(this.initialized){
-            this.setDesignMode(!readOnly);
+            if(Ext.isIE){
+                this.getEditorBody().contentEditable = !readOnly;
+            }else{
+                this.setDesignMode(!readOnly);
+            }
             var bd = this.getEditorBody();
             if(bd){
                 bd.style.cursor = this.readOnly ? 'default' : 'text';
@@ -697,9 +701,8 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                 if(Ext.isGecko){
                     // Gecko hack, see: https://bugzilla.mozilla.org/show_bug.cgi?id=232791#c8
                     this.setDesignMode(false);  //toggle off first
-
+                    this.setDesignMode(true);
                 }
-                this.setDesignMode(true);
                 this.fireEvent('push', this, v);
             }
 

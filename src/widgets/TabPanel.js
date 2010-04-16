@@ -582,9 +582,6 @@ new Ext.TabPanel({
         if(this.rendered){
             var items = this.items;
             this.initTab(c, items.indexOf(c));
-            if(items.getCount() == 1 && !this.collapsed){
-                this.syncSize();
-            }
             this.delegateUpdates();
         }
     },

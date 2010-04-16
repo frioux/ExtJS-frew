@@ -610,11 +610,16 @@ Ext.slider.MultiSlider = Ext.extend(Ext.BoxComponent, {
      */
     setMinValue : function(val){
         this.minValue = val;
-        this.syncThumb();
-
-        for (var i=0, j = this.thumbs.length; i < j; i++) {
-            if (this.thumbs[i].value < val) this.thumbs[i].value = val;
+        var i = 0,
+            thumbs = this.thumbs,
+            len = thumbs.length,
+            t;
+            
+        for(; i < len; ++i){
+            t = thumbs[i];
+            t.value = t.value < val ? val : t.value;
         }
+        this.syncThumb();
     },
 
     /**
@@ -624,11 +629,16 @@ Ext.slider.MultiSlider = Ext.extend(Ext.BoxComponent, {
      */
     setMaxValue : function(val){
         this.maxValue = val;
-        this.syncThumb();
-
-        for (var i=0; i < this.thumbs.length; i++) {
-            if (this.thumbs[i].value > val) this.thumbs[i].value = val;
+        var i = 0,
+            thumbs = this.thumbs,
+            len = thumbs.length,
+            t;
+            
+        for(; i < len; ++i){
+            t = thumbs[i];
+            t.value = t.value > val ? val : t.value;
         }
+        this.syncThumb();
     },
 
     /**
@@ -644,12 +654,14 @@ Ext.slider.MultiSlider = Ext.extend(Ext.BoxComponent, {
 
         v = this.normalizeValue(v);
 
-        if (v !== thumb.value && this.fireEvent('beforechange', this, v, thumb.value) !== false) {
+        if (v !== thumb.value && this.fireEvent('beforechange', this, v, thumb.value, thumb) !== false) {
             thumb.value = v;
-            this.moveThumb(index, this.translateValue(v), animate !== false);
-            this.fireEvent('change', this, v, thumb);
-            if(changeComplete){
-                this.fireEvent('changecomplete', this, v, thumb);
+            if(this.rendered){
+                this.moveThumb(index, this.translateValue(v), animate !== false);
+                this.fireEvent('change', this, v, thumb);
+                if(changeComplete){
+                    this.fireEvent('changecomplete', this, v, thumb);
+                }
             }
         }
     },

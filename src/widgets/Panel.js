@@ -1100,7 +1100,7 @@ new Ext.Panel({
     getBottomToolbar : function(){
         return this.bottomToolbar;
     },
-    
+
     /**
      * Returns the {@link Ext.Toolbar toolbar} from the footer (<code>{@link #fbar}</code>) section of the panel.
      * @return {Ext.Toolbar} The toolbar
@@ -1381,7 +1381,7 @@ new Ext.Panel({
         // Reset lastSize of all sub-components so they KNOW they are in a collapsed container
         this.cascade(function(c) {
             if (c.lastSize) {
-                c.lastSize = { width: 0, height: 0 };
+                c.lastSize = { width: undefined, height: undefined };
             }
         });
         this.fireEvent('collapse', this);
@@ -1722,12 +1722,12 @@ panel.load({
                 this.ft,
                 this.header,
                 this.footer,
-                this.toolbars,
                 this.tbar,
                 this.bbar,
                 this.body,
                 this.mc,
-                this.bwrap
+                this.bwrap,
+                this.dd
             );
             if (this.fbar) {
                 Ext.destroy(
@@ -1735,12 +1735,8 @@ panel.load({
                     this.fbar.el
                 );
             }
-        }else{
-            Ext.destroy(
-                this.topToolbar,
-                this.bottomToolbar
-            );
         }
+        Ext.destroy(this.toolbars);
     },
 
     // private

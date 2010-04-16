@@ -1173,7 +1173,7 @@ Ext.dd.DragDrop.prototype = {
 };
 
 })();
-/*!
+/*
  * The drag and drop utility provides a framework for building drag and drop
  * applications.  In addition to enabling drag and drop for specific elements,
  * the drag and drop elements are tracked by the manager class, and the

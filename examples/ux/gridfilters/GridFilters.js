@@ -249,6 +249,7 @@ Ext.ux.grid.GridFilters = Ext.extend(Ext.util.Observable, {
             this.reload();
         }
         delete this.applyingState;
+        delete state.filters;
     },
 
     /**
