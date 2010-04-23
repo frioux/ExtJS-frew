@@ -264,6 +264,9 @@ Ext.FormPanel = Ext.extend(Ext.Panel, {
             // If a Container, its already destroyed by the time it gets here.  Remove any references to destroyed fields.
             }else if (c.findBy){
                 Ext.each(c.findBy(this.isField), this.form.remove, this.form);
+                if (c.isDestroyed) {
+                    this.form.cleanDestroyed();
+                }
             }
         }
     },

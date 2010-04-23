@@ -19,12 +19,12 @@ els.hide(true); // all elements fade out and hide
 els.setWidth(100).hide(true);
 </code></pre>
  */
-Ext.CompositeElement = function(els, root){
-    this.elements = [];
-    this.add(els, root);
-};
-
-Ext.extend(Ext.CompositeElement, Ext.CompositeElementLite, {
+Ext.CompositeElement = Ext.extend(Ext.CompositeElementLite, {
+    
+    constructor : function(els, root){
+        this.elements = [];
+        this.add(els, root);
+    },
     
     // private
     getElement : function(el){
@@ -100,7 +100,7 @@ Ext.Element.select = function(selector, unique, root){
  * @param {Boolean} unique (optional) true to create a unique Ext.Element for each element (defaults to a shared flyweight object)
  * @param {HTMLElement/String} root (optional) The root element of the query or id of the root
  * @return {CompositeElementLite/CompositeElement}
- * @member Ext.Element
+ * @member Ext
  * @method select
  */
 Ext.select = Ext.Element.select;

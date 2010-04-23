@@ -184,7 +184,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
      * By default, if a width is not specified the button will attempt to stretch horizontally to fit its content.
      * If the button is being managed by a width sizing layout (hbox, fit, anchor), set this to false to prevent
      * the button from doing this automatic sizing.
-     * Defaults to <tt>undefined</tt>. 
+     * Defaults to <tt>undefined</tt>.
      */
 
     initComponent : function(){
@@ -283,7 +283,7 @@ Ext.Button = Ext.extend(Ext.BoxComponent, {
             if(!Ext.isEmpty(this.oldCls)){
                 this.el.removeClass([this.oldCls, 'x-btn-pressed']);
             }
-            this.oldCls = (this.iconCls || this.icon) ? (this.text ? ' x-btn-text-icon' : ' x-btn-icon') : ' x-btn-noicon';
+            this.oldCls = (this.iconCls || this.icon) ? (this.text ? 'x-btn-text-icon' : 'x-btn-icon') : 'x-btn-noicon';
             this.el.addClass([this.oldCls, this.pressed ? 'x-btn-pressed' : null]);
         }
     },

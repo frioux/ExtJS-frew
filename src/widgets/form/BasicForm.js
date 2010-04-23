@@ -732,6 +732,13 @@ myFormPanel.getForm().submit({
     },
 
     /**
+     * Removes all fields from the collection that have been destroyed.
+     */
+    cleanDestroyed : function() {
+        this.items.filterBy(function(o) { return !!o.isDestroyed; }).each(this.remove, this);
+    },
+
+    /**
      * Iterates through the {@link Ext.form.Field Field}s which have been {@link #add add}ed to this BasicForm,
      * checks them for an id attribute, and calls {@link Ext.form.Field#applyToMarkup} on the existing dom element with that id.
      * @return {BasicForm} this

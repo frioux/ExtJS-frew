@@ -217,12 +217,17 @@ Ext.ux.grid.BufferView = Ext.extend(Ext.grid.GridView, {
 		}
 	},
     
-    destroy : function(){
-        var task = this.cleanTask;
+    removeTask: function(name){
+        var task = this[name];
         if(task && task.cancel){
             task.cancel();
-            this.cleanTask = null;
-        }    
+            this[name] = null;
+        }
+    },
+    
+    destroy : function(){
+        this.removeTask('cleanTask');
+        this.removeTask('renderTask');  
         Ext.ux.grid.BufferView.superclass.destroy.call(this);
     },
 

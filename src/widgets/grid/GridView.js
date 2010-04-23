@@ -1951,7 +1951,7 @@ Ext.grid.GridView.SplitDragZone = Ext.extend(Ext.dd.DDProxy, {
         if(t && this.allowHeaderDrag(e)){
             var xy = this.view.fly(t).getXY(), 
                 x = xy[0], 
-                y = xy[1];
+                y = xy[1],
                 exy = e.getXY(), ex = exy[0],
                 w = t.offsetWidth, adjust = false;
                 
