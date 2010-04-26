@@ -555,7 +555,7 @@ myFormPanel.getForm().submit({
                     if (f.dataIndex == id || f.id == id || f.getName() == id) {
                         field = f;
                         return false;
-                    } else if (f.isComposite) {
+                    } else if (f.isComposite && f.rendered) {
                         return f.items.each(findMatchingField);
                     }
                 }
