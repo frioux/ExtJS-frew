@@ -1594,6 +1594,7 @@ myStore.reload(lastOptions);
      * Single filter example:
      * store.filter('name', 'Ed', true, true); //finds all records containing the substring 'Ed'
      * Multiple filter example:
+     * <pre><code>
      * store.filter([
      *   {
      *     property     : 'name',
@@ -1610,6 +1611,7 @@ myStore.reload(lastOptions);
      *     scope: this
      *   }
      * ]);
+     * </code></pre>
      * @param {String|Array} field A field on your records, or an array containing multiple filter options
      * @param {String/RegExp} value Either a string that the field should begin with, or a RegExp to test
      * against the field.

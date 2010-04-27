@@ -259,7 +259,12 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
             } else if(i == len - 1){
                 ed.margins = pm('0 0 2 1');
             } else{
-                ed.margins = pm('0 1 2');
+                if (Ext.isIE) {
+                    ed.margins = pm('0 0 2 0');
+                }
+                else {
+                    ed.margins = pm('0 1 2 0');
+                }
             }
             ed.setWidth(cm.getColumnWidth(i));
             ed.column = c;
@@ -462,6 +467,17 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
         this.fireEvent('validation', this, valid);
     },
 
+    lastVisibleColumn : function() {
+        var i = this.items.getCount() - 1,
+            c;
+        for(; i >= 0; i--) {
+            c = this.items.items[i];
+            if (!c.hidden) {
+                return c;
+            }
+        }
+    },
+
     showTooltip: function(msg){
         var t = this.tooltip;
         if(!t){
@@ -482,7 +498,7 @@ Ext.ux.grid.RowEditor = Ext.extend(Ext.Panel, {
             h = this.el.getHeight();
 
         if(top + h >= scroll){
-            t.initTarget(this.items.last().getEl());
+            t.initTarget(this.lastVisibleColumn().getEl());
             if(!t.rendered){
                 t.show();
                 t.hide();

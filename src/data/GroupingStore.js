@@ -163,7 +163,7 @@ Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
         } else if (fieldName == undefined) {
             //we preserve the existing sortInfo here because this.sort is called after
             //clearGrouping and there may be existing sorting
-            sorters = [this.sortInfo];
+            sorters = this.sortInfo ? [this.sortInfo] : [];
         } else {
             //TODO: this is lifted straight from Ext.data.Store's singleSort function. It should instead be
             //refactored into a common method if possible

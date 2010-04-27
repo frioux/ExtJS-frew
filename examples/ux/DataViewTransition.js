@@ -13,7 +13,6 @@ Ext.ux.DataViewTransition = Ext.extend(Object, {
      */
     defaults: {
         duration  : 750,
-        easing    : 'easeIn',
         idProperty: 'id'
     },
     
@@ -75,10 +74,22 @@ Ext.ux.DataViewTransition = Ext.extend(Object, {
                 previous = this.getRemaining(store),
                 existing = Ext.apply({}, previous, added);
             
-            //store is empty
-            if (calcItem == undefined) return;
+            //hide old items
+            Ext.each(removed, function(item) {
+                Ext.fly(this.dataviewID + '-' + item.get(this.idProperty)).fadeOut({
+                    remove  : false,
+                    duration: duration / 1000,
+                    useDisplay: true
+                });
+            }, this);
             
-            var el = parentEl.child("#" + this.dataviewID + "-" + calcItem.get('id'));
+            //store is empty
+            if (calcItem == undefined) {
+                this.cacheStoreData(store);
+                return;
+            }
+            
+            var el = parentEl.child("#" + this.dataviewID + "-" + calcItem.get(this.idProperty));
             
             //calculate the number of rows and columns we have
             var itemCount   = store.getCount(),
@@ -105,10 +116,10 @@ Ext.ux.DataViewTransition = Ext.extend(Object, {
             
             //find current positions of each element and save a reference in the elCache
             Ext.iterate(previous, function(id, item) {
-                var id = item.get('id'),
+                var id = item.get(this.idProperty),
                     el = elCache[id] = parentEl.child('#' + this.dataviewID + '-' + id);
                 
-                oldPositions[item.get('id')] = {
+                oldPositions[id] = {
                     top : el.getTop()  - parentEl.getTop()  - el.getMargins('t') - parentEl.getPadding('t'),
                     left: el.getLeft() - parentEl.getLeft() - el.getMargins('l') - parentEl.getPadding('l')
                 };
@@ -187,9 +198,9 @@ Ext.ux.DataViewTransition = Ext.extend(Object, {
                             midLeft = oldLeft > newLeft ? oldLeft - diffLeft : oldLeft + diffLeft;
                         
                         Ext.fly(dataviewID + '-' + id).applyStyles({
-                            top : midTop,
-                            left: midLeft
-                        });
+                            top : midTop + 'px',
+                            left: midLeft + 'px'
+                        });                        
                     }
                 }
             };
@@ -202,18 +213,9 @@ Ext.ux.DataViewTransition = Ext.extend(Object, {
             
             Ext.TaskMgr.start(task);
             
-            //hide old items
-            Ext.each(removed, function(item) {
-                Ext.fly(this.dataviewID + '-' + item.get('id')).fadeOut({
-                    remove  : false,
-                    duration: duration / 1000,
-                    useDisplay: true
-                });
-            }, this);
-            
             //show new items
             Ext.iterate(added, function(id, item) {
-                Ext.fly(this.dataviewID + '-' + item.get('id')).applyStyles({
+                Ext.fly(this.dataviewID + '-' + item.get(this.idProperty)).applyStyles({
                     top : newPositions[id].top,
                     left: newPositions[id].left
                 }).fadeIn({
@@ -234,7 +236,7 @@ Ext.ux.DataViewTransition = Ext.extend(Object, {
         this.cachedStoreData = {};
         
         store.each(function(record) {
-             this.cachedStoreData[record.get('id')] = record;
+             this.cachedStoreData[record.get(this.idProperty)] = record;
         }, this);
     },
     
@@ -268,8 +270,8 @@ Ext.ux.DataViewTransition = Ext.extend(Object, {
         var added = {};
         
         store.each(function(record) {
-            if (this.cachedStoreData[record.get('id')] == undefined) {
-                added[record.get('id')] = record;
+            if (this.cachedStoreData[record.get(this.idProperty)] == undefined) {
+                added[record.get(this.idProperty)] = record;
             }
         }, this);
         
@@ -285,7 +287,7 @@ Ext.ux.DataViewTransition = Ext.extend(Object, {
         var removed = [];
         
         for (var id in this.cachedStoreData) {
-            if (store.findExact('id', Number(id)) == -1) removed.push(this.cachedStoreData[id]);
+            if (store.findExact(this.idProperty, Number(id)) == -1) removed.push(this.cachedStoreData[id]);
         }
         
         return removed;
@@ -300,8 +302,8 @@ Ext.ux.DataViewTransition = Ext.extend(Object, {
       var remaining = {};
       
       store.each(function(record) {
-          if (this.cachedStoreData[record.get('id')] != undefined) {
-              remaining[record.get('id')] = record;
+          if (this.cachedStoreData[record.get(this.idProperty)] != undefined) {
+              remaining[record.get(this.idProperty)] = record;
           }
       }, this);
       

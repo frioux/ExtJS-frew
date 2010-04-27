@@ -204,7 +204,9 @@ Ext.ux.form.MultiSelect = Ext.extend(Ext.form.Field,  {
 
     // private
     onViewBeforeClick: function(vw, index, node, e) {
-        if (this.disabled) {return false;}
+        if (this.disabled || this.readOnly) {
+            return false;
+        }
     },
 
     // private

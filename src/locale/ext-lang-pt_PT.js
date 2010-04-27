@@ -185,12 +185,12 @@ if(Ext.form.HtmlEditor){
         cls: 'x-html-editor-tip'
       },
       italic : {
-        title: 'Italico (Ctrl+I)',
-        text: 'Transforma o texto em italico.',
+        title: 'It&aacute;lico (Ctrl+I)',
+        text: 'Transforma o texto em it&aacute;lico.',
         cls: 'x-html-editor-tip'
       },
       underline : {
-        title: 'SUblinhar (Ctrl+U)',
+        title: 'Sublinhar (Ctrl+U)',
         text: 'Sublinha o texto.',
         cls: 'x-html-editor-tip'
       },
