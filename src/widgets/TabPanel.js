@@ -854,10 +854,11 @@ new Ext.TabPanel({
             pos = this.getScrollPos(),
             l = this.edge.getOffsetsTo(this.stripWrap)[0] + pos;
 
-        if(!this.enableTabScroll || count < 1 || cw < 20){ // 20 to prevent display:none issues
+        if(!this.enableTabScroll || cw < 20){ // 20 to prevent display:none issues
             return;
         }
-        if(l <= tw){
+        if(count == 0 || l <= tw){
+            // ensure the width is set if there's no tabs
             wd.scrollLeft = 0;
             wrap.setWidth(tw);
             if(this.scrolling){

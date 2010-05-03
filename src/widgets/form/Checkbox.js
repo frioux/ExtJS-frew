@@ -112,7 +112,7 @@ Ext.form.Checkbox = Ext.extend(Ext.form.Field,  {
             this.checked = this.el.dom.checked;
         }
         // Need to repaint for IE, otherwise positioning is broken
-        if(Ext.isIE){
+        if (Ext.isIE && !Ext.isStrict) {
             this.wrap.repaint();
         }
         this.resizeEl = this.positionEl = this.wrap;

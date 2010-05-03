@@ -253,15 +253,13 @@ sortInfo: {
     },
 
     /**
-     * @property isDestroyed
-     * @type Boolean
+     * @property {Boolean} isDestroyed
      * True if the store has been destroyed already. Read only
      */
     isDestroyed: false,
 
     /**
-     * @property hasMultiSort
-     * @type Boolean
+     * @property {Boolean} hasMultiSort
      * True if this store is currently sorted by more than one field/direction combination.
      */
     hasMultiSort: false,
@@ -1484,9 +1482,9 @@ myStore.reload(lastOptions);
         }
 
         /**
+         * Object containing overall sort direction and an ordered array of sorter configs used when sorting on multiple fields
          * @property multiSortInfo
          * @type Object
-         * Object containing overall sort direction and an ordered array of sorter configs used when sorting on multiple fields
          */
         this.multiSortInfo = {
             sorters  : sorters,

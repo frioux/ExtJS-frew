@@ -66,6 +66,11 @@ Ext.form.CompositeField = Ext.extend(Ext.form.Field, {
      * True to combine errors from the individual fields into a single error message at the CompositeField level (defaults to true)
      */
     combineErrors: true,
+    
+    /**
+     * @cfg {String} labelConnector The string to use when joining segments of the built label together (defaults to ', ')
+     */
+    labelConnector: ', ',
 
     //inherit docs
     //Builds the composite field label
@@ -308,7 +313,7 @@ Ext.form.CompositeField = Ext.extend(Ext.form.Field, {
      * @return {String} The built label
      */
     buildLabel: function(segments) {
-        return segments.join(", ");
+        return segments.join(this.labelConnector);
     },
 
     /**

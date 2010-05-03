@@ -120,7 +120,7 @@ Ext.data.GroupingStore = Ext.extend(Ext.data.Store, {
 
         //check the contents of the first sorter. If the field matches the CURRENT groupField (before it is set to the new one),
         //remove the sorter as it is actually the grouper. The new grouper is added back in by this.sort
-        sorters = this.multiSortInfo.sorters;
+        var sorters = this.multiSortInfo.sorters;
         if (sorters.length > 0 && sorters[0].field == this.groupField) {
             sorters.shift();
         }
