@@ -134,12 +134,12 @@ Ext.ux.DataViewTransition = Ext.extend(Object, {
                 if (el.getStyle('position') != 'absolute') {
                     elCache[id].applyStyles({
                         position: 'absolute',
-                        left    : oldPos.left,
-                        top     : oldPos.top,
+                        left    : oldPos.left + "px",
+                        top     : oldPos.top + "px",
 
                         //we set the width here to make ListViews work correctly. This is not needed for DataViews
-                        width   : el.getWidth(!Ext.isIE),
-                        height  : el.getHeight(!Ext.isIE)
+                        width   : el.getWidth(!Ext.isIE || Ext.isStrict),
+                        height  : el.getHeight(!Ext.isIE || Ext.isStrict)
                     });
                 }
             });
@@ -175,8 +175,8 @@ Ext.ux.DataViewTransition = Ext.extend(Object, {
                 if (fraction >= 1) {
                     for (var id in newPositions) {
                         Ext.fly(dataviewID + '-' + id).applyStyles({
-                            top : newPositions[id].top,
-                            left: newPositions[id].left
+                            top : newPositions[id].top + "px",
+                            left: newPositions[id].left + "px"
                         });
                     }
                     
@@ -198,9 +198,9 @@ Ext.ux.DataViewTransition = Ext.extend(Object, {
                             midLeft = oldLeft > newLeft ? oldLeft - diffLeft : oldLeft + diffLeft;
                         
                         Ext.fly(dataviewID + '-' + id).applyStyles({
-                            top : midTop + 'px',
-                            left: midLeft + 'px'
-                        });                        
+                            top : midTop + "px",
+                            left: midLeft + "px"
+                        });
                     }
                 }
             };
@@ -216,8 +216,8 @@ Ext.ux.DataViewTransition = Ext.extend(Object, {
             //show new items
             Ext.iterate(added, function(id, item) {
                 Ext.fly(this.dataviewID + '-' + item.get(this.idProperty)).applyStyles({
-                    top : newPositions[id].top,
-                    left: newPositions[id].left
+                    top : newPositions[id].top + "px",
+                    left: newPositions[id].left + "px"
                 }).fadeIn({
                     remove  : false,
                     duration: duration / 1000

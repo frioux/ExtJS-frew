@@ -238,6 +238,10 @@ Ext.extend(Ext.Layer, Ext.Element, {
         }
         return this;
     },
+    
+    getConstrainOffset : function(){
+        return this.shadowOffset;    
+    },
 
     isVisible : function(){
         return this.visible;

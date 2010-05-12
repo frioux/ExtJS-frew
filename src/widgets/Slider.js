@@ -719,7 +719,10 @@ Ext.slider.MultiSlider = Ext.extend(Ext.BoxComponent, {
         for(; i < len; ++i){
             thumbs[i].el.stopFx();    
         }
-        this.innerEl.setWidth(w - (this.el.getPadding('l') + this.endEl.getPadding('r')));
+        // check to see if we're using an auto width
+        if(Ext.isNumber(w)){
+            this.innerEl.setWidth(w - (this.el.getPadding('l') + this.endEl.getPadding('r')));
+        }
         this.syncThumb();
         Ext.slider.MultiSlider.superclass.onResize.apply(this, arguments);
     },

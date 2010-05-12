@@ -566,7 +566,7 @@ TODO: lazy rendering
                         // filter type is specified in order of preference:
                         //     filter type specified in config
                         //     type specified in store's field's type config
-                        filter.type = filter.type || this.store.fields.get(dI).type;
+                        filter.type = filter.type || this.store.fields.get(dI).type.type;
                     }
                 } else {
                     filter = filters[i];

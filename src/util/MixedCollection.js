@@ -462,11 +462,12 @@ mc.add(otherEl);
     reorder: function(mapping) {
         this.suspendEvents();
 
-        var items     = this.items,
-            index     = 0,
-            length    = items.length,
-            order     = [],
-            remaining = [];
+        var items = this.items,
+            index = 0,
+            length = items.length,
+            order = [],
+            remaining = [],
+            oldIndex;
 
         //object of {oldPosition: newPosition} reversed to {newPosition: oldPosition}
         for (oldIndex in mapping) {
