@@ -220,7 +220,7 @@ var grid = new Ext.grid.GridPanel({
         }
         if((item = items.get('showGroups'))){
             item.setDisabled(disabled);
-            item.setChecked(this.enableGrouping, true);
+            item.setChecked(this.canGroup(), true);
         }
     },
 

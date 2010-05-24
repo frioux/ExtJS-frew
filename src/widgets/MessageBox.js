@@ -358,7 +358,7 @@ Ext.Msg.show({
                     d.focusEl = db;
                 }
             }
-            if(opt.iconCls){
+            if(Ext.isDefined(opt.iconCls)){
               d.setIconClass(opt.iconCls);
             }
             this.setIcon(Ext.isDefined(opt.icon) ? opt.icon : bufferIcon);

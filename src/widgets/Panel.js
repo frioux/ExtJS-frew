@@ -89,7 +89,7 @@ new Ext.Panel({
     },
     footerCfg: {
         tag: 'h2',
-        cls: 'x-panel-footer'        // same as the Default class
+        cls: 'x-panel-footer',        // same as the Default class
         html: 'footer html'
     },
     footerCssClass: 'custom-footer', // additional css class, see {@link Ext.element#addClass addClass}

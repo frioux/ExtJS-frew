@@ -188,6 +188,13 @@ a.x-menu-item {
 }
 
 /*
+ * Fixes an issue with "fat" separators in webkit
+ */
+.ext-webkit .x-menu-sep{
+    height: 1px;
+}
+
+/*
  * Ugly mess to remove the white border under the picker
  */
 .ext-ie .x-date-menu{

@@ -595,6 +595,14 @@ myGrid.getColumnModel().setHidden(0, true); // hide column 0 (0 = the first colu
             }
         }
         this.purgeListeners();
+    },
+    
+    /**
+     * @private
+     * Setup any saved state for the column, ensures that defaults are applied.
+     */
+    setState : function(col, state){
+        Ext.applyIf(this.config[col], state);
     }
 });
 

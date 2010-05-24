@@ -113,7 +113,9 @@ function(){
 	            mask.remove();
                 data(dom, 'mask', undefined);
 	        }
-	        me.removeClass([XMASKED, XMASKEDRELATIVE]);
+	        if(me.isMasked()){
+                me.removeClass([XMASKED, XMASKEDRELATIVE]);
+            }
 	    },
 
 	    /**

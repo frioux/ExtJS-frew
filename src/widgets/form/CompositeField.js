@@ -313,7 +313,7 @@ Ext.form.CompositeField = Ext.extend(Ext.form.Field, {
      * @return {String} The built label
      */
     buildLabel: function(segments) {
-        return segments.join(this.labelConnector);
+        return Ext.clean(segments).join(this.labelConnector);
     },
 
     /**
