@@ -345,6 +345,7 @@ Ext.ux.grid.LockingGridView = Ext.extend(Ext.grid.GridView, {
         if(this.deferEmptyText !== true){
             this.applyEmptyText();
         }
+        this.grid.fireEvent('viewready', this.grid);
     },
 
     renderUI : function(){

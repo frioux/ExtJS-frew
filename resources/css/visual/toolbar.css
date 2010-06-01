@@ -61,7 +61,7 @@
 }
 
 .x-item-disabled .x-tbar-loading{
-	background-image: url(../images/default/grid/loading.gif) !important;
+	background-image: url(../images/default/grid/refresh-disabled.gif) !important;
 }
 
 .x-item-disabled .x-tbar-page-first{

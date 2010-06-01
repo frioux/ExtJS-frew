@@ -257,12 +257,18 @@ var grid = new Ext.grid.GridPanel({
             // group value is at the end of the string
             var field = this.getGroupField(),
                 prefix = this.getPrefix(field),
-                groupValue = hd.id.substring(prefix.length);
+                groupValue = hd.id.substring(prefix.length),
+                emptyRe = new RegExp('gp-' + Ext.escapeRe(field) + '--hd');
 
             // remove trailing '-hd'
             groupValue = groupValue.substr(0, groupValue.length - 3);
-            if(groupValue){
+            
+            // also need to check for empty groups
+            if(groupValue || emptyRe.test(hd.id)){
                 this.grid.fireEvent('group' + name, this.grid, field, groupValue, e);
+            }
+            if(name == 'mousedown' && e.button == 0){
+                this.toggleGroup(hd.parentNode);
             }
         }
 

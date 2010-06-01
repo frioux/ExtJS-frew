@@ -153,6 +153,14 @@ Ext.slider.Thumb = Ext.extend(Object, {
         if (this.dragStartValue != value) {
             slider.fireEvent('changecomplete', slider, value, this);
         }
+    },
+    
+    /**
+     * @private
+     * Destroys the thumb
+     */
+    destroy: function(){
+        Ext.destroyMembers(this, 'tracker', 'el');
     }
 });
 
@@ -814,7 +822,12 @@ Ext.slider.MultiSlider = Ext.extend(Ext.BoxComponent, {
 
     // private
     beforeDestroy : function(){
-        Ext.destroyMembers(this, 'endEl', 'innerEl', 'thumb', 'halfThumb', 'focusEl', 'tracker', 'thumbHolder');
+        var thumbs = this.thumbs;
+        for(var i = 0, len = thumbs.length; i < len; ++i){
+            thumbs[i].destroy();
+            thumbs[i] = null;
+        }
+        Ext.destroyMembers(this, 'endEl', 'innerEl', 'focusEl', 'thumbHolder');
         Ext.slider.MultiSlider.superclass.beforeDestroy.call(this);
     }
 });

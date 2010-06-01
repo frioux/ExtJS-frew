@@ -152,7 +152,7 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
                 labelAdjust: 0
             });
         }else{
-            this.labelSeparator = ct.labelSeparator || this.labelSeparator;
+            this.labelSeparator = Ext.isDefined(ct.labelSeparator) ? ct.labelSeparator : this.labelSeparator;
             ct.labelWidth = ct.labelWidth || 100;
             if(Ext.isNumber(ct.labelWidth)){
                 var pad = Ext.isNumber(ct.labelPad) ? ct.labelPad : 5;

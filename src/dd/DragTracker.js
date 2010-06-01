@@ -83,6 +83,7 @@ Ext.dd.DragTracker = Ext.extend(Ext.util.Observable,  {
 
     destroy : function(){
         this.el.un('mousedown', this.onMouseDown, this);
+        delete this.el;
     },
 
     onMouseDown: function(e, target){

@@ -445,7 +445,7 @@ sortInfo: {
              * @event clear
              * Fires when the data cache has been cleared.
              * @param {Store} this
-             * @param {Record[]} The records that were cleared.
+             * @param {Record[]} records The records that were cleared.
              */
             'clear',
             /**

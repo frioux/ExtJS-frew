@@ -188,6 +188,11 @@ Ext.layout.TableLayout = Ext.extend(Ext.layout.ContainerLayout, {
     // private
     isValidParent : function(c, target){
         return c.getPositionEl().up('table', 5).dom.parentNode === (target.dom || target);
+    },
+    
+    destroy: function(){
+        delete this.table;
+        Ext.layout.TableLayout.superclass.destroy.call(this);
     }
 
     /**
