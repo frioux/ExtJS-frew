@@ -320,7 +320,7 @@ var form = new Ext.form.FormPanel({
 
     // private
     initEvents : function(){
-        this.mon(this.el, Ext.EventManager.useKeydown ? 'keydown' : 'keypress', this.fireKey,  this);
+        this.mon(this.el, Ext.EventManager.getKeyEvent(), this.fireKey,  this);
         this.mon(this.el, 'focus', this.onFocus, this);
 
         // standardise buffer across all browsers + OS-es for consistent event order.

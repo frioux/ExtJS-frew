@@ -111,9 +111,9 @@ Ext.layout.FormLayout = Ext.extend(Ext.layout.AnchorLayout, {
 
     /**
      * @cfg {Boolean} trackLabels
-     * True to show/hide the field label when the field is hidden. Defaults to <tt>false</tt>.
+     * True to show/hide the field label when the field is hidden. Defaults to <tt>true</tt>.
      */
-    trackLabels: false,
+    trackLabels: true,
 
     type: 'form',
 

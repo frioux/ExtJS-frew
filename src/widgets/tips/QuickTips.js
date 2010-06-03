@@ -67,7 +67,9 @@ Ext.QuickTips.register({
  * @singleton
  */
 Ext.QuickTips = function(){
-    var tip, locks = [];
+    var tip,
+        disabled = false;
+        
     return {
         /**
          * Initialize the global QuickTips instance and prepare any quick tips.
@@ -81,10 +83,29 @@ Ext.QuickTips = function(){
                     });
                     return;
                 }
-                tip = new Ext.QuickTip({elements:'header,body'});
+                tip = new Ext.QuickTip({
+                    elements:'header,body', 
+                    disabled: disabled
+                });
                 if(autoRender !== false){
                     tip.render(Ext.getBody());
                 }
+            }
+        },
+        
+        // Protected method called by the dd classes
+        ddDisable : function(){
+            // don't disable it if we don't need to
+            if(tip && !disabled){
+                tip.disable();
+            }    
+        },
+        
+        // Protected method called by the dd classes
+        ddEnable : function(){
+            // only enable it if it hasn't been disabled
+            if(tip && !disabled){
+                tip.enable();
             }
         },
 
@@ -93,11 +114,9 @@ Ext.QuickTips = function(){
          */
         enable : function(){
             if(tip){
-                locks.pop();
-                if(locks.length < 1){
-                    tip.enable();
-                }
+                tip.enable();
             }
+            disabled = false;
         },
 
         /**
@@ -107,7 +126,7 @@ Ext.QuickTips = function(){
             if(tip){
                 tip.disable();
             }
-            locks.push(1);
+            disabled = true;
         },
 
         /**
@@ -120,6 +139,7 @@ Ext.QuickTips = function(){
 
         /**
          * Gets the global QuickTips instance.
+         * @return {Ext.QuickTip}
          */
         getQuickTip : function(){
             return tip;
@@ -146,7 +166,7 @@ Ext.QuickTips = function(){
          * Alias of {@link #register}.
          * @param {Object} config The config object
          */
-        tips :function(){
+        tips : function(){
             tip.register.apply(tip, arguments);
         }
     }

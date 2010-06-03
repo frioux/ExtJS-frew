@@ -40,3 +40,7 @@ Ext.Element.addMethods({
         return new Ext.KeyMap(this, config);
     }
 });
+
+//Import the newly-added Ext.Element functions into CompositeElementLite. We call this here because
+//Element.keys.js is the last extra Ext.Element include in the ext-all.js build
+Ext.CompositeElementLite.importElementMethods();

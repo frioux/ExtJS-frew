@@ -975,7 +975,8 @@ sortInfo: {
             len,
             trans,
             batch,
-            data = {};
+            data = {},
+            i;
         // DESTROY:  First check for removed records.  Records in this.removed are guaranteed non-phantoms.  @see Store#remove
         if(this.removed.length){
             queue.push(['destroy', this.removed]);
@@ -986,7 +987,7 @@ sortInfo: {
         if(rs.length){
             // CREATE:  Next check for phantoms within rs.  splice-off and execute create.
             var phantoms = [];
-            for(var i = rs.length-1; i >= 0; i--){
+            for(i = rs.length-1; i >= 0; i--){
                 if(rs[i].phantom === true){
                     var rec = rs.splice(i, 1).shift();
                     if(rec.isValid()){
@@ -1009,12 +1010,12 @@ sortInfo: {
         len = queue.length;
         if(len){
             batch = ++this.batchCounter;
-            for(var i = 0; i < len; ++i){
+            for(i = 0; i < len; ++i){
                 trans = queue[i];
                 data[trans[0]] = trans[1];
             }
             if(this.fireEvent('beforesave', this, data) !== false){
-                for(var i = 0; i < len; ++i){
+                for(i = 0; i < len; ++i){
                     trans = queue[i];
                     this.doTransaction(trans[0], trans[1], batch);
                 }
@@ -1062,7 +1063,6 @@ sortInfo: {
         var b = this.batches,
             key = this.batchKey + batch,
             o = b[key],
-            data,
             arr;
 
 
@@ -1431,7 +1431,9 @@ myStore.reload(lastOptions);
      */
     singleSort: function(fieldName, dir) {
         var field = this.fields.get(fieldName);
-        if (!field) return false;
+        if (!field) {
+            return false;
+        }
 
         var name       = field.name,
             sortInfo   = this.sortInfo || null,
@@ -1462,6 +1464,7 @@ myStore.reload(lastOptions);
             this.applySort();
             this.fireEvent('datachanged', this);
         }
+        return true;
     },
 
     /**
@@ -1618,6 +1621,7 @@ myStore.reload(lastOptions);
      * @param {Boolean} exactMatch True to force exact match (^ and $ characters added to the regex). Defaults to false. Ignored if anyMatch is true.
      */
     filter : function(property, value, anyMatch, caseSensitive, exactMatch){
+        var fn;
         //we can accept an array of filter objects, or a single filter object - normalize them here
         if (Ext.isObject(property)) {
             property = [property];
@@ -1640,10 +1644,10 @@ myStore.reload(lastOptions);
                 filters.push({fn: func, scope: scope});
             }
 
-            var fn = this.createMultipleFilterFn(filters);
+            fn = this.createMultipleFilterFn(filters);
         } else {
             //classic single property filter
-            var fn = this.createFilterFn(property, value, anyMatch, caseSensitive, exactMatch);
+            fn = this.createFilterFn(property, value, anyMatch, caseSensitive, exactMatch);
         }
 
         return fn ? this.filterBy(fn) : this.clearFilter();
@@ -1812,28 +1816,39 @@ myStore.reload(lastOptions);
      * Ext.data.Record.COMMIT.
      */
     commitChanges : function(){
-        var m = this.modified.slice(0);
-        this.modified = [];
-        for(var i = 0, len = m.length; i < len; i++){
-            m[i].commit();
+        var modified = this.modified.slice(0),
+            length   = modified.length,
+            i;
+            
+        for (i = 0; i < length; i++){
+            modified[i].commit();
         }
+        
+        this.modified = [];
+        this.removed  = [];
     },
 
     /**
      * {@link Ext.data.Record#reject Reject} outstanding changes on all {@link #getModifiedRecords modified records}.
      */
-    rejectChanges : function(){
-        var m = this.modified.slice(0);
+    rejectChanges : function() {
+        var modified = this.modified.slice(0),
+            removed  = this.removed.slice(0).reverse(),
+            mLength  = modified.length,
+            rLength  = removed.length,
+            i;
+        
+        for (i = 0; i < mLength; i++) {
+            modified[i].reject();
+        }
+        
+        for (i = 0; i < rLength; i++) {
+            this.insert(removed[i].lastIndex || 0, removed[i]);
+            removed[i].reject();
+        }
+        
         this.modified = [];
-        for(var i = 0, len = m.length; i < len; i++){
-            m[i].reject();
-        }
-        var m = this.removed.slice(0).reverse();
-        this.removed = [];
-        for(var i = 0, len = m.length; i < len; i++){
-            this.insert(m[i].lastIndex||0, m[i]);
-            m[i].reject();
-        }
+        this.removed  = [];
     },
 
     // private

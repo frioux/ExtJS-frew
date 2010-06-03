@@ -55,7 +55,7 @@ Ext.grid.CellSelectionModel = Ext.extend(Ext.grid.AbstractSelectionModel,  {
     /** @ignore */
     initEvents : function(){
         this.grid.on('cellmousedown', this.handleMouseDown, this);
-        this.grid.on(Ext.EventManager.useKeydown ? 'keydown' : 'keypress', this.handleKeyDown, this);
+        this.grid.on(Ext.EventManager.getKeyEvent(), this.handleKeyDown, this);
         this.grid.getView().on({
             scope: this,
             refresh: this.onViewChange,

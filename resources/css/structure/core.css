@@ -218,7 +218,7 @@
 .x-shadow .xsmc {
     float: left;
     height: 100%;
-    background: transparent;
+    background-color: transparent;
 }
 
 .x-shadow .xst, .x-shadow .xsb {

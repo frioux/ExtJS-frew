@@ -1553,7 +1553,13 @@ var isText = t.isXType('textfield');        // true
 var isBoxSubclass = t.isXType('box');       // true, descended from BoxComponent
 var isBoxInstance = t.isXType('box', true); // false, not a direct BoxComponent instance
 </code></pre>
-     * @param {String} xtype The xtype to check for this Component
+     * @param {String/Ext.Component/Class} xtype The xtype to check for this Component. Note that the the component can either be an instance
+     * or a component class:
+     * <pre><code>
+var c = new Ext.Component();
+console.log(c.isXType(c));
+console.log(c.isXType(Ext.Component)); 
+</code></pre>
      * @param {Boolean} shallow (optional) False to check whether this Component is descended from the xtype (this is
      * the default), or true to check whether this Component is directly of the specified xtype.
      * @return {Boolean} True if this component descends from the specified xtype, false otherwise.
@@ -1608,17 +1614,37 @@ alert(t.getXTypes());  // alerts 'component/box/field/textfield'
 
     /**
      * Find a container above this component at any level by xtype or class
-     * @param {String/Class} xtype The xtype string for a component, or the class of the component directly
+     * @param {String/Ext.Component/Class} xtype The xtype to check for this Component. Note that the the component can either be an instance
+     * or a component class:
+     * @param {Boolean} shallow (optional) False to check whether this Component is descended from the xtype (this is
+     * the default), or true to check whether this Component is directly of the specified xtype.
      * @return {Ext.Container} The first Container which matches the given xtype or class
      */
-    findParentByType : function(xtype) {
-        return Ext.isFunction(xtype) ?
-            this.findParentBy(function(p){
-                return p.constructor === xtype;
-            }) :
-            this.findParentBy(function(p){
-                return p.constructor.xtype === xtype;
-            });
+    findParentByType : function(xtype, shallow){
+        return this.findParentBy(function(c){
+            return c.isXType(xtype, shallow);
+        });
+    },
+    
+    /**
+     * Bubbles up the component/container heirarchy, calling the specified function with each component. The scope (<i>this</i>) of
+     * function call will be the scope provided or the current component. The arguments to the function
+     * will be the args provided or the current component. If the function returns false at any point,
+     * the bubble is stopped.
+     * @param {Function} fn The function to call
+     * @param {Object} scope (optional) The scope of the function (defaults to current node)
+     * @param {Array} args (optional) The args to call the function with (default to passing the current component)
+     * @return {Ext.Component} this
+     */
+    bubble : function(fn, scope, args){
+        var p = this;
+        while(p){
+            if(fn.apply(scope || p, args || [p]) === false){
+                break;
+            }
+            p = p.ownerCt;
+        }
+        return this;
     },
 
     // protected

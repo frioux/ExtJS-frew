@@ -980,14 +980,15 @@ Ext.Window = Ext.extend(Ext.Panel, {
 Ext.reg('window', Ext.Window);
 
 // private - custom Window DD implementation
-Ext.Window.DD = function(win){
-    this.win = win;
-    Ext.Window.DD.superclass.constructor.call(this, win.el.id, 'WindowDD-'+win.id);
-    this.setHandleElId(win.header.id);
-    this.scroll = false;
-};
-
-Ext.extend(Ext.Window.DD, Ext.dd.DD, {
+Ext.Window.DD = Ext.extend(Ext.dd.DD, {
+    
+    constructor : function(win){
+        this.win = win;
+        Ext.Window.DD.superclass.constructor.call(this, win.el.id, 'WindowDD-'+win.id);
+        this.setHandleElId(win.header.id);
+        this.scroll = false;        
+    },
+    
     moveOnly:true,
     headerOffsets:[100, 25],
     startDrag : function(){

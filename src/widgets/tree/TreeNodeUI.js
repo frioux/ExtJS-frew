@@ -11,16 +11,20 @@
  * This class provides access to the user interface components of an Ext TreeNode, through
  * {@link Ext.tree.TreeNode#getUI}
  */
-Ext.tree.TreeNodeUI = function(node){
-    this.node = node;
-    this.rendered = false;
-    this.animating = false;
-    this.wasLeaf = true;
-    this.ecc = 'x-tree-ec-icon x-tree-elbow';
-    this.emptyIcon = Ext.BLANK_IMAGE_URL;
-};
-
-Ext.tree.TreeNodeUI.prototype = {
+Ext.tree.TreeNodeUI = Ext.extend(Object, {
+    
+    emptyIcon: Ext.BLANK_IMAGE_URL,
+    
+    constructor : function(node){
+        Ext.apply(this, {
+            node: node,
+            rendered: false,
+            animating: false,
+            wasLeaf: true,
+            ecc: 'x-tree-ec-icon x-tree-elbow'    
+        });
+    },
+    
     // private
     removeChild : function(node){
         if(this.rendered){
@@ -44,6 +48,58 @@ Ext.tree.TreeNodeUI.prototype = {
             this.textNode.innerHTML = text;
         }
     },
+    
+    // private
+    onIconClsChange : function(node, cls, oldCls){
+        if(this.rendered){
+            Ext.fly(this.iconNode).replaceClass(oldCls, cls);
+        }
+    },
+    
+    // private
+    onIconChange : function(node, icon){
+        if(this.rendered){
+            //'<img src="', a.icon || this.emptyIcon, '" class="x-tree-node-icon',(a.icon ? " x-tree-node-inline-icon" : ""),(a.iconCls ? " "+a.iconCls : ""),'" unselectable="on" />',
+            var empty = Ext.isEmpty(icon);
+            this.iconNode.src = empty ? this.emptyIcon : icon;
+            Ext.fly(this.iconNode)[empty ? 'removeClass' : 'addClass']('x-tree-node-inline-icon');
+        }
+    },
+    
+    // private
+    onTipChange : function(node, tip, title){
+        if(this.rendered){
+            var hasTitle = Ext.isDefined(title);
+            if(this.textNode.setAttributeNS){
+                this.textNode.setAttributeNS("ext", "qtip", tip);
+                if(hasTitle){
+                    this.textNode.setAttributeNS("ext", "qtitle", title);
+                }
+            }else{
+                this.textNode.setAttribute("ext:qtip", tip);
+                if(hasTitle){
+                    this.textNode.setAttribute("ext:qtitle", title);
+                }
+            }
+        }
+    },
+    
+    // private
+    onHrefChange : function(node, href, target){
+        if(this.rendered){
+            this.anchor.href = this.getHref(href);
+            if(Ext.isDefined(target)){
+                this.anchor.target = target;
+            }
+        }
+    },
+    
+    // private
+    onClsChange : function(node, cls, oldCls){
+        if(this.rendered){
+            Ext.fly(this.elNode).replaceClass(oldCls, cls);
+        }    
+    },
 
     // private
     onDisableChange : function(node, state){
@@ -51,11 +107,7 @@ Ext.tree.TreeNodeUI.prototype = {
         if (this.checkbox) {
             this.checkbox.disabled = state;
         }
-        if(state){
-            this.addClass("x-tree-node-disabled");
-        }else{
-            this.removeClass("x-tree-node-disabled");
-        }
+        this[state ? 'addClass' : 'removeClass']('x-tree-node-disabled');
     },
 
     // private
@@ -398,17 +450,7 @@ Ext.tree.TreeNodeUI.prototype = {
             this.renderElements(n, a, targetNode, bulkRender);
 
             if(a.qtip){
-               if(this.textNode.setAttributeNS){
-                   this.textNode.setAttributeNS("ext", "qtip", a.qtip);
-                   if(a.qtipTitle){
-                       this.textNode.setAttributeNS("ext", "qtitle", a.qtipTitle);
-                   }
-               }else{
-                   this.textNode.setAttribute("ext:qtip", a.qtip);
-                   if(a.qtipTitle){
-                       this.textNode.setAttribute("ext:qtitle", a.qtipTitle);
-                   }
-               }
+                this.onTipChange(n, a.qtip, a.qtipTitle);
             }else if(a.qtipCfg){
                 a.qtipCfg.target = Ext.id(this.textNode);
                 Ext.QuickTips.register(a.qtipCfg);
@@ -431,7 +473,7 @@ Ext.tree.TreeNodeUI.prototype = {
 
         var cb = Ext.isBoolean(a.checked),
             nel,
-            href = a.href ? a.href : Ext.isGecko ? "" : "#",
+            href = this.getHref(a.href),
             buf = ['<li class="x-tree-node"><div ext:tree-node-id="',n.id,'" class="x-tree-node-el x-tree-node-leaf x-unselectable ', a.cls,'" unselectable="on">',
             '<span class="x-tree-node-indent">',this.indentMarkup,"</span>",
             '<img src="', this.emptyIcon, '" class="x-tree-ec-icon x-tree-elbow" />',
@@ -463,6 +505,14 @@ Ext.tree.TreeNodeUI.prototype = {
         }
         this.anchor = cs[index];
         this.textNode = cs[index].firstChild;
+    },
+    
+    /**
+     * @private Gets a normalized href for the node.
+     * @param {String} href
+     */
+    getHref : function(href){
+        return Ext.isEmpty(href) ? (Ext.isGecko ? '' : '#') : href;
     },
 
 /**
@@ -596,7 +646,7 @@ Ext.tree.TreeNodeUI.prototype = {
         }, this);
         delete this.node;
     }
-};
+});
 
 /**
  * @class Ext.tree.RootTreeNodeUI

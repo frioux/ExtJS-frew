@@ -69,20 +69,20 @@ input.x-tree-node-cb {
 
 /* No line styles */
 .x-tree-no-lines .x-tree-elbow{
-	background:transparent;
+	background-color:transparent;
 }
 
 .x-tree-no-lines .x-tree-elbow-end{
-	background:transparent;
+	background-color:transparent;
 }
 
 .x-tree-no-lines .x-tree-elbow-line{
-	background:transparent;
+	background-color:transparent;
 }
 
 /* Arrows */
 .x-tree-arrows .x-tree-elbow{
-	background:transparent;
+	background-color:transparent;
 }
 
 .x-tree-arrows .x-tree-elbow-plus{
@@ -94,7 +94,7 @@ input.x-tree-node-cb {
 }
 
 .x-tree-arrows .x-tree-elbow-end{
-	background:transparent;
+	background-color:transparent;
 }
 
 .x-tree-arrows .x-tree-elbow-end-plus{
@@ -106,7 +106,7 @@ input.x-tree-node-cb {
 }
 
 .x-tree-arrows .x-tree-elbow-line{
-	background:transparent;
+	background-color:transparent;
 }
 
 .x-tree-arrows .x-tree-ec-over .x-tree-elbow-plus{
@@ -167,7 +167,7 @@ input.x-tree-node-cb {
 }
 
 .x-tree-node .x-tree-node-inline-icon{
-	background:transparent;
+	background-color:transparent;
 }
 
 .x-tree-node a:hover, .x-dd-drag-ghost a:hover{

@@ -50,7 +50,7 @@ Ext.dd.DragTracker = Ext.extend(Ext.util.Observable,  {
 	        /**
 	         * @event dragstart
 	         * @param {Object} this
-	         * @param {Object} startXY the page coordinates of the event
+	         * @param {Object} e event object
 	         */
 	        'dragstart',
 	        /**
@@ -93,12 +93,14 @@ Ext.dd.DragTracker = Ext.extend(Ext.util.Observable,  {
             if(this.preventDefault !== false){
                 e.preventDefault();
             }
-            var doc = Ext.getDoc();
-            doc.on('mouseup', this.onMouseUp, this);
-            doc.on('mousemove', this.onMouseMove, this);
-            doc.on('selectstart', this.stopSelect, this);
+            Ext.getDoc().on({
+                scope: this,
+                mouseup: this.onMouseUp,
+                mousemove: this.onMouseMove,
+                selectstart: this.stopSelect
+            });
             if(this.autoStart){
-                this.timer = this.triggerStart.defer(this.autoStart === true ? 1000 : this.autoStart, this);
+                this.timer = this.triggerStart.defer(this.autoStart === true ? 1000 : this.autoStart, this, [e]);
             }
         }
     },
@@ -116,7 +118,7 @@ Ext.dd.DragTracker = Ext.extend(Ext.util.Observable,  {
         this.lastXY = xy;
         if(!this.active){
             if(Math.abs(s[0]-xy[0]) > this.tolerance || Math.abs(s[1]-xy[1]) > this.tolerance){
-                this.triggerStart();
+                this.triggerStart(e);
             }else{
                 return;
             }
@@ -127,13 +129,14 @@ Ext.dd.DragTracker = Ext.extend(Ext.util.Observable,  {
     },
 
     onMouseUp: function(e) {
-        var doc = Ext.getDoc();
+        var doc = Ext.getDoc(),
+            wasActive = this.active;
+            
         doc.un('mousemove', this.onMouseMove, this);
         doc.un('mouseup', this.onMouseUp, this);
         doc.un('selectstart', this.stopSelect, this);
         e.preventDefault();
         this.clearStart();
-        var wasActive = this.active;
         this.active = false;
         delete this.elRegion;
         this.fireEvent('mouseup', this, e);
@@ -143,11 +146,11 @@ Ext.dd.DragTracker = Ext.extend(Ext.util.Observable,  {
         }
     },
 
-    triggerStart: function(isTimer) {
+    triggerStart: function(e) {
         this.clearStart();
         this.active = true;
-        this.onStart(this.startXY);
-        this.fireEvent('dragstart', this, this.startXY);
+        this.onStart(e);
+        this.fireEvent('dragstart', this, e);
     },
 
     clearStart : function() {
@@ -174,7 +177,7 @@ Ext.dd.DragTracker = Ext.extend(Ext.util.Observable,  {
     /**
      * Template method which should be overridden by each DragTracker instance. Called when a drag operation starts
      * (e.g. the user has moved the tracked element beyond the specified tolerance)
-     * @param {Array} xy x and y co-ordinates of the original location of the tracked element
+     * @param {Ext.EventObject} e The event object
      */
     onStart : function(xy) {
 
@@ -215,8 +218,8 @@ Ext.dd.DragTracker = Ext.extend(Ext.util.Observable,  {
     },
 
     getOffset : function(constrain){
-        var xy = this.getXY(constrain);
-        var s = this.startXY;
+        var xy = this.getXY(constrain),
+            s = this.startXY;
         return [s[0]-xy[0], s[1]-xy[1]];
     },
 

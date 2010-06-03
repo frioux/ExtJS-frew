@@ -1658,7 +1658,7 @@ Ext.dd.DragDropMgr = function() {
          */
         handleMouseDown: function(e, oDD) {
             if(Ext.QuickTips){
-                Ext.QuickTips.disable();
+                Ext.QuickTips.ddDisable();
             }
             if(this.dragCurrent){
                 // the original browser mouseup wasn't handled (e.g. outside FF browser window)
@@ -1716,7 +1716,7 @@ Ext.dd.DragDropMgr = function() {
         handleMouseUp: function(e) {
 
             if(Ext.QuickTips){
-                Ext.QuickTips.enable();
+                Ext.QuickTips.ddEnable();
             }
             if (! this.dragCurrent) {
                 return;

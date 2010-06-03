@@ -227,7 +227,6 @@ var grid = new Ext.grid.GridPanel({
     // private
     renderUI : function(){
         Ext.grid.GroupingView.superclass.renderUI.call(this);
-        this.mainBody.on('mousedown', this.interceptMouse, this);
 
         if(this.enableGroupingMenu && this.hmenu){
             this.hmenu.add('-',{
@@ -350,19 +349,11 @@ var grid = new Ext.grid.GridPanel({
     },
 
     // private
-    interceptMouse : function(e){
-        var hd = e.getTarget('.x-grid-group-hd', this.mainBody);
-        if(hd){
-            e.stopEvent();
-            this.toggleGroup(hd.parentNode);
-        }
-    },
-
-    // private
     getGroup : function(v, r, groupRenderer, rowIndex, colIndex, ds){
-        var g = groupRenderer ? groupRenderer(v, {}, r, rowIndex, colIndex, ds) : String(v);
+        var column = this.cm.config[colIndex],
+            g = groupRenderer ? groupRenderer.call(column.scope, v, {}, r, rowIndex, colIndex, ds) : String(v);
         if(g === '' || g === '&#160;'){
-            g = this.cm.config[colIndex].emptyGroupText || this.emptyGroupText;
+            g = column.emptyGroupText || this.emptyGroupText;
         }
         return g;
     },

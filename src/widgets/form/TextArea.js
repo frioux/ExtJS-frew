@@ -72,6 +72,13 @@ Ext.form.TextArea = Ext.extend(Ext.form.TextField,  {
     doAutoSize : function(e){
         return !e.isNavKeyPress() || e.getKey() == e.ENTER;
     },
+    
+    // inherit docs
+    filterValidation: function(e) {            
+        if(!e.isNavKeyPress() || (!this.enterIsSpecial && e.keyCode == e.ENTER)){
+            this.validationTask.delay(this.validationDelay);
+        }
+    },
 
     /**
      * Automatically grows the field to accomodate the height of the text up to the maximum field height allowed.

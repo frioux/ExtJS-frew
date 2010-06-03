@@ -55,8 +55,8 @@ Ext.KeyNav.prototype = {
 
     // private
     relay : function(e){
-        var k = e.getKey();
-        var h = this.keyToHandler[k];
+        var k = e.getKey(),
+            h = this.keyToHandler[k];
         if(h && this[h]){
             if(this.doRelay(e, this[h], h) !== true){
                 e[this.defaultEventAction]();
@@ -66,7 +66,7 @@ Ext.KeyNav.prototype = {
 
     // private
     doRelay : function(e, h, hname){
-        return h.call(this.scope || this, e);
+        return h.call(this.scope || this, e, hname);
     },
 
     // possible handlers

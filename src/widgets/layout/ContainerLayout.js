@@ -139,7 +139,7 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
     getRenderedItems: function(ct){
         var t = ct.getLayoutTarget(), cti = ct.items.items, len = cti.length, i, c, items = [];
         for (i = 0; i < len; i++) {
-            if((c = cti[i]).rendered && this.isValidParent(c, t)){
+            if((c = cti[i]).rendered && this.isValidParent(c, t) && c.shouldLayout !== false){
                 items.push(c);
             }
         };

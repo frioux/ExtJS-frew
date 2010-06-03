@@ -43,7 +43,7 @@
 .x-panel-tl .x-panel-header {
     padding:5px 0 4px 0;
     border:0 none;
-    background:transparent;
+    background-color:transparent;
 }
 
 .x-panel-tl .x-panel-icon, .x-window-tl .x-panel-icon {
@@ -116,7 +116,7 @@
 }
 
 .x-panel-mc .x-panel-body {
-    background:transparent;
+    background-color:transparent;
     border: 0 none;
 }
 

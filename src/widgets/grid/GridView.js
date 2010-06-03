@@ -160,6 +160,11 @@ viewConfig: {
     borderWidth : 2,
     tdClass : 'x-grid3-cell',
     hdCls : 'x-grid3-hd',
+    
+    
+    /**
+     * @cfg {Boolean} markDirty True to show the dirty cell indicator when a cell has been modified. Defaults to <tt>true</tt>.
+     */
     markDirty : true,
 
     /**
@@ -294,12 +299,13 @@ viewConfig: {
         }
 
         if(!ts.row){
-            ts.row = new Ext.Template(
-                '<div class="x-grid3-row {alt}" style="{tstyle}"><table class="x-grid3-row-table" border="0" cellspacing="0" cellpadding="0" style="{tstyle}">',
-                '<tbody><tr>{cells}</tr>',
-                (this.enableRowBody ? '<tr class="x-grid3-row-body-tr" style="{bodyStyle}"><td colspan="{cols}" class="x-grid3-body-cell" tabIndex="0" hidefocus="on"><div class="x-grid3-row-body">{body}</div></td></tr>' : ''),
-                '</tbody></table></div>'
-            );
+            var innerText = ['<table class="x-grid3-row-table" border="0" cellspacing="0" cellpadding="0" style="{tstyle}">',
+                             '<tbody><tr>{cells}</tr>',
+                             (this.enableRowBody ? '<tr class="x-grid3-row-body-tr" style="{bodyStyle}"><td colspan="{cols}" class="x-grid3-body-cell" tabIndex="0" hidefocus="on"><div class="x-grid3-row-body">{body}</div></td></tr>' : ''),
+                             '</tbody></table>'].join('');
+                             
+            ts.rowInner = new Ext.Template(innerText);            
+            ts.row = new Ext.Template('<div class="x-grid3-row {alt}" style="{tstyle}">' + innerText + '</div>');
         }
 
         if(!ts.cell){
@@ -338,10 +344,9 @@ viewConfig: {
 
     // private
     initElements : function(){
-        var E = Ext.Element;
-
-        var el = this.grid.getGridEl().dom.firstChild;
-        var cs = el.childNodes;
+        var E = Ext.Element,
+            el = this.grid.getGridEl().dom.firstChild,
+            cs = el.childNodes;
 
         this.el = new E(el);
 
@@ -560,8 +565,8 @@ viewConfig: {
 
     // private
     updateSortIcon : function(col, dir){
-        var sc = this.sortClasses;
-        var hds = this.mainHd.select('td').removeClass(sc);
+        var sc = this.sortClasses,
+            hds = this.mainHd.select('td').removeClass(sc);
         hds.item(col).addClass(sc[dir == 'DESC' ? 1 : 0]);
     },
 
@@ -604,12 +609,13 @@ viewConfig: {
 
     // private
     updateColumnWidth : function(col, width){
-        var w = this.getColumnWidth(col);
-        var tw = this.getTotalWidth();
+        var w = this.getColumnWidth(col),
+            tw = this.getTotalWidth(),
+            hd = this.getHeaderCell(col);
+            
         this.innerHd.firstChild.style.width = this.getOffsetWidth();
         this.innerHd.firstChild.firstChild.style.width = tw;
         this.mainBody.dom.style.width = tw;
-        var hd = this.getHeaderCell(col);
         hd.style.width = w;
 
         var ns = this.getRows(), row;
@@ -627,13 +633,13 @@ viewConfig: {
 
     // private
     updateColumnHidden : function(col, hidden){
-        var tw = this.getTotalWidth();
+        var tw = this.getTotalWidth(),
+            display = hidden ? 'none' : '',
+            hd = this.getHeaderCell(col);
+            
         this.innerHd.firstChild.style.width = this.getOffsetWidth();
         this.innerHd.firstChild.firstChild.style.width = tw;
-        this.mainBody.dom.style.width = tw;
-        var display = hidden ? 'none' : '';
-
-        var hd = this.getHeaderCell(col);
+        this.mainBody.dom.style.width = tw; 
         hd.style.display = display;
 
         var ns = this.getRows(), row;
@@ -665,18 +671,16 @@ viewConfig: {
      * @return {String} A string containing the HTML for the rendered rows
      */
     doRender : function(columns, records, store, startRow, colCount, stripe) {
-        var templates    = this.templates,
+        var templates = this.templates,
             cellTemplate = templates.cell,
-            rowTemplate  = templates.row,
-            last         = colCount - 1;
-
-        var tstyle = 'width:' + this.getTotalWidth() + ';';
-
-        // buffers
-        var rowBuffer = [],
+            rowTemplate = templates.row,
+            last = colCount - 1,
+            tstyle = 'width:' + this.getTotalWidth() + ';',
+            // buffers
+            rowBuffer = [],
             colBuffer = [],
             rowParams = {tstyle: tstyle},
-            meta      = {},
+            meta = {},
             column,
             record;
 
@@ -701,7 +705,7 @@ viewConfig: {
                     meta.value = '&#160;';
                 }
 
-                if (this.markDirty && record.dirty && Ext.isDefined(record.modified[column.name])) {
+                if (this.markDirty && record.dirty && typeof record.modified[column.name] != 'undefined') {
                     meta.css += ' x-grid3-dirty-cell';
                 }
 
@@ -789,17 +793,15 @@ viewConfig: {
      */
     renderUI : function() {
         var templates = this.templates,
-            header    = this.renderHeaders(),
-            body      = templates.body.apply({rows:'&#160;'});
-
-        var html = templates.master.apply({
-            body  : body,
-            header: header,
-            ostyle: 'width:' + this.getOffsetWidth() + ';',
-            bstyle: 'width:' + this.getTotalWidth()  + ';'
-        });
-
-        var g = this.grid;
+            header = this.renderHeaders(),
+            body = templates.body.apply({rows:'&#160;'}),
+            html = templates.master.apply({
+                body  : body,
+                header: header,
+                ostyle: 'width:' + this.getOffsetWidth() + ';',
+                bstyle: 'width:' + this.getTotalWidth()  + ';'
+            }),
+            g = this.grid;
 
         g.getGridEl().dom.innerHTML = html;
 
@@ -902,12 +904,12 @@ viewConfig: {
         if(!this.mainBody){
             return; // not rendered
         }
-        var g = this.grid;
-        var c = g.getGridEl();
-        var csize = c.getSize(true);
-        var vw = csize.width;
+        var g = this.grid,
+            c = g.getGridEl(),
+            csize = c.getSize(true),
+            vw = csize.width;
 
-        if(!g.hideHeaders && (vw < 20 || csize.height < 20)){ // display: none?
+        if(vw < 20 || csize.height < 20){ // display: none?
             return;
         }
 
@@ -919,8 +921,8 @@ viewConfig: {
         }else{
             this.el.setSize(csize.width, csize.height);
 
-            var hdHeight = this.mainHd.getHeight();
-            var vh = csize.height - (hdHeight);
+            var hdHeight = this.mainHd.getHeight(),
+                vh = csize.height - (hdHeight);
 
             this.scroller.setSize(vw, vh);
             if(this.innerHd){
@@ -1147,11 +1149,11 @@ viewConfig: {
         }
 
         if(hscroll !== false){
-            var cleft = parseInt(cellEl.offsetLeft, 10);
-            var cright = cleft + cellEl.offsetWidth;
-
-            var sleft = parseInt(c.scrollLeft, 10);
-            var sright = sleft + c.clientWidth;
+            var cleft = parseInt(cellEl.offsetLeft, 10),
+                cright = cleft + cellEl.offsetWidth,
+                sleft = parseInt(c.scrollLeft, 10),
+                sright = sleft + c.clientWidth;
+                
             if(cleft < sleft){
                 c.scrollLeft = cleft;
             }else if(cright > sright){
@@ -1213,12 +1215,12 @@ viewConfig: {
 
     // private
     getColumnStyle : function(col, isHeader){
-        var style = !isHeader ? (this.cm.config[col].css || '') : '';
+        var style = !isHeader ? (this.cm.config[col].css || '') : '',
+            align = this.cm.config[col].align;
         style += 'width:'+this.getColumnWidth(col)+';';
         if(this.cm.isHidden(col)){
             style += 'display:none;';
         }
-        var align = this.cm.config[col].align;
         if(align){
             style += 'text-align:'+align+';';
         }
@@ -1241,9 +1243,10 @@ viewConfig: {
 
     // private
     fitColumns : function(preventRefresh, onlyExpand, omitColumn){
-        var cm = this.cm, i;
-        var tw = cm.getTotalWidth(false);
-        var aw = this.grid.getGridEl().getWidth(true)-this.getScrollOffset();
+        var cm = this.cm,
+            tw = cm.getTotalWidth(false),
+            aw = this.grid.getGridEl().getWidth(true)-this.getScrollOffset(),
+            i;
 
         if(aw < 20){ // not initialized, so don't screw up the default widths
             return;
@@ -1254,17 +1257,17 @@ viewConfig: {
             return false;
         }
 
-        var vc = cm.getColumnCount(true);
-        var ac = vc-(Ext.isNumber(omitColumn) ? 1 : 0);
+        var vc = cm.getColumnCount(true),
+            ac = vc-(Ext.isNumber(omitColumn) ? 1 : 0);
         if(ac === 0){
             ac = 1;
             omitColumn = undefined;
         }
-        var colCount = cm.getColumnCount();
-        var cols = [];
-        var extraCol = 0;
-        var width = 0;
-        var w;
+        var colCount = cm.getColumnCount(),
+            cols = [],
+            extraCol = 0,
+            width = 0,
+            w;
         for (i = 0; i < colCount; i++){
             if(!cm.isFixed(i) && i !== omitColumn){
                 w = cm.getColumnWidth(i);
@@ -1300,12 +1303,12 @@ viewConfig: {
     autoExpand : function(preventUpdate){
         var g = this.grid, cm = this.cm;
         if(!this.userResized && g.autoExpandColumn){
-            var tw = cm.getTotalWidth(false);
-            var aw = this.grid.getGridEl().getWidth(true)-this.getScrollOffset();
+            var tw = cm.getTotalWidth(false),
+                aw = this.grid.getGridEl().getWidth(true)-this.getScrollOffset();
             if(tw != aw){
-                var ci = cm.getIndexById(g.autoExpandColumn);
-                var currentWidth = cm.getColumnWidth(ci);
-                var cw = Math.min(Math.max(((aw-tw)+currentWidth), g.autoExpandMin), g.autoExpandMax);
+                var ci = cm.getIndexById(g.autoExpandColumn),
+                    currentWidth = cm.getColumnWidth(ci),
+                    cw = Math.min(Math.max(((aw-tw)+currentWidth), g.autoExpandMin), g.autoExpandMax);
                 if(cw != currentWidth){
                     cm.setColumnWidth(ci, cw, true);
                     if(preventUpdate !== true){
@@ -1345,8 +1348,11 @@ viewConfig: {
     // private
     renderRows : function(startRow, endRow){
         // pull in all the crap needed to render rows
-        var g = this.grid, cm = g.colModel, ds = g.store, stripe = g.stripeRows;
-        var colCount = cm.getColumnCount();
+        var g = this.grid, 
+            cm = g.colModel, 
+            ds = g.store, 
+            stripe = g.stripeRows,
+            colCount = cm.getColumnCount();
 
         if(ds.getCount() < 1){
             return '';
@@ -1370,25 +1376,70 @@ viewConfig: {
     },
 
     // private
-    refreshRow : function(record){
-        var ds = this.ds, index;
-        if(Ext.isNumber(record)){
-            index = record;
-            record = ds.getAt(index);
-            if(!record){
+    refreshRow: function(record){
+            var ds = this.ds, 
+                i = 0,
+                len = this.cm.getColumnCount(),
+                columns = this.getColumnData(),
+                last = len - 1,
+                cls = ['x-grid3-row'], 
+                rowParams = {
+                    tstyle: 'width:' + this.getTotalWidth() + ';'
+                },
+                meta = {},
+                colBuffer = [],
+                cellTemplate = this.templates.cell,
+                rowIndex, 
+                column,
+                row;
+            
+            if (Ext.isNumber(record)) {
+                rowIndex = record;
+                record = ds.getAt(rowIndex);
+            } else {
+                rowIndex = ds.indexOf(record);
+            }
+            
+            if(!record || rowIndex < 0){
                 return;
             }
-        }else{
-            index = ds.indexOf(record);
-            if(index < 0){
-                return;
+            
+            for(; i < len; ++i){
+                column = columns[i];
+                meta.id = column.id;
+                meta.css = i === 0 ? 'x-grid3-cell-first ' : (i == last ? 'x-grid3-cell-last ' : '');
+                meta.attr = meta.cellAttr = '';
+                meta.style = column.style;
+                meta.value = column.renderer.call(column.scope, record.data[column.name], meta, record, rowIndex, i, this.ds);
+
+                if(Ext.isEmpty(meta.value)){
+                    meta.value = '&#160;';
+                }
+
+                if(this.markDirty && record.dirty && typeof record.modified[column.name] != 'undefined'){
+                    meta.css += ' x-grid3-dirty-cell';
+                }
+                colBuffer.push(cellTemplate.apply(meta));
             }
-        }
-        this.insertRows(ds, index, index, true);
-        this.getRow(index).rowIndex = index;
-        this.onRemove(ds, record, index+1, true);
-        this.fireEvent('rowupdated', this, index, record);
-    },
+            
+            // loop over, do some stuff
+            row = this.getRow(rowIndex);
+            row.className = '';
+            if(this.grid.stripeRows && ((rowIndex + 1) % 2 === 0)){
+                cls.push('x-grid3-row-alt');
+            }
+            if(record.dirty){
+                cls.push('x-grid3-dirty-row');
+            }
+            if(this.getRowClass){
+                rowParams.cols = len;
+                cls.push(this.getRowClass(record, rowIndex, rowParams, this.ds));
+            }
+            this.fly(row).addClass(cls).setStyle(rowParams.tstyle);   
+            rowParams.cells = colBuffer.join('');
+            row.innerHTML = this.templates.rowInner.apply(rowParams);         
+            this.fireEvent("rowupdated", this, rowIndex, record);
+        },
 
     /**
      * Refreshs the grid UI
@@ -1462,16 +1513,8 @@ viewConfig: {
         if (this.scrollToTopTask && this.scrollToTopTask.cancel){
             this.scrollToTopTask.cancel();
         }
-        if(this.colMenu){
-            Ext.menu.MenuMgr.unregister(this.colMenu);
-            this.colMenu.destroy();
-            delete this.colMenu;
-        }
-        if(this.hmenu){
-            Ext.menu.MenuMgr.unregister(this.hmenu);
-            this.hmenu.destroy();
-            delete this.hmenu;
-        }
+        
+        Ext.destroyMembers(this, 'colMenu', 'hmenu');
 
         this.initData(null, null);
         this.purgeListeners();
@@ -1953,8 +1996,10 @@ Ext.grid.GridView.SplitDragZone = Ext.extend(Ext.dd.DDProxy, {
             var xy = this.view.fly(t).getXY(), 
                 x = xy[0], 
                 y = xy[1],
-                exy = e.getXY(), ex = exy[0],
-                w = t.offsetWidth, adjust = false;
+                exy = e.getXY(), 
+                ex = exy[0],
+                w = t.offsetWidth, 
+                adjust = false;
                 
             if((ex - x) <= this.hw){
                 adjust = -1;
