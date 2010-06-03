@@ -114,6 +114,7 @@ Ext.form.NumberField = Ext.extend(Ext.form.TextField,  {
     },
 
     setValue : function(v){
+        v = this.fixPrecision(v);
     	v = Ext.isNumber(v) ? v : parseFloat(String(v).replace(this.decimalSeparator, "."));
         v = isNaN(v) ? '' : String(v).replace(".", this.decimalSeparator);
         return Ext.form.NumberField.superclass.setValue.call(this, v);
@@ -153,7 +154,7 @@ Ext.form.NumberField = Ext.extend(Ext.form.TextField,  {
     beforeBlur : function(){
         var v = this.parseValue(this.getRawValue());
         if(!Ext.isEmpty(v)){
-            this.setValue(this.fixPrecision(v));
+            this.setValue(v);
         }
     }
 });
