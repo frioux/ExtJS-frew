@@ -17,7 +17,7 @@ var myReader = new Ext.data.JsonReader({
     // constructor that provides mapping for reading the record data objects
     {@link Ext.data.DataReader#fields fields}: [
         // map Record&#39;s 'firstname' field to data object&#39;s key of same name
-        {name: 'name'},
+        {name: 'name', mapping: 'firstname'},
         // map Record&#39;s 'job' field to data object&#39;s 'occupation' key
         {name: 'job', mapping: 'occupation'}
     ]

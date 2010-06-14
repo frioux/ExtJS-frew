@@ -894,10 +894,11 @@ function(grid, rowIndex, columnIndex, e) {
      * Returns the grid's GridView object.
      * @return {Ext.grid.GridView} The grid view
      */
-    getView : function(){
-        if(!this.view){
+    getView : function() {
+        if (!this.view) {
             this.view = new Ext.grid.GridView(this.viewConfig);
         }
+        
         return this.view;
     },
     /**

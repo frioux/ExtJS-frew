@@ -107,6 +107,10 @@ td.x-grid3-hd-over .x-grid3-hd-inner, td.sort-desc .x-grid3-hd-inner, td.sort-as
 	background-image:url(../images/default/grid/col-move-bottom.gif);
 }
 
+td.grid-hd-group-cell {
+    background: url(../images/default/grid/grid3-hrow.gif) repeat-x bottom;
+}
+
 .x-grid3-row-selected {
 	background-color: #dfe8f6 !important;
 	background-image: none;

@@ -104,7 +104,9 @@ function(){
 		    var me = this,
                 dom = me.dom,
 		    	mask = data(dom, 'mask'),
-		    	maskMsg = data(dom, 'maskMsg');
+		    	maskMsg = data(dom, 'maskMsg'),
+                hasMask;
+                
 	        if(mask){
 	            if(maskMsg){
 	                maskMsg.remove();
@@ -112,8 +114,9 @@ function(){
 	            }
 	            mask.remove();
                 data(dom, 'mask', undefined);
+                hasMask = true;
 	        }
-	        if(me.isMasked()){
+	        if(hasMask){
                 me.removeClass([XMASKED, XMASKEDRELATIVE]);
             }
 	    },

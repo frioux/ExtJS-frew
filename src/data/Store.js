@@ -641,6 +641,18 @@ sortInfo: {
         var index = this.findInsertIndex(record);
         this.insert(index, record);
     },
+    
+    /**
+     * @private
+     * Update a record within the store with a new reference
+     */
+    doUpdate : function(rec){
+        this.data.replace(rec.id, rec);
+        if(this.snapshot){
+            this.snapshot.replace(rec.id, rec);
+        }
+        this.fireEvent('update', this, rec, Ext.data.Record.COMMIT);
+    },
 
     /**
      * Remove Records from the Store and fires the {@link #remove} event.
@@ -1231,8 +1243,20 @@ myStore.reload(lastOptions);
             this.applySort();
             this.fireEvent('datachanged', this);
         }else{
-            this.totalLength = Math.max(t, this.data.length+r.length);
-            this.add(r);
+            var toAdd = [],
+                rec,
+                cnt = 0;
+            for(var i = 0, len = r.length; i < len; ++i){
+                rec = r[i];
+                if(this.indexOfId(rec.id) > -1){
+                    this.doUpdate(rec);
+                }else{
+                    toAdd.push(rec);
+                    ++cnt;
+                }
+            }
+            this.totalLength = Math.max(t, this.data.length + cnt);
+            this.add(toAdd);
         }
         this.fireEvent('load', this, r, options);
         if(options.callback){

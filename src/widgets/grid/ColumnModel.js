@@ -270,7 +270,7 @@ Ext.grid.ColumnModel = Ext.extend(Ext.util.Observable, {
      * @param {Boolean} visibleOnly Optional. Pass as true to only include visible columns.
      * @return {Number}
      */
-    getColumnCount : function(visibleOnly){
+    getColumnCount : function(visibleOnly) {
         if(visibleOnly === true){
             var c = 0;
             for(var i = 0, len = this.config.length; i < len; i++){
@@ -393,11 +393,11 @@ var columns = grid.getColumnModel().getColumnsBy(function(c){
      * @param {Boolean} includeHidden True to include hidden column widths
      * @return {Number}
      */
-    getTotalWidth : function(includeHidden){
-        if(!this.totalWidth){
+    getTotalWidth : function(includeHidden) {
+        if (!this.totalWidth) {
             this.totalWidth = 0;
-            for(var i = 0, len = this.config.length; i < len; i++){
-                if(includeHidden || !this.isHidden(i)){
+            for (var i = 0, len = this.config.length; i < len; i++) {
+                if (includeHidden || !this.isHidden(i)) {
                     this.totalWidth += this.getColumnWidth(i);
                 }
             }
