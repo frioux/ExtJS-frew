@@ -73,7 +73,7 @@ Ext.ux.tree.TreeGrid = Ext.extend(Ext.tree.TreePanel, {
                                  '</div>',
                             '</td></tpl>',
                             '</tr></thead>',
-                        '</div></table>',
+                        '</table>',
                     '</div></div>',
                 '</div>',
                 '<div class="x-treegrid-root-node">',

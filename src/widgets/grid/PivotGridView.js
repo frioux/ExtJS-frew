@@ -84,10 +84,19 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
     
     /**
      * @private
+     */
+    renderHeaders: function() {
+        var groupHeaders = this.renderGroupHeaders();
+        
+        return groupHeaders + Ext.grid.PivotGridView.superclass.renderHeaders.apply(this, arguments);
+    },
+    
+    /**
+     * @private
      * Renders all groups at all levels based on the structure fetched from {@link #getGroupRows}.
      * @return {String} The rendered headers
      */
-    renderHeaders: function() {
+    renderGroupHeaders: function() {
         var template   = this.templates.gcell,
             rowStyle   = String.format("width: {0};", this.getTotalWidth()),
             groupRows  = this.getGroupRows(),
@@ -130,7 +139,7 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
             });
         }
         
-        return rows.concat([Ext.grid.PivotGridView.superclass.renderHeaders.apply(this, arguments)]).join("");
+        return rows.join("");
     },
     
     /**
@@ -157,7 +166,7 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
             for (j = 0; j < groupCount; j++) {
                 group = row[j];
                 
-                Ext.fly(cells[j]).applyStyles(this.getGroupStyle(group, this.getGroupWidth(colIndex, group.colspan)));
+                Ext.fly(cells[j]).applyStyles(this.getGroupStyle(group, this.getGroupWidth(colIndex, colIndex + group.colspan)));
                 
                 colIndex += group.colspan;
             }
@@ -168,8 +177,6 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
      * @private
      */
     onColumnWidthUpdated: function() {
-        Ext.grid.PivotGridView.superclass.onColumnWidthUpdated.apply(this, arguments);
-        
         this.updateGroupStyles();
     },
 
@@ -177,8 +184,6 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
      * @private
      */
     onAllColumnWidthsUpdated: function() {
-        Ext.grid.PivotGridView.superclass.onAllColumnWidthsUpdated.apply(this, arguments);
-        
         this.updateGroupStyles();
     },
 
@@ -186,8 +191,6 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
      * @private
      */
     onColumnHiddenUpdated: function() {
-        Ext.grid.PivotGridView.superclass.onColumnHiddenUpdated.apply(this, arguments);
-        
         this.updateGroupStyles();
     },
     
@@ -225,7 +228,7 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
      */
     getGroupStyle: function(group, width) {
         var groupAlign   = String.format("text-align: {0}", group.align || "center"),
-            groupWidth   = String.format("width: {0}", width),
+            groupWidth   = String.format("width: {0}{1}", width, Ext.isWebKit ? 'px' : ''),
             groupDisplay = width == 0 ? "display: none" : "";
         
         return [groupAlign, groupWidth, groupDisplay].join("; ");
@@ -254,6 +257,7 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
         var menu     = this.colMenu,
             titles   = this.buildMenuTitles(),
             colModel = this.cm,
+            config   = colModel.config,
             length   = colModel.getColumnCount();
         
         menu.removeAll();
@@ -261,13 +265,17 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
         for (i = 0; i < length; i++) {
             titles[i].push(colModel.getColumnHeader(i));
             
-            menu.add(new Ext.menu.CheckItem({
-                itemId     : String.format("col-", colModel.getColumnId(i)),
-                text       : titles[i].join(this.menuGroupJoinString),
-                checked    : !colModel.isHidden(i),
-                hideOnClick: false,
-                disabled   : colModel.config[i].hideable === false
-            }));
+            if (config[i].hideable !== false) {
+                var item = new Ext.menu.CheckItem({
+                    text       : titles[i].join(this.menuGroupJoinString),
+                    itemId     : String.format("col-{0}", colModel.getColumnId(i)),
+                    checked    : !colModel.isHidden(i),
+                    hideOnClick: false,
+                    disabled   : colModel.config[i].hideable === false
+                });
+                
+                menu.add(item);
+            }
         }
     },
     
@@ -371,81 +379,6 @@ Ext.ux.grid.ColumnHeaderGroup = Ext.extend(Ext.util.Observable, {
         updateSortIcon: function(col, dir){
             var sc = this.sortClasses, hds = this.mainHd.select(this.cellSelector).removeClass(sc);
             hds.item(col).addClass(sc[dir == "DESC" ? 1 : 0]);
-        },
-
-        handleHdMenuClick: function(item){
-            var index = this.hdCtxIndex, cm = this.cm, ds = this.ds, id = item.getItemId();
-            switch(id){
-                case 'asc':
-                    ds.sort(cm.getDataIndex(index), 'ASC');
-                    break;
-                case 'desc':
-                    ds.sort(cm.getDataIndex(index), 'DESC');
-                    break;
-                default:
-                    if(id.substr(0, 5) == 'group'){
-                        var i = id.split('-'), row = parseInt(i[1], 10), col = parseInt(i[2], 10), r = this.cm.rows[row], group, gcol = 0;
-                        for(var i = 0, len = r.length; i < len; i++){
-                            group = r[i];
-                            if(col >= gcol && col < gcol + group.colspan){
-                                break;
-                            }
-                            gcol += group.colspan;
-                        }
-                        if(item.checked){
-                            var max = cm.getColumnsBy(this.isHideableColumn, this).length;
-                            for(var i = gcol, len = gcol + group.colspan; i < len; i++){
-                                if(!cm.isHidden(i)){
-                                    max--;
-                                }
-                            }
-                            if(max < 1){
-                                this.onDenyColumnHide();
-                                return false;
-                            }
-                        }
-                        for(var i = gcol, len = gcol + group.colspan; i < len; i++){
-                            if(cm.config[i].fixed !== true && cm.config[i].hideable !== false){
-                                cm.setHidden(i, item.checked);
-                            }
-                        }
-                    }else{
-                        index = cm.getIndexById(id.substr(4));
-                        if(index != -1){
-                            if(item.checked && cm.getColumnsBy(this.isHideableColumn, this).length <= 1){
-                                this.onDenyColumnHide();
-                                return false;
-                            }
-                            cm.setHidden(index, item.checked);
-                        }
-                    }
-                    item.checked = !item.checked;
-                    if(item.menu){
-                        var updateChildren = function(menu){
-                            menu.items.each(function(childItem){
-                                if(!childItem.disabled){
-                                    childItem.setChecked(item.checked, false);
-                                    if(childItem.menu){
-                                        updateChildren(childItem.menu);
-                                    }
-                                }
-                            });
-                        };
-                        updateChildren(item.menu);
-                    }
-                    var parentMenu = item, parentItem;
-                    while(parentMenu = parentMenu.parentMenu){
-                        if(!parentMenu.parentMenu || !(parentItem = parentMenu.parentMenu.items.get(parentMenu.getItemId())) || !parentItem.setChecked){
-                            break;
-                        }
-                        var checked = parentMenu.items.findIndexBy(function(m){
-                            return m.checked;
-                        }) >= 0;
-                        parentItem.setChecked(checked, true);
-                    }
-                    item.checked = !item.checked;
-            }
-            return true;
         }
     },
     

@@ -446,6 +446,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
         iframe.name = Ext.id();
         iframe.frameBorder = '0';
         iframe.style.overflow = 'auto';
+        iframe.src = Ext.SSL_SECURE_URL;
 
         this.wrap.dom.appendChild(iframe);
         this.iframe = iframe;
@@ -499,8 +500,8 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
      * set current design mode. To enable, mode can be true or 'on', off otherwise
      */
     setDesignMode : function(mode){
-        var doc ;
-        if(doc = this.getDoc()){
+        var doc = this.getDoc();
+        if (doc) {
             if(this.readOnly){
                 mode = false;
             }

@@ -11,17 +11,18 @@ Ext.onReady(function() {
     ]);
     
     var myStore = new Ext.data.Store({
-        data: buildData(),
+        data: buildData(100),
         reader: new Ext.data.JsonReader({}, SaleRecord)
     });
     
     var pivotGrid = new Ext.grid.PivotGrid({
-        title     : "Sales by Region",
-        height    : 400,
-        width     : 1000,
         store     : myStore,
         aggregator: 'sum',
         measure   : 'sales',
+        
+        viewConfig: {
+            forceFit: true
+        },
         
         columns: [
             {dataIndex: 'product',  header: 'Product'},
@@ -61,7 +62,15 @@ Ext.onReady(function() {
         ]
     });
     
-    pivotGrid.render(Ext.getBody());
+    var win = new Ext.Window({
+        title : 'Sales by Region',
+        height: 400,
+        width : 1000,
+        items : pivotGrid,
+        layout: 'fit'
+    });
+    
+    win.show();
     
     // var schema = new Ext.data.OlapSchema({
     //         dimensions: [

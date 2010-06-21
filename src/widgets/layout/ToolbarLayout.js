@@ -116,6 +116,7 @@ Ext.layout.ToolbarLayout = Ext.extend(Ext.layout.ContainerLayout, {
                 position = -1;
             } else if (!c.rendered) {
                 c.render(this.insertCell(c, side, position));
+                this.configureItem(c);
             } else {
                 if (!c.xtbHidden && !this.isValidParent(c, side.childNodes[position])) {
                     var td = this.insertCell(c, side, position);

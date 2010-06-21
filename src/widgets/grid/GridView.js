@@ -479,13 +479,15 @@ viewConfig: {
      */
     findCellIndex : function(el, requiredCls) {
         var cell   = this.findCell(el),
-            hasCls = this.fly(cell).hasClass(requiredCls);
+            hasCls;
         
-        if (cell && (!requiredCls || hasCls)) {
-            return this.getCellIndex(cell);
-        } else {
-            return false;
+        if (cell){
+            hasCls = this.fly(cell).hasClass(requiredCls);
+            if (!requiredCls || hasCls) {
+                return this.getCellIndex(cell);
+            }
         }
+        return false;
     },
 
     // private
@@ -677,7 +679,6 @@ viewConfig: {
     updateAllColumnWidths : function() {
         var totalWidth = this.getTotalWidth(),
             colCount   = this.cm.getColumnCount(),
-            firstChild = this.innerHd.firstChild,
             rows       = this.getRows(),
             rowCount   = rows.length,
             widths     = [],
@@ -688,9 +689,7 @@ viewConfig: {
             this.getHeaderCell(i).style.width = widths[i];
         }
         
-        firstChild.style.width = this.getOffsetWidth();
-        firstChild.firstChild.style.width = totalWidth;
-        this.mainBody.dom.style.width = totalWidth;
+        this.updateHeaderWidth();
         
         for (i = 0; i < rowCount; i++) {
             row = rows[i];
@@ -715,19 +714,16 @@ viewConfig: {
      * Updates the width of a given column, resizing that column in each row
      * @param {Number} column The column index
      */
-    updateColumnWidth : function(column) {
+    updateColumnWidth : function(column, width) {
         var columnWidth  = this.getColumnWidth(column),
             totalWidth   = this.getTotalWidth(),
             headerCell   = this.getHeaderCell(column),
-            innerHdChild = this.innerHd.firstChild,
             nodes        = this.getRows(),
             nodeCount    = nodes.length,
             row, i, firstChild;
         
-        //FIXME: This feels brittle
-        innerHdChild.style.width = this.getOffsetWidth();
-        innerHdChild.firstChild.style.width = totalWidth;
-        this.mainBody.dom.style.width = totalWidth;
+        this.updateHeaderWidth();
+        headerCell.style.width = width;
         
         for (i = 0; i < nodeCount; i++) {
             row = nodes[i];
@@ -742,7 +738,7 @@ viewConfig: {
         
         this.onColumnWidthUpdated(column, columnWidth, totalWidth);
     },
-
+    
     /**
      * @private
      * Sets the hidden status of a given column.
@@ -753,14 +749,11 @@ viewConfig: {
         var totalWidth = this.getTotalWidth(),
             display    = hidden ? 'none' : '',
             headerCell = this.getHeaderCell(col),
-            firstChild = this.innerHd.firstChild,
             nodes      = this.getRows(),
             nodeCount  = nodes.length,
             row, rowFirstChild, i;
         
-        firstChild.style.width = this.getOffsetWidth();
-        firstChild.firstChild.style.width = totalWidth;
-        this.mainBody.dom.style.width = totalWidth;
+        this.updateHeaderWidth();
         headerCell.style.display = display;
         
         for (i = 0; i < nodeCount; i++) {
@@ -768,7 +761,7 @@ viewConfig: {
             row.style.width = totalWidth;
             rowFirstChild = row.firstChild;
             
-            if (firstChild) {
+            if (rowFirstChild) {
                 rowFirstChild.style.width = totalWidth;
                 rowFirstChild.rows[0].childNodes[col].style.display = display;
             }
@@ -1169,7 +1162,7 @@ viewConfig: {
             if (colModel.config[i].align == 'right') {
                 properties.istyle = 'padding-right: 16px;';
             } else {
-                delete properties.style;
+                delete properties.istyle;
             }
             
             cells[i] = headerTpl.apply(properties);
@@ -1207,11 +1200,26 @@ viewConfig: {
      * Re-renders the headers and ensures they are sized correctly
      */
     updateHeaders : function() {
-        var firstChild = this.innerHd.firstChild;
+        this.innerHd.firstChild.innerHTML = this.renderHeaders();
         
-        firstChild.innerHTML = this.renderHeaders();
-        firstChild.style.width = this.getOffsetWidth();
-        firstChild.firstChild.style.width = this.getTotalWidth();
+        this.updateHeaderWidth(false);
+    },
+    
+    /**
+     * @private
+     * Ensures that the header is sized to the total width available to it
+     * @param {Boolean} updateMain True to update the mainBody's width also (defaults to true)
+     */
+    updateHeaderWidth: function(updateMain) {
+        var innerHdChild = this.innerHd.firstChild,
+            totalWidth   = this.getTotalWidth();
+        
+        innerHdChild.style.width = this.getOffsetWidth();
+        innerHdChild.firstChild.style.width = totalWidth;
+        
+        if (updateMain !== false) {
+            this.mainBody.dom.style.width = totalWidth;
+        }
     },
 
     /**
@@ -1652,7 +1660,7 @@ viewConfig: {
             colCount  = this.cm.getColumnCount(),
             columns   = this.getColumnData(),
             last      = colCount - 1,
-            cls       = ['x-grid-row'],
+            cls       = ['x-grid3-row'],
             rowParams = {
                 tstyle: String.format("width: {0};", this.getTotalWidth())
             },
@@ -2186,13 +2194,10 @@ viewConfig: {
      * Performs sorting if the sorter buttons were clicked, otherwise hides/shows the column that was clicked.
      */
     handleHdMenuClick : function(item) {
-        var index     = this.hdCtxIndex,
-            store     = this.ds,
-            itemId    = item.getItemId(),
-            colModel  = this.cm,
-            dataIndex = colModel.getDataIndex(index);
-        
-        switch (itemId) {
+        var store     = this.ds,
+            dataIndex = this.cm.getDataIndex(this.hdCtxIndex);
+
+        switch (item.getItemId()) {
             case 'asc':
                 store.sort(dataIndex, 'ASC');
                 break;
@@ -2200,17 +2205,29 @@ viewConfig: {
                 store.sort(dataIndex, 'DESC');
                 break;
             default:
-                index = colModel.getIndexById(itemId.substr(4));
-                
-                if (index != -1) {
-                    if (item.checked && colModel.getColumnsBy(this.isHideableColumn, this).length <= 1) {
-                        this.onDenyColumnHide();
-                        return false;
-                    }
-                    colModel.setHidden(index, item.checked);
-                }
+                this.handleHdMenuClickDefault(item);
         }
         return true;
+    },
+    
+    /**
+     * Called by handleHdMenuClick if any button except a sort ASC/DESC button was clicked. The default implementation provides
+     * the column hide/show functionality based on the check state of the menu item. A different implementation can be provided
+     * if needed.
+     * @param {Ext.menu.BaseItem} item The menu item that was clicked
+     */
+    handleHdMenuClickDefault: function(item) {
+        var colModel = this.cm,
+            itemId   = item.getItemId(),
+            index    = colModel.getIndexById(itemId.substr(4));
+
+        if (index != -1) {
+            if (item.checked && colModel.getColumnsBy(this.isHideableColumn, this).length <= 1) {
+                this.onDenyColumnHide();
+                return false;
+            }
+            colModel.setHidden(index, item.checked);
+        }
     },
 
     /**

@@ -121,7 +121,7 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
         if (c) {
             if (!c.rendered) {
                 c.render(target, position);
-                this.configureItem(c, position);
+                this.configureItem(c);
             } else if (!this.isValidParent(c, target)) {
                 if (Ext.isNumber(position)) {
                     position = target.dom.childNodes[position];
@@ -129,7 +129,7 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
                 
                 target.dom.insertBefore(c.getPositionEl().dom, position || null);
                 c.container = target;
-                this.configureItem(c, position);
+                this.configureItem(c);
             }
         }
     },
@@ -150,7 +150,7 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
      * @private
      * Applies extraCls and hides the item if renderHidden is true
      */
-    configureItem: function(c, position){
+    configureItem: function(c){
         if (this.extraCls) {
             var t = c.getPositionEl ? c.getPositionEl() : c;
             t.addClass(this.extraCls);

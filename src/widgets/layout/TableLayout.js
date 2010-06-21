@@ -176,12 +176,12 @@ Ext.layout.TableLayout = Ext.extend(Ext.layout.ContainerLayout, {
         }
         if(c && !c.rendered){
             c.render(this.getNextCell(c));
-            this.configureItem(c, position);
+            this.configureItem(c);
         }else if(c && !this.isValidParent(c, target)){
             var container = this.getNextCell(c);
             container.insertBefore(c.getPositionEl().dom, null);
             c.container = Ext.get(container);
-            this.configureItem(c, position);
+            this.configureItem(c);
         }
     },
 

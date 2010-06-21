@@ -46,7 +46,7 @@
             if (!a.isMenuItem && a.needsIcon) {
                 c.positionEl.addClass('x-menu-list-item-indent');
             }
-            this.configureItem(c, position);
+            this.configureItem(c);
         }else if(c && !this.isValidParent(c, target)){
             if(Ext.isNumber(position)){
                 position = target.dom.childNodes[position];

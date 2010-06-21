@@ -650,7 +650,7 @@ function(grid, rowIndex, columnIndex, e) {
                 s = cs[i];
                 c = cm.getColumnById(s.id);
                 if(c){
-                    cm.setState(i, {
+                    cm.setState(s.id, {
                         hidden: s.hidden,
                         width: s.width    
                     });

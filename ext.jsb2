@@ -96,9 +96,6 @@
             "text": "DelayedTask.js",
             "path": "src/ext-core/src/util/"
         },{
-            "text": "EventManager.js",
-            "path": "src/ext-core/src/core/"
-        },{
             "text": "Element.js",
             "path": "src/ext-core/src/core/"
         },{
@@ -131,6 +128,10 @@
         },{
             "text": "JSON.js",
             "path": "src/ext-core/src/util/"
+        },
+        {
+            "text": "EventManager.js",
+            "path": "src/ext-core/src/core/"
         }]
     },{
         "name": "Ext Foundation",
