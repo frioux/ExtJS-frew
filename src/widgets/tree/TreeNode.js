@@ -229,11 +229,12 @@ Ext.tree.TreeNode = Ext.extend(Ext.data.Node, {
         Ext.tree.TreeNode.superclass.removeChild.apply(this, arguments);
         // only update the ui if we're not destroying
         if(!destroy){
+            var rendered = node.ui.rendered;
             // if it's been rendered remove dom node
-            if(node.ui.rendered){
+            if(rendered){
                 node.ui.remove();
             }
-            if(this.childNodes.length < 1){
+            if(rendered && this.childNodes.length < 1){
                 this.collapse(false, false);
             }else{
                 this.ui.updateExpandIcon();

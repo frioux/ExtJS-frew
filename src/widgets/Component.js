@@ -31,10 +31,11 @@ editorgrid       {@link Ext.grid.EditorGridPanel}
 flash            {@link Ext.FlashComponent}
 grid             {@link Ext.grid.GridPanel}
 listview         {@link Ext.ListView}
+multislider      {@link Ext.slider.MultiSlider}
 panel            {@link Ext.Panel}
 progress         {@link Ext.ProgressBar}
 propertygrid     {@link Ext.grid.PropertyGrid}
-slider           {@link Ext.Slider}
+slider           {@link Ext.slider.SingleSlider}
 spacer           {@link Ext.Spacer}
 splitbutton      {@link Ext.SplitButton}
 tabpanel         {@link Ext.TabPanel}

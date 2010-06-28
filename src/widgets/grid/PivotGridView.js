@@ -15,11 +15,17 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
     
     /**
      * The CSS class added to all group header cells. Defaults to 'grid-hd-group-cell'
-     * @property groupCellCls
+     * @property colHeaderCellCls
      * @type String
      */
-    groupCellCls: 'grid-hd-group-cell',
-
+    colHeaderCellCls: 'grid-hd-group-cell',
+    
+    /**
+     * The width to render each row header that does not have a width specified via {@link #getRowGroupHeaders}. Defaults to 80.
+     * @property defaultRowHeaderWidth
+     * @type Number
+     */
+    defaultRowHeaderWidth: 80,
    
     /**
      * Returns the headers to be rendered at the top of the grid. Should be a 2-dimensional array, where each item specifies the number
@@ -28,17 +34,19 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
      * so in this case the grid would be expected to have a total of 12 columns:
 <pre><code>
 [
-    [
-        {header: 'England',       colspan: 5},
-        {header: 'USA',           colspan: 7}
-    ],
-    [
-        {header: 'London',        colspan: 2},
-        {header: 'Cambridge',     colspan: 3},
-        {header: 'Palo Alto',     colspan: 4},
-        {header: 'San Francisco', colspan: 2},
-        {header: 'New York',      colspan: 1}
-    ]
+    {
+        items: [
+            {header: 'England',   colspan: 5},
+            {header: 'USA',       colspan: 3}
+        ]
+    },
+    {
+        items: [
+            {header: 'London',    colspan: 2},
+            {header: 'Cambridge', colspan: 3},
+            {header: 'Palo Alto', colspan: 3}
+        ]
+    }
 ]
 </code></pre>
      * In the example above we have cities nested under countries. The nesting could be deeper if desired - e.g. Continent -> Country ->
@@ -46,19 +54,140 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
      * @return {Array} A tree structure containing the headers to be rendered. Must include the colspan property at each level, which should
      * be the sum of all child nodes beneath this node.
      */
-    getGroupRows: function() {
+    getGroupColumnHeaders: function() {
         return [
-            [
-                {header: 'England',       colspan: 5},
-                {header: 'USA',           colspan: 3}
-            ],
-            [
-                {header: 'London',        colspan: 2},
-                {header: 'Cambridge',     colspan: 3},
-                {header: 'Palo Alto',     colspan: 3}
-            ]
+            {
+                items: [
+                    {header: 'England',   colspan: 5},
+                    {header: 'USA',       colspan: 3}
+                ]
+            },
+            {
+                items: [
+                    {header: 'London',    colspan: 2},
+                    {header: 'Cambridge', colspan: 3},
+                    {header: 'Palo Alto', colspan: 3}
+                ]
+            }
         ];
     },
+    
+    /**
+     * Returns the headers to be rendered on the left of the grid. Should be a 2-dimensional array, where each item specifies the number
+     * of rows it groups. In the example below we have 5 city groups, which are each part of a continent supergroup. The rowspan for each 
+     * city group refers to the number of normal grid columns that group spans, so in this case the grid would be expected to have a 
+     * total of 12 rows:
+<pre><code>
+[
+    {
+        width: 90,
+        items: [
+            {header: 'England',   rowspan: 5},
+            {header: 'USA',       rowspan: 3}
+        ]
+    },
+    {
+        width: 50,
+        items: [
+            {header: 'London',    rowspan: 2},
+            {header: 'Cambridge', rowspan: 3},
+            {header: 'Palo Alto', rowspan: 3}
+        ]
+    }
+]
+</code></pre>
+     * In the example above we have cities nested under countries. The nesting could be deeper if desired - e.g. Continent -> Country ->
+     * State -> City, or any other structure. The only constaint is that the same depth must be used throughout the structure.
+     * @return {Array} A tree structure containing the headers to be rendered. Must include the colspan property at each level, which should
+     * be the sum of all child nodes beneath this node.
+     * Each group may specify the width it should be rendered with, defaulting to {@link #defaultRowHeaderWidth}.
+     * @return {Array} The row groups
+     */
+    getRowGroupHeaders: function() {
+        return [
+            {
+                width: 60,
+                items: [
+                    {header: 'England',   rowspan: 5},
+                    {header: 'USA',       rowspan: 3}
+                ]
+            },
+            {
+                width: 80,
+                items: [
+                    {header: 'London',    rowspan: 2},
+                    {header: 'Cambridge', rowspan: 3},
+                    {header: 'Palo Alto', rowspan: 3}
+                ]
+            }
+        ];
+    },
+    
+    /**
+     * Returns the total width of all row headers as specified by {@link #getRowGroupHeaders}
+     * @return {Number} The total width
+     */
+    getTotalRowHeaderWidth: function() {
+        var headers = this.getRowGroupHeaders(),
+            length  = headers.length,
+            total   = 0,
+            i;
+        
+        for (i = 0; i< length; i++) {
+            total += headers[i].width || this.defaultRowHeaderWidth;
+        }
+        
+        return total;
+    },
+    
+    /**
+     * The template to use when rendering the markup that contains each column of row headers. Has a default template
+     * @property rowHeaderTpl
+     * @type Ext.Template
+     */
+    rowHeaderTpl: new Ext.Template(
+        '<div class="x-grid3-row-header" style="width: {width}px;">',
+            '{cells}',
+        '</div>'
+    ),
+    
+    /**
+     * The template to use when rendering row header cells. Has a default template
+     * @property rowHeaderCellTpl
+     * @type Ext.Template
+     */
+    rowHeaderCellTpl: new Ext.Template(
+        '<div class="x-grid3-row-header-cell" data-rowspan="{rowspan}">',
+            '{header}',
+        '</div>'
+    ),
+    
+    /**
+     * The master template to use when rendering the GridView. Has a default template
+     * @property Ext.Template
+     * @type masterTpl
+     */
+    masterTpl: new Ext.Template(
+        '<div class="x-grid3" hidefocus="true">',
+            '<div class="x-grid3-viewport">',
+                '<div class="x-grid3-header">',
+                    '<div class="x-grid3-header-inner">',
+                        '<div class="x-grid3-header-offset" style="{ostyle}">{header}</div>',
+                    '</div>',
+                    '<div class="x-clear"></div>',
+                '</div>',
+                '<div class="x-grid3-scroller">',
+                    '<div class="x-grid3-row-headers">',
+                        '{rowHeaders}',
+                    '</div>',
+                    '<div class="x-grid3-body" style="{bstyle}">{body}</div>',
+                    '<a href="#" class="x-grid3-focus" tabIndex="-1"></a>',
+                '</div>',
+            '</div>',
+            '<div class="x-grid3-resize-marker">&#160;</div>',
+            '<div class="x-grid3-resize-proxy">&#160;</div>',
+        '</div>'
+    ),
     
     /**
      * @private
@@ -70,7 +199,7 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
         var templates = this.templates || {};
         if (!templates.gcell) {
             templates.gcell = new Ext.XTemplate(
-                '<td class="x-grid3-hd x-grid3-gcell x-grid3-td-{id} ux-grid-hd-group-row-{row} ' + this.groupCellCls + '" style="{style}">',
+                '<td class="x-grid3-hd x-grid3-gcell x-grid3-td-{id} ux-grid-hd-group-row-{row} ' + this.colHeaderCellCls + '" style="{style}">',
                     '<div {tooltip} class="x-grid3-hd-inner x-grid3-hd-{id}" unselectable="on" style="{istyle}">', 
                         this.grid.enableHdMenu ? '<a class="x-grid3-hd-btn" href="#"></a>' : '', '{value}',
                     '</div>',
@@ -78,51 +207,141 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
             );
         }
         
+        Ext.applyIf(templates, {
+            rowHeader    : this.rowHeaderTpl,
+            rowHeaderCell: this.rowHeaderCellTpl
+        });
+        
         this.templates = templates;
         this.hrowRe = new RegExp("ux-grid-hd-group-row-(\\d+)", "");
     },
     
     /**
      * @private
+     * Sets up the reference to the row headers element
      */
-    renderHeaders: function() {
-        var groupHeaders = this.renderGroupHeaders();
+    initElements: function() {
+        Ext.grid.PivotGridView.superclass.initElements.apply(this, arguments);
         
-        return groupHeaders + Ext.grid.PivotGridView.superclass.renderHeaders.apply(this, arguments);
+        /**
+         * @property rowHeadersEl
+         * @type Ext.Element
+         * The element containing all row headers
+         */
+        this.rowHeadersEl = new Ext.Element(this.scroller.child('div.x-grid3-row-headers'));
     },
     
     /**
      * @private
-     * Renders all groups at all levels based on the structure fetched from {@link #getGroupRows}.
+     * Takes row headers into account when calculating total available width
+     */
+    getGridInnerWidth: function() {
+        var previousWidth = Ext.grid.PivotGridView.superclass.getGridInnerWidth.apply(this, arguments);
+        
+        return previousWidth - this.getTotalRowHeaderWidth();
+    },
+    
+    /**
+     * @private
+     * Slight specialisation of the GridView renderUI - just adds the row headers
+     */
+    renderUI : function() {
+        Ext.apply(this.columnDrop, this.columnDropConfig);
+        
+        Ext.apply(this.splitZone, {
+            allowHeaderDrag: function(e){
+                return !e.getTarget(null, null, true).hasClass(this.colHeaderCellCls);
+            }
+        });
+        
+        var templates = this.templates;
+        
+        return templates.master.apply({
+            body  : templates.body.apply({rows:'&#160;'}),
+            header: this.renderHeaders(),
+            ostyle: 'width:' + this.getOffsetWidth() + ';',
+            bstyle: 'width:' + this.getTotalWidth()  + ';',
+            
+            rowHeaders: this.renderGroupRowHeaders()
+        });
+    },
+    
+    /**
+     * @private
+     */
+    renderHeaders: function() {
+        this.renderGroupRowHeaders();
+        
+        var groupHeaders  = this.renderGroupColumnHeaders(),
+            columnHeaders = Ext.grid.PivotGridView.superclass.renderHeaders.apply(this, arguments);
+        
+        return groupHeaders + columnHeaders;
+    },
+    
+    /**
+     * @private
+     * Renders all row header groups at all levels based on the structure fetched from {@link #getGroupRowHeaders}
+     * @return {String} The rendered row headers
+     */
+    renderGroupRowHeaders: function() {
+        var template   = this.templates.rowHeaderCell,
+            rowHeaders = this.getRowGroupHeaders(),
+            colCount   = rowHeaders.length,
+            columns    = [],
+            rows, rowCount, cells, i, j;
+        
+        for (i = 0; i < colCount; i++) {
+            cells = [];
+            rows  = rowHeaders[i].items;
+            rowCount = rows.length;
+            
+            for (j = 0; j < rowCount; j++) {
+                cells.push(template.apply({
+                    header : rows[j].header,
+                    rowspan: rows[j].rowspan || 1
+                }));
+            }
+            
+            columns[i] = this.templates.rowHeader.apply({
+                cells: cells.join(""),
+                width: rowHeaders[i].width
+            });
+        }
+        
+        return columns.join("");
+    },
+    
+    /**
+     * @private
+     * Renders all groups at all levels based on the structure fetched from {@link #getGroupColumnHeaders}.
      * @return {String} The rendered headers
      */
-    renderGroupHeaders: function() {
+    renderGroupColumnHeaders: function() {
         var template   = this.templates.gcell,
             rowStyle   = String.format("width: {0};", this.getTotalWidth()),
-            groupRows  = this.getGroupRows(),
+            groupRows  = this.getGroupColumnHeaders(),
             rowCount   = groupRows.length,
             colModel   = this.cm,
             rows       = [],
-            row, group, groupCount, colIndex, cells, columnId, i, j;
+            rowItems, group, groupCount, colIndex, cells, i, j;
         
         /*
-         * groupRows is a 2-dimensional array of the group headers to render above the normal grid column headers. See getGroupRows for
+         * groupRows is a 2-dimensional array of the group headers to render above the normal grid column headers. See getGroupColumnHeaders for
          * an example structure. We render the rows of grouped headers from top to bottom. colIndex is used internally to track how many
          * of the grid's normal columns a particular group spans via getGroupWidth.
          */
         for (i = 0; i < rowCount; i++) {
-            row        = groupRows[i];
             cells      = [];
             colIndex   = 0;
-            groupCount = row.length;
+            rowItems   = groupRows[i].items;
+            groupCount = rowItems.length;
             
             for (j = 0; j < groupCount; j++) {
-                group    = row[j];
-                columnId = this.getColumnId(group.dataIndex ? colModel.findColumnIndex(group.dataIndex) : colIndex);
+                group = rowItems[j];
                 
                 cells.push(template.apply({
-                    id     : columnId,
                     row    : i,
+                    id     : this.getColumnId(group.dataIndex ? colModel.findColumnIndex(group.dataIndex) : colIndex),
                     style  : this.getGroupStyle(group, this.getGroupWidth(colIndex, colIndex + group.colspan)),
                     tooltip: group.tooltip ? (Ext.QuickTips.isEnabled() ? 'ext:qtip' : 'title') + '="' + group.tooltip + '"' : '',
                     istyle : group.align == 'right' ? 'padding-right: 16px' : '',
@@ -144,27 +363,67 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
     
     /**
      * @private
+     * Gives the main body and header elements a margin to make room for the row headers
+     */
+    afterRender: function() {
+        Ext.grid.PivotGridView.superclass.afterRender.apply(this, arguments);
+        
+        var rowHeaderWidth = this.getTotalRowHeaderWidth(),
+            marginStyle    = String.format("margin-left: {0}px;", rowHeaderWidth);
+        
+        this.mainBody.applyStyles(marginStyle);
+        this.mainHd.applyStyles(marginStyle);
+        
+        this.resizeRowHeaders();
+    },
+    
+    /**
+     * @private
+     * 
+     */
+    resizeRowHeaders: function() {
+        var innerHeight  = this.mainBody.getHeight(),
+            rowHeight    = innerHeight / this.getRows().length,
+            rowHeaders   = Ext.get(this.rowHeadersEl).select('div.x-grid3-row-header'),
+            rowHeaderEls = rowHeaders.elements,
+            length       = rowHeaderEls.length,
+            configs      = this.getRowGroupHeaders(),
+            column, rows, rowCount, i, j;
+        
+        for (i = 0; i < length; i++) {
+            column   = Ext.get(rowHeaderEls[i]);
+            rows     = column.select('div.x-grid3-row-header-cell').elements;
+            rowCount = rows.length;
+            
+            for (j = 0; j < rowCount; j++) {
+                Ext.fly(rows[j]).setHeight(rowHeight * (configs[i].items[j].rowspan || 1));
+            }
+        }
+    },
+    
+    /**
+     * @private
      * Iterates over all groups and resizes them based on the number of columns they contain
-     * TODO: This contains a very similar nested loop to renderGroupHeaders - might be able to abstract it. See its internal
+     * TODO: This contains a very similar nested loop to renderGroupColumnHeaders - might be able to abstract it. See its internal
      * nested for loop for details on the workings of this
      */
-    updateGroupStyles: function(col) {
+    updateGroupStyles: function() {
         var tables     = this.mainHd.query('.x-grid3-header-offset > table'),
             totalWidth = this.getTotalWidth(), 
-            groupRows  = this.getGroupRows(),
+            groupRows  = this.getGroupColumnHeaders(),
             rowCount   = groupRows.length,
-            groupCount, row, group, cells, i, j, colIndex;
+            groupCount, rowItems, group, cells, i, j, colIndex;
         
         for (i = 0; i < rowCount; i++) {
-            row   = groupRows[i];
-            cells = Ext.fly(tables[i]).select('td').elements;
-            groupCount = row.length;
+            cells      = Ext.fly(tables[i]).select('td').elements;
+            rowItems   = groupRows[i].items;
+            groupCount = rowItems.length;
             colIndex   = 0;
             
             tables[i].style.width = totalWidth;
             
             for (j = 0; j < groupCount; j++) {
-                group = row[j];
+                group = rowItems[j];
                 
                 Ext.fly(cells[j]).applyStyles(this.getGroupStyle(group, this.getGroupWidth(colIndex, colIndex + group.colspan)));
                 
@@ -236,21 +495,6 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
     
     /**
      * @private
-     * Override the defaults for the splitZone and columnDrop objects
-     */
-    renderUI: function() {
-        Ext.grid.PivotGridView.superclass.renderUI.apply(this, arguments);
-        Ext.apply(this.columnDrop, this.columnDropConfig);
-        
-        Ext.apply(this.splitZone, {
-            allowHeaderDrag: function(e){
-                return !e.getTarget(null, null, true).hasClass(this.groupCellCls);
-            }
-        });
-    },
-    
-    /**
-     * @private
      * Click handler for the shared column dropdown menu, called on beforeshow. Builds the menu items.
      */
     beforeColMenuShow: function() {
@@ -287,18 +531,18 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
      */
     buildMenuTitles: function() {
         var colModel  = this.cm,
-            groupRows = this.getGroupRows(),
+            groupRows = this.getGroupColumnHeaders(),
             rowCount  = groupRows.length,
             titles    = [],
-            i, j, k, row, group, colIndex;
+            i, j, k, rowItems, colIndex, colCount, group;
         
         for (i = 0; i < rowCount; i++) {
-            row = groupRows[i];
-            colCount = row.length;
+            rowItems = groupRows[i].items;
+            colCount = rowItems.length;
             colIndex = 0;
             
             for (j = 0; j < colCount; j++) {
-                group = row[j];
+                group = rowItems[j];
                 
                 for (k = 0; k < group.colspan; k++) {
                     titles[colIndex] = titles[colIndex] || [];
@@ -322,7 +566,7 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
             isGroup;
         
         if (header) {
-            if (Ext.fly(header).hasClass(this.groupCellCls)) {
+            if (Ext.fly(header).hasClass(this.colHeaderCellCls)) {
                 return Ext.grid.PivotGridView.superclass.handleHdMove.apply(this, arguments);
             }            
         }
@@ -333,7 +577,7 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
      * Overridden to test whether the user is hovering over a group cell, in which case we don't show the menu
      */
     isMenuDisabled: function(cellIndex, el) {
-        return this.cm.isMenuDisabled(cellIndex) || el.hasClass(this.groupCellCls);
+        return this.cm.isMenuDisabled(cellIndex) || el.hasClass(this.colHeaderCellCls);
     },
     
     

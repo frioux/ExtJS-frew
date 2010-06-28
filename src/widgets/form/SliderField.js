@@ -1,7 +1,7 @@
 /**
  * @class Ext.form.SliderField
  * @extends Ext.form.Field
- * Wraps a {@link Ext.Slider Slider} so it can be used as a form field.
+ * Wraps a {@link Ext.slider.MultiSlider Slider} so it can be used as a form field.
  * @constructor
  * Creates a new SliderField
  * @param {Object} config Configuration options. Note that you can pass in any slider configuration options, as well as

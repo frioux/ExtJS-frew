@@ -473,7 +473,14 @@ myFormPanel.getForm().submit({
         fs.each(function(f){
             var field = this.findField(f.name);
             if(field){
-                record.set(f.name, field.getValue());
+                var value = field.getValue();
+                if ( value.getGroupValue ) {
+                    value = value.getGroupValue();
+                } else if ( field.eachItem ) {
+                    value = [];
+                    field.eachItem(function(item){ value.push(item.getValue()) });
+                }
+                record.set(f.name, value);
             }
         }, this);
         record.endEdit();

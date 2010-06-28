@@ -34,14 +34,6 @@ Ext.ux.tree.TreeGrid = Ext.extend(Ext.tree.TreePanel, {
         }else if(Ext.isObject(l) && !l.load){
             l = new Ext.ux.tree.TreeGridLoader(l);
         }
-        else if(l) {
-            l.createNode = function(attr) {
-                if (!attr.uiProvider) {
-                    attr.uiProvider = Ext.ux.tree.TreeGridNodeUI;
-                }
-                return Ext.tree.TreeLoader.prototype.createNode.call(this, attr);
-            }
-        }
         this.loader = l;
                             
         Ext.ux.tree.TreeGrid.superclass.initComponent.call(this);                    

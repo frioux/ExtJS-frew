@@ -13,15 +13,14 @@
  */
 Ext.tree.TreeNodeUI = Ext.extend(Object, {
     
-    emptyIcon: Ext.BLANK_IMAGE_URL,
-    
     constructor : function(node){
         Ext.apply(this, {
             node: node,
             rendered: false,
             animating: false,
             wasLeaf: true,
-            ecc: 'x-tree-ec-icon x-tree-elbow'    
+            ecc: 'x-tree-ec-icon x-tree-elbow',
+            emptyIcon: Ext.BLANK_IMAGE_URL    
         });
     },
     

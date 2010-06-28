@@ -1,5 +1,6 @@
 Ext.onReady(function() {
     var SaleRecord = Ext.data.Record.create([
+        {name: 'id',       type: 'int'},
         {name: 'product',  type: 'string'},
         {name: 'city',     type: 'string'},
         {name: 'state',    type: 'string'},
@@ -11,8 +12,11 @@ Ext.onReady(function() {
     ]);
     
     var myStore = new Ext.data.Store({
-        data: buildData(100),
-        reader: new Ext.data.JsonReader({}, SaleRecord)
+        data: {rows: buildData(100)},
+        reader: new Ext.data.JsonReader({
+            root: 'rows',
+            idProperty: 'id'
+        }, SaleRecord)
     });
     
     var pivotGrid = new Ext.grid.PivotGrid({
@@ -63,11 +67,12 @@ Ext.onReady(function() {
     });
     
     var win = new Ext.Window({
-        title : 'Sales by Region',
-        height: 400,
-        width : 1000,
-        items : pivotGrid,
-        layout: 'fit'
+        title   : 'Sales by Region',
+        height  : 400,
+        width   : 1000,
+        items   : pivotGrid,
+        layout  : 'fit',
+        closable: false
     });
     
     win.show();
@@ -138,7 +143,8 @@ Ext.onReady(function() {
             i;
         
         for (i = 0; i < count; i++) {
-            records.push(new SaleRecord({
+            records.push({
+                id      : i + 1,
                 product : products[Math.floor(Math.random() * products.length)],
                 city    : cities[Math.floor(Math.random() * cities.length)],
                 state   : states[Math.floor(Math.random() * states.length)],
@@ -147,7 +153,7 @@ Ext.onReady(function() {
                 month   : Math.ceil(Math.random() * 12),
                 quarter : Math.ceil(Math.random() * 4),
                 year    : 2010 - Math.floor(Math.random() * 5)
-            }));
+            });
         }
         
         return records;

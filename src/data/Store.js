@@ -253,14 +253,14 @@ sortInfo: {
     },
 
     /**
-     * @property {Boolean} isDestroyed
      * True if the store has been destroyed already. Read only
+     * @property {Boolean} isDestroyed
      */
     isDestroyed: false,
 
     /**
-     * @property {Boolean} hasMultiSort
      * True if this store is currently sorted by more than one field/direction combination.
+     * @property {Boolean} hasMultiSort
      */
     hasMultiSort: false,
 

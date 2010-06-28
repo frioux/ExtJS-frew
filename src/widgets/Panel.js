@@ -1584,26 +1584,17 @@ new Ext.Panel({
      * @return {Number} The frame height
      */
     getFrameHeight : function() {
-        var h = Math.max(0, this.getHeight() - this.body.getHeight());
+        var h  = this.el.getFrameWidth('tb') + this.bwrap.getFrameWidth('tb');
+        h += (this.tbar ? this.tbar.getHeight() : 0) +
+             (this.bbar ? this.bbar.getHeight() : 0);
 
-        if (isNaN(h)) {
-            h = 0;
+        if(this.frame){
+            h += this.el.dom.firstChild.offsetHeight + this.ft.dom.offsetHeight + this.mc.getFrameWidth('tb');
+        }else{
+            h += (this.header ? this.header.getHeight() : 0) +
+                (this.footer ? this.footer.getHeight() : 0);
         }
         return h;
-
-        /* Deprecate
-            var h  = this.el.getFrameWidth('tb') + this.bwrap.getFrameWidth('tb');
-            h += (this.tbar ? this.tbar.getHeight() : 0) +
-                 (this.bbar ? this.bbar.getHeight() : 0);
-
-            if(this.frame){
-                h += this.el.dom.firstChild.offsetHeight + this.ft.dom.offsetHeight + this.mc.getFrameWidth('tb');
-            }else{
-                h += (this.header ? this.header.getHeight() : 0) +
-                    (this.footer ? this.footer.getHeight() : 0);
-            }
-            return h;
-        */
     },
 
     /**

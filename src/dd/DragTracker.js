@@ -2,11 +2,11 @@
  * @class Ext.dd.DragTracker
  * @extends Ext.util.Observable
  * A DragTracker listens for drag events on an Element and fires events at the start and end of the drag,
- * as well as during the drag. This is useful for components such as {@link Ext.Slider}, where there is
+ * as well as during the drag. This is useful for components such as {@link Ext.slider.MultiSlider}, where there is
  * an element that can be dragged around to change the Slider's value.
  * DragTracker provides a series of template methods that should be overridden to provide functionality
  * in response to detected drag operations. These are onBeforeStart, onStart, onDrag and onEnd.
- * See {@link Ext.Slider}'s initEvents function for an example implementation.
+ * See {@link Ext.slider.MultiSlider}'s initEvents function for an example implementation.
  */
 Ext.dd.DragTracker = Ext.extend(Ext.util.Observable,  {    
     /**

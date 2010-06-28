@@ -446,7 +446,7 @@ Date.formatCodes.x = "String.leftPad(this.getDate(), 2, '0')";
         t: "this.getDaysInMonth()",
         L: "(this.isLeapYear() ? 1 : 0)",
         o: "(this.getFullYear() + (this.getWeekOfYear() == 1 && this.getMonth() > 0 ? +1 : (this.getWeekOfYear() >= 52 && this.getMonth() < 11 ? -1 : 0)))",
-        Y: "this.getFullYear()",
+        Y: "String.leftPad(this.getFullYear(), 4, '0')",
         y: "('' + this.getFullYear()).substring(2, 4)",
         a: "(this.getHours() < 12 ? 'am' : 'pm')",
         A: "(this.getHours() < 12 ? 'AM' : 'PM')",
@@ -506,7 +506,8 @@ Date.formatCodes.x = "String.leftPad(this.getDate(), 2, '0')";
         s = s || 0;
         ms = ms || 0;
 
-        var dt = new Date(y, m - 1, d, h, i, s, ms);
+        // Special handling for year < 100
+        var dt = new Date(y < 100 ? 100 : y, m - 1, d, h, i, s, ms).add(Date.YEAR, y < 100 ? y - 100 : 0);
 
         return y == dt.getFullYear() &&
             m == dt.getMonth() + 1 &&
@@ -623,7 +624,8 @@ dt = Date.parseDate("2006-02-29 03:20:01", "Y-m-d H:i:s", true); // returns null
                         // these 2 values alone provide sufficient info to create a full date object
 
                         // create Date object representing January 1st for the given year
-                        "v = new Date(y, 0, 1, h, i, s, ms);",
+                        // handle years < 100 appropriately
+                        "v = new Date(y < 100 ? 100 : y, 0, 1, h, i, s, ms).add(Date.YEAR, y < 100 ? y - 100 : 0);",
 
                         // then add day of year, checking for Date "rollover" if necessary
                         "v = !strict? v : (strict === true && (z <= 364 || (v.isLeapYear() && z <= 365))? v.add(Date.DAY, z) : null);",
@@ -631,7 +633,8 @@ dt = Date.parseDate("2006-02-29 03:20:01", "Y-m-d H:i:s", true); // returns null
                         "v = null;", // invalid date, so return null
                     "}else{",
                         // plain old Date object
-                        "v = new Date(y, m, d, h, i, s, ms);",
+                        // handle years < 100 properly
+                        "v = new Date(y < 100 ? 100 : y, m, d, h, i, s, ms).add(Date.YEAR, y < 100 ? y - 100 : 0);",
                     "}",
                 "}",
             "}",

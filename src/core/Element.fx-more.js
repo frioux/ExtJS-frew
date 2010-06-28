@@ -115,6 +115,7 @@ function(){
                 data(dom, 'mask', undefined);
                 me.removeClass([XMASKED, XMASKEDRELATIVE]);
             }
+
         },
 
         /**

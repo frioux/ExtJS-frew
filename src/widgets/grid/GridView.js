@@ -344,34 +344,34 @@ viewConfig: {
      */
     initTemplates : function() {
         var templates = this.templates || {},
-            template, name;
+            template, name,
+            
+            headerCellTpl = new Ext.Template(
+                '<td class="x-grid3-hd x-grid3-cell x-grid3-td-{id} {css}" style="{style}">',
+                    '<div {tooltip} {attr} class="x-grid3-hd-inner x-grid3-hd-{id}" unselectable="on" style="{istyle}">', 
+                        this.grid.enableHdMenu ? '<a class="x-grid3-hd-btn" href="#"></a>' : '',
+                        '{value}',
+                        '<img class="x-grid3-sort-icon" src="', Ext.BLANK_IMAGE_URL, '" />',
+                    '</div>',
+                '</td>'
+            ),
         
-        var headerCellTpl = new Ext.Template(
-            '<td class="x-grid3-hd x-grid3-cell x-grid3-td-{id} {css}" style="{style}">',
-                '<div {tooltip} {attr} class="x-grid3-hd-inner x-grid3-hd-{id}" unselectable="on" style="{istyle}">', 
-                    this.grid.enableHdMenu ? '<a class="x-grid3-hd-btn" href="#"></a>' : '',
-                    '{value}',
-                    '<img class="x-grid3-sort-icon" src="', Ext.BLANK_IMAGE_URL, '" />',
-                '</div>',
-            '</td>'
-        );
+            rowBodyText = [
+                '<tr class="x-grid3-row-body-tr" style="{bodyStyle}">',
+                    '<td colspan="{cols}" class="x-grid3-body-cell" tabIndex="0" hidefocus="on">',
+                        '<div class="x-grid3-row-body">{body}</div>',
+                    '</td>',
+                '</tr>'
+            ].join(""),
         
-        var rowBodyText = [
-            '<tr class="x-grid3-row-body-tr" style="{bodyStyle}">',
-                '<td colspan="{cols}" class="x-grid3-body-cell" tabIndex="0" hidefocus="on">',
-                    '<div class="x-grid3-row-body">{body}</div>',
-                '</td>',
-            '</tr>'
-        ].join("");
-        
-        var innerText = [
-            '<table class="x-grid3-row-table" border="0" cellspacing="0" cellpadding="0" style="{tstyle}">',
-                 '<tbody>',
-                    '<tr>{cells}</tr>',
-                    this.enableRowBody ? rowBodyText : '',
-                 '</tbody>',
-            '</table>'
-        ].join("");
+            innerText = [
+                '<table class="x-grid3-row-table" border="0" cellspacing="0" cellpadding="0" style="{tstyle}">',
+                     '<tbody>',
+                        '<tr>{cells}</tr>',
+                        this.enableRowBody ? rowBodyText : '',
+                     '</tbody>',
+                '</table>'
+            ].join("");
         
         Ext.applyIf(templates, {
             hcell   : headerCellTpl,
@@ -419,11 +419,10 @@ viewConfig: {
      */
     initElements : function() {
         var Element  = Ext.Element,
-            gridEl   = this.grid.getGridEl().dom.firstChild,
-            nodes    = gridEl.childNodes,
-            mainWrap = new Element(nodes[0]),
-            mainHd   = new Element(mainWrap.dom.firstChild),
-            scroller = new Element(mainWrap.dom.childNodes[1]);
+            el       = Ext.get(this.grid.getGridEl().dom.firstChild),
+            mainWrap = new Element(el.child('div.x-grid3-viewport')),
+            mainHd   = new Element(mainWrap.child('div.x-grid3-header')),
+            scroller = new Element(mainWrap.child('div.x-grid3-scroller'));
         
         if (this.grid.hideHeaders) {
             mainHd.setDisplayed(false);
@@ -441,16 +440,16 @@ viewConfig: {
          */
         
         Ext.apply(this, {
-            el      : new Element(gridEl),
+            el      : el,
             mainWrap: mainWrap,
             mainHd  : mainHd,
             innerHd : mainHd.dom.firstChild,
             scroller: scroller,
-            mainBody: new Element(scroller.dom.firstChild),
-            focusEl : new Element(scroller.dom.childNodes[1]),
+            mainBody: new Element(Element.fly(scroller).child('div.x-grid3-body')),
+            focusEl : new Element(Element.fly(scroller).child('a')),
             
-            resizeMarker: new Element(nodes[1]),
-            resizeProxy : new Element(nodes[2])
+            resizeMarker: new Element(el.child('div.x-grid3-resize-marker')),
+            resizeProxy : new Element(el.child('div.x-grid3-resize-proxy'))
         });
         
         this.focusEl.swallowEvent('click', true);
@@ -478,7 +477,7 @@ viewConfig: {
      * @return {Number} The column index, or <b>false</b> if the target element is not within a row of this GridView.
      */
     findCellIndex : function(el, requiredCls) {
-        var cell   = this.findCell(el),
+        var cell = this.findCell(el),
             hasCls;
         
         if (cell){
@@ -682,7 +681,7 @@ viewConfig: {
             rows       = this.getRows(),
             rowCount   = rows.length,
             widths     = [],
-            length, row, rowFirstChild, trow, i, j;
+            row, rowFirstChild, trow, i, j;
         
         for (i = 0; i < colCount; i++) {
             widths[i] = this.getColumnWidth(i);
@@ -715,11 +714,11 @@ viewConfig: {
      * @param {Number} column The column index
      */
     updateColumnWidth : function(column, width) {
-        var columnWidth  = this.getColumnWidth(column),
-            totalWidth   = this.getTotalWidth(),
-            headerCell   = this.getHeaderCell(column),
-            nodes        = this.getRows(),
-            nodeCount    = nodes.length,
+        var columnWidth = this.getColumnWidth(column),
+            totalWidth  = this.getTotalWidth(),
+            headerCell  = this.getHeaderCell(column),
+            nodes       = this.getRows(),
+            nodeCount   = nodes.length,
             row, i, firstChild;
         
         this.updateHeaderWidth();
@@ -796,18 +795,20 @@ viewConfig: {
             colBuffer = [],
             rowParams = {tstyle: tstyle},
             meta = {},
+            len  = records.length,
+            alt  = [],
             column,
-            record;
+            record, i, j, rowIndex;
 
         //build up each row's HTML
-        for (var j = 0, len = records.length; j < len; j++) {
+        for (j = 0; j < len; j++) {
             record    = records[j];
             colBuffer = [];
 
-            var rowIndex = j + startRow;
+            rowIndex = j + startRow;
 
             //build up each column's HTML
-            for (var i = 0; i < colCount; i++) {
+            for (i = 0; i < colCount; i++) {
                 column = columns[i];
 
                 meta.id    = column.id;
@@ -828,8 +829,6 @@ viewConfig: {
             }
 
             //set up row striping and row dirtiness CSS classes
-            var alt = [];
-
             if (stripe && ((rowIndex + 1) % 2 === 0)) {
                 alt[0] = 'x-grid3-row-alt';
             }
@@ -894,12 +893,12 @@ viewConfig: {
     /**
      * @private
      */
-    afterRender : function(){
+    afterRender : function() {
         if (!this.ds || !this.cm) {
             return;
         }
         
-        this.mainBody.dom.innerHTML = this.renderRows() || '&#160;';
+        this.mainBody.dom.innerHTML = this.renderBody() || '&#160;';
         this.processRows(0, true);
 
         if (this.deferEmptyText !== true) {
@@ -908,27 +907,15 @@ viewConfig: {
         
         this.grid.fireEvent('viewready', this.grid);
     },
-
+    
     /**
      * @private
-     * Renders each of the UI elements in turn. This is called internally, once, by this.render. It does not
-     * render rows from the store, just the surrounding UI elements. It also sets up listeners on the UI elements
+     * This is always intended to be called after renderUI. Sets up listeners on the UI elements
      * and sets up options like column menus, moving and resizing.
      */
-    renderUI : function() {
-        var templates = this.templates,
-            header = this.renderHeaders(),
-            body = templates.body.apply({rows:'&#160;'}),
-            html = templates.master.apply({
-                body  : body,
-                header: header,
-                ostyle: 'width:' + this.getOffsetWidth() + ';',
-                bstyle: 'width:' + this.getTotalWidth()  + ';'
-            }),
-            g = this.grid;
-
-        g.getGridEl().dom.innerHTML = html;
-
+    afterRenderUI: function() {
+        var grid = this.grid;
+        
         this.initElements();
 
         // get mousedowns early
@@ -942,24 +929,25 @@ viewConfig: {
         });
 
         this.scroller.on('scroll', this.syncScroll,  this);
-        if (g.enableColumnResize !== false) {
-            this.splitZone = new Ext.grid.GridView.SplitDragZone(g, this.mainHd.dom);
+        
+        if (grid.enableColumnResize !== false) {
+            this.splitZone = new Ext.grid.GridView.SplitDragZone(grid, this.mainHd.dom);
         }
 
-        if (g.enableColumnMove) {
-            this.columnDrag = new Ext.grid.GridView.ColumnDragZone(g, this.innerHd);
-            this.columnDrop = new Ext.grid.HeaderDropZone(g, this.mainHd.dom);
+        if (grid.enableColumnMove) {
+            this.columnDrag = new Ext.grid.GridView.ColumnDragZone(grid, this.innerHd);
+            this.columnDrop = new Ext.grid.HeaderDropZone(grid, this.mainHd.dom);
         }
 
-        if (g.enableHdMenu !== false) {
-            this.hmenu = new Ext.menu.Menu({id: g.id + '-hctx'});
+        if (grid.enableHdMenu !== false) {
+            this.hmenu = new Ext.menu.Menu({id: grid.id + '-hctx'});
             this.hmenu.add(
                 {itemId:'asc',  text: this.sortAscText,  cls: 'xg-hmenu-sort-asc'},
                 {itemId:'desc', text: this.sortDescText, cls: 'xg-hmenu-sort-desc'}
             );
 
-            if (g.enableColumnHide !== false) {
-                this.colMenu = new Ext.menu.Menu({id:g.id + '-hcols-menu'});
+            if (grid.enableColumnHide !== false) {
+                this.colMenu = new Ext.menu.Menu({id:grid.id + '-hcols-menu'});
                 this.colMenu.on({
                     scope     : this,
                     beforeshow: this.beforeColMenuShow,
@@ -977,7 +965,7 @@ viewConfig: {
             this.hmenu.on('itemclick', this.handleHdMenuClick, this);
         }
 
-        if (g.trackMouseOver) {
+        if (grid.trackMouseOver) {
             this.mainBody.on({
                 scope    : this,
                 mouseover: this.onRowOver,
@@ -985,40 +973,59 @@ viewConfig: {
             });
         }
 
-        if (g.enableDragDrop || g.enableDrag) {
-            this.dragZone = new Ext.grid.GridDragZone(g, {
-                ddGroup : g.ddGroup || 'GridDD'
+        if (grid.enableDragDrop || grid.enableDrag) {
+            this.dragZone = new Ext.grid.GridDragZone(grid, {
+                ddGroup : grid.ddGroup || 'GridDD'
             });
         }
 
         this.updateHeaderSortState();
     },
 
+    /**
+     * @private
+     * Renders each of the UI elements in turn. This is called internally, once, by this.render. It does not
+     * render rows from the store, just the surrounding UI elements.
+     */
+    renderUI : function() {
+        var templates = this.templates;
+        
+        return templates.master.apply({
+            body  : templates.body.apply({rows:'&#160;'}),
+            header: this.renderHeaders(),
+            ostyle: 'width:' + this.getOffsetWidth() + ';',
+            bstyle: 'width:' + this.getTotalWidth()  + ';'
+        });
+    },
+
     // private
     processEvent : function(name, e) {
-        var t = e.getTarget(),
-            g = this.grid,
-            header = this.findHeaderIndex(t);
-        g.fireEvent(name, e);
+        var target = e.getTarget(),
+            grid   = this.grid,
+            header = this.findHeaderIndex(target),
+            row, cell, body;
+            
+        grid.fireEvent(name, e);
+        
         if (header !== false) {
-            g.fireEvent('header' + name, g, header, e);
+            grid.fireEvent('header' + name, grid, header, e);
         } else {
-            var row = this.findRowIndex(t),
-                cell,
-                body;
+            row = this.findRowIndex(target);
+            
             if (row !== false) {
-                g.fireEvent('row' + name, g, row, e);
-                cell = this.findCellIndex(t);
+                grid.fireEvent('row' + name, grid, row, e);
+                cell = this.findCellIndex(target);
+                
                 if (cell !== false) {
-                    g.fireEvent('cell' + name, g, row, cell, e);
+                    grid.fireEvent('cell' + name, grid, row, cell, e);
                 } else {
-                    body = this.findRowBody(t);
+                    body = this.findRowBody(target);
                     if (body) {
-                        g.fireEvent('rowbody' + name, g, row, e);
+                        grid.fireEvent('rowbody' + name, grid, row, e);
                     }
                 }
             } else {
-                g.fireEvent('container' + name, g, e);
+                grid.fireEvent('container' + name, grid, e);
             }
         }
     },
@@ -1038,7 +1045,7 @@ viewConfig: {
             gridWidth  = gridSize.width,
             gridHeight = gridSize.height,
             scroller   = this.scroller,
-            scrollStyle;
+            scrollStyle, headerHeight, scrollHeight;
         
         if (gridWidth < 20 || gridHeight < 20) {
             return;
@@ -1054,8 +1061,8 @@ viewConfig: {
         } else {
             this.el.setSize(gridWidth, gridHeight);
             
-            var headerHeight = this.mainHd.getHeight(),
-                scrollHeight = gridHeight - headerHeight;
+            headerHeight = this.mainHd.getHeight();
+            scrollHeight = gridHeight - headerHeight;
             
             scroller.setSize(gridWidth, scrollHeight);
             
@@ -1495,9 +1502,12 @@ viewConfig: {
         var grid          = this.grid,
             colModel      = this.cm,
             totalColWidth = colModel.getTotalWidth(false),
-            gridWidth     = grid.getGridEl().getWidth(true) - this.getScrollOffset(),
+            gridWidth     = this.getGridInnerWidth(),
             extraWidth    = gridWidth - totalColWidth,
-            i;
+            columns       = [],
+            extraCol      = 0,
+            width         = 0,
+            colWidth, fraction, i;
         
         // not initialized, so don't screw up the default widths
         if (gridWidth < 20) {
@@ -1517,11 +1527,6 @@ viewConfig: {
             omitColumn = undefined;
         }
         
-        var columns  = [],
-            extraCol = 0,
-            width    = 0,
-            colWidth;
-        
         //FIXME: the algorithm used here is odd and potentially confusing. Includes this for loop and the while after it.
         for (i = 0; i < totalColCount; i++) {
             if (!colModel.isFixed(i) && i !== omitColumn) {
@@ -1535,7 +1540,7 @@ viewConfig: {
             }
         }
         
-        var fraction = (gridWidth - colModel.getTotalWidth()) / width;
+        fraction = (gridWidth - colModel.getTotalWidth()) / width;
         
         while (columns.length) {
             colWidth = columns.pop();
@@ -1570,7 +1575,7 @@ viewConfig: {
     autoExpand : function(preventUpdate) {
         var grid             = this.grid,
             colModel         = this.cm,
-            gridWidth        = grid.getGridEl().getWidth(true) - this.getScrollOffset(),
+            gridWidth        = this.getGridInnerWidth(),
             totalColumnWidth = colModel.getTotalWidth(false),
             autoExpandColumn = grid.autoExpandColumn;
         
@@ -1591,6 +1596,14 @@ viewConfig: {
                 }
             }
         }
+    },
+    
+    /**
+     * Returns the total internal width available to the grid, taking the scrollbar into account
+     * @return {Number} The total width
+     */
+    getGridInnerWidth: function() {
+        return this.grid.getGridEl().getWidth(true) - this.getScrollOffset();
     },
 
     /**
@@ -1915,8 +1928,10 @@ viewConfig: {
         } else if (this.grid.autoExpandColumn) {
             this.autoExpand(true);
         }
-
-        this.renderUI();
+        
+        this.grid.getGridEl().dom.innerHTML = this.renderUI();
+        
+        this.afterRenderUI();
     },
 
     /* --------------------------------- Model Events and Handlers --------------------------------*/
@@ -2416,8 +2431,7 @@ Ext.grid.GridView.SplitDragZone = Ext.extend(Ext.dd.DDProxy, {
         var t = this.view.findHeaderCell(e.getTarget());
         if(t && this.allowHeaderDrag(e)){
             var xy = this.view.fly(t).getXY(), 
-                x = xy[0], 
-                y = xy[1],
+                x = xy[0],
                 exy = e.getXY(), 
                 ex = exy[0],
                 w = t.offsetWidth, 
