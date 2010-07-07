@@ -226,7 +226,7 @@ var grid = new Ext.grid.GridPanel({
 
     // private
     renderUI : function(){
-        Ext.grid.GroupingView.superclass.renderUI.call(this);
+        var markup = Ext.grid.GroupingView.superclass.renderUI.call(this);
 
         if(this.enableGroupingMenu && this.hmenu){
             this.hmenu.add('-',{
@@ -247,6 +247,7 @@ var grid = new Ext.grid.GridPanel({
             }
             this.hmenu.on('beforeshow', this.beforeMenuShow, this);
         }
+        return markup;
     },
 
     processEvent: function(name, e){

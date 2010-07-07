@@ -796,7 +796,7 @@ viewConfig: {
             rowParams = {tstyle: tstyle},
             meta = {},
             len  = records.length,
-            alt  = [],
+            alt,
             column,
             record, i, j, rowIndex;
 
@@ -828,6 +828,7 @@ viewConfig: {
                 colBuffer[colBuffer.length] = cellTemplate.apply(meta);
             }
 
+            alt = [];
             //set up row striping and row dirtiness CSS classes
             if (stripe && ((rowIndex + 1) % 2 === 0)) {
                 alt[0] = 'x-grid3-row-alt';
@@ -1821,9 +1822,9 @@ viewConfig: {
             splitZone       = me.splitZone,
             columnDrag      = me.columnDrag,
             columnDrop      = me.columnDrop,
-            columnDragData  = columnDrag.dragData,
-            columnDragProxy = columnDrag.proxy,
-            scrollToTopTask = me.scrollToTopTask;
+            scrollToTopTask = me.scrollToTopTask,
+            columnDragData,
+            columnDragProxy;
         
         if (scrollToTopTask && scrollToTopTask.cancel) {
             scrollToTopTask.cancel();
@@ -1837,6 +1838,8 @@ viewConfig: {
         Ext.fly(me.innerHd).un("click", me.handleHdDown, me);
 
         if (grid.enableColumnMove) {
+            columnDragData = columnDrag.dragData;
+            columnDragProxy = columnDrag.proxy;
             Ext.destroy(
                 columnDrag.el,
                 columnDragProxy.ghost,

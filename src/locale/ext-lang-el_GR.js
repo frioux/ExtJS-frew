@@ -290,7 +290,7 @@ if(Ext.grid.PropertyColumnModel){
    Ext.apply(Ext.grid.PropertyColumnModel.prototype, {
       nameText   : "Όνομα",
       valueText  : "Περιεχόμενο",
-      dateFormat : "m/d/Y"
+      dateFormat : "d/m/Y"
    });
 }
 

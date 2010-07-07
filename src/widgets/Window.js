@@ -993,7 +993,7 @@ Ext.Window.DD = Ext.extend(Ext.dd.DD, {
     headerOffsets:[100, 25],
     startDrag : function(){
         var w = this.win;
-        this.proxy = w.ghost();
+        this.proxy = w.ghost(w.initialConfig.cls);
         if(w.constrain !== false){
             var so = w.el.shadowOffset;
             this.constrainTo(w.container, {right: so, left: so, bottom: so});

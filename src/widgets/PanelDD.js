@@ -71,7 +71,7 @@ Ext.dd.PanelProxy  = Ext.extend(Object, {
      */
     show : function(){
         if(!this.ghost){
-            this.ghost = this.panel.createGhost(undefined, undefined, Ext.getBody());
+            this.ghost = this.panel.createGhost(this.panel.initialConfig.cls, undefined, Ext.getBody());
             this.ghost.setXY(this.panel.el.getXY());
             if(this.insertProxy){
                 this.proxy = this.panel.el.insertSibling({cls:'x-panel-dd-spacer'});

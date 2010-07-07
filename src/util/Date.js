@@ -678,7 +678,7 @@ dt = Date.parseDate("2006-02-29 03:20:01", "Y-m-d H:i:s", true); // returns null
                 }
             }
 
-            Date.parseRegexes[regexNum] = new RegExp("^" + regex.join('') + "$");
+            Date.parseRegexes[regexNum] = new RegExp("^" + regex.join('') + "$", 'i');
             Date.parseFunctions[format] = new Function("input", "strict", xf(code, regexNum, calc.join('')));
         }
     }(),
@@ -788,19 +788,24 @@ dt = Date.parseDate("2006-02-29 03:20:01", "Y-m-d H:i:s", true); // returns null
                 + "y = ty > Date.y2kYear ? 1900 + ty : 2000 + ty;\n", // 2-digit year
             s:"(\\d{1,2})"
         },
+        /**
+         * In the am/pm parsing routines, we allow both upper and lower case 
+         * even though it doesn't exactly match the spec. It gives much more flexibility
+         * in being able to specify case insensitive regexes.
+         */
         a: {
             g:1,
-            c:"if (results[{0}] == 'am') {\n"
+            c:"if (/(am)/i.test(results[{0}])) {\n"
                 + "if (!h || h == 12) { h = 0; }\n"
                 + "} else { if (!h || h < 12) { h = (h || 0) + 12; }}",
-            s:"(am|pm)"
+            s:"(am|pm|AM|PM)"
         },
         A: {
             g:1,
-            c:"if (results[{0}] == 'AM') {\n"
+            c:"if (/(am)/i.test(results[{0}])) {\n"
                 + "if (!h || h == 12) { h = 0; }\n"
                 + "} else { if (!h || h < 12) { h = (h || 0) + 12; }}",
-            s:"(AM|PM)"
+            s:"(AM|PM|am|pm)"
         },
         g: function() {
             return $f("G");

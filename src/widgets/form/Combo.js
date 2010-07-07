@@ -726,10 +726,10 @@ var menu = new Ext.menu.Menu({
     },
 
     reset : function(){
-        Ext.form.ComboBox.superclass.reset.call(this);
         if(this.clearFilterOnReset && this.mode == 'local'){
             this.store.clearFilter();
         }
+        Ext.form.ComboBox.superclass.reset.call(this);
     },
 
     // private
@@ -1237,13 +1237,13 @@ myCombo.keyNav.tab = function() {   // Override TAB handling function
 
     // private
     getParams : function(q){
-        var p = {};
-        //p[this.queryParam] = q;
+        var params = {},
+            paramNames = this.store.paramNames;
         if(this.pageSize){
-            p.start = 0;
-            p.limit = this.pageSize;
+            params[paramNames.start] = 0;
+            params[paramNames.limit] = this.pageSize;
         }
-        return p;
+        return params;
     },
 
     /**

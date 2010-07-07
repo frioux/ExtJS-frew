@@ -124,7 +124,7 @@ Ext.ux.tree.TreeGrid = Ext.extend(Ext.tree.TreePanel, {
         this.colgroupTpl.insertFirst(this.innerCt, {columns: this.columns});
         
         if(this.hideHeaders){
-            this.header.dom.style.display = 'none';
+            this.el.child('.x-grid3-header').setDisplayed('none');
         }
         else if(this.enableHdMenu !== false){
             this.hmenu = new Ext.menu.Menu({id: this.id + '-hctx'});

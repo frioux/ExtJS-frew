@@ -325,3 +325,15 @@ if(Ext.form.TimeField){
     format : "H:i"
    });
 }
+
+if(Ext.form.CheckboxGroup){
+  Ext.apply(Ext.form.CheckboxGroup.prototype, {
+    blankText : "Du mußt mehr als einen Eintrag aus der Gruppe auswählen"
+  });
+}
+
+if(Ext.form.RadioGroup){
+  Ext.apply(Ext.form.RadioGroup.prototype, {
+    blankText : "Du mußt einen Eintrag aus der Gruppe auswählen"
+  });
+}

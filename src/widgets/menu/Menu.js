@@ -288,7 +288,7 @@ Ext.menu.Menu = Ext.extend(Ext.Container, {
         var items = this.items;
         for(var i = start, len = items.length; i >= 0 && i < len; i+= step){
             var item = items.get(i);
-            if(!item.disabled && (item.canActivate || item.isFormField)){
+            if(item.isVisible() && !item.disabled && (item.canActivate || item.isFormField)){
                 this.setActiveItem(item, false);
                 return item;
             }

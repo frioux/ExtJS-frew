@@ -168,6 +168,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
              */
             'editmodechange'
         );
+        Ext.form.HtmlEditor.superclass.initComponent.call(this);
     },
 
     // private
@@ -776,7 +777,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
     },
 
     // private
-    onDestroy : function(){
+    beforeDestroy : function(){
         if(this.monitorTask){
             Ext.TaskMgr.stop(this.monitorTask);
         }
@@ -796,12 +797,7 @@ Ext.form.HtmlEditor = Ext.extend(Ext.form.Field, {
                 this.wrap.remove();
             }
         }
-
-        if(this.el){
-            this.el.removeAllListeners();
-            this.el.remove();
-        }
-        this.purgeListeners();
+        Ext.form.HtmlEditor.superclass.beforeDestroy.call(this);
     },
 
     // private

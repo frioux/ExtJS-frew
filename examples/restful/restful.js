@@ -85,7 +85,6 @@ Ext.onReady(function() {
         iconCls: 'icon-grid',
         frame: true,
         title: 'Users',
-        autoScroll: true,
         height: 300,
         store: store,
         plugins: [editor],
