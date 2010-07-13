@@ -48,7 +48,7 @@ Ext.ux.tree.TreeGridSorter = Ext.extend(Ext.tree.TreeSorter, {
         tree.on('headerclick', this.onHeaderClick, this);
         tree.ddAppendOnly = true;
 
-        me = this;
+        var me = this;
         this.defaultSortFn = function(n1, n2){
 
             var desc = me.dir && me.dir.toLowerCase() == 'desc',

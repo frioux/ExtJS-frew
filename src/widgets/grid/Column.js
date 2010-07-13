@@ -248,9 +248,6 @@ var grid = new Ext.grid.GridPanel({
      * @type Function
      */
     renderer : function(value){
-        if(Ext.isString(value) && value.length < 1){
-            return '&#160;';
-        }
         return value;
     },
 

@@ -1371,7 +1371,7 @@ new Ext.Panel({
         if(delay){
             this.focusTask = new Ext.util.DelayedTask(this.focus, this, [selectText, false]);
             this.focusTask.delay(Ext.isNumber(delay) ? delay : 10);
-            return;
+            return this;
         }
         if(this.rendered && !this.isDestroyed){
             this.el.focus();

@@ -56,7 +56,7 @@ Ext.onReady(function(){
         plugins: new Ext.slider.Tip()
     });
     
-    new Ext.Slider({
+    new Ext.slider.MultiSlider({
         renderTo: 'multi-slider-horizontal',
         width   : 214,
         minValue: 0,
@@ -65,7 +65,7 @@ Ext.onReady(function(){
         plugins : new Ext.slider.Tip()
     });
     
-    new Ext.Slider({
+    new Ext.slider.MultiSlider({
         renderTo : 'multi-slider-vertical',
         vertical : true,
         height   : 214,
