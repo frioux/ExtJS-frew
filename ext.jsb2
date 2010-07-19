@@ -204,6 +204,9 @@
             "text": "MixedCollection.js",
             "path": "src/util/"
         },{
+            "text": "AbstractManager.js",
+            "path": "src/util/"
+        },{
             "text": "Format.js",
             "path": "src/util/"
         },{
@@ -818,7 +821,16 @@
             "text": "GridPanel.js",
             "path": "src/widgets/grid/"
         },{
+            "text": "PivotGrid.js",
+            "path": "src/widgets/grid/"
+        },{
             "text": "GridView.js",
+            "path": "src/widgets/grid/"
+        },{
+            "text": "PivotGridView.js",
+            "path": "src/widgets/grid/"
+        },{
+            "text": "PivotAxis.js",
             "path": "src/widgets/grid/"
         },{
             "text": "ColumnDD.js",
@@ -1178,6 +1190,9 @@
            "text": "grid.css",
            "path": "resources/css/structure/"
        },{
+           "text": "pivotgrid.css",
+           "path": "resources/css/structure/"
+       },{
            "text": "dd.css",
            "path": "resources/css/structure/"
        },{
@@ -1253,6 +1268,9 @@
        },{
            "text": "grid.css",
            "path": "resources/css/visual/"
+       },{
+          "text": "pivotgrid.css",
+          "path": "resources/css/visual/"
        },{
            "text": "dd.css",
            "path": "resources/css/visual/"

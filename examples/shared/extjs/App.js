@@ -4,21 +4,23 @@
  * @author Chris Scott
  */
 Ext.App = function(config) {
-
-    // set up StateProvider
-    this.initStateProvider();
-
-    // array of views
     this.views = [];
-
+    
+    this.initStateProvider();
+    
     Ext.apply(this, config);
-    if (!this.api.actions) { this.api.actions = {}; }
-
+    
+    if (!this.api.actions) {
+        this.api.actions = {};
+    }
+    
     // init when onReady fires.
-    Ext.onReady(this.onReady, this);
-
+    // Ext.onReady(this.onReady, this);
+    this.onReady();
+    
     Ext.App.superclass.constructor.apply(this, arguments);
-}
+};
+
 Ext.extend(Ext.App, Ext.util.Observable, {
 
     /***

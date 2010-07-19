@@ -717,7 +717,7 @@ function(grid, rowIndex, columnIndex, e) {
         Ext.grid.GridPanel.superclass.afterRender.call(this);
         var v = this.view;
         this.on('bodyresize', v.layout, v);
-        v.layout();
+        v.layout(true);
         if(this.deferRowRender){
             if (!this.deferRowRenderTask){
                 this.deferRowRenderTask = new Ext.util.DelayedTask(v.afterRender, this.view);

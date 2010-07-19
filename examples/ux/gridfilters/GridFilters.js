@@ -722,6 +722,9 @@ filters[0][data][value]="someValue3"&
             case 'float':
               type = 'numeric';
               break;
+            case 'bool':
+              type = 'boolean';
+              break;
         }
         return Ext.ux.grid.filter[type.substr(0, 1).toUpperCase() + type.substr(1) + 'Filter'];
     }

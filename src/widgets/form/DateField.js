@@ -18,9 +18,9 @@ Ext.form.DateField = Ext.extend(Ext.form.TriggerField,  {
      * @cfg {String} altFormats
      * Multiple date formats separated by "<tt>|</tt>" to try when parsing a user input value and it
      * does not match the defined format (defaults to
-     * <tt>'m/d/Y|n/j/Y|n/j/y|m/j/y|n/d/y|m/j/Y|n/d/Y|m-d-y|m-d-Y|m/d|m-d|md|mdy|mdY|d|Y-m-d'</tt>).
+     * <tt>'m/d/Y|n/j/Y|n/j/y|m/j/y|n/d/y|m/j/Y|n/d/Y|m-d-y|m-d-Y|m/d|m-d|md|mdy|mdY|d|Y-m-d|n-j|n/j'</tt>).
      */
-    altFormats : "m/d/Y|n/j/Y|n/j/y|m/j/y|n/d/y|m/j/Y|n/d/Y|m-d-y|m-d-Y|m/d|m-d|md|mdy|mdY|d|Y-m-d",
+    altFormats : "m/d/Y|n/j/Y|n/j/y|m/j/y|n/d/y|m/j/Y|n/d/Y|m-d-y|m-d-Y|m/d|m-d|md|mdy|mdY|d|Y-m-d|n-j|n/j",
     /**
      * @cfg {String} disabledDaysText
      * The tooltip to display when the date falls on a disabled day (defaults to <tt>'Disabled'</tt>)
@@ -126,7 +126,9 @@ disabledDates: ["^03"]
             // set time to 12 noon, then clear the time
             var parsedDate = Date.parseDate(value + ' ' + this.initTime, format + ' ' + this.initTimeFormat);
 
-            if (parsedDate) return parsedDate.clearTime();
+            if (parsedDate) {
+                return parsedDate.clearTime();
+            }
         }
     },
 

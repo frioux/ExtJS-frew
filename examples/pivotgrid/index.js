@@ -1,6 +1,8 @@
+Ext.ns('pivot');
+
 Ext.onReady(function() {
     var SaleRecord = Ext.data.Record.create([
-        {name: 'id',       type: 'int'},
+        {name: 'person',   type: 'string'},
         {name: 'product',  type: 'string'},
         {name: 'city',     type: 'string'},
         {name: 'state',    type: 'string'},
@@ -8,11 +10,12 @@ Ext.onReady(function() {
         {name: 'quarter',  type: 'int'},
         {name: 'year',     type: 'int'},
         {name: 'quantity', type: 'int'},
-        {name: 'sales',    type: 'int'}
+        {name: 'value',    type: 'int'}
     ]);
     
     var myStore = new Ext.data.Store({
-        data: {rows: buildData(100)},
+        url: 'data.json',
+        autoLoad: true,
         reader: new Ext.data.JsonReader({
             root: 'rows',
             idProperty: 'id'
@@ -22,140 +25,75 @@ Ext.onReady(function() {
     var pivotGrid = new Ext.grid.PivotGrid({
         store     : myStore,
         aggregator: 'sum',
-        measure   : 'sales',
-        
-        viewConfig: {
-            forceFit: true
-        },
-        
-        columns: [
-            {dataIndex: 'product',  header: 'Product'},
-            {dataIndex: 'city',     header: 'City'},
-            {dataIndex: 'state',    header: 'State'},
-            {dataIndex: 'month',    header: 'Month'},
-            {dataIndex: 'quarter',  header: 'Quarter'},
-            {dataIndex: 'year',     header: 'Year'},
-            {dataIndex: 'quantity', header: 'Quantity'},
-            {dataIndex: 'sales',    header: 'Sales'}
-        ],
+        measure   : 'value',
         
         leftAxis: [
             {
-                title: 'Region',
-                dataIndex: 'region'
-            },
-            {
-                title: 'Product',
+                width: 60,
                 dataIndex: 'product'
             },
             {
-                title: 'Salesperson',
+                width: 80,
+                dataIndex: 'city'
+            },
+            {
+                width: 120,
                 dataIndex: 'person'
             }
         ],
         
         topAxis: [
             {
-                title: 'Year',
                 dataIndex: 'year'
             },
             {
-                title: 'Quarter',
                 dataIndex: 'quarter'
             }
-        ]
+        ],
+        
+        region: 'center'
     });
     
-    var win = new Ext.Window({
-        title   : 'Sales by Region',
-        height  : 400,
-        width   : 1000,
-        items   : pivotGrid,
-        layout  : 'fit',
-        closable: false
-    });
-    
-    win.show();
-    
-    // var schema = new Ext.data.OlapSchema({
-    //         dimensions: [
-    //             {
-    //                 name: 'Customer',
-    //                 dataIndex: 'customer',
-    //                 //default
-    //                 hierarchy: 'customer'
-    //             },
-    //             {
-    //                 name: 'Time',
-    //                 dataIndex: 'quarter',
-    //                 hierarchy: [
-    //                     {
-    //                         name: 'month',
-    //                         dataIndex: 'month'
-    //                     },
-    //                     {
-    //                         name: 'quarter',
-    //                         dataIndex: 'quarter'
-    //                     },
-    //                     {
-    //                         name: 'year',
-    //                         dataIndex: 'year'
-    //                     }
-    //                 ]
-    //             },
-    //             {
-    //                 name: 'Location',
-    //                 dataIndex: 'city',
-    //                 hierarchy: [
-    //                     {
-    //                         name: 'city',
-    //                         dataIndex: 'city'
-    //                     },
-    //                     {
-    //                         name: 'state',
-    //                         dataIndex: 'state'
-    //                     }
-    //                 ]
-    //             }
-    //         ],
-    //         measures: [
-    //             {
-    //                 name: 'Revenue',
-    //                 dataIndex: 'revenue',
-    //                 aggregator: 'sum'
-    //             }
-    //         ]
-    //     });
-    //     
-    //     var pivotGrid = new Ext.grid.PivotGrid({
-    //         store : myStore,
-    //         schema: schema
-    //     });
-    
-    
-    function buildData(count) {
-        count = count || 1000;
+    var configPanel = new pivot.ConfigPanel({
+        width : 300,
+        region: 'west',
+        record: SaleRecord,
+        measures: ['value', 'quantity'],
+        aggregator: 'sum',
         
-        var products = ['Ladder', 'Spanner', 'Chair', 'Hammer'],
-            states   = ['CA', 'NY', 'UK', 'AZ', 'TX'],
-            cities   = ['San Francisco', 'Palo Alto', 'London', 'Austin'],
-            records  = [],
-            i;
+        leftAxisDimensions: [
+            {field: 'product', width: 60,  direction: 'ASC'},
+            {field: 'city',    width: 80,  direction: 'ASC'},
+            {field: 'person',  width: 120, direction: 'ASC'}
+        ],
         
-        for (i = 0; i < count; i++) {
-            records.push({
-                id      : i + 1,
-                product : products[Math.floor(Math.random() * products.length)],
-                city    : cities[Math.floor(Math.random() * cities.length)],
-                state   : states[Math.floor(Math.random() * states.length)],
-                quantity: Math.floor(Math.random() * 10000),
-                sales   : Math.floor(Math.random() * 50),
-                month   : Math.ceil(Math.random() * 12),
-                quarter : Math.ceil(Math.random() * 4),
-                year    : 2010 - Math.floor(Math.random() * 5)
-            });
+        topAxisDimensions: [
+            {field: 'year',    direction: 'ASC'},
+            {field: 'quarter', direction: 'ASC'}
+        ],
+        
+        listeners: {
+            update: function(config) {
+                pivotGrid.leftAxis.setDimensions(config.leftDimensions);
+                pivotGrid.topAxis.setDimensions(config.topDimensions);
+                
+                pivotGrid.setMeasure(config.measure);
+                pivotGrid.setAggregator(config.aggregator);
+                
+                pivotGrid.view.refresh(true);
+            }
         }
-        
-        return records;
-    };
+    });
+    
+    var viewport = new Ext.Viewport({
+        layout: 'fit',
+        items: {
+            title : 'Ext JS Pivot Grid',
+            layout: 'border',
+            items : [
+                configPanel,
+                pivotGrid
+            ]
+        }
+    }); 
 });

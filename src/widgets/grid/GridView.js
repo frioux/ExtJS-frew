@@ -480,7 +480,7 @@ viewConfig: {
         var cell = this.findCell(el),
             hasCls;
         
-        if (cell){
+        if (cell) {
             hasCls = this.fly(cell).hasClass(requiredCls);
             if (!requiredCls || hasCls) {
                 return this.getCellIndex(cell);
@@ -990,7 +990,7 @@ viewConfig: {
      */
     renderUI : function() {
         var templates = this.templates;
-        
+
         return templates.master.apply({
             body  : templates.body.apply({rows:'&#160;'}),
             header: this.renderHeaders(),
@@ -1004,25 +1004,30 @@ viewConfig: {
         var target = e.getTarget(),
             grid   = this.grid,
             header = this.findHeaderIndex(target),
-            row, cell, body;
-            
+            row, cell, col, body;
+
         grid.fireEvent(name, e);
-        
+
         if (header !== false) {
             grid.fireEvent('header' + name, grid, header, e);
         } else {
             row = this.findRowIndex(target);
-            
+
+//          Grid's value-added events must bubble correctly to allow cancelling via returning false: cell->column->row
+//          We must allow a return of false at any of these levels to cancel the event processing.
+//          Particularly allowing rowmousedown to be cancellable by prior handlers which need to prevent selection.
             if (row !== false) {
-                grid.fireEvent('row' + name, grid, row, e);
                 cell = this.findCellIndex(target);
-                
                 if (cell !== false) {
-                    grid.fireEvent('cell' + name, grid, row, cell, e);
+                    col = grid.colModel.getColumnAt(cell);
+                    if (grid.fireEvent('cell' + name, grid, row, cell, e) !== false) {
+                        if (!col || (col.processEvent && (col.processEvent(name, e, grid, row, cell) !== false))) {
+                            grid.fireEvent('row' + name, grid, row, e);
+                        }
+                    }
                 } else {
-                    body = this.findRowBody(target);
-                    if (body) {
-                        grid.fireEvent('rowbody' + name, grid, row, e);
+                    if (grid.fireEvent('row' + name, grid, row, e) !== false) {
+                        (body = this.findRowBody(target)) && grid.fireEvent('rowbody' + name, grid, row, e);
                     }
                 }
             } else {
@@ -1035,11 +1040,11 @@ viewConfig: {
      * @private
      * Sizes the grid's header and body elements
      */
-    layout : function() {
+    layout : function(initial) {
         if (!this.mainBody) {
             return; // not rendered
         }
-        
+
         var grid       = this.grid,
             gridEl     = grid.getGridEl(),
             gridSize   = gridEl.getSize(true),
@@ -1072,7 +1077,7 @@ viewConfig: {
             }
         }
         
-        if (this.forceFit) {
+        if (this.forceFit || (initial === true && this.autoFill)) {
             if (this.lastViewWidth != gridWidth) {
                 this.fitColumns(false, false);
                 this.lastViewWidth = gridWidth;
@@ -1447,7 +1452,7 @@ viewConfig: {
             style     = isHeader ? '' : colConfig[colIndex].css || '',
             align     = colConfig[colIndex].align;
         
-        style += String.format("width: {0};", this.getColumnWidth(colIndex));
+        style += String.format("width: {0}px;", this.getColumnWidth(colIndex));
         
         if (colModel.isHidden(colIndex)) {
             style += 'display: none';
@@ -1483,7 +1488,7 @@ viewConfig: {
 
     /**
      * @private
-     * Returns the total width of all visibile columns
+     * Returns the total width of all visible columns
      * @return {String} 
      */
     getTotalWidth : function() {
@@ -1616,13 +1621,14 @@ viewConfig: {
         var columns  = [],
             colModel = this.cm,
             colCount = colModel.getColumnCount(),
+            fields   = this.ds.fields,
             i, name;
         
         for (i = 0; i < colCount; i++) {
             name = colModel.getDataIndex(i);
             
             columns[i] = {
-                name    : Ext.isDefined(name) ? name : this.ds.fields.get(i).name,
+                name    : Ext.isDefined(name) ? name : (fields.get(i) ? fields.get(i).name : undefined),
                 renderer: colModel.getRenderer(i),
                 scope   : colModel.getRendererScope(i),
                 id      : colModel.getColumnId(i),
@@ -1707,11 +1713,12 @@ viewConfig: {
             meta = {
                 id      : column.id,
                 style   : column.style,
-                value   : column.renderer.call(column.scope, record.data[column.name], meta, record, rowIndex, i, store),
                 css     : css,
                 attr    : "",
                 cellAttr: ""
             };
+            // Need to set this after, because we pass meta to the renderer
+            meta.value = column.renderer.call(column.scope, record.data[column.name], meta, record, rowIndex, i, store);
             
             if (Ext.isEmpty(meta.value)) {
                 meta.value = '&#160;';
@@ -1922,9 +1929,8 @@ viewConfig: {
                 ct.on('afterlayout', function() {
                     this.fitColumns(true, true);
                     this.updateHeaders();
+                    this.updateHeaderSortState();
                 }, this, {single: true});
-            } else {
-                this.fitColumns(true, true);
             }
         } else if (this.forceFit) {
             this.fitColumns(true, false);
@@ -2005,7 +2011,7 @@ viewConfig: {
 
     // private
     onDataChange : function(){
-        this.refresh();
+        this.refresh(true);
         this.updateHeaderSortState();
         this.syncFocusEl(0);
     },
@@ -2113,7 +2119,7 @@ viewConfig: {
     onRowOver : function(e, target) {
         var row = this.findRowIndex(target);
         
-        if (row) {
+        if (row !== false) {
             this.addRowClass(row, this.rowOverCls);
         }
     },
@@ -2125,7 +2131,7 @@ viewConfig: {
     onRowOut : function(e, target) {
         var row = this.findRowIndex(target);
         
-        if (row && !e.within(this.getRow(row), true)) {
+        if (row !== false && !e.within(this.getRow(row), true)) {
             this.removeRowClass(row, this.rowOverCls);
         }
     },
@@ -2393,7 +2399,7 @@ viewConfig: {
 // private
 // This is a support class used internally by the Grid components
 Ext.grid.GridView.SplitDragZone = Ext.extend(Ext.dd.DDProxy, {
-    
+
     constructor: function(grid, hd){
         this.grid = grid;
         this.view = grid.getView();

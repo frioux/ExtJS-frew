@@ -386,7 +386,10 @@ Ext.form.CompositeField = Ext.extend(Ext.form.Field, {
 
     //override the behaviour to check sub items.
     setReadOnly : function(readOnly) {
-        readOnly = readOnly || true;
+        if (readOnly == undefined) {
+            readOnly = true;
+        }
+        readOnly = !!readOnly;
 
         if(this.rendered){
             this.eachItem(function(item){

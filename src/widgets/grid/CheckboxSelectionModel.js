@@ -39,10 +39,10 @@ Ext.grid.CheckboxSelectionModel = Ext.extend(Ext.grid.RowSelectionModel, {
     hideable: false,
     dataIndex : '',
     id : 'checker',
+    isColumn: true, // So that ColumnModel doesn't feed this through the Column constructor
 
     constructor : function(){
         Ext.grid.CheckboxSelectionModel.superclass.constructor.apply(this, arguments);
-
         if(this.checkOnly){
             this.handleMouseDown = Ext.emptyFn;
         }
@@ -52,18 +52,21 @@ Ext.grid.CheckboxSelectionModel = Ext.extend(Ext.grid.RowSelectionModel, {
     initEvents : function(){
         Ext.grid.CheckboxSelectionModel.superclass.initEvents.call(this);
         this.grid.on('render', function(){
-            var view = this.grid.getView();
-            view.mainBody.on('mousedown', this.onMouseDown, this);
-            Ext.fly(view.innerHd).on('mousedown', this.onHdMouseDown, this);
-
+            Ext.fly(this.grid.getView().innerHd).on('mousedown', this.onHdMouseDown, this);
         }, this);
     },
 
-    // If handleMouseDown was called from another event (enableDragDrop), set a flag so
-    // onMouseDown does not process it a second time
-    handleMouseDown : function() {
-        Ext.grid.CheckboxSelectionModel.superclass.handleMouseDown.apply(this, arguments);
-        this.mouseHandled = true;
+    /**
+     * @private
+     * Process and refire events routed from the GridView's processEvent method.
+     */
+    processEvent : function(name, e, grid, rowIndex, colIndex){
+        if (name == 'mousedown') {
+            this.onMouseDown(e, e.getTarget());
+            return false;
+        } else {
+            return Ext.grid.Column.prototype.processEvent.apply(this, arguments);
+        }
     },
 
     // private
@@ -71,9 +74,7 @@ Ext.grid.CheckboxSelectionModel = Ext.extend(Ext.grid.RowSelectionModel, {
         if(e.button === 0 && t.className == 'x-grid3-row-checker'){ // Only fire if left-click
             e.stopEvent();
             var row = e.getTarget('.x-grid3-row');
-
-            // mouseHandled flag check for a duplicate selection (handleMouseDown) call
-            if(!this.mouseHandled && row){
+            if(row){
                 var index = row.rowIndex;
                 if(this.isSelected(index)){
                     this.deselectRow(index);
@@ -83,11 +84,10 @@ Ext.grid.CheckboxSelectionModel = Ext.extend(Ext.grid.RowSelectionModel, {
                 }
             }
         }
-        this.mouseHandled = false;
     },
 
     // private
-    onHdMouseDown : function(e, t){
+    onHdMouseDown : function(e, t) {
         if(t.className == 'x-grid3-hd-checker'){
             e.stopEvent();
             var hd = Ext.fly(t.parentNode);

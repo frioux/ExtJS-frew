@@ -3,46 +3,60 @@ Ext.ns('Ext.samples');
 
 Ext.samples.samplesCatalog = [{
     title: 'Combination Examples',
-    samples: [{
-        text: 'Feed Viewer',
-        url:  'feed-viewer/view.html',
-        icon: 'feeds.gif',
-        desc: 'RSS feed reader example application that features a swappable reader panel layout.'
-    },{
-        text: 'Web Desktop',
-        url:  'desktop/desktop.html',
-        icon: 'desktop.gif',
-        desc: 'Demonstrates how one could build a desktop in the browser using Ext components including a module plugin system.'
-    }/*,{
-        text: 'Image Organizer',
-        url:  'image-organizer/index.html',
-        icon: 'image-organizer.gif',
-        desc: 'Image management application example utilizing MySQL lite and Ext.Direct.',
-        status: 'new'
-    }*/,{
-        text: 'Ext JS API Documentation',
-        url:  '../docs/index.html',
-        icon: 'docs.gif',
-        desc: 'API Documentation application.',
-        status: 'updated'
-    },{
-        text: 'Ext JS Forum Browser',
-        url:  'forum/forum.html',
-        icon: 'forum.gif',
-        desc: 'Ext JS online forums browser application.',
-        status: 'modified'
-    },{
-        text: 'Image Viewer',
-        url:  'organizer/organizer.html',
-        icon: 'organizer.gif',
-        desc: 'DataView and TreePanel example that demonstrates dragging data items from a DataView into a TreePanel.'
-    },{
-        text: 'Themes Viewer',
-        url:  'themes/index.html',
-        icon: 'themes.gif',
-        desc: 'View and test every Ext component against bundled Ext themes, or, your own custom themes.',
-        status: 'new'
-    }]
+    samples: [
+        {
+            text: 'Feed Viewer',
+            url:  'feed-viewer/view.html',
+            icon: 'feeds.gif',
+            desc: 'RSS feed reader example application that features a swappable reader panel layout.'
+        },
+        {
+            text: 'Web Desktop',
+            url:  'desktop/desktop.html',
+            icon: 'desktop.gif',
+            desc: 'Demonstrates how one could build a desktop in the browser using Ext components including a module plugin system.'
+        },
+        /*{
+            text: 'Image Organizer',
+            url:  'image-organizer/index.html',
+            icon: 'image-organizer.gif',
+            desc: 'Image management application example utilizing MySQL lite and Ext.Direct.',
+            status: 'new'
+        }*/
+        {
+            text: 'Ext JS Calendar',
+            url:  'calendar/index.html',
+            icon: 'calendar.gif',
+            desc: 'Example Calendar application. Demonstrates the new Day, Week and Month views and how to combine them.',
+            status: 'new'
+        },
+        {
+            text: 'Ext JS API Documentation',
+            url:  '../docs/index.html',
+            icon: 'docs.gif',
+            desc: 'API Documentation application.'
+        },
+        {
+            text: 'Ext JS Forum Browser',
+            url:  'forum/forum.html',
+            icon: 'forum.gif',
+            desc: 'Ext JS online forums browser application.',
+            status: 'modified'
+        },
+        {
+            text: 'Image Viewer',
+            url:  'organizer/organizer.html',
+            icon: 'organizer.gif',
+            desc: 'DataView and TreePanel example that demonstrates dragging data items from a DataView into a TreePanel.'
+        },
+        {
+            text: 'Themes Viewer',
+            url:  'themes/index.html',
+            icon: 'themes.gif',
+            desc: 'View and test every Ext component against bundled Ext themes, or, your own custom themes.',
+            status: 'new'
+        }
+    ]
 },{
     title: 'Offline Support',
     samples: [{
@@ -89,6 +103,13 @@ Ext.samples.samplesCatalog = [{
         url:  'grid/array-grid.html',
         icon: 'grid-array.gif',
         desc: 'A basic read-only grid loaded from local array data that demonstrates the use of custom column renderer functions.'
+    },
+    {
+        text: 'Pivot Grid',
+        url:  'pivotgrid/index.html',
+        icon: 'pivotgrid.gif',
+        desc: 'The powerful new PivotGrid component, demonstrating data reduction and analysis capabilities.',
+        status: 'new'
     },{
         text: 'Property Grid',
         url:  'grid/property-grid.html',

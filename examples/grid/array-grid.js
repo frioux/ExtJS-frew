@@ -1,4 +1,5 @@
 Ext.onReady(function(){
+    Ext.QuickTips.init();
 
     // NOTE: This is an example showing simple state management. During development,
     // it is generally best to disable state management as dynamically-generated ids
@@ -84,6 +85,25 @@ Ext.onReady(function(){
         store: store,
         columns: [
             {id:'company',header: 'Company', width: 160, sortable: true, dataIndex: 'company'},
+            {
+                xtype: 'actioncolumn',
+                width: 50,
+                items: [{
+                    icon: '../shared/icons/fam/delete.gif',  // Use a URL in the icon config
+                    handler: function(grid, rowIndex, colIndex) {
+                        var rec = store.getAt(rowIndex);
+                        alert("Sell " + rec.get('company'));
+                    },
+                    tooltip: 'Sell stock'
+                }, {
+                    iconCls: 'buy-col',                      // Or use a class in the iconCls config
+                    handler: function(grid, rowIndex, colIndex) {
+                    var rec = store.getAt(rowIndex);
+                        alert("Buy " + rec.get('company'));
+                    },
+                    tooltip: 'Buy stock'
+                }]
+            },
             {header: 'Price', width: 75, sortable: true, renderer: 'usMoney', dataIndex: 'price'},
             {header: 'Change', width: 75, sortable: true, renderer: change, dataIndex: 'change'},
             {header: '% Change', width: 75, sortable: true, renderer: pctChange, dataIndex: 'pctChange'},
@@ -96,9 +116,9 @@ Ext.onReady(function(){
         title: 'Array Grid',
         // config options for stateful behavior
         stateful: true,
-        stateId: 'grid'        
+        stateId: 'grid'
     });
-    
+
     // render the grid to the specified div in the page
     grid.render('grid-example');
 });

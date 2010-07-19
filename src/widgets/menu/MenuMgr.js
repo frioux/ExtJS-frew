@@ -158,7 +158,7 @@ Ext.menu.MenuMgr = function(){
        
        // private
        onCheckChange: function(item, state){
-           if(state){
+           if(item.group && state){
                var group = groups[item.group],
                    i = 0,
                    len = group.length,

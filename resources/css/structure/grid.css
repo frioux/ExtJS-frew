@@ -65,6 +65,12 @@
     white-space: nowrap;
 }
 
+/* ActionColumn, reduce padding to accommodate 16x16 icons in normal row height */
+.x-action-col-cell .x-grid3-cell-inner {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
 .x-grid3-hd-inner {
     position:relative;
 	cursor:inherit;
