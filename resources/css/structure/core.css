@@ -62,6 +62,16 @@
     display:none !important;
 }
 
+.x-hide-nosize,
+.x-hide-nosize *    /* Emulate display:none for children */
+ {
+   height:0px!important;
+   width:0px!important;
+   visibility:hidden!important;
+   border:none!important;
+   zoom:1;
+}
+
 .x-hide-visibility {
     visibility:hidden !important;
 }

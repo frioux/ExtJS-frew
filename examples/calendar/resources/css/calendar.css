@@ -717,7 +717,6 @@ td.ext-cal-dtitle-today div {
 /*******************************************
  * 
  * Calendar navigation picker styles
- * TODO: make image urls relative
  * 
  ******************************************/
 .ext-cal-nav-picker {
@@ -727,13 +726,13 @@ td.ext-cal-dtitle-today div {
 .ext-cal-nav-picker .x-date-left,
 .ext-cal-nav-picker .x-date-middle,
 .ext-cal-nav-picker .x-date-right {
-    background: url(http://extjs.cachefly.net/ext-3.2.0/resources/images/default/toolbar/bg.gif) repeat-x;
+    background: url(../images/default/toolbar/bg.gif) repeat-x;
 }
 .ext-cal-nav-picker .x-date-left a {
-    background-image: url(http://extjs.cachefly.net/ext-3.2.0/resources/images/default/grid/page-prev.gif);
+    background-image: url(../images/default/grid/page-prev.gif);
 }
 .ext-cal-nav-picker .x-date-right a {
-    background-image: url(http://extjs.cachefly.net/ext-3.2.0/resources/images/default/grid/page-next.gif);
+    background-image: url(../images/default/grid/page-next.gif);
 }
 .ext-cal-nav-picker .x-date-middle {
     padding: 3px 0;
@@ -743,7 +742,7 @@ td.ext-cal-dtitle-today div {
     font-weight: bold;
 }
 .ext-cal-nav-picker .x-date-middle .x-btn-mc em.x-btn-arrow {
-    background-image: url(http://extjs.cachefly.net/ext-3.2.0/resources/images/default/button/arrow.gif);
+    background-image: url(../images/default/button/arrow.gif);
     background-position: right 4px;
 }
 .ext-cal-nav-picker .x-date-inner {
