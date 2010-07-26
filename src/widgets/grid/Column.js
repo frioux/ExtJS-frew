@@ -25,7 +25,7 @@ Ext.grid.Column = Ext.extend(Ext.util.Observable, {
     /**
      * @cfg {String} header Optional. The header text to be used as innerHTML
      * (html tags are accepted) to display in the Grid view.  <b>Note</b>: to
-     * have a clickable header with no text displayed use <tt>'&#160;'</tt>.
+     * have a clickable header with no text displayed use <tt>'&amp;#160;'</tt>.
      */
     /**
      * @cfg {Boolean} groupable Optional. If the grid is being rendered by an {@link Ext.grid.GroupingView}, this option
@@ -368,18 +368,18 @@ var grid = new Ext.grid.GridPanel({
 Ext.grid.BooleanColumn = Ext.extend(Ext.grid.Column, {
     /**
      * @cfg {String} trueText
-     * The string returned by the renderer when the column value is not falsey (defaults to <tt>'true'</tt>).
+     * The string returned by the renderer when the column value is not falsy (defaults to <tt>'true'</tt>).
      */
     trueText: 'true',
     /**
      * @cfg {String} falseText
-     * The string returned by the renderer when the column value is falsey (but not undefined) (defaults to
+     * The string returned by the renderer when the column value is falsy (but not undefined) (defaults to
      * <tt>'false'</tt>).
      */
     falseText: 'false',
     /**
      * @cfg {String} undefinedText
-     * The string returned by the renderer when the column value is undefined (defaults to <tt>'&#160;'</tt>).
+     * The string returned by the renderer when the column value is undefined (defaults to <tt>'&amp;#160;'</tt>).
      */
     undefinedText: '&#160;',
 

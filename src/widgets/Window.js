@@ -172,6 +172,18 @@ Ext.Window = Ext.extend(Ext.Panel, {
      * {@link #collapsed}) when displayed (defaults to true).
      */
     expandOnShow : true,
+    
+    /**
+     * @cfg {Number} showAnimDuration The number of seconds that the window show animation takes if enabled.
+     * Defaults to 0.25
+     */
+    showAnimDuration: 0.25,
+    
+    /**
+     * @cfg {Number} hideAnimDuration The number of seconds that the window hide animation takes if enabled.
+     * Defaults to 0.25
+     */
+    hideAnimDuration: 0.25,
 
     // inherited docs, same default
     collapsible : false,
@@ -574,7 +586,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
             callback: this.afterShow.createDelegate(this, [true], false),
             scope: this,
             easing: 'easeNone',
-            duration: 0.25,
+            duration: this.showAnimDuration,
             opacity: 0.5
         }));
     },
@@ -634,7 +646,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
         this.proxy.shift(Ext.apply(this.animateTarget.getBox(), {
             callback: this.afterHide,
             scope: this,
-            duration: 0.25,
+            duration: this.hideAnimDuration,
             easing: 'easeNone',
             opacity: 0
         }));

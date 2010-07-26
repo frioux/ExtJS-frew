@@ -84,6 +84,7 @@ App = function() {
                         id: 'app-calendar',
                         region: 'center',
                         activeItem: 2,
+                        showTodayText: false,
                         // month view
                         listeners: {
                             'eventclick': {

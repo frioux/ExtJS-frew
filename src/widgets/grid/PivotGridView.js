@@ -1,10 +1,15 @@
 /**
  * @class Ext.grid.PivotGridView
  * @extends Ext.grid.GridView
- * @private
- * @ignore
- * Specialised GridView for rendering Pivot Grid components. This class is never used outside the context of a {@link Ext.grid.PivotGrid}
- * and has no special configuration of its own.
+ * Specialised GridView for rendering Pivot Grid components. Config can be passed to the PivotGridView via the PivotGrid constructor's
+ * viewConfig option:
+<pre><code>
+new Ext.grid.PivotGrid({
+    viewConfig: {
+        title: 'My Pivot Grid'
+    }
+});
+</code></pre>
  */
 Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
     
@@ -14,6 +19,11 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
      * @type String
      */
     colHeaderCellCls: 'grid-hd-group-cell',
+    
+    /**
+     * @cfg {String} title Optional title to be placed in the top left corner of the PivotGrid. Defaults to an empty string.
+     */
+    title: '',
     
     /**
      * Returns the headers to be rendered at the top of the grid. Should be a 2-dimensional array, where each item specifies the number
@@ -42,7 +52,7 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
      * @return {Array} A tree structure containing the headers to be rendered. Must include the colspan property at each level, which should
      * be the sum of all child nodes beneath this node.
      */
-    getGroupColumnHeaders: function() {
+    getColumnHeaders: function() {
         return this.grid.topAxis.buildHeaders();;
     },
     
@@ -77,25 +87,8 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
      * Each group may specify the width it should be rendered with.
      * @return {Array} The row groups
      */
-    getRowGroupHeaders: function() {
+    getRowHeaders: function() {
         return this.grid.leftAxis.buildHeaders();
-    },
-    
-    /**
-     * Returns the total width of all row headers as specified by {@link #getRowGroupHeaders}
-     * @return {Number} The total width
-     */
-    getTotalRowHeaderWidth: function() {
-        var headers = this.getRowGroupHeaders(),
-            length  = headers.length,
-            total   = 0,
-            i;
-        
-        for (i = 0; i< length; i++) {
-            total += headers[i].width;
-        }
-        
-        return total;
     },
     
     /**
@@ -160,6 +153,7 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
         '<div class="x-grid3 x-pivotgrid" hidefocus="true">',
             '<div class="x-grid3-viewport">',
                 '<div class="x-grid3-header">',
+                    '<div class="x-grid3-header-title"><span>{title}</span></div>',
                     '<div class="x-grid3-header-inner">',
                         '<div class="x-grid3-header-offset" style="{ostyle}"></div>',
                     '</div>',
@@ -211,6 +205,13 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
          * The element containing all row headers
          */
         this.rowHeadersEl = new Ext.Element(this.scroller.child('div.x-grid3-row-headers'));
+        
+        /**
+         * @property headerTitleEl
+         * @type Ext.Element
+         * The element that contains the optional title (top left section of the pivot grid)
+         */
+        this.headerTitleEl = new Ext.Element(this.mainHd.child('div.x-grid3-header-title'));
     },
     
     /**
@@ -221,6 +222,32 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
         var previousWidth = Ext.grid.PivotGridView.superclass.getGridInnerWidth.apply(this, arguments);
         
         return previousWidth - this.getTotalRowHeaderWidth();
+    },
+    
+    /**
+     * Returns the total width of all row headers as specified by {@link #getRowHeaders}
+     * @return {Number} The total width
+     */
+    getTotalRowHeaderWidth: function() {
+        var headers = this.getRowHeaders(),
+            length  = headers.length,
+            total   = 0,
+            i;
+        
+        for (i = 0; i< length; i++) {
+            total += headers[i].width;
+        }
+        
+        return total;
+    },
+    
+    /**
+     * @private
+     * Returns the total height of all column headers
+     * @return {Number} The total height
+     */
+    getTotalColumnHeaderHeight: function() {
+        return this.getColumnHeaders().length * 21;
     },
     
     /**
@@ -299,6 +326,22 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
     
     /**
      * @private
+     * Sets the row header div to the correct width. Should be called after rendering and reconfiguration of headers
+     */
+    resizeRowHeaders: function() {
+        var rowHeaderWidth = this.getTotalRowHeaderWidth(),
+            marginStyle    = String.format("margin-left: {0}px;", rowHeaderWidth);
+        
+        this.rowHeadersEl.setWidth(rowHeaderWidth);
+        this.mainBody.applyStyles(marginStyle);
+        Ext.fly(this.innerHd).applyStyles(marginStyle);
+        
+        this.headerTitleEl.setWidth(rowHeaderWidth);
+        this.headerTitleEl.setHeight(this.getTotalColumnHeaderHeight());
+    },
+    
+    /**
+     * @private
      * Resizes all rendered rows to the given width. Usually called by onLayout
      * @param {Number} width The new width
      */
@@ -332,30 +375,27 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
         this.resizeRowHeaders();
         leftAxis.rendered = false;
         leftAxis.render(this.rowHeadersEl);
+        
+        this.setTitle(this.title);
+    },
+    
+    /**
+     * Sets the title text in the top left segment of the PivotGridView
+     * @param {String} title The title
+     */
+    setTitle: function(title) {
+        this.headerTitleEl.child('span').dom.innerHTML = title;
     },
     
     /**
      * @private
-     * Renders all column header groups at all levels based on the structure fetched from {@link #getGroupColumnHeaders}
+     * Renders all column header groups at all levels based on the structure fetched from {@link #getColumnHeaders}
      */
     renderGroupColumnHeaders: function() {
         var topAxis = this.grid.topAxis;
         
         topAxis.rendered = false;
         topAxis.render(this.innerHd.firstChild);
-    },
-    
-    /**
-     * @private
-     * Sets the row header div to the correct width. Should be called after rendering and reconfiguration of headers
-     */
-    resizeRowHeaders: function() {
-        var rowHeaderWidth = this.getTotalRowHeaderWidth(),
-            marginStyle    = String.format("padding-left: {0}px;", rowHeaderWidth);
-        
-        this.rowHeadersEl.setWidth(rowHeaderWidth);
-        this.mainBody.applyStyles(marginStyle);
-        this.mainHd.applyStyles(marginStyle);
     },
     
     /**

@@ -585,9 +585,9 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
             len = selected.length;
             
         for(; i < len; i++){
-            records[records.length] = this.store.getAt(records[i].viewIndex);
+            records[records.length] = this.store.getAt(selected[i].viewIndex);
         }
-        return r;
+        return records;
     },
 
     /**

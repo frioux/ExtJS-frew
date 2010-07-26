@@ -17,10 +17,7 @@ var SaleRecord = Ext.data.Record.create([
     {name: 'product',  type: 'string'},
     {name: 'city',     type: 'string'},
     {name: 'state',    type: 'string'},
-    {name: 'month',    type: 'int'},
-    {name: 'quarter',  type: 'int'},
     {name: 'year',     type: 'int'},
-    {name: 'quantity', type: 'int'},
     {name: 'value',    type: 'int'}
 ]);
 
@@ -46,10 +43,6 @@ new Ext.grid.PivotGrid({
             dataIndex: 'product'
         },
         {
-            width: 80,
-            dataIndex: 'city'
-        },
-        {
             width: 120,
             dataIndex: 'person',
             direction: 'DESC'
@@ -59,9 +52,6 @@ new Ext.grid.PivotGrid({
     topAxis: [
         {
             dataIndex: 'year'
-        },
-        {
-            dataIndex: 'quarter'
         }
     ]
 });

@@ -23,8 +23,8 @@
 .ext-cal-ct {
     position: relative;
     font-family: helvetica, arial, sans-serif;
-    border-bottom:1px solid #C3D9FF;
-    border-right:1px solid #C3D9FF;
+    border-bottom:1px solid #ddd;
+    border-right:1px solid #ddd;
 }
 .ext-cal-ct img {
     border:0 none;
@@ -177,9 +177,9 @@
     vertical-align: top;
 }
 .ext-cal-day-time-inner {
-    height: 41px;
+    height: 38px;
     border-bottom: 1px solid #ddd;
-    padding-right: 2px
+    padding: 3px 4px 0 0;
 }
 .ext-cal-day-col {
     border-left: 1px solid #ddd;
@@ -245,7 +245,7 @@
 }
 /* Background table cell */
 .ext-cal-day {
-    border-left: 1px solid #C3D9FF;
+    border-left: 1px solid #ddd;
     cursor: pointer;
 }
 .ext-cal-day-first {
@@ -270,12 +270,12 @@
 /* Event title cell (includes today, prev & next month) */
 td.ext-cal-dtitle {
     font-family: helvetica, arial, sans-serif;
-    border-top:1px solid #C3D9FF;
-    color: #A7C6DF;
+    border-top:1px solid #ddd;
+    color: #666;
     line-height:14px;
     overflow:hidden;
     text-align:right;
-    font-size: 16px;
+    font-size: 11px;
     padding-top: 1px;
     padding-right: 1px;
     padding-left: 1px;
@@ -321,7 +321,9 @@ td.ext-cal-dtitle-today div {
 }
 .ext-cal-ev-more a,
 .ext-cal-ev-more a:visited {
-	color: #369;
+    font-family: verdana;
+    color: #777;
+    font-size: 10px;
 	cursor: pointer;
 }
 /* More view */
@@ -340,7 +342,7 @@ td.ext-cal-dtitle-today div {
     -webkit-border-radius:5px;
     border-radius:5px;
     overflow:hidden;
-    padding:1px 1px 1px 5px;
+    padding: 2px 1px 2px 5px;
     white-space:nowrap;
 	text-overflow: ellipsis;
     border: 0;
@@ -535,18 +537,18 @@ td.ext-cal-dtitle-today div {
 
 /* Calendar Picker */
 .ext-calendar-picker .x-form-text {
-    padding-left: 27px;
+    padding-left: 23px;
 }
 .ext-calendar-picker .x-combo-list-item {
     padding-left: 24px;
 }
 .ext-cal-picker-icon {
-    width: 20px;
+    width: 16px;
     height: 16px;
     margin-right: 5px;
-    -moz-border-radius:5px;
-    -webkit-border-radius:5px;
-    border-radius:5px;
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;
+    border-radius:8px;
     float: left;
 }
 /* This is the selected icon that always shows: */
@@ -566,6 +568,7 @@ td.ext-cal-dtitle-today div {
     height: 5px;
     line-height: 5px;
     width: 100%;
+    margin-left: -5px;
     text-align: center; /* needed for IE quirks mode */
     cursor: s-resize;
 }
@@ -611,7 +614,7 @@ td.ext-cal-dtitle-today div {
 .ext-color-1,
 .ext-ie .ext-color-1-ad,
 .ext-opera .ext-color-1-ad {
-	color: #668CB3;
+	color: #306da6;
 }
 .ext-cal-day-col .ext-color-1,
 .ext-dd-drag-proxy .ext-color-1,
@@ -620,9 +623,8 @@ td.ext-cal-dtitle-today div {
 .ext-color-1 .ext-cal-picker-icon,
 .ext-color-1-x dl,
 .ext-color-1-x .ext-cal-evb {
-	background: #668CB3;
+	background: #306da6;
 }
-.ext-color-1.ext-cal-evr,
 .ext-color-1-x .ext-cal-evb,
 .ext-color-1-x dl {
     border-color: #29527A;
@@ -631,7 +633,7 @@ td.ext-cal-dtitle-today div {
 .ext-color-2,
 .ext-ie .ext-color-2-ad,
 .ext-opera .ext-color-2-ad {
-	color: #c33;
+	color: #86a723;
 }
 .ext-cal-day-col .ext-color-2,
 .ext-dd-drag-proxy .ext-color-2,
@@ -640,9 +642,8 @@ td.ext-cal-dtitle-today div {
 .ext-color-2 .ext-cal-picker-icon,
 .ext-color-2-x dl,
 .ext-color-2-x .ext-cal-evb {
-	background: #c33;
+	background: #86a723;
 }
-.ext-color-2.ext-cal-evr,
 .ext-color-2-x .ext-cal-evb,
 .ext-color-2-x dl {
     border-color: #711616;
@@ -650,7 +651,7 @@ td.ext-cal-dtitle-today div {
 .ext-color-3,
 .ext-ie .ext-color-3-ad,
 .ext-opera .ext-color-3-ad {
-    color: #e80;
+    color: #b6a980;
 }
 .ext-cal-day-col .ext-color-3,
 .ext-dd-drag-proxy .ext-color-3,
@@ -659,9 +660,8 @@ td.ext-cal-dtitle-today div {
 .ext-color-3 .ext-cal-picker-icon,
 .ext-color-3-x dl,
 .ext-color-3-x .ext-cal-evb {
-    background: #e80;
+    background: #b6a980;
 }
-.ext-color-3.ext-cal-evr,
 .ext-color-3-x .ext-cal-evb,
 .ext-color-3-x dl {
     border-color: #8C500B;
@@ -726,13 +726,13 @@ td.ext-cal-dtitle-today div {
 .ext-cal-nav-picker .x-date-left,
 .ext-cal-nav-picker .x-date-middle,
 .ext-cal-nav-picker .x-date-right {
-    background: url(../images/default/toolbar/bg.gif) repeat-x;
+    background: url(../../../../resources/images/default/toolbar/bg.gif) repeat-x;
 }
 .ext-cal-nav-picker .x-date-left a {
-    background-image: url(../images/default/grid/page-prev.gif);
+    background-image: url(../../../../resources/images/default/grid/page-prev.gif);
 }
 .ext-cal-nav-picker .x-date-right a {
-    background-image: url(../images/default/grid/page-next.gif);
+    background-image: url(../../../../resources/images/default/grid/page-next.gif);
 }
 .ext-cal-nav-picker .x-date-middle {
     padding: 3px 0;
@@ -742,7 +742,7 @@ td.ext-cal-dtitle-today div {
     font-weight: bold;
 }
 .ext-cal-nav-picker .x-date-middle .x-btn-mc em.x-btn-arrow {
-    background-image: url(../images/default/button/arrow.gif);
+    background-image: url(../../../../resources/images/default/button/arrow.gif);
     background-position: right 4px;
 }
 .ext-cal-nav-picker .x-date-inner {

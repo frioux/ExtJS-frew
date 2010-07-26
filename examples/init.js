@@ -99,15 +99,14 @@ Ext.onReady(function() {
             footerEl  = Ext.get('ft'),
             bodyEl    = Ext.get('bd'),
             sideBoxEl = bodyEl.child('div[class=side-box]'),
-            titleEl   = bodyEl.child('h3:first-child');
+            titleEl   = bodyEl.child('h1#pagetitle');
 
         var doResize = function() {
             var windowHeight = Ext.getDoc().getViewSize(false).height;
 
             var footerHeight  = footerEl.getHeight() + footerEl.getMargins().top,
                 titleElHeight = titleEl.getHeight() + titleEl.getMargins().top,
-                brElHeight    = bodyEl.child('br').getHeight(),
-                headerHeight  = headerEl.getHeight() + titleElHeight + brElHeight;
+                headerHeight  = headerEl.getHeight() + titleElHeight;
 
             var warnEl = Ext.get('fb');
             var warnHeight = warnEl ? warnEl.getHeight() : 0;

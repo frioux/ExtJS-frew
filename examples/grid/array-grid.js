@@ -85,6 +85,10 @@ Ext.onReady(function(){
         store: store,
         columns: [
             {id:'company',header: 'Company', width: 160, sortable: true, dataIndex: 'company'},
+            {header: 'Price', width: 75, sortable: true, renderer: 'usMoney', dataIndex: 'price'},
+            {header: 'Change', width: 75, sortable: true, renderer: change, dataIndex: 'change'},
+            {header: '% Change', width: 75, sortable: true, renderer: pctChange, dataIndex: 'pctChange'},
+            {header: 'Last Updated', width: 85, sortable: true, renderer: Ext.util.Format.dateRenderer('m/d/Y'), dataIndex: 'lastChange'},
             {
                 xtype: 'actioncolumn',
                 width: 50,
@@ -103,11 +107,7 @@ Ext.onReady(function(){
                     },
                     tooltip: 'Buy stock'
                 }]
-            },
-            {header: 'Price', width: 75, sortable: true, renderer: 'usMoney', dataIndex: 'price'},
-            {header: 'Change', width: 75, sortable: true, renderer: change, dataIndex: 'change'},
-            {header: '% Change', width: 75, sortable: true, renderer: pctChange, dataIndex: 'pctChange'},
-            {header: 'Last Updated', width: 85, sortable: true, renderer: Ext.util.Format.dateRenderer('m/d/Y'), dataIndex: 'lastChange'}
+            }
         ],
         stripeRows: true,
         autoExpandColumn: 'company',

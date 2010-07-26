@@ -442,9 +442,9 @@ viewConfig: {
         Ext.apply(this, {
             el      : el,
             mainWrap: mainWrap,
-            mainHd  : mainHd,
-            innerHd : mainHd.dom.firstChild,
             scroller: scroller,
+            mainHd  : mainHd,
+            innerHd : mainHd.child('div.x-grid3-header-inner').dom,
             mainBody: new Element(Element.fly(scroller).child('div.x-grid3-body')),
             focusEl : new Element(Element.fly(scroller).child('a')),
             
@@ -710,7 +710,7 @@ viewConfig: {
 
     /**
      * @private
-     * Updates the width of a given column, resizing that column in each row
+     * Called after a column's width has been updated, this resizes all of the cells for that column in each row
      * @param {Number} column The column index
      */
     updateColumnWidth : function(column, width) {
@@ -722,7 +722,7 @@ viewConfig: {
             row, i, firstChild;
         
         this.updateHeaderWidth();
-        headerCell.style.width = width;
+        headerCell.style.width = columnWidth;
         
         for (i = 0; i < nodeCount; i++) {
             row = nodes[i];
@@ -810,7 +810,7 @@ viewConfig: {
             //build up each column's HTML
             for (i = 0; i < colCount; i++) {
                 column = columns[i];
-
+                
                 meta.id    = column.id;
                 meta.css   = i === 0 ? 'x-grid3-cell-first ' : (i == last ? 'x-grid3-cell-last ' : '');
                 meta.attr  = meta.cellAttr = '';
@@ -1452,7 +1452,7 @@ viewConfig: {
             style     = isHeader ? '' : colConfig[colIndex].css || '',
             align     = colConfig[colIndex].align;
         
-        style += String.format("width: {0}px;", this.getColumnWidth(colIndex));
+        style += String.format("width: {0};", this.getColumnWidth(colIndex));
         
         if (colModel.isHidden(colIndex)) {
             style += 'display: none';

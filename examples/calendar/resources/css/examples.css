@@ -62,7 +62,8 @@ h1 {
     color: #455C6F;
 }
 #app-msg {
-    background: #FAD163;
+/*    background: #FAD163;*/
+    color: #c8a52e;
     padding: 2px 10px;
     font-weight: bold;
     font-size: 13px;

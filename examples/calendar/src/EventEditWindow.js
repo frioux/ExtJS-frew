@@ -63,6 +63,7 @@ Ext.calendar.EventEditWindow = function(config){
 Ext.extend(Ext.calendar.EventEditWindow, Ext.Window, {
 
 	newId: 10000,
+	showAnimDuration: 0.15,
 	
     initComponent: function(){
         Ext.calendar.EventEditWindow.superclass.initComponent.call(this);

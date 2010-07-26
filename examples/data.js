@@ -56,6 +56,13 @@ Ext.samples.samplesCatalog = [{
             desc: 'View and test every Ext component against bundled Ext themes, or, your own custom themes.',
             status: 'new'
         }
+        // {
+        //     text: 'Pivot Grid',
+        //     url:  'pivotgrid/reconfigurable.html',
+        //     icon: 'pivotgrid.gif',
+        //     desc: 'An example demonstrating how to reconfigure a PivotGrid at run time',
+        //     status: 'new'
+        // }
     ]
 },{
     title: 'Offline Support',

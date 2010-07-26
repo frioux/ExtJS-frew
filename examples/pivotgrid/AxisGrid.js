@@ -4,10 +4,11 @@
  * Grid used to control the dimensions in a PivotGrid axis
  */
 pivot.AxisGrid = Ext.extend(Ext.grid.EditorGridPanel, {
-    height: 145,
-    width : 279,
+    border: false,
+    style: 'border-top-width: 1px',
+    flex: 1,
     clicksToEdit: 1,
-    
+
     /**
      * @cfg {Array} fields The array of field names to control. Required
      */
@@ -27,28 +28,25 @@ pivot.AxisGrid = Ext.extend(Ext.grid.EditorGridPanel, {
         {name: 'direction', type: 'string'},
         {name: 'width',     type: 'int'}
     ]),
-    
+
     initComponent: function() {
         this.store = new Ext.data.Store({
             data  : this.dimensionData || [], 
             reader: new Ext.data.JsonReader({}, this.record)
         });
-        
-        var columns = [
-            {
-                header   : 'Dimension',
-                dataIndex: 'field',
-                editor   : this.buildDimensionEditor(),
-                width    : this.hasWidthField ? 110 : 160
-            },
-            {
-                header   : 'Sort Direction',
-                dataIndex: 'direction',
-                editor   : this.buildDirectionEditor(),
-                width    : 80
-            }
-        ];
-        
+
+        var columns = [{
+            header   : 'Dimension',
+            dataIndex: 'field',
+            editor   : this.buildDimensionEditor(),
+            width    : this.hasWidthField ? 110 : 160
+        }, {
+            header   : 'Sort Direction',
+            dataIndex: 'direction',
+            editor   : this.buildDirectionEditor(),
+            width    : 80
+        }];
+
         if (this.hasWidthField) {
             columns.push({
                 header   : 'Width',
@@ -57,43 +55,29 @@ pivot.AxisGrid = Ext.extend(Ext.grid.EditorGridPanel, {
                 width    : 50
             });
         }
-        
+
         columns.push({
             xtype: 'actioncolumn',
             width: 30,
-            items: [
-                {
-                    icon   : '../shared/icons/fam/delete.gif',
-                    scope  : this,
-                    handler: this.onRemoveDimension
-                }
-            ],
+            icon   : '../shared/icons/fam/delete.gif',
+            scope  : this,
+            handler: this.onRemoveDimension,
+            tooltip: 'Delete this axis',
             editable: false
         });
-        
+
         Ext.applyIf(this, {
-            margins: {
-                bottom: 0,
-                top  : 10,
-                left : 10,
-                right: 10
-            },
-            
-            bbar: [
-                {
-                    text   : 'Add Dimension',
-                    icon   : '../shared/icons/fam/add.gif',
-                    scope  : this,
-                    handler: this.onAddDimension
-                }
-            ],
-            
+            bbar: [{
+                text   : 'Add Dimension',
+                icon   : '../shared/icons/fam/add.gif',
+                scope  : this,
+                handler: this.onAddDimension
+            }],
             columns: columns
         });
-        
         pivot.AxisGrid.superclass.initComponent.apply(this, arguments);
     },
-    
+
     /**
      * @private
      * Adds a new row to the store and auto-focusses its first editor
@@ -104,10 +88,10 @@ pivot.AxisGrid = Ext.extend(Ext.grid.EditorGridPanel, {
             direction: "ASC",
             width    : 80
         }));
-        
+
         this.startEditing(this.store.getCount() - 1, 0);
     },
-    
+
     /**
      * @private
      */
@@ -117,7 +101,7 @@ pivot.AxisGrid = Ext.extend(Ext.grid.EditorGridPanel, {
         
         store.remove(record);
     },
-    
+
     /**
      * @private
      * @return {Ext.form.ComboBox} The editor
@@ -126,7 +110,6 @@ pivot.AxisGrid = Ext.extend(Ext.grid.EditorGridPanel, {
         return new Ext.form.ComboBox({
             mode : 'local',
             store: this.getFieldStore(),
-            
             editable      : false,
             valueField    : 'name',
             displayField  : 'name',
@@ -134,7 +117,7 @@ pivot.AxisGrid = Ext.extend(Ext.grid.EditorGridPanel, {
             forceSelection: true
         });
     },
-    
+
     /**
      * @private
      * @return {Ext.data.Store} The store
@@ -149,20 +132,19 @@ pivot.AxisGrid = Ext.extend(Ext.grid.EditorGridPanel, {
             var fields = [],
                 length = this.fields.length,
                 i;
-            
+
             for (i = 0; i < length; i++) {
                 fields[i] = [this.fields[i]];
             }
-            
+
             this.fieldStore = new Ext.data.ArrayStore({
                 fields: ['name'],
                 data  : fields
             });
         }
-        
         return this.fieldStore; 
     },
-    
+
     /**
      * @private
      * Creates a local combo with options for ASC and DESC
@@ -178,7 +160,6 @@ pivot.AxisGrid = Ext.extend(Ext.grid.EditorGridPanel, {
             displayField  : 'name',
             valueField    : 'name',
             value         : 'ASC',
-            
             store: new Ext.data.JsonStore({
                 fields : ['name'],
                 data   : [{name : 'ASC'}, {name : 'DESC'}]

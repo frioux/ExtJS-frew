@@ -13,7 +13,7 @@ Ext.History = (function () {
     var currentToken;
 
     function getHash() {
-        var href = top.location.href, i = href.indexOf("#");
+        var href = location.href, i = href.indexOf("#");
         return i >= 0 ? href.substr(i + 1) : null;
     }
 
