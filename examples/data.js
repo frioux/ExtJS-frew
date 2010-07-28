@@ -103,20 +103,40 @@ Ext.samples.samplesCatalog = [{
         desc: 'A grid embedded within a FormPanel that uses the Accessibility theme.'
 
     }]
-},{
+},
+{
+    title: 'Pivot Grid',
+    samples: [
+        {
+            text: 'Pivot Grid',
+            url:  'pivotgrid/simple.html',
+            icon: 'pivotgrid.gif',
+            desc: 'The powerful new PivotGrid component, demonstrating data reduction and analysis capabilities.',
+            status: 'new'
+        },
+        {
+            text: 'Customised Pivot Grid',
+            url:  'pivotgrid/countries.html',
+            icon: 'pivotgrid-cellcls.gif',
+            desc: 'A PivotGrid with its appearance customised based on summarized data',
+            status: 'new'
+        },
+        {
+            text: 'Pivot Grid Examples',
+            url:  'pivotgrid/people.html',
+            icon: 'pivotgrid-people.gif',
+            desc: 'Several Pivot Grids showing different views of the same data source',
+            status: 'new'
+        }
+    ]
+},
+{
     title: 'Grids',
     samples: [{
         text: 'Basic Array Grid',
         url:  'grid/array-grid.html',
         icon: 'grid-array.gif',
         desc: 'A basic read-only grid loaded from local array data that demonstrates the use of custom column renderer functions.'
-    },
-    {
-        text: 'Pivot Grid',
-        url:  'pivotgrid/index.html',
-        icon: 'pivotgrid.gif',
-        desc: 'The powerful new PivotGrid component, demonstrating data reduction and analysis capabilities.',
-        status: 'new'
     },{
         text: 'Property Grid',
         url:  'grid/property-grid.html',

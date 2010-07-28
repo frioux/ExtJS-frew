@@ -145,7 +145,7 @@ Ext.layout.HBoxLayout = Ext.extend(Ext.layout.BoxLayout, {
         var availableWidth = Math.max(0, width - nonFlexWidth - paddingHoriz);
         
         if (tooNarrow) {
-            for (i = 0, length = visibleCount; i < length; i++) {
+            for (i = 0; i < visibleCount; i++) {
                 boxes[i].width = visibleItems[i].minWidth || visibleItems[i].width || boxes[i].width;
             }
         } else {

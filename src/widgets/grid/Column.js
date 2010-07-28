@@ -464,13 +464,46 @@ Ext.grid.TemplateColumn = Ext.extend(Ext.grid.Column, {
 /**
  * @class Ext.grid.ActionColumn
  * @extends Ext.grid.Column
- * <p>A Column definition class which renders an icon, or a series of icons in a grid cell, and offers a scoped click
- * handler for each icon.</p>
+ * <p>A Grid column type which renders an icon, or a series of icons in a grid cell, and offers a scoped click
+ * handler for each icon. Example usage:</p>
+<pre><code>
+new Ext.grid.GridPanel({
+    store: myStore,
+    columns: [
+        {
+            xtype: 'actioncolumn',
+            width: 50,
+            items: [
+                {
+                    icon: 'sell.gif',
+                    tooltip: 'Sell stock',
+                    handler: function(grid, rowIndex, colIndex) {
+                        var rec = store.getAt(rowIndex);
+                        alert("Sell " + rec.get('company'));
+                    }
+                },
+                {
+                    iconCls: 'buy-col',
+                    tooltip: 'Buy stock'
+                    handler: function(grid, rowIndex, colIndex) {
+                        var rec = store.getAt(rowIndex);
+                        alert("Buy " + rec.get('company'));
+                    }
+                }
+            ]
+        }
+        //any other columns here
+    ]
+});
+</pre></code>
+ * <p>The action column can be at any index in the columns array, and a grid can have any number of
+ * action columns. </p>
  */
 Ext.grid.ActionColumn = Ext.extend(Ext.grid.Column, {
     /**
      * @cfg {String} icon
-     * The URL of an image to display as the clickable element in the column. Optional - defaults to <code>{@link Ext#BLANK_IMAGE_URL Ext.BLANK_IMAGE_URL}</code>.
+     * The URL of an image to display as the clickable element in the column. 
+     * Optional - defaults to <code>{@link Ext#BLANK_IMAGE_URL Ext.BLANK_IMAGE_URL}</code>.
      */
     /**
      * @cfg {String} iconCls
@@ -482,26 +515,33 @@ Ext.grid.ActionColumn = Ext.extend(Ext.grid.Column, {
      * <li><code>grid</code> : GridPanel<div class="sub-desc">The owning GridPanel.</div></li>
      * <li><code>rowIndex</code> : Number<div class="sub-desc">The row index clicked on.</div></li>
      * <li><code>colIndex</code> : Number<div class="sub-desc">The column index clicked on.</div></li>
-     * <li><code>item</code> : Object<div class="sub-desc">The clicked item (or this Column if multiple {@link #items} were not configured).</div></li>
+     * <li><code>item</code> : Object<div class="sub-desc">The clicked item (or this Column if multiple 
+     * {@link #items} were not configured).</div></li>
      * <li><code>e</code> : Event<div class="sub-desc">The click event.</div></li>
      * </ul></div>
      */
     /**
-     * @cfg {Object} scope The scope (<tt><b>this</b></tt> reference) in which the <code>{@link #handler}</code> is executed. Defaults to this Column.
+     * @cfg {Object} scope The scope (<tt><b>this</b></tt> reference) in which the <code>{@link #handler}</code> is executed. 
+     * Defaults to this Column.
      */
     /**
-     * @cfg {String} tooltip A tooltip message to be displayed on hover. {@link Ext.QuickTips#init Ext.QuickTips} must have been initialized.
+     * @cfg {String} tooltip A tooltip message to be displayed on hover. {@link Ext.QuickTips#init Ext.QuickTips} must have 
+     * been initialized.
      */
     /**
      * @cfg {boolean} stopSelection Defaults to <code>true</code>. Prevent grid <i>row</i> selection upon mousedown.
      */
     /**
-     * @cfg {Array} items An Array which may contain multiple icon definitions, each element of which may contain:<div class="mdetail-params"><ul>
-     * <li><code>icon</code> : String<div class="sub-desc">The url of an image to display as the clickable element in the column.</div></li>
+     * @cfg {Array} items An Array which may contain multiple icon definitions, each element of which may contain:
+     * <div class="mdetail-params"><ul>
+     * <li><code>icon</code> : String<div class="sub-desc">The url of an image to display as the clickable element 
+     * in the column.</div></li>
      * <li><code>iconCls</code> : String<div class="sub-desc">A CSS class to apply to the icon image.</div></li>
      * <li><code>handler</code> : Function<div class="sub-desc">A function called when the icon is clicked.</div></li>
-     * <li><code>scope</code> : Scope<div class="sub-desc">The scope (<tt><b>this</b></tt> reference) in which the <code>handler</code> is executed. Defaults to this Column.</div></li>
-     * <li><code>tooltip</code> : String<div class="sub-desc">A tooltip message to be displayed on hover. {@link Ext.QuickTips#init Ext.QuickTips} must have been initialized.</div></li>
+     * <li><code>scope</code> : Scope<div class="sub-desc">The scope (<tt><b>this</b></tt> reference) in which the 
+     * <code>handler</code> is executed. Defaults to this Column.</div></li>
+     * <li><code>tooltip</code> : String<div class="sub-desc">A tooltip message to be displayed on hover. 
+     * {@link Ext.QuickTips#init Ext.QuickTips} must have been initialized.</div></li>
      * </ul></div>
      */
     header: '&#160;',
@@ -517,7 +557,8 @@ Ext.grid.ActionColumn = Ext.extend(Ext.grid.Column, {
 
         Ext.grid.ActionColumn.superclass.constructor.call(me, cfg);
 
-//      Renderer closure iterates through items creating an <img> element for each and tagging with an identifying class name x-action-col-{n}
+//      Renderer closure iterates through items creating an <img> element for each and tagging with an identifying 
+//      class name x-action-col-{n}
         me.renderer = function(v, meta) {
             meta.css += ' x-action-col-cell';
             v = '';

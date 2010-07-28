@@ -1,0 +1,37 @@
+body {
+	-webkit-user-drag: none;
+	-webkit-user-modify: read-only;
+	-webkit-user-select: none;
+}
+[contentEditable="true"] {
+	-webkit-user-select: auto;
+	overflow: auto;
+	word-wrap: normal;
+}
+input, textarea, td, div {
+	outline: none;
+}
+.x-resizable-handle,
+.x-splitbar-h,
+.x-splitbar-v {
+	cursor: move;
+}
+.x-tree-root-ct {
+	display: inline-block;
+}
+.x-tree-node {
+	width: 100%;
+}
+.x-grid3-body:after,
+.x-grid-group-body:after {
+	/*content: ".";*/
+	display: block;
+	height: 0px;
+	font-size: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.x-small-editor .x-form-trigger {
+	height: 19px !important;
+}

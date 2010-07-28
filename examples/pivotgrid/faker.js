@@ -27,4 +27,36 @@
         
         return records;
     };
+    
+    function buildPeople(count) {
+        count = count || 800;
+        
+        var colors  = ['Brown', 'Blue', 'Green'],
+            decades = ['1960s', '1970s', '1980s', '1990s'],
+            hands   = ['Left', 'Right'],
+            genders = ['Male', 'Female'],
+            records = [],
+            i;
+        
+        for (i = 0; i < count; i++) {
+            var iq = Math.round(Math.random() * 100);
+            
+            if (iq < 25 && Math.random() > 0.5) {
+                iq += Math.random() * 30;
+            } else if (iq > 75 && Math.random() < 0.9) {
+                iq -= Math.random() * 20;
+            }
+            
+            records.push({
+                eyeColor   : colors[Math.floor(Math.random() * colors.length)],
+                gender     : genders[Math.floor(Math.random() * genders.length)],
+                handedness : hands[Math.floor(Math.random() * hands.length)],
+                birthDecade: decades[Math.floor(Math.random() * decades.length)],
+                height     : 5 + parseFloat((Math.random() * 2).toFixed(1)),
+                iq         : 50 + Math.round(iq)
+            });
+        }
+        
+        return Ext.encode({rows: records});
+    };
 });

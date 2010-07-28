@@ -6,10 +6,11 @@
  * will often have a record of all sales it makes for a given period - this will often encompass thousands of rows of
  * data. The PivotGrid allows you to see how well each salesperson performed, which cities generate the most revenue, 
  * how products perform between cities and so on.</p>
- * <p>A PivotGrid is composed of two axes (left and top), one <i>measure</i> and one aggregation function. Each axis can contain
- * one or more <i>dimensions</i>, which are ordered into a hierarchy. Dimensions on the left axis can also specify a width. 
- * Each dimension in each axis can specify its sort ordering, defaulting to "ASC", and must specify one of the fields
- * in the {@link Ext.data.Record} used by the PivotGrid's {@link Ext.data.Store}.</p>
+ * <p>A PivotGrid is composed of two axes (left and top), one {@link #measure} and one {@link #aggregator aggregation}
+ * function. Each axis can contain one or more {@link #dimension}, which are ordered into a hierarchy. Dimensions on the 
+ * left axis can also specify a width. Each dimension in each axis can specify its sort ordering, defaulting to "ASC", 
+ * and must specify one of the fields in the {@link Ext.data.Record Record} used by the PivotGrid's 
+ * {@link Ext.data.Store Store}.</p>
 <pre><code>
 // This is the record representing a single sale
 var SaleRecord = Ext.data.Record.create([
@@ -32,7 +33,7 @@ var myStore = new Ext.data.Store({
 });
 
 // Create the PivotGrid itself, referencing the store
-new Ext.grid.PivotGrid({
+var pivot = new Ext.grid.PivotGrid({
     store     : myStore,
     aggregator: 'sum',
     measure   : 'value',
@@ -57,9 +58,9 @@ new Ext.grid.PivotGrid({
 });
 </code></pre>
  * <p>The specified {@link #measure} is the field from SaleRecord that is extracted from each combination
- * of product, city and person (on the left axis) and year and quarter (on the top axis). There may be several
- * SaleRecords in the data set that share this combination, so an array of measure fields is produced. This
- * array is then aggregated using the {@link #aggregator} function.</p>
+ * of product and person (on the left axis) and year on the top axis. There may be several SaleRecords in the 
+ * data set that share this combination, so an array of measure fields is produced. This array is then 
+ * aggregated using the {@link #aggregator} function.</p>
  * <p>The default aggregator function is sum, which simply adds up all of the extracted measure values. Other
  * built-in aggregator functions are count, avg, min and max. In addition, you can specify your own function.
  * In this example we show the code used to sum the measures, but you can return any value you like. See
@@ -76,10 +77,50 @@ new Ext.grid.PivotGrid({
         }
 
         return total;
-    }
+    },
+    
+    renderer: function(value) {
+        return Math.round(value);
+    },
+    
     //your normal config here
 });
 </code></pre>
+ * <p><u>Renderers</u></p>
+ * <p>PivotGrid optionally accepts a {@link #renderer} function which can modify the data in each cell before it
+ * is rendered. The renderer is passed the value that would usually be placed in the cell and is expected to return
+ * the new value. For example let's imagine we had height data expressed as a decimal - here's how we might use a
+ * renderer to display the data in feet and inches notation:</p>
+<pre><code>
+new Ext.grid.PivotGrid({
+    //in each case the value is a decimal number of feet
+    renderer  : function(value) {
+        var feet   = Math.floor(value),
+            inches = Math.round((value - feet) * 12);
+
+        return String.format("{0}' {1}\"", feet, inches);
+    },
+    //normal config here
+});
+</code></pre>
+ * <p><u>Reconfiguring</u></p>
+ * <p>All aspects PivotGrid's configuration can be updated at runtime. It is easy to change the {@link #setMeasure measure}, 
+ * {@link #setAggregator aggregation function}, {@link #setLeftAxis left} and {@link #setTopAxis top} axes and refresh the grid.</p>
+ * <p>In this case we reconfigure the PivotGrid to have city and year as the top axis dimensions, rendering the average sale
+ * value into the cells:</p>
+<pre><code>
+//the left axis can also be changed
+pivot.topAxis.setDimensions([
+    {dataIndex: 'city', direction: 'DESC'},
+    {dataIndex: 'year', direction: 'ASC'}
+]);
+
+pivot.setMeasure('value');
+pivot.setAggregator('avg');
+
+pivot.view.refresh(true);
+</code></pre>
+ * <p>See the {@link Ext.grid.PivotAxis PivotAxis} documentation for further detail on reconfiguring axes.</p>
  */
 Ext.grid.PivotGrid = Ext.extend(Ext.grid.GridPanel, {
     
@@ -92,16 +133,23 @@ Ext.grid.PivotGrid = Ext.extend(Ext.grid.GridPanel, {
     aggregator: 'sum',
     
     /**
-     * @cfg {String} measure The field to extract from each Record when pivoting around the two axes.
+     * @cfg {Function} renderer Optional renderer to pass values through before they are rendered to the dom. This
+     * gives an opportunity to modify cell contents after the value has been computed.
+     */
+    renderer: undefined,
+    
+    /**
+     * @cfg {String} measure The field to extract from each Record when pivoting around the two axes. See the class
+     * introduction docs for usage
      */
     
     /**
-     * @cfg {Array|Ext.grid.PivotAxis} leftAxis Either and array of <i>dimensions</i> to use on the left axis, or
+     * @cfg {Array|Ext.grid.PivotAxis} leftAxis Either and array of {@link #dimension} to use on the left axis, or
      * a {@link Ext.grid.PivotAxis} instance. If an array is passed, it is turned into a PivotAxis internally.
      */
     
     /**
-     * @cfg {Array|Ext.grid.PivotAxis} topAxis Either and array of <i>dimensions</i> to use on the top axis, or
+     * @cfg {Array|Ext.grid.PivotAxis} topAxis Either and array of {@link #dimension} to use on the top axis, or
      * a {@link Ext.grid.PivotAxis} instance. If an array is passed, it is turned into a PivotAxis internally.
      */
     
@@ -153,14 +201,14 @@ Ext.grid.PivotGrid = Ext.extend(Ext.grid.GridPanel, {
     
     /**
      * Sets the left axis of this pivot grid. Optionally refreshes the grid afterwards.
-     * @param {Ext.grid.PixotAxis} axis The pivot axis
+     * @param {Ext.grid.PivotAxis} axis The pivot axis
      * @param {Boolean} refresh True to immediately refresh the grid and its axes (defaults to false)
      */
     setLeftAxis: function(axis, refresh) {
         /**
+         * The configured {@link Ext.grid.PivotAxis} used as the left Axis for this Pivot Grid
          * @property leftAxis
-         * @type Ext.data.OlapAxis
-         * The configured {@link Ext.grid.PixotAxis} used as the left Axis for this Pivot Grid
+         * @type Ext.grid.PivotAxis
          */
         this.leftAxis = axis;
         
@@ -171,14 +219,14 @@ Ext.grid.PivotGrid = Ext.extend(Ext.grid.GridPanel, {
     
     /**
      * Sets the top axis of this pivot grid. Optionally refreshes the grid afterwards.
-     * @param {Ext.grid.PixotAxis} axis The pivot axis
+     * @param {Ext.grid.PivotAxis} axis The pivot axis
      * @param {Boolean} refresh True to immediately refresh the grid and its axes (defaults to false)
      */
     setTopAxis: function(axis, refresh) {
         /**
+         * The configured {@link Ext.grid.PivotAxis} used as the top Axis for this Pivot Grid
          * @property topAxis
-         * @type Ext.grid.PixotAxis
-         * The configured {@link Ext.grid.PixotAxis} used as the top Axis for this Pivot Grid
+         * @type Ext.grid.PivotAxis
          */
         this.topAxis = axis;
         
@@ -192,7 +240,7 @@ Ext.grid.PivotGrid = Ext.extend(Ext.grid.GridPanel, {
      * Creates the top and left axes. Should usually only need to be called once from initComponent
      */
     initAxes: function() {
-        var PivotAxis = Ext.grid.PixotAxis;
+        var PivotAxis = Ext.grid.PivotAxis;
         
         if (!(this.leftAxis instanceof PivotAxis)) {
             this.setLeftAxis(new PivotAxis({

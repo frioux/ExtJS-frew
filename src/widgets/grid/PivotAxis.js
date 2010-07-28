@@ -1,5 +1,5 @@
 /**
- * @class Ext.grid.PixotAxis
+ * @class Ext.grid.PivotAxis
  * @extends Ext.Component
  * <p>PivotAxis is a class that supports a {@link Ext.grid.PivotGrid}. Each PivotGrid contains two PivotAxis instances - the left
  * axis and the top axis. Each PivotAxis defines an ordered set of dimensions, each of which should correspond to a field in a
@@ -30,7 +30,7 @@ pivotGrid.view.refresh(true);
 </code></pre>
  * This clears the previous dimensions on the axis and redraws the grid with the new dimensions.
  */
-Ext.grid.PixotAxis = Ext.extend(Ext.Component, {
+Ext.grid.PivotAxis = Ext.extend(Ext.Component, {
     /**
      * @cfg {String} orientation One of 'vertical' or 'horizontal'. Defaults to horizontal
      */

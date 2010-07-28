@@ -6,10 +6,15 @@
 <pre><code>
 new Ext.grid.PivotGrid({
     viewConfig: {
-        title: 'My Pivot Grid'
+        title: 'My Pivot Grid',
+        getCellCls: function(value) {
+            return value > 10 'red' : 'green';
+        }
     }
 });
 </code></pre>
+ * <p>Currently {@link #title} and {@link #getCellCls} are the only configuration options accepted by PivotGridView. All other 
+ * interaction is performed via the {@link Ext.grid.PivotGrid PivotGrid} class.</p>
  */
 Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
     
@@ -24,6 +29,11 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
      * @cfg {String} title Optional title to be placed in the top left corner of the PivotGrid. Defaults to an empty string.
      */
     title: '',
+    
+    /**
+     * @cfg {Function} getCellCls Optional function which should return a CSS class name for each cell value. This is useful when
+     * color coding cells based on their value. Defaults to undefined.
+     */
     
     /**
      * Returns the headers to be rendered at the top of the grid. Should be a 2-dimensional array, where each item specifies the number
@@ -98,14 +108,19 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
      * @param {Number} endRow Index of the last row to render
      */
     renderRows : function(startRow, endRow) {
-        var rows         = this.grid.extractData(),
-            rowCount     = rows.length,
-            templates    = this.templates,
-            cellTemplate = templates.cell,
-            rowTemplate  = templates.row,
-            rowBuffer    = [],
-            meta         = {},
-            tstyle       = 'width:' + this.getGridInnerWidth() + 'px;',
+        var grid          = this.grid,
+            rows          = grid.extractData(),
+            rowCount      = rows.length,
+            templates     = this.templates,
+            renderer      = grid.renderer,
+            hasRenderer   = typeof renderer == 'function',
+            getCellCls    = this.getCellCls,
+            hasGetCellCls = typeof getCellCls == 'function',
+            cellTemplate  = templates.cell,
+            rowTemplate   = templates.row,
+            rowBuffer     = [],
+            meta          = {},
+            tstyle        = 'width:' + this.getGridInnerWidth() + 'px;',
             colBuffer, column, i;
         
         startRow = startRow || 0;
@@ -128,6 +143,14 @@ Ext.grid.PivotGridView = Ext.extend(Ext.grid.GridView, {
 
                 if (Ext.isEmpty(meta.value)) {
                     meta.value = '&#160;';
+                }
+                
+                if (hasRenderer) {
+                    meta.value = renderer(meta.value);
+                }
+                
+                if (hasGetCellCls) {
+                    meta.css += getCellCls(meta.value) + ' ';
                 }
 
                 colBuffer[colBuffer.length] = cellTemplate.apply(meta);

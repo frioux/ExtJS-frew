@@ -1,7 +1,6 @@
 App = function() {
     return {
         init: function() {
-
             this.calendarStore = new Ext.data.JsonStore({
                 storeId: 'calendarStore',
                 root: 'calendars',
@@ -11,16 +10,16 @@ App = function() {
                 proxy: new Ext.data.MemoryProxy(),
                 autoLoad: true,
                 fields: [
-                {
-                    name: 'CalendarId',
-                    mapping: 'id',
-                    type: 'int'
-                },
-                {
-                    name: 'Title',
-                    mapping: 'title',
-                    type: 'string'
-                }
+                    {
+                        name: 'CalendarId',
+                        mapping: 'id',
+                        type: 'int'
+                    },
+                    {
+                        name: 'Title',
+                        mapping: 'title',
+                        type: 'string'
+                    }
                 ],
                 sortInfo: {
                     field: 'CalendarId',
@@ -31,8 +30,8 @@ App = function() {
             this.eventStore = new Ext.data.JsonStore({
                 id: 'eventStore',
                 root: 'evts',
-                data: eventList,
-                // defined in event-list.js
+                data: eventList, // <= defined in event-list.js
+                
                 proxy: new Ext.data.MemoryProxy(),
                 fields: Ext.calendar.EventRecord.prototype.fields.getRange(),
                 sortInfo: {

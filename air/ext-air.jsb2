@@ -1,0 +1,209 @@
+{
+	"projectName": "Air Adapter",
+	"deployDir": "ext-air-3.2.2",
+	"licenseText": "Enhanced ExtJS Adapter for Adobe(r) AIR(r)\nCopyright(c) 2006-2010 Sencha Inc.\nlicensing@extjs.com\nhttp://www.extjs.com/license\n\n@version 3.2.2\n[For Use with ExtJS 3.1.0 to ExtJS 3.2.2]",
+	"pkgs": [{
+		"name": "Ext-Air Core",
+		"file": "pkgs/air-core.js",
+		"isDebug": true,
+		"fileIncludes": [{
+			"text": "air.js",
+			"path": "src/core/"
+		},{
+			"text": "EventObjectImpl.js",
+			"path": "src/core/"
+		},{
+			"text": "Date.js",
+			"path": "src/core/"
+		},{
+			"text": "DomQuery.js",
+			"path": "src/core/"
+		},{
+			"text": "History.js",
+			"path": "src/util/"
+		}]
+	},{
+		"name": "Template Fixes",
+		"file": "pkgs/air-templatefixes.js",
+		"isDebug": true,
+		"fileIncludes": [{
+			"text": "Template.js",
+			"path": "src/core/"
+		},{
+			"text": "Format.js",
+			"path": "src/util/"
+		},{
+			"text": "ColorPalette.js",
+			"path": "src/widgets/"
+		},{
+			"text": "Combo.js",
+			"path": "src/widgets/form/"
+		},{
+			"text": "GroupingView.js",
+			"path": "src/widgets/grid/"
+		},{
+			"text": "MenuLayout.js",
+			"path": "src/widgets/layout/"
+		},{
+			"text": "Column.js",
+			"path": "src/widgets/list/"
+		},{
+			"text": "ListView.js",
+			"path": "src/widgets/list/"
+		},{
+			"text": "Item.js",
+			"path": "src/widgets/menu/"
+		}]
+	},{
+		"name": "Useful overrides",
+		"file": "pkgs/air-overrides.js",
+		"isDebug": true,
+		"fileIncludes": [{
+			"text": "TreePanel.js",
+			"path": "src/widgets/tree/"
+		},{
+			"text": "FieldSet.js",
+			"path": "src/widgets/form/"
+		},{
+			"text": "HtmlEditor.js",
+			"path": "src/widgets/form/"
+		}]
+	},{
+		"name": "FileProvider",
+		"file": "pkgs/air-state.js",
+		"isDebug": true,
+		"fileIncludes": [{
+			"text": "FileProvider.js",
+			"path": "src/state/"
+		}],
+	},{
+		"name": "SQLite Connection and Store",
+		"file": "pkgs/air-data.js",
+		"isDebug": true,
+		"fileIncludes": [{
+			"text": "DB.js",
+			"path": "src/data/"
+		},{
+			"text": "SQLiteDB.js",
+			"path": "src/data/"
+		},{
+			"text": "Table.js",
+			"path": "src/data/"
+		},{
+			"text": "SQLiteProxy.js",
+			"path": "src/data/"
+		},{
+			"text": "SQLiteStore.js",
+			"path": "src/data/"
+		},{
+			"text": "GroupingSQLiteStore.js",
+			"path": "src/data/"
+		}]
+	},{
+		"name": "TreeLoader",
+		"file": "pkgs/air-tree.js",
+		"isDebug": true,
+		"fileIncludes": [{
+			"text": "LocalTreeLoader.js",
+			"path": "src/widgets/tree/"
+		},{
+			"text": "FileTreeLoader.js",
+			"path": "src/widgets/tree/"
+		}]
+	},{
+		"name": "Air Basic Components",
+		"file": "pkgs/air-basiccomponents.js",
+		"isDebug": true,
+		"fileIncludes": [{
+			"text": "App.js",
+			"path": "src/air/"
+		},{
+			"text": "DragType.js",
+			"path": "src/air/"
+		},{
+			"text": "Clipboard.js",
+			"path": "src/air/"
+		},{
+			"text": "MenuItem.js",
+			"path": "src/air/"
+		},{
+			"text": "SystemMenu.js",
+			"path": "src/air/"
+		},{
+			"text": "SystemTray.js",
+			"path": "src/air/"
+		},{
+			"text": "Sound.js",
+			"path": "src/air/"
+		},{
+			"text": "MusicPlayer.js",
+			"path": "src/air/"
+		},{
+			"text": "VideoPanel.js",
+			"path": "src/air/"
+		},{
+			"text": "NativeObservable.js",
+			"path": "src/air/"
+		}]
+	},{
+		"name": "Air Window Components",
+		"file": "pkgs/air-windowcomponents.js",
+		"isDebug": true,
+		"fileIncludes": [{
+			"text": "NativeWindow.js",
+			"path": "src/air/"
+		},{
+			"text": "NativeWindowManager.js",
+			"path": "src/air/"
+		},{
+			"text": "Notify.js",
+			"path": "src/air/"
+		},{
+			"text": "Viewport.js",
+			"path": "src/air/"
+		},{
+			"text": "Window.js",
+			"path": "src/air/"
+		},{
+			"text": "MessageBox.js",
+			"path": "src/air/"
+		}]
+	},{
+		"name": "Ext Air",
+		"file": "ext-air.js",
+		"isDebug": true,
+		"includeDeps": true,
+		"pkgDeps": [
+			"pkgs/air-core.js",
+			"pkgs/air-templatefixes.js",
+			"pkgs/air-overrides.js",
+			"pkgs/air-state.js",
+			"pkgs/air-data.js",
+			"pkgs/air-tree.js",
+			"pkgs/air-basiccomponents.js",
+			"pkgs/air-windowcomponents.js"
+		],
+		"fileIncludes": []
+	},{
+		"name": "Air CSS",
+		"file": "resources/css/ext-air.css",
+		"fileIncludes": [{
+			"text": "air-core.css",
+			"path": "resources/css/"
+		},{
+			"text": "air-form.css",
+			"path": "resources/css/"
+		},{
+			"text": "air-scrollbars.css",
+			"path": "resources/css/"
+		},{
+			"text": "air-viewport.css",
+			"path": "resources/css/"
+		}]
+	}],
+	"resources": [{
+		"src": "resources/",
+		"dest": "resources/",
+		"filters": ".*[^\\.css]"
+	}]
+}
