@@ -386,7 +386,7 @@ Ext.tree.TreeNode = Ext.extend(Ext.data.Node, {
                     this.fireEvent('expand', this);
                     this.runCallback(callback, scope || this, [this]);
                     if(deep === true){
-                        this.expandChildNodes(true);
+                        this.expandChildNodes(true, true);
                     }
                 }.createDelegate(this));
                 return;
@@ -498,10 +498,12 @@ Ext.tree.TreeNode = Ext.extend(Ext.data.Node, {
      * Expand all child nodes
      * @param {Boolean} deep (optional) true if the child nodes should also expand their child nodes
      */
-    expandChildNodes : function(deep){
-        var cs = this.childNodes;
-        for(var i = 0, len = cs.length; i < len; i++) {
-        	cs[i].expand(deep);
+    expandChildNodes : function(deep, anim) {
+        var cs = this.childNodes,
+            i,
+            len = cs.length;
+        for (i = 0; i < len; i++) {
+        	cs[i].expand(deep, anim);
         }
     },
 

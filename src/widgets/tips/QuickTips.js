@@ -11,7 +11,7 @@
  * configuration properties of Ext.QuickTip. These settings will apply to all
  * tooltips shown by the singleton.</p>
  * <p>Below is the summary of the configuration properties which can be used.
- * For detailed descriptions see {@link #getQuickTip}</p>
+ * For detailed descriptions see the config options for the {@link Ext.QuickTip QuickTip} class</p>
  * <p><b>QuickTips singleton configs (all are optional)</b></p>
  * <div class="mdetail-params"><ul><li>dismissDelay</li>
  * <li>hideDelay</li>
@@ -36,7 +36,7 @@ Ext.QuickTips.init();
 Ext.apply(Ext.QuickTips.getQuickTip(), {
     maxWidth: 200,
     minWidth: 100,
-    showDelay: 50,
+    showDelay: 50,      // Show 50ms after entering target
     trackMouse: true
 });
 
@@ -46,7 +46,7 @@ Ext.QuickTips.register({
     title: 'My Tooltip',
     text: 'This tooltip was added in code',
     width: 100,
-    dismissDelay: 20
+    dismissDelay: 10000 // Hide after 10 seconds hover
 });
 </code></pre>
  * <p>To register a quick tip in markup, you simply add one or more of the valid QuickTip attributes prefixed with
@@ -138,7 +138,7 @@ Ext.QuickTips = function(){
         },
 
         /**
-         * Gets the global QuickTips instance.
+         * Gets the single {@link Ext.QuickTip QuickTip} instance used to show tips from all registered elements.
          * @return {Ext.QuickTip}
          */
         getQuickTip : function(){

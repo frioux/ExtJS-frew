@@ -111,10 +111,15 @@ var conn = new Ext.data.SQLiteDB({
 	open : function(dbFile){
 		var file = Ext.isString(dbFile) ? air.File.applicationDirectory.resolvePath(dbFile) : dbFile,
 			encKey = null;
-		if (Ext.isString(this.encryptionKey) && Ext.isObject(air.EncryptionKeyGenerator)) {
-			var keyGen = new air.EncryptionKeyGenerator();
-			if (keyGen.validateStrongPassword(this.encryptionKey)) {
-				encKey = keyGen.getEncryptionKey(file, this.encryptionKey);
+		if (this.encryptionKey && !Ext.isEmpty(air.EncryptionKeyGenerator)) {
+			if (Ext.isString(this.encryptionKey)) {
+				var keyGen = new air.EncryptionKeyGenerator();
+				if (keyGen.validateStrongPassword(this.encryptionKey)) {
+					encKey = keyGen.getEncryptionKey(file, this.encryptionKey);
+				}
+			// this.encryptionKey is already a valid ByteArray
+			} else if (typeof this.encryptionKey == 'object' && this.encryptionKey.bytesAvailable === 0 && this.encryptionKey.length === 16) {
+				encKey = this.encryptionKey;
 			}
 		}
 		this.openState = false;
@@ -126,7 +131,6 @@ var conn = new Ext.data.SQLiteDB({
 			errorHandler = (function(e) {
 			this.fireEvent('error', this, e);
 		}).createDelegate(this);
-		
 		this.conn.openAsync(file, this.mode, new air.Responder(openHandler, errorHandler), this.autoCompact, this.pageSize, encKey);
 	},
 	/**

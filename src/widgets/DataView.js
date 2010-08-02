@@ -579,15 +579,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
      * @return {Array} An array of {@link Ext.data.Record} objects
      */
     getSelectedRecords : function(){
-        var records = [], 
-            selected = this.selected.elements,
-            i = 0,
-            len = selected.length;
-            
-        for(; i < len; i++){
-            records[records.length] = this.store.getAt(selected[i].viewIndex);
-        }
-        return records;
+        return this.getRecords(this.selected.elements);
     },
 
     /**
@@ -603,7 +595,7 @@ Ext.DataView = Ext.extend(Ext.BoxComponent, {
         for(; i < len; i++){
             records[records.length] = this.store.getAt(nodes[i].viewIndex);
         }
-        return r;
+        return records;
     },
 
     /**
