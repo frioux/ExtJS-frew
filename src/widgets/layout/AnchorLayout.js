@@ -205,37 +205,37 @@ anchor: '-50 75%'
     },
 
     // private
-    parseAnchor : function(a, start, cstart){
-        if(a && a != 'none'){
+    parseAnchor : function(a, start, cstart) {
+        if (a && a != 'none') {
             var last;
             // standard anchor
-            if(this.parseAnchorRE.test(a)){
+            if (this.parseAnchorRE.test(a)) {
                 var diff = cstart - start;
                 return function(v){
                     if(v !== last){
                         last = v;
                         return v - diff;
                     }
-                }
+                };
             // percentage
-            }else if(a.indexOf('%') != -1){
+            } else if(a.indexOf('%') != -1) {
                 var ratio = parseFloat(a.replace('%', ''))*.01;
                 return function(v){
                     if(v !== last){
                         last = v;
                         return Math.floor(v*ratio);
                     }
-                }
+                };
             // simple offset adjustment
-            }else{
+            } else {
                 a = parseInt(a, 10);
-                if(!isNaN(a)){
-                    return function(v){
-                        if(v !== last){
+                if (!isNaN(a)) {
+                    return function(v) {
+                        if (v !== last) {
                             last = v;
                             return v + a;
                         }
-                    }
+                    };
                 }
             }
         }

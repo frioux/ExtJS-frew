@@ -249,7 +249,7 @@ Ext.Element.addMethods(function(){
                 return {
                     width : d.clientWidth,
                     height : d.clientHeight
-                }
+                };
             }
         },
 
@@ -276,7 +276,7 @@ Ext.Element.addMethods(function(){
                 return {
                     width : extdom.getViewWidth(),
                     height : extdom.getViewHeight()
-                }
+                };
             }
             // Use Styles if they are set
             if(s.width && s.width != 'auto'){

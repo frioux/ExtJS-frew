@@ -71,6 +71,10 @@
     padding-bottom: 1px;
 }
 
+.x-action-col-icon {
+    cursor: pointer;
+}
+
 .x-grid3-hd-inner {
     position:relative;
 	cursor:inherit;

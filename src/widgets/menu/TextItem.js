@@ -21,15 +21,17 @@ Ext.menu.TextItem = Ext.extend(Ext.menu.BaseItem, {
      */
     itemCls : "x-menu-text",
     
-    constructor : function(config){
-        if(typeof config == 'string'){
-            config = {text: config}
+    constructor : function(config) {
+        if (typeof config == 'string') {
+            config = {
+                text: config
+            };
         }
         Ext.menu.TextItem.superclass.constructor.call(this, config);
     },
 
     // private
-    onRender : function(){
+    onRender : function() {
         var s = document.createElement("span");
         s.className = this.itemCls;
         s.innerHTML = this.text;

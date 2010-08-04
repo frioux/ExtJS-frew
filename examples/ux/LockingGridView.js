@@ -141,8 +141,8 @@ Ext.ux.grid.LockingGridView = Ext.extend(Ext.grid.GridView, {
 
     updateSortIcon : function(col, dir){
         var sortClasses = this.sortClasses,
-            lockedHeaders = this.lockedHd.select('td').removeClass(sc),
-            headers = this.mainHd.select('td').removeClass(sc),
+            lockedHeaders = this.lockedHd.select('td').removeClass(sortClasses),
+            headers = this.mainHd.select('td').removeClass(sortClasses),
             lockedLen = this.cm.getLockedCount(),
             cls = sortClasses[dir == 'DESC' ? 1 : 0];
             
@@ -668,7 +668,7 @@ Ext.ux.grid.LockingGridView = Ext.extend(Ext.grid.GridView, {
             case 'lock':
                 if(cm.getColumnCount(true) <= llen + 1){
                     this.onDenyColumnLock();
-                    return;
+                    return undefined;
                 }
                 cm.setLocked(index, true);
                 if(llen != index){

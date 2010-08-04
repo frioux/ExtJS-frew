@@ -252,27 +252,30 @@ sortInfo: {
         dir : 'dir'
     },
 
-    /**
-     * True if the store has been destroyed already. Read only
-     * @property {Boolean} isDestroyed
-     */
-    isDestroyed: false,
-
-    /**
-     * True if this store is currently sorted by more than one field/direction combination.
-     * @property {Boolean} hasMultiSort
-     */
+    isDestroyed: false,    
     hasMultiSort: false,
 
     // private
     batchKey : '_ext_batch_',
 
     constructor : function(config){
+        /**
+         * @property multiSort
+         * @type Boolean
+         * True if this store is currently sorted by more than one field/direction combination.
+         */
+        
+        /**
+         * @property isDestroyed
+         * @type Boolean
+         * True if the store has been destroyed already. Read only
+         */
+        
         this.data = new Ext.util.MixedCollection(false);
         this.data.getKey = function(o){
             return o.id;
         };
-
+        
 
         // temporary removed-records cache
         this.removed = [];

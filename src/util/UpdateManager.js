@@ -448,7 +448,7 @@ function() {
                 this.update(this.defaultUrl, null, callback, true);
             }
         }
-    }
+    };
 }());
 
 /**

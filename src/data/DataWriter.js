@@ -179,7 +179,7 @@ Ext.data.DataWriter.prototype = {
                 delete data[this.meta.idProperty];
             }
         } else {
-            data[this.meta.idProperty] = rec.id
+            data[this.meta.idProperty] = rec.id;
         }
         return data;
     },

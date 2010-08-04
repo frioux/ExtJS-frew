@@ -458,7 +458,7 @@ Ext.debug.ComponentInspector = Ext.extend(Ext.tree.TreePanel, {
                 if (c.id != this.id && c.id != this.bottomToolbar.id) {
                     var newNode = this.createNode(n,c);
                     if (!newNode.leaf) {
-                        this.parseChildItems(newNode)
+                        this.parseChildItems(newNode);
                     }
                 }
             }
@@ -493,7 +493,7 @@ Ext.debug.ComponentInspector = Ext.extend(Ext.tree.TreePanel, {
         this.parseRootNode();
         var ci = Ext.getCmp('x-debug-compinfo');
         if (ci) {
-            ci.message('refreshed component tree - '+Ext.ComponentMgr.all.length)
+            ci.message('refreshed component tree - '+Ext.ComponentMgr.all.length);
         }
     }
 });

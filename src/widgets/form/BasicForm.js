@@ -478,7 +478,9 @@ myFormPanel.getForm().submit({
                     value = value.getGroupValue();
                 } else if ( field.eachItem ) {
                     value = [];
-                    field.eachItem(function(item){ value.push(item.getValue()) });
+                    field.eachItem(function(item){
+                        value.push(item.getValue());
+                    });
                 }
                 record.set(f.name, value);
             }

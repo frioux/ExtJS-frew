@@ -306,7 +306,7 @@ Ext.list.ListView = Ext.extend(Ext.DataView, {
         return {
             columns: this.columns,
             rows: rs
-        }
+        };
     },
 
     verifyInternalSize : function(){

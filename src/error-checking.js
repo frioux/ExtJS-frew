@@ -120,7 +120,7 @@ Ext.debug.Assistant = function(){
                 }
             
                 if(this.contentEl){
-                    var el = Ext.getDom(this.contentEl)
+                    var el = Ext.getDom(this.contentEl);
                     if(!el){
                         A.error('Specified contentEl does not exist', this, this.contentEl);
                         return false;
@@ -349,7 +349,7 @@ Ext.debug.Assistant = function(){
     });
     
     if(Ext.BLANK_IMAGE_URL == 'http:/' + '/www.extjs.com/s.gif'){
-        A.warn('You should set the Ext.BLANK_IMAGE_URL to reference a local copy.')
+        A.warn('You should set the Ext.BLANK_IMAGE_URL to reference a local copy.');
     }
     
     A.init(cls);

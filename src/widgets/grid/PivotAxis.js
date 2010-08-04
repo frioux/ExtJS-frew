@@ -129,7 +129,7 @@ Ext.grid.PivotAxis = Ext.extend(Ext.Component, {
                     tag    : 'td',
                     html   : row.header,
                     rowspan: row.span,
-                    width  :  Ext.isBorderBox ? colWidth : colWidth - this.paddingWidth
+                    width  : Ext.isBorderBox ? colWidth : colWidth - this.paddingWidth
                 });
             }
         }
@@ -237,6 +237,11 @@ Ext.grid.PivotAxis = Ext.extend(Ext.Component, {
     
     /**
      * @private
+     * Uses the calculated set of tuples to build an array of headers that can be rendered into a table using rowspan or
+     * colspan. Basically this takes the set of tuples and spans any cells that run into one another, so if we had dimensions
+     * of Person and Product and several tuples containing different Products for the same Person, those Products would be
+     * spanned.
+     * @return {Array} The headers
      */
     buildHeaders: function() {
         var tuples     = this.getTuples(),
@@ -253,11 +258,21 @@ Ext.grid.PivotAxis = Ext.extend(Ext.Component, {
             start = 0;
             
             for (j = 0; j < rowCount; j++) {
-                tuple = tuples[j];
+                tuple  = tuples[j];
+                isLast = j == (rowCount - 1);
                 currentHeader = tuple.data[dimension.dataIndex];
                 
-                isLast  = j == (rowCount - 1);
+                /*
+                 * 'changed' indicates that we need to create a new cell. This should be true whenever the cell
+                 * above (previousHeader) is different from this cell, or when the cell on the previous dimension
+                 * changed (e.g. if the current dimension is Product and the previous was Person, we need to start
+                 * a new cell if Product is the same but Person changed, so we check the previous dimension and tuple)
+                 */
                 changed = previousHeader != undefined && previousHeader != currentHeader;
+                if (i > 0 && j > 0) {
+                    changed = changed || tuple.data[dimensions[i-1].dataIndex];
+                    changed = changed || tuples[j-1].data[dimensions[i-1].dataIndex];
+                }
                 
                 if (changed) {                    
                     rows.push({

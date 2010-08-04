@@ -1341,7 +1341,7 @@ viewConfig: {
         var resolved = this.resolveCell(row, col, hscroll);
         
         if (!resolved || !resolved.row) {
-            return;
+            return null;
         }
 
         var rowEl  = resolved.row,
@@ -1477,7 +1477,7 @@ viewConfig: {
         
         if (Ext.isNumber(columnWidth)) {
             if (Ext.isBorderBox || (Ext.isWebKit && !Ext.isSafari2)) {
-                return columnWidth;
+                return columnWidth + "px";
             } else {
                 return Math.max(columnWidth - borderWidth, 0) + "px";
             }
@@ -1516,11 +1516,7 @@ viewConfig: {
             colWidth, fraction, i;
         
         // not initialized, so don't screw up the default widths
-        if (gridWidth < 20) {
-            return;
-        }
-        
-        if (extraWidth === 0) {
+        if (gridWidth < 20 || extraWidth === 0) {
             return false;
         }
         
@@ -1560,7 +1556,7 @@ viewConfig: {
         
         if (totalColWidth > gridWidth) {
             var adjustCol = (adjCount == visibleColCount) ? extraCol : omitColumn,
-                newWidth  = Math.max(1, colModel.getColumnWidth(adjustCol) - totalColWidth - gridWidth);
+                newWidth  = Math.max(1, colModel.getColumnWidth(adjustCol) - (totalColWidth - gridWidth));
             
             colModel.setColumnWidth(adjustCol, newWidth, true);
         }
@@ -2248,7 +2244,7 @@ viewConfig: {
         if (index != -1) {
             if (item.checked && colModel.getColumnsBy(this.isHideableColumn, this).length <= 1) {
                 this.onDenyColumnHide();
-                return false;
+                return;
             }
             colModel.setHidden(index, item.checked);
         }

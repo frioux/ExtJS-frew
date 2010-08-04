@@ -67,7 +67,7 @@ Ext.form.Radio = Ext.extend(Ext.form.Checkbox, {
     // private
     getCheckEl: function(){
         if(this.inGroup){
-            return this.el.up('.x-form-radio-group')
+            return this.el.up('.x-form-radio-group');
         }
         return this.el.up('form') || Ext.getBody();
     }

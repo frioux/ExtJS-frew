@@ -376,7 +376,7 @@
             return {
                 fn: val.fn,
                 scope: val.scope || this
-            }
+            };
         }
     },
 

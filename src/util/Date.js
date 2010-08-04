@@ -152,7 +152,7 @@ Date.formatCodeToRegex = function(character, currentGroup) {
         g:0,
         c:null,
         s:Ext.escapeRe(character) // treat unrecognised characters as literals
-    }
+    };
 };
 
 // private shorthand for Date.formatCodeToRegex since we'll be using it fairly often
@@ -584,7 +584,7 @@ dt = Date.parseDate("2006-02-29 03:20:01", "Y-m-d H:i:s", true); // returns null
                 special = false;
                 code.push("'" + String.escape(ch) + "'");
             } else {
-                code.push(Date.getFormatCode(ch))
+                code.push(Date.getFormatCode(ch));
             }
         }
         Date.formatFunctions[format] = new Function("return " + code.join('+'));
@@ -680,7 +680,7 @@ dt = Date.parseDate("2006-02-29 03:20:01", "Y-m-d H:i:s", true); // returns null
 
             Date.parseRegexes[regexNum] = new RegExp("^" + regex.join('') + "$", 'i');
             Date.parseFunctions[format] = new Function("input", "strict", xf(code, regexNum, calc.join('')));
-        }
+        };
     }(),
 
     // private
@@ -707,14 +707,14 @@ dt = Date.parseDate("2006-02-29 03:20:01", "Y-m-d H:i:s", true); // returns null
                 g:0,
                 c:null,
                 s:"(?:" + a.join("|") +")"
-            }
+            };
         },
         l: function() {
             return {
                 g:0,
                 c:null,
                 s:"(?:" + Date.dayNames.join("|") + ")"
-            }
+            };
         },
         N: {
             g:0,
@@ -746,7 +746,7 @@ dt = Date.parseDate("2006-02-29 03:20:01", "Y-m-d H:i:s", true); // returns null
                 g:1,
                 c:"m = parseInt(Date.getMonthNumber(results[{0}]), 10);\n", // get localised month number
                 s:"(" + Date.monthNames.join("|") + ")"
-            }
+            };
         },
         M: function() {
             for (var a = [], i = 0; i < 12; a.push(Date.getShortMonthName(i)), ++i); // get localised short month names
@@ -915,7 +915,7 @@ dt = Date.parseDate("2006-02-29 03:20:01", "Y-m-d H:i:s", true); // returns null
                         ")?",
                     ")?"
                 ].join("")
-            }
+            };
         },
         U: {
             g:1,
@@ -1007,7 +1007,7 @@ Ext.apply(Date.prototype, {
                 Wyr = new Date(AWN * ms7d).getUTCFullYear();
 
             return AWN - Math.floor(Date.UTC(Wyr, 0, 7) / ms7d) + 1;
-        }
+        };
     }(),
 
     /**
@@ -1078,7 +1078,7 @@ document.write(Date.dayNames[dt.getLastDayOfMonth()]); //output: 'Wednesday'
             var m = this.getMonth();
 
             return m == 1 && this.isLeapYear() ? 29 : daysInMonth[m];
-        }
+        };
     }(),
 
     /**
@@ -1316,4 +1316,4 @@ console.group('ISO-8601 Granularity Test (see http://www.w3.org/TR/NOTE-datetime
     console.log('Date.parseDate("1997-13-16T19:20:30.45+01:00", "c", true)= %o', Date.parseDate("1997-13-16T19:20:30.45+01:00", "c", true)); // strict date parsing with invalid month value
 console.groupEnd();
 
-//*/
+*/

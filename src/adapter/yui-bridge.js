@@ -10,7 +10,7 @@ if(typeof YAHOO == "undefined"){
         A = YAHOO.util.Anim,
         libFlyweight,
         version = YAHOO.env.getVersion('yahoo').version.split('.'),
-        mouseEnterSupported = parseInt(version[0]) >= 3,
+        mouseEnterSupported = parseInt(version[0], 10) >= 3,
         mouseCache = {},
         elContains = function(parent, child){
             if(parent && parent.firstChild){

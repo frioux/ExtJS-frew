@@ -169,5 +169,5 @@ Ext.QuickTips = function(){
         tips : function(){
             tip.register.apply(tip, arguments);
         }
-    }
+    };
 }();
