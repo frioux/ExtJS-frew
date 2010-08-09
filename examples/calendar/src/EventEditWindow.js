@@ -63,7 +63,6 @@ Ext.calendar.EventEditWindow = function(config){
 Ext.extend(Ext.calendar.EventEditWindow, Ext.Window, {
 
 	newId: 10000,
-	showAnimDuration: 0.15,
 	
     initComponent: function(){
         Ext.calendar.EventEditWindow.superclass.initComponent.call(this);
@@ -138,7 +137,7 @@ Ext.extend(Ext.calendar.EventEditWindow, Ext.Window, {
                 StartDate: start,
                 EndDate: end,
                 IsNew: true,
-                IsAllDay: !!o.IsAllDay || !!(o.EndDate && start != o.EndDate),
+                IsAllDay: !!o.IsAllDay || !!(o.EndDate && start.getDate() != o.EndDate.getDate()),
                 IsReminder: false
             });
 

@@ -1455,7 +1455,7 @@ viewConfig: {
         style += String.format("width: {0};", this.getColumnWidth(colIndex));
         
         if (colModel.isHidden(colIndex)) {
-            style += 'display: none';
+            style += 'display: none; ';
         }
         
         if (align) {
@@ -2299,8 +2299,9 @@ viewConfig: {
                 
             if (this.grid.enableColumnResize !== false) {
                 var activeHeaderIndex = this.activeHdIndex,
+                    previousVisible   = this.getPreviousVisible(activeHeaderIndex),
                     currentResizable  = colModel.isResizable(activeHeaderIndex),
-                    previousResizable = colModel.isResizable(activeHeaderIndex - 1),
+                    previousResizable = previousVisible && colModel.isResizable(previousVisible),
                     inLeftResizer     = pageX - activeRegion.left <= handleWidth,
                     inRightResizer    = activeRegion.right - pageX <= (!this.activeHdBtn ? handleWidth : 2);
                 
@@ -2312,6 +2313,22 @@ viewConfig: {
             }
             
             headerStyle.cursor = cursor;
+        }
+    },
+    
+    /**
+     * @private
+     * Returns the index of the nearest currently visible header to the left of the given index.
+     * @param {Number} index The header index
+     * @return {Number/undefined} The index of the nearest visible header
+     */
+    getPreviousVisible: function(index) {
+        while (index > 0) {
+            if (!this.cm.isHidden(index - 1)) {
+                return index;
+            }
+            
+            index--;
         }
     },
 

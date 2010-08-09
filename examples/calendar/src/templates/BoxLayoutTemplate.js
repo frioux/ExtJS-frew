@@ -2,9 +2,12 @@ Ext.calendar.BoxLayoutTemplate = function(config){
     
     Ext.apply(this, config);
     
+    var weekLinkTpl = this.showWeekLinks ? '<div id="{weekLinkId}" class="ext-cal-week-link">{weekNum}</div>' : '';
+    
     Ext.calendar.BoxLayoutTemplate.superclass.constructor.call(this,
         '<tpl for="weeks">',
             '<div id="{[this.id]}-wk-{[xindex-1]}" class="ext-cal-wk-ct" style="top:{[this.getRowTop(xindex, xcount)]}%; height:{[this.getRowHeight(xcount)]}%;">',
+                weekLinkTpl,
                 '<table class="ext-cal-bg-tbl" cellpadding="0" cellspacing="0">',
                     '<tbody>',
                         '<tr>',
@@ -58,6 +61,13 @@ Ext.extend(Ext.calendar.BoxLayoutTemplate, Ext.XTemplate, {
                 prevMonth = (dt.getMonth() < thisMonth) && this.weekCount == -1;
                 nextMonth = (dt.getMonth() > thisMonth) && this.weekCount == -1;
                 
+                if(dt.getDay() == 1){
+                    // The ISO week format 'W' is relative to a Monday week start. If we
+                    // make this check on Sunday the week number will be off.
+                    weeks[w].weekNum = this.showWeekNumbers ? dt.format('W') : '&nbsp;';
+                    weeks[w].weekLinkId = 'ext-cal-week-'+dt.format('Ymd');
+                }
+                
                 if(showMonth){
                     if(isToday){
                         title = this.getTodayText();
@@ -67,7 +77,8 @@ Ext.extend(Ext.calendar.BoxLayoutTemplate, Ext.XTemplate, {
                     }
                 }
                 else{
-                    title = isToday ? this.getTodayText() : dt.format(w == 0 ? 'D j' : 'j');
+                    var dayFmt = (w == 0 && this.showHeader !== true) ? 'D j' : 'j';
+                    title = isToday ? this.getTodayText() : dt.format(dayFmt);
                 }
                 
                 weeks[w].push({
@@ -94,16 +105,16 @@ Ext.extend(Ext.calendar.BoxLayoutTemplate, Ext.XTemplate, {
     
     getTodayText : function(){
         var dt = new Date().format('l, F j, Y'),
-            text = this.dayCount == 1 ? dt + ' &mdash; ' + this.todayText: this.todayText;
+            todayText = this.showTodayText !== false ? this.todayText : '',
+            timeText = this.showTime !== false ? ' <span id="'+this.id+'-clock" class="ext-cal-dtitle-time">' + 
+                    new Date().format('g:i a') + '</span>' : '',
+            separator = todayText.length > 0 || timeText.length > 0 ? ' &mdash; ' : '';
         
-        if(this.showTodayText !== false || this.dayCount == 1){
-            if(this.showTime !== false){
-                return text + ' <span id="'+this.id+'-clock" class="ext-cal-dtitle-time">' + 
-                    new Date().format('g:i a') + '</span>';
-            }
-            return text;
+        if(this.dayCount == 1){
+            return dt + separator + todayText + timeText;
         }
-        return new Date().format('j');
+        fmt = this.weekCount == 1 ? 'D j' : 'j';
+        return todayText.length > 0 ? todayText + timeText : new Date().format(fmt) + timeText;
     }
 });
 

@@ -29,12 +29,12 @@ Ext.calendar.DayBodyView = Ext.extend(Ext.calendar.CalendarView, {
             increment: 100,
             ddGroup: 'DayViewDD'
         };
-        this.bdDragZone = new Ext.calendar.DayViewDragZone(this.el, Ext.apply({
+        this.dragZone = new Ext.calendar.DayViewDragZone(this.el, Ext.apply({
             view: this,
             containerScroll: true
         }, cfg));
         
-        this.bdDropZone = new Ext.calendar.DayViewDropZone(this.el, Ext.apply({
+        this.dropZone = new Ext.calendar.DayViewDropZone(this.el, Ext.apply({
             view: this
         }, cfg));
     },
@@ -298,30 +298,48 @@ Ext.calendar.DayBodyView = Ext.extend(Ext.calendar.CalendarView, {
     getDayAt : function(x, y){
         var sel = '.ext-cal-body-ct',
             xoffset = this.el.child('.ext-cal-day-times').getWidth(),
-            box = this.el.getBox(),
+            viewBox = this.el.getBox(),
             daySize = this.getDaySize(false),
-            dayL = Math.floor(((x - box.x - xoffset) / daySize.width)),
-            dayT = Math.floor(((y - box.y) / daySize.height)),
-            days = (dayT * this.dayCount) + dayL,
+            relX = x - viewBox.x - xoffset,
+            dayIndex = Math.floor(relX / daySize.width), // clicked col index
             scroll = this.el.getScroll(),
-            row = this.el.child('.ext-cal-bg-row'),
+            row = this.el.child('.ext-cal-bg-row'), // first avail row, just to calc size
             rowH = row.getHeight() / 2, // 30 minute increment since a row is 60 minutes
-            rowTop = y - box.y - rowH + scroll.top,
-            mins = Math.ceil(rowTop / rowH) * 30,
-            dt = this.viewStart.add(Date.DAY, days).add(Date.MINUTE, mins);
+            relY = y - viewBox.y - rowH + scroll.top,
+            rowIndex = Math.max(0, Math.ceil(relY / rowH)),
+            mins = rowIndex * 30,
+            dt = this.viewStart.add(Date.DAY, dayIndex).add(Date.MINUTE, mins),
+            el = this.getDayEl(dt),
+            timeX = x;
+        
+        if(el){
+            timeX = el.getLeft();
+        }
         
         return {
             date: dt,
-            el: this.getDayEl(dt)
+            el: el,
+            // this is the box for the specific time block in the day that was clicked on:
+            timeBox: {
+                x: timeX,
+                y: (rowIndex * 21) + viewBox.y - scroll.top,
+                width: daySize.width,
+                height: rowH
+            } 
         }
     },
 
     onClick : function(e, t){
-        if(Ext.calendar.DayBodyView.superclass.onClick.apply(this, arguments)){
+        if(this.dragPending || Ext.calendar.DayBodyView.superclass.onClick.apply(this, arguments)){
             // The superclass handled the click already so exit
             return;
         }
-        if(el = e.getTarget('td', 3)){
+        if(e.getTarget('.ext-cal-day-times', 3) !== null){
+            // ignore clicks on the times-of-day gutter
+            return;
+        }
+        var el = e.getTarget('td', 3);
+        if(el){
             if(el.id && el.id.indexOf(this.dayElIdDelimiter) > -1){
                 var dt = this.getDateFromId(el.id, this.dayElIdDelimiter);
                 this.fireEvent('dayclick', this, Date.parseDate(dt, 'Ymd'), true, Ext.get(this.getDayId(dt, true)));

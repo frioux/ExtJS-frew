@@ -2,21 +2,28 @@ Ext.calendar.MonthView = Ext.extend(Ext.calendar.CalendarView, {
 	//public configs:
 	daySelector: '.ext-cal-day',
 	moreSelector : '.ext-cal-ev-more',
+    weekLinkSelector : '.ext-cal-week-link',
 	showTime: true,
 	showTodayText: true,
+    showHeader: false,
+    showWeekLinks: false,
+    showWeekNumbers: false,
 	todayText: 'Today',
     weekCount: -1, // defaults to auto by month
     dayCount: 7,
+    weekLinkOverClass: 'ext-week-link-over',
      
     //private properties -- do not override:
 	moreElIdDelimiter: '-more-',
+    weekLinkIdDelimiter: 'ext-cal-week-',
 
     initComponent : function(){
         Ext.calendar.MonthView.superclass.initComponent.call(this);
         this.addEvents({
             dayclick: true,
             dayover: true,
-            dayout: true
+            dayout: true,
+            weekclick: true
         });
     },
 	
@@ -45,7 +52,10 @@ Ext.calendar.MonthView = Ext.extend(Ext.calendar.CalendarView, {
                 id: this.id,
                 showTodayText: this.showTodayText,
                 todayText: this.todayText,
-                showTime: this.showTime
+                showTime: this.showTime,
+                showHeader: this.showHeader,
+                showWeekLinks: this.showWeekLinks,
+                showWeekNumbers: this.showWeekNumbers
             });
         }
         this.tpl.compile();
@@ -60,6 +70,23 @@ Ext.calendar.MonthView = Ext.extend(Ext.calendar.CalendarView, {
 			this.refresh();
         }
 	},
+    
+    // private
+    forceSize: function(){
+        // Compensate for the week link gutter width if visible
+        if(this.showWeekLinks && this.el && this.el.child){
+            var hd = this.el.select('.ext-cal-hd-days-tbl'),
+                bgTbl = this.el.select('.ext-cal-bg-tbl'),
+                evTbl = this.el.select('.ext-cal-evt-tbl'),
+                wkLinkW = this.el.child('.ext-cal-week-link').getWidth(),
+                w = this.el.getWidth()-wkLinkW;
+            
+            hd.setWidth(w);
+            bgTbl.setWidth(w);
+            evTbl.setWidth(w);
+        }
+        Ext.calendar.MonthView.superclass.forceSize.call(this);
+    },
     
     //private
     initClock : function(){
@@ -319,6 +346,11 @@ Ext.calendar.MonthView = Ext.extend(Ext.calendar.CalendarView, {
 		if(this.dropZone){
 			this.dropZone.clearShims();
 		}
+        if(el = e.getTarget(this.weekLinkSelector, 3)){
+            var dt = el.id.split(this.weekLinkIdDelimiter)[1];
+            this.fireEvent('weekclick', this, Date.parseDate(dt, 'Ymd'));
+            return;
+        }
 		if(el = e.getTarget(this.moreSelector, 3)){
 			var dt = el.id.split(this.moreElIdDelimiter)[1];
 			this.onMoreClick(Date.parseDate(dt, 'Ymd'));
@@ -331,6 +363,15 @@ Ext.calendar.MonthView = Ext.extend(Ext.calendar.CalendarView, {
                 return;
             }
         }
+    },
+    
+    handleDayMouseEvent : function(e, t, type){
+        var el = e.getTarget(this.weekLinkSelector, 3, true);
+        if(el){
+            el[type == 'over' ? 'addClass' : 'removeClass'](this.weekLinkOverClass);
+            return;
+        }
+        Ext.calendar.MonthView.superclass.handleDayMouseEvent.apply(this, arguments);
     }
 });
 

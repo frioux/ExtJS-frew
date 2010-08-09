@@ -85,24 +85,18 @@ Ext.calendar.DropZone = Ext.extend(Ext.dd.DropZone, {
     shims : [],
     
     getTargetFromEvent : function(e){
-        var y = e.getPageY(),
+        var dragOffset = this.dragOffset || 0,
+            y = e.getPageY() - dragOffset,
             d = this.view.getDayAt(e.getPageX(), y);
         
-        if(d.el){
-            return {
-                overDate: d.date,
-                el: d.el,
-                top: y
-            };
-        }
-        return null;
+        return d.el ? d : null;
     },
     
     onNodeOver : function(n, dd, e, data){
         var D = Ext.calendar.Date,
-            start = data.type == 'eventdrag' ? n.overDate : D.min(data.start, n.overDate),
-            end = data.type == 'eventdrag' ? n.overDate.add(Date.DAY, D.diffDays(data.eventStart, data.eventEnd)) : 
-                D.max(data.start, n.overDate);
+            start = data.type == 'eventdrag' ? n.date : D.min(data.start, n.date),
+            end = data.type == 'eventdrag' ? n.date.add(Date.DAY, D.diffDays(data.eventStart, data.eventEnd)) : 
+                D.max(data.start, n.date);
         
         if(!this.dragStartDate || !this.dragEndDate || (D.diffDays(start, this.dragStartDate) != 0) || (D.diffDays(end, this.dragEndDate) != 0)){
             this.dragStartDate = start;
@@ -214,7 +208,7 @@ Ext.calendar.DropZone = Ext.extend(Ext.dd.DropZone, {
         if(n && data){
             if(data.type == 'eventdrag'){
                 var rec = this.view.getEventRecordFromEl(data.ddel),
-                    dt = Ext.calendar.Date.copyTime(rec.data.StartDate, n.overDate);
+                    dt = Ext.calendar.Date.copyTime(rec.data.StartDate, n.date);
                     
                 this.view.onEventDrop(rec, dt);
                 this.onCalendarDragComplete();

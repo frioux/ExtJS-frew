@@ -14,9 +14,7 @@ Ext.App = function(config) {
         this.api.actions = {};
     }
     
-    // init when onReady fires.
-    // Ext.onReady(this.onReady, this);
-    this.onReady();
+    Ext.onReady(this.onReady, this);
     
     Ext.App.superclass.constructor.apply(this, arguments);
 };

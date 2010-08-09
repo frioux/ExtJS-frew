@@ -53,7 +53,7 @@
 
 /* Month names subheader */
 .ext-cal-hd-days-tbl {
-    background: #CDDCEF;
+    background: #EFEFEF;
     color: #555;
     table-layout: fixed;
     top: 18px;
@@ -61,6 +61,17 @@
     font-size: 12px;
     line-height: 12px;
 }
+
+.ext-cal-month-hd .ext-cal-hd-days-tbl {
+    border-top: 1px solid #99BBE8;
+}
+.x-calendar-nonav .ext-cal-month-hd .ext-cal-hd-days-tbl {
+    border-top: 0;
+}
+.ext-cal-month-hd .ext-cal-hd-day {
+    border-left: 1px solid #C3D9FF;
+}
+
 .ext-cal-hd-ct {
     border-bottom: 1px solid #bcf;
 }
@@ -219,8 +230,49 @@
     border:0;
     overflow: hidden;
     position: absolute;
-    top: 0;
+    top: 20px;
     width: 100%;
+}
+
+.ext-cal-monthview .ext-cal-noheader .ext-cal-hd-ct {
+    display: none;
+}
+.ext-cal-monthview .ext-cal-noheader .ext-cal-body-ct {
+    top: 0;
+}
+
+/* Month view week link boxes */
+.ext-cal-monthview .ext-cal-week-link,
+.ext-cal-monthview .ext-cal-week-link-hd {
+    width: 20px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: #EFEFEF;
+    border-top: 1px solid #C3D9FF;
+    border-right: 1px solid #C3D9FF;
+    font-size: 10px;
+    color: #999;
+    padding: 3px 0 0;
+    text-align: center;
+    cursor: pointer;
+}
+.ext-cal-monthview .ext-cal-week-link-hd {
+    border-top: 1px solid #99BBE8;
+}
+.x-calendar-nonav .ext-cal-monthview .ext-cal-week-link-hd {
+    border-top: 0;
+}
+.ext-cal-week-links .ext-cal-bg-tbl {
+    left: 20px;
+}
+.ext-cal-week-links .ext-cal-evt-tbl,
+.ext-cal-week-links .ext-cal-hd-days-tbl {
+    margin-left: 20px;
+}
+.ext-cal-monthview .ext-week-link-over {
+    background: #E0E7EF;
 }
 
 

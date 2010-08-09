@@ -7,7 +7,7 @@ Ext.calendar.CalendarView = Ext.extend(Ext.BoxComponent, {
 	trackMouseOver: true,
 	enableFx: true,
 	enableAddFx: true,
-	enableUpdateFx: true,
+	enableUpdateFx: false,
 	enableRemoveFx: true,
     enableDD: true,
 	ddCreateEventText: 'Create event for {0}',
@@ -263,8 +263,18 @@ Ext.calendar.CalendarView = Ext.extend(Ext.BoxComponent, {
 	},
 
 	onCalendarEndDrag : function(start, end, onComplete){
-		this.fireEvent('rangeselect', this, {StartDate:start, EndDate:end}, onComplete);
+        // set this flag for other event handlers that might conflict while we're waiting
+        this.dragPending = true;
+        // have to wait for the user to save or cancel before finalizing the dd interation
+		this.fireEvent('rangeselect', this, {StartDate:start, EndDate:end}, this.onCalendarEndDragComplete.createDelegate(this, [onComplete]));
 	},
+    
+    onCalendarEndDragComplete : function(onComplete){
+        // callback for the drop zone to clean up
+        onComplete();
+        // clear flag for other events to resume normally
+        this.dragPending = false;
+    },
 	
     onUpdate : function(ds, rec, operation){
 		if(this.monitorStoreEvents === false) {

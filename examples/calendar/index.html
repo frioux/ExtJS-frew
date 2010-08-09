@@ -59,10 +59,5 @@
     }
     updateLogoDt();
     setInterval(updateLogoDt, 1000);
-    
-    //removes the highlight on updated events
-    Ext.override(Ext.calendar.CalendarView, {
-        doUpdateFx: Ext.emptyFn
-    });
 </script>
 </html>

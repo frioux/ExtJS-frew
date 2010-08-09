@@ -67,16 +67,6 @@ Ext.calendar.CalendarPanel = Ext.extend(Ext.Panel, {
      * Alternate text to use for the 'Month' nav bar button.
      */
     monthText: 'Month',
-    /**
-     * @cfg {String} jumpToText
-     * Alternate text to use for the 'Jump to:' date field label in the nav bar.
-     */
-    jumpToText: 'Jump to:',
-    /**
-     * @cfg {String} goText
-     * Alternate text to use for the 'Go' nav bar button.
-     */
-    goText: 'Go',
     
     // private
     layoutConfig: {
@@ -117,6 +107,7 @@ Ext.calendar.CalendarPanel = Ext.extend(Ext.Panel, {
                 id: this.id+'-tb-month', text: this.monthText, handler: this.onMonthClick, scope: this, toggleGroup: 'tb-views'
             });
             this.viewCount++;
+            this.showMonthView = true;
         }
         this.tbar.items.push({
             id: this.id+'-tb-next', handler: this.onNextClick, scope: this, iconCls: 'x-tbar-page-next'
@@ -171,13 +162,21 @@ Ext.calendar.CalendarPanel = Ext.extend(Ext.Panel, {
             this.initEventRelay(wk);
             this.add(wk);
         }
-        if(this.showMonthView || this.viewCount == 0){
+        if(this.showMonthView){
             var month = Ext.applyIf({
                 xtype: 'monthview',
                 title: this.monthText,
                 showToday: this.showToday,
                 showTodayText: this.showTodayText,
-                showTime: this.showTime
+                showTime: this.showTime,
+                listeners: {
+                    'weekclick': {
+                        fn: function(vw, dt){
+                            this.showWeek(dt);
+                        },
+                        scope: this
+                    }
+                }
             }, this.monthViewCfg);
             
             month.id = this.id+'-month';
@@ -300,6 +299,7 @@ Ext.calendar.CalendarPanel = Ext.extend(Ext.Panel, {
         this.fireViewChange();
     },
     
+    // private
     fireViewChange: function(){
         var info = null, 
             view = this.layout.activeItem;
@@ -322,16 +322,24 @@ Ext.calendar.CalendarPanel = Ext.extend(Ext.Panel, {
                 suffix = item.id.split(this.id+'-')[1];
             
             var btn = Ext.getCmp(this.id+'-tb-'+suffix);
-            if(!btn.pressed){
-                btn.toggle(true, true);
-            }
+            btn.toggle(true);
         }
     },
-    
+
+    /**
+     * Sets the start date for the currently-active calendar view.
+     * @param {Date} dt
+     */
     setStartDate: function(dt){
         this.layout.activeItem.setStartDate(dt, true);
         this.updateNavState();
         this.fireViewChange();
+    },
+        
+    // private
+    showWeek: function(dt){
+        this.setActiveView(this.id+'-week');
+        this.setStartDate(dt);
     },
     
     // private
@@ -364,9 +372,9 @@ Ext.calendar.CalendarPanel = Ext.extend(Ext.Panel, {
     },
     
     /**
-     * Return the view that is currently active, which will be a subclass of
-     * {@link Ext.calendar.BaseCalendarView BaseCalendarView}.
-     * @return {Ext.calendar.BaseCalendarView} The active view
+     * Return the calendar view that is currently active, which will be a subclass of
+     * {@link Ext.calendar.CalendarView CalendarView}.
+     * @return {Ext.calendar.CalendarView} The active view
      */
     getActiveView: function(){
         return this.layout.activeItem;

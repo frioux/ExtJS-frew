@@ -619,19 +619,31 @@ sortInfo: {
      * @param {Ext.data.Record[]} records An Array of Ext.data.Record objects
      * to add to the cache. See {@link #recordType}.
      */
-    add : function(records){
+    add : function(records) {
+        var i, record, index;
+        
         records = [].concat(records);
-        if(records.length < 1){
+        if (records.length < 1) {
             return;
         }
-        for(var i = 0, len = records.length; i < len; i++){
-            records[i].join(this);
+        
+        for (i = 0, len = records.length; i < len; i++) {
+            record = records[i];
+            
+            record.join(this);
+            
+            if (record.dirty || record.phantom) {
+                this.modified.push(record);
+            }
         }
-        var index = this.data.length;
+        
+        index = this.data.length;
         this.data.addAll(records);
-        if(this.snapshot){
+        
+        if (this.snapshot) {
             this.snapshot.addAll(records);
         }
+        
         this.fireEvent('add', this, records, index);
     },
 
@@ -726,15 +738,25 @@ sortInfo: {
      * @param {Number} index The start index at which to insert the passed Records.
      * @param {Ext.data.Record[]} records An Array of Ext.data.Record objects to add to the cache.
      */
-    insert : function(index, records){
+    insert : function(index, records) {
+        var i, record;
+        
         records = [].concat(records);
-        for(var i = 0, len = records.length; i < len; i++){
-            this.data.insert(index, records[i]);
-            records[i].join(this);
+        for (i = 0, len = records.length; i < len; i++) {
+            record = records[i];
+            
+            this.data.insert(index + i, record);
+            record.join(this);
+            
+            if (record.dirty || record.phantom) {
+                this.modified.push(record);
+            }
         }
-        if(this.snapshot){
+        
+        if (this.snapshot) {
             this.snapshot.addAll(records);
         }
+        
         this.fireEvent('add', this, records, index);
     },
 
@@ -1216,6 +1238,8 @@ myStore.reload(lastOptions);
     // private
     // Called as a callback by the Reader during a load operation.
     loadRecords : function(o, options, success){
+        var i;
+        
         if (this.isDestroyed === true) {
             return;
         }
@@ -1233,7 +1257,7 @@ myStore.reload(lastOptions);
             if(this.pruneModifiedRecords){
                 this.modified = [];
             }
-            for(var i = 0, len = r.length; i < len; i++){
+            for(i = 0, len = r.length; i < len; i++){
                 r[i].join(this);
             }
             if(this.snapshot){
@@ -1249,7 +1273,7 @@ myStore.reload(lastOptions);
             var toAdd = [],
                 rec,
                 cnt = 0;
-            for(var i = 0, len = r.length; i < len; ++i){
+            for(i = 0, len = r.length; i < len; ++i){
                 rec = r[i];
                 if(this.indexOfId(rec.id) > -1){
                     this.doUpdate(rec);
