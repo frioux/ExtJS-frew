@@ -1,3 +1,9 @@
+/*
+ * This is the view used internally by the panel that displays overflow events in the
+ * month view. Anytime a day cell cannot display all of its events, it automatically displays
+ * a link at the bottom to view all events for that day. When clicked, a panel pops up that
+ * uses this view to display the events for that day.
+ */
 Ext.calendar.MonthDayDetailView = Ext.extend(Ext.BoxComponent, {
     initComponent : function(){
         Ext.calendar.CalendarView.superclass.initComponent.call(this);
@@ -57,22 +63,24 @@ Ext.calendar.MonthDayDetailView = Ext.extend(Ext.BoxComponent, {
 			
 			evts = this.store.queryBy(function(rec){
 				var thisDt = this.date.clearTime(true).getTime(),
-					recStart = rec.data.StartDate.clearTime(true).getTime(),
+					recStart = rec.data[Ext.calendar.EventMappings.StartDate.name].clearTime(true).getTime(),
 	            	startsOnDate = (thisDt == recStart),
 					spansDate = false;
 				
 				if(!startsOnDate){
-					var recEnd = rec.data.EndDate.clearTime(true).getTime();
+					var recEnd = rec.data[Ext.calendar.EventMappings.EndDate.name].clearTime(true).getTime();
 	            	spansDate = recStart < thisDt && recEnd >= thisDt;
 				}
 	            return startsOnDate || spansDate;
 	        }, this);
 		
 		evts.each(function(evt){
-            var item = evt.data;
-			item._renderAsAllDay = item.IsAllDay || Ext.calendar.Date.diffDays(item.StartDate, item.EndDate) > 0;
-            item.spanLeft = Ext.calendar.Date.diffDays(item.StartDate, this.date) > 0;
-            item.spanRight = Ext.calendar.Date.diffDays(this.date, item.EndDate) > 0;
+            var item = evt.data,
+                M = Ext.calendar.EventMappings;
+                
+			item._renderAsAllDay = item[M.IsAllDay.name] || Ext.calendar.Date.diffDays(item[M.StartDate.name], item[M.EndDate.name]) > 0;
+            item.spanLeft = Ext.calendar.Date.diffDays(item[M.StartDate.name], this.date) > 0;
+            item.spanRight = Ext.calendar.Date.diffDays(this.date, item[M.EndDate.name]) > 0;
             item.spanCls = (item.spanLeft ? (item.spanRight ? 'ext-cal-ev-spanboth' : 
                 'ext-cal-ev-spanleft') : (item.spanRight ? 'ext-cal-ev-spanright' : ''));
 

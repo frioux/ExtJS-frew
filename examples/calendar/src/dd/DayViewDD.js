@@ -1,4 +1,6 @@
-
+/*
+ * Internal drag zone implementation for the calendar day and week views.
+ */
 Ext.calendar.DayViewDragZone = Ext.extend(Ext.calendar.DragZone, {
     ddGroup : 'DayViewDD',
     resizeSelector : '.ext-evt-rsz',
@@ -12,8 +14,8 @@ Ext.calendar.DayViewDragZone = Ext.extend(Ext.calendar.DragZone, {
             return {
                 type: 'eventresize',
                 ddel: p.dom,
-                eventStart: rec.data.StartDate,
-                eventEnd: rec.data.EndDate,
+                eventStart: rec.data[Ext.calendar.EventMappings.StartDate.name],
+                eventEnd: rec.data[Ext.calendar.EventMappings.EndDate.name],
                 proxy: this.proxy
             };
         }
@@ -23,8 +25,8 @@ Ext.calendar.DayViewDragZone = Ext.extend(Ext.calendar.DragZone, {
             return {
                 type: 'eventdrag',
                 ddel: t,
-                eventStart: rec.data.StartDate,
-                eventEnd: rec.data.EndDate,
+                eventStart: rec.data[Ext.calendar.EventMappings.StartDate.name],
+                eventEnd: rec.data[Ext.calendar.EventMappings.EndDate.name],
                 proxy: this.proxy
             };
         }
@@ -43,7 +45,9 @@ Ext.calendar.DayViewDragZone = Ext.extend(Ext.calendar.DragZone, {
     }
 });
 
-
+/*
+ * Internal drop zone implementation for the calendar day and week views.
+ */
 Ext.calendar.DayViewDropZone = Ext.extend(Ext.calendar.DropZone, {
     ddGroup : 'DayViewDD',
     

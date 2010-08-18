@@ -1,3 +1,7 @@
+/*
+ * Internal drag zone implementation for the calendar components. This provides base functionality
+ * and is primarily for the month view -- DayViewDD adds day/week view-specific functionality.
+ */
 Ext.calendar.DragZone = Ext.extend(Ext.dd.DragZone, {
     ddGroup : 'CalendarDD',
     eventSelector : '.ext-cal-evt',
@@ -18,8 +22,8 @@ Ext.calendar.DragZone = Ext.extend(Ext.dd.DragZone, {
             return {
                 type: 'eventdrag',
                 ddel: t,
-                eventStart: rec.data.StartDate,
-                eventEnd: rec.data.EndDate,
+                eventStart: rec.data[Ext.calendar.EventMappings.StartDate.name],
+                eventEnd: rec.data[Ext.calendar.EventMappings.EndDate.name],
                 proxy: this.proxy
             };
         }
@@ -76,7 +80,10 @@ Ext.calendar.DragZone = Ext.extend(Ext.dd.DragZone, {
     }
 });
 
-
+/*
+ * Internal drop zone implementation for the calendar components. This provides base functionality
+ * and is primarily for the month view -- DayViewDD adds day/week view-specific functionality.
+ */
 Ext.calendar.DropZone = Ext.extend(Ext.dd.DropZone, {
     ddGroup : 'CalendarDD',
     eventSelector : '.ext-cal-evt',
@@ -208,7 +215,7 @@ Ext.calendar.DropZone = Ext.extend(Ext.dd.DropZone, {
         if(n && data){
             if(data.type == 'eventdrag'){
                 var rec = this.view.getEventRecordFromEl(data.ddel),
-                    dt = Ext.calendar.Date.copyTime(rec.data.StartDate, n.date);
+                    dt = Ext.calendar.Date.copyTime(rec.data[Ext.calendar.EventMappings.StartDate.name], n.date);
                     
                 this.view.onEventDrop(rec, dt);
                 this.onCalendarDragComplete();

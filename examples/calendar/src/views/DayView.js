@@ -1,11 +1,48 @@
+/**
+ * @class Ext.calendar.DayView
+ * @extends Ext.Container
+ * <p>Unlike other calendar views, is not actually a subclass of {@link Ext.calendar.CalendarView CalendarView}.
+ * Instead it is a {@link Ext.Container Container} subclass that internally creates and manages the layouts of
+ * a {@link Ext.calendar.DayHeaderView DayHeaderView} and a {@link Ext.calendar.DayBodyView DayBodyView}. As such
+ * DayView accepts any config values that are valid for DayHeaderView and DayBodyView and passes those through
+ * to the contained views. It also supports the interface required of any calendar view and in turn calls methods
+ * on the contained views as necessary.</p>
+ * @constructor
+ * @param {Object} config The config object
+ */
 Ext.calendar.DayView = Ext.extend(Ext.Container, {
+    /**
+     * @cfg {Boolean} showTime
+     * True to display the current time in today's box in the calendar, false to not display it (defautls to true)
+     */
     showTime: true,
+    /**
+     * @cfg {Boolean} showTodayText
+     * True to display the {@link #todayText} string in today's box in the calendar, false to not display it (defautls to true)
+     */
     showTodayText: true,
+    /**
+     * @cfg {String} todayText
+     * The text to display in the current day's box in the calendar when {@link #showTodayText} is true (defaults to 'Today')
+     */
     todayText: 'Today',
-    dayCount: 1,
-    
+    /**
+     * @cfg {String} ddCreateEventText
+     * The text to display inside the drag proxy while dragging over the calendar to create a new event (defaults to 
+     * 'Create event for {0}' where {0} is a date range supplied by the view)
+     */
     ddCreateEventText: 'Create event for {0}',
+    /**
+     * @cfg {String} ddMoveEventText
+     * The text to display inside the drag proxy while dragging an event to reposition it (defaults to 
+     * 'Move event to {0}' where {0} is the updated event start date/time supplied by the view)
+     */
     ddMoveEventText: 'Move event to {0}',
+    /**
+     * @cfg {Number} dayCount
+     * The number of days to display in the view (defaults to 1)
+     */
+    dayCount: 1,
     
     // private
     initComponent : function(){
@@ -35,6 +72,7 @@ Ext.calendar.DayView = Ext.extend(Ext.Container, {
         Ext.calendar.DayView.superclass.initComponent.call(this);
     },
     
+    // private
     afterRender : function(){
         Ext.calendar.DayView.superclass.afterRender.call(this);
         
@@ -43,6 +81,7 @@ Ext.calendar.DayView = Ext.extend(Ext.Container, {
         this.body.on('eventsrendered', this.forceSize, this);
     },
     
+    // private
     refresh : function(){
         this.header.refresh();
         this.body.refresh();
@@ -62,57 +101,87 @@ Ext.calendar.DayView = Ext.extend(Ext.Container, {
         }).defer(10, this);
     },
     
+    // private
     onResize : function(){
         this.forceSize();
     },
     
+    // private
     getViewBounds : function(){
         return this.header.getViewBounds();
     },
     
+    /**
+     * Returns the start date of the view, as set by {@link #setStartDate}. Note that this may not 
+     * be the first date displayed in the rendered calendar -- to get the start and end dates displayed
+     * to the user use {@link #getViewBounds}.
+     * @return {Date} The start date
+     */
     getStartDate : function(){
         return this.header.getStartDate();
     },
 
+    /**
+     * Sets the start date used to calculate the view boundaries to display. The displayed view will be the 
+     * earliest and latest dates that match the view requirements and contain the date passed to this function.
+     * @param {Date} dt The date used to calculate the new view boundaries
+     */
     setStartDate: function(dt){
         this.header.setStartDate(dt, true);
         this.body.setStartDate(dt, true);
     },
 
+    // private
     renderItems: function(){
         this.header.renderItems();
         this.body.renderItems();
     },
     
+    /**
+     * Returns true if the view is currently displaying today's date, else false.
+     * @return {Boolean} True or false
+     */
     isToday : function(){
         return this.header.isToday();
     },
     
+    /**
+     * Updates the view to contain the passed date
+     * @param {Date} dt The date to display
+     */
     moveTo : function(dt, noRefresh){
         this.header.moveTo(dt, noRefresh);
         this.body.moveTo(dt, noRefresh);
     },
-
+    
+    /**
+     * Updates the view to the next consecutive date(s)
+     */
     moveNext : function(noRefresh){
         this.header.moveNext(noRefresh);
         this.body.moveNext(noRefresh);
     },
-
+    
+    /**
+     * Updates the view to the previous consecutive date(s)
+     */
     movePrev : function(noRefresh){
         this.header.movePrev(noRefresh);
         this.body.movePrev(noRefresh);
     },
-    
-    moveMonths : function(value, noRefresh){
-        this.header.moveMonths(value, noRefresh);
-        this.body.moveMonths(value, noRefresh);
-    },
 
+    /**
+     * Shifts the view by the passed number of days relative to the currently set date
+     * @param {Number} value The number of days (positive or negative) by which to shift the view
+     */
     moveDays : function(value, noRefresh){
         this.header.moveDays(value, noRefresh);
         this.body.moveDays(value, noRefresh);
     },
     
+    /**
+     * Updates the view to show today
+     */
     moveToday : function(noRefresh){
         this.header.moveToday(noRefresh);
         this.body.moveToday(noRefresh);

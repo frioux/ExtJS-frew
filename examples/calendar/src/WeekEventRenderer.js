@@ -1,3 +1,7 @@
+/*
+ * This is an internal helper class for the calendar views and should not be overridden.
+ * It is responsible for the base event rendering logic underlying all of the calendar views.
+ */
 Ext.calendar.WeekEventRenderer = function(){
     
     var getEventRow = function(id, week, index){
@@ -77,9 +81,9 @@ Ext.calendar.WeekEventRenderer = function(){
                                 if(!evt.isSpan || evt.isSpanStart){ //skip non-starting span cells
                                     var item = evt.data || evt.event.data;
                                     item._weekIndex = w;
-                                    item._renderAsAllDay = item.IsAllDay || evt.isSpanStart;
-                                    item.spanLeft = item.StartDate.getTime() < startOfWeek.getTime();
-                                    item.spanRight = item.EndDate.getTime() > endOfWeek.getTime();
+                                    item._renderAsAllDay = item[Ext.calendar.EventMappings.IsAllDay.name] || evt.isSpanStart;
+                                    item.spanLeft = item[Ext.calendar.EventMappings.StartDate.name].getTime() < startOfWeek.getTime();
+                                    item.spanRight = item[Ext.calendar.EventMappings.EndDate.name].getTime() > endOfWeek.getTime();
                                     item.spanCls = (item.spanLeft ? (item.spanRight ? 'ext-cal-ev-spanboth' : 
                                         'ext-cal-ev-spanleft') : (item.spanRight ? 'ext-cal-ev-spanright' : ''));
                                             
@@ -89,7 +93,7 @@ Ext.calendar.WeekEventRenderer = function(){
                                             cls: 'ext-cal-ev',
                                             cn : eventTpl.apply(o.templateDataFn(item))
                                         },
-                                        diff = Ext.calendar.Date.diffDays(dt, item.EndDate) + 1,
+                                        diff = Ext.calendar.Date.diffDays(dt, item[Ext.calendar.EventMappings.EndDate.name]) + 1,
                                         cspan = Math.min(diff, dayCount-d);
                                         
                                     if(cspan > 1){

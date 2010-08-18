@@ -69,7 +69,7 @@
     border-top: 0;
 }
 .ext-cal-month-hd .ext-cal-hd-day {
-    border-left: 1px solid #C3D9FF;
+    border-left: 1px solid #DDD;
 }
 
 .ext-cal-hd-ct {
@@ -250,8 +250,8 @@
     top: 0;
     height: 100%;
     background: #EFEFEF;
-    border-top: 1px solid #C3D9FF;
-    border-right: 1px solid #C3D9FF;
+    border-top: 1px solid #DDD;
+    border-right: 1px solid #DDD;
     font-size: 10px;
     color: #999;
     padding: 3px 0 0;
@@ -333,7 +333,7 @@ td.ext-cal-dtitle {
     padding-left: 1px;
 }
 td.ext-cal-dtitle-first {
-    border-top: 1px solid #BBCCFF;
+    border-top: 1px solid #DDD;
 }
 td.ext-cal-dtitle div {
     padding: 2px 4px 1px;

@@ -1,3 +1,13 @@
+/**
+ * @class Ext.calendar.BoxLayoutTemplate
+ * @extends Ext.XTemplate
+ * <p>This is the template used to render calendar views based on small day boxes within a non-scrolling container (currently
+ * the {@link Ext.calendar.MonthView MonthView} and the all-day headers for {@link Ext.calendar.DayView DayView} and 
+ * {@link Ext.calendar.WeekView WeekView}. This template is automatically bound to the underlying event store by the 
+ * calendar components and expects records of type {@link Ext.calendar.EventRecord}.</p>
+ * @constructor
+ * @param {Object} config The config object
+ */
 Ext.calendar.BoxLayoutTemplate = function(config){
     
     Ext.apply(this, config);
@@ -39,6 +49,7 @@ Ext.calendar.BoxLayoutTemplate = function(config){
 };
 
 Ext.extend(Ext.calendar.BoxLayoutTemplate, Ext.XTemplate, {
+    // private
     applyTemplate : function(o){
         
         Ext.apply(this, o);
@@ -103,6 +114,7 @@ Ext.extend(Ext.calendar.BoxLayoutTemplate, Ext.XTemplate, {
         });
     },
     
+    // private
     getTodayText : function(){
         var dt = new Date().format('l, F j, Y'),
             todayText = this.showTodayText !== false ? this.todayText : '',

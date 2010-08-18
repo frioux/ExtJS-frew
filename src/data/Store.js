@@ -885,17 +885,26 @@ sortInfo: {
     },
 
     /**
+     * @private
      * Should not be used directly.  Store#add will call this automatically if a Writer is set
      * @param {Object} store
-     * @param {Object} rs
+     * @param {Object} records
      * @param {Object} index
-     * @private
      */
-    createRecords : function(store, rs, index) {
-        for (var i = 0, len = rs.length; i < len; i++) {
-            if (rs[i].phantom && rs[i].isValid()) {
-                rs[i].markDirty();  // <-- Mark new records dirty
-                this.modified.push(rs[i]);  // <-- add to modified
+    createRecords : function(store, records, index) {
+        var modified = this.modified,
+            length   = records.length,
+            record, i;
+        
+        for (i = 0; i < length; i++) {
+            record = records[i];
+            
+            if (record.phantom && record.isValid()) {
+                record.markDirty();  // <-- Mark new records dirty (Ed: why?)
+                
+                if (modified.indexOf(record) == -1) {
+                    modified.push(record);
+                }
             }
         }
         if (this.autoSave === true) {
@@ -1717,7 +1726,7 @@ myStore.reload(lastOptions);
      */
     filterBy : function(fn, scope){
         this.snapshot = this.snapshot || this.data;
-        this.data = this.queryBy(fn, scope||this);
+        this.data = this.queryBy(fn, scope || this);
         this.fireEvent('datachanged', this);
     },
 

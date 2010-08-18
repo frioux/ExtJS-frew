@@ -1,3 +1,20 @@
+/**
+ * @class Ext.calendar.ReminderField
+ * @extends Ext.form.ComboBox
+ * <p>A custom combo used for choosing a reminder setting for an event.</p>
+ * <p>This is pretty much a standard combo that is simply pre-configured for the options needed by the
+ * calendar components. The default configs are as follows:<pre><code>
+    width: 200,
+    fieldLabel: 'Reminder',
+    mode: 'local',
+    triggerAction: 'all',
+    forceSelection: true,
+    displayField: 'desc',
+    valueField: 'value'
+</code></pre>
+ * @constructor
+ * @param {Object} config The config object
+ */
 Ext.calendar.ReminderField = Ext.extend(Ext.form.ComboBox, {
     width: 200,
     fieldLabel: 'Reminder',
@@ -7,6 +24,7 @@ Ext.calendar.ReminderField = Ext.extend(Ext.form.ComboBox, {
     displayField: 'desc',
     valueField: 'value',
     
+    // private
     initComponent: function(){
         Ext.calendar.ReminderField.superclass.initComponent.call(this);
         
@@ -36,6 +54,7 @@ Ext.calendar.ReminderField = Ext.extend(Ext.form.ComboBox, {
         });
     },
     
+    // inherited docs
     initValue : function(){
         if(this.value !== undefined){
             this.setValue(this.value);

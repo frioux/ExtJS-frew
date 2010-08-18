@@ -1,18 +1,44 @@
+/**S
+ * @class Ext.calendar.DayBodyView
+ * @extends Ext.calendar.CalendarView
+ * <p>This is the scrolling container within the day and week views where non-all-day events are displayed.
+ * Normally you should not need to use this class directly -- instead you should use {@link Ext.calendar.DayView DayView}
+ * which aggregates this class and the {@link Ext.calendar.DayHeaderView DayHeaderView} into the single unified view
+ * presented by {@link Ext.calendar.CalendarPanel CalendarPanel}.</p>
+ * @constructor
+ * @param {Object} config The config object
+ */
 Ext.calendar.DayBodyView = Ext.extend(Ext.calendar.CalendarView, {
-    
-    ddResizeEventText: 'Update event to {0}',
-     
-    //private properties -- do not override:
+    //private
     dayColumnElIdDelimiter: '-day-col-',
     
+    //private
     initComponent : function(){
         Ext.calendar.DayBodyView.superclass.initComponent.call(this);
         
         this.addEvents({
-            eventresize: true
+            /**
+             * @event eventresize
+             * Fires after the user drags the resize handle of an event to resize it
+             * @param {Ext.calendar.DayBodyView} this
+             * @param {Ext.calendar.EventRecord} rec The {@link Ext.calendar.EventRecord record} for the event that was resized
+             * containing the updated start and end dates
+             */
+            eventresize: true,
+            /**
+             * @event dayclick
+             * Fires after the user clicks within the day view container and not on an event element
+             * @param {Ext.calendar.DayBodyView} this
+             * @param {Date} dt The date/time that was clicked on
+             * @param {Boolean} allday True if the day clicked on represents an all-day box, else false. Clicks within the 
+             * DayBodyView always return false for this param.
+             * @param {Ext.Element} el The Element that was clicked on
+             */
+            dayclick: true
         });
     },
     
+    //private
     initDD : function(){
         var cfg = {
             createText: this.ddCreateEventText,
@@ -39,6 +65,7 @@ Ext.calendar.DayBodyView = Ext.extend(Ext.calendar.CalendarView, {
         }, cfg));
     },
     
+    //private
     refresh : function(){
         var top = this.el.getScroll().top;
         this.prepareData();
@@ -53,20 +80,31 @@ Ext.calendar.DayBodyView = Ext.extend(Ext.calendar.CalendarView, {
         }
     },
 
-    scrollTo : function(v, defer){
+    /**
+     * Scrolls the container to the specified vertical position. If the view is large enough that
+     * there is no scroll overflow then this method will have no affect.
+     * @param {Number} y The new vertical scroll position in pixels 
+     * @param {Boolean} defer (optional) <p>True to slightly defer the call, false to execute immediately.</p> 
+     * <p>This method will automatically defer itself for IE and Opera (even if you pass false) otherwise
+     * the scroll position will not update in those browsers. You can optionally pass true, however, to
+     * force the defer in all browsers, or use your own custom conditions to determine whether this is needed.</p>
+     * <p>Note that this method should not generally need to be called directly as scroll position is managed internally.</p>
+     */
+    scrollTo : function(y, defer){
         defer = defer || (Ext.isIE || Ext.isOpera);
         if(defer){
             (function(){
-                this.el.scrollTo('top', v);
+                this.el.scrollTo('top', y);
                 this.scrollReady = true;
             }).defer(10, this);
         }
         else{
-            this.el.scrollTo('top', v);
+            this.el.scrollTo('top', y);
             this.scrollReady = true;
         }
     },
 
+    // private
     afterRender : function(){
         if(!this.tpl){
             this.tpl = new Ext.calendar.DayBodyTemplate({
@@ -87,21 +125,27 @@ Ext.calendar.DayBodyView = Ext.extend(Ext.calendar.CalendarView, {
         this.scrollTo(7*42);
     },
     
+    // private
     forceSize: Ext.emptyFn,
     
+    // private
     onEventResize : function(rec, data){
-        var D = Ext.calendar.Date;
-        if(D.compare(rec.data.StartDate, data.StartDate) === 0 &&
-            D.compare(rec.data.EndDate, data.EndDate) === 0){
+        var D = Ext.calendar.Date,
+            start = Ext.calendar.EventMappings.StartDate.name,
+            end = Ext.calendar.EventMappings.EndDate.name;
+            
+        if(D.compare(rec.data[start], data[start]) === 0 &&
+            D.compare(rec.data[end], data[end]) === 0){
             // no changes
             return;
         } 
-        rec.set('StartDate', data.StartDate);
-        rec.set('EndDate', data.EndDate);
+        rec.set('StartDate', data[start]);
+        rec.set('EndDate', data[end]);
         
         this.fireEvent('eventresize', this, rec);
     },
 
+    // inherited docs
     getEventBodyMarkup : function(){
         if(!this.eventBodyMarkup){
             this.eventBodyMarkup = ['{Title}',
@@ -110,7 +154,7 @@ Ext.calendar.DayBodyView = Ext.extend(Ext.calendar.CalendarView, {
                 '</tpl>',
                 '<tpl if="_isRecurring">',
                     '<i class="ext-cal-ic ext-cal-ic-rcr">&nbsp;</i>',
-                '</tpl>',
+                '</tpl>'
 //                '<tpl if="spanLeft">',
 //                    '<i class="ext-cal-spl">&nbsp;</i>',
 //                '</tpl>',
@@ -122,6 +166,7 @@ Ext.calendar.DayBodyView = Ext.extend(Ext.calendar.CalendarView, {
         return this.eventBodyMarkup;
     },
     
+    // inherited docs
     getEventTemplate : function(){
         if(!this.eventTpl){
             this.eventTpl = !(Ext.isIE || Ext.isOpera) ? 
@@ -148,6 +193,17 @@ Ext.calendar.DayBodyView = Ext.extend(Ext.calendar.CalendarView, {
         return this.eventTpl;
     },
     
+    /**
+     * <p>Returns the XTemplate that is bound to the calendar's event store (it expects records of type
+     * {@link Ext.calendar.EventRecord}) to populate the calendar views with <strong>all-day</strong> events. 
+     * Internally this method by default generates different markup for browsers that support CSS border radius 
+     * and those that don't. This method can be overridden as needed to customize the markup generated.</p>
+     * <p>Note that this method calls {@link #getEventBodyMarkup} to retrieve the body markup for events separately
+     * from the surrounding container markup.  This provdes the flexibility to customize what's in the body without
+     * having to override the entire XTemplate. If you do override this method, you should make sure that your 
+     * overridden version also does the same.</p>
+     * @return {Ext.XTemplate} The event XTemplate
+     */
     getEventAllDayTemplate : function(){
         if(!this.eventAllDayTpl){
             var tpl, body = this.getEventBodyMarkup();
@@ -174,33 +230,30 @@ Ext.calendar.DayBodyView = Ext.extend(Ext.calendar.CalendarView, {
         return this.eventAllDayTpl;
     },
     
-    /**
-     * 
-     * @param {} evt
-     * @return {}
-     */
+    // private
     getTemplateEventData : function(evt){
-        var selector = this.getEventSelectorCls(evt.EventId);
-        var data = {};
+        var selector = this.getEventSelectorCls(evt[Ext.calendar.EventMappings.EventId.name]),
+            data = {},
+            M = Ext.calendar.EventMappings;
         
-        //if(evt._positioned){
-            this.getTemplateEventBox(evt);
-        //};
+        this.getTemplateEventBox(evt);
         
         data._selectorCls = selector;
-        data._colorCls = 'ext-color-' + evt.CalendarId + (evt._renderAsAllDay ? '-ad' : '');
+        data._colorCls = 'ext-color-' + evt[M.CalendarId.name] + (evt._renderAsAllDay ? '-ad' : '');
         data._elId = selector + (evt._weekIndex ? '-' + evt._weekIndex : '');
         data._isRecurring = evt.Recurrence && evt.Recurrence != '';
-        data._isReminder = evt.Reminder && evt.Reminder != '';
-        data.Title = (evt.IsAllDay ? '' : evt.StartDate.format('g:ia ')) + (!evt.Title || evt.Title.length == 0 ? '(No title)' : evt.Title);
+        data._isReminder = evt[M.Reminder.name] && evt[M.Reminder.name] != '';
+        var title = evt[M.Title.name];
+        data.Title = (evt[M.IsAllDay.name] ? '' : evt[M.StartDate.name].format('g:ia ')) + (!title || title.length == 0 ? '(No title)' : title);
         
         return Ext.applyIf(data, evt);
     },
     
+    // private
     getTemplateEventBox : function(evt){
         var heightFactor = .7,
-            start = evt.StartDate,
-            end = evt.EndDate,
+            start = evt[Ext.calendar.EventMappings.StartDate.name],
+            end = evt[Ext.calendar.EventMappings.EndDate.name],
             startMins = start.getHours() * 60 + start.getMinutes(),
             endMins = end.getHours() * 60 + end.getMinutes(), 
             diffMins = endMins - startMins;
@@ -211,6 +264,7 @@ Ext.calendar.DayBodyView = Ext.extend(Ext.calendar.CalendarView, {
         evt._height = Math.max((diffMins * heightFactor) - 2, 15);
     },
 
+    // private
     renderItems: function(){
         var day = 0, evts = [];
         for(; day < this.dayCount; day++){
@@ -279,10 +333,12 @@ Ext.calendar.DayBodyView = Ext.extend(Ext.calendar.CalendarView, {
         this.fireEvent('eventsrendered', this);
     },
     
+    // private
     getDayEl : function(dt){
         return Ext.get(this.getDayId(dt));
     },
     
+    // private
     getDayId : function(dt){
         if(Ext.isDate(dt)){
             dt = dt.format('Ymd');
@@ -290,11 +346,13 @@ Ext.calendar.DayBodyView = Ext.extend(Ext.calendar.CalendarView, {
         return this.id + this.dayColumnElIdDelimiter + dt;
     },
     
+    // private
     getDaySize : function(){
         var box = this.el.child('.ext-cal-day-col-inner').getBox();
         return {height: box.height, width: box.width};
     },
     
+    // private
     getDayAt : function(x, y){
         var sel = '.ext-cal-body-ct',
             xoffset = this.el.child('.ext-cal-day-times').getWidth(),
@@ -329,6 +387,7 @@ Ext.calendar.DayBodyView = Ext.extend(Ext.calendar.CalendarView, {
         }
     },
 
+    // private
     onClick : function(e, t){
         if(this.dragPending || Ext.calendar.DayBodyView.superclass.onClick.apply(this, arguments)){
             // The superclass handled the click already so exit

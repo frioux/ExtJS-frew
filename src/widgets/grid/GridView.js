@@ -566,7 +566,7 @@ viewConfig: {
      * @return {HtmlElement} The td at the specified coordinates.
      */
     getCell : function(row, col) {
-        return this.getRow(row).getElementsByTagName('td')[col];
+        return Ext.fly(this.getRow(row)).query(this.cellSelector)[col]; 
     },
 
     /**
@@ -2327,9 +2327,9 @@ viewConfig: {
             if (!this.cm.isHidden(index - 1)) {
                 return index;
             }
-            
             index--;
         }
+        return undefined;
     },
 
     /**
