@@ -69,6 +69,11 @@ Ext.form.NumberField = Ext.extend(Ext.form.TextField,  {
      * @cfg {String} baseChars The base set of characters to evaluate as valid numbers (defaults to '0123456789').
      */
     baseChars : "0123456789",
+    
+    /**
+     * @cfg {Boolean} autoStripChars True to automatically strip not allowed characters from the field. Defaults to <tt>false</tt>
+     */
+    autoStripChars: false,
 
     // private
     initEvents : function() {
@@ -79,7 +84,11 @@ Ext.form.NumberField = Ext.extend(Ext.form.TextField,  {
         if (this.allowNegative) {
             allowed += '-';
         }
-        this.maskRe = new RegExp('[' + Ext.escapeRe(allowed) + ']');
+        allowed = Ext.escapeRe(allowed);
+        this.maskRe = new RegExp('[' + allowed + ']');
+        if (this.autoStripChars) {
+            this.stripCharsRe = new RegExp('[^' + allowed + ']', 'gi');
+        }
         
         Ext.form.NumberField.superclass.initEvents.call(this);
     },

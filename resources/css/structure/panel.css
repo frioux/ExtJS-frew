@@ -358,6 +358,22 @@
     background-position:-15px -315px;
 }
 
+.x-tool-resize {
+    background-position:0 -360px;
+}
+
+.x-tool-resize-over {
+    background-position:-15px -360px;
+}
+
+.x-tool-move {
+    background-position:0 -375px;
+}
+
+.x-tool-move-over {
+    background-position:-15px -375px;
+}
+
 /* Ghosting */
 .x-panel-ghost {
     z-index:12000;

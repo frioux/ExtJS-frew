@@ -67,7 +67,7 @@ a#logo {
 
 #header h1 {
     font-size: 32px;
-    margin: 72px 0 12px;
+    margin: 45px 0 12px;
     width: 350px;
 }
 
@@ -76,6 +76,42 @@ a#logo {
     font-size: 16px;
     line-height: 1.5;
     width: 360px;
+}
+
+div.button-wrap {
+    padding: 0 0 1em;
+}
+
+.button:link,
+.button:visited {
+    background: #2a64a6;
+    border: 1px solid;
+    border-color: transparent transparent rgba(0,0,0,0.4) transparent;
+    -webkit-border-radius: 13px;
+    -moz-border-radius:    13px;
+    border-radius:         13px;
+    color: #fff;
+    display: table-cell;
+    font-size: 13px;
+    font-weight: bold;
+    height: 13px;
+    padding: 2px 12px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.4);
+    width: 114px;
+}
+
+.button:hover,
+.button:focus {
+    background: #265B98;
+}
+
+.button:active {
+    background: #1F4C7E;
+    border-color: rgba(0,0,0,0.4) transparent transparent transparent;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.4);
 }
 
 h2 {
@@ -137,24 +173,8 @@ div#container {
     text-decoration: underline;
 }
 
-#engage a#join_us {
-    background: url(welcome/images/button_join_us.png) no-repeat 0 0;
-    display: block;
-    height: 27px;
-
-    margin: 0 32px 16px 0;
-    padding: 0;
-
-    width: 81px;
-
-    overflow: hidden;
-    text-indent: 150%;
-    white-space: nowrap;
-}
-
-#engage a#join_us:hover,
-#engage a#join_us:active {
-    background: url(welcome/images/button_join_us.png) no-repeat 0 -27px;
+#engage a#join_us.button {
+    width: 148px;
 }
 
 #engage a#twitter {
@@ -237,7 +257,7 @@ div#communication p {
 }
 
 div#communication p strong {
-    color: #557;
+    color: #555;
 }
 
 div#communication input#MERGE0 {
@@ -258,6 +278,9 @@ div#communication p#jobs {
 <a href="http://www.sencha.com/" id="logo">Sencha - Ext JS - Amazing Web Apps Built on Web Standards</a>
 <h1>Welcome to Ext JS</h1>
 <p>Thank you for downloading Ext JS. With a community of over one million developers and our robust family of Sencha products, Ext JS is the leader in Javascript application development.</p>
+<div class="button-wrap">
+    <a href="examples/" id="examples" class="button"><span>View Examples</span></a>
+</div>
 </div>
 <div id="container">
 <div id="learn" class="section">
@@ -275,7 +298,9 @@ div#communication p#jobs {
 <h2>Engage</h2>
 <p>Our <a href="http://www.sencha.com/forum/">community forums</a> have over 100,000 registered users and are a great place to ask questions and interact with other Ext JS developers.</p>
 
-<a href="http://www.sencha.com/forum/" id="join_us">Join Us</a>
+<div class="button-wrap">
+    <a href="http://www.sencha.com/forum/register.php" id="join_us" class="button"><span>Join Sencha Forum</span></a>
+</div>
 
 <ul id="social">
 <li><a href="http://twitter.com/senchainc" id="twitter"><span>Follow @SenchaInc</span> on Twitter</a></li>
