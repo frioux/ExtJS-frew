@@ -130,12 +130,19 @@ Ext.onReady(function(){
                         alert("Sell " + rec.get('company'));
                     }
                 }, {
-                    iconCls: 'buy-col',                      // Or use a class in the iconCls config
-                    handler: function(grid, rowIndex, colIndex) {
-                    var rec = store.getAt(rowIndex);
-                        alert("Buy " + rec.get('company'));
+                    getClass: function(v, meta, rec) {          // Or return a class from a function
+                        if (rec.get('change') < 0) {
+                            this.items[1].tooltip = 'Do not buy!';
+                            return 'alert-col';
+                        } else {
+                            this.items[1].tooltip = 'Buy stock';
+                            return 'buy-col';
+                        }
                     },
-                    tooltip: 'Buy stock'
+                    handler: function(grid, rowIndex, colIndex) {
+                        var rec = store.getAt(rowIndex);
+                        alert("Buy " + rec.get('company'));
+                    }
                 }]
             }
         ],

@@ -122,7 +122,7 @@ Ext.Shadow.prototype = {
      * @param {Number} height The target element height
      */
     realign: function(l, t, w, h) {
-        if (!this.el || !this.el.isVisible()) {
+        if (!this.el) {
             return;
         }
         var a = this.adjusts,

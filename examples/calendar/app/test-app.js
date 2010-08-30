@@ -1,3 +1,7 @@
+/*
+ * Calendar sample code originally written by Brian Moeskau (brian@ext-calendar.com)
+ * See additional calendar examples at http://ext-calendar.com
+ */
 App = function() {
     return {
         init : function() {

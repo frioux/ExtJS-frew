@@ -455,9 +455,14 @@ Ext.calendar.CalendarView = Ext.extend(Ext.BoxComponent, {
 	onCalendarEndDrag : function(start, end, onComplete){
         // set this flag for other event handlers that might conflict while we're waiting
         this.dragPending = true;
+        
         // have to wait for the user to save or cancel before finalizing the dd interation
-		this.fireEvent('rangeselect', this, {StartDate:start, EndDate:end}, this.onCalendarEndDragComplete.createDelegate(this, [onComplete]));
-	},
+        var o = {};
+        o[Ext.calendar.EventMappings.StartDate.name] = start;
+        o[Ext.calendar.EventMappings.EndDate.name] = end;
+        
+        this.fireEvent('rangeselect', this, o, this.onCalendarEndDragComplete.createDelegate(this, [onComplete]));
+    },
     
     // private
     onCalendarEndDragComplete : function(onComplete){
