@@ -1,21 +1,20 @@
 /**
- * @class Ext
- * @singleton 
- */
-/**
  * True if the detected platform is Adobe Air version < 1.5
  * @property isAir1
  * @type Boolean
+ * @member Ext
  */
 /** 
  * True if the detected platform is Adobe Air version 1.5
  * @property isAir15
  * @type Boolean
+ * @member Ext
  */
 /**
  * True if the detected platform is Adobe Air version 2
  * @property isAir2
  * @type Boolean
+ * @member Ext
  */
 if (Ext) {
 	var ua = window.navigator.userAgent.toLowerCase();
@@ -23,6 +22,7 @@ if (Ext) {
 	Ext.isAir15 = Ext.isAir && /adobeair\/1\.5/.test(ua);
 	Ext.isAir1 = Ext.isAir && !Ext.isAir15 && !Ext.isAir2;
 	
+	// override it to return true if v is a runtime.Array
 	Ext.isArray = function(v) {
 		return v && typeof v.length == 'number' && typeof v.splice == 'function';
 	};

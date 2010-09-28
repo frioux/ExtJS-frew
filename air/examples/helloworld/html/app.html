@@ -1,0 +1,32 @@
+<html>
+<head>
+    <title>Sample</title>
+    <link rel="stylesheet" type="text/css" href="/lib/extjs/resources/css/ext-all.css" />
+    <link rel="stylesheet" type="text/css" href="/lib/extair/resources/css/ext-air.css" />    
+    <script type="text/javascript" src="/lib/air/AIRAliases.js"></script>
+    <script type="text/javascript" src="/lib/air/AIRIntrospector.js"></script>
+    
+    <!-- Debug Versions
+    <script type="text/javascript" src="/lib/extjs/adapter/ext/ext-base-debug.js"></script>
+    <script type="text/javascript" src="/lib/extjs/ext-all-debug.js"></script>
+    <script type="text/javascript" src="/lib/extair/ext-air-debug.js"></script>
+    -->
+    
+    <script type="text/javascript" src="/lib/extjs/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="/lib/extjs/ext-all.js"></script>
+    <script type="text/javascript" src="/lib/extair/ext-air.js"></script>
+    <script>
+        console = { log: air.Introspector ? air.Introspector.Console.log : function(){}};
+        Ext.onReady(function() {
+            air.trace('sample');
+            new Ext.air.Window({
+            	win: window.nativeWindow, // use root window's context
+            	html: 'Hello World'
+            });
+        });
+    </script>
+</head>
+<body>
+    <!-- Insert your content here -->
+</body>
+</html>

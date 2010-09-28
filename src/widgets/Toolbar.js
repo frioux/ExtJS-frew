@@ -370,6 +370,9 @@ Ext.extend(T, Ext.Container, {
     // private
     onRemove : function(c){
         Ext.Toolbar.superclass.onRemove.call(this);
+        if (c == this.activeMenuBtn) {
+            delete this.activeMenuBtn;
+        }
         this.trackMenu(c, true);
     },
 

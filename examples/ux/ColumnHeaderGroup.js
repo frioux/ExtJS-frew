@@ -161,7 +161,7 @@ Ext.ux.grid.ColumnHeaderGroup = Ext.extend(Ext.util.Observable, {
                     ds.sort(cm.getDataIndex(index), 'DESC');
                     break;
                 default:
-                    if(id.substr(0, 5) == 'group'){
+                    if(id.substr(0, 6) == 'group-'){
                         var i = id.split('-'), row = parseInt(i[1], 10), col = parseInt(i[2], 10), r = this.cm.rows[row], group, gcol = 0;
                         for(var i = 0, len = r.length; i < len; i++){
                             group = r[i];
@@ -187,7 +187,7 @@ Ext.ux.grid.ColumnHeaderGroup = Ext.extend(Ext.util.Observable, {
                                 cm.setHidden(i, item.checked);
                             }
                         }
-                    }else{
+                    }else if(id.substr(0, 4) == 'col-'){
                         index = cm.getIndexById(id.substr(4));
                         if(index != -1){
                             if(item.checked && cm.getColumnsBy(this.isHideableColumn, this).length <= 1){
@@ -197,31 +197,33 @@ Ext.ux.grid.ColumnHeaderGroup = Ext.extend(Ext.util.Observable, {
                             cm.setHidden(index, item.checked);
                         }
                     }
-                    item.checked = !item.checked;
-                    if(item.menu){
-                        var updateChildren = function(menu){
-                            menu.items.each(function(childItem){
-                                if(!childItem.disabled){
-                                    childItem.setChecked(item.checked, false);
-                                    if(childItem.menu){
-                                        updateChildren(childItem.menu);
+                    if(id.substr(0, 6) == 'group-' || id.substr(0, 4) == 'col-'){
+                        item.checked = !item.checked;
+                        if(item.menu){
+                            var updateChildren = function(menu){
+                                menu.items.each(function(childItem){
+                                    if(!childItem.disabled){
+                                        childItem.setChecked(item.checked, false);
+                                        if(childItem.menu){
+                                            updateChildren(childItem.menu);
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
+                            updateChildren(item.menu);
                         }
-                        updateChildren(item.menu);
-                    }
-                    var parentMenu = item, parentItem;
-                    while(parentMenu = parentMenu.parentMenu){
-                        if(!parentMenu.parentMenu || !(parentItem = parentMenu.parentMenu.items.get(parentMenu.getItemId())) || !parentItem.setChecked){
-                            break;
+                        var parentMenu = item, parentItem;
+                        while(parentMenu = parentMenu.parentMenu){
+                            if(!parentMenu.parentMenu || !(parentItem = parentMenu.parentMenu.items.get(parentMenu.getItemId())) || !parentItem.setChecked){
+                                break;
+                            }
+                            var checked = parentMenu.items.findIndexBy(function(m){
+                                return m.checked;
+                            }) >= 0;
+                            parentItem.setChecked(checked, true);
                         }
-                        var checked = parentMenu.items.findIndexBy(function(m){
-                            return m.checked;
-                        }) >= 0;
-                        parentItem.setChecked(checked, true);
+                        item.checked = !item.checked;
                     }
-                    item.checked = !item.checked;
             }
             return true;
         },
@@ -243,9 +245,9 @@ Ext.ux.grid.ColumnHeaderGroup = Ext.extend(Ext.util.Observable, {
                         }
                         if(group && group.header){
                             if(cm.hierarchicalColMenu){
-                                var gid = 'group-' + row + '-' + gcol;
-                                var item = menu.items.item(gid);
-                                var submenu = item ? item.menu : null;
+                                var gid = 'group-' + row + '-' + gcol,
+                                    item = menu.items ? menu.getComponent(gid) : null,
+                                    submenu = item ? item.menu : null;
                                 if(!submenu){
                                     submenu = new Ext.menu.Menu({
                                         itemId: gid

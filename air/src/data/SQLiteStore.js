@@ -81,7 +81,7 @@ Ext.data.SQLiteStore = Ext.extend(Ext.data.Store, {
 	 */
 	constructor: function(config) {
 		config = config || {};
-		var idProperty = config.idProperty || config.key;
+		var idProperty = config.idProperty || config.key || this.idProperty || this.key;
 		
 		// always use batch:true since we're using database transactions
 		config.batch = true;
@@ -90,7 +90,7 @@ Ext.data.SQLiteStore = Ext.extend(Ext.data.Store, {
 		if (!config.reader) {
 			config.reader = new Ext.data.JsonReader({
 				idProperty: idProperty,
-				fields: config.fields,
+				fields: config.fields || this.fields,
 				root: '__root__',
 				totalProperty: '__total__',
 			});
@@ -110,10 +110,10 @@ Ext.data.SQLiteStore = Ext.extend(Ext.data.Store, {
 		
 		Ext.data.SQLiteStore.superclass.constructor.call(this, config);
 		
-		if (config.autoCreateTable === true) {
+		if (this.autoCreateTable === true) {
 			var ct = function() {
 				this.proxy.conn.createTable({
-					name: config.tableName,
+					name: this.tableName,
 					key: idProperty,
 					fields: this.reader.recordType.prototype.fields
 				});
@@ -123,7 +123,7 @@ Ext.data.SQLiteStore = Ext.extend(Ext.data.Store, {
 			} else this.proxy.conn.on('open', ct, this, {single: true});
 		}
 		
-		this.table = this.proxy.conn.getTable(config.tableName, idProperty);
+		this.table = this.proxy.conn.getTable(this.tableName, idProperty);
 		
 		// prevent temporary removed records from being loaded on store reload
 		this.on('beforeload', function(s, o) {

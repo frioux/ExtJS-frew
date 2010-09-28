@@ -536,7 +536,7 @@ Ext.grid.ActionColumn = Ext.extend(Ext.grid.Column, {
      * been initialized.
      */
     /**
-     * @cfg {boolean} stopSelection Defaults to <code>true</code>. Prevent grid <i>row</i> selection upon mousedown.
+     * @cfg {Boolean} stopSelection Defaults to <code>true</code>. Prevent grid <i>row</i> selection upon mousedown.
      */
     /**
      * @cfg {Function} getClass A function which returns the CSS class to apply to the icon image.
@@ -584,6 +584,11 @@ Ext.grid.ActionColumn = Ext.extend(Ext.grid.Column, {
     header: '&#160;',
 
     actionIdRe: /x-action-col-(\d+)/,
+    
+    /**
+     * @cfg {String} altText The alt text to use for the image element. Defaults to <tt>''</tt>.
+     */
+    altText: '',
 
     constructor: function(cfg) {
         var me = this,
@@ -603,10 +608,10 @@ Ext.grid.ActionColumn = Ext.extend(Ext.grid.Column, {
             meta.css += ' x-action-col-cell';
             for (i = 0; i < l; i++) {
                 item = items[i];
-                v += '<img src="' + (item.icon || Ext.BLANK_IMAGE_URL) +
+                v += '<img alt="' + me.altText + '" src="' + (item.icon || Ext.BLANK_IMAGE_URL) +
                     '" class="x-action-col-icon x-action-col-' + String(i) + ' ' + (item.iconCls || '') +
                     ' ' + (Ext.isFunction(item.getClass) ? item.getClass.apply(item.scope||this.scope||this, arguments) : '') + '"' +
-                    ((item.tooltip) ? ' ext:qtip="' + item.tooltip + '"' : '') + '>';
+                    ((item.tooltip) ? ' ext:qtip="' + item.tooltip + '"' : '') + ' />';
             }
             return v;
         };

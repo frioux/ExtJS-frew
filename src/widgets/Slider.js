@@ -7,6 +7,12 @@ Ext.ns('Ext.slider');
  * be created internally by an {@link Ext.slider.MultiSlider Ext.Slider}.
  */
 Ext.slider.Thumb = Ext.extend(Object, {
+    
+    /**
+     * True while the thumb is in a drag operation
+     * @type Boolean
+     */
+    dragging: false,
 
     /**
      * @constructor
@@ -241,13 +247,6 @@ Ext.slider.MultiSlider = Ext.extend(Ext.BoxComponent, {
      * @cfg {Boolean} animate Turn on or off animation. Defaults to true
      */
     animate: true,
-
-    /**
-     * True while the thumb is in a drag operation
-     * @type Boolean
-     */
-    dragging: false,
-
     /**
      * @cfg {Boolean} constrainThumbs True to disallow thumbs from overlapping one another. Defaults to true
      */

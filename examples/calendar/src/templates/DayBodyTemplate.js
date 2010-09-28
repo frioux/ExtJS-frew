@@ -58,13 +58,15 @@ Ext.extend(Ext.calendar.DayBodyTemplate, Ext.XTemplate, {
         this.dayCount = this.dayCount || 1;
         
         var i = 0, days = [],
-            dt = o.viewStart.clone();
+            dt = o.viewStart.clone(),
+            times;
             
         for(; i<this.dayCount; i++){
             days[i] = dt.add(Date.DAY, i);
         }
 
-        var times = [], dt = new Date().clearTime();
+        times = [];
+        dt = new Date().clearTime();
         for(i=0; i<24; i++){
             times.push(dt.format('ga'));
             dt = dt.add(Date.HOUR, 1);

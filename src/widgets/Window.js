@@ -466,7 +466,7 @@ Ext.Window = Ext.extend(Ext.Panel, {
             el = f.getEl();
             ct = Ext.getDom(this.container);
             if (el && ct) {
-                if (!Ext.lib.Region.getRegion(ct).contains(Ext.lib.Region.getRegion(el.dom))){
+                if (ct != document.body && !Ext.lib.Region.getRegion(ct).contains(Ext.lib.Region.getRegion(el.dom))){
                     return;
                 }
             }

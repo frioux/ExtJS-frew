@@ -4,17 +4,63 @@
  * A simple object that provides the field definitions for EventRecords so that they can be easily overridden.
  */
 Ext.calendar.EventMappings = {
-    EventId: {name: 'EventId', mapping:'id', type:'int'},
-    CalendarId: {name:'CalendarId', mapping: 'cid', type: 'int'},
-    Title: {name:'Title', mapping: 'title', type: 'string'},
-    StartDate: {name:'StartDate', mapping: 'start', type: 'date', dateFormat: 'c'},
-    EndDate: {name:'EndDate', mapping: 'end', type: 'date', dateFormat: 'c'},
-    Location: {name:'Location', mapping: 'loc', type: 'string'},
-    Notes: {name:'Notes', mapping: 'notes', type: 'string'},
-    Url: {name:'Url', mapping: 'url', type: 'string'},
-    IsAllDay: {name:'IsAllDay', mapping: 'ad', type: 'boolean'},
-    Reminder: {name:'Reminder', mapping: 'rem', type: 'string'},
-    IsNew: {name:'IsNew', mapping: 'n', type: 'boolean'}
+    EventId: {
+        name: 'EventId',
+        mapping: 'id',
+        type: 'int'
+    },
+    CalendarId: {
+        name: 'CalendarId',
+        mapping: 'cid',
+        type: 'int'
+    },
+    Title: {
+        name: 'Title',
+        mapping: 'title',
+        type: 'string'
+    },
+    StartDate: {
+        name: 'StartDate',
+        mapping: 'start',
+        type: 'date',
+        dateFormat: 'c'
+    },
+    EndDate: {
+        name: 'EndDate',
+        mapping: 'end',
+        type: 'date',
+        dateFormat: 'c'
+    },
+    Location: {
+        name: 'Location',
+        mapping: 'loc',
+        type: 'string'
+    },
+    Notes: {
+        name: 'Notes',
+        mapping: 'notes',
+        type: 'string'
+    },
+    Url: {
+        name: 'Url',
+        mapping: 'url',
+        type: 'string'
+    },
+    IsAllDay: {
+        name: 'IsAllDay',
+        mapping: 'ad',
+        type: 'boolean'
+    },
+    Reminder: {
+        name: 'Reminder',
+        mapping: 'rem',
+        type: 'string'
+    },
+    IsNew: {
+        name: 'IsNew',
+        mapping: 'n',
+        type: 'boolean'
+    }
 };
 
 /**
@@ -55,10 +101,28 @@ rec.data[M.Notes.name] = 'Some notes';
  * id is not specified a {@link #phantom}
  * Record will be created with an {@link #Record.id automatically generated id}.
  */
-(function(){
+ (function() {
     var M = Ext.calendar.EventMappings;
-    
+
     Ext.calendar.EventRecord = Ext.data.Record.create([
+    M.EventId,
+    M.CalendarId,
+    M.Title,
+    M.StartDate,
+    M.EndDate,
+    M.Location,
+    M.Notes,
+    M.Url,
+    M.IsAllDay,
+    M.Reminder,
+    M.IsNew
+    ]);
+
+    /**
+     * Reconfigures the default record definition based on the current Ext.calendar.EventMappings object
+     */
+    Ext.calendar.EventRecord.reconfigure = function() {
+        Ext.calendar.EventRecord = Ext.data.Record.create([
         M.EventId,
         M.CalendarId,
         M.Title,
@@ -70,24 +134,6 @@ rec.data[M.Notes.name] = 'Some notes';
         M.IsAllDay,
         M.Reminder,
         M.IsNew
-    ]);
-
-    /**
-     * Reconfigures the default record definition based on the current Ext.calendar.EventMappings object
-     */
-    Ext.calendar.EventRecord.reconfigure = function(){
-        Ext.calendar.EventRecord = Ext.data.Record.create([
-            M.EventId,
-            M.CalendarId,
-            M.Title,
-            M.StartDate,
-            M.EndDate,
-            M.Location,
-            M.Notes,
-            M.Url,
-            M.IsAllDay,
-            M.Reminder,
-            M.IsNew
         ]);
     };
 })();

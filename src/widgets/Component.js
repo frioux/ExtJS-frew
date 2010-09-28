@@ -72,6 +72,7 @@ form             {@link Ext.form.FormPanel}
 checkbox         {@link Ext.form.Checkbox}
 checkboxgroup    {@link Ext.form.CheckboxGroup}
 combo            {@link Ext.form.ComboBox}
+compositefield   {@link Ext.form.CompositeField}
 datefield        {@link Ext.form.DateField}
 displayfield     {@link Ext.form.DisplayField}
 field            {@link Ext.form.Field}

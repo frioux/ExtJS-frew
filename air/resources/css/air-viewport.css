@@ -10,3 +10,10 @@
 .x-nativewindow-headermenu .x-menu-item .close {
 	background-image: url(../images/viewport/close.png);
 }
+.x-nativewindow-utility>.x-window-tl>.x-window-tr>.x-window-tc>.x-window-header {
+	padding-top: 4px !important;
+	padding-bottom: 2px !important;
+	/* no icon */
+	padding-left: 0px !important;
+	background-image: none !important;
+}

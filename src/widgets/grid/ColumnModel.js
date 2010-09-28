@@ -396,7 +396,11 @@ var columns = grid.getColumnModel().getColumnsBy(function(c){
      * @return {Number}
      */
     getColumnWidth : function(col) {
-        return this.config[col].width;
+        var width = this.config[col].width;
+        if(typeof width != 'number'){
+            width = this.defaultWidth;
+        }
+        return width;
     },
 
     /**
@@ -631,7 +635,8 @@ myGrid.getColumnModel().setHidden(0, true); // hide column 0 (0 = the first colu
      * Setup any saved state for the column, ensures that defaults are applied.
      */
     setState : function(col, state) {
-        Ext.applyIf(this.config[col], state);
+        state = Ext.applyIf(state, this.defaults);
+        Ext.apply(this.config[col], state);
     }
 });
 

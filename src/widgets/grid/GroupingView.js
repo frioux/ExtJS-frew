@@ -144,6 +144,11 @@ var grid = new Ext.grid.GridPanel({
      * @cfg {Function} groupRenderer This property must be configured in the {@link Ext.grid.Column} for
      * each column.
      */
+    
+    /**
+     * @cfg {Boolean} cancelEditOnToggle True to cancel any editing when the group header is toggled. Defaults to <tt>true</tt>.
+     */
+    cancelEditOnToggle: true,
 
     // private
     initTemplates : function(){
@@ -318,7 +323,9 @@ var grid = new Ext.grid.GridPanel({
         var gel = Ext.get(group);
         expanded = Ext.isDefined(expanded) ? expanded : gel.hasClass('x-grid-group-collapsed');
         if(this.state[gel.id] !== expanded){
-            this.grid.stopEditing(true);
+            if (this.cancelEditOnToggle !== false) {
+                this.grid.stopEditing(true);
+            }
             this.state[gel.id] = expanded;
             gel[expanded ? 'removeClass' : 'addClass']('x-grid-group-collapsed');
         }

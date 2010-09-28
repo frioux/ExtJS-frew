@@ -104,8 +104,8 @@ Ext.air.Viewport = Ext.extend(Ext.Panel, {
 		this.win = window.nativeWindow;
 		
 		this.win.title = this.title = this.title || this.win.title;
-		
-		if (this.win.systemChrome != air.NativeWindowSystemChrome.NONE) {
+		// no header and frame if standard systemChrome or lightweight window
+		if (this.win.systemChrome != air.NativeWindowSystemChrome.NONE || this.win.type == air.NativeWindowType.LIGHTWEIGHT) {
 			this.frame = false;
 			this.header = false;
 		} else this.header = true;
@@ -127,7 +127,7 @@ Ext.air.Viewport = Ext.extend(Ext.Panel, {
 		this.setHeaderMenu();
 		delete this.icon;
 		this.addClass('x-nativewindow-' + this.win.type.toLowerCase());
-		if(this.win.resizable && this.win.systemChrome == air.NativeWindowSystemChrome.NONE){
+		if (this.win.resizable && this.win.systemChrome == air.NativeWindowSystemChrome.NONE && this.win.type != air.NativeWindowType.LIGHTWEIGHT) {
 			this.resizer = new Ext.Resizable(this.el, {
 				minWidth: this.minWidth,
 				minHeight:this.minHeight,
@@ -332,6 +332,22 @@ Ext.air.Viewport = Ext.extend(Ext.Panel, {
 		}
 	},
 	// private
+	addTool: function() {
+		switch (this.win.type) {
+			case air.NativeWindowType.NORMAL:
+				Ext.air.Viewport.superclass.addTool.apply(this, arguments);
+				break;
+			case air.NativeWindowType.UTILITY:
+				Ext.each(arguments, function(a) {
+					if (!(a.id && a.id != 'close' && a.id != 'help')) {
+						Ext.air.Viewport.superclass.addTool.call(this, a);
+					}
+				}, this);
+				break;
+			// no tools for lightweight windows
+		}
+	},
+	// private
 	startSizing : function(e, h) {
 		var pos = {north:'TOP',east:'RIGHT',south:'BOTTOM',west:'LEFT',northeast:'TOP_RIGHT',southeast:'BOTTOM_RIGHT',southwest:'BOTTOM_LEFT',nothwest:'TOP_LEFT'};
 		var rh = pos[h.position];
@@ -371,17 +387,21 @@ Ext.air.Viewport = Ext.extend(Ext.Panel, {
 	// private
 	onMaximize : function() {
 		this.expand(false);
-		if (this.win.maximizable && this.header){
-			this.tools.maximize.hide();
-			this.tools.restore.show();
+		if (this.header && this.win.type == air.NativeWindowType.NORMAL) {
+			if (this.win.maximizable) {
+				this.tools.maximize.hide();
+				this.tools.restore.show();
+			}
+			if (this.collapsible) {
+				this.tools.toggle.hide();
+			}
 		}
 		if(this.dd){
 			this.dd.lock();
 		}
-		if(this.collapsible && this.header){
-			this.tools.toggle.hide();
+		if (this.win.systemChrome == air.NativeWindowSystemChrome.NONE) {
+			this.on('resize', this.fitWindow, this, {single: true});
 		}
-		if (this.win.systemChrome == air.NativeWindowSystemChrome.NONE) this.on('resize', this.fitWindow, this, {single: true});
 		this.el.addClass('x-nativewindow-maximized');
 	},
 	// private
@@ -395,7 +415,7 @@ Ext.air.Viewport = Ext.extend(Ext.Panel, {
 	// private
 	onRestore : function(){
 		this.el.removeClass('x-nativewindow-maximized');
-		if (this.header) {
+		if (this.header && this.win.type == air.NativeWindowType.NORMAL) {
 			if (this.win.maximizable) {
 				this.tools.restore.hide();
 				this.tools.maximize.show();
@@ -407,7 +427,9 @@ Ext.air.Viewport = Ext.extend(Ext.Panel, {
 		if(this.dd){
 			this.dd.unlock();
 		}
-		if (this.win.systemChrome == air.NativeWindowSystemChrome.NONE) this.setPosition(0, 0);
+		if (this.win.systemChrome == air.NativeWindowSystemChrome.NONE) {
+			this.setPosition(0, 0);
+		}
 	},
 	// private
 	onMinimize: Ext.emptyFn,
@@ -424,7 +446,7 @@ Ext.air.Viewport = Ext.extend(Ext.Panel, {
 		if (e.fullScreen) {
 			this.expand(false);
 			if (this.header) {
-				if (this.collapsible) {
+				if (this.collapsible && this.win.type == air.NativeWindowType.NORMAL) {
 					this.tools.toggle.hide();
 				}
 				if (this.win.systemChrome == air.NativeWindowSystemChrome.NONE) {
@@ -464,7 +486,7 @@ Ext.air.Viewport = Ext.extend(Ext.Panel, {
 	 * @return {Ext.air.Viewport} this
 	 */
 	collapse : function(){
-		if(this.collapsed || this.fireEvent('beforecollapse', this) === false){
+		if(this.collapsed || this.win.type != air.NativeWindowType.NORMAL || this.fireEvent('beforecollapse', this) === false){
 			return;
 		}
  		this.winHeight = this.getHeight();
@@ -488,7 +510,7 @@ Ext.air.Viewport = Ext.extend(Ext.Panel, {
 	 * @return {Ext.air.Viewport} this
 	 */
 	expand : function(){
-		if(!this.collapsed || this.fireEvent('beforeexpand', this) === false){
+		if(!this.collapsed || this.win.type != air.NativeWindowType.NORMAL || this.fireEvent('beforeexpand', this) === false){
 			return;
 		}
 		this.win.minSize = this.winMinSize;

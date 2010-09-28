@@ -35,3 +35,6 @@ input, textarea, td, div {
 .x-small-editor .x-form-trigger {
 	height: 19px !important;
 }
+.x-small-editor .x-form-text {
+	padding-top: 1px !important;
+}

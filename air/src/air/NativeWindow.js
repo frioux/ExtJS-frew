@@ -166,7 +166,7 @@ Ext.air.NativeWindow = function(config) {
 		}
 		
 		var options = new air.NativeWindowInitOptions();
-		options.systemChrome = this.systemChrome;
+		options.systemChrome = (this.type == air.NativeWindowType.LIGHTWEIGHT) ? air.NativeWindowSystemChrome.NONE : this.systemChrome;
 		options.type = this.type;
 		options.resizable = !!this.resizable;
 		options.minimizable = !!this.minimizable;
@@ -336,6 +336,7 @@ Ext.extend(Ext.air.NativeWindow, Ext.util.Observable, {
 	 * (defaults to <code>true</code>).</div></li>
 	 * <li><b>js</b>: Boolean<div class="sub-desc"><code>false</code> if JavaScript files should not be included
 	 * (defaults to <code>true</code>).</div></li>
+	 * <li><b>includeAllCSS</b>: Boolean (for "queryExtJS", "queryExtAIR", "queryExt" or "queryRegex")<div class="sub-desc"><code>true</code> to include all CSS files and style tags regardless of the given regex or Ext belonging</div></li>
 	 * <li><b>root</b>: Node/String<div class="sub-desc">An optional start node (or id) for all query-types
 	 * (defaults to the current document).</div></li>
 	 * <li><b>include</b>: Array/String<div class="sub-desc">An optinal single or an array of additional
@@ -488,7 +489,10 @@ var win = new Ext.air.Window({
 	/**
 	 * @cfg {Boolean} minimizeToTray
 	 * True to enable minimizing to the system tray. Note: this should only be applied
-	 * to the primary window in your application. A trayIcon is required.
+	 * to the primary window in your application. A trayIcon is required.<br />
+	 * If you use this on the root window, specify &lt;visible&gt;false&lt;/visible&gt; in your application descriptor file
+	 * and show it programmatically via {@link #setActive setActive(true)}. Otherwise, for some reason, the window pops up again,
+	 * if it is minimized the first time. Currently there's no other workaroung for this.
 	 */
 	minimizeToTray: false,
 	/**
@@ -691,7 +695,8 @@ Ext.state.Manager.setProvider(new Ext.state.FileProvider());
 	 * @private
 	 */
 	onDisplaystatechanging: function(e) {
-		if (e.cancelable && ((e.afterDisplayState == air.NativeWindowDisplayState.MAXIMIZED && !this.maximizable) || (e.afterDisplayState == air.NativeWindowDisplayState.MINIMIZED && (!this.minimizable || this.minimizeToTray)))) {
+		//if (e.cancelable && ((e.afterDisplayState == air.NativeWindowDisplayState.MAXIMIZED && !this.maximizable) || (e.afterDisplayState == air.NativeWindowDisplayState.MINIMIZED && (!this.minimizable || this.minimizeToTray)))) {
+		if (e.cancelable && ((e.afterDisplayState == air.NativeWindowDisplayState.MAXIMIZED && !this.maximizable) || (e.afterDisplayState == air.NativeWindowDisplayState.MINIMIZED && !this.minimizable))) {
 			e.preventDefault();
 		}
 		if (e.afterDisplayState == air.NativeWindowDisplayState.MAXIMIZED) {
@@ -867,7 +872,7 @@ Ext.state.Manager.setProvider(new Ext.state.FileProvider());
 		}
 		this.win.visible = false;
 		this.onHide();
-		if (window.nativeWindow && !window.nativeWindow.closed && window.nativeWindow.displayState != air.NativeWindowDisplayState.MINIMIZED) {
+		if (window.nativeWindow && !window.nativeWindow.closed && window.nativeWindow.displayState != air.NativeWindowDisplayState.MINIMIZED && window.nativeWindow != this.win) {
 			window.nativeWindow.activate(); // activate the parent Window
 		}
 		this.fireEvent('hide', this);
@@ -1154,7 +1159,9 @@ Ext.state.Manager.setProvider(new Ext.state.FileProvider());
 					this.parentWin.activate();
 					this.setActive(true);
 				}, this, {single: true,delay:10});
-				if (this.hidden === false) this.win.visible = true;
+				if (this.hidden === false) {
+					this.win.visible = true;
+				}
 			}
 		}
 		// show if it is not initially hidden
@@ -1190,14 +1197,12 @@ Ext.state.Manager.setProvider(new Ext.state.FileProvider());
 		var tray = Ext.air.SystemTray;
 		
 		tray.setIcon(icon, this.trayTip);
-		this.win.addEventListener('displayStateChanging', (function(e) {
-			if(e.afterDisplayState == air.NativeWindowDisplayState.MINIMIZED) {
-				e.preventDefault();
-				this.hide();
-				tray.showIcon();
-				this.trayed = true;
-			}
-		}).createDelegate(this));
+		
+		this.on('minimize', function() {
+			tray.showIcon();
+			this.hide();
+			this.trayed = true;
+		}, this);
 		
 		tray.on('click', function(){
 			this.setActive(true);
@@ -1246,9 +1251,9 @@ Ext.state.Manager.setProvider(new Ext.state.FileProvider());
 				if (t == 'queryExtJS') {
 					r = /\/ext\-(basex?|all|lang)(\-[a-z_\-]+)?\.(css|js)$/i;
 				} else if (t == 'queryExtAIR') {
-					r = /\/(AIRAliases\.js)|(AIRIntrospector\.js)|(ext\-air(\-[a-z_\-]+)?\.(css|js))$/i;
+					r = /\/(AIRAliases\.js)|(AIRIntrospector\.js)|(AIRLocalizer\\.js)|(AIRMenuBuilder\\.js)|(AIRSourceViewer\\.js)|(ext\-air(\-[a-z_\-]+)?\.(css|js))$/i;
 				} else if (t == 'queryExt') {
-					r = /\/(AIRAliases\.js)|(AIRIntrospector\.js)|(ext\-(basex?|all|lang|air)(\-[a-z_\-]+)?\.(css|js))$/i;
+					r = /\/(AIRAliases\.js)|(AIRIntrospector\.js)|(AIRLocalizer\\.js)|(AIRMenuBuilder\\.js)|(AIRSourceViewer\\.js)|(ext\-(basex?|all|lang|air)(\-[a-z_\-]+)?\.(css|js))$/i;
 				}
 				
 				switch (t) {
@@ -1259,12 +1264,16 @@ Ext.state.Manager.setProvider(new Ext.state.FileProvider());
 					case 'queryRegex':
 						if (!Ext.isDefined(r)) return;
 
-						f = Ext.DomQuery.select(js && css ? 'link' + aCss + ',script' + aJs : (css ? 'link' + aCss : 'script' + aJs), this.fileQuery.root);
+						f = Ext.DomQuery.select(js && css ? 'link' + aCss + ',style' + aCss + ',script' + aJs : (css ? 'link' + aCss + ',style' + aCss: 'script' + aJs), this.fileQuery.root);
 						Ext.each(f, function(file) {
 							isLink = file.tagName == 'LINK';
-							h = isLink ? file.href : file.src;
-							if (r.test(h)) html += file.outerHTML;
-						});
+							if (this.fileQuery.includeAllCSS === true && (isLink || file.tagName == 'STYLE')) {
+								html += file.outerHTML;
+							} else if (file.tagName != 'STYLE') {
+								h = isLink ? file.href : file.src;
+								if (r.test(h)) html += file.outerHTML;
+							}
+						}, this);
 						break;
 					// query by attribute -> same routine as queryAll/querySelector
 					// namespace attribute can't be queried with Ext.DomQuery, has to be filtered afterwards
@@ -1273,14 +1282,14 @@ Ext.state.Manager.setProvider(new Ext.state.FileProvider());
 						a = this.fileQuery.attribute;
 					// query all -> same routine as querySelector
 					case 'queryAll':
-						this.fileQuery.selector = js && css ? 'link' + aCss + ',script' + aJs : (css ? 'link' + aCss : 'script' + aJs);
+						this.fileQuery.selector = js && css ? 'link' + aCss + ',style' + aCss + ',script' + aJs : (css ? 'link' + aCss + ',style' + aCss : 'script' + aJs);
 					// query by selector
 					case 'querySelector':
 						if (!Ext.isString(this.fileQuery.selector)) return;
 						
 						f = Ext.DomQuery.select(this.fileQuery.selector, this.fileQuery.root);
 						Ext.each(f, function(file) {
-							isLink = file.tagName == 'LINK' && file.type == 'text/css';
+							isLink = (file.tagName == 'LINK' || file.tagName == 'STYLE') && file.type == 'text/css';
 							isScript = file.tagName == 'SCRIPT' && file.type == 'text/javascript';
 							// skip file if it isn't a javascript or css file
 							if ((!isLink && !isScript) || (isLink && !css) || (isScript && !js)) return true;

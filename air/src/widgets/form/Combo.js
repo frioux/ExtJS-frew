@@ -93,5 +93,16 @@ Ext.override(Ext.form.ComboBox, {
 				this[this.pageSize?'footer':'innerList'].setStyle('margin-bottom', this.handleHeight+'px');
 			}
 		}
+	},
+	getParams: function(q) {
+		var params = {},
+			paramNames = this.store.paramNames;
+		if (this.pageSize) {
+			params[paramNames.start] = 0,
+			params[paramNames.limit] = this.pageSize;
+		}
+		params.where = " WHERE " + this.displayField + " LIKE ? || '%'";
+		params.args = [q];
+		return params;
 	}
 });

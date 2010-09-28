@@ -1,3 +1,9 @@
+/*!
+ * Ext JS Library 3.3.0
+ * Copyright(c) 2006-2010 Ext JS, Inc.
+ * licensing@extjs.com
+ * http://www.extjs.com/license
+ */
 Ext.ns('Ext.ux.grid');
 
 Ext.ux.grid.LockingGridView = Ext.extend(Ext.grid.GridView, {
@@ -318,18 +324,7 @@ Ext.ux.grid.LockingGridView = Ext.extend(Ext.grid.GridView, {
                     lrow.className += ' x-grid3-row-alt';
                 }
             }
-            if(this.syncHeights){
-                var el1 = Ext.get(row),
-                    el2 = Ext.get(lrow),
-                    h1 = el1.getHeight(),
-                    h2 = el2.getHeight();
-
-                if(h1 > h2){
-                    el2.setHeight(h1);
-                }else if(h2 > h1){
-                    el1.setHeight(h2);
-                }
-            }
+            this.syncRowHeights(row, lrow);
         }
         if(startRow === 0){
             Ext.fly(rows[0]).addClass(this.firstRowCls);
@@ -337,6 +332,21 @@ Ext.ux.grid.LockingGridView = Ext.extend(Ext.grid.GridView, {
         }
         Ext.fly(rows[rows.length - 1]).addClass(this.lastRowCls);
         Ext.fly(lrows[lrows.length - 1]).addClass(this.lastRowCls);
+    },
+    
+    syncRowHeights: function(row1, row2){
+        if(this.syncHeights){
+            var el1 = Ext.get(row1),
+                el2 = Ext.get(row2),
+                h1 = el1.getHeight(),
+                h2 = el2.getHeight();
+
+            if(h1 > h2){
+                el2.setHeight(h1);
+            }else if(h2 > h1){
+                el1.setHeight(h2);
+            }
+        }
     },
 
     afterRender : function(){
@@ -618,11 +628,101 @@ Ext.ux.grid.LockingGridView = Ext.extend(Ext.grid.GridView, {
         var markup = this.renderRows() || ['&#160;', '&#160;'];
         return [this.templates.body.apply({rows: markup[0]}), this.templates.body.apply({rows: markup[1]})];
     },
-
-    refreshRow : function(record){
-        Ext.ux.grid.LockingGridView.superclass.refreshRow.call(this, record);
-        var index = Ext.isNumber(record) ? record : this.ds.indexOf(record);
-        this.getLockedRow(index).rowIndex = index;
+    
+    refreshRow: function(record){
+        var store = this.ds, 
+            colCount = this.cm.getColumnCount(), 
+            columns = this.getColumnData(), 
+            last = colCount - 1, 
+            cls = ['x-grid3-row'], 
+            rowParams = {
+                tstyle: String.format("width: {0};", this.getTotalWidth())
+            }, 
+            lockedRowParams = {
+                tstyle: String.format("width: {0};", this.getLockedWidth())
+            }, 
+            colBuffer = [], 
+            lockedColBuffer = [], 
+            cellTpl = this.templates.cell, 
+            rowIndex, 
+            row, 
+            lockedRow, 
+            column, 
+            meta, 
+            css, 
+            i;
+        
+        if (Ext.isNumber(record)) {
+            rowIndex = record;
+            record = store.getAt(rowIndex);
+        } else {
+            rowIndex = store.indexOf(record);
+        }
+        
+        if (!record || rowIndex < 0) {
+            return;
+        }
+        
+        for (i = 0; i < colCount; i++) {
+            column = columns[i];
+            
+            if (i == 0) {
+                css = 'x-grid3-cell-first';
+            } else {
+                css = (i == last) ? 'x-grid3-cell-last ' : '';
+            }
+            
+            meta = {
+                id: column.id,
+                style: column.style,
+                css: css,
+                attr: "",
+                cellAttr: ""
+            };
+            
+            meta.value = column.renderer.call(column.scope, record.data[column.name], meta, record, rowIndex, i, store);
+            
+            if (Ext.isEmpty(meta.value)) {
+                meta.value = ' ';
+            }
+            
+            if (this.markDirty && record.dirty && typeof record.modified[column.name] != 'undefined') {
+                meta.css += ' x-grid3-dirty-cell';
+            }
+            
+            if (column.locked) {
+                lockedColBuffer[i] = cellTpl.apply(meta);
+            } else {
+                colBuffer[i] = cellTpl.apply(meta);
+            }
+        }
+        
+        row = this.getRow(rowIndex);
+        row.className = '';
+        lockedRow = this.getLockedRow(rowIndex);
+        lockedRow.className = '';
+        
+        if (this.grid.stripeRows && ((rowIndex + 1) % 2 === 0)) {
+            cls.push('x-grid3-row-alt');
+        }
+        
+        if (this.getRowClass) {
+            rowParams.cols = colCount;
+            cls.push(this.getRowClass(record, rowIndex, rowParams, store));
+        }
+        
+        // Unlocked rows
+        this.fly(row).addClass(cls).setStyle(rowParams.tstyle);
+        rowParams.cells = colBuffer.join("");
+        row.innerHTML = this.templates.rowInner.apply(rowParams);
+        
+        // Locked rows
+        this.fly(lockedRow).addClass(cls).setStyle(lockedRowParams.tstyle);
+        lockedRowParams.cells = lockedColBuffer.join("");
+        lockedRow.innerHTML = this.templates.rowInner.apply(lockedRowParams);
+        lockedRow.rowIndex = rowIndex;
+        this.syncRowHeights(row, lockedRow);  
+        this.fireEvent('rowupdated', this, rowIndex, record);
     },
 
     refresh : function(headersToo){

@@ -351,7 +351,7 @@ viewConfig: {
                     '<div {tooltip} {attr} class="x-grid3-hd-inner x-grid3-hd-{id}" unselectable="on" style="{istyle}">', 
                         this.grid.enableHdMenu ? '<a class="x-grid3-hd-btn" href="#"></a>' : '',
                         '{value}',
-                        '<img class="x-grid3-sort-icon" src="', Ext.BLANK_IMAGE_URL, '" />',
+                        '<img alt="" class="x-grid3-sort-icon" src="', Ext.BLANK_IMAGE_URL, '" />',
                     '</div>',
                 '</td>'
             ),

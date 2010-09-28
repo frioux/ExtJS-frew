@@ -425,6 +425,9 @@ Ext.ux.Spinner = Ext.extend(Ext.util.Observable, {
         if (this.repeater) {
             this.repeater.purgeListeners();
         }
+        if (this.mimicing){
+            Ext.get(Ext.isIE ? document.body : document).un("mousedown", this.mimicBlur, this);
+        }
     }
 });
 

@@ -1,0 +1,21 @@
+html, body {
+	font:normal 12px arial, tahoma, helvetica, sans-serif;
+}
+body td {
+	font:normal 12px arial, tahoma, helvetica, sans-serif;
+}
+#icon-col {
+	width: 24px;
+	padding-top:8px;
+	vertical-align:top;
+	text-align:center;
+}
+
+#task-title {
+	font-weight:bold;
+	padding-top:8px;
+}
+.x-window-body {
+	padding: 10px 10px 10px 42px;
+	background: transparent url(../images/icon-active.gif) no-repeat 8px center;
+}

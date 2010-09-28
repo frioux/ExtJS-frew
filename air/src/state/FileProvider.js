@@ -28,6 +28,11 @@ Ext.extend(Ext.state.FileProvider, Ext.state.Provider, {
 	 * (defaults to <code>extstate.json</code>).	 
 	 */
 	file: 'extstate.json',
+	/**
+	 * @cfg {Object} defaultState
+	 * Default state information that is applied if there's no state information within the state file.
+	 */
+	defaultState: {},
 	// private
 	readState : function(){
 		var stateFile = air.File.applicationStorageDirectory.resolvePath(this.file),
@@ -38,7 +43,7 @@ Ext.extend(Ext.state.FileProvider, Ext.state.Provider, {
 			stateData = Ext.decode(stream.readUTFBytes(stream.bytesAvailable));
 			stream.close();
 		}
-		return stateData || {};
+		return Ext.apply({}, stateData || {}, this.defaultState || {});
 	},
 	// private
 	saveState : function() {

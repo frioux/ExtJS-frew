@@ -19,20 +19,20 @@ Ext.calendar.MonthViewTemplate = function(config){
     var weekLinkTpl = this.showWeekLinks ? '<div class="ext-cal-week-link-hd">&nbsp;</div>' : '';
     
     Ext.calendar.MonthViewTemplate.superclass.constructor.call(this,
-	    '<div class="ext-cal-inner-ct {extraClasses}">',
+        '<div class="ext-cal-inner-ct {extraClasses}">',
             '<div class="ext-cal-hd-ct ext-cal-month-hd">',
                 weekLinkTpl,
-		        '<table class="ext-cal-hd-days-tbl" cellpadding="0" cellspacing="0">',
-		            '<tbody>',
+                '<table class="ext-cal-hd-days-tbl" cellpadding="0" cellspacing="0">',
+                    '<tbody>',
                         '<tr>',
                             '<tpl for="days">',
-		                        '<th class="ext-cal-hd-day{[xindex==1 ? " ext-cal-day-first" : ""]}" title="{.:date("l, F j, Y")}">{.:date("D")}</th>',
-		                    '</tpl>',
+                                '<th class="ext-cal-hd-day{[xindex==1 ? " ext-cal-day-first" : ""]}" title="{.:date("l, F j, Y")}">{.:date("D")}</th>',
+                            '</tpl>',
                         '</tr>',
-		            '</tbody>',
-		        '</table>',
+                    '</tbody>',
+                '</table>',
             '</div>',
-	        '<div class="ext-cal-body-ct">{weeks}</div>',
+            '<div class="ext-cal-body-ct">{weeks}</div>',
         '</div>'
     );
 };

@@ -29,16 +29,17 @@ Ext.calendar.EventEditForm = Ext.extend(Ext.form.FormPanel, {
     bodyStyle: 'background:transparent;padding:20px 20px 10px;',
     border: false,
     buttonAlign: 'center',
-    autoHeight: true, // to allow for the notes field to autogrow
+    autoHeight: true,
+    // to allow for the notes field to autogrow
     cls: 'ext-evt-edit-form',
-    
+
     // private properties:
     newId: 10000,
     layout: 'column',
-    
+
     // private
-    initComponent: function(){
-        
+    initComponent: function() {
+
         this.addEvents({
             /**
              * @event eventadd
@@ -69,7 +70,7 @@ Ext.calendar.EventEditForm = Ext.extend(Ext.form.FormPanel, {
              */
             eventcancel: true
         });
-                
+
         this.titleField = new Ext.form.TextField({
             fieldLabel: 'Title',
             name: Ext.calendar.EventMappings.Title.name,
@@ -99,53 +100,65 @@ Ext.calendar.EventEditForm = Ext.extend(Ext.form.FormPanel, {
             name: Ext.calendar.EventMappings.Url.name,
             anchor: '100%'
         });
-        
-        var leftFields = [this.titleField, this.dateRangeField, this.reminderField], 
-            rightFields = [this.notesField, this.locationField, this.urlField];
-        
-        if(this.calendarStore){
+
+        var leftFields = [this.titleField, this.dateRangeField, this.reminderField],
+        rightFields = [this.notesField, this.locationField, this.urlField];
+
+        if (this.calendarStore) {
             this.calendarField = new Ext.calendar.CalendarPicker({
                 store: this.calendarStore,
                 name: Ext.calendar.EventMappings.CalendarId.name
             });
             leftFields.splice(2, 0, this.calendarField);
         };
-        
+
         this.items = [{
             id: 'left-col',
-            columnWidth: .65,
+            columnWidth: 0.65,
             layout: 'form',
             border: false,
             items: leftFields
-        },{
+        },
+        {
             id: 'right-col',
-            columnWidth: .35,
+            columnWidth: 0.35,
             layout: 'form',
             border: false,
             items: rightFields
         }];
-        
+
         this.fbar = [{
-            text:'Save', scope: this, handler: this.onSave
-        },{
-            cls:'ext-del-btn', text:'Delete', scope:this, handler:this.onDelete
-        },{
-            text:'Cancel', scope: this, handler: this.onCancel
+            text: 'Save',
+            scope: this,
+            handler: this.onSave
+        },
+        {
+            cls: 'ext-del-btn',
+            text: 'Delete',
+            scope: this,
+            handler: this.onDelete
+        },
+        {
+            text: 'Cancel',
+            scope: this,
+            handler: this.onCancel
         }];
-        
+
         Ext.calendar.EventEditForm.superclass.initComponent.call(this);
     },
-    
+
     // inherited docs
-    loadRecord: function(rec){
+    loadRecord: function(rec) {
         this.form.loadRecord.apply(this.form, arguments);
         this.activeRecord = rec;
         this.dateRangeField.setValue(rec.data);
-        if(this.calendarStore){
-            this.form.setValues({'calendar': rec.data[Ext.calendar.EventMappings.CalendarId.name]});
+        if (this.calendarStore) {
+            this.form.setValues({
+                'calendar': rec.data[Ext.calendar.EventMappings.CalendarId.name]
+            });
         }
         this.isAdd = !!rec.data[Ext.calendar.EventMappings.IsNew.name];
-        if(this.isAdd){
+        if (this.isAdd) {
             rec.markDirty();
             this.setTitle(this.titleTextAdd);
             Ext.select('.ext-del-btn').setDisplayed(false);
@@ -156,52 +169,52 @@ Ext.calendar.EventEditForm = Ext.extend(Ext.form.FormPanel, {
         }
         this.titleField.focus();
     },
-    
+
     // inherited docs
-    updateRecord: function(){
+    updateRecord: function() {
         var dates = this.dateRangeField.getValue();
-            
+
         this.form.updateRecord(this.activeRecord);
         this.activeRecord.set(Ext.calendar.EventMappings.StartDate.name, dates[0]);
         this.activeRecord.set(Ext.calendar.EventMappings.EndDate.name, dates[1]);
         this.activeRecord.set(Ext.calendar.EventMappings.IsAllDay.name, dates[2]);
     },
-    
+
     // private
-    onCancel: function(){
+    onCancel: function() {
         this.cleanup(true);
         this.fireEvent('eventcancel', this, this.activeRecord);
     },
-    
+
     // private
-    cleanup: function(hide){
-        if(this.activeRecord && this.activeRecord.dirty){
+    cleanup: function(hide) {
+        if (this.activeRecord && this.activeRecord.dirty) {
             this.activeRecord.reject();
         }
         delete this.activeRecord;
-        
-        if(this.form.isDirty()){
+
+        if (this.form.isDirty()) {
             this.form.reset();
         }
     },
-    
+
     // private
-    onSave: function(){
-        if(!this.form.isValid()){
+    onSave: function() {
+        if (!this.form.isValid()) {
             return;
         }
         this.updateRecord();
-        
-        if(!this.activeRecord.dirty){
+
+        if (!this.activeRecord.dirty) {
             this.onCancel();
             return;
         }
-        
-        this.fireEvent(this.isAdd ? 'eventadd' : 'eventupdate', this, this.activeRecord);
+
+        this.fireEvent(this.isAdd ? 'eventadd': 'eventupdate', this, this.activeRecord);
     },
 
     // private
-    onDelete: function(){
+    onDelete: function() {
         this.fireEvent('eventdelete', this, this.activeRecord);
     }
 });

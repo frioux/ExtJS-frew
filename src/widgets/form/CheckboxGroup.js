@@ -414,6 +414,9 @@ myCheckboxGroup.setValue('cb-col-1,cb-col-3');
     // private
     beforeDestroy: function(){
         Ext.destroy(this.panel);
+        if (!this.rendered) {
+            Ext.destroy(this.items);
+        }
         Ext.form.CheckboxGroup.superclass.beforeDestroy.call(this);
 
     },

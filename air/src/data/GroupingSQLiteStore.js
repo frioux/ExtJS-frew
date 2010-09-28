@@ -80,7 +80,39 @@ Ext.data.GroupingSQLiteStore = Ext.extend(Ext.data.GroupingStore, {
 	 * @hide
 	 */
 	constructor: function(config) {
+		config = config || {};
+
+		//We do some preprocessing here to massage the grouping + sorting options into a single
+		//multi sort array. If grouping and sorting options are both presented to the constructor,
+		//the sorters array consists of the grouping sorter object followed by the sorting sorter object
+		//see Ext.data.Store's sorting functions for details about how multi sorting works
+		this.hasMultiSort  = true;
+		this.multiSortInfo = this.multiSortInfo || {sorters: []};
+
+		var sorters	= this.multiSortInfo.sorters,
+			groupField = config.groupField || this.groupField,
+			sortInfo   = config.sortInfo || this.sortInfo,
+			groupDir   = config.groupDir || this.groupDir;
+
+		//add the grouping sorter object first
+		if(groupField){
+			sorters.push({
+				field	: groupField,
+				direction: groupDir
+			});
+		}
+
+		//add the sorting sorter object if it is present
+		if (sortInfo) {
+			sorters.push(sortInfo);
+		}
+
 		Ext.data.SQLiteStore.prototype.constructor.call(this, config);
+
+		this.addEvents(
+			'groupchange'
+		);
+
 		this.applyGroupField();
 	}
 });

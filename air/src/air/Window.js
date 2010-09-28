@@ -15,8 +15,14 @@
  * @param {Object} config A config object containing config options of Ext.air.NativeWindow and Ext.air.Viewport
  */
 Ext.air.Window = function(config) {
-	this.initialConfig = config || {};
-	Ext.copyTo(this, this.initialConfig, 'bodyHtml');
+	this.initialConfig = Ext.apply({}, config);
+	// remember html config option since html is replaced with complete page content later
+	config.bodyHtml = this.initialConfig.html;
+	delete config.html;
+	// delete html property from prototype
+	this.bodyHtml = this.html;
+	delete this.html;
+
 	this.addEvents(
 		/**
 		 * @event init
@@ -40,7 +46,7 @@ Ext.air.Window = function(config) {
 };
 Ext.extend(Ext.air.Window, Ext.air.NativeWindow, {
 	/**
-	 * @cfg {String} bodyHtml
+	 * @cfg {String} html
 	 * An HTML fragment, or a DomHelper specification to use as the window element content
 	 * (defaults to ''). The HTML content is added after the Viewport is rendered, so the
 	 * document will not contain this HTML at the time the render event is fired.
@@ -63,6 +69,8 @@ Ext.extend(Ext.air.Window, Ext.air.NativeWindow, {
 		var win = this.getWindow();
 		if (win && win.Ext) {
 			if (win.Ext != window.Ext) this.prepareItems();
+			// "html" was already processed in constructor, delete it for that case, s.o. defines it in "init" listener
+			delete this.html;
 			this.onInit.call(this, win, win.Ext);
 			this.createViewport(win.Ext);
 		}
@@ -77,14 +85,13 @@ Ext.extend(Ext.air.Window, Ext.air.NativeWindow, {
 	 * @private
 	 */
 	createViewport: function(X) {
-		//if (X != window.Ext) this.prepareItems();
-		var o = Ext.applyIf({
+		var o = Ext.apply(this.getOwnProperties(), {
 			id: X.id(),
 			stateId: null,
 			stateful: false,
 			hidden: false,
-			html: this.bodyHtml
-		}, this.getOwnProperties());
+			html: this.html || this.bodyHtml // this.html if s.o. defines it in "init" listener
+		});
 		this.viewport = new X.air.Viewport(o);
 	},
 	/**

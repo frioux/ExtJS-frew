@@ -283,7 +283,7 @@ conn.exec("SELECT * FROM myTable WHERE id = ?", [100], function(type, success, r
 				if(!isNaN(key)){
 					var v = args[key];
 					if(Ext.isDate(v)){
-						v = v.format(Ext.sql.Proxy.DATE_FORMAT);
+						v = v.format(this.dateFormat);
 					}
 					stmt.parameters[parseInt(key)] = v;
 				}else{

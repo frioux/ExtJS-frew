@@ -3,6 +3,7 @@
  * For some reason, the checkbox look doesn't change if it is clicked. So we have to set the checked
  * attribute manually. This is the only override that is needed for styled checkboxes and radios.
  * Hopefully it can be left out sometime.
+ * @hide 
  */
 Ext.override(Ext.form.FieldSet, {
 	onRender : Ext.form.FieldSet.prototype.onRender.createSequence(function() {

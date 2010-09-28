@@ -1,6 +1,6 @@
 {
 	"projectName": "Air Adapter",
-	"deployDir": "ext-air-3.2.2",
+	"deployDir": "ext-air-3.3+",
 	"licenseText": "Enhanced ExtJS Adapter for Adobe(r) AIR(r)\nCopyright(c) 2006-2010 Sencha Inc.\nlicensing@extjs.com\nhttp://www.extjs.com/license\n\n@version 3.2.2\n[For Use with ExtJS 3.1.0 to ExtJS 3.2.2]",
 	"pkgs": [{
 		"name": "Ext-Air Core",
@@ -169,8 +169,51 @@
 			"path": "src/air/"
 		}]
 	},{
+		"name": "Air Extended Layer (overlapping menus, tooltips etc.)",
+		"file": "pkgs/air-xlayer.js",
+		"isDebug": true,
+		"fileIncludes": [{
+			"text": "XWindow.js",
+			"path": "src/air/xlayer/"
+		},{
+			"text": "Layer.js",
+			"path": "src/air/xlayer/"
+		},{
+			"text": "Shadow.js",
+			"path": "src/air/xlayer/"
+		},{
+			"text": "Menu.js",
+			"path": "src/air/xlayer/"
+		},{
+			"text": "ColorPalette.js",
+			"path": "src/air/xlayer/"
+		},{
+			"text": "Combo.js",
+			"path": "src/air/xlayer/"
+		},{
+			"text": "ClickRepeater.js",
+			"path": "src/air/xlayer/"
+		}]
+	},{
 		"name": "Ext Air",
 		"file": "ext-air.js",
+		"isDebug": true,
+		"includeDeps": true,
+		"pkgDeps": [
+			"pkgs/air-core.js",
+			"pkgs/air-templatefixes.js",
+			"pkgs/air-overrides.js",
+			"pkgs/air-state.js",
+			"pkgs/air-data.js",
+			"pkgs/air-tree.js",
+			"pkgs/air-basiccomponents.js",
+			"pkgs/air-windowcomponents.js",
+			"pkgs/air-xlayer.js"
+		],
+		"fileIncludes": []
+	},{
+		"name": "Ext Air (without Extended Layer)",
+		"file": "ext-air-wo-xlayer.js",
 		"isDebug": true,
 		"includeDeps": true,
 		"pkgDeps": [

@@ -724,7 +724,7 @@ Ext.data.Node = Ext.extend(Ext.util.Observable, {
     eachChild : function(fn, scope, args){
         var cs = this.childNodes;
         for(var i = 0, len = cs.length; i < len; i++) {
-            if(fn.apply(scope || this, args || [cs[i]]) === false){
+            if(fn.apply(scope || cs[i], args || [cs[i]]) === false){
                 break;
             }
         }

@@ -1,0 +1,215 @@
+/*!
+ * Enhanced ExtJS Adapter for Adobe(r) AIR(r)
+ * Copyright(c) 2006-2010 Sencha Inc.
+ * licensing@extjs.com
+ * http://www.extjs.com/license
+ * 
+ * @version 3.2.2
+ * [For Use with ExtJS 3.1.0 to ExtJS 3.2.2]
+ */
+body {
+	-webkit-user-drag: none;
+	-webkit-user-modify: read-only;
+	-webkit-user-select: none;
+}
+[contentEditable="true"] {
+	-webkit-user-select: auto;
+	overflow: auto;
+	word-wrap: normal;
+}
+input, textarea, td, div {
+	outline: none;
+}
+.x-resizable-handle,
+.x-splitbar-h,
+.x-splitbar-v {
+	cursor: move;
+}
+.x-tree-root-ct {
+	display: inline-block;
+}
+.x-tree-node {
+	width: 100%;
+}
+.x-grid3-body:after,
+.x-grid-group-body:after {
+	/*content: ".";*/
+	display: block;
+	height: 0px;
+	font-size: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.x-small-editor .x-form-trigger {
+	height: 19px !important;
+}
+input[type=checkbox],
+input[type=radio] {
+	width: 13px;
+	height: 13px;
+	position: relative;
+	visibility: hidden;
+}
+input[type=checkbox]:after,
+input[type=radio]:after {
+	position: relative;
+	width: 13px;
+	height: 13px;
+	display: inline-block;
+	content: "";
+	visibility: visible;
+	background: url(../images/form/checkbox.gif) no-repeat 0px 0px;
+}
+input[type=radio]:after {
+	background-image: url(../images/form/radio.gif);
+}
+input[type=checkbox]:hover:after,
+input[type=radio]:hover:after {
+	background-position: -13px 0px;
+}
+input[type=checkbox][checked]:after,
+input[type=radio][checked]:after {
+	background-position: 0px -13px;
+}
+input[type=checkbox][checked]:hover:after,
+input[type=radio][checked]:hover:after {
+	background-position: -13px -13px;
+}
+input[type=checkbox]:active:after,
+input[type=radio]:active:after {
+	background-position: -26px 0px;
+}
+input[type=checkbox][checked]:active:after,
+input[type=radio][checked]:active:after {
+	background-position: -26px -13px;
+}
+input[type=checkbox][disabled]:after,
+input[type=radio][disabled]:after {
+	background-position: -39px 0px;
+}
+input[type=checkbox][checked][disabled]:after,
+input[type=radio][checked][disabled]:after {
+	background-position: -39px -13px;
+}
+.x-toolbar-cell .x-form-text {
+	padding-top: 1px !important;
+}
+/* use default scrollbars in htmleditor, custom ones only shown as white space, other iframes work fine */
+:not(iframe)::-webkit-scrollbar,
+/*:not(.x-html-editor-wrap)>iframe::-webkit-scrollbar,*/
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-corner {
+	width: 15px;
+	height: 15px;
+	background: #dfe8f6;
+}
+::-webkit-scrollbar-track:vertical {
+	background-image: url(../images/scrollbars/track_v.png);
+	background-repeat: repeat-y;
+	background-position: 0 0;
+}
+::-webkit-scrollbar-track:vertical:disabled {
+	background-position: -15px 0;
+}
+::-webkit-scrollbar-track:horizontal {
+	background-image: url(../images/scrollbars/track_h.png);
+	background-repeat: repeat-x;
+	background-position: 0 0;
+}
+::-webkit-scrollbar-track:horizontal:disabled {
+	background-position: 0 -15px;
+}
+::-webkit-scrollbar-button {
+	background-image: url(../images/scrollbars/button.png);
+	background-repeat: no-repeat;
+}
+::-webkit-scrollbar-button:vertical:start {
+	background-position: 0px 0px;
+}
+::-webkit-scrollbar-button:vertical:start:hover {
+	background-position: -15px 0px;
+}
+::-webkit-scrollbar-button:vertical:start:active {
+	background-position: -30px 0px;
+}
+::-webkit-scrollbar-button:vertical:start:disabled {
+	background-position: -45px 0px;
+}
+::-webkit-scrollbar-button:vertical:end {
+	background-position: 0px -15px;
+}
+::-webkit-scrollbar-button:vertical:end:hover {
+	background-position: -15px -15px;
+}
+::-webkit-scrollbar-button:vertical:end:active {
+	background-position: -30px -15px;
+}
+::-webkit-scrollbar-button:vertical:end:disabled {
+	background-position: -45px -15px;
+}
+::-webkit-scrollbar-button:horizontal:start {
+	background-position: 0px -30px;
+}
+::-webkit-scrollbar-button:horizontal:start:hover {
+	background-position: -15px -30px;
+}
+::-webkit-scrollbar-button:horizontal:start:active {
+	background-position: -30px -30px;
+}
+::-webkit-scrollbar-button:horizontal:start:disabled {
+	background-position: -45px -30px;
+}
+::-webkit-scrollbar-button:horizontal:end {
+	background-position: 0px -45px;
+}
+::-webkit-scrollbar-button:horizontal:end:hover {
+	background-position: -15px -45px;
+}
+::-webkit-scrollbar-button:horizontal:end:active {
+	background-position: -30px -45px;
+}
+::-webkit-scrollbar-button:horizontal:end:disabled {
+	background-position: -45px -45px;
+}
+::-webkit-scrollbar-thumb:vertical {
+	-webkit-border-image: url(../images/scrollbars/thumb_v.png) 3 0 3 0;
+	border-width: 3px 0px;
+	min-height: 15px;
+}
+::-webkit-scrollbar-thumb:vertical:hover {
+	-webkit-border-image: url(../images/scrollbars/thumb_v_hover.png) 3 0 3 0;
+}
+::-webkit-scrollbar-thumb:vertical:active {
+	-webkit-border-image: url(../images/scrollbars/thumb_v_active.png) 3 0 3 0;
+}
+::-webkit-scrollbar-thumb:horizontal {
+	-webkit-border-image: url(../images/scrollbars/thumb_h.png) 0 3 0 3;
+	border-width: 0px 3px;
+	min-width: 15px;
+}
+::-webkit-scrollbar-thumb:horizontal:hover {
+	-webkit-border-image: url(../images/scrollbars/thumb_h_hover.png) 0 3 0 3;
+}
+::-webkit-scrollbar-thumb:horizontal:active {
+	-webkit-border-image: url(../images/scrollbars/thumb_h_active.png) 0 3 0 3;
+}
+.x-nativewindow-headermenu .x-menu-item .restore {
+	background-image: url(../images/viewport/restore.png);
+}
+.x-nativewindow-headermenu .x-menu-item .minimize {
+	background-image: url(../images/viewport/minimize.png);
+}
+.x-nativewindow-headermenu .x-menu-item .maximize {
+	background-image: url(../images/viewport/maximize.png);
+}
+.x-nativewindow-headermenu .x-menu-item .close {
+	background-image: url(../images/viewport/close.png);
+}
+.x-nativewindow-utility>.x-window-tl>.x-window-tr>.x-window-tc>.x-window-header {
+	padding-top: 4px !important;
+	padding-bottom: 2px !important;
+	/* no icon */
+	padding-left: 0px !important;
+	background-image: none !important;
+}

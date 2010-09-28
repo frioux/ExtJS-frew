@@ -1,0 +1,38 @@
+<html>
+<head>
+	<title>Windows</title>
+	<link rel="stylesheet" type="text/css" href="/lib/extjs/resources/css/ext-all.css" ext:query="true" />
+	<link rel="stylesheet" type="text/css" href="/lib/extair/resources/css/ext-air.css" ext:query="true" /> 
+	<link rel="stylesheet" type="text/css" href="/lib/prettify/resources/css/prettify.css" ext:query="true" />
+	<link rel="stylesheet" type="text/css" href="/resources/css/windows.css" ext:query="true" />
+	
+	<script type="text/javascript" src="/lib/air/AIRAliases.js" ext:query="true"></script>
+	<script type="text/javascript" src="/lib/air/AIRIntrospector.js" ext:query="true"></script>
+	
+	<script type="text/javascript" src="/lib/prettify/prettify.js" ext:query="true"></script>
+	
+	<!-- Debug Versions
+	<script type="text/javascript" src="/lib/extjs/adapter/ext/ext-base-debug.js"></script>
+	<script type="text/javascript" src="/lib/extjs/ext-all-debug.js"></script>
+	<script type="text/javascript" src="/lib/extair/ext-air-debug.js"></script>
+	-->
+	
+	<script type="text/javascript" src="/lib/extjs/adapter/ext/ext-base.js" ext:query="true"></script>
+	<script type="text/javascript" src="/lib/extjs/ext-all.js" ext:query="true"></script>
+	<script type="text/javascript" src="/lib/extair/ext-air.js" ext:query="true"></script>
+	
+	<script type="text/javascript" src="/js/CodeWindow.js"></script>
+	<script type="text/javascript" src="/js/WinForm.js"></script>
+	<script type="text/javascript" ext:query="true">
+		console = { log: air.Introspector ? air.Introspector.Console.log : function(){}};
+		Ext.BLANK_IMAGE_URL = '/lib/resources/images/default/s.gif';
+		// set Prettyprinter tab width to 4 spaces
+		PR_TAB_WIDTH = 4;
+	</script>
+	
+	<script type="text/javascript" src="/js/app.js"></script>
+</head>
+<body>
+	<!-- Insert your content here -->
+</body>
+</html>

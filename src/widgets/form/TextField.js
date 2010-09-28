@@ -434,7 +434,7 @@ var myField = new Ext.form.NumberField({
     getErrors: function(value) {
         var errors = Ext.form.TextField.superclass.getErrors.apply(this, arguments);
         
-        value = value || this.processValue(this.getRawValue());        
+        value = Ext.isDefined(value) ? value : this.processValue(this.getRawValue());        
         
         if (Ext.isFunction(this.validator)) {
             var msg = this.validator(value);

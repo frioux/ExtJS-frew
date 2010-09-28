@@ -1,0 +1,29 @@
+pre.prettyprint {
+	border: 0;
+	padding: 0;
+	background-color: #FFFFFF;
+	/* allow text selection */
+	-webkit-user-select: text;
+	font-size: 12px;
+}
+/* show all line numbers */
+ol.linenums {
+	display: block;
+	margin-left: 40px;
+}
+ol.linenums li {
+	border-left: solid 1px #DDDDDD;
+}
+li.L0,
+li.L1,
+li.L2,
+li.L3,
+li.L4,
+li.L5,
+li.L6,
+li.L7,
+li.L8,
+li.L9 {
+	list-style: decimal;
+	padding-left: 3px;
+}

@@ -104,7 +104,7 @@ Ext.form.NumberField = Ext.extend(Ext.form.TextField,  {
     getErrors: function(value) {
         var errors = Ext.form.NumberField.superclass.getErrors.apply(this, arguments);
         
-        value = value || this.processValue(this.getRawValue());
+        value = Ext.isDefined(value) ? value : this.processValue(this.getRawValue());
         
         if (value.length < 1) { // if it's blank and textfield didn't flag it then it's valid
              return errors;

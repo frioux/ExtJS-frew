@@ -481,7 +481,7 @@ items: [
         this.setLayout(this.layout);
 
         // If a CardLayout, the active item set
-        if(this.activeItem !== undefined){
+        if(this.activeItem !== undefined && this.layout.setActiveItem){
             var item = this.activeItem;
             delete this.activeItem;
             this.layout.setActiveItem(item);
