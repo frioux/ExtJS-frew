@@ -173,10 +173,11 @@ Ext.grid.PivotAxis = Ext.extend(Ext.Component, {
         newStore.sort(sorters);
         
         var records = newStore.data.items,
-            length  = records.length,
             hashes  = [],
             tuples  = [],
-            recData, hash, info, data, key, i;
+            recData, hash, info, data, key;
+        
+        length = records.length;
         
         for (i = 0; i < length; i++) {
             info = this.getRecordInfo(records[i]);
@@ -270,8 +271,7 @@ Ext.grid.PivotAxis = Ext.extend(Ext.Component, {
                  */
                 changed = previousHeader != undefined && previousHeader != currentHeader;
                 if (i > 0 && j > 0) {
-                    changed = changed || tuple.data[dimensions[i-1].dataIndex];
-                    changed = changed || tuples[j-1].data[dimensions[i-1].dataIndex];
+                    changed = changed || tuple.data[dimensions[i-1].dataIndex] != tuples[j-1].data[dimensions[i-1].dataIndex];
                 }
                 
                 if (changed) {                    

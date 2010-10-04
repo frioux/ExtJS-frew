@@ -289,8 +289,8 @@ Ext.ux.grid.ColumnHeaderGroup = Ext.extend(Ext.util.Observable, {
             }
         },
 
-        renderUI: function(){
-            this.constructor.prototype.renderUI.apply(this, arguments);
+        afterRenderUI: function(){
+            this.constructor.prototype.afterRenderUI.apply(this, arguments);
             Ext.apply(this.columnDrop, Ext.ux.grid.ColumnHeaderGroup.prototype.columnDropConfig);
             Ext.apply(this.splitZone, Ext.ux.grid.ColumnHeaderGroup.prototype.splitZoneConfig);
         }
