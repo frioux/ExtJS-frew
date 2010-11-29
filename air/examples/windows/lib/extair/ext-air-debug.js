@@ -1088,6 +1088,23 @@ Ext.override(Ext.form.ComboBox, {
 				this[this.pageSize?'footer':'innerList'].setStyle('margin-bottom', this.handleHeight+'px');
 			}
 		}
+	},
+	getParams: function(q) {
+		var params = {},
+			paramNames = this.store.paramNames,
+			where = this.store.baseParams.clause || this.store.baseParams.where;
+		if (this.pageSize) {
+			params[paramNames.start] = 0,
+			params[paramNames.limit] = this.pageSize;
+		}
+		if (where) {
+			where = where.replace(/^\s*WHERE\s*/, '');
+			where = " WHERE (" + where + ") AND ";
+		} else where = " WHERE ";
+		params.where = where + this.displayField + " LIKE ? || '%'";
+		params.args = this.store.baseParams.args || [];
+		params.args.push(q);
+		return params;
 	}
 });
 Ext.grid.GroupingView.prototype.startGroup = new Ext.XTemplate(
@@ -2282,7 +2299,7 @@ Ext.data.SQLiteStore = Ext.extend(Ext.data.Store, {
 	 */
 	constructor: function(config) {
 		config = config || {};
-		var idProperty = config.idProperty || config.key;
+		var idProperty = config.idProperty || config.key || this.idProperty || this.key;
 		
 		// always use batch:true since we're using database transactions
 		config.batch = true;
@@ -2291,7 +2308,7 @@ Ext.data.SQLiteStore = Ext.extend(Ext.data.Store, {
 		if (!config.reader) {
 			config.reader = new Ext.data.JsonReader({
 				idProperty: idProperty,
-				fields: config.fields,
+				fields: config.fields || this.fields,
 				root: '__root__',
 				totalProperty: '__total__',
 			});
@@ -2314,7 +2331,7 @@ Ext.data.SQLiteStore = Ext.extend(Ext.data.Store, {
 		if (this.autoCreateTable === true) {
 			var ct = function() {
 				this.proxy.conn.createTable({
-					name: config.tableName,
+					name: this.tableName,
 					key: idProperty,
 					fields: this.reader.recordType.prototype.fields
 				});
@@ -2324,7 +2341,7 @@ Ext.data.SQLiteStore = Ext.extend(Ext.data.Store, {
 			} else this.proxy.conn.on('open', ct, this, {single: true});
 		}
 		
-		this.table = this.proxy.conn.getTable(config.tableName, idProperty);
+		this.table = this.proxy.conn.getTable(this.tableName, idProperty);
 		
 		// prevent temporary removed records from being loaded on store reload
 		this.on('beforeload', function(s, o) {
@@ -3754,7 +3771,9 @@ Ext.extend(Ext.air.NativeWindow, Ext.util.Observable, {
 	 * <li><b>root</b>: Node/String<div class="sub-desc">An optional start node (or id) for all query-types
 	 * (defaults to the current document).</div></li>
 	 * <li><b>include</b>: Array/String<div class="sub-desc">An optinal single or an array of additional
-	 * js and css files to include after the queried files (if type != 'main').</div></li></ul></div>
+	 * js and css files to include after the queried files (if type != 'main').</div></li>
+	 * <li><b>bodyHtml</b>: String<div class="sub-desc">An optional html string to load load as content
+	 * into the the &lt;body&gt;-tag (Defaults to <code>''</code>)</div></li></ul></div>
 	 * Defaults to <pre><code>
 {
 	type: 'queryExt',
@@ -3762,6 +3781,8 @@ Ext.extend(Ext.air.NativeWindow, Ext.util.Observable, {
 }
 	 * </code></pre>
 	 */
+	// do not include this in docs currently, it is used for XLayer, maybe the fileQuery option there can be changed in a better way
+	// <li><b>includeAllCSS</b>: Boolean (for "queryExtJS", "queryExtAIR", "queryExt" or "queryRegex")<div class="sub-desc"><code>true</code> to include all CSS files and style tags regardless of the given regex or Ext belonging</div></li>
 	fileQuery: {
 		type: 'queryExt',
 		root: Ext.air.App.getRootHtmlWindow().document
@@ -4665,9 +4686,9 @@ Ext.state.Manager.setProvider(new Ext.state.FileProvider());
 				if (t == 'queryExtJS') {
 					r = /\/ext\-(basex?|all|lang)(\-[a-z_\-]+)?\.(css|js)$/i;
 				} else if (t == 'queryExtAIR') {
-					r = /\/(AIRAliases\.js)|(AIRIntrospector\.js)|(ext\-air(\-[a-z_\-]+)?\.(css|js))$/i;
+					r = /\/(AIRAliases\.js)|(AIRIntrospector\.js)|(AIRLocalizer\.js)|(AIRMenuBuilder\.js)|(AIRSourceViewer\.js)|(ext\-air(\-[a-z_\-]+)?\.(css|js))$/i;
 				} else if (t == 'queryExt') {
-					r = /\/(AIRAliases\.js)|(AIRIntrospector\.js)|(ext\-(basex?|all|lang|air)(\-[a-z_\-]+)?\.(css|js))$/i;
+					r = /\/(AIRAliases\.js)|(AIRIntrospector\.js)|(AIRLocalizer\.js)|(AIRMenuBuilder\.js)|(AIRSourceViewer\.js)|(ext\-(basex?|all|lang|air)(\-[a-z_\-]+)?\.(css|js))$/i;
 				}
 				
 				switch (t) {
@@ -4678,12 +4699,16 @@ Ext.state.Manager.setProvider(new Ext.state.FileProvider());
 					case 'queryRegex':
 						if (!Ext.isDefined(r)) return;
 
-						f = Ext.DomQuery.select(js && css ? 'link' + aCss + ',script' + aJs : (css ? 'link' + aCss : 'script' + aJs), this.fileQuery.root);
+						f = Ext.DomQuery.select(js && css ? 'link' + aCss + ',style' + aCss + ',script' + aJs : (css ? 'link' + aCss + ',style' + aCss: 'script' + aJs), this.fileQuery.root);
 						Ext.each(f, function(file) {
 							isLink = file.tagName == 'LINK';
-							h = isLink ? file.href : file.src;
-							if (r.test(h)) html += file.outerHTML;
-						});
+							if (this.fileQuery.includeAllCSS === true && (isLink || file.tagName == 'STYLE')) {
+								html += file.outerHTML;
+							} else if (file.tagName != 'STYLE') {
+								h = isLink ? file.href : file.src;
+								if (r.test(h)) html += file.outerHTML;
+							}
+						}, this);
 						break;
 					// query by attribute -> same routine as queryAll/querySelector
 					// namespace attribute can't be queried with Ext.DomQuery, has to be filtered afterwards
@@ -4692,14 +4717,14 @@ Ext.state.Manager.setProvider(new Ext.state.FileProvider());
 						a = this.fileQuery.attribute;
 					// query all -> same routine as querySelector
 					case 'queryAll':
-						this.fileQuery.selector = js && css ? 'link' + aCss + ',script' + aJs : (css ? 'link' + aCss : 'script' + aJs);
+						this.fileQuery.selector = js && css ? 'link' + aCss + ',style' + aCss + ',script' + aJs : (css ? 'link' + aCss + ',style' + aCss : 'script' + aJs);
 					// query by selector
 					case 'querySelector':
 						if (!Ext.isString(this.fileQuery.selector)) return;
 						
 						f = Ext.DomQuery.select(this.fileQuery.selector, this.fileQuery.root);
 						Ext.each(f, function(file) {
-							isLink = file.tagName == 'LINK' && file.type == 'text/css';
+							isLink = (file.tagName == 'LINK' || file.tagName == 'STYLE') && file.type == 'text/css';
 							isScript = file.tagName == 'SCRIPT' && file.type == 'text/javascript';
 							// skip file if it isn't a javascript or css file
 							if ((!isLink && !isScript) || (isLink && !css) || (isScript && !js)) return true;
@@ -4724,7 +4749,7 @@ Ext.state.Manager.setProvider(new Ext.state.FileProvider());
 				}
 				// use html string and include all queried file tags
 				if (!Ext.isEmpty(html)) {
-					this.html = '<html><head>' + html + '</head><body></body></html>';
+					this.html = '<html><head>' + html + '</head><body>' + (this.fileQuery.bodyHtml || '') + '</body></html>';
 					this.trusted = true;
 				}
 			}
@@ -4815,20 +4840,37 @@ Ext.air.NativeWindowManager = new Ext.air.NativeWindowGroup();
  * @param {Object} config Config options
  */
 Ext.air.Notify = function(config) {
-	/**
-	 * @cfg {String} msg
-	 * The message to display
-	 */
 	config = config || {};
 	Ext.apply(this, config);
-	// search for ext-all.css if it is not defined
-	if (!this.extAllCSS) {
-		var cssLink = Ext.DomQuery.selectNode("link[href$=ext-all.css]", Ext.air.App.getRootHtmlWindow().document);
-		if (cssLink) this.extAllCSS = cssLink.href;
+
+	var html = this.tpl.apply({
+		msg: this.msg,
+		iconCls: this.iconCls,
+		icon: this.icon || Ext.BLANK_IMAGE_URL,
+		title: this.title,
+		msgId: this.msgId,
+		boxCls: this.boxCls,
+		cls: this.cls,
+		style: this.style
+	});
+	// boxWrap it
+	if (this.boxCls !== false) {
+		var d = Ext.fly(document.createElement('div')),
+			c = d.insertHtml('afterBegin', html, true);
+		c.boxWrap(this.boxCls);
+		html = d.dom.innerHTML;
+		d.remove();
 	}
-	config.html = this.xtpl.apply(this);
+	this.fileQuery.bodyHtml = html;
+	
+	if (this.height == 'auto') {
+		this.height = undefined;
+		this.autoHeight = true;
+	} else this.autoHeight = false;
+	
 	Ext.air.Notify.superclass.constructor.call(this, config);
 	
+	// register with NotifyManager to handle stacking
 	try {
 		this.stack = Ext.air.App.getRootHtmlWindow().Ext.air.NotifyManager;
 	} catch(e) {
@@ -4837,6 +4879,11 @@ Ext.air.Notify = function(config) {
 	if (this.stack) this.stack.add(this);
 };
 Ext.extend(Ext.air.Notify, Ext.air.NativeWindow, {
+	hidden: false,
+	systemChrome: 'none',
+	transparent: true,
+	stateful: false,
+	extraHeight: 22,
 	type: 'lightweight',
 	minHeight: 0,
 	destroyOnParentClose: false,
@@ -4844,22 +4891,38 @@ Ext.extend(Ext.air.Notify, Ext.air.NativeWindow, {
 	parent: false,
 	alwaysInFront: true,
 	/**
+	 * @cfg {String} msg
+	 * The message to display
+	 */
+	/**
 	 * @cfg {Number} width
 	 * The width of the window in pixels (defaults to <code>400</code>).
 	 * The height depends on the content.
 	 */
 	width: 400,
-	height: 50,
-	hidden: false,
-	systemChrome: 'none',
-	transparent: true,
-	trusted: true,
-	stateful: false,
-	extraHeight: 22,
+	/**
+	 * @cfg {Number/String width}
+	 * The height of the window in pixels or <code>'auto'</code> if
+	 * the height should fit to the content. Defaults to <code>'auto'</code>.
+	 */
+	height: 'auto',
 	/**
 	 * @cfg {Object} fileQuery
-	 * @hide
+	 * See {@link Ext.air.NativeWindow#fileQuery} for more information. Defaults to <pre><code>
+{
+	type: 'queryExt',
+	root: Ext.air.App.getRootHtmlWindow().document,
+	js: false
+}
+	 * </code></pre>
+	 * This includes ext-all.css and ext-air.css by default.
+	 * Change this, if you need additional css files.
 	 */
+	fileQuery: {
+		type: 'queryExt',
+		root: Ext.air.App.getRootHtmlWindow().document,
+		js: false
+	},
 	/**
 	 * @cfg {Number/Boolean} hideDelay
 	 * The number of milliseconds to wait till hiding the notify window
@@ -4880,30 +4943,24 @@ Ext.extend(Ext.air.Notify, Ext.air.NativeWindow, {
 	 */
 	msgId: 'msg',
 	/**
-	 * @cfg {String} iconId
-	 * The id of the icon element
-	 * (defaults to <code>'icon'</code>).
-	 */
-	iconId: 'icon',
-	/**
 	 * @cfg {String} icon
 	 * (optional) a path to an icon to display in the top right corner of the notify window
 	 * (defaults to <code>Ext.BLANK_IMAGE_URL</code>).
 	 */
-	icon: Ext.BLANK_IMAGE_URL,
+	icon: undefined,
 	/**
-	 * @cfg {String} boxCls
-	 * A css class to apply to the box wrapping elements
-	 * (defaults to <code>'x-box'</code>).
+	 * @cfg {String} iconCls
+	 * (optional) The CSS class selector that specifies a background image to be used as
+	 * the header icon (defaults to <code>''</code>). If set, the {@link #icon} config
+	 * option should not be set.
+	 */
+	iconCls: '',
+	/**
+	 * @cfg {String/Boolean} boxCls
+	 * A css class to apply to the box wrapping elements or <code>false</code> to not wrap
+	 * the message into a box frame (defaults to <code>'x-box'</code>).
 	 */
 	boxCls: 'x-box',
-	/**
-	 * @cfg {String} extAllCSS	 
-	 * The path to the ext-all.css file (defaults to <code>null</code>).
-	 * If it is left empty, it is tried to use the ext-all.css of the current window.
-	 * It is searched by <code>Ext.DomQuery.selectNode("link[href$=ext-all.css]");</code>.
-	 */
-	extAllCSS: null,
 	/**
 	 * @cfg {Boolean} stackable
 	 * True to display the Ext.air.Notify upon all other visible notifiers, false to always show it
@@ -4920,29 +4977,32 @@ Ext.extend(Ext.air.Notify, Ext.air.NativeWindow, {
 	 */
 	stackPosition: 'top',
 	/**
-	 * @cfg {Ext.XTemplate} xtpl
-	 * (optional) A XTemplate to load as html string in the native window.
-	 * It should have a html, head and body element and
-	 * can contain all properties and config options of this class.
+	 * @cfg {Ext.XTemplate} tpl
+	 * (optional) A XTemplate to load as html body in the native window.
 	 */
-	xtpl: new Ext.XTemplate(
-		'<html><head><link rel="stylesheet" href="{extAllCSS}"></head>',
-			'<body>',
-				'<div class="{boxCls}-tl"><div class="{boxCls}-tr"><div class="{boxCls}-tc"></div></div></div><div class="{boxCls}-ml"><div class="{boxCls}-mr"><div class="{boxCls}-mc">',
-					'<div id="{msgId}">',
-						'<span>{msg}</span>',
-						'<div id="{iconId}" style="float: right;"><img src="{icon}"></div>',
-					'</div>',
-				'</div></div></div><div class="{boxCls}-bl"><div class="{boxCls}-br"><div class="{boxCls}-bc"></div></div></div>',
-			'</body>',
-		'</html>'
+	tpl: new Ext.XTemplate(
+		'<div id="{msgId}" class="notify {cls}" style="{style}">',
+			'<img src="{icon}" class="notify-icon {iconCls}" />',
+			'<tpl if="title">',
+				'<div class="notify-title">{title}</div>',
+			'</tpl>',
+			'<div class="notify-msg">{msg}</div>',
+		'</div>'
 	),
 	// private
 	onShow: function() {
 		var doc = this.getDocument(),
 			br = air.Screen.mainScreen.visibleBounds.bottomRight,
-			h = doc.getElementById(this.msgId).clientHeight + this.extraHeight;
+			bh = doc.body.childNodes[0].clientHeight,
+			me = doc.getElementById(this.msgId),
+			dh = me.clientHeight,
+			h = this.autoHeight ? dh + this.extraHeight : parseInt(this.height, 10);
+		
+		if (!this.autoHeight != 'auto') {
+			me.style.height = (h - bh + dh) + 'px';
+		}
 		this.setHeight(h);
+		
 		if (this.stack) {
 			this.stack.arrange();
 		} else this.setPosition(br.x - this.getWidth(), br.y - h);
@@ -6323,3 +6383,644 @@ Ext.air.MessageBox.ERROR
  * Shorthand for {@link Ext.air.MessageBox}
  */
 Ext.air.Msg = Ext.air.MessageBox;
+/**
+ * EXPERIMENTAL - True to use a lightweight transparent fullscreen alwaysInFront window to display menus,
+ * tooltips etc. (Layers in general) to allow overlapping of the current window size. Set this
+ * <b>before</b> any <code>Ext.onReady</code> calls. Defaults to <code>false</code>.
+ * Setting this to true can cause performance issues, especially when the app starts,
+ * because Ext.onReady fires not until both, the current window and the layer window are ready.
+ * @property USE_EXTENDED_LAYER
+ * @type Boolean
+ * @member Ext
+ */
+Ext.USE_EXTENDED_LAYER = false;
+
+(function() {
+	var root = Ext.air.App.getRootHtmlWindow(),
+		count = 0; // counter, e.g. for submenus to not hide the XWindow if parent menu is still open
+	// Only execute this function in root window
+	
+	window.nativeWindow.addEventListener('deactivate', function() {
+		if (!Ext.air.App.getActiveWindow() && Ext.air.XWindow && !Ext.air.XWindow.getNative().closed) {
+			Ext.air.XWindow.hide();
+		}
+	});
+	
+	if (root != window) {
+		window.Ext.air.XWindow = root.Ext.air.XWindow;
+		return;
+	}
+
+	if (!Ext.air.XWindow) {
+		Ext.air.XWindow = new Ext.air.NativeWindow({
+			type: air.NativeWindowType.LIGHTWEIGHT,
+			parent: root.nativeWindow,
+			systemChrome: air.NativeWindowSystemChrome.NONE,
+			transparent: true,
+			complete: false,
+			maximizable: false,
+			resizable: false,
+			minimizable: false,
+			draggable: false,
+			hidden: true,
+			alwaysInFront: true,
+			closeAction: 'hide',
+			fileQuery: {
+				type: 'queryExt',
+				root: root.document,
+				includeAllCSS: true
+			},
+			manager: { // do not use a manager on this window, apply a pseudo
+				register: Ext.emptyFn,
+				unregister: Ext.emptyFn
+			},
+			show: function() {
+				count++;
+				Ext.air.NativeWindow.prototype.show.apply(this, arguments);
+			},
+			hide: function() {
+				count--;
+				if (count < 1) {
+					count = 0;
+					Ext.air.NativeWindow.prototype.hide.apply(this, arguments);
+				}
+			},
+			listeners: {
+				'complete': function(w) {
+					var b = w.getDocument().body;
+					b.scroll = 'no';
+					b.style.overflow = 'hidden';
+					w.fullscreen(true);
+					w.complete = true;
+				}
+			}
+		});
+	}
+		
+	Ext.apply(Ext.EventManager, {
+		onDocumentReady: Ext.EventManager.onDocumentReady.createInterceptor(function(fn, scope, options) {
+			if (root.Ext.USE_EXTENDED_LAYER === true) {
+				if (root.Ext.air.XWindow.complete) {
+					root.Ext.air.XWindow.getWindow().Ext.EventManager.onDocumentReady(fn, scope || window, options);
+				} else {
+					root.Ext.air.XWindow.on('complete', function(w) {
+						w.getWindow().Ext.EventManager.onDocumentReady(fn, scope || window, options);
+					}, this, {single: true});
+				}
+				return false;
+			}
+		})
+	});
+	Ext.onReady(function() {
+		// if we do not use XWindow, close it
+		if (Ext.USE_EXTENDED_LAYER !== true && Ext.air.XWindow) {
+			Ext.air.XWindow.close();
+		}
+	}, root, {single: true});
+	
+	Ext.onReady = Ext.EventManager.onDocumentReady;
+})();
+Ext.override(Ext.Layer, {
+	anim: function() { // no animation
+		return this;
+	},
+	isVisible: function() {
+		if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow) {
+			return Ext.air.XWindow.isVisible() && this.visible;
+		}
+		return this.visible;
+	},
+	showAction: Ext.Layer.prototype.showAction.createInterceptor(function() {
+		if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow) {
+			var d = Ext.air.XWindow.getDocument();
+			this.xParent = this.dom.parentNode;
+			this.dom = d.adoptNode(this.dom, true);
+			d.body.appendChild(this.dom);
+			Ext.air.XWindow.show();
+		}
+	}),
+	hideAction: Ext.Layer.prototype.hideAction.createInterceptor(function() {
+		if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow && this.xParent) {
+			this.dom = document.adoptNode(this.dom, true);
+			this.xParent.appendChild(this.dom);
+			Ext.air.XWindow.hide();
+		}
+	}),
+	getX: function() {
+		return this.getXY()[0];
+	},
+	getY: function() {
+		return this.getXY()[1];
+	},
+	getXY: function() {
+		var xy = Ext.Element.prototype.getXY.call(this);
+		if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow) {
+			xy[0] -= window.nativeWindow.x;
+			xy[1] -= window.nativeWindow.y;
+		}
+		return xy;
+	},
+	setXY : function(xy, a, d, c, e) {
+		var nxy = [xy[0],xy[1]];
+		if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow) {
+			nxy[0] += window.nativeWindow.x;
+			nxy[1] += window.nativeWindow.y;
+		}
+		this.fixDisplay();
+		this.beforeAction();
+		this.storeXY(nxy);
+		var cb = this.createCB(c);
+		Ext.Element.prototype.setXY.call(this, nxy, a, d, cb, e);
+		if(!a){
+			cb();
+		}
+		return this;
+	},
+	setLeftTop : function(left, top){
+		if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow) {
+			left += window.nativeWindow.x;
+			top += window.nativeWindow.y;
+		}
+		this.storeLeftTop(left, top);
+		Ext.Element.prototype.setLeftTop.apply(this, arguments);
+		this.sync();
+		return this;
+	},
+	getTop: function(local) {
+		var t = Ext.Element.prototype.getTop.call(this, local);
+		if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow && local) {
+			t -= window.nativeWindow.y;
+		}
+		return t;
+	},
+	getLeft: function(local) {
+		var l = Ext.Element.prototype.getLeft.call(this, local);
+		if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow && local) {
+			l -= window.nativeWindow.x;
+		}
+		return l;
+	},
+	getPositioning: function() {
+		var p = Ext.Element.prototype.getPositioning.call(this);
+		if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow) {
+			p[p.top ? 'top' : 'bottom'] -= window.nativeWindow.y;
+			p[p.left ? 'left' : 'right'] -= window.nativeWindow.x;
+		}
+		return p;
+	},
+	constrainXY: function() {
+		return this;
+	},
+	setBounds: function(x, y, w, h, a, d, c, e) {
+		this.beforeAction();
+		var cb = this.createCB(c);
+		if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow) {
+			x += window.nativeWindow.x;
+			y += window.nativeWindow.y;
+		}
+		if (!a) {
+			this.storeXY([x, y]);
+			Ext.Element.prototype.setXY.call(this, [x, y]);
+			Ext.Element.prototype.setSize.call(this, w, h, a, d, cb, e);
+			cb();
+		} else {
+			Ext.Element.prototype.setBounds.call(this, x, y, w, h, a, d, cb, e);
+		}
+		return this;
+	},
+	getBox: function(contentBox, local) {
+		var b = Ext.Element.prototype.getBox.call(this, contentBox, local),
+			x = window.nativeWindow.x,
+			y = window.nativeWindow.y;
+		if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow && local) {
+			b.x -= x;
+			b[0] -= x;
+			b.y -= y;
+			b[1] -= y;
+			b.right -= x;
+			b.bottom -= y;
+		}
+		return b;
+	},
+	getRegion: function() {
+		var r = Ext.Element.prototype.getRegion.call(this),
+			x = window.nativeWindow.x,
+			y = window.nativeWindow.y;
+		if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow) {
+			r.left -= x;
+			r.right -= x;
+			r[0] -= x;
+			r.top -= y;
+			r.bottom -= y;
+			r[1] -= y;
+		}
+		return r;
+	},
+	setRegion: function(region, animate) {
+		var r = region,
+			x = window.nativeWindow.x,
+			y = window.nativeWindow.y;
+		if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow) {
+			r = Ext.copyTo({}, r, 'left,right,top,bottom');
+			r.left += x;
+			r.right += x;
+			r.top += y;
+			r.bottom += y;
+		}
+		return Ext.Element.prototype.setRegion.call(this, r, animate);
+	},
+	translatePoints: function(x, y) {
+		y = isNaN(x[1]) ? y : x[1];
+		x = isNaN(x[0]) ? x : x[0];
+		var me = this,
+			relative = me.isStyle('position', 'relative'),
+			o = me.getXY(),
+			e = Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow,
+			wx = e ? window.nativeWindow.x : 0,
+			wy = e ? window.nativeWindow.y : 0,
+			l = parseInt(me.getStyle('left'), 10),
+			t = parseInt(me.getStyle('top'), 10);
+		l = !isNaN(l) ? l - wx : (relative ? 0 : me.dom.offsetLeft - wx);
+		t = !isNaN(t) ? t - wy : (relative ? 0 : me.dom.offsetTop - wy);
+		
+		return {left: (x - o[0] + l), top: (y - o[1] + t)};
+	},
+	getConstrainToXY : function(el, local, offsets, proposedXY){   
+		var os = {top:0, left:0, bottom:0, right: 0};
+		
+		return function(el, local, offsets, proposedXY) {
+			el = Ext.get(el);
+			var vw, vh, vx = 0, vy = 0;
+			offsets = offsets ? Ext.applyIf(offsets, os) : os;
+			
+			if (el.dom == document.body || el.dom == document) {
+				if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow) {
+					vw = Ext.air.XWindow.getWidth();
+					vh = Ext.air.XWindow.getHeight();
+				} else {
+					vw = Ext.lib.Dom.getViewWidth();
+					vh = Ext.lib.Dom.getViewHeight();
+				}
+			} else {
+				vw = el.dom.clientWidth;
+				vh = el.dom.clientHeight;
+				if (!local) {
+					var vxy = el.getXY();
+					vx = vxy[0];
+					vy = vxy[1];
+				}
+			}
+
+			var s = el.getScroll();
+
+			vx += offsets.left + s.left;
+			vy += offsets.top + s.top;
+
+			vw -= offsets.right;
+			vh -= offsets.bottom;
+
+			var vr = vx + vw,
+				vb = vy + vh,
+				xy = proposedXY || (!local ? this.getXY() : [this.getLeft(true), this.getTop(true)]),
+				x = xy[0], y = xy[1],
+				offset = this.getConstrainOffset(),
+				w = this.dom.offsetWidth + offset, 
+				h = this.dom.offsetHeight + offset;
+
+			// only move it if it needs it
+			var moved = false;
+
+			// first validate right/bottom
+			if((x + w) > vr){
+				x = vr - w;
+				moved = true;
+			}
+			if((y + h) > vb){
+				y = vb - h;
+				moved = true;
+			}
+			// then make sure top/left isn't negative
+			if(x < vx){
+				x = vx;
+				moved = true;
+			}
+			if(y < vy){
+				y = vy;
+				moved = true;
+			}
+			return moved ? [x, y] : false;
+		};
+	}(),
+	getAlignToXY: function(el, p, o) {
+		if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow) {
+			p = (!p || p == "?" ? "tl-bl?" : (!(/-/).test(p) && p !== "" ? "tl-" + p : p || "tl-bl")).toLowerCase();
+			var m = p.match(/^([a-z]+)-([a-z]+)(\?)?$/),
+				c = !!m[3],
+				xy, w, h, r, p1y, p1x, p2y, p2x, swapY, swapX,
+				p1 = "",
+				p2 = "",
+				wx = window.nativeWindow.x,
+				wy = window.nativeWindow.y,
+				dw = Ext.air.XWindow.getWidth(),
+				dh = Ext.air.XWindow.getHeight();
+			if (c) {
+				p = p.substr(0, p.length - 1);
+				r = el.getRegion();
+			}
+			xy = Ext.Element.prototype.getAlignToXY.call(this, el, p, o);
+			if (el.dom && el.dom.ownerDocument == Ext.air.XWindow.getDocument()) {
+				xy[0] -= wx;
+				xy[1] -= wy;
+				r.left -= wx;
+				r[0] -= wx;
+				r.right -= wx;
+				r.top -= wy;
+				r[1] -= wy;
+				r.bottom -= wy;
+			}
+			if (c) {
+				p1 = m[1],
+				p2 = m[2],
+				w = this.getWidth();
+				h = this.getHeight();
+				//If we are at a viewport boundary and the aligned el is anchored on a target border that is
+				//perpendicular to the vp border, allow the aligned el to slide on that border,
+				//otherwise swap the aligned el to the opposite border of the target.
+				p1y = p1.charAt(0);
+				p1x = p1.charAt(p1.length-1);
+				p2y = p2.charAt(0);
+				p2x = p2.charAt(p2.length-1);
+				swapY = ((p1y=="t" && p2y=="b") || (p1y=="b" && p2y=="t"));
+				swapX = ((p1x=="r" && p2x=="l") || (p1x=="l" && p2x=="r"));
+				if (xy[0] + w + wx > dw) {
+					xy[0] = swapX ? r.left - w : dw - w;
+				}
+				if (xy[0] + wx < 0) {
+					xy[0] = swapX ? r.right : 0;
+				}
+				if (xy[1] + h + wy > dh) {
+					xy[1] = swapY ? r.top - h : dh - h;
+				}
+				if (xy[1] + wy < 0) {
+					xy[1] = swapY ? r.bottom : 0;
+				}
+			}
+			return xy;
+		}
+		return Ext.Element.prototype.getAlignToXY.apply(this, arguments);
+	},
+	constrainXY : function(){
+		if(true || this.constrain){
+			var e = Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow,
+				vw = e ? Ext.air.XWindow.getWidth() : Ext.lib.Dom.getViewWidth(),
+				vh = e ? Ext.air.XWindow.getHeight() : Ext.lib.Dom.getViewHeight(),
+				s = e ? {left: 0,top: 0} : Ext.getDoc().getScroll(),
+				wx = e ? window.nativeWindow.x : 0,
+				wy = e ? window.nativeWindow.y : 0,
+
+				xy = this.getXY(),
+				x = xy[0], y = xy[1],
+				so = this.shadowOffset,
+				w = this.dom.offsetWidth+so, h = this.dom.offsetHeight+so,
+			// only move it if it needs it
+				moved = false;
+			// first validate right/bottom
+			if((x + w + wx) > vw+s.left){
+				x = vw - w - so - wx;
+				moved = true;
+			}
+			if((y + h + wy) > vh+s.top){
+				y = vh - h - so - wy;
+				moved = true;
+			}
+			// then make sure top/left isn't negative
+			if(x + wx < s.left){
+				x = s.left;
+				moved = true;
+			}
+			if(y + wy < s.top){
+				y = s.top;
+				moved = true;
+			}
+			if(moved){
+				if(this.avoidY){
+					var ay = this.avoidY;
+					if(y <= ay && (y+h) >= ay){
+						y = ay-h-5;
+					}
+				}
+				x += wx;
+				y += wy;
+				xy = [x, y];
+				this.storeXY(xy);
+				Ext.Element.prototype.setXY.call(this, xy);
+				this.sync();
+			}
+		}
+		return this;
+	},
+	// private
+	// this code can execute repeatedly in milliseconds (i.e. during a drag) so
+	// code size was sacrificed for effeciency (e.g. no getBox/setBox, no XY calls)
+	sync : function(doShow){
+		var shadow = this.shadow,
+			e = Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow,
+			x = e ? window.nativeWindow.x : 0,
+			y = e ? window.nativeWindow.y : 0;
+		if(!this.updating && this.isVisible() && (shadow || this.useShim)){
+			var shim = this.getShim(),
+				w = this.getWidth(),
+				h = this.getHeight(),
+				l = this.getLeft(true) + x,
+				t = this.getTop(true) + y;
+
+			if(shadow && !this.shadowDisabled){
+				if(doShow && !shadow.isVisible()){
+					shadow.show(this);
+				}else{
+					shadow.realign(l, t, w, h);
+				}
+				if(shim){
+					if(doShow){
+					   shim.show();
+					}
+					// fit the shim behind the shadow, so it is shimmed too
+					var shadowAdj = shadow.el.getXY(), shimStyle = shim.dom.style,
+						shadowSize = shadow.el.getSize();
+					shimStyle.left = (shadowAdj[0])+'px';
+					shimStyle.top = (shadowAdj[1])+'px';
+					shimStyle.width = (shadowSize.width)+'px';
+					shimStyle.height = (shadowSize.height)+'px';
+				}
+			}else if(shim){
+				if(doShow){
+				   shim.show();
+				}
+				shim.setSize(w, h);
+				shim.setLeftTop(l, t);
+			}
+		}
+	}
+});
+Ext.override(Ext.Shadow, {
+	show : function(target) {
+		var win;
+		if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow && target instanceof Ext.Layer) {
+			win = Ext.air.XWindow.getWindow();
+			target = Ext.get(target.dom);
+		} else {
+			win = window;
+			target = Ext.get(target);
+		}
+		if (!this.el) {
+			this.el = win.Ext.Shadow.Pool.pull();
+			if (this.el.dom.nextSibling != target.dom) {
+				this.el.insertBefore(target);
+			}
+		}
+		this.el.setStyle("z-index", this.zIndex || parseInt(target.getStyle("z-index"), 10)-1);
+		if(Ext.isIE){
+			this.el.dom.style.filter="progid:DXImageTransform.Microsoft.alpha(opacity=50) progid:DXImageTransform.Microsoft.Blur(pixelradius="+(this.offset)+")";
+		}
+		this.realign(
+			target.getLeft(true),
+			target.getTop(true),
+			target.getWidth(),
+			target.getHeight()
+		);
+		this.el.dom.style.display = "block";
+	}
+});
+Ext.override(Ext.menu.Menu, {
+	constrainScroll: function(y) {
+		var max, full = this.ul.setHeight('auto').getHeight(),
+			returnY = y, normalY, parentEl, scrollTop, viewHeight;
+		if(this.floating){
+			if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow) {
+				viewHeight = Ext.air.XWindow.getHeight();
+				scrollTop = 0;
+			} else {
+				parentEl = Ext.fly(this.el.dom.parentNode);
+				scrollTop = parentEl.getScroll().top;
+				viewHeight = parentEl.getViewSize().height;
+			}
+			//Normalize y by the scroll position for the parent element.  Need to move it into the coordinate space
+			//of the view.
+			normalY = y - scrollTop;
+			max = this.maxHeight ? this.maxHeight : viewHeight - normalY;
+			if(full > viewHeight) {
+				max = viewHeight;
+				//Set returnY equal to (0,0) in view space by reducing y by the value of normalY
+				returnY = y - normalY;
+			} else if(max < full) {
+				returnY = y - (full - max);
+				max = full;
+			}
+		}else{
+			max = this.getHeight();
+		}
+		// Always respect maxHeight 
+		if (this.maxHeight){
+			max = Math.min(this.maxHeight, max);
+		}
+		if(full > max && max > 0){
+			this.activeMax = max - this.scrollerHeight * 2 - this.el.getFrameWidth('tb') - Ext.num(this.el.shadowOffset, 0);
+			this.ul.setHeight(this.activeMax);
+			this.createScrollers();
+			this.el.select('.x-menu-scroller').setDisplayed('');
+		}else{
+			this.ul.setHeight(full);
+			this.el.select('.x-menu-scroller').setDisplayed('none');
+		}
+		this.ul.dom.scrollTop = 0;
+		return returnY;
+	}
+});
+Ext.override(Ext.ColorPalette, {
+	// OMG what a stupid hack
+	select: Ext.ColorPalette.prototype.select.createInterceptor(function() {
+		if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow && this.ownerCt instanceof Ext.menu.Menu) {
+			this.xEl = this.el;
+			this.el = Ext.get(document.importNode(this.ownerCt.el.dom, true));
+		}
+	}).createSequence(function() {
+		if (this.xEl) {
+			Ext.removeNode(this.el.dom);
+			this.el = this.xEl;
+		}
+	})
+});
+Ext.override(Ext.form.ComboBox, {
+	restrictHeight: function(){
+		this.innerList.dom.style.height = '';
+		var inner = this.innerList.dom,
+			xl = Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow,
+			pad = this.list.getFrameWidth('tb') + (this.resizable ? this.handleHeight : 0) + this.assetHeight,
+			h = Math.max(inner.clientHeight, inner.offsetHeight, inner.scrollHeight),
+			ha = this.getPosition()[1]-Ext.getBody().getScroll().top + (xl ? Ext.air.XWindow.getPosition()[1] : 0),
+			hv = xl ? Ext.air.XWindow.getHeight() : Ext.lib.Dom.getViewHeight(),
+			hb = hv-ha-this.getSize().height,
+			space = Math.max(ha, hb, this.minHeight || 0)-this.list.shadowOffset-pad-5;
+		h = Math.min(h, space, this.maxHeight);
+
+		this.innerList.setHeight(h);
+		this.list.beginUpdate();
+		this.list.setHeight(h+pad);
+		this.list.alignTo.apply(this.list, [this.el].concat(this.listAlign));
+		this.list.endUpdate();
+	},
+	initEvents: Ext.form.ComboBox.prototype.initEvents.createSequence(function() {
+		if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow) {
+			this.on({
+				'expand': this.onExpandX,
+				'collapse': this.onCollapseX,
+				scope: this
+			});
+		}
+	}),
+	onExpandX: function() {
+		this.mon(Ext.air.XWindow.getWindow().Ext.getDoc(), {
+			'mousewheel': this.collapseIfX,
+			'mousedown': this.collapseIfX,
+			scope: this
+		});
+	},
+	onCollapseX: function() {
+		var d = Ext.air.XWindow.getWindow().Ext.getDoc();
+		this.mun(d, 'mousewheel', this.collapseIfX, this);
+		this.mun(d, 'mousedown', this.collapseIfX, this);
+	},
+	collapseIfX: function(e) {
+		var wl = e.within(this.list);
+		if (!this.isDestroyed) {
+			if (!wl) {
+				this.collapse();
+			} else {
+				window.nativeWindow.activate();
+				this.el.focus();
+			}
+		}
+	},
+	collapseIf: function(e) {
+		if (!this.isDestroyed && !e.within(this.wrap)) {
+			if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow && e.type == 'mousewheel') {
+				Ext.air.XWindow.setActive(true);
+				this.list.focus();
+			} else if (!e.within(this.list)) {
+				this.collapse();
+			}
+		}
+	}
+});
+Ext.override(Ext.util.ClickRepeater, {
+	handleMouseDown: Ext.util.ClickRepeater.prototype.handleMouseDown.createInterceptor(function() {
+		if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow) {
+			Ext.air.XWindow.getWindow().Ext.getDoc().on('mouseup', this.handleMouseUp, this);
+		}
+	}),
+	handleMouseUp: Ext.util.ClickRepeater.prototype.handleMouseUp.createInterceptor(function() {
+		if (Ext.USE_EXTENDED_LAYER === true && Ext.air.XWindow) {
+			Ext.air.XWindow.getWindow().Ext.getDoc().un('mouseup', this.handleMouseUp, this);
+		}
+	})
+});

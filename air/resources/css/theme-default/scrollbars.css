@@ -1,0 +1,34 @@
+/* use default scrollbars in htmleditor, custom ones only shown as white space, other iframes work fine */
+:not(iframe)::-webkit-scrollbar,
+/*:not(.x-html-editor-wrap)>iframe::-webkit-scrollbar,*/
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-corner {
+	background: #dfe8f6;
+}
+::-webkit-scrollbar-track:vertical {
+	background-image: url(../images/default/scrollbars/track_v.png);
+}
+::-webkit-scrollbar-track:horizontal {
+	background-image: url(../images/default/scrollbars/track_h.png);
+}
+::-webkit-scrollbar-button {
+	background-image: url(../images/default/scrollbars/button.png);
+}
+::-webkit-scrollbar-thumb:vertical {
+	-webkit-border-image: url(../images/default/scrollbars/thumb_v.png) 3 0 3 0;
+}
+::-webkit-scrollbar-thumb:vertical:hover {
+	-webkit-border-image: url(../images/default/scrollbars/thumb_v_hover.png) 3 0 3 0;
+}
+::-webkit-scrollbar-thumb:vertical:active {
+	-webkit-border-image: url(../images/default/scrollbars/thumb_v_active.png) 3 0 3 0;
+}
+::-webkit-scrollbar-thumb:horizontal {
+	-webkit-border-image: url(../images/default/scrollbars/thumb_h.png) 0 3 0 3;
+}
+::-webkit-scrollbar-thumb:horizontal:hover {
+	-webkit-border-image: url(../images/default/scrollbars/thumb_h_hover.png) 0 3 0 3;
+}
+::-webkit-scrollbar-thumb:horizontal:active {
+	-webkit-border-image: url(../images/default/scrollbars/thumb_h_active.png) 0 3 0 3;
+}

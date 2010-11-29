@@ -160,7 +160,8 @@ if(Ext.form.DateField){
     maxText           : "Tämän kentän päivämäärän tulee olla ennen {0}",
     invalidText       : "Päivämäärä {0} ei ole oikeassa muodossa - kirjoita päivämäärä muodossa {1}",
     format            : "j.n.Y",
-    altFormats        : "j.n.|d.m.|mdy|mdY|d|Y-m-d|Y/m/d"
+    altFormats        : "j.n.|d.m.|mdy|mdY|d|Y-m-d|Y/m/d",
+    startDay          : 1 // viikko alkaa maanantaista
   });
 }
 

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8" />
+<title>Release Notes for Ext JS 3.3</title>
+<style type="text/css"> 
+* { margin: 0; padding: 0; }
+body { 
+    color: #333; 
+    font-family: Helvetica, Arial, sans-serif; 
+    font-size: 12px;
+    padding: 0 40px 40px; 
+    width: 800px;
+    margin: 0 auto;
+}
+h1, h2, h3 { 
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+    font-weight: 600; 
+    margin: 1em 0;
+}
+h1 { font-size: 23px; }
+h2 { font-size: 16px; margin-top: 1em; }
+h3 { font-size: 14px; }
+ul li { padding: 2px 0; font-size: 13px; }
+ul ul li { font-size: 12px; font-weight: normal; }
+.doc { color: blue; }
+.change { color: #196cb4; }
+.new { color: #6e7a32; }
+ul { padding: .1em 1.5em; }
+.notes { color: #777; }
+a { color: rgb(4, 100, 187); }
+a:hover { color: rgb(28, 65, 124); }
+</style>
+</head>
+
+<body>
+
+<a href="http://www.sencha.com/" id="logo"><img src="http://www.sencha.com/assets/images/logo-sencha-sm.png" alt="" /></a>
+
+  <h1>Release Notes for <a href="http://www.sencha.com/products/js/">Ext JS</a>
+  3.3.0</h1>
+
+  <p class="notes">Release Date: Oct 6, 2010<br />
+  Current Version: 3.3.0 (rev 7233)<br />
+  Previous Version: 3.2.2 (rev 6687)</p>
+
+  <h2 class="new">New</h2>
+  
+  <ul>
+    <li>New PivotGrid component - <a href="http://sencha.com/deploy/ext-3.3.0/examples/#sample-3">samples</a> / <a href="http://sencha.com/deploy/ext-3.3.0/docs/?class=Ext.grid.PivotGrid">docs</a></li>
+    <li>New Calendar components - <a href="http://sencha.com/deploy/ext-3.3.0/examples/calendar/index.html">sample usage</a></li>
+    <li>New ActionColumn grid column type - <a href="http://sencha.com/deploy/ext-3.3.0/examples/grid/array-grid.html">sample usage</a></li>
+  </ul>
+
+  <h2 class="new">Changes</h2>
+
+  <h3>Tree</h3>
+
+  <ul>
+    <li>Added setTooltip, setIconCls, setCls, setHref and setIcon methods to the tree.
+    Also cleaned up the constructor syntax.</li>
+
+    <li>Removed unneeded indexOf check inside nodes.</li>
+
+    <li>Moved the emptyIcon into the constructor to allow the blank image to be set.</li>
+
+    <li>Fixed an issue where tree nodes couldn't be removed when the node isn't
+    rendered.</li>
+
+    <li>Allow the anim parameter for expand to cascade to child nodes.</li>
+
+    <li>Fix up the default scope of eachChild to match the docs.</li>
+  </ul>
+
+  <h3>Layouts</h3>
+
+  <ul>
+    <li><strong>Hidden fields are now not laid out when used in a layout.</strong></li>
+
+    <li><strong>trackLabels on FormLayout now defaults to true, since it tends to be the
+    most requested option.</strong></li>
+
+    <li>Change AnchorLayout to measure it's container size via ViewSize instead of
+    StyleSize. This will allow proper calculations when this layout is overflowed.</li>
+
+    <li>Fixed an issue where extraCls is not applied to items in a toolbar layout. Also
+    removed a redundant parameter in configureItem.</li>
+  </ul>
+
+  <h3>Components</h3>
+
+  <ul>
+    <li>Moved bubble to Component. Mark both get/findById as deprecated, since they don't
+    really provide much extra functionality. They should be removed in 4.0.</li>
+
+    <li>Added the shallow parameter to make findParentByType consistent with the other
+    xtype methods.</li>
+
+    <li>Fix the return of the focus method when using a delay to return the Component
+    instance.</li>
+  </ul>
+
+  <h3>Container</h3>
+
+  <ul>
+    <li>Added checks for empty autoExpandColumn and adding null components to a
+    container.</li>
+
+    <li>Add a check that the layout supports setActiveItem before calling it.</li>
+  </ul>
+
+  <h3>Util</h3>
+
+  <ul>
+    <li>Added an extra parameter to the KeyNav handlers, they now also pass the name with
+    the raw event object. Refactored the key handling to reduce duplicated code.</li>
+
+    <li>Fixed an issue where date parsing wouldn't recognize day/month names with all
+    upper/all lower case. The am/pm formats have been slightly modified to accept any
+    case, for both 'a' &amp; 'A' formats.</li>
+
+    <li>Added the AbstractManager</li>
+
+    <li>Fix an issue for using history in an iframe.</li>
+
+    <li>Added alt text for any images so that the markup is valid.</li>
+
+    <li>Add forthcoming changes to move defer, createDelegate, createInterceptor,
+    createSequence off the Function prototype.</li>
+  </ul>
+
+  <h3>Grid</h3>
+
+  <ul>
+    <li><strong>Fixed an issue where the selectionchange event would fire on
+    sort.</strong></li>
+
+    <li>Added a fix that ensures the groupmousedown event fires when using a
+    GroupingView.</li>
+
+    <li>Initial checkin, fixes refreshRow so it doesn't insert an extra row and remove
+    the old one.</li>
+
+    <li>The groupRenderer scope now defaults to the scope of the column, as opposed to
+    the window.</li>
+
+    <li>General cleanup and documentation of GridView</li>
+
+    <li>Removed redundant empty check in the default column renderer, since this is
+    already handled by the grid view AFTER the renderer is called.</li>
+
+    <li>Fixed an issue where using autoFill wouldn't update the header sort state. Also
+    fixed a scrolling issue when using autoFill not inside a container.</li>
+
+    <li>Clean up Ext.grid.CheckboxSelectionModel to use direct event delegation from the
+    GridView.</li>
+
+    <li>Fix regression in ColumnModel's destroy method. The Column class has a destroy
+    method which encapsulates all its cleanup logic.</li>
+
+    <li>Fixed a bug where GroupingView column buttons didn't appear.</li>
+
+    <li>Updated getCell to use cellSelector class selector instead of td.</li>
+
+    <li>Fix a bug where the state wasn't being correctly applied. Also add an extra
+    safety check to ensure that the width is always numeric.</li>
+
+    <li>Added new cancelEditOnToggle option instead of always forcing an edit
+    cancel.</li>
+
+    <li>Add extra checks in ColumnHeaderGroup to allow it to work with grid filters.</li>
+
+    <li>Update findField to also check radio/check groups.</li>
+  </ul>
+
+  <h3>CSS</h3>
+
+  <ul>
+    <li>Modified images to remove transparency from Ext.Window in the Gray Theme.</li>
+
+    <li>Changed instances of background: transparent to background-color:
+    transparent</li>
+
+    <li>Accessibility Theme CSS - Adds dark background-color to x-list-body-inner.</li>
+
+    <li>File upload buttons one pixel off in IE6, IE7.</li>
+
+    <li>Add css class to hide via height and width of 0.</li>
+
+    <li>Access Theme - Tool sprite now has move and resize icons.</li>
+  </ul>
+
+  <h3>Tips</h3>
+
+  <ul>
+    <li>Fixed an issue where the DD class will always enable tooltips on document click.
+    Also added the ability to initialize the quicktips as disabled if disable() is called
+    before the document is ready.</li>
+
+    <li>Fix issue with tooltips not properly positioning anchor.</li>
+  </ul>
+
+  <h3>Drag and Drop</h3>
+
+  <ul>
+    <li>API Change - The onStart method now passes the event object, so it is consistent
+    with the other DragTracker methods.</li>
+
+    <li>Adds the ability to specify a ddGroup on ScrollManager</li>
+  </ul>
+
+  <h3>Store/Data</h3>
+
+  <ul>
+    <li>Store#commitChanges now clears its internal list of removed records</li>
+
+    <li>Fixes an issue where the "add" event would get erroneously fired, when using
+    loadData with append: true</li>
+
+    <li>multiple records inserted into a Store now respect the order they were inserted
+    in</li>
+
+    <li>Store checks its modified array so as not to add a given record to it a second
+    time.</li>
+
+    <li>dirty and phantom records are now added to the modified array when added to a
+    Store via the add and insert methods</li>
+
+    <li>Added new useNull option for numeric types.</li>
+  </ul>
+
+  <h3>Element</h3>
+
+  <ul>
+    <li>Fixed an issue where the masked class wasn't being removed from the element
+    that was masked.</li>
+  </ul>
+
+  <h3>Forms/Fields</h3>
+
+  <ul>
+    <li>Fixed an issue where fields aren't removed from the underlying basic form when a
+    container is destroyed.</li>
+
+    <li>Fixed an issue where tabbing into a field won't show the cursor in IE.</li>
+
+    <li>Fixed an issue where the combo was using the deprecated 'id' parameter on the
+    store when transforming a</li>
+  </ul>
+</body>
+</html>

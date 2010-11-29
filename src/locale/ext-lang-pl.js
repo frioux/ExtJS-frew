@@ -107,7 +107,6 @@ if(Ext.util.Format){
 
 if(Ext.DatePicker){
 	Ext.apply(Ext.DatePicker.prototype, {
-		startDay			: 1,
 		todayText			: "Dzisiaj",
 		minText				: "Data jest wcześniejsza od daty minimalnej",
 		maxText				: "Data jest późniejsza od daty maksymalnej",
@@ -166,7 +165,8 @@ if(Ext.form.DateField){
 	    maxText				: "Data w tym polu musi być wcześniejsza od {0}",
 		invalidText			: "{0} to nie jest prawidłowa data - prawidłowy format daty {1}",
 	    format				: "Y-m-d",
-    	altFormats    	    : "m/d/Y|m-d-y|m-d-Y|m/d|m-d|md|mdy|mdY|d|Y-m-d"
+    	altFormats    	    : "m/d/Y|m-d-y|m-d-Y|m/d|m-d|md|mdy|mdY|d|Y-m-d",
+    	startDay            : 1
 	});
 }
 

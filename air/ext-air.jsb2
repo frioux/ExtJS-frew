@@ -228,25 +228,89 @@
 		],
 		"fileIncludes": []
 	},{
-		"name": "Air CSS",
-		"file": "resources/css/ext-air.css",
+		"name": "Ext Air CSS",
+		"file": "resources/css/ext-air-all.css",
+		"fileIncludes": [],
+		"includeDeps": true,
+		"pkgDeps": [
+			"resources/css/ext-air-notheme.css",
+			"resources/css/xtheme-blue.css"
+		]
+	},{
+		"name": "Ext Air CSS No Theme",
+		"file": "resources/css/ext-air-notheme.css",
 		"fileIncludes": [{
-			"text": "air-core.css",
-			"path": "resources/css/"
+			"text": "core.css",
+			"path": "resources/css/structure/"
 		},{
-			"text": "air-form.css",
-			"path": "resources/css/"
+			"text": "form.css",
+			"path": "resources/css/structure/"
 		},{
-			"text": "air-scrollbars.css",
-			"path": "resources/css/"
+			"text": "scrollbars.css",
+			"path": "resources/css/structure/"
 		},{
-			"text": "air-viewport.css",
-			"path": "resources/css/"
+			"text": "viewport.css",
+			"path": "resources/css/structure/"
+		}]
+	},{
+		"name": "Ext Air Blue Theme",
+		"file": "resources/css/xtheme-blue.css",
+		"fileIncludes": [{
+			"text": "form.css",
+			"path": "resources/css/theme-default/"
+		},{
+			"text": "scrollbars.css",
+			"path": "resources/css/theme-default/"
+		},{
+			"text": "viewport.css",
+			"path": "resources/css/theme-default/"
+		}]
+	},{
+		"name": "Ext Air Gray Theme",
+		"file": "resources/css/xtheme-gray.css",
+		"fileIncludes": [{
+			"text": "form.css",
+			"path": "resources/css/theme-gray/"
+		},{
+			"text": "scrollbars.css",
+			"path": "resources/css/theme-gray/"
+		},{
+			"text": "viewport.css",
+			"path": "resources/css/theme-gray/"
+		}]
+	},{
+		"name": "Ext Air Accessibility Theme",
+		"file": "resources/css/xtheme-access.css",
+		"fileIncludes": [{
+			"text": "form.css",
+			"path": "resources/css/theme-access/"
+		},{
+			"text": "scrollbars.css",
+			"path": "resources/css/theme-access/"
+		},{
+			"text": "viewport.css",
+			"path": "resources/css/theme-access/"
 		}]
 	}],
 	"resources": [{
 		"src": "resources/",
 		"dest": "resources/",
-		"filters": ".*[^\\.css]"
+		"filters": ".*"
+	},{
+		"src": "src/",
+		"dest": "src/",
+		"filters": ".*\\.js"
+	},{
+		"src": "locale/",
+		"dest": "locale/",
+		"filters": ".*\\.js"
+	},{
+		"src": "examples/",
+		"dest": "examples/",
+		"filters": ".*[\\.html|\\.jpg|\\.png|\\.gif|\\.css|\\.js|\\.xml|\\.db|\\.air|\\.mp3|\\.swf]"
+	},{
+		"src": "ext-air.jsb2",
+		"dest": "ext-air.jsb2",
+		"filters": ".*"
 	}]
 }

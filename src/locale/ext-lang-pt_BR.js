@@ -172,7 +172,8 @@ if(Ext.form.DateField){
       minText           : "A data deste campo deve ser posterior a {0}",
       maxText           : "A data deste campo deve ser anterior a {0}",
       invalidText       : "{0} n&atilde;o &eacute; uma data v&aacute;lida - deve ser informado no formato {1}",
-      format            : "d/m/Y"
+      format            : "d/m/Y",
+      startDay          : 0
    });
 }
 

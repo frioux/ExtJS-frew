@@ -170,7 +170,8 @@ if(Ext.form.DateField){
     maxText           : "Bu tarih, {0} tarihinden daha önce olmalýdýr",
     invalidText       : "{0} geçersiz bir tarihdir - tarih formatý {1} þŸeklinde olmalýdýr",
     format            : "d/m/Y",
-    altFormats        : "d.m.y|d.m.Y|d/m/y|d-m-Y|d-m-y|d.m|d/m|d-m|dm|dmY|dmy|d|Y.m.d|Y-m-d|Y/m/d"
+    altFormats        : "d.m.y|d.m.Y|d/m/y|d-m-Y|d-m-y|d.m|d/m|d-m|dm|dmY|dmy|d|Y.m.d|Y-m-d|Y/m/d",
+    startDay          : 1
   });
 }
 

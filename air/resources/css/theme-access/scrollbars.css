@@ -1,0 +1,29 @@
+/* use gray scrollbars in htmleditor, custom ones only shown as white space, other iframes work fine */
+:not(iframe)::-webkit-scrollbar,
+/*:not(.x-html-editor-wrap)>iframe::-webkit-scrollbar,*/
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-corner,
+::-webkit-scrollbar-track {
+	background: #232D38;
+}
+::-webkit-scrollbar-button {
+	background-image: url(../images/access/scrollbars/button.png);
+}
+::-webkit-scrollbar-thumb:vertical {
+	-webkit-border-image: url(../images/access/scrollbars/thumb.png) 3 0 3 0;
+}
+::-webkit-scrollbar-thumb:vertical:hover {
+	-webkit-border-image: url(../images/access/scrollbars/thumb_hover.png) 3 0 3 0;
+}
+::-webkit-scrollbar-thumb:vertical:active {
+	-webkit-border-image: url(../images/access/scrollbars/thumb_active.png) 3 0 3 0;
+}
+::-webkit-scrollbar-thumb:horizontal {
+	-webkit-border-image: url(../images/access/scrollbars/thumb.png) 0 3 0 3;
+}
+::-webkit-scrollbar-thumb:horizontal:hover {
+	-webkit-border-image: url(../images/access/scrollbars/thumb_hover.png) 0 3 0 3;
+}
+::-webkit-scrollbar-thumb:horizontal:active {
+	-webkit-border-image: url(../images/access/scrollbars/thumb_active.png) 0 3 0 3;
+}

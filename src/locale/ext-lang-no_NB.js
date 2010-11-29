@@ -156,7 +156,8 @@ if(Ext.form.DateField){
     maxText           : "Datoen i dette feltet må være før {0}",
     invalidText       : "{0} er ikke en gyldig dato - den må være på formatet {1}",
     format            : "d.m.y",
-    altFormats        : "d.m.Y|d/m/y|d/m/Y|d-m-y|d-m-Y|d.m|d/m|d-m|dm|dmy|dmY|Y-m-d|d"
+    altFormats        : "d.m.Y|d/m/y|d/m/Y|d-m-y|d-m-Y|d.m|d/m|d-m|dm|dmy|dmY|Y-m-d|d",
+    startDay          : 1
   });
 }
 

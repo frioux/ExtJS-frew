@@ -1,0 +1,6 @@
+input[type=checkbox]:after {
+	background-image: url(../images/access/form/checkbox.gif);
+}
+input[type=radio]:after {
+	background-image: url(../images/access/form/radio.gif);
+}

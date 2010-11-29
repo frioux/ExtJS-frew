@@ -142,7 +142,8 @@ if(Ext.form.DateField){
       minText           : "تاریخ باید پس از {0} باشد",
       maxText           : "تاریخ باید پس از {0} باشد",
       invalidText       : "{0} تاریخ صحیحی نیست - فرمت صحیح {1}",
-      format            : "y/m/d"
+      format            : "y/m/d",
+      startDay          : 0
    });
 }
 

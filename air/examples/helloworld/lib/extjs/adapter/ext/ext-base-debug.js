@@ -1746,9 +1746,9 @@ Ext.TaskMgr = new Ext.util.TaskRunner();(function(){
 * http://developer.yahoo.net/yui/license.txt
 */
 Ext.lib.Ajax = function() {
-    var activeX = ['MSXML2.XMLHTTP.3.0',
-                   'MSXML2.XMLHTTP',
-                   'Microsoft.XMLHTTP'],
+    var activeX = ['Msxml2.XMLHTTP.6.0',
+                   'Msxml2.XMLHTTP.3.0',
+                   'Msxml2.XMLHTTP'],
         CONTENTTYPE = 'Content-Type';
 
     // private
@@ -1899,10 +1899,28 @@ Ext.lib.Ajax = function() {
         releaseObject(o);
         responseObject = null;
     }
+    
+    function checkResponse(o, callback, conn, tId, poll, cbTimeout){
+        if (conn && conn.readyState == 4) {
+            clearInterval(poll[tId]);
+            poll[tId] = null;
+
+            if (cbTimeout) {
+                clearTimeout(pub.timeout[tId]);
+                pub.timeout[tId] = null;
+            }
+            handleTransactionResponse(o, callback);
+        }
+    }
+    
+    function checkTimeout(o, callback){
+        pub.abort(o, callback, true);
+    }
+    
 
     // private
     function handleReadyState(o, callback){
-    callback = callback || {};
+        callback = callback || {};
         var conn = o.conn,
             tId = o.tId,
             poll = pub.poll,
@@ -1910,26 +1928,9 @@ Ext.lib.Ajax = function() {
 
         if (cbTimeout) {
             pub.conn[tId] = conn;
-            pub.timeout[tId] = setTimeout(function() {
-                pub.abort(o, callback, true);
-            }, cbTimeout);
+            pub.timeout[tId] = setTimeout(checkTimeout.createCallback(o, callback), cbTimeout);
         }
-
-        poll[tId] = setInterval(
-            function() {
-                if (conn && conn.readyState == 4) {
-                    clearInterval(poll[tId]);
-                    poll[tId] = null;
-
-                    if (cbTimeout) {
-                        clearTimeout(pub.timeout[tId]);
-                        pub.timeout[tId] = null;
-                    }
-
-                    handleTransactionResponse(o, callback);
-                }
-            },
-            pub.pollInterval);
+        poll[tId] = setInterval(checkResponse.createCallback(o, callback, conn, tId, poll, cbTimeout), pub.pollInterval);
     }
 
     // private

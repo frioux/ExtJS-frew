@@ -154,7 +154,8 @@ if(Ext.form.DateField){
     maxText           : "{0} התאריך בשדה זה חייב להיות לפני",
     invalidText       : "{1} הוא לא תאריך תקני - חייב להיות בפורמט {0}",
     format            : "m/d/y",
-    altFormats        : "m/d/Y|m-d-y|m-d-Y|m/d|m-d|md|mdy|mdY|d|Y-m-d"
+    altFormats        : "m/d/Y|m-d-y|m-d-Y|m/d|m-d|md|mdy|mdY|d|Y-m-d",
+    startDay          : 0
   });
 }
 

@@ -83,7 +83,7 @@ if(Ext.DatePicker){
       monthYearText     : 'Izaberite mesec (Control+Gore/Dole za izbor godine)',
       todayTip          : "{0} (Razmaknica)",
       format            : "d.m.y",
-      startDay 		 : 1
+      startDay 		: 1
    });
 }
 
@@ -127,7 +127,8 @@ if(Ext.form.DateField){
       maxText           : "Datum u ovom polju mora biti pre {0}",
       invalidText       : "{0} nije pravilan datum - zahtevani oblik je {1}",
       format            : "d.m.y",
-      altFormats        : "d.m.y|d/m/Y|d-m-y|d-m-Y|d/m|d-m|dm|dmy|dmY|d|Y-m-d"
+      altFormats        : "d.m.y|d/m/Y|d-m-y|d-m-Y|d/m|d-m|dm|dmy|dmY|d|Y-m-d",
+      startDay 		: 1
    });
 }
 

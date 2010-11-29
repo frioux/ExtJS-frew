@@ -28,14 +28,12 @@ Ext.onReady(function() {
                 },
                 items: [
                     {
-                        xtype     : 'datefield',
-                        name      : 'startDate',
-                        fieldLabel: 'Start'
+                        xtype: 'datefield',
+                        name : 'startDate'
                     },
                     {
-                        xtype     : 'datefield',
-                        name      : 'endDate',
-                        fieldLabel: 'End'
+                        xtype: 'datefield',
+                        name : 'endDate'
                     }
                 ]
             },

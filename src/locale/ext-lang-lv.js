@@ -124,7 +124,8 @@ if(Ext.form.DateField){
       minText           : "Datumam šajā laukā jābūt lielākam kā {0}",
       maxText           : "Datumam šajā laukā jābūt mazākam kā {0}",
       invalidText       : "{0} nav pareizs datums - tam jābūt šādā formātā: {1}",
-      format            : "d.m.Y"
+      format            : "d.m.Y",
+      startDay          : 1
    });
 }
 

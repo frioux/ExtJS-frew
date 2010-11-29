@@ -164,7 +164,8 @@ if(Ext.form.DateField){
     invalidText       : "{0} tanggal salah - Harus dalam format {1}", 
     format            : "d/m/y", 
     //altFormats        : "m/d/Y|m-d-y|m-d-Y|m/d|m-d|md|mdy|mdY|d|Y-m-d"
-    altFormats        : "d/m/Y|d-m-y|d-m-Y|m/d|m-d|md|mdy|mdY|d|Y-m-d"
+    altFormats        : "d/m/Y|d-m-y|d-m-Y|m/d|m-d|md|mdy|mdY|d|Y-m-d",
+    startDay          : 1
   });
 }
 

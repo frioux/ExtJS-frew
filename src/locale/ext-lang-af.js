@@ -132,7 +132,8 @@ if(Ext.form.DateField){
        maxText           : "Die datum in hierdie veld moet voor {0} wees",
        invalidText       : "{0} is nie 'n geldige datum nie - datumformaat is {1}",
        format            : "d/m/y",
-       altFormats        : "d/m/Y|d-m-y|d-m-Y|d/m|d-m|dm|dmy|dmY|d|Y-m-d"
+       altFormats        : "d/m/Y|d-m-y|d-m-Y|d/m|d-m|dm|dmy|dmY|d|Y-m-d",
+       startDay          : 0
     });
 }
 

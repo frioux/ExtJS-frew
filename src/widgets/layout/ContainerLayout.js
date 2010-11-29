@@ -290,6 +290,9 @@ Ext.layout.ContainerLayout = Ext.extend(Object, {
         if(this.resizeTask && this.resizeTask.cancel){
             this.resizeTask.cancel();
         }
+        if(this.container) {
+            this.container.un(this.container.resizeEvent, this.onResize, this);
+        }
         if(!Ext.isEmpty(this.targetCls)){
             var target = this.container.getLayoutTarget();
             if(target){

@@ -169,7 +169,8 @@ if(Ext.form.DateField){
     maxText           : "Šiame lauke data turi būti mažesnėė už {0}",
     invalidText       : "{0} yra neteisinga data - ji turi būti įvesta formatu {1}",
     format            : "y-m-d",
-    altFormats        : "y-m-d|y/m/d|Y-m-d|m/d|m-d|md|ymd|Ymd|d|Y-m-d"
+    altFormats        : "y-m-d|y/m/d|Y-m-d|m/d|m-d|md|ymd|Ymd|d|Y-m-d",
+    startDay          : 1
   });
 }
 

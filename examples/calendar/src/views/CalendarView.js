@@ -728,7 +728,9 @@ Ext.calendar.CalendarView = Ext.extend(Ext.BoxComponent, {
             // auto by month
             start = start.getFirstDateOfMonth();
             offset = start.getDay() - this.startDay;
-
+            if (offset < 0) {
+                offset += 7;
+            }
             this.viewStart = start.add(Date.DAY, -offset).clearTime(true);
 
             // start from current month start, not view start:

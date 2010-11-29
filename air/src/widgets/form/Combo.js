@@ -96,13 +96,19 @@ Ext.override(Ext.form.ComboBox, {
 	},
 	getParams: function(q) {
 		var params = {},
-			paramNames = this.store.paramNames;
+			paramNames = this.store.paramNames,
+			where = this.store.baseParams.clause || this.store.baseParams.where;
 		if (this.pageSize) {
 			params[paramNames.start] = 0,
 			params[paramNames.limit] = this.pageSize;
 		}
-		params.where = " WHERE " + this.displayField + " LIKE ? || '%'";
-		params.args = [q];
+		if (where) {
+			where = where.replace(/^\s*WHERE\s*/, '');
+			where = " WHERE (" + where + ") AND ";
+		} else where = " WHERE ";
+		params.where = where + this.displayField + " LIKE ? || '%'";
+		params.args = this.store.baseParams.args || [];
+		params.args.push(q);
 		return params;
 	}
 });

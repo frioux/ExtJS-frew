@@ -156,7 +156,8 @@ if(Ext.form.DateField){
     maxText           : "Data din această casetă trebuie să fie inainte de {0}",
     invalidText       : "{0} nu este o dată validă, trebuie să fie în formatul {1}",
     format            : "d.m.Y",
-    altFormats        : "d-m-Y|d.m.y|d-m-y|d.m|d-m|dm|d|Y-m-d"
+    altFormats        : "d-m-Y|d.m.y|d-m-y|d.m|d-m|dm|d|Y-m-d",
+    startDay          : 0
   });
 }
 

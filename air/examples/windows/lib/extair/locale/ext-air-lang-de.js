@@ -1,3 +1,12 @@
+/*!
+ * Enhanced ExtJS Adapter for Adobe(r) AIR(r)
+ * Copyright(c) 2006-2010 Sencha Inc.
+ * licensing@extjs.com
+ * http://www.extjs.com/license
+ * 
+ * @version 3.2.2
+ * [For Use with ExtJS 3.1.0 to ExtJS 3.2.2]
+ */
 Ext.ns('Ext.air', 'Ext.form.htmleditor');
 if (Ext.air.Viewport) {
 	Ext.apply(Ext.air.Viewport.prototype, {

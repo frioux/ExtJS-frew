@@ -7,20 +7,37 @@
  * @param {Object} config Config options
  */
 Ext.air.Notify = function(config) {
-	/**
-	 * @cfg {String} msg
-	 * The message to display
-	 */
 	config = config || {};
 	Ext.apply(this, config);
-	// search for ext-all.css if it is not defined
-	if (!this.extAllCSS) {
-		var cssLink = Ext.DomQuery.selectNode("link[href$=ext-all.css]", Ext.air.App.getRootHtmlWindow().document);
-		if (cssLink) this.extAllCSS = cssLink.href;
+
+	var html = this.tpl.apply({
+		msg: this.msg,
+		iconCls: this.iconCls,
+		icon: this.icon || Ext.BLANK_IMAGE_URL,
+		title: this.title,
+		msgId: this.msgId,
+		boxCls: this.boxCls,
+		cls: this.cls,
+		style: this.style
+	});
+	// boxWrap it
+	if (this.boxCls !== false) {
+		var d = Ext.fly(document.createElement('div')),
+			c = d.insertHtml('afterBegin', html, true);
+		c.boxWrap(this.boxCls);
+		html = d.dom.innerHTML;
+		d.remove();
 	}
-	config.html = this.xtpl.apply(this);
+	this.fileQuery.bodyHtml = html;
+	
+	if (this.height == 'auto') {
+		this.height = undefined;
+		this.autoHeight = true;
+	} else this.autoHeight = false;
+	
 	Ext.air.Notify.superclass.constructor.call(this, config);
 	
+	// register with NotifyManager to handle stacking
 	try {
 		this.stack = Ext.air.App.getRootHtmlWindow().Ext.air.NotifyManager;
 	} catch(e) {
@@ -29,6 +46,11 @@ Ext.air.Notify = function(config) {
 	if (this.stack) this.stack.add(this);
 };
 Ext.extend(Ext.air.Notify, Ext.air.NativeWindow, {
+	hidden: false,
+	systemChrome: 'none',
+	transparent: true,
+	stateful: false,
+	extraHeight: 22,
 	type: 'lightweight',
 	minHeight: 0,
 	destroyOnParentClose: false,
@@ -36,22 +58,48 @@ Ext.extend(Ext.air.Notify, Ext.air.NativeWindow, {
 	parent: false,
 	alwaysInFront: true,
 	/**
+	 * @cfg {Boolean} draggable
+	 * @hide
+	 */
+	draggable: false,
+	/**
+	 * @cfg {String} msg
+	 * The message to display
+	 */
+	/**
+	 * @cfg {String} css
+	 * An additional css class to add to the message element.
+	 */
+	css: '',
+	/**
 	 * @cfg {Number} width
 	 * The width of the window in pixels (defaults to <code>400</code>).
 	 * The height depends on the content.
 	 */
 	width: 400,
-	height: 50,
-	hidden: false,
-	systemChrome: 'none',
-	transparent: true,
-	trusted: true,
-	stateful: false,
-	extraHeight: 22,
+	/**
+	 * @cfg {Number/String} height
+	 * The height of the window in pixels or <code>'auto'</code> if
+	 * the height should fit to the content. Defaults to <code>'auto'</code>.
+	 */
+	height: 'auto',
 	/**
 	 * @cfg {Object} fileQuery
-	 * @hide
+	 * See {@link Ext.air.NativeWindow#fileQuery} for more information. Defaults to <pre><code>
+{
+	type: 'queryExt',
+	root: Ext.air.App.getRootHtmlWindow().document,
+	js: false
+}
+	 * </code></pre>
+	 * This includes ext-all.css and ext-air.css by default.
+	 * Change this, if you need additional css files.
 	 */
+	fileQuery: {
+		type: 'queryExt',
+		root: Ext.air.App.getRootHtmlWindow().document,
+		js: false
+	},
 	/**
 	 * @cfg {Number/Boolean} hideDelay
 	 * The number of milliseconds to wait till hiding the notify window
@@ -72,30 +120,24 @@ Ext.extend(Ext.air.Notify, Ext.air.NativeWindow, {
 	 */
 	msgId: 'msg',
 	/**
-	 * @cfg {String} iconId
-	 * The id of the icon element
-	 * (defaults to <code>'icon'</code>).
-	 */
-	iconId: 'icon',
-	/**
 	 * @cfg {String} icon
 	 * (optional) a path to an icon to display in the top right corner of the notify window
 	 * (defaults to <code>Ext.BLANK_IMAGE_URL</code>).
 	 */
-	icon: Ext.BLANK_IMAGE_URL,
+	icon: undefined,
 	/**
-	 * @cfg {String} boxCls
-	 * A css class to apply to the box wrapping elements
-	 * (defaults to <code>'x-box'</code>).
+	 * @cfg {String} iconCls
+	 * (optional) The CSS class selector that specifies a background image to be used as
+	 * the header icon (defaults to <code>''</code>). If set, the {@link #icon} config
+	 * option should not be set.
+	 */
+	iconCls: '',
+	/**
+	 * @cfg {String/Boolean} boxCls
+	 * A css class to apply to the box wrapping elements or <code>false</code> to not wrap
+	 * the message into a box frame (defaults to <code>'x-box'</code>).
 	 */
 	boxCls: 'x-box',
-	/**
-	 * @cfg {String} extAllCSS	 
-	 * The path to the ext-all.css file (defaults to <code>null</code>).
-	 * If it is left empty, it is tried to use the ext-all.css of the current window.
-	 * It is searched by <code>Ext.DomQuery.selectNode("link[href$=ext-all.css]");</code>.
-	 */
-	extAllCSS: null,
 	/**
 	 * @cfg {Boolean} stackable
 	 * True to display the Ext.air.Notify upon all other visible notifiers, false to always show it
@@ -112,29 +154,64 @@ Ext.extend(Ext.air.Notify, Ext.air.NativeWindow, {
 	 */
 	stackPosition: 'top',
 	/**
-	 * @cfg {Ext.XTemplate} xtpl
-	 * (optional) A XTemplate to load as html string in the native window.
-	 * It should have a html, head and body element and
-	 * can contain all properties and config options of this class.
+	 * @cfg {Ext.XTemplate} tpl
+	 * (optional) A XTemplate to load as html body in the native window.
 	 */
-	xtpl: new Ext.XTemplate(
-		'<html><head><link rel="stylesheet" href="{extAllCSS}"></head>',
-			'<body>',
-				'<div class="{boxCls}-tl"><div class="{boxCls}-tr"><div class="{boxCls}-tc"></div></div></div><div class="{boxCls}-ml"><div class="{boxCls}-mr"><div class="{boxCls}-mc">',
-					'<div id="{msgId}">',
-						'<span>{msg}</span>',
-						'<div id="{iconId}" style="float: right;"><img src="{icon}"></div>',
-					'</div>',
-				'</div></div></div><div class="{boxCls}-bl"><div class="{boxCls}-br"><div class="{boxCls}-bc"></div></div></div>',
-			'</body>',
-		'</html>'
+	tpl: new Ext.XTemplate(
+		'<div id="{msgId}" class="notify {cls}" style="{style}">',
+			'<img src="{icon}" class="notify-icon {iconCls}" />',
+			'<tpl if="title">',
+				'<div class="notify-title">{title}</div>',
+			'</tpl>',
+			'<div class="notify-msg">{msg}</div>',
+		'</div>'
 	),
+	/**
+	 * @cfg {Boolean} closable
+	 * @hide
+	 */
+	/**
+	 * @cfg {Boolean} closeAction
+	 * @hide
+	 */
+	/**
+	 * @cfg {String} file
+	 * @hide
+	 */
+	/**
+	 * @cfg {String} html
+	 * @hide
+	 */
+	/**
+	 * @cfg {Number} x
+	 * @hide
+	 */
+	/**
+	 * @cfg {Number} y
+	 * @hide
+	 */
+	/**
+	 * @cfg {Boolean} trusted
+	 * @hide
+	 */
+	/**
+	 * @cfg {air.NativeWindow} win
+	 * @hide
+	 */
 	// private
 	onShow: function() {
 		var doc = this.getDocument(),
 			br = air.Screen.mainScreen.visibleBounds.bottomRight,
-			h = doc.getElementById(this.msgId).clientHeight + this.extraHeight;
+			bh = doc.body.childNodes[0].clientHeight,
+			me = doc.getElementById(this.msgId),
+			dh = me.clientHeight,
+			h = this.autoHeight ? dh + this.extraHeight : parseInt(this.height, 10);
+		
+		if (!this.autoHeight != 'auto') {
+			me.style.height = (h - bh + dh) + 'px';
+		}
 		this.setHeight(h);
+		
 		if (this.stack) {
 			this.stack.arrange();
 		} else this.setPosition(br.x - this.getWidth(), br.y - h);

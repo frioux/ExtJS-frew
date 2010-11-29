@@ -132,6 +132,9 @@
         {
             "text": "EventManager.js",
             "path": "src/ext-core/src/core/"
+        },{
+            "text": "Loader.js",
+            "path": "src/ext-core/src/core/"
         }]
     },{
         "name": "Ext Foundation",
@@ -1305,8 +1308,8 @@
            "text": "grid.css",
            "path": "resources/css/visual/"
        },{
-          "text": "pivotgrid.css",
-          "path": "resources/css/visual/"
+           "text": "pivotgrid.css",
+           "path": "resources/css/visual/"
        },{
            "text": "dd.css",
            "path": "resources/css/visual/"
@@ -1452,6 +1455,9 @@
            "path": "resources/css/theme-gray/"
        },{
            "text": "grid.css",
+           "path": "resources/css/theme-gray/"
+       },{
+           "text": "pivotgrid.css",
            "path": "resources/css/theme-gray/"
        },{
            "text": "dd.css",

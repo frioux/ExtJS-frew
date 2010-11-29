@@ -83,7 +83,7 @@ if(Ext.DatePicker){
       monthYearText     : 'Изаберите месец (Control+Горе/Доле за избор године)',
       todayTip          : "{0} (Размакница)",
       format            : "d.m.y",
-      startDay 		 : 1
+      startDay          : 1
    });
 }
 
@@ -126,7 +126,8 @@ if(Ext.form.DateField){
       minText           : "Датум у овом пољу мора бити након {0}",
       maxText           : "Датум у овом пољу мора бити пре {0}",
       invalidText       : "{0} није правилан датум - захтевани облик је {1}",
-      format            : "d.m.y"
+      format            : "d.m.y",
+      startDay          : 1
    });
 }
 

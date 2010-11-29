@@ -44,6 +44,20 @@ input, textarea, td, div {
 .x-small-editor .x-form-trigger {
 	height: 19px !important;
 }
+.x-small-editor .x-form-text {
+	padding-top: 1px !important;
+}
+
+.notify-icon {
+	width: 16px;
+	height: 16px;
+	float: right;
+	background-repeat: no-repeat;
+}
+.notify-title {
+	font-weight: bold;
+	margin-bottom: 10px;
+}
 input[type=checkbox],
 input[type=radio] {
 	width: 13px;

@@ -124,7 +124,8 @@ if(Ext.form.DateField){
       minText           : "Datum mora biti po {0}",
       maxText           : "Datum mora biti pred {0}",
       invalidText       : "{0} ni veljaven datum - mora biti v tem formatu {1}",
-      format            : "d.m.y"
+      format            : "d.m.y",
+      startDay          : 1
    });
 }
 

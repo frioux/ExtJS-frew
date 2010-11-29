@@ -165,7 +165,8 @@ if(Ext.form.DateField){
     maxText: 'De datum in dit veld moet voor {0} liggen',
     invalidText: '{0} is geen geldige datum - formaat voor datum is {1}',
     format: 'j-m-y',
-    altFormats: 'd/m/Y|d-m-y|d-m-Y|d/m|d-m|dm|dmy|dmY|d|Y-m-d'
+    altFormats: 'd/m/Y|d-m-y|d-m-Y|d/m|d-m|dm|dmy|dmY|d|Y-m-d',
+    startDay: 1
   });
 }
 

@@ -336,11 +336,12 @@ Ext.extend(Ext.air.NativeWindow, Ext.util.Observable, {
 	 * (defaults to <code>true</code>).</div></li>
 	 * <li><b>js</b>: Boolean<div class="sub-desc"><code>false</code> if JavaScript files should not be included
 	 * (defaults to <code>true</code>).</div></li>
-	 * <li><b>includeAllCSS</b>: Boolean (for "queryExtJS", "queryExtAIR", "queryExt" or "queryRegex")<div class="sub-desc"><code>true</code> to include all CSS files and style tags regardless of the given regex or Ext belonging</div></li>
 	 * <li><b>root</b>: Node/String<div class="sub-desc">An optional start node (or id) for all query-types
 	 * (defaults to the current document).</div></li>
 	 * <li><b>include</b>: Array/String<div class="sub-desc">An optinal single or an array of additional
-	 * js and css files to include after the queried files (if type != 'main').</div></li></ul></div>
+	 * js and css files to include after the queried files (if type != 'main').</div></li>
+	 * <li><b>bodyHtml</b>: String<div class="sub-desc">An optional html string to load load as content
+	 * into the the &lt;body&gt;-tag (Defaults to <code>''</code>)</div></li></ul></div>
 	 * Defaults to <pre><code>
 {
 	type: 'queryExt',
@@ -348,6 +349,8 @@ Ext.extend(Ext.air.NativeWindow, Ext.util.Observable, {
 }
 	 * </code></pre>
 	 */
+	// do not include this in docs currently, it is used for XLayer, maybe the fileQuery option there can be changed in a better way
+	// <li><b>includeAllCSS</b>: Boolean (for "queryExtJS", "queryExtAIR", "queryExt" or "queryRegex")<div class="sub-desc"><code>true</code> to include all CSS files and style tags regardless of the given regex or Ext belonging</div></li>
 	fileQuery: {
 		type: 'queryExt',
 		root: Ext.air.App.getRootHtmlWindow().document
@@ -1251,9 +1254,9 @@ Ext.state.Manager.setProvider(new Ext.state.FileProvider());
 				if (t == 'queryExtJS') {
 					r = /\/ext\-(basex?|all|lang)(\-[a-z_\-]+)?\.(css|js)$/i;
 				} else if (t == 'queryExtAIR') {
-					r = /\/(AIRAliases\.js)|(AIRIntrospector\.js)|(AIRLocalizer\\.js)|(AIRMenuBuilder\\.js)|(AIRSourceViewer\\.js)|(ext\-air(\-[a-z_\-]+)?\.(css|js))$/i;
+					r = /\/(AIRAliases\.js)|(AIRIntrospector\.js)|(AIRLocalizer\.js)|(AIRMenuBuilder\.js)|(AIRSourceViewer\.js)|(ext\-air(\-[a-z_\-]+)?\.(css|js))$/i;
 				} else if (t == 'queryExt') {
-					r = /\/(AIRAliases\.js)|(AIRIntrospector\.js)|(AIRLocalizer\\.js)|(AIRMenuBuilder\\.js)|(AIRSourceViewer\\.js)|(ext\-(basex?|all|lang|air)(\-[a-z_\-]+)?\.(css|js))$/i;
+					r = /\/(AIRAliases\.js)|(AIRIntrospector\.js)|(AIRLocalizer\.js)|(AIRMenuBuilder\.js)|(AIRSourceViewer\.js)|(ext\-(basex?|all|lang|air)(\-[a-z_\-]+)?\.(css|js))$/i;
 				}
 				
 				switch (t) {
@@ -1314,7 +1317,7 @@ Ext.state.Manager.setProvider(new Ext.state.FileProvider());
 				}
 				// use html string and include all queried file tags
 				if (!Ext.isEmpty(html)) {
-					this.html = '<html><head>' + html + '</head><body></body></html>';
+					this.html = '<html><head>' + html + '</head><body>' + (this.fileQuery.bodyHtml || '') + '</body></html>';
 					this.trusted = true;
 				}
 			}

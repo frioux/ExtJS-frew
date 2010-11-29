@@ -110,6 +110,9 @@ if(Ext.util.Format){
         if(!Ext.isDate(v)) v = new Date(Date.parse(v));
         return v.dateFormat(format || "d/m/Y");
     };
+    Ext.util.Format.plural = function(v, s, p) {
+        return v + ' ' + (v <= 1 ? s : (p ? p : s + 's'));
+    };
 }
 
 if(Ext.DatePicker){
@@ -182,7 +185,8 @@ if(Ext.form.DateField){
       maxText           : "La date de ce champ ne peut être postérieure au {0}",
       invalidText       : "{0} n'est pas une date valide - elle doit être au format suivant: {1}",
       format            : "d/m/y",
-      altFormats        : "d/m/Y|d-m-y|d-m-Y|d/m|d-m|dm|dmy|dmY|d|Y-m-d"
+      altFormats        : "d/m/Y|d-m-y|d-m-Y|d/m|d-m|dm|dmy|dmY|d|Y-m-d",
+      startDay          : 1
    });
 }
 

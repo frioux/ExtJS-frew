@@ -1,8 +1,7 @@
 Ext.onReady(function() {
 	var codeWin,
 		form = new WinForm(),
-		// this should definitely be changed into official extjs docs site -> air docs should be available there!
-		docs = 'http://darmsalad.ohost.de/?class=Ext.air.NativeWindow';
+		docs = 'http://docs.sencha.com/air/';
 
 	new Ext.air.Window({
 		win: window.nativeWindow,

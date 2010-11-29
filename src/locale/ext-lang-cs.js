@@ -172,7 +172,8 @@ if(Ext.form.DateField){
       maxText           : "Datum v tomto poli nesmí být novější než {0}",
       invalidText       : "{0} není platným datem - zkontrolujte zda-li je ve formátu {1}",
       format            : "d.m.Y",
-      altFormats        : "d/m/Y|d-m-y|d-m-Y|d/m|d-m|dm|dmy|dmY|d|Y-m-d"
+      altFormats        : "d/m/Y|d-m-y|d-m-Y|d/m|d-m|dm|dmy|dmY|d|Y-m-d",
+      startDay          : 1
    });
 }
 

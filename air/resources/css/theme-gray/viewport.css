@@ -1,0 +1,12 @@
+.x-nativewindow-headermenu .x-menu-item .restore {
+	background-image: url(../images/gray/viewport/restore.png);
+}
+.x-nativewindow-headermenu .x-menu-item .minimize {
+	background-image: url(../images/gray/viewport/minimize.png);
+}
+.x-nativewindow-headermenu .x-menu-item .maximize {
+	background-image: url(../images/gray/viewport/maximize.png);
+}
+.x-nativewindow-headermenu .x-menu-item .close {
+	background-image: url(../images/gray/viewport/close.png);
+}

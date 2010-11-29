@@ -127,7 +127,8 @@ if(Ext.form.DateField){
       minText           : "{0}일 이후여야 합니다.",
       maxText           : "{0}일 이전이어야 합니다.",
       invalidText       : "{0}는 올바른 날짜형식이 아닙니다. - 다음과 같은 형식이어야 합니다. {1}",
-      format            : "m/d/y"
+      format            : "m/d/y",
+      startDay          : 0
    });
 }
 

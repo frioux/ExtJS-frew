@@ -158,7 +158,8 @@ if(Ext.form.DateField){
     maxText           : "A dátum nem lehet későbbi, mint {0}",
     invalidText       : "{0} nem megfelelő dátum - a helyes formátum: {1}",
     format            : "Y m d",
-    altFormats        : "Y-m-d|y-m-d|y/m/d|m/d|m-d|md|ymd|Ymd|d"
+    altFormats        : "Y-m-d|y-m-d|y/m/d|m/d|m-d|md|ymd|Ymd|d",
+    startDay          : 0
   });
 }
 

@@ -160,7 +160,8 @@ if(Ext.form.DateField){
     maxText           : "La fecha para este campo debe ser anterior a {0}",
     invalidText       : "{0} no es una fecha v\u00E1lida - debe tener el formato {1}",
     format            : "d/m/Y",
-    altFormats        : "d/m/Y|d-m-y|d-m-Y|d/m|d-m|dm|dmy|dmY|d|Y-m-d"
+    altFormats        : "d/m/Y|d-m-y|d-m-Y|d/m|d-m|dm|dmy|dmY|d|Y-m-d",
+    startDay          : 1
   });
 }
 

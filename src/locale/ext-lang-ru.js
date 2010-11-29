@@ -170,7 +170,8 @@ if(Ext.form.DateField){
     maxText           : "Дата в этом поле должна быть раньше {0}",
     invalidText       : "{0} не является правильной датой - дата должна быть указана в формате {1}",
     format            : "d.m.y",
-    altFormats        : "d.m.y|d/m/Y|d-m-y|d-m-Y|d/m|d-m|dm|dmy|dmY|d|Y-m-d"
+    altFormats        : "d.m.y|d/m/Y|d-m-y|d-m-Y|d/m|d-m|dm|dmy|dmY|d|Y-m-d",
+    startDay           : 1
   });
 }
 

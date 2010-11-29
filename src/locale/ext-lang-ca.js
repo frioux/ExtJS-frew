@@ -157,7 +157,8 @@ if(Ext.form.DateField){
     maxText           : "La data en aquest camp ha de ser inferior a {0}",
     invalidText       : "{0} no &#233;s una data v&#224;lida - ha de tenir el format {1}",
     format            : "d/m/Y",
-    altFormats        : "d/m/Y|d-m-y|d-m-Y|d/m|d-m|dm|dmy|dmY|d|Y-m-d"
+    altFormats        : "d/m/Y|d-m-y|d-m-Y|d/m|d-m|dm|dmy|dmY|d|Y-m-d",
+    startDay          : 1
   });
 }
 
