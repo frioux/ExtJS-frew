@@ -1617,6 +1617,10 @@
         "dest": "resources/",
         "filters": ".*"
     },{
+        "src": "changelog.html",
+        "dest": "changelog.html",
+        "filters": ".*"
+    },{
         "src": "license.txt",
         "dest": "license.txt",
         "filters": ".*"
