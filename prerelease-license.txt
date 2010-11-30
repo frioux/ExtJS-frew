@@ -1,7 +1,7 @@
 Ext JS - JavaScript Library
-Copyright (c) 2006-2010, Ext JS, Inc.
+Copyright (c) 2006-2010, Sencha Inc.
 All rights reserved.
-licensing@extjs.com
+licensing@sencha.com
 
 Pre-release code in the Ext repository is intended for development purposes 
 only and will not always be stable. 
@@ -9,4 +9,4 @@ only and will not always be stable.
 Use of pre-release code is permitted with your application at your own risk 
 under standard Ext license terms. Public redistribution is prohibited.
 
-For early Ext 3.0 licensing, please contact us at licensing@extjs.com
+For early Ext JS 4.0 licensing, please contact us at licensing@sencha.com.

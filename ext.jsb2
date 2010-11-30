@@ -1,7 +1,7 @@
 {
     "projectName": "Ext JS",
     "deployDir": "ext-3.3+",
-    "licenseText": "Ext JS Library 3.3.0\nCopyright(c) 2006-2010 Ext JS, Inc.\nlicensing@extjs.com\nhttp://www.extjs.com/license",
+    "licenseText": "Ext JS Library 3.3.1\nCopyright(c) 2006-2010 Sencha Inc.\nlicensing@sencha.com\nhttp://www.sencha.com/license",
     "pkgs": [{
         "name": "Ext Base",
         "file": "adapter/ext/ext-base.js",
@@ -1617,8 +1617,8 @@
         "dest": "resources/",
         "filters": ".*"
     },{
-        "src": "changelog.html",
-        "dest": "changelog.html",
+        "src": "release-notes.html",
+        "dest": "release-notes.html",
         "filters": ".*"
     },{
         "src": "license.txt",
