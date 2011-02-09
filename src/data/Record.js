@@ -30,7 +30,7 @@
 Ext.data.Record = function(data, id){
     // if no id, call the auto id method
     this.id = (id || id === 0) ? id : Ext.data.Record.id(this);
-    this.data = data || {};
+    this.data = Ext.apply({}, data) || {};
 };
 
 /**
